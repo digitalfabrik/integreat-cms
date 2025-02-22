@@ -51,26 +51,27 @@ def transform_imprint(imprint_translation: ImprintPageTranslation) -> dict[str, 
 @json_response
 def imprint(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
     language_slug: str,
+    **kwargs: Any,
 ) -> JsonResponse:
-    """
+    r"""
     Get imprint for language and return JSON object to client. If no imprint translation
     is available in the selected language, try to return the translation in the region
     default language.
 
     :param request: Django request
-    :param region_slug: slug of a region
     :param language_slug: language slug
+    :param \**kwargs: additional keyword args
     :return: JSON object according to APIv3 imprint endpoint definition
     """
     region = request.region
     # Throw a 404 error when the language does not exist or is disabled
     region.get_language_or_404(language_slug, only_active=True)
     # Check if an imprint is available for that region
-    if region.imprint:
-        if imprint_translation := region.imprint.get_public_translation(language_slug):
-            return JsonResponse(transform_imprint(imprint_translation))
+    if region.imprint and (
+        imprint_translation := region.imprint.get_public_translation(language_slug)
+    ):
+        return JsonResponse(transform_imprint(imprint_translation))
     # If imprint does not exist, return an empty response. Turn off Safe-Mode to allow serializing arrays
     logger.warning("The imprint for region %r does not exist", region)
     return JsonResponse([], safe=False)

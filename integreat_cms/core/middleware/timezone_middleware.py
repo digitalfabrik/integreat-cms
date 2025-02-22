@@ -13,7 +13,6 @@ from django.utils import timezone
 
 
 class TimezoneMiddleware:
-    # pylint: disable=too-few-public-methods
     """
     Middleware class that sets the current time zone like specified in settings.py
     """

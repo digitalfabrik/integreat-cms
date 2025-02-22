@@ -45,7 +45,9 @@ class OfferListFeedback(Feedback):
         :return: The queryset of related feedback
         """
         return OfferListFeedback.objects.filter(
-            region=self.region, language=self.language, is_technical=self.is_technical
+            region=self.region,
+            language=self.language,
+            is_technical=self.is_technical,
         )
 
     class Meta:

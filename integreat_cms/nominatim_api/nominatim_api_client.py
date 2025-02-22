@@ -47,9 +47,8 @@ class NominatimApiClient:
                 user_agent=f"integreat-cms/{__version__} ({settings.HOSTNAME})",
                 timeout=settings.DEFAULT_REQUEST_TIMEOUT,
             )
-        except GeopyError as e:
-            logger.exception(e)
-            logger.error("Nominatim API client could not be initialized")
+        except GeopyError:
+            logger.exception("Nominatim API client could not be initialized")
 
     def search(
         self,
@@ -72,7 +71,7 @@ class NominatimApiClient:
         """
         if query_str and query_dict:
             raise RuntimeError(
-                "You can either specify query_str or pass additional keyword arguments, not both."
+                "You can either specify query_str or pass additional keyword arguments, not both.",
             )
         if street := query_dict.get("street"):
             # This expression matches a number optionally followed by a whitespace and one character
@@ -96,30 +95,32 @@ class NominatimApiClient:
                 logger.debug("Nominatim API search result: %r", result.raw)
             else:
                 logger.debug("Nominatim API did not return a match")
-            return result
-        except GeopyError as e:
-            logger.error(e)
-            logger.error("Nominatim API call failed")
+        except GeopyError:
+            logger.exception("Nominatim API call failed")
             return None
+        else:
+            return result
 
     def check_availability(self) -> None:
         """
         Check if Nominatim API is available
         """
-        try:
-            assert self.search(query_str="Deutschland")
+        if self.search(query_str="Deutschland"):
             logger.info(
                 "Nominatim API is available at: %r",
                 settings.NOMINATIM_API_URL,
             )
-        except AssertionError:
+        else:
             logger.error(
                 "Nominatim API unavailable. You won't be able to "
-                "automatically import location coordinates."
+                "automatically import location coordinates.",
             )
 
     def get_coordinates(
-        self, street: str, postalcode: str, city: str
+        self,
+        street: str,
+        postalcode: str,
+        city: str,
     ) -> tuple[int, int] | tuple[None, None]:
         """
         Get coordinates for given address
@@ -134,7 +135,10 @@ class NominatimApiClient:
         return None, None
 
     def get_bounding_box(
-        self, administrative_division: str, name: str, aliases: dict | None = None
+        self,
+        administrative_division: str,
+        name: str,
+        aliases: dict | None = None,
     ) -> BoundingBox | None:
         """
         Get the bounding box for a given region
@@ -181,13 +185,15 @@ class NominatimApiClient:
         city_box = BoundingBox.from_result(self.search(city=name))
         # Get bounding box of district
         district_box = BoundingBox.from_result(
-            self.search(query_str=f"Landkreis {name}")
+            self.search(query_str=f"Landkreis {name}"),
         )
         # Merge both results
         return BoundingBox.merge(city_box, district_box)
 
     def get_district_bounding_box(
-        self, administrative_division: str, name: str
+        self,
+        administrative_division: str,
+        name: str,
     ) -> BoundingBox | None:
         """
         Get the bounding box for a given district
@@ -203,7 +209,9 @@ class NominatimApiClient:
         return BoundingBox.from_result(self.search(query_str=f"{adm_div} {name}"))
 
     def get_region_bounding_box(
-        self, name: str, aliases: dict[str, str] | None = None
+        self,
+        name: str,
+        aliases: dict[str, str] | None = None,
     ) -> BoundingBox | None:
         """
         Get the bounding box for a given region and all its aliases
@@ -217,7 +225,7 @@ class NominatimApiClient:
         # Get bounding box of city
         bounding_boxes = [BoundingBox.from_result(self.search(city=name))]
         # Get bounding boxes of all aliases
-        for alias in aliases.keys():
+        for alias in aliases:
             bounding_boxes.append(BoundingBox.from_result(self.search(city=alias)))
         return BoundingBox.merge(*bounding_boxes)
 
@@ -238,8 +246,8 @@ class NominatimApiClient:
                     "Nominatim API did not return an address at coordinates %r",
                     coordinates,
                 )
-            return result
-        except GeopyError as e:
-            logger.error(e)
-            logger.error("Nominatim API call failed")
+        except GeopyError:
+            logger.exception("Nominatim API call failed")
             return None
+        else:
+            return result

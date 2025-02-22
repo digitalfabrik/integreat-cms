@@ -8,11 +8,11 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
 
+from integreat_cms.cms.forms import ContactForm
 from integreat_cms.cms.models import Contact, Region
-from tests.conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES
+from tests.conftest import ANONYMOUS, AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from tests.utils import assert_message_in_log
 
 # Use the region Augsburg, as it has some contacts in the test data
@@ -46,7 +46,7 @@ def test_create_a_new_contact(
         new_contact,
         data={
             "location": POI_ID,
-            "point_of_contact_for": "Title",
+            "area_of_responsibility": "Title",
             "name": "Name",
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
@@ -54,15 +54,15 @@ def test_create_a_new_contact(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
-            'SUCCESS  Contact for "Draft location with point of contact for: Title" was successfully created',
+            'SUCCESS  Contact for "Draft location with area of responsibility: Title" was successfully created',
             caplog,
         )
         edit_url = response.headers.get("location")
         response = client.get(edit_url)
         assert (
-            "Contact for &quot;Draft location with point of contact for: Title&quot; was successfully created"
+            "Contact for &quot;Draft location with area of responsibility: Title&quot; was successfully created"
             in response.content.decode("utf-8")
         )
 
@@ -105,7 +105,7 @@ def test_edit_a_contact(
         edit_contact,
         data={
             "location": POI_ID,
-            "point_of_contact_for": "Title Updated",
+            "area_of_responsibility": "Title Updated",
             "name": "New Name",
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
@@ -113,15 +113,15 @@ def test_edit_a_contact(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
-            'SUCCESS  Contact for "Draft location with point of contact for: Title Updated" was successfully saved',
+            'SUCCESS  Contact for "Draft location with area of responsibility: Title Updated" was successfully saved',
             caplog,
         )
         edit_url = response.headers.get("location")
         response = client.get(edit_url)
         assert (
-            "Contact for &quot;Draft location with point of contact for: Title Updated&quot; was successfully saved"
+            "Contact for &quot;Draft location with area of responsibility: Title Updated&quot; was successfully saved"
             in response.content.decode("utf-8")
         )
 
@@ -159,7 +159,7 @@ def test_no_contact_without_poi(
     response = client.post(
         new_contact,
         data={
-            "point_of_contact_for": "Title",
+            "area_of_responsibility": "Title",
             "name": "Name",
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
@@ -167,7 +167,7 @@ def test_no_contact_without_poi(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
             "ERROR    Location: This field is required.",
             caplog,
@@ -209,7 +209,7 @@ def test_at_least_one_field_filled(
         new_contact,
         data={
             "location": POI_ID,
-            "point_of_contact_for": "",
+            "area_of_responsibility": "",
             "name": "",
             "email": "",
             "phone_number": "",
@@ -217,13 +217,13 @@ def test_at_least_one_field_filled(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
-            "ERROR    One of the following fields must be filled: point of contact for, name, e-mail, phone number, website.",
+            "ERROR    One of the following fields must be filled: area of responsibility, name, e-mail, phone number, website.",
             caplog,
         )
         assert (
-            "One of the following fields must be filled: point of contact for, name, e-mail, phone number, website."
+            "One of the following fields must be filled: area of responsibility, name, e-mail, phone number, website."
             in response.content.decode("utf-8")
         )
 
@@ -262,7 +262,7 @@ def test_one_primary_contact_per_poi(
         new_contact,
         data={
             "location": POI_ID,
-            "point_of_contact_for": "",
+            "area_of_responsibility": "",
             "name": "",
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
@@ -270,13 +270,13 @@ def test_one_primary_contact_per_poi(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
-            "ERROR    Only one contact per location can have an empty point of contact.",
+            "ERROR    Only one contact per location can have an empty area of responsibility.",
             caplog,
         )
         assert (
-            "Only one contact per location can have an empty point of contact."
+            "Only one contact per location can have an empty area of responsibility."
             in response.content.decode("utf-8")
         )
 
@@ -288,3 +288,37 @@ def test_one_primary_contact_per_poi(
         )
     else:
         assert response.status_code == 403
+
+
+@pytest.mark.django_db
+def test_phone_number_conversion() -> None:
+    """
+    Test that phone numbers are converted to the expected international format.
+    """
+    variants = [
+        "+49123456789",
+        "0123456789",
+        "012 34/56789",
+        "01234-56789",
+        "0049123456789",
+        "00 (49) (1234) 56789",
+        " +49/1234-56789",
+    ]
+    for variant in variants:
+        form_data = {
+            "location": POI_ID,
+            "area_of_responsibility": "test",
+            "name": "",
+            "email": "mail@mail.integreat",
+            "phone_number": variant,
+            "website": "https://integreat-app.de/",
+        }
+
+        form = ContactForm(
+            data=form_data,
+            instance=None,
+            additional_instance_attributes={"region": REGION_SLUG},
+        )
+        form.is_valid()  # this is not an assert, because it would fail. calling is_valid() is required to populate cleaned_data.
+        cleaned = form.clean()
+        assert cleaned["phone_number"] == "+49 (0) 123456789"

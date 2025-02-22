@@ -46,7 +46,10 @@ def mark_invalid(url: Url, error_message: str = "") -> None:
 
 
 def check_imprint(
-    url: Url, path_components: list[str], region: Region, language: Language
+    url: Url,
+    path_components: list[str],
+    region: Region,
+    language: Language,
 ) -> bool:
     """
     Check whether the imprint exists in the given region and language
@@ -65,16 +68,20 @@ def check_imprint(
         mark_valid(url)
     else:
         logger.debug(
-            "Imprint of %r in %r does not exist or is not public", region, language
+            "Imprint of %r in %r does not exist or is not public",
+            region,
+            language,
         )
         mark_invalid(url, _("Imprint does not exist or is not public in this language"))
     return url.status
 
 
 def check_news_link(
-    url: Url, path_components: list[str], region: Region, language: Language
+    url: Url,
+    path_components: list[str],
+    region: Region,
+    language: Language,
 ) -> bool | None:
-    # pylint: disable=too-many-branches
     """
     Check whether the news exists in the given region
 
@@ -86,7 +93,8 @@ def check_news_link(
     """
     if len(path_components) == 1:
         mark_invalid(
-            url, _("News links require a subcategory (either 'local' or 'tu-news')")
+            url,
+            _("News links require a subcategory (either 'local' or 'tu-news')"),
         )
     elif len(path_components) <= 3:
         if path_components[1] == "tu-news":
@@ -96,19 +104,21 @@ def check_news_link(
                     mark_valid(url)
                 else:
                     logger.debug(
-                        "Skipping check of tü-news with id %r", path_components[2]
+                        "Skipping check of tü-news with id %r",
+                        path_components[2],
                     )
             else:
                 logger.debug("tü-news are disabled in %r", region)
                 mark_invalid(url, _("tü-news are disabled in this region."))
         elif path_components[1] == "local":
-            if len(path_components) == 2:
-                mark_valid(url)
-            elif region.push_notifications.filter(
-                id=path_components[2],
-                sent_date__isnull=False,
-                translations__language=language,
-            ).exists():
+            if (
+                len(path_components) == 2
+                or region.push_notifications.filter(
+                    id=path_components[2],
+                    sent_date__isnull=False,
+                    translations__language=language,
+                ).exists()
+            ):
                 mark_valid(url)
             else:
                 logger.debug(
@@ -165,7 +175,9 @@ def check_offer_link(url: Url, path_components: list[str], region: Region) -> bo
 
 
 def check_translation_link(
-    content_object: Event | (Page | POI), url: Url, language: Language
+    content_object: Event | (Page | POI),
+    url: Url,
+    language: Language,
 ) -> bool:
     """
     Check whether the link of the given content object is valid
@@ -179,7 +191,7 @@ def check_translation_link(
         mark_invalid(url, _("The link target is archived."))
     elif translation := content_object.get_public_translation(language.slug):
         if translation.get_absolute_url().strip("/") != unquote(url.internal_url).strip(
-            "/"
+            "/",
         ):
             logger.debug(
                 "%r has different URL (%r) than the checked URL (%r)",
@@ -236,7 +248,8 @@ def check_object_link(
             language,
         )
         mark_invalid(
-            url, _("The link target does not exist in this region and language.")
+            url,
+            _("The link target does not exist in this region and language."),
         )
     elif len(objects) == 1:
         check_translation_link(objects[0], url, language)
@@ -250,7 +263,8 @@ def check_object_link(
             objects,
         )
         mark_invalid(
-            url, _("The link target is not unique in this region and language.")
+            url,
+            _("The link target is not unique in this region and language."),
         )
     return url.status
 
@@ -277,7 +291,10 @@ def check_event_or_location(
     """
     if len(path_components) == 1:
         logger.debug(
-            "Link to %s list of %r in %r is valid", content_type, region, language
+            "Link to %s list of %r in %r is valid",
+            content_type,
+            region,
+            language,
         )
         mark_valid(url)
     elif len(path_components) == 2:
@@ -300,13 +317,15 @@ def check_event_or_location(
 
 
 def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
-    # pylint: disable=too-many-return-statements, too-many-branches
     """
     :param url: The internal URL to check
     :returns: The status of the URL
     """
     logger.debug(
-        "Checking %r (type: %r, internal: %r)", url, url.type, url.internal_url
+        "Checking %r (type: %r, internal: %r)",
+        url,
+        url.type,
+        url.internal_url,
     )
 
     if url.type == "empty" or url.internal_url == "/":
@@ -334,7 +353,8 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
 
     if not language_and_path:
         logger.debug(
-            "Link to category overview of %r in the default language is valid", region
+            "Link to category overview of %r in the default language is valid",
+            region,
         )
         mark_valid(url)
         return url.status
@@ -355,7 +375,9 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
 
     try:
         language = region.get_language_or_404(
-            language_slug, only_active=True, only_visible=True
+            language_slug,
+            only_active=True,
+            only_visible=True,
         )
     except Http404:
         logger.debug(
@@ -363,7 +385,8 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
             language_slug,
         )
         mark_invalid(
-            url, _("This language does not exist or is not active and visible.")
+            url,
+            _("This language does not exist or is not active and visible."),
         )
         return url.status
 
@@ -378,16 +401,31 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
         return check_imprint(url, path_components, region, language)
     if content_type == "events":
         return check_event_or_location(
-            "Event", region.events, url, path_components, region, language
+            "Event",
+            region.events,
+            url,
+            path_components,
+            region,
+            language,
         )
     if content_type == "locations":
         return check_event_or_location(
-            "POI", region.pois, url, path_components, region, language
+            "POI",
+            region.pois,
+            url,
+            path_components,
+            region,
+            language,
         )
     if content_type == "news":
         return check_news_link(url, path_components, region, language)
     if content_type == "offers":
         return check_offer_link(url, path_components, region)
     return check_object_link(
-        "Page", region.pages, path_components[-1], url, region, language
+        "Page",
+        region.pages,
+        path_components[-1],
+        url,
+        region,
+        language,
     )

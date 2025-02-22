@@ -29,7 +29,6 @@ class CmsConfig(AppConfig):
     verbose_name: Final[Promise] = _("CMS")
 
     def ready(self) -> None:
-        # pylint: disable=import-outside-toplevel
         """
         Monkeypatch the checking of internal URLs
         """

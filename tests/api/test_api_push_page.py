@@ -22,7 +22,8 @@ def test_api_push_page_content(load_test_data: None) -> None:
     new_content = "<p>new content</p>"
     view_name = "api:push_page_translation_content"
     endpoint = reverse(
-        view_name, kwargs={"region_slug": "augsburg", "language_slug": "de"}
+        view_name,
+        kwargs={"region_slug": "augsburg", "language_slug": "de"},
     )
     # Check whether the endpoints resolve correctly
     match = resolve("/api/v3/augsburg/de/pushpage/")

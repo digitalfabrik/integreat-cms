@@ -23,7 +23,7 @@ def test_fix_internal_links_non_existing_region(load_test_data: None) -> None:
     """
     with pytest.raises(CommandError) as exc_info:
         assert not any(
-            get_command_output("fix_internal_links", "--region-slug=non-existing")
+            get_command_output("fix_internal_links", "--region-slug=non-existing"),
         )
     assert str(exc_info.value) == 'Region with slug "non-existing" does not exist.'
 
@@ -39,7 +39,7 @@ def test_fix_internal_links_non_existing_username(
     """
     with pytest.raises(CommandError) as exc_info:
         assert not any(
-            get_command_output("fix_internal_links", "--username=non-existing")
+            get_command_output("fix_internal_links", "--username=non-existing"),
         )
     assert str(exc_info.value) == 'User with username "non-existing" does not exist.'
 
@@ -87,20 +87,24 @@ def test_fix_internal_links_dry_run(
     assert "✔ Finished dry-run of fixing broken internal links." in out
     assert not err
 
-    for link_occurences, old_url in zip(old_link_occurrence_counts, old_urls):
+    for link_occurences, old_url in zip(
+        old_link_occurrence_counts,
+        old_urls,
+        strict=False,
+    ):
         assert Url.objects.filter(
-            url=old_url
+            url=old_url,
         ).exists(), "Old URL should not be removed during dry run"
-        assert (
-            Link.objects.filter(url__url=old_url).count() == link_occurences
-        ), "Old link should not be modified during dry run"
+        assert Link.objects.filter(url__url=old_url).count() == link_occurences, (
+            "Old link should not be modified during dry run"
+        )
 
     for new_url in new_urls:
         assert not Url.objects.filter(
-            url=new_url
+            url=new_url,
         ).exists(), "New URL should not be created during dry run"
         assert not Link.objects.filter(
-            url__url=new_url
+            url__url=new_url,
         ).exists(), "New link should not be created during dry run"
 
 
@@ -129,15 +133,19 @@ def test_fix_internal_links_commit(load_test_data_transactional: Any | None) -> 
     assert "✔ Successfully finished fixing broken internal links." in out
     assert not err
 
-    for link_occurrences, old_url in zip(old_link_occurrence_counts, old_urls):
-        assert (
-            Link.objects.filter(url__url=old_url).count() < link_occurrences
-        ), "Some old links should not exist after replacement"
+    for link_occurrences, old_url in zip(
+        old_link_occurrence_counts,
+        old_urls,
+        strict=False,
+    ):
+        assert Link.objects.filter(url__url=old_url).count() < link_occurrences, (
+            "Some old links should not exist after replacement"
+        )
 
     for new_url in new_urls:
         assert Url.objects.filter(
-            url=new_url
+            url=new_url,
         ).exists(), "New URL should exist after replacement"
-        assert (
-            Link.objects.filter(url__url=new_url).count() == 1
-        ), "New link should exist after replacement"
+        assert Link.objects.filter(url__url=new_url).count() == 1, (
+            "New link should exist after replacement"
+        )

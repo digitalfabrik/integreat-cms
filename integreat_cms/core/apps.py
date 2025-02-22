@@ -35,20 +35,22 @@ class CoreConfig(AppConfig):
     test_external_apis: bool = False
 
     def ready(self) -> None:
-        # pylint: disable=unused-import,import-outside-toplevel
         # Implicitly connect signal handlers decorated with @receiver.
-        from . import signals
+        from . import signals  # noqa: F401
 
         # Add SUCCESS (25) as custom log level
         logging.addLevelName(SUCCESS, "SUCCESS")
 
         def success(
-            self: logging.Logger, message: str, *args: Any, **kwargs: Any
+            self: logging.Logger,
+            message: str,
+            *args: Any,
+            **kwargs: Any,
         ) -> None:
             if self.isEnabledFor(SUCCESS):
                 self._log(SUCCESS, message, args, **kwargs)
 
-        setattr(logging.getLoggerClass(), "success", success)
+        logging.getLoggerClass().success = success  # type: ignore[attr-defined]
 
         # Determine whether the availability of external APIs should be checked
         self.test_external_apis = (

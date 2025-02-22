@@ -46,6 +46,7 @@ msgstr "Landkreis"
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/languages/region_list_section/region_list.html
+#: cms/templates/region_condition/region_condition.html
 #: cms/templates/users/user_list.html
 #: cms/views/region_condition/region_condition_actions.py
 msgid "Region"
@@ -80,7 +81,6 @@ msgid "Federal state"
 msgstr "Bundesland"
 
 #: cms/constants/administrative_division.py
-#: cms/templates/region_condition/region_condition.html
 msgid "Municipality"
 msgstr "Gemeinde"
 
@@ -144,11 +144,11 @@ msgstr "PPT-Dokument"
 msgid "PPTX document"
 msgstr "PPTX-Dokument"
 
-#: cms/constants/calendar.py
+#: cms/constants/calendar_filters.py
 msgid "Event not from an external calendar"
 msgstr "Veranstaltung kommt nicht aus einem externen Kalender"
 
-#: cms/constants/calendar.py
+#: cms/constants/calendar_filters.py
 msgid "Event from an external calendar"
 msgstr "Veranstaltung kommt aus einem externen Kalender"
 
@@ -1958,22 +1958,13 @@ msgstr ""
 msgid "The end of the event can't be before the start of the event"
 msgstr "Das Ende der Veranstaltung kann nicht vor ihrem Beginn sein"
 
-#: cms/forms/events/event_form.py
-msgid ""
-"The maximum duration for events is {} days. Consider using recurring events "
-"if the event is not continuous."
-msgstr ""
-"Die maximale Veranstaltungsdauer beträgt {} Tage. Verwenden Sie "
-"wiederkehrende Veranstaltungen, wenn die Veranstaltung nicht kontinuierlich "
-"stattfindet."
-
-#: cms/forms/events/recurrence_rule_form.py
-msgid "Recurrence ends"
-msgstr "Wiederholung endet"
-
 #: cms/forms/events/recurrence_rule_form.py
 msgid "No recurrence frequency selected"
 msgstr "Keine Häufigkeit der Wiederholung angegeben"
+
+#: cms/forms/events/recurrence_rule_form.py
+msgid "Recurrence \"daily\" is not allowed anymore"
+msgstr "Tägliche Wiederholung ist nicht mehr zugelassen"
 
 #: cms/forms/events/recurrence_rule_form.py
 msgid "No weekdays for weekly recurrence selected"
@@ -1986,12 +1977,6 @@ msgstr "Kein Wochentag für die monatliche Wiederholung eingegeben"
 #: cms/forms/events/recurrence_rule_form.py
 msgid "No week for monthly recurrence selected"
 msgstr "Keine Woche für die monatliche Wiederholung eingegeben"
-
-#: cms/forms/events/recurrence_rule_form.py
-msgid "If the recurrence ends, the recurrence end date is required"
-msgstr ""
-"Wenn die Wiederholung endet, ist ein End-Datum für die Wiederholung "
-"erforderlich"
 
 #: cms/forms/events/recurrence_rule_form.py
 msgid "The recurrence end date has to be after the event's start date"
@@ -2762,8 +2747,8 @@ msgid "user chats"
 msgstr "Nutzer-Chats"
 
 #: cms/models/contact/contact.py
-msgid "point of contact for"
-msgstr "Ansprechperson für"
+msgid "area of responsibility"
+msgstr "Zuständigkeitsbereich"
 
 #: cms/models/contact/contact.py cms/models/media/directory.py
 #: cms/models/media/media_file.py cms/models/offers/offer_template.py
@@ -2777,16 +2762,15 @@ msgstr "Name"
 msgid "location"
 msgstr "Ort"
 
-#: cms/models/contact/contact.py cms/models/pois/poi.py
+#: cms/models/contact/contact.py
 msgid "email address"
 msgstr "E-Mail-Adresse"
 
-#: cms/models/contact/contact.py cms/models/pois/poi.py
+#: cms/models/contact/contact.py
 msgid "phone number"
 msgstr "Telefonnummer"
 
-#: cms/models/contact/contact.py cms/models/pois/poi.py
-#: cms/models/users/organization.py
+#: cms/models/contact/contact.py cms/models/users/organization.py
 msgid "website"
 msgstr "Webseite"
 
@@ -2801,8 +2785,8 @@ msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
 #: cms/models/contact/contact.py
-msgid "with point of contact for: {}"
-msgstr "mit Ansprechperson für: {}"
+msgid "with area of responsibility: {}"
+msgstr "mit Zuständigkeitsbereich: {}"
 
 #: cms/models/contact/contact.py
 msgid "with name: {}"
@@ -2829,8 +2813,8 @@ msgid "show address"
 msgstr "Adresse anzeigen"
 
 #: cms/models/contact/contact.py
-msgid "show point of contact"
-msgstr "Ansprechperson anzeigen"
+msgid "show area of responsibility"
+msgstr "Zuständigkeitsbereich anzeigen"
 
 #: cms/models/contact/contact.py
 msgid "show name"
@@ -2861,18 +2845,17 @@ msgid "contacts"
 msgstr "Kontakte"
 
 #: cms/models/contact/contact.py
-msgid "Only one contact per location can have an empty point of contact."
+msgid "Only one contact per location can have an empty area of responsibility."
 msgstr ""
-"Pro Ort darf nur ein Kontakt ohne Angabe, wofür die Ansprechperson zuständig "
-"ist, eingetragen werden."
+"Pro Ort darf nur einen Kontakt ohne Angabe des Zuständigkeitsbereichs geben."
 
 #: cms/models/contact/contact.py
 msgid ""
-"One of the following fields must be filled: point of contact for, name, e-"
+"One of the following fields must be filled: area of responsibility, name, e-"
 "mail, phone number, website."
 msgstr ""
-"Eines der folgenden Felder muss ausgefüllt werden: Ansprechperson für, Name, "
-"E-Mail, Telefonnummer, Website."
+"Eines der folgenden Felder muss ausgefüllt werden: Zuständigkeitsbereich, "
+"Name, E-Mail, Telefonnummer, Website."
 
 #: cms/models/events/event.py
 msgid "start"
@@ -2881,6 +2864,14 @@ msgstr "Beginn"
 #: cms/models/events/event.py
 msgid "end"
 msgstr "Ende"
+
+#: cms/models/events/event.py
+msgid "Only weekdays"
+msgstr "Nur Wochentags"
+
+#: cms/models/events/event.py
+msgid "Tick if this event takes place only on weekdays"
+msgstr "Kreuzen Sie an, wenn diese Veranstaltung nur wochentags stattfindet"
 
 #: cms/models/events/event.py cms/models/events/recurrence_rule.py
 msgid "recurrence rule"
@@ -3112,6 +3103,7 @@ msgstr "Impressums-Feedback"
 
 #: cms/models/feedback/map_feedback.py cms/models/regions/region.py
 #: cms/templates/_base.html cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_from_email_and_phone.html
 #: cms/templates/organizations/organization_form.html
 #: cms/templates/pois/poi_list.html
 msgid "Locations"
@@ -4252,12 +4244,14 @@ msgstr "verbrauchtes Budget"
 
 #: cms/models/regions/region.py cms/templates/_base.html
 #: cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_from_email_and_phone.html
 #: cms/templates/organizations/organization_form.html
 msgid "Pages"
 msgstr "Seiten"
 
 #: cms/models/regions/region.py cms/templates/_base.html
 #: cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_from_email_and_phone.html
 #: cms/templates/events/event_list.html
 msgid "Events"
 msgstr "Veranstaltungen"
@@ -4890,8 +4884,8 @@ msgid "Add Contact"
 msgstr "Kontakt hinzufügen"
 
 #: cms/templates/_tinymce_config.html
-msgid "Change Contact"
-msgstr "Kontakt ändern"
+msgid "Change Contact or Details"
+msgstr "Kontakt oder Details ändern"
 
 #: cms/templates/_tinymce_config.html
 msgid "Remove Contact"
@@ -4900,6 +4894,10 @@ msgstr "Kontakt entfernen"
 #: cms/templates/_tinymce_config.html
 msgid "Contact Person"
 msgstr "Kontaktperson"
+
+#: cms/templates/_tinymce_config.html
+msgid "Please select at least one detail before inserting the contact."
+msgstr "Bitte wählen Sie mindestens ein Detail aus, um den Kontakt einzufügen."
 
 #: cms/templates/_tinymce_config.html
 msgid "Contact..."
@@ -4971,6 +4969,14 @@ msgstr "Automatisch den Titel des verlinkten Inhalts als Linktext verwenden"
 msgid "Media Library..."
 msgstr "Medienbibliothek..."
 
+#: cms/templates/ajax_contact_form/_contact_form_widget.html
+#: cms/templates/contacts/contact_form.html
+msgid ""
+"Currently, contacts with an area of responsibility are not displayed in the "
+"location. You can find more information in the"
+msgstr ""
+"Aktuell werden Kontakte mit Zuständigkeitsbereich nicht im Ort angezeigt. Mehr Informationen finden Sie im"
+
 #: cms/templates/ajax_poi_form/_poi_address_container.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 msgid "Address"
@@ -4979,27 +4985,6 @@ msgstr "Adresse"
 #: cms/templates/ajax_poi_form/_poi_address_container.html
 msgid "Open on Maps"
 msgstr "Auf Maps öffnen"
-
-#: cms/templates/ajax_poi_form/_poi_address_container.html
-#: cms/templates/pois/poi_form_sidebar/contact_box.html
-msgid "Contact details"
-msgstr "Kontaktdaten"
-
-#: cms/templates/ajax_poi_form/_poi_address_container.html
-msgid "E-mail address: "
-msgstr "E-Mail-Adresse: "
-
-#: cms/templates/ajax_poi_form/_poi_address_container.html
-msgid "Not provided"
-msgstr "Keine Angabe"
-
-#: cms/templates/ajax_poi_form/_poi_address_container.html
-msgid "Phone number: "
-msgstr "Telefonnummer: "
-
-#: cms/templates/ajax_poi_form/_poi_address_container.html
-msgid "Website: "
-msgstr "Website: "
 
 #: cms/templates/ajax_poi_form/_poi_form_widget.html
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
@@ -5439,9 +5424,79 @@ msgstr "Kontakt löschen"
 msgid "Deletion not possible"
 msgstr "Löschen nicht möglich"
 
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid "Potential contact data"
+msgstr "Mögliche Kontaktdaten"
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid ""
+"Here is the list of E-mail addresses and phone numbers that are embedded in "
+"contents. We recommend to replace them with a contact card so they can be "
+"centrally managed and updated in the future."
+msgstr ""
+"Hier ist die Liste der E-Mail-Adressen und Telefonnummern, die in Inhalten "
+"eingebettet sind. Wir empfehlen, diese durch eine Kontaktkarte zu ersetzen, "
+"damit sie künftig zentral verwaltet und aktualisiert werden können."
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid ""
+"Please note that contact details need to be replaced with contact cards "
+"manually. Found details will be removed from the list below once you have "
+"replaced them with a contact card in the corresponding page, poi, or event "
+"in all languages."
+msgstr ""
+"Bitte beachten Sie, dass Kontaktdaten manuell durch Kontaktkarten ersetzt "
+"werden müssen. Gefundene Details werden aus der Liste unten entfernt, sobald "
+"Sie sie durch eine Kontaktkarte auf der entsprechenden Seite, Ort oder "
+"Veranstaltung in allen Sprachen ersetzt haben."
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid " pages have potential contacts."
+msgstr " Seiten haben mögliche Kontakte."
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid "Go to this page"
+msgstr "Zur Seite"
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid "No E-mail address and phone number detected"
+msgstr "Keine E-Mail-Ad­res­se und Te­le­fon­num­mer gefunden."
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid " events have potential contacts."
+msgstr " Veranstaltungen haben mögliche Kontakte."
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid "Go to this event"
+msgstr "Zur Veranstaltung"
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid "Go to this location"
+msgstr "Zum Ort"
+
+#: cms/templates/contacts/contact_from_email_and_phone_row.html
+msgid "Phone numbers and emails found in the content"
+msgstr "Telefonnummern und E-Mails, die im Inhalt zu finden sind"
+
+#: cms/templates/contacts/contact_from_email_and_phone_row.html
+msgid "Convert to contact"
+msgstr "Zu Kontakt konvertieren"
+
+#: cms/templates/contacts/contact_from_email_and_phone_row.html
+msgid "Existing contacts matching the found details"
+msgstr "Vorhandene Kontakte, die den gefundenen Details entsprechen"
+
+#: cms/templates/contacts/contact_from_email_and_phone_row.html
+msgid "No contact matching these details exists."
+msgstr "Es existiert kein Kontakt, der diesen Angaben entspricht."
+
 #: cms/templates/contacts/contact_list.html
 msgid "Archived Contacts"
 msgstr "Archivierte Kontakte"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Analysis of content for existing contacts"
+msgstr "Inhaltsanalyse für bestehende Kontaktdaten"
 
 #: cms/templates/contacts/contact_list.html
 msgid "Back to contacts"
@@ -5460,8 +5515,8 @@ msgid "Name of related location"
 msgstr "Name des verlinkten Ortes"
 
 #: cms/templates/contacts/contact_list.html
-msgid "Point of contact for"
-msgstr "Ansprechperson für"
+msgid "Area of responsibility"
+msgstr "Zuständigkeitsbereich"
 
 #: cms/templates/contacts/contact_list.html
 #: cms/templates/events/external_calendar_list.html
@@ -6004,6 +6059,15 @@ msgstr "Fehler"
 msgid "Return back home"
 msgstr "Zurück zur Startseite"
 
+#: cms/templates/events/_event_duration_tab.html
+msgid "One-time or recurrent"
+msgstr "Einmalig oder wiederkehrend"
+
+#: cms/templates/events/_event_duration_tab.html
+#: cms/templates/events/event_list_row.html
+msgid "Long-term"
+msgstr "Fortlaufend"
+
 #: cms/templates/events/_event_filter_form.html
 #: cms/templates/feedback/_admin_feedback_filter_form.html
 #: cms/templates/feedback/_region_feedback_filter_form.html
@@ -6136,6 +6200,35 @@ msgstr "Diese Veranstaltung löschen"
 #: cms/templates/events/event_form_sidebar/date_and_time_box.html
 msgid "Date and time"
 msgstr "Datum und Uhrzeit"
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
+msgid ""
+"One-time events take place on a specific date. For recurring events (e.g. "
+"weekly) this can be set under “Recurring”."
+msgstr ""
+"Einmalige Veranstaltungen finden an einem bestimmten Termin statt. Bei "
+"wiederkehrenden Veranstaltungen (z.B. wöchentlich) kann dies unter "
+"“wiederkehrend” eingestellt werden."
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
+msgid ""
+"These events take place over a longer period of time. E.g. Christmas markets "
+"or similar."
+msgstr ""
+"Diese Veranstaltungen finden über einen längeren Zeitraum statt. Z.B. "
+"Weihnachtsmärkte o.ä."
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
+msgid "These events take place daily."
+msgstr "Diese Veranstaltungen finden täglich statt."
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
+msgid "Please create daily repeating events under “Long-term”."
+msgstr "Täglich wiederholende Events bitte unter “Fortlaufend” anlegen."
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
+msgid "optional"
+msgstr "optional"
 
 #: cms/templates/events/event_form_sidebar/minor_edit_box.html
 #: cms/templates/pages/page_form_sidebar/minor_edit_box.html
@@ -8961,7 +9054,7 @@ msgid "Invalid email credentials."
 msgstr "Ungültige E-Mail-Anmeldedaten."
 
 #: cms/utils/email_utils.py
-msgid "An SMTP error occured."
+msgid "An SMTP error occurred."
 msgstr "Ein SMTP-Fehler ist aufgetreten."
 
 #: cms/utils/email_utils.py
@@ -10848,7 +10941,7 @@ msgid ""
 "other regions:"
 msgstr ""
 "Die Region konnte nicht gelöscht werden, weil die folgenden Seiten in "
-"anderen Region gespiegelt werden:"
+"anderen Regionen gespiegelt werden:"
 
 #: cms/views/regions/region_actions.py
 msgid "is mirrored here:"
@@ -11186,12 +11279,12 @@ msgid "CW"
 msgstr "KW"
 
 #: matomo_api/matomo_api_client.py
-msgid "Offline Accesses"
-msgstr "Offline Zugriffe"
+msgid "Phone App Accesses"
+msgstr "Handy-App Zugriffe"
 
 #: matomo_api/matomo_api_client.py
 msgid "WebApp Accesses"
-msgstr "WebApp Zugriffe"
+msgstr "Web-App Zugriffe"
 
 #: nominatim_api/apps.py
 msgid "Nominatim API"
@@ -11360,14 +11453,14 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
-#~ msgid "Archive this contact"
-#~ msgstr "Kontakt archivieren"
+#~ msgid "Administrative division"
+#~ msgstr "Verwaltungseinheit"
 
-#~ msgid "Number of active languages besides active language"
-#~ msgstr "Anzahl aktiver Sprachen neben der Standard-Sprache"
+#~ msgid "Native App Accesses"
+#~ msgstr "Handyapp Zugriffe"
 
-#~ msgid "Number of languages"
-#~ msgstr "Anzahl an Sprachen"
+#~ msgid "Offline Accesses"
+#~ msgstr "Offline Zugriffe"
 
 #~ msgid "Here you can create a new contact with this location."
 #~ msgstr "Hier können Sie einen neuen Kontakt mit diesem Ort erstellen."
@@ -11382,11 +11475,45 @@ msgstr ""
 #~ msgid "This page is under construction"
 #~ msgstr "Diese Seite ist noch im Bau"
 
+#~ msgid "Recurrence end date"
+#~ msgstr "Enddatum der Widerholung"
+
+#~ msgid "If the recurrence ends, the recurrence end date is required"
+#~ msgstr ""
+#~ "Wenn die Wiederholung endet, ist ein End-Datum für die Wiederholung "
+#~ "erforderlich"
+
+#~ msgid ""
+#~ "The maximum duration for events is {} days. Consider using recurring "
+#~ "events if the event is not continuous."
+#~ msgstr ""
+#~ "Die maximale Veranstaltungsdauer beträgt {} Tage. Verwenden Sie "
+#~ "wiederkehrende Veranstaltungen, wenn die Veranstaltung nicht "
+#~ "kontinuierlich stattfindet."
+
+#~ msgid "Contact details"
+#~ msgstr "Kontaktdaten"
+
+#~ msgid "E-mail address: "
+#~ msgstr "E-Mail-Adresse: "
+
+#~ msgid "Not provided"
+#~ msgstr "Keine Angabe"
+
+#~ msgid "Phone number: "
+#~ msgstr "Telefonnummer: "
+
+#~ msgid "Website: "
+#~ msgstr "Website: "
+
 #~ msgid "An error occurred while importing events from this external calendar"
 #~ msgstr "Ein Fehler mit dem Import von Veranstaltungen ist aufgetreten"
 
 #~ msgid "Event does not come from an external calendar"
 #~ msgstr "Veranstaltung kommt nicht aus einem externen Kalender"
+
+#~ msgid "There is no page yet."
+#~ msgstr "Es gibt keinen Seiteninhalt."
 
 #~ msgid "Invalid links"
 #~ msgstr "Ungültige Links"
@@ -11521,7 +11648,6 @@ msgstr ""
 #~ "Wir laden im Hintergrund gerade Ihre veralteten und fehlenden "
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
-#, python-format
 #~ msgid ""
 #~ "Your pages currently have "
 #~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
@@ -11928,9 +12054,6 @@ msgstr ""
 
 #~ msgid "Status message"
 #~ msgstr "Status-Nachricht"
-
-#~ msgid "There is no page yet."
-#~ msgstr "Es gibt keinen Seiteninhalt."
 
 #~ msgid "Current machine translation"
 #~ msgstr "Die Übersetzung ist aktuell und wurde maschinell erzeugt"
@@ -12518,7 +12641,7 @@ msgstr ""
 #~ msgstr "Seite ist nicht veröffentlicht."
 
 #~ msgid "Open POI in Webapp"
-#~ msgstr "POI in der Webapp öffnen"
+#~ msgstr "POI in der Web-App öffnen"
 
 #~ msgid "POI is not public."
 #~ msgstr "POI ist nicht veröffentlicht."
@@ -12989,9 +13112,6 @@ msgstr ""
 #~ msgid "Select end time"
 #~ msgstr "Endzeitpunkt auswählen"
 
-#~ msgid "Administrative division"
-#~ msgstr "Verwaltungseinheit"
-
 #~ msgid "Name of the Role"
 #~ msgstr "Name der Rolle"
 
@@ -13107,9 +13227,6 @@ msgstr ""
 
 #~ msgid "Week"
 #~ msgstr "Woche"
-
-#~ msgid "Recurrence end date"
-#~ msgstr "Wiederholung Enddatum"
 
 #~ msgid "Common Region Identifier"
 #~ msgstr "Gemeindeschlüssel"
@@ -13523,7 +13640,7 @@ msgstr ""
 #~ msgstr "Verhältnis"
 
 #~ msgid "WebApp-URL"
-#~ msgstr "WebApp-URL"
+#~ msgstr "Web-App-URL"
 
 #~ msgid "Delete Pages"
 #~ msgstr "Seiten löschen"

@@ -57,22 +57,22 @@ class RegisterUserFidoKeyView(CreateView):
             expected_rp_id=settings.HOSTNAME,
             expected_origin=settings.BASE_URL,
             expected_challenge=base64url_to_bytes(
-                request.session["mfa_registration_challenge"]
+                request.session["mfa_registration_challenge"],
             ),
         )
 
         existing_key = request.user.fido_keys.filter(name=json_data["name"])
         if existing_key.exists():
             return JsonResponse(
-                {"success": False, "error": _("This key name has already been used")}
+                {"success": False, "error": _("This key name has already been used")},
             )
 
         existing_key = request.user.fido_keys.filter(
-            key_id=webauthn_registration_response.credential_id
+            key_id=webauthn_registration_response.credential_id,
         )
         if existing_key.exists():
             return JsonResponse(
-                {"success": False, "error": _("You already registered this key")}
+                {"success": False, "error": _("You already registered this key")},
             )
 
         new_key = FidoKey(
@@ -86,7 +86,7 @@ class RegisterUserFidoKeyView(CreateView):
         messages.success(
             request,
             _(
-                'The 2-factor authentication key "{}" was successfully registered.'
+                'The 2-factor authentication key "{}" was successfully registered.',
             ).format(new_key.name),
         )
         # Determine success url based on current region

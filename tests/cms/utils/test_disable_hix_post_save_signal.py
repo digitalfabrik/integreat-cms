@@ -54,7 +54,6 @@ def dummy_region(django_db_setup: None, django_db_blocker: _DatabaseBlocker) -> 
 @pytest.mark.skip(reason="disabled to avoid failing test to merge a hot fix in #2974")
 @pytest.mark.django_db
 def test_disable_hix_post_save_signal(dummy_region: Region) -> None:
-    # pylint: disable=redefined-outer-name
     with disable_hix_post_save_signal():
         demo_page_translation = create_dummy_page_translation(dummy_region)
 
@@ -64,14 +63,12 @@ def test_disable_hix_post_save_signal(dummy_region: Region) -> None:
 @pytest.mark.skip(reason="disabled to avoid failing test to merge a hot fix in #2974")
 @pytest.mark.django_db
 def test_rule_out_false_positive(dummy_region: Region) -> None:
-    # pylint: disable=redefined-outer-name
     demo_page_translation = create_dummy_page_translation(dummy_region)
 
     assert demo_page_translation.hix_score is None
 
 
 def create_dummy_page_translation(dummy_region: Region) -> PageTranslation:
-    # pylint: disable=redefined-outer-name
     dummy_page = Page.add_root(region=dummy_region)
     dummy_page.save()
 

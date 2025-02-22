@@ -37,18 +37,19 @@ def transform_language(language: Language) -> dict[str, Any]:
 
 @json_response
 def languages(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,
 ) -> JsonResponse:
     """
     Function to add all languages related to a region to a JSON.
 
     :param request: Django request
-    :param region_slug: slug of a region
     :return: JSON object according to APIv3 languages endpoint definition
     """
     if request.region.status == region_status.ARCHIVED:
         raise Http404("This region is archived.")
 
     return JsonResponse(
-        list(map(transform_language, request.region.visible_languages)), safe=False
+        list(map(transform_language, request.region.visible_languages)),
+        safe=False,
     )  # Turn off Safe-Mode to allow serializing arrays

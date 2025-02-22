@@ -15,7 +15,6 @@ from django.utils.translation import gettext_lazy as _
 from ..cms.constants import language_color, matomo_periods
 
 if TYPE_CHECKING:
-    import sys
     from asyncio import AbstractEventLoop
     from collections.abc import KeysView
     from typing import Any, TypeGuard
@@ -64,7 +63,9 @@ class MatomoApiClient:
         self.languages = region.active_languages
 
     async def fetch(
-        self, session: ClientSession, **kwargs: Any
+        self,
+        session: ClientSession,
+        **kwargs: Any,
     ) -> dict[str, Any] | list[int]:
         r"""
         Uses :meth:`aiohttp.ClientSession.get` to perform an asynchronous GET request to the Matomo API.
@@ -106,7 +107,7 @@ class MatomoApiClient:
                 return response_data
         except aiohttp.ClientError as e:
             raise MatomoException(
-                f"An error occurred {mask_token_auth(str(e))}"
+                f"An error occurred {mask_token_auth(str(e))}",
             ) from None
 
     async def get_matomo_id_async(self, **query_params: Any) -> list[int]:
@@ -144,7 +145,7 @@ class MatomoApiClient:
             self.get_matomo_id_async(
                 token_auth=token_auth,
                 method="SitesManager.getSitesIdWithAtLeastViewAccess",
-            )
+            ),
         )
 
         try:
@@ -152,11 +153,12 @@ class MatomoApiClient:
         except IndexError as e:
             # If no id is returned, there is no user with the given access token
             raise MatomoException(
-                f"The access token for {self.region_name} is not correct."
+                f"The access token for {self.region_name} is not correct.",
             ) from e
 
     async def get_total_visits_async(
-        self, query_params: dict[str, str | int | None]
+        self,
+        query_params: dict[str, str | int | None],
     ) -> dict[str, Any]:
         """
         Async wrapper to fetch the total visits with :mod:`aiohttp`.
@@ -179,7 +181,10 @@ class MatomoApiClient:
             return result
 
     def get_total_visits(
-        self, start_date: date, end_date: date, period: str = matomo_periods.DAY
+        self,
+        start_date: date,
+        end_date: date,
+        period: str = matomo_periods.DAY,
     ) -> dict[str, Any]:
         """
         Returns the total calls within a time range for all languages.
@@ -219,7 +224,7 @@ class MatomoApiClient:
                         "backgroundColor": language_color.TOTAL_ACCESS,
                         "borderColor": language_color.TOTAL_ACCESS,
                         "data": list(dataset.values()),
-                    }
+                    },
                 ],
             },
         }
@@ -255,7 +260,7 @@ class MatomoApiClient:
                         session,
                         **query_params,
                         segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/,pageUrl=@/api/v3/{self.region_slug}/{language.slug}/",
-                    )
+                    ),
                 )
                 for language in languages
             ]
@@ -267,15 +272,17 @@ class MatomoApiClient:
                         **query_params,
                         segment="pageUrl=@/wp-json/extensions/v3/pages,pageUrl=$/pages/",
                     ),
-                )
+                ),
             )
             # Create separate task to gather WebApp download hits
             tasks.append(
                 loop.create_task(
                     self.fetch(
-                        session, **query_params, segment="pageUrl=@/children/?depth"
+                        session,
+                        **query_params,
+                        segment="pageUrl=@/children/?depth",
                     ),
-                )
+                ),
             )
             # Create task for all downloads
             tasks.append(
@@ -283,8 +290,8 @@ class MatomoApiClient:
                     self.fetch(
                         session,
                         **query_params,
-                    )
-                )
+                    ),
+                ),
             )
             # Wait for all tasks to finish and collect the results
             # (the results are sorted in the order the tasks were created)
@@ -293,7 +300,7 @@ class MatomoApiClient:
             if TYPE_CHECKING:
 
                 def is_dict_list(
-                    lst: list[dict[str, Any] | list[int]]
+                    lst: list[dict[str, Any] | list[int]],
                 ) -> TypeGuard[list[dict[str, Any]]]:
                     return all(isinstance(d, dict) for d in lst)
 
@@ -301,7 +308,10 @@ class MatomoApiClient:
             return result
 
     def get_visits_per_language(
-        self, start_date: date, end_date: date, period: str
+        self,
+        start_date: date,
+        end_date: date,
+        period: str,
     ) -> dict[str, Any]:
         """
         Returns the total unique visitors in a timerange as defined in period
@@ -336,7 +346,7 @@ class MatomoApiClient:
         # Execute async request to Matomo API
         logger.debug("Fetching visits for languages %r asynchronously.", languages)
         datasets = loop.run_until_complete(
-            self.get_visits_per_language_async(loop, query_params, languages)
+            self.get_visits_per_language_async(loop, query_params, languages),
         )
         logger.debug("All asynchronous fetching tasks have finished.")
         # The last dataset contains the total visits
@@ -348,7 +358,9 @@ class MatomoApiClient:
 
         language_data, language_legends = self.get_language_data(languages, datasets)
         access_data, access_legends = self.get_access_data(
-            total_visits, webapp_downloads, offline_downloads
+            total_visits,
+            webapp_downloads,
+            offline_downloads,
         )
 
         return {
@@ -435,7 +447,8 @@ class MatomoApiClient:
 
     @staticmethod
     def get_language_data(
-        languages: list[Language], datasets: list[dict]
+        languages: list[Language],
+        datasets: list[dict],
     ) -> tuple[list[dict], list[str]]:
         """
         Structure the datasets for languages in a chart.js-compatible format,
@@ -448,14 +461,14 @@ class MatomoApiClient:
         data_entries = []
         legend_entries = []
 
-        for language, dataset in zip(languages, datasets):
+        for language, dataset in zip(languages, datasets, strict=False):
             data_entries.append(
                 {
                     "label": language.translated_name,
                     "backgroundColor": language.language_color,
                     "borderColor": language.language_color,
                     "data": list(dataset.values()),
-                }
+                },
             )
             legend_entries.append(
                 render_to_string(
@@ -465,13 +478,15 @@ class MatomoApiClient:
                         "color": language.language_color,
                         "language": language,
                     },
-                )
+                ),
             )
         return data_entries, legend_entries
 
     @staticmethod
     def get_access_data(
-        total_visits: dict, webapp_downloads: dict, offline_downloads: dict
+        total_visits: dict,
+        webapp_downloads: dict,
+        offline_downloads: dict,
     ) -> tuple[list[dict], list[str]]:
         """
         Structure the datasets for accesses in a chart.js-compatible format,
@@ -484,7 +499,7 @@ class MatomoApiClient:
         """
         data_entries = [
             {
-                "label": _("Offline Accesses"),
+                "label": _("Phone App Accesses"),
                 "backgroundColor": language_color.OFFLINE_ACCESS,
                 "borderColor": language_color.OFFLINE_ACCESS,
                 "data": list(offline_downloads.values()),
@@ -507,7 +522,7 @@ class MatomoApiClient:
             render_to_string(
                 "statistics/_statistics_legend_item.html",
                 {
-                    "name": _("Offline Accesses"),
+                    "name": _("Phone App Accesses"),
                     "color": language_color.OFFLINE_ACCESS,
                 },
             ),

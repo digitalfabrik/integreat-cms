@@ -34,7 +34,8 @@ class CustomModelForm(forms.ModelForm):
         # pop kwarg to make sure the super class does not get this params
         disabled = kwargs.pop("disabled", False)
         additional_instance_attributes = kwargs.pop(
-            "additional_instance_attributes", {}
+            "additional_instance_attributes",
+            {},
         )
 
         # Instantiate ModelForm
@@ -76,27 +77,24 @@ class CustomModelForm(forms.ModelForm):
             # Set placeholder for every text input fields
             if isinstance(
                 field.widget,
-                (
-                    forms.TextInput,
-                    forms.Textarea,
-                    forms.EmailInput,
-                    forms.URLInput,
-                    forms.PasswordInput,
-                    forms.NumberInput,
-                ),
+                forms.TextInput
+                | forms.Textarea
+                | forms.EmailInput
+                | forms.URLInput
+                | forms.PasswordInput
+                | forms.NumberInput,
             ):
                 try:
                     # Use verbose_name of model field instead of field label because label is capitalized
-                    # pylint: disable=no-member
                     model_field = self._meta.model._meta.get_field(
-                        field_name
+                        field_name,
                     ).verbose_name
                 except FieldDoesNotExist:
                     # In case field is not a model field, just use the label and make it lowercase
                     model_field = lowfirst(field.label)
 
                 field.widget.attrs.update(
-                    {"placeholder": capfirst(_("Enter {} here").format(model_field))}
+                    {"placeholder": capfirst(_("Enter {} here").format(model_field))},
                 )
 
     def clean(self) -> dict[str, Any]:
@@ -151,7 +149,9 @@ class CustomModelForm(forms.ModelForm):
         # Add debug logging in english
         with translation.override("en"):
             self.logger.debug(
-                "%r submitted with errors: %r", type(self).__name__, self.errors
+                "%r submitted with errors: %r",
+                type(self).__name__,
+                self.errors,
             )
 
     def get_error_messages(self) -> list[dict[str, str]]:
@@ -165,7 +165,7 @@ class CustomModelForm(forms.ModelForm):
         for field in self:
             for error in field.errors:
                 error_messages.append(
-                    {"type": "error", "text": field.label + ": " + error}
+                    {"type": "error", "text": field.label + ": " + error},
                 )
         # Add non-field errors
         for error in self.non_field_errors():

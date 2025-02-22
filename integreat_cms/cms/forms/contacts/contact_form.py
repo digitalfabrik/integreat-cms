@@ -1,15 +1,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
 from ...models import Contact
+from ...utils.link_utils import format_phone_number
 from ..custom_model_form import CustomModelForm
-
-if TYPE_CHECKING:
-    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +26,7 @@ class ContactForm(CustomModelForm):
         model = Contact
         #: The fields of the model which should be handled by this form
         fields = [
-            "point_of_contact_for",
+            "area_of_responsibility",
             "name",
             "location",
             "email",
@@ -38,5 +35,15 @@ class ContactForm(CustomModelForm):
         ]
 
         error_messages = {
-            "location": {"invalid_choice": _("Location cannot be empty.")}
+            "location": {"invalid_choice": _("Location cannot be empty.")},
         }
+
+    def clean_phone_number(self) -> str:
+        """
+        Validate the phone number field (see :ref:`overriding-modelform-clean-method`).
+        The number will be converted to the international format, i.e. `+XX (X) XXXXXXXX`.
+
+        :return: The reformatted phone number
+        """
+        phone_number = self.cleaned_data["phone_number"]
+        return format_phone_number(phone_number)

@@ -51,7 +51,6 @@ class PushNotificationListView(TemplateView):
         return self.template_templates if self.templates else self.template
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        # pylint: disable=too-many-locals
         r"""
         Create a list that shows existing push notifications and translations
 
@@ -93,7 +92,7 @@ class PushNotificationListView(TemplateView):
             messages.error(
                 request,
                 _(
-                    "Please create at least one language node before creating push notifications."
+                    "Please create at least one language node before creating push notifications.",
                 ),
             )
             return redirect(
@@ -104,7 +103,7 @@ class PushNotificationListView(TemplateView):
             )
 
         push_notifications = region.push_notifications.filter(
-            is_template=self.templates
+            is_template=self.templates,
         )
         query = None
 
@@ -113,10 +112,12 @@ class PushNotificationListView(TemplateView):
         if search_form.is_valid():
             query = search_form.cleaned_data["query"]
             push_notification_keys = PushNotificationTranslation.search(
-                region, language_slug, query
+                region,
+                language_slug,
+                query,
             ).values("push_notification__pk")
             push_notifications = push_notifications.filter(
-                pk__in=push_notification_keys
+                pk__in=push_notification_keys,
             )
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))

@@ -39,7 +39,7 @@ urlpatterns: list[URLPattern] = [
             (
                 "django.conf.urls.i18n",
                 "i18n",
-            )
+            ),
         ),
     ),
 ]
@@ -64,7 +64,7 @@ urlpatterns += [
             (
                 static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
                 "media_files",
-            )
+            ),
         ),
     ),
     path(
@@ -73,7 +73,7 @@ urlpatterns += [
             (
                 static(settings.PDF_URL, document_root=settings.PDF_ROOT),
                 "pdf_files",
-            )
+            ),
         ),
     ),
     path(
@@ -82,7 +82,7 @@ urlpatterns += [
             (
                 static(settings.XLIFF_URL, document_root=settings.XLIFF_DOWNLOAD_DIR),
                 "xliff_files",
-            )
+            ),
         ),
     ),
 ]

@@ -4,6 +4,7 @@ Developer Tools
 
 This is a collection of scripts which facilitate the development process.
 They are targeted at as much platforms and configurations as possible, but there might be edge cases in which they don't work as expected.
+They are not intended to be run with the virtual environment already activated.
 
 
 Installation
@@ -63,9 +64,9 @@ Delete all database content with :github-source:`tools/prune_database.sh`::
 
     ./tools/prune_database.sh
 
-| Update testdata file based on the *current* database with :github-source:`tools/update_test_data.sh`  
+| Update testdata file based on the *current* database with :github-source:`tools/update_test_data.sh`
 
-**Disclaimer**: make sure to first run ``prune_database.sh`` and make *only* the desired changes before running this tool::  
+**Disclaimer**: make sure to first run ``prune_database.sh`` and make *only* the desired changes before running this tool::
 
     ./tools/update_test_data.sh
 
@@ -129,21 +130,13 @@ with :github-source:`tools/integreat-cms-cli`::
 Code Quality
 ============
 
-Automatically run python linting with :github-source:`tools/ruff.sh`::
+Automatically run Python linting and formatting with :github-source:`tools/ruff.sh`::
 
     ./tools/ruff.sh
-
-Automatically apply our python style with :github-source:`tools/black.sh`::
-
-    ./tools/black.sh
 
 Automatically apply our HTML formatting with :github-source:`tools/djlint.sh`::
 
     ./tools/djlint.sh
-
-Check the code for semantic correctness with :github-source:`tools/pylint.sh`::
-
-    ./tools/pylint.sh
 
 Automatically run static file linting with :github-source:`tools/eslint.sh`::
 

@@ -2,9 +2,17 @@
 {% load widget_tweaks %}
 <div>
     <label for="{{ contact_form.title.id_for_label }}">
-        {{ contact_form.point_of_contact_for.label }}
+        {{ contact_form.area_of_responsibility.label }}
     </label>
-    {% render_field contact_form.point_of_contact_for|append_attr:"form:ajax_contact_form" %}
+    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3 mb-5">
+        <p>
+            {% translate "Currently, contacts with an area of responsibility are not displayed in the location. You can find more information in the" %}
+            <a class="text-blue-500 underline"
+               href="https://wiki.integreat-app.de/kontakte-modul"
+               target="_blank">Wiki</a>.
+        </p>
+    </div>
+    {% render_field contact_form.area_of_responsibility|append_attr:"form:ajax_contact_form" %}
     <label for="{{ contact_form.name.id_for_label }}">
         {{ contact_form.name.label }}
     </label>

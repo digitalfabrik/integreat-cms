@@ -1,0 +1,44 @@
+{% extends "../_collapsible_box.html" %}
+{% load i18n %}
+{% load content_filters %}
+{% load page_filters %}
+{% load tree_filters %}
+{% load static %}
+{% load rules %}
+{% block collapsible_box_icon %}
+    {{ icon }}
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {{ content.best_translation.title }}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div class="grid xl:grid-cols-2 gap-4">
+        <div>
+            <label>
+                {% trans "Phone numbers and emails found in the content" %}
+            </label>
+            {% for link in links %}
+                <div>
+                    {{ link }}
+                    (<a class="text-blue-500 hover:underline"
+   href="{% url 'new_contact' region_slug=request.region.slug %}?link={{ link }}">{% translate "Convert to contact" %}</a>)
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <label>
+                {% trans "Existing contacts matching the found details" %}
+            </label>
+            {% for contact in contacts %}
+                <div class="mb-4">
+                    {% include "contacts/contact_card.html" with contact=contact wanted=wanted %}
+                </div>
+            {% empty %}
+                {% trans "No contact matching these details exists." %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="pt-8">
+        <a href="{{ content.backend_edit_link }}" class="btn">{{ button_title }}</a>
+    </div>
+{% endblock collapsible_box_content %}

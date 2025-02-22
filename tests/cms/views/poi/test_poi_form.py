@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 from django.conf import settings
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.constants import status
@@ -24,8 +23,12 @@ from integreat_cms.cms.models import (
 )
 from tests.conftest import (
     ANONYMOUS,
+    AUTHOR,
+    EDITOR,
     HIGH_PRIV_STAFF_ROLES,
+    MANAGEMENT,
     PRIV_STAFF_ROLES,
+    STAFF_ROLES,
     WRITE_ROLES,
 )
 from tests.utils import assert_message_in_log
@@ -198,7 +201,8 @@ def test_poi_in_use_not_bulk_archived(
 
     # Try to archive the POI by bulk action
     bulk_archive_pois = reverse(
-        "bulk_archive_pois", kwargs={"region_slug": "augsburg", "language_slug": "de"}
+        "bulk_archive_pois",
+        kwargs={"region_slug": "augsburg", "language_slug": "de"},
     )
     response = client.post(bulk_archive_pois, data={"selected_ids[]": [poi_id]})
 
@@ -260,9 +264,9 @@ def test_poi_form_shows_associated_contacts(
     # probably needs adjustment after #2958
     elif role in HIGH_PRIV_STAFF_ROLES:
         for contact in related_contacts:
-            if contact.point_of_contact_for:
+            if contact.area_of_responsibility:
                 assert (
-                    f"{contact.point_of_contact_for} {contact.name}"
+                    f"{contact.area_of_responsibility} {contact.name}"
                     in response.content.decode("utf-8")
                 )
             else:
@@ -311,8 +315,7 @@ def test_poi_form_shows_no_associated_contacts(
         assert (
             response.headers.get("location") == f"{settings.LOGIN_URL}?next={edit_poi}"
         )
-    # probably needs adjustment after #2958
-    elif role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert (
             "This location is not currently referred to in any contact."
             in response.content.decode("utf-8")

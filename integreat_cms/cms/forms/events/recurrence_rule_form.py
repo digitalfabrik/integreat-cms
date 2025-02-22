@@ -21,10 +21,6 @@ class RecurrenceRuleForm(CustomModelForm):
     Form for creating and modifying event recurrence rule objects
     """
 
-    has_recurrence_end_date = forms.BooleanField(
-        required=False, label=_("Recurrence ends")
-    )
-
     class Meta:
         """
         This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
@@ -46,7 +42,8 @@ class RecurrenceRuleForm(CustomModelForm):
         widgets = {
             "weekdays_for_weekly": forms.SelectMultiple(choices=weekdays.CHOICES),
             "recurrence_end_date": forms.DateInput(
-                format="%Y-%m-%d", attrs={"type": "date"}
+                format="%Y-%m-%d",
+                attrs={"type": "date"},
             ),
         }
 
@@ -63,12 +60,6 @@ class RecurrenceRuleForm(CustomModelForm):
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
 
-        if self.instance.id:
-            # Initialize BooleanField based on RecurrenceRule properties
-            self.fields["has_recurrence_end_date"].initial = bool(
-                self.instance.recurrence_end_date
-            )
-
     def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
@@ -81,16 +72,25 @@ class RecurrenceRuleForm(CustomModelForm):
             self.add_error(
                 "frequency",
                 forms.ValidationError(
-                    _("No recurrence frequency selected"), code="required"
+                    _("No recurrence frequency selected"),
+                    code="required",
+                ),
+            )
+        elif cleaned_data.get("frequency") == frequency.DAILY:
+            self.add_error(
+                "frequency",
+                forms.ValidationError(
+                    _('Recurrence "daily" is not allowed anymore'), code="invalid"
                 ),
             )
         elif cleaned_data.get("frequency") == frequency.WEEKLY and not cleaned_data.get(
-            "weekdays_for_weekly"
+            "weekdays_for_weekly",
         ):
             self.add_error(
                 "weekdays_for_weekly",
                 forms.ValidationError(
-                    _("No weekdays for weekly recurrence selected"), code="required"
+                    _("No weekdays for weekly recurrence selected"),
+                    code="required",
                 ),
             )
         elif cleaned_data.get("frequency") == frequency.MONTHLY:
@@ -98,46 +98,35 @@ class RecurrenceRuleForm(CustomModelForm):
                 self.add_error(
                     "weekday_for_monthly",
                     forms.ValidationError(
-                        _("No weekday for monthly recurrence selected"), code="required"
+                        _("No weekday for monthly recurrence selected"),
+                        code="required",
                     ),
                 )
             if not cleaned_data.get("week_for_monthly"):
                 self.add_error(
                     "week_for_monthly",
                     forms.ValidationError(
-                        _("No week for monthly recurrence selected"), code="required"
-                    ),
-                )
-
-        if cleaned_data.get("has_recurrence_end_date"):
-            if not cleaned_data.get("recurrence_end_date"):
-                self.add_error(
-                    "recurrence_end_date",
-                    forms.ValidationError(
-                        _(
-                            "If the recurrence ends, the recurrence end date is required"
-                        ),
+                        _("No week for monthly recurrence selected"),
                         code="required",
                     ),
                 )
-            elif (
-                self.event_start_date
-                and cleaned_data.get("recurrence_end_date") <= self.event_start_date
-            ):
-                self.add_error(
-                    "recurrence_end_date",
-                    forms.ValidationError(
-                        _(
-                            "The recurrence end date has to be after the event's start date"
-                        ),
-                        code="invalid",
-                    ),
-                )
-        else:
-            cleaned_data["recurrence_end_date"] = None
+
+        if (
+            cleaned_data.get("recurrence_end_date")
+            and self.event_start_date
+            and cleaned_data.get("recurrence_end_date") <= self.event_start_date
+        ):
+            self.add_error(
+                "recurrence_end_date",
+                forms.ValidationError(
+                    _("The recurrence end date has to be after the event's start date"),
+                    code="invalid",
+                ),
+            )
 
         logger.debug(
-            "RecurrenceRuleForm validated [2] with cleaned data %r", cleaned_data
+            "RecurrenceRuleForm validated [2] with cleaned data %r",
+            cleaned_data,
         )
         return cleaned_data
 
@@ -155,7 +144,9 @@ class RecurrenceRuleForm(CustomModelForm):
         except ValueError:
             return super().has_changed()
         value = self.fields["weekdays_for_weekly"].widget.value_from_datadict(
-            self.data, self.files, self.add_prefix("weekdays_for_weekly")
+            self.data,
+            self.files,
+            self.add_prefix("weekdays_for_weekly"),
         )
         initial = self["weekdays_for_weekly"].initial
         if value:

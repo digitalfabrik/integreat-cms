@@ -42,13 +42,16 @@ class RegionUpdateView(CustomUpdateView):
             messages.warning(
                 request,
                 _(
-                    "Locations are enabled but the bounding box coordinates are incomplete."
+                    "Locations are enabled but the bounding box coordinates are incomplete.",
                 ),
             )
         return response
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Updates region and removes mirrored pages from all pages of the region when it gets archived

@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pytest
-from django.test.client import Client
 
 from ..utils import check_view_status_code
 from ..view_config import PARAMETRIZED_VIEWS
@@ -12,6 +11,7 @@ if TYPE_CHECKING:
     from typing import Any
 
     from _pytest.logging import LogCaptureFixture
+    from django.test.client import Client
 
 
 @pytest.mark.django_db
@@ -25,5 +25,4 @@ def test_view_status_code_5(
     roles: list[str],
     mock_firebase_credentials: None,
 ) -> None:
-    # pylint: disable=too-many-positional-arguments
     check_view_status_code(login_role_user, caplog, view_name, kwargs, post_data, roles)

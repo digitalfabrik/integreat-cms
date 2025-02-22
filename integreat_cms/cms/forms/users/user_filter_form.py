@@ -33,8 +33,8 @@ class UserFilterForm(CustomFilterForm):
     )
     permissions = forms.ChoiceField(
         label=_("Permissions"),
-        choices=BLANK_CHOICE_DASH
-        + [
+        choices=[
+            *BLANK_CHOICE_DASH,
             ("is_superuser", _("Administrator")),
             ("is_staff", _("Integreat team member")),
         ],
@@ -75,5 +75,4 @@ class UserFilterForm(CustomFilterForm):
         """
         query = self.cleaned_data["query"].lower()
         user_keys = search_users(region=None, query=query).values("pk")
-        users = users.filter(pk__in=user_keys)
-        return users
+        return users.filter(pk__in=user_keys)

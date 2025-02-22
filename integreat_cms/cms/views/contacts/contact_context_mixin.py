@@ -9,7 +9,6 @@ if TYPE_CHECKING:
     from typing import Any
 
 
-# pylint:disable=too-few-public-methods
 class ContactContextMixin(ContextMixin):
     """
     This mixin provides extra context for language tree views
@@ -29,15 +28,15 @@ class ContactContextMixin(ContextMixin):
             {
                 "current_menu_item": "contacts",
                 "archive_dialog_title": _(
-                    "Please confirm that you really want to archive this contact"
+                    "Please confirm that you really want to archive this contact",
                 ),
                 "restore_dialog_title": _(
-                    "Please confirm that you really want to restore this contact"
+                    "Please confirm that you really want to restore this contact",
                 ),
                 "delete_dialog_title": _(
-                    "Please confirm that you really want to delete this contact"
+                    "Please confirm that you really want to delete this contact",
                 ),
-            }
+            },
         )
 
         return context

@@ -11,10 +11,13 @@ from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from typing import Any, Iterator
+    from collections.abc import Iterator
+    from typing import Any
 
     from .abstract_content_translation import AbstractContentTranslation
     from .languages.language import Language
+
+import contextlib
 
 from ..constants import status, translation_status
 from ..utils.content_edit_lock import get_locking_user
@@ -30,7 +33,9 @@ class ContentQuerySet(models.QuerySet):
     """
 
     def prefetch_translations(
-        self, to_attr: str = "prefetched_translations", **filters: Any
+        self,
+        to_attr: str = "prefetched_translations",
+        **filters: Any,
     ) -> ContentQuerySet:
         r"""
         Get the queryset including the custom attribute ``to_attr`` which contains the latest
@@ -50,7 +55,7 @@ class ContentQuerySet(models.QuerySet):
                 .distinct(foreign_field, "language_id")
                 .select_related("language"),
                 to_attr=to_attr,
-            )
+            ),
         )
 
     def prefetch_public_translations(
@@ -63,7 +68,8 @@ class ContentQuerySet(models.QuerySet):
         :return: The queryset of content objects
         """
         return self.prefetch_translations(
-            to_attr="prefetched_public_translations", status=status.PUBLIC
+            to_attr="prefetched_public_translations",
+            status=status.PUBLIC,
         )
 
     def prefetch_public_or_draft_translations(
@@ -109,16 +115,18 @@ class ContentQuerySet(models.QuerySet):
 
 
 class AbstractContentModel(AbstractBaseModel):
-    # pylint: disable=too-many-public-methods
     """
     Abstract base class for all content models
     """
 
     region = models.ForeignKey(
-        Region, on_delete=models.CASCADE, verbose_name=_("region")
+        Region,
+        on_delete=models.CASCADE,
+        verbose_name=_("region"),
     )
     created_date = models.DateTimeField(
-        default=timezone.now, verbose_name=_("creation date")
+        default=timezone.now,
+        verbose_name=_("creation date"),
     )
 
     #: Custom model manager for content objects
@@ -180,7 +188,9 @@ class AbstractContentModel(AbstractBaseModel):
         ]
 
     def get_prefetched_translations_by_language_slug(
-        self, attr: str = "prefetched_translations", **filters: Any
+        self,
+        attr: str = "prefetched_translations",
+        **filters: Any,
     ) -> dict[str, AbstractContentTranslation]:
         r"""
         This method returns a mapping from language slugs to their latest translations of this object
@@ -241,11 +251,13 @@ class AbstractContentModel(AbstractBaseModel):
                  :obj:`None` if no translation exists
         """
         return self.get_prefetched_translations_by_language_slug(
-            attr="prefetched_public_translations", status=status.PUBLIC
+            attr="prefetched_public_translations",
+            status=status.PUBLIC,
         )
 
     def get_public_translation(
-        self, language_slug: str
+        self,
+        language_slug: str,
     ) -> AbstractContentTranslation | None:
         """
         This function retrieves the newest public translation of a content object.
@@ -254,14 +266,14 @@ class AbstractContentModel(AbstractBaseModel):
         :return: The public translation of a content object
         """
         public_translation = self.prefetched_public_translations_by_language_slug.get(
-            language_slug
+            language_slug,
         )
         # Check if fallback translation should be used
         if not public_translation and self.fallback_translations_enabled:
             # Get the fallback translation
             public_translation = (
                 self.prefetched_public_translations_by_language_slug.get(
-                    self.region.default_language.slug
+                    self.region.default_language.slug,
                 )
             )
             if public_translation:
@@ -274,14 +286,10 @@ class AbstractContentModel(AbstractBaseModel):
                     language_slug
                 ].language
                 # Reset prefetched translations
-                public_translation.foreign_object.prefetched_public_translations_by_language_slug = (
-                    self.prefetched_public_translations_by_language_slug
-                )
+                public_translation.foreign_object.prefetched_public_translations_by_language_slug = self.prefetched_public_translations_by_language_slug
                 # Clear cached property in case url with different language was already calculated before
-                try:
+                with contextlib.suppress(AttributeError):
                     del public_translation.url_prefix
-                except AttributeError:
-                    pass
         return public_translation
 
     @cached_property
@@ -300,7 +308,8 @@ class AbstractContentModel(AbstractBaseModel):
         )
 
     def get_public_or_draft_translation(
-        self, language_slug: str
+        self,
+        language_slug: str,
     ) -> AbstractContentTranslation | None:
         """
         This function retrieves the newest public or draft translation of a content object.
@@ -309,7 +318,7 @@ class AbstractContentModel(AbstractBaseModel):
         :return: The public translation of a content object
         """
         return self.prefetched_public_or_draft_translations_by_language_slug.get(
-            language_slug
+            language_slug,
         )
 
     @cached_property
@@ -329,7 +338,8 @@ class AbstractContentModel(AbstractBaseModel):
         )
 
     def get_major_public_translation(
-        self, language_slug: str
+        self,
+        language_slug: str,
     ) -> AbstractContentTranslation | None:
         """
         This function retrieves the newest major public translation of a content object.
@@ -338,7 +348,7 @@ class AbstractContentModel(AbstractBaseModel):
         :return: The public translation of a content object
         """
         return self.prefetched_major_public_translations_by_language_slug.get(
-            language_slug
+            language_slug,
         )
 
     @cached_property
@@ -357,7 +367,8 @@ class AbstractContentModel(AbstractBaseModel):
         )
 
     def get_major_translation(
-        self, language_slug: str
+        self,
+        language_slug: str,
     ) -> AbstractContentTranslation | None:
         """
         This function retrieves the newest major translation of a content object.
@@ -387,10 +398,8 @@ class AbstractContentModel(AbstractBaseModel):
             "prefetched_public_translations_by_language_slug",
             "translation_states",
         ]:
-            try:
+            with contextlib.suppress(AttributeError):
                 delattr(self, prefetched_attr)
-            except AttributeError:
-                pass
 
     @cached_property
     def backend_translation(self) -> Any:
@@ -448,7 +457,7 @@ class AbstractContentModel(AbstractBaseModel):
         if translation := self.get_translation(language_slug):
             return translation.translation_state
         if self.fallback_translations_enabled and self.get_translation(
-            self.region.default_language.slug
+            self.region.default_language.slug,
         ):
             return translation_status.FALLBACK
         return translation_status.MISSING

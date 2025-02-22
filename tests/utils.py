@@ -14,7 +14,7 @@ from integreat_cms.cms.models import PageTranslation
 from integreat_cms.core.signals.hix_signals import page_translation_save_handler
 
 if TYPE_CHECKING:
-    from typing import Generator
+    from collections.abc import Generator
 
     from _pytest.logging import LogCaptureFixture
 
@@ -52,10 +52,9 @@ def assert_no_error_messages(caplog: LogCaptureFixture) -> None:
     :raises AssertionError: When the the logs contains error messages
     """
     error_messages = get_error_messages(caplog)
-    assert (
-        not error_messages
-    ), "The following error messages were found in the message log:\n\n" + "\n".join(
-        error_messages
+    assert not error_messages, (
+        "The following error messages were found in the message log:\n\n"
+        + "\n".join(error_messages)
     )
 
 

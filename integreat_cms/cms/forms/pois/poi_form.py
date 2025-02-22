@@ -51,9 +51,6 @@ class POIForm(CustomModelForm):
             "longitude",
             "location_on_map",
             "icon",
-            "website",
-            "email",
-            "phone_number",
             "category",
             "opening_hours",
             "temporarily_closed",
@@ -74,12 +71,11 @@ class POIForm(CustomModelForm):
         """
         super().__init__(**kwargs)
 
-        self.fields["organization"].queryset = (
-            self.instance.region.organizations.filter(archived=False)
-        )
+        self.fields[
+            "organization"
+        ].queryset = self.instance.region.organizations.filter(archived=False)
 
     def clean_opening_hours(self) -> list[dict[str, Any]]:
-        # pylint: disable=too-many-return-statements
         """
         Validate the opening hours field (see :ref:`overriding-modelform-clean-method`).
 
@@ -111,7 +107,9 @@ class POIForm(CustomModelForm):
             )
         except ValidationError as e:
             logger.warning(
-                "Opening hours of %r: JSON does not match schema: %r", self.instance, e
+                "Opening hours of %r: JSON does not match schema: %r",
+                self.instance,
+                e,
             )
             self.add_error("opening_hours", generic_error)
             return cleaned_opening_hours
@@ -194,7 +192,7 @@ class POIForm(CustomModelForm):
                     distance(
                         (cleaned_data["latitude"], cleaned_data["longitude"]),
                         (latitude, longitude),
-                    ).km
+                    ).km,
                 )
 
         if cleaned_data.get("location_on_map"):
@@ -205,7 +203,7 @@ class POIForm(CustomModelForm):
                     forms.ValidationError(
                         _(
                             "Could not derive the coordinates from the address, please fill "
-                            "the field manually if the location is to be displayed on the map."
+                            "the field manually if the location is to be displayed on the map.",
                         ),
                         code="required",
                     ),
@@ -216,7 +214,7 @@ class POIForm(CustomModelForm):
                     forms.ValidationError(
                         _(
                             "Could not derive the coordinates from the address, please fill "
-                            "the field manually if the location is to be displayed on the map."
+                            "the field manually if the location is to be displayed on the map.",
                         ),
                         code="required",
                     ),

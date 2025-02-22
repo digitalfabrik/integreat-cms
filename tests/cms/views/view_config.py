@@ -31,18 +31,17 @@ from ...conftest import (
 )
 
 if TYPE_CHECKING:
-    import sys
-    from typing import Any, Final, TypeAlias, Union
+    from typing import Any, Final, TypeAlias
 
     ViewNameStr: TypeAlias = str
     ViewNameGetparams: TypeAlias = str
-    ViewName: TypeAlias = Union[ViewNameStr, tuple[ViewNameStr, ViewNameGetparams]]
+    ViewName: TypeAlias = ViewNameStr | tuple[ViewNameStr, ViewNameGetparams]
     Roles: TypeAlias = list[str]
     PostDataDict: TypeAlias = dict[str, Any]
     PostDataJSON: TypeAlias = str
-    PostData: TypeAlias = Union[PostDataDict, PostDataJSON]
-    View: TypeAlias = Union[tuple[ViewName, Roles], tuple[ViewName, Roles, PostData]]
-    ViewKwargs: TypeAlias = dict[str, Union[str, int]]
+    PostData: TypeAlias = PostDataDict | PostDataJSON
+    View: TypeAlias = tuple[ViewName, Roles] | tuple[ViewName, Roles, PostData]
+    ViewKwargs: TypeAlias = dict[str, str | int]
     ViewGroup: TypeAlias = tuple[list[View], ViewKwargs]
     ViewConfig: TypeAlias = list[ViewGroup]
 
@@ -55,7 +54,10 @@ if TYPE_CHECKING:
     RedirectViewConfig: TypeAlias = list[RedirectViewGroup]
 
     ParametrizedRedirectView: TypeAlias = tuple[
-        ViewName, ViewKwargs, Roles, RedirectTarget
+        ViewName,
+        ViewKwargs,
+        Roles,
+        RedirectTarget,
     ]
     ParametrizedRedirectViewConfig: TypeAlias = list[ParametrizedRedirectView]
 
@@ -153,18 +155,18 @@ VIEWS: ViewConfig = [
                 HIGH_PRIV_STAFF_ROLES,
                 {"selected_ids[]": [1, 2, 3]},
             ),
-            ("new_region_user", STAFF_ROLES + [MANAGEMENT]),
+            ("new_region_user", [*STAFF_ROLES, MANAGEMENT]),
             (
                 "new_region_user",
-                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT],
                 {"username": "new_username", "email": "new@email.address", "role": 1},
             ),
             ("release_notes", ROLES),
-            ("region_feedback", STAFF_ROLES + [MANAGEMENT]),
-            ("region_users", STAFF_ROLES + [MANAGEMENT]),
-            ("translation_coverage", STAFF_ROLES + [MANAGEMENT, EDITOR]),
-            ("organizations", STAFF_ROLES + [MANAGEMENT]),
-            ("new_organization", STAFF_ROLES + [MANAGEMENT]),
+            ("region_feedback", [*STAFF_ROLES, MANAGEMENT]),
+            ("region_users", [*STAFF_ROLES, MANAGEMENT]),
+            ("translation_coverage", [*STAFF_ROLES, MANAGEMENT, EDITOR]),
+            ("organizations", [*STAFF_ROLES, MANAGEMENT]),
+            ("new_organization", [*STAFF_ROLES, MANAGEMENT]),
             ("user_settings", ROLES),
             (
                 "user_settings",
@@ -183,10 +185,10 @@ VIEWS: ViewConfig = [
                 },
             ),
             ("authenticate_modify_mfa", ROLES),
-            ("translations_management", HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]),
+            ("translations_management", [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]),
             (
                 "translations_management",
-                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT],
                 {
                     "machine_translate_pages": 0,
                     "machine_translate_events": 1,
@@ -195,46 +197,46 @@ VIEWS: ViewConfig = [
             ),
             (
                 "grant_page_permission_ajax",
-                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT],
                 json.dumps(
                     {
                         "page_id": 21,
                         "permission": "edit",
                         "user_id": 10,
-                    }
+                    },
                 ),
             ),
             (
                 "grant_page_permission_ajax",
-                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT],
                 json.dumps(
                     {
                         "page_id": 21,
                         "permission": "publish",
                         "user_id": 9,
-                    }
+                    },
                 ),
             ),
             (
                 "revoke_page_permission_ajax",
-                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT],
                 json.dumps(
                     {
                         "page_id": 5,
                         "permission": "edit",
                         "user_id": 10,
-                    }
+                    },
                 ),
             ),
             (
                 "revoke_page_permission_ajax",
-                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT],
                 json.dumps(
                     {
                         "page_id": 6,
                         "permission": "publish",
                         "user_id": 10,
-                    }
+                    },
                 ),
             ),
         ],
@@ -300,12 +302,12 @@ VIEWS: ViewConfig = [
     (
         [
             ("sitemap:region_language", ALL_ROLES),
-            ("archived_pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("archived_pages", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             ("archived_pois", ROLES),
-            ("edit_imprint", STAFF_ROLES + [MANAGEMENT]),
+            ("edit_imprint", [*STAFF_ROLES, MANAGEMENT]),
             (
                 "edit_imprint",
-                PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*PRIV_STAFF_ROLES, MANAGEMENT],
                 {"title": "imprint", "status": status.DRAFT},
             ),
             ("events", ROLES),
@@ -317,7 +319,7 @@ VIEWS: ViewConfig = [
                             "events_time_range": "CUSTOM",
                             "date_from": "2023-01-01",
                             "date_to": "2030-12-31",
-                        }
+                        },
                     ),
                 ),
                 ROLES,
@@ -329,7 +331,7 @@ VIEWS: ViewConfig = [
                         {
                             "events_time_range": "CUSTOM",
                             "date_from": "2023-01-01",
-                        }
+                        },
                     ),
                 ),
                 ROLES,
@@ -341,7 +343,7 @@ VIEWS: ViewConfig = [
                         {
                             "events_time_range": "CUSTOM",
                             "date_to": "2030-12-31",
-                        }
+                        },
                     ),
                 ),
                 ROLES,
@@ -352,7 +354,7 @@ VIEWS: ViewConfig = [
                     parse.urlencode(
                         {
                             "events_time_range": ["PAST", "UPCOMING"],
-                        }
+                        },
                     ),
                 ),
                 ROLES,
@@ -366,7 +368,7 @@ VIEWS: ViewConfig = [
                             "poi_id": 4,
                             "all_day": 1,
                             "recurring": 1,
-                        }
+                        },
                     ),
                 ),
                 ROLES,
@@ -380,7 +382,7 @@ VIEWS: ViewConfig = [
                             "all_day": 2,
                             "recurring": 2,
                             "query": "test",
-                        }
+                        },
                     ),
                 ),
                 ROLES,
@@ -399,10 +401,10 @@ VIEWS: ViewConfig = [
                     "has_not_location": True,
                 },
             ),
-            ("new_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("new_page", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "new_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
@@ -413,7 +415,7 @@ VIEWS: ViewConfig = [
             ),
             (
                 "new_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
@@ -440,26 +442,26 @@ VIEWS: ViewConfig = [
                     "category": 1,
                 },
             ),
-            ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("pages", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             ("pois", ROLES),
             (
                 "bulk_archive_pages",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"selected_ids[]": [1, 2, 3]},
             ),
             (
                 "bulk_restore_pages",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"selected_ids[]": [1, 2, 3]},
             ),
             (
                 "publish_multiple_pages",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"selected_ids[]": [1]},
             ),
             (
                 "draft_multiple_pages",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"selected_ids[]": [1]},
             ),
             (
@@ -510,7 +512,7 @@ VIEWS: ViewConfig = [
                         "query_string": "Test-Veranstaltung",
                         "object_types": ["event"],
                         "archived": False,
-                    }
+                    },
                 ),
             ),
             (
@@ -521,40 +523,40 @@ VIEWS: ViewConfig = [
                         "query_string": "Test-Ort",
                         "object_types": ["poi"],
                         "archived": False,
-                    }
+                    },
                 ),
             ),
             (
                 "search_content_ajax",
-                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+                [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
                 json.dumps(
                     {
                         "query_string": "Willkommen",
                         "object_types": ["page"],
                         "archived": False,
-                    }
+                    },
                 ),
             ),
             (
                 "search_content_ajax",
-                STAFF_ROLES + [MANAGEMENT],
+                [*STAFF_ROLES, MANAGEMENT],
                 json.dumps(
                     {
                         "query_string": "Test",
                         "object_types": ["feedback"],
                         "archived": False,
-                    }
+                    },
                 ),
             ),
             (
                 "search_content_ajax",
-                STAFF_ROLES + [MANAGEMENT],
+                [*STAFF_ROLES, MANAGEMENT],
                 json.dumps(
                     {
                         "query_string": "Test",
                         "object_types": ["push_notification"],
                         "archived": False,
-                    }
+                    },
                 ),
             ),
             (
@@ -565,18 +567,18 @@ VIEWS: ViewConfig = [
                         "query_string": "Augsburg",
                         "object_types": ["region"],
                         "archived": False,
-                    }
+                    },
                 ),
             ),
             (
                 "search_content_ajax",
-                STAFF_ROLES + [MANAGEMENT],
+                [*STAFF_ROLES, MANAGEMENT],
                 json.dumps(
                     {
                         "query_string": "root",
                         "object_types": ["user"],
                         "archived": False,
-                    }
+                    },
                 ),
             ),
             (
@@ -587,7 +589,7 @@ VIEWS: ViewConfig = [
                         "query_string": "Test",
                         "object_types": ["media"],
                         "archived": False,
-                    }
+                    },
                 ),
             ),
         ],
@@ -603,7 +605,7 @@ VIEWS: ViewConfig = [
                     {
                         "title": "Slugify event",
                         "model_id": 1,
-                    }
+                    },
                 ),
             ),
         ],
@@ -618,7 +620,7 @@ VIEWS: ViewConfig = [
                     {
                         "title": "Slugify poi",
                         "model_id": 4,
-                    }
+                    },
                 ),
             ),
         ],
@@ -628,12 +630,12 @@ VIEWS: ViewConfig = [
         [
             (
                 "slugify_ajax",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 json.dumps(
                     {
                         "title": "Slugify page",
                         "model_id": 1,
-                    }
+                    },
                 ),
             ),
         ],
@@ -643,7 +645,7 @@ VIEWS: ViewConfig = [
         [
             (
                 "publish_multiple_pages",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"selected_ids[]": [5]},
             ),
         ],
@@ -651,10 +653,10 @@ VIEWS: ViewConfig = [
     ),
     (
         [
-            ("sbs_edit_imprint", STAFF_ROLES + [MANAGEMENT]),
+            ("sbs_edit_imprint", [*STAFF_ROLES, MANAGEMENT]),
             (
                 "sbs_edit_imprint",
-                PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*PRIV_STAFF_ROLES, MANAGEMENT],
                 {"title": "imprint", "status": status.DRAFT},
             ),
         ],
@@ -665,7 +667,7 @@ VIEWS: ViewConfig = [
         [
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
@@ -681,7 +683,7 @@ VIEWS: ViewConfig = [
         [
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
@@ -697,7 +699,7 @@ VIEWS: ViewConfig = [
         [
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, OBSERVER],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, OBSERVER],
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
@@ -888,13 +890,13 @@ VIEWS: ViewConfig = [
                     "translations-1-language": 2,
                     "translations-1-name": "Test category",
                 },
-            )
+            ),
         ],
         # The kwargs for these views
         {"pk": 1},
     ),
     (
-        [("linkcheck", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("linkcheck", [*STAFF_ROLES, MANAGEMENT, EDITOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "url_filter": "valid"},
     ),
@@ -904,7 +906,7 @@ VIEWS: ViewConfig = [
         {"region_slug": "nurnberg", "url_filter": "valid"},
     ),
     (
-        [("linkcheck", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("linkcheck", [*STAFF_ROLES, MANAGEMENT, EDITOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "url_filter": "unchecked"},
     ),
@@ -914,7 +916,7 @@ VIEWS: ViewConfig = [
         {"region_slug": "nurnberg", "url_filter": "unchecked"},
     ),
     (
-        [("linkcheck", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("linkcheck", [*STAFF_ROLES, MANAGEMENT, EDITOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "url_filter": "ignored"},
     ),
@@ -924,7 +926,7 @@ VIEWS: ViewConfig = [
         {"region_slug": "nurnberg", "url_filter": "ignored"},
     ),
     (
-        [("linkcheck", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("linkcheck", [*STAFF_ROLES, MANAGEMENT, EDITOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "url_filter": "invalid"},
     ),
@@ -937,8 +939,8 @@ VIEWS: ViewConfig = [
         [
             (
                 "get_page_order_table_ajax",
-                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
-            )
+                [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "parent_id": 1},
@@ -952,22 +954,22 @@ VIEWS: ViewConfig = [
         [
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.REVIEW},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"revision": 1, "status": status.PUBLIC},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.DRAFT},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"revision": 2, "status": status.PUBLIC},
             ),
         ],
@@ -978,22 +980,22 @@ VIEWS: ViewConfig = [
         [
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.REVIEW},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"revision": 1, "status": status.PUBLIC},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.DRAFT},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"revision": 2, "status": status.PUBLIC},
             ),
         ],
@@ -1004,27 +1006,27 @@ VIEWS: ViewConfig = [
         [
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.REVIEW},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"revision": 1, "status": status.PUBLIC},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.DRAFT},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"revision": 2, "status": status.PUBLIC},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 2},
             ),
         ],
@@ -1035,27 +1037,27 @@ VIEWS: ViewConfig = [
         [
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.REVIEW},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"revision": 1, "status": status.PUBLIC},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.DRAFT},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"revision": 2, "status": status.PUBLIC},
             ),
             (
                 "page_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 2},
             ),
         ],
@@ -1069,7 +1071,7 @@ VIEWS: ViewConfig = [
                 # Archived pages should raise PermissionDenied for all roles
                 [],
                 {"revision": 1, "status": status.PUBLIC},
-            )
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de", "page_id": 25},
@@ -1140,27 +1142,27 @@ VIEWS: ViewConfig = [
         [
             (
                 "imprint_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*PRIV_STAFF_ROLES, MANAGEMENT],
                 {"revision": 1, "status": status.REVIEW},
             ),
             (
                 "imprint_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*PRIV_STAFF_ROLES, MANAGEMENT],
                 {"revision": 1, "status": status.PUBLIC},
             ),
             (
                 "imprint_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*PRIV_STAFF_ROLES, MANAGEMENT],
                 {"revision": 1, "status": status.DRAFT},
             ),
             (
                 "imprint_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*PRIV_STAFF_ROLES, MANAGEMENT],
                 {"revision": 1},
             ),
             (
                 "imprint_versions",
-                PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*PRIV_STAFF_ROLES, MANAGEMENT],
                 {"revision": 2, "status": status.PUBLIC},
             ),
         ],
@@ -1171,8 +1173,8 @@ VIEWS: ViewConfig = [
         [
             (
                 "get_page_order_table_ajax",
-                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
-            )
+                [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "parent_id": 1, "page_id": 2},
@@ -1186,8 +1188,8 @@ VIEWS: ViewConfig = [
         [
             (
                 "get_page_order_table_ajax",
-                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
-            )
+                [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "page_id": 2},
@@ -1201,9 +1203,9 @@ VIEWS: ViewConfig = [
         [
             (
                 "get_page_tree_ajax",
-                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+                [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
                 json.dumps([2]),
-            )
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de"},
@@ -1215,11 +1217,11 @@ VIEWS: ViewConfig = [
     ),
     (
         [
-            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
-            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("edit_page", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("edit_page", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
@@ -1230,7 +1232,7 @@ VIEWS: ViewConfig = [
             ),
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
@@ -1241,7 +1243,7 @@ VIEWS: ViewConfig = [
             ),
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
@@ -1252,7 +1254,7 @@ VIEWS: ViewConfig = [
             ),
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
@@ -1261,16 +1263,16 @@ VIEWS: ViewConfig = [
                     "status": status.PUBLIC,
                 },
             ),
-            ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
-            ("page_versions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("sbs_edit_page", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("page_versions", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "archive_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"post_data": True},
             ),
             (
                 "restore_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"post_data": True},
             ),
         ],
@@ -1279,11 +1281,11 @@ VIEWS: ViewConfig = [
     ),
     (
         [
-            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
-            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("edit_page", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("edit_page", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
@@ -1294,7 +1296,7 @@ VIEWS: ViewConfig = [
             ),
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
@@ -1305,7 +1307,7 @@ VIEWS: ViewConfig = [
             ),
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
@@ -1314,7 +1316,7 @@ VIEWS: ViewConfig = [
                     "status": status.PUBLIC,
                 },
             ),
-            ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("sbs_edit_page", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             ("delete_page", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
@@ -1342,9 +1344,9 @@ VIEWS: ViewConfig = [
         [
             (
                 "move_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"post_data": True},
-            )
+            ),
         ],
         # The kwargs for these views
         {
@@ -1356,7 +1358,7 @@ VIEWS: ViewConfig = [
         },
     ),
     (
-        [("page_versions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER])],
+        [("page_versions", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER])],
         # The kwargs for these views
         {
             "region_slug": "augsburg",
@@ -1449,10 +1451,10 @@ VIEWS: ViewConfig = [
     ),
     (
         [
-            ("edit_region_user", STAFF_ROLES + [MANAGEMENT]),
+            ("edit_region_user", [*STAFF_ROLES, MANAGEMENT]),
             (
                 "edit_region_user",
-                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT],
                 {"username": "new_username", "email": "new@email.address", "role": 1},
             ),
         ],
@@ -1473,9 +1475,9 @@ VIEWS: ViewConfig = [
         [
             (
                 "cancel_translation_process_ajax",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 {"post_data": True},
-            )
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "en", "page_id": 1},
@@ -1486,10 +1488,10 @@ if settings.FCM_ENABLED:
     VIEWS += [
         (
             [
-                ("new_push_notification", STAFF_ROLES + [MANAGEMENT]),
+                ("new_push_notification", [*STAFF_ROLES, MANAGEMENT]),
                 (
                     "new_push_notification",
-                    PRIV_STAFF_ROLES + [MANAGEMENT],
+                    [*PRIV_STAFF_ROLES, MANAGEMENT],
                     {
                         "translations-TOTAL_FORMS": 3,
                         "translations-INITIAL_FORMS": 0,
@@ -1512,7 +1514,7 @@ if settings.FCM_ENABLED:
                 ),
                 (
                     "new_push_notification",
-                    PRIV_STAFF_ROLES + [MANAGEMENT],
+                    [*PRIV_STAFF_ROLES, MANAGEMENT],
                     {
                         "translations-TOTAL_FORMS": 3,
                         "translations-INITIAL_FORMS": 0,
@@ -1538,7 +1540,7 @@ if settings.FCM_ENABLED:
                 ),
                 (
                     "new_push_notification",
-                    PRIV_STAFF_ROLES + [MANAGEMENT],
+                    [*PRIV_STAFF_ROLES, MANAGEMENT],
                     {
                         "translations-TOTAL_FORMS": 2,
                         "translations-INITIAL_FORMS": 0,
@@ -1558,8 +1560,8 @@ if settings.FCM_ENABLED:
                         "submit_draft": True,
                     },
                 ),
-                ("push_notifications", STAFF_ROLES + [MANAGEMENT]),
-                ("push_notifications_templates", STAFF_ROLES + [MANAGEMENT]),
+                ("push_notifications", [*STAFF_ROLES, MANAGEMENT]),
+                ("push_notifications_templates", [*STAFF_ROLES, MANAGEMENT]),
             ],
             # The kwargs for these views
             {"region_slug": "augsburg", "language_slug": "de"},
@@ -1568,7 +1570,7 @@ if settings.FCM_ENABLED:
             [
                 (
                     "edit_push_notification",
-                    PRIV_STAFF_ROLES + [MANAGEMENT],
+                    [*PRIV_STAFF_ROLES, MANAGEMENT],
                     {
                         "translations-TOTAL_FORMS": 2,
                         "translations-INITIAL_FORMS": 2,
@@ -1590,7 +1592,7 @@ if settings.FCM_ENABLED:
                 ),
                 (
                     "edit_push_notification",
-                    PRIV_STAFF_ROLES + [MANAGEMENT],
+                    [*PRIV_STAFF_ROLES, MANAGEMENT],
                     {
                         "translations-TOTAL_FORMS": 2,
                         "translations-INITIAL_FORMS": 2,
@@ -1622,7 +1624,7 @@ if settings.FCM_ENABLED:
             [
                 (
                     "edit_push_notification",
-                    PRIV_STAFF_ROLES + [MANAGEMENT],
+                    [*PRIV_STAFF_ROLES, MANAGEMENT],
                     {
                         "translations-TOTAL_FORMS": 1,
                         "translations-INITIAL_FORMS": 1,
@@ -1642,7 +1644,7 @@ if settings.FCM_ENABLED:
                 ),
                 (
                     "edit_push_notification",
-                    PRIV_STAFF_ROLES + [MANAGEMENT],
+                    [*PRIV_STAFF_ROLES, MANAGEMENT],
                     {
                         "translations-TOTAL_FORMS": 1,
                         "translations-INITIAL_FORMS": 1,
@@ -1731,7 +1733,7 @@ REDIRECT_VIEWS: Final[RedirectViewConfig] = [
         [
             (
                 "statistics",
-                STAFF_ROLES + [MANAGEMENT],
+                [*STAFF_ROLES, MANAGEMENT],
                 reverse("dashboard", kwargs={"region_slug": "augsburg"}),
             ),
             (
@@ -1746,7 +1748,7 @@ REDIRECT_VIEWS: Final[RedirectViewConfig] = [
             ),
             (
                 "linkcheck_landing",
-                STAFF_ROLES + [MANAGEMENT, EDITOR],
+                [*STAFF_ROLES, MANAGEMENT, EDITOR],
                 reverse(
                     "linkcheck",
                     kwargs={"region_slug": "augsburg", "url_filter": "invalid"},
@@ -1791,7 +1793,7 @@ REDIRECT_VIEWS: Final[RedirectViewConfig] = [
         [
             (
                 "sbs_edit_page",
-                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
                 reverse(
                     "edit_page",
                     kwargs={
@@ -1800,7 +1802,7 @@ REDIRECT_VIEWS: Final[RedirectViewConfig] = [
                         "page_id": 1,
                     },
                 ),
-            )
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de", "page_id": 1},
@@ -1811,7 +1813,7 @@ REDIRECT_VIEWS: Final[RedirectViewConfig] = [
                 "public:expand_page_translation_id",
                 ALL_ROLES,
                 "https://integreat.app/augsburg/de/willkommen/",
-            )
+            ),
         ],
         # The kwargs for these views
         {"short_url_id": 1},

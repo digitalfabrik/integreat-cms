@@ -47,12 +47,14 @@ def make_mock_summ_ai_server_rate_limited() -> aiohttpApplication:
         if request.app["attempt"] < 2:
             # What if we get rate limited?
             return aiohttp.web.json_response(
-                data={"error": "rate limit exceeded"}, status=429
+                data={"error": "rate limit exceeded"},
+                status=429,
             )
         if request.app["attempt"] == 2:
             # What if we get invalid JSON?
             return aiohttp.web.Response(
-                text='{"incomplete json response": ', status=200
+                text='{"incomplete json response": ',
+                status=200,
             )
         return aiohttp.web.json_response(
             data={
@@ -126,7 +128,6 @@ def get_changed_pages(settings: SettingsWrapper, ids: list[int]) -> list[dict]:
 
 
 class MockedRequest:
-    # pylint: disable=too-few-public-methods
     """
     Helper class mocking request, used for creating a SummAiApiclient instance. Region-property is needed therefore.
     """
@@ -139,7 +140,6 @@ class MockedRequest:
 
 
 class MockedRegion:
-    # pylint: disable=too-few-public-methods, missing-class-docstring
     def __init__(self) -> None:
         self.id = 1
         self.slug = "augsburg"

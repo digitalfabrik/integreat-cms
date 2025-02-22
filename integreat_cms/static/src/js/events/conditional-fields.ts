@@ -61,28 +61,6 @@ window.addEventListener("load", () => {
         });
     }
 
-    // event handler to show recurrence end date
-    const recurrenceEndData = document.getElementById("id_has_recurrence_end_date");
-    if (recurrenceEndData) {
-        recurrenceEndData.addEventListener("click", ({ target }) => {
-            const recurrenceEnd = document.getElementById("recurrence-end");
-            if ((target as HTMLInputElement).checked) {
-                const dateInputField = recurrenceEnd.querySelector("input");
-                dateInputField.required = true;
-                if (!dateInputField.getAttribute("value")) {
-                    dateInputField.value = "";
-                }
-            } else {
-                const dateInputField = recurrenceEnd.querySelector("input");
-                dateInputField.removeAttribute("required");
-                if (!dateInputField.getAttribute("value")) {
-                    dateInputField.removeAttribute("value");
-                }
-            }
-            recurrenceEnd.classList.toggle("hidden", !(target as HTMLInputElement).checked);
-        });
-    }
-
     // event handler to show location selection
     document.getElementById("id_has_not_location")?.addEventListener("click", () => {
         document.getElementById("location-block").classList.toggle("hidden");

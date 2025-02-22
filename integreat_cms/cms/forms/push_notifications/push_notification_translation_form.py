@@ -51,12 +51,14 @@ class PushNotificationTranslationForm(CustomModelForm):
         # Add non-field errors
         for error in self.non_field_errors():
             messages.error(
-                request, f"{self.instance.language.translated_name}: {_(error)}"
+                request,
+                f"{self.instance.language.translated_name}: {_(error)}",
             )
         # Add debug logging in english
         with override("en"):
             logger.debug(
-                "PushNotificationTranslationForm submitted with errors: %r", self.errors
+                "PushNotificationTranslationForm submitted with errors: %r",
+                self.errors,
             )
 
     def has_changed(self) -> bool:

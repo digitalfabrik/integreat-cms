@@ -48,7 +48,7 @@ def transform_region(region: Region) -> dict[str, Any]:
         "is_chat_enabled": bool(
             region.integreat_chat_enabled
             and region.zammad_url
-            and region.zammad_access_token
+            and region.zammad_access_token,
         ),
     }
 
@@ -61,16 +61,18 @@ def regions(_: HttpRequest) -> JsonResponse:
     :return: JSON object according to APIv3 regions endpoint definition
     """
     result = list(
-        map(transform_region, Region.objects.exclude(status=region_status.ARCHIVED))
+        map(transform_region, Region.objects.exclude(status=region_status.ARCHIVED)),
     )
     return JsonResponse(
-        result, safe=False
+        result,
+        safe=False,
     )  # Turn off Safe-Mode to allow serializing arrays
 
 
 @json_response
 def region_by_slug(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,
 ) -> JsonResponse:
     """
     Retrieve a single region and transform result into JSON
@@ -81,5 +83,6 @@ def region_by_slug(
         raise Http404("This region is archived.")
 
     return JsonResponse(
-        transform_region(request.region), safe=False
+        transform_region(request.region),
+        safe=False,
     )  # Turn off Safe-Mode to allow serializing arrays

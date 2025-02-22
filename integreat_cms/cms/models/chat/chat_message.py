@@ -14,7 +14,6 @@ if TYPE_CHECKING:
 
 
 class ChatHistoryManager(models.Manager):
-    # pylint: disable=too-few-public-methods
     """
     Custom manager for returning the chat history of the last x days
     (as configured in :attr:`~integreat_cms.core.settings.AUTHOR_CHAT_HISTORY_DAYS`)
@@ -31,7 +30,7 @@ class ChatHistoryManager(models.Manager):
             .get_queryset()
             .filter(
                 sent_datetime__gt=timezone.now()
-                - timezone.timedelta(days=settings.AUTHOR_CHAT_HISTORY_DAYS)
+                - timezone.timedelta(days=settings.AUTHOR_CHAT_HISTORY_DAYS),
             )
         )
 

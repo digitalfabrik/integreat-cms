@@ -45,11 +45,21 @@ def legacy_feedback_endpoint(
     link_components = list(filter(None, link.split("/")))
     if link_components[-1] == settings.IMPRINT_SLUG:
         return imprint_page_feedback_internal(
-            data, region, language, comment, rating, is_technical
+            data,
+            region,
+            language,
+            comment,
+            rating,
+            is_technical,
         )
     data["slug"] = link_components[-1]
     if link_components[-2] == "events":
         return event_feedback_internal(
-            data, region, language, comment, rating, is_technical
+            data,
+            region,
+            language,
+            comment,
+            rating,
+            is_technical,
         )
     return page_feedback_internal(data, region, language, comment, rating, is_technical)

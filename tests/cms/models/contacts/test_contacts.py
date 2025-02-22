@@ -7,7 +7,6 @@ if TYPE_CHECKING:
 
 
 import pytest
-from django.utils import translation
 
 from integreat_cms.cms.models import Contact
 
@@ -26,7 +25,7 @@ def test_contact_string(
     contact_1 = Contact.objects.filter(id=1).first()
     assert (
         str(contact_1)
-        == "Draft location with point of contact for: Integrationsbeauftragte"
+        == "Draft location with area of responsibility: Integrationsberatung"
     )
 
     contact_4 = Contact.objects.filter(id=4).first()

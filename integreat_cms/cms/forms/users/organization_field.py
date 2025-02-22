@@ -28,7 +28,6 @@ class OrganizationFieldWidget(Select):
         subindex: Any | None = None,
         attrs: dict[str, str] | None = None,
     ) -> dict[str, Any]:
-        # pylint: disable=too-many-arguments, too-many-positional-arguments
         """
         This function creates an option which can be selected in the organization field
 
@@ -50,7 +49,13 @@ class OrganizationFieldWidget(Select):
             region_id = None
         # Create dictionary of options
         option_dict = super().create_option(
-            name, value, label, selected, index, subindex=subindex, attrs=attrs
+            name,
+            value,
+            label,
+            selected,
+            index,
+            subindex=subindex,
+            attrs=attrs,
         )
         if region_id:
             # Add organization's region id as data attribute

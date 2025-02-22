@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 def content_edit_lock_heartbeat(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     This function handles heartbeat requests.
@@ -26,7 +26,6 @@ def content_edit_lock_heartbeat(
     who is editing some content.
 
     :param request: The current request
-    :param region_slug: The slug of the current region, unused
     :return: Json object containing `success: true` if the lock could be acquired
     """
     body = json.loads(request.body.decode("utf-8"))
@@ -47,20 +46,19 @@ def content_edit_lock_heartbeat(
     if TYPE_CHECKING:
         assert locking_user
     return JsonResponse(
-        {"success": success, "lockingUser": locking_user.full_user_name}
+        {"success": success, "lockingUser": locking_user.full_user_name},
     )
 
 
 @require_POST
 def content_edit_lock_release(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     This function handles unlock requests
 
     :param request: The current request
-    :param region_slug: The slug of the current region, unused
     :return: Json object containing `success: true` if the content object could be unlocked
     """
     body = json.loads(request.POST.get("body"))

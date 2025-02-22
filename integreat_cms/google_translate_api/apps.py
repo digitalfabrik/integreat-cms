@@ -12,7 +12,10 @@ from typing import TYPE_CHECKING
 from django.apps import AppConfig
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from google.cloud import translate_v2, translate_v3  # type: ignore[attr-defined]
+from google.cloud import (  # type: ignore[attr-defined]
+    translate_v2,
+    translate_v3,
+)
 from google.oauth2 import service_account
 
 if TYPE_CHECKING:
@@ -60,13 +63,13 @@ class GoogleTranslateApiClientConfig(AppConfig):
         """
         logger.info(translate_v3)
         google_translator_v3 = translate_v3.TranslationServiceClient(
-            credentials=credentials
+            credentials=credentials,
         )
 
         parent = settings.GOOGLE_PARENT_PARAM
 
         supported_languages = google_translator_v3.get_supported_languages(
-            parent=parent
+            parent=parent,
         ).languages
 
         self.supported_source_languages = []
@@ -87,32 +90,33 @@ class GoogleTranslateApiClientConfig(AppConfig):
             if settings.GOOGLE_TRANSLATE_ENABLED:
                 try:
                     credentials = service_account.Credentials.from_service_account_file(
-                        settings.GOOGLE_APPLICATION_CREDENTIALS
+                        settings.GOOGLE_APPLICATION_CREDENTIALS,
                     )
                     if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
                         self.ready_v3(credentials)
                     else:
                         self.ready_v2(credentials)
 
-                    assert (
-                        self.supported_source_languages
-                    ), "No supported source languages by Google Translate"
+                    if not self.supported_source_languages:
+                        raise ValueError(  # noqa: TRY301
+                            "No supported source languages by Google Translate",
+                        )
                     logger.debug(
                         "Supported source languages by Google Translate: %r",
                         self.supported_source_languages,
                     )
 
-                    assert (
-                        self.supported_source_languages
-                    ), "No supported target languages by Google Translate"
+                    if not self.supported_source_languages:
+                        raise ValueError(  # noqa: TRY301
+                            "No supported target languages by Google Translate",
+                        )
                     logger.debug(
                         "Supported target languages by Google Translate: %r",
                         self.supported_target_languages,
                     )
 
                     logger.info("Google Translate API is enabled.")
-                except Exception as e:  # pylint: disable=broad-except
-                    logger.error(e)
-                    logger.error("Google translate is not available.")
+                except Exception:
+                    logger.exception("Google translate is not available.")
             else:
                 logger.info("Google Translate API is disabled.")

@@ -34,20 +34,22 @@ class Deserializer(base_serializer.Deserializer):
             if event == "START_ELEMENT" and node.nodeName == "xliff":
                 if not (version := node.getAttribute("version")):
                     raise DeserializationError(
-                        "The <xliff>-block does not contain a version attribute."
+                        "The <xliff>-block does not contain a version attribute.",
                     )
                 if version == "1.2":
                     self.xliff_deserializer = xliff1_serializer.Deserializer(
-                        *args, **kwargs
+                        *args,
+                        **kwargs,
                     )
                     return
                 if version == "2.0":
                     self.xliff_deserializer = xliff2_serializer.Deserializer(
-                        *args, **kwargs
+                        *args,
+                        **kwargs,
                     )
                     return
                 raise DeserializationError(
-                    f"This serializer cannot process XLIFF version {version}."
+                    f"This serializer cannot process XLIFF version {version}.",
                 )
         raise DeserializationError("The data does not contain an <xliff>-block.")
 

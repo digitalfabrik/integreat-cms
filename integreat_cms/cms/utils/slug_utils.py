@@ -13,7 +13,6 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    import sys
     from typing import Any, Literal, NotRequired, TypeAlias, TypedDict, Unpack
 
     from django.db.models import Manager
@@ -22,7 +21,6 @@ if TYPE_CHECKING:
 
     from ..models import Language, Region
     from ..models.abstract_base_model import AbstractBaseModel
-    from ..models.abstract_content_model import AbstractContentModel
 
 
 logger = logging.getLogger(__name__)
@@ -30,7 +28,12 @@ logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     ForeignModelType: TypeAlias = Literal[
-        "page", "event", "poi", "region", "organization", "offer-template"
+        "page",
+        "event",
+        "poi",
+        "region",
+        "organization",
+        "offer-template",
     ]
 
     class SlugKwargs(TypedDict):
@@ -49,7 +52,8 @@ if TYPE_CHECKING:
 
 
 def generate_unique_slug_helper(
-    form_object: ModelForm, foreign_model: ForeignModelType
+    form_object: ModelForm,
+    foreign_model: ForeignModelType,
 ) -> str:
     """
     This function acts like an interface and extracts all parameters of the form_object before actually generating
@@ -77,7 +81,7 @@ def generate_unique_slug_helper(
                 "region": form_object.instance.foreign_object.region,
                 "language": form_object.instance.language,
                 "fallback": "title",
-            }
+            },
         )
     return generate_unique_slug(**kwargs)
 
@@ -139,7 +143,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
             **{
                 foreign_model + "__region": region,
                 "language": language,
-            }
+            },
         )
 
     # generate new slug while it is not unique
@@ -153,7 +157,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
                     **{
                         foreign_model: object_instance.foreign_object,
                         "language": language,
-                    }
+                    },
                 )
             else:
                 # the current object is also allowed to have the same slug

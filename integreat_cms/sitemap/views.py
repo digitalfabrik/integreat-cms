@@ -6,7 +6,9 @@ The views are class-based patches of the inbuilt views :func:`~django.contrib.si
 
 from __future__ import annotations
 
+import functools
 import logging
+import operator
 from typing import TYPE_CHECKING
 
 from django.conf import settings
@@ -112,7 +114,9 @@ class SitemapView(TemplateResponseMixin, View):
 
         # Only return a sitemap if the region is active
         region = get_object_or_404(
-            Region, slug=kwargs.get("region_slug"), status=region_status.ACTIVE
+            Region,
+            slug=kwargs.get("region_slug"),
+            status=region_status.ACTIVE,
         )
         # Only return a sitemap if the language is active
         language = region.get_language_or_404(
@@ -125,7 +129,8 @@ class SitemapView(TemplateResponseMixin, View):
             raise Http404
 
         # Join the lists of all urls of all sitemaps
-        urls: list[dict[str, Any]] = sum(
+        urls: list[dict[str, Any]] = functools.reduce(
+            operator.iadd,
             (sitemap.get_urls(site=get_current_site(request)) for sitemap in sitemaps),
             [],
         )

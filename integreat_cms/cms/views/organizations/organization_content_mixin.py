@@ -13,7 +13,6 @@ logger = logging.getLogger(__name__)
 
 
 class OrganizationContextMixin(ContextMixin):
-    # pylint: disable=too-few-public-methods
     """
     This mixin provides extra context for organization views
     """
@@ -31,26 +30,26 @@ class OrganizationContextMixin(ContextMixin):
             {
                 "current_menu_item": "organization_form",
                 "archive_dialog_title": _(
-                    "Please confirm that you really want to archive this organization"
+                    "Please confirm that you really want to archive this organization",
                 ),
                 "archive_dialog_text": _(
-                    "Archiving this organization removes it from all users and content objects that use it"
+                    "Archiving this organization removes it from all users and content objects that use it",
                 ),
                 "restore_dialog_title": _(
-                    "Please confirm that you really want to restore this organization"
+                    "Please confirm that you really want to restore this organization",
                 ),
                 "delete_dialog_title": _(
-                    "Please confirm that you really want to delete this organization"
+                    "Please confirm that you really want to delete this organization",
                 ),
                 "delete_dialog_text": _(
-                    "Deleting this organization removes it from all users and content objects that use it"
+                    "Deleting this organization removes it from all users and content objects that use it",
                 ),
                 "cannot_archive_title": _(
-                    "You cannot archive an organization which is used by a poi, page or user. \nThis also involves archived pages and pois"
+                    "You cannot archive an organization which is used by a poi, page or user. \nThis also involves archived pages and pois",
                 ),
                 "cannot_delete_title": _(
-                    "You cannot delete an organization which is used by a poi, page or user. \nThis also involves archived pages and pois"
+                    "You cannot delete an organization which is used by a poi, page or user. \nThis also involves archived pages and pois",
                 ),
-            }
+            },
         )
         return context

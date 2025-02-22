@@ -40,7 +40,9 @@ class DeepLApiClientConfig(AppConfig):
     supported_glossaries: dict[tuple[str, str], GlossaryInfo] = {}
 
     def get_glossary(
-        self, source_language: str, target_language: str
+        self,
+        source_language: str,
+        target_language: str,
     ) -> GlossaryInfo | None:
         """
         Looks up a glossary for the specified source language and target language pair.
@@ -78,11 +80,10 @@ class DeepLApiClientConfig(AppConfig):
                     self.init_supported_glossaries(deepl_translator)
 
                     self.assert_usage_limit_not_reached(deepl_translator)
-                except (DeepLException, AssertionError) as e:
-                    logger.error(e)
-                    logger.error(
+                except (DeepLException, ValueError):
+                    logger.exception(
                         "DeepL API is unavailable. You won't be able to "
-                        "create and update machine translations."
+                        "create and update machine translations.",
                     )
             else:
                 logger.info("DeepL API is disabled.")
@@ -101,7 +102,8 @@ class DeepLApiClientConfig(AppConfig):
             "Supported source languages by DeepL: %r",
             self.supported_source_languages,
         )
-        assert self.supported_source_languages
+        if not self.supported_source_languages:
+            raise ValueError
 
     def init_supported_target_languages(self, translator: Translator) -> None:
         """
@@ -117,7 +119,8 @@ class DeepLApiClientConfig(AppConfig):
             "Supported target languages by DeepL: %r",
             self.supported_target_languages,
         )
-        assert self.supported_target_languages
+        if not self.supported_target_languages:
+            raise ValueError
 
     def init_supported_glossaries(self, translator: Translator) -> None:
         """
@@ -136,7 +139,8 @@ class DeepLApiClientConfig(AppConfig):
             if glossary.ready
         }
         logger.debug(
-            "Supported glossaries by DeepL: %s", list(self.supported_glossaries.keys())
+            "Supported glossaries by DeepL: %s",
+            list(self.supported_glossaries.keys()),
         )
 
     @staticmethod
@@ -149,7 +153,6 @@ class DeepLApiClientConfig(AppConfig):
         usage = translator.get_usage()
         if usage.any_limit_reached:
             logger.warning("DeepL API translation limit reached")
-        # pylint: disable=protected-access
         logger.info(
             "DeepL API is available at: %r (character usage: %s of %s)",
             translator._server_url,

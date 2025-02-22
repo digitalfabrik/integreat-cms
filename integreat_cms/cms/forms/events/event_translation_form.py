@@ -9,7 +9,6 @@ logger = logging.getLogger(__name__)
 
 
 class EventTranslationForm(MachineTranslationForm):
-    # pylint: disable=too-many-ancestors
     """
     Form for creating and modifying event translation objects
     """
@@ -23,4 +22,4 @@ class EventTranslationForm(MachineTranslationForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = EventTranslation
         #: The fields of the model which should be handled by this form
-        fields = MachineTranslationForm.Meta.fields + ["slug"]
+        fields = [*MachineTranslationForm.Meta.fields, "slug"]

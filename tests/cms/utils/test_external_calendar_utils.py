@@ -40,7 +40,7 @@ def test_import_fails(calendar_data: tuple[str, str]) -> None:
     :param calendar_data: A tuple of calendar path and expected error message
     """
     calendar_name, error_msg = calendar_data
-    with open(calendar_name, "r", encoding="utf-8") as calendar_file:
+    with open(calendar_name, encoding="utf-8") as calendar_file:
         file_contents = calendar_file.read()
     ical = icalendar.Calendar.from_ical(file_contents)
 

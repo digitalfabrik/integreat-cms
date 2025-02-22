@@ -16,7 +16,6 @@ logger = logging.getLogger(__name__)
 
 
 class POIContextMixin(ContextMixin):
-    # pylint: disable=too-few-public-methods
     """
     This mixin provides extra context for language tree views
     """
@@ -39,7 +38,7 @@ class POIContextMixin(ContextMixin):
             "translations": {
                 "weekdays": dict(weekdays.CHOICES),
                 "openingHoursLabel": POI._meta.get_field(
-                    "opening_hours"
+                    "opening_hours",
                 ).verbose_name.title(),
                 "editWeekdayLabel": _("Edit opening hours for this weekday"),
                 "editAllLabel": _("Edit all opening hours"),
@@ -51,7 +50,7 @@ class POIContextMixin(ContextMixin):
                 "allDayLabel": _("Open around the clock"),
                 "appointmentOnlyLabel": _("By prior appointment only"),
                 "selectText": _(
-                    "Select the days for which the times selected below should apply"
+                    "Select the days for which the times selected below should apply",
                 ),
                 "saveText": _("Save"),
                 "cancelText": _("Cancel"),
@@ -59,21 +58,21 @@ class POIContextMixin(ContextMixin):
                 "removeTimeSlotText": _("Remove this time slot"),
                 "errorOnlyLastSlotEmpty": _("Only the last time slot may be empty"),
                 "errorLastSlotRequired": _(
-                    "If the location is neither closed nor open all day, you have to specify at least one time slot"
+                    "If the location is neither closed nor open all day, you have to specify at least one time slot",
                 ),
                 "errorClosingTimeMissing": _("Closing time is missing"),
                 "errorOpeningTimeMissing": _("Opening time is missing"),
                 "errorClosingTimeEarlier": _(
-                    "Closing time is earlier than the opening time"
+                    "Closing time is earlier than the opening time",
                 ),
                 "errorClosingTimeIdentical": _(
-                    "Closing time is identical with the opening time"
+                    "Closing time is identical with the opening time",
                 ),
                 "errorOpeningTimeEarlier": _(
-                    "Opening time is earlier than the closing time of the previous slot"
+                    "Opening time is earlier than the closing time of the previous slot",
                 ),
                 "errorOpeningTimeIdentical": _(
-                    "Opening time is identical with the closing time of the previous slot"
+                    "Opening time is identical with the closing time of the previous slot",
                 ),
             },
             "canChangeLocation": self.request.user.has_perm("cms.change_poi"),
@@ -83,30 +82,30 @@ class POIContextMixin(ContextMixin):
                 "current_menu_item": "pois",
                 "translation_status": translation_status,
                 "archive_dialog_title": _(
-                    "Please confirm that you really want to archive this location"
+                    "Please confirm that you really want to archive this location",
                 ),
                 "archive_dialog_text": _(
-                    "All translations of this location will also be archived."
+                    "All translations of this location will also be archived.",
                 ),
                 "restore_dialog_title": _(
-                    "Please confirm that you really want to restore this location"
+                    "Please confirm that you really want to restore this location",
                 ),
                 "restore_dialog_text": _(
-                    "All translations of this location will also be restored."
+                    "All translations of this location will also be restored.",
                 ),
                 "delete_dialog_title": _(
-                    "Please confirm that you really want to delete this location"
+                    "Please confirm that you really want to delete this location",
                 ),
                 "delete_dialog_text": _(
-                    "All translations of this location will also be deleted."
+                    "All translations of this location will also be deleted.",
                 ),
                 "cannot_archive_title": _(
-                    "You cannot archive a location which is used by an event or a contact. \nThis also involves archived events and contacts"
+                    "You cannot archive a location which is used by an event or a contact. \nThis also involves archived events and contacts",
                 ),
                 "cannot_delete_title": _(
-                    "You cannot delete a location which is used by an event or a contact. \nThis also involves archived events and contacts"
+                    "You cannot delete a location which is used by an event or a contact. \nThis also involves archived events and contacts",
                 ),
                 "opening_hour_config_data": opening_hour_config_data,
-            }
+            },
         )
         return context

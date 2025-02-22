@@ -50,9 +50,9 @@ class GetMfaChallengeView(View):
             user_display_name=user.first_name + " " + user.last_name,
         )
         request.session["mfa_registration_challenge"] = bytes_to_base64url(
-            make_credential_options.challenge
+            make_credential_options.challenge,
         )
-        # pylint: disable=http-response-with-content-type-json
         return HttpResponse(
-            options_to_json(make_credential_options), content_type="application/json"
+            options_to_json(make_credential_options),
+            content_type="application/json",
         )

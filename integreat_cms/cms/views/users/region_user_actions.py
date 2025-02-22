@@ -25,14 +25,13 @@ logger = logging.getLogger(__name__)
 @permission_required("cms.delete_user")
 def delete_region_user(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     user_id: int,
 ) -> HttpResponseRedirect:
     """
     This view deletes a region user
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :param user_id: The id of the user which should be deleted
     :return: A redirection to region user list
     """
@@ -62,7 +61,7 @@ def delete_region_user(
         messages.success(
             request,
             _('Account "{}" was successfully removed from this region.').format(
-                user.full_user_name
+                user.full_user_name,
             ),
         )
 
@@ -73,14 +72,13 @@ def delete_region_user(
 @permission_required("cms.change_user")
 def resend_activation_link_region(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     user_id: int,
 ) -> HttpResponseRedirect:
     """
     Resends an activation link to a region user
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :param user_id: users id to send the activation link
     :return: A redirection to region user list
     """

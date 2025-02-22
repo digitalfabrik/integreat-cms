@@ -7,44 +7,64 @@
                form="bulk-action-form"
                class="bulk-select-item" />
     </td>
-    <td>
+    <td class="py-3 px-2">
         <a href="{% url 'edit_poi' region_slug=request.region.slug language_slug=request.region.default_language.slug poi_id=contact.location.id %}"
-           class="py-3 px-2 text-blue-500 hover:underline">
+           class="text-blue-500 hover:underline">
             {{ contact.location }}
         </a>
     </td>
-    <td class="pl-2">
+    <td class="px-2 py-3">
         <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
            class="block py-3 px-2 text-gray-800">
-            {{ contact.point_of_contact_for }}
+            {% if contact.area_of_responsibility %}
+                {{ contact.area_of_responsibility }}
+            {% else %}
+                <i icon-name="minus"></i>
+            {% endif %}
         </a>
     </td>
-    <td>
+    <td class="py-3 px-2">
         <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
-           class="block py-3 px-2 text-gray-800">
-            {{ contact.name }}
+           class="block text-gray-800">
+            {% if contact.name %}
+                {{ contact.name }}
+            {% else %}
+                <i icon-name="minus"></i>
+            {% endif %}
         </a>
     </td>
-    <td>
+    <td class="py-3 px-2">
         <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
-           class="block py-3 px-2 text-gray-800">
-            {{ contact.email }}
+           class="block text-gray-800">
+            {% if contact.email %}
+                {{ contact.email }}
+            {% else %}
+                <i icon-name="minus"></i>
+            {% endif %}
         </a>
     </td>
-    <td>
+    <td class="py-3 px-2">
         <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
-           class="block py-3 px-2 text-gray-800">
-            {{ contact.phone_number }}
+           class="block text-gray-800">
+            {% if contact.phone_number %}
+                {{ contact.phone_number }}
+            {% else %}
+                <i icon-name="minus"></i>
+            {% endif %}
         </a>
     </td>
-    <td>
-        <a href="{{ contact.website }}"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="py-3 px-2 text-blue-500 hover:underline"
-           title="{% translate "To website" %}">
-            {{ contact.website }}
-        </a>
+    <td class="px-2 py-3">
+        {% if contact.website %}
+            <a href="{{ contact.website }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="text-blue-500 hover:underline"
+               title="{% translate "To website" %}">
+                {{ contact.website }}
+            </a>
+        {% else %}
+            <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"><i icon-name="minus"></i></a>
+        {% endif %}
     </td>
     <td class="pl-2 pr-4 text-right min">
         {% if is_archive %}

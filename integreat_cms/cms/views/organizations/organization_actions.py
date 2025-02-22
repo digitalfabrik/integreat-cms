@@ -23,7 +23,9 @@ logger = logging.getLogger(__name__)
 @require_POST
 @permission_required("cms.change_organization")
 def archive(
-    request: HttpRequest, region_slug: str, organization_id: int
+    request: HttpRequest,
+    region_slug: str,
+    organization_id: int,
 ) -> HttpResponseRedirect:
     """
     Set archived flag for an organization
@@ -52,7 +54,9 @@ def archive(
 @require_POST
 @permission_required("cms.change_organization")
 def restore(
-    request: HttpRequest, region_slug: str, organization_id: int
+    request: HttpRequest,
+    region_slug: str,
+    organization_id: int,
 ) -> HttpResponseRedirect:
     """
     Remove archived flag for an organization
@@ -76,7 +80,9 @@ def restore(
 @require_POST
 @permission_required("cms.delete_organization")
 def delete(
-    request: HttpRequest, region_slug: str, organization_id: int
+    request: HttpRequest,
+    region_slug: str,
+    organization_id: int,
 ) -> HttpResponseRedirect:
     """
     Delete a single organization

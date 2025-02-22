@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import suppress
 from typing import TYPE_CHECKING
 
 from django import forms
@@ -47,11 +48,8 @@ class CustomContentModelForm(CustomModelForm):
             self.fields["slug"].required = False
 
         if not self.locked_by_user:
-            try:
+            with suppress(ObjectDoesNotExist):
                 self.locked_by_user = self.instance.foreign_object.get_locking_user()
-            except ObjectDoesNotExist:
-                # If the foreign object does not exist yet, there ist also no lock so nothing must be done
-                pass
 
     def clean(self) -> dict[str, Any]:
         """
@@ -73,7 +71,7 @@ class CustomContentModelForm(CustomModelForm):
                 None,
                 forms.ValidationError(
                     _(
-                        "Could not update because this content because it is already being edited by another user"
+                        "Could not update because this content because it is already being edited by another user",
                     ),
                     code="invalid",
                 ),
@@ -84,7 +82,7 @@ class CustomContentModelForm(CustomModelForm):
                 None,
                 forms.ValidationError(
                     _(
-                        'The options "automatic translation" and "minor edit" are mutually exclusive.'
+                        'The options "automatic translation" and "minor edit" are mutually exclusive.',
                     ),
                     code="invalid",
                 ),
@@ -111,7 +109,8 @@ class CustomContentModelForm(CustomModelForm):
         :return: A unique slug based on the input value
         """
         unique_slug = generate_unique_slug_helper(
-            self, self._meta.model.foreign_field()
+            self,
+            self._meta.model.foreign_field(),
         )
         self.data = self.data.copy()
         self.data["slug"] = unique_slug

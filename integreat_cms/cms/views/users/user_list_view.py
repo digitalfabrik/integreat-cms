@@ -50,8 +50,8 @@ class UserListView(TemplateView):
             .objects.select_related("organization")
             .annotate(
                 has_fido_keys=models.Exists(
-                    FidoKey.objects.filter(user=models.OuterRef("pk"))
-                )
+                    FidoKey.objects.filter(user=models.OuterRef("pk")),
+                ),
             )
             .prefetch_related("groups__role")
             .order_by("username")

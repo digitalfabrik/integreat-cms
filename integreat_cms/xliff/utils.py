@@ -4,6 +4,7 @@ Helper functions for the XLIFF serializer
 
 from __future__ import annotations
 
+import contextlib
 import datetime
 import difflib
 import glob
@@ -44,7 +45,8 @@ if TYPE_CHECKING:
 
 upload_storage = FileSystemStorage(location=settings.XLIFF_UPLOAD_DIR)
 download_storage = FileSystemStorage(
-    location=settings.XLIFF_DOWNLOAD_DIR, base_url=settings.XLIFF_URL
+    location=settings.XLIFF_DOWNLOAD_DIR,
+    base_url=settings.XLIFF_URL,
 )
 
 logger = logging.getLogger(__name__)
@@ -80,7 +82,10 @@ def pages_to_xliff_file(
         for page in pages:
             try:
                 xliff_paths[f"{target_language}/{page}"] = page_to_xliff(
-                    page, target_language, dir_name, only_public=only_public
+                    page,
+                    target_language,
+                    dir_name,
+                    only_public=only_public,
                 )
             except RuntimeError as e:
                 messages.error(request, e)
@@ -93,7 +98,7 @@ def pages_to_xliff_file(
         # If only one xliff file was created, return it directly instead of creating zip file
         page, xliff_file_path = xliff_paths.popitem()
         xliff_file_url = download_storage.url(
-            os.path.relpath(xliff_file_path, settings.XLIFF_DOWNLOAD_DIR)
+            os.path.relpath(xliff_file_path, settings.XLIFF_DOWNLOAD_DIR),
         )
         logger.info(
             "XLIFF export: %r converted to XLIFF file %r by %r",
@@ -113,7 +118,8 @@ def pages_to_xliff_file(
     actual_filename = download_storage.save(f"{dir_name}/{zip_name}", ContentFile(""))
     # Create ZIP archive
     create_zip_archive(
-        list(xliff_paths.values()), download_storage.path(actual_filename)
+        list(xliff_paths.values()),
+        download_storage.path(actual_filename),
     )
     xliff_file_url = download_storage.url(actual_filename)
     logger.info(
@@ -126,7 +132,10 @@ def pages_to_xliff_file(
 
 
 def page_to_xliff(
-    page: Page, target_language: Language, dir_name: UUID, only_public: bool = False
+    page: Page,
+    target_language: Language,
+    dir_name: UUID,
+    only_public: bool = False,
 ) -> str:
     """
     Export a page to an XLIFF file for a specified target language
@@ -168,13 +177,13 @@ def page_to_xliff(
         raise RuntimeWarning(
             _(
                 "Page {} does not have a {}source translation in {} and "
-                "therefore cannot be exported as XLIFF for translation to {}."
+                "therefore cannot be exported as XLIFF for translation to {}.",
             ).format(
                 target_page_translation.readable_title,
                 _("published") + " " if only_public else "",
                 source_language,
                 target_language,
-            )
+            ),
         )
 
     try:
@@ -186,17 +195,16 @@ def page_to_xliff(
     except Exception as e:
         # All these error should already have been prevented
         logger.exception(
-            "An unexpected error has occurred while exporting %r to XLIFF: %s",
+            "An unexpected error has occurred while exporting %r to XLIFF",
             target_page_translation,
-            e,
         )
         raise RuntimeError(
             __(
                 _("An unexpected error has occurred while exporting page {}.").format(
-                    target_page_translation.readable_title
+                    target_page_translation.readable_title,
                 ),
                 _("Please try again later or contact an administrator."),
-            )
+            ),
         ) from e
 
     filename = (
@@ -205,14 +213,15 @@ def page_to_xliff(
     )
 
     actual_filename = download_storage.save(
-        f"{dir_name}/{filename}", ContentFile(xliff_content)
+        f"{dir_name}/{filename}",
+        ContentFile(xliff_content),
     )
     logger.debug("Created XLIFF file %r", actual_filename)
 
     # Set "currently in translation" status for existing target translations
     if settings.REDIS_CACHE:
         target_page_translation.all_versions.invalidated_update(
-            currently_in_translation=True
+            currently_in_translation=True,
         )
     else:
         target_page_translation.all_versions.update(currently_in_translation=True)
@@ -221,7 +230,8 @@ def page_to_xliff(
 
 
 def xliffs_to_pages(
-    request: HttpRequest, xliff_dir: str
+    request: HttpRequest,
+    xliff_dir: str,
 ) -> dict[str, list[DeserializedObject]]:
     """
     Export a page to an XLIFF file for a specified target language
@@ -241,7 +251,7 @@ def xliffs_to_pages(
     xliff_file_paths = sorted(glob.glob(f"{xliff_dir}/**/*.xliff", recursive=True))
     page_translations = {}
     for xliff_file_path in xliff_file_paths:
-        with open(xliff_file_path, "r", encoding="utf-8") as xliff_file:
+        with open(xliff_file_path, encoding="utf-8") as xliff_file:
             logger.debug(
                 "Deserializing XLIFF file %r",
                 xliff_file_path,
@@ -250,10 +260,10 @@ def xliffs_to_pages(
             try:
                 # Try to deserialize the file
                 page_translations[xliff_file_path_rel] = list(
-                    serializers.deserialize("xliff", xliff_file.read())
+                    serializers.deserialize("xliff", xliff_file.read()),
                 )
             except Page.DoesNotExist:
-                logger.error(
+                logger.exception(
                     "The page of XLIFF file %r does not exist.",
                     xliff_file_path,
                 )
@@ -261,25 +271,24 @@ def xliffs_to_pages(
                     request,
                     __(
                         _(
-                            'The page referenced in XLIFF file "{}" could not be found.'
+                            'The page referenced in XLIFF file "{}" could not be found.',
                         ).format(xliff_file_path_rel),
                         _("Please contact the administrator."),
                     ),
                 )
             # In this case, we want to catch all exceptions because the import of the other files should work even if
             # some xliff files are broken or other unexpected errors occur
-            except Exception as e:  # pylint: disable=broad-except
+            except Exception:
                 # All these error should already have been prevented, so probably the XLIFF file is broken.
                 logger.exception(
-                    "An unexpected error has occurred while importing XLIFF file %r: %s",
+                    "An unexpected error has occurred while importing XLIFF file %r",
                     xliff_file_path,
-                    e,
                 )
                 messages.error(
                     request,
                     __(
                         _(
-                            'An unexpected error has occurred while importing XLIFF file "{}".'
+                            'An unexpected error has occurred while importing XLIFF file "{}".',
                         ).format(xliff_file_path_rel),
                         _("Please try again later or contact an administrator."),
                     ),
@@ -303,10 +312,8 @@ def get_xliff_import_diff(request: HttpRequest, xliff_dir: str) -> list[dict[str
             page_translation = deserialized.object
             # The prefetched translations now also contain the new deserialized object with id None, so we have to delete
             # the cached property and query it from the database again.
-            try:
+            with contextlib.suppress(AttributeError):
                 del page_translation.page.prefetched_translations_by_language_slug
-            except AttributeError:
-                pass
             existing_translation = page_translation.latest_version or PageTranslation(
                 page=page_translation.page,
                 language=page_translation.language,
@@ -318,13 +325,13 @@ def get_xliff_import_diff(request: HttpRequest, xliff_dir: str) -> list[dict[str
                     format_html(
                         __(
                             _(
-                                "Page <b>{}</b> from file <b>{}</b> was also translated in file <b>{}</b>."
+                                "Page <b>{}</b> from file <b>{}</b> was also translated in file <b>{}</b>.",
                             ),
                             _(
-                                "Please check which of the files contains the most recent version and upload only this file."
+                                "Please check which of the files contains the most recent version and upload only this file.",
                             ),
                             _(
-                                "If you confirm this import, only the first file will be imported and the latter will be ignored."
+                                "If you confirm this import, only the first file will be imported and the latter will be ignored.",
                             ),
                         ),
                         existing_translation.readable_title,
@@ -338,11 +345,11 @@ def get_xliff_import_diff(request: HttpRequest, xliff_dir: str) -> list[dict[str
                         "level_tag": "warning",
                         "message": format_html(
                             _(
-                                "This page was also translated in file <b>{}</b>, which will be ignored."
+                                "This page was also translated in file <b>{}</b>, which will be ignored.",
                             ),
                             xliff_file,
                         ),
-                    }
+                    },
                 )
                 # Skip this duplicated translation
                 continue
@@ -357,8 +364,8 @@ def get_xliff_import_diff(request: HttpRequest, xliff_dir: str) -> list[dict[str
                                 [existing_translation.title],
                                 [page_translation.title],
                                 lineterm="",
-                            )
-                        )[2:]
+                            ),
+                        )[2:],
                     ),
                     "content": "\n".join(
                         list(
@@ -366,14 +373,16 @@ def get_xliff_import_diff(request: HttpRequest, xliff_dir: str) -> list[dict[str
                                 existing_translation.content.splitlines(),
                                 page_translation.content.splitlines(),
                                 lineterm="",
-                            )
-                        )[2:]
+                            ),
+                        )[2:],
                     ),
                 },
                 "right_to_left": page_translation.language.text_direction
                 == text_directions.RIGHT_TO_LEFT,
                 "errors": get_xliff_import_errors_and_clean_translation(
-                    request, page_translation, add_message_if_unchanged=True
+                    request,
+                    page_translation,
+                    add_message_if_unchanged=True,
                 )[0],
             }
     # Throw away the translation keys, only take the value dictionaries
@@ -381,7 +390,9 @@ def get_xliff_import_diff(request: HttpRequest, xliff_dir: str) -> list[dict[str
 
 
 def xliff_import_confirm(
-    request: HttpRequest, xliff_dir: str, machine_translated: bool
+    request: HttpRequest,
+    xliff_dir: str,
+    machine_translated: bool,
 ) -> bool:
     """
     Confirm the XLIFF import and write changes to database
@@ -400,14 +411,16 @@ def xliff_import_confirm(
     with update_lock:
         # Iterate over all xliff files
         for xliff_file, deserialized_objects in xliffs_to_pages(
-            request, xliff_dir
+            request,
+            xliff_dir,
         ).items():
             # Iterate over all objects of one xliff file
             # (typically, one xliff file contains exactly one page translation)
             for deserialized in deserialized_objects:
                 page_translation = deserialized.object
                 errors, has_changed = get_xliff_import_errors_and_clean_translation(
-                    request, page_translation
+                    request,
+                    page_translation,
                 )
                 if errors:
                     logger.warning(
@@ -422,7 +435,7 @@ def xliff_import_confirm(
                         format_html(
                             "{} <ul>{}</ul>",
                             _(
-                                "Page {} could not be imported successfully because of the errors:"
+                                "Page {} could not be imported successfully because of the errors:",
                             ).format(page_translation.readable_title),
                             format_html_join(
                                 "",
@@ -445,26 +458,25 @@ def xliff_import_confirm(
                         with transaction.atomic():
                             page_translation.save()
                     except IntegrityError as e:
-                        logger.error(
-                            "%s when importing new version for %r from %r by %r: %s",
+                        logger.exception(
+                            "%s when importing new version for %r from %r by %r",
                             type(e).__name__,
                             existing_translation,
                             xliff_file,
                             request.user,
-                            e,
                         )
                         messages.error(
                             request,
                             format_html(
                                 __(
                                     _(
-                                        "Page {} from the file <b>{}</b> could not be imported."
+                                        "Page {} from the file <b>{}</b> could not be imported.",
                                     ),
                                     _(
-                                        "Check if you have uploaded any other conflicting files for this page."
+                                        "Check if you have uploaded any other conflicting files for this page.",
                                     ),
                                     _(
-                                        "If the problem persists, contact an administrator."
+                                        "If the problem persists, contact an administrator.",
                                     ),
                                 ),
                                 page_translation.readable_title,
@@ -488,7 +500,7 @@ def xliff_import_confirm(
                                 request.user,
                             )
                             imports_without_changes.append(
-                                page_translation.readable_title
+                                page_translation.readable_title,
                             )
 
     if successful_imports:
@@ -538,31 +550,27 @@ def get_xliff_import_errors_and_clean_translation(
             {
                 "level_tag": "error",
                 "message": _(
-                    "You don't have the permission to import this page."
+                    "You don't have the permission to import this page.",
                 ).format(page_translation.readable_title),
-            }
+            },
         )
     # Check whether the page translation belongs to the current region
-    if not page_translation.page.region == region:
+    if page_translation.page.region != region:
         error_messages.append(
             {
                 "level_tag": "error",
                 "message": _("This page belongs to another region ({}).").format(
                     page_translation.page.region.full_name,
                 ),
-            }
+            },
         )
     # Retrieve existing page translation in the target language
     # The prefetched translations now also contain the new deserialized object with id None, so we have to delete
     # the cached property and query it from the database again.
-    try:
+    with contextlib.suppress(AttributeError):
         del page_translation.latest_version
-    except AttributeError:
-        pass
-    try:
+    with contextlib.suppress(AttributeError):
         del page_translation.page.prefetched_translations_by_language_slug
-    except AttributeError:
-        pass
     existing_translation = page_translation.latest_version
     # Validate page translation
     page_translation_form = PageTranslationForm(
@@ -579,7 +587,7 @@ def get_xliff_import_errors_and_clean_translation(
             [
                 {"level_tag": message["type"], "message": message["text"]}
                 for message in page_translation_form.get_error_messages()
-            ]
+            ],
         )
     else:
         # Use the unique slug generated by the form's clean-method for imported page translations
@@ -591,7 +599,7 @@ def get_xliff_import_errors_and_clean_translation(
             {
                 "level_tag": "info",
                 "message": _("No changes detected."),
-            }
+            },
         )
     return error_messages, page_translation_form.has_changed()
 

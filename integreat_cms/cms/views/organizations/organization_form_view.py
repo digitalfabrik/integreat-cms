@@ -46,18 +46,20 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
 
         # get organization objects if it exists, otherwise objects are None
         organization_instance = region.organizations.filter(
-            id=kwargs.get("organization_id")
+            id=kwargs.get("organization_id"),
         ).first()
 
         if organization_instance and organization_instance.archived:
             disabled = True
             messages.warning(
-                request, _("You cannot edit this organization because it is archived.")
+                request,
+                _("You cannot edit this organization because it is archived."),
             )
         elif not request.user.has_perm("cms.change_organization"):
             disabled = True
             messages.warning(
-                request, _("You don't have the permission to edit organizations.")
+                request,
+                _("You don't have the permission to edit organizations."),
             )
         else:
             disabled = False
@@ -88,7 +90,7 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
         region = request.region
 
         organization_instance = Organization.objects.filter(
-            id=kwargs.get("organization_id")
+            id=kwargs.get("organization_id"),
         ).first()
 
         if organization_instance and organization_instance.archived:
@@ -116,7 +118,7 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
                 messages.success(
                     request,
                     _('Organization "{}" was successfully created').format(
-                        organization_form.instance
+                        organization_form.instance,
                     ),
                 )
                 return redirect(
@@ -130,7 +132,7 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
             messages.success(
                 request,
                 _('Organization "{}" was successfully saved').format(
-                    organization_form.instance
+                    organization_form.instance,
                 ),
             )
         else:

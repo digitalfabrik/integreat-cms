@@ -32,7 +32,6 @@ class CustomModelFormMixin(
     ModelConfirmationContextMixin,
     MediaContextMixin,
 ):
-    # pylint: disable=too-many-ancestors
     """
     This mixin handles error messages in form views of subclasses of
     :class:`~integreat_cms.cms.forms.custom_model_form.CustomModelForm`
@@ -117,14 +116,16 @@ class CustomModelFormMixin(
             messages.success(
                 self.request,
                 _('{} "{}" was successfully saved').format(
-                    self.object._meta.verbose_name, self.object
+                    self.object._meta.verbose_name,
+                    self.object,
                 ),
             )
         else:
             messages.success(
                 self.request,
                 _('{} "{}" was successfully created').format(
-                    form.instance._meta.verbose_name, form.instance
+                    form.instance._meta.verbose_name,
+                    form.instance,
                 ),
             )
         return super().form_valid(form)

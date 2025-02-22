@@ -10,13 +10,12 @@ from datetime import date, datetime, time
 from typing import TYPE_CHECKING
 
 from django import forms
-from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     from ...models import Region
     from ...models.events.event import EventQuerySet
 
-from ...constants import all_day, calendar, events_time_range, recurrence
+from ...constants import all_day, calendar_filters, events_time_range, recurrence
 from ...models import EventTranslation
 from ..custom_filter_form import CustomFilterForm
 
@@ -64,7 +63,7 @@ class EventFilterForm(CustomFilterForm):
             attrs={
                 "data-default-checked-value": events_time_range.UPCOMING,
                 "data-custom-time-range-value": events_time_range.CUSTOM,
-            }
+            },
         ),
         choices=events_time_range.CHOICES,
         initial=[events_time_range.UPCOMING],
@@ -73,9 +72,9 @@ class EventFilterForm(CustomFilterForm):
 
     imported_event = forms.TypedMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple(attrs={"class": "default-checked"}),
-        choices=calendar.CHOICES,
-        initial=[key for (key, val) in calendar.CHOICES],
-        coerce=calendar.DATATYPE,
+        choices=calendar_filters.CHOICES,
+        initial=[key for (key, val) in calendar_filters.CHOICES],
+        coerce=calendar_filters.DATATYPE,
         required=False,
     )
 
@@ -84,9 +83,11 @@ class EventFilterForm(CustomFilterForm):
     query = forms.CharField(required=False)
 
     def apply(
-        self, events: EventQuerySet, region: Region, language_slug: str
+        self,
+        events: EventQuerySet,
+        region: Region,
+        language_slug: str,
     ) -> tuple[EventQuerySet, None, None]:
-        # pylint: disable=too-many-branches
         """
         Filter the events according to the given filter data
 
@@ -102,7 +103,7 @@ class EventFilterForm(CustomFilterForm):
         # Filter events by time range
         cleaned_time_range = self.cleaned_data["events_time_range"]
         if not cleaned_time_range or set(cleaned_time_range) == set(
-            events_time_range.ALL_EVENTS
+            events_time_range.ALL_EVENTS,
         ):
             # Either post & upcoming or no checkboxes are checked => skip filtering
             # We do this to check if either all options or none were selected from this group
@@ -115,7 +116,9 @@ class EventFilterForm(CustomFilterForm):
             else:
                 from_local = datetime.min.replace(tzinfo=zoneinfo.ZoneInfo(key="UTC"))
             to_local = datetime.combine(
-                self.cleaned_data["date_to"] or date.max, time.max, tzinfo=tzinfo
+                self.cleaned_data["date_to"] or date.max,
+                time.max,
+                tzinfo=tzinfo,
             )
             events = events.filter_upcoming(from_local).filter(end__lte=to_local)
         elif events_time_range.UPCOMING in cleaned_time_range:
@@ -161,24 +164,25 @@ class EventFilterForm(CustomFilterForm):
             events = events.filter(recurrence_rule__isnull=True)
 
         if (
-            len(self.cleaned_data["imported_event"]) == len(calendar.CHOICES)
+            len(self.cleaned_data["imported_event"]) == len(calendar_filters.CHOICES)
             or not self.cleaned_data["imported_event"]
         ):
             pass
         elif (
-            calendar.EVENT_NOT_FROM_EXTERNAL_CALENDAR
+            calendar_filters.EVENT_NOT_FROM_EXTERNAL_CALENDAR
             in self.cleaned_data["imported_event"]
         ):
             events = events.filter(external_calendar__isnull=True)
         elif (
-            calendar.EVENT_FROM_EXTERNAL_CALENDAR in self.cleaned_data["imported_event"]
+            calendar_filters.EVENT_FROM_EXTERNAL_CALENDAR
+            in self.cleaned_data["imported_event"]
         ):
             events = events.filter(external_calendar__isnull=False)
 
         # Filter events by the search query
         if query := self.cleaned_data["query"]:
             event_ids = EventTranslation.search(region, language_slug, query).values(
-                "event__pk"
+                "event__pk",
             )
             events = events.filter(pk__in=event_ids)
 

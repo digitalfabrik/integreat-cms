@@ -112,7 +112,7 @@ class EventTranslation(AbstractContentTranslation):
                 .exclude(event__translations__language__slug=language_slug)
             )
             queryset = cls.objects.filter(
-                Q(id__in=queryset) | Q(id__in=default_language_queryset)
+                Q(id__in=queryset) | Q(id__in=default_language_queryset),
             )
 
         return queryset

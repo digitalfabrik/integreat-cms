@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
 from django.forms.models import model_to_dict
-from django.test.client import Client
 from django.urls import reverse
 from django.utils import timezone
 from linkcheck.models import Link
@@ -11,13 +12,16 @@ from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import LanguageTreeNode, Page, Region
 from integreat_cms.cms.utils.linkcheck_utils import get_url_count
 
+if TYPE_CHECKING:
+    from django.test.client import Client
+
 
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_duplicate_regions(
-    load_test_data_transactional: None, admin_client: Client
+    load_test_data_transactional: None,
+    admin_client: Client,
 ) -> None:
-    # pylint: disable=too-many-locals
     """
     Test whether duplicating regions works as expected
 
@@ -27,17 +31,19 @@ def test_duplicate_regions(
     source_region = Region.objects.get(id=1)
     target_region_slug = "cloned"
     assert not Region.objects.filter(
-        slug=target_region_slug
+        slug=target_region_slug,
     ).exists(), "The target region should not exist before cloning"
 
     # Assert correct preconditions for link replacement test
     test_url = "https://integreat.app/augsburg/de/willkommen/"
     assert Link.objects.filter(
-        url__url=test_url, page_translation__page__region=source_region
+        url__url=test_url,
+        page_translation__page__region=source_region,
     ).exists(), "The internal test URL should exist in the source region"
     replaced_url = test_url.replace(source_region.slug, target_region_slug)
     assert not Link.objects.filter(
-        url__url=replaced_url, page_translation__page__region=source_region
+        url__url=replaced_url,
+        page_translation__page__region=source_region,
     ).exists(), "The replaced internal URL not should exist in the source region"
 
     before_cloning = timezone.now()
@@ -68,7 +74,7 @@ def test_duplicate_regions(
     source_pages = source_region.non_archived_pages
     target_pages = target_region.pages.all()
     assert len(source_pages) == len(target_pages)
-    for source_page, target_page in zip(source_pages, target_pages):
+    for source_page, target_page in zip(source_pages, target_pages, strict=False):
         source_page_dict = model_to_dict(
             source_page,
             exclude=[
@@ -99,11 +105,13 @@ def test_duplicate_regions(
         source_page_translations = source_page.translations.all()
         # Limit target page translations to all that existed before the links might have been replaced
         target_page_translations = target_page.translations.filter(
-            last_updated__lt=before_cloning
+            last_updated__lt=before_cloning,
         )
         assert len(source_page_translations) == len(target_page_translations)
         for source_page_translation, target_page_translation in zip(
-            source_page_translations, target_page_translations
+            source_page_translations,
+            target_page_translations,
+            strict=False,
         ):
             source_page_translation_dict = model_to_dict(
                 source_page_translation,
@@ -117,15 +125,18 @@ def test_duplicate_regions(
             assert target_page_translation.status == status.DRAFT
 
     # Check if links exist
-    assert get_url_count(source_region.slug) == {
-        "number_all_urls": 18,
-        "number_email_urls": 0,
-        "number_ignored_urls": 1,
-        "number_invalid_urls": 4,
-        "number_phone_urls": 0,
-        "number_unchecked_urls": 0,
-        "number_valid_urls": 13,
-    }, "Links should exist in the source region"
+    assert (
+        get_url_count(source_region.slug)
+        == {
+            "number_all_urls": 16,  # temporary: https://github.com/digitalfabrik/integreat-cms/issues/3434
+            "number_email_urls": 0,
+            "number_ignored_urls": 1,
+            "number_invalid_urls": 4,
+            "number_phone_urls": 0,
+            "number_unchecked_urls": 0,
+            "number_valid_urls": 11,  # temporary: https://github.com/digitalfabrik/integreat-cms/issues/3434
+        }
+    ), "Links should exist in the source region"
     # Check if links have been cloned (except ignored ones)
     assert get_url_count(target_region.slug) == {
         "number_all_urls": 20,
@@ -141,29 +152,39 @@ def test_duplicate_regions(
     # Since link replacement in the region cloning process is now deactivated, they should appear in the new region too
     test_url = "https://integreat.app/augsburg/de/willkommen/"
     assert Link.objects.filter(
-        url__url=test_url, page_translation__page__region=source_region
+        url__url=test_url,
+        page_translation__page__region=source_region,
     ).exists(), "The internal test URL should exist in the source region"
     assert not Link.objects.filter(
-        url__url=test_url, page_translation__page__region=target_region
+        url__url=test_url,
+        page_translation__page__region=target_region,
     ).exists(), "The internal test URL should not exist in the target region"
     replaced_url = test_url.replace(source_region.slug, target_region.slug)
     assert not Link.objects.filter(
-        url__url=replaced_url, page_translation__page__region=source_region
+        url__url=replaced_url,
+        page_translation__page__region=source_region,
     ).exists(), "The replaced internal URL not should exist in the source region"
     assert Link.objects.filter(
-        url__url=replaced_url, page_translation__page__region=target_region
+        url__url=replaced_url,
+        page_translation__page__region=target_region,
     ).exists(), "The replaced internal URL should exist in the target region"
 
     # Check if all cloned language tree nodes exist and are identical
     source_language_tree = source_region.language_tree_nodes.all()
     target_language_tree = target_region.language_tree_nodes.all()
     assert len(source_language_tree) == len(target_language_tree)
-    for source_node, target_node in zip(source_language_tree, target_language_tree):
+    for source_node, target_node in zip(
+        source_language_tree,
+        target_language_tree,
+        strict=False,
+    ):
         source_node_dict = model_to_dict(
-            source_node, exclude=["id", "tree_id", "region", "parent"]
+            source_node,
+            exclude=["id", "tree_id", "region", "parent"],
         )
         target_node_dict = model_to_dict(
-            target_node, exclude=["id", "tree_id", "region", "parent"]
+            target_node,
+            exclude=["id", "tree_id", "region", "parent"],
         )
         assert source_node_dict == target_node_dict
 
@@ -180,11 +201,11 @@ def test_duplicate_regions(
         assert len(tree_ids) == len(set(tree_ids))
 
 
-# pylint: disable=too-many-locals
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_duplicate_regions_no_translations(
-    load_test_data_transactional: None, admin_client: Client
+    load_test_data_transactional: None,
+    admin_client: Client,
 ) -> None:
     """
     Test whether duplicating regions works as expected when disabling the duplication of translations
@@ -195,7 +216,7 @@ def test_duplicate_regions_no_translations(
     source_region = Region.objects.get(id=1)
     target_region_slug = "cloned"
     assert not Region.objects.filter(
-        slug=target_region_slug
+        slug=target_region_slug,
     ).exists(), "The target region should not exist before cloning"
 
     before_cloning = timezone.now()
@@ -231,7 +252,7 @@ def test_duplicate_regions_no_translations(
     source_pages = source_region.non_archived_pages
     target_pages = target_region.pages.all()
     assert len(source_pages) == len(target_pages)
-    for source_page, target_page in zip(source_pages, target_pages):
+    for source_page, target_page in zip(source_pages, target_pages, strict=False):
         source_page_dict = model_to_dict(
             source_page,
             exclude=[
@@ -259,10 +280,10 @@ def test_duplicate_regions_no_translations(
         assert source_page_dict == target_page_dict
 
         source_page_translations_filtered = source_page.translations.filter(
-            language=source_language_root
+            language=source_language_root,
         )
         target_page_translations = target_page.translations.filter(
-            last_updated__lt=before_cloning
+            last_updated__lt=before_cloning,
         )
         assert len(source_page_translations_filtered) == len(target_page_translations)
         assert target_page_translations[0].language == source_language_root

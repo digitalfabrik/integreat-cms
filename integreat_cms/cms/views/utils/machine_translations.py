@@ -23,16 +23,14 @@ logger = logging.getLogger(__name__)
 
 def build_json_for_machine_translation(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
     model_type: Literal["page", "event", "poi"],
 ) -> JsonResponse:
-    # pylint: disable=too-many-locals
     """
     This function collects the hix score and the amount of words per content entry from the source
 
     :param request: The current request
-    :param region_slug: slug of the according region
     :param language_slug: The slug of the current language
     :param model_type: The according model to the different content types
     :return: A dictionary that contains the data for the machine translation popup (page id, title, amount of words and optional hix value)
@@ -50,7 +48,8 @@ def build_json_for_machine_translation(
         logger.warning("Malformed request body! %r", e)
         selected_content_ids = []
     selected_content = model_types[model_type].objects.filter(
-        region=request.region, id__in=selected_content_ids
+        region=request.region,
+        id__in=selected_content_ids,
     )
 
     filtered_content = {}
@@ -69,7 +68,9 @@ def build_json_for_machine_translation(
         )
 
         if source_translation and check_hix_score(
-            request, source_translation, show_message=False
+            request,
+            source_translation,
+            show_message=False,
         ):
             content_data = {
                 "id": content.id,

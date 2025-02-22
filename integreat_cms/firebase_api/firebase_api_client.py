@@ -57,7 +57,7 @@ class FirebaseApiClient:
                 self.regions = [Region.objects.get(slug=settings.TEST_REGION_SLUG)]
             except Region.DoesNotExist as e:
                 raise ImproperlyConfigured(
-                    f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist."
+                    f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist.",
                 ) from e
         else:
             self.regions = push_notification.regions.all()
@@ -67,12 +67,12 @@ class FirebaseApiClient:
         Load push notification translations in other languages
         """
         secondary_pnts = PushNotificationTranslation.objects.filter(
-            push_notification=self.push_notification
+            push_notification=self.push_notification,
         ).exclude(id=self.primary_pnt.id)
         for secondary_pnt in secondary_pnts:
             if (
                 not secondary_pnt.title
-                and pnt_const.USE_MAIN_LANGUAGE == self.push_notification.mode
+                and self.push_notification.mode == pnt_const.USE_MAIN_LANGUAGE
             ):
                 secondary_pnt.title = self.primary_pnt.title
                 secondary_pnt.text = self.primary_pnt.text
@@ -88,7 +88,8 @@ class FirebaseApiClient:
         """
         if not self.prepared_pnts:
             logger.debug(
-                "%r does not have a default translation", self.push_notification
+                "%r does not have a default translation",
+                self.push_notification,
             )
             return False
         for pnt in self.prepared_pnts:
@@ -112,24 +113,24 @@ class FirebaseApiClient:
                 "topic": f"{region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
                 "notification": {"title": pnt.title, "body": pnt.text},
                 "data": {
-                    "news_id": pnt.id,
-                    "city_code": region.slug,
-                    "language_code": pnt.language.slug,
-                    "group": self.push_notification.channel,
+                    "news_id": str(pnt.id),
+                    "city_code": str(region.slug),
+                    "language_code": str(pnt.language.slug),
+                    "group": str(self.push_notification.channel),
                 },
                 "apns": {
                     "headers": {"apns-priority": "5"},
                     "payload": {
                         "aps": {
                             "category": "NEW_MESSAGE_CATEGORY",
-                        }
+                        },
                     },
                 },
                 "android": {
                     "ttl": "86400s",
                 },
                 "fcm_options": {
-                    "analytics_label": f"{region.slug}-{pnt.language.slug}"
+                    "analytics_label": f"{region.slug}-{pnt.language.slug}",
                 },
             },
         }
@@ -154,10 +155,10 @@ class FirebaseApiClient:
                 pnt,
                 response.json(),
             )
-            return False
-        except RequestException as e:
-            logger.error(e)
-            return False
+        except RequestException:
+            logger.exception("")
+
+        return False
 
     def send_all(self) -> bool:
         """
@@ -168,7 +169,9 @@ class FirebaseApiClient:
         status = True
         for pnt in self.prepared_pnts:
             for region in self.regions:
-                if pnt.language in region.active_languages:
-                    if not self.send_pn(pnt, region):
-                        status = False
+                if pnt.language in region.active_languages and not self.send_pn(
+                    pnt,
+                    region,
+                ):
+                    status = False
         return status

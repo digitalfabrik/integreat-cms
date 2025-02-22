@@ -13,11 +13,8 @@ from ...decorators import permission_required
 from ...models import Contact
 
 if TYPE_CHECKING:
-    from typing import Any, Literal
-
     from django.http import HttpRequest
 
-    from ...models.abstract_content_translation import AbstractContentTranslation
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +34,6 @@ def search_contact_ajax(
     :raises ~django.core.exceptions.PermissionDenied: If the user has no permission to the object type
     :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
     """
-    # pylint: disable=unused-argument
 
     body = json.loads(request.body.decode("utf-8"))
     if (query := body["query_string"]) is None:
@@ -47,7 +43,8 @@ def search_contact_ajax(
 
     if not request.user.has_perm("cms.view_contact"):
         raise PermissionDenied
-    assert request.region is not None
+    if request.region is None:
+        raise ValueError("Expected a region to be provided")
 
     results = Contact.search(request.region, query)[:MAX_RESULT_COUNT]
     return JsonResponse(
@@ -59,14 +56,16 @@ def search_contact_ajax(
                     "details": result.available_details,
                 }
                 for result in results
-            ]
-        }
+            ],
+        },
     )
 
 
 @permission_required("cms.view_contact")
 def get_contact(
-    request: HttpRequest, contact_id: int, region_slug: str | None = None
+    request: HttpRequest,
+    contact_id: int,
+    region_slug: str | None = None,
 ) -> str:
     """
     Retrieves the rendered HTML representation of a contact.
@@ -76,7 +75,6 @@ def get_contact(
     :param region_slug: The slug of the current region
     :return: HTML representation of the requested contact
     """
-    # pylint: disable=unused-argument
     contact = get_object_or_404(Contact, pk=contact_id)
 
     wanted = request.GET.get("details", "").split(",")
@@ -87,7 +85,9 @@ def get_contact(
 
 @permission_required("cms.view_contact")
 def get_contact_raw(
-    request: HttpRequest, contact_id: int, region_slug: str | None = None
+    request: HttpRequest,
+    contact_id: int,
+    region_slug: str | None = None,
 ) -> str:
     """
     Retrieves the short representation of a single contact, and returns it
@@ -98,12 +98,11 @@ def get_contact_raw(
     :param region_slug: The slug of the current region
     :return: Short representation of the requested contact
     """
-    # pylint: disable=unused-argument
     contact = get_object_or_404(Contact, pk=contact_id)
     return JsonResponse(
         {
             "data": {
-                "url": contact.full_url,
+                "url": contact.absolute_url,
                 "name": contact.get_repr_short,
                 "details": contact.available_details,
             }

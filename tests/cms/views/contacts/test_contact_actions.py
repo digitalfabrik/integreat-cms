@@ -8,11 +8,17 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models import Contact
-from tests.conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES
+from tests.conftest import (
+    ANONYMOUS,
+    AUTHOR,
+    EDITOR,
+    HIGH_PRIV_STAFF_ROLES,
+    MANAGEMENT,
+    PRIV_STAFF_ROLES,
+)
 from tests.utils import assert_message_in_log
 
 # Use the region Augsburg, as it has some contacts in the test data
@@ -56,7 +62,7 @@ def test_archive_contact(
     )
     response = client.post(archive_contact)
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert response.status_code == 302
         redirect_url = response.headers.get("location")
         if should_be_archived:
@@ -65,7 +71,7 @@ def test_archive_contact(
                 caplog,
             )
             assert f"Contact {contact_string} was successfully archived" in client.get(
-                redirect_url
+                redirect_url,
             ).content.decode("utf-8")
             assert Contact.objects.filter(id=contact_id).first().archived
         else:
@@ -73,10 +79,9 @@ def test_archive_contact(
                 f'ERROR    Cannot archive contact "{contact_string}" while content objects refer to it.',
                 caplog,
             )
-            assert f"Cannot archive contact &quot;{contact_string}&quot; while content objects refer to it." in client.get(
-                redirect_url
-            ).content.decode(
-                "utf-8"
+            assert (
+                f"Cannot archive contact &quot;{contact_string}&quot; while content objects refer to it."
+                in client.get(redirect_url).content.decode("utf-8")
             )
             assert not Contact.objects.filter(id=contact_id).first().archived
     elif role == ANONYMOUS:
@@ -131,7 +136,7 @@ def test_delete_contact(
                 caplog,
             )
             assert f"Contact {contact_string} was successfully deleted" in client.get(
-                redirect_url
+                redirect_url,
             ).content.decode("utf-8")
             assert not Contact.objects.filter(id=contact_id).first()
         else:
@@ -139,10 +144,9 @@ def test_delete_contact(
                 f'ERROR    Cannot delete contact "{contact_string}" while content objects refer to it.',
                 caplog,
             )
-            assert f"Cannot delete contact &quot;{contact_string}&quot; while content objects refer to it." in client.get(
-                redirect_url
-            ).content.decode(
-                "utf-8"
+            assert (
+                f"Cannot delete contact &quot;{contact_string}&quot; while content objects refer to it."
+                in client.get(redirect_url).content.decode("utf-8")
             )
             assert Contact.objects.filter(id=contact_id).first()
     elif role == ANONYMOUS:
@@ -184,7 +188,7 @@ def test_restore_contact(
     )
     response = client.post(restore_contact)
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert response.status_code == 302
         redirect_url = response.headers.get("location")
         assert_message_in_log(
@@ -192,7 +196,7 @@ def test_restore_contact(
             caplog,
         )
         assert f"Contact {contact_string} was successfully restored" in client.get(
-            redirect_url
+            redirect_url,
         ).content.decode("utf-8")
         assert not Contact.objects.filter(id=ARCHIVED_CONTACT_ID).first().archived
 
@@ -225,7 +229,7 @@ def test_bulk_archive_contacts(
     settings.LANGUAGE_CODE = "en"
 
     not_used_contact_string = str(
-        Contact.objects.filter(id=NOT_USED_CONTACT_ID).first()
+        Contact.objects.filter(id=NOT_USED_CONTACT_ID).first(),
     )
     used_contact_string = str(Contact.objects.filter(id=USED_CONTACT_ID).first())
 
@@ -240,7 +244,7 @@ def test_bulk_archive_contacts(
         data={"selected_ids[]": BULK_ARCHIVE_SELECTED_IDS},
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert response.status_code == 302
         redirect_url = response.headers.get("location")
         redirect_page = client.get(redirect_url).content.decode("utf-8")
@@ -291,7 +295,7 @@ def test_bulk_delete_contacts(
     settings.LANGUAGE_CODE = "en"
 
     not_used_contact_string = str(
-        Contact.objects.filter(id=NOT_USED_CONTACT_ID).first()
+        Contact.objects.filter(id=NOT_USED_CONTACT_ID).first(),
     )
     used_contact_string = str(Contact.objects.filter(id=USED_CONTACT_ID).first())
 
@@ -369,7 +373,7 @@ def test_bulk_restore_contacts(
         data={"selected_ids[]": BULK_RESTORE_SELECTED_IDS},
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert response.status_code == 302
         redirect_url = response.headers.get("location")
         redirect_page = client.get(redirect_url).content.decode("utf-8")

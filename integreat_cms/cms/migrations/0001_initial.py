@@ -44,7 +44,9 @@ class Migration(migrations.Migration):
                 (
                     "last_login",
                     models.DateTimeField(
-                        blank=True, null=True, verbose_name="last login"
+                        blank=True,
+                        null=True,
+                        verbose_name="last login",
                     ),
                 ),
                 (
@@ -59,13 +61,13 @@ class Migration(migrations.Migration):
                     "username",
                     models.CharField(
                         error_messages={
-                            "unique": "A user with that username already exists."
+                            "unique": "A user with that username already exists.",
                         },
                         help_text="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
                         max_length=150,
                         unique=True,
                         validators=[
-                            django.contrib.auth.validators.UnicodeUsernameValidator()
+                            django.contrib.auth.validators.UnicodeUsernameValidator(),
                         ],
                         verbose_name="username",
                     ),
@@ -73,19 +75,25 @@ class Migration(migrations.Migration):
                 (
                     "first_name",
                     models.CharField(
-                        blank=True, max_length=150, verbose_name="first name"
+                        blank=True,
+                        max_length=150,
+                        verbose_name="first name",
                     ),
                 ),
                 (
                     "last_name",
                     models.CharField(
-                        blank=True, max_length=150, verbose_name="last name"
+                        blank=True,
+                        max_length=150,
+                        verbose_name="last name",
                     ),
                 ),
                 (
                     "email",
                     models.EmailField(
-                        blank=True, max_length=254, verbose_name="email address"
+                        blank=True,
+                        max_length=254,
+                        verbose_name="email address",
                     ),
                 ),
                 (
@@ -107,15 +115,14 @@ class Migration(migrations.Migration):
                 (
                     "date_joined",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="date joined"
+                        default=django.utils.timezone.now,
+                        verbose_name="date joined",
                     ),
                 ),
                 (
                     "chat_last_visited",
                     models.DateTimeField(
-                        default=datetime.datetime(
-                            1, 1, 1, 0, 0, tzinfo=datetime.timezone.utc
-                        ),
+                        default=datetime.datetime(1, 1, 1, 0, 0, tzinfo=datetime.UTC),
                         help_text="The date and time when the user did read the chat the last time",
                         verbose_name="last chat visit date",
                     ),
@@ -211,7 +218,8 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="creation date"
+                        default=django.utils.timezone.now,
+                        verbose_name="creation date",
                     ),
                 ),
                 ("start_date", models.DateField(verbose_name="start date")),
@@ -270,7 +278,8 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        auto_now_add=True, verbose_name="creation date"
+                        auto_now_add=True,
+                        verbose_name="creation date",
                     ),
                 ),
             ],
@@ -296,7 +305,8 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="creation date"
+                        default=django.utils.timezone.now,
+                        verbose_name="creation date",
                     ),
                 ),
                 (
@@ -749,13 +759,15 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="creation date"
+                        default=django.utils.timezone.now,
+                        verbose_name="creation date",
                     ),
                 ),
                 (
                     "last_updated",
                     models.DateTimeField(
-                        auto_now=True, verbose_name="modification date"
+                        auto_now=True,
+                        verbose_name="modification date",
                     ),
                 ),
                 (
@@ -835,7 +847,9 @@ class Migration(migrations.Migration):
                 (
                     "alt_text",
                     models.CharField(
-                        blank=True, max_length=512, verbose_name="description"
+                        blank=True,
+                        max_length=512,
+                        verbose_name="description",
                     ),
                 ),
                 (
@@ -930,13 +944,15 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="creation date"
+                        default=django.utils.timezone.now,
+                        verbose_name="creation date",
                     ),
                 ),
                 (
                     "last_updated",
                     models.DateTimeField(
-                        auto_now=True, verbose_name="modification date"
+                        auto_now=True,
+                        verbose_name="modification date",
                     ),
                 ),
             ],
@@ -972,13 +988,15 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="creation date"
+                        default=django.utils.timezone.now,
+                        verbose_name="creation date",
                     ),
                 ),
                 (
                     "last_updated",
                     models.DateTimeField(
-                        auto_now=True, verbose_name="modification date"
+                        auto_now=True,
+                        verbose_name="modification date",
                     ),
                 ),
                 (
@@ -1014,7 +1032,8 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="creation date"
+                        default=django.utils.timezone.now,
+                        verbose_name="creation date",
                     ),
                 ),
                 (
@@ -1132,13 +1151,15 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="creation date"
+                        default=django.utils.timezone.now,
+                        verbose_name="creation date",
                     ),
                 ),
                 (
                     "address",
                     models.CharField(
-                        max_length=250, verbose_name="street and house number"
+                        max_length=250,
+                        verbose_name="street and house number",
                     ),
                 ),
                 (
@@ -1150,13 +1171,15 @@ class Migration(migrations.Migration):
                 (
                     "latitude",
                     models.FloatField(
-                        help_text="The latitude coordinate", verbose_name="latitude"
+                        help_text="The latitude coordinate",
+                        verbose_name="latitude",
                     ),
                 ),
                 (
                     "longitude",
                     models.FloatField(
-                        help_text="The longitude coordinate", verbose_name="longitude"
+                        help_text="The longitude coordinate",
+                        verbose_name="longitude",
                     ),
                 ),
                 (
@@ -1242,7 +1265,7 @@ class Migration(migrations.Migration):
                                 (4, "Friday"),
                                 (5, "Saturday"),
                                 (6, "Sunday"),
-                            ]
+                            ],
                         ),
                         blank=True,
                         help_text="If the frequency is weekly, this field determines on which days the event takes place",
@@ -1610,13 +1633,15 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="creation date"
+                        default=django.utils.timezone.now,
+                        verbose_name="creation date",
                     ),
                 ),
                 (
                     "last_updated",
                     models.DateTimeField(
-                        auto_now=True, verbose_name="modification date"
+                        auto_now=True,
+                        verbose_name="modification date",
                     ),
                 ),
                 (
@@ -1747,7 +1772,8 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        auto_now_add=True, verbose_name="creation date"
+                        auto_now_add=True,
+                        verbose_name="creation date",
                     ),
                 ),
                 (
@@ -1844,7 +1870,8 @@ class Migration(migrations.Migration):
                 (
                     "last_updated",
                     models.DateTimeField(
-                        auto_now=True, verbose_name="modification date"
+                        auto_now=True,
+                        verbose_name="modification date",
                     ),
                 ),
                 (
@@ -1959,7 +1986,8 @@ class Migration(migrations.Migration):
                 (
                     "last_updated",
                     models.DateTimeField(
-                        auto_now=True, verbose_name="modification date"
+                        auto_now=True,
+                        verbose_name="modification date",
                     ),
                 ),
                 (
@@ -2073,7 +2101,8 @@ class Migration(migrations.Migration):
                 (
                     "last_updated",
                     models.DateTimeField(
-                        auto_now=True, verbose_name="modification date"
+                        auto_now=True,
+                        verbose_name="modification date",
                     ),
                 ),
                 (
@@ -2228,7 +2257,8 @@ class Migration(migrations.Migration):
                 (
                     "last_updated",
                     models.DateTimeField(
-                        auto_now=True, verbose_name="modification date"
+                        auto_now=True,
+                        verbose_name="modification date",
                     ),
                 ),
                 (
@@ -2434,7 +2464,8 @@ class Migration(migrations.Migration):
                 (
                     "created_at",
                     models.DateTimeField(
-                        auto_now_add=True, verbose_name="creation date"
+                        auto_now_add=True,
+                        verbose_name="creation date",
                     ),
                 ),
                 (
@@ -2473,13 +2504,16 @@ class Migration(migrations.Migration):
                 (
                     "text",
                     models.TextField(
-                        blank=True, max_length=250, verbose_name="content"
+                        blank=True,
+                        max_length=250,
+                        verbose_name="content",
                     ),
                 ),
                 (
                     "last_updated",
                     models.DateTimeField(
-                        auto_now=True, verbose_name="modification date"
+                        auto_now=True,
+                        verbose_name="modification date",
                     ),
                 ),
                 (
@@ -2637,13 +2671,15 @@ class Migration(migrations.Migration):
                 (
                     "created_date",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="creation date"
+                        default=django.utils.timezone.now,
+                        verbose_name="creation date",
                     ),
                 ),
                 (
                     "last_updated",
                     models.DateTimeField(
-                        auto_now=True, verbose_name="modification date"
+                        auto_now=True,
+                        verbose_name="modification date",
                     ),
                 ),
                 (

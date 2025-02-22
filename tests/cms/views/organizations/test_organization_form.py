@@ -8,10 +8,9 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
 
-from integreat_cms.cms.models import MediaFile, Organization, Page, POI, Region
+from integreat_cms.cms.models import Organization, Page, POI
 from tests.conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES, MANAGEMENT, STAFF_ROLES
 from tests.utils import assert_message_in_log
 
@@ -48,7 +47,7 @@ def test_organization_form_shows_no_contents(
     )
     response = client.get(edit_organization)
 
-    if role in STAFF_ROLES + [MANAGEMENT]:
+    if role in [*STAFF_ROLES, MANAGEMENT]:
         assert (
             "This organization currently has no maintained pages."
             in response.content.decode("utf-8")
@@ -116,21 +115,23 @@ def test_organization_form_shows_associated_contents(
     non_organization_page = Page.objects.filter(id=NON_ORGANIZATION_PAGE_ID).first()
     non_organization_poi = POI.objects.filter(id=NON_ORGANIZATION_POI_ID).first()
 
-    if role in STAFF_ROLES + [MANAGEMENT]:
+    if role in [*STAFF_ROLES, MANAGEMENT]:
         for content in organization_pages + organization_pois:
             assert content.get_translation(
-                region.default_language.slug
+                region.default_language.slug,
             ).title in response.content.decode("utf-8")
-            if not region.default_language.slug == "en":
+            if region.default_language.slug != "en":
                 if english_translation := content.get_translation("en"):
-                    english_translation.title in response.content.decode("utf-8")
+                    assert english_translation.title in response.content.decode("utf-8")
                 else:
-                    "Translation not available" in response.content.decode("utf-8")
+                    assert "Translation not available" in response.content.decode(
+                        "utf-8",
+                    )
         assert non_organization_page.get_translation(
-            region.default_language.slug
+            region.default_language.slug,
         ).title not in response.content.decode("utf-8")
         assert non_organization_poi.get_translation(
-            region.default_language.slug
+            region.default_language.slug,
         ).title not in response.content.decode("utf-8")
 
     elif role == ANONYMOUS:
@@ -176,7 +177,7 @@ def test_create_new_organization(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
         assert response.status_code == 302
         assert_message_in_log(
             f'SUCCESS  Organization "{NEW_ORGANIZATION_NAME}" was successfully created',
@@ -215,7 +216,7 @@ def test_cannot_create_organization_with_duplicate_name(
     settings.LANGUAGE_CODE = "en"
 
     existing_organization = Organization.objects.filter(
-        region__slug=REGION_SLUG
+        region__slug=REGION_SLUG,
     ).first()
     assert existing_organization
 
@@ -235,7 +236,7 @@ def test_cannot_create_organization_with_duplicate_name(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
         assert response.status_code == 200
         assert_message_in_log(
             "ERROR    Name: An organization with the same name already exists in this region. Please choose another name.",
@@ -287,7 +288,7 @@ def test_edit_organization(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
         assert response.status_code == 200
         assert_message_in_log(
             'SUCCESS  Organization "I got a new name" was successfully saved',

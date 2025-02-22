@@ -48,10 +48,13 @@ class Organization(AbstractBaseModel):
     )
 
     region = models.ForeignKey(
-        Region, on_delete=models.CASCADE, verbose_name=_("region")
+        Region,
+        on_delete=models.CASCADE,
+        verbose_name=_("region"),
     )
     created_date = models.DateTimeField(
-        default=timezone.now, verbose_name=_("creation date")
+        default=timezone.now,
+        verbose_name=_("creation date"),
     )
 
     website = models.URLField(max_length=250, verbose_name=_("website"))
@@ -141,7 +144,7 @@ class Organization(AbstractBaseModel):
             was_successful = True
         else:
             logger.debug(
-                "Can't be deleted because this organization is used by a poi, page or user"
+                "Can't be deleted because this organization is used by a poi, page or user",
             )
         return was_successful
 
@@ -156,7 +159,7 @@ class Organization(AbstractBaseModel):
             was_successful = True
         else:
             logger.debug(
-                "Can't be archived because this organization is used by a poi, page or user"
+                "Can't be archived because this organization is used by a poi, page or user",
             )
         return was_successful
 

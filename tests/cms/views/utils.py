@@ -3,16 +3,14 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django.conf import settings
-from django.test.client import Client
 from django.urls import reverse
 
 from ...conftest import ANONYMOUS
 from ...utils import assert_no_error_messages
 
 if TYPE_CHECKING:
-    from typing import Any
-
     from _pytest.logging import LogCaptureFixture
+    from django.test.client import Client
 
     from .view_config import PostData, Roles, ViewKwargs, ViewName
 
@@ -62,28 +60,32 @@ def check_view_status_code(
                 assert response.status_code in [
                     200,
                     201,
-                ], f"JSON view {view_name} returned status code {response.status_code} instead of 200 or 201 for role {role}"
+                ], (
+                    f"JSON view {view_name} returned status code {response.status_code} instead of 200 or 201 for role {role}"
+                )
             else:
                 # Normal post-views should redirect after a successful operation (200 usually mean form errors)
-                assert (
-                    response.status_code == 302
-                ), f"POST view {view_name} returned status code {response.status_code} instead of 302 for role {role}"
+                assert response.status_code == 302, (
+                    f"POST view {view_name} returned status code {response.status_code} instead of 302 for role {role}"
+                )
         else:
             # Get-views should return 200
-            assert (
-                response.status_code == 200
-            ), f"GET view {view_name} returned status code {response.status_code} instead of 200 for role {role}"
+            assert response.status_code == 200, (
+                f"GET view {view_name} returned status code {response.status_code} instead of 200 for role {role}"
+            )
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
 
-        assert (
-            response.status_code == 302
-        ), f"View {view_name} did not enforce access control for anonymous users (status code {response.status_code} instead of 302)"
+        assert response.status_code == 302, (
+            f"View {view_name} did not enforce access control for anonymous users (status code {response.status_code} instead of 302)"
+        )
         assert (
             response.headers.get("location") == f"{settings.LOGIN_URL}?next={next_url}"
-        ), f"View {view_name} did not redirect to login for anonymous users (location header {response.headers.get('location')})"
+        ), (
+            f"View {view_name} did not redirect to login for anonymous users (location header {response.headers.get('location')})"
+        )
     else:
         # For logged in users, we want to show an error if they get a permission denied
-        assert (
-            response.status_code == 403
-        ), f"View {view_name} did not enforce access control for role {role} (status code {response.status_code} instead of 403)"
+        assert response.status_code == 403, (
+            f"View {view_name} did not enforce access control for role {role} (status code {response.status_code} instead of 403)"
+        )

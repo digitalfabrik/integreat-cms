@@ -40,7 +40,7 @@ class POICategoryTranslationForm(CustomModelForm):
         # Set custom language labels
         language_name = self.instance.language.translated_name
         self.fields["name"].widget.attrs.update(
-            {"placeholder": _("Enter name in {} here").format(language_name)}
+            {"placeholder": _("Enter name in {} here").format(language_name)},
         )
         self.fields["name"].label = _("Translation in {}").format(language_name)
 
@@ -93,12 +93,13 @@ class BaseInlinePOICategoryTranslationFormSet(BaseInlineFormSet):
             if self.instance.id:
                 languages = Language.objects.exclude(
                     id__in=self.instance.translations.values_list(
-                        "language__id", flat=True
-                    )
+                        "language__id",
+                        flat=True,
+                    ),
                 )
             # Assign the language to the form with this index
             kwargs["additional_instance_attributes"] = {
-                "language": languages[rel_index]
+                "language": languages[rel_index],
             }
         return kwargs
 

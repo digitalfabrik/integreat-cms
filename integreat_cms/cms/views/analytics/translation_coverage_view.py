@@ -25,7 +25,6 @@ if TYPE_CHECKING:
 
     from django.db.models.query import QuerySet
 
-    from ...models import Language
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +73,7 @@ class TranslationCoverageView(TemplateView):
                 "word_count": word_count,
                 "total_outdated_words": sum(c[OUTDATED] for c in word_count.values()),
                 "total_missing_words": sum(c[MISSING] for c in word_count.values()),
-            }
+            },
         )
         context.update(self.get_hix_context())
         return context
@@ -94,7 +93,7 @@ class TranslationCoverageView(TemplateView):
         )
 
         translations_under_hix_threshold = get_translation_under_hix_threshold(
-            self.request.region
+            self.request.region,
         ).count()
 
         total_count = get_translations_relevant_to_hix(self.request.region).count()

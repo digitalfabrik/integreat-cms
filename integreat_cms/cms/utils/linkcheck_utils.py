@@ -3,15 +3,28 @@ from __future__ import annotations
 import logging
 import time
 from collections import defaultdict
-from typing import DefaultDict, TYPE_CHECKING
+from itertools import chain
+from typing import TYPE_CHECKING
+from urllib.parse import quote
 
 from django.conf import settings
-from django.db.models import Count, Prefetch, Q, QuerySet, Subquery
+from django.db.models import (
+    CharField,
+    Count,
+    F,
+    Prefetch,
+    Q,
+    QuerySet,
+    Subquery,
+    Value,
+)
+from django.db.models.functions import Concat, Replace
 from linkcheck import update_lock
 from linkcheck.listeners import tasks_queue
 from linkcheck.models import Link, Url
 
 from integreat_cms.cms.models import (
+    Contact,
     EventTranslation,
     ImprintPageTranslation,
     Organization,
@@ -58,13 +71,39 @@ def get_urls(
                     "links",
                     queryset=region_links,
                     to_attr="region_links",
-                )
+                ),
             )
+
+    # Temporary: hide all links contained in contacts
+    contacts = (
+        Contact.objects.filter(location__region=region)
+        if region_slug
+        else Contact.objects.all()
+    )
+    contact_links = chain.from_iterable(
+        contacts.annotate(
+            transformed_email=Concat(
+                Value("mailto:"), F("email"), output_field=CharField()
+            ),
+            transformed_phone=Concat(
+                Value("tel:"),
+                Replace(F("phone_number"), Value(" (0) "), Value("")),
+                output_field=CharField(),
+            ),
+        ).values_list("transformed_email", "transformed_phone", "website")
+    )
+    urls = urls.exclude(url__in=contact_links)
+
+    absolute_url_filters = Q()
+    for contact in contacts:
+        absolute_url_filters |= Q(url__startswith=contact.absolute_url)
+        absolute_url_filters |= Q(url=quote(contact.location.map_url, safe="/:&=?,-"))
+    urls = urls.exclude(absolute_url_filters)
 
     # Annotate with number of links that are not ignored.
     # If there is any link that is not ignored, the url is also not ignored.
     urls = urls.annotate(
-        non_ignored_links=Count("links", filter=Q(links__ignore=False))
+        non_ignored_links=Count("links", filter=Q(links__ignore=False)),
     )
 
     # Filter out ignored URL types
@@ -87,30 +126,30 @@ def get_region_links(region: Region) -> QuerySet:
             page__id__in=Subquery(region.non_archived_pages.values("pk")),
         )
         .distinct("page__id", "language__id")
-        .values_list("pk", flat=True)
+        .values_list("pk", flat=True),
     )
     latest_poitranslation_versions = Subquery(
         POITranslation.objects.filter(poi__region=region)
         .distinct("poi__id", "language__id")
-        .values_list("pk", flat=True)
+        .values_list("pk", flat=True),
     )
     latest_eventtranslation_versions = Subquery(
         EventTranslation.objects.filter(event__region=region)
         .distinct("event__id", "language__id")
-        .values_list("pk", flat=True)
+        .values_list("pk", flat=True),
     )
     latest_imprinttranslation_versions = Subquery(
         ImprintPageTranslation.objects.filter(page__region=region)
         .distinct("page__id", "language__id")
-        .values_list("pk", flat=True)
+        .values_list("pk", flat=True),
     )
     organizations = Organization.objects.filter(region=region, archived=False)
     # Get all link objects of the requested region
     region_links = Link.objects.filter(
-        page_translation__id__in=latest_pagetranslation_versions
+        page_translation__id__in=latest_pagetranslation_versions,
     ).union(
         Link.objects.filter(
-            imprint_translation__id__in=latest_imprinttranslation_versions
+            imprint_translation__id__in=latest_imprinttranslation_versions,
         ),
         Link.objects.filter(event_translation__id__in=latest_eventtranslation_versions),
         Link.objects.filter(poi_translation__id__in=latest_poitranslation_versions),
@@ -137,7 +176,6 @@ def filter_urls(
     url_filter: str | None = None,
     prefetch_region_links: bool = False,
 ) -> tuple[list[Url], dict[str, int]]:
-    # pylint: disable=too-many-branches
     """
     Filter all urls of one region by the given category
 
@@ -148,7 +186,8 @@ def filter_urls(
     :return: A tuple of the requested urls and a dict containing the counters of all remaining urls
     """
     urls = get_urls(
-        region_slug=region_slug, prefetch_region_links=prefetch_region_links
+        region_slug=region_slug,
+        prefetch_region_links=prefetch_region_links,
     )
     # Split url lists into their respective categories
     ignored_urls, valid_urls, invalid_urls, email_links, phone_links, unchecked_urls = (
@@ -172,7 +211,7 @@ def filter_urls(
             unchecked_urls.append(url)
         else:
             raise NotImplementedError(
-                f"Url {url!r} does not fit into any of the defined categories"
+                f"Url {url!r} does not fit into any of the defined categories",
             )
     # Pass the number of urls to a dict which can be used as extra template context
     count_dict = {
@@ -236,7 +275,10 @@ def replace_links(
 
 
 def find_target_url_per_content(
-    search: str, replace: str, region: Region | None, link_types: list[str] | None
+    search: str,
+    replace: str,
+    region: Region | None,
+    link_types: list[str] | None,
 ) -> dict[AbstractContentTranslation, dict[str, str]]:
     """
     returns in which translation what URL must be replaced
@@ -262,19 +304,19 @@ def find_target_url_per_content(
             link
             for link in links
             if link.url.type in link_types
-            or link.url.status is False
-            and "invalid" in link_types
+            or (link.url.status is False and "invalid" in link_types)
         )
         if link_types
         else links
     )
 
-    content_objects: DefaultDict[AbstractContentTranslation, dict[str, str]] = (
+    content_objects: defaultdict[AbstractContentTranslation, dict[str, str]] = (
         defaultdict(dict)
     )
     for link in links_to_replace:
         content_objects[link.content_object][link.url.url] = link.url.url.replace(
-            search, replace
+            search,
+            replace,
         )
     return content_objects
 

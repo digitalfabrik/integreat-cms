@@ -10,9 +10,9 @@ It extends :django-source:`django/core/serializers/base.py` and
 from __future__ import annotations
 
 import logging
-import xml.dom.minidom
 from typing import TYPE_CHECKING
 
+import defusedxml.minidom
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.core.serializers import xml_serializer
@@ -23,8 +23,8 @@ from ..cms.models import Language
 
 if TYPE_CHECKING:
     from typing import Any
-    from xml.dom.minidom import Element
 
+    from defusedxml.minidom import Element
     from django.db.models.fields import (
         CharField,
         ForeignKey,
@@ -69,7 +69,10 @@ class Serializer(xml_serializer.Serializer):
     only_public: bool = False
 
     def serialize(
-        self, queryset: list[PageTranslation], *args: Any, **kwargs: Any
+        self,
+        queryset: list[PageTranslation],
+        *args: Any,
+        **kwargs: Any,
     ) -> str:
         r"""
         Initialize serialization and set the :attr:`~integreat_cms.core.settings.XLIFF_DEFAULT_FIELDS`.
@@ -89,7 +92,8 @@ class Serializer(xml_serializer.Serializer):
         Start serialization - open the XML document and the root element.
         """
         self.xml = XMLGeneratorWithCDATA(
-            self.stream, self.options.get("encoding", settings.DEFAULT_CHARSET)
+            self.stream,
+            self.options.get("encoding", settings.DEFAULT_CHARSET),
         )
         self.xml.startDocument()
 
@@ -101,7 +105,7 @@ class Serializer(xml_serializer.Serializer):
         :raises NotImplementedError: If the property is not implemented in the subclass
         """
         raise NotImplementedError(
-            "subclasses of Serializer must provide a start_object() method"
+            "subclasses of Serializer must provide a start_object() method",
         )
 
     def handle_field(self, obj: PageTranslation, field: CharField | TextField) -> None:
@@ -113,7 +117,7 @@ class Serializer(xml_serializer.Serializer):
         :raises NotImplementedError: If the property is not implemented in the subclass
         """
         raise NotImplementedError(
-            "subclasses of Serializer must provide a handle_field() method"
+            "subclasses of Serializer must provide a handle_field() method",
         )
 
     def handle_fk_field(self, obj: PageTranslation, field: ForeignKey) -> None:
@@ -158,7 +162,7 @@ class Serializer(xml_serializer.Serializer):
         """
         if callable(getattr(self.stream, "getvalue", None)):
             # Pretty print output
-            return xml.dom.minidom.parseString(self.stream.getvalue()).toprettyxml()
+            return defusedxml.minidom.parseString(self.stream.getvalue()).toprettyxml()
         return None
 
 
@@ -196,7 +200,7 @@ class Deserializer(xml_serializer.Deserializer):
         :raises NotImplementedError: If the property is not implemented in the subclass
         """
         raise NotImplementedError(
-            "subclasses of Deserializer must provide a _get_object() method"
+            "subclasses of Deserializer must provide a _get_object() method",
         )
 
     def handle_object(self, node: Element) -> DeserializedObject:
@@ -225,7 +229,7 @@ class Deserializer(xml_serializer.Deserializer):
         page_translation.currently_in_translation = False
         if settings.REDIS_CACHE:
             page_translation.all_versions.invalidated_update(
-                currently_in_translation=False
+                currently_in_translation=False,
             )
         else:
             page_translation.all_versions.update(currently_in_translation=False)
@@ -248,8 +252,7 @@ class Deserializer(xml_serializer.Deserializer):
                     field = page_translation._meta.get_field(field_name)
                 except FieldDoesNotExist:
                     # If the legacy field doesn't exist as well, just raise the initial exception
-                    # pylint: disable=raise-missing-from
-                    raise e
+                    raise e from FieldDoesNotExist
 
             # Now get the actual target value of the field
             if target := field_node.getElementsByTagName("target"):
@@ -261,7 +264,7 @@ class Deserializer(xml_serializer.Deserializer):
                 )
             else:
                 raise DeserializationError(
-                    f"Field {field_name} does not contain a <target> node."
+                    f"Field {field_name} does not contain a <target> node.",
                 )
         logger.debug("Deserialized page translation: %r", page_translation)
         # Return a DeserializedObject
@@ -332,5 +335,5 @@ class Deserializer(xml_serializer.Deserializer):
         if value := node.getAttribute(attribute):
             return value
         raise DeserializationError(
-            f"<{node.nodeName}> node is missing the {attribute} attribute"
+            f"<{node.nodeName}> node is missing the {attribute} attribute",
         )

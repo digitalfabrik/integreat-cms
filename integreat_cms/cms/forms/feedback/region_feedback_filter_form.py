@@ -8,7 +8,6 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from ..models import Region
     from ..models.feedback.feedback import CascadeDeletePolymorphicQuerySet
 
 from ...constants import feedback_ratings, feedback_read_status
@@ -69,7 +68,8 @@ class RegionFeedbackFilterForm(CustomFilterForm):
     query = forms.CharField(required=False)
 
     def apply(
-        self, feedback: CascadeDeletePolymorphicQuerySet
+        self,
+        feedback: CascadeDeletePolymorphicQuerySet,
     ) -> tuple[CascadeDeletePolymorphicQuerySet, None]:
         """
         Filter the feedback list according to the given filter data

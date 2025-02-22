@@ -41,7 +41,8 @@ def delete_user(request: HttpRequest, user_id: int) -> HttpResponseRedirect:
     user.delete()
     logger.info("%r deleted %r", request.user, user)
     messages.success(
-        request, _('Account "{}" was successfully deleted.').format(user.full_user_name)
+        request,
+        _('Account "{}" was successfully deleted.').format(user.full_user_name),
     )
 
     return redirect("users")

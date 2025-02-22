@@ -19,7 +19,9 @@ class Migration(migrations.Migration):
             model_name="pushnotification",
             name="channel",
             field=models.CharField(
-                choices=[("news", "News")], max_length=60, verbose_name="channel"
+                choices=[("news", "News")],
+                max_length=60,
+                verbose_name="channel",
             ),
         ),
     ]

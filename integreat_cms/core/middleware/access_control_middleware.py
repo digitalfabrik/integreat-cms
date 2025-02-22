@@ -17,7 +17,6 @@ logger = logging.getLogger(__name__)
 
 
 class AccessControlMiddleware:
-    # pylint: disable=too-few-public-methods
     """
     Middleware class that performs a basic access control. For urls that are whitelisted (see
     :attr:`~integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware.whitelist`), no additional
@@ -71,7 +70,7 @@ class AccessControlMiddleware:
                     repr(request.region) if request.region else "the staff area"
                 )
                 raise PermissionDenied(
-                    f"{request.user!r} does not have the permission to access {requested_area}"
+                    f"{request.user!r} does not have the permission to access {requested_area}",
                 )
         # Continue with the request
         return self.get_response(request)

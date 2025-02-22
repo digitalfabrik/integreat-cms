@@ -17,7 +17,6 @@ from ..cms.utils.stringify_list import iter_to_string
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
 from ..textlab_api.utils import check_hix_score
-from .apps import DeepLApiClientConfig
 
 if TYPE_CHECKING:
     from django.forms.models import ModelFormMetaclass
@@ -27,6 +26,8 @@ if TYPE_CHECKING:
     from integreat_cms.cms.models.languages.language import Language
     from integreat_cms.cms.models.pages.page import Page
     from integreat_cms.cms.models.pois.poi import POI
+
+    from .apps import DeepLApiClientConfig
 
 logger = logging.getLogger(__name__)
 
@@ -46,15 +47,18 @@ class DeepLApiClient(MachineTranslationApiClient):
         """
         super().__init__(request, form_class)
         if not MachineTranslationProvider.is_permitted(
-            request.region, request.user, form_class._meta.model
+            request.region,
+            request.user,
+            form_class._meta.model,
         ):
             raise RuntimeError(
-                f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.'
+                f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.',
             )
         if not settings.DEEPL_ENABLED:
             raise RuntimeError("DeepL is disabled globally.")
         self.translator = deepl.Translator(
-            auth_key=settings.DEEPL_AUTH_KEY, server_url=settings.DEEPL_API_URL
+            auth_key=settings.DEEPL_AUTH_KEY,
+            server_url=settings.DEEPL_API_URL,
         )
 
     @staticmethod
@@ -72,9 +76,10 @@ class DeepLApiClient(MachineTranslationApiClient):
         return ""
 
     def translate_queryset(
-        self, queryset: list[Event] | (list[Page] | list[POI]), language_slug: str
+        self,
+        queryset: list[Event] | (list[Page] | list[POI]),
+        language_slug: str,
     ) -> None:
-        # pylint: disable=too-many-locals, too-many-branches, too-many-statements
         """
         This function translates a content queryset via DeepL
 
@@ -105,24 +110,26 @@ class DeepLApiClient(MachineTranslationApiClient):
 
             for content_object in queryset:
                 source_translation = content_object.get_translation(
-                    source_language.slug
+                    source_language.slug,
                 )
                 if not source_translation:
                     failed_changes_because_no_source_translation.append(
-                        content_object.best_translation.title
+                        content_object.best_translation.title,
                     )
                     continue
 
                 if not check_hix_score(
-                    self.request, source_translation, show_message=False
+                    self.request,
+                    source_translation,
+                    show_message=False,
                 ):
                     failed_changes_because_insufficient_hix_score.append(
-                        source_translation.title
+                        source_translation.title,
                     )
                     continue
 
                 existing_target_translation = content_object.get_translation(
-                    target_language.slug
+                    target_language.slug,
                 )
 
                 # Before translating, check if translation would exceed usage limit
@@ -132,7 +139,7 @@ class DeepLApiClient(MachineTranslationApiClient):
                 ) = self.check_usage(region, source_translation)
                 if translation_exceeds_limit:
                     failed_changes_because_exceeds_limit.append(
-                        source_translation.title
+                        source_translation.title,
                     )
                     continue
 
@@ -145,12 +152,14 @@ class DeepLApiClient(MachineTranslationApiClient):
                 for attr in self.translatable_attributes:
                     # Only translate existing, non-empty attributes
                     if hasattr(source_translation, attr) and getattr(
-                        source_translation, attr
+                        source_translation,
+                        attr,
                     ):
                         try:
                             # data has to be unescaped for DeepL to recognize Umlaute
                             glossary = deepl_config.get_glossary(
-                                source_language.slug, target_language_key
+                                source_language.slug,
+                                target_language_key,
                             )
                             logger.debug("Used glossary for translation: %s", glossary)
                             data[attr] = self.translator.translate_text(
@@ -160,14 +169,14 @@ class DeepLApiClient(MachineTranslationApiClient):
                                 tag_handling="html",
                                 glossary=glossary,
                             )
-                        except DeepLException as e:
+                        except DeepLException:
                             messages.error(
                                 self.request,
                                 _(
-                                    "A problem with DeepL API has occurred. Please contact an administrator."
+                                    "A problem with DeepL API has occurred. Please contact an administrator.",
                                 ),
                             )
-                            logger.error(e)
+                            logger.exception("")
                             return
 
                 content_translation_form = self.form_class(
@@ -186,11 +195,11 @@ class DeepLApiClient(MachineTranslationApiClient):
                     if existing_target_translation:
                         if settings.REDIS_CACHE:
                             existing_target_translation.all_versions.invalidated_update(
-                                currently_in_translation=False
+                                currently_in_translation=False,
                             )
                         else:
                             existing_target_translation.all_versions.update(
-                                currently_in_translation=False
+                                currently_in_translation=False,
                             )
 
                     logger.debug(
@@ -244,7 +253,7 @@ class DeepLApiClient(MachineTranslationApiClient):
                         model_name=model_name,
                         model_name_plural=model_name_plural,
                         object_names=iter_to_string(
-                            failed_changes_because_no_source_translation
+                            failed_changes_because_no_source_translation,
                         ),
                     ),
                 )
@@ -261,7 +270,7 @@ class DeepLApiClient(MachineTranslationApiClient):
                         model_name_plural=model_name_plural,
                         remaining_budget=region.mt_budget_remaining,
                         object_names=iter_to_string(
-                            failed_changes_because_exceeds_limit
+                            failed_changes_because_exceeds_limit,
                         ),
                     ),
                 )
@@ -278,7 +287,7 @@ class DeepLApiClient(MachineTranslationApiClient):
                         model_name_plural=model_name_plural,
                         min_required=settings.HIX_REQUIRED_FOR_MT,
                         object_names=iter_to_string(
-                            failed_changes_because_insufficient_hix_score
+                            failed_changes_because_insufficient_hix_score,
                         ),
                     ),
                 )

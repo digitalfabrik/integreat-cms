@@ -503,7 +503,7 @@ function run_as_precommit {
                 eval "$command \"$file\""
             done
 
-            exit 0
+            return
         fi
     done
 }

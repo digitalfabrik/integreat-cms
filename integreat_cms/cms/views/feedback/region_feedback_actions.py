@@ -30,7 +30,8 @@ logger = logging.getLogger(__name__)
 @require_POST
 @permission_required("cms.change_feedback")
 def mark_region_feedback_as_read(
-    request: HttpRequest, region_slug: str
+    request: HttpRequest,
+    region_slug: str,
 ) -> HttpResponseRedirect:
     """
     Set read flag for a list of feedback items
@@ -44,7 +45,9 @@ def mark_region_feedback_as_read(
 
     selected_ids = request.POST.getlist("selected_ids[]")
     selected_feedback = Feedback.objects.filter(
-        id__in=selected_ids, region=region, is_technical=False
+        id__in=selected_ids,
+        region=region,
+        is_technical=False,
     )
     for feedback in selected_feedback:
         invalidate_obj(feedback)
@@ -65,7 +68,8 @@ def mark_region_feedback_as_read(
 @require_POST
 @permission_required("cms.change_feedback")
 def mark_region_feedback_as_unread(
-    request: HttpRequest, region_slug: str
+    request: HttpRequest,
+    region_slug: str,
 ) -> HttpResponseRedirect:
     """
     Unset read flag for a list of feedback items
@@ -79,7 +83,9 @@ def mark_region_feedback_as_unread(
 
     selected_ids = request.POST.getlist("selected_ids[]")
     selected_feedback = Feedback.objects.filter(
-        id__in=selected_ids, region=region, is_technical=False
+        id__in=selected_ids,
+        region=region,
+        is_technical=False,
     )
     for feedback in selected_feedback:
         invalidate_obj(feedback)
@@ -100,7 +106,8 @@ def mark_region_feedback_as_unread(
 @require_POST
 @permission_required("cms.change_feedback")
 def archive_region_feedback(
-    request: HttpRequest, region_slug: str
+    request: HttpRequest,
+    region_slug: str,
 ) -> HttpResponseRedirect:
     """
     Archive a list of feedback items
@@ -114,7 +121,9 @@ def archive_region_feedback(
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(
-        id__in=selected_ids, region=region, is_technical=False
+        id__in=selected_ids,
+        region=region,
+        is_technical=False,
     ).update(archived=True)
     invalidate_model(Feedback)
 
@@ -127,7 +136,8 @@ def archive_region_feedback(
 @require_POST
 @permission_required("cms.change_feedback")
 def restore_region_feedback(
-    request: HttpRequest, region_slug: str
+    request: HttpRequest,
+    region_slug: str,
 ) -> HttpResponseRedirect:
     """
     Restore a list of feedback items
@@ -141,7 +151,9 @@ def restore_region_feedback(
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(
-        id__in=selected_ids, region=region, is_technical=False
+        id__in=selected_ids,
+        region=region,
+        is_technical=False,
     ).update(archived=False)
     invalidate_model(Feedback)
 
@@ -154,7 +166,8 @@ def restore_region_feedback(
 @require_POST
 @permission_required("cms.delete_feedback")
 def delete_region_feedback(
-    request: HttpRequest, region_slug: str
+    request: HttpRequest,
+    region_slug: str,
 ) -> HttpResponseRedirect:
     """
     Delete a list of feedback items
@@ -168,7 +181,9 @@ def delete_region_feedback(
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(
-        id__in=selected_ids, region=region, is_technical=False
+        id__in=selected_ids,
+        region=region,
+        is_technical=False,
     ).delete()
 
     logger.info("Feedback objects %r deleted by %r", selected_ids, request.user)
@@ -181,20 +196,21 @@ def delete_region_feedback(
 @permission_required("cms.view_feedback")
 def export_region_feedback(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     file_format: str,
 ) -> HttpResponse:
     """
     Export a list of feedback items
 
     :param request: Object representing the user call
-    :param region_slug: The slug of the current region
     :param file_format: The export format
     :return: Response with file
     """
     selected_ids = request.POST.getlist("selected_ids[]")
     selected_feedback = Feedback.objects.filter(
-        id__in=selected_ids, region=request.region, is_technical=False
+        id__in=selected_ids,
+        region=request.region,
+        is_technical=False,
     )
 
     resource = FeedbackResource()

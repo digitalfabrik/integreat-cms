@@ -60,7 +60,7 @@ class TOTPDeleteView(TemplateView):
         messages.success(
             request,
             _(
-                "You have successfully disconnected your account from your authenticator app."
+                "You have successfully disconnected your account from your authenticator app.",
             ),
         )
         kwargs = (

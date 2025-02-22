@@ -12,18 +12,17 @@ if TYPE_CHECKING:
 
 def update_flag(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Migrate the flag name for Farsi
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     Language = apps.get_model("cms", "Language")
     Language.objects.filter(primary_country_code="fa").update(primary_country_code="fs")
     Language.objects.filter(secondary_country_code="fa").update(
-        secondary_country_code="fs"
+        secondary_country_code="fs",
     )
 
 

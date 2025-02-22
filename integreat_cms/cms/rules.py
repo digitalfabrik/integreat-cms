@@ -87,9 +87,13 @@ def can_publish_all_pages(user: User, page: Page | None) -> bool:
     :param page: The page parameter is used for the region check
     :return: Whether or not ``user`` can publish all pages
     """
-    if not (user.is_superuser or user.is_staff):
-        if page and page.id and page.region not in user.regions.all():
-            return False
+    if (
+        not (user.is_superuser or user.is_staff)
+        and page
+        and page.id
+        and page.region not in user.regions.all()
+    ):
+        return False
     return user.has_perm("cms.publish_page")
 
 

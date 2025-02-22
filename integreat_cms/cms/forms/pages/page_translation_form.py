@@ -9,7 +9,6 @@ logger = logging.getLogger(__name__)
 
 
 class PageTranslationForm(MachineTranslationForm):
-    # pylint: disable=too-many-ancestors
     """
     Form for creating and modifying page translation objects
     """
@@ -23,7 +22,8 @@ class PageTranslationForm(MachineTranslationForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = PageTranslation
         #: The fields of the model which should be handled by this form
-        fields = MachineTranslationForm.Meta.fields + [
+        fields = [
+            *MachineTranslationForm.Meta.fields,
             "slug",
             "hix_score",
             "hix_feedback",

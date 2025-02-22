@@ -16,7 +16,8 @@ if TYPE_CHECKING:
 
 @pytest.mark.django_db
 def test_generate_unique_slug_fallback(
-    settings: SettingsWrapper, load_test_data: None
+    settings: SettingsWrapper,
+    load_test_data: None,
 ) -> None:
     """
     Test whether the :meth:`~integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper` function correctly uses the fallback property
@@ -30,14 +31,15 @@ def test_generate_unique_slug_fallback(
         "foreign_model": "region",
         "fallback": "name",
     }
-    assert (
-        generate_unique_slug(**kwargs) == "unique_slug_fallback"
-    ), "Name is not used as fallback when slug is missing"
+    assert generate_unique_slug(**kwargs) == "unique_slug_fallback", (
+        "Name is not used as fallback when slug is missing"
+    )
 
 
 @pytest.mark.django_db
 def test_generate_unique_slug_reserved_region_slug(
-    settings: SettingsWrapper, load_test_data: None
+    settings: SettingsWrapper,
+    load_test_data: None,
 ) -> None:
     """
     Test whether the :meth:`~integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper` function returns the correct unique slug
@@ -52,14 +54,15 @@ def test_generate_unique_slug_reserved_region_slug(
         "foreign_model": "region",
         "fallback": "name",
     }
-    assert (
-        generate_unique_slug(**kwargs) == "landing-2"
-    ), "Reserved region slug is not prevented"
+    assert generate_unique_slug(**kwargs) == "landing-2", (
+        "Reserved region slug is not prevented"
+    )
 
 
 @pytest.mark.django_db
 def test_generate_unique_slug_reserved_page_slug(
-    settings: SettingsWrapper, load_test_data: None
+    settings: SettingsWrapper,
+    load_test_data: None,
 ) -> None:
     """
     Test whether the :meth:`~integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper` function  function returns the correct unique slug
@@ -74,9 +77,9 @@ def test_generate_unique_slug_reserved_page_slug(
         "object_instance": page,
         "foreign_model": "page",
     }
-    assert (
-        generate_unique_slug(**kwargs) == "disclaimer-2"
-    ), "Reserved imprint slug is not prevented for pages"
+    assert generate_unique_slug(**kwargs) == "disclaimer-2", (
+        "Reserved imprint slug is not prevented for pages"
+    )
 
 
 def test_generate_unique_slug_no_fallback() -> None:

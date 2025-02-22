@@ -54,7 +54,6 @@ class ModelTemplateResponseMixin(TemplateResponseMixin):
 
 
 class ModelConfirmationContextMixin(ContextMixin):
-    # pylint: disable=too-few-public-methods
     """
     A mixin that can be used to inject confirmation text into a template of a model (e.g. list or form)
     """
@@ -71,16 +70,15 @@ class ModelConfirmationContextMixin(ContextMixin):
         context.update(
             {
                 "delete_dialog_title": _(
-                    "Please confirm that you really want to delete this {}"
+                    "Please confirm that you really want to delete this {}",
                 ).format(self.model._meta.verbose_name),
                 "delete_dialog_text": _("This cannot be reversed."),
-            }
+            },
         )
         return context
 
 
 class ContentEditLockMixin(ContextMixin):
-    # pylint: disable=too-few-public-methods
     """
     A mixin that provides some variables required for the content edit lock
     """
@@ -105,14 +103,13 @@ class ContentEditLockMixin(ContextMixin):
                         "region_slug": kwargs["region_slug"],
                         "language_slug": kwargs["language_slug"],
                     },
-                )
-            }
+                ),
+            },
         )
         return context
 
 
 class MachineTranslationContextMixin(ContextMixin):
-    # pylint: disable=too-few-public-methods
     """
     This mixin provides extra context for machine translation options
     """
@@ -131,7 +128,9 @@ class MachineTranslationContextMixin(ContextMixin):
         context["MT_PROVIDER"] = language_node.mt_provider
         context["MT_PERMITTED"] = (
             MachineTranslationProvider.is_permitted(
-                self.request.region, self.request.user, self.translation_model
+                self.request.region,
+                self.request.user,
+                self.translation_model,
             )
             and not language_node.is_root()
             and not (

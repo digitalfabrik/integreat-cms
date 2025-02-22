@@ -29,7 +29,6 @@ class MirroredPageFieldWidget(forms.widgets.Select):
         subindex: int | None = None,
         attrs: dict | None = None,
     ) -> dict:
-        # pylint: disable=too-many-arguments, too-many-positional-arguments
         """
         This function creates an option which can be selected in the parent field
 
@@ -49,7 +48,13 @@ class MirroredPageFieldWidget(forms.widgets.Select):
 
         # Create dictionary of options
         option_dict = super().create_option(
-            name, value, label, selected, index, subindex=subindex, attrs=attrs
+            name,
+            value,
+            label,
+            selected,
+            index,
+            subindex=subindex,
+            attrs=attrs,
         )
         preview_url = reverse(
             "get_page_content_ajax",

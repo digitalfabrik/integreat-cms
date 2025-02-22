@@ -180,15 +180,19 @@ def update_contacts(content: HtmlElement) -> None:
     contact_urls = [card.get("data-contact-url") for card in contact_cards]
 
     for contact_id, contact_url, contact_card in zip(
-        contact_ids, contact_urls, contact_cards
+        contact_ids, contact_urls, contact_cards, strict=True
     ):
         try:
             wanted_details = contact_url.split("details=", 1)[1].split(",")
         except IndexError:
             wanted_details = []
 
-        contact_card_new = render_contact_card(contact_id, wanted_details)
-        contact_card.getparent().replace(contact_card, contact_card_new)
+        contact_card_new = (
+            render_contact_card(contact_id, wanted_details)
+            if any(detail for detail in wanted_details)
+            else Element("p")
+        )
+        contact_card.getparent().replace(contact_card, *contact_card_new)
 
 
 def fix_alt_texts(content: HtmlElement) -> None:
@@ -203,11 +207,10 @@ def fix_alt_texts(content: HtmlElement) -> None:
             # Remove host
             relative_url = urlparse(src).path
             # Remove media url prefix if exists
-            if relative_url.startswith(settings.MEDIA_URL):
-                relative_url = relative_url[len(settings.MEDIA_URL) :]
+            relative_url = relative_url.removeprefix(settings.MEDIA_URL)
             # Check whether media file exists in database
             media_file = MediaFile.objects.filter(
-                Q(file=relative_url) | Q(thumbnail=relative_url)
+                Q(file=relative_url) | Q(thumbnail=relative_url),
             ).first()
             # Replace alternative text
             if media_file and media_file.alt_text:
@@ -232,7 +235,7 @@ def fix_notranslate(content: HtmlElement) -> None:
                 {
                     "translate": "no",
                     "dir": "ltr",
-                }
+                },
             )
 
 

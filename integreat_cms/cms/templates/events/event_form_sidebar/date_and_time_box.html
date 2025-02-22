@@ -10,110 +10,134 @@
     {% translate "Date and time" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    <div>
-        <div class="flex flex-wrap">
-            <div class="w-1/2 pr-2">
-                <label class="mt-0" for="{{ event_form.start_date.id_for_label }}">
-                    {{ event_form.start_date.label }}
-                </label>
-                {% render_field event_form.start_date|add_error_class:"border-red-500" %}
+    {% include "../_event_duration_tab.html" %}
+    {% render_field event_form.is_long_term class+="hidden" %}
+    <div class="w-full rounded border border-blue-500 bg-white shadow-2xl flex flex-col">
+        <div class="w-full p-4 flex flex-col flex-auto">
+            <div id="one-time-recurring-explanation"
+                 class="font-bold {% if event_form.is_long_term.value %}hidden{% endif %}">
+                {% translate "One-time events take place on a specific date. For recurring events (e.g. weekly) this can be set under “Recurring”." %}
             </div>
-            <div class="w-1/2">
-                <label class="mt-0" for="{{ event_form.end_date.id_for_label }}">
-                    {{ event_form.end_date.label }}
-                </label>
-                {% render_field event_form.end_date|add_error_class:"border-red-500" %}
+            <div id="long-term-explanation"
+                 class="font-bold {% if not event_form.is_long_term.value %}hidden{% endif %}">
+                {% translate "These events take place over a longer period of time. E.g. Christmas markets or similar." %}
             </div>
-        </div>
-        <div class="flex flex-wrap my-3">
-            <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                <label for="{{ event_form.start_time.id_for_label }}">
-                    {{ event_form.start_time.label }}
+            <div>
+                <div class="flex flex-wrap my-3">
+                    <div class="w-1/2 pr-2">
+                        <label class="mt-0" for="{{ event_form.start_date.id_for_label }}">
+                            {{ event_form.start_date.label }}
+                        </label>
+                        {% render_field event_form.start_date|add_error_class:"border-red-500" %}
+                    </div>
+                    <div class="w-1/2 {% if not event_form.is_long_term.value %} hidden {% endif %}"
+                         id="end-date">
+                        <label class="mt-0" for="{{ event_form.end_date.id_for_label }}">
+                            {{ event_form.end_date.label }}
+                        </label>
+                        {% render_field event_form.end_date|add_error_class:"border-red-500" %}
+                    </div>
+                </div>
+                <div id="long-term-info"
+                     class="flex flex-wrap my-3 {% if not event_form.is_long_term.value %}hidden{% endif %}">
+                    <div class="!inline">
+                        <div>
+                            <i icon-name="info" class="size-6 pr-1"></i>{% translate "These events take place daily." %}
+                        </div>
+                        <div>
+                            {% render_field event_form.only_weekdays %}
+                            <label for="{{ event_form.only_weekdays.id_for_label }}">
+                                {{ event_form.only_weekdays.label }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap my-3">
+                    <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
+                        <label for="{{ event_form.start_time.id_for_label }}">
+                            {{ event_form.start_time.label }}
+                        </label>
+                        {% render_field event_form.start_time|add_error_class:"border-red-500" %}
+                    </div>
+                    <div class="time-field w-1/2{% if event_form.is_all_day.value %} hidden{% endif %}">
+                        <label for="{{ event_form.end_time.id_for_label }}">
+                            {{ event_form.end_time.label }}
+                        </label>
+                        {% render_field event_form.end_time|add_error_class:"border-red-500" %}
+                    </div>
+                </div>
+                {% render_field event_form.is_all_day %}
+                <label for="{{ event_form.is_all_day.id_for_label }}">
+                    {{ event_form.is_all_day.label }}
                 </label>
-                {% render_field event_form.start_time|add_error_class:"border-red-500" %}
             </div>
-            <div class="time-field w-1/2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                <label for="{{ event_form.end_time.id_for_label }}">
-                    {{ event_form.end_time.label }}
+            <div id="recurrence-setting"
+                 class="{% if event_form.is_long_term.value %}hidden{% endif %}">
+                {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
+                <label for="recurrence-rule-checkbox">
+                    {{ event_form.is_recurring.label }}
                 </label>
-                {% render_field event_form.end_time|add_error_class:"border-red-500" %}
-            </div>
-        </div>
-        {% render_field event_form.is_all_day %}
-        <label for="{{ event_form.is_all_day.id_for_label }}">
-            {{ event_form.is_all_day.label }}
-        </label>
-    </div>
-    <div>
-        {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
-        <label for="recurrence-rule-checkbox">
-            {{ event_form.is_recurring.label }}
-        </label>
-        <div class="help-text">
-            {{ event_form.is_recurring.help_text }}
-        </div>
-        <div id="recurrence-rule"
-             {% if not event_form.is_recurring.value %}class="hidden"{% endif %}>
-            <label for="{{ recurrence_rule_form.frequency.id_for_label }}"
-                   class="secondary">
-                {{ recurrence_rule_form.frequency.label }}
-            </label>
-            {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" %}
-            <div id="recurrence-weekly"
-                 {% if not recurrence_rule_form.instance.frequency == 'WEEKLY' %}class="hidden"{% endif %}>
-                <label for="{{ recurrence_rule_form.weekdays_for_weekly.id_for_label }}"
-                       class="secondary">
-                    {{ recurrence_rule_form.weekdays_for_weekly.label }}
-                </label>
-                <select name="weekdays_for_weekly"
-                        id="id_weekdays_for_weekly"
-                        multiple="multiple"
-                        class="{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}"
-                        {% if recurrence_rule_form.weekdays_for_weekly.field.disabled %} disabled {% endif %}>
-                    {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
-                        <option value="{{ choice_value }}"
-                                {% if not recurrence_rule_form.data|is_empty %} {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %}selected{% endif %}
-                                {% else %}
-                                {% if choice_value in recurrence_rule_form.instance.weekdays_for_weekly %}selected{% endif %}
-                                {% endif %}>
-                            {{ choice_label }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div id="recurrence-monthly"
-                 {% if not recurrence_rule_form.instance.frequency == 'MONTHLY' %}class="hidden"{% endif %}>
-                <label for="{{ recurrence_rule_form.week_for_monthly.id_for_label }}"
-                       class="secondary">
-                    {{ recurrence_rule_form.week_for_monthly.label }}
-                </label>
-                {% render_field recurrence_rule_form.week_for_monthly|add_error_class:"border-red-500" %}
-                <label for="{{ recurrence_rule_form.weekday_for_monthly.id_for_label }}"
-                       class="secondary">
-                    {{ recurrence_rule_form.weekday_for_monthly.label }}
-                </label>
-                {% render_field recurrence_rule_form.weekday_for_monthly|add_error_class:"border-red-500" %}
-            </div>
-            <label for="{{ recurrence_rule_form.interval.id_for_label }}"
-                   class="secondary">
-                {{ recurrence_rule_form.interval.label }}
-            </label>
-            {% render_field recurrence_rule_form.interval|add_error_class:"border-red-500" %}
-            {% render_field recurrence_rule_form.has_recurrence_end_date %}
-            <label for="{{ recurrence_rule_form.has_recurrence_end_date.id_for_label }}"
-                   class="secondary">
-                {{ recurrence_rule_form.has_recurrence_end_date.label }}
-            </label>
-            <div id="recurrence-end"
-                 {% if not recurrence_rule_form.data|is_empty %} {% if not recurrence_rule_form.data.has_recurrence_end_date %}class="hidden"{% endif %}
-                 {% else %}
-                 {% if not recurrence_rule_form.instance.recurrence_end_date %}class="hidden"{% endif %}
-                 {% endif %}>
-                <label for="{{ recurrence_rule_form.recurrence_end_date.id_for_label }}"
-                       class="secondary">
-                    {{ recurrence_rule_form.recurrence_end_date.label }}
-                </label>
-                {% render_field recurrence_rule_form.recurrence_end_date|add_error_class:"border-red-500" %}
+                <div class="help-text">
+                    {{ event_form.is_recurring.help_text }}
+                </div>
+                <div id="recurrence-rule"
+                     {% if not event_form.is_recurring.value %}class="hidden"{% endif %}>
+                    <label for="{{ recurrence_rule_form.frequency.id_for_label }}"
+                           class="secondary">
+                        {{ recurrence_rule_form.frequency.label }}
+                    </label>
+                    {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" %}
+                    <div id="one_time_recurring-info" class="flex flex-wrap my-3">
+                        <i icon-name="info" class="size-6 pr-1"></i>{% translate "Please create daily repeating events under “Long-term”." %}
+                    </div>
+                    <div id="recurrence-weekly"
+                         {% if not recurrence_rule_form.instance.frequency == 'WEEKLY' %}class="hidden"{% endif %}>
+                        <label for="{{ recurrence_rule_form.weekdays_for_weekly.id_for_label }}"
+                               class="secondary">
+                            {{ recurrence_rule_form.weekdays_for_weekly.label }}
+                        </label>
+                        <select name="weekdays_for_weekly"
+                                id="id_weekdays_for_weekly"
+                                multiple="multiple"
+                                class="{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}"
+                                {% if recurrence_rule_form.weekdays_for_weekly.field.disabled %} disabled {% endif %}>
+                            {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
+                                <option value="{{ choice_value }}"
+                                        {% if not recurrence_rule_form.data|is_empty %} {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %}selected{% endif %}
+                                        {% else %}
+                                        {% if choice_value in recurrence_rule_form.instance.weekdays_for_weekly %}selected{% endif %}
+                                        {% endif %}>
+                                    {{ choice_label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div id="recurrence-monthly"
+                         {% if not recurrence_rule_form.instance.frequency == 'MONTHLY' %}class="hidden"{% endif %}>
+                        <label for="{{ recurrence_rule_form.week_for_monthly.id_for_label }}"
+                               class="secondary">
+                            {{ recurrence_rule_form.week_for_monthly.label }}
+                        </label>
+                        {% render_field recurrence_rule_form.week_for_monthly|add_error_class:"border-red-500" %}
+                        <label for="{{ recurrence_rule_form.weekday_for_monthly.id_for_label }}"
+                               class="secondary">
+                            {{ recurrence_rule_form.weekday_for_monthly.label }}
+                        </label>
+                        {% render_field recurrence_rule_form.weekday_for_monthly|add_error_class:"border-red-500" %}
+                    </div>
+                    <label for="{{ recurrence_rule_form.interval.id_for_label }}"
+                           class="secondary">
+                        {{ recurrence_rule_form.interval.label }}
+                    </label>
+                    {% render_field recurrence_rule_form.interval|add_error_class:"border-red-500" %}
+                    <div id="recurrence-end">
+                        <label for="{{ recurrence_rule_form.recurrence_end_date.id_for_label }}"
+                               class="secondary">
+                            {{ recurrence_rule_form.recurrence_end_date.label }}  ({% translate "optional" %})
+                        </label>
+                        {% render_field recurrence_rule_form.recurrence_end_date|add_error_class:"border-red-500" %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

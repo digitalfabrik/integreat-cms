@@ -65,7 +65,9 @@ def mark_admin_feedback_as_unread(request: HttpRequest) -> HttpResponseRedirect:
     selected_feedback.update(read_by=None)
 
     logger.debug(
-        "Feedback objects %r marked as unread by %r", selected_ids, request.user
+        "Feedback objects %r marked as unread by %r",
+        selected_ids,
+        request.user,
     )
     messages.success(request, _("Feedback was successfully marked as unread"))
 
@@ -84,7 +86,7 @@ def archive_admin_feedback(request: HttpRequest) -> HttpResponseRedirect:
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(id__in=selected_ids, is_technical=True).update(
-        archived=True
+        archived=True,
     )
     invalidate_model(Feedback)
 
@@ -106,7 +108,7 @@ def restore_admin_feedback(request: HttpRequest) -> HttpResponseRedirect:
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(id__in=selected_ids, is_technical=True).update(
-        archived=False
+        archived=False,
     )
     invalidate_model(Feedback)
 

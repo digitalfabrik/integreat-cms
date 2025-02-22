@@ -1,5 +1,3 @@
-import json
-
 import pytest
 from django.conf import settings
 from django.test.client import Client
@@ -100,7 +98,9 @@ def test_permission_to_create_new_poicategory(
 
 
 @pytest.mark.parametrize(
-    "login_role_user", [CMS_TEAM, ROOT, SERVICE_TEAM], indirect=True
+    "login_role_user",
+    [CMS_TEAM, ROOT, SERVICE_TEAM],
+    indirect=True,
 )
 @pytest.mark.django_db
 def test_create_poi_category_with_missing_translation_was_not_successful(
@@ -121,12 +121,14 @@ def test_create_poi_category_with_missing_translation_was_not_successful(
 
     assert response.status_code == 200
     assert "Mindestens eine Übersetzung ist erforderlich." in response.content.decode(
-        "utf-8"
+        "utf-8",
     )
 
 
 @pytest.mark.parametrize(
-    "login_role_user", [CMS_TEAM, ROOT, SERVICE_TEAM], indirect=True
+    "login_role_user",
+    [CMS_TEAM, ROOT, SERVICE_TEAM],
+    indirect=True,
 )
 @pytest.mark.django_db
 def test_create_poi_category_was_successful(
@@ -157,7 +159,9 @@ def test_create_poi_category_was_successful(
 
 
 @pytest.mark.parametrize(
-    "login_role_user", [CMS_TEAM, ROOT, SERVICE_TEAM], indirect=True
+    "login_role_user",
+    [CMS_TEAM, ROOT, SERVICE_TEAM],
+    indirect=True,
 )
 @pytest.mark.django_db
 def test_edit_poi_category_was_successful(
@@ -219,7 +223,9 @@ def test_edit_poi_category_was_successful(
 
 
 @pytest.mark.parametrize(
-    "login_role_user", [CMS_TEAM, ROOT, SERVICE_TEAM], indirect=True
+    "login_role_user",
+    [CMS_TEAM, ROOT, SERVICE_TEAM],
+    indirect=True,
 )
 @pytest.mark.django_db
 def test_no_changes_were_made_message(
@@ -277,7 +283,9 @@ def test_no_changes_were_made_message(
 
 
 @pytest.mark.parametrize(
-    "login_role_user", [CMS_TEAM, ROOT, SERVICE_TEAM], indirect=True
+    "login_role_user",
+    [CMS_TEAM, ROOT, SERVICE_TEAM],
+    indirect=True,
 )
 @pytest.mark.django_db
 def test_delete_unused_poi_category_was_successful(
@@ -303,7 +311,8 @@ def test_delete_unused_poi_category_was_successful(
     assert amount_of_poicategories == expected_amount_of_poicategories + 1
 
     delete_poicategory_url = reverse(
-        "delete_poicategory", kwargs={"pk": id_of_unused_poicategory}
+        "delete_poicategory",
+        kwargs={"pk": id_of_unused_poicategory},
     )
 
     client.post(delete_poicategory_url, data={})
@@ -312,7 +321,9 @@ def test_delete_unused_poi_category_was_successful(
 
 
 @pytest.mark.parametrize(
-    "login_role_user", [CMS_TEAM, ROOT, SERVICE_TEAM], indirect=True
+    "login_role_user",
+    [CMS_TEAM, ROOT, SERVICE_TEAM],
+    indirect=True,
 )
 @pytest.mark.django_db
 def test_delete_used_poi_category_was_not_successful(
@@ -350,7 +361,8 @@ def test_delete_used_poi_category_was_not_successful(
     )
 
     delete_poicategory_url = reverse(
-        "delete_poicategory", kwargs={"pk": id_of_unused_poicategory}
+        "delete_poicategory",
+        kwargs={"pk": id_of_unused_poicategory},
     )
     response = client.post(delete_poicategory_url, data={})
     redirect = response.headers.get("location")

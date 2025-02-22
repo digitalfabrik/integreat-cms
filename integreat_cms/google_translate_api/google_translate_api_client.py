@@ -9,7 +9,10 @@ from django.contrib import messages
 from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext_lazy
-from google.cloud import translate_v2, translate_v3  # type: ignore[attr-defined]
+from google.cloud import (  # type: ignore[attr-defined]
+    translate_v2,
+    translate_v3,
+)
 from google.oauth2 import service_account
 
 from ..cms.utils.stringify_list import iter_to_string
@@ -44,28 +47,29 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
         """
         super().__init__(request, form_class)
         if not MachineTranslationProvider.is_permitted(
-            request.region, request.user, form_class._meta.model
+            request.region,
+            request.user,
+            form_class._meta.model,
         ):
             raise RuntimeError(
-                f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.'
+                f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.',
             )
         if not settings.GOOGLE_TRANSLATE_ENABLED:
             raise RuntimeError("Google translate is disabled globally.")
 
         try:
             credentials = service_account.Credentials.from_service_account_file(
-                settings.GOOGLE_APPLICATION_CREDENTIALS
+                settings.GOOGLE_APPLICATION_CREDENTIALS,
             )
             if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
                 self.translator_v3 = translate_v3.TranslationServiceClient(
-                    credentials=credentials
+                    credentials=credentials,
                 )
             else:
                 self.translator_v2 = translate_v2.Client(credentials=credentials)
-        except Exception as e:  # pylint: disable=broad-except
-            logger.error(e)
-            logger.error(
-                "Google translate is not available. Please check the credentials file."
+        except Exception:
+            logger.exception(
+                "Google translate is not available. Please check the credentials file.",
             )
 
     @staticmethod
@@ -83,9 +87,10 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
         return ""
 
     def translate_queryset(  # noqa: PLR0915
-        self, queryset: list[Event] | (list[Page] | list[POI]), language_slug: str
+        self,
+        queryset: list[Event] | (list[Page] | list[POI]),
+        language_slug: str,
     ) -> None:
-        # pylint: disable=too-many-locals, too-many-branches, too-many-statements
         """
         This function translates a content queryset via Google Translate
 
@@ -116,24 +121,26 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
 
             for content_object in queryset:
                 source_translation = content_object.get_translation(
-                    source_language.slug
+                    source_language.slug,
                 )
                 if not source_translation:
                     failed_changes_because_no_source_translation.append(
-                        content_object.best_translation.title
+                        content_object.best_translation.title,
                     )
                     continue
 
                 if not check_hix_score(
-                    self.request, source_translation, show_message=False
+                    self.request,
+                    source_translation,
+                    show_message=False,
                 ):
                     failed_changes_because_insufficient_hix_score.append(
-                        source_translation.title
+                        source_translation.title,
                     )
                     continue
 
                 existing_target_translation = content_object.get_translation(
-                    target_language.slug
+                    target_language.slug,
                 )
 
                 # Before translating, check if translation would exceed usage limit
@@ -143,7 +150,7 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                 ) = self.check_usage(region, source_translation)
                 if translation_exceeds_limit:
                     failed_changes_because_exceeds_limit.append(
-                        source_translation.title
+                        source_translation.title,
                     )
                     continue
 
@@ -156,7 +163,8 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                 for attr in self.translatable_attributes:
                     # Only translate existing, non-empty attributes
                     if hasattr(source_translation, attr) and getattr(
-                        source_translation, attr
+                        source_translation,
+                        attr,
                     ):
                         try:
                             # data has to be unescaped to recognize Umlaute
@@ -185,9 +193,9 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                                     source_language=source_language.slug,
                                     format_=format_,
                                 )[0]["translatedText"]
-                        except Exception as e:  # pylint: disable=broad-except
+                        except Exception:
                             google_translate_api_error = True
-                            logger.error(e)
+                            logger.exception("")
                             break
 
                 content_translation_form = self.form_class(
@@ -206,11 +214,11 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                     if existing_target_translation:
                         if settings.REDIS_CACHE:
                             existing_target_translation.all_versions.invalidated_update(
-                                currently_in_translation=False
+                                currently_in_translation=False,
                             )
                         else:
                             existing_target_translation.all_versions.update(
-                                currently_in_translation=False
+                                currently_in_translation=False,
                             )
 
                     logger.debug(
@@ -264,7 +272,7 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                         model_name=model_name,
                         model_name_plural=model_name_plural,
                         object_names=iter_to_string(
-                            failed_changes_because_no_source_translation
+                            failed_changes_because_no_source_translation,
                         ),
                     ),
                 )
@@ -281,7 +289,7 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                         model_name_plural=model_name_plural,
                         remaining_budget=region.mt_budget_remaining,
                         object_names=iter_to_string(
-                            failed_changes_because_exceeds_limit
+                            failed_changes_because_exceeds_limit,
                         ),
                     ),
                 )
@@ -298,7 +306,7 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                         model_name_plural=model_name_plural,
                         min_required=settings.HIX_REQUIRED_FOR_MT,
                         object_names=iter_to_string(
-                            failed_changes_because_insufficient_hix_score
+                            failed_changes_because_insufficient_hix_score,
                         ),
                     ),
                 )
@@ -321,6 +329,6 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                 messages.error(
                     self.request,
                     _(
-                        "A problem with Google Translate API has occurred. Please contact an administrator."
+                        "A problem with Google Translate API has occurred. Please contact an administrator.",
                     ),
                 )

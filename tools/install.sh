@@ -155,7 +155,7 @@ echo "✔ Installed Python dependencies" | print_success
 # Install pre-commit-hooks if --pre-commit option is given
 if [[ -n "${PRE_COMMIT}" ]]; then
     echo "Installing pre-commit hooks..." | print_info
-    # Install pre-commit hook for black code style
+    # Install pre-commit hooks
     pre-commit install
     echo "✔ Installed pre-commit hooks" | print_success
 fi

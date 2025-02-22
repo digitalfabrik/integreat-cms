@@ -55,7 +55,9 @@ class TextlabClient:
         self.token = response["token"]
 
     def benchmark(
-        self, text: str, text_type: int = settings.TEXTLAB_API_DEFAULT_BENCHMARK_ID
+        self,
+        text: str,
+        text_type: int = settings.TEXTLAB_API_DEFAULT_BENCHMARK_ID,
     ) -> TextlabResult:
         """
         Retrieves the hix score of the given text.
@@ -84,7 +86,9 @@ class TextlabClient:
 
     @staticmethod
     def post_request(
-        path: str, data: dict[str, str], auth_token: str | None = None
+        path: str,
+        data: dict[str, str],
+        auth_token: str | None = None,
     ) -> dict[str, Any]:
         """
         Sends a request to the api.
@@ -96,8 +100,12 @@ class TextlabClient:
         :raises urllib.error.HTTPError: If the request failed
         """
         data_json: bytes = json.dumps(data).encode("utf-8")
-        request = Request(
-            f"{settings.TEXTLAB_API_URL.rstrip('/')}{path}",
+
+        url = f"{settings.TEXTLAB_API_URL.rstrip('/')}{path}"
+        if not url.startswith(("http:", "https:")):
+            raise ValueError("URL must start with 'http:' or 'https:'")
+        request = Request(  # noqa: S310
+            url,
             data=data_json,
             method="POST",
         )
@@ -105,5 +113,5 @@ class TextlabClient:
             request.add_header("authorization", f"Bearer {auth_token}")
         request.add_header("Content-Type", "application/json")
         request.add_header("User-Agent", "")
-        with urlopen(request) as response:
+        with urlopen(request) as response:  # noqa: S310
             return json.loads(response.read().decode("utf-8"))

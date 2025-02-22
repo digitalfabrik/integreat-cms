@@ -33,12 +33,12 @@ if TYPE_CHECKING:
 
 @receiver(post_delete, sender=Feedback)
 def feedback_delete_handler(
-    sender: ModelBase, **kwargs: Any  # pylint: disable=unused-argument
+    sender: ModelBase,  # noqa: ARG001
+    **kwargs: Any,
 ) -> None:
     r"""
     Invalidate feedback cache after feedback deletion
 
-    :param sender: The class of the feedback that was deleted
     :param \**kwargs: The supplied keyword arguments
     """
     if kwargs.get("instance"):
@@ -57,12 +57,12 @@ def feedback_delete_handler(
 @receiver(post_save, sender=SearchResultFeedback)
 @disable_for_loaddata
 def feedback_create_handler(
-    sender: ModelBase, **kwargs: Any  # pylint: disable=unused-argument
+    sender: ModelBase,  # noqa: ARG001
+    **kwargs: Any,
 ) -> None:
     r"""
     Invalidate feedback cache after feedback creation
 
-    :param sender: The class of the feedback that was deleted
     :param \**kwargs: The supplied keyword arguments
     """
     if (instance := kwargs.get("instance")) and (

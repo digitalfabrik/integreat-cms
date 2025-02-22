@@ -13,7 +13,6 @@ logger = logging.getLogger(__name__)
 
 
 class EventContextMixin(ContextMixin):
-    # pylint: disable=too-few-public-methods
     """
     This mixin provides extra context for event views
     """
@@ -31,29 +30,29 @@ class EventContextMixin(ContextMixin):
             {
                 "current_menu_item": "events_form",
                 "archive_dialog_title": _(
-                    "Please confirm that you really want to archive this event"
+                    "Please confirm that you really want to archive this event",
                 ),
                 "archive_dialog_text": _(
-                    "All translations of this event will also be archived."
+                    "All translations of this event will also be archived.",
                 ),
                 "restore_dialog_title": _(
-                    "Please confirm that you really want to restore this event"
+                    "Please confirm that you really want to restore this event",
                 ),
                 "restore_dialog_text": _(
-                    "All translations of this event will also be restored."
+                    "All translations of this event will also be restored.",
                 ),
                 "delete_dialog_title": _(
-                    "Please confirm that you really want to delete this event"
+                    "Please confirm that you really want to delete this event",
                 ),
                 "delete_dialog_text": _(
-                    "All translations of this event will also be deleted."
+                    "All translations of this event will also be deleted.",
                 ),
                 "help_text": _(
-                    "Create an event location or start typing the name of an existing location. Only published locations can be set as event venues."
+                    "Create an event location or start typing the name of an existing location. Only published locations can be set as event venues.",
                 ),
                 "cannot_copy_title": _(
-                    "An event from an external calendar can't be copied."
+                    "An event from an external calendar can't be copied.",
                 ),
-            }
+            },
         )
         return context

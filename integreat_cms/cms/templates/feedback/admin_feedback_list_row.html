@@ -71,10 +71,14 @@
         </a>
     </td>
     <td class="pr-2">
-        {% if feedback.read_by.email %}
-            <a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{{ feedback.read_by.full_user_name }}</a>
+        {% if feedback.read_by %}
+            {% if feedback.read_by.email %}
+                <a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{{ feedback.read_by.full_user_name }}</a>
+            {% else %}
+                {{ feedback.read_by.full_user_name }}
+            {% endif %}
         {% else %}
-            {{ feedback.read_by.full_user_name }}
+            <i icon-name="minus" class="pr-1"></i>
         {% endif %}
     </td>
     <td class="pr-2 text-right whitespace-nowrap">
