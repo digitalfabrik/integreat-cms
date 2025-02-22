@@ -105,7 +105,7 @@ class POITranslation(AbstractContentTranslation):
         """
         :return: the link to the POI on the Integreat map (if it exists), to google maps otherwise
         """
-        if not self.poi.location_on_map and self.status != status.DRAFT:
+        if self.poi.location_on_map and self.status != status.DRAFT:
             return f"{settings.WEBAPP_URL}{self.get_absolute_url()}"
         return f"https://www.google.com/maps/search/?api=1&query={self.poi.address},{self.poi.city},{self.poi.country}"
 

@@ -91,7 +91,7 @@ class Contact(AbstractBaseModel):
             "website",
             "area_of_responsibility",
         )
-        query = SearchQuery(query)
+        query = SearchQuery(query, search_type="websearch")
         return (
             Contact.objects.filter(location__region=region, archived=False)
             .annotate(rank=SearchRank(vector, query))
