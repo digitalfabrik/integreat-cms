@@ -5,7 +5,7 @@ let initialContent: string = null;
 let initialHixScore: number = null;
 
 const calculateBackgroundColor = (score: number, setOutdated: boolean): string => {
-    const hixThresholdGood = 15;
+    const hixThresholdGood = 14;
     const hixThresholdOk = 7;
 
     if (setOutdated) {
