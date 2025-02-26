@@ -285,7 +285,7 @@ urlpatterns: list[URLPattern] = [
                     linkcheck.LinkReplaceView.as_view(),
                     name="search_and_replace_link",
                 ),
-            ]
+            ],
         ),
     ),
     path(
@@ -308,7 +308,8 @@ urlpatterns: list[URLPattern] = [
                                 name="edit_region",
                             ),
                             path(
-                                "delete/", regions.delete_region, name="delete_region"
+                                "delete/", regions.delete_region,
+                                name="delete_region",
                             ),
                         ],
                     ),
@@ -499,7 +500,7 @@ urlpatterns: list[URLPattern] = [
                     "",
                     list_views.ModelListView.as_view(
                         queryset=OfferTemplate.objects.all().prefetch_related(
-                            "regions"
+                            "regions",
                         ),
                     ),
                     name="offertemplates",
@@ -588,6 +589,11 @@ urlpatterns: list[URLPattern] = [
                                             dashboard.DashboardView.get_broken_links_context,
                                             name="get_broken_links_ajax",
                                         ),
+                                        path(
+                                            "translation-coverage/",
+                                            dashboard.DashboardView.get_translation_coverage_context,
+                                            name="get_translation_coverage_ajax",
+                                        ),
                                     ],
                                 ),
                             ),
@@ -662,10 +668,10 @@ urlpatterns: list[URLPattern] = [
                                                                                 pages.render_partial_page_tree_views,
                                                                                 name="get_page_tree_ajax",
                                                                             ),
-                                                                        ]
+                                                                        ],
                                                                     ),
                                                                 ),
-                                                            ]
+                                                            ],
                                                         ),
                                                     ),
                                                 ],
@@ -684,7 +690,7 @@ urlpatterns: list[URLPattern] = [
                                                     path(
                                                         "parent-<int:parent_id>/",
                                                         include(
-                                                            page_order_table_urlpatterns
+                                                            page_order_table_urlpatterns,
                                                         ),
                                                     ),
                                                 ],
