@@ -256,35 +256,37 @@ urlpatterns: list[URLPattern] = [
     ),
     path(
         "linkcheck/",
-        include([
-            path(
-                "",
-                linkcheck.LinkcheckRedirectView.as_view(),
-                name="linkcheck_landing",
-            ),
-            path(
-                "<slug:url_filter>/",
-                include(
-                    [
-                        path(
-                            "",
-                            linkcheck.LinkcheckListView.as_view(),
-                            name="linkcheck",
-                        ),
-                        path(
-                            "<int:url_id>/",
-                            linkcheck.LinkcheckListView.as_view(),
-                            name="edit_url",
-                        ),
-                    ],
+        include(
+            [
+                path(
+                    "",
+                    linkcheck.LinkcheckRedirectView.as_view(),
+                    name="linkcheck_landing",
                 ),
-            ),
-            path(
-                "search_and_replace_link",
-                linkcheck.LinkReplaceView.as_view(),
-                name="search_and_replace_link",
-            ),
-        ]),
+                path(
+                    "<slug:url_filter>/",
+                    include(
+                        [
+                            path(
+                                "",
+                                linkcheck.LinkcheckListView.as_view(),
+                                name="linkcheck",
+                            ),
+                            path(
+                                "<int:url_id>/",
+                                linkcheck.LinkcheckListView.as_view(),
+                                name="edit_url",
+                            ),
+                        ],
+                    ),
+                ),
+                path(
+                    "search_and_replace_link",
+                    linkcheck.LinkReplaceView.as_view(),
+                    name="search_and_replace_link",
+                ),
+            ]
+        ),
     ),
     path(
         "regions/",
@@ -649,18 +651,22 @@ urlpatterns: list[URLPattern] = [
                                                     ),
                                                     path(
                                                         "<is_archive>/",
-                                                        include([
-                                                            path(
-                                                                "<is_statistics>/",
-                                                                include([
-                                                                    path(
-                                                                        "partial-page-tree/",
-                                                                        pages.render_partial_page_tree_views,
-                                                                        name="get_page_tree_ajax",
+                                                        include(
+                                                            [
+                                                                path(
+                                                                    "<is_statistics>/",
+                                                                    include(
+                                                                        [
+                                                                            path(
+                                                                                "partial-page-tree/",
+                                                                                pages.render_partial_page_tree_views,
+                                                                                name="get_page_tree_ajax",
+                                                                            ),
+                                                                        ]
                                                                     ),
-                                                                ]),
-                                                            ),
-                                                        ]),
+                                                                ),
+                                                            ]
+                                                        ),
                                                     ),
                                                 ],
                                             ),
