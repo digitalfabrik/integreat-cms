@@ -308,7 +308,8 @@ urlpatterns: list[URLPattern] = [
                                 name="edit_region",
                             ),
                             path(
-                                "delete/", regions.delete_region,
+                                "delete/",
+                                regions.delete_region,
                                 name="delete_region",
                             ),
                         ],
