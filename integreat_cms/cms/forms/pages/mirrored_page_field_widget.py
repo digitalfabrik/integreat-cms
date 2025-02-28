@@ -19,6 +19,8 @@ class MirroredPageFieldWidget(forms.widgets.Select):
     #: The current language slug
     language_slug: str | None = None
 
+    mirrored_page_region_slug: str | None = None
+
     def create_option(
         self,
         name: str,
@@ -59,7 +61,7 @@ class MirroredPageFieldWidget(forms.widgets.Select):
         preview_url = reverse(
             "get_page_content_ajax",
             kwargs={
-                "region_slug": self.form.instance.region.slug,
+                "region_slug": self.mirrored_page_region_slug,
                 "language_slug": self.language_slug,
                 "page_id": value,
             },
