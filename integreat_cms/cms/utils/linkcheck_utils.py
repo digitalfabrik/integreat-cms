@@ -73,6 +73,14 @@ def get_urls(
                     to_attr="region_links",
                 ),
             )
+    if url_ids is None and region_slug is None:
+        # If url_ids and region_slug are none, assume that request comes from admin and exclude links from archived regions
+        archived_regions = Region.objects.filter(status="ARCHIVED")
+        archived_links = []
+        for region in archived_regions:
+            archived_links.append(get_region_links(region))
+        archived_links = chain.from_iterable(archived_links)
+        urls = urls.exclude(links__in=archived_links)
 
     # Temporary: hide all links contained in contacts
     contacts = (
