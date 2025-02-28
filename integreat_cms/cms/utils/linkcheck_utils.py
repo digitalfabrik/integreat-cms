@@ -79,7 +79,7 @@ def get_urls(
         archived_links = []
         for region in archived_regions:
             archived_links.append(get_region_links(region))
-        archived_links = chain.from_iterable(archived_links)
+        archived_links = list(chain.from_iterable(archived_links))
         urls = urls.exclude(links__in=archived_links)
 
     # Temporary: hide all links contained in contacts
