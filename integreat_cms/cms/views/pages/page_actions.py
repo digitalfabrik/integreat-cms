@@ -218,7 +218,7 @@ def get_page_content_ajax(
 
     :return: Page translation content as a JSON.
     """
-    region = request.region
+    region = Region.objects.filter(slug=region_slug).first()
     page = get_object_or_404(region.pages, id=page_id)
     if page_translation := page.get_translation(language_slug):
         return JsonResponse(data={"content": page_translation.content})
@@ -597,6 +597,7 @@ def render_mirrored_page_field(
     )
     # Pass language to mirrored page widget to render the preview urls
     page_form.fields["mirrored_page"].widget.language_slug = language_slug
+    page_form.fields["mirrored_page"].widget.mirrored_page_region_slug = region.slug
     return render(
         request,
         "pages/_mirrored_page_field.html",
