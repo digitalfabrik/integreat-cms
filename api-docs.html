@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-02-28T12:40:03+00:00" />
+    <meta property="article:modified_time" content="2025-03-03T12:39:13+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Documentation &mdash; integreat-cms 2025.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -2391,6 +2391,15 @@ This needs to be equalized in the server-side include e.g. as follows:</p>
 <span class="w">      </span><span class="s2">&quot;website&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">       </span><span class="c1">// The website for this location if primary_contact exists</span>
 <span class="w">      </span><span class="s2">&quot;email&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">         </span><span class="c1">// The email for this location if primary_contact exists</span>
 <span class="w">      </span><span class="s2">&quot;phone_number&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">  </span><span class="c1">// The phone number for this location if primary_contact exists</span>
+<span class="w">      </span><span class="s2">&quot;contacts&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">                   </span><span class="c1">// The contact data linked to this location</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="s2">&quot;area_of_responsibility&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="w">   </span><span class="c1">// The area of responsibility, e.g. advisory, of a contact</span>
+<span class="w">             </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">              </span><span class="c1">// The name of the contact</span>
+<span class="w">             </span><span class="s2">&quot;email&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">             </span><span class="c1">// An email address of the contact</span>
+<span class="w">             </span><span class="s2">&quot;phone_number&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">      </span><span class="c1">// A phone number of the contact</span>
+<span class="w">             </span><span class="s2">&quot;website&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">           </span><span class="c1">// The website of the contact</span>
+<span class="w">         </span><span class="p">},</span>
+<span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="s2">&quot;category&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">                   </span><span class="c1">// The category of this location</span>
 <span class="w">         </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">                </span><span class="c1">// The id of the category</span>
 <span class="w">         </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">              </span><span class="c1">// The translated name of the category</span>
@@ -3146,7 +3155,7 @@ it will be passed along in the following format, together with a matching HTTP s
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 28, 2025.
+      <span class="lastupdated">Last updated on Mar 03, 2025.
       </span></p>
   </div>
 
