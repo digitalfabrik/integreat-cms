@@ -164,6 +164,12 @@ class Contact(AbstractBaseModel):
 
         :return: The short representation of the contact
         """
+        full_address = (
+            f"{self.location.address} {self.location.postcode} {self.location.city}"
+        )
+        full_address_string_repr = (
+            f"| Linked location: {full_address}" if self.location else ""
+        )
         area_of_responsibility = (
             f"{self.area_of_responsibility}: " if self.area_of_responsibility else ""
         )
@@ -173,7 +179,7 @@ class Contact(AbstractBaseModel):
         ]
         details_repr = f"({', '.join(details)})" if details else ""
 
-        return f"{area_of_responsibility}{name}{details_repr}".strip()
+        return f"{area_of_responsibility}{name}{details_repr}{full_address_string_repr}".strip()
 
     @cached_property
     def referring_page_translations(self) -> QuerySet[PageTranslation]:
