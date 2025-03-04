@@ -57,5 +57,5 @@ class Migration(migrations.Migration):
                 "verbose_name_plural": "users",
             },
         ),
-        migrations.RunPython(update_roles, migrations.RunPython.noop)
+        migrations.RunPython(update_roles, migrations.RunPython.noop),
     ]
