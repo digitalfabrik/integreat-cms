@@ -249,7 +249,7 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
     ):
         actions.append("question translation queued")
         process_user_message.apply_async(
-            args=[message_text, region.slug, webhook_message["ticket"]["id"]],
+            args=[region.slug, webhook_message["ticket"]["id"]],
         )
     else:
         actions.append("answer translation queued")

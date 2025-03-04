@@ -143,7 +143,7 @@ class ZammadChatAPI:
             )[0].random_hash,
         }
 
-    def get_messages(self, chat: UserChat) -> dict[str, dict | list[dict] | str]:
+    def get_messages(self, chat: UserChat) -> dict[str, Any]:
         """
         Get all non-internal messages for a given ticket
 
