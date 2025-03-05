@@ -13,7 +13,7 @@ from django import forms
 from django.db.models import F, Q
 
 if TYPE_CHECKING:
-    from ...models import Region
+    from ...models import POI, Region
     from ...models.events.event import EventQuerySet
 
 from ...constants import all_day, calendar_filters, events_time_range, recurrence
@@ -117,7 +117,9 @@ class EventFilterForm(CustomFilterForm):
             events = events.filter_completed()
         return events
 
-    def filter_events_by_location(self, events: EventQuerySet) -> EventQuerySet:
+    def filter_events_by_location(
+        self, events: EventQuerySet
+    ) -> tuple[EventQuerySet, POI]:
         """
         Filter events by location
 
@@ -126,7 +128,7 @@ class EventFilterForm(CustomFilterForm):
         """
         if poi := self.region.pois.filter(id=self.cleaned_data["poi_id"]).first():
             events = events.filter(location=poi)
-        return events
+        return events, poi
 
     def filter_events_by_all_day(self, events: EventQuerySet) -> EventQuerySet:
         """
@@ -200,7 +202,7 @@ class EventFilterForm(CustomFilterForm):
             events = events.filter(external_calendar__isnull=False)
         return events
 
-    def search_events(self, events: EventQuerySet) -> EventQuerySet:
+    def search_events(self, events: EventQuerySet) -> tuple[EventQuerySet, str]:
         """
         Search events for given query
 
@@ -214,14 +216,14 @@ class EventFilterForm(CustomFilterForm):
                 "event__pk",
             )
             events = events.filter(pk__in=event_ids)
-        return events
+        return events, query
 
     def apply(
         self,
         events: EventQuerySet,
         region: Region,
         language_slug: str,
-    ) -> tuple[EventQuerySet, None, None]:
+    ) -> tuple[EventQuerySet, POI, str]:
         """
         Filter the events according to the given filter data
 
@@ -237,10 +239,10 @@ class EventFilterForm(CustomFilterForm):
             events = events.filter_upcoming()
 
         events = self.filter_events_by_time_range(events)
-        events = self.filter_events_by_location(events)
+        events, poi = self.filter_events_by_location(events)
         events = self.filter_events_by_all_day(events)
         events = self.filter_events_by_recurrence(events)
         events = self.filter_events_by_imported_event(events)
-        events = self.search_events(events)
+        events, query = self.search_events(events)
 
-        return events, None, None
+        return events, poi, query
