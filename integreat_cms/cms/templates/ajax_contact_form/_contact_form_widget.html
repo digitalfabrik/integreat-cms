@@ -17,6 +17,14 @@
         {{ contact_form.phone_number.label }}
     </label>
     {% render_field contact_form.phone_number|append_attr:"form:ajax_contact_form" %}
+    <label for="{{ contact_form.mobile_phone_number.id_for_label }}">
+        {{ contact_form.mobile_phone_number.label }}
+    </label>
+    {% render_field contact_form.mobile_phone_number|append_attr:"form:ajax_contact_form" %}
+    <label for="{{ contact_form.fax_number.id_for_label }}">
+        {{ contact_form.fax_number.label }}
+    </label>
+    {% render_field contact_form.fax_number|append_attr:"form:ajax_contact_form" %}
     <label for="{{ contact_form.website.id_for_label }}">
         {{ contact_form.website.label }}
     </label>

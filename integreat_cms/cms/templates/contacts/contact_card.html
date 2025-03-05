@@ -47,6 +47,24 @@
                     <a href="tel:{{ contact.phone_number|cut:" (0) " }}">{{ contact.phone_number }}</a>
                 </p>
             {% endif %}
+            {% if contact.mobile_phone_number and "mobile_phone_number" in wanted %}
+                <p>
+                    <img src="{% get_svg_icon "call" %}"
+                         alt="Mobile Phone Number: "
+                         width="15"
+                         height="15" />
+                    <a href="tel:{{ contact.mobile_phone_number|cut:" (0) " }}">{{ contact.mobile_phone_number }}</a>
+                </p>
+            {% endif %}
+            {% if contact.fax_number and "fax_number" in wanted %}
+                <p>
+                    <img src="{% get_svg_icon "fax" %}"
+                         alt="Fax Number: "
+                         width="15"
+                         height="15" />
+                    <a href="tel:{{ contact.fax_number|cut:" (0) " }}">{{ contact.fax_number }}</a>
+                </p>
+            {% endif %}
             {% if contact.website and "website" in wanted %}
                 <p>
                     <img src="{% get_svg_icon "www" %}" alt="Website: " width="15" height="15" />
