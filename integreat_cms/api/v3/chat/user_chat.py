@@ -15,7 +15,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 from ....cms.models import ABTester, AttachmentMap, Language, Region, UserChat
 from ...decorators import json_response
-from .utils.chat_bot import process_user_message, process_translate_question, process_translate_answer
+from .utils.chat_bot import (
+    process_translate_answer,
+    process_translate_question,
+    process_user_message,
+)
 from .utils.zammad_api import ZammadChatAPI
 
 if TYPE_CHECKING:
@@ -138,7 +142,13 @@ def send_message(
                 status=500,
             )
     return response_or_error(
-        client.send_message(user_chat.zammad_id, request.POST.get("message")),  # type: ignore[union-attr]
+        client.send_message(
+            user_chat,
+            request.POST.get("message"),
+            False,
+            False,
+            request.POST.get("evaluation_consent"),
+        ),  # type: ignore[union-attr]
     )
 
 
@@ -219,15 +229,18 @@ def chat(
         return get_messages(request, client, user_chat, device_id)
     return send_message(request, language_slug, client, user_chat, device_id)
 
+
 def is_app_user_message(webhook_message: dict) -> bool:
     """
     Check if message originates from app user
 
     param webhook_message: Zammad webhook ticket dict
     """
-    return (webhook_message["article"]["created_by"]["login"]
-            == "tech+integreat-cms@tuerantuer.org"
-            )
+    return (
+        webhook_message["article"]["created_by"]["login"]
+        == "tech+integreat-cms@tuerantuer.org"
+    )
+
 
 @csrf_exempt
 @json_response
@@ -252,7 +265,10 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
                 "results": "skipped internal message",
             },
         )
-    if is_app_user_message(webhook_message) and not webhook_message["ticket"]["automatic_answers"]:
+    if (
+        is_app_user_message(webhook_message)
+        and not webhook_message["ticket"]["automatic_answers"]
+    ):
         actions.append("question translation queued")
         process_translate_question.apply_async(
             args=[message_text, region.slug, webhook_message["ticket"]["id"]]
