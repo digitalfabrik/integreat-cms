@@ -194,7 +194,7 @@ class ZammadChatAPI:
     # pylint: disable=method-hidden
     def send_message(
         self,
-        chat_id: int,
+        chat: UserChat | None,
         message: str,
         internal: bool = False,
         automatic_message: bool = False,
@@ -209,13 +209,15 @@ class ZammadChatAPI:
         param internal: keep the message internal in Zammad (do not show to user)
         param automatic_message: sets title to "automatically generated message"
         param automatic_answers: set the Zammad attribute that defines if automatic
-                                 answers should be generated
+        answers should be generated
         param evaluation_consent: set the Zammad attribute that defines if the user
-                                  agreed to an evaluation of the chat
+        agreed to an evaluation of the chat
         return: dict with Zammad article data
         """
+        if chat is None or not chat.zammad_id:
+            raise HTTPError("No valid Zammad ticket ID")
         params = {
-            "ticket_id": chat_id,
+            "ticket_id": chat.zammad_id,
             "body": message,
             "type": "web",
             "content_type": "text/html",

@@ -143,8 +143,10 @@ def send_message(
             )
     return response_or_error(
         client.send_message(
-            user_chat.zammad_id,
+            user_chat,
             request.POST.get("message"),
+            False,
+            False,
             request.POST.get("evaluation_consent"),
         ),  # type: ignore[union-attr]
     )
