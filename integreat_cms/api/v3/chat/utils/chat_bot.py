@@ -110,14 +110,14 @@ def process_user_message(
     )
     if translation:
         client.send_message(
-            zammad_chat.zammad_id,
+            zammad_chat,
             translation["translation"],
             True,
             True,
         )
     if answer:
         client.send_message(
-            zammad_chat.zammad_id,
+            zammad_chat,
             answer["answer"],
             False,
             True,
@@ -162,7 +162,7 @@ def process_translate_answer(
     )
     if translation:
         client.send_message(
-            zammad_chat.zammad_id,
+            zammad_chat,
             translation["translation"],
             False,
             True,
@@ -186,7 +186,7 @@ def process_translate_question(
     )
     if translation:
         client.send_message(
-            zammad_chat.zammad_id,
+            zammad_chat,
             translation["translation"],
             True,
             True,
