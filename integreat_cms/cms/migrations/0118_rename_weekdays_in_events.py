@@ -3,7 +3,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0116_remove_poi_email_remove_poi_phone_number_and_more"),
+        ("cms", "0117_add_beta_permission"),
     ]
 
     operations = [
