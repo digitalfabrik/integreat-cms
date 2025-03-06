@@ -106,6 +106,7 @@ class ZammadChatAPI:
             "user_is_author",
             "attachments",
             "automatic_answer",
+            "evaluation_consent",
         ]
 
         return {key: response[key] for key in keys_to_keep if key in response}
@@ -198,6 +199,7 @@ class ZammadChatAPI:
         internal: bool = False,
         automatic_message: bool = False,
         automatic_answers: bool = True,
+        evaluation_consent: bool = False,
     ) -> dict:
         """
         Post a new message to the given ticket
@@ -206,7 +208,10 @@ class ZammadChatAPI:
         param message: The message body
         param internal: keep the message internal in Zammad (do not show to user)
         param automatic_message: sets title to "automatically generated message"
-        param automatic_answers: sets the attribute
+        param automatic_answers: set the Zammad attribute that defines if automatic
+                                 answers should be generated
+        param evaluation_consent: set the Zammad attribute that defines if the user
+                                  agreed to an evaluation of the chat
         return: dict with Zammad article data
         """
         params = {
@@ -222,6 +227,7 @@ class ZammadChatAPI:
             ),
             "sender": "Customer" if not automatic_message else "Agent",
             "automatic_answers": automatic_answers,
+            "evaluation_consent": evaluation_consent,
         }
         return self._parse_response(  # type: ignore[return-value]
             self._attempt_call(self.client.ticket_article.create, params=params),
