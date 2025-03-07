@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
+
     from collections.abc import Callable
     from typing import Any
 
@@ -13,7 +13,9 @@ from django.conf import settings
 from requests.exceptions import HTTPError
 from zammad_py import ZammadAPI
 
-from integreat_cms.cms.models import AttachmentMap, Region, UserChat
+from integreat_cms.cms.models import Region
+if TYPE_CHECKING:
+    from integreat_cms.cms.models import UserChat, AttachmentMap
 
 logger = logging.getLogger(__name__)
 
@@ -148,7 +150,7 @@ class ZammadChatAPI:
 
     @staticmethod
     def _transform_attachment(
-        chat: UserChat,
+        chat: "UserChat",
         article_id: int,
         attachment: dict,
     ) -> dict:
@@ -164,7 +166,7 @@ class ZammadChatAPI:
         }
 
     # pylint: disable=method-hidden
-    def get_messages(self, chat: UserChat) -> dict | list[dict]:
+    def get_messages(self, chat: "UserChat") -> dict | list[dict]:
         """
         Get all non-internal messages for a given ticket
 
@@ -185,7 +187,7 @@ class ZammadChatAPI:
                 ]
         return response
 
-    def get_api_response(self, chat: UserChat) -> dict:
+    def get_api_response(self, chat: "UserChat") -> dict:
         """
         Transform Zammad messages into API response suitable for the Integreat Chat back end
         and Integreat App. The list of messages should contain the necessary attributes to
@@ -212,7 +214,7 @@ class ZammadChatAPI:
     # pylint: disable=method-hidden
     def send_message(
         self,
-        chat: UserChat | None,
+        chat: "UserChat" | None,
         message: str,
         internal: bool = False,
         automatic_message: bool = False,
@@ -246,7 +248,7 @@ class ZammadChatAPI:
         )
 
     # pylint: disable=method-hidden
-    def get_attachment(self, attachment_map: AttachmentMap) -> bytes | dict:
+    def get_attachment(self, attachment_map: "AttachmentMap") -> bytes | dict:
         """
         Get the (binary) attachment file from Zammad.
 
