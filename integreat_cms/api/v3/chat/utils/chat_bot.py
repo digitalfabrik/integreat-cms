@@ -121,6 +121,10 @@ def process_user_message(
             answer["answer"],
             False,
             True,
+        )
+        client.update_ticket(
+            zammad_chat.zammad_id,
+            "automatic_answers",
             answer["automatic_answers"],
         )
 

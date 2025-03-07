@@ -49,7 +49,7 @@ class ZammadChatAPI:
         try:
             self.client_identity = self.client.user.me()["login"]
         except HTTPError:
-            self.create_ticket = self.send_message = self.get_messages = (  # type: ignore[assignment]
+            self.create_ticket = self.update_ticket = self.send_message = self.get_messages = (  # type: ignore[assignment]
                 self.get_attachment  # type: ignore[method-assign]
             ) = lambda *_: {
                 "status": 500,
@@ -128,6 +128,24 @@ class ZammadChatAPI:
             self._attempt_call(self.client.ticket.create, params=params),
         )
 
+    def update_ticket(
+            self,
+            ticket_id: int,
+            key: str,
+            value: Any
+        ) -> dict:
+        """
+        Update an existing ticket
+
+        :param ticket_id: Zammad ticket id
+        :param key: Zammad ticket attribute name
+        :param evaluation_consent: Zammad ticket attribute value
+        """
+        params = {key: value}
+        return self._parse_response(  # type: ignore[return-value]
+            self._attempt_call(self.client.ticket.update, id=ticket_id, params=params),
+        )
+
     @staticmethod
     def _transform_attachment(
         chat: UserChat,
@@ -198,8 +216,6 @@ class ZammadChatAPI:
         message: str,
         internal: bool = False,
         automatic_message: bool = False,
-        automatic_answers: bool = True,
-        evaluation_consent: bool = False,
     ) -> dict:
         """
         Post a new message to the given ticket
@@ -208,10 +224,6 @@ class ZammadChatAPI:
         param message: The message body
         param internal: keep the message internal in Zammad (do not show to user)
         param automatic_message: sets title to "automatically generated message"
-        param automatic_answers: set the Zammad attribute that defines if automatic
-        answers should be generated
-        param evaluation_consent: set the Zammad attribute that defines if the user
-        agreed to an evaluation of the chat
         return: dict with Zammad article data
         """
         if chat is None or not chat.zammad_id:
@@ -228,8 +240,6 @@ class ZammadChatAPI:
                 else "app user message"
             ),
             "sender": "Customer" if not automatic_message else "Agent",
-            "automatic_answers": automatic_answers,
-            "evaluation_consent": evaluation_consent,
         }
         return self._parse_response(  # type: ignore[return-value]
             self._attempt_call(self.client.ticket_article.create, params=params),

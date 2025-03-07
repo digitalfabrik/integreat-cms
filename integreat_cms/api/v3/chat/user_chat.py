@@ -147,7 +147,6 @@ def send_message(
             request.POST.get("message"),
             False,
             False,
-            request.POST.get("evaluation_consent"),
         ),  # type: ignore[union-attr]
     )
 
@@ -227,6 +226,12 @@ def chat(
         return get_attachment(client, user_chat, attachment_id)
     if request.method == "GET":
         return get_messages(request, client, user_chat, device_id)
+    if user_chat is not None and 'evaluation_consent' not in request.POST:
+        client.update_ticket(
+            user_chat.zammad_id,
+            "evaluation_consent",
+            request.POST.get("evaluation_consent")
+        )
     return send_message(request, language_slug, client, user_chat, device_id)
 
 
