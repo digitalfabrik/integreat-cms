@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -9,7 +8,7 @@ from django.test.client import Client
 from django.urls import reverse
 from requests.exceptions import HTTPError
 
-from integreat_cms.cms.models import ABTester, AttachmentMap, UserChat
+from integreat_cms.cms.models import ABTester, UserChat
 
 default_kwargs = {
     "region_slug": "augsburg",
@@ -57,18 +56,18 @@ def test_api_chat_missing_auth_error(load_test_data: None) -> None:
 
 
 @pytest.mark.django_db
-def test_api_chat_incorrect_auth_error(load_test_data: None) -> None:
+def test_api_chat_incorrect_server_error(load_test_data: None) -> None:
     """
-    Check that incorrect auth information leads to an error
+    Check that incorrect server information leads to an error
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        "integreat_cms.cms.utils.zammad.ZammadAPI",
         return_value=mock_api,
     ):
-        mock_api.user.me.side_effect = HTTPError()
+        mock_api.get_zammad_user_mail.side_effect = HTTPError()
 
         client = Client()
         url = reverse(
@@ -92,12 +91,12 @@ def test_api_chat_first_chat(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        "integreat_cms.cms.utils.zammad.ZammadAPI",
         return_value=mock_api,
     ):
-        mock_api.user.all.return_value = []
-        mock_api.user.me.return_value = {"login": "bot-user"}
-        mock_api.ticket.create.return_value = {"id": 111}
+        mock_api.create_ticket.return_value = 111
+        mock_api.get_zammad_user_mail.return_value = "tech@tuerantuer.org"
+        mock_api.save_message.return_value = True
 
         client = Client()
         url = reverse(
@@ -222,136 +221,6 @@ def test_api_chat_get_messages_failure(load_test_data: None) -> None:
         assert response.json() == {
             "error": "The requested chat does not exist. Did you delete it?",
         }
-
-
-@pytest.mark.django_db
-def test_api_chat_create_attachment_success(load_test_data: None) -> None:
-    """
-    Check that getting a chat containing an attachement creates the mapping in the database
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    """
-    mock_api = MagicMock()
-    with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
-        return_value=mock_api,
-    ):
-        mock_api.user.all.return_value = []
-        mock_api.user.me.return_value = {"login": "bot-user"}
-        mock_api.ticket.articles.return_value = [
-            {
-                "id": 444,
-                "body": "message",
-                "user_is_author": False,
-                "attachments": [
-                    {
-                        "id": 10,
-                        "filename": "sample.pdf",
-                        "size": "41412",
-                        "preferences": {"Content-Type": "application/pdf"},
-                    },
-                ],
-            },
-        ]
-
-        client = Client()
-        url = reverse("api:chat", kwargs=default_kwargs)
-
-        response = client.get(url)
-        random_hash = json.loads(response.content.decode("utf-8"))["messages"][0][
-            "attachments"
-        ][0]["id"]
-
-        assert response.status_code == 200
-        assert AttachmentMap.objects.get(random_hash=random_hash)
-
-
-@pytest.mark.django_db
-def test_api_chat_get_attachment_success(load_test_data: None) -> None:
-    """
-    Check that getting an attachment works for an existing chat
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    """
-    mock_api = MagicMock()
-    with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
-        return_value=mock_api,
-    ):
-        mock_api.user.all.return_value = []
-        mock_api.user.me.return_value = {"login": "bot-user"}
-        mock_api.ticket_article_attachment.download.return_value = b"\00"
-
-        client = Client()
-        url = reverse("api:chat", kwargs=default_kwargs)
-
-        response = client.get(url)
-
-        url = reverse(
-            "api:chat",
-            kwargs=default_kwargs | {"attachment_id": "exampleRandomHash"},
-        )
-        response = client.get(url)
-
-        assert response.status_code == 200
-
-
-@pytest.mark.django_db
-def test_api_chat_get_attachment_incorrect_chat_failure(load_test_data: None) -> None:
-    """
-    Check that getting an attachment for a non-existing chat returns an error
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    """
-    mock_api = MagicMock()
-    with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
-        return_value=mock_api,
-    ):
-        mock_api.user.all.return_value = []
-        mock_api.user.me.return_value = {"login": "bot-user"}
-
-        client = Client()
-        url = reverse(
-            "api:chat",
-            kwargs=default_kwargs
-            | {
-                "device_id": "doesNotOwnTheAttachment",
-                "attachment_id": "exampleRandomHash",
-            },
-        )
-        response = client.get(url)
-
-        assert response.status_code == 404
-        assert response.json() == {"error": "The requested attachment does not exist."}
-
-
-@pytest.mark.django_db
-def test_api_chat_get_attachment_missing_attachment_failure(
-    load_test_data: None,
-) -> None:
-    """
-    Check that getting an attachment for a non-existing attachment_id returns an error
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    """
-    mock_api = MagicMock()
-    with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
-        return_value=mock_api,
-    ):
-        mock_api.user.all.return_value = []
-        mock_api.user.me.return_value = {"login": "bot-user"}
-
-        client = Client()
-        url = reverse(
-            "api:chat",
-            kwargs=default_kwargs | {"attachment_id": "nonexistent"},
-        )
-        response = client.get(url)
-
-        assert response.status_code == 404
-        assert response.json() == {"error": "The requested attachment does not exist."}
 
 
 @pytest.mark.django_db

@@ -53,7 +53,7 @@ class AttachmentMap(AbstractBaseModel):
 
         :return: The canonical string representation of the attachment map
         """
-        return f"<AttachmentMap (id: {self.id}, random_hash: {self.random_hash}, attachment_id: {self.attachment_id})>"
+        return f"<AttachmentMap (id: {self.pk}, random_hash: {self.random_hash}, attachment_id: {self.attachment_id})>"
 
     class Meta:
         verbose_name = _("attachment map")
