@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import time
 from typing import TYPE_CHECKING
 
-from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from ...utils.zammad import ZammadAPI
 from ..abstract_base_model import AbstractBaseModel
 from ..languages.language import Language
 from ..regions.region import Region
@@ -35,6 +34,20 @@ class UserChatManager(models.Manager):
             .first()
         )
 
+    def create(self, region: Region, device_id: str, language: Language) -> UserChat:
+        """
+        Override super create method to create a Zammad ticket for each new chat
+
+        :param region: Region to which the chat belongs
+        :param device_id: UUID identifying a chat/device
+        :param language: the UI language of the app
+        """
+        chat = UserChat(region=region, device_id=device_id, language=language)
+        title = f"[Integreat Chat] [{language.slug}] {device_id}"
+        chat.zammad_id = chat.create_ticket(title)
+        chat.save()
+        return chat
+
 
 class ABTester(AbstractBaseModel):
     """
@@ -61,7 +74,7 @@ class ABTester(AbstractBaseModel):
 
         :return: The canonical string representation of the ab tester
         """
-        return f"<ABTester (id: {self.id}, device_id: {self.device_id}, is_tester: {self.is_tester})>"
+        return f"<ABTester (id: {self.pk}, device_id: {self.device_id}, is_tester: {self.is_tester})>"
 
     class Meta:
         verbose_name = _("ab tester")
@@ -70,13 +83,13 @@ class ABTester(AbstractBaseModel):
         default_permissions = ("delete", "change")
 
 
-class UserChat(AbstractBaseModel):
+class UserChat(AbstractBaseModel, ZammadAPI):
     """
     A model for a user (app) chat, mapping a device ID to a Zammad ticket ID
     """
 
     device_id = models.CharField(max_length=200)
-    zammad_id = models.IntegerField()
+    zammad_id = models.IntegerField()  # Zammad ticket id
     region = models.ForeignKey(
         Region,
         null=True,
@@ -90,34 +103,9 @@ class UserChat(AbstractBaseModel):
         related_name="chats",
         verbose_name="Language of chat app user",
     )
-    most_recent_hits = models.TextField(blank=True)
 
     # manager for fetching only the newest (i.e. current) chat
     objects = UserChatManager()
-
-    def record_hit(self) -> None:
-        """
-        Record the timestamp of accesses for ratelimiting purposes
-        """
-        timestamps = self.most_recent_hits.split(",") if self.most_recent_hits else []
-        while len(timestamps) > settings.USER_CHAT_WINDOW_LIMIT:
-            timestamps.pop(0)
-        self.most_recent_hits = ",".join([*timestamps, str(int(time.time()))])
-        self.save()
-
-    def ratelimit_exceeded(self) -> bool:
-        """
-        Decide if the rate limit for this chat has been exceeded
-
-        :return: if the rate limit has been exceeded
-        """
-        timestamps = self.most_recent_hits.split(",")
-        if len(timestamps) < settings.USER_CHAT_WINDOW_LIMIT:
-            return False
-
-        return (
-            int(time.time()) - int(timestamps[0])
-        ) < 60 * settings.USER_CHAT_WINDOW_MINUTES
 
     def __str__(self) -> str:
         """
@@ -135,7 +123,21 @@ class UserChat(AbstractBaseModel):
 
         :return: The canonical string representation of the user chat
         """
-        return f"<UserChat (id: {self.id}, device_id: {self.device_id}, zammad_id: {self.zammad_id})>"
+        return f"<UserChat (id: {self.pk}, device_id: {self.device_id}, zammad_id: {self.zammad_id})>"
+
+    def as_dict(self) -> dict[str, Any]:
+        """
+        API compatible dict representation of the chat
+        """
+        response = {
+            "messages": list(self.messages),
+            "evaluation_consent": bool(self.evaluation_consent),
+        }
+        if self.region is not None:
+            response["ticket_url"] = (
+                f"{self.region.zammad_url}/#ticket/zoom/{self.zammad_id}"
+            )
+        return response
 
     class Meta:
         verbose_name = _("user chat")

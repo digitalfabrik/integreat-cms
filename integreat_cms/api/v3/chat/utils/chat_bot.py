@@ -12,8 +12,6 @@ from django.conf import settings
 
 from integreat_cms.cms.models import Region, UserChat
 
-from .zammad_api import ZammadChatAPI
-
 
 async def automatic_answer(
     messages: list,
@@ -96,33 +94,27 @@ def process_user_message(
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
-    client = ZammadChatAPI(region)
-    messages = client.get_api_response(zammad_chat)["messages"]
-    if not isinstance(messages, list):
-        raise TypeError("Messages is are not a list")
     translation, answer = asyncio.run(
         async_process_user_message(
             zammad_chat.language.slug,
             region_slug,
             region.default_language.slug,
-            messages,
+            zammad_chat.messages,
         ),
     )
     if translation:
-        client.send_message(
-            zammad_chat,
-            translation["translation"],
-            True,
-            True,
+        zammad_chat.save_message(
+            message=translation["translation"],
+            internal=True,
+            automatic_message=True,
         )
     if answer:
-        client.send_message(
-            zammad_chat,
-            answer["answer"],
-            False,
-            True,
-            answer["automatic_answers"],
+        zammad_chat.save_message(
+            message=answer["answer"],
+            internal=False,
+            automatic_message=True,
         )
+        zammad_chat.save_automatic_answers(answer["automatic_answers"])
 
 
 async def async_process_translate(
@@ -152,7 +144,6 @@ def process_translate_answer(
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
-    client = ZammadChatAPI(region)
     translation = asyncio.run(
         async_process_translate(
             message_text,
@@ -161,11 +152,10 @@ def process_translate_answer(
         ),
     )
     if translation:
-        client.send_message(
-            zammad_chat,
-            translation["translation"],
-            False,
-            True,
+        zammad_chat.save_message(
+            message=translation["translation"],
+            internal=False,
+            automatic_message=True,
         )
 
 
@@ -178,16 +168,14 @@ def process_translate_question(
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
-    client = ZammadChatAPI(region)
     translation = asyncio.run(
         async_process_translate(
             message_text, zammad_chat.language.slug, region.default_language.slug
         )
     )
     if translation:
-        client.send_message(
-            zammad_chat,
-            translation["translation"],
-            True,
-            True,
+        zammad_chat.send_message(
+            message=translation["translation"],
+            internal=True,
+            automatic_message=True,
         )
