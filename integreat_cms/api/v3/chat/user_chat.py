@@ -20,7 +20,6 @@ from .utils.chat_bot import (
     process_translate_question,
     process_user_message,
 )
-from .utils.zammad_api import ZammadChatAPI
 
 if TYPE_CHECKING:
     from django.http import HttpRequest
@@ -39,47 +38,8 @@ def response_or_error(result: dict) -> JsonResponse:
         return JsonResponse(result, status=result.pop("status"))
     return JsonResponse(result)
 
-
-def get_attachment(
-    client: ZammadChatAPI,
-    user_chat: UserChat | None,
-    attachment_id: str,
-) -> JsonResponse | HttpResponse:
-    """
-    Function to retrieve an attachment given the correct attachment_id
-
-    :param client: the Zammad API client to use
-    :param user_chat: the device_id's current chat (if one exists)
-    :param attachment_id: ID of the requested attachment
-    :return: JSON object according to APIv3 offers endpoint definition
-    """
-    if (
-        not (
-            attachment_map := AttachmentMap.objects.filter(
-                random_hash=attachment_id,
-            ).first()
-        )
-        or (not user_chat)
-        or attachment_map.user_chat != user_chat
-    ):
-        logger.warning(
-            "An attachment with ID %s was requested, but does not exist for user chat %r.",
-            attachment_id,
-            user_chat,
-        )
-        return JsonResponse(
-            {"error": "The requested attachment does not exist."},
-            status=404,
-        )
-    response = client.get_attachment(attachment_map)
-    if isinstance(response, dict):
-        return response_or_error(response)
-    return HttpResponse(response, content_type=attachment_map.mime_type)
-
-
 def get_messages(
     request: HttpRequest,
-    client: ZammadChatAPI,
     user_chat: UserChat | None,
     device_id: str,
 ) -> JsonResponse:
@@ -108,7 +68,6 @@ def get_messages(
 def send_message(
     request: HttpRequest,
     language_slug: str,
-    client: ZammadChatAPI,
     user_chat: UserChat | None,
     device_id: str,
 ) -> JsonResponse:
@@ -125,10 +84,8 @@ def send_message(
     """
     if request.POST.get("force_new") or not user_chat:
         try:
-            chat_id = client.create_ticket(device_id, language_slug)["id"]
             user_chat = UserChat.objects.create(
                 device_id=device_id,
-                zammad_id=chat_id,
                 region=request.region,
                 language=Language.objects.get(slug=language_slug),
             )
@@ -141,15 +98,7 @@ def send_message(
                 {"error": "An error occurred while attempting to create a new chat."},
                 status=500,
             )
-    return response_or_error(
-        client.send_message(
-            user_chat,
-            request.POST.get("message"),
-            False,
-            False,
-        ),  # type: ignore[union-attr]
-    )
-
+    return user_chat.as_dict()
 
 @csrf_exempt
 @json_response
@@ -210,7 +159,6 @@ def chat(
             status=503,
         )
 
-    client = ZammadChatAPI(request.region)
     if user_chat := UserChat.objects.current_chat(device_id):
         # checking the current chat for ratelimiting purposes is sufficient,
         # since new chat creation also depends on passing this check
@@ -222,17 +170,13 @@ def chat(
             return JsonResponse({"error": "You're doing that too often."}, status=429)
         user_chat.record_hit()
 
-    if request.method == "GET" and attachment_id:
-        return get_attachment(client, user_chat, attachment_id)
-    if request.method == "GET":
-        return get_messages(request, client, user_chat, device_id)
     if user_chat is not None and 'evaluation_consent' not in request.POST:
-        client.update_ticket(
-            user_chat.zammad_id,
-            "evaluation_consent",
-            request.POST.get("evaluation_consent")
+        user_chat.save_message(
+            request.POST.get("message"),
+            request.POST.get("internal"),
+            request.POST.get("automatic_message")
         )
-    return send_message(request, language_slug, client, user_chat, device_id)
+    return user_chat.as_dict()
 
 
 def is_app_user_message(webhook_message: dict) -> bool:
