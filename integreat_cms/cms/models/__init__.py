@@ -7,7 +7,6 @@ from __future__ import annotations
 
 from integreat_cms.cms.models.firebase.firebase_statistic import FirebaseStatistic
 
-from .chat.attachment_map import AttachmentMap
 from .chat.chat_message import ChatMessage
 from .chat.user_chat import ABTester, UserChat
 from .contact.contact import Contact

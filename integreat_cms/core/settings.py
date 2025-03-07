@@ -1386,6 +1386,12 @@ INTEGREAT_CHAT_BACK_END_TIMEOUT = os.environ.get(
     300,
 )
 
+#: The e-mail address of the user that the Integreat
+INTEGREAT_CHAT_CMS_USER_MAIL = os.environ.get(
+    "INTEGREAT_CMS_INTEGREAT_CHAT_CMS_USER_MAIL",
+    "tech+integreat-cms@tuerantuer.org",
+)
+
 ##########
 # CELERY #
 ##########
