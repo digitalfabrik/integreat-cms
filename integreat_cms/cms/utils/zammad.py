@@ -83,7 +83,9 @@ class ZammadAPI:
         ]
         formatted_messages = []
         for message in response:
-            formatted_message = {key: message[key] for key in keys_to_keep if key in message}
+            formatted_message = {
+                key: message[key] for key in keys_to_keep if key in message
+            }
             if message["user_is_author"]:
                 formatted_message["role"] = "user"
             else:

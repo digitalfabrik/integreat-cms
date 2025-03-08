@@ -42,7 +42,9 @@ class UserChatManager(models.Manager):
         """
         title = f"[Integreat Chat] [{region.slug}] {device_id}"
         zammad_id = self.create_ticket(region, title)
-        return super().create(zammad_id=zammad_id, region=region, device_id=device_id, **kwargs)
+        return super().create(
+            zammad_id=zammad_id, region=region, device_id=device_id, **kwargs
+        )
 
 
 class ABTester(AbstractBaseModel):
