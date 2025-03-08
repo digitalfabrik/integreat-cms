@@ -36,14 +36,13 @@ class UserChatManager(models.Manager):
             .first()
         )
 
-    def create(self, **kwargs) -> UserChat:
+    def create(self, region: Region, device_id: str, **kwargs: Any) -> UserChat:
         """
         Override super create method to create a Zammad ticket for each new chat
         """
-        title = f"[Integreat Chat] [{kwargs.get('language').slug}] {kwargs.get('device_id')}"
-        region = kwargs.get("region")
+        title = f"[Integreat Chat] [{region.slug}] {device_id}"
         zammad_id = self.create_ticket(region, title)
-        return super().create(zammad_id=zammad_id, **kwargs)
+        return super().create(zammad_id=zammad_id, region=region, device_id=device_id, **kwargs)
 
 
 class ABTester(AbstractBaseModel):
