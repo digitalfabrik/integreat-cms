@@ -90,9 +90,14 @@ class ZammadAPI:
             formatted_messages.append(message)
         return formatted_messages
 
-    def save_message(self, message: str, internal: bool, automatic_message: bool):
+    def save_message(self, message: str, internal: bool, automatic_message: bool) -> bool:
         """
         Add a new message
+
+        :param message: message text to be saved
+        :param internal: true if message shoud not be visible to app user
+        :param automatic_message: true if message does not originate from a human
+        :return: success
         """
         del self.messages
         return (
