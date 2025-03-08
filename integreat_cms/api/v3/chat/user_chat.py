@@ -101,7 +101,6 @@ def chat(
     region_slug: str,
     language_slug: str,
     device_id: str,
-    attachment_id: str = "",  # ruff: disable=ARG001
 ) -> JsonResponse | HttpResponse:
     """
     Function to send a new message in the current chat of a specified device_id,
