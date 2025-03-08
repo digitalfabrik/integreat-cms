@@ -48,7 +48,7 @@ class ZammadAPI:
     Zammad API Wrapper. This is intended to be used as a UserChat parent class.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.zammad_id = None
         self.region = None
 
@@ -81,10 +81,10 @@ class ZammadAPI:
             "automatic_answer",
             "evaluation_consent",
         ]
-        response = {key: response[key] for key in keys_to_keep if key in response}
         response["content"] = response["body"]
         formatted_messages = []
         for message in response:
+            message = {key: message[key] for key in keys_to_keep if key in message}
             if message["user_is_author"]:
                 message["role"] = "user"
             else:
