@@ -1,16 +1,18 @@
 """
 Zammad API helper functions
 """
+from typing import Optional, TYPE_CHECKING
 
 import requests
 from django.conf import settings
 from django.utils.functional import cached_property
 
-from ..models import Region
+if TYPE_CHECKING:
+    from ..models import Region
 
 
 def zammad_request(
-    method: str, region: Region, path: str, payload: dict = None
+    method: str, region: "Region", path: str, payload: Optional[dict] = None
 ) -> requests.Response:
     """
     Wrapper for calling the Zammad API. Mostly takes care of auth and timeout.
@@ -30,7 +32,7 @@ def zammad_request(
     )
 
 
-def get_zammad_user_mail(region: Region) -> str:
+def get_zammad_user_mail(region: "Region") -> str:
     """
     Get Zammad user e-mail
 
@@ -45,8 +47,9 @@ class ZammadAPI:
     Zammad API Wrapper. This is intended to be used as a UserChat parent class.
     """
 
-    zammad_id = None
-    region = None
+    def __init__(self):
+        self.zammad_id = None
+        self.region = None
 
     def get_zammad_ticket_messages(self) -> list[dict]:
         """
@@ -172,7 +175,7 @@ class ZammadAPI:
             == 200
         )
 
-    def create_ticket(self, region: Region, title: str) -> int:
+    def create_ticket(self, region: "Region", title: str) -> int:
         """
         Create Zammad ticket and return ticket ID
 
