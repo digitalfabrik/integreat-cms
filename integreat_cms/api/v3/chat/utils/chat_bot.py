@@ -116,7 +116,7 @@ def process_user_message(
             False,
             True,
         )
-        zammad_chat.automatic_answers = answer["automatic_answers"]
+        zammad_chat.save_automatic_answers(answer["automatic_answers"])
 
 
 async def async_process_translate(

@@ -26,46 +26,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-
-def response_or_error(result: dict) -> JsonResponse:
-    """
-    Helper function to extract the status code from the API response
-
-    :param result: an API call's result
-    :return: json response with appropriate status code
-    """
-    if result.get("status"):
-        return JsonResponse(result, status=result.pop("status"))
-    return JsonResponse(result)
-
-
-def get_messages(
-    request: HttpRequest,
-    user_chat: UserChat | None,
-    device_id: str,
-) -> JsonResponse:
-    """
-    Function to retrieve all messages of the most recent chat for a given device_id
-
-    :param request: Django request
-    :param client: the Zammad API client to use
-    :param user_chat: the device_id's current chat
-    :param device_id: ID of the user requesting the messages
-    :return: JSON object according to APIv3 offers endpoint definition
-    """
-    if not user_chat:
-        logger.warning(
-            "A chat for device ID %s was requested, but does not exist in %r.",
-            device_id,
-            request.region,
-        )
-        return JsonResponse(
-            {"error": "The requested chat does not exist. Did you delete it?"},
-            status=404,
-        )
-    return user_chat.as_dict()
-
-
+# Legacy?!
 def send_message(
     request: HttpRequest,
     language_slug: str,
@@ -171,14 +132,13 @@ def chat(
             )
             return JsonResponse({"error": "You're doing that too often."}, status=429)
         user_chat.record_hit()
-
-    if user_chat is not None and "evaluation_consent" not in request.POST:
-        user_chat.save_message(
-            request.POST.get("message"),
-            request.POST.get("internal"),
-            request.POST.get("automatic_message"),
-        )
-    return user_chat.as_dict()
+    else:
+        return JsonResponse({"error": "Chat not found."}, status=404)
+    if request.POST.get("message"):
+        user_chat.save_message(request.POST.get("message"), False, False)
+    if request.POST.get("evaluation_consent"):
+        user_chat.save_evaluation_consent(request.POST.get("evaluation_consent"))
+    return JsonResponse(user_chat.as_dict())
 
 
 def is_app_user_message(webhook_message: dict) -> bool:

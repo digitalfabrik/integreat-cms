@@ -6,6 +6,7 @@ from typing import Optional, TYPE_CHECKING
 import requests
 from django.conf import settings
 from django.utils.functional import cached_property
+from django.core.cache import cache
 
 if TYPE_CHECKING:
     from ..models import Region
@@ -126,8 +127,7 @@ class ZammadAPI:
             "GET", self.region, f"/api/v1/tickets/{self.zammad_id}"
         ).json()["evaluation_consent"]
 
-    @evaluation_consent.setter
-    def evaluation_consent(self, value: bool) -> None:
+    def save_evaluation_consent(self, value: bool) -> None:
         """
         Set user evaluation consent
 
@@ -156,8 +156,7 @@ class ZammadAPI:
             "GET", self.region, f"/api/v1/tickets/{self.zammad_id}"
         ).json()["automatic_answers"]
 
-    @automatic_answers.setter
-    def automatic_answers(self, value: bool) -> None:
+    def save_automatic_answers(self, value: bool) -> None:
         """
         Turn automatic answers on/off
 
