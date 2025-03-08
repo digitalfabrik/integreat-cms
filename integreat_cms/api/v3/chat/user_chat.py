@@ -96,7 +96,11 @@ def chat(
             return JsonResponse({"error": "You're doing that too often."}, status=429)
         user_chat.record_hit()
     else:
-        return JsonResponse({"error": "Chat not found."}, status=404)
+        user_chat = UserChat.objects.create(
+            region=Region,
+            language=Language.objects.get(language_slug=language_slug),
+            device_id=device_id,
+        )
     if request.POST.get("message"):
         user_chat.save_message(request.POST.get("message"), False, False)
     if request.POST.get("evaluation_consent"):

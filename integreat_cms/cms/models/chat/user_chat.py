@@ -36,6 +36,15 @@ class UserChatManager(models.Manager):
             .first()
         )
 
+    def create(self, **kwargs) -> UserChat:
+        """
+        Override super create method to create a Zammad ticket for each new chat
+        """
+        title = f"[Integreat Chat] [{kwargs.get('language').slug}] {kwargs.get('device_id')}"
+        region = kwargs.get("region")
+        zammad_id = self.create_ticket(region, title)
+        return super().create(zammad_id=zammad_id, **kwargs)
+
 
 class ABTester(AbstractBaseModel):
     """
@@ -151,15 +160,6 @@ class UserChat(AbstractBaseModel, ZammadAPI):
                 f"{self.region.zammad_url}/#ticket/zoom/{self.zammad_id}"
             )
         return response
-
-    def create(self, **kwargs) -> UserChat:
-        """
-        Override super create method to create a Zammad ticket for each new chat
-        """
-        title = f"[Integreat Chat] [{kwargs.get('language').slug}] {kwargs.get('device_id')}"
-        region = kwargs.get("region")
-        zammad_id = self.create_ticket(region, title)
-        return super().create(zammad_id=zammad_id, **kwargs)
 
     class Meta:
         verbose_name = _("user chat")
