@@ -152,7 +152,7 @@ class UserChat(AbstractBaseModel, ZammadAPI):
             )
         return response
 
-    def create(self, **kwargs):
+    def create(self, **kwargs) -> UserChat:
         """
         Override super create method to create a Zammad ticket for each new chat
         """

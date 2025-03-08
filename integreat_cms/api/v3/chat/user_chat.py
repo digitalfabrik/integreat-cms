@@ -27,43 +27,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# Legacy?!
-def send_message(
-    request: HttpRequest,
-    language_slug: str,
-    user_chat: UserChat | None,
-    device_id: str,
-) -> JsonResponse:
-    """
-    Function to send a new message in the current chat of a specified device_id,
-    or to create one if no chat exists or the user requested a new one.
-
-    :param request: Django request
-    :param language_slug: language slug
-    :param client: the Zammad API client to use
-    :param user_chat: the device_id's current chat (if one exists)
-    :param device_id: ID of the user requesting the messages
-    :return: the current list of messages stored in Zammad
-    """
-    if request.POST.get("force_new") or not user_chat:
-        try:
-            user_chat = UserChat.objects.create(
-                device_id=device_id,
-                region=request.region,
-                language=Language.objects.get(slug=language_slug),
-            )
-        except KeyError:
-            logger.warning(
-                "Failed to create a new chat in %r",
-                request.region,
-            )
-            return JsonResponse(
-                {"error": "An error occurred while attempting to create a new chat."},
-                status=500,
-            )
-    return user_chat.as_dict()
-
-
 @csrf_exempt
 @json_response
 def is_chat_enabled_for_user(

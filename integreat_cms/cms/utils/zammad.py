@@ -127,7 +127,7 @@ class ZammadAPI:
             "GET", self.region, f"/api/v1/tickets/{self.zammad_id}"
         ).json()["evaluation_consent"]
 
-    def save_evaluation_consent(self, value: bool) -> None:
+    def save_evaluation_consent(self, value: bool) -> bool:
         """
         Set user evaluation consent
 
@@ -156,7 +156,7 @@ class ZammadAPI:
             "GET", self.region, f"/api/v1/tickets/{self.zammad_id}"
         ).json()["automatic_answers"]
 
-    def save_automatic_answers(self, value: bool) -> None:
+    def save_automatic_answers(self, value: bool) -> bool:
         """
         Turn automatic answers on/off
 
