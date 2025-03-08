@@ -7,10 +7,10 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from ...utils.zammad import ZammadAPI
 from ..abstract_base_model import AbstractBaseModel
 from ..languages.language import Language
 from ..regions.region import Region
-from ...utils.zammad import ZammadAPI
 
 if TYPE_CHECKING:
     from typing import Any
@@ -35,6 +35,7 @@ class UserChatManager(models.Manager):
             .order_by("-pk")
             .first()
         )
+
 
 class ABTester(AbstractBaseModel):
     """
@@ -143,10 +144,12 @@ class UserChat(AbstractBaseModel, ZammadAPI):
         """
         response = {
             "messages": self.messages,
-            "evaluation_consent": self.evaluation_consent
+            "evaluation_consent": self.evaluation_consent,
         }
         if self.region is not None:
-            response["ticket_url"] = f"{self.region.zammad_url}/#ticket/zoom/{self.zammad_id}"
+            response["ticket_url"] = (
+                f"{self.region.zammad_url}/#ticket/zoom/{self.zammad_id}"
+            )
         return response
 
     def create(self, **kwargs):
@@ -154,7 +157,7 @@ class UserChat(AbstractBaseModel, ZammadAPI):
         Override super create method to create a Zammad ticket for each new chat
         """
         title = f"[Integreat Chat] [{kwargs.get('language').slug}] {kwargs.get('device_id')}"
-        region = kwargs.get('region')
+        region = kwargs.get("region")
         zammad_id = self.create_ticket(region, title)
         return super().create(zammad_id=zammad_id, **kwargs)
 

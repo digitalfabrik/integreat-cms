@@ -38,6 +38,7 @@ def response_or_error(result: dict) -> JsonResponse:
         return JsonResponse(result, status=result.pop("status"))
     return JsonResponse(result)
 
+
 def get_messages(
     request: HttpRequest,
     user_chat: UserChat | None,
@@ -62,7 +63,7 @@ def get_messages(
             {"error": "The requested chat does not exist. Did you delete it?"},
             status=404,
         )
-    return response_or_error(client.get_api_response(user_chat))
+    return user_chat.as_dict()
 
 
 def send_message(
@@ -80,7 +81,7 @@ def send_message(
     :param client: the Zammad API client to use
     :param user_chat: the device_id's current chat (if one exists)
     :param device_id: ID of the user requesting the messages
-    :return: JSON object according to APIv3 offers endpoint definition
+    :return: the current list of messages stored in Zammad
     """
     if request.POST.get("force_new") or not user_chat:
         try:
@@ -99,6 +100,7 @@ def send_message(
                 status=500,
             )
     return user_chat.as_dict()
+
 
 @csrf_exempt
 @json_response
@@ -170,11 +172,11 @@ def chat(
             return JsonResponse({"error": "You're doing that too often."}, status=429)
         user_chat.record_hit()
 
-    if user_chat is not None and 'evaluation_consent' not in request.POST:
+    if user_chat is not None and "evaluation_consent" not in request.POST:
         user_chat.save_message(
             request.POST.get("message"),
             request.POST.get("internal"),
-            request.POST.get("automatic_message")
+            request.POST.get("automatic_message"),
         )
     return user_chat.as_dict()
 
