@@ -13,7 +13,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
-from ....cms.models import ABTester, AttachmentMap, Language, Region, UserChat
+from ....cms.models import ABTester, Language, Region, UserChat
 from ...decorators import json_response
 from .utils.chat_bot import (
     process_translate_answer,
