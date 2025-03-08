@@ -1,19 +1,19 @@
 """
 Zammad API helper functions
 """
-from typing import Optional, TYPE_CHECKING
+
+from typing import TYPE_CHECKING
 
 import requests
 from django.conf import settings
 from django.utils.functional import cached_property
-from django.core.cache import cache
 
 if TYPE_CHECKING:
     from ..models import Region
 
 
 def zammad_request(
-    method: str, region: "Region", path: str, payload: Optional[dict] = None
+    method: str, region: "Region", path: str, payload: dict | None = None
 ) -> requests.Response:
     """
     Wrapper for calling the Zammad API. Mostly takes care of auth and timeout.
