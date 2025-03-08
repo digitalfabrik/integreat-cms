@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 
 def zammad_request(
-    method: str, region: "Region", path: str, payload: dict | None = None
+    method: str, region: "Region", path: str, payload: dict | None = None    # noqa: arg-type
 ) -> requests.Response:
     """
     Wrapper for calling the Zammad API. Mostly takes care of auth and timeout.
@@ -47,10 +47,6 @@ class ZammadAPI:
     """
     Zammad API Wrapper. This is intended to be used as a UserChat parent class.
     """
-
-    def __init__(self) -> None:
-        self.zammad_id = None
-        self.region = None
 
     def get_zammad_ticket_messages(self) -> list[dict]:
         """
