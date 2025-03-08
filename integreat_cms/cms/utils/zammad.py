@@ -81,15 +81,14 @@ class ZammadAPI:
             "automatic_answer",
             "evaluation_consent",
         ]
-        response["content"] = response["body"]
         formatted_messages = []
         for message in response:
-            message = {key: message[key] for key in keys_to_keep if key in message}
+            formatted_message = {key: message[key] for key in keys_to_keep if key in message}
             if message["user_is_author"]:
-                message["role"] = "user"
+                formatted_message["role"] = "user"
             else:
-                message["role"] = "agent"
-            message["content"] = message["body"]
+                formatted_message["role"] = "agent"
+            formatted_message["content"] = message["body"]
             formatted_messages.append(message)
         return formatted_messages
 

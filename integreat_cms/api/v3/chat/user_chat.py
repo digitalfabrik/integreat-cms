@@ -97,7 +97,7 @@ def chat(
         user_chat.record_hit()
     else:
         user_chat = UserChat.objects.create(
-            region=Region,
+            region=request.region,
             language=Language.objects.get(language_slug=language_slug),
             device_id=device_id,
         )
