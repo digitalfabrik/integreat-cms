@@ -1,5 +1,6 @@
 {% extends "_base.html" %}
 {% load i18n %}
+{% load rules %}
 {% if request.region.statistics_enabled and perms.cms.view_statistics %}
     {% block content %}
         <div class="row">
@@ -11,6 +12,10 @@
             <div class="xl:flex gap-3 pt-2">
                 <div class="xl:w-3/4">
                     {% include "statistics/statistics_chart.html" with box_id="statistics_chart" %}
+                    {% has_perm 'perm.cms.test_beta_features' request.user as can_test_beta_features %}
+                    {% if can_test_beta_features %}
+                        {% include "statistics/statistics_viewed_pages.html" with box_id="statistics_viewed_pages" %}
+                    {% endif %}
                 </div>
                 <div class="xl:w-1/4 grid grid-cols-1">
                     {% include "statistics/statistics_sidebar.html" with box_id="statistics_sidebar" %}
