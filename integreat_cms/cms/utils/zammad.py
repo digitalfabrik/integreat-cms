@@ -2,6 +2,7 @@
 Zammad API helper functions
 """
 
+from abc import abstractmethod
 from typing import TYPE_CHECKING
 
 import requests
@@ -51,6 +52,22 @@ class ZammadAPI:
     Zammad API Wrapper. This is intended to be used as a UserChat parent class.
     """
 
+    @property
+    @abstractmethod
+    def zammad_id(self) -> int:
+        """
+        Property that has to be defined in child classes
+        """
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def region(self) -> "Region":
+        """
+        Property that has to be defined in child classes
+        """
+        raise NotImplementedError
+
     def get_zammad_ticket_messages(self) -> list[dict]:
         """
         Get Zammad ticket articles
@@ -59,8 +76,8 @@ class ZammadAPI:
         """
         return zammad_request(
             "GET",
-            self.region,  # type: ignore[attr-defined]
-            f"/api/v1/ticket_articles/by_ticket/{self.zammad_id}",  # type: ignore[attr-defined]
+            self.region,
+            f"/api/v1/ticket_articles/by_ticket/{self.zammad_id}",
         ).json()
 
     @cached_property
@@ -108,10 +125,10 @@ class ZammadAPI:
         return (
             zammad_request(
                 "POST",
-                self.region,  # type: ignore[attr-defined]
+                self.region,
                 "/api/v1/ticket_articles",
                 {
-                    "ticket_id": self.zammad_id,  # type: ignore[attr-defined]
+                    "ticket_id": self.zammad_id,
                     "body": message,
                     "internal": internal,
                     "automatic_message": automatic_message,
@@ -132,8 +149,8 @@ class ZammadAPI:
         """
         return zammad_request(
             "GET",
-            self.region,  # type: ignore[attr-defined]
-            f"/api/v1/tickets/{self.zammad_id}",  # type: ignore[attr-defined]
+            self.region,
+            f"/api/v1/tickets/{self.zammad_id}",
         ).json()["evaluation_consent"]
 
     def save_evaluation_consent(self, value: bool) -> bool:
@@ -147,8 +164,8 @@ class ZammadAPI:
         return (
             zammad_request(
                 "POST",
-                self.region,  # type: ignore[attr-defined]
-                f"/api/v1/tickets/{self.zammad_id}",  # type: ignore[attr-defined]
+                self.region,
+                f"/api/v1/tickets/{self.zammad_id}",
                 {"evaluation_consent": value},
             ).status_code
             == 200
@@ -163,8 +180,8 @@ class ZammadAPI:
         """
         return zammad_request(
             "GET",
-            self.region,  # type: ignore[attr-defined]
-            f"/api/v1/tickets/{self.zammad_id}",  # type: ignore[attr-defined]
+            self.region,
+            f"/api/v1/tickets/{self.zammad_id}",
         ).json()["automatic_answers"]
 
     def save_automatic_answers(self, value: bool) -> bool:
@@ -178,8 +195,8 @@ class ZammadAPI:
         return (
             zammad_request(
                 "POST",
-                self.region,  # type: ignore[attr-defined]
-                f"/api/v1/tickets/{self.zammad_id}",  # type: ignore[attr-defined]
+                self.region,
+                f"/api/v1/tickets/{self.zammad_id}",
                 {"automatic_answers": value},
             ).status_code
             == 200
