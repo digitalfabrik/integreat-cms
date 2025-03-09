@@ -178,7 +178,8 @@
            class="btn-icon">
             <i icon-name="pencil"></i>
         </a>
-        {% if can_edit_pages %}
+        {% has_perm 'cms.publish_page_object' request.user as can_publish_pages %}
+        {% if can_publish_pages %}
             {% if page.mirroring_pages.exists %}
                 <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
                         class="btn-icon"

@@ -71,9 +71,26 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
 
     poi = poi_translation.poi
 
-    primary_contact = Contact.objects.filter(
-        location=poi, area_of_responsibility=""
-    ).first()
+    contacts = Contact.objects.filter(location=poi).all()
+
+    # Note(johannes): Remove the primary_contact and the according three fields (phone_number, website, and email) once
+    # https://github.com/digitalfabrik/integreat-app/issues/3121 is resolved.
+    primary_contact = contacts.filter(area_of_responsibility="").first()
+
+    contacts = contacts.filter(archived=False)
+    contact_data = []
+    for contact in contacts:
+        contact_data.append(
+            {
+                "area_of_responsibility": contact.area_of_responsibility
+                if contact.area_of_responsibility
+                else None,
+                "name": contact.name,
+                "email": contact.email,
+                "phone_number": contact.phone_number,
+                "website": contact.website,
+            }
+        )
 
     # Only return opening hours if they differ from the default value and the location is not temporarily closed
     opening_hours = None
@@ -95,6 +112,7 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
         "website": primary_contact.website if primary_contact else None,
         "email": primary_contact.email if primary_contact else None,
         "phone_number": primary_contact.phone_number if primary_contact else None,
+        "contacts": contact_data,
         "category": transform_location_category(
             poi.category,
             poi_translation.language.slug,

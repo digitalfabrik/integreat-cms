@@ -110,6 +110,7 @@ class ZammadChatAPI:
 
         return {key: response[key] for key in keys_to_keep if key in response}
 
+    # pylint: disable=method-hidden
     def create_ticket(self, device_id: str, language_slug: str) -> dict:
         """
         Create a new ticket (i.e. initialize a new chat conversation)
@@ -143,7 +144,8 @@ class ZammadChatAPI:
             )[0].random_hash,
         }
 
-    def get_messages(self, chat: UserChat) -> dict[str, dict | list[dict] | str]:
+    # pylint: disable=method-hidden
+    def get_messages(self, chat: UserChat) -> dict | list[dict]:
         """
         Get all non-internal messages for a given ticket
 
@@ -162,12 +164,33 @@ class ZammadChatAPI:
                     self._transform_attachment(chat, message["id"], attachment)
                     for attachment in message["attachments"]
                 ]
+        return response
 
+    def get_api_response(self, chat: UserChat) -> dict:
+        """
+        Transform Zammad messages into API response suitable for the Integreat Chat back end
+        and Integreat App. The list of messages should contain the necessary attributes to
+        be compatible with the OpenAI chat API.
+
+        :param chat: UserChat instance for the relevant Zammad ticket
+        """
+        messages = self.get_messages(chat)
+        if not isinstance(messages, list):
+            return messages
+        formatted_messages = []
+        for message in messages:
+            if message["user_is_author"]:
+                message["role"] = "user"
+            else:
+                message["role"] = "agent"
+            message["content"] = message["body"]
+            formatted_messages.append(message)
         return {
-            "messages": response,
+            "messages": formatted_messages,
             "ticket_url": f"{chat.region.zammad_url}/#ticket/zoom/{chat.zammad_id}",
         }
 
+    # pylint: disable=method-hidden
     def send_message(
         self,
         chat_id: int,
@@ -201,6 +224,7 @@ class ZammadChatAPI:
             self._attempt_call(self.client.ticket_article.create, params=params),
         )
 
+    # pylint: disable=method-hidden
     def get_attachment(self, attachment_map: AttachmentMap) -> bytes | dict:
         """
         Get the (binary) attachment file from Zammad.

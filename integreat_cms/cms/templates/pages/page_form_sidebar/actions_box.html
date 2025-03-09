@@ -9,6 +9,7 @@
     {% translate "Actions" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
+    {% has_perm 'cms.publish_page_object' request.user as can_publish_pages %}
     {% if page_form.instance.id and can_edit_page and not page.archived %}
         <label class="mt-0">
             {% translate "Refresh date" %}
@@ -53,7 +54,7 @@
                 <i icon-name="pen-square" class="mr-2"></i> {{ ancestor.best_translation.title }}
             </a>
         {% endfor %}
-    {% else %}
+    {% elif can_publish_pages %}
         <label>
             {% translate "Archive page" %}
         </label>
