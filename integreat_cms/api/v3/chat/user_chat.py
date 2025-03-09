@@ -58,6 +58,39 @@ def is_chat_enabled_for_user(
     return JsonResponse({"is_chat_enabled": is_enabled}, status=200)
 
 
+def process_chat_payload(
+    request: HttpRequest, device_id: str, language_slug: str
+) -> JsonResponse:
+    """
+    Create or get UserChat object and return list of messages, if exist.
+
+    :param request: Django request
+    :param device_id: UUID of the app device
+    :param language_slug: slug of language that is used by the app
+    """
+    if user_chat := UserChat.objects.current_chat(device_id):
+        # checking the current chat for ratelimiting purposes is sufficient,
+        # since new chat creation also depends on passing this check
+        if user_chat.ratelimit_exceeded():
+            logger.warning(
+                "Client with device ID %s has exceeded their ratelimit.",
+                device_id,
+            )
+            return JsonResponse({"error": "You're doing that too often."}, status=429)
+        user_chat.record_hit()
+    else:
+        user_chat = UserChat.objects.create(
+            region=request.region,
+            device_id=device_id,
+            language=Language.objects.get(slug=language_slug),
+        )
+    if request.POST.get("message"):
+        user_chat.save_message(request.POST.get("message"), False, False)
+    if request.POST.get("evaluation_consent"):
+        user_chat.save_evaluation_consent(request.POST.get("evaluation_consent"))
+    return JsonResponse(user_chat.as_dict())
+
+
 @csrf_exempt
 @json_response
 def chat(
@@ -86,30 +119,15 @@ def chat(
             status=503,
         )
     try:
-        if user_chat := UserChat.objects.current_chat(device_id):
-            # checking the current chat for ratelimiting purposes is sufficient,
-            # since new chat creation also depends on passing this check
-            if user_chat.ratelimit_exceeded():
-                logger.warning(
-                    "Client with device ID %s has exceeded their ratelimit.",
-                    device_id,
-                )
-                return JsonResponse({"error": "You're doing that too often."}, status=429)
-            user_chat.record_hit()
-        else:
-            user_chat = UserChat.objects.create(
-                region=request.region,
-                language=Language.objects.get(language_slug=language_slug),
-                device_id=device_id,
-            )
-        if request.POST.get("message"):
-            user_chat.save_message(request.POST.get("message"), False, False)
-        if request.POST.get("evaluation_consent"):
-            user_chat.save_evaluation_consent(request.POST.get("evaluation_consent"))
-        return JsonResponse(user_chat.as_dict())
-    except requests.HTTPError as e:
-        logger.error("Could not connect to Zammad: %s", str(e))
-        return JsonResponse({"error": "An error occurred while attempting to connect to the chat server."}, status=500)
+        return process_chat_payload(request, device_id, language_slug)
+    except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError):
+        logger.exception("Could not connect to Zammad")
+        return JsonResponse(
+            {
+                "error": "An error occurred while attempting to connect to the chat server."
+            },
+            status=500,
+        )
 
 
 def is_app_user_message(webhook_message: dict) -> bool:

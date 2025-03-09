@@ -56,9 +56,9 @@ def test_api_chat_missing_auth_error(load_test_data: None) -> None:
 
 
 @pytest.mark.django_db
-def test_api_chat_incorrect_auth_error(load_test_data: None) -> None:
+def test_api_chat_incorrect_server_error(load_test_data: None) -> None:
     """
-    Check that incorrect auth information leads to an error
+    Check that incorrect server information leads to an error
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
@@ -91,12 +91,11 @@ def test_api_chat_first_chat(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        "integreat_cms.cms.utils.zammad.ZammadAPI",
         return_value=mock_api,
     ):
-        mock_api.user.all.return_value = []
-        mock_api.user.me.return_value = {"login": "bot-user"}
-        mock_api.ticket.create.return_value = {"id": 111}
+        mock_api.create_ticket.return_value = 111
+        mock_api.save_message.return_value = True
 
         client = Client()
         url = reverse(

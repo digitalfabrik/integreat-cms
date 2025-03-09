@@ -17,7 +17,7 @@ def zammad_request(
     method: str,
     region: "Region",
     path: str,
-    payload: dict | None = None,  # noqa: arg-type
+    payload: dict | None = None,
 ) -> requests.Response:
     """
     Wrapper for calling the Zammad API. Mostly takes care of auth and timeout.
