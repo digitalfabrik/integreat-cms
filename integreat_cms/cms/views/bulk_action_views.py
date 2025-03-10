@@ -20,7 +20,7 @@ from django.db.models import Q
 from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ngettext_lazy
+from django.utils.translation import ngettext, ngettext_lazy
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
@@ -331,11 +331,14 @@ class BulkArchiveView(BulkActionView):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} was successfully archived.",
-                    "The following {model_name_plural} were successfully archived: {object_names}",
+                    "The following {model_name} were successfully archived: {object_names}",
                     len(archive_successful),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(archive_successful),
+                    ),
                     object_names=iter_to_string(archive_successful),
                 ),
             )
@@ -345,11 +348,14 @@ class BulkArchiveView(BulkActionView):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} is already archived.",
-                    "The following {model_name_plural} are already archived: {object_names}",
+                    "The following {model_name} are already archived: {object_names}",
                     len(archive_unchanged),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(archive_unchanged),
+                    ),
                     object_names=iter_to_string(archive_unchanged),
                 ),
             )
@@ -421,11 +427,14 @@ class BulkRestoreView(BulkActionView):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} was successfully restored.",
-                    "The following {model_name_plural} were successfully restored: {object_names}",
+                    "The following {model_name} were successfully restored: {object_names}",
                     len(restore_succeeded),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(restore_succeeded),
+                    ),
                     object_names=iter_to_string(restore_succeeded),
                 ),
             )
@@ -435,11 +444,14 @@ class BulkRestoreView(BulkActionView):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} is not archived.",
-                    "The following {model_name_plural} are not archived: {object_names}",
+                    "The following {model_name} are not archived: {object_names}",
                     len(restore_unchanged),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(restore_unchanged),
+                    ),
                     object_names=iter_to_string(restore_unchanged),
                 ),
             )
