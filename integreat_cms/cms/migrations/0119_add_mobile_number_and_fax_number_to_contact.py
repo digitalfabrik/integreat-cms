@@ -19,13 +19,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name="contact",
-            name="fax_number",
-            field=models.CharField(
-                blank=True, max_length=40, verbose_name="fax number"
-            ),
-        ),
-        migrations.AddField(
-            model_name="contact",
             name="mobile_phone_number",
             field=models.CharField(
                 blank=True, max_length=40, verbose_name="mobile phone number"
@@ -47,12 +40,11 @@ class Migration(migrations.Migration):
                     models.Q(("email", ""), _negated=True),
                     models.Q(("phone_number", ""), _negated=True),
                     models.Q(("mobile_phone_number", ""), _negated=True),
-                    models.Q(("fax_number", ""), _negated=True),
                     models.Q(("website", ""), _negated=True),
                     _connector="OR",
                 ),
                 name="contact_non_empty",
-                violation_error_message="One of the following fields must be filled: area of responsibility, name, e-mail, phone number, mobile phone number, fax number, website.",
+                violation_error_message="One of the following fields must be filled: area of responsibility, name, e-mail, phone number, mobile phone number, website.",
             ),
         ),
     ]

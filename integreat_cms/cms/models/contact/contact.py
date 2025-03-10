@@ -57,11 +57,6 @@ class Contact(AbstractBaseModel):
         blank=True,
         verbose_name=_("mobile phone number"),
     )
-    fax_number = models.CharField(
-        max_length=40,
-        blank=True,
-        verbose_name=_("fax number"),
-    )
     website = models.URLField(blank=True, max_length=250, verbose_name=_("website"))
     archived = models.BooleanField(
         default=False,
@@ -99,7 +94,6 @@ class Contact(AbstractBaseModel):
             "email",
             "phone_number",
             "mobile_phone_number",
-            "fax_number",
             "website",
             "area_of_responsibility",
         )
@@ -186,7 +180,6 @@ class Contact(AbstractBaseModel):
                 self.email,
                 self.phone_number,
                 self.mobile_phone_number,
-                self.fax_number,
                 self.website,
             ]
             if detail
@@ -287,9 +280,6 @@ class Contact(AbstractBaseModel):
         if self.mobile_phone_number:
             details["mobile_phone_number"] = _("show mobile phone number")
 
-        if self.fax_number:
-            details["fax_number"] = _("show fax number")
-
         if self.website:
             details["website"] = _("show website")
 
@@ -363,11 +353,10 @@ class Contact(AbstractBaseModel):
                 | ~Q(email="")
                 | ~Q(phone_number="")
                 | ~Q(mobile_phone_number="")
-                | ~Q(fax_number="")
                 | ~Q(website=""),
                 name="contact_non_empty",
                 violation_error_message=_(
-                    "One of the following fields must be filled: area of responsibility, name, e-mail, phone number, mobile phone number, fax number, website.",
+                    "One of the following fields must be filled: area of responsibility, name, e-mail, phone number, mobile phone number, website.",
                 ),
             ),
         ]

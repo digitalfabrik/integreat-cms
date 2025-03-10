@@ -32,7 +32,6 @@ class ContactForm(CustomModelForm):
             "email",
             "phone_number",
             "mobile_phone_number",
-            "fax_number",
             "website",
         ]
 
@@ -59,13 +58,3 @@ class ContactForm(CustomModelForm):
         """
         mobile_phone_number = self.cleaned_data["mobile_phone_number"]
         return format_phone_number(mobile_phone_number)
-
-    def clean_fax_number(self) -> str:
-        """
-        Validate the fax number field (see :ref:`overriding-modelform-clean-method`).
-        The number will be converted to the international format, i.e. `+XX (X) XXXXXXXX`.
-
-        :return: The reformatted phone number
-        """
-        fax_number = self.cleaned_data["fax_number"]
-        return format_phone_number(fax_number)
