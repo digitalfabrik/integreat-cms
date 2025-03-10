@@ -48,9 +48,14 @@ class Contact(AbstractBaseModel):
         verbose_name=_("email address"),
     )
     phone_number = models.CharField(
-        max_length=250,
+        max_length=40,
         blank=True,
         verbose_name=_("phone number"),
+    )
+    mobile_phone_number = models.CharField(
+        max_length=40,
+        blank=True,
+        verbose_name=_("mobile phone number"),
     )
     website = models.URLField(blank=True, max_length=250, verbose_name=_("website"))
     archived = models.BooleanField(
@@ -88,6 +93,7 @@ class Contact(AbstractBaseModel):
             "name",
             "email",
             "phone_number",
+            "mobile_phone_number",
             "website",
             "area_of_responsibility",
         )
@@ -169,7 +175,14 @@ class Contact(AbstractBaseModel):
         )
         name = f"{self.name} " if self.name else ""
         details = [
-            detail for detail in [self.email, self.phone_number, self.website] if detail
+            detail
+            for detail in [
+                self.email,
+                self.phone_number,
+                self.mobile_phone_number,
+                self.website,
+            ]
+            if detail
         ]
         details_repr = f"({', '.join(details)})" if details else ""
 
@@ -264,6 +277,9 @@ class Contact(AbstractBaseModel):
         if self.phone_number:
             details["phone_number"] = _("show phone number")
 
+        if self.mobile_phone_number:
+            details["mobile_phone_number"] = _("show mobile phone number")
+
         if self.website:
             details["website"] = _("show website")
 
@@ -336,10 +352,11 @@ class Contact(AbstractBaseModel):
                 | ~Q(name="")
                 | ~Q(email="")
                 | ~Q(phone_number="")
+                | ~Q(mobile_phone_number="")
                 | ~Q(website=""),
                 name="contact_non_empty",
                 violation_error_message=_(
-                    "One of the following fields must be filled: area of responsibility, name, e-mail, phone number, website.",
+                    "One of the following fields must be filled: area of responsibility, name, e-mail, phone number, mobile phone number, website.",
                 ),
             ),
         ]

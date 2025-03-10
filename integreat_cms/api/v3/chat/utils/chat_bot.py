@@ -16,7 +16,7 @@ from .zammad_api import ZammadChatAPI
 
 
 async def automatic_answer(
-    message: str,
+    messages: list,
     region_slug: str,
     language_slug: str,
     session: aiohttp.ClientSession,
@@ -27,7 +27,7 @@ async def automatic_answer(
     url = (
         f"https://{settings.INTEGREAT_CHAT_BACK_END_DOMAIN}/chatanswers/extract_answer/"
     )
-    body = {"message": message, "language": language_slug, "region": region_slug}
+    body = {"messages": messages, "language": language_slug, "region": region_slug}
     async with session.post(
         url,
         json=body,
@@ -63,20 +63,20 @@ async def async_process_user_message(
     zammad_chat_language_slug: str,
     region_slug: str,
     region_default_language_slug: str,
-    message_text: str,
+    messages: list[dict],
 ) -> tuple[dict, dict]:
     """
     Process the message from an Integreat App user
     """
     async with aiohttp.ClientSession() as session:
         translation_task = automatic_translation(
-            message_text,
+            messages[-1]["body"],
             zammad_chat_language_slug,
             region_default_language_slug,
             session,
         )
         answer_task = automatic_answer(
-            message_text,
+            messages,
             region_slug,
             zammad_chat_language_slug,
             session,
@@ -87,22 +87,25 @@ async def async_process_user_message(
 
 @shared_task
 def process_user_message(
-    message_text: str,
     region_slug: str,
     zammad_ticket_id: int,
 ) -> None:
     """
-    Call the async processing of the message from an Integreat App user
+    Call the async processing of the message from an Integreat App user. The question
+    should be translated into the main language and an automatic answer should be generated.
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
     client = ZammadChatAPI(region)
+    messages = client.get_api_response(zammad_chat)["messages"]
+    if not isinstance(messages, list):
+        raise TypeError("Messages is are not a list")
     translation, answer = asyncio.run(
         async_process_user_message(
             zammad_chat.language.slug,
             region_slug,
             region.default_language.slug,
-            message_text,
+            messages,
         ),
     )
     if translation:
@@ -142,7 +145,7 @@ async def async_process_answer(
 @shared_task
 def process_answer(message_text: str, region_slug: str, zammad_ticket_id: int) -> None:
     """
-    Process automatic or counselor answers
+    Process automatic or counselor answers. These messages just need a translation.
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)

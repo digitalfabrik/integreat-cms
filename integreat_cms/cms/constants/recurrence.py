@@ -22,11 +22,14 @@ DATATYPE: Final = int
 
 #: Events that are recurring, i.e. take place more than once
 RECURRING: Final = 1
-#: Events that are not recurring, i.e. take place only once
-NOT_RECURRING: Final = 2
+#: Events that are not recurring and only take place on one day
+ONE_TIME: Final = 2
+#: Events that are not recurring but take place over a long period of time
+LONG_TERM: Final = 3
 
 #: Choices to use these constants in a database field
 CHOICES: Final[list[tuple[int, Promise]]] = [
     (RECURRING, _("Recurring events")),
-    (NOT_RECURRING, _("Non-recurring events")),
+    (ONE_TIME, _("One time events")),
+    (LONG_TERM, _("Long term events")),
 ]

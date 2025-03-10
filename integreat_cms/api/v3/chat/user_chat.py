@@ -98,7 +98,7 @@ def get_messages(
             {"error": "The requested chat does not exist. Did you delete it?"},
             status=404,
         )
-    return response_or_error(client.get_messages(user_chat))
+    return response_or_error(client.get_api_response(user_chat))
 
 
 def send_message(
@@ -249,7 +249,7 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
     ):
         actions.append("question translation queued")
         process_user_message.apply_async(
-            args=[message_text, region.slug, webhook_message["ticket"]["id"]],
+            args=[region.slug, webhook_message["ticket"]["id"]],
         )
     else:
         actions.append("answer translation queued")

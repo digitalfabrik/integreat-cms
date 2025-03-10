@@ -337,6 +337,15 @@ RESPONSE
          "website": String | null,       // The website for this location if primary_contact exists
          "email": String | null,         // The email for this location if primary_contact exists
          "phone_number": String | null,  // The phone number for this location if primary_contact exists
+         "contacts": [                   // The contact data linked to this location
+            {
+                "area_of_responsibility": String | null   // The area of responsibility, e.g. advisory, of a contact
+                "name": String,              // The name of the contact
+                "email": String,             // An email address of the contact
+                "phone_number": String,      // A phone number of the contact
+                "website": String,           // The website of the contact
+            },
+         ],
          "category": {                   // The category of this location
             "id": Number,                // The id of the category
             "name": String,              // The translated name of the category
