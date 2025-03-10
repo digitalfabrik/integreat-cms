@@ -63,16 +63,6 @@
             {% endif %}
         </a>
     </td>
-    <td class="py-3 px-2">
-        <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
-           class="block text-gray-800">
-            {% if contact.fax_number %}
-                {{ contact.fax_number }}
-            {% else %}
-                <i icon-name="minus"></i>
-            {% endif %}
-        </a>
-    </td>
     <td class="px-2 py-3">
         {% if contact.website %}
             <a href="{{ contact.website }}"
