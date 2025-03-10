@@ -89,14 +89,19 @@ def test_api_chat_first_chat(load_test_data: None) -> None:
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
+
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.cms.utils.zammad.ZammadAPI",
+        "integreat_cms.cms.models.UserChat",
         return_value=mock_api,
     ):
         mock_api.create_ticket.return_value = 111
         mock_api.get_zammad_user_mail.return_value = "tech@tuerantuer.org"
         mock_api.save_message.return_value = True
+
+        def side_effect():
+            return "tech@tuerantuer.org"
+        mock_api.get_zammad_user_mail.side_effect = side_effect()
 
         client = Client()
         url = reverse(
@@ -104,7 +109,7 @@ def test_api_chat_first_chat(load_test_data: None) -> None:
             kwargs=default_kwargs | {"device_id": "never_seen_before"},
         )
         response = client.post(url, data={"message": "test message"})
-
+        mock_api.get_zammad_user_mail.assert_called()
         assert response.status_code == 200
         assert UserChat.objects.current_chat("never_seen_before").zammad_id == 111
 
