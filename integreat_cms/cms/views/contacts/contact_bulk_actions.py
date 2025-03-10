@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.db.models import Q
-from django.utils.translation import ngettext_lazy
+from django.utils.translation import ngettext, ngettext_lazy
 
 from ...models import Contact
 from ...utils.stringify_list import iter_to_string
@@ -67,11 +67,14 @@ class ArchiveContactBulkAction(ContactBulkAction):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} was successfully archived.",
-                    "The following {model_name_plural} were successfully archived: {object_names}",
+                    "The following {model_name} were successfully archived: {object_names}",
                     len(archive_successful),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(archive_successful),
+                    ),
                     object_names=iter_to_string(archive_successful),
                 ),
             )
@@ -81,11 +84,14 @@ class ArchiveContactBulkAction(ContactBulkAction):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} cannot be archived while content objects refer to it.",
-                    "The following {model_name_plural} could be archived: {object_names}",
-                ).format(
+                    "The following {model_name} could be archived: {object_names}",
                     len(archive_failure),
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                ).format(
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(archive_failure),
+                    ),
                     object_names=iter_to_string(archive_failure),
                 ),
             )
@@ -120,11 +126,14 @@ class RestoreContactBulkAction(ContactBulkAction):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} was successfully restored.",
-                    "The following {model_name_plural} were successfully restored: {object_names}",
+                    "The following {model_name} were successfully restored: {object_names}",
                     len(restore_sucessful),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(restore_sucessful),
+                    ),
                     object_names=iter_to_string(restore_sucessful),
                 ),
             )
@@ -169,11 +178,14 @@ class DeleteContactBulkAction(ContactBulkAction):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} was successfully deleted.",
-                    "The following {model_name_plural} were successfully deleted: {object_names}",
+                    "The following {model_name} were successfully deleted: {object_names}",
                     len(delete_sucessful),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(delete_sucessful),
+                    ),
                     object_names=iter_to_string(delete_sucessful),
                 ),
             )
@@ -183,11 +195,14 @@ class DeleteContactBulkAction(ContactBulkAction):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} cannot be deleted while content objects refer to it.",
-                    "The following {model_name_plural} could be deleted: {object_names}",
+                    "The following {model_name} could be deleted: {object_names}",
                     len(delete_failure),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(delete_failure),
+                    ),
                     object_names=iter_to_string(delete_failure),
                 ),
             )
