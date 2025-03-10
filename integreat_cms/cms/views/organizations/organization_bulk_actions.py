@@ -4,7 +4,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from django.contrib import messages
-from django.utils.translation import ngettext_lazy
+from django.utils.translation import ngettext, ngettext_lazy
 
 from integreat_cms.cms.utils.stringify_list import iter_to_string
 
@@ -56,11 +56,14 @@ class ArchiveBulkAction(OrganizationBulkAction):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} was successfully archived.",
-                    "The following {model_name_plural} were successfully archived: {object_names}.",
+                    "The following {model_name} were successfully archived: {object_names}.",
                     len(archive_successful),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(archive_successful),
+                    ),
                     object_names=iter_to_string(archive_successful),
                 ),
             )
@@ -70,11 +73,14 @@ class ArchiveBulkAction(OrganizationBulkAction):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} couldn't be archived as it's used by a page, poi or user.",
-                    "The following {model_name_plural} couldn't be archived as they're used by a page, poi or user: {object_names}.",
+                    "The following {model_name} couldn't be archived as they're used by a page, poi or user: {object_names}.",
                     len(archive_failed),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(archive_failed),
+                    ),
                     object_names=iter_to_string(archive_failed),
                 ),
             )
@@ -106,11 +112,14 @@ class RestoreBulkAction(OrganizationBulkAction):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} was successfully restored.",
-                    "The following {model_name_plural} were successfully restored: {object_names}.",
+                    "The following {model_name} were successfully restored: {object_names}.",
                     len(restore_successful),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(restore_successful),
+                    ),
                     object_names=iter_to_string(restore_successful),
                 ),
             )
@@ -153,11 +162,14 @@ class DeleteBulkAction(OrganizationBulkAction):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} was successfully deleted.",
-                    "The following {model_name_plural} were successfully deleted: {object_names}.",
+                    "The following {model_name} were successfully deleted: {object_names}.",
                     len(delete_successful),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(delete_successful),
+                    ),
                     object_names=iter_to_string(delete_successful),
                 ),
             )
@@ -167,11 +179,14 @@ class DeleteBulkAction(OrganizationBulkAction):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} couldn't be deleted as it's used by a page, poi or user.",
-                    "The following {model_name_plural} couldn't be deleted as they're used by a page, poi or user: {object_names}.",
+                    "The following {model_name} couldn't be deleted as they're used by a page, poi or user: {object_names}.",
                     len(delete_failed),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(delete_failed),
+                    ),
                     object_names=iter_to_string(delete_failed),
                 ),
             )
