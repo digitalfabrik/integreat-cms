@@ -70,6 +70,14 @@
                         <label for="{{ contact_form.mobile_phone_number.id_for_label }}">
                             {{ contact_form.mobile_phone_number.label }}
                         </label>
+                        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3 mb-5">
+                            <p>
+                                {% translate "Currently, mobile phone number is not displayed in the Integreat App. You can find more information in the" %}
+                                <a class="text-blue-500 underline"
+                                   href="https://wiki.integreat-app.de/kontakte-modul"
+                                   target="_blank">Wiki</a>.
+                            </p>
+                        </div>
                         {% render_field contact_form.mobile_phone_number|add_error_class:"border-red-500" %}
                         <label for="{{ contact_form.fax_number.id_for_label }}">
                             {{ contact_form.fax_number.label }}
