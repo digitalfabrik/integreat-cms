@@ -334,15 +334,13 @@ RESPONSE
          ],
          "icon": String | null,          // the url to the icon for this location
          "thumbnail": String | null,     // The thumbnail url for this location
-         "website": String | null,       // The website for this location if primary_contact exists
-         "email": String | null,         // The email for this location if primary_contact exists
-         "phone_number": String | null,  // The phone number for this location if primary_contact exists
          "contacts": [                   // The contact data linked to this location
             {
                 "area_of_responsibility": String | null   // The area of responsibility, e.g. advisory, of a contact
                 "name": String,              // The name of the contact
                 "email": String,             // An email address of the contact
                 "phone_number": String,      // A phone number of the contact
+                "mobile_number": String,     // An additional mobile number
                 "website": String,           // The website of the contact
             },
          ],
