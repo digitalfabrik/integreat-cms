@@ -129,6 +129,7 @@
                         <div class="help-text">
                             {{ user_form.role.help_text }}
                         </div>
+                        {% include "users/_pages_with_observer_access.html" %}
                     </div>
                     {% if user_form.organization.field.queryset.exists %}
                         <div>

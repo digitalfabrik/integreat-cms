@@ -5,17 +5,16 @@ from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from integreat_cms.cms.constants.roles import OBSERVER
+from integreat_cms.cms.views.utils.user import get_pages_observer_has_access_to
 
 from ...decorators import permission_required
 from ...forms import UserForm
-from ...models import Page
 from ...utils.welcome_mail_utils import send_welcome_mail
 
 if TYPE_CHECKING:
@@ -47,30 +46,18 @@ class UserFormView(TemplateView):
         :param \**kwargs: The supplied keyword arguments
         :return: The rendered template response
         """
-
         user = get_user_model().objects.filter(id=kwargs.get("user_id")).first()
-
-        pages_user_has_access_to = Page.objects.filter(
-            Q(authors=user) | Q(editors=user)
-        )
-
-        access_data = []
-        for page in pages_user_has_access_to:
-            roles = []
-            if user in page.authors.all():
-                roles.append(_("Author"))
-            if user in page.editors.all():
-                roles.append(_("Editor"))
-            access_data.append(
-                {"page": page, "roles": ", ".join(str(role) for role in roles)}
-            )
 
         user_form = UserForm(instance=user)
 
         if user and not user.is_active:
             messages.info(request, _("Pending account activation"))
 
-        is_observer = OBSERVER in [group.name for group in user.groups.all()]
+        access_data = get_pages_observer_has_access_to(user)
+        if user and user.groups and user.groups.all():
+            is_observer = OBSERVER in [group.name for group in user.groups.all()]
+        else:
+            is_observer = False
 
         return render(
             request,
@@ -98,7 +85,12 @@ class UserFormView(TemplateView):
 
         user_form = UserForm(data=request.POST, instance=user_instance)
 
-        is_observer = OBSERVER in user_instance.groups.all()
+        if user_instance and user_instance.groups and user_instance.groups.all():
+            is_observer = OBSERVER in [
+                group.name for group in user_instance.groups.all()
+            ]
+        else:
+            is_observer = False
 
         if not user_form.is_valid():
             user_form.add_error_messages(request)
