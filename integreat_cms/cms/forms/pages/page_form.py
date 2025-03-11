@@ -109,6 +109,9 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             self.fields[
                 "mirrored_page_region"
             ].initial = self.instance.mirrored_page.region_id
+            self.fields[
+                "mirrored_page"
+            ].widget.mirrored_page_region_slug = self.instance.mirrored_page.region.slug
 
         # Let mirrored page queryset be empty per default and only fill it if a region is selected
         mirrored_page_queryset = Page.objects.none()

@@ -199,6 +199,7 @@ SERVICE_TEAM_PERMISSIONS: Final[list[str]] = [
     "grant_page_permissions",
     "manage_translations",
     "delete_contact",
+    "test_beta_features",
     "view_externalcalendar",
 ]
 

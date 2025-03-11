@@ -213,17 +213,18 @@ def test_at_least_one_field_filled(
             "name": "",
             "email": "",
             "phone_number": "",
+            "mobile_phone_number": "",
             "website": "",
         },
     )
 
     if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
-            "ERROR    One of the following fields must be filled: area of responsibility, name, e-mail, phone number, website.",
+            "ERROR    One of the following fields must be filled: area of responsibility, name, e-mail, phone number, mobile phone number, website.",
             caplog,
         )
         assert (
-            "One of the following fields must be filled: area of responsibility, name, e-mail, phone number, website."
+            "One of the following fields must be filled: area of responsibility, name, e-mail, phone number, mobile phone number, website."
             in response.content.decode("utf-8")
         )
 

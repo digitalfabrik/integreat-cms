@@ -1267,7 +1267,7 @@ VIEWS: ViewConfig = [
             ("page_versions", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "archive_page",
-                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"post_data": True},
             ),
             (
