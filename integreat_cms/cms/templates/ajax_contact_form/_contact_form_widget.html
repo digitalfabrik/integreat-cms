@@ -4,19 +4,35 @@
     <label for="{{ contact_form.title.id_for_label }}">
         {{ contact_form.area_of_responsibility.label }}
     </label>
-    {% render_field contact_form.area_of_responsibility|append_attr:"form:ajax_contact_form" %}
+    {% if poi_id %}
+        {% render_field contact_form.area_of_responsibility|append_attr:"form:ajax_contact_form" %}
+    {% else %}
+        {% render_field contact_form.area_of_responsibility %}
+    {% endif %}
     <label for="{{ contact_form.name.id_for_label }}">
         {{ contact_form.name.label }}
     </label>
-    {% render_field contact_form.name|append_attr:"form:ajax_contact_form" %}
+    {% if poi_id %}
+        {% render_field contact_form.name|append_attr:"form:ajax_contact_form" %}
+    {% else %}
+        {% render_field contact_form.name %}
+    {% endif %}
     <label for="{{ contact_form.email.id_for_label }}">
         {{ contact_form.email.label }}
     </label>
-    {% render_field contact_form.email|append_attr:"form:ajax_contact_form" %}
+    {% if poi_id %}
+        {% render_field contact_form.email|append_attr:"form:ajax_contact_form" %}
+    {% else %}
+        {% render_field contact_form.email %}
+    {% endif %}
     <label for="{{ contact_form.phone_number.id_for_label }}">
         {{ contact_form.phone_number.label }}
     </label>
-    {% render_field contact_form.phone_number|append_attr:"form:ajax_contact_form" %}
+    {% if poi_id %}
+        {% render_field contact_form.phone_number|append_attr:"form:ajax_contact_form" %}
+    {% else %}
+        {% render_field contact_form.phone_number %}
+    {% endif %}
     <label for="{{ contact_form.mobile_phone_number.id_for_label }}">
         {{ contact_form.mobile_phone_number.label }}
     </label>
@@ -28,18 +44,28 @@
                target="_blank">Wiki</a>.
         </p>
     </div>
-    {% render_field contact_form.mobile_phone_number|append_attr:"form:ajax_contact_form" %}
+    {% if poi_id %}
+        {% render_field contact_form.mobile_phone_number|append_attr:"form:ajax_contact_form" %}
+    {% else %}
+        {% render_field contact_form.mobile_phone_number %}
+    {% endif %}
     <label for="{{ contact_form.website.id_for_label }}">
         {{ contact_form.website.label }}
     </label>
-    {% render_field contact_form.website|append_attr:"form:ajax_contact_form" %}
-    <button id="submit-contact-form-button"
-            name="location"
-            value="{{ poi_id }}"
-            form="ajax_contact_form"
-            data-btn-save-contact-form
-            class="btn w-full mt-4 mb-2"
-            data-url="{% url 'create_contact_ajax' region_slug=request.region.slug %}">
-        {% translate "Submit" %}
-    </button>
+    {% if poi_id %}
+        {% render_field contact_form.website|append_attr:"form:ajax_contact_form" %}
+    {% else %}
+        {% render_field contact_form.website %}
+    {% endif %}
+    {% if poi_id %}
+        <button id="submit-contact-form-button"
+                name="location"
+                value="{{ poi_id }}"
+                form="ajax_contact_form"
+                data-btn-save-contact-form
+                class="btn w-full mt-4 mb-2"
+                data-url="{% url 'create_contact_ajax' region_slug=request.region.slug %}">
+            {% translate "Submit" %}
+        </button>
+    {% endif %}
 </div>
