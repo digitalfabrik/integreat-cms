@@ -1,0 +1,40 @@
+{% load i18n %}
+{% if access_data and user_is_observer %}
+    <label>
+        {% translate "Assigned to" %}
+    </label>
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <thead>
+            <tr class="border-b border-solid border-gray-200">
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                    {% translate "Region" %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                    {% translate "Page" %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                    {% translate "Role" %}
+                </th>
+            </tr>
+        </thead>
+        {% for entry in access_data %}
+            <tr class="border-b border-solid border-gray-200 hover:bg-gray-100">
+                <td class="text-sm text-left py-3 pl-4 pr-2">
+                    <a href="{% url 'edit_page' region_slug=entry.page.region.slug language_slug=entry.page.region.default_language.slug page_id=entry.page.id %}">
+                        {{ entry.page.region }}
+                    </a>
+                </td>
+                <td class="text-sm text-left py-3 pl-4 pr-2">
+                    <a href="{% url 'edit_page' region_slug=entry.page.region.slug language_slug=entry.page.region.default_language.slug page_id=entry.page.id %}">
+                        {{ entry.page }}
+                    </a>
+                </td>
+                <td class="text-sm text-left py-3 pl-4 pr-2">
+                    <a href="{% url 'edit_page' region_slug=entry.page.region.slug language_slug=entry.page.region.default_language.slug page_id=entry.page.id %}">
+                        {{ entry.roles }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
