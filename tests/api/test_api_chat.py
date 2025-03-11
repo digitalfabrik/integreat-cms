@@ -77,6 +77,7 @@ def test_api_chat_incorrect_auth_error(load_test_data: None) -> None:
         )
         response = client.get(url)
 
+        mock_api.user.me.assert_called()
         assert response.status_code == 500
         assert response.json() == {
             "error": "An error occurred while attempting to connect to the chat server.",
