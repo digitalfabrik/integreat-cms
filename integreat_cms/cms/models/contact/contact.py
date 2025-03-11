@@ -84,13 +84,19 @@ class Contact(AbstractBaseModel):
         :param query: The query string used for filtering the contacts
         :return: A query for all matching objects
         """
-        vector = SearchVector(
+        contact_vector = SearchVector(
             "name",
             "email",
             "phone_number",
             "website",
             "area_of_responsibility",
         )
+        location_vector = SearchVector(
+            "location__address",
+            "location__postcode",
+            "location__city",
+        )
+        vector = contact_vector + location_vector
         query = SearchQuery(query, search_type="websearch")
         return (
             Contact.objects.filter(location__region=region, archived=False)
