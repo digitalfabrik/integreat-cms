@@ -33,6 +33,9 @@
                 {% endif %}
             </h1>
             <div class="flex flex-wrap items-center gap-4 ml-auto mr-0">
+                {% if poi_form.instance.id and not poi_form.instance.archived and perms.cms.change_poi %}
+                    {% include "generic_auto_save_note.html" with form_instance=poi_translation_form.instance %}
+                {% endif %}
                 {% if poi_form.instance.archived %}
                     <a href="{% url 'archived_pois' region_slug=request.region.slug language_slug=language.slug %}"
                        class="btn btn-ghost">{% translate "Cancel" %}</a>
@@ -41,7 +44,6 @@
                        class="btn btn-ghost">{% translate "Cancel" %}</a>
                 {% endif %}
                 {% if not poi_form.instance.archived and perms.cms.change_poi %}
-                    {% include "generic_auto_save_note.html" with form_instance=poi_translation_form.instance %}
                     <button name="status"
                             value="{{ DRAFT }}"
                             class="btn btn-outline no-premature-submission">
