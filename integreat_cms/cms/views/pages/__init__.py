@@ -23,6 +23,7 @@ from .page_bulk_actions import (
     ExportMultiLanguageXliffView,
     ExportXliffView,
     GeneratePdfView,
+    PageBulkArchiveView,
 )
 from .page_form_view import PageFormView
 from .page_permission_actions import (
