@@ -2,10 +2,10 @@
 {% load static %}
 {% load widget_tweaks %}
 <div id="left-sidebar-column"
-    class="flex flex-col flex-auto mt-4 md:mt-0 md:mr-4 3xl:mr-0 md:w-full 4xl:mr-4"
-    {% if request.user.distribute_sidebar_boxes %}data-enable-automatic-sidebar-distribution{% endif %}>
+     class="flex flex-col flex-auto mt-4 md:mt-0 md:mr-4 3xl:mr-0 md:w-full 4xl:mr-4"
+     {% if request.user.distribute_sidebar_boxes %}data-enable-automatic-sidebar-distribution{% endif %}>
     <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white hidden mb-2"
-        id="chart-legend-container">
+         id="chart-legend-container">
         <div class="rounded p-4 bg-water-500">
             <h3 class="heading font-bold text-black">
                 <i icon-name="settings" class="pb-1"></i> {% translate "Adjust shown data" %}
@@ -19,7 +19,7 @@
     </div>
 </div>
 <div id="right-sidebar-column"
-    class="flex flex-col flex-wrap 3xl:col-end-3 4xl:col-end-auto md:w-full">
+     class="flex flex-col flex-wrap 3xl:col-end-3 4xl:col-end-auto md:w-full">
     <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white mb-2">
         <div class="rounded p-4 bg-water-500">
             <h3 class="heading font-bold text-black">
@@ -33,7 +33,7 @@
             </label>
             {% render_field form.start_date|add_error_class:"border-red-500" %}
             <div id="start_date_error"
-                class="chart-client-error text-red-500 pb-2 hidden">
+                 class="chart-client-error text-red-500 pb-2 hidden">
                 <i icon-name="alert-triangle"></i>
             </div>
             <label for="{{ form.end_date.id_for_label }}">
@@ -41,7 +41,7 @@
             </label>
             {% render_field form.end_date|add_error_class:"border-red-500" %}
             <div id="end_date_error"
-                class="chart-client-error text-red-500 pb-2 hidden">
+                 class="chart-client-error text-red-500 pb-2 hidden">
                 <i icon-name="alert-triangle"></i>
             </div>
             <label for="{{ form.period.id_for_label }}">
