@@ -7,19 +7,17 @@ from __future__ import annotations
 import json
 import logging
 import random
-import time
 from datetime import datetime
 from typing import TYPE_CHECKING
 
 import requests
 from django.conf import settings
-from django.core.cache import cache
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from ....cms.models import ABTester, Language, Region, UserChat
-from ...decorators import json_response
+from ...decorators import json_response, rate_limit
 from .utils.chat_bot import (
     process_translate_answer,
     process_translate_question,
@@ -34,6 +32,7 @@ logger = logging.getLogger(__name__)
 
 @csrf_exempt
 @json_response
+@rate_limit
 def is_chat_enabled_for_user(
     request: HttpRequest,
     region_slug: str,
@@ -60,41 +59,6 @@ def is_chat_enabled_for_user(
         is_tester=is_enabled,
     )
     return JsonResponse({"is_chat_enabled": is_enabled}, status=200)
-
-
-def get_client_ip(request: HttpRequest) -> str:
-    """
-    Get remote IP adress
-
-    :param request: the Django request that contains info about the source IP
-    :return: the IP address
-    """
-    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(",")[0]
-    else:
-        ip = request.META.get("REMOTE_ADDR")
-    return ip
-
-
-def rate_limited(request: HttpRequest) -> bool:
-    """
-    Check if IP is rate limited and record hit.
-
-    :param request: the Django request that contains info about the source IP
-    :return: too many requests recently
-    """
-    cache_key = f"chat_rate_limit_{get_client_ip(request)}"
-    previous_requests = cache.get(cache_key)
-    now = int(time.time())
-    timestamps = ([] if previous_requests is None else previous_requests.split(",")) + [
-        now
-    ]
-    for timestamp in timestamps:
-        if int(timestamp) < now - (settings.USER_CHAT_WINDOW_MINUTES * 60):
-            timestamps.remove(timestamp)
-    cache.set(cache_key, ",".join([str(timestamp) for timestamp in timestamps]))
-    return len(timestamps) > settings.USER_CHAT_WINDOW_LIMIT
 
 
 def get_or_create_user_chat(
@@ -129,8 +93,6 @@ def process_chat_payload(
     :param device_id: UUID of the app device
     :param language_slug: slug of language that is used by the app
     """
-    if rate_limited(request):
-        return JsonResponse({"error": "Too many requests."}, status=429)
     if (
         user_chat := get_or_create_user_chat(request, device_id, language_slug)
     ) is None:
@@ -146,6 +108,7 @@ def process_chat_payload(
 
 @csrf_exempt
 @json_response
+@rate_limit
 def chat(
     request: HttpRequest,
     region_slug: str,

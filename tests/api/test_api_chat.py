@@ -327,7 +327,7 @@ def test_api_chat_ratelimiting(
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
-    cache.delete("chat_rate_limit_127.0.0.1")
+    cache.delete("api_rate_limit_127.0.0.1")
     client = Client()
     url = reverse(
         "api:chat",
@@ -338,7 +338,7 @@ def test_api_chat_ratelimiting(
     client.post(url, data={"message": "is it ham?"})
 
     # requests #1 through #LIMIT-1
-    for _ in range(settings.USER_CHAT_WINDOW_LIMIT - 2):
+    for _ in range(settings.API_RATE_LIMIT_WINDOW - 2):
         client.get(url)
 
     # requests #LIMIT and #LIMIT+1
@@ -347,7 +347,9 @@ def test_api_chat_ratelimiting(
 
     assert response_ok.status_code == 200
     assert response_err.status_code == 429
-    assert response_err.json() == {"error": "Too many requests."}
+    assert response_err.json() == {
+        "error": "Too many requests. Please try again later."
+    }
 
     # make sure ratelimiting cannot be circumvented by force-creating new chats
     response_force = client.post(
