@@ -23,7 +23,7 @@
             "autolink_pattern",
             /^(https?:\/\/|ssh:\/\/|ftp:\/\/|file:\/|www\.|(?:mailto:)?[A-Z0-9._%+-]+@(?!.*@))(.+)$/i
         );
-    const getDefaultLinkTarget = (editor) => editor.getParam("default_link_target", false);
+    const getDefaultLinkTarget = (editor) => editor.getParam("link_default_target", false);
     const getDefaultLinkProtocol = (editor) => editor.getParam("link_default_protocol", "http", "string");
 
     // constant values and magic numbers used below
