@@ -9,11 +9,13 @@ import logging
 import random
 import re
 import threading
+import time
 from functools import wraps
 from typing import TYPE_CHECKING
 from urllib import error, parse, request
 
 from django.conf import settings
+from django.core.cache import cache
 from django.http import Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -194,3 +196,64 @@ def matomo_tracking(func: Callable) -> Callable:
         return func(request, *args, **kwargs)
 
     return wrap
+
+
+def get_client_ip(request: HttpRequest) -> str:
+    """
+    Get remote IP address
+
+    :param request: Django request
+    :return: source IPv4/IPv6 address of the request
+    """
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(",")[0]
+    else:
+        ip = request.META.get("REMOTE_ADDR")
+    return ip
+
+
+def rate_limited(request: HttpRequest) -> bool:
+    """
+    Check if IP is rate limited and record hit.
+
+    :param request: Django request
+    :return: True if the IP should be rate limited
+    """
+    cache_key = f"api_rate_limit_{get_client_ip(request)}"
+    previous_requests = cache.get(cache_key)
+    now = int(time.time())
+    timestamps = ([] if previous_requests is None else previous_requests.split(",")) + [
+        now
+    ]
+
+    timestamps = [
+        int(ts)
+        for ts in timestamps
+        if int(ts) >= now - (settings.API_RATE_LIMIT_WINDOW_MINUTES * 60)
+    ]
+
+    cache.set(cache_key, ",".join(map(str, timestamps)))
+    return len(timestamps) > settings.API_RATE_LIMIT_WINDOW
+
+
+def rate_limit(func: Callable) -> Callable:
+    """
+    Decorator to apply rate limiting on views.
+    """
+
+    @wraps(func)
+    def _wrapped_view(request: HttpRequest, *args: Any, **kwargs: Any) -> JsonResponse:
+        r"""
+        :param request: Django request
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied kwargs
+        :return: The response of the given function or an 404 :class:`~django.http.JsonResponse`
+        """
+        if rate_limited(request):
+            return JsonResponse(
+                {"error": "Too many requests. Please try again later."}, status=429
+            )
+        return func(request, *args, **kwargs)
+
+    return _wrapped_view
