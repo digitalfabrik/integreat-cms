@@ -71,13 +71,8 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
 
     poi = poi_translation.poi
 
-    contacts = Contact.objects.filter(location=poi).all()
+    contacts = Contact.objects.filter(archived=False, location=poi).all()
 
-    # Note(johannes): Remove the primary_contact and the according three fields (phone_number, website, and email) once
-    # https://github.com/digitalfabrik/integreat-app/issues/3121 is resolved.
-    primary_contact = contacts.filter(area_of_responsibility="").first()
-
-    contacts = contacts.filter(archived=False)
     contact_data = []
     for contact in contacts:
         contact_data.append(
@@ -88,6 +83,7 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
                 "name": contact.name,
                 "email": contact.email,
                 "phone_number": contact.phone_number,
+                "mobile_number": contact.mobile_phone_number,
                 "website": contact.website,
             }
         )
@@ -109,9 +105,6 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
         "available_languages": poi_translation.available_languages_dict,
         "icon": poi.icon.url if poi.icon else None,
         "thumbnail": poi.icon.thumbnail_url if poi.icon else None,
-        "website": primary_contact.website if primary_contact else None,
-        "email": primary_contact.email if primary_contact else None,
-        "phone_number": primary_contact.phone_number if primary_contact else None,
         "contacts": contact_data,
         "category": transform_location_category(
             poi.category,
