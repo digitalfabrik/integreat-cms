@@ -38,7 +38,7 @@
             </h1>
             <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
                 {% if event_form.instance.id and not disabled %}
-                    {% include "generic_auto_save_note.html" with form_instance=event_form.instance %}
+                    {% include "generic_auto_save_note.html" with form_instance=event_translation_form.instance %}
                 {% endif %}
                 {% if event_form.instance.archived %}
                     <a href="{% url 'events_archived' region_slug=request.region.slug language_slug=language.slug %}"
