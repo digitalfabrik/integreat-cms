@@ -16,7 +16,7 @@ from django.views.generic import TemplateView
 
 from ...constants import status, text_directions
 from ...decorators import permission_required
-from ...forms import POIForm, POITranslationForm
+from ...forms import ContactForm, POIForm, POITranslationForm
 from ...models import Language, POI, POITranslation
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
@@ -100,6 +100,10 @@ class POIFormView(
         )
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{poi_translation_form.instance.url_infix}/"
 
+        contact_form = ContactForm(
+            additional_instance_attributes={"region": request.region}
+        )
+
         return render(
             request,
             self.template_name,
@@ -115,6 +119,7 @@ class POIFormView(
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
+                "contact_form": contact_form,
             },
         )
 
@@ -183,10 +188,30 @@ class POIFormView(
             messages.info(request, _("No changes detected, autosave skipped"))
         else:
             # Save forms
-            poi_translation_form.instance.poi = poi_form.save()
+            poi = poi_form.save()
+            poi_translation_form.instance.poi = poi
             poi_translation_instance = poi_translation_form.save(
                 foreign_form_changed=poi_form.has_changed(),
             )
+
+            data = request.POST.dict()
+            data.update({"location": poi.id})
+            contact_form = ContactForm(
+                data=data,
+                instance=None,
+                additional_instance_attributes={
+                    "region": request.region,
+                },
+            )
+
+            if contact_form.is_valid():
+                contact = contact_form.save()
+                messages.success(
+                    request,
+                    _('Contact for "{}" was successfully created').format(
+                        contact,
+                    ),
+                )
 
             # If any source translation changes to draft, set all depending translations/versions to draft
             if poi_translation_form.instance.status == status.DRAFT:
