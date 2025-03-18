@@ -6,12 +6,12 @@
 {% block content %}
     <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">
         <input type="checkbox" id="bulk-select-all" class="cursor-wait" />
+        {% if not filter_form.is_enabled %}
+            <span class="text-sm text-left uppercase py-3 pl-2 pr-2 min">
+                {% translate "Hierarchy" %}
+            </span>
+        {% endif %}
     </th>
-    {% if not filter_form.is_enabled %}
-        <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min">
-            {% translate "Hierarchy" %}
-        </th>
-    {% endif %}
     <th class="text-sm text-left uppercase py-3 pl-2 pr-2">
         {% translate "Title in" %} {{ language.translated_name }}
     </th>

@@ -5,21 +5,21 @@
 {% load rules %}
 {% get_translation page language.slug as page_translation %}
 {% block content %}
-    <td class="pl-4">
-        <input type="checkbox"
-               name="selected_ids[]"
-               value="{{ page.id }}"
-               class="bulk-select-item cursor-wait" />
-    </td>
-    {% if not filter_form.is_enabled %}
-        {% has_perm 'cms.change_page_object' request.user as can_edit_pages %}
-        <td class="hierarchy single_icon whitespace-nowrap">
+    <td class="hierarchy single_icon whitespace-nowrap">
+        <span class="pl-4">
+            <input type="checkbox"
+                   name="selected_ids[]"
+                   value="{{ page.id }}"
+                   class="bulk-select-item cursor-wait" />
+        </span>
+        {% if not filter_form.is_enabled %}
+            {% has_perm 'cms.change_page_object' request.user as can_edit_pages %}
             <span data-drag-id="{{ page.id }}"
                   data-node-descendants="{{ page|get_descendant_ids }}"
                   class="drag cursor-move text-gray-800 inline-block pl-4 align-middle"
-                  draggable="{% if can_edit_pages and not is_archive %}true{% else %}false{% endif %}"
-                  title="{% if not is_archive and not is_statistics %}{% translate "Change the order and position of the pages with drag & drop." %}{% else %}{% translate "Drag & drop is disabled for archived pages and statistics." %}{% endif %}">
-                {% if can_edit_pages %}
+                  draggable="{% if can_edit_pages and not is_archive and not is_statistics %}true{% else %}false{% endif %}"
+                  title="{% translate "Change the order and position of the pages with drag & drop." %}">
+                {% if can_edit_pages and not is_archive and not is_statistics %}
                     <i icon-name="move"></i>
                 {% endif %}
             </span>
@@ -35,8 +35,8 @@
                     </span>
                 {% endif %}
             {% endif %}
-        </td>
-    {% endif %}
+        {% endif %}
+    </td>
     <td>
         <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
            class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
