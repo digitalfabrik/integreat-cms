@@ -12,6 +12,7 @@ from django import forms
 from django.apps import apps
 from django.conf import settings
 from django.db.models import Q
+from django.db.models.signals import pre_save
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import override
 from linkcheck.listeners import disable_listeners, tasks_queue
@@ -19,6 +20,7 @@ from linkcheck.models import Link
 
 from integreat_cms.cms.utils.linkcheck_utils import replace_links
 
+from ....core.signals.hix_signals import page_translation_save_handler
 from ....gvz_api.utils import GvzRegion
 from ....matomo_api.matomo_api_client import MatomoException
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
@@ -308,6 +310,9 @@ class RegionForm(CustomModelForm):
                 region,
                 only_root=not keep_translations,
             )
+            pre_save.disconnect(
+                receiver=page_translation_save_handler, sender=PageTranslation
+            )
             # Disable linkcheck listeners to prevent links to be created for outdated versions
             with disable_listeners():
                 # Duplicate pages
@@ -327,6 +332,9 @@ class RegionForm(CustomModelForm):
                         region,
                     )
                     duplicate_imprint(source_region, region)
+            pre_save.connect(
+                receiver=page_translation_save_handler, sender=PageTranslation
+            )
             # Duplicate media content
             duplicate_media(source_region, region)
 
