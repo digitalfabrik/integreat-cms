@@ -85,6 +85,7 @@ def test_api_chat_incorrect_server_error(
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
+    cache.delete("api_rate_limit_127.0.0.1")
     client = Client()
     url = reverse(
         "api:chat",
@@ -136,8 +137,55 @@ def test_api_chat_first_chat(
     )
     response = client.post(url, data={"message": "test message"})
 
+    create_ticket.assert_called_once()
+    save_message.assert_called_once()
     assert response.status_code == 200
     assert UserChat.objects.current_chat("never_seen_before").zammad_id == 111
+
+
+@pytest.mark.django_db
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
+    return_value="tech@tuerantuer.org",
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.messages",
+    return_value=[{"body": "message1", "user_is_author": True}],
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.save_evaluation_consent",
+    return_value=True,
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.save_message",
+    return_value=True,
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.evaluation_consent",
+    return_value=True,
+)
+def test_api_chat_set_evaluation_consent(
+    evaluation_consent: Mock,
+    save_message: Mock,
+    save_evaluation_consent: Mock,
+    messages: Mock,
+    get_zammad_user_mail: Mock,
+    load_test_data: None,
+) -> None:
+    """
+    Check that sending a message from a never seen-before device_id creates a new chat
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    client = Client()
+    url = reverse("api:chat", kwargs=default_kwargs)
+    response = client.post(
+        url, data={"message": "test message", "evaluation_consent": True}
+    )
+
+    assert response.status_code == 200
+    save_message.assert_called_once()
+    save_evaluation_consent.assert_called_once()
 
 
 @pytest.mark.django_db
