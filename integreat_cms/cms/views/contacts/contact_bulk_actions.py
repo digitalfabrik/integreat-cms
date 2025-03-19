@@ -39,6 +39,9 @@ class ArchiveContactBulkAction(ContactBulkAction):
     Bulk action to archive multiple contacts at once
     """
 
+    def get_permission_required(self) -> tuple[str]:
+        return ("cms.archive_contact",)
+
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Archive multiple contacts at once
@@ -94,6 +97,9 @@ class RestoreContactBulkAction(ContactBulkAction):
     """
     Bulk action to restore multiple contacts at once
     """
+
+    def get_permission_required(self) -> tuple[str]:
+        return ("cms.archive_contact",)
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
