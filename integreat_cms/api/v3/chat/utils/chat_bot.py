@@ -5,6 +5,7 @@ Wrapper for the Chat Bot / LLM API
 from __future__ import annotations
 
 import asyncio
+from datetime import datetime
 
 import aiohttp
 from celery import shared_task
@@ -65,10 +66,15 @@ async def async_process_user_message(
 ) -> tuple[dict, dict]:
     """
     Process the message from an Integreat App user
+
+    :param zammad_chat_language_slug: Language selected in Integreat App
+    :param region_slug: region used in webhook
+    :param region_default_language_slug: default language of region / counselors
+    :param messages: list of all messages (can contain newer messages than message_text)
     """
     async with aiohttp.ClientSession() as session:
         translation_task = automatic_translation(
-            messages[-1]["body"],
+            messages[-1]["content"],
             zammad_chat_language_slug,
             region_default_language_slug,
             session,
@@ -85,12 +91,17 @@ async def async_process_user_message(
 
 @shared_task
 def process_user_message(
+    message_timestamp: datetime,
     region_slug: str,
     zammad_ticket_id: int,
 ) -> None:
     """
     Call the async processing of the message from an Integreat App user. The question
     should be translated into the main language and an automatic answer should be generated.
+
+    :param message_timestamp: Timestamp of the article that triggered the webhook
+    :param region_slug: region used in webhook
+    :param zammad_ticket_id: Ticket ID contained in webhook request
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
@@ -99,7 +110,13 @@ def process_user_message(
             zammad_chat.language.slug,
             region_slug,
             region.default_language.slug,
-            zammad_chat.messages,
+            # Prevent a race condition where new articles can be added to a ticket
+            # while the webhook has not yet sent to and processed by the Integreat CMS
+            [
+                message
+                for message in zammad_chat.messages
+                if datetime.fromisoformat(message["created_at"]) <= message_timestamp
+            ],
         ),
     )
     if translation:

@@ -7,6 +7,7 @@ from __future__ import annotations
 import json
 import logging
 import random
+from datetime import datetime
 from typing import TYPE_CHECKING
 
 import requests
@@ -174,6 +175,7 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
         return JsonResponse({"status": "Integreat Chat disabled"})
     webhook_message = json.loads(request.body)
     message_text = webhook_message["article"]["body"]
+    message_timestamp = datetime.fromisoformat(webhook_message["article"]["created_at"])
 
     actions = []
     if webhook_message["article"]["internal"]:
@@ -194,7 +196,7 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
     elif is_app_user_message(webhook_message):
         actions.append("question translation and answering queued")
         process_user_message.apply_async(
-            args=[region.slug, webhook_message["ticket"]["id"]],
+            args=[message_timestamp, region.slug, webhook_message["ticket"]["id"]],
         )
     else:
         actions.append("answer translation queued")
