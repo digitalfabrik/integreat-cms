@@ -84,4 +84,11 @@
     <td class="pr-2 text-right whitespace-nowrap">
         {{ feedback.created_date|date:"SHORT_DATE_FORMAT" }}
     </td>
+    <td class="pr-2 text-center">
+        {% if feedback.is_automatically_send %}
+            <i icon-name="x" class="pr-1"></i>
+        {% else %}
+            <i icon-name="minus" class="pr-1"></i>
+        {% endif %}
+    </td>
 </tr>
