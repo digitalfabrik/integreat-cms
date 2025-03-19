@@ -34,7 +34,7 @@
             {% trans "The contact will be created once you save the location." %}
         </div>
     {% endif %}
-    {% if perms.cms.change_contact %}
+    {% if perms.cms.change_contact and not poi_form.instance.archived %}
         <div>
             <div class="help-text mt-4 font-bold">
                 <div>
