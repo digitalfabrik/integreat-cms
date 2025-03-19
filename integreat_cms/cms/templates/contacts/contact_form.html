@@ -108,7 +108,7 @@
             </div>
             {% if contact_form.instance.id %}
                 <div class="flex flex-wrap grow justify-end gap-2 items-center">
-                    {% if perms.cms.change_contact and not contact_form.instance.archived %}
+                    {% if perms.cms.archive_contact and not contact_form.instance.archived %}
                         <button {% if contact_form.instance.referring_objects %}title="{% translate "At least one content object refers to this contact." %}" disabled {% else %} title="{% translate "Archive contact" %}"{% endif %}
                                 class="btn confirmation-button btn-blue"
                                 data-confirmation-title="{{ archive_dialog_title }}"
@@ -123,7 +123,7 @@
                             {% endif %}
                         </button>
                     {% endif %}
-                    {% if perms.cms.change_contact and contact_form.instance.archived %}
+                    {% if perms.cms.archive_contact and contact_form.instance.archived %}
                         <button title="{% translate "Restore page" %}"
                                 class="btn confirmation-button btn-blue"
                                 data-confirmation-title="{{ restore_dialog_title }}"

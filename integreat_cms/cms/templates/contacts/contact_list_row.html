@@ -78,7 +78,7 @@
     </td>
     <td class="pl-2 pr-4 text-right min">
         {% if is_archive %}
-            {% if perms.cms.change_contact %}
+            {% if perms.cms.archive_contact %}
                 <button title="{% translate "Restore contact" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ restore_dialog_title }}"
@@ -99,6 +99,8 @@
                    class="btn-icon">
                     <i icon-name="copy"></i>
                 </a>
+            {% endif %}
+            {% if perms.cms.archive_contact %}
                 <button {% if contact.referring_objects %}title="{% translate "Archival is not possible. At least one content object refers to this contact." %}" disabled {% else %} title="{% translate "Archive contact" %}"{% endif %}
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ archive_dialog_title }}"
