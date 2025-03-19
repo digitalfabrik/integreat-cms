@@ -62,7 +62,7 @@ def test_archive_contact(
     )
     response = client.post(archive_contact)
 
-    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
+    if role in (*HIGH_PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert response.status_code == 302
         redirect_url = response.headers.get("location")
         if should_be_archived:

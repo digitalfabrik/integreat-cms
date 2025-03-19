@@ -90,6 +90,7 @@ AUTHOR_PERMISSIONS: Final[list[str]] = [
     "view_page",
     "view_contact",
     "change_contact",
+    "archive_contact",
 ]
 
 
@@ -201,6 +202,7 @@ SERVICE_TEAM_PERMISSIONS: Final[list[str]] = [
     "delete_contact",
     "test_beta_features",
     "view_externalcalendar",
+    "archive_contact",
 ]
 
 #: The permissions of the cms team
