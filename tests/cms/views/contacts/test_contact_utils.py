@@ -15,7 +15,7 @@ CONTACT1 = {
     "id": 3,
     "json": {
         "url": "/augsburg/contact/3/",
-        "name": "Integrationsberatung: Mariana Musterfrau (mariana-musterfrau@example.com, +49 (0) 123456789, https://integreat-app.de/)",
+        "name": "Integrationsberatung: Mariana Musterfrau (mariana-musterfrau@example.com, +49 (0) 123456789, https://integreat-app.de/)| Linked location: Draft location Viktoriastraße 1 86150 Augsburg",
         "details": {
             "address": "show address",
             "area_of_responsibility": "show area of responsibility",
@@ -33,7 +33,7 @@ CONTACT1 = {
 CONTACT2 = {
     "json": {
         "url": "/augsburg/contact/4/",
-        "name": "(generalcontactinformation@example.com, +49 (0) 123456789, https://integreat-app.de/)",
+        "name": "(generalcontactinformation@example.com, +49 (0) 123456789, https://integreat-app.de/)| Linked location: Draft location Viktoriastraße 1 86150 Augsburg",
         "details": {
             "address": "show address",
             "email": "show email",
