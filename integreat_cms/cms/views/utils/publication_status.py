@@ -7,7 +7,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django.contrib import messages
-from django.utils.translation import ngettext_lazy
+from django.utils.translation import ngettext, ngettext_lazy
 
 from ...constants import status
 from ...models import Language
@@ -70,11 +70,14 @@ def change_publication_status(
             request,
             ngettext_lazy(
                 'The publication status of {model_name} {object_names} was successfully changed to "{changed_status}".',
-                'The publication status of the following {model_name_plural} was successfully changed to "{changed_status}": {object_names}',
+                'The publication status of the following {model_name} was successfully changed to "{changed_status}": {object_names}',
                 len(successful),
             ).format(
-                model_name=model_name,
-                model_name_plural=model_name_plural,
+                model_name=ngettext(
+                    model_name,
+                    model_name_plural,
+                    len(successful),
+                ),
                 changed_status=changed_status,
                 object_names=iter_to_string(successful),
             ),
@@ -85,11 +88,14 @@ def change_publication_status(
             request,
             ngettext_lazy(
                 'The publication status of {model_name} {object_names} is already "{changed_status}".',
-                'The publication status of the following {model_name_plural} is already "{changed_status}": {object_names}',
+                'The publication status of the following {model_name} is already "{changed_status}": {object_names}',
                 len(unchanged),
             ).format(
-                model_name=model_name,
-                model_name_plural=model_name_plural,
+                model_name=ngettext(
+                    model_name,
+                    model_name_plural,
+                    len(unchanged),
+                ),
                 changed_status=changed_status,
                 object_names=iter_to_string(unchanged),
             ),
@@ -100,11 +106,14 @@ def change_publication_status(
             request,
             ngettext_lazy(
                 'The publication status of {model_name} {object_names} could not be changed to "{changed_status}", because it has no translation in {language}.',
-                'The publication status of the following {model_name_plural} could not be changed to "{changed_status}", because they don\'t have a translation in {language}: {object_names}',
+                'The publication status of the following {model_name} could not be changed to "{changed_status}", because they don\'t have a translation in {language}: {object_names}',
                 len(failed),
             ).format(
-                model_name=model_name,
-                model_name_plural=model_name_plural,
+                model_name=ngettext(
+                    model_name,
+                    model_name_plural,
+                    len(failed),
+                ),
                 changed_status=changed_status,
                 language=Language.objects.filter(slug=language_slug).first(),
                 object_names=iter_to_string(failed),
