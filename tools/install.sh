@@ -13,13 +13,28 @@ echo "Checking system requirements..." | print_info
 
 # Parse command line arguments
 while [ "$#" -gt 0 ]; do
-  case "$1" in
-    --clean) CLEAN=1; shift 1;;
-    --pre-commit) PRE_COMMIT=1; shift 1;;
-    --python) PYTHON="$2"; shift 2;;
-    --python=*) PYTHON="${1#*=}"; shift 1;;
-    *) echo "Unknown option: $1" | print_error; exit 1;;
-  esac
+    case "$1" in
+    --clean)
+             CLEAN=1
+                      shift 1
+                             ;;
+    --pre-commit)
+                  PRE_COMMIT=1
+                                shift 1
+                                       ;;
+    --python)
+              PYTHON="$2"
+                           shift 2
+                                  ;;
+    --python=*)
+                PYTHON="${1#*=}"
+                                  shift 1
+                                         ;;
+    *)
+        echo "Unknown option: $1" | print_error
+                                                exit 1
+                                                      ;;
+    esac
 done
 
 if [[ -n "${PYTHON}" ]]; then
@@ -42,8 +57,8 @@ if [[ ! -x "$(command -v python3)" ]]; then
 fi
 # Get the python version (the format is "Python 3.X.Z")
 python_version=$(${PYTHON} --version | cut -d" " -f2)
-if [[ $(major "$python_version") -lt $(major "$required_python_version") ]] || \
-   [[ $(major "$python_version") -eq $(major "$required_python_version") ]] && [[ $(minor "$python_version") -lt $(minor "$required_python_version") ]]; then
+if [[ $(major "$python_version") -lt $(major "$required_python_version") ]] ||
+    [[ $(major "$python_version") -eq $(major "$required_python_version") ]] && [[ $(minor "$python_version") -lt $(minor "$required_python_version") ]]; then
     echo "python version ${required_python_version} is required, but version ${python_version} is installed. Please install a recent version manually and run this script again."  | print_error
     echo -e "If you installed higher python version manually which is not your default python3, please pass the alternative python interpreter (e.g. python3.11) to the script:\n" | print_info
     echo -e "\t$(dirname "${BASH_SOURCE[0]}")/install.sh --python python3.11\n" | print_bold
@@ -82,7 +97,7 @@ fi
 # Get the node version (the format is vXX.YY.ZZ)
 node_version=$(node -v | cut -c2-)
 # Check if required node version is installed
-if [[ $(major "$node_version") -lt "$required_node_version" ]] ; then
+if [[ $(major "$node_version") -lt "$required_node_version" ]]; then
     echo "nodejs version ${required_node_version} or higher is required, but version ${node_version} is installed. Please install a supported version manually and run this script again."  | print_error
     exit 1
 fi
@@ -112,7 +127,7 @@ fi
 
 # Install npm dependencies
 echo "Installing JavaScript dependencies..." | print_info
-npm ci --no-fund
+npm ci --no-fund --force
 echo "✔ Installed JavaScript dependencies" | print_success
 
 # Check if virtual environment exists

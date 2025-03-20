@@ -146,7 +146,7 @@ jobs:
             if [[ -d "node_modules" ]]; then
               echo "Node modules restored from cache, skipping npm install"
             else
-              npm ci
+              npm ci --force
               if [[ -n $(git diff --shortstat package-lock.json) ]]; then
                 echo "package-lock.json is out of date:"
                 git --no-pager diff package-lock.json
