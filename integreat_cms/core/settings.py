@@ -1369,7 +1369,7 @@ OUTDATED_THRESHOLD_DAYS: Final[int] = 365
 API_RATE_LIMIT_WINDOW_MINUTES: Final[int] = 10
 
 #: Maximum number of requests users are allowed to send within WINDOW_MINUTES minutes
-API_RATE_LIMIT_WINDOW: Final[int] = 50
+API_RATE_LIMIT_WINDOW: Final[int] = 100
 
 ############
 # Chat API #
