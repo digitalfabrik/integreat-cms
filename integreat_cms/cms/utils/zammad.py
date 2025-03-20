@@ -139,8 +139,8 @@ class ZammadAPI:
         :return: success
         """
         cache.delete(f"{self.region.slug}_{self.device_id}")
-        return (
-            self.zammad_request(
+        try:
+            response = self.zammad_request(
                 "POST",
                 "/api/v1/ticket_articles",
                 {
@@ -157,9 +157,10 @@ class ZammadAPI:
                     "type": "web",
                     "sender": "Customer" if not automatic_message else "Agent",
                 },
-            ).status_code
-            == 200
-        )
+            )
+        except ValueError:
+            return False
+        return response.status_code == 200
 
     @property
     def evaluation_consent(self) -> bool:
@@ -184,14 +185,15 @@ class ZammadAPI:
         :return: success
         """
         cache.delete(f"chat_evaluation_consent_{self.device_id}")
-        return (
-            self.zammad_request(
+        try:
+            response = self.zammad_request(
                 "PUT",
                 f"/api/v1/tickets/{self.zammad_id}",
                 {"evaluation_consent": value},
-            ).status_code
-            == 200
-        )
+            )
+        except ValueError:
+            return False
+        return response.status_code == 200
 
     @property
     def automatic_answers(self) -> bool:
@@ -216,14 +218,15 @@ class ZammadAPI:
         :return: success
         """
         cache.delete(f"chat_automatic_anwers_{self.device_id}")
-        return (
-            self.zammad_request(
+        try:
+            response = self.zammad_request(
                 "PUT",
                 f"/api/v1/tickets/{self.zammad_id}",
                 {"automatic_answers": value},
-            ).status_code
-            == 200
-        )
+            )
+        except ValueError:
+            return False
+        return response.status_code == 200
 
     def create_ticket(self, title: str) -> int:
         """
