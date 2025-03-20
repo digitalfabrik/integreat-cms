@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponseRedirect
 
 
-@permission_required("cms.change_contact")
+@permission_required("cms.archive_contact")
 def archive_contact(
     request: HttpRequest,
     contact_id: int,
