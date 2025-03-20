@@ -359,33 +359,39 @@ class PageFormView(
                     slug=user_slug,
                     language=language,
                 ).first()
-                other_translation_link = reverse(
-                    "page_versions",
-                    kwargs={
-                        "page_id": other_translation.page.id,
-                        "language_slug": language.slug,
-                        "region_slug": region.slug,
-                        "selected_version": other_translation.version,
-                    },
-                )
-                message = _(
-                    "The slug was changed from '{user_slug}' to '{slug}', "
-                    "because '{user_slug}' is already used by <a>{translation}</a>.",
-                ).format(
-                    user_slug=user_slug,
-                    slug=page_translation_form.cleaned_data["slug"],
-                    translation=other_translation,
-                )
-                messages.warning(
-                    request,
-                    translate_link(
-                        message,
-                        attributes={
-                            "href": other_translation_link,
-                            "class": "underline hover:no-underline",
+                if other_translation:
+                    other_translation_link = reverse(
+                        "page_versions",
+                        kwargs={
+                            "page_id": other_translation.page.id,
+                            "language_slug": language.slug,
+                            "region_slug": region.slug,
+                            "selected_version": other_translation.version,
                         },
-                    ),
-                )
+                    )
+                    message = _(
+                        "The slug was changed from '{user_slug}' to '{slug}', "
+                        "because '{user_slug}' is already used by <a>{translation}</a>.",
+                    ).format(
+                        user_slug=user_slug,
+                        slug=page_translation_form.cleaned_data["slug"],
+                        translation=other_translation,
+                    )
+                    messages.warning(
+                        request,
+                        translate_link(
+                            message,
+                            attributes={
+                                "href": other_translation_link,
+                                "class": "underline hover:no-underline",
+                            },
+                        ),
+                    )
+                else:
+                    logger.error(
+                        "Renaming slug failed, because translation is not existant"
+                    )
+                    messages.error("This didn't work. Please try again in a moment.")
 
             # If any source translation changes to draft, set all depending translations/versions to draft
             if page_translation_form.instance.status == status.DRAFT:
