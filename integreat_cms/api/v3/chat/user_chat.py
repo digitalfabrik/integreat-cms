@@ -11,6 +11,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 
 import requests
+from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -157,7 +158,8 @@ def is_app_user_message(webhook_message: dict) -> bool:
     """
     return (
         webhook_message["article"]["created_by"]["login"]
-        == "tech+integreat-cms@tuerantuer.org"
+        == settings.INTEGREAT_CHAT_CMS_USER_MAIL
+        and webhook_message["article"]["created_by"]["sender"] == "Customer"
     )
 
 
