@@ -128,6 +128,7 @@ Webserver
     3. Setup a vhost for the integreat-cms by using our example config: :github-source:`example-configs/apache2-integreat-vhost.conf`
        and edit the your domain and the paths for static files.
 
+    4. Make sure that clients cannot set the `X-Forwarded-For` header. This header is used to determine a client IP behind a proxy for IP rate limiting.
 
 Database
 ========
