@@ -6,6 +6,7 @@
 {% load rules %}
 {% block content %}
     {% has_perm 'cms.change_page_object' request.user as can_edit_pages %}
+    {% has_perm 'cms.publish_page_object' request.user as can_publish_pages %}
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
             <div class="flex flex-wrap justify-between gap-4">
@@ -170,7 +171,7 @@
                 <option>
                     {% translate "Select bulk action" %}
                 </option>
-                {% if can_edit_pages %}
+                {% if can_publish_pages %}
                     <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
                         {% translate "Archive pages" %}
                     </option>

@@ -446,7 +446,7 @@ VIEWS: ViewConfig = [
             ("pois", ROLES),
             (
                 "bulk_archive_pages",
-                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"selected_ids[]": [1, 2, 3]},
             ),
             (
