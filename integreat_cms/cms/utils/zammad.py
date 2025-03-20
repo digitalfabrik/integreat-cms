@@ -134,7 +134,7 @@ class ZammadAPI:
         Add a new message
 
         :param message: message text to be saved
-        :param internal: true if message shoud not be visible to app user
+        :param internal: true if message should not be visible to app user
         :param automatic_message: true if message does not originate from a human
         :return: success
         """
