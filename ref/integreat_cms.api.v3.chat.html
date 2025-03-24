@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-03-11T17:02:08+00:00" />
+    <meta property="article:modified_time" content="2025-03-24T16:03:40+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chat &mdash; integreat-cms 2025.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -265,6 +265,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#tree-mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#zammad">Zammad</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul>
@@ -695,8 +696,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.feedback_handler"><code class="docutils literal notranslate"><span class="pre">feedback_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.get_client_ip"><code class="docutils literal notranslate"><span class="pre">get_client_ip()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.json_response"><code class="docutils literal notranslate"><span class="pre">json_response()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.matomo_tracking"><code class="docutils literal notranslate"><span class="pre">matomo_tracking()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.rate_limit"><code class="docutils literal notranslate"><span class="pre">rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.rate_limited"><code class="docutils literal notranslate"><span class="pre">rate_limited()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.urls">Urls</a><ul>
@@ -847,6 +851,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.tree_mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.zammad">Zammad</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html">Views</a><ul>
@@ -1001,6 +1006,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ADMINS"><code class="docutils literal notranslate"><span class="pre">ADMINS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ALLOWED_HOSTS"><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_EVENTS_MAX_TIME_SPAN_DAYS"><code class="docutils literal notranslate"><span class="pre">API_EVENTS_MAX_TIME_SPAN_DAYS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW"><code class="docutils literal notranslate"><span class="pre">API_RATE_LIMIT_WINDOW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">API_RATE_LIMIT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTHENTICATION_BACKENDS"><code class="docutils literal notranslate"><span class="pre">AUTHENTICATION_BACKENDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTHOR_CHAT_HISTORY_DAYS"><code class="docutils literal notranslate"><span class="pre">AUTHOR_CHAT_HISTORY_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTH_PASSWORD_VALIDATORS"><code class="docutils literal notranslate"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code></a></li>
@@ -1075,6 +1082,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INSTALLED_APPS"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_DOMAIN"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BACK_END_DOMAIN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BACK_END_TIMEOUT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_CMS_USER_MAIL"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_CMS_USER_MAIL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_IPS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_IPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_URLS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LANGUAGES"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a></li>
@@ -1164,8 +1172,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_USERNAME"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_USERNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TIME_ZONE"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_TICKET_GROUP"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_TICKET_GROUP</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_LIMIT"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_LIMIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_I18N"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_L10N"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_TZ"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a></li>
@@ -1425,18 +1431,14 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_chat">Test API Chat</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_create_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_create_attachment_success()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_first_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_first_chat()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_force_new_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_force_new_chat()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_incorrect_chat_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_incorrect_chat_failure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_missing_attachment_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_missing_attachment_failure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_success()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_failure()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_success()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_auth_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_server_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_server_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_missing_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_missing_auth_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting"><code class="docutils literal notranslate"><span class="pre">test_api_chat_ratelimiting()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_send_message"><code class="docutils literal notranslate"><span class="pre">test_api_chat_send_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_set_evaluation_consent"><code class="docutils literal notranslate"><span class="pre">test_api_chat_set_evaluation_consent()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_is_chat_enabled_for_user"><code class="docutils literal notranslate"><span class="pre">test_api_is_chat_enabled_for_user()</span></code></a></li>
 </ul>
 </li>
@@ -2124,7 +2126,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="integreat_cms.api.v3.chat.utils.html">Utils</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.v3.chat.utils.html#chat-bot">Chat Bot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.v3.chat.utils.html#zammad-api">Zammad API</a></li>
 </ul>
 </li>
 </ul>
@@ -2134,7 +2135,7 @@
 <p>This module provides the API endpoints for the Integreat Chat API</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">attachment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to send a new message in the current chat of a specified device_id,
 or to create one if no chat exists or the user requested a new one.</p>
 <dl class="field-list simple">
@@ -2143,7 +2144,7 @@ or to create one if no chat exists or the user requested a new one.</p>
 <li><p><strong>request</strong> (<em>HttpRequest</em>) – Django request</p></li>
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – language slug</p></li>
 <li><p><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – ID of the user requesting the messages</p></li>
-<li><p><strong>attachment_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – ID of the requested attachment (optional)</p></li>
+<li><p><strong>attachment_id</strong> – ID of the requested attachment (optional)</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
 </ul>
 </dd>
@@ -2158,50 +2159,40 @@ or to create one if no chat exists or the user requested a new one.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">get_attachment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI" title="integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI"><span class="pre">ZammadChatAPI</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_chat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><span class="pre">UserChat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">attachment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Function to retrieve an attachment given the correct attachment_id</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>client</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI" title="integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI"><em>ZammadChatAPI</em></a>) – the Zammad API client to use</p></li>
-<li><p><strong>user_chat</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><em>UserChat</em></a><em> | </em><em>None</em>) – the device_id’s current chat (if one exists)</p></li>
-<li><p><strong>attachment_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – ID of the requested attachment</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>JSON object according to APIv3 offers endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>JsonResponse</em> | <em>HttpResponse</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">get_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI" title="integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI"><span class="pre">ZammadChatAPI</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_chat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><span class="pre">UserChat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Function to retrieve all messages of the most recent chat for a given device_id</p>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">get_or_create_user_chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><span class="pre">UserChat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get existing UserChat or create a new one if the HTTP method is POST.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<em>HttpRequest</em>) – Django request</p></li>
-<li><p><strong>client</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI" title="integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI"><em>ZammadChatAPI</em></a>) – the Zammad API client to use</p></li>
-<li><p><strong>user_chat</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><em>UserChat</em></a><em> | </em><em>None</em>) – the device_id’s current chat</p></li>
-<li><p><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – ID of the user requesting the messages</p></li>
+<li><p><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – UUID of the app device</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – slug of language that is used by the app</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>JSON object according to APIv3 offers endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>JsonResponse</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat">UserChat</a> | None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">is_chat_enabled_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">is_app_user_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Check if message originates from app user</p>
+<p>param webhook_message: Zammad webhook ticket dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>webhook_message</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">is_chat_enabled_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to check if the chat feature is enabled for the given region and the given user.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2222,48 +2213,26 @@ or to create one if no chat exists or the user requested a new one.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">response_or_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Helper function to extract the status code from the API response</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – an API call’s result</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>json response with appropriate status code</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>JsonResponse</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">send_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI" title="integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI"><span class="pre">ZammadChatAPI</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_chat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><span class="pre">UserChat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Function to send a new message in the current chat of a specified device_id,
-or to create one if no chat exists or the user requested a new one.</p>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">process_chat_payload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Create or get UserChat object and return list of messages. Save new message
+or updated Zammad ticket attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<em>HttpRequest</em>) – Django request</p></li>
-<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – language slug</p></li>
-<li><p><strong>client</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI" title="integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI"><em>ZammadChatAPI</em></a>) – the Zammad API client to use</p></li>
-<li><p><strong>user_chat</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><em>UserChat</em></a><em> | </em><em>None</em>) – the device_id’s current chat (if one exists)</p></li>
-<li><p><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – ID of the user requesting the messages</p></li>
+<li><p><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – UUID of the app device</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – slug of language that is used by the app</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>JSON object according to APIv3 offers endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>JsonResponse</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>JsonResponse</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">zammad_webhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L223"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">zammad_webhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">JsonResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/chat/user_chat.py#L166"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Receive webhooks from Zammad to update the latest article translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2293,7 +2262,7 @@ or to create one if no chat exists or the user requested a new one.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 11, 2025.
+      <span class="lastupdated">Last updated on Mar 24, 2025.
       </span></p>
   </div>
 

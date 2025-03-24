@@ -261,6 +261,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#tree-mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#zammad">Zammad</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.cms.views.html">Views</a><ul>
@@ -691,8 +692,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.feedback_handler"><code class="docutils literal notranslate"><span class="pre">feedback_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.get_client_ip"><code class="docutils literal notranslate"><span class="pre">get_client_ip()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.json_response"><code class="docutils literal notranslate"><span class="pre">json_response()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.matomo_tracking"><code class="docutils literal notranslate"><span class="pre">matomo_tracking()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.rate_limit"><code class="docutils literal notranslate"><span class="pre">rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.rate_limited"><code class="docutils literal notranslate"><span class="pre">rate_limited()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.api.html#module-integreat_cms.api.urls">Urls</a><ul>
@@ -843,6 +847,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.tree_mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.zammad">Zammad</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.html">Views</a><ul>
@@ -997,6 +1002,8 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ADMINS"><code class="docutils literal notranslate"><span class="pre">ADMINS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ALLOWED_HOSTS"><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_EVENTS_MAX_TIME_SPAN_DAYS"><code class="docutils literal notranslate"><span class="pre">API_EVENTS_MAX_TIME_SPAN_DAYS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW"><code class="docutils literal notranslate"><span class="pre">API_RATE_LIMIT_WINDOW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">API_RATE_LIMIT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTHENTICATION_BACKENDS"><code class="docutils literal notranslate"><span class="pre">AUTHENTICATION_BACKENDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTHOR_CHAT_HISTORY_DAYS"><code class="docutils literal notranslate"><span class="pre">AUTHOR_CHAT_HISTORY_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTH_PASSWORD_VALIDATORS"><code class="docutils literal notranslate"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code></a></li>
@@ -1071,6 +1078,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INSTALLED_APPS"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_DOMAIN"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BACK_END_DOMAIN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BACK_END_TIMEOUT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_CMS_USER_MAIL"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_CMS_USER_MAIL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_IPS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_IPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_URLS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LANGUAGES"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a></li>
@@ -1160,8 +1168,6 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_USERNAME"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_USERNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TIME_ZONE"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_TICKET_GROUP"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_TICKET_GROUP</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_LIMIT"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_LIMIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_I18N"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_L10N"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_TZ"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a></li>
@@ -1421,18 +1427,14 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_api_chat">Test API Chat</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_create_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_create_attachment_success()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_first_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_first_chat()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_force_new_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_force_new_chat()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_incorrect_chat_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_incorrect_chat_failure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_missing_attachment_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_missing_attachment_failure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_success()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_failure()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_success()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_auth_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_server_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_server_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_missing_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_missing_auth_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting"><code class="docutils literal notranslate"><span class="pre">test_api_chat_ratelimiting()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_send_message"><code class="docutils literal notranslate"><span class="pre">test_api_chat_send_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_set_evaluation_consent"><code class="docutils literal notranslate"><span class="pre">test_api_chat_set_evaluation_consent()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_is_chat_enabled_for_user"><code class="docutils literal notranslate"><span class="pre">test_api_is_chat_enabled_for_user()</span></code></a></li>
 </ul>
 </li>
@@ -2150,8 +2152,6 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.api.middleware.html#integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware.__init__">(integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI.__init__">(integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.apps.CmsConfig.__init__">(integreat_cms.cms.apps.CmsConfig method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.auth.WPBCryptPasswordHasher.__init__">(integreat_cms.cms.auth.WPBCryptPasswordHasher method)</a>
@@ -2297,12 +2297,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.__init__">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNodeManager.__init__">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNodeManager method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.__init__">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.__init__">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.__init__">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatHistoryManager.__init__">(integreat_cms.cms.models.chat.chat_message.ChatHistoryManager method)</a>
 </li>
@@ -2575,6 +2569,8 @@
         <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.repair_tree.MPTTFixer.__init__">(integreat_cms.cms.utils.repair_tree.MPTTFixer method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.shadow_instance.ShadowInstance.__init__">(integreat_cms.cms.utils.shadow_instance.ShadowInstance method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.__init__">(integreat_cms.cms.utils.zammad.ZammadAPI method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#integreat_cms.cms.views.analytics.app_size_view.AppSizeView.__init__">(integreat_cms.cms.views.analytics.app_size_view.AppSizeView method)</a>
 </li>
@@ -3677,13 +3673,9 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.user_preferences_form.UserPreferencesForm.add_initial_prefix">(integreat_cms.cms.forms.users.user_preferences_form.UserPreferencesForm method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.add_note">add_note() (integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist.add_note">add_note() (integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist method)</a>
 
       <ul>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist.add_note">(integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.chat.chat_message.ChatMessage.MultipleObjectsReturned method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.add_note">(integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist method)</a>
@@ -4009,8 +4001,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.adelete">(integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.adelete">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.adelete">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.adelete">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
@@ -4659,6 +4649,10 @@
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.api_config.API_FEEDBACK_VIEWS">API_FEEDBACK_VIEWS (in module tests.api.api_config)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW">API_RATE_LIMIT_WINDOW (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW_MINUTES">API_RATE_LIMIT_WINDOW_MINUTES (in module integreat_cms.core.settings)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox.api_representation">api_representation (integreat_cms.nominatim_api.utils.BoundingBox property)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.api_token">api_token (integreat_cms.cms.models.pages.page.Page attribute)</a>
@@ -4796,8 +4790,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.arefresh_from_db">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.arefresh_from_db">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.arefresh_from_db">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.arefresh_from_db">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -4881,13 +4873,9 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.arefresh_from_db">(integreat_cms.cms.models.users.user_fido_key.FidoKey method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.args">args (integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist.args">args (integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist attribute)</a>
 
       <ul>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.args">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned attribute)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist.args">(integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist attribute)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.MultipleObjectsReturned.args">(integreat_cms.cms.models.chat.chat_message.ChatMessage.MultipleObjectsReturned attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.args">(integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist attribute)</a>
@@ -5057,10 +5045,12 @@
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError.args">(integreat_cms.summ_ai_api.utils.SummAiRuntimeError attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.article_id">article_id (integreat_cms.cms.models.chat.attachment_map.AttachmentMap attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.as_dict">as_dict() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzRegion.as_dict">(integreat_cms.gvz_api.utils.GvzRegion method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzRegion.as_dict">as_dict() (integreat_cms.gvz_api.utils.GvzRegion method)</a>
-</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.chat.html#integreat_cms.cms.forms.chat.chat_message_form.ChatMessageForm.as_div">as_div() (integreat_cms.cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 
       <ul>
@@ -5700,8 +5690,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.asave">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.asave">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.asave">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.asave">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -5791,19 +5779,9 @@
 </li>
       <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.apps.DeepLApiClientConfig.assert_usage_limit_not_reached">assert_usage_limit_not_reached() (integreat_cms.deepl_api.apps.DeepLApiClientConfig static method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.chat_bot.async_process_answer">async_process_answer() (in module integreat_cms.api.v3.chat.utils.chat_bot)</a>
+      <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.chat_bot.async_process_translate">async_process_translate() (in module integreat_cms.api.v3.chat.utils.chat_bot)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.chat_bot.async_process_user_message">async_process_user_message() (in module integreat_cms.api.v3.chat.utils.chat_bot)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.attachment_id">attachment_id (integreat_cms.cms.models.chat.attachment_map.AttachmentMap attribute)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap">AttachmentMap (class in integreat_cms.cms.models.chat.attachment_map)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist">AttachmentMap.DoesNotExist</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned">AttachmentMap.MultipleObjectsReturned</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.attachments">attachments (integreat_cms.cms.models.chat.user_chat.UserChat attribute)</a>
 </li>
       <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.attempts">attempts (in module tests.summ_ai_api.summ_ai_test)</a>
 </li>
@@ -5921,6 +5899,12 @@
 </li>
       <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.chat_bot.automatic_answer">automatic_answer() (in module integreat_cms.api.v3.chat.utils.chat_bot)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.automatic_answers">automatic_answers (integreat_cms.cms.models.chat.user_chat.UserChat property)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.automatic_answers">(integreat_cms.cms.utils.zammad.ZammadAPI property)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.automatic_translation">automatic_translation (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
 
       <ul>
@@ -6586,8 +6570,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNodeManager.check">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNodeManager method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.check">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap class method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatHistoryManager.check">(integreat_cms.cms.models.chat.chat_message.ChatHistoryManager method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.check">(integreat_cms.cms.models.chat.chat_message.ChatMessage class method)</a>
@@ -6984,8 +6966,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.clean">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.clean">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.clean">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.clean">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -7104,8 +7084,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.clean_fields">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.clean_fields">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.clean_fields">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.clean_fields">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -7191,12 +7169,12 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_hix_enabled">clean_hix_enabled() (integreat_cms.cms.forms.regions.region_form.RegionForm method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.forms.contacts.html#integreat_cms.cms.forms.contacts.contact_form.ContactForm.clean_mobile_phone_number">clean_mobile_phone_number() (integreat_cms.cms.forms.contacts.contact_form.ContactForm method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.organizations.html#integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.clean_name">clean_name() (integreat_cms.cms.forms.organizations.organization_form.OrganizationForm method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.forms.pois.html#integreat_cms.cms.forms.pois.poi_form.POIForm.clean_opening_hours">clean_opening_hours() (integreat_cms.cms.forms.pois.poi_form.POIForm method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.contacts.html#integreat_cms.cms.forms.contacts.contact_form.ContactForm.clean_phone_number">clean_phone_number() (integreat_cms.cms.forms.contacts.contact_form.ContactForm method)</a>
@@ -7920,8 +7898,12 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.create_superuser">create_superuser() (integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI.create_ticket">create_ticket() (integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.create_ticket">create_ticket() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.create_ticket">(integreat_cms.cms.utils.zammad.ZammadAPI method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.create_user">create_user() (integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.file_utils.create_zip_archive">create_zip_archive() (in module integreat_cms.cms.utils.file_utils)</a>
@@ -8120,8 +8102,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.date_error_message">(integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.date_error_message">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.date_error_message">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.date_error_message">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
@@ -8641,8 +8621,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.delete">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.delete">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.delete">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.delete">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -8862,6 +8840,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.device_id">(integreat_cms.cms.models.chat.user_chat.UserChat attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.device_id">(integreat_cms.cms.utils.zammad.ZammadAPI property)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.textlab_api.html#integreat_cms.textlab_api.utils.dict_path">dict_path() (in module integreat_cms.textlab_api.utils)</a>
@@ -9488,6 +9468,12 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.user_preferences_form.UserPreferencesForm.errors">(integreat_cms.cms.forms.users.user_preferences_form.UserPreferencesForm property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.errors">(integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.evaluation_consent">evaluation_consent (integreat_cms.cms.models.chat.user_chat.UserChat property)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.evaluation_consent">(integreat_cms.cms.utils.zammad.ZammadAPI property)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event">Event (class in integreat_cms.cms.models.events.event)</a>
@@ -10863,8 +10849,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.from_db">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode class method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.from_db">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap class method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.from_db">(integreat_cms.cms.models.chat.chat_message.ChatMessage class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.from_db">(integreat_cms.cms.models.chat.user_chat.ABTester class method)</a>
@@ -11083,8 +11067,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.full_clean">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.full_clean">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.full_clean">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.full_clean">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -11195,8 +11177,6 @@
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.mfa_utils.generate_challenge">generate_challenge() (in module integreat_cms.cms.utils.mfa_utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.generate_pdf">generate_pdf() (in module integreat_cms.cms.utils.pdf_utils)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.generate_random_hash">generate_random_hash() (in module integreat_cms.cms.models.chat.attachment_map)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.media_utils.generate_thumbnail">generate_thumbnail() (in module integreat_cms.cms.utils.media_utils)</a>
 </li>
@@ -11570,14 +11550,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.get_annotated_list_qs">(integreat_cms.cms.models.pages.page.Page class method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI.get_api_response">get_api_response() (integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI method)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.get_attachment">get_attachment() (in module integreat_cms.api.v3.chat.user_chat)</a>
-
-      <ul>
-        <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI.get_attachment">(integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI method)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_form.PageForm.get_author_queryset">get_author_queryset() (integreat_cms.cms.forms.pages.page_form.PageForm method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.dashboard_view.DashboardView.get_automatically_saved_pages">get_automatically_saved_pages() (integreat_cms.cms.views.dashboard.dashboard_view.DashboardView method)</a>
@@ -11662,6 +11634,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_city_bounding_box">get_city_bounding_box() (integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.get_client_ip">get_client_ip() (in module integreat_cms.api.decorators)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.poi_categories.html#integreat_cms.cms.models.poi_categories.poi_category.POICategory.get_color_display">get_color_display() (integreat_cms.cms.models.poi_categories.poi_category.POICategory method)</a>
 </li>
       <li><a href="ref-ext/tests.core.management.html#tests.core.management.utils.get_command_output">get_command_output() (in module tests.core.management.utils)</a>
@@ -11674,8 +11648,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.get_constraints">(integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_constraints">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_constraints">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.get_constraints">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
@@ -12244,8 +12216,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.get_deferred_fields">(integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_deferred_fields">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_deferred_fields">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.get_deferred_fields">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
@@ -13192,14 +13162,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_matomo_id_async">get_matomo_id_async() (integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.get_messages">get_messages() (in module integreat_cms.api.v3.chat.user_chat)</a>
-
-      <ul>
-        <li><a href="ref-ext/tests.html#tests.utils.get_messages">(in module tests.utils)</a>
+      <li><a href="ref-ext/tests.html#tests.utils.get_messages">get_messages() (in module tests.utils)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI.get_messages">(integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI method)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService.get_messaging_access_token">get_messaging_access_token() (integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService static method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.mfa_utils.get_mfa_user">get_mfa_user() (in module integreat_cms.cms.utils.mfa_utils)</a>
@@ -13248,8 +13212,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.get_model_name_plural">(integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_model_name_plural">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode class method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_model_name_plural">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.get_model_name_plural">(integreat_cms.cms.models.chat.chat_message.ChatMessage class method)</a>
 </li>
@@ -13565,6 +13527,8 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.import_pois_from_csv.Command.get_or_create_default_category">get_or_create_default_category() (integreat_cms.core.management.commands.import_pois_from_csv.Command method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.get_or_create_user_chat">get_or_create_user_chat() (in module integreat_cms.api.v3.chat.user_chat)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_or_init_instance">get_or_init_instance() (integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource method)</a>
 
@@ -14661,8 +14625,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_repr">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_repr">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.get_repr">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.get_repr">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -15328,6 +15290,18 @@
 </li>
       <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.utils.get_xliff_import_errors_and_clean_translation">get_xliff_import_errors_and_clean_translation() (in module integreat_cms.xliff.utils)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.get_zammad_ticket_messages">get_zammad_ticket_messages() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.get_zammad_ticket_messages">(integreat_cms.cms.utils.zammad.ZammadAPI method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.get_zammad_user_mail">get_zammad_user_mail() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.get_zammad_user_mail">(integreat_cms.cms.utils.zammad.ZammadAPI method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.settings.webauthn.html#integreat_cms.cms.views.settings.webauthn.get_mfa_challenge_view.GetMfaChallengeView">GetMfaChallengeView (class in integreat_cms.cms.views.settings.webauthn.get_mfa_challenge_view)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.translation_utils.gettext_many_lazy">gettext_many_lazy() (in module integreat_cms.cms.utils.translation_utils)</a>
@@ -16742,11 +16716,9 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.icon_widget.IconWidget">IconWidget (class in integreat_cms.cms.forms.icon_widget)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.id">id (integreat_cms.cms.models.chat.attachment_map.AttachmentMap attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.id">id (integreat_cms.cms.models.chat.chat_message.ChatMessage attribute)</a>
 
       <ul>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.id">(integreat_cms.cms.models.chat.chat_message.ChatMessage attribute)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.id">(integreat_cms.cms.models.chat.user_chat.ABTester attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.id">(integreat_cms.cms.models.chat.user_chat.UserChat attribute)</a>
@@ -17178,6 +17150,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_TIMEOUT">INTEGREAT_CHAT_BACK_END_TIMEOUT (in module integreat_cms.core.settings)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_CMS_USER_MAIL">INTEGREAT_CHAT_CMS_USER_MAIL (in module integreat_cms.core.settings)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.integreat_chat_enabled">integreat_chat_enabled (integreat_cms.cms.models.regions.region.Region attribute)</a>
 </li>
       <li>
@@ -17262,13 +17236,6 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#module-integreat_cms.api.v3.chat.utils.chat_bot">module</a>
-</li>
-      </ul></li>
-      <li>
-    integreat_cms.api.v3.chat.utils.zammad_api
-
-      <ul>
-        <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#module-integreat_cms.api.v3.chat.utils.zammad_api">module</a>
 </li>
       </ul></li>
       <li>
@@ -18252,13 +18219,6 @@
 </li>
       </ul></li>
       <li>
-    integreat_cms.cms.models.chat.attachment_map
-
-      <ul>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#module-integreat_cms.cms.models.chat.attachment_map">module</a>
-</li>
-      </ul></li>
-      <li>
     integreat_cms.cms.models.chat.chat_message
 
       <ul>
@@ -18994,6 +18954,13 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.cms.utils.zammad
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.zammad">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.cms.views
 
       <ul>
@@ -19049,8 +19016,6 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.logout_view">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication.password_reset_confirm_view
 
@@ -19058,6 +19023,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.password_reset_confirm_view">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication.password_reset_view
 
@@ -20816,6 +20783,8 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.is_anonymous">is_anonymous (integreat_cms.cms.models.users.user.User property)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.is_app_user_message">is_app_user_message() (in module integreat_cms.api.v3.chat.user_chat)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.is_authenticated">is_authenticated (integreat_cms.cms.models.users.user.User property)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.is_chat_enabled_for_user">is_chat_enabled_for_user() (in module integreat_cms.api.v3.chat.user_chat)</a>
@@ -22376,13 +22345,17 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.storages.MessageLoggerStorage">MessageLoggerStorage (class in integreat_cms.core.storages)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.messages">messages (integreat_cms.cms.models.chat.user_chat.UserChat property)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.messages">(integreat_cms.cms.utils.zammad.ZammadAPI property)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.meta_description">meta_description (integreat_cms.cms.models.pois.poi_translation.POITranslation attribute)</a>
 </li>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.mforth">mforth() (in module tests.cms.utils.test_tree_mutex)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MIDDLEWARE">MIDDLEWARE (in module integreat_cms.core.settings)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.mime_type">mime_type (integreat_cms.cms.models.chat.attachment_map.AttachmentMap attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.minor_edit">minor_edit (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
 
@@ -22607,8 +22580,6 @@
         <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#module-integreat_cms.api.v3.chat.utils">integreat_cms.api.v3.chat.utils</a>
 </li>
         <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#module-integreat_cms.api.v3.chat.utils.chat_bot">integreat_cms.api.v3.chat.utils.chat_bot</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#module-integreat_cms.api.v3.chat.utils.zammad_api">integreat_cms.api.v3.chat.utils.zammad_api</a>
 </li>
         <li><a href="ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.events">integreat_cms.api.v3.events</a>
 </li>
@@ -22890,8 +22861,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#module-integreat_cms.cms.models.chat">integreat_cms.cms.models.chat</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#module-integreat_cms.cms.models.chat.attachment_map">integreat_cms.cms.models.chat.attachment_map</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#module-integreat_cms.cms.models.chat.chat_message">integreat_cms.cms.models.chat.chat_message</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#module-integreat_cms.cms.models.chat.user_chat">integreat_cms.cms.models.chat.user_chat</a>
@@ -23101,6 +23070,8 @@
         <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">integreat_cms.cms.utils.user_utils</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">integreat_cms.cms.utils.welcome_mail_utils</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.zammad">integreat_cms.cms.utils.zammad</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views">integreat_cms.cms.views</a>
 </li>
@@ -23791,8 +23762,6 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.frequency.MONTHLY">MONTHLY (in module integreat_cms.cms.constants.frequency)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.most_recent_hits">most_recent_hits (integreat_cms.cms.models.chat.user_chat.UserChat attribute)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.move">move() (integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 
       <ul>
@@ -24265,8 +24234,6 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.objects">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode attribute)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.objects">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.objects">(integreat_cms.cms.models.chat.chat_message.ChatMessage attribute)</a>
 </li>
@@ -25922,8 +25889,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.pk">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode property)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.pk">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap property)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.pk">(integreat_cms.cms.models.chat.chat_message.ChatMessage property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.pk">(integreat_cms.cms.models.chat.user_chat.ABTester property)</a>
@@ -26902,8 +26867,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.prepare_database_save">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.prepare_database_save">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.prepare_database_save">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.prepare_database_save">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -27050,6 +27013,8 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/tests.html#tests.conftest.PRIV_STAFF_ROLES">PRIV_STAFF_ROLES (in module tests.conftest)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.process_chat_payload">process_chat_payload() (in module integreat_cms.api.v3.chat.user_chat)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.processingInstruction">processingInstruction() (integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA method)</a>
 </li>
@@ -27577,9 +27542,9 @@
         <li><a href="ref-ext/integreat_cms.cms.views.regions.html#integreat_cms.cms.views.regions.region_update_view.RegionUpdateView.raise_exception">(integreat_cms.cms.views.regions.region_update_view.RegionUpdateView attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.random_hash">random_hash (integreat_cms.cms.models.chat.attachment_map.AttachmentMap attribute)</a>
+      <li><a href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.rate_limit">rate_limit() (in module integreat_cms.api.decorators)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.ratelimit_exceeded">ratelimit_exceeded() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
+      <li><a href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.rate_limited">rate_limited() (in module integreat_cms.api.decorators)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_feedback.EventFeedback.rating">rating (integreat_cms.cms.models.feedback.event_feedback.EventFeedback attribute)</a>
 
@@ -27809,8 +27774,6 @@
 </li>
       <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.apps.GoogleTranslateApiClientConfig.ready_v3">ready_v3() (integreat_cms.google_translate_api.apps.GoogleTranslateApiClientConfig method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.record_hit">record_hit() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.repair_tree.MPTTFixer.recreate_structure">recreate_structure() (integreat_cms.cms.utils.repair_tree.MPTTFixer method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule.recurrence_end_date">recurrence_end_date (integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule attribute)</a>
@@ -27956,8 +27919,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.refresh_from_db">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.refresh_from_db">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.refresh_from_db">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.refresh_from_db">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -28097,6 +28058,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.region">(integreat_cms.cms.models.pois.poi.POI attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.region">(integreat_cms.cms.models.users.organization.Organization attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.region">(integreat_cms.cms.utils.zammad.ZammadAPI property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_xliff_import_view.PageXliffImportView.region">(integreat_cms.cms.views.pages.page_xliff_import_view.PageXliffImportView attribute)</a>
 </li>
@@ -28963,8 +28926,6 @@
         <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient.response_mock_data">(tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.response_or_error">response_or_error() (in module integreat_cms.api.v3.chat.user_chat)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_actions.restore">restore() (in module integreat_cms.cms.views.events.event_actions)</a>
 
       <ul>
@@ -29280,8 +29241,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.save">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.save">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.save">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.save">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -29367,6 +29326,12 @@
         <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.shadow_instance.ShadowInstance.save">(integreat_cms.cms.utils.shadow_instance.ShadowInstance method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.save_automatic_answers">save_automatic_answers() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.save_automatic_answers">(integreat_cms.cms.utils.zammad.ZammadAPI method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel.save_base">save_base() (integreat_cms.cms.models.abstract_base_model.AbstractBaseModel method)</a>
 
       <ul>
@@ -29375,8 +29340,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.save_base">(integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.save_base">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.save_base">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.save_base">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
@@ -29461,6 +29424,12 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.save_base">(integreat_cms.cms.models.users.user_fido_key.FidoKey method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.save_evaluation_consent">save_evaluation_consent() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.save_evaluation_consent">(integreat_cms.cms.utils.zammad.ZammadAPI method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.poi_categories.html#integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet.save_existing">save_existing() (integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.poi_categories.html#integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet.save_existing_objects">save_existing_objects() (integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet method)</a>
@@ -29485,6 +29454,12 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.region_condition.html#integreat_cms.cms.views.region_condition.region_condition_actions.RegionConditionResource.save_m2m">(integreat_cms.cms.views.region_condition.region_condition_actions.RegionConditionResource method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.save_message">save_message() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.save_message">(integreat_cms.cms.utils.zammad.ZammadAPI method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.poi_categories.html#integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet.save_new">save_new() (integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet method)</a>
@@ -29693,12 +29668,6 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.send_mail">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.send_message">send_message() (in module integreat_cms.api.v3.chat.user_chat)</a>
-
-      <ul>
-        <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI.send_message">(integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI method)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_form_view.send_pn">send_pn() (in module integreat_cms.cms.views.push_notifications.push_notification_form_view)</a>
 
       <ul>
@@ -29731,8 +29700,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.serializable_value">(integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.serializable_value">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.serializable_value">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.serializable_value">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
@@ -30155,11 +30122,9 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.sign_count">sign_count (integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.silent_variable_failure">silent_variable_failure (integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist.silent_variable_failure">silent_variable_failure (integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist attribute)</a>
 
       <ul>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist attribute)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist attribute)</a>
@@ -31817,31 +31782,23 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEST">TEST (in module integreat_cms.core.settings)</a>
 </li>
-      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_create_attachment_success">test_api_chat_create_attachment_success() (in module tests.api.test_api_chat)</a>
-</li>
-      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_first_chat">test_api_chat_first_chat() (in module tests.api.test_api_chat)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_force_new_chat">test_api_chat_force_new_chat() (in module tests.api.test_api_chat)</a>
-</li>
-      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_incorrect_chat_failure">test_api_chat_get_attachment_incorrect_chat_failure() (in module tests.api.test_api_chat)</a>
-</li>
-      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_missing_attachment_failure">test_api_chat_get_attachment_missing_attachment_failure() (in module tests.api.test_api_chat)</a>
-</li>
-      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_success">test_api_chat_get_attachment_success() (in module tests.api.test_api_chat)</a>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_first_chat">test_api_chat_first_chat() (in module tests.api.test_api_chat)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_failure">test_api_chat_get_messages_failure() (in module tests.api.test_api_chat)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_success">test_api_chat_get_messages_success() (in module tests.api.test_api_chat)</a>
 </li>
-      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_auth_error">test_api_chat_incorrect_auth_error() (in module tests.api.test_api_chat)</a>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_server_error">test_api_chat_incorrect_server_error() (in module tests.api.test_api_chat)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_missing_auth_error">test_api_chat_missing_auth_error() (in module tests.api.test_api_chat)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting">test_api_chat_ratelimiting() (in module tests.api.test_api_chat)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_send_message">test_api_chat_send_message() (in module tests.api.test_api_chat)</a>
+</li>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_set_evaluation_consent">test_api_chat_set_evaluation_consent() (in module tests.api.test_api_chat)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_feedback.test_api_feedback_errors">test_api_feedback_errors() (in module tests.api.test_api_feedback)</a>
 </li>
@@ -33192,8 +33149,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.unique_error_message">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.unique_error_message">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.unique_error_message">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.unique_error_message">(integreat_cms.cms.models.chat.user_chat.ABTester method)</a>
@@ -33705,15 +33660,7 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.MultipleObjectsReturned">User.MultipleObjectsReturned</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat">user_chat (integreat_cms.cms.models.chat.attachment_map.AttachmentMap attribute)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat_id">user_chat_id (integreat_cms.cms.models.chat.attachment_map.AttachmentMap attribute)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_TICKET_GROUP">USER_CHAT_TICKET_GROUP (in module integreat_cms.core.settings)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_LIMIT">USER_CHAT_WINDOW_LIMIT (in module integreat_cms.core.settings)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_MINUTES">USER_CHAT_WINDOW_MINUTES (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.user_id">user_id (integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
 </li>
@@ -33811,8 +33758,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.validate_constraints">(integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.validate_constraints">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.validate_constraints">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.validate_constraints">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
@@ -33993,8 +33938,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.validate_unique">(integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.validate_unique">(integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.validate_unique">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.validate_unique">(integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
@@ -34629,13 +34572,9 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.with_perm">with_perm() (integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.with_traceback">with_traceback() (integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist.with_traceback">with_traceback() (integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist method)</a>
 
       <ul>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.with_traceback">(integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist.with_traceback">(integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.MultipleObjectsReturned.with_traceback">(integreat_cms.cms.models.chat.chat_message.ChatMessage.MultipleObjectsReturned method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.with_traceback">(integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist method)</a>
@@ -34906,16 +34845,26 @@
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.zammad_chat_handlers">zammad_chat_handlers (integreat_cms.cms.models.regions.region.Region attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.zammad_id">zammad_id (integreat_cms.cms.models.chat.user_chat.UserChat attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.zammad_id">(integreat_cms.cms.utils.zammad.ZammadAPI property)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.zammad_url">zammad_url (integreat_cms.cms.models.regions.region.Region attribute)</a>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.zammad_request">zammad_request() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.zammad_request">(integreat_cms.cms.utils.zammad.ZammadAPI method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.zammad_url">zammad_url (integreat_cms.cms.models.regions.region.Region attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.zammad_webhook">zammad_webhook() (in module integreat_cms.api.v3.chat.user_chat)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.zammad_webhook_token">zammad_webhook_token (integreat_cms.cms.models.regions.region.Region attribute)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.zammad_api.ZammadChatAPI">ZammadChatAPI (class in integreat_cms.api.v3.chat.utils.zammad_api)</a>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI">ZammadAPI (class in integreat_cms.cms.utils.zammad)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_permission_actions.MessageLevel.zfill">zfill() (integreat_cms.cms.views.pages.page_permission_actions.MessageLevel method)</a>
 </li>

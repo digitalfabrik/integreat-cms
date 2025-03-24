@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-03-09T12:41:20+00:00" />
+    <meta property="article:modified_time" content="2025-03-24T16:03:40+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chat &mdash; integreat-cms 2025.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -265,6 +265,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#tree-mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#zammad">Zammad</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.cms.views.html">Views</a><ul>
@@ -695,8 +696,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.feedback_handler"><code class="docutils literal notranslate"><span class="pre">feedback_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.get_client_ip"><code class="docutils literal notranslate"><span class="pre">get_client_ip()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.json_response"><code class="docutils literal notranslate"><span class="pre">json_response()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.matomo_tracking"><code class="docutils literal notranslate"><span class="pre">matomo_tracking()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.rate_limit"><code class="docutils literal notranslate"><span class="pre">rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.rate_limited"><code class="docutils literal notranslate"><span class="pre">rate_limited()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#module-integreat_cms.api.urls">Urls</a><ul>
@@ -847,6 +851,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.tree_mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.zammad">Zammad</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul>
@@ -1001,6 +1006,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.ADMINS"><code class="docutils literal notranslate"><span class="pre">ADMINS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.ALLOWED_HOSTS"><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.API_EVENTS_MAX_TIME_SPAN_DAYS"><code class="docutils literal notranslate"><span class="pre">API_EVENTS_MAX_TIME_SPAN_DAYS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW"><code class="docutils literal notranslate"><span class="pre">API_RATE_LIMIT_WINDOW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">API_RATE_LIMIT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.AUTHENTICATION_BACKENDS"><code class="docutils literal notranslate"><span class="pre">AUTHENTICATION_BACKENDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.AUTHOR_CHAT_HISTORY_DAYS"><code class="docutils literal notranslate"><span class="pre">AUTHOR_CHAT_HISTORY_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.AUTH_PASSWORD_VALIDATORS"><code class="docutils literal notranslate"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code></a></li>
@@ -1075,6 +1082,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INSTALLED_APPS"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_DOMAIN"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BACK_END_DOMAIN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BACK_END_TIMEOUT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_CMS_USER_MAIL"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_CMS_USER_MAIL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_IPS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_IPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_URLS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.LANGUAGES"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a></li>
@@ -1164,8 +1172,6 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_USERNAME"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_USERNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TIME_ZONE"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_TICKET_GROUP"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_TICKET_GROUP</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_LIMIT"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_LIMIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USE_I18N"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USE_L10N"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USE_TZ"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a></li>
@@ -1425,18 +1431,14 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_chat">Test API Chat</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_create_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_create_attachment_success()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_first_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_first_chat()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_force_new_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_force_new_chat()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_incorrect_chat_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_incorrect_chat_failure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_missing_attachment_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_missing_attachment_failure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_success()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_failure()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_success()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_auth_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_server_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_server_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_missing_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_missing_auth_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting"><code class="docutils literal notranslate"><span class="pre">test_api_chat_ratelimiting()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_send_message"><code class="docutils literal notranslate"><span class="pre">test_api_chat_send_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_set_evaluation_consent"><code class="docutils literal notranslate"><span class="pre">test_api_chat_set_evaluation_consent()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_is_chat_enabled_for_user"><code class="docutils literal notranslate"><span class="pre">test_api_is_chat_enabled_for_user()</span></code></a></li>
 </ul>
 </li>
@@ -2120,343 +2122,6 @@
   <section id="module-integreat_cms.cms.models.chat">
 <span id="chat"></span><h1>Chat<a class="headerlink" href="#module-integreat_cms.cms.models.chat" title="Link to this heading"></a></h1>
 <p>This package contains all models for the author and user chats</p>
-<section id="module-integreat_cms.cms.models.chat.attachment_map">
-<span id="attachment-map"></span><h2>Attachment Map<a class="headerlink" href="#module-integreat_cms.cms.models.chat.attachment_map" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.chat.attachment_map.</span></span><span class="sig-name descname"><span class="pre">AttachmentMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel" title="integreat_cms.cms.models.abstract_base_model.AbstractBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBaseModel</span></code></a></p>
-<p>A model for a mapping a random hash to a Zammad attachment ID</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>random_hash</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Random hash</p></li>
-<li><p><strong>article_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><em>IntegerField</em></a>) – Article id</p></li>
-<li><p><strong>attachment_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><em>IntegerField</em></a>) – Attachment id</p></li>
-<li><p><strong>mime_type</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Mime type</p></li>
-</ul>
-</dd>
-</dl>
-<p>Relationship fields:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>user_chat</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserChat</span></code></a>) – User chat (related name: <a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.UserChat.attachments" title="integreat_cms.cms.models.chat.user_chat.UserChat.attachments"><code class="xref py py-attr docutils literal notranslate"><span class="pre">attachments</span></code></a>)</p>
-</dd>
-</dl>
-<dl class="py exception">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.add_note">
-<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.add_note" title="Link to this definition"></a></dt>
-<dd><p>Exception.add_note(note) –
-add a note to the exception</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.args">
-<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.args" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.silent_variable_failure">
-<span class="sig-name descname"><span class="pre">silent_variable_failure</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.silent_variable_failure" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.DoesNotExist.with_traceback" title="Link to this definition"></a></dt>
-<dd><p>Exception.with_traceback(tb) –
-set self.__traceback__ to tb and return self.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.add_note">
-<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.add_note" title="Link to this definition"></a></dt>
-<dd><p>Exception.add_note(note) –
-add a note to the exception</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.args">
-<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.args" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.MultipleObjectsReturned.with_traceback" title="Link to this definition"></a></dt>
-<dd><p>Exception.with_traceback(tb) –
-set self.__traceback__ to tb and return self.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.__init__" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.adelete">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adelete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.adelete" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.arefresh_from_db">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">arefresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L747"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.arefresh_from_db" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.article_id">
-<span class="sig-name descname"><span class="pre">article_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.article_id" title="Link to this definition"></a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a></p>
-<p>Article id</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.asave">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">asave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L823"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.asave" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.attachment_id">
-<span class="sig-name descname"><span class="pre">attachment_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.attachment_id" title="Link to this definition"></a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a></p>
-<p>Attachment id</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.check">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1529"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.check" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.clean" title="Link to this definition"></a></dt>
-<dd><p>Hook for doing any extra model-wide validation after clean() has been
-called on every field by self.clean_fields. Any ValidationError raised
-by this method will not be associated with a particular field; it will
-have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.clean_fields">
-<span class="sig-name descname"><span class="pre">clean_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1504"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.clean_fields" title="Link to this definition"></a></dt>
-<dd><p>Clean all fields and raise a ValidationError containing a dict
-of all validation errors if any occur.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.date_error_message">
-<span class="sig-name descname"><span class="pre">date_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1381"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.date_error_message" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.delete" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.from_db">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L574"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.from_db" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.full_clean">
-<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_constraints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.full_clean" title="Link to this definition"></a></dt>
-<dd><p>Call clean_fields(), clean(), validate_unique(), and
-validate_constraints() on the model. Raise a ValidationError for any
-errors that occur.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_constraints">
-<span class="sig-name descname"><span class="pre">get_constraints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1430"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_constraints" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_deferred_fields">
-<span class="sig-name descname"><span class="pre">get_deferred_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L665"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_deferred_fields" title="Link to this definition"></a></dt>
-<dd><p>Return a set containing names of deferred fields for this instance.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_model_name_plural">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_model_name_plural</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_base_model.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_model_name_plural" title="Link to this definition"></a></dt>
-<dd><p>Get the plural representation of this model name</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The plural model name</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.get_repr" title="Link to this definition"></a></dt>
-<dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;AttachmentMap:</span> <span class="pre">AttachmentMap</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
-It is used for logging.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The canonical string representation of the attachment map</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.id" title="Link to this definition"></a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
-<p>Primary key: ID</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.mime_type">
-<span class="sig-name descname"><span class="pre">mime_type</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.mime_type" title="Link to this definition"></a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
-<p>Mime type</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.objects" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.pk">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pk</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.pk" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.prepare_database_save">
-<span class="sig-name descname"><span class="pre">prepare_database_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1206"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.prepare_database_save" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.random_hash">
-<span class="sig-name descname"><span class="pre">random_hash</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.random_hash" title="Link to this definition"></a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
-<p>Random hash</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.refresh_from_db">
-<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L675"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.refresh_from_db" title="Link to this definition"></a></dt>
-<dd><p>Reload field values from the database.</p>
-<p>By default, the reloading happens from the database this instance was
-loaded from, or by the read router if this instance wasn’t loaded from
-any database. The using parameter will override the default.</p>
-<p>Fields can be used to specify which fields to reload. The fields
-should be an iterable of field attnames. If fields is None, then
-all non-deferred fields are reloaded.</p>
-<p>When accessing deferred fields of an instance, the deferred loading
-of the field will call this method.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L767"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.save" title="Link to this definition"></a></dt>
-<dd><p>Save the current instance. Override this in a subclass if you want to
-control the saving process.</p>
-<p>The ‘force_insert’ and ‘force_update’ parameters can be used to insist
-that the “save” must be an SQL insert or update (or equivalent for
-non-SQL backends), respectively. Normally, they should not be set.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.save_base">
-<span class="sig-name descname"><span class="pre">save_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L835"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.save_base" title="Link to this definition"></a></dt>
-<dd><p>Handle the parts of saving which should be done only once per save,
-yet need to be done in raw saves, too. This includes some sanity
-checks and signal sending.</p>
-<p>The ‘raw’ argument is telling save_base not to save any parent
-models and not to do any changes to the values before save. This
-is used by fixture loading.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.serializable_value">
-<span class="sig-name descname"><span class="pre">serializable_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L750"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.serializable_value" title="Link to this definition"></a></dt>
-<dd><p>Return the value of the field name for this instance. If the field is
-a foreign key, return the id value instead of the object. If there’s
-no Field object with this name on the model, return the model
-attribute’s value.</p>
-<p>Used to serialize a field’s value (in the serializer, or form output,
-for example). Normally, you would just access the attribute directly
-and not use this method.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.unique_error_message">
-<span class="sig-name descname"><span class="pre">unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1398"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.unique_error_message" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat">
-<span class="sig-name descname"><span class="pre">user_chat</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat" title="Link to this definition"></a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserChat</span></code></a></p>
-<p>User chat (related name: <a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.UserChat.attachments" title="integreat_cms.cms.models.chat.user_chat.UserChat.attachments"><code class="xref py py-attr docutils literal notranslate"><span class="pre">attachments</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat_id">
-<span class="sig-name descname"><span class="pre">user_chat_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat_id" title="Link to this definition"></a></dt>
-<dd><p>Internal field, use <a class="reference internal" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat" title="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat"><code class="xref py py-class docutils literal notranslate"><span class="pre">user_chat</span></code></a> instead.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.validate_constraints">
-<span class="sig-name descname"><span class="pre">validate_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.validate_constraints" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.validate_unique">
-<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1222"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.validate_unique" title="Link to this definition"></a></dt>
-<dd><p>Check unique constraints on the model and raise ValidationError if any
-failed.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.attachment_map.generate_random_hash">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.chat.attachment_map.</span></span><span class="sig-name descname"><span class="pre">generate_random_hash</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/attachment_map.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.attachment_map.generate_random_hash" title="Link to this definition"></a></dt>
-<dd><p>Generate a random hash. Produces output of length 64.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The generated random hash</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
 <section id="module-integreat_cms.cms.models.chat.chat_message">
 <span id="chat-message"></span><h2>Chat Message<a class="headerlink" href="#module-integreat_cms.cms.models.chat.chat_message" title="Link to this heading"></a></h2>
 <dl class="py class">
@@ -2655,7 +2320,7 @@ and returning the created object.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.chat_message.ChatHistoryManager.creation_counter">
-<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">53</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/chat_message.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.chat_message.ChatHistoryManager.creation_counter" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">52</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/chat_message.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.chat_message.ChatHistoryManager.creation_counter" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -3256,7 +2921,7 @@ failed.</p>
 <span id="user-chat"></span><h2>User Chat<a class="headerlink" href="#module-integreat_cms.cms.models.chat.user_chat" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">ABTester</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">ABTester</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel" title="integreat_cms.cms.models.abstract_base_model.AbstractBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBaseModel</span></code></a></p>
 <p>A helper model for keeping track of A/B testers for the chat feature</p>
 <dl class="field-list simple">
@@ -3276,33 +2941,33 @@ failed.</p>
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.__init__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.__init__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.add_note">
-<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.add_note" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.add_note" title="Link to this definition"></a></dt>
 <dd><p>Exception.add_note(note) –
 add a note to the exception</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.args">
-<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.args" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.args" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.silent_variable_failure">
-<span class="sig-name descname"><span class="pre">silent_variable_failure</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.silent_variable_failure" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">silent_variable_failure</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.silent_variable_failure" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.with_traceback" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.DoesNotExist.with_traceback" title="Link to this definition"></a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -3311,28 +2976,28 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.__init__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.__init__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.add_note">
-<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.add_note" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.add_note" title="Link to this definition"></a></dt>
 <dd><p>Exception.add_note(note) –
 add a note to the exception</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.args">
-<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.args" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.args" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.with_traceback" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.MultipleObjectsReturned.with_traceback" title="Link to this definition"></a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -3392,7 +3057,7 @@ of all validation errors if any occur.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.device_id">
-<span class="sig-name descname"><span class="pre">device_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.device_id" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">device_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.device_id" title="Link to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
 <p>Device id</p>
 </dd></dl>
@@ -3437,7 +3102,7 @@ errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.get_repr" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.get_repr" title="Link to this definition"></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;ABTester:</span> <span class="pre">ABTester</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -3452,26 +3117,26 @@ It is used for logging.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.id" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.id" title="Link to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
 <p>Primary key: ID</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.is_tester">
-<span class="sig-name descname"><span class="pre">is_tester</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.is_tester" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_tester</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.is_tester" title="Link to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
 <p>Is tester</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.objects" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.objects" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.pk">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pk</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.pk" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pk</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.pk" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -3495,14 +3160,14 @@ of the field will call this method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.region">
-<span class="sig-name descname"><span class="pre">region</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.region" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">region</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.region" title="Link to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
 <p>Region (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">abtester</span></code>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.ABTester.region_id">
-<span class="sig-name descname"><span class="pre">region_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.region_id" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">region_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.ABTester.region_id" title="Link to this definition"></a></dt>
 <dd><p>Internal field, use <a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.ABTester.region" title="integreat_cms.cms.models.chat.user_chat.ABTester.region"><code class="xref py py-class docutils literal notranslate"><span class="pre">region</span></code></a> instead.</p>
 </dd></dl>
 
@@ -3560,8 +3225,8 @@ failed.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">UserChat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel" title="integreat_cms.cms.models.abstract_base_model.AbstractBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBaseModel</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">UserChat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel" title="integreat_cms.cms.models.abstract_base_model.AbstractBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBaseModel</span></code></a>, <a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI" title="integreat_cms.cms.utils.zammad.ZammadAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ZammadAPI</span></code></a></p>
 <p>A model for a user (app) chat, mapping a device ID to a Zammad ticket ID</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3569,7 +3234,6 @@ failed.</p>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
 <li><p><strong>device_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Device id</p></li>
 <li><p><strong>zammad_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><em>IntegerField</em></a>) – Zammad id</p></li>
-<li><p><strong>most_recent_hits</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.TextField" title="(in Django v4.2)"><em>TextField</em></a>) – Most recent hits</p></li>
 </ul>
 </dd>
 </dl>
@@ -3582,41 +3246,35 @@ failed.</p>
 </ul>
 </dd>
 </dl>
-<p>Reverse relationships:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>attachments</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap" title="integreat_cms.cms.models.chat.attachment_map.AttachmentMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">AttachmentMap</span></code></a>) – All attachments of this user chat (related name of <a class="reference internal" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat" title="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user_chat</span></code></a>)</p>
-</dd>
-</dl>
 <dl class="py exception">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.__init__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.__init__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.add_note">
-<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.add_note" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.add_note" title="Link to this definition"></a></dt>
 <dd><p>Exception.add_note(note) –
 add a note to the exception</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.args">
-<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.args" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.args" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.silent_variable_failure">
-<span class="sig-name descname"><span class="pre">silent_variable_failure</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.silent_variable_failure" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">silent_variable_failure</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.silent_variable_failure" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.with_traceback" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.DoesNotExist.with_traceback" title="Link to this definition"></a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -3625,28 +3283,28 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.__init__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.__init__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.add_note">
-<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.add_note" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.add_note" title="Link to this definition"></a></dt>
 <dd><p>Exception.add_note(note) –
 add a note to the exception</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.args">
-<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.args" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.args" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.with_traceback" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.MultipleObjectsReturned.with_traceback" title="Link to this definition"></a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -3669,15 +3327,30 @@ set self.__traceback__ to tb and return self.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.as_dict">
+<span class="sig-name descname"><span class="pre">as_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.as_dict" title="Link to this definition"></a></dt>
+<dd><p>API compatible dict representation of the chat</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.asave">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">asave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L823"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.asave" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.attachments">
-<span class="sig-name descname"><span class="pre">attachments</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.attachments" title="Link to this definition"></a></dt>
-<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap" title="integreat_cms.cms.models.chat.attachment_map.AttachmentMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">AttachmentMap</span></code></a></p>
-<p>All attachments of this user chat (related name of <a class="reference internal" href="#integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat" title="integreat_cms.cms.models.chat.attachment_map.AttachmentMap.user_chat"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user_chat</span></code></a>)</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.automatic_answers">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">automatic_answers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.automatic_answers" title="Link to this definition"></a></dt>
+<dd><p>Check if automatic answers are turned on/off</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>generate automatic answers or not</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -3702,6 +3375,23 @@ of all validation errors if any occur.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.create_ticket">
+<span class="sig-name descname"><span class="pre">create_ticket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L231"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.create_ticket" title="Link to this definition"></a></dt>
+<dd><p>Create Zammad ticket and return ticket ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Ticket title</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Zammad ticket ID</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.date_error_message">
 <span class="sig-name descname"><span class="pre">date_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1381"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.date_error_message" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -3713,9 +3403,20 @@ of all validation errors if any occur.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.device_id">
-<span class="sig-name descname"><span class="pre">device_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.device_id" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">device_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.device_id" title="Link to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
 <p>Device id</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.evaluation_consent">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluation_consent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.evaluation_consent" title="Link to this definition"></a></dt>
+<dd><p>Get user evaluation consent</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>user evaluation consent</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -3758,7 +3459,7 @@ errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.get_repr" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.get_repr" title="Link to this definition"></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;UserChat:</span> <span class="pre">UserChat</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -3771,72 +3472,82 @@ It is used for logging.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.get_zammad_ticket_messages">
+<span class="sig-name descname"><span class="pre">get_zammad_ticket_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.get_zammad_ticket_messages" title="Link to this definition"></a></dt>
+<dd><p>Get Zammad ticket articles</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of Zammad articles (chat messages)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.get_zammad_user_mail">
+<span class="sig-name descname"><span class="pre">get_zammad_user_mail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.get_zammad_user_mail" title="Link to this definition"></a></dt>
+<dd><p>Get Zammad user e-mail</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>region</strong> – region that is connected to the Zammad server</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>User e-mail address</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.id" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.id" title="Link to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
 <p>Primary key: ID</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.language">
-<span class="sig-name descname"><span class="pre">language</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.language" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">language</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.language" title="Link to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
 <p>Language of chat app user (related name: <a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.chats" title="integreat_cms.cms.models.languages.language.Language.chats"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chats</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.language_id">
-<span class="sig-name descname"><span class="pre">language_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.language_id" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">language_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.language_id" title="Link to this definition"></a></dt>
 <dd><p>Internal field, use <a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.UserChat.language" title="integreat_cms.cms.models.chat.user_chat.UserChat.language"><code class="xref py py-class docutils literal notranslate"><span class="pre">language</span></code></a> instead.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.most_recent_hits">
-<span class="sig-name descname"><span class="pre">most_recent_hits</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.most_recent_hits" title="Link to this definition"></a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.TextField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></p>
-<p>Most recent hits</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.messages">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">messages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.messages" title="Link to this definition"></a></dt>
+<dd><p>Return all messages stored in Zammad for this ticket</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>formatted chat messages</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;integreat_cms.cms.models.chat.user_chat.UserChatManager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.objects" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;integreat_cms.cms.models.chat.user_chat.UserChatManager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.objects" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.pk">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pk</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.pk" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pk</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.pk" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.prepare_database_save">
 <span class="sig-name descname"><span class="pre">prepare_database_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1206"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.prepare_database_save" title="Link to this definition"></a></dt>
 <dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.ratelimit_exceeded">
-<span class="sig-name descname"><span class="pre">ratelimit_exceeded</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L108"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.ratelimit_exceeded" title="Link to this definition"></a></dt>
-<dd><p>Decide if the rate limit for this chat has been exceeded</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>if the rate limit has been exceeded</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.record_hit">
-<span class="sig-name descname"><span class="pre">record_hit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.record_hit" title="Link to this definition"></a></dt>
-<dd><p>Record the timestamp of accesses for ratelimiting purposes</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.refresh_from_db">
@@ -3854,14 +3565,14 @@ of the field will call this method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.region">
-<span class="sig-name descname"><span class="pre">region</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.region" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">region</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.region" title="Link to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
 <p>Region for Chat (related name: <a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.chats" title="integreat_cms.cms.models.regions.region.Region.chats"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chats</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.region_id">
-<span class="sig-name descname"><span class="pre">region_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.region_id" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">region_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.region_id" title="Link to this definition"></a></dt>
 <dd><p>Internal field, use <a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.UserChat.region" title="integreat_cms.cms.models.chat.user_chat.UserChat.region"><code class="xref py py-class docutils literal notranslate"><span class="pre">region</span></code></a> instead.</p>
 </dd></dl>
 
@@ -3876,6 +3587,23 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.save_automatic_answers">
+<span class="sig-name descname"><span class="pre">save_automatic_answers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.save_automatic_answers" title="Link to this definition"></a></dt>
+<dd><p>Turn automatic answers on/off</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – True if user agrees, false if not</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>success</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.save_base">
 <span class="sig-name descname"><span class="pre">save_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L835"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.save_base" title="Link to this definition"></a></dt>
 <dd><p>Handle the parts of saving which should be done only once per save,
@@ -3884,6 +3612,44 @@ checks and signal sending.</p>
 <p>The ‘raw’ argument is telling save_base not to save any parent
 models and not to do any changes to the values before save. This
 is used by fixture loading.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.save_evaluation_consent">
+<span class="sig-name descname"><span class="pre">save_evaluation_consent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.save_evaluation_consent" title="Link to this definition"></a></dt>
+<dd><p>Set user evaluation consent</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – True if user agrees, false if not</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>success</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.save_message">
+<span class="sig-name descname"><span class="pre">save_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">automatic_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.save_message" title="Link to this definition"></a></dt>
+<dd><p>Save a new message (article) to a Zammad ticket.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – message text to be saved</p></li>
+<li><p><strong>internal</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – true if message should not be visible to app user</p></li>
+<li><p><strong>automatic_message</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – true if message does not originate from a human</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>success</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -3917,16 +3683,37 @@ failed.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.zammad_id">
-<span class="sig-name descname"><span class="pre">zammad_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.zammad_id" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">zammad_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.zammad_id" title="Link to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a></p>
 <p>Zammad id</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChat.zammad_request">
+<span class="sig-name descname"><span class="pre">zammad_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response" title="(in Requests v2.32.3)"><span class="pre">Response</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChat.zammad_request" title="Link to this definition"></a></dt>
+<dd><p>Wrapper for calling the Zammad API. Mostly takes care of auth and timeout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – HTTP Method</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API path that will be called</p></li>
+<li><p><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em> | </em><em>None</em>) – JSON payload as dict</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response from Zammad API</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response" title="(in Requests v2.32.3)"><em>Response</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChatManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">UserChatManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.chat.user_chat.</span></span><span class="sig-name descname"><span class="pre">UserChatManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/db/managers/#django.db.models.Manager" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Manager</span></code></a></p>
 <p>custom manager providing function to get the current chat</p>
 <dl class="py method">
@@ -4055,7 +3842,7 @@ with extra data or aggregations.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChatManager.auto_created">
-<span class="sig-name descname"><span class="pre">auto_created</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.auto_created" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">auto_created</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.auto_created" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -4112,19 +3899,30 @@ cached results set to avoid multiple SELECT COUNT(*) calls.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChatManager.create">
-<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/query.py#L651"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.create" title="Link to this definition"></a></dt>
-<dd><p>Create a new object with the given kwargs, saving it to the database
-and returning the created object.</p>
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><span class="pre">Region</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><span class="pre">Language</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><span class="pre">UserChat</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.create" title="Link to this definition"></a></dt>
+<dd><p>Override super create method to create a Zammad ticket for each new chat</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – Region to which the chat belongs</p></li>
+<li><p><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – UUID identifying a chat/device</p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – the UI language of the app</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><em>UserChat</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChatManager.creation_counter">
-<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">53</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.creation_counter" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">52</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.creation_counter" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChatManager.current_chat">
-<span class="sig-name descname"><span class="pre">current_chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><span class="pre">UserChat</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.current_chat" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">current_chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#integreat_cms.cms.models.chat.user_chat.UserChat" title="integreat_cms.cms.models.chat.user_chat.UserChat"><span class="pre">UserChat</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.current_chat" title="Link to this definition"></a></dt>
 <dd><p>Return only the newest (i.e. current) chat for a given device_id</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4158,7 +3956,7 @@ datetimes for the given field_name, scoped to ‘kind’.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChatManager.db">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">db</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.db" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">db</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.db" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -4378,7 +4176,7 @@ specifying whether an object was created.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.chat.user_chat.UserChatManager.use_in_migrations">
-<span class="sig-name descname"><span class="pre">use_in_migrations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.use_in_migrations" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">use_in_migrations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/chat/user_chat.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.chat.user_chat.UserChatManager.use_in_migrations" title="Link to this definition"></a></dt>
 <dd><p>If set to True the manager will be serialized into migrations and will
 thus be available in e.g. RunPython operations.</p>
 </dd></dl>
@@ -4419,7 +4217,7 @@ thus be available in e.g. RunPython operations.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 09, 2025.
+      <span class="lastupdated">Last updated on Mar 24, 2025.
       </span></p>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-03-24T13:47:05+00:00" />
+    <meta property="article:modified_time" content="2025-03-24T16:03:40+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2025.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -265,6 +265,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#tree-mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#user-utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#welcome-mail-utils">Welcome Mail Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zammad">Zammad</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul>
@@ -695,8 +696,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.feedback_handler"><code class="docutils literal notranslate"><span class="pre">feedback_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.get_client_ip"><code class="docutils literal notranslate"><span class="pre">get_client_ip()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.json_response"><code class="docutils literal notranslate"><span class="pre">json_response()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.matomo_tracking"><code class="docutils literal notranslate"><span class="pre">matomo_tracking()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.rate_limit"><code class="docutils literal notranslate"><span class="pre">rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.rate_limited"><code class="docutils literal notranslate"><span class="pre">rate_limited()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.urls">Urls</a><ul>
@@ -847,6 +851,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.tree_mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.zammad">Zammad</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html">Views</a><ul>
@@ -1001,6 +1006,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ADMINS"><code class="docutils literal notranslate"><span class="pre">ADMINS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ALLOWED_HOSTS"><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_EVENTS_MAX_TIME_SPAN_DAYS"><code class="docutils literal notranslate"><span class="pre">API_EVENTS_MAX_TIME_SPAN_DAYS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW"><code class="docutils literal notranslate"><span class="pre">API_RATE_LIMIT_WINDOW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">API_RATE_LIMIT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTHENTICATION_BACKENDS"><code class="docutils literal notranslate"><span class="pre">AUTHENTICATION_BACKENDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTHOR_CHAT_HISTORY_DAYS"><code class="docutils literal notranslate"><span class="pre">AUTHOR_CHAT_HISTORY_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTH_PASSWORD_VALIDATORS"><code class="docutils literal notranslate"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code></a></li>
@@ -1075,6 +1082,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INSTALLED_APPS"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_DOMAIN"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BACK_END_DOMAIN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BACK_END_TIMEOUT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_CMS_USER_MAIL"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_CMS_USER_MAIL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_IPS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_IPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_URLS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LANGUAGES"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a></li>
@@ -1164,8 +1172,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_USERNAME"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_USERNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TIME_ZONE"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_TICKET_GROUP"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_TICKET_GROUP</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_LIMIT"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_LIMIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_I18N"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_L10N"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_TZ"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a></li>
@@ -1425,18 +1431,14 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_chat">Test API Chat</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_create_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_create_attachment_success()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_first_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_first_chat()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_force_new_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_force_new_chat()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_incorrect_chat_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_incorrect_chat_failure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_missing_attachment_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_missing_attachment_failure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_success()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_failure()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_success()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_auth_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_server_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_server_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_missing_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_missing_auth_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting"><code class="docutils literal notranslate"><span class="pre">test_api_chat_ratelimiting()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_send_message"><code class="docutils literal notranslate"><span class="pre">test_api_chat_send_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_set_evaluation_consent"><code class="docutils literal notranslate"><span class="pre">test_api_chat_set_evaluation_consent()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_is_chat_enabled_for_user"><code class="docutils literal notranslate"><span class="pre">test_api_is_chat_enabled_for_user()</span></code></a></li>
 </ul>
 </li>
@@ -4092,6 +4094,192 @@ version and also attach the integreat logo.</p>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+</dd></dl>
+
+</section>
+<section id="zammad">
+<h2>Zammad<a class="headerlink" href="#zammad" title="Link to this heading"></a></h2>
+<p>Zammad API helper functions</p>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.zammad.</span></span><span class="sig-name descname"><span class="pre">ZammadAPI</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Zammad API Wrapper. This is intended to be used as a UserChat parent class.</p>
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">automatic_answers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Check if automatic answers are turned on/off</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>generate automatic answers or not</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">create_ticket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L231"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Create Zammad ticket and return ticket ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Ticket title</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Zammad ticket ID</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Property that has to be defined in child classes</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluation_consent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get user evaluation consent</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>user evaluation consent</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_zammad_ticket_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get Zammad ticket articles</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of Zammad articles (chat messages)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_zammad_user_mail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get Zammad user e-mail</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>region</strong> – region that is connected to the Zammad server</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>User e-mail address</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">messages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return all messages stored in Zammad for this ticket</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>formatted chat messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">region</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><span class="pre">Region</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Property that has to be defined in child classes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">save_automatic_answers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Turn automatic answers on/off</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – True if user agrees, false if not</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>success</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">save_evaluation_consent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Set user evaluation consent</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – True if user agrees, false if not</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>success</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">save_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">automatic_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Save a new message (article) to a Zammad ticket.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – message text to be saved</p></li>
+<li><p><strong>internal</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – true if message should not be visible to app user</p></li>
+<li><p><strong>automatic_message</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – true if message does not originate from a human</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>success</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">zammad_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Property that has to be defined in child classes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">zammad_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response" title="(in Requests v2.32.3)"><span class="pre">Response</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Wrapper for calling the Zammad API. Mostly takes care of auth and timeout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – HTTP Method</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API path that will be called</p></li>
+<li><p><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em> | </em><em>None</em>) – JSON payload as dict</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response from Zammad API</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response" title="(in Requests v2.32.3)"><em>Response</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>

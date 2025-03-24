@@ -265,6 +265,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#tree-mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#zammad">Zammad</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.cms.views.html">Views</a><ul>
@@ -695,8 +696,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.feedback_handler"><code class="docutils literal notranslate"><span class="pre">feedback_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.get_client_ip"><code class="docutils literal notranslate"><span class="pre">get_client_ip()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.json_response"><code class="docutils literal notranslate"><span class="pre">json_response()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.matomo_tracking"><code class="docutils literal notranslate"><span class="pre">matomo_tracking()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.rate_limit"><code class="docutils literal notranslate"><span class="pre">rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.rate_limited"><code class="docutils literal notranslate"><span class="pre">rate_limited()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#module-integreat_cms.api.urls">Urls</a><ul>
@@ -847,6 +851,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.tree_mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.zammad">Zammad</a></li>
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Views</a><ul>
@@ -1001,6 +1006,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.ADMINS"><code class="docutils literal notranslate"><span class="pre">ADMINS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.ALLOWED_HOSTS"><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.API_EVENTS_MAX_TIME_SPAN_DAYS"><code class="docutils literal notranslate"><span class="pre">API_EVENTS_MAX_TIME_SPAN_DAYS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW"><code class="docutils literal notranslate"><span class="pre">API_RATE_LIMIT_WINDOW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.API_RATE_LIMIT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">API_RATE_LIMIT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.AUTHENTICATION_BACKENDS"><code class="docutils literal notranslate"><span class="pre">AUTHENTICATION_BACKENDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.AUTHOR_CHAT_HISTORY_DAYS"><code class="docutils literal notranslate"><span class="pre">AUTHOR_CHAT_HISTORY_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.AUTH_PASSWORD_VALIDATORS"><code class="docutils literal notranslate"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code></a></li>
@@ -1075,6 +1082,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INSTALLED_APPS"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_DOMAIN"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BACK_END_DOMAIN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BACK_END_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BACK_END_TIMEOUT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_CMS_USER_MAIL"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_CMS_USER_MAIL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_IPS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_IPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_URLS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.LANGUAGES"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a></li>
@@ -1164,8 +1172,6 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_USERNAME"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_USERNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TIME_ZONE"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_TICKET_GROUP"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_TICKET_GROUP</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_LIMIT"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_LIMIT</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USE_I18N"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USE_L10N"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.USE_TZ"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a></li>
@@ -1425,18 +1431,14 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_chat">Test API Chat</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_create_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_create_attachment_success()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_first_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_first_chat()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_force_new_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_force_new_chat()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_incorrect_chat_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_incorrect_chat_failure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_missing_attachment_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_missing_attachment_failure()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_success()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_failure()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_success()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_auth_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_server_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_server_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_missing_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_missing_auth_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting"><code class="docutils literal notranslate"><span class="pre">test_api_chat_ratelimiting()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_send_message"><code class="docutils literal notranslate"><span class="pre">test_api_chat_send_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_chat_set_evaluation_consent"><code class="docutils literal notranslate"><span class="pre">test_api_chat_set_evaluation_consent()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_chat.test_api_is_chat_enabled_for_user"><code class="docutils literal notranslate"><span class="pre">test_api_is_chat_enabled_for_user()</span></code></a></li>
 </ul>
 </li>
