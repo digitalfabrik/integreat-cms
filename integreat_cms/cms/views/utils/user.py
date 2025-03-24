@@ -12,6 +12,9 @@ def get_pages_observer_has_access_to(user: User) -> list:
 
     :param user: The user for which the access rights are checked
     """
+    if user is None:
+        return []
+
     pages_user_has_access_to = (
         Page.objects.prefetch_related("authors", "editors")
         .filter(Q(authors=user) | Q(editors=user))
