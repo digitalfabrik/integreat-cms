@@ -7,6 +7,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django.conf import settings
+from django.db.models import F
+from django.db.models.functions import Greatest
 from django.http import JsonResponse
 from django.utils import timezone
 
@@ -44,7 +46,10 @@ def sent_push_notifications(
         )
         .filter(language__slug=language_slug)
         .filter(push_notification__draft=False)
-        .order_by("-last_updated")
+        .annotate(
+            display_date=Greatest(F("last_updated"), F("push_notification__sent_date"))
+        )
+        .order_by("-display_date")
     )
     if channel != "all":
         query_result = query_result.filter(push_notification__channel=channel)
@@ -69,6 +74,7 @@ def transform_notification(pnt: PushNotificationTranslation) -> dict[str, Any]:
         "message": pnt.get_text(),
         "timestamp": pnt.last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(pnt.last_updated),
+        "display_date": pnt.display_date,
         "channel": pnt.push_notification.channel,
         "available_languages": available_languages_dict,
     }
