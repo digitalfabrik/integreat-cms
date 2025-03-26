@@ -92,7 +92,7 @@ class LinkcheckListView(ListView):
         urls, count_dict = filter_urls(
             self.kwargs.get("region_slug"),
             self.kwargs.get("url_filter"),
-            prefetch_region_links=True,
+            prefetch_links=True,
         )
         self.extra_context.update(count_dict)
         return urls
@@ -107,7 +107,7 @@ class LinkcheckListView(ListView):
                 self.instance = get_urls(
                     region,
                     url_ids=[edit_url_id],
-                    prefetch_region_links=True,
+                    prefetch_links=True,
                 )[0]
             except IndexError as e:
                 raise Http404("This URL does not exist") from e
@@ -160,7 +160,7 @@ class LinkcheckListView(ListView):
                 new_url = self.form.cleaned_data["url"]
                 # Get all current contents with the same url
                 links = (
-                    self.instance.region_links
+                    self.instance.regions_links
                     if self.request.region
                     else self.instance.links.all()
                 )
@@ -197,13 +197,13 @@ class LinkcheckListView(ListView):
             selected_urls = get_urls(
                 region_slug=region_slug,
                 url_ids=request.POST.getlist("selected_ids[]"),
-                prefetch_region_links=True,
+                prefetch_links=True,
             )
 
             if action == "ignore":
                 for url in selected_urls:
                     link_ids = (
-                        [link.id for link in url.region_links]
+                        [link.id for link in url.regions_links]
                         if region_slug
                         else url.links.all()
                     )
@@ -215,7 +215,7 @@ class LinkcheckListView(ListView):
             elif action == "unignore":
                 for url in selected_urls:
                     link_ids = (
-                        [link.id for link in url.region_links]
+                        [link.id for link in url.regions_links]
                         if region_slug
                         else url.links.all()
                     )
