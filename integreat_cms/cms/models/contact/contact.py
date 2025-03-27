@@ -89,7 +89,7 @@ class Contact(AbstractBaseModel):
         :param query: The query string used for filtering the contacts
         :return: A query for all matching objects
         """
-        vector = SearchVector(
+        contact_vector = SearchVector(
             "name",
             "email",
             "phone_number",
@@ -97,6 +97,13 @@ class Contact(AbstractBaseModel):
             "website",
             "area_of_responsibility",
         )
+        location_vector = SearchVector(
+            "location__translations__title",
+            "location__address",
+            "location__postcode",
+            "location__city",
+        )
+        vector = contact_vector + location_vector
         query = SearchQuery(query, search_type="websearch")
         return (
             Contact.objects.filter(location__region=region, archived=False)
@@ -170,6 +177,10 @@ class Contact(AbstractBaseModel):
 
         :return: The short representation of the contact
         """
+        full_address = f"{self.location} {self.location.address} {self.location.postcode} {self.location.city}"
+        full_address_string_repr = (
+            f"| Linked location: {full_address}" if self.location else ""
+        )
         area_of_responsibility = (
             f"{self.area_of_responsibility}: " if self.area_of_responsibility else ""
         )
@@ -186,7 +197,7 @@ class Contact(AbstractBaseModel):
         ]
         details_repr = f"({', '.join(details)})" if details else ""
 
-        return f"{area_of_responsibility}{name}{details_repr}".strip()
+        return f"{area_of_responsibility}{name}{details_repr}{full_address_string_repr}".strip()
 
     @cached_property
     def referring_page_translations(self) -> QuerySet[PageTranslation]:

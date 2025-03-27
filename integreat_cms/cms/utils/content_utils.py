@@ -159,7 +159,7 @@ def render_contact_card(contact_id: int, wanted_details: list[str]) -> HtmlEleme
         return fromstring(raw_element)
     except Contact.DoesNotExist:
         logger.warning("Contact with id=%i does not exist!", contact_id)
-        return Element("p")
+        return fromstring("<div><p></p></div>")
     except LxmlError as e:
         logger.debug(
             "Failed to parse rendered HTML for contact card: %r\n→ %s\nEOF",
@@ -190,7 +190,7 @@ def update_contacts(content: HtmlElement) -> None:
         contact_card_new = (
             render_contact_card(contact_id, wanted_details)
             if any(detail for detail in wanted_details)
-            else Element("p")
+            else fromstring("<div><p></p></div>")
         )
         contact_card.getparent().replace(contact_card, *contact_card_new)
 

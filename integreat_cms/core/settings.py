@@ -1361,15 +1361,19 @@ DB_MUTEX_TTL_SECONDS: Final[int] = 60
 #: Days after which a page is considered to be outdated in the todo dashboard
 OUTDATED_THRESHOLD_DAYS: Final[int] = 365
 
+############################
+# API Rate Limit decorator #
+############################
+
+#: Size of the sliding window used for rate limiting
+API_RATE_LIMIT_WINDOW_MINUTES: Final[int] = 10
+
+#: Maximum number of requests users are allowed to send within WINDOW_MINUTES minutes
+API_RATE_LIMIT_WINDOW: Final[int] = 100
+
 ############
 # Chat API #
 ############
-
-#: Size of the sliding window used for rate limiting
-USER_CHAT_WINDOW_MINUTES: Final[int] = 10
-
-#: Maximum number of requests users are allowed to send within WINDOW_MINUTES minutes
-USER_CHAT_WINDOW_LIMIT: Final[int] = 50
 
 #: Zammad ticket group used for Integreat chat messages
 USER_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"
@@ -1384,6 +1388,12 @@ INTEGREAT_CHAT_BACK_END_DOMAIN = os.environ.get(
 INTEGREAT_CHAT_BACK_END_TIMEOUT = os.environ.get(
     "INTEGREAT_CMS_INTEGREAT_CHAT_BACK_END_TIMEOUT",
     300,
+)
+
+#: The e-mail address of the user that the Integreat
+INTEGREAT_CHAT_CMS_USER_MAIL = os.environ.get(
+    "INTEGREAT_CMS_INTEGREAT_CHAT_CMS_USER_MAIL",
+    "tech+integreat-cms@tuerantuer.org",
 )
 
 ##########

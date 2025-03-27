@@ -63,13 +63,17 @@ const createContact = async (event: Event) => {
 };
 
 const renderContactForm = async () => {
-    const response = await fetch(document.getElementById("show-contact-form-button").getAttribute("data-url"));
-    document.getElementById("contact-form-widget").innerHTML = await response.text();
+    document.getElementById("contact-form-widget").classList.remove("hidden");
+    const relatedContactBlock = document.getElementById("related-contact");
+    if (relatedContactBlock) {
+        const response = await fetch(document.getElementById("show-contact-form-button").getAttribute("data-url"));
+        document.getElementById("contact-form-widget").innerHTML = await response.text();
 
-    document.getElementById("submit-contact-form-button").addEventListener("click", (event) => {
-        event.preventDefault();
-        createContact(event);
-    });
+        document.getElementById("submit-contact-form-button").addEventListener("click", (event) => {
+            event.preventDefault();
+            createContact(event);
+        });
+    }
     document.getElementById("show-contact-form-button").classList.add("hidden");
 };
 

@@ -8,47 +8,57 @@
     {% trans "Related contacts" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    {% with poi_form.instance.contacts.all as contacts %}
+    {% if poi_form.instance.id %}
+        {% with poi_form.instance.contacts.all as contacts %}
+            <div id="related-contact">
+                <div class="help-text">
+                    {% if contacts %}
+                        {% trans "This location is currently referred to by the following contacts." %}
+                    {% else %}
+                        {% trans "This location is not currently referred to in any contact." %}
+                    {% endif %}
+                </div>
+                <div id="related-contact-list">
+                    {% for contact in contacts %}
+                        <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
+                           class="block pt-2 hover:underline">
+                            <i icon-name="pencil" class="mr-2"></i> {{ contact.label_in_reference_list }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endwith %}
+    {% else %}
+        <div id="contact-ajax-info-message"
+             class="bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3">
+            {% trans "The contact will be created once you save the location." %}
+        </div>
+    {% endif %}
+    {% if perms.cms.change_contact and not poi_form.instance.archived %}
         <div>
-            <div class="help-text">
-                {% if contacts %}
-                    {% trans "This location is currently referred to by the following contacts." %}
-                {% else %}
-                    {% trans "This location is not currently referred to in any contact." %}
+            <div class="help-text mt-4 font-bold">
+                <div>
+                    <button id="show-contact-form-button"
+                            form="ajax_contact_form"
+                            class="btn w-full mt-4 mb-2"
+                            {% if poi_id %}data-url="{% url 'show_contact_form_ajax' region_slug=request.region.slug poi_id=poi_id %}"{% endif %}>
+                        {% translate "Create a new contact" %}
+                    </button>
+                </div>
+            </div>
+            <div id="contact-ajax-success-message"
+                 class="bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 hidden">
+                {% trans "The new contact was successfully created." %}
+            </div>
+            <div id="contact-ajax-error-message"
+                 class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 hidden">
+                {% trans "An error occurred." %}
+            </div>
+            <div id="contact-form-widget" class="hidden">
+                {% if not poi_id %}
+                    {% include "ajax_contact_form/_contact_form_widget.html" %}
                 {% endif %}
             </div>
-            <div id="related-contact-list">
-                {% for contact in contacts %}
-                    <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
-                       class="block pt-2 hover:underline">
-                        <i icon-name="pencil" class="mr-2"></i> {{ contact.label_in_reference_list }}
-                    </a>
-                {% endfor %}
-            </div>
         </div>
-        {% if perms.cms.change_contact %}
-            <div>
-                <div class="help-text mt-4 font-bold">
-                    <div>
-                        <button id="show-contact-form-button"
-                                form="ajax_contact_form"
-                                class="btn w-full mt-4 mb-2"
-                                data-url="{% url 'show_contact_form_ajax' region_slug=request.region.slug poi_id=poi_id %}">
-                            {% translate "Create a new contact" %}
-                        </button>
-                    </div>
-                </div>
-                <div id="contact-ajax-success-message"
-                     class="bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 hidden">
-                    {% trans "The new contact was successfully created." %}
-                </div>
-                <div id="contact-ajax-error-message"
-                     class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 hidden">
-                    {% trans "An error occurred." %}
-                </div>
-                <div id="contact-form-widget">
-                </div>
-            </div>
-        {% endif %}
-    {% endwith %}
+    {% endif %}
 {% endblock collapsible_box_content %}

@@ -47,6 +47,7 @@ msgstr "Landkreis"
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/languages/region_list_section/region_list.html
 #: cms/templates/region_condition/region_condition.html
+#: cms/templates/users/_pages_with_observer_access.html
 #: cms/templates/users/user_list.html
 #: cms/views/region_condition/region_condition_actions.py
 msgid "Region"
@@ -1708,11 +1709,12 @@ msgstr "Archiviert"
 msgid "Manager"
 msgstr "Verwalter:in"
 
-#: cms/constants/roles.py
+#: cms/constants/roles.py cms/views/utils/user.py
 msgid "Editor"
 msgstr "Redakteur:in"
 
 #: cms/constants/roles.py cms/templates/content_versions.html
+#: cms/views/utils/user.py
 msgid "Author"
 msgstr "Autor:in"
 
@@ -1862,6 +1864,10 @@ msgstr "Letzte Woche"
 #: cms/forms/contacts/contact_form.py
 msgid "Location cannot be empty."
 msgstr "Ort darf nicht leer sein."
+
+#: cms/forms/contacts/contact_form.py
+msgid "An archived location cannot be used for contacts."
+msgstr "Ein archivierter Ort kann nicht für Kontakte verwendet werden."
 
 #: cms/forms/custom_content_model_form.py
 msgid ""
@@ -2472,6 +2478,7 @@ msgstr ""
 
 #: cms/forms/users/user_filter_form.py cms/forms/users/user_form.py
 #: cms/templates/organizations/organization_form.html
+#: cms/templates/users/_pages_with_observer_access.html
 #: cms/templates/users/region_user_list.html cms/templates/users/user_list.html
 msgid "Role"
 msgstr "Rolle"
@@ -2708,14 +2715,6 @@ msgstr "übergeordneter Knoten"
 msgid "The node \"{}\" in region \"{}\" cannot be moved to \"{}\"."
 msgstr ""
 "Der Knoten \"{}\" in Region \"{}\" kann nicht nach \"{}\" verschoben werden."
-
-#: cms/models/chat/attachment_map.py
-msgid "attachment map"
-msgstr "Anhangs-Mapping"
-
-#: cms/models/chat/attachment_map.py
-msgid "attachment maps"
-msgstr "Anhangs-Mappings"
 
 #: cms/models/chat/chat_message.py
 msgid "sender"
@@ -4985,11 +4984,11 @@ msgstr "Medienbibliothek..."
 #: cms/templates/ajax_contact_form/_contact_form_widget.html
 #: cms/templates/contacts/contact_form.html
 msgid ""
-"Currently, the mobile phone number is not displayed in the Integreat App. You "
-"can find more information in the"
+"Currently, the mobile phone number is not displayed in the Integreat App. "
+"You can find more information in the"
 msgstr ""
-"Aktuell wird die Mobiltelefonnummer nicht in der Integreat App angezeigt. Mehr "
-"Informationen finden Sie im"
+"Aktuell wird die Mobiltelefonnummer nicht in der Integreat App angezeigt. "
+"Mehr Informationen finden Sie imInformationen finden Sie im"
 
 #: cms/templates/ajax_poi_form/_poi_address_container.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
@@ -5385,6 +5384,10 @@ msgstr "Kontaktdaten verwalten"
 msgid "Enter the data you wish to store for the contact here."
 msgstr ""
 "Tragen Sie hier die Daten ein, die Sie für den Kontakt hinterlegen möchten."
+
+#: cms/templates/contacts/contact_form.html
+msgid "At least one field must be filled."
+msgstr "Es muss mindestens ein Feld ausgefüllt werden."
 
 #: cms/templates/contacts/contact_form.html
 msgid "Contact information"
@@ -7370,6 +7373,7 @@ msgid "File"
 msgstr "Datei"
 
 #: cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/users/_pages_with_observer_access.html
 msgid "Page"
 msgstr "Seite"
 
@@ -8028,6 +8032,10 @@ msgid "This location is not currently referred to in any contact."
 msgstr "Zur Zeit gibt es keine Kontakte zu diesem Ort."
 
 #: cms/templates/pois/poi_form_sidebar/related_contacts_box.html
+msgid "The contact will be created once you save the location."
+msgstr "Der Kontakt wird erstellt, sobald Sie den Standort speichern."
+
+#: cms/templates/pois/poi_form_sidebar/related_contacts_box.html
 msgid "Create a new contact"
 msgstr "Kontakt erstellen"
 
@@ -8289,6 +8297,10 @@ msgstr "Anzahl an Seiten"
 #: cms/views/region_condition/region_condition_actions.py
 msgid "Number of outdated pages"
 msgstr "Anzahl veralteter Seiten"
+
+#: cms/templates/region_condition/region_condition.html
+msgid "Number of pages under HIX threshold"
+msgstr "Anzahl an Seiten unter HIX Schwellenwert"
 
 #: cms/templates/region_condition/region_condition.html
 #: cms/views/region_condition/region_condition_actions.py
@@ -8888,6 +8900,10 @@ msgstr "Ansicht der Übersetzungs-Zustände."
 #: cms/templates/tutorials/page_tree.html
 msgid "Open the page editor by clicking on a page."
 msgstr "Öffnen Sie den Seiten-Editor indem Sie auf eine Seite klicken."
+
+#: cms/templates/users/_pages_with_observer_access.html
+msgid "Assigned to"
+msgstr "Zugewiesen zu"
 
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
 #, python-format
@@ -9510,7 +9526,7 @@ msgstr ""
 "erstellen Sie einen neuen Ort. Nur veröffentlichte Orte können verwendet "
 "werden."
 
-#: cms/views/contacts/contact_form_view.py
+#: cms/views/contacts/contact_form_view.py cms/views/pois/poi_form_view.py
 msgid "Contact for \"{}\" was successfully created"
 msgstr "Kontakt für \"{}\" wurde erfolgreich erstellt"
 
@@ -11471,6 +11487,12 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "attachment map"
+#~ msgstr "Anhangs-Mapping"
+
+#~ msgid "attachment maps"
+#~ msgstr "Anhangs-Mappings"
+
 #~ msgid "fax number"
 #~ msgstr "Faxnummer"
 
@@ -11604,9 +11626,6 @@ msgstr ""
 
 #~ msgid "E-mail from location"
 #~ msgstr "E-mail des Ortes"
-
-#~ msgid "Will be taken over from the location."
-#~ msgstr "Wird vom Ort übernommen."
 
 #~ msgid "phone number from location"
 #~ msgstr "Telefonnummer des Ortes"

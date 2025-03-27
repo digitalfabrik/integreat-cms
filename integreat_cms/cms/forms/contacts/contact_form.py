@@ -1,12 +1,17 @@
 from __future__ import annotations
 
 import logging
+from typing import TYPE_CHECKING
 
+from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from ...models import Contact
 from ...utils.link_utils import format_phone_number
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +43,27 @@ class ContactForm(CustomModelForm):
         error_messages = {
             "location": {"invalid_choice": _("Location cannot be empty.")},
         }
+
+    def clean(self) -> dict[str, Any]:
+        """
+        Validate the selected location, see :meth:`django.forms.Form.clean`
+
+        :return: The cleaned form data
+        """
+
+        cleaned_data = super().clean()
+
+        if (location := cleaned_data.get("location")) and location.archived:
+            self.add_error(
+                "location",
+                forms.ValidationError(
+                    _(
+                        "An archived location cannot be used for contacts.",
+                    ),
+                    code="invalid",
+                ),
+            )
+        return cleaned_data
 
     def clean_phone_number(self) -> str:
         """

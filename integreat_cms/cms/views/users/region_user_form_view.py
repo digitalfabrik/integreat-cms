@@ -9,6 +9,9 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+from integreat_cms.cms.constants.roles import OBSERVER
+from integreat_cms.cms.views.utils import get_pages_observer_has_access_to
+
 from ...decorators import permission_required
 from ...forms import RegionUserForm
 from ...utils.welcome_mail_utils import send_welcome_mail
@@ -53,12 +56,20 @@ class RegionUserFormView(TemplateView):
         if user and not user.is_active:
             messages.info(request, _("Pending account activation"))
 
+        access_data = get_pages_observer_has_access_to(user)
+        if user and user.groups:
+            is_observer = OBSERVER in [group.name for group in user.groups.all()]
+        else:
+            is_observer = False
+
         return render(
             request,
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
                 "user_form": region_user_form,
+                "access_data": access_data,
+                "user_is_observer": is_observer,
             },
         )
 
@@ -77,6 +88,13 @@ class RegionUserFormView(TemplateView):
 
         # filter region users to make sure no users from other regions can be changed through this view
         user_instance = region.region_users.filter(id=kwargs.get("user_id")).first()
+
+        if user_instance and user_instance.groups:
+            is_observer = OBSERVER in [
+                group.name for group in user_instance.groups.all()
+            ]
+        else:
+            is_observer = False
 
         region_user_form = RegionUserForm(
             region=region,
@@ -127,5 +145,6 @@ class RegionUserFormView(TemplateView):
             {
                 **self.get_context_data(**kwargs),
                 "user_form": region_user_form,
+                "user_is_observer": is_observer,
             },
         )

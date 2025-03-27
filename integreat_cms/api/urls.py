@@ -141,7 +141,6 @@ content_api_urlpatterns: list[URLPattern] = [
         ),
     ),
     path("chat/<slug:device_id>/", user_chat.chat, name="chat"),
-    path("chat/<slug:device_id>/<slug:attachment_id>/", user_chat.chat, name="chat"),
 ]
 
 region_api_urlpatterns: list[URLPattern] = [
