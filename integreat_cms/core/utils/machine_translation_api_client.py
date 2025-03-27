@@ -59,8 +59,11 @@ class MachineTranslationApiClient(ABC):
         self.form_class = form_class
         self.translatable_attributes = ["title", "content", "meta_description"]
 
+        self.successful_translations: list[Event] | list[Page] | list[POI] = []
+        self.failed_translations: list[Event] | list[Page] | list[POI] = []
+
     @abstractmethod
-    def invoke_translation_api(self):
+    def invoke_translation_api(self) -> None:
         """
         Translate all content objects stored in self.queryset.
         Needs to be implemented by subclasses of MachineTranslationApiClient.
@@ -142,7 +145,7 @@ class MachineTranslationApiClient(ABC):
         self.alert_insufficient_hix_score()
         self.alert_exceeds_limit()
 
-    def filter_no_source_translation(self):
+    def filter_no_source_translation(self) -> None:
         """
         This method removes content objects from the main queryset
         if they do not have the required source translation.
@@ -152,16 +155,20 @@ class MachineTranslationApiClient(ABC):
 
         :param source_language: The source language slug
         """
-        self.queryset[:] = [
-            content_object
-            for content_object in self.queryset
-            if content_object.source_translation
-            or self.failed_changes_because_no_source_translation.append(
-                content_object.best_translation.title
-            )
-        ]
+        self.failed_because_no_source_translation = []
+        filtered_queryset = []
 
-    def filter_insufficient_hix_score(self):
+        for content_object in self.queryset:
+            if content_object.source_translation:
+                filtered_queryset.append(content_object)
+            else:
+                self.failed_because_no_source_translation.append(
+                    content_object.best_translation.title
+                )
+
+        self.queryset[:] = filtered_queryset
+
+    def filter_insufficient_hix_score(self) -> None:
         """
         This method removes content objects from the main queryset
         if they do not have the required HIX score.
@@ -171,20 +178,24 @@ class MachineTranslationApiClient(ABC):
 
         :param source_language: The source language slug
         """
-        self.queryset[:] = [
-            content_object
-            for content_object in self.queryset
+        self.failed_because_insufficient_hix_score = []
+        filtered_queryset = []
+
+        for content_object in self.queryset:
             if check_hix_score(
                 self.request,
-                self.source_translation,
+                content_object.source_translation,
                 show_message=False,
-            )
-            or self.failed_changes_because_insufficient_hix_score.append(
-                content_object.source_translation.title
-            )
-        ]
+            ):
+                filtered_queryset.append(content_object)
+            else:
+                self.failed_because_insufficient_hix_score.append(
+                    content_object.source_translation.title
+                )
 
-    def filter_exceeds_limit(self):
+        self.queryset[:] = filtered_queryset
+
+    def filter_exceeds_limit(self) -> None:
         """
         This method removes content objects from the main queryset
         if translating them would exceed the translation budget.
@@ -194,6 +205,7 @@ class MachineTranslationApiClient(ABC):
 
         :param source_language: The source language slug
         """
+        self.failed_because_exceeds_limit = []
         remaining_budget = self.region.mt_budget_remaining
         filtered_queryset = []
 
@@ -205,13 +217,13 @@ class MachineTranslationApiClient(ABC):
                 filtered_queryset.append(content_object)
                 remaining_budget -= content_object.word_count
             else:
-                self.failed_changes_because_exceeds_limit.append(
+                self.failed_because_exceeds_limit.append(
                     content_object.source_translation.title
                 )
 
         self.queryset[:] = filtered_queryset
 
-    def prepare_content_objects(self):
+    def prepare_content_objects(self) -> None:
         """
         Prepare the content objects to be translated by annotating
         them with information which otherwise would need to be
@@ -232,7 +244,7 @@ class MachineTranslationApiClient(ABC):
                 and getattr(content_object.source_translation, attr)
             ]
 
-    def mark_successful(self, content_object: Event | Page | POI):
+    def mark_successful(self, content_object: Event | Page | POI) -> None:
         """
         Mark a content object as having been translated successfully
         """
@@ -242,7 +254,9 @@ class MachineTranslationApiClient(ABC):
         )
         self.successful_translations.append(content_object.source_translation.title)
 
-    def mark_unsuccessful(self, content_object: Event | Page | POI, errors: bool):
+    def mark_unsuccessful(
+        self, content_object: Event | Page | POI, errors: bool
+    ) -> None:
         """
         Mark a translation as unuccessfull (usually due to API errors)
         """
@@ -255,7 +269,7 @@ class MachineTranslationApiClient(ABC):
 
     def save_translation(
         self, content_object: Event | Page | POI, translation_data: dict
-    ):
+    ) -> None:
         """
         Create a translation form based on the extracted content object data,
         save it, and validate the translation.
@@ -288,7 +302,7 @@ class MachineTranslationApiClient(ABC):
         else:
             self.mark_unsuccessful(content_object, content_translation_form.errors)
 
-    def alert_successful_translations(self):
+    def alert_successful_translations(self) -> None:
         """
         Add messages informing the user about successful translations
         """
@@ -310,7 +324,7 @@ class MachineTranslationApiClient(ABC):
             ),
         )
 
-    def alert_failed_translations(self):
+    def alert_failed_translations(self) -> None:
         """
         Add messages informing the user about failed translations
         """
@@ -330,12 +344,12 @@ class MachineTranslationApiClient(ABC):
             ),
         )
 
-    def alert_no_source_translation(self):
+    def alert_no_source_translation(self) -> None:
         """
         Add messages alerting the user that machine translation failed
         due to missing source translations
         """
-        if not self.failed_changes_because_no_source_translation:
+        if not self.failed_because_no_source_translation:
             return
 
         messages.error(
@@ -343,22 +357,22 @@ class MachineTranslationApiClient(ABC):
             ngettext_lazy(
                 "{model_name} {object_names} could not be translated because its source translation is missing.",
                 "The following {model_name_plural} could not be translated because their source translations are missing: {object_names}",
-                len(self.failed_changes_because_no_source_translation),
+                len(self.failed_because_no_source_translation),
             ).format(
                 model_name=self.model_name,
                 model_name_plural=self.model_name_plural,
                 object_names=iter_to_string(
-                    self.failed_changes_because_no_source_translation,
+                    self.failed_because_no_source_translation,
                 ),
             ),
         )
 
-    def alert_insufficient_hix_score(self):
+    def alert_insufficient_hix_score(self) -> None:
         """
         Add messages alerting the user that machine translation failed
         due to insufficient HIX scores
         """
-        if not self.failed_changes_because_insufficient_hix_score:
+        if not self.failed_because_insufficient_hix_score:
             return
 
         messages.error(
@@ -366,22 +380,22 @@ class MachineTranslationApiClient(ABC):
             ngettext_lazy(
                 "{model_name} {object_names} could not be translated because its HIX score is too low for machine translation (minimum required: {min_required}).",
                 "The following {model_name_plural} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
-                len(self.failed_changes_because_insufficient_hix_score),
+                len(self.failed_because_insufficient_hix_score),
             ).format(
                 model_name=self.model_name,
                 model_name_plural=self.model_name_plural,
                 object_names=iter_to_string(
-                    self.failed_changes_because_insufficient_hix_score,
+                    self.failed_because_insufficient_hix_score,
                 ),
             ),
         )
 
-    def alert_exceeds_limit(self):
+    def alert_exceeds_limit(self) -> None:
         """
         Add messages alerting the user that machine translation failed
         due to insufficient translation budget
         """
-        if not self.failed_changes_because_exceeds_limit:
+        if not self.failed_because_exceeds_limit:
             return
 
         messages.error(
@@ -389,12 +403,12 @@ class MachineTranslationApiClient(ABC):
             ngettext_lazy(
                 "{model_name} {object_names} could not be translated because it would exceed the remaining budget of {remaining_budget} words.",
                 "The following {model_name_plural} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
-                len(self.failed_changes_because_exceeds_limit),
+                len(self.failed_because_exceeds_limit),
             ).format(
                 model_name=self.model_name,
                 model_name_plural=self.model_name_plural,
                 object_names=iter_to_string(
-                    self.failed_changes_because_exceeds_limit,
+                    self.failed_because_exceeds_limit,
                 ),
             ),
         )

@@ -79,7 +79,7 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                 return code
         return ""
 
-    def invoke_translation_api(self):
+    def invoke_translation_api(self) -> None:
         """
         Translate all content objects stored in self.queryset using DeepL.
         """
