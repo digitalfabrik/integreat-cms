@@ -128,11 +128,14 @@ class DeepLApiClient(MachineTranslationApiClient):
 
         :param source_language: The source language slug
         """
-        remaining_budget = self.remaining_budget()
+        remaining_budget = self.region.mt_budget_remaining
         filtered_queryset = []
 
         for content_object in self.queryset:
-            if content_object.word_count:
+            if (
+                max(1, content_object.word_count - settings.MT_SOFT_MARGIN)
+                < remaining_budget
+            ):
                 filtered_queryset.append(content_object)
                 remaining_budget -= content_object.word_count
             else:
@@ -292,6 +295,7 @@ class DeepLApiClient(MachineTranslationApiClient):
         self.target_language = region.get_language_or_404(language_slug)
         self.target_language_key = self.get_target_language_key(self.target_language)
         self.queryset = queryset
+        self.region = region
 
         # Filter out content objects which can not be translated
         self.prepare_content_objects()

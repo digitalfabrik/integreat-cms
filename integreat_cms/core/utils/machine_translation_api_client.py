@@ -8,8 +8,6 @@ import logging
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-from django.conf import settings
-
 if TYPE_CHECKING:
     from django.db.models.query import QuerySet
     from django.forms.models import ModelFormMetaclass
@@ -17,15 +15,11 @@ if TYPE_CHECKING:
 
     from ...cms.models import (
         Event,
-        EventTranslation,
         Page,
-        PageTranslation,
         POI,
-        POITranslation,
         Region,
     )
 
-from .word_count import word_count
 
 logger = logging.getLogger(__name__)
 
@@ -77,29 +71,6 @@ class MachineTranslationApiClient(ABC):
         :param language_slug: The target language slug
         """
         return self.translate_queryset([obj], language_slug)
-
-    def check_usage(
-        self,
-        region: Region,
-        source_translation: EventTranslation | (PageTranslation | POITranslation),
-    ) -> tuple[bool, int]:
-        """
-        This function checks if the attempted translation would exceed the region's word limit
-
-        :param region: region for which to check usage
-        :param source_translation: single content object
-        :return: translation would exceed limit, region budget, attempted translation word count
-        """
-
-        words = word_count(source_translation)
-
-        # Check if translation would exceed MT usage limit
-        region.refresh_from_db()
-        # Allow up to MT_SOFT_MARGIN more words than the actual limit
-        word_count_leeway = max(1, words - settings.MT_SOFT_MARGIN)
-        translation_exceeds_limit = region.mt_budget_remaining < word_count_leeway
-
-        return (translation_exceeds_limit, words)
 
     def __str__(self) -> str:
         """
