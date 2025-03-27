@@ -10,11 +10,14 @@ if TYPE_CHECKING:
 
 
 def word_count(
-    translation: EventTranslation | (PageTranslation | POITranslation),
+    translation: EventTranslation | (PageTranslation | POITranslation | None),
 ) -> int:
     """
     This function counts the number of words in a content translation
     """
+    if not translation:
+        return 0
+
     attributes = [
         getattr(translation, attr, None)
         for attr in ["title", "content", "meta_description"]

@@ -11198,18 +11198,7 @@ msgstr "Englisch"
 msgid "Dutch"
 msgstr "Niederländisch"
 
-#: deepl_api/apps.py
-msgid "DeepL API"
-msgstr "DeepL API"
-
-#: deepl_api/deepl_api_client.py
-msgid "A problem with DeepL API has occurred. Please contact an administrator."
-msgstr ""
-"Ein Fehler mit DeepL API ist aufgetreten. Bitte kontaktieren Sie eine:n "
-"Administrator:in."
-
-#: deepl_api/deepl_api_client.py
-#: google_translate_api/google_translate_api_client.py
+#: core/utils/machine_translation_api_client.py
 #, python-brace-format
 msgid ""
 "{model_name} {object_names} has successfully been translated "
@@ -11224,8 +11213,19 @@ msgstr[1] ""
 "Die folgenden {model_name_plural} wurden erfolgreich übersetzt "
 "({source_language} ➜ {target_language}): {object_names}"
 
-#: deepl_api/deepl_api_client.py
-#: google_translate_api/google_translate_api_client.py
+#: core/utils/machine_translation_api_client.py
+#, python-brace-format
+msgid "{model_name} {object_names} could not be translated automatically."
+msgid_plural ""
+"The following {model_name_plural} could not translated automatically: "
+"{object_names}"
+msgstr[0] ""
+"{model_name} {object_names} konnte nicht automatisch übersetzt werden."
+msgstr[1] ""
+"Die folgenden {model_name_plural} konnten nicht automatisch übersetzt "
+"werden: {object_names}"
+
+#: core/utils/machine_translation_api_client.py
 #, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be translated because its source "
@@ -11240,26 +11240,7 @@ msgstr[1] ""
 "Die folgenden {model_name_plural} konnten nicht übersetzt werden, da ihre "
 "Quell-Übersetzung fehlen: {object_names}"
 
-#: deepl_api/deepl_api_client.py
-#: google_translate_api/google_translate_api_client.py
-#, python-brace-format
-msgid ""
-"{model_name} {object_names} could not be translated because it would exceed "
-"the remaining budget of {remaining_budget} words."
-msgid_plural ""
-"The following {model_name_plural} could not be translated because they would "
-"exceed the remaining budget of {remaining_budget} words: {object_names}"
-msgstr[0] ""
-"{model_name} {object_names} konnte nicht übersetzt werden, da die "
-"Übersetzung das verbleibende Übersetzungsbudget von {remaining_budget} "
-"Wörtern übersteigen würde."
-msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht übersetzt werden, da die "
-"Übersetzung das verbleibende Übersetzungsbudget von {remaining_budget} "
-"Wörtern übersteigen würde: {object_names}"
-
-#: deepl_api/deepl_api_client.py
-#: google_translate_api/google_translate_api_client.py
+#: core/utils/machine_translation_api_client.py
 #, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be translated because its HIX score is "
@@ -11277,18 +11258,32 @@ msgstr[1] ""
 "HIX Werte für die maschinelle Übersetzung zu gering sind (erforderlicher "
 "Mindestwert: {min_required}): {object_names}"
 
-#: deepl_api/deepl_api_client.py
-#: google_translate_api/google_translate_api_client.py
+#: core/utils/machine_translation_api_client.py
 #, python-brace-format
-msgid "{model_name} {object_names} could not be translated automatically."
+msgid ""
+"{model_name} {object_names} could not be translated because it would exceed "
+"the remaining budget of {remaining_budget} words."
 msgid_plural ""
-"The following {model_name_plural} could not translated automatically: "
-"{object_names}"
+"The following {model_name_plural} could not be translated because they would "
+"exceed the remaining budget of {remaining_budget} words: {object_names}"
 msgstr[0] ""
-"{model_name} {object_names} konnte nicht automatisch übersetzt werden."
+"{model_name} {object_names} konnte nicht übersetzt werden, da die "
+"Übersetzung das verbleibende Übersetzungsbudget von {remaining_budget} "
+"Wörtern übersteigen würde."
 msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht automatisch übersetzt "
-"werden: {object_names}"
+"Die folgenden {model_name_plural} konnten nicht übersetzt werden, da die "
+"Übersetzung das verbleibende Übersetzungsbudget von {remaining_budget} "
+"Wörtern übersteigen würde: {object_names}"
+
+#: deepl_api/apps.py
+msgid "DeepL API"
+msgstr "DeepL API"
+
+#: deepl_api/deepl_api_client.py
+msgid "A problem with DeepL API has occurred. Please contact an administrator."
+msgstr ""
+"Ein Fehler mit DeepL API ist aufgetreten. Bitte kontaktieren Sie eine:n "
+"Administrator:in."
 
 #: firebase_api/apps.py
 msgid "Firebase API"
@@ -11721,15 +11716,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
