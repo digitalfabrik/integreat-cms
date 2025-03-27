@@ -14,8 +14,8 @@ from django.contrib import messages
 from django.db import transaction
 from django.utils.translation import ngettext_lazy
 
-from ..cms.utils.stringify_list import iter_to_string
-from ..textlab_api.utils import check_hix_score
+from ...cms.utils.stringify_list import iter_to_string
+from ...textlab_api.utils import check_hix_score
 from .word_count import word_count
 
 if TYPE_CHECKING:
@@ -69,8 +69,8 @@ class MachineTranslationApiClient(ABC):
         Needs to be implemented by subclasses of MachineTranslationApiClient.
         """
 
-    @abstractmethod
     @staticmethod
+    @abstractmethod
     def get_target_language_key(target_language: Language) -> str:
         """
         This function decides the correct target language key
