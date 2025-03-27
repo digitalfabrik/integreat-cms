@@ -82,6 +82,7 @@ class EventForm(CustomModelForm):
             "external_calendar",
             "external_event_id",
             "only_weekdays",
+            "do_not_translate_title",
         ]
         #: The widgets which are used in this form
         widgets = {

@@ -53,5 +53,15 @@
                 {% endif %}
             </div>
         </div>
+        <div>
+            {% render_field event_form.do_not_translate_title %}
+            <label for="{{ event_form.do_not_translate_title.id_for_label }}"
+                   class="secondary">
+                {{ event_form.do_not_translate_title.label }}
+            </label>
+            <div class="help-text">
+                {{ event_form.do_not_translate_title.help_text }}
+            </div>
+        </div>
     {% endif %}
 {% endblock collapsible_box_content %}

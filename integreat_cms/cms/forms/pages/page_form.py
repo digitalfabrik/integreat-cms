@@ -73,6 +73,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             "api_token",
             "hix_ignore",
             "embedded_offers",
+            "do_not_translate_title",
         ]
         #: The widgets for the fields if they differ from the standard widgets
         widgets = {
