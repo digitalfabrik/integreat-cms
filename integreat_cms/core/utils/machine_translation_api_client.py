@@ -45,6 +45,10 @@ class MachineTranslationApiClient(ABC):
     region: Region
     #: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
     form_class: ModelFormMetaclass
+    #: Successful translations
+    successful_translations: list[Event] | list[Page] | list[POI] = []
+    #: Translations with an attached API failure
+    failed_translations: list[Event] | list[Page] | list[POI] = []
 
     def __init__(self, request: HttpRequest, form_class: ModelFormMetaclass) -> None:
         """
@@ -58,9 +62,6 @@ class MachineTranslationApiClient(ABC):
         self.region = request.region
         self.form_class = form_class
         self.translatable_attributes = ["title", "content", "meta_description"]
-
-        self.successful_translations: list[Event] | list[Page] | list[POI] = []
-        self.failed_translations: list[Event] | list[Page] | list[POI] = []
 
     @abstractmethod
     def invoke_translation_api(self) -> None:
@@ -252,7 +253,7 @@ class MachineTranslationApiClient(ABC):
             "Successfully translated for: %r",
             content_object.existing_target_translation,
         )
-        self.successful_translations.append(content_object.source_translation.title)
+        self.successful_translations.append(content_object)
 
     def mark_unsuccessful(
         self, content_object: Event | Page | POI, errors: bool
@@ -265,7 +266,7 @@ class MachineTranslationApiClient(ABC):
             content_object,
             errors,
         )
-        self.failed_translations.append(content_object.source_translation.title)
+        self.failed_translations.append(content_object)
 
     def save_translation(
         self, content_object: Event | Page | POI, translation_data: dict
