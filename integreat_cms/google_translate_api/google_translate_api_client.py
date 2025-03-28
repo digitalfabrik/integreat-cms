@@ -86,7 +86,7 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                 return code
         return ""
 
-    def translate_queryset(  # noqa: PLR0915
+    def translate_queryset(  # noqa: PLR0915, PLR0912
         self,
         queryset: list[Event] | (list[Page] | list[POI]),
         language_slug: str,
@@ -168,13 +168,21 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                     ):
                         try:
                             # data has to be unescaped to recognize Umlaute
-                            if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
+                            source_text = getattr(source_translation, attr)
+
+                            if (
+                                attr == "title"
+                                and content_object.do_not_translate_title
+                            ):
+                                data[attr] = source_text
+
+                            elif settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
                                 mime_type = (
                                     "text/html" if attr == "content" else "text/plain"
                                 )
                                 parent = settings.GOOGLE_PARENT_PARAM
                                 request = translate_v3.TranslateTextRequest(
-                                    contents=[getattr(source_translation, attr)],
+                                    contents=[source_text],
                                     parent=parent,
                                     target_language_code=target_language_key,
                                     source_language_code=source_language.slug,
@@ -188,7 +196,7 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                             else:
                                 format_ = "html" if attr == "content" else "text"
                                 data[attr] = self.translator_v2.translate(
-                                    values=[getattr(source_translation, attr)],
+                                    values=[source_text],
                                     target_language=target_language_key,
                                     source_language=source_language.slug,
                                     format_=format_,
