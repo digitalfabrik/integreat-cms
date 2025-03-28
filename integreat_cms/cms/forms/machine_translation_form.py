@@ -13,7 +13,6 @@ if TYPE_CHECKING:
 
     from ..models import EventTranslation, PageTranslation, POITranslation
 
-from ...core.utils.machine_translation_provider import MachineTranslationProvider
 from ...textlab_api.utils import check_hix_score
 from ..constants import text_directions
 from ..models import LanguageTreeNode
@@ -65,13 +64,6 @@ class MachineTranslationForm(CustomContentModelForm):
                 "%s initialized without support for machine translations",
                 type(self).__name__,
             )
-            return
-
-        if not MachineTranslationProvider.is_permitted(
-            self.request.region,
-            self.request.user,
-            self._meta.model,
-        ):
             return
 
         parent_node = self.request.region.language_node_by_slug.get(self.language.slug)
