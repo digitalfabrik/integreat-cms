@@ -115,6 +115,8 @@ class ZammadAPI:
         ]
         messages = []
         for message in response:
+            if message["internal"]:
+                continue
             message["role"] = "user" if message["sender"] == "Customer" else "agent"
             message["automatic_answer"] = (
                 message["subject"] == "automatically generated message"
