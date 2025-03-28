@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponseRedirect
 
 
-@permission_required("cms.change_contact")
+@permission_required("cms.archive_contact")
 def archive_contact(
     request: HttpRequest,
     contact_id: int,
@@ -93,7 +93,7 @@ def delete_contact(
     return redirect("edit_contact", region_slug=region_slug, contact_id=contact_id)
 
 
-@permission_required("cms.change_contact")
+@permission_required("cms.archive_contact")
 def restore_contact(
     request: HttpRequest,
     contact_id: int,
