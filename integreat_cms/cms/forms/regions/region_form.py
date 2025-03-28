@@ -279,6 +279,9 @@ class RegionForm(CustomModelForm):
         region = super().save(commit=commit)
 
         if duplicate_region:
+            # Disable HIX during the duplication process,
+            # to skip recalculation for already known content
+            region.hix_enabled = False
             source_region = self.cleaned_data["duplicated_region"]
             keep_status = self.cleaned_data["duplication_keep_status"]
             keep_translations = self.cleaned_data["duplication_keep_translations"]
@@ -333,6 +336,7 @@ class RegionForm(CustomModelForm):
             # Create links for the most recent versions of all translations manually and replace internal links
             create_and_replace_links_async(source_region, region)
 
+        region.hix_enabled = self.cleaned_data["hix_enabled"]
         return region
 
     def clean(self) -> dict[str, Any]:
