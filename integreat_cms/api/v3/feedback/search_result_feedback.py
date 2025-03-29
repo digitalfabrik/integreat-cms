@@ -24,6 +24,7 @@ def search_result_feedback(
     comment: str,
     rating: bool,
     is_technical: bool,
+    is_automatically_send: bool,
 ) -> JsonResponse:
     """
     Store feedback on app search results in database
@@ -44,6 +45,7 @@ def search_result_feedback(
             rating=rating,
             comment=comment,
             is_technical=is_technical,
+            is_automatically_send=is_automatically_send,
         )
         return JsonResponse({"success": "Feedback successfully submitted"}, status=201)
     return JsonResponse({"error": "Search query is required."}, status=400)
