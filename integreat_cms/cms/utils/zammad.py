@@ -59,7 +59,7 @@ class ZammadAPI:
         response = requests.request(
             method=method,
             url=f"{self.region.zammad_url}{path}",
-            timeout=5,
+            timeout=10,
             headers={"Authorization": f"Token token={self.region.zammad_access_token}"},
             json=payload,
         )

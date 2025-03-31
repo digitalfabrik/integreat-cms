@@ -105,21 +105,22 @@ def process_user_message(
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
+    # Prevent a race condition where new articles can be added to a ticket
+    # while the webhook has not yet sent to and processed by the Integreat CMS
+    messages = [
+        message
+        for message in zammad_chat.messages
+        if datetime.fromisoformat(message["created_at"]) <= message_timestamp
+    ]
     translation, answer = asyncio.run(
         async_process_user_message(
             zammad_chat.language.slug,
             region_slug,
             region.default_language.slug,
-            # Prevent a race condition where new articles can be added to a ticket
-            # while the webhook has not yet sent to and processed by the Integreat CMS
-            [
-                message
-                for message in zammad_chat.messages
-                if datetime.fromisoformat(message["created_at"]) <= message_timestamp
-            ],
+            messages,
         ),
     )
-    if translation:
+    if translation and translation["translation"] != messages[-1]["content"]:
         zammad_chat.save_message(
             message=translation["translation"],
             internal=True,
@@ -190,8 +191,8 @@ def process_translate_question(
             message_text, zammad_chat.language.slug, region.default_language.slug
         )
     )
-    if translation:
-        zammad_chat.send_message(
+    if translation and translation["translation"] != message_text:
+        zammad_chat.save_message(
             message=translation["translation"],
             internal=True,
             automatic_message=True,
