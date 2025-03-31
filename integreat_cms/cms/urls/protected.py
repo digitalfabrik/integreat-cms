@@ -962,9 +962,7 @@ urlpatterns: list[URLPattern] = [
                                         ),
                                         path(
                                             "bulk-archive/",
-                                            bulk_action_views.BulkArchiveView.as_view(
-                                                model=Page,
-                                            ),
+                                            pages.PageBulkArchiveView.as_view(),
                                             name="bulk_archive_pages",
                                         ),
                                         path(
