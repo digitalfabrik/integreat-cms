@@ -1862,12 +1862,26 @@ msgid "Last week"
 msgstr "Letzte Woche"
 
 #: cms/forms/contacts/contact_form.py
+#, fuzzy
+#| msgid "opening hours"
+msgid "Adopt opening hours"
+msgstr "Öffnungszeiten"
+
+#: cms/forms/contacts/contact_form.py
 msgid "Location cannot be empty."
 msgstr "Ort darf nicht leer sein."
 
 #: cms/forms/contacts/contact_form.py
 msgid "An archived location cannot be used for contacts."
 msgstr "Ein archivierter Ort kann nicht für Kontakte verwendet werden."
+
+#: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
+msgid "An error occurred while saving the opening hours."
+msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
+
+#: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
+msgid "Please contact an administrator."
+msgstr "Bitte kontaktieren Sie einen Administrator."
 
 #: cms/forms/custom_content_model_form.py
 msgid ""
@@ -2216,14 +2230,6 @@ msgstr "Übersetzung auf {}"
 #: cms/forms/poi_categories/poi_category_translation_form.py
 msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
-
-#: cms/forms/pois/poi_form.py
-msgid "An error occurred while saving the opening hours."
-msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
-
-#: cms/forms/pois/poi_form.py
-msgid "Please contact an administrator."
-msgstr "Bitte kontaktieren Sie einen Administrator."
 
 #: cms/forms/pois/poi_form.py
 msgid ""
@@ -2615,8 +2621,7 @@ msgstr "Titel nicht übersetzen"
 #: cms/models/abstract_content_model.py
 msgid ""
 "Tick if you do not want to translate the title by automatic translation."
-msgstr ""
-"Kreuzen Sie an, wenn Sie den Titel nicht übersetzen wollen."
+msgstr "Kreuzen Sie an, wenn Sie den Titel nicht übersetzen wollen."
 
 #: cms/models/abstract_content_translation.py
 #: cms/models/push_notifications/push_notification_translation.py
@@ -2800,6 +2805,14 @@ msgstr "archiviert"
 #: cms/models/contact/contact.py cms/models/pois/poi.py
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
+
+#: cms/models/contact/contact.py cms/models/pois/poi.py
+msgid "opening hours"
+msgstr "Öffnungszeiten"
+
+#: cms/models/contact/contact.py
+msgid "These are the opening hours of the linked location."
+msgstr "Dies sind die Öffnungszeiten aus dem hinterlegten Ort."
 
 #: cms/models/contact/contact.py
 msgid "with area of responsibility: {}"
@@ -3817,10 +3830,6 @@ msgstr ""
 "Link zu einer externen Seite über welche Termine für diesen Ort vereinbart "
 "werden können."
 
-#: cms/models/pois/poi.py
-msgid "opening hours"
-msgstr "Öffnungszeiten"
-
 #: cms/models/pois/poi.py cms/models/users/organization.py
 #: cms/models/users/user.py
 msgid "organization"
@@ -4794,8 +4803,7 @@ msgstr "Mehr anzeigen"
 #: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 #: cms/templates/push_notifications/push_notification_form.html
-#: cms/templates/users/region_user_form.html
-#: cms/views/pois/poi_context_mixin.py
+#: cms/templates/users/region_user_form.html cms/views/utils/opening_hour.py
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -4998,7 +5006,7 @@ msgid ""
 "You can find more information in the"
 msgstr ""
 "Aktuell wird die Mobiltelefonnummer nicht in der Integreat App angezeigt. "
-"Mehr Informationen finden Sie imInformationen finden Sie im"
+"Mehr Informationen finden Sie im"
 
 #: cms/templates/ajax_poi_form/_poi_address_container.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
@@ -6449,7 +6457,7 @@ msgstr "Aktualisieren & Importieren"
 #: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
 #: cms/templates/translations/translations_management.html
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
-#: cms/views/pois/poi_context_mixin.py
+#: cms/views/utils/opening_hour.py
 msgid "Save"
 msgstr "Speichern"
 
@@ -10668,94 +10676,6 @@ msgid "Address could not be found"
 msgstr "Adresse konnte nicht gefunden werden"
 
 #: cms/views/pois/poi_context_mixin.py
-msgid "Edit opening hours for this weekday"
-msgstr "Öffnungszeiten für diesen Wochentag bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Edit all opening hours"
-msgstr "Alle Öffnungszeiten bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Edit \"Mo - Fr\""
-msgstr "\"Mo - Fr\" bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Edit \"Sa & Su\""
-msgstr "\"Sa & So\" bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closed"
-msgstr "Geschlossen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time"
-msgstr "Öffnungszeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time"
-msgstr "Schließzeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Open around the clock"
-msgstr "Rund um die Uhr geöffnet"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "By prior appointment only"
-msgstr "Nur nach Terminvereinbarung"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Select the days for which the times selected below should apply"
-msgstr ""
-"Wählen Sie die Tage aus, für die die unten gewählten Zeiten gelten sollen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Add another time slot"
-msgstr "Weiteres Zeitfenster hinzufügen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Remove this time slot"
-msgstr "Dieses Zeitfenster entfernen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Only the last time slot may be empty"
-msgstr "Nur das letzte Zeitfenster darf leer sein."
-
-#: cms/views/pois/poi_context_mixin.py
-msgid ""
-"If the location is neither closed nor open all day, you have to specify at "
-"least one time slot"
-msgstr ""
-"Wenn der Ort weder geschlossen noch ganztägig geöffnet ist, müssen Sie "
-"mindestens ein Zeitfenster angeben"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time is missing"
-msgstr "Die Schließzeit fehlt"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time is missing"
-msgstr "Die Öffnungszeit fehlt"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time is earlier than the opening time"
-msgstr "Die Schließzeit ist früher als die Öffnungszeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time is identical with the opening time"
-msgstr "Die Schließzeit ist identisch mit der Öffnungszeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time is earlier than the closing time of the previous slot"
-msgstr ""
-"Die Öffnungszeit ist früher als die Schließzeit des vorherigen Zeitfensters"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time is identical with the closing time of the previous slot"
-msgstr ""
-"Die Öffnungszeit ist ist identisch mit der Schließzeit des vorherigen "
-"Zeitfensters"
-
-#: cms/views/pois/poi_context_mixin.py
 msgid "Please confirm that you really want to archive this location"
 msgstr "Bitte bestätigen Sie, dass dieser Ort archiviert werden soll."
 
@@ -11137,6 +11057,94 @@ msgstr ""
 msgid "Only superusers can enable or disable passwordless authentication."
 msgstr ""
 "Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit opening hours for this weekday"
+msgstr "Öffnungszeiten für diesen Wochentag bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit all opening hours"
+msgstr "Alle Öffnungszeiten bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit \"Mo - Fr\""
+msgstr "\"Mo - Fr\" bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit \"Sa & Su\""
+msgstr "\"Sa & So\" bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closed"
+msgstr "Geschlossen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time"
+msgstr "Öffnungszeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time"
+msgstr "Schließzeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Open around the clock"
+msgstr "Rund um die Uhr geöffnet"
+
+#: cms/views/utils/opening_hour.py
+msgid "By prior appointment only"
+msgstr "Nur nach Terminvereinbarung"
+
+#: cms/views/utils/opening_hour.py
+msgid "Select the days for which the times selected below should apply"
+msgstr ""
+"Wählen Sie die Tage aus, für die die unten gewählten Zeiten gelten sollen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Add another time slot"
+msgstr "Weiteres Zeitfenster hinzufügen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Remove this time slot"
+msgstr "Dieses Zeitfenster entfernen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Only the last time slot may be empty"
+msgstr "Nur das letzte Zeitfenster darf leer sein."
+
+#: cms/views/utils/opening_hour.py
+msgid ""
+"If the location is neither closed nor open all day, you have to specify at "
+"least one time slot"
+msgstr ""
+"Wenn der Ort weder geschlossen noch ganztägig geöffnet ist, müssen Sie "
+"mindestens ein Zeitfenster angeben"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time is missing"
+msgstr "Die Schließzeit fehlt"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time is missing"
+msgstr "Die Öffnungszeit fehlt"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time is earlier than the opening time"
+msgstr "Die Schließzeit ist früher als die Öffnungszeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time is identical with the opening time"
+msgstr "Die Schließzeit ist identisch mit der Öffnungszeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time is earlier than the closing time of the previous slot"
+msgstr ""
+"Die Öffnungszeit ist früher als die Schließzeit des vorherigen Zeitfensters"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time is identical with the closing time of the previous slot"
+msgstr ""
+"Die Öffnungszeit ist ist identisch mit der Schließzeit des vorherigen "
+"Zeitfensters"
 
 #: cms/views/utils/publication_status.py
 #, python-brace-format
@@ -11721,15 +11729,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
@@ -13543,229 +13551,4 @@ msgstr ""
 #~ "aber Sie können Änderungen vornehmen und diese zur Freigabe vorlegen."
 
 #~ msgid "Yes, archive this event now."
-#~ msgstr "Ja, diese Veranstaltung jetzt archivieren"
-
-#~ msgid "Yes, delete this event now."
-#~ msgstr "Ja, diese Veranstaltung jetzt löschen"
-
-#~ msgid "Yes, restore this event now."
-#~ msgstr "Ja, diese Veranstaltung wiederherstellen."
-
-#~ msgid "Yes, archive this location now."
-#~ msgstr "Ja, diesen Ort jetzt archivieren"
-
-#~ msgid "Yes, delete this location now."
-#~ msgstr "Ja, diesen Ort jetzt löschen"
-
-#~ msgid "You cannot delete a page which has children."
-#~ msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
-
-#~ msgid "Yes, restore this location now."
-#~ msgstr "Ja, den Ort jetzt wiederherstellen."
-
-#~ msgid "The PDF request has a wrong format."
-#~ msgstr "Die PDF Anfrage hat das falsche Format."
-
-#~ msgid "Embed mirrored imprint before this page"
-#~ msgstr "Gespiegelte Seite vor dieser Seite einbinden"
-
-#~ msgid "Embed mirrored imprint after this page"
-#~ msgstr "Gespiegelte Seite nach dieser Seite einbinden"
-
-#~ msgid "URL '{}' was successfully copied to clipboard."
-#~ msgstr "URL '{}' wurde erfolgreich in die Zwischenablage kopiert."
-
-#~ msgid "Page was successfully archived."
-#~ msgstr "Seite wurde erfolgreich archiviert."
-
-#~ msgid "Page was successfully deleted."
-#~ msgstr "Seite wurde erfolgreich gelöscht."
-
-#~ msgid ""
-#~ "This push notification has already been sent on the "
-#~ "%(push_notification_sent_date)s."
-#~ msgstr ""
-#~ "Diese Push-Benachrichtigung wurde bereits am "
-#~ "%(push_notification_sent_date)s gesendet."
-
-#~ msgid "Insert channel name here"
-#~ msgstr "Kanal-Name hier eingeben"
-
-#~ msgid "Insert title in %(language)s here"
-#~ msgstr "Titel auf %(language)s hier eingeben"
-
-#~ msgid "Insert content in %(language)s here"
-#~ msgstr "Inhalt auf %(language)s hier eingeben"
-
-#~ msgid "Push notification was successfully saved"
-#~ msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert"
-
-#~ msgid "Push notification was successfully created"
-#~ msgstr "Push-Benachrichtigung wurde erfolgreich erstellt"
-
-#~ msgid "All POIs"
-#~ msgstr "Alle POIs"
-
-#~ msgid "Create POI with title \"%(poi_query)s\""
-#~ msgstr "POI mit Titel \"%(poi_query)s\" erstellen"
-
-#~ msgid "Create new POI translation"
-#~ msgstr "Neue POI Übersetzung erstellen"
-
-#~ msgid "Create new POI"
-#~ msgstr "POI erstellen"
-
-#~ msgid "Restore this POI"
-#~ msgstr "Diesen POI wiederherstellen"
-
-#~ msgid "Archive this POI"
-#~ msgstr "Diesen POI archivieren"
-
-#~ msgid "Delete this POI"
-#~ msgstr "Diesen POI löschen"
-
-#~ msgid "Yes, archive this POI now."
-#~ msgstr "Ja, diesen POI jetzt archivieren"
-
-#~ msgid "Yes, delete this POI now."
-#~ msgstr "Ja, diesen POI jetzt löschen."
-
-#~ msgid "Yes, restore this POI now."
-#~ msgstr "Ja, diesen POI wiederherstellen."
-
-#~ msgid "Archive POI"
-#~ msgstr "POI archivieren"
-
-#~ msgid "Please confirm that you really want to archive this POI"
-#~ msgstr "Bitte bestätigen Sie, dass dieser POI archiviert werden soll."
-
-#~ msgid "All translations of this POI will also be archived."
-#~ msgstr "Es werden auch alle Übersetzungen dieses POIs archiviert."
-
-#~ msgid "All translations of this POI will also be deleted."
-#~ msgstr "Alle Übersetzungen dieses POIs werden gelöscht."
-
-#~ msgid "Please confirm that you really want to restore this POI"
-#~ msgstr "Bitte bestätigen Sie, dass dieser POI wiederhergestellt werden soll"
-
-#~ msgid "All translations of this POI will also be restored."
-#~ msgstr "Alle Übersetzungen dieses POIs werden ebenfalls wiederhergestellt."
-
-#~ msgid "Archived POIs"
-#~ msgstr "Archivierte POIs"
-
-#~ msgid "POI was successfully archived."
-#~ msgstr "POI wurde erfolgreich archiviert."
-
-#~ msgid "POI was successfully restored."
-#~ msgstr "POI wurde erfolgreich wiederhergestellt."
-
-#~ msgid "POI was successfully deleted."
-#~ msgstr "POI wurde erfolgreich gelöscht."
-
-#~ msgid "Please create at least one language node before creating POIs."
-#~ msgstr ""
-#~ "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie POIs "
-#~ "verwalten."
-
-#~ msgid "You cannot edit this POI because it is archived."
-#~ msgstr "Sie können diesen POI nicht bearbeiten, weil er archiviert ist."
-
-#~ msgid "POI was successfully created and published."
-#~ msgstr "POI wurde erfolgreich erstellt und veröffentlicht."
-
-#~ msgid "POI was successfully published."
-#~ msgstr "POI wurde erfolgreich veröffentlicht."
-
-#~ msgid "POI was successfully saved."
-#~ msgstr "POI wurde erfolgreich gespeichert."
-
-#~ msgid ""
-#~ "The source language belongs to another region.Please specify a source "
-#~ "language of this region."
-#~ msgstr ""
-#~ "Diese Quell-Sprache gehört zu einer anderen Region. Bitte geben Sie eine "
-#~ "Quell-Sprache dieser Region ein."
-
-#~ msgid "Language saved successfully."
-#~ msgstr "Sprache wurde erfolgreich gespeichert."
-
-#~ msgid "Offer template created successfully"
-#~ msgstr "Angebots-Vorlage wurde erfolgreich erstellt."
-
-#~ msgid "Organization created successfully"
-#~ msgstr "Organisation wurde erfolgreich erstellt."
-
-#~ msgid "Organization saved successfully"
-#~ msgstr "Organisation wurde erfolgreich gespeichert."
-
-#~ msgid "Role saved successfully"
-#~ msgstr "Rolle wurde erfolgreich gespeichert."
-
-#~ msgid "Role created successfully"
-#~ msgstr "Rolle wurde erfolgreich erstellt."
-
-#~ msgid "Relationship"
-#~ msgstr "Verhältnis"
-
-#~ msgid "WebApp-URL"
-#~ msgstr "Web-App-URL"
-
-#~ msgid "Delete Pages"
-#~ msgstr "Seiten löschen"
-
-#~ msgid "Archive Pages"
-#~ msgstr "Seiten archivieren"
-
-#~ msgid "No POI found"
-#~ msgstr "Kein POI gefunden"
-
-#~ msgid "Save password"
-#~ msgstr "Passwort ändern"
-
-#~ msgid "Registered 2FA key"
-#~ msgstr "Hinterlegte 2-Faktor-Schlüssel"
-
-#~ msgid "You don't have the permission to edit or create POIs."
-#~ msgstr ""
-#~ "Sie haben nicht die nötige Berechtigung, um POIs zu bearbeiten oder zu "
-#~ "erstellen."
-
-#~ msgid "POI Translation was successfully created and published."
-#~ msgstr "POI Übersetzung wurde erfolgreich erstellt und veröffentlicht."
-
-#~ msgid "POI Translation was successfully published."
-#~ msgstr "POI Übersetzung wurde erfolgreich veröffentlicht."
-
-#~ msgid "POI Translation was successfully saved."
-#~ msgstr "POI Übersetzung wurde erfolgreich gespeichert."
-
-#~ msgid "Create new point of interest"
-#~ msgstr "Neuen Point of Interest erstellen"
-
-#~ msgid "POI is archived."
-#~ msgstr "Der POI wurde archiviert."
-
-#~ msgid "Side by Side View"
-#~ msgstr "Übersetzungen nebeneinander anzeigen"
-
-#~ msgid "Deleted page"
-#~ msgstr "Gelöschte Seite"
-
-#~ msgid "Edit language \"%(form.instance.translated_name)s\""
-#~ msgstr "Sprache \"%(form.instance.translated_name)s\" bearbeiten"
-
-#~ msgid "User"
-#~ msgstr "Benutzer:in"
-
-#~ msgid "User saved successfully."
-#~ msgstr "Benutzer:in wurde erfolgreich gespeichert."
-
-#~ msgid "History"
-#~ msgstr "Historie"
-
-#~ msgid "Drafts"
-#~ msgstr "Entwürfe"
-
-#~ msgid "Page was published successfully."
-#~ msgstr "Seite wurde erfolgreich veröffentlicht."
+#~ msgstr "Ja, diese Veranstaltung wurde jetzt archiviert."

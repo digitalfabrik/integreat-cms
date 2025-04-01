@@ -12,6 +12,8 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
+from integreat_cms.cms.models.utils import get_default_opening_hours
+
 from ..abstract_base_model import AbstractBaseModel
 from ..events.event_translation import EventTranslation
 from ..fields.truncating_char_field import TruncatingCharField
@@ -20,6 +22,8 @@ from ..pois.poi import POI
 from ..pois.poi_translation import POITranslation
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.db.models.query import QuerySet
 
     from ..abstract_content_translation import AbstractContentTranslation
@@ -63,6 +67,13 @@ class Contact(AbstractBaseModel):
         verbose_name=_("archived"),
         help_text=_("Whether or not the location is read-only and hidden in the API."),
     )
+    opening_hours = models.JSONField(
+        null=True,
+        # blank=True,
+        # default=cls.get_location_opening_hours,
+        verbose_name=_("opening hours"),
+        help_text=_("These are the opening hours of the linked location."),
+    )
     last_updated = models.DateTimeField(
         auto_now=True,
         verbose_name=_("modification date"),
@@ -71,6 +82,12 @@ class Contact(AbstractBaseModel):
         default=timezone.now,
         verbose_name=_("creation date"),
     )
+
+    def get_location_opening_hours(self) -> list[dict[str, Any]]:
+        """
+        Returns opening hours of location
+        """
+        return self.location.opening_hours
 
     @cached_property
     def region(self) -> Region:
