@@ -5,6 +5,7 @@ Wrapper for the Chat Bot / LLM API
 from __future__ import annotations
 
 import asyncio
+import logging
 from datetime import datetime
 
 import aiohttp
@@ -12,6 +13,8 @@ from celery import shared_task
 from django.conf import settings
 
 from integreat_cms.cms.models import Region, UserChat
+
+logger = logging.getLogger(__name__)
 
 
 async def automatic_answer(
@@ -127,12 +130,15 @@ def process_user_message(
             automatic_message=True,
         )
     if answer:
-        zammad_chat.save_message(
-            message=answer["answer"],
-            internal=False,
-            automatic_message=True,
-        )
-        zammad_chat.save_automatic_answers(answer["automatic_answers"])
+        if answer["status"] == "error":
+            logger.error("Integreat Chat: %s", answer["message"])
+        else:
+            zammad_chat.save_message(
+                message=answer["answer"],
+                internal=False,
+                automatic_message=True,
+            )
+            zammad_chat.save_automatic_answers(answer["automatic_answers"])
 
 
 async def async_process_translate(
