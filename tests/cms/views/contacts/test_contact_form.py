@@ -51,6 +51,8 @@ def test_create_a_new_contact(
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
             "website": "https://integreat-app.de/",
+            "use_location_opening_hours": True,
+            "opening_hours": "null",
         },
     )
 
@@ -110,6 +112,8 @@ def test_edit_a_contact(
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
             "website": "https://integreat-app.de/",
+            "use_location_opening_hours": True,
+            "opening_hours": "null",
         },
     )
 

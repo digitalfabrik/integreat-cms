@@ -1873,12 +1873,24 @@ msgid "Last week"
 msgstr "Letzte Woche"
 
 #: cms/forms/contacts/contact_form.py
+msgid "Adopt opening hours from linked location"
+msgstr "Öffnungszeiten aus dem hinterlegten Ort übernehmen"
+
+#: cms/forms/contacts/contact_form.py
 msgid "Location cannot be empty."
 msgstr "Ort darf nicht leer sein."
 
 #: cms/forms/contacts/contact_form.py
 msgid "An archived location cannot be used for contacts."
 msgstr "Ein archivierter Ort kann nicht für Kontakte verwendet werden."
+
+#: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
+msgid "An error occurred while saving the opening hours."
+msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
+
+#: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
+msgid "Please contact an administrator."
+msgstr "Bitte kontaktieren Sie einen Administrator."
 
 #: cms/forms/custom_content_model_form.py
 msgid ""
@@ -2219,14 +2231,6 @@ msgstr "Übersetzung auf {}"
 #: cms/forms/poi_categories/poi_category_translation_form.py
 msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
-
-#: cms/forms/pois/poi_form.py
-msgid "An error occurred while saving the opening hours."
-msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
-
-#: cms/forms/pois/poi_form.py
-msgid "Please contact an administrator."
-msgstr "Bitte kontaktieren Sie einen Administrator."
 
 #: cms/forms/pois/poi_form.py
 msgid ""
@@ -2817,6 +2821,22 @@ msgstr "archiviert"
 #: cms/models/contact/contact.py cms/models/pois/poi.py
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
+
+#: cms/models/contact/contact.py cms/models/pois/poi.py
+msgid "opening hours"
+msgstr "Öffnungszeiten"
+
+#: cms/models/contact/contact.py cms/models/pois/poi.py
+msgid "appointment link"
+msgstr "Terminvereinbarungslink"
+
+#: cms/models/contact/contact.py
+msgid ""
+"Link to an external website where an appointment for this contact can be "
+"made."
+msgstr ""
+"Link zu einer externen Seite über welche Termine für diesen Kontakt "
+"vereinbart werden können."
 
 #: cms/models/contact/contact.py
 msgid "with area of responsibility: {}"
@@ -3823,20 +3843,12 @@ msgid "The opening hours remain and are only hidden."
 msgstr "Die Öffnungszeiten bleiben erhalten und werden nur ausgeblendet."
 
 #: cms/models/pois/poi.py
-msgid "appointment link"
-msgstr "Terminvereinbarungslink"
-
-#: cms/models/pois/poi.py
 msgid ""
 "Link to an external website where an appointment for this location can be "
 "made."
 msgstr ""
 "Link zu einer externen Seite über welche Termine für diesen Ort vereinbart "
 "werden können."
-
-#: cms/models/pois/poi.py
-msgid "opening hours"
-msgstr "Öffnungszeiten"
 
 #: cms/models/pois/poi.py cms/models/users/organization.py
 #: cms/models/users/user.py
@@ -4831,8 +4843,7 @@ msgstr "Mehr anzeigen"
 #: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 #: cms/templates/push_notifications/push_notification_form.html
-#: cms/templates/users/region_user_form.html
-#: cms/views/pois/poi_context_mixin.py
+#: cms/templates/users/region_user_form.html cms/views/utils/opening_hour.py
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -6488,7 +6499,7 @@ msgstr "Aktualisieren & Importieren"
 #: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
 #: cms/templates/translations/translations_management.html
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
-#: cms/views/pois/poi_context_mixin.py
+#: cms/views/utils/opening_hour.py
 msgid "Save"
 msgstr "Speichern"
 
@@ -10803,94 +10814,6 @@ msgid "Address could not be found"
 msgstr "Adresse konnte nicht gefunden werden"
 
 #: cms/views/pois/poi_context_mixin.py
-msgid "Edit opening hours for this weekday"
-msgstr "Öffnungszeiten für diesen Wochentag bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Edit all opening hours"
-msgstr "Alle Öffnungszeiten bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Edit \"Mo - Fr\""
-msgstr "\"Mo - Fr\" bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Edit \"Sa & Su\""
-msgstr "\"Sa & So\" bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closed"
-msgstr "Geschlossen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time"
-msgstr "Öffnungszeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time"
-msgstr "Schließzeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Open around the clock"
-msgstr "Rund um die Uhr geöffnet"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "By prior appointment only"
-msgstr "Nur nach Terminvereinbarung"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Select the days for which the times selected below should apply"
-msgstr ""
-"Wählen Sie die Tage aus, für die die unten gewählten Zeiten gelten sollen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Add another time slot"
-msgstr "Weiteres Zeitfenster hinzufügen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Remove this time slot"
-msgstr "Dieses Zeitfenster entfernen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Only the last time slot may be empty"
-msgstr "Nur das letzte Zeitfenster darf leer sein."
-
-#: cms/views/pois/poi_context_mixin.py
-msgid ""
-"If the location is neither closed nor open all day, you have to specify at "
-"least one time slot"
-msgstr ""
-"Wenn der Ort weder geschlossen noch ganztägig geöffnet ist, müssen Sie "
-"mindestens ein Zeitfenster angeben"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time is missing"
-msgstr "Die Schließzeit fehlt"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time is missing"
-msgstr "Die Öffnungszeit fehlt"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time is earlier than the opening time"
-msgstr "Die Schließzeit ist früher als die Öffnungszeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time is identical with the opening time"
-msgstr "Die Schließzeit ist identisch mit der Öffnungszeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time is earlier than the closing time of the previous slot"
-msgstr ""
-"Die Öffnungszeit ist früher als die Schließzeit des vorherigen Zeitfensters"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time is identical with the closing time of the previous slot"
-msgstr ""
-"Die Öffnungszeit ist ist identisch mit der Schließzeit des vorherigen "
-"Zeitfensters"
-
-#: cms/views/pois/poi_context_mixin.py
 msgid "Please confirm that you really want to archive this location"
 msgstr "Bitte bestätigen Sie, dass dieser Ort archiviert werden soll."
 
@@ -11315,6 +11238,94 @@ msgid "Only superusers can enable or disable passwordless authentication."
 msgstr ""
 "Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
 
+#: cms/views/utils/opening_hour.py
+msgid "Edit opening hours for this weekday"
+msgstr "Öffnungszeiten für diesen Wochentag bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit all opening hours"
+msgstr "Alle Öffnungszeiten bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit \"Mo - Fr\""
+msgstr "\"Mo - Fr\" bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit \"Sa & Su\""
+msgstr "\"Sa & So\" bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closed"
+msgstr "Geschlossen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time"
+msgstr "Öffnungszeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time"
+msgstr "Schließzeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Open around the clock"
+msgstr "Rund um die Uhr geöffnet"
+
+#: cms/views/utils/opening_hour.py
+msgid "By prior appointment only"
+msgstr "Nur nach Terminvereinbarung"
+
+#: cms/views/utils/opening_hour.py
+msgid "Select the days for which the times selected below should apply"
+msgstr ""
+"Wählen Sie die Tage aus, für die die unten gewählten Zeiten gelten sollen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Add another time slot"
+msgstr "Weiteres Zeitfenster hinzufügen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Remove this time slot"
+msgstr "Dieses Zeitfenster entfernen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Only the last time slot may be empty"
+msgstr "Nur das letzte Zeitfenster darf leer sein."
+
+#: cms/views/utils/opening_hour.py
+msgid ""
+"If the location is neither closed nor open all day, you have to specify at "
+"least one time slot"
+msgstr ""
+"Wenn der Ort weder geschlossen noch ganztägig geöffnet ist, müssen Sie "
+"mindestens ein Zeitfenster angeben"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time is missing"
+msgstr "Die Schließzeit fehlt"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time is missing"
+msgstr "Die Öffnungszeit fehlt"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time is earlier than the opening time"
+msgstr "Die Schließzeit ist früher als die Öffnungszeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time is identical with the opening time"
+msgstr "Die Schließzeit ist identisch mit der Öffnungszeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time is earlier than the closing time of the previous slot"
+msgstr ""
+"Die Öffnungszeit ist früher als die Schließzeit des vorherigen Zeitfensters"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time is identical with the closing time of the previous slot"
+msgstr ""
+"Die Öffnungszeit ist ist identisch mit der Schließzeit des vorherigen "
+"Zeitfensters"
+
 #: cms/views/utils/publication_status.py
 #, python-brace-format
 msgid ""
@@ -11682,6 +11693,9 @@ msgstr ""
 
 #~ msgid "Region "
 #~ msgstr "Region"
+
+#~ msgid "Adopt opening hours"
+#~ msgstr "Öffnungszeiten übernehmen"
 
 #~ msgid "Page access statistics tutorial seen"
 #~ msgstr "Tutorial zu seitenbasierten Zugriffe angesehen"
