@@ -99,9 +99,11 @@ class ZammadAPI:
 
         :return: formatted chat messages
         """
-        if (response := cache.get(f"{self.region.slug}_{self.device_id}")) is None:
+        cache_key = f"{self.region.slug}_{self.device_id}"
+        response = cache.get(cache_key)
+        if response is None:
             response = self.get_zammad_ticket_messages()
-        cache.set(f"{self.region.slug}_{self.device_id}", response, 3600)
+            cache.set(cache_key, response, 60)
         keys_to_keep = [
             "status",
             "error",
@@ -171,13 +173,15 @@ class ZammadAPI:
 
         :return: user evaluation consent
         """
-        return cache.get(
-            f"chat_evaluation_consent_{self.device_id}",
-            self.zammad_request(
+        cache_key = f"chat_evaluation_consent_{self.device_id}"
+        response = cache.get(cache_key)
+        if response is None:
+            response = self.zammad_request(
                 "GET",
                 f"/api/v1/tickets/{self.zammad_id}",
-            ).json()["evaluation_consent"],
-        )
+            ).json()["evaluation_consent"]
+            cache.set(cache_key, response, 120)
+        return response
 
     def save_evaluation_consent(self, value: bool) -> bool:
         """
@@ -204,13 +208,15 @@ class ZammadAPI:
 
         :return: generate automatic answers or not
         """
-        return cache.get(
-            f"chat_automatic_anwers_{self.device_id}",
-            self.zammad_request(
+        cache_key = f"chat_automatic_anwers_{self.device_id}"
+        response = cache.get(cache_key)
+        if response is None:
+            response = self.zammad_request(
                 "GET",
                 f"/api/v1/tickets/{self.zammad_id}",
-            ).json()["automatic_answers"],
-        )
+            ).json()["automatic_answers"]
+            cache.set(cache_key, response, 120)
+        return response
 
     def save_automatic_answers(self, value: bool) -> bool:
         """
