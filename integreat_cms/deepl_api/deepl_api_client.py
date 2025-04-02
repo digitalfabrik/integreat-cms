@@ -75,7 +75,7 @@ class DeepLApiClient(MachineTranslationApiClient):
                 return code
         return ""
 
-    def translate_queryset(
+    def translate_queryset(  # noqa: PLR0915
         self,
         queryset: list[Event] | (list[Page] | list[POI]),
         language_slug: str,
@@ -162,12 +162,20 @@ class DeepLApiClient(MachineTranslationApiClient):
                                 target_language_key,
                             )
                             logger.debug("Used glossary for translation: %s", glossary)
-                            data[attr] = self.translator.translate_text(
-                                unescape(getattr(source_translation, attr)),
-                                source_lang=source_language.slug,
-                                target_lang=target_language_key,
-                                tag_handling="html",
-                                glossary=glossary,
+
+                            source_text = getattr(source_translation, attr)
+
+                            data[attr] = (
+                                source_text
+                                if attr == "title"
+                                and content_object.do_not_translate_title
+                                else self.translator.translate_text(
+                                    unescape(source_text),
+                                    source_lang=source_language.slug,
+                                    target_lang=target_language_key,
+                                    tag_handling="html",
+                                    glossary=glossary,
+                                )
                             )
                         except DeepLException:
                             messages.error(
