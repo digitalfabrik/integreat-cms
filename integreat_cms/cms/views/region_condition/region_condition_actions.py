@@ -61,7 +61,7 @@ class RegionConditionResource(resources.ModelResource):
     def dehydrate_name(region: Region) -> str:
         """
         :param region: The region
-        :return: The number of broken links
+        :return: The name of a region
         """
         return f"{region.get_administrative_division_display()} {region.name}"
 
