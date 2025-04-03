@@ -2,6 +2,7 @@
 {% load rules %}
 {% load content_filters %}
 {% load hix_pages %}
+{% load link_checker %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
     <td>
         <a class="py-3 pl-4 text-blue-500 hover:underline"
@@ -16,6 +17,10 @@
     <td class="text-center py-3 pr-2">
         {% get_translations_under_hix_threshold region as translations %}
         {{ translations|length }}
+    </td>
+    <td class="text-center py-3 pr-2">
+        {% get_broken_links region as broken_links %}
+        {{ broken_links }}
     </td>
     <td class="text-center py-3 pr-2">
         {{ region.active_languages_without_default_language|length }}
