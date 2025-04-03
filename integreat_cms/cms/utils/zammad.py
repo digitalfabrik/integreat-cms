@@ -252,3 +252,17 @@ class ZammadAPI:
                 "customer": self.get_zammad_user_mail(),
             },
         ).json()["id"]
+
+    @property
+    def processing_answer(self) -> None:
+        """
+        Indicate that an answer is currently being generated.
+        """
+        return cache.get(f"generating_answer_{self.device_id}", False)
+
+    @processing_answer.setter
+    def processing_answer(self, processing: bool) -> None:
+        """
+        Set the processing indicator in the cache
+        """
+        cache.set(f"generating_answer_{self.device_id}", processing, 120)
