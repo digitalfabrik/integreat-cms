@@ -380,6 +380,37 @@ class MediaFile(AbstractBaseModel):
             | Q(file__icontains=query),
         )
 
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for media search
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+        """
+        results: list[dict[str, Any]] = []
+
+        region = kwargs["region"]
+        query = kwargs["query"]
+
+        results.extend(
+            {
+                "title": file.name,
+                "url": None,
+                "type": "file",
+            }
+            for file in cls.search(region, query)
+        )
+        results.extend(
+            {
+                "title": directory.name,
+                "url": None,
+                "type": "directory",
+            }
+            for directory in Directory.search(region, query)
+        )
+        return results
+
     def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``MediaFile object (id)``.

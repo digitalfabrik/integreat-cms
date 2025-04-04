@@ -35,7 +35,11 @@
             <div class="flex flex-wrap justify-between gap-4">
                 <div class="flex flex-wrap gap-4">
                     {% include "generic_language_switcher.html" with target="events" %}
-                    {% include "_search_input.html" with object_type="event" related_form="event-filter-form" %}
+                    {% if not is_archive %}
+                        {% include "_search_input.html" with object_type="event" related_form="event-filter-form" object_archived=False %}
+                    {% else %}
+                        {% include "_search_input.html" with object_type="event" related_form="event-filter-form" object_archived=True %}
+                    {% endif %}
                 </div>
                 <div class="flex flex-wrap gap-4">
                     <button id="filter-toggle" class="btn btn-ghost">
