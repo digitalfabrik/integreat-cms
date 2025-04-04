@@ -108,6 +108,7 @@ def process_user_message(
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
+    zammad_chat.processing_answer = True
     # Prevent a race condition where new articles can be added to a ticket
     # while the webhook has not yet sent to and processed by the Integreat CMS
     messages = [
@@ -139,6 +140,7 @@ def process_user_message(
                 automatic_message=True,
             )
             zammad_chat.save_automatic_answers(answer["automatic_answers"])
+    zammad_chat.processing_answer = False
 
 
 async def async_process_translate(

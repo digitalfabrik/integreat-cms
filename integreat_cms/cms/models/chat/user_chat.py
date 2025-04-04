@@ -132,6 +132,7 @@ class UserChat(AbstractBaseModel, ZammadAPI):
         response = {
             "messages": list(self.messages),
             "evaluation_consent": bool(self.evaluation_consent),
+            "chatbot_typing": bool(self.processing_answer),
         }
         if self.region is not None:
             response["ticket_url"] = (
