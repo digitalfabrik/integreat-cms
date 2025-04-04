@@ -221,6 +221,29 @@ class Language(AbstractBaseModel):
 
         return cls.objects.filter(id__in=result)
 
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for language search
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+        """
+        results: list[dict[str, Any]] = []
+
+        query = kwargs["query"]
+
+        results.extend(
+            {
+                "title": language.translated_name,
+                "url": None,
+                "type": "language",
+            }
+            for language in cls.search(query)
+        )
+
+        return results
+
     def save(self, *args: Any, **kwargs: Any) -> None:
         r"""
         This overwrites the default Django :meth:`~django.db.models.Model.save` method,

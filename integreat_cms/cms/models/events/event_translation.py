@@ -11,14 +11,16 @@ from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
 if TYPE_CHECKING:
-    from typing import Literal
+    from typing import Any, Literal
 
     from django.db.models import QuerySet
 
     from ...models import Event, Region
 
+from ...constants import status
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
+from ..utils import format_object_translation
 
 
 @modify_fields(
@@ -116,6 +118,34 @@ class EventTranslation(AbstractContentTranslation):
             )
 
         return queryset
+
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for event search
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+        """
+        results: list[dict[str, Any]] = []
+
+        region = kwargs["region"]
+        query = kwargs["query"]
+        archived_flag = kwargs["archived_flag"]
+        language_slug = kwargs["language_slug"]
+
+        event_translations = (
+            cls.search(region, language_slug, query)
+            .filter(event__archived=archived_flag, status=status.PUBLIC)
+            .select_related("event__region", "language")
+        )
+
+        results.extend(
+            format_object_translation(obj, "event", language_slug)
+            for obj in event_translations
+        )
+
+        return results
 
     class Meta:
         #: The verbose name of the model
