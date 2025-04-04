@@ -554,7 +554,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "query_string": "Test",
-                        "object_types": ["push_notification"],
+                        "object_types": ["pushnotification"],
                         "archived": False,
                     },
                 ),
