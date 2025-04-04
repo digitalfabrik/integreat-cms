@@ -11,7 +11,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ngettext_lazy
+from django.utils.translation import ngettext, ngettext_lazy
 
 from ..cms.utils.stringify_list import iter_to_string
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
@@ -239,11 +239,14 @@ class DeepLApiClient(MachineTranslationApiClient):
                     self.request,
                     ngettext_lazy(
                         "{model_name} {object_names} has successfully been translated ({source_language} ➜ {target_language}).",
-                        "The following {model_name_plural} have successfully been translated ({source_language} ➜ {target_language}): {object_names}",
+                        "The following {model_name} have successfully been translated ({source_language} ➜ {target_language}): {object_names}",
                         len(successful_changes),
                     ).format(
-                        model_name=model_name,
-                        model_name_plural=model_name_plural,
+                        model_name=ngettext(
+                            model_name,
+                            model_name_plural,
+                            len(successful_changes),
+                        ),
                         source_language=source_language,
                         target_language=target_language,
                         object_names=iter_to_string(successful_changes),
@@ -255,11 +258,14 @@ class DeepLApiClient(MachineTranslationApiClient):
                     self.request,
                     ngettext_lazy(
                         "{model_name} {object_names} could not be translated because its source translation is missing.",
-                        "The following {model_name_plural} could not be translated because their source translations are missing: {object_names}",
+                        "The following {model_name} could not be translated because their source translations are missing: {object_names}",
                         len(failed_changes_because_exceeds_limit),
                     ).format(
-                        model_name=model_name,
-                        model_name_plural=model_name_plural,
+                        model_name=ngettext(
+                            model_name,
+                            model_name_plural,
+                            len(failed_changes_because_exceeds_limit),
+                        ),
                         object_names=iter_to_string(
                             failed_changes_because_no_source_translation,
                         ),
@@ -271,11 +277,14 @@ class DeepLApiClient(MachineTranslationApiClient):
                     self.request,
                     ngettext_lazy(
                         "{model_name} {object_names} could not be translated because it would exceed the remaining budget of {remaining_budget} words.",
-                        "The following {model_name_plural} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
+                        "The following {model_name} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
                         len(failed_changes_because_exceeds_limit),
                     ).format(
-                        model_name=model_name,
-                        model_name_plural=model_name_plural,
+                        model_name=ngettext(
+                            model_name,
+                            model_name_plural,
+                            len(failed_changes_because_exceeds_limit),
+                        ),
                         remaining_budget=region.mt_budget_remaining,
                         object_names=iter_to_string(
                             failed_changes_because_exceeds_limit,
@@ -288,11 +297,14 @@ class DeepLApiClient(MachineTranslationApiClient):
                     self.request,
                     ngettext_lazy(
                         "{model_name} {object_names} could not be translated because its HIX score is too low for machine translation (minimum required: {min_required}).",
-                        "The following {model_name_plural} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
+                        "The following {model_name} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
                         len(failed_changes_because_insufficient_hix_score),
                     ).format(
-                        model_name=model_name,
-                        model_name_plural=model_name_plural,
+                        model_name=ngettext(
+                            model_name,
+                            model_name_plural,
+                            len(failed_changes_because_insufficient_hix_score),
+                        ),
                         min_required=settings.HIX_REQUIRED_FOR_MT,
                         object_names=iter_to_string(
                             failed_changes_because_insufficient_hix_score,
@@ -305,11 +317,14 @@ class DeepLApiClient(MachineTranslationApiClient):
                     self.request,
                     ngettext_lazy(
                         "{model_name} {object_names} could not be translated automatically.",
-                        "The following {model_name_plural} could not translated automatically: {object_names}",
+                        "The following {model_name} could not translated automatically: {object_names}",
                         len(failed_changes_generic_error),
                     ).format(
-                        model_name=model_name,
-                        model_name_plural=model_name_plural,
+                        model_name=ngettext(
+                            model_name,
+                            model_name_plural,
+                            len(failed_changes_generic_error),
+                        ),
                         object_names=iter_to_string(failed_changes_generic_error),
                     ),
                 )
