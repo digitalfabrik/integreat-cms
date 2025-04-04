@@ -587,7 +587,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "query_string": "Test",
-                        "object_types": ["media"],
+                        "object_types": ["mediafile"],
                         "archived": False,
                     },
                 ),
