@@ -14,6 +14,18 @@ const selectXliffFile = ({ target }: Event) => {
     const label = document.querySelector("#xliff_file_label");
     label.classList.remove("bg-blue-500", "hover:bg-blue-600");
     label.classList.add("bg-gray-500", "hover:bg-gray-600");
+
+    if (files.length > 100) {
+        const timeoutDuration = 20000;
+        const errorMessageField = document.getElementById("xliff-error-message");
+        errorMessageField.classList.remove("hidden");
+        setTimeout(() => {
+            errorMessageField.classList.add("hidden");
+        }, timeoutDuration);
+
+        return;
+    }
+
     label.textContent = files[0].name;
     if (files.length > 1) {
         // Get translated text for "and {} other files"
