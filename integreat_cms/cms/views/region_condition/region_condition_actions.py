@@ -13,8 +13,8 @@ from django.views.decorators.http import require_POST
 from import_export import fields, resources
 from tablib.formats import registry as format_registry
 
-from ...constants import region_status, translation_status
-from ...models import Page, Region
+from ...constants import region_status
+from ...models import Region
 from ...utils.linkcheck_utils import filter_urls
 from ..utils.hix import get_translation_under_hix_threshold
 
@@ -96,20 +96,7 @@ class RegionConditionResource(resources.ModelResource):
         :param region: The region
         :return: The number of pages with at least one missing or outdated translation
         """
-        bad_states = {translation_status.MISSING, translation_status.OUTDATED}
-
-        def has_bad_translation(page: Page) -> bool:
-            return any(
-                state in bad_states
-                for _language, state in page.translation_states.values()
-            )
-
-        pages = region.get_pages(
-            archived=False,
-            prefetch_translations=True,
-            prefetch_major_translations=True,
-        )
-        return sum(1 for page in pages if has_bad_translation(page))
+        return region.get_partially_translated_pages()
 
     @staticmethod
     def dehydrate_num_outdated_pages(region: Region) -> int:

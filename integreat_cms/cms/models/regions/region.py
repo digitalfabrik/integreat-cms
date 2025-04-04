@@ -21,6 +21,8 @@ from django.utils.functional import cached_property, keep_lazy_text
 from django.utils.translation import gettext, override
 from django.utils.translation import gettext_lazy as _
 
+from integreat_cms.cms.constants import translation_status
+
 if TYPE_CHECKING:
     from django.db.models.query import QuerySet
     from django.utils.functional import Promise
@@ -29,7 +31,7 @@ if TYPE_CHECKING:
     from ..languages.language import Language
     from ..languages.language_tree_node import LanguageTreeNode
     from ..pages.imprint_page import ImprintPage
-    from ..pages.page import PageQuerySet
+    from ..pages.page import Page, PageQuerySet
 
 from django.utils.safestring import mark_safe
 
@@ -848,6 +850,26 @@ class Region(AbstractBaseModel):
             .order_by("last_updated")
             .exclude(Q(content="") & Q(page__mirrored_page=None))
         )
+
+    def get_partially_translated_pages(self) -> int:
+        """
+        Returns the number of pages with at least one missing or outdated translation
+        """
+
+        bad_states = {translation_status.MISSING, translation_status.OUTDATED}
+
+        def has_bad_translation(page: Page) -> bool:
+            return any(
+                state in bad_states
+                for _language, state in page.translation_states.values()
+            )
+
+        pages = self.get_pages(
+            archived=False,
+            prefetch_translations=True,
+            prefetch_major_translations=True,
+        )
+        return sum(1 for page in pages if has_bad_translation(page))
 
     @classmethod
     def search(cls, query: str) -> QuerySet[Region]:
