@@ -50,7 +50,7 @@ def get_word_count(
     """
     words = 0
     for translation in translations:
-        words += word_count(translation)
+        words += word_count([("", translation.title), ("", translation.content)])
     return words
 
 

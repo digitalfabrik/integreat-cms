@@ -259,7 +259,6 @@ class MachineTranslationApiClient(ABC):
             content_object.existing_target_translation = content_object.get_translation(
                 self.target_language.slug,
             )
-            content_object.word_count = word_count(content_object.source_translation)
             content_object.translatable_attributes = [
                 (attr, getattr(content_object.source_translation, attr))
                 for attr in self.translatable_attributes
@@ -267,6 +266,9 @@ class MachineTranslationApiClient(ABC):
                 and getattr(content_object.source_translation, attr)
                 and not (content_object.do_not_translate_title and attr == "title")
             ]
+            content_object.word_count = word_count(
+                content_object.translatable_attributes,
+            )
 
     def mark_successful(self, content_object: Event | Page | POI) -> None:
         """
