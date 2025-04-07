@@ -14,6 +14,7 @@ from django.contrib import messages
 from django.db import transaction
 from django.utils.translation import ngettext_lazy
 
+from ...cms.constants.machine_translatable_attributes import TRANSLATABLE_ATTRIBUTES
 from ...cms.utils.stringify_list import iter_to_string
 from ...textlab_api.utils import check_hix_score
 from .word_count import word_count
@@ -67,7 +68,7 @@ class MachineTranslationApiClient(ABC):
         self.request = request
         self.region = request.region
         self.form_class = form_class
-        self.translatable_attributes = ["title", "content", "meta_description"]
+        self.translatable_attributes = TRANSLATABLE_ATTRIBUTES
 
     def reset(self) -> None:
         """
