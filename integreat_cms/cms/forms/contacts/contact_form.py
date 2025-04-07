@@ -52,11 +52,10 @@ class ContactForm(CustomModelForm):
             "location": {"invalid_choice": _("Location cannot be empty.")},
         }
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         if self.instance.id:
             self.fields["use_location_opening_hours"].initial = self.instance.opening_hours is None
-        
 
     def clean(self) -> dict[str, Any]:
         """

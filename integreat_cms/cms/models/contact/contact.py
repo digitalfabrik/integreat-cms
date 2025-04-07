@@ -12,8 +12,6 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
-from integreat_cms.cms.models.utils import get_default_opening_hours
-
 from ..abstract_base_model import AbstractBaseModel
 from ..events.event_translation import EventTranslation
 from ..fields.truncating_char_field import TruncatingCharField
@@ -69,8 +67,6 @@ class Contact(AbstractBaseModel):
     )
     opening_hours = models.JSONField(
         null=True,
-        # blank=True,
-        # default=cls.get_location_opening_hours,
         verbose_name=_("opening hours"),
         help_text=_("These are the opening hours of the linked location."),
     )
