@@ -73,6 +73,7 @@ import "./js/mfa/login";
 import "./js/offers/zammad";
 
 import "./js/analytics/statistics-charts";
+import "./js/analytics/statistics-page-accesses";
 import "./js/analytics/translation_coverage";
 import "./js/analytics/linkcheck-widget";
 import "./js/analytics/hix-list";

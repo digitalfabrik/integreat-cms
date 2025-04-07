@@ -1,0 +1,25 @@
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load page_filters %}
+{% load rules %}
+{% block content %}
+    <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">
+        <input type="checkbox" id="bulk-select-all" class="cursor-wait" />
+        {% if not filter_form.is_enabled %}
+            <span class="text-sm text-left uppercase py-3 pl-2 pr-2 min">
+                {% translate "Hierarchy" %}
+            </span>
+        {% endif %}
+    </th>
+    <th class="text-sm text-left uppercase py-3 pl-2 pr-2">
+        {% translate "Title in" %} {{ language.translated_name }}
+    </th>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_language LANGUAGE_CODE as backend_language %}
+    {% if backend_language and backend_language != language %}
+        <th class="text-sm text-left uppercase py-3 px-2">
+            {% translate "Title in" %} {{ backend_language.translated_name }}
+        </th>
+    {% endif %}
+{% endblock content %}
