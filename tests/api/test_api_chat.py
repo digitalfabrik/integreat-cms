@@ -12,6 +12,7 @@ import pytest
 import requests
 from django.conf import settings
 from django.core.cache import cache
+from django.test import override_settings
 from django.test.client import Client
 from django.urls import reverse
 
@@ -357,3 +358,51 @@ def test_api_chat_ratelimiting(
         data={"message": "no, it's spam.", "force_new": True},
     )
     assert response_force.status_code == 429
+
+
+@pytest.mark.django_db
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
+    return_value="tech@tuerantuer.org",
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.messages",
+    return_value=[{"body": "message1", "user_is_author": True}],
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.evaluation_consent",
+    return_value=True,
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.save_message",
+    return_value=True,
+)
+@override_settings(TRUSTED_IP_HEADER="HTTP_X_FORWARDED_FOR")
+def test_api_chat_ratelimiting_trusted_ip_header(
+    save_message: Mock,
+    evaluation_consent: Mock,
+    messages: Mock,
+    get_zammad_user_mail: Mock,
+    load_test_data: None,
+) -> None:
+    """
+    Check that ratelimiting kicks in when a trusted IP header is configured but not set in the request.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    cache.delete("api_rate_limit_127.0.0.1")
+    client = Client()
+    url = reverse(
+        "api:chat",
+        kwargs=default_kwargs,
+    )
+
+    client.post(url, data={"message": "is it spam?"})
+    response = client.get(url)
+    assert response.status_code == 429
+    assert response.json() == {"error": "Too many requests. Please try again later."}
+
+    client = Client()
+    client.post(url, data={"message": "is it ham?"})
+    response = client.get(url, HTTP_X_FORWARDED_FOR="10.0.0.2")
+    assert response.status_code == 200
