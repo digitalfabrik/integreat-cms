@@ -1,8 +1,13 @@
 import { Chart } from "chart.js";
 
-export type AjaxResponse = {
+export type ResponseData = {
     pageId: number;
     accesses: object;
+};
+
+export type AjaxResponse = {
+    languageLabels: Array<string>;
+    responseData: ResponseData;
 };
 
 export type Access = {
@@ -11,6 +16,9 @@ export type Access = {
 };
 
 let chart: Chart | null = null;
+
+// Global variable for language labels for export
+let languageLabels: Array<string>;
 
 /* Loop over the object containing the accesses over time and count them to a total */
 const countAccesses = (accessesOverTime: object): number => {
@@ -57,7 +65,9 @@ const setDates = () => {
 };
 
 /* The main function which updates the accesses */
-const updatePageAccesses = async (): Promise<void> => {
+const updatePageAccesses = async (): Promise<string[][]> => {
+    // Initialize empty array for export data
+    const exportTable: string[][] = [];
     const pageAccessesNetworkError = document.getElementById("page-accesses-network-error");
 
     let parameters = {};
@@ -81,11 +91,14 @@ const updatePageAccesses = async (): Promise<void> => {
         const response = await fetch(pageAccessesURL, parameters);
         if (response.status === HTTP_STATUS_OK) {
             const data = (await response.json()) as AjaxResponse;
+            const responseData = data.responseData as ResponseData;
+            // Save language labels for export
+            languageLabels = data.languageLabels;
             /* data is the nested response we get from our client. On the first level it contains the page_id and an object.
             This object in itself contains the language_slug and another object. On the third level this object contains the accesses over time with
             a date and the according accesses. */
             const languageSlugToDatasetId: Map<string, number> = new Map();
-            Object.entries(data).forEach((values) => {
+            Object.entries(responseData).forEach((values) => {
                 // We're on the first level of our data. Here we have the page_id and the rest of the object.
                 Array.from(accessFields).forEach((accessField) => {
                     const id = values[0];
@@ -99,6 +112,9 @@ const updatePageAccesses = async (): Promise<void> => {
                             (el) => el !== accessField && el.classList.contains("total-accesses")
                         );
                         const editableAllAccessField = allAccessesField;
+                        // Add current page id for export
+                        const exportTableEntry: string[] = [];
+                        exportTableEntry.push(id)
                         let allAccesses: number = 0;
                         // The next part goes through the subobject and the subobject. It counts the sum of accesses
                         // for all languages and all accesses for the selected timeframe
@@ -122,15 +138,24 @@ const updatePageAccesses = async (): Promise<void> => {
                         // Go to the object on the second level. Set the bar of accesses for every language for the selected timeframe.
                         Object.entries(accesses).forEach((access) => {
                             const languageSlug = access[0];
-                            const accessesOverTime = access[1];
+                            let accessesOverTime = access[1];
                             if (chart.isDatasetVisible(languageSlugToDatasetId.get(languageSlug))) {
+                                accessesOverTime = countAccesses(accessesOverTime);
                                 setAccessesPerLanguage(accessField, languageSlug, accessesOverTime, allAccesses);
+                                // Add accesses of current language and page for export
+                                exportTableEntry[languageLabels.indexOf(languageSlug) + 1] = String(accessesOverTime);
                             } else {
-                                setAccessesPerLanguage(accessField, languageSlug, {}, allAccesses);
+                                accessesOverTime = countAccesses({});
+                                setAccessesPerLanguage(accessField, languageSlug, accessesOverTime, allAccesses);
+                                exportTableEntry[languageLabels.indexOf(languageSlug) + 1] = "";
                             }
                         });
+                        // Add all accesses of current page for export
+                        exportTableEntry[languageLabels.length + 1] = String(allAccesses);
+                        exportTable.push(exportTableEntry);
                     }
                 });
+                // console.log(data)
             });
         } else if (response.status === HTTP_STATUS_BAD_REQUEST) {
             Array.from(accessFields).forEach((accessField) => {
@@ -150,17 +175,62 @@ const updatePageAccesses = async (): Promise<void> => {
         hideLoader();
         setDates();
     }
+    return exportTable;
+};
+
+/*
+ * This function initializes a file download by setting the "href" attribute of the download link to the file data
+ * and the "download" attribute to the filename.
+ * After that, a click on the button is simulated.
+ */
+const downloadFile = (filename: string, content: string) => {
+    const downloadLink = document.getElementById("export-download-link");
+    downloadLink.setAttribute("href", content);
+    downloadLink.setAttribute("download", filename);
+    downloadLink.click();
+};
+
+const exportPageAccessesData = (_exportTable: string[][]): void => {
+    // Get kind of statistics to export. If page access statistics is requested, proceed.
+    const exportStatistics = document.getElementById("export-statistics") as HTMLSelectElement;
+    if (exportStatistics.value === "page-accesses") {
+        // Get format select field
+        const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
+        if (exportFormat.value === "csv") {
+            // Build labels
+            const exportLabels: string [] = ["ID"].concat(languageLabels).concat(["Total Accesses"])
+            // Build filename
+            const filename = `Integreat ${exportFormat.getAttribute("data-filename-prefix")} ${exportLabels[0]} - ${
+                exportLabels[exportLabels.length - 1]
+            }`;
+            // Create matrix with date labels in the first row and the hits per language in the subsequent rows
+            const csvMatrix: string[][] = [exportLabels].concat(_exportTable);
+            // Join Matrix to a single csv string
+            const csvContent = csvMatrix.map((i) => i.join(",")).join("\n");
+            // Initiate download
+            downloadFile(`${filename}.csv`, `data:text/csv;charset=utf-8;base64,${btoa(csvContent)}`);
+        } else {
+            // eslint-disable-next-line no-alert
+            alert("Export format is not supported.");
+            console.error("Export format not supported");
+        }
+    }
 };
 
 window.addEventListener("load", async () => {
     if (document.getElementById("statistics-page-access")) {
+        let exportTable = updatePageAccesses();
         updatePageAccesses();
         chart = Chart.instances[0];
         // Refresh the statistics every time a new timeframe or language is selected
         const oldUpdate = chart.update;
         chart.update = async () => {
             oldUpdate.call(chart);
-            updatePageAccesses();
+            exportTable = updatePageAccesses();
         };
+        // Set event handler for exporting the data
+        document.getElementById("export-button")?.addEventListener("click", async () => {
+            exportPageAccessesData(await exportTable);
+        });
     }
 });

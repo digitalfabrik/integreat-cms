@@ -192,6 +192,7 @@ class RecurrenceRuleData:
         start: datetime.date,
         logger: logging.Logger,
     ) -> Self:
+        # pylint: disable=too-many-locals
         """
         Constructs this class from an ical recurrence rule.
         :return: An instance of this class
