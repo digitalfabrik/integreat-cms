@@ -63,6 +63,20 @@
             </h3>
         </div>
         <div class="flex flex-col gap-4 p-4 pt-2">
+            <label for="export-statistics">
+                {% translate "Choose statistics to export" %}
+            </label>
+            <select id="export-statistics">
+                <option value="" selected>
+                    --- {% translate "please select" %} ---
+                </option>
+                <option value="total-accesses">
+                    {% translate "Total Access Statistics" %}
+                </option>
+                <option value="page-accesses">
+                    {% translate "Page Access Statistics" %}
+                </option>
+            </select>
             <label for="export-format">
                 {% translate "Choose format" %}
             </label>

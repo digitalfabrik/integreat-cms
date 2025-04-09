@@ -143,11 +143,11 @@ msgstr "PPT-Dokument"
 msgid "PPTX document"
 msgstr "PPTX-Dokument"
 
-#: cms/constants/calendar_filters.py
+#: cms/constants/calendar.py cms/constants/calendar_filters.py
 msgid "Event not from an external calendar"
 msgstr "Veranstaltung kommt nicht aus einem externen Kalender"
 
-#: cms/constants/calendar_filters.py
+#: cms/constants/calendar.py cms/constants/calendar_filters.py
 msgid "Event from an external calendar"
 msgstr "Veranstaltung kommt aus einem externen Kalender"
 
@@ -3628,6 +3628,7 @@ msgstr "Ob die Seite explizit archiviert ist oder nicht"
 
 #: cms/models/pages/abstract_base_page_translation.py
 #: cms/templates/events/event_form.html cms/templates/events/event_list.html
+#: cms/templates/pages/_generic_page_tree.html
 #: cms/templates/pages/_generic_page_tree_header.html
 #: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
 #: cms/templates/pois/poi_list.html
@@ -7171,6 +7172,7 @@ msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
 #: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/pages/_generic_page_tree.html
 #: cms/templates/pages/_generic_page_tree_header.html
 msgid "Hierarchy"
 msgstr "Hierarchie"
@@ -8983,12 +8985,24 @@ msgid "Export"
 msgstr "Exportieren"
 
 #: cms/templates/statistics/statistics_sidebar.html
-msgid "Choose format"
-msgstr "Format auswählen"
+msgid "Choose statistics to export"
+msgstr "Wähle Statistiken zum exportieren aus"
 
 #: cms/templates/statistics/statistics_sidebar.html
 msgid "please select"
 msgstr "bitte auswählen"
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Total Access Statistics"
+msgstr "Statistiken für Gesamtzugriffe"
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Page Access Statistics"
+msgstr "Statistiken für Seitenzugriffe"
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Choose format"
+msgstr "Format auswählen"
 
 #: cms/templates/statistics/statistics_sidebar.html
 msgid "Image/PNG"
@@ -12227,6 +12241,12 @@ msgstr ""
 #~ msgid "This also involves non-archived subpages."
 #~ msgstr "Dies betrifft auch nicht-archivierte Unterseiten."
 
+#~ msgid "An error occurred while importing events from this external calendar"
+#~ msgstr "Ein Fehler mit dem Import von Veranstaltungen ist aufgetreten"
+
+#~ msgid "Event does not come from an external calendar"
+#~ msgstr "Veranstaltung kommt nicht aus einem externen Kalender"
+
 #~ msgid "Invalid links"
 #~ msgstr "Ungültige Links"
 
@@ -12355,15 +12375,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"

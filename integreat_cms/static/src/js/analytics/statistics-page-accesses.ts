@@ -144,6 +144,45 @@ export const updatePageAccesses = async (): Promise<void> => {
     pageAccessesLoading.classList.add("hidden");
 };
 
+/*
+ * This function initializes a file download by setting the "href" attribute of the download link to the file data
+ * and the "download" attribute to the filename.
+ * After that, a click on the button is simulated.
+ */
+const downloadFile = (filename: string, content: string) => {
+    const downloadLink = document.getElementById("export-download-link");
+    downloadLink.setAttribute("href", content);
+    downloadLink.setAttribute("download", filename);
+    downloadLink.click();
+};
+
+const exportPageAccessesData = (_exportTable: string[][]): void => {
+    // Get kind of statistics to export. If page access statistics is requested, proceed.
+    const exportStatistics = document.getElementById("export-statistics") as HTMLSelectElement;
+    if (exportStatistics.value === "page-accesses") {
+        // Get format select field
+        const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
+        if (exportFormat.value === "csv") {
+            // Build labels
+            const exportLabels: string [] = ["ID"].concat(languageLabels).concat(["Total Accesses"])
+            // Build filename
+            const filename = `Integreat ${exportFormat.getAttribute("data-filename-prefix")} ${exportLabels[0]} - ${
+                exportLabels[exportLabels.length - 1]
+            }`;
+            // Create matrix with date labels in the first row and the hits per language in the subsequent rows
+            const csvMatrix: string[][] = [exportLabels].concat(_exportTable);
+            // Join Matrix to a single csv string
+            const csvContent = csvMatrix.map((i) => i.join(",")).join("\n");
+            // Initiate download
+            downloadFile(`${filename}.csv`, `data:text/csv;charset=utf-8;base64,${btoa(csvContent)}`);
+        } else {
+            // eslint-disable-next-line no-alert
+            alert("Export format is not supported.");
+            console.error("Export format not supported");
+        }
+    }
+};
+
 export const setPageAccessesEventListeners = () => {
     ajaxRequestID = 0;
     statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
