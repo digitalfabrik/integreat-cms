@@ -61,18 +61,18 @@ def build_json_for_machine_translation(
     source_language = request.region.get_source_language(language_slug)
 
     for content in selected_content:
+        source_translation = content.get_translation(source_language.slug)
+
         content.translatable_attributes = [
-            (attr, getattr(content.source_translation, attr))
+            (attr, getattr(source_translation, attr))
             for attr in TRANSLATABLE_ATTRIBUTES
-            if hasattr(content.source_translation, attr)
-            and getattr(content.source_translation, attr)
+            if hasattr(source_translation, attr)
+            and getattr(source_translation, attr)
             and not (content.do_not_translate_title and attr == "title")
         ]
         words = word_count(
             content.translatable_attributes,
         )
-
-        source_translation = content.get_translation(source_language.slug)
 
         if source_translation and check_hix_score(
             request,
