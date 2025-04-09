@@ -99,6 +99,9 @@ const collapseAllPages = async () => {
             setExpandedState(span, false);
         }
     });
+    if (document.getElementById("statistics-page-access")) {
+        updatePageAccesses();
+    }
 };
 
 /**
@@ -116,6 +119,9 @@ const expandAllPages = async () => {
             setExpandedState(span, true);
         }
     });
+    if (document.getElementById("statistics-page-access")) {
+        updatePageAccesses();
+    }
 };
 
 /**

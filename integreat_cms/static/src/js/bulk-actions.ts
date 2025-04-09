@@ -32,7 +32,7 @@ import { showConfirmationPopupWithData } from "./confirmation-popups";
 /*
  * Update the selection count after a checkbox has been toggled
  */
-const updateSelectionCount = () => {
+export const updateSelectionCount = () => {
     const selectCount = document.querySelector("[data-list-selection-count]") as HTMLElement;
     if (selectCount) {
         selectCount.innerText = document.querySelectorAll(".bulk-select-item:checked").length.toString();
@@ -107,7 +107,7 @@ export const bulkActionExecute = (event: Event) => {
 /*
  * Check/uncheck the bulk checkboxes ot the subpages of the given page recursively
  */
-const setCheckboxRecursively = (pageId: number, checked: boolean) => {
+export const setCheckboxRecursively = (pageId: number, checked: boolean) => {
     const page = document.getElementById(`page-${pageId}`);
     const checkbox = page.querySelector(".bulk-select-item") as HTMLInputElement;
     checkbox.checked = checked;

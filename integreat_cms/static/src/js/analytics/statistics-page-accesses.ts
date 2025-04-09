@@ -1,3 +1,5 @@
+import { updateSelectionCount, setCheckboxRecursively } from "../bulk-actions";
+
 /* Category as returned by get_page_accesses_ajax in statistics_actions.py is either a language slug or "total_accesses" */
 type AccessesPerLanguageAndInTotal = {
     [category: string]: number;
@@ -11,6 +13,45 @@ let statisticsForm: HTMLFormElement;
 let pageAccessesURL: string;
 let pageAccessesForm: HTMLFormElement;
 let ajaxRequestID: number;
+let exportTable: string[][] = [];
+let visibleDatasetSlugs: string[];
+
+const setSelectAllCheckboxEventListener = (selectAllCheckbox: HTMLInputElement, selectItems: HTMLInputElement[]) => {
+    selectAllCheckbox.classList.remove("cursor-wait");
+    selectAllCheckbox.addEventListener("click", () => {
+        // Set all checkboxes to the same value as the "select all" checkbox
+        selectItems.forEach((checkbox) => {
+            /* eslint-disable-next-line no-param-reassign */
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+        updateSelectionCount();
+    });
+
+    // Set all checkboxes initially in case the page tree was reloaded
+    selectItems.forEach((checkbox) => {
+        /* eslint-disable-next-line no-param-reassign */
+        checkbox.checked = selectAllCheckbox.checked;
+    });
+    updateSelectionCount();
+};
+
+const setSelectItemCheckboxesEventlisteners = (selectItems: HTMLInputElement[]) => {
+    selectItems.forEach((selectItem) => {
+        selectItem.classList.remove("cursor-wait");
+        selectItem.addEventListener("change", () => {
+            // Check if checkbox belongs to a page with subpages
+            const pageId = selectItem.getAttribute("value");
+            const collapsiblePage = document.querySelector(`.toggle-subpages[data-page-id="${pageId}"]`);
+            if (collapsiblePage) {
+                const childrenIds: number[] = JSON.parse(collapsiblePage.getAttribute("data-page-children"));
+                childrenIds.forEach((childId) => {
+                    setCheckboxRecursively(childId, selectItem.checked);
+                });
+            }
+            updateSelectionCount();
+        });
+    });
+};
 
 const setAccessBarPerLanguage = (
     accessField: Element,
@@ -70,6 +111,7 @@ const getData = async (visibleDatasetSlugs: string[], requestID: number): Promis
         return [{} as AjaxResponse, requestID];
     }
 
+    const accessesServerError = document.getElementById("accesses-server-error");
     const formData = new FormData(statisticsForm);
     visibleDatasetSlugs.forEach((slug) => formData.append("language_slugs", slug));
 
@@ -81,6 +123,7 @@ const getData = async (visibleDatasetSlugs: string[], requestID: number): Promis
     const response = await fetch(pageAccessesURL, parameters);
     if (!response.ok) {
         console.error(`Fetch failed with status ${response.status}`);
+        accessesServerError.classList.remove("hidden");
         return [{} as AjaxResponse, requestID];
     }
 
@@ -163,19 +206,53 @@ const updateDOMRecursivly = (
     return [returnAccesses, returnAllAccesses];
 };
 
-const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
+const updateDOM = (data: AjaxResponse) => {
     const rootPageNodes = document.querySelectorAll(`.root-page`);
     rootPageNodes.forEach((parentField) => {
         updateDOMRecursivly(data, visibleDatasetSlugs, parentField);
     });
 };
 
+const updateExportTable = (data: AjaxResponse) => {
+    exportTable = [];
+    const checkedPages: NodeListOf<HTMLInputElement> = document.querySelectorAll(".bulk-select-item:checked");
+    checkedPages.forEach((page: HTMLInputElement) => {
+        const exportTableEntry: string[] = [];
+        const pageId = page.value;
+        const accesses = data[pageId];
+        const pageElement = document.getElementById(`page-${pageId}`);
+        const pageSlug = pageElement?.querySelector(".title-slug").getAttribute("data-title-slug");
+        if (pageElement && pageSlug) {
+            // Page Title needs to be utf-8 encoded for btoa to work in exportPageAccessesData()
+            const pageSlugEncoded = new TextEncoder().encode(pageSlug);
+            let allAccesses: number = 0;
+
+            visibleDatasetSlugs?.forEach((languageSlug, i) => {
+                if (accesses && accesses[languageSlug]) {
+                    allAccesses += accesses[languageSlug];
+                    exportTableEntry[i] = String(accesses[languageSlug]);
+                } else {
+                    exportTableEntry[i] = "0";
+                }
+            });
+            exportTableEntry[visibleDatasetSlugs.length] = String(allAccesses);
+            exportTableEntry.unshift(String.fromCharCode(...pageSlugEncoded));
+            exportTableEntry.unshift(pageId);
+            exportTable.push(exportTableEntry);
+        }
+    });
+};
+
 /* The main function which updates the accesses */
 export const updatePageAccesses = async (): Promise<void> => {
+    document.getElementById("accesses-server-error")?.classList.add("hidden");
+    document.getElementById("no-page-and-language-selected-error")?.classList.add("hidden");
+    document.getElementById("no-page-selected-error")?.classList.add("hidden");
+    document.getElementById("no-language-selected-error")?.classList.add("hidden");
     const pageAccessesLoading = document.getElementById("page-accesses-loading");
     pageAccessesLoading.classList.remove("hidden");
     setDates();
-    const visibleDatasetSlugs = getCheckedSlugs();
+    visibleDatasetSlugs = getCheckedSlugs();
 
     ajaxRequestID += 1;
     const [data, requestID] = await getData(visibleDatasetSlugs, ajaxRequestID);
@@ -185,11 +262,40 @@ export const updatePageAccesses = async (): Promise<void> => {
 
     toggleElementCollection(accessFields, !isEmpty);
     resetTotalAccessesField(accessFields, isEmpty);
+    updateExportTable(data);
 
     if (!isEmpty && requestID === ajaxRequestID) {
-        updateDOM(data, visibleDatasetSlugs);
+        updateDOM(data);
     }
     pageAccessesLoading.classList.add("hidden");
+};
+
+export const downloadFile = (filename: string, content: string) => {
+    const downloadLink = document.getElementById("export-download-link");
+    downloadLink.setAttribute("href", content);
+    downloadLink.setAttribute("download", filename);
+    downloadLink.click();
+};
+
+const exportPageAccessesData = (): void => {
+    const checkedPages: NodeListOf<HTMLInputElement> = document.querySelectorAll(".bulk-select-item:checked");
+    const checkedSlugs = getCheckedSlugs();
+    if (checkedPages.length === 0 && checkedSlugs.length === 0) {
+        document.getElementById("no-page-and-language-selected-error")?.classList.remove("hidden");
+    } else if (checkedPages.length === 0) {
+        document.getElementById("no-page-selected-error")?.classList.remove("hidden");
+    } else if (checkedSlugs.length === 0) {
+        document.getElementById("no-language-selected-error")?.classList.remove("hidden");
+    } else {
+        const exportSelection = document.getElementById("export-statistics") as HTMLSelectElement;
+        const exportLabels: string[] = ["ID", "Slug", ...visibleDatasetSlugs, "Total Accesses"];
+        const filename = `Integreat ${exportSelection.getAttribute("data-filename-prefix")} - Page Based`;
+        // Create matrix with labels in the first row and the hits per page and language in the subsequent rows
+        const csvMatrix: string[][] = [exportLabels].concat(exportTable);
+        // Join Matrix to a single csv string
+        const csvContent = csvMatrix.map((i) => i.join(",")).join("\n");
+        downloadFile(`${filename}.csv`, `data:text/csv;charset=utf-8;base64,${btoa(csvContent)}`);
+    }
 };
 
 export const setPageAccessesEventListeners = () => {
@@ -197,12 +303,25 @@ export const setPageAccessesEventListeners = () => {
     statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
     pageAccessesForm = document.getElementById("statistics-page-access") as HTMLFormElement;
     if (pageAccessesForm && statisticsForm) {
+        const selectAllCheckbox = document.getElementById("bulk-select-all") as HTMLInputElement;
+        const selectItems = <HTMLInputElement[]>Array.from(document.getElementsByClassName("bulk-select-item"));
         pageAccessesURL = pageAccessesForm.getAttribute("data-page-accesses-url");
+
+        setSelectAllCheckboxEventListener(selectAllCheckbox, selectItems);
+        setSelectItemCheckboxesEventlisteners(selectItems);
         updatePageAccesses();
         statisticsForm.addEventListener("submit", async (event: Event) => {
             // Prevent form submit
             event.preventDefault();
             updatePageAccesses();
+        });
+        document.getElementById("export-button")?.addEventListener("click", async () => {
+            const exportStatistics = document.getElementById("export-statistics") as HTMLSelectElement;
+            if (exportStatistics.value === "page-accesses-csv") {
+                // Wait for Page Accesses to be updated to ensure up to date export table
+                await updatePageAccesses();
+                exportPageAccessesData();
+            }
         });
     }
 };

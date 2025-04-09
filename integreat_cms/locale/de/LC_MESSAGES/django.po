@@ -5493,12 +5493,14 @@ msgstr "Bitte versuchen Sie es später erneut."
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "A server error has occurred."
 msgstr "Ein Serverfehler ist aufgetreten."
 
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_chart.html xliff/utils.py
+#: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages.html xliff/utils.py
 msgid "Please contact the administrator."
 msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 
@@ -7943,14 +7945,17 @@ msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
 #: cms/templates/pages/pages_page_tree.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "Expand all"
 msgstr "Alle ausklappen"
 
 #: cms/templates/pages/pages_page_tree.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "Collapse all"
 msgstr "Alle einklappen"
 
 #: cms/templates/pages/pages_page_tree.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "Pages selected"
 msgstr "Seiten ausgewählt"
 
@@ -9060,20 +9065,37 @@ msgid "Export"
 msgstr "Exportieren"
 
 #: cms/templates/statistics/statistics_sidebar.html
-msgid "Choose format"
-msgstr "Format auswählen"
+msgid "Please select at least one page to export"
+msgstr "Bitte wählen Sie mindestens eine Seite für den Export aus."
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Please select at least one language to export"
+msgstr ""
+"Bitte wählen Sie mindestens eine Sprache für den export aus."
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Please select at least one page and one language to export"
+msgstr "Bitte wählen Sie mindestens eine Seite und eine Sprache für den export aus."
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Choose statistics to export"
+msgstr "Wähle Statistiken zum Exportieren aus"
 
 #: cms/templates/statistics/statistics_sidebar.html
 msgid "please select"
 msgstr "bitte auswählen"
 
 #: cms/templates/statistics/statistics_sidebar.html
-msgid "Image/PNG"
-msgstr "Bild/PNG"
+msgid "Image/PNG - Total Accesses"
+msgstr "Bild/PNG - Gesamtzugriffe"
 
 #: cms/templates/statistics/statistics_sidebar.html
-msgid "Table Document/CSV"
-msgstr "Tabellendokument/CSV"
+msgid "Table Document/CSV - Total Accesses"
+msgstr "Tabellendokument/CSV - Gesamtzugriffe"
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Table Document/CSV - Page Accesses"
+msgstr "Tabellendokument/CSV - Seitenzugriffe"
 
 #: cms/templates/statistics/statistics_viewed_pages.html
 msgid "Page views"
@@ -12035,6 +12057,18 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Total Access Statistics"
+#~ msgstr "Statistiken für Gesamtzugriffe"
+
+#~ msgid "Page Access Statistics"
+#~ msgstr "Statistiken für Seitenzugriffe"
+
+#~ msgid "Choose format"
+#~ msgstr "Format auswählen"
+
+#~ msgid "Image/PNG"
+#~ msgstr "Bild/PNG"
+
 #~ msgid "Cannot generate slug from fallback."
 #~ msgstr "Slug kann nicht aus dem Fallback abgeleitet werden."
 
@@ -14419,11 +14453,6 @@ msgstr ""
 
 #~ msgid "POI was successfully deleted."
 #~ msgstr "POI wurde erfolgreich gelöscht."
-
-#~ msgid "Please create at least one language node before creating POIs."
-#~ msgstr ""
-#~ "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie POIs "
-#~ "verwalten."
 
 #~ msgid "You cannot edit this POI because it is archived."
 #~ msgstr "Sie können diesen POI nicht bearbeiten, weil er archiviert ist."

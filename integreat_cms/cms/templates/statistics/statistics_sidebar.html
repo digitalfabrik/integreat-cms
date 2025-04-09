@@ -63,20 +63,33 @@
             </h3>
         </div>
         <div class="flex flex-col gap-4 p-4 pt-2">
-            <label for="export-format">
-                {% translate "Choose format" %}
+            <div id="no-page-selected-error" class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "Please select at least one page to export" %}
+            </div>
+            <div id="no-language-selected-error" class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "Please select at least one language to export" %}
+            </div>
+            <div id="no-page-and-language-selected-error"
+                 class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "Please select at least one page and one language to export" %}
+            </div>
+            <label for="export-statistics">
+                {% translate "Choose statistics to export" %}
             </label>
-            <select id="export-format"
+            <select id="export-statistics"
                     data-filename-prefix="{% translate "Statistics" %} {{ request.region.name }}"
                     data-language-column-title="{% translate "Language" %}">
                 <option value="" selected>
                     --- {% translate "please select" %} ---
                 </option>
-                <option value="image">
-                    {% translate "Image/PNG" %}
+                <option value="total-accesses-image">
+                    {% translate "Image/PNG - Total Accesses" %}
                 </option>
-                <option value="csv">
-                    {% translate "Table Document/CSV" %}
+                <option value="total-accesses-csv">
+                    {% translate "Table Document/CSV - Total Accesses" %}
+                </option>
+                <option value="page-accesses-csv">
+                    {% translate "Table Document/CSV - Page Accesses" %}
                 </option>
             </select>
             <button id="export-button" class="btn" disabled>
