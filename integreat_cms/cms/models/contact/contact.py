@@ -346,7 +346,7 @@ class Contact(AbstractBaseModel):
         verbose_name = _("contact")
         default_related_name = "contact"
         verbose_name_plural = _("contacts")
-        default_permissions = ("change", "delete", "view")
+        default_permissions = ("change", "delete", "view", "archive")
         ordering = ["location", "name"]
 
         constraints = [
