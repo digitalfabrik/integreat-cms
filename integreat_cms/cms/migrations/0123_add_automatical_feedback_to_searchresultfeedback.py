@@ -3,7 +3,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0120_remove_fax_number_from_contact"),
+        ("cms", "0122_add_do_not_translate_title_field"),
     ]
 
     operations = [

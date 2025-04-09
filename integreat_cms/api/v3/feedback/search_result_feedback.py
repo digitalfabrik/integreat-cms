@@ -24,7 +24,6 @@ def search_result_feedback(
     comment: str,
     rating: bool,
     is_technical: bool,
-    is_automatically_send: bool,
 ) -> JsonResponse:
     """
     Store feedback on app search results in database
@@ -38,6 +37,7 @@ def search_result_feedback(
     :return: JSON object according to APIv3 search result feedback endpoint definition
     """
     if query := data.get("query"):
+        is_automatically_send = data.get("is_automatically_send")
         SearchResultFeedback.objects.create(
             search_query=query,
             region=region,
