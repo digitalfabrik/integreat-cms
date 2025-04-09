@@ -206,6 +206,13 @@ BACKGROUND_TASKS_ENABLED = bool(
 #: The tag that events from external calendars need to get imported
 EXTERNAL_CALENDAR_CATEGORY: Final[str] = BRANDING
 
+#: HTTP Header that contains the client IP. This can be used behind reverse proxies
+#: Important: Use Django Header notiation, example: HTTP_X_FORWARDED_FOR. Ensure that
+#: this header cannot be sent by clients.
+TRUSTED_IP_HEADER: Final[str | None] = os.environ.get(
+    "INTEGREAT_CMS_TRUSTED_IP_HEADER", None
+)
+
 ##############################################################
 # Firebase Push Notifications (Firebase Cloud Messaging FCM) #
 ##############################################################

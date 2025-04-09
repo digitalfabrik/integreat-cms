@@ -198,16 +198,20 @@ def matomo_tracking(func: Callable) -> Callable:
     return wrap
 
 
-def get_client_ip(request: HttpRequest) -> str:
+def get_client_ip(request: HttpRequest) -> str | None:
     """
-    Get remote IP address
+    Get remote IP address. If a trusted IP header is configured
+    but not set, return None.
 
     :param request: Django request
     :return: source IPv4/IPv6 address of the request
     """
-    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-    if x_forwarded_for:
+    if settings.TRUSTED_IP_HEADER and (
+        x_forwarded_for := request.META.get(settings.TRUSTED_IP_HEADER, False)
+    ):
         ip = x_forwarded_for.split(",")[0]
+    elif settings.TRUSTED_IP_HEADER:
+        return None
     else:
         ip = request.META.get("REMOTE_ADDR")
     return ip
@@ -215,25 +219,23 @@ def get_client_ip(request: HttpRequest) -> str:
 
 def rate_limited(request: HttpRequest) -> bool:
     """
-    Check if IP is rate limited and record hit.
+    Check if IP is rate limited and record hit. If a trusted IP header
+    is configured, deny access if the header is not set in the request.
 
     :param request: Django request
     :return: True if the IP should be rate limited
     """
-    cache_key = f"api_rate_limit_{get_client_ip(request)}"
-    previous_requests = cache.get(cache_key)
+    if (client_ip := get_client_ip(request)) is None:
+        return True
+
+    cache_key = f"api_rate_limit_{client_ip}"
     now = int(time.time())
-    timestamps = ([] if previous_requests is None else previous_requests.split(",")) + [
-        now
-    ]
+    limit = now - settings.API_RATE_LIMIT_WINDOW_MINUTES * 60
 
-    timestamps = [
-        int(ts)
-        for ts in timestamps
-        if int(ts) >= now - (settings.API_RATE_LIMIT_WINDOW_MINUTES * 60)
-    ]
+    timestamps = [*cache.get(cache_key, []), now]
+    timestamps = [ts for ts in timestamps if ts >= limit]
+    cache.set(cache_key, timestamps)
 
-    cache.set(cache_key, ",".join(map(str, timestamps)))
     return len(timestamps) > settings.API_RATE_LIMIT_WINDOW
 
 
