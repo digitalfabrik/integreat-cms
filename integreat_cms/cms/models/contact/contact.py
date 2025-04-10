@@ -67,6 +67,7 @@ class Contact(AbstractBaseModel):
     )
     opening_hours = models.JSONField(
         null=True,
+        blank=True,
         verbose_name=_("opening hours"),
         help_text=_("These are the opening hours of the linked location."),
     )

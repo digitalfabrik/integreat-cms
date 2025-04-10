@@ -25,14 +25,17 @@ class ContactForm(CustomModelForm):
     """
     Form for creating and modifying contact objects
     """
-    use_location_opening_hours = forms.BooleanField(required=False, label=_("Adopt opening hours"))
+
+    use_location_opening_hours = forms.BooleanField(
+        required=False, label=_("Adopt opening hours")
+    )
+    opening_hours = forms.JSONField()
 
     class Meta:
         """
         This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
         for more information.
         """
-
 
         #: The model of this :class:`django.forms.ModelForm`
         model = Contact
@@ -45,7 +48,6 @@ class ContactForm(CustomModelForm):
             "phone_number",
             "mobile_phone_number",
             "website",
-            "opening_hours",
         ]
 
         error_messages = {
@@ -55,7 +57,10 @@ class ContactForm(CustomModelForm):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         if self.instance.id:
-            self.fields["use_location_opening_hours"].initial = self.instance.opening_hours is None
+            self.fields["use_location_opening_hours"].initial = (
+                self.instance.opening_hours is None
+            )
+            self.fields["opening_hours"].initial = self.instance.location.opening_hours
 
     def clean(self) -> dict[str, Any]:
         """
