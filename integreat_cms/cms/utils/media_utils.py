@@ -8,6 +8,7 @@ import logging
 from io import BytesIO
 from typing import TYPE_CHECKING
 
+import cairosvg
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from PIL import Image, ImageOps
@@ -37,7 +38,14 @@ def generate_thumbnail(
         " (cropped)" if crop else "",
     )
     try:
-        image = Image.open(original_image)
+        if original_image.content_type == "image/svg+xml":
+            original_image.seek(0)
+            svg_bytes = original_image.read()
+            png_bytes = cairosvg.svg2png(bytestring=svg_bytes)
+            image = Image.open(BytesIO(png_bytes))
+        else:
+            image = Image.open(original_image)
+
         # Save format, as this information will be lost when resizing the image
         image_format = image.format
         if TYPE_CHECKING:

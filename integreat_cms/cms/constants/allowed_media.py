@@ -43,6 +43,7 @@ PPTX: Final = (
 
 #: MIME type of image files. Expand this list to add further data types.
 IMAGES: Final[list[tuple[str, Promise]]] = [
+    (SVG, _("SVG image")),
     (PNG, _("PNG image")),
     (JPEG, _("JPEG image")),
 ]
@@ -53,7 +54,6 @@ DOCUMENTS: Final[list[tuple[str, Promise]]] = [
 ]
 #: Legacy MIME types that existed in the former Wordpress system.
 LEGACY_TYPES: Final[list[tuple[str, Promise]]] = [
-    (SVG, _("SVG image")),
     (GIF, _("GIF image")),
     (DOC, _("DOC document")),
     (DOCX, _("DOCX document")),

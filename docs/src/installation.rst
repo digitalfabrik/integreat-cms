@@ -40,7 +40,7 @@ In the following, we provide the commands to install all these prerequisites on 
 ::
 
     # Install basic requirements
-    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3-venv
+    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3-venv libcairo2
     # Add PPA repository for NodeJS
     curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
     # Add PPA repository for Docker
@@ -61,7 +61,7 @@ In the following, we provide the commands to install all these prerequisites on 
     # Add PPA repository for Python3.9 and above
     sudo add-apt-repository -y ppa:deadsnakes/ppa
     # Install basic requirements
-    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3.11 python3.11-venv
+    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3.11 python3.11-venv libcairo2
     # Add PPA repository for NodeJS
     curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
     # Add PPA repository for Docker
