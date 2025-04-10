@@ -8,6 +8,7 @@ from copy import deepcopy
 from typing import TYPE_CHECKING
 from zoneinfo import available_timezones
 
+from celery import shared_task
 from django import forms
 from django.apps import apps
 from django.conf import settings
@@ -306,22 +307,22 @@ class RegionForm(CustomModelForm):
 
             # Duplicate language tree
             logger.info("Duplicating language tree of %r to %r", source_region, region)
-            duplicate_language_tree(
-                source_region,
-                region,
+            duplicate_language_tree.apply_async(args=[
+                source_region.pk,
+                region.pk,
                 only_root=not keep_translations,
-            )
+            ])
             # Disable linkcheck listeners to prevent links to be created for outdated versions
             with disable_listeners():
                 # Duplicate pages
                 logger.info("Duplicating page tree of %r to %r", source_region, region)
-                duplicate_pages(
-                    source_region,
-                    region,
+                duplicate_pages.apply_async(args=[
+                    source_region.pk,
+                    region.pk,
                     keep_status=keep_status,
                     offers_to_discard=offers_to_discard,
                     only_root=not keep_translations,
-                )
+                ])
                 # Duplicate Imprint
                 if source_region.imprint:
                     logger.info(
@@ -329,9 +330,9 @@ class RegionForm(CustomModelForm):
                         source_region,
                         region,
                     )
-                    duplicate_imprint(source_region, region)
+                    duplicate_imprint.apply_async(args=[source_region.pk, region.pk])
             # Duplicate media content
-            duplicate_media(source_region, region)
+            duplicate_media.apply_async(args=[source_region.pk, region.pk])
 
             # Create links for the most recent versions of all translations manually and replace internal links
             create_and_replace_links_async(source_region, region)
@@ -674,11 +675,12 @@ class RegionForm(CustomModelForm):
         return cleaned_data
 
 
+@shared_task
 def duplicate_language_tree(
-    source_region: Region,
-    target_region: Region,
-    source_parent: LanguageTreeNode | None = None,
-    target_parent: LanguageTreeNode | None = None,
+    source_region_id: int,
+    target_region_id: int,
+    source_parent_id: int | None = None,
+    target_parent_id: int | None = None,
     logging_prefix: str = "",
     only_root: bool = False,
 ) -> None:
@@ -697,6 +699,10 @@ def duplicate_language_tree(
     :param logging_prefix: recursion level to get a pretty log output
     :param only_root: Set if only the root node should be copied, not its children
     """
+    source_region = Region.objects.get(id=source_region_id)
+    target_region = Region.objects.get(id=target_region_id)
+    source_parent = LanguageTreeNode.objects.get(source_parent_id)
+    target_parent = LanguageTreeNode.objects.get(target_parent_id)
     logger.debug(
         "%s Duplicating child nodes",
         logging_prefix + "└─",
@@ -752,20 +758,21 @@ def duplicate_language_tree(
         )
         if not (source_node.is_leaf() or only_root):
             # Call the function recursively for all children of the current node
-            duplicate_language_tree(
-                source_region,
-                target_region,
-                source_node,
-                target_node,
+            duplicate_language_tree.apply_async(args=[
+                source_region.pk,
+                target_region.pk,
+                source_node.pk,
+                target_node.pk,
                 row_logging_prefix,
-            )
+            ])
 
 
+@shared_task
 def duplicate_pages(
-    source_region: Region,
-    target_region: Region,
-    source_parent: Page | None = None,
-    target_parent: Page | None = None,
+    source_region_id: int,
+    target_region_id: int,
+    source_parent_id: int | None = None,
+    target_parent_id: int | None = None,
     logging_prefix: str = "",
     keep_status: bool = False,
     offers_to_discard: QuerySet[OfferTemplate] | None = None,
@@ -788,6 +795,11 @@ def duplicate_pages(
     :param offers_to_discard: Offers which might be embedded in the source region, but not in the target region
     :param only_root: Set if only the root node should be copied, not its children
     """
+
+    source_region = Region.objects.get(id=source_region_id)
+    target_region = Region.objects.get(id=target_region_id)
+    source_parent = Page.objects.get(id=source_parent_id)
+    target_parent = Page.objects.get(id=target_parent_id)
 
     logger.debug(
         "%s Duplicating child nodes",
@@ -853,15 +865,15 @@ def duplicate_pages(
             row_logging_prefix + "├─",
             target_page,
         )
-        duplicate_page_translations(
+        duplicate_page_translations.apply_async(args=[
             source_page,
             target_page,
             row_logging_prefix,
             keep_status,
-        )
+        ])
         if not source_page.is_leaf():
             # Recursively call this function with the current pages as new parents
-            duplicate_pages(
+            duplicate_pages.apply_asnc(args=[
                 source_region,
                 target_region,
                 source_page,
@@ -870,12 +882,13 @@ def duplicate_pages(
                 keep_status,
                 offers_to_discard,
                 only_root,
-            )
+            ])
 
 
+@shared_task
 def duplicate_page_translations(
-    source_page: Page,
-    target_page: Page,
+    source_page_id: int,
+    target_page_id: int,
     logging_prefix: str,
     keep_status: bool,
 ) -> None:
@@ -887,6 +900,8 @@ def duplicate_page_translations(
     :param logging_prefix: The prefix to be used for logging
     :param keep_status: Parameter to indicate whether the status of the cloned pages should be kept
     """
+    source_page = Page.objects.get(id=source_page_id)
+    target_page = Page.objects.get(id=target_page_id)
     logger.debug(
         "%s Duplicating page translations",
         logging_prefix + ("└─" if source_page.is_leaf() else "├─"),
@@ -922,6 +937,7 @@ def duplicate_page_translations(
         )
 
 
+@shared_task
 def duplicate_imprint(
     source_region: Region,
     target_region: Region,
@@ -963,13 +979,16 @@ def duplicate_imprint(
         imprint_translation.save(update_timestamp=False)
 
 
+@shared_task
 def duplicate_media(
-    _source_region: Region,
-    _target_region: Region,
+    _source_region_id: int,
+    _target_region_id: int,
 ) -> None:
     """
     Function to duplicate all media of one region to another.
     """
+    _source_region = Region.objects.get(id=_source_region_id)
+    _target_region = Region.objects.get(id=_target_region_id)
     # TODO(timobrembeck): implement duplication of all media files
     # https://github.com/digitalfabrik/integreat-cms/issues/1414
 
