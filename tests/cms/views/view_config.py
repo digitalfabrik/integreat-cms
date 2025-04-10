@@ -554,7 +554,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "query_string": "Test",
-                        "object_types": ["push_notification"],
+                        "object_types": ["pushnotification"],
                         "archived": False,
                     },
                 ),
@@ -587,7 +587,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "query_string": "Test",
-                        "object_types": ["media"],
+                        "object_types": ["mediafile"],
                         "archived": False,
                     },
                 ),
