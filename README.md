@@ -42,6 +42,7 @@ To configure your development environment on your system, please follow these st
    - `python3-pip` (Debian-based distributions) / `python-pip` (Arch-based distributions)
    - `python3-venv` (only on Debian-based distributions)
    - `gettext` for translation features
+   - `libcairo2` for thumbnail generation
    - Either `postgresql` **or** `docker` to run a local database server
 2. Execute `tools/install.sh` to download all dependencies.
 3. Execute `tools/migrate.sh` to apply all database schema migrations.

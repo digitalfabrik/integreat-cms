@@ -82,7 +82,7 @@
             redis
           ];
 
-          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc.lib pkgs.file ];
+          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (with pkgs; [ stdenv.cc.cc.lib file cairo ]);
 
           shellHook = /* bash */ ''
             set_if_unset() {

@@ -84,7 +84,7 @@ jobs:
           at: .
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install pcregrep
+          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
       - run:
           name: Check release notes in Markdown
           command: ./tools/make_release_notes.sh --format=md --all
@@ -104,7 +104,7 @@ jobs:
           at: .
       - run:
           name: Install translation requirements
-          command: sudo apt-get update && sudo apt-get install gettext pcregrep
+          command: sudo apt-get update && sudo apt-get install gettext pcregrep libcairo2
       - run:
           name: Check translation file for missing or empty entries
           command: ./tools/check_translations.sh
@@ -233,6 +233,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Install requirements
+          command: sudo apt-get update && sudo apt-get install libcairo2
+      - run:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
@@ -271,6 +274,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
+      - run:
+          name: Install requirements
+          command: sudo apt-get update && sudo apt-get install libcairo2
       - run:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
@@ -359,7 +365,7 @@ jobs:
           at: .
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install pcregrep
+          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
       - run:
           name: Generate documentation
           command: ./tools/make_docs.sh
@@ -462,7 +468,7 @@ jobs:
           at: .
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install pcregrep
+          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
       - run:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
@@ -512,7 +518,7 @@ jobs:
           at: .
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install pcregrep
+          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
       - run:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
@@ -545,7 +551,7 @@ jobs:
       - checkout
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install pcregrep
+          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
       - run:
           name: Notify mattermost about release
           command: |
