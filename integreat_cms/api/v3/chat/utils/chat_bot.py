@@ -5,6 +5,7 @@ Wrapper for the Chat Bot / LLM API
 from __future__ import annotations
 
 import asyncio
+import logging
 from datetime import datetime
 
 import aiohttp
@@ -12,6 +13,8 @@ from celery import shared_task
 from django.conf import settings
 
 from integreat_cms.cms.models import Region, UserChat
+
+logger = logging.getLogger(__name__)
 
 
 async def automatic_answer(
@@ -105,33 +108,39 @@ def process_user_message(
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
+    zammad_chat.processing_answer = True
+    # Prevent a race condition where new articles can be added to a ticket
+    # while the webhook has not yet sent to and processed by the Integreat CMS
+    messages = [
+        message
+        for message in zammad_chat.messages
+        if datetime.fromisoformat(message["created_at"]) <= message_timestamp
+    ]
     translation, answer = asyncio.run(
         async_process_user_message(
             zammad_chat.language.slug,
             region_slug,
             region.default_language.slug,
-            # Prevent a race condition where new articles can be added to a ticket
-            # while the webhook has not yet sent to and processed by the Integreat CMS
-            [
-                message
-                for message in zammad_chat.messages
-                if datetime.fromisoformat(message["created_at"]) <= message_timestamp
-            ],
+            messages,
         ),
     )
-    if translation:
+    if translation and translation["translation"] != messages[-1]["content"]:
         zammad_chat.save_message(
             message=translation["translation"],
             internal=True,
             automatic_message=True,
         )
     if answer:
-        zammad_chat.save_message(
-            message=answer["answer"],
-            internal=False,
-            automatic_message=True,
-        )
-        zammad_chat.save_automatic_answers(answer["automatic_answers"])
+        if answer["status"] == "error":
+            logger.error("Integreat Chat: %s", answer["message"])
+        else:
+            zammad_chat.save_message(
+                message=answer["answer"],
+                internal=False,
+                automatic_message=True,
+            )
+            zammad_chat.save_automatic_answers(answer["automatic_answers"])
+    zammad_chat.processing_answer = False
 
 
 async def async_process_translate(
@@ -190,8 +199,8 @@ def process_translate_question(
             message_text, zammad_chat.language.slug, region.default_language.slug
         )
     )
-    if translation:
-        zammad_chat.send_message(
+    if translation and translation["translation"] != message_text:
+        zammad_chat.save_message(
             message=translation["translation"],
             internal=True,
             automatic_message=True,

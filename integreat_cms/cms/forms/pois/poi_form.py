@@ -57,6 +57,7 @@ class POIForm(CustomModelForm):
             "appointment_url",
             "organization",
             "barrier_free",
+            "do_not_translate_title",
         ]
         #: The widgets which are used in this form
         widgets = {

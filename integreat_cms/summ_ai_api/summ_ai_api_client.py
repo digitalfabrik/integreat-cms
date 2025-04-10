@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     from django.forms.models import ModelFormMetaclass
     from django.http import HttpRequest
 
+    from ..cms.models import Language
     from ..cms.models.pages.page import Page
 
 logger = logging.getLogger(__name__)
@@ -341,3 +342,15 @@ class SummAiApiClient(MachineTranslationApiClient):
             )
             raise SummAiRateLimitingExceeded
         return False
+
+    @staticmethod
+    def get_target_language_key(_target_language: Language) -> str:
+        """
+        Dummy placeholder for the (unused) abstract method from MachineTranslationApiClient
+        """
+        return ""
+
+    def invoke_translation_api(self) -> None:
+        """
+        Dummy placeholder for the (unused) abstract method from MachineTranslationApiClient
+        """

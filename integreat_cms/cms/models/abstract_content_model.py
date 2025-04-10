@@ -128,6 +128,13 @@ class AbstractContentModel(AbstractBaseModel):
         default=timezone.now,
         verbose_name=_("creation date"),
     )
+    do_not_translate_title = models.BooleanField(
+        default=False,
+        verbose_name=_("do not translate the title"),
+        help_text=_(
+            "Tick if you do not want to translate the title by automatic translation."
+        ),
+    )
 
     #: Custom model manager for content objects
     objects = ContentQuerySet.as_manager()

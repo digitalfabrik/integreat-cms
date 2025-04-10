@@ -10,7 +10,9 @@ from typing import TYPE_CHECKING
 
 from django.http import JsonResponse
 
+from ....core.utils.word_count import word_count
 from ....textlab_api.utils import check_hix_score
+from ...constants.machine_translatable_attributes import TRANSLATABLE_ATTRIBUTES
 from ...models import Event, Page, POI
 
 if TYPE_CHECKING:
@@ -60,11 +62,16 @@ def build_json_for_machine_translation(
 
     for content in selected_content:
         source_translation = content.get_translation(source_language.slug)
-        words = (
-            len(source_translation.content.split())
-            + len(source_translation.title.split())
-            if source_translation
-            else 0
+
+        content.translatable_attributes = [
+            (attr, getattr(source_translation, attr))
+            for attr in TRANSLATABLE_ATTRIBUTES
+            if hasattr(source_translation, attr)
+            and getattr(source_translation, attr)
+            and not (content.do_not_translate_title and attr == "title")
+        ]
+        words = word_count(
+            content.translatable_attributes,
         )
 
         if source_translation and check_hix_score(

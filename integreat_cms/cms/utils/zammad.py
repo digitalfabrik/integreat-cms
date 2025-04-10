@@ -59,7 +59,7 @@ class ZammadAPI:
         response = requests.request(
             method=method,
             url=f"{self.region.zammad_url}{path}",
-            timeout=5,
+            timeout=10,
             headers={"Authorization": f"Token token={self.region.zammad_access_token}"},
             json=payload,
         )
@@ -99,9 +99,11 @@ class ZammadAPI:
 
         :return: formatted chat messages
         """
-        if (response := cache.get(f"{self.region.slug}_{self.device_id}")) is None:
+        cache_key = f"{self.region.slug}_{self.device_id}"
+        response = cache.get(cache_key)
+        if response is None:
             response = self.get_zammad_ticket_messages()
-        cache.set(f"{self.region.slug}_{self.device_id}", response, 3600)
+            cache.set(cache_key, response, 60)
         keys_to_keep = [
             "status",
             "error",
@@ -115,6 +117,8 @@ class ZammadAPI:
         ]
         messages = []
         for message in response:
+            if message["internal"]:
+                continue
             message["role"] = "user" if message["sender"] == "Customer" else "agent"
             message["automatic_answer"] = (
                 message["subject"] == "automatically generated message"
@@ -169,13 +173,15 @@ class ZammadAPI:
 
         :return: user evaluation consent
         """
-        return cache.get(
-            f"chat_evaluation_consent_{self.device_id}",
-            self.zammad_request(
+        cache_key = f"chat_evaluation_consent_{self.device_id}"
+        response = cache.get(cache_key)
+        if response is None:
+            response = self.zammad_request(
                 "GET",
                 f"/api/v1/tickets/{self.zammad_id}",
-            ).json()["evaluation_consent"],
-        )
+            ).json()["evaluation_consent"]
+            cache.set(cache_key, response, 120)
+        return response
 
     def save_evaluation_consent(self, value: bool) -> bool:
         """
@@ -202,13 +208,15 @@ class ZammadAPI:
 
         :return: generate automatic answers or not
         """
-        return cache.get(
-            f"chat_automatic_anwers_{self.device_id}",
-            self.zammad_request(
+        cache_key = f"chat_automatic_anwers_{self.device_id}"
+        response = cache.get(cache_key)
+        if response is None:
+            response = self.zammad_request(
                 "GET",
                 f"/api/v1/tickets/{self.zammad_id}",
-            ).json()["automatic_answers"],
-        )
+            ).json()["automatic_answers"]
+            cache.set(cache_key, response, 120)
+        return response
 
     def save_automatic_answers(self, value: bool) -> bool:
         """
@@ -244,3 +252,17 @@ class ZammadAPI:
                 "customer": self.get_zammad_user_mail(),
             },
         ).json()["id"]
+
+    @property
+    def processing_answer(self) -> None:
+        """
+        Indicate that an answer is currently being generated.
+        """
+        return cache.get(f"generating_answer_{self.device_id}", False)
+
+    @processing_answer.setter
+    def processing_answer(self, processing: bool) -> None:
+        """
+        Set the processing indicator in the cache
+        """
+        cache.set(f"generating_answer_{self.device_id}", processing, 120)
