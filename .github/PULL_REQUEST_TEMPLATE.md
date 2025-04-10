@@ -16,6 +16,11 @@
 - 
 
 
+### Faithfulness to issue description and design
+<!-- If the implementation is different from the issue description and design, replace the following with an explain why. -->
+There are no intended deviations from the issue and design.
+
+
 ### Resolved issues
 <!-- List all issues which should be closed when this PR is merged. -->
 
