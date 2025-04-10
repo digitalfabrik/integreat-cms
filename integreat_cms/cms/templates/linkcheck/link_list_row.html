@@ -76,7 +76,7 @@
                 </a>
             </div>
         </td>
-        {% with link_text=url.region_links.0.text %}
+        {% with link_text=url.regions_links.0.text %}
             <td class="pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
                 title="{{ link_text }}">
                 <div class="table-cell-truncate">
@@ -110,7 +110,7 @@
             </div>
         </td>
         <td class="text-right pr-2">
-            {{ url.region_links|length }}
+            {{ url.regions_links|length }}
         </td>
         <td class="text-right pr-4">
             <a title="{% if request.region %}{% translate "Replace URL centrally in the current region" %}{% else %}{% translate "Replace URL globally in all the regions" %}{% endif %}"

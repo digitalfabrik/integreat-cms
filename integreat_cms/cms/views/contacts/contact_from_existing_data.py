@@ -10,7 +10,7 @@ from lxml.html import fromstring
 
 from ...models import Contact, Event, Page, POI
 from ...utils.link_utils import format_phone_number
-from ...utils.linkcheck_utils import get_region_links
+from ...utils.linkcheck_utils import get_link_query
 
 if TYPE_CHECKING:
     from typing import Any
@@ -68,7 +68,7 @@ class PotentialContactSourcesView(TemplateView):
         :return: The rendered template response
         """
 
-        region_links = get_region_links(request.region)
+        region_links = get_link_query(request.region)
         email_or_phone_links = region_links.filter(
             Q(url__url__startswith="mailto") | Q(url__url__startswith="tel")
         )

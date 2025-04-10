@@ -161,12 +161,12 @@ class DashboardView(TemplateView, ChatContextMixin):
         invalid_urls = filter_urls(
             request.region.slug,
             "invalid",
-            prefetch_region_links=True,
+            prefetch_links=True,
         )[0]
         invalid_url = invalid_urls[0] if invalid_urls else None
 
         relevant_translation = (
-            invalid_url.region_links[0].content_object if invalid_url else None
+            invalid_url.regions_links[0].content_object if invalid_url else None
         )
 
         edit_url = (
