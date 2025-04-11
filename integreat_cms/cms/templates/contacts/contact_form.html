@@ -86,7 +86,7 @@
                                 {{ contact_form.website.label }}
                             </label>
                             {% render_field contact_form.website|add_error_class:"border-red-500" %}
-                            {% if contact_form.instance %}
+                            {% if contact_form.instance.id %}
                                 <p>
                                     <label for="{{ contact_form.opening_hours.id_for_label }}">
                                         {{ contact_form.opening_hours.label }}
@@ -99,14 +99,10 @@
                                         {{ contact_form.use_location_opening_hours.label }}
                                     </label>
                                 </p>
-                                {% comment %}{{ contact_form.opening_hours.value }} {% endcomment %}
                                 <opening-hours-widget></opening-hours-widget>
                                 {{ opening_hour_config_data|json_script:"openingHourConfigData" }}
                                 {{ contact_form.opening_hours.value|json_script:"openingHourInitialData" }}
-                                <input type="hidden"
-                                       id="initial-id_opening_hours"
-                                       name="initial-opening_hours"
-                                       value="{{ contact_form.opening_hours.value }}" />
+                                {{ contact_form.instance.location.opening_hours|json_script:"openingHourLocationData" }}
                                 <div class="py-2 px-4">
                                     {% render_field contact_form.temporarily_closed %}
                                     <label for="{{ contact_form.temporarily_closed.id_for_label }}">
@@ -122,8 +118,8 @@
                                     <div class="help-text">
                                         {{ contact_form.appointment_url.help_text }}
                                     </div>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                     {% if contact_form.instance.id %}

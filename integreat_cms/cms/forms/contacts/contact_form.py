@@ -29,7 +29,6 @@ class ContactForm(CustomModelForm):
     use_location_opening_hours = forms.BooleanField(
         required=False, label=_("Adopt opening hours")
     )
-    opening_hours = forms.JSONField()
 
     class Meta:
         """
@@ -48,6 +47,7 @@ class ContactForm(CustomModelForm):
             "phone_number",
             "mobile_phone_number",
             "website",
+            "opening_hours",
         ]
 
         error_messages = {
@@ -55,12 +55,15 @@ class ContactForm(CustomModelForm):
         }
 
     def __init__(self, **kwargs: Any) -> None:
+        adopt_hours = True
+        if "instance" in kwargs and kwargs["instance"] and kwargs["instance"].id:
+            adopt_hours = kwargs["instance"].opening_hours is None
+            if adopt_hours:
+                kwargs["instance"].opening_hours = kwargs[
+                    "instance"
+                ].location.opening_hours
         super().__init__(**kwargs)
-        if self.instance.id:
-            self.fields["use_location_opening_hours"].initial = (
-                self.instance.opening_hours is None
-            )
-            self.fields["opening_hours"].initial = self.instance.location.opening_hours
+        self.fields["use_location_opening_hours"].initial = adopt_hours
 
     def clean(self) -> dict[str, Any]:
         """
@@ -70,6 +73,9 @@ class ContactForm(CustomModelForm):
         """
 
         cleaned_data = super().clean()
+
+        if self.cleaned_data["use_location_opening_hours"]:
+            self.cleaned_data["opening_hours"] = None
 
         if (location := cleaned_data.get("location")) and location.archived:
             self.add_error(
@@ -89,6 +95,8 @@ class ContactForm(CustomModelForm):
 
         :return: The valid opening hours
         """
+        # TODO: make sure we don't complain about invalid data when we throw it away because the use location opening hours toggle was active anyway?
+
         # Only show generic error message because users cannot directly modify the JSON input
         generic_error = __(
             _("An error occurred while saving the opening hours."),
