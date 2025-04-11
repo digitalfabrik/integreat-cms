@@ -140,7 +140,7 @@ class Region(AbstractBaseModel):
     )
     #: Manage choices in :mod:`~integreat_cms.cms.constants.region_status`
     status = models.CharField(
-        max_length=8,
+        max_length=25,
         choices=region_status.CHOICES,
         default=region_status.HIDDEN,
         verbose_name=_("status"),
