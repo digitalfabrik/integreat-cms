@@ -8,6 +8,7 @@ from copy import deepcopy
 from typing import TYPE_CHECKING
 from zoneinfo import available_timezones
 
+from celery import shared_task
 from django import forms
 from django.apps import apps
 from django.conf import settings
@@ -321,37 +322,17 @@ class RegionForm(CustomModelForm):
                     id__in=region.offers.values_list("id", flat=True),
                 )
 
-            # Duplicate language tree
-            logger.info("Duplicating language tree of %r to %r", source_region, region)
-            duplicate_language_tree(
-                source_region,
-                region,
-                only_root=not keep_translations,
+            async_clone_region_content.apply_async(
+                args=[
+                    source_region.pk,
+                    region.pk,
+                    keep_status,
+                    keep_translations,
+                    [offer.pk for offer in offers_to_discard]
+                    if offers_to_discard
+                    else None,
+                ]
             )
-            # Disable linkcheck listeners to prevent links to be created for outdated versions
-            with disable_listeners():
-                # Duplicate pages
-                logger.info("Duplicating page tree of %r to %r", source_region, region)
-                duplicate_pages(
-                    source_region,
-                    region,
-                    keep_status=keep_status,
-                    offers_to_discard=offers_to_discard,
-                    only_root=not keep_translations,
-                )
-                # Duplicate Imprint
-                if source_region.imprint:
-                    logger.info(
-                        "Duplicating imprint of %r to %r",
-                        source_region,
-                        region,
-                    )
-                    duplicate_imprint(source_region, region)
-            # Duplicate media content
-            duplicate_media(source_region, region)
-
-            # Create links for the most recent versions of all translations manually and replace internal links
-            create_and_replace_links_async(source_region, region)
 
         region.hix_enabled = self.cleaned_data["hix_enabled"]
         return region
@@ -707,6 +688,55 @@ class RegionForm(CustomModelForm):
                     cleaned_data["longitude_max"] = bounding_box.longitude_max
 
         return cleaned_data
+
+
+@shared_task
+def async_clone_region_content(
+    source_region_id: int,
+    target_region_id: int,
+    keep_status: bool,
+    keep_translations: bool,
+    offers_to_discard_ids: list[int] | None,
+) -> None:
+    source_region = Region.objects.get(id=source_region_id)
+    region = Region.objects.get(id=target_region_id)
+    offers_to_discard = (
+        OfferTemplate.objects.filter(id__in=offers_to_discard_ids)
+        if offers_to_discard_ids
+        else None
+    )
+
+    # Duplicate language tree
+    logger.info("Duplicating language tree of %r to %r", source_region, region)
+    duplicate_language_tree(
+        source_region,
+        region,
+        only_root=not keep_translations,
+    )
+    # Disable linkcheck listeners to prevent links to be created for outdated versions
+    with disable_listeners():
+        # Duplicate pages
+        logger.info("Duplicating page tree of %r to %r", source_region, region)
+        duplicate_pages(
+            source_region,
+            region,
+            keep_status=keep_status,
+            offers_to_discard=offers_to_discard,
+            only_root=not keep_translations,
+        )
+        # Duplicate Imprint
+        if source_region.imprint:
+            logger.info(
+                "Duplicating imprint of %r to %r",
+                source_region,
+                region,
+            )
+            duplicate_imprint(source_region, region)
+    # Duplicate media content
+    duplicate_media(source_region, region)
+
+    # Create links for the most recent versions of all translations manually and replace internal links
+    create_and_replace_links_async(source_region, region)
 
 
 def duplicate_language_tree(
