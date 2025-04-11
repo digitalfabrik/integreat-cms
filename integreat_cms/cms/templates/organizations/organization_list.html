@@ -29,16 +29,19 @@
                 {% endif %}
             </div>
         </div>
-        {% if not is_archive %}
-            <div class="flex justify-end">
+        <div class="flex justify-between">
+            {% if is_archive %}
+                {% include "search_input_form.html" with object_type="organization" object_archived=True %}
+            {% else %}
+                {% include "search_input_form.html" with object_type="organization" object_archived=False %}
                 {% if perms.cms.change_organization %}
                     <a href="{% url 'new_organization' region_slug=request.region.slug %}"
                        class="btn">
                         {% translate "Create organization" %}
                     </a>
                 {% endif %}
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
     <div class="table-listing">
         <form id="bulk-action-form" method="post">
@@ -77,9 +80,17 @@
                     <tr>
                         <td colspan="7" class="px-4 py-3">
                             {% if is_archive %}
-                                {% translate "No archived organizations." %}
+                                {% if search_query %}
+                                    {% translate "No archived organizations found with these filters." %}
+                                {% else %}
+                                    {% translate "No archived organizations." %}
+                                {% endif %}
                             {% else %}
-                                {% translate "No organizations available yet." %}
+                                {% if search_query %}
+                                    {% translate "No organizations found with these filters." %}
+                                {% else %}
+                                    {% translate "No organizations available yet." %}
+                                {% endif %}
                             {% endif %}
                         </td>
                     </tr>

@@ -19,6 +19,8 @@ from ..regions.region import Region
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
+
     from ..users.user import User
 
 
@@ -112,6 +114,15 @@ class Organization(AbstractBaseModel):
         self.website = fix_content_link_encoding(self.website)
         if commit:
             self.save()
+
+    @classmethod
+    def search(cls, region: Region, query: str) -> QuerySet:
+        """
+        Searches for all organizations which match the given `query` in their name.
+        :param query: The query string used for filtering the organizations
+        :return: A query for all matching objects
+        """
+        return cls.objects.filter(region=region, name__icontains=query)
 
     def __str__(self) -> str:
         """

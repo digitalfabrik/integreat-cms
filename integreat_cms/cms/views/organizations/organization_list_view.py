@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
+from ...forms import ObjectSearchForm
 from ...models import Organization
 from .organization_content_mixin import OrganizationContextMixin
 
@@ -43,6 +44,7 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
         :return: The rendered template response
         """
         region = request.region
+        query = None
 
         organizations = Organization.objects.filter(
             region=region,
@@ -53,6 +55,13 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
             region=region,
             archived=True,
         ).count()
+
+        search_data = kwargs.get("search_data")
+        search_form = ObjectSearchForm(search_data)
+        if search_form.is_valid():
+            query = search_form.cleaned_data["query"]
+            organization_keys = Organization.search(region, query).values("pk")
+            organizations = organizations.filter(pk__in=organization_keys)
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         paginator = Paginator(
@@ -72,5 +81,17 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
                 "organizations": organization_chunk,
                 "archived_count": archived_count,
                 "current_menu_item": "organizations",
+                "search_query": query,
             },
         )
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        r"""
+        Apply the query and filter the rendered organizations
+
+        :param request: The current request
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        :return: The rendered template response
+        """
+        return self.get(request, *args, **kwargs, search_data=request.POST)
