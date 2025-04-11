@@ -16,6 +16,7 @@ from ...models import (
     EventTranslation,
     Feedback,
     MediaFile,
+    Organization,
     POITranslation,
     PushNotificationTranslation,
     Region,
@@ -71,7 +72,7 @@ def format_object_translation(
 
 
 @require_POST
-def search_content_ajax(
+def search_content_ajax(  # noqa: PLR0915, PLR0912, C901
     request: HttpRequest,
     region_slug: str | None = None,
     language_slug: str | None = None,
@@ -130,6 +131,21 @@ def search_content_ajax(
                 "type": "feedback",
             }
             for feedback in Feedback.search(region, query).filter(
+                archived=archived_flag,
+            )
+        )
+
+    if "organization" in object_types:
+        object_types.remove("organization")
+        if not user.has_perm("cms.view_organization"):
+            raise PermissionDenied
+        results.extend(
+            {
+                "title": organization.name,
+                "url": None,
+                "type": "orgaization",
+            }
+            for organization in Organization.search(region, query).filter(
                 archived=archived_flag,
             )
         )
