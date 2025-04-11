@@ -20,10 +20,16 @@ ACTIVE: Final = "ACTIVE"
 HIDDEN: Final = "HIDDEN"
 #: Archived
 ARCHIVED: Final = "ARCHIVED"
+#: Currently in cloning. A region is being created/duplicated
+IN_CLONING: Final = "IN_CLONING"
+#: Error during cloning
+CLONING_ERROR: Final = "CLONING_ERROR"
 
 #: Choices to use these constants in a database field
 CHOICES: Final[list[tuple[str, Promise]]] = [
     (ACTIVE, _("Active")),
     (HIDDEN, _("Hidden")),
     (ARCHIVED, _("Archived")),
+    (IN_CLONING, _("Currently in cloning")),
+    (CLONING_ERROR, _("Error during cloning")),
 ]
