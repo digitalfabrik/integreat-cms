@@ -12,6 +12,7 @@ from lxml.html import tostring
 
 from ...constants import region_status, status
 from ...models import (
+    Contact,
     Directory,
     EventTranslation,
     Feedback,
@@ -105,6 +106,34 @@ def search_content_ajax(  # noqa: PLR0915, PLR0912, C901
     results: list[dict[str, Any]] = []
 
     user = request.user
+
+    if "contact" in object_types:
+        object_types.remove("contact")
+        if not user.has_perm("cms.view_contact"):
+            raise PermissionDenied
+        results.extend(
+            {
+                "title": contact.name,
+                "url": None,
+                "type": "contact",
+            }
+            for contact in Contact.objects.filter(
+                name__icontains=query, location__region=region, archived=archived_flag
+            ).distinct()
+        )
+        if TYPE_CHECKING:
+            assert language_slug
+        results.extend(
+            {
+                "title": poi_translation.title,
+                "url": None,
+                "type": "contact",
+            }
+            for poi_translation in POITranslation.search(
+                region, language_slug, query
+            ).filter(poi__archived=False)
+        )
+
     if "event" in object_types:
         if TYPE_CHECKING:
             assert language_slug
