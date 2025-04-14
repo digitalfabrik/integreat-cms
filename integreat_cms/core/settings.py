@@ -1019,6 +1019,9 @@ SUMM_AI_API_KEY: str | None = os.environ.get("INTEGREAT_CMS_SUMM_AI_API_KEY")
 #: This is ``True`` if SUMM_AI_API_KEY is set, ``False`` otherwise.
 SUMM_AI_ENABLED: bool = bool(SUMM_AI_API_KEY)
 
+#: An integer specifying the number of translation credits for simplified translations that can be bought as an add-on
+SUMM_AI_CREDITS: Final[int] = int(os.environ.get("SUMM_AI_CREDITS", 10_000))
+
 #: Whether requests to the SUMM.AI are done with the ``is_test`` flag
 SUMM_AI_TEST_MODE: Final[bool] = strtobool(
     os.environ.get("INTEGREAT_CMS_SUMM_AI_TEST_MODE", str(DEBUG)),
@@ -1084,6 +1087,14 @@ SUMM_AI_PLAIN_GERMAN_REGIONS: Final[list[str]] = [
         "",
     ).splitlines()
 ]
+
+#: A floating point that specifies the percentage of SUMM_AI_CREDITS used as a soft margin
+SUMM_AI_SOFT_MARGIN_FRACTION: Final[float] = float(
+    os.environ.get("INTEGREAT_CMS_SUMM_AI_SOFT_MARGIN", MT_SOFT_MARGIN_FRACTION)
+)
+
+#: The actual number of words which are used as soft margin
+SUMM_AI_SOFT_MARGIN: Final[int] = int(SUMM_AI_SOFT_MARGIN_FRACTION * SUMM_AI_CREDITS)
 
 
 ################

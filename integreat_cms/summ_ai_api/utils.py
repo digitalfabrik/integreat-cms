@@ -246,6 +246,7 @@ class TranslationHelper:
         self.german_translation: AbstractContentTranslation | None = (
             object_instance.get_translation(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
         )
+        self.word_count = object_instance.word_count
         if not self.german_translation:
             messages.error(
                 self.request,
