@@ -102,6 +102,10 @@ msgid "Not all day long events"
 msgstr "Nicht ganztägige Veranstaltungen"
 
 #: cms/constants/allowed_media.py
+msgid "SVG image"
+msgstr "SVG-Bild"
+
+#: cms/constants/allowed_media.py
 msgid "PNG image"
 msgstr "PNG-Bild"
 
@@ -112,10 +116,6 @@ msgstr "JPEG-Bild"
 #: cms/constants/allowed_media.py
 msgid "PDF document"
 msgstr "PDF-Dokument"
-
-#: cms/constants/allowed_media.py
-msgid "SVG image"
-msgstr "SVG-Bild"
 
 #: cms/constants/allowed_media.py
 msgid "GIF image"
@@ -1776,7 +1776,9 @@ msgstr "Rechts nach Links"
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html cms/templates/pois/poi_list_row.html
+#: cms/templates/pages/page_tree_node.html
+#: cms/templates/pois/poi_list_archived_row.html
+#: cms/templates/pois/poi_list_row.html
 msgid "Translation up-to-date"
 msgstr "Übersetzung ist aktuell"
 
@@ -1784,7 +1786,9 @@ msgstr "Übersetzung ist aktuell"
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html cms/templates/pois/poi_list_row.html
+#: cms/templates/pages/page_tree_node.html
+#: cms/templates/pois/poi_list_archived_row.html
+#: cms/templates/pois/poi_list_row.html
 msgid "Currently in translation"
 msgstr "Wird derzeit übersetzt"
 
@@ -1792,7 +1796,9 @@ msgstr "Wird derzeit übersetzt"
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html cms/templates/pois/poi_list_row.html
+#: cms/templates/pages/page_tree_node.html
+#: cms/templates/pois/poi_list_archived_row.html
+#: cms/templates/pois/poi_list_row.html
 msgid "Translation outdated"
 msgstr "Übersetzung ist veraltet"
 
@@ -1801,6 +1807,7 @@ msgstr "Übersetzung ist veraltet"
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pages/page_tree_node.html
 #: cms/templates/poicategories/poicategory_list_row.html
+#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Translation missing"
 msgstr "Übersetzung fehlt"
@@ -1809,6 +1816,7 @@ msgstr "Übersetzung fehlt"
 #: cms/templates/events/event_list_row.html
 #: cms/templates/pages/page_tree_node.html
 #: cms/templates/pages/page_xliff_import_view.html
+#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Machine translated"
 msgstr "Maschinelle Übersetzung"
@@ -2034,7 +2042,6 @@ msgstr "Kategorie"
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/pages/page_sbs.html
 #: cms/templates/pages/page_tree_archived.html
-#: cms/templates/pois/poi_list_archived.html
 #: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/regions/region_list.html
 msgid "Status"
@@ -2615,8 +2622,7 @@ msgstr "Titel nicht übersetzen"
 #: cms/models/abstract_content_model.py
 msgid ""
 "Tick if you do not want to translate the title by automatic translation."
-msgstr ""
-"Kreuzen Sie an, wenn Sie den Titel nicht übersetzen wollen."
+msgstr "Kreuzen Sie an, wenn Sie den Titel nicht übersetzen wollen."
 
 #: cms/models/abstract_content_translation.py
 #: cms/models/push_notifications/push_notification_translation.py
@@ -4683,6 +4689,7 @@ msgstr ""
 
 #: cms/templates/_form_language_tabs.html
 #: cms/templates/events/event_list_row.html
+#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Default language is duplicated"
 msgstr "Standard-Sprache wird dupliziert"
@@ -7314,8 +7321,16 @@ msgid "Logo"
 msgstr "Logo"
 
 #: cms/templates/organizations/organization_list.html
+msgid "No archived organizations found with these filters."
+msgstr "Keine archivierten Organisationen mit diesen Filtern gefunden."
+
+#: cms/templates/organizations/organization_list.html
 msgid "No archived organizations."
 msgstr "Keine archivierten Organisationen."
+
+#: cms/templates/organizations/organization_list.html
+msgid "No organizations found with these filters."
+msgstr "Keine Organisationen mit diesen Filtern gefunden."
 
 #: cms/templates/organizations/organization_list.html
 msgid "No organizations available yet."
@@ -8103,6 +8118,10 @@ msgstr "Orte archivieren"
 #: cms/templates/pois/poi_list_archived.html
 msgid "Back to locations"
 msgstr "Zurück zu Orte"
+
+#: cms/templates/pois/poi_list_archived.html
+msgid "Publication Status"
+msgstr "Veröffentlichungsstatus"
 
 #: cms/templates/pois/poi_list_archived.html
 msgid "No locations archived yet."
