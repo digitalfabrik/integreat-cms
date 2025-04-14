@@ -111,6 +111,31 @@ class Contact(AbstractBaseModel):
             .order_by("-rank")
         )
 
+    @classmethod
+    def search_for_query(cls, region: Region, query: str) -> QuerySet:
+        vector = SearchVector(
+            "name",
+            "email",
+            "phone_number",
+            "mobile_phone_number",
+            "website",
+            "area_of_responsibility",
+        )
+        location_vector = SearchVector(
+            "location__translations__title",
+            "location__address",
+            "location__postcode",
+            "location__city",
+        )
+        vector = contact_vector + location_vector
+
+        return (
+            cls.objects.filter(location__region=region)
+            .annotate(search=vector)
+            .filter(search__icontains=query)
+            .distinct()
+        )
+
     def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Contact object (id)``.
