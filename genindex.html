@@ -389,6 +389,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.matomo_api.html">Matomo API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#matomo-api-client">Matomo API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.nominatim_api.html">Nominatim API</a><ul>
@@ -1289,6 +1290,11 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.matomo_api_client">Matomo API Client</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoException"><code class="docutils literal notranslate"><span class="pre">MatomoException</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug"><code class="docutils literal notranslate"><span class="pre">async_get_translation_slug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug"><code class="docutils literal notranslate"><span class="pre">get_translation_slug()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -5847,6 +5853,8 @@
       <li><a href="ref-ext/tests.html#tests.utils.assert_no_error_messages">assert_no_error_messages() (in module tests.utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.apps.DeepLApiClientConfig.assert_usage_limit_not_reached">assert_usage_limit_not_reached() (integreat_cms.deepl_api.apps.DeepLApiClientConfig static method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug">async_get_translation_slug() (in module integreat_cms.matomo_api.utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.chat_bot.async_process_translate">async_process_translate() (in module integreat_cms.api.v3.chat.utils.chat_bot)</a>
 </li>
@@ -13765,6 +13773,12 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.get_outdated_translations">get_outdated_translations() (integreat_cms.cms.models.pages.page_translation.PageTranslation class method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_page_accesses">get_page_accesses() (integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.views.statistics.html#integreat_cms.cms.views.statistics.statistics_actions.get_page_accesses_ajax">get_page_accesses_ajax() (in module integreat_cms.cms.views.statistics.statistics_actions)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_page_accesses_async">get_page_accesses_async() (integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_actions.get_page_content_ajax">get_page_content_ajax() (in module integreat_cms.cms.views.pages.page_actions)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_actions.get_page_order_table_ajax">get_page_order_table_ajax() (in module integreat_cms.cms.views.pages.page_actions)</a>
@@ -15290,6 +15304,8 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.utils.html#integreat_cms.cms.views.utils.hix.get_translation_over_hix_threshold">get_translation_over_hix_threshold() (in module integreat_cms.cms.views.utils.hix)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug">get_translation_slug() (in module integreat_cms.matomo_api.utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_translation_state">get_translation_state() (integreat_cms.cms.models.abstract_content_model.AbstractContentModel method)</a>
 
@@ -19225,8 +19241,6 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.password_reset_confirm_view">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication.password_reset_view
 
@@ -19234,6 +19248,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.password_reset_view">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication.passwordless_login_view
 
@@ -20723,6 +20739,13 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.matomo_api_client">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.matomo_api.utils
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">module</a>
 </li>
       </ul></li>
       <li>
@@ -23756,6 +23779,8 @@
         <li><a href="ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.apps">integreat_cms.matomo_api.apps</a>
 </li>
         <li><a href="ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.matomo_api_client">integreat_cms.matomo_api.matomo_api_client</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">integreat_cms.matomo_api.utils</a>
 </li>
         <li><a href="ref-ext/integreat_cms.nominatim_api.html#module-integreat_cms.nominatim_api">integreat_cms.nominatim_api</a>
 </li>
@@ -29278,6 +29303,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_bulk_actions.RestoreContactBulkAction">RestoreContactBulkAction (class in integreat_cms.cms.views.contacts.contact_bulk_actions)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.retrieve_accesses_for_page">retrieve_accesses_for_page() (integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.reverse">reverse() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
 
       <ul>
@@ -31125,8 +31152,6 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.template_archived">(integreat_cms.cms.views.feedback.region_feedback_list_view.RegionFeedbackListView attribute)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_tree_view.PageTreeView.template_archived">(integreat_cms.cms.views.pages.page_tree_view.PageTreeView attribute)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.template_archived">(integreat_cms.cms.views.pois.poi_list_view.POIListView attribute)</a>
 </li>
       </ul></li>
@@ -32124,10 +32149,10 @@
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_success">test_api_chat_get_messages_success() (in module tests.api.test_api_chat)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_server_error">test_api_chat_incorrect_server_error() (in module tests.api.test_api_chat)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_missing_auth_error">test_api_chat_missing_auth_error() (in module tests.api.test_api_chat)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting">test_api_chat_ratelimiting() (in module tests.api.test_api_chat)</a>
