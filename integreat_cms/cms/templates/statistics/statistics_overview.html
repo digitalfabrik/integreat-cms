@@ -21,5 +21,8 @@
                 </div>
             </div>
         </div>
+        {% if perms.cms.test_beta_features %}
+            {% include "../tutorials/page_access_statistics.html" with tutorial_id="page-access-statistics-info" hidden=tutorial_seen %}
+        {% endif %}
     {% endblock content %}
 {% endif %}
