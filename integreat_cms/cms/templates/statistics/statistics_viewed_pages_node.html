@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load content_filters %}
+{% load page_filters %}
+{% load tree_filters %}
+{% load rules %}
+<tr id="page-{{ page.id }}"
+    data-drop-id="{{ page.id }}"
+    data-drop-position="last-child"
+    class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %}hidden parent-page-{{ parent_id }}{% endif %}">
+    {% include "pages/_generic_page_tree_node.html" %}
+    <td class="flex items-stretch accesses px-2"
+        data-no-data="{% translate "This page has no accesses in the selected time span" %}">
+        <div class="page-accesses-loading px-4">
+            <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
+        </div>
+        {% for language in languages %}
+            <span data-language-color="{{ language.language_color }}"
+                  data-language-slug="{{ language.slug }}"
+                  data-access-translation="{% translate "Accesses" %}"
+                  class="cursor-pointer bg-[{{ language.language_color }}] h-9">
+            </span>
+        {% endfor %}
+    </td>
+    <td class="total-accesses font-bold ml-4"
+        data-translation="{% translate "Accesses in total" %}">
+    </td>
+</tr>

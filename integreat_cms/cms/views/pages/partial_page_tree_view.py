@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from ast import literal_eval
 from collections import defaultdict
 
 from django.http import HttpRequest, JsonResponse
@@ -15,16 +16,21 @@ from ..pages.page_context_mixin import PageContextMixin
 
 @permission_required("cms.view_page")
 @require_POST
+# pylint: disable=unused-argument, too-many-locals
 def render_partial_page_tree_views(
     request: HttpRequest,
     region_slug: str,
     language_slug: str,
+    is_archive: str,
+    is_statistics: str,
 ) -> JsonResponse:
     r"""
     Retrieve the rendered subtree of a given root page
 
     :param request: The current request
     :param language_slug: The slug of the current language
+    :param is_archive: True when only archive pages are requested, False otherwise
+    :param is_statistics: True when this page tree is for statistics, if for pages it's False
     :return: The rendered template responses
     """
     requested_tree_ids = [int(i) for i in json.loads(request.body.decode("utf-8"))]
@@ -32,13 +38,24 @@ def render_partial_page_tree_views(
     region = request.region
     language = region.get_language_or_404(language_slug, only_active=True)
 
+    # Convert is_archive from String to Boolean
+    is_archive = literal_eval(is_archive)
+
+    # Convert is_statistics from String to Boolean
+    is_statistics = literal_eval(is_statistics)
+
+    if is_statistics:
+        row_template = "statistics/statistics_viewed_pages_node.html"
+    if not is_statistics and not is_archive:
+        row_template = "pages/pages_page_tree_node.html"
+
     backend_language = Language.objects.filter(slug=get_language()).first()
 
     all_pages = (
         region.pages.filter(tree_id__in=requested_tree_ids)
         .prefetch_major_translations()
         .prefetch_related("mirroring_pages")
-        .cache_tree(archived=False)
+        .cache_tree(archived=is_archive)
     )
 
     pages_by_id = defaultdict(list)
@@ -66,6 +83,9 @@ def render_partial_page_tree_views(
                     "language": language,
                     "languages": region.active_languages,
                     "parent_id": parent.id,
+                    "is_archive": is_archive,
+                    "is_statistics": is_statistics,
+                    "row_template": row_template,
                 },
                 request,
             ),

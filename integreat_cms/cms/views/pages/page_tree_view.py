@@ -32,9 +32,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
     """
 
     #: Template for list of non-archived pages
-    template = "pages/page_tree.html"
-    #: Template for list of archived pages
-    template_archived = "pages/page_tree_archived.html"
+    template = "pages/pages_page_tree.html"
     #: Whether or not to show archived pages
     archived = False
     #: The translation model of this list view (used to determine whether machine translations are permitted)
@@ -110,8 +108,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                 )
             else:
                 messages.warning(
-                    request,
-                    _("You don't have the permission to edit or create pages."),
+                    request, _("You don't have the permission to edit or create pages.")
                 )
 
         # Initialize page filter form
@@ -137,7 +134,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
 
         return render(
             request,
-            self.template_name,
+            self.template,
             {
                 **self.get_context_data(**kwargs),
                 "pages": pages,
@@ -155,5 +152,6 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                     currently_in_translation=True,
                 ).count()
                 > 0,
+                "is_archive": self.archived,
             },
         )
