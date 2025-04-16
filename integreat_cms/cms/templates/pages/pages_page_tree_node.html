@@ -121,22 +121,22 @@
                 <i icon-name="eye"></i>
             </button>
         {% endif %}
-        {% if page_translation.status == PUBLIC %}
-            <a href="{{ WEBAPP_URL }}{{ page_translation.get_absolute_url }}"
-               rel="noopener noreferrer"
-               target="_blank"
-               title="{% translate "Open page in web app" %}"
-               class="btn-icon">
-                <i icon-name="external-link"></i>
-            </a>
-        {% else %}
-            <button title="{% translate "This page cannot be opened in the web app, because it is not public." %}"
-                    class="btn-icon"
-                    disabled>
-                <i icon-name="external-link"></i>
-            </button>
-        {% endif %}
         {% if not is_archive %}
+            {% if page_translation.status == PUBLIC %}
+                <a href="{{ WEBAPP_URL }}{{ page_translation.get_absolute_url }}"
+                   rel="noopener noreferrer"
+                   target="_blank"
+                   title="{% translate "Open page in web app" %}"
+                   class="btn-icon">
+                    <i icon-name="external-link"></i>
+                </a>
+            {% else %}
+                <button title="{% translate "This page cannot be opened in the web app, because it is not public." %}"
+                        class="btn-icon"
+                        disabled>
+                    <i icon-name="external-link"></i>
+                </button>
+            {% endif %}
             <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
                title="{% translate "Edit page" %}"
                class="btn-icon">
@@ -144,50 +144,40 @@
             </a>
         {% endif %}
         {% has_perm 'cms.publish_page_object' request.user as can_publish_pages %}
-        {% if can_publish_pages %}
+        {% if not is_archive and can_publish_pages %}
             {% if page.mirroring_pages.exists %}
                 <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
                         class="btn-icon"
                         disabled>
-                    <i icon-name="external-link"></i>
+                    <i icon-name="archive"></i>
+                </button>
+            {% else %}
+                <button title="{% translate "Archive page" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ archive_dialog_title }}"
+                        data-confirmation-text="{{ archive_dialog_text }}"
+                        data-confirmation-subject="{{ page.best_translation.title }}"
+                        data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="archive"></i>
                 </button>
             {% endif %}
-            {% if can_edit_pages %}
-                {% if page.mirroring_pages.exists %}
-                    <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
-                            class="btn-icon"
-                            disabled>
-                        <i icon-name="archive"></i>
-                    </button>
-                {% else %}
-                    <button title="{% translate "Archive page" %}"
-                            class="confirmation-button btn-icon"
-                            data-confirmation-title="{{ archive_dialog_title }}"
-                            data-confirmation-text="{{ archive_dialog_text }}"
-                            data-confirmation-subject="{{ page.best_translation.title }}"
-                            data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                        <i icon-name="archive"></i>
-                    </button>
-                {% endif %}
-            {% endif %}
-        {% else %}
-            {% if can_edit_pages %}
-                {% if page.explicitly_archived %}
-                    <button title="{% translate "Restore page" %}"
-                            class="confirmation-button btn-icon"
-                            data-confirmation-title="{{ restore_dialog_title }}"
-                            data-confirmation-text="{{ restore_dialog_text }}"
-                            data-confirmation-subject="{{ page.best_translation.title }}"
-                            data-action="{% url 'restore_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                        <i icon-name="refresh-ccw"></i>
-                    </button>
-                {% else %}
-                    <a title="{% translate "To restore this page, you have to restore its archived parent page." %}"
-                       class="btn-icon"
-                       disabled>
-                        <i icon-name="refresh-ccw"></i>
-                    </a>
-                {% endif %}
+        {% endif %}
+        {% if is_archive and can_edit_pages %}
+            {% if page.explicitly_archived %}
+                <button title="{% translate "Restore page" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ restore_dialog_title }}"
+                        data-confirmation-text="{{ restore_dialog_text }}"
+                        data-confirmation-subject="{{ page.best_translation.title }}"
+                        data-action="{% url 'restore_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="refresh-ccw"></i>
+                </button>
+            {% else %}
+                <a title="{% translate "To restore this page, you have to restore its archived parent page." %}"
+                   class="btn-icon"
+                   disabled>
+                    <i icon-name="refresh-ccw"></i>
+                </a>
             {% endif %}
         {% endif %}
         {% if perms.cms.delete_page %}
