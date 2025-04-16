@@ -8,8 +8,8 @@ from django.template.loader import render_to_string
 from django.views.generic import TemplateView
 
 from ...forms import POIForm, POITranslationForm
-from ...models import Language, POITranslation
-from ...models.pois.poi import get_default_opening_hours, POI
+from ...models import Language
+from ...models.pois.poi import get_default_opening_hours
 from .poi_context_mixin import POIContextMixin
 
 if TYPE_CHECKING:
@@ -63,19 +63,13 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
         language_slug = kwargs.get("language_slug")
         language = get_object_or_404(Language, slug=language_slug)
 
-        poi_instance = POI.objects.filter(id=None).first()
-        poi_translation_instance = POITranslation.objects.filter(
-            poi=poi_instance,
-            language=language,
-        ).first()
-
         data = request.POST.dict()
         data["opening_hours"] = get_default_opening_hours()
 
         poi_form = POIForm(
             data=data,
             files=request.FILES,
-            instance=poi_instance,
+            instance=None,
             additional_instance_attributes={
                 "region": region,
             },
@@ -83,7 +77,7 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
 
         poi_translation_form = POITranslationForm(
             data=request.POST,
-            instance=poi_translation_instance,
+            instance=None,
             additional_instance_attributes={
                 "creator": request.user,
                 "language": language,
