@@ -136,11 +136,13 @@
                 <i icon-name="external-link"></i>
             </button>
         {% endif %}
-        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-           title="{% translate "Edit page" %}"
-           class="btn-icon">
-            <i icon-name="pencil"></i>
-        </a>
+        {% if not is_archive %}
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+               title="{% translate "Edit page" %}"
+               class="btn-icon">
+                <i icon-name="pencil"></i>
+            </a>
+        {% endif %}
         {% has_perm 'cms.publish_page_object' request.user as can_publish_pages %}
         {% if can_publish_pages %}
             {% if page.mirroring_pages.exists %}
@@ -150,11 +152,6 @@
                     <i icon-name="external-link"></i>
                 </button>
             {% endif %}
-            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-               title="{% translate "Edit page" %}"
-               class="btn-icon">
-                <i icon-name="pen-square"></i>
-            </a>
             {% if can_edit_pages %}
                 {% if page.mirroring_pages.exists %}
                     <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
