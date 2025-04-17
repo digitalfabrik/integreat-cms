@@ -78,15 +78,14 @@ const OpeningHoursWidget = ({ translations, days, initial, canChangeLocation, up
 };
 export default OpeningHoursWidget;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let setOpeningHours = (data: OpeningHours[]) => {
     /* we can't do anything with it yet */
 };
 
 export const resetOpeningHoursListener = () => {
-    document.querySelectorAll("opening-hours-widget").forEach((el) => {
-        const openingHourLocationData = JSON.parse(document.getElementById("openingHourLocationData").textContent);
-        setOpeningHours(openingHourLocationData);
-    });
+    const openingHourLocationData = JSON.parse(document.getElementById("openingHourLocationData").textContent);
+    setOpeningHours(openingHourLocationData);
 };
 
 export const addOpeningHoursDataChangedListener = () => {
@@ -118,10 +117,10 @@ export const addOpeningHoursListener = () => {
     document.getElementById("id_use_location_opening_hours").addEventListener("change", (e) => {
         // Only reset if we changed to adopt the opening hours from the location
         if ((e.target as HTMLInputElement).checked) {
-            updateLatch++;
-            let thisTimeAround = updateLatch;
+            updateLatch += 1;
+            const thisTimeAround = updateLatch;
             setTimeout(() => {
-                if (updateLatch == thisTimeAround) {
+                if (updateLatch === thisTimeAround) {
                     updateLatch = 0;
                 }
             }, 1);
@@ -132,7 +131,7 @@ export const addOpeningHoursListener = () => {
     const observer = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
             if (mutation.type === "childList" || mutation.type === "attributes" || mutation.type === "characterData") {
-                if (updateLatch == 0) {
+                if (updateLatch === 0) {
                     addOpeningHoursDataChangedListener();
                 }
             }
