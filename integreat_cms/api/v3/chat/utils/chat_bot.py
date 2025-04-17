@@ -204,7 +204,8 @@ def celery_translate_question(
     message_text: str, region_slug: str, zammad_ticket_id: int
 ) -> None:
     """
-    Process translation of app user questions
+    Process translation of app user questions, for example if automatic
+    answers are disabled.
 
     :param message_text: Message text that should be translated
     :param region_slug: region used in webhook
