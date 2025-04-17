@@ -92,8 +92,20 @@ async def async_process_user_message(
         return translation, answer
 
 
+def filter_messages(message_timestamp: datetime, zammad_chat: UserChat):
+    """
+    Prevent a race condition where new articles can be added to a ticket
+    while the webhook has not yet sent to and processed by the Integreat CMS
+    """
+    return [
+        message
+        for message in zammad_chat.messages
+        if datetime.fromisoformat(message["created_at"]) <= message_timestamp
+    ]
+
+
 @shared_task
-def process_user_message(
+def celery_translate_and_answer_question(
     message_timestamp: datetime,
     region_slug: str,
     zammad_ticket_id: int,
@@ -109,13 +121,7 @@ def process_user_message(
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
     zammad_chat.processing_answer = True
-    # Prevent a race condition where new articles can be added to a ticket
-    # while the webhook has not yet sent to and processed by the Integreat CMS
-    messages = [
-        message
-        for message in zammad_chat.messages
-        if datetime.fromisoformat(message["created_at"]) <= message_timestamp
-    ]
+    messages = filter_messages(message_timestamp, zammad_chat)
     translation, answer = asyncio.run(
         async_process_user_message(
             zammad_chat.language.slug,
@@ -150,6 +156,10 @@ async def async_process_translate(
 ) -> dict:
     """
     Process automatic or counselor answers
+
+    :param message_text: Message text that should be translated
+    :param source_language: source language of the message to be translated
+    :param target_language: target language of the message to be translated
     """
     async with aiohttp.ClientSession() as session:
         translation_task = automatic_translation(
@@ -162,11 +172,15 @@ async def async_process_translate(
 
 
 @shared_task
-def process_translate_answer(
+def celery_translate_answer(
     message_text: str, region_slug: str, zammad_ticket_id: int
 ) -> None:
     """
     Process automatic or counselor answers. These messages just need a translation.
+
+    :param message_text: Message text that should be translated
+    :param region_slug: region used in webhook
+    :param zammad_ticket_id: Ticket ID contained in webhook request
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
@@ -186,11 +200,16 @@ def process_translate_answer(
 
 
 @shared_task
-def process_translate_question(
+def celery_translate_question(
     message_text: str, region_slug: str, zammad_ticket_id: int
 ) -> None:
     """
-    Process translation of app user questions
+    Process translation of app user questions, for example if automatic
+    answers are disabled.
+
+    :param message_text: Message text that should be translated
+    :param region_slug: region used in webhook
+    :param zammad_ticket_id: Ticket ID contained in webhook request
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
