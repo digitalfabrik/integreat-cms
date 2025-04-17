@@ -9,15 +9,17 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
+from django.db.models.signals import post_save
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+from ....core.signals.contact_signals import contact_save_handler
 from ...constants import status, text_directions
 from ...decorators import permission_required
 from ...forms import ContactForm, POIForm, POITranslationForm
-from ...models import Language, POI, POITranslation
+from ...models import Contact, Language, POI, POITranslation
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
@@ -193,6 +195,18 @@ class POIFormView(
             poi_translation_instance = poi_translation_form.save(
                 foreign_form_changed=poi_form.has_changed(),
             )
+
+            # Send the post save signal of contact model to trigger contact card update
+            if "address" in poi_form.changed_data and (
+                related_contacts := poi.contacts.all()
+            ):
+                for contact in related_contacts:
+                    post_save.send(
+                        sender=Contact,
+                        instance=contact,
+                        created=False,
+                        using=contact_save_handler,
+                    )
 
             data = request.POST.dict()
             data.update({"location": poi.id})
