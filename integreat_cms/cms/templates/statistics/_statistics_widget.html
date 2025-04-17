@@ -31,7 +31,9 @@
         <div id="chart-loading" class="px-4 hidden">
             <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
         </div>
-        <canvas id="statistics"
-                data-statistics-url="{% url 'statistics_total_visits' region_slug=request.region.slug %}"></canvas>
+        <div class="chart-container w-auto h-[45vh]">
+            <canvas id="statistics"
+                    data-statistics-url="{% url 'statistics_total_visits' region_slug=request.region.slug %}"></canvas>
+        </div>
     </div>
 {% endblock collapsible_box_content %}
