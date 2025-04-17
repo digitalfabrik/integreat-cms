@@ -91,6 +91,16 @@ async def async_process_user_message(
         translation, answer = await asyncio.gather(translation_task, answer_task)
         return translation, answer
 
+def filter_messages(message_timestamp: datetime, zammad_chat: UserChat):
+    """
+    Prevent a race condition where new articles can be added to a ticket
+    while the webhook has not yet sent to and processed by the Integreat CMS
+    """
+    return [
+        message
+        for message in zammad_chat.messages
+        if datetime.fromisoformat(message["created_at"]) <= message_timestamp
+    ]
 
 @shared_task
 def celery_process_user_message(
@@ -109,13 +119,7 @@ def celery_process_user_message(
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
     zammad_chat.processing_answer = True
-    # Prevent a race condition where new articles can be added to a ticket
-    # while the webhook has not yet sent to and processed by the Integreat CMS
-    messages = [
-        message
-        for message in zammad_chat.messages
-        if datetime.fromisoformat(message["created_at"]) <= message_timestamp
-    ]
+    messages = filter_messages(message_timestamp, zammad_chat)
     translation, answer = asyncio.run(
         async_process_user_message(
             zammad_chat.language.slug,
