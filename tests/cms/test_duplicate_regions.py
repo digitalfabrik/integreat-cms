@@ -64,6 +64,7 @@ def test_duplicate_regions(
             "zammad_url": "https://zammad-test.example.com",
             "timezone": "Europe/Berlin",
             "mt_renewal_month": 6,
+            "summ_ai_renewal_month": 6,
         },
     )
     assert response.status_code == 302
@@ -237,6 +238,7 @@ def test_duplicate_regions_no_translations(
             "zammad_url": "https://zammad-test.example.com",
             "timezone": "Europe/Berlin",
             "mt_renewal_month": 6,
+            "summ_ai_renewal_month": 6,
         },
     )
     assert response.status_code == 302

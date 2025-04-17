@@ -276,6 +276,9 @@
                 </div>
                 <div class="pt-2">
                     <!-- Options related to SUMM.AI -->
+                    <label>
+                        {% trans "Simplified language machine translation" %}
+                    </label>
                     {% render_field form.summ_ai_enabled class+="inline-block" %}
                     <label for="{{ form.summ_ai_enabled.id_for_label }}" class="!inline">
                         {{ form.summ_ai_enabled.label }}
@@ -291,6 +294,63 @@
                             </p>
                         </div>
                     {% endif %}
+                    {% if form.instance.id %}
+                        <div class="max-w-xs">
+                            <div class="flex flex-wrap justify-between">
+                                <label class="secondary m-0">
+                                    {% trans "Current total budget" %}:
+                                </label>
+                                <p>
+                                    {{ form.instance.summ_ai_budget|intcomma }}
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap justify-between">
+                                <label class="secondary m-0">
+                                    {% trans "Already used" %}:
+                                </label>
+                                <p>
+                                    {{ form.instance.summ_ai_budget_used|intcomma }}
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap justify-between">
+                                <label class="secondary m-0">
+                                    {% trans "Remaining words" %}:
+                                </label>
+                                <p>
+                                    {{ form.instance.summ_ai_budget_remaining|intcomma }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <label for="{{ form.summ_ai_renewal_month.id_for_label }}" class="secondary">
+                        {{ form.summ_ai_renewal_month.label }}
+                    </label>
+                    {% render_field form.summ_ai_renewal_month %}
+                    <div class="help-text">
+                        {{ form.summ_ai_renewal_month.help_text }}
+                    </div>
+                    <div id="summ-ai-toggle-div"
+                         {% if form.summ_ai_enabled.field.disabled %}class="hidden"{% endif %}>
+                        {% render_field form.summ_ai_midyear_start_enabled %}
+                        <label for="{{ form.summ_ai_midyear_start_enabled.id_for_label }}"
+                               class="secondary">
+                            {{ form.summ_ai_midyear_start_enabled.label }}
+                        </label>
+                        <div class="help-text">
+                            {{ form.summ_ai_midyear_start_enabled.help_text }}
+                        </div>
+                        <div id="summ-ai-renewal-toggle-div"
+                             {% if not form.instance.summ_ai_midyear_start_enabled %}class="hidden"{% endif %}>
+                            <label for="{{ form.summ_ai_midyear_start_month.id_for_label }}"
+                                   class="secondary">
+                                {{ form.summ_ai_midyear_start_month.label }}
+                            </label>
+                            {% render_field form.summ_ai_midyear_start_month %}
+                            <div class="help-text">
+                                {{ form.summ_ai_midyear_start_month.help_text }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <!-- Options related to HIX text analysis -->
@@ -327,7 +387,7 @@
                             </div>
                             <div class="flex flex-wrap justify-between">
                                 <label class="secondary m-0">
-                                    {% trans "Already consumed" %}:
+                                    {% trans "Already used" %}:
                                 </label>
                                 <p>
                                     {{ form.instance.mt_budget_used|intcomma }}
