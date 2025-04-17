@@ -73,9 +73,7 @@ class ContactForm(CustomModelForm):
         """
 
         cleaned_data = super().clean()
-
-        if self.cleaned_data["use_location_opening_hours"]:
-            self.cleaned_data["opening_hours"] = None
+        self.cleaned_data["opening_hours"] = self.validate_opening_hours()
 
         if (location := cleaned_data.get("location")) and location.archived:
             self.add_error(
@@ -89,13 +87,14 @@ class ContactForm(CustomModelForm):
             )
         return cleaned_data
 
-    def clean_opening_hours(self) -> list[dict[str, Any]]:
+    def validate_opening_hours(self) -> list[dict[str, Any]] | None:
         """
         Validate the opening hours field (see :ref:`overriding-modelform-clean-method`).
 
         :return: The valid opening hours
         """
-        # TODO: make sure we don't complain about invalid data when we throw it away because the use location opening hours toggle was active anyway?
+        if self.cleaned_data["use_location_opening_hours"]:
+            return None
 
         # Only show generic error message because users cannot directly modify the JSON input
         generic_error = __(
