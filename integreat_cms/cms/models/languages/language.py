@@ -203,6 +203,24 @@ class Language(AbstractBaseModel):
         """
         return self.slug not in settings.PDF_DEACTIVATED_LANGUAGES
 
+    @classmethod
+    def search(cls, query: str) -> QuerySet:
+        """
+        Searches for all languages which match the given `query` in their native name or english name.
+        :param query: The query string used for filtering the languages
+        :return: A query for all matching objects
+        """
+        result = []
+        for language in cls.objects.all():
+            if (
+                query.lower() in language.native_name.lower()
+                or query.lower() in language.english_name.lower()
+                or query.lower() in language.translated_name.lower()
+            ):
+                result += [language.id]
+
+        return cls.objects.filter(id__in=result)
+
     def save(self, *args: Any, **kwargs: Any) -> None:
         r"""
         This overwrites the default Django :meth:`~django.db.models.Model.save` method,

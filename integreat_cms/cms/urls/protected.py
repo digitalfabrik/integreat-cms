@@ -41,6 +41,7 @@ from ..views import (
     form_views,
     imprint,
     language_tree,
+    languages,
     linkcheck,
     list_views,
     media,
@@ -325,11 +326,7 @@ urlpatterns: list[URLPattern] = [
             [
                 path(
                     "",
-                    list_views.ModelListView.as_view(
-                        queryset=Language.objects.all().prefetch_related(
-                            "language_tree_nodes",
-                        ),
-                    ),
+                    languages.LanguageListView.as_view(),
                     name="languages",
                 ),
                 path(
