@@ -343,6 +343,7 @@ RESPONSE
                 "name": String,              // The name of the contact
                 "email": String,             // An email address of the contact
                 "phone_number": String,      // A phone number of the contact
+                "mobile_number": String,     // An additional mobile number
                 "website": String,           // The website of the contact
             },
          ],
