@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from lxml.html import tostring
 
-from ...constants import status
+from ...constants import region_status, status
 from ...models import (
     Directory,
     EventTranslation,
@@ -221,13 +221,17 @@ def search_content_ajax(  # noqa: PLR0915, PLR0912, C901
         object_types.remove("region")
         if not user.has_perm("cms.view_region"):
             raise PermissionDenied
+
+        regions = Region.search(query)
+        if archived_flag:
+            regions = regions.exclude(status=region_status.ARCHIVED)
         results.extend(
             {
                 "title": region.name,
                 "url": None,
                 "type": "region",
             }
-            for region in Region.search(query)
+            for region in regions
         )
 
     if "user" in object_types:
