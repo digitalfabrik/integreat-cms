@@ -91,6 +91,7 @@ async def async_process_user_message(
         translation, answer = await asyncio.gather(translation_task, answer_task)
         return translation, answer
 
+
 def filter_messages(message_timestamp: datetime, zammad_chat: UserChat):
     """
     Prevent a race condition where new articles can be added to a ticket
@@ -102,8 +103,9 @@ def filter_messages(message_timestamp: datetime, zammad_chat: UserChat):
         if datetime.fromisoformat(message["created_at"]) <= message_timestamp
     ]
 
+
 @shared_task
-def celery_process_user_message(
+def celery_translate_and_answer_question(
     message_timestamp: datetime,
     region_slug: str,
     zammad_ticket_id: int,
