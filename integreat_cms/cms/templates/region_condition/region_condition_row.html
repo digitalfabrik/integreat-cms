@@ -2,20 +2,30 @@
 {% load rules %}
 {% load content_filters %}
 {% load hix_pages %}
+{% load link_checker %}
+{% load pages_outdated_or_missing_translation %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
-    <td>
-        <a class="py-3 pl-4 text-blue-500 hover:underline"
+    <td class="py-3 pl-4">
+        <a class="text-blue-500 hover:underline"
            href="{% url "dashboard" region_slug=region.slug %}">{{ region.get_administrative_division_display }} {{ region.name }}</a>
+    </td>
+    <td class="text-center py-3 pr-2">
+        {% get_broken_links region as broken_links %}
+        {{ broken_links }}
+    </td>
+    <td class="text-center py-3 pr-2">
+        {% get_translations_under_hix_threshold region as translations %}
+        {{ translations|length }}
     </td>
     <td class="text-center py-3 pr-2">
         {{ region.get_pages.count }}
     </td>
     <td class="text-center py-3 pr-2">
-        {{ region.outdated_pages.count }}
+        {% get_partially_translated_pages region as outdated_or_missing_translation %}
+        {{ outdated_or_missing_translation }}
     </td>
     <td class="text-center py-3 pr-2">
-        {% get_translations_under_hix_threshold region as translations %}
-        {{ translations|length }}
+        {{ region.outdated_pages.count }}
     </td>
     <td class="text-center py-3 pr-2">
         {{ region.active_languages_without_default_language|length }}
