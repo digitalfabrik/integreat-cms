@@ -28,20 +28,10 @@ class RegionFeedbackListView(TemplateView):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template = "feedback/region_feedback_list.html"
-    template_archived = "feedback/region_feedback_list_archived.html"
+    template_name = "feedback/region_feedback_list.html"
 
     #: Whether or not to show archived feedback
     archived = False
-
-    @property
-    def template_name(self) -> str:
-        """
-        Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.archived` flag
-        (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-        :return: Path to HTML template
-        """
-        return self.template_archived if self.archived else self.template
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
@@ -52,8 +42,6 @@ class RegionFeedbackListView(TemplateView):
         :param \**kwargs: The supplied keyword arguments
         :return: The rendered template response
         """
-
-        # current region
         region = request.region
 
         region_feedback = Feedback.objects.filter(
@@ -85,5 +73,6 @@ class RegionFeedbackListView(TemplateView):
                 ).count(),
                 "filter_form": filter_form,
                 "search_query": query,
+                "is_archive": self.archived,
             },
         )
