@@ -108,7 +108,6 @@ class ZammadAPI:
             "status",
             "error",
             "id",
-            "body",
             "user_is_author",
             "automatic_answer",
             "role",
