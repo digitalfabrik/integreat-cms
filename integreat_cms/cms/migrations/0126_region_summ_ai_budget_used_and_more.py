@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0123_allow_svg_uploads"),
+        ("cms", "0125_add_statistics_tutorial_seen_to_user"),
     ]
 
     operations = [
