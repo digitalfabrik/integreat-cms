@@ -6,10 +6,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 from unittest.mock import patch
+from contextlib import contextmanager
 
 import pytest
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
+from django.db import DEFAULT_DB_ALIAS, connections
 from django.test.client import AsyncClient, Client
 
 from integreat_cms.cms.constants.roles import (
@@ -90,7 +92,8 @@ def load_test_data_transactional(
 @pytest.fixture(scope="session", params=ALL_ROLES)
 def login_role_user(
     request: SubRequest,
-    load_test_data: None,
+    #load_test_data: None,
+    test_data_db_snapshot: None,
     django_db_blocker: _DatabaseBlocker,
 ) -> tuple[Client, str]:
     """
@@ -113,7 +116,8 @@ def login_role_user(
 @pytest.fixture(scope="session", params=ALL_ROLES)
 def login_role_user_async(
     request: SubRequest,
-    load_test_data: None,
+    #load_test_data: None,
+    test_data_db_snapshot: None,
     django_db_blocker: _DatabaseBlocker,
 ) -> tuple[AsyncClient, str]:
     """
@@ -152,3 +156,65 @@ def mock_firebase_credentials() -> Generator[None, None, None]:
     yield
 
     patch_obj.stop()
+
+
+@pytest.fixture(scope="session")
+def empty_db_snapshot(django_db_setup: None, django_db_blocker: _DatabaseBlocker) -> Generator[None, None, None]:
+    yield from snapshot_db(django_db_blocker, suffix="empty")
+
+@pytest.fixture(scope="session")
+def test_data_db_snapshot(empty_db_snapshot: None, django_db_blocker: _DatabaseBlocker) -> Generator[None, None, None]:
+    with contextmanager(snapshot_db)(django_db_blocker, suffix="testdata"):
+        # loading it in here instead of sub-requesting the load_test_data fixture
+        # means we don't mess up the parent scope and don't need an additional layer of isolation (snapshot)
+        with django_db_blocker.unblock():
+            call_command("loaddata", "integreat_cms/cms/fixtures/test_roles.json")
+            call_command("loaddata", "integreat_cms/cms/fixtures/test_data.json")
+        yield
+
+@pytest.fixture(scope="function")
+def db_snapshot(transactional_db: None, django_db_blocker: _DatabaseBlocker) -> Generator[None, None, None]:
+    yield from snapshot_db(django_db_blocker, suffix="snap")
+
+
+def snapshot_db(django_db_blocker: _DatabaseBlocker, suffix="snap", databases=(DEFAULT_DB_ALIAS,)) -> Generator[None, None, None]:
+    prev_settings = {}
+    test_database_name = None
+
+    with django_db_blocker.unblock():
+        for db_name in databases:
+            conn = connections[db_name]
+            prev_settings[db_name] = conn.settings_dict
+            test_database_name = conn.settings_dict["NAME"]
+
+            # SQLite in-memory requires manual cloning as Django does things a little differently
+            if conn.vendor == "sqlite" and conn.is_in_memory_db():
+                components = urllib.parse.urlparse(test_database_name)
+                sandbox_uri = urllib.parse.urlunparse(
+                    components._replace(path=f"{components.path}_{suffix}")
+                )
+                source = sqlite3.connect(test_database_name, uri=True)
+                target = sqlite3.connect(sandbox_uri, uri=True)
+                source.backup(target)
+                source.close()
+                conn.settings_dict["NAME"] = sandbox_uri
+                conn.close()
+                conn.connect()  # reconnect before closing so we don't lose the db
+                target.close()
+
+            else:
+                conn.creation.clone_test_db(suffix=suffix)
+                conn.settings_dict = conn.creation.get_test_db_clone_settings(
+                    suffix=suffix
+                )
+                conn.close()  # required for MySQL
+
+    yield
+
+    with django_db_blocker.unblock():
+        for db_name in databases:
+            conn = connections[db_name]
+            conn.creation.destroy_test_db(old_database_name=test_database_name)
+            conn.close()
+            conn.settings_dict = prev_settings[db_name]
+            conn.connect()

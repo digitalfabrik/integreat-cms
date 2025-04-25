@@ -12,8 +12,8 @@ from tests.conftest import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 )
 @pytest.mark.django_db
 def test_clean_content(
-    load_test_data: None,
     login_role_user: tuple[Client, str],
+    db_snapshot: None,
 ) -> None:
     raw_content = '<h1>Das ist eine H1</h1><pre>Das ist vordefinierter Text</pre><code>Das ist vordefinierter Code</code><a href="https://www.integreat-app.de"></a><a href="http://localhost:8000/augsburg/pages/de/5" class="link-external"></a>'
     cleaned_content = clean_content(raw_content, "de")

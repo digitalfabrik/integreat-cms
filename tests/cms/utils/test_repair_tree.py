@@ -15,8 +15,14 @@ See https://pytest-order.readthedocs.io/en/stable/usage.html#order-relative-to-o
 
 import pytest
 
+from django.db import transaction
+
 from integreat_cms.cms.models import Page, Region
+from integreat_cms.cms.models import *
+from linkcheck.listeners import disable_listeners
 from integreat_cms.cms.utils.repair_tree import repair_tree
+
+from ...conftest import test_data_db_snapshot
 
 after_tests = (
     "tests/core/management/commands/test_replace_links.py::test_replace_links_commit",
@@ -25,8 +31,11 @@ after_tests = (
 
 
 @pytest.mark.order("last", after=after_tests)
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_repair_tree(load_test_data_transactional: None) -> None:
+@pytest.mark.django_db(transaction=True)
+def test_repair_tree(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Create a broken tree of 3 nodes and assert that :func:`~integreat_cms.cms.utils.repair_tree.repair_tree` correctly fixes it.
     """
@@ -86,18 +95,84 @@ def test_repair_tree(load_test_data_transactional: None) -> None:
     assert child1_page.depth == 2
     assert child2_page.depth == 2
 
-    child2_page.delete()
-    child1_page.delete()
-    root_page.delete()
+    # TODO: REMOVE BEFORE MERGING
+    # attempt to provoke a side effect that should make any following tests using this db state fail
+
+    with transaction.atomic():
+        # Remove hierarchy to prevent ProtectedError when children get deleted before their parents
+        Page.objects.update(parent=None, mirrored_page=None)
+        LanguageTreeNode.objects.update(parent=None)
+        Directory.objects.update(parent=None)
+        MediaFile.objects.update(parent_directory=None)
+        # Prevent ProtectedError when location gets deleted before their events
+        Event.objects.update(location=None)
+        # Prevent ProtectedError when media files get deleted before their usages as organization logo
+        Organization.objects.all().delete()
+        # Prevent ProtectedError when location gets deleted before their contacts
+        Contact.objects.all().delete()
+        # Prevent IntegrityError when multiple feedback objects exist
+        Feedback.objects.all().delete()
+        # Disable linkchecking while deleting this region
+        # Active linkchecking would drastically slow performance and the links will be fixed with the next run of the findlinks management command anyway
+        with disable_listeners():
+            # Delete region and cascade delete all contents
+            for Model in (
+                ABTester,
+                ChatMessage,
+                Contact,
+                Event,
+                EventFeedback,
+                EventListFeedback,
+                EventTranslation,
+                ExternalCalendar,
+                Feedback,
+                FidoKey,
+                FirebaseStatistic,
+                ImprintPage,
+                ImprintPageFeedback,
+                ImprintPageTranslation,
+                LanguageTreeNode,
+                Language,
+                MapFeedback,
+                OfferFeedback,
+                OfferListFeedback,
+                OfferTemplate,
+                Organization,
+                POI,
+                POICategory,
+                POICategoryTranslation,
+                POIFeedback,
+                POITranslation,
+                PageFeedback,
+                PageTranslation,
+                Page,
+                MediaFile,
+                Directory,
+                PushNotificationTranslation,
+                PushNotification,
+                RecurrenceRule,
+                SearchResultFeedback,
+                RegionFeedback,
+                UserChat,
+                User,
+                Region,
+                Role,
+            ):
+                Model.objects.all().delete()
+
+        User.objects.all().delete()
+        # Get orphan push notifications
+        PushNotification.objects.all().delete()
 
 
 @pytest.mark.xfail(
     reason="Constraints on the model prohibit the broken state used as basis for this test",
 )
 @pytest.mark.order("last", after=after_tests)
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_repair_tree_complex(  # noqa: PLR0915
-    load_test_data_transactional: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Recreate a real-world example of a broken tree and assert that :func:`~integreat_cms.cms.utils.repair_tree.repair_tree` correctly fixes it.
@@ -506,52 +581,3 @@ def test_repair_tree_complex(  # noqa: PLR0915
 
     assert orphan1.depth == 4
     assert orphan2.depth == 4
-
-    # Delete in reverse to avoid protected foreign keys
-    orphan2.delete()
-    orphan1.delete()
-
-    B_7.delete()
-    B_6.delete()
-    B_5.delete()
-    B_4_3.delete()
-    B_4_2.delete()
-    B_4_1.delete()
-    B_4.delete()
-    B_3.delete()
-    B_2.delete()
-    B_1_3.delete()
-    B_1_2.delete()
-    B_1_1.delete()
-    B_1.delete()
-    B.delete()
-
-    A_13_2.delete()
-    A_13_1.delete()
-    A_13.delete()
-    A_12_2.delete()
-    A_12_1.delete()
-    A_12.delete()
-    A_11.delete()
-    A_10.delete()
-    A_9.delete()
-    A_8_2.delete()
-    A_8_1.delete()
-    A_8.delete()
-    A_7.delete()
-    A_6.delete()
-    A_5_5.delete()
-    A_5_4.delete()
-    A_5_3.delete()
-    A_5_2.delete()
-    A_5_1.delete()
-    A_5.delete()
-    A_4.delete()
-    A_3.delete()
-    A_2_4.delete()
-    A_2_3.delete()
-    A_2_2.delete()
-    A_2_1.delete()
-    A_2.delete()
-    A_1.delete()
-    A.delete()

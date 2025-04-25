@@ -25,6 +25,8 @@ from treebeard.exceptions import InvalidMoveToDescendant
 from integreat_cms.cms.models import Page
 from integreat_cms.cms.utils.tree_mutex import tree_mutex
 
+from ...conftest import test_data_db_snapshot
+
 if TYPE_CHECKING:
     from collections.abc import Callable
 
@@ -36,8 +38,9 @@ after_tests = (
 
 
 @pytest.mark.order("last", after=after_tests)
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_tree_mutex(load_test_data_transactional: None) -> None:
+@pytest.mark.django_db(transaction=True)
+#@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+def test_tree_mutex(test_data_db_snapshot: None, db_snapshot: None) -> None:
     """
     Check whether :func:`~integreat_cms.cms.utils.tree_mutex.tree_mutex` is actually preventing collisions.
     See :func:`run_mutex_test` for details.
@@ -46,8 +49,9 @@ def test_tree_mutex(load_test_data_transactional: None) -> None:
 
 
 @pytest.mark.order("last", after=(*after_tests, "test_tree_mutex"))
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_rule_out_false_positive(load_test_data_transactional: None) -> None:
+@pytest.mark.django_db(transaction=True)
+#@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+def test_rule_out_false_positive(test_data_db_snapshot: None, db_snapshot: None) -> None:
     """
     Rule out that :func:`~integreat_cms.cms.utils.tree_mutex.tree_mutex` is just doing nothing and :func:`test_tree_mutex`
     only succeeded because the system magically worked without it.
@@ -83,6 +87,9 @@ def run_mutex_test(use_mutex: bool) -> None:
     directly running raw SQL commands, without database transactions.
     """
     exception = None
+
+    assert Page.objects.get(id=19)
+    assert Page.objects.get(id=21)
 
     def handle_exception(e: Exception) -> None:
         nonlocal exception
