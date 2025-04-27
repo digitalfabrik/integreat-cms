@@ -15,7 +15,7 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
-from django.utils.translation import ngettext_lazy
+from django.utils.translation import ngettext, ngettext_lazy
 
 from ..cms.utils.stringify_list import iter_to_string
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
@@ -293,11 +293,14 @@ class SummAiApiClient(MachineTranslationApiClient):
                 self.request,
                 ngettext_lazy(
                     "{model_name} {object_names} has been successfully translated into Easy German.",
-                    "The following {model_name_plural} have been successfully translated into Easy German: {object_names}",
+                    "The following {model_name} have been successfully translated into Easy German: {object_names}",
                     len(successes),
                 ).format(
-                    model_name=model_name,
-                    model_name_plural=model_name_plural,
+                    model_name=ngettext(
+                        model_name,
+                        model_name_plural,
+                        len(successes),
+                    ),
                     object_names=iter_to_string(successes),
                 ),
             )
@@ -307,11 +310,14 @@ class SummAiApiClient(MachineTranslationApiClient):
                 self.request,
                 ngettext_lazy(
                     "{model_name} {object_names} could not be automatically translated into Easy German.",
-                    "The following {model_name_plural} could not be automatically translated into Easy German: {object_names}",
+                    "The following {model_name} could not be automatically translated into Easy German: {object_names}",
                     len(errors),
                 ).format(
-                    model_name=model_name,
-                    model_name_plural=model_name_plural,
+                    model_name=ngettext(
+                        model_name,
+                        model_name_plural,
+                        len(errors),
+                    ),
                     object_names=iter_to_string(errors),
                 ),
             )

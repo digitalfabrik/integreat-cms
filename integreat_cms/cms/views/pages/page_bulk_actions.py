@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ngettext_lazy
+from django.utils.translation import ngettext, ngettext_lazy
 from django.views.decorators.cache import never_cache
 from django.views.generic.list import MultipleObjectMixin
 
@@ -250,11 +250,14 @@ class CancelTranslationProcess(PageBulkActionMixin, BulkActionView):
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} was not in translation process.",
-                    "The following {model_name_plural} were not in translation process: {object_names}",
+                    "The following {model_name} were not in translation process: {object_names}",
                     len(not_in_translation),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(not_in_translation),
+                    ),
                     object_names=iter_to_string(not_in_translation),
                 ),
             )
@@ -263,11 +266,14 @@ class CancelTranslationProcess(PageBulkActionMixin, BulkActionView):
                 request,
                 ngettext_lazy(
                     "Translation process was successfully cancelled for {model_name} {object_names}.",
-                    "Translation process was successfully cancelled for the following {model_name_plural}: {object_names}",
+                    "Translation process was successfully cancelled for the following {model_name}: {object_names}",
                     len(cancel_successful),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(cancel_successful),
+                    ),
                     object_names=iter_to_string(cancel_successful),
                 ),
             )
@@ -277,11 +283,14 @@ class CancelTranslationProcess(PageBulkActionMixin, BulkActionView):
                 request,
                 ngettext_lazy(
                     "Translation process could not be successfully cancelled for {model_name} {object_names}.",
-                    "Translation process could not be successfully cancelled for the following {model_name_plural}: {object_names}",
+                    "Translation process could not be successfully cancelled for the following {model_name}: {object_names}",
                     len(cancel_failed),
                 ).format(
-                    model_name=self.model._meta.verbose_name.title(),
-                    model_name_plural=self.model._meta.verbose_name_plural,
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(cancel_failed),
+                    ),
                     object_names=iter_to_string(cancel_failed),
                 ),
             )
