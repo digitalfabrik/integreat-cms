@@ -439,7 +439,7 @@ class RegionForm(CustomModelForm):
                 ),
             )
 
-        # Integreat Chat can only be enabled if Zammad URL and access key are set
+        # Public chat can only be enabled if Zammad URL and access key are set
         if cleaned_data["integreat_chat_enabled"] and (
             not cleaned_data["zammad_url"]
             or not cleaned_data["zammad_access_token"]
@@ -448,7 +448,7 @@ class RegionForm(CustomModelForm):
             self.add_error(
                 "integreat_chat_enabled",
                 _(
-                    "A Zammad URL, Zammad Webhook Token and Access Token are required in order to enable the Integreat Chat.",
+                    "A Zammad URL, Zammad Webhook Token and Access Token are required in order to enable the public chat.",
                 ),
             )
 
