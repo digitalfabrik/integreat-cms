@@ -206,7 +206,10 @@ SERVICE_TEAM_PERMISSIONS: Final[list[str]] = [
 ]
 
 #: The permissions of the cms team
-CMS_TEAM_PERMISSIONS: Final[list[str]] = SERVICE_TEAM_PERMISSIONS
+CMS_TEAM_PERMISSIONS: Final[list[str]] = [
+    *SERVICE_TEAM_PERMISSIONS,
+    "view_page_based_statistics",
+]
 
 #: The permissions of all roles
 PERMISSIONS: Final[dict[str, list[str]]] = {
