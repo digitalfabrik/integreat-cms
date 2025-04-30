@@ -298,4 +298,5 @@ class User(AbstractUser, AbstractBaseModel):
             ("view_statistics", "view_statistics"),
             ("manage_translations", "manage_translations"),
             ("test_beta_features", "test_beta_features"),
+            ("view_page_based_statistics", "view_page_based_statistics"),
         )
