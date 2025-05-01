@@ -3,10 +3,11 @@
 {% block content %}
     {% load static %}
     <div class="table-header">
-        <div class="flex flex-wrap justify-between">
-            <h1 class="heading">
-                {% translate "Manage Languages" %}
-            </h1>
+        <h1 class="heading">
+            {% translate "Manage Languages" %}
+        </h1>
+        <div class="flex justify-between">
+            {% include "search_input_form.html" with object_type="language" %}
             {% if perms.cms.change_language %}
                 <a href="{% url 'new_language' %}" class="btn">{% translate "Create language" %}</a>
             {% endif %}
@@ -59,7 +60,11 @@
                 {% empty %}
                     <tr>
                         <td colspan="6" class="px-2 py-3">
-                            {% translate "No languages available yet." %}
+                            {% if search_query %}
+                                {% translate "No languages found with these filters." %}
+                            {% else %}
+                                {% translate "No languages available yet." %}
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
@@ -67,6 +72,6 @@
         </table>
     </div>
     {% url "languages" as url %}
-    {% include "pagination.html" with chunk=page_obj %}
+    {% include "pagination.html" with chunk=languages %}
     {% include "../generic_confirmation_dialog.html" %}
 {% endblock content %}

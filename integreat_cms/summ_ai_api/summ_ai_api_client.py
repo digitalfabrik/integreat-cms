@@ -11,9 +11,11 @@ from itertools import chain
 from typing import TYPE_CHECKING
 
 import aiohttp
+from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
-from django.utils.translation import ngettext_lazy
+from django.db import transaction
+from django.utils.translation import ngettext, ngettext_lazy
 
 from ..cms.utils.stringify_list import iter_to_string
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
@@ -202,6 +204,7 @@ class SummAiApiClient(MachineTranslationApiClient):
             # Put all results in one single list
             return chain(worker_results)
 
+    @transaction.atomic
     def translate_queryset(self, queryset: list[Page], language_slug: str) -> None:
         """
         Translate a queryset of content objects from German into Easy German.
@@ -210,9 +213,34 @@ class SummAiApiClient(MachineTranslationApiClient):
         :param queryset: The queryset which should be translated
         :param language_slug: The target language slug to translate into
         """
+        if not queryset:
+            return
+
+        self.reset()
+
+        # Re-select the region from db to prevent simultaneous
+        # requests exceeding the SUMM.AI usage limit
+        region = (
+            apps.get_model("cms", "Region")
+            .objects.select_for_update()
+            .get(id=self.request.region.id)
+        )
+
+        # Store parameters used by all content objects
+        self.source_language = region.get_source_language(language_slug)
+        self.target_language = region.get_language_or_404(language_slug)
+        self.target_language_key = self.get_target_language_key(self.target_language)
+        self.queryset = queryset
+        self.region = region
+
+        # Filter out content objects which can not be translated
+        self.prepare_content_objects()
+        self.filter_no_source_translation()
+        self.filter_insufficient_hix_score()
+        self.filter_exceeds_limit()
 
         # Make sure both languages exist
-        self.request.region.get_language_or_404(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
+        region.get_language_or_404(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
         easy_german = self.request.region.get_language_or_404(
             settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
         )
@@ -220,7 +248,7 @@ class SummAiApiClient(MachineTranslationApiClient):
         # Initialize translation helpers for each object instance
         translation_helpers = [
             TranslationHelper(self.request, self.form_class, object_instance)
-            for object_instance in queryset
+            for object_instance in self.queryset
         ]
 
         # Aggregate all strings that need to be translated
@@ -241,14 +269,17 @@ class SummAiApiClient(MachineTranslationApiClient):
         # Commit changes to the database
         successes = []
         errors = []
+        region.refresh_from_db()
         for translation_helper in translation_helpers:
             if TYPE_CHECKING:
                 assert translation_helper.german_translation
 
             if translation_helper.commit(easy_german):
                 successes.append(translation_helper.german_translation.title)
+                region.summ_ai_budget_used += translation_helper.word_count
             else:
                 errors.append(translation_helper.german_translation.title)
+        region.save()
 
         if translation_helpers:
             meta = type(translation_helpers[0].object_instance)._meta
@@ -262,11 +293,14 @@ class SummAiApiClient(MachineTranslationApiClient):
                 self.request,
                 ngettext_lazy(
                     "{model_name} {object_names} has been successfully translated into Easy German.",
-                    "The following {model_name_plural} have been successfully translated into Easy German: {object_names}",
+                    "The following {model_name} have been successfully translated into Easy German: {object_names}",
                     len(successes),
                 ).format(
-                    model_name=model_name,
-                    model_name_plural=model_name_plural,
+                    model_name=ngettext(
+                        model_name,
+                        model_name_plural,
+                        len(successes),
+                    ),
                     object_names=iter_to_string(successes),
                 ),
             )
@@ -276,14 +310,44 @@ class SummAiApiClient(MachineTranslationApiClient):
                 self.request,
                 ngettext_lazy(
                     "{model_name} {object_names} could not be automatically translated into Easy German.",
-                    "The following {model_name_plural} could not be automatically translated into Easy German: {object_names}",
+                    "The following {model_name} could not be automatically translated into Easy German: {object_names}",
                     len(errors),
                 ).format(
-                    model_name=model_name,
-                    model_name_plural=model_name_plural,
+                    model_name=ngettext(
+                        model_name,
+                        model_name_plural,
+                        len(errors),
+                    ),
                     object_names=iter_to_string(errors),
                 ),
             )
+
+    def filter_exceeds_limit(self) -> None:
+        """
+        This method removes content objects from the main queryset
+        if translating them would exceed the translation budget.
+
+        The removed elements are stored in order to show users
+        batched error messages after all objects have been handled.
+
+        :param source_language: The source language slug
+        """
+        remaining_budget = self.region.summ_ai_budget_remaining
+        filtered_queryset = []
+
+        for content_object in self.queryset:
+            if (
+                max(1, content_object.word_count - settings.SUMM_AI_SOFT_MARGIN)
+                < remaining_budget
+            ):
+                filtered_queryset.append(content_object)
+                remaining_budget -= content_object.word_count
+            else:
+                self.failed_because_exceeds_limit.append(
+                    content_object.source_translation.title
+                )
+
+        self.queryset[:] = filtered_queryset
 
     @classmethod
     def validate_response(cls, response_data: dict, response_status: int) -> bool:

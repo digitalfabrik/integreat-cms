@@ -12,7 +12,7 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
-from django.utils.translation import ngettext_lazy
+from django.utils.translation import ngettext, ngettext_lazy
 
 from ...cms.constants.machine_translatable_attributes import TRANSLATABLE_ATTRIBUTES
 from ...cms.utils.stringify_list import iter_to_string
@@ -340,11 +340,14 @@ class MachineTranslationApiClient(ABC):
             self.request,
             ngettext_lazy(
                 "{model_name} {object_names} has successfully been translated ({source_language} ➜ {target_language}).",
-                "The following {model_name_plural} have successfully been translated ({source_language} ➜ {target_language}): {object_names}",
+                "The following {model_name} have successfully been translated ({source_language} ➜ {target_language}): {object_names}",
                 len(self.successful_translations),
             ).format(
-                model_name=self.model_name,
-                model_name_plural=self.model_name_plural,
+                model_name=ngettext(
+                    self.model_name,
+                    self.model_name_plural,
+                    len(self.successful_translations),
+                ),
                 source_language=self.source_language,
                 target_language=self.target_language,
                 object_names=iter_to_string(
@@ -365,11 +368,14 @@ class MachineTranslationApiClient(ABC):
             self.request,
             ngettext_lazy(
                 "{model_name} {object_names} could not be translated automatically.",
-                "The following {model_name_plural} could not translated automatically: {object_names}",
+                "The following {model_name} could not translated automatically: {object_names}",
                 len(self.failed_translations),
             ).format(
-                model_name=self.model_name,
-                model_name_plural=self.model_name_plural,
+                model_name=ngettext(
+                    self.model_name,
+                    self.model_name_plural,
+                    len(self.failed_translations),
+                ),
                 object_names=iter_to_string(self.failed_translations),
             ),
         )
@@ -386,11 +392,14 @@ class MachineTranslationApiClient(ABC):
             self.request,
             ngettext_lazy(
                 "{model_name} {object_names} could not be translated because its source translation is missing.",
-                "The following {model_name_plural} could not be translated because their source translations are missing: {object_names}",
+                "The following {model_name} could not be translated because their source translations are missing: {object_names}",
                 len(self.failed_because_no_source_translation),
             ).format(
-                model_name=self.model_name,
-                model_name_plural=self.model_name_plural,
+                model_name=ngettext(
+                    self.model_name,
+                    self.model_name_plural,
+                    len(self.failed_because_no_source_translation),
+                ),
                 object_names=iter_to_string(
                     self.failed_because_no_source_translation,
                 ),
@@ -409,11 +418,14 @@ class MachineTranslationApiClient(ABC):
             self.request,
             ngettext_lazy(
                 "{model_name} {object_names} could not be translated because its HIX score is too low for machine translation (minimum required: {min_required}).",
-                "The following {model_name_plural} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
+                "The following {model_name} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
                 len(self.failed_because_insufficient_hix_score),
             ).format(
-                model_name=self.model_name,
-                model_name_plural=self.model_name_plural,
+                model_name=ngettext(
+                    self.model_name,
+                    self.model_name_plural,
+                    len(self.failed_because_insufficient_hix_score),
+                ),
                 object_names=iter_to_string(
                     self.failed_because_insufficient_hix_score,
                 ),
@@ -432,11 +444,14 @@ class MachineTranslationApiClient(ABC):
             self.request,
             ngettext_lazy(
                 "{model_name} {object_names} could not be translated because it would exceed the remaining budget of {remaining_budget} words.",
-                "The following {model_name_plural} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
+                "The following {model_name} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
                 len(self.failed_because_exceeds_limit),
             ).format(
-                model_name=self.model_name,
-                model_name_plural=self.model_name_plural,
+                model_name=ngettext(
+                    self.model_name,
+                    self.model_name_plural,
+                    len(self.failed_because_exceeds_limit),
+                ),
                 remaining_budget=self.region.mt_budget_remaining,
                 object_names=iter_to_string(
                     self.failed_because_exceeds_limit,

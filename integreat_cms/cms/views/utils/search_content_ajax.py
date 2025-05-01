@@ -15,6 +15,7 @@ from ...models import (
     Directory,
     EventTranslation,
     Feedback,
+    Language,
     MediaFile,
     Organization,
     POITranslation,
@@ -148,6 +149,20 @@ def search_content_ajax(  # noqa: PLR0915, PLR0912, C901
             for organization in Organization.search(region, query).filter(
                 archived=archived_flag,
             )
+        )
+
+    if "language" in object_types:
+        object_types.remove("language")
+        if not user.has_perm("cms.view_language"):
+            raise PermissionDenied
+
+        results.extend(
+            {
+                "title": language.translated_name,
+                "url": None,
+                "type": "feedback",
+            }
+            for language in Language.search(query)
         )
 
     if "page" in object_types:

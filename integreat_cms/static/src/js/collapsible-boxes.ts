@@ -6,6 +6,10 @@
 import { getCookie } from "./utils/cookies";
 
 const toggleDashboardSection = async ({ target }: Event): Promise<void> => {
+    if ((target as HTMLElement).classList.contains("do-not-collapse")) {
+        return;
+    }
+
     // Toggle arrows of the clicked widget
     const collapsible = (target as HTMLElement).closest(".collapsible") as HTMLElement;
     collapsible.querySelector(".up-arrow").classList.toggle("hidden");

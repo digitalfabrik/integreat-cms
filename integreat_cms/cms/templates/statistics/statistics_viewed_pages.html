@@ -1,0 +1,54 @@
+{% extends "_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    chart-column-increasing
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    <div class="inline-flex items-center">
+        {% translate "Page views" %}
+        <button data-show-tutorial="page-access-statistics-info"
+                class="hover:text-blue-500 pl-2">
+            <i icon-name="info" width="16" class="do-not-collapse inline-block"></i>
+        </button>
+    </div>
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <form method="post"
+          id="statistics-page-access"
+          class="table-listing"
+          data-page-accesses-url="{% url 'statistics_page_based_accesses' region_slug=request.region.slug %}">
+        {% csrf_token %}
+        <div class="overflow-x-auto">
+            <div id="page-accesses-network-error" class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "A network error has occurred." %} {% translate "Please try again later." %}
+            </div>
+            <div id="page-accesses-heavy-traffic-error"
+                 class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "The statistics network is currently experiencing heavy traffic." %} {% translate "Please try again later." %}
+            </div>
+            <div id="page-accesses-server-error" class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "A server error has occurred." %} {% translate "Please contact the administrator." %}
+            </div>
+            <table data-delay-event-handlers
+                   data-activate-tree-drag-drop
+                   data-descendants-url="{% url 'get_page_tree_ajax' region_slug=request.region.slug language_slug=language.slug is_archive=False is_statistics=is_statistics %}"
+                   class="w-full rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
+                <thead>
+                    <tr class="border-b border-solid border-gray-200">
+                        {% include "pages/_generic_page_tree_header.html" %}
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "Accesses" %} (<span id="date-range-start">{{ form.start_date.value|date:"d.m.Y" }}</span> - <span id="date-range-end">{{ form.end_date.value|date:"d.m.Y" }}</span>)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for page in pages %}
+                        {% include "statistics/statistics_viewed_pages_node.html" with is_archive=is_archive %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+{% endblock collapsible_box_content %}

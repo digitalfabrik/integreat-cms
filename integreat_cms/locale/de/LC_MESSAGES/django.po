@@ -1700,7 +1700,7 @@ msgstr "Versteckt"
 #: cms/constants/region_status.py cms/models/contact/contact.py
 #: cms/models/pages/page_translation.py cms/models/regions/region.py
 #: cms/templates/events/event_form.html cms/templates/pages/page_form.html
-#: cms/templates/pages/page_tree_archived_node.html
+#: cms/templates/pages/pages_page_tree_node.html
 #: cms/templates/pois/poi_form.html
 msgid "Archived"
 msgstr "Archiviert"
@@ -1775,8 +1775,7 @@ msgstr "Rechts nach Links"
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html
+#: cms/templates/pages/pages_page_tree_node.html
 #: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Translation up-to-date"
@@ -1785,8 +1784,7 @@ msgstr "Übersetzung ist aktuell"
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html
+#: cms/templates/pages/pages_page_tree_node.html
 #: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Currently in translation"
@@ -1795,8 +1793,7 @@ msgstr "Wird derzeit übersetzt"
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html
+#: cms/templates/pages/pages_page_tree_node.html
 #: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Translation outdated"
@@ -1804,8 +1801,7 @@ msgstr "Übersetzung ist veraltet"
 
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
 #: cms/templates/events/event_list_row.html
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html
+#: cms/templates/pages/pages_page_tree_node.html
 #: cms/templates/poicategories/poicategory_list_row.html
 #: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
@@ -1814,8 +1810,8 @@ msgstr "Übersetzung fehlt"
 
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
 #: cms/templates/events/event_list_row.html
-#: cms/templates/pages/page_tree_node.html
 #: cms/templates/pages/page_xliff_import_view.html
+#: cms/templates/pages/pages_page_tree_node.html
 #: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Machine translated"
@@ -2041,7 +2037,6 @@ msgstr "Kategorie"
 #: cms/templates/imprint/imprint_sbs.html
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/pages/page_sbs.html
-#: cms/templates/pages/page_tree_archived.html
 #: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/regions/region_list.html
 msgid "Status"
@@ -2170,7 +2165,7 @@ msgstr ""
 
 #: cms/forms/pages/page_filter_form.py cms/templates/content_versions.html
 #: cms/templates/events/event_form.html cms/templates/events/event_list.html
-#: cms/templates/pages/page_form.html cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_form.html cms/templates/pages/pages_page_tree.html
 #: cms/templates/pois/poi_form.html cms/templates/pois/poi_list.html
 msgid "Publication status"
 msgstr "Veröffentlichungsstatus"
@@ -2334,14 +2329,20 @@ msgid "Budget year start differs from the renewal date"
 msgstr "Unterjähriger Start des Abrechnungszeitraums"
 
 #: cms/forms/regions/region_form.py
-msgid "Enable to set an add-on starting date differing from the renewal date."
+msgid "Enable to set starting date differing from the renewal date."
 msgstr ""
-"Aktivieren, um ein Startdatum für das Add-On Paket anzugeben, welches sich "
-"vom Zurücksetzungsdatum unterscheidet."
+"Aktivieren, um ein Startdatum anzugeben, welches sich vom "
+"Zurücksetzungsdatum unterscheidet."
 
 #: cms/forms/regions/region_form.py
 msgid "Budget will be set as a monthly fraction of {} credits"
 msgstr "Das Budget wird monatsanteilig von {} Credits berechnet."
+
+#: cms/forms/regions/region_form.py
+msgid "Enable to set an add-on starting date differing from the renewal date."
+msgstr ""
+"Aktivieren, um ein Startdatum für das Add-On Paket anzugeben, welches sich "
+"vom Zurücksetzungsdatum unterscheidet."
 
 #: cms/forms/regions/region_form.py
 msgid "Zammad forms"
@@ -2364,6 +2365,14 @@ msgstr ""
 #: cms/forms/regions/region_form.py
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
+
+#: cms/forms/regions/region_form.py
+msgid ""
+"Please provide a valid budget year start date for simplified language "
+"translation."
+msgstr ""
+"Bitte geben Sie ein gültiges Startdatum für den Abrechnungszeitraum der "
+"Übersetzung in Einfache Sprache an."
 
 #: cms/forms/regions/region_form.py
 msgid ""
@@ -3541,8 +3550,8 @@ msgstr "Ob die Seite explizit archiviert ist oder nicht"
 
 #: cms/models/pages/abstract_base_page_translation.py
 #: cms/templates/events/event_form.html cms/templates/events/event_list.html
-#: cms/templates/pages/page_form.html cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_form.html
+#: cms/templates/pages/_generic_page_tree_header.html
+#: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
 #: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
 msgid "Title in"
 msgstr "Titel auf"
@@ -3678,7 +3687,7 @@ msgstr ""
 msgid "page"
 msgstr "Seite"
 
-#: cms/models/pages/page.py cms/templates/pages/page_tree.html
+#: cms/models/pages/page.py cms/templates/pages/pages_page_tree.html
 msgid "pages"
 msgstr "Seiten"
 
@@ -4238,12 +4247,30 @@ msgstr ""
 "Ob automatische Übersetzungen in Leichte Sprache mit SUMM.AI aktiviert sind"
 
 #: cms/models/regions/region.py
-msgid "Credits renewal date for foreign language translation"
-msgstr "Credits Zurücksetzungsdatum für Fremdsprachenübersetzung"
+msgid "Budget year start date for simplified language translation"
+msgstr ""
+"Unterjähriger Start des Abrechnungszeitraums für Übersetzung in Einfache "
+"Sprache"
+
+#: cms/models/regions/region.py
+msgid "Month from which SUMM.AI was booked"
+msgstr "Monat ab welchem SUMM.AI gebucht wurde"
+
+#: cms/models/regions/region.py
+msgid "Credits renewal date for simplified language translation"
+msgstr "Zurücksetzungsdatum der Credits für Übersetzung in Einfache Sprache"
 
 #: cms/models/regions/region.py
 msgid "Budget usage will be reset on the 1st of the month"
 msgstr "Das Budget wird zum 1. des angegebenen Monats zurückgesetzt"
+
+#: cms/models/regions/region.py
+msgid "used budget"
+msgstr "verbrauchtes Budget"
+
+#: cms/models/regions/region.py
+msgid "Credits renewal date for foreign language translation"
+msgstr "Credits Zurücksetzungsdatum für Fremdsprachenübersetzung"
 
 #: cms/models/regions/region.py
 msgid "Add-on package for foreign languages booked"
@@ -4266,14 +4293,11 @@ msgstr ""
 msgid "Month from which the add-on package was booked"
 msgstr "Monat ab welchem das Add-On Paket gebucht wurde"
 
-#: cms/models/regions/region.py
-msgid "used budget"
-msgstr "verbrauchtes Budget"
-
 #: cms/models/regions/region.py cms/templates/_base.html
 #: cms/templates/contacts/contact_form.html
 #: cms/templates/contacts/contact_from_email_and_phone.html
 #: cms/templates/organizations/organization_form.html
+#: cms/templates/region_condition/region_condition.html
 msgid "Pages"
 msgstr "Seiten"
 
@@ -4444,6 +4468,18 @@ msgid "Will be set to true once the user dismissed the page tree tutorial"
 msgstr ""
 "Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum Seitenbaum "
 "angesehen hat"
+
+#: cms/models/users/user.py
+msgid "Page access statistics tutorial seen"
+msgstr "Tutorial zu seitenbasierten Zugriffe angesehen"
+
+#: cms/models/users/user.py
+msgid ""
+"Will be set to true once the user dismissed the tutorial for page access "
+"statistics"
+msgstr ""
+"Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum "
+"Seitezugriff angesehen hat"
 
 #: cms/models/users/user.py
 msgid "automatically distribute sidebar boxes"
@@ -4839,8 +4875,7 @@ msgstr "Inhalt ansehen"
 
 #: cms/templates/_related_contents_table.html
 #: cms/templates/events/event_list_row.html
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html
+#: cms/templates/pages/_generic_page_tree_node.html
 #: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Translation not available"
@@ -5005,7 +5040,7 @@ msgid ""
 "You can find more information in the"
 msgstr ""
 "Aktuell wird die Mobiltelefonnummer nicht in der Integreat App angezeigt. "
-"Mehr Informationen finden Sie imInformationen finden Sie im"
+"Mehr Informationen finden Sie im"
 
 #: cms/templates/ajax_poi_form/_poi_address_container.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
@@ -5059,6 +5094,7 @@ msgstr "Detailansicht"
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 #: cms/views/media/media_context_mixin.py
 msgid "A network error has occurred."
 msgstr "Ein Netzwerkfehler ist aufgetreten."
@@ -5067,6 +5103,7 @@ msgstr "Ein Netzwerkfehler ist aufgetreten."
 #: cms/templates/chat/_chat_widget.html cms/templates/hix_widget.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 #: cms/views/media/media_context_mixin.py
 msgid "Please try again later."
 msgstr "Bitte versuchen Sie es später erneut."
@@ -5075,13 +5112,15 @@ msgstr "Bitte versuchen Sie es später erneut."
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "A server error has occurred."
 msgstr "Ein Serverfehler ist aufgetreten."
 
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_chart.html xliff/utils.py
+#: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages.html xliff/utils.py
 msgid "Please contact the administrator."
 msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 
@@ -5090,6 +5129,7 @@ msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages_node.html
 msgid "Loading..."
 msgstr "Laden..."
 
@@ -5441,7 +5481,7 @@ msgstr "Archivieren nicht möglich"
 
 #: cms/templates/contacts/contact_form.html
 #: cms/templates/pages/page_form_sidebar/actions_box.html
-#: cms/templates/pages/page_tree_archived_node.html
+#: cms/templates/pages/pages_page_tree_node.html
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
@@ -5585,8 +5625,7 @@ msgstr "Webseite"
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/offertemplates/offertemplate_list.html
 #: cms/templates/organizations/organization_list.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html cms/templates/roles/role_list.html
 msgid "Options"
 msgstr "Optionen"
@@ -5612,8 +5651,7 @@ msgstr "Kontakte ausgewählt"
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/organizations/organization_list.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
@@ -5640,8 +5678,7 @@ msgstr "Kontakte löschen"
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/_page_xliff_export_overlay.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html
 msgid "Execute"
 msgstr "Ausführen"
@@ -5841,6 +5878,7 @@ msgstr "Zur Seite"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_broken_links_row.html
 #: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/region_condition/region_condition.html
 msgid "Broken links"
 msgstr "Fehlerhafte Links"
 
@@ -5929,6 +5967,7 @@ msgid "Go to <br> translation coverage"
 msgstr "Zum Bericht"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_outdated_pages_row.html
+#: cms/templates/region_condition/region_condition.html
 msgid "Outdated pages"
 msgstr "Veraltete Seiten"
 
@@ -6287,9 +6326,7 @@ msgstr "Zurück zu Veranstaltungen"
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/feedback/region_feedback_list_archived.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html
-#: cms/templates/users/user_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/users/user_list.html
 msgid "Show filters"
 msgstr "Filter einblenden"
 
@@ -6298,9 +6335,7 @@ msgstr "Filter einblenden"
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/feedback/region_feedback_list_archived.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html
-#: cms/templates/users/user_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/users/user_list.html
 msgid "Hide filters"
 msgstr "Filter ausblenden"
 
@@ -6356,35 +6391,35 @@ msgstr "Veranstaltungen ausgewählt"
 msgid "Archive events"
 msgstr "Veranstaltungen archivieren"
 
-#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
-#: cms/templates/pois/poi_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #, python-format
 msgid "Publish %(content_type)s"
 msgstr "%(content_type)s veröffentlichen"
 
-#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
-#: cms/templates/pois/poi_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #, python-format
 msgid "Draft %(content_type)s"
 msgstr "%(content_type)s als Entwurf speichern"
 
-#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
-#: cms/templates/pois/poi_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #, python-format
 msgid "Machine translate %(content_type)s via %(provider)s to %(language)s"
 msgstr ""
 "%(content_type)s maschinell via %(provider)s auf %(language)s übersetzen"
 
-#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
-#: cms/templates/pois/poi_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 msgid ""
 "This language is not supported by any available machine translation provider."
 msgstr ""
 "Diese Sprache wird von keinem verfügbaren Anbieter maschineller "
 "Übersetzungen unterstützt."
 
-#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
-#: cms/templates/pois/poi_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #, python-format
 msgid "Machine translate %(content_type)s to %(language)s"
 msgstr "%(content_type)s maschinell auf %(language)s übersetzen"
@@ -6485,8 +6520,7 @@ msgstr "Zuletzt geändert von"
 #: cms/templates/offertemplates/offertemplate_list.html
 #: cms/templates/pages/_page_filter_form.html
 #: cms/templates/pages/_page_xliff_import_diff.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html
+#: cms/templates/pages/pages_page_tree.html
 #: cms/templates/push_notifications/push_notification_list.html
 #: cms/templates/push_notifications/push_notification_template_list.html
 #: cms/templates/regions/region_list.html
@@ -6959,6 +6993,10 @@ msgid "Number of regions"
 msgstr "Anzahl an Regionen"
 
 #: cms/templates/languages/language_list.html
+msgid "No languages found with these filters."
+msgstr "Keine Sprachen mit diesen Filtern gefunden."
+
+#: cms/templates/languages/language_list.html
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
@@ -7005,8 +7043,7 @@ msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
 #: cms/templates/languagetreenodes/languagetreenode_list.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html
+#: cms/templates/pages/_generic_page_tree_header.html
 msgid "Hierarchy"
 msgstr "Hierarchie"
 
@@ -7360,6 +7397,18 @@ msgstr "Organisation wiederherstellen"
 msgid "Archive organization"
 msgstr "Organisationen archivieren"
 
+#: cms/templates/pages/_generic_page_tree_node.html
+msgid "Change the order and position of the pages with drag & drop."
+msgstr "Ändern Sie die Reihenfolge und Position der Seiten per Drag & Drop."
+
+#: cms/templates/pages/_generic_page_tree_node.html
+msgid "Expand all subpages"
+msgstr "Alle Unterseiten ausklappen"
+
+#: cms/templates/pages/_generic_page_tree_node.html
+msgid "Collapse all subpages"
+msgstr "Alle Unterseiten einklappen"
+
 #: cms/templates/pages/_page_order_table.html
 msgid "Change the position of the page with drag & drop."
 msgstr "Ändern Sie die Position der Seite mit Drag & Drop."
@@ -7385,7 +7434,7 @@ msgid "Please select languages for multilingual export."
 msgstr "Bitte wählen Sie Sprachen für den mehrsprachigen Export."
 
 #: cms/templates/pages/_page_xliff_export_overlay.html
-#: cms/templates/pages/page_tree.html
+#: cms/templates/pages/pages_page_tree.html
 msgid "You cannot export XLIFF files for the default language"
 msgstr "Sie können keine XLIFF-Dateien für die Standard-Sprache exportieren"
 
@@ -7449,12 +7498,12 @@ msgstr "Neue Seite erstellen"
 msgid "Translation in progress"
 msgstr "Übersetzung wird durchgeführt"
 
-#: cms/templates/pages/page_form.html cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_form.html cms/templates/pages/pages_page_tree.html
 msgid "Cancel translation process"
 msgstr "Übersetzungsprozess abbrechen"
 
 #: cms/templates/pages/page_form.html
-#: cms/templates/pages/page_tree_archived_node.html
+#: cms/templates/pages/pages_page_tree_node.html
 msgid "Archived, because a parent page is archived"
 msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 
@@ -7478,7 +7527,7 @@ msgstr[1] ""
 "übergeordneten Seiten wiederherstellen:"
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
-#: cms/templates/pages/page_tree_node.html
+#: cms/templates/pages/pages_page_tree_node.html
 msgid "Archive page"
 msgstr "Seite archivieren"
 
@@ -7509,14 +7558,13 @@ msgstr[1] ""
 "diesen Seiten entfernen:"
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html
+#: cms/templates/pages/pages_page_tree_node.html
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html cms/views/pages/page_actions.py
+#: cms/templates/pages/pages_page_tree_node.html
+#: cms/views/pages/page_actions.py
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -7532,8 +7580,8 @@ msgstr[1] ""
 "verschieben:"
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html cms/views/pages/page_actions.py
+#: cms/templates/pages/pages_page_tree_node.html
+#: cms/views/pages/page_actions.py
 msgid ""
 "This page cannot be deleted because it was embedded as live content from "
 "another page."
@@ -7638,208 +7686,6 @@ msgstr ""
 " Dieses Feld freilassen, um einen eindeutigen Permalink aus dem Titel zu "
 "generieren"
 
-#: cms/templates/pages/page_tree.html
-msgid "Page Tree"
-msgstr "Seiten-Baum"
-
-#: cms/templates/pages/page_tree.html
-msgid "Archived pages"
-msgstr "Archivierte Seiten"
-
-#: cms/templates/pages/page_tree.html
-msgid "Create page"
-msgstr "Seite erstellen"
-
-#: cms/templates/pages/page_tree.html
-#, python-format
-msgid ""
-"You can only create pages in the default language (%(default_language)s)."
-msgstr ""
-"Sie können Seiten nur in der Standard-Sprache (%(default_language)s) anlegen."
-
-#: cms/templates/pages/page_tree.html
-msgid "Tags"
-msgstr "Tags"
-
-#: cms/templates/pages/page_tree.html
-msgid "No pages found with these filters."
-msgstr "Keine Seiten mit diesen Filtern gefunden."
-
-#: cms/templates/pages/page_tree.html
-msgid "No pages available yet."
-msgstr "Noch keine Seiten vorhanden."
-
-#: cms/templates/pages/page_tree.html
-msgid "Expand all"
-msgstr "Alle ausklappen"
-
-#: cms/templates/pages/page_tree.html
-msgid "Collapse all"
-msgstr "Alle einklappen"
-
-#: cms/templates/pages/page_tree.html
-msgid "Pages selected"
-msgstr "Seiten ausgewählt"
-
-#: cms/templates/pages/page_tree.html
-msgid "Archive pages"
-msgstr "Seiten archivieren"
-
-#: cms/templates/pages/page_tree.html
-msgid "Export published pages as PDF"
-msgstr "Veröffentlichte Seiten als PDF exportieren"
-
-#: cms/templates/pages/page_tree.html
-msgid "Currently PDF-Export is not available in this language."
-msgstr "Derzeit ist der PDF-Export in dieser Sprache nicht verfügbar."
-
-#: cms/templates/pages/page_tree.html
-#, python-format
-msgid "Export published pages for %(language_translated_name)s translation"
-msgstr ""
-"Nur veröffentlichte Seiten für die %(language_translated_name)s-Übersetzung "
-"exportieren"
-
-#: cms/templates/pages/page_tree.html
-#, python-format
-msgid ""
-"Export unpublished (⚠️) and published pages for %(language_translated_name)s "
-"translation"
-msgstr ""
-"Nicht (⚠️) veröffentlichte und veröffentlichte Seiten für die "
-"%(language_translated_name)s-Übersetzung exportieren"
-
-#: cms/templates/pages/page_tree.html
-msgid "Export selected pages for multilingual translation"
-msgstr "Ausgewählte Seiten für die mehrsprachige Übersetzung exportieren"
-
-#: cms/templates/pages/page_tree.html
-msgid "Import XLIFF files"
-msgstr "XLIFF-Dateien importieren"
-
-#: cms/templates/pages/page_tree.html
-msgid "Supported file extensions"
-msgstr "Unterstützte Dateiendungen"
-
-#: cms/templates/pages/page_tree.html
-msgid "You can upload only up to 100 files at once."
-msgstr "Sie können maximal 100 Dateien auf einmal hochladen."
-
-#: cms/templates/pages/page_tree.html
-msgid "Select files"
-msgstr "Dateien auswählen"
-
-#: cms/templates/pages/page_tree.html
-msgid "and {} other files"
-msgstr "und {} weitere Dateien"
-
-#: cms/templates/pages/page_tree.html
-msgid "Import"
-msgstr "Importieren"
-
-#: cms/templates/pages/page_tree_archived.html
-msgid "Archived Pages"
-msgstr "Archivierte Seiten"
-
-#: cms/templates/pages/page_tree_archived.html
-msgid "Back to pages"
-msgstr "Zurück zu Seiten"
-
-#: cms/templates/pages/page_tree_archived.html
-msgid "No archived pages found with these filters."
-msgstr "Keine archivierten Seiten mit diesen Filtern gefunden."
-
-#: cms/templates/pages/page_tree_archived.html
-msgid "No pages archived yet."
-msgstr "Noch keine Seiten archiviert."
-
-#: cms/templates/pages/page_tree_archived.html
-msgid "Restore pages"
-msgstr "Seiten wiederherstellen"
-
-#: cms/templates/pages/page_tree_archived_node.html
-msgid "Drag & drop is disabled for archived pages."
-msgstr "Drag & drop ist für archivierte Seiten nicht möglich."
-
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html
-msgid "Expand all subpages"
-msgstr "Alle Unterseiten ausklappen"
-
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html
-msgid "Collapse all subpages"
-msgstr "Alle Unterseiten einklappen"
-
-#: cms/templates/pages/page_tree_archived_node.html
-msgid "This page is archived."
-msgstr "Diese Seite ist archiviert."
-
-#: cms/templates/pages/page_tree_archived_node.html
-msgid ""
-"This page is archived, because at least one of its parent pages is archived."
-msgstr ""
-"Diese Seite ist archiviert, weil eine ihrer übergeordneten Seiten archiviert "
-"ist."
-
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html
-msgid "View page as preview"
-msgstr "Seite als Vorschau ansehen"
-
-#: cms/templates/pages/page_tree_archived_node.html
-#: cms/templates/pages/page_tree_node.html
-msgid "You cannot preview an empty page."
-msgstr "Eine leere Seite hat keine Vorschau"
-
-#: cms/templates/pages/page_tree_archived_node.html
-msgid "To restore this page, you have to restore its archived parent page."
-msgstr ""
-"Um diese Seite wiederherzustellen, müssen Sie ihre archivierte übergeordnete "
-"Seite wiederherstellen."
-
-#: cms/templates/pages/page_tree_archived_node.html
-msgid "This also involves non-archived subpages."
-msgstr "Dies betrifft auch nicht-archivierte Unterseiten."
-
-#: cms/templates/pages/page_tree_node.html
-msgid "Change the order and position of the pages with drag & drop."
-msgstr "Ändern Sie die Reihenfolge und Position der Seiten mit Drag & Drop."
-
-#: cms/templates/pages/page_tree_node.html
-msgid "Open page in web app"
-msgstr "Seite in der Web-App öffnen"
-
-#: cms/templates/pages/page_tree_node.html
-msgid "This page cannot be opened in the web app, because it is not public."
-msgstr ""
-"Diese Seite kann nicht in der Web-App geöffnet werden, weil sie nicht "
-"veröffentlicht ist."
-
-#: cms/templates/pages/page_tree_node.html
-msgid "Edit page"
-msgstr "Seite bearbeiten"
-
-#: cms/templates/pages/page_tree_node.html cms/views/pages/page_actions.py
-msgid ""
-"This page cannot be archived because it was embedded as live content from "
-"another page."
-msgstr ""
-"Diese Seite kann nicht archiviert werden, da sie von einer anderen Seite als "
-"Live-Inhalt eingebunden wurde."
-
-#: cms/templates/pages/page_tree_node.html
-msgid "This also involves archived subpages."
-msgstr "Dies betrifft auch archivierte Unterseiten."
-
-#: cms/templates/pages/page_tree_node.html
-msgid "Copy short link"
-msgstr "Kurz-URL kopieren"
-
-#: cms/templates/pages/page_tree_node.html
-msgid "You cannot copy a short link of a page which has no translation."
-msgstr "Sie können keine Kurz-URL zu einer fehlenden Übersetzung kopieren."
-
 #: cms/templates/pages/page_xliff_import_view.html
 msgid "Review XLIFF Import"
 msgstr "XLIFF Import überprüfen"
@@ -7855,6 +7701,177 @@ msgstr ""
 #: cms/templates/pages/page_xliff_import_view.html
 msgid "Abort"
 msgstr "Abbrechen"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Archived Pages"
+msgstr "Archivierte Seiten"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Back to pages"
+msgstr "Zurück zu Seiten"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Page Tree"
+msgstr "Seiten-Baum"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Archived pages"
+msgstr "Archivierte Seiten"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Create page"
+msgstr "Seite erstellen"
+
+#: cms/templates/pages/pages_page_tree.html
+#, python-format
+msgid ""
+"You can only create pages in the default language (%(default_language)s)."
+msgstr ""
+"Sie können Seiten nur in der Standard-Sprache (%(default_language)s) anlegen."
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Tags"
+msgstr "Tags"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "No pages found with these filters."
+msgstr "Keine Seiten mit diesen Filtern gefunden."
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "No pages available yet."
+msgstr "Noch keine Seiten vorhanden."
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Expand all"
+msgstr "Alle ausklappen"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Collapse all"
+msgstr "Alle einklappen"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Pages selected"
+msgstr "Seiten ausgewählt"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Archive pages"
+msgstr "Seiten archivieren"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Export published pages as PDF"
+msgstr "Veröffentlichte Seiten als PDF exportieren"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Currently PDF-Export is not available in this language."
+msgstr "Derzeit ist der PDF-Export in dieser Sprache nicht verfügbar."
+
+#: cms/templates/pages/pages_page_tree.html
+#, python-format
+msgid "Export published pages for %(language_translated_name)s translation"
+msgstr ""
+"Nur veröffentlichte Seiten für die %(language_translated_name)s-Übersetzung "
+"exportieren"
+
+#: cms/templates/pages/pages_page_tree.html
+#, python-format
+msgid ""
+"Export unpublished (⚠️) and published pages for %(language_translated_name)s "
+"translation"
+msgstr ""
+"Nicht (⚠️) veröffentlichte und veröffentlichte Seiten für die "
+"%(language_translated_name)s-Übersetzung exportieren"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Export selected pages for multilingual translation"
+msgstr "Ausgewählte Seiten für die mehrsprachige Übersetzung exportieren"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Restore pages"
+msgstr "Seiten wiederherstellen"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Import XLIFF files"
+msgstr "XLIFF-Dateien importieren"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Supported file extensions"
+msgstr "Unterstützte Dateiendungen"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "You can upload only up to 100 files at once."
+msgstr "Sie können maximal 100 Dateien auf einmal hochladen."
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Select files"
+msgstr "Dateien auswählen"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "and {} other files"
+msgstr "und {} weitere Dateien"
+
+#: cms/templates/pages/pages_page_tree.html
+msgid "Import"
+msgstr "Importieren"
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "This page is archived."
+msgstr "Diese Seite ist archiviert."
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid ""
+"This page is archived, because at least one of its parent pages is archived."
+msgstr ""
+"Diese Seite ist archiviert, weil eine ihrer übergeordneten Seiten archiviert "
+"ist."
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "View page as preview"
+msgstr "Seite als Vorschau ansehen"
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "You cannot preview an empty page."
+msgstr "Eine leere Seite hat keine Vorschau"
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "Open page in web app"
+msgstr "Seite in der Web-App öffnen"
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "This page cannot be opened in the web app, because it is not public."
+msgstr ""
+"Diese Seite kann nicht in der Web-App geöffnet werden, weil sie nicht "
+"veröffentlicht ist."
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "Edit page"
+msgstr "Seite bearbeiten"
+
+#: cms/templates/pages/pages_page_tree_node.html
+#: cms/views/pages/page_actions.py
+msgid ""
+"This page cannot be archived because it was embedded as live content from "
+"another page."
+msgstr ""
+"Diese Seite kann nicht archiviert werden, da sie von einer anderen Seite als "
+"Live-Inhalt eingebunden wurde."
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "To restore this page, you have to restore its archived parent page."
+msgstr ""
+"Um diese Seite wiederherzustellen, müssen Sie ihre archivierte übergeordnete "
+"Seite wiederherstellen."
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "This also involves archived subpages."
+msgstr "Dies betrifft auch archivierte Unterseiten."
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "Copy short link"
+msgstr "Kurz-URL kopieren"
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "You cannot copy a short link of a page which has no translation."
+msgstr "Sie können keine Kurz-URL zu einer fehlenden Übersetzung kopieren."
 
 #: cms/templates/pagination.html
 msgid "Number of entries per page"
@@ -8322,23 +8339,17 @@ msgid "Download as CSV"
 msgstr "CSV herunterladen"
 
 #: cms/templates/region_condition/region_condition.html
-#: cms/views/region_condition/region_condition_actions.py
-msgid "Number of pages"
-msgstr "Anzahl an Seiten"
+msgid "Pages under HIX threshold"
+msgstr "Seiten unter HIX Schwellenwert"
 
 #: cms/templates/region_condition/region_condition.html
-#: cms/views/region_condition/region_condition_actions.py
-msgid "Number of outdated pages"
-msgstr "Anzahl veralteter Seiten"
+msgid "Pages with at least one missing or outdated translation"
+msgstr ""
+"Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
 
 #: cms/templates/region_condition/region_condition.html
-msgid "Number of pages under HIX threshold"
-msgstr "Anzahl an Seiten unter HIX Schwellenwert"
-
-#: cms/templates/region_condition/region_condition.html
-#: cms/views/region_condition/region_condition_actions.py
-msgid "Number of active languages besides default language"
-msgstr "Anzahl aktiver Sprachen neben der Standard-Sprache"
+msgid "Active languages besides default language"
+msgstr "aktiver Sprachen neben der Standard-Sprache"
 
 #: cms/templates/region_condition/region_condition.html
 msgid "Add-on for MT"
@@ -8390,24 +8401,28 @@ msgid "Features"
 msgstr "Funktionen"
 
 #: cms/templates/regions/region_form.html
-msgid "Currently HIX is globally deactivated"
-msgstr "Derzeit ist HIX global deaktiviert"
-
-#: cms/templates/regions/region_form.html
-msgid "Foreign language machine translation"
-msgstr "Maschinelle Übersetzungen für Fremdsprachen verwalten"
+msgid "Simplified language machine translation"
+msgstr "Maschinelle Übersetzungen für Einfache Sprache verwalten"
 
 #: cms/templates/regions/region_form.html
 msgid "Current total budget"
 msgstr "Aktuelles Gesamtbudget"
 
 #: cms/templates/regions/region_form.html
-msgid "Already consumed"
+msgid "Already used"
 msgstr "Bereits verbraucht"
 
 #: cms/templates/regions/region_form.html
 msgid "Remaining words"
 msgstr "Verbleibende Wörter"
+
+#: cms/templates/regions/region_form.html
+msgid "Currently HIX is globally deactivated"
+msgstr "HIX is currently deactivated globally"
+
+#: cms/templates/regions/region_form.html
+msgid "Foreign language machine translation"
+msgstr "Maschinelle Übersetzungen für Fremdsprachen verwalten"
 
 #: cms/templates/regions/region_form.html
 msgid ""
@@ -8771,6 +8786,8 @@ msgid "Shown languages"
 msgstr "Angezeigte Sprachen"
 
 #: cms/templates/statistics/_statistics_legend.html
+#: cms/templates/statistics/statistics_viewed_pages.html
+#: cms/templates/statistics/statistics_viewed_pages_node.html
 msgid "Accesses"
 msgstr "Zugriffe"
 
@@ -8780,6 +8797,7 @@ msgstr "Anzahl der Gesamtzugriffe der letzten 14 Tage."
 
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "The statistics network is currently experiencing heavy traffic."
 msgstr "Der Statistik-Server hat aktuell eine hohe Auslastung."
 
@@ -8818,6 +8836,18 @@ msgstr "Bild/PNG"
 #: cms/templates/statistics/statistics_sidebar.html
 msgid "Table Document/CSV"
 msgstr "Tabellendokument/CSV"
+
+#: cms/templates/statistics/statistics_viewed_pages.html
+msgid "Page views"
+msgstr "Seitenzugriffe"
+
+#: cms/templates/statistics/statistics_viewed_pages_node.html
+msgid "This page has no accesses in the selected time span"
+msgstr "Diese Seite hat keine Zugriffe für den ausgewählten Zeitraum"
+
+#: cms/templates/statistics/statistics_viewed_pages_node.html
+msgid "Accesses in total"
+msgstr "Zugriffe insgesamt"
 
 #: cms/templates/translations/translations_management.html
 msgid "Manage machine translations"
@@ -8904,6 +8934,84 @@ msgstr "Summe pro Art des Inhalts"
 #: cms/templates/translations/translations_management.html
 msgid "Total per Status"
 msgstr "Summe pro Status"
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid "Important information about page access"
+msgstr "Wichtige Hinweise zu Seitenzugriffen"
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid ""
+"There is a text here that helps employees to interpret the numbers and "
+"statistics appropriately."
+msgstr ""
+"Hier steht ein Text, der Mitarbeiter:innen dabei hilft, die Zahlen und "
+"Statistiken angemessen interpretieren zu können."
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid ""
+"Offline access cannot be counted. This means that even a page with few hits "
+"in the list can have higher hits that took place offline."
+msgstr ""
+"Offline-Zugriffe können nicht mitgerechnet werden. D.h. auch eine Seite mit "
+"wenigen Zugriffen in der Liste kann höhere Zugriffe haben, die offline "
+"stattgefunden haben."
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid ""
+"Pages that contain specific information about seasonal or one-time events (e."
+"g. events or election times) may receive higher traffic during certain "
+"periods. Outside these phases, traffic may be lower."
+msgstr ""
+"Seiten, die spezifische Informationen zu saisonalen oder einmaligen "
+"Ereignissen enthalten (z.B. Veranstaltungen oder Wahlzeiten), können in "
+"bestimmten Phasen höhere Zugriffszahlen aufweisen. Außerhalb dieser Phasen "
+"sind die Zugriffe eventuell niedriger."
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid ""
+"Page views should not be viewed in isolation, but always in the context of "
+"the overall communication strategy. A page with few hits can still be an "
+"important part of user guidance and information."
+msgstr ""
+"Seitenzugriffe sollten nicht isoliert betrachtet werden, sondern immer im "
+"Kontext der gesamten Kommunikationsstrategie. Eine Seite mit wenigen "
+"Zugriffen kann trotzdem ein wichtiger Bestandteil der Nutzerführung und "
+"Information sein."
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid ""
+"Some pages may be rarely visited, but are extremely important for specific "
+"target groups (e.g. newcomers, people with special needs). For example, "
+"information about special advisory services or integration offers could not "
+"be used by the general public, but could be indispensable for the target "
+"group."
+msgstr ""
+"Manche Seiten werden möglicherweise selten besucht, sind aber für "
+"spezifische Zielgruppen (z.B. Neuankömmlinge, Menschen mit besonderen "
+"Bedürfnissen) extrem wichtig. Zum Beispiel könnten Informationen über "
+"spezielle Beratungsdienste oder Integrationsangebote nicht von der breiten "
+"Masse genutzt werden, aber für die Zielgruppe unverzichtbar sein."
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid ""
+"Content that is no longer current or appears outdated can lead to a decrease "
+"in traffic. It is therefore important to regularly check whether content has "
+"been updated and how this affects the statistics. Low traffic numbers could "
+"indicate that the page is no longer perceived as relevant."
+msgstr ""
+"Inhalte, die nicht mehr aktuell sind oder veraltet erscheinen, können zu "
+"einem Rückgang der Zugriffe führen. Es ist daher wichtig, regelmäßig zu "
+"überprüfen, ob Inhalte aktualisiert wurden und wie dies die Statistiken "
+"beeinflusst. Niedrige Zugriffszahlen könnten darauf hinweisen, dass die "
+"Seite nicht mehr als relevant wahrgenommen wird."
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid "You can find more information about this in "
+msgstr "Mehr Informationen dazu finden Sie im "
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid "Wiki"
+msgstr "Wiki"
 
 #: cms/templates/tutorials/page_tree.html
 msgid "Introduction - Page Tree"
@@ -9377,20 +9485,19 @@ msgstr "Die ausgewählten {} wurden erfolgreich {}"
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully archived."
 msgid_plural ""
-"The following {model_name_plural} were successfully archived: {object_names}"
+"The following {model_name} were successfully archived: {object_names}"
 msgstr[0] "{model_name} {object_names} wurde erfolgreich archiviert."
 msgstr[1] ""
-"Die folgenden {model_name_plural} wurden erfolgreich archiviert: "
+"Die folgenden {model_name} wurden erfolgreich archiviert: "
 "{object_names}"
 
 #: cms/views/bulk_action_views.py
 #, python-brace-format
 msgid "{model_name} {object_names} is already archived."
-msgid_plural ""
-"The following {model_name_plural} are already archived: {object_names}"
+msgid_plural "The following {model_name} are already archived: {object_names}"
 msgstr[0] "{model_name} {object_names} ist bereits archiviert."
 msgstr[1] ""
-"Die folgenden {model_name_plural} sind bereits archiviert: {object_names}"
+"Die folgenden {model_name} sind bereits archiviert: {object_names}"
 
 #: cms/views/bulk_action_views.py
 #, python-brace-format
@@ -9427,20 +9534,19 @@ msgstr[1] ""
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully restored."
 msgid_plural ""
-"The following {model_name_plural} were successfully restored: {object_names}"
+"The following {model_name} were successfully restored: {object_names}"
 msgstr[0] "{model_name} {object_names} wurde erfolgreich wiederhergestellt."
 msgstr[1] ""
-"Die folgenden {model_name_plural} wurden erfolgreich wiederhergestellt: "
+"Die folgenden {model_name} wurden erfolgreich wiederhergestellt: "
 "{object_names}"
 
 #: cms/views/bulk_action_views.py
 #, python-brace-format
 msgid "{model_name} {object_names} is not archived."
-msgid_plural ""
-"The following {model_name_plural} are not archived: {object_names}"
+msgid_plural "The following {model_name} are not archived: {object_names}"
 msgstr[0] "{model_name} {object_names} ist nicht archiviert."
 msgstr[1] ""
-"Die folgenden {model_name_plural} sind nicht archiviert: {object_names}"
+"Die folgenden {model_name} sind nicht archiviert: {object_names}"
 
 #: cms/views/bulk_action_views.py
 msgid ""
@@ -9492,13 +9598,12 @@ msgstr "Kontakt {0} wurde erfolgreich kopiert"
 msgid ""
 "{model_name} {object_names} cannot be archived while content objects refer "
 "to it."
-msgid_plural ""
-"The following {model_name_plural} could be archived: {object_names}"
+msgid_plural "The following {model_name} could be archived: {object_names}"
 msgstr[0] ""
 "{model_name} {object_names} kann nicht archiviert werden solange Inhalte auf "
 "ihn verweisen."
 msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht archiviert werden: "
+"Die folgenden {model_name} konnten nicht archiviert werden: "
 "{object_names}"
 
 #: cms/views/contacts/contact_bulk_actions.py
@@ -9506,23 +9611,22 @@ msgstr[1] ""
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully deleted."
 msgid_plural ""
-"The following {model_name_plural} were successfully deleted: {object_names}"
+"The following {model_name} were successfully deleted: {object_names}"
 msgstr[0] "{model_name} {object_names} wurde erfolgreich gelöscht."
 msgstr[1] ""
-"Die folgenden {model_name_plural} wurden erfolgreich gelöscht: {object_names}"
+"Die folgenden {model_name} wurden erfolgreich gelöscht: {object_names}"
 
 #: cms/views/contacts/contact_bulk_actions.py
 #, python-brace-format
 msgid ""
 "{model_name} {object_names} cannot be deleted while content objects refer to "
 "it."
-msgid_plural ""
-"The following {model_name_plural} could be deleted: {object_names}"
+msgid_plural "The following {model_name} could be deleted: {object_names}"
 msgstr[0] ""
 "{model_name} {object_names} kann nicht gelöscht werden solange Inhalte auf "
 "ihn verweisen."
 msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht gelöscht werden: "
+"Die folgenden {model_name} konnten nicht gelöscht werden: "
 "{object_names}"
 
 #: cms/views/contacts/contact_context_mixin.py
@@ -10255,13 +10359,13 @@ msgid ""
 "{model_name} {object_names} couldn't be archived as it's used by a page, poi "
 "or user."
 msgid_plural ""
-"The following {model_name_plural} couldn't be archived as they're used by a "
-"page, poi or user: {object_names}."
+"The following {model_name} couldn't be archived as they're used by a page, "
+"poi or user: {object_names}."
 msgstr[0] ""
 "Die {model_name} {object_names} konnte nicht archiviert werden, da sie von "
 "einer Seite, einem Ort oder eines Users verwendet wird"
 msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht archiviert werden, da sie "
+"Die folgenden {model_name} konnten nicht archiviert werden, da sie "
 "von einer Seite, einem Ort oder eines Users verwendet werden: {object_names}"
 
 #: cms/views/organizations/organization_bulk_actions.py
@@ -10270,13 +10374,13 @@ msgid ""
 "{model_name} {object_names} couldn't be deleted as it's used by a page, poi "
 "or user."
 msgid_plural ""
-"The following {model_name_plural} couldn't be deleted as they're used by a "
-"page, poi or user: {object_names}."
+"The following {model_name} couldn't be deleted as they're used by a page, "
+"poi or user: {object_names}."
 msgstr[0] ""
 "Die {model_name} {object_names} konnte nicht gelöscht werden, da sie von "
 "einer Seite, einem Ort oder eines Users verwendet wird"
 msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht gelöscht werden, da sie von "
+"Die folgenden {model_name} konnten nicht gelöscht werden, da sie von "
 "einer Seite, einem Ort oder eines Users verwendet werden: {object_names}"
 
 #: cms/views/organizations/organization_content_mixin.py
@@ -10435,11 +10539,10 @@ msgstr ""
 #, python-brace-format
 msgid "{model_name} {object_names} was not in translation process."
 msgid_plural ""
-"The following {model_name_plural} were not in translation process: "
-"{object_names}"
+"The following {model_name} were not in translation process: {object_names}"
 msgstr[0] "{model_name} {object_names} war nicht im Übersetzungsprozess"
 msgstr[1] ""
-"Die folgenden {model_name_plural} waren nicht im Übersetzungsprozess: "
+"Die folgenden {model_name} waren nicht im Übersetzungsprozess: "
 "{object_names}"
 
 #: cms/views/pages/page_bulk_actions.py
@@ -10449,12 +10552,12 @@ msgid ""
 "{object_names}."
 msgid_plural ""
 "Translation process was successfully cancelled for the following "
-"{model_name_plural}: {object_names}"
+"{model_name}: {object_names}"
 msgstr[0] ""
 "Der Übersetzungsprozess für {model_name} {object_names} wurde erfolgreich "
 "abgebrochen."
 msgstr[1] ""
-"Der Übersetzungsprozess für die folgenden {model_name_plural} wurde "
+"Der Übersetzungsprozess für die folgenden {model_name} wurde "
 "erfolgreich abgebrochen: {object_names}."
 
 #: cms/views/pages/page_bulk_actions.py
@@ -10464,12 +10567,12 @@ msgid ""
 "{object_names}."
 msgid_plural ""
 "Translation process could not be successfully cancelled for the following "
-"{model_name_plural}: {object_names}"
+"{model_name}: {object_names}"
 msgstr[0] ""
 "Der Übersetzungsprozess konnte nicht erfolgreich abgebrochen werden für die "
 "{model_name} {object_names}."
 msgstr[1] ""
-"Der Übersetzungsprozess für die folgenden {model_name_plural} wurde "
+"Der Übersetzungsprozess für die folgenden {model_name} wurde "
 "erfolgreich abgebrochen: {object_names}"
 
 #: cms/views/pages/page_context_mixin.py
@@ -10987,11 +11090,15 @@ msgstr ""
 
 #: cms/views/region_condition/region_condition_actions.py
 msgid "Number of broken links"
-msgstr "Anzahl kaputter Links"
+msgstr "Anzahl fehlerhafter Links"
 
 #: cms/views/region_condition/region_condition_actions.py
 msgid "Number of low hix pages"
 msgstr "Anzahl Seiten mit niedrigem HIX-Wert"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of pages"
+msgstr "Anzahl an Seiten"
 
 #: cms/views/region_condition/region_condition_actions.py
 msgid "Number of pages with at least one missing or outdated translation"
@@ -10999,8 +11106,16 @@ msgstr ""
 "Anzahl Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
 
 #: cms/views/region_condition/region_condition_actions.py
+msgid "Number of outdated pages"
+msgstr "Anzahl veralteter Seiten"
+
+#: cms/views/region_condition/region_condition_actions.py
 msgid "Has translation package been booked?"
 msgstr "Wurde das Add-On für Übersetzungen gebucht?"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of active languages besides default language"
+msgstr "Anzahl aktiver Sprachen neben der Standard-Sprache"
 
 #: cms/views/regions/region_actions.py
 msgid ""
@@ -11167,13 +11282,13 @@ msgid ""
 "The publication status of {model_name} {object_names} was successfully "
 "changed to \"{changed_status}\"."
 msgid_plural ""
-"The publication status of the following {model_name_plural} was successfully "
+"The publication status of the following {model_name} was successfully "
 "changed to \"{changed_status}\": {object_names}"
 msgstr[0] ""
 "Der Veröffentlichungsstatus von {model_name} {object_names} wurde "
 "erfolgreich zu \"{changed_status}\" geändert."
 msgstr[1] ""
-"Der Veröffentlichungsstatus der folgenden {model_name_plural} wurde "
+"Der Veröffentlichungsstatus der folgenden {model_name} wurde "
 "erfolgreich zu \"{changed_status}\" geändert: {object_names}"
 
 #: cms/views/utils/publication_status.py
@@ -11182,13 +11297,13 @@ msgid ""
 "The publication status of {model_name} {object_names} is already "
 "\"{changed_status}\"."
 msgid_plural ""
-"The publication status of the following {model_name_plural} is already "
+"The publication status of the following {model_name} is already "
 "\"{changed_status}\": {object_names}"
 msgstr[0] ""
 "Der Veröffentlichungsstatus von {model_name} {object_names} ist bereits "
 "\"{changed_status}\""
 msgstr[1] ""
-"Der Veröffentlichungsstatus der folgenden {model_name_plural} ist bereits "
+"Der Veröffentlichungsstatus der folgenden {model_name} ist bereits "
 "\"{changed_status}\": {object_names}"
 
 #: cms/views/utils/publication_status.py
@@ -11197,15 +11312,15 @@ msgid ""
 "The publication status of {model_name} {object_names} could not be changed "
 "to \"{changed_status}\", because it has no translation in {language}."
 msgid_plural ""
-"The publication status of the following {model_name_plural} could not be "
-"changed to \"{changed_status}\", because they don't have a translation in "
-"{language}: {object_names}"
+"The publication status of the following {model_name} could not be changed to "
+"\"{changed_status}\", because they don't have a translation in {language}: "
+"{object_names}"
 msgstr[0] ""
 "Der Veröffentlichungsstatus von {model_name} {object_names} konnte nicht zu "
 "\"{changed_status}\" geändert werden, weil es keine Übersetztung in "
 "{language} gibt."
 msgstr[1] ""
-"Der Veröffentlichungsstatus der folgenden {model_name_plural} konnte nicht "
+"Der Veröffentlichungsstatus der folgenden {model_name} konnte nicht "
 "zu \"{changed_status}\" geändert werden, weil es keine Übersetztung in "
 "{language} gibt: {object_names}."
 
@@ -11227,25 +11342,25 @@ msgid ""
 "{model_name} {object_names} has successfully been translated "
 "({source_language} ➜ {target_language})."
 msgid_plural ""
-"The following {model_name_plural} have successfully been translated "
+"The following {model_name} have successfully been translated "
 "({source_language} ➜ {target_language}): {object_names}"
 msgstr[0] ""
 "{model_name} {object_names} wurde erfolgreich übersetzt ({source_language} ➜ "
 "{target_language})."
 msgstr[1] ""
-"Die folgenden {model_name_plural} wurden erfolgreich übersetzt "
+"Die folgenden {model_name} wurden erfolgreich übersetzt "
 "({source_language} ➜ {target_language}): {object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
 msgid "{model_name} {object_names} could not be translated automatically."
 msgid_plural ""
-"The following {model_name_plural} could not translated automatically: "
+"The following {model_name} could not translated automatically: "
 "{object_names}"
 msgstr[0] ""
 "{model_name} {object_names} konnte nicht automatisch übersetzt werden."
 msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht automatisch übersetzt "
+"Die folgenden {model_name} konnten nicht automatisch übersetzt "
 "werden: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
@@ -11254,13 +11369,13 @@ msgid ""
 "{model_name} {object_names} could not be translated because its source "
 "translation is missing."
 msgid_plural ""
-"The following {model_name_plural} could not be translated because their "
-"source translations are missing: {object_names}"
+"The following {model_name} could not be translated because their source "
+"translations are missing: {object_names}"
 msgstr[0] ""
 "{model_name} {object_names} konnte nicht übersetzt werden, da die Quell-"
 "Übersetzung fehlt."
 msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht übersetzt werden, da ihre "
+"Die folgenden {model_name} konnten nicht übersetzt werden, da ihre "
 "Quell-Übersetzung fehlen: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
@@ -11269,15 +11384,15 @@ msgid ""
 "{model_name} {object_names} could not be translated because its HIX score is "
 "too low for machine translation (minimum required: {min_required})."
 msgid_plural ""
-"The following {model_name_plural} could not be translated because their HIX "
-"score is too low for machine translation (minimum required: {min_required}): "
+"The following {model_name} could not be translated because their HIX score "
+"is too low for machine translation (minimum required: {min_required}): "
 "{object_names}"
 msgstr[0] ""
 "{model_name} {object_names} konnte nicht übersetzt werden, da der HIX Wert "
 "zu gering für die maschinelle Übersetzung ist (erforderlicher Mindestwert: "
 "{min_required})"
 msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht übersetzt werden, da ihre "
+"Die folgenden {model_name} konnten nicht übersetzt werden, da ihre "
 "HIX Werte für die maschinelle Übersetzung zu gering sind (erforderlicher "
 "Mindestwert: {min_required}): {object_names}"
 
@@ -11287,14 +11402,14 @@ msgid ""
 "{model_name} {object_names} could not be translated because it would exceed "
 "the remaining budget of {remaining_budget} words."
 msgid_plural ""
-"The following {model_name_plural} could not be translated because they would "
+"The following {model_name} could not be translated because they would "
 "exceed the remaining budget of {remaining_budget} words: {object_names}"
 msgstr[0] ""
 "{model_name} {object_names} konnte nicht übersetzt werden, da die "
 "Übersetzung das verbleibende Übersetzungsbudget von {remaining_budget} "
 "Wörtern übersteigen würde."
 msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht übersetzt werden, da die "
+"Die folgenden {model_name} konnten nicht übersetzt werden, da die "
 "Übersetzung das verbleibende Übersetzungsbudget von {remaining_budget} "
 "Wörtern übersteigen würde: {object_names}"
 
@@ -11366,12 +11481,12 @@ msgid ""
 "{model_name} {object_names} has been successfully translated into Easy "
 "German."
 msgid_plural ""
-"The following {model_name_plural} have been successfully translated into "
-"Easy German: {object_names}"
+"The following {model_name} have been successfully translated into Easy "
+"German: {object_names}"
 msgstr[0] ""
 "{model_name} {object_names} wurde erfolgreich in Leichte Sprache übersetzt."
 msgstr[1] ""
-"Die folgenden {model_name_plural} wurden erfolgreich in Leichte Sprache "
+"Die folgenden {model_name} wurden erfolgreich in Leichte Sprache "
 "übersetzt: {object_names}"
 
 #: summ_ai_api/summ_ai_api_client.py
@@ -11380,13 +11495,13 @@ msgid ""
 "{model_name} {object_names} could not be automatically translated into Easy "
 "German."
 msgid_plural ""
-"The following {model_name_plural} could not be automatically translated into "
-"Easy German: {object_names}"
+"The following {model_name} could not be automatically translated into Easy "
+"German: {object_names}"
 msgstr[0] ""
 "{model_name} {object_names} konnte nicht automatisch in Leichte Sprache "
 "übersetzt werden."
 msgstr[1] ""
-"Die folgenden {model_name_plural} konnten nicht automatisch in Leichte "
+"Die folgenden {model_name} konnten nicht automatisch in Leichte "
 "Sprache übersetzt werden: {object_names}"
 
 #: summ_ai_api/utils.py
@@ -11515,6 +11630,10 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Number of pages with at least one outdated translation"
+#~ msgstr ""
+#~ "Anzahl Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
+
 #~ msgid "attachment map"
 #~ msgstr "Anhangs-Mapping"
 
@@ -11562,51 +11681,20 @@ msgstr ""
 #~ "Add missing data or change existing data. Select the data you want to "
 #~ "import."
 #~ msgstr ""
-#~ "Ergänzen Sie fehlende Daten oder ändern bestehende Daten. Wählen Sie die "
-#~ "Daten aus, die übernommen werden sollen."
+#~ "Es gab einen Fehler mit dem Klienten. Bitte versuchen Sie es später "
+#~ "erneut."
 
-#~ msgid "This page is under construction"
-#~ msgstr "Diese Seite ist noch im Bau"
+#~ msgid "There has been a server error. Please try again later"
+#~ msgstr "Zu viele Anfragen. Bitte versuchen Sie es später erneut."
 
-#~ msgid "Recurrence end date"
-#~ msgstr "Enddatum der Widerholung"
+#~ msgid "No archived pages found with these filters."
+#~ msgstr "Keine archivierten Seiten mit diesen Filtern gefunden."
 
-#~ msgid "If the recurrence ends, the recurrence end date is required"
-#~ msgstr ""
-#~ "Wenn die Wiederholung endet, ist ein End-Datum für die Wiederholung "
-#~ "erforderlich"
+#~ msgid "No pages archived yet."
+#~ msgstr "Noch keine Seiten archiviert."
 
-#~ msgid ""
-#~ "The maximum duration for events is {} days. Consider using recurring "
-#~ "events if the event is not continuous."
-#~ msgstr ""
-#~ "Die maximale Veranstaltungsdauer beträgt {} Tage. Verwenden Sie "
-#~ "wiederholende Veranstaltungen, wenn die Veranstaltung nicht "
-#~ "kontinuierlich stattfindet."
-
-#~ msgid "Contact details"
-#~ msgstr "Kontaktdaten"
-
-#~ msgid "E-mail address: "
-#~ msgstr "E-Mail-Adresse: "
-
-#~ msgid "Not provided"
-#~ msgstr "Keine Angabe"
-
-#~ msgid "Phone number: "
-#~ msgstr "Telefonnummer: "
-
-#~ msgid "Website: "
-#~ msgstr "Website: "
-
-#~ msgid "An error occurred while importing events from this external calendar"
-#~ msgstr "Ein Fehler mit dem Import von Veranstaltungen ist aufgetreten"
-
-#~ msgid "Event does not come from an external calendar"
-#~ msgstr "Veranstaltung kommt nicht aus einem externen Kalender"
-
-#~ msgid "There is no page yet."
-#~ msgstr "Es gibt keinen Seiteninhalt."
+#~ msgid "This also involves non-archived subpages."
+#~ msgstr "Dies betrifft auch nicht-archivierte Unterseiten."
 
 #~ msgid "Invalid links"
 #~ msgstr "Ungültige Links"
@@ -11771,9 +11859,6 @@ msgstr ""
 #~ msgid "Import calendar"
 #~ msgstr "Kalender importieren"
 
-#~ msgid "Find more information about this"
-#~ msgstr "Mehr Informationen finden Sie"
-
 #~ msgid ""
 #~ "Easy words and short sentences can increase the text understandability."
 #~ msgstr ""
@@ -11803,9 +11888,6 @@ msgstr ""
 
 #~ msgid "Croatian"
 #~ msgstr "Kroatisch"
-
-#~ msgid "Hungarian"
-#~ msgstr "Ungarisch"
 
 #~ msgid "Italian"
 #~ msgstr "Italienisch"
@@ -11877,9 +11959,6 @@ msgstr ""
 
 #~ msgid "The content is too large."
 #~ msgstr "Der Inhalt ist zu groß."
-
-#~ msgid "Too many request. Please try again later."
-#~ msgstr "Zu viele Anfragen. Bitte versuchen Sie es später erneut."
 
 #~ msgid "The DeepL budget has been exceeded."
 #~ msgstr "Das DeepL-Budget wurde überschritten."

@@ -52,9 +52,17 @@ def update_link(
     if not (source_translation := get_public_translation_for_link(current_url)):
         return None
 
-    if target_translation := source_translation.foreign_object.get_public_translation(
-        target_language_slug,
-    ):
+    try:
+        target_translation = source_translation.foreign_object.get_public_translation(
+            target_language_slug
+        )
+    except KeyError:
+        logger.exception(
+            "Could not resolve link translation due to missing language %s.",
+            target_language_slug,
+        )
+        return source_translation.full_url, source_translation.link_title
+    if target_translation:
         # Always use the full url, even if the url was previously a short url
         fixed_link = target_translation.full_url
 

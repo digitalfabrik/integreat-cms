@@ -1,5 +1,6 @@
 {% extends "_base.html" %}
 {% load i18n %}
+{% load rules %}
 {% if request.region.statistics_enabled and perms.cms.view_statistics %}
     {% block content %}
         <div class="row">
@@ -8,14 +9,20 @@
                     {% translate "Statistics" %}
                 </h1>
             </div>
-            <div class="xl:flex gap-3 pt-2">
-                <div class="xl:w-3/4">
+            <div class="pt-4 lg:pt-0 3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
+                <div class="flex flex-col flex-wrap col-span-1 3xl:col-span-1">
                     {% include "statistics/statistics_chart.html" with box_id="statistics_chart" %}
+                    {% if perms.cms.view_page_based_statistics %}
+                        {% include "statistics/statistics_viewed_pages.html" with box_id="statistics_viewed_pages" %}
+                    {% endif %}
                 </div>
-                <div class="xl:w-1/4 grid grid-cols-1">
+                <div class="sm:block md:flex sm:mt-4 3xl:mt-0 3xl:block 4xl:flex">
                     {% include "statistics/statistics_sidebar.html" with box_id="statistics_sidebar" %}
                 </div>
             </div>
         </div>
+        {% if perms.cms.view_page_based_statistics %}
+            {% include "../tutorials/page_access_statistics.html" with tutorial_id="page-access-statistics-info" hidden=tutorial_seen %}
+        {% endif %}
     {% endblock content %}
 {% endif %}

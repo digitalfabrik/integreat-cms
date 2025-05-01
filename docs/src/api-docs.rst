@@ -343,6 +343,7 @@ RESPONSE
                 "name": String,              // The name of the contact
                 "email": String,             // An email address of the contact
                 "phone_number": String,      // A phone number of the contact
+                "mobile_number": String,     // An additional mobile number
                 "website": String,           // The website of the contact
             },
          ],
@@ -672,6 +673,7 @@ RESPONSE
       "message": String,       // The message of the push notification in the given language
       "timestamp": String,     // Deprecated field
       "last_updated": String,  // The date&time when the push notification was last updated
+      "display_date": String,  // The date&time when the push notification was sent / last updated (whichever is newer)
       "channel": String,       // The channel the push notification was sent to (e.g. "News")
       "available_languages": [           // The available languages of the push notification
             "<language_slug>": {

@@ -73,11 +73,12 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
 
     contacts = Contact.objects.filter(location=poi).all()
 
-    # Note(johannes): Remove the primary_contact and the according three fields (phone_number, website, and email) once
-    # https://github.com/digitalfabrik/integreat-app/issues/3121 is resolved.
+    # Note(johannes): Remove the primary_contact and the according three fields (phone_number, website, and email) in late 2025
+    # https://github.com/digitalfabrik/integreat-cms/issues/3475
     primary_contact = contacts.filter(area_of_responsibility="").first()
 
     contacts = contacts.filter(archived=False)
+
     contact_data = []
     for contact in contacts:
         contact_data.append(
@@ -88,6 +89,7 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
                 "name": contact.name,
                 "email": contact.email,
                 "phone_number": contact.phone_number,
+                "mobile_number": contact.mobile_phone_number,
                 "website": contact.website,
             }
         )
