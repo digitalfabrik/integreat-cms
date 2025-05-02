@@ -4470,18 +4470,6 @@ msgstr ""
 "angesehen hat"
 
 #: cms/models/users/user.py
-msgid "Page access statistics tutorial seen"
-msgstr "Tutorial zu seitenbasierten Zugriffe angesehen"
-
-#: cms/models/users/user.py
-msgid ""
-"Will be set to true once the user dismissed the tutorial for page access "
-"statistics"
-msgstr ""
-"Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum "
-"Seitezugriff angesehen hat"
-
-#: cms/models/users/user.py
 msgid "automatically distribute sidebar boxes"
 msgstr "Sidebar-Boxen automatisch verteilen"
 
@@ -8344,8 +8332,7 @@ msgstr "Seiten unter HIX Schwellenwert"
 
 #: cms/templates/region_condition/region_condition.html
 msgid "Pages with at least one missing or outdated translation"
-msgstr ""
-"Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
+msgstr "Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
 
 #: cms/templates/region_condition/region_condition.html
 msgid "Active languages besides default language"
@@ -8940,78 +8927,40 @@ msgid "Important information about page access"
 msgstr "Wichtige Hinweise zu Seitenzugriffen"
 
 #: cms/templates/tutorials/page_access_statistics.html
-msgid ""
-"There is a text here that helps employees to interpret the numbers and "
-"statistics appropriately."
-msgstr ""
-"Hier steht ein Text, der Mitarbeiter:innen dabei hilft, die Zahlen und "
-"Statistiken angemessen interpretieren zu können."
+msgid "Offline accesses are missing: offline usage is not counted."
+msgstr "Offline-Zugriffe fehlen: Offline-Nutzung wird nicht gezählt."
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid "Seasonal peaks: events temporarily lead to more accesses."
+msgstr "Saisonale Spitzen: Ereignisse führen zeitweise zu mehr Zugriffen."
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid "Context counts: even pages with few hits can be important."
+msgstr "Kontext zählt: Auch Seiten mit wenigen Zugriffen können wichtig sein."
 
 #: cms/templates/tutorials/page_access_statistics.html
 msgid ""
-"Offline access cannot be counted. This means that even a page with few hits "
-"in the list can have higher hits that took place offline."
+"Pages relevant to target groups: fewer views, but high relevance for specific "
+"target groups."
 msgstr ""
-"Offline-Zugriffe können nicht mitgerechnet werden. D.h. auch eine Seite mit "
-"wenigen Zugriffen in der Liste kann höhere Zugriffe haben, die offline "
-"stattgefunden haben."
+"Zielgruppen-relevante Seiten: Weniger Aufrufe, aber hohe Relevanz für "
+"spezifische Zielgruppen."
 
 #: cms/templates/tutorials/page_access_statistics.html
-msgid ""
-"Pages that contain specific information about seasonal or one-time events (e."
-"g. events or election times) may receive higher traffic during certain "
-"periods. Outside these phases, traffic may be lower."
-msgstr ""
-"Seiten, die spezifische Informationen zu saisonalen oder einmaligen "
-"Ereignissen enthalten (z.B. Veranstaltungen oder Wahlzeiten), können in "
-"bestimmten Phasen höhere Zugriffszahlen aufweisen. Außerhalb dieser Phasen "
-"sind die Zugriffe eventuell niedriger."
+msgid "Check for up-to-dateness: outdated content reduces the number of views."
+msgstr "Aktualität prüfen: Veraltete Inhalte senken die Aufrufzahlen."
 
 #: cms/templates/tutorials/page_access_statistics.html
-msgid ""
-"Page views should not be viewed in isolation, but always in the context of "
-"the overall communication strategy. A page with few hits can still be an "
-"important part of user guidance and information."
-msgstr ""
-"Seitenzugriffe sollten nicht isoliert betrachtet werden, sondern immer im "
-"Kontext der gesamten Kommunikationsstrategie. Eine Seite mit wenigen "
-"Zugriffen kann trotzdem ein wichtiger Bestandteil der Nutzerführung und "
-"Information sein."
-
-#: cms/templates/tutorials/page_access_statistics.html
-msgid ""
-"Some pages may be rarely visited, but are extremely important for specific "
-"target groups (e.g. newcomers, people with special needs). For example, "
-"information about special advisory services or integration offers could not "
-"be used by the general public, but could be indispensable for the target "
-"group."
-msgstr ""
-"Manche Seiten werden möglicherweise selten besucht, sind aber für "
-"spezifische Zielgruppen (z.B. Neuankömmlinge, Menschen mit besonderen "
-"Bedürfnissen) extrem wichtig. Zum Beispiel könnten Informationen über "
-"spezielle Beratungsdienste oder Integrationsangebote nicht von der breiten "
-"Masse genutzt werden, aber für die Zielgruppe unverzichtbar sein."
-
-#: cms/templates/tutorials/page_access_statistics.html
-msgid ""
-"Content that is no longer current or appears outdated can lead to a decrease "
-"in traffic. It is therefore important to regularly check whether content has "
-"been updated and how this affects the statistics. Low traffic numbers could "
-"indicate that the page is no longer perceived as relevant."
-msgstr ""
-"Inhalte, die nicht mehr aktuell sind oder veraltet erscheinen, können zu "
-"einem Rückgang der Zugriffe führen. Es ist daher wichtig, regelmäßig zu "
-"überprüfen, ob Inhalte aktualisiert wurden und wie dies die Statistiken "
-"beeinflusst. Niedrige Zugriffszahlen könnten darauf hinweisen, dass die "
-"Seite nicht mehr als relevant wahrgenommen wird."
-
-#: cms/templates/tutorials/page_access_statistics.html
-msgid "You can find more information about this in "
+msgid "You can find more information about this in the "
 msgstr "Mehr Informationen dazu finden Sie im "
 
 #: cms/templates/tutorials/page_access_statistics.html
 msgid "Wiki"
 msgstr "Wiki"
+
+#: cms/templates/tutorials/page_access_statistics.html
+msgid "Close"
+msgstr "Schließen"
 
 #: cms/templates/tutorials/page_tree.html
 msgid "Introduction - Page Tree"
@@ -9488,16 +9437,14 @@ msgid_plural ""
 "The following {model_name} were successfully archived: {object_names}"
 msgstr[0] "{model_name} {object_names} wurde erfolgreich archiviert."
 msgstr[1] ""
-"Die folgenden {model_name} wurden erfolgreich archiviert: "
-"{object_names}"
+"Die folgenden {model_name} wurden erfolgreich archiviert: {object_names}"
 
 #: cms/views/bulk_action_views.py
 #, python-brace-format
 msgid "{model_name} {object_names} is already archived."
 msgid_plural "The following {model_name} are already archived: {object_names}"
 msgstr[0] "{model_name} {object_names} ist bereits archiviert."
-msgstr[1] ""
-"Die folgenden {model_name} sind bereits archiviert: {object_names}"
+msgstr[1] "Die folgenden {model_name} sind bereits archiviert: {object_names}"
 
 #: cms/views/bulk_action_views.py
 #, python-brace-format
@@ -9545,8 +9492,7 @@ msgstr[1] ""
 msgid "{model_name} {object_names} is not archived."
 msgid_plural "The following {model_name} are not archived: {object_names}"
 msgstr[0] "{model_name} {object_names} ist nicht archiviert."
-msgstr[1] ""
-"Die folgenden {model_name} sind nicht archiviert: {object_names}"
+msgstr[1] "Die folgenden {model_name} sind nicht archiviert: {object_names}"
 
 #: cms/views/bulk_action_views.py
 msgid ""
@@ -9603,8 +9549,7 @@ msgstr[0] ""
 "{model_name} {object_names} kann nicht archiviert werden solange Inhalte auf "
 "ihn verweisen."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht archiviert werden: "
-"{object_names}"
+"Die folgenden {model_name} konnten nicht archiviert werden: {object_names}"
 
 #: cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
@@ -9626,8 +9571,7 @@ msgstr[0] ""
 "{model_name} {object_names} kann nicht gelöscht werden solange Inhalte auf "
 "ihn verweisen."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht gelöscht werden: "
-"{object_names}"
+"Die folgenden {model_name} konnten nicht gelöscht werden: {object_names}"
 
 #: cms/views/contacts/contact_context_mixin.py
 msgid "Please confirm that you really want to archive this contact"
@@ -10365,8 +10309,8 @@ msgstr[0] ""
 "Die {model_name} {object_names} konnte nicht archiviert werden, da sie von "
 "einer Seite, einem Ort oder eines Users verwendet wird"
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht archiviert werden, da sie "
-"von einer Seite, einem Ort oder eines Users verwendet werden: {object_names}"
+"Die folgenden {model_name} konnten nicht archiviert werden, da sie von einer "
+"Seite, einem Ort oder eines Users verwendet werden: {object_names}"
 
 #: cms/views/organizations/organization_bulk_actions.py
 #, python-brace-format
@@ -10380,8 +10324,8 @@ msgstr[0] ""
 "Die {model_name} {object_names} konnte nicht gelöscht werden, da sie von "
 "einer Seite, einem Ort oder eines Users verwendet wird"
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht gelöscht werden, da sie von "
-"einer Seite, einem Ort oder eines Users verwendet werden: {object_names}"
+"Die folgenden {model_name} konnten nicht gelöscht werden, da sie von einer "
+"Seite, einem Ort oder eines Users verwendet werden: {object_names}"
 
 #: cms/views/organizations/organization_content_mixin.py
 msgid "Please confirm that you really want to archive this organization"
@@ -10542,8 +10486,7 @@ msgid_plural ""
 "The following {model_name} were not in translation process: {object_names}"
 msgstr[0] "{model_name} {object_names} war nicht im Übersetzungsprozess"
 msgstr[1] ""
-"Die folgenden {model_name} waren nicht im Übersetzungsprozess: "
-"{object_names}"
+"Die folgenden {model_name} waren nicht im Übersetzungsprozess: {object_names}"
 
 #: cms/views/pages/page_bulk_actions.py
 #, python-brace-format
@@ -10557,8 +10500,8 @@ msgstr[0] ""
 "Der Übersetzungsprozess für {model_name} {object_names} wurde erfolgreich "
 "abgebrochen."
 msgstr[1] ""
-"Der Übersetzungsprozess für die folgenden {model_name} wurde "
-"erfolgreich abgebrochen: {object_names}."
+"Der Übersetzungsprozess für die folgenden {model_name} wurde erfolgreich "
+"abgebrochen: {object_names}."
 
 #: cms/views/pages/page_bulk_actions.py
 #, python-brace-format
@@ -10572,8 +10515,8 @@ msgstr[0] ""
 "Der Übersetzungsprozess konnte nicht erfolgreich abgebrochen werden für die "
 "{model_name} {object_names}."
 msgstr[1] ""
-"Der Übersetzungsprozess für die folgenden {model_name} wurde "
-"erfolgreich abgebrochen: {object_names}"
+"Der Übersetzungsprozess für die folgenden {model_name} wurde erfolgreich "
+"abgebrochen: {object_names}"
 
 #: cms/views/pages/page_context_mixin.py
 msgid "Please confirm that you really want to archive this page"
@@ -11288,8 +11231,8 @@ msgstr[0] ""
 "Der Veröffentlichungsstatus von {model_name} {object_names} wurde "
 "erfolgreich zu \"{changed_status}\" geändert."
 msgstr[1] ""
-"Der Veröffentlichungsstatus der folgenden {model_name} wurde "
-"erfolgreich zu \"{changed_status}\" geändert: {object_names}"
+"Der Veröffentlichungsstatus der folgenden {model_name} wurde erfolgreich zu "
+"\"{changed_status}\" geändert: {object_names}"
 
 #: cms/views/utils/publication_status.py
 #, python-brace-format
@@ -11320,8 +11263,8 @@ msgstr[0] ""
 "\"{changed_status}\" geändert werden, weil es keine Übersetztung in "
 "{language} gibt."
 msgstr[1] ""
-"Der Veröffentlichungsstatus der folgenden {model_name} konnte nicht "
-"zu \"{changed_status}\" geändert werden, weil es keine Übersetztung in "
+"Der Veröffentlichungsstatus der folgenden {model_name} konnte nicht zu "
+"\"{changed_status}\" geändert werden, weil es keine Übersetztung in "
 "{language} gibt: {object_names}."
 
 #: core/apps.py
@@ -11348,20 +11291,19 @@ msgstr[0] ""
 "{model_name} {object_names} wurde erfolgreich übersetzt ({source_language} ➜ "
 "{target_language})."
 msgstr[1] ""
-"Die folgenden {model_name} wurden erfolgreich übersetzt "
-"({source_language} ➜ {target_language}): {object_names}"
+"Die folgenden {model_name} wurden erfolgreich übersetzt ({source_language} ➜ "
+"{target_language}): {object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
 msgid "{model_name} {object_names} could not be translated automatically."
 msgid_plural ""
-"The following {model_name} could not translated automatically: "
-"{object_names}"
+"The following {model_name} could not translated automatically: {object_names}"
 msgstr[0] ""
 "{model_name} {object_names} konnte nicht automatisch übersetzt werden."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht automatisch übersetzt "
-"werden: {object_names}"
+"Die folgenden {model_name} konnten nicht automatisch übersetzt werden: "
+"{object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
@@ -11375,8 +11317,8 @@ msgstr[0] ""
 "{model_name} {object_names} konnte nicht übersetzt werden, da die Quell-"
 "Übersetzung fehlt."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht übersetzt werden, da ihre "
-"Quell-Übersetzung fehlen: {object_names}"
+"Die folgenden {model_name} konnten nicht übersetzt werden, da ihre Quell-"
+"Übersetzung fehlen: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
@@ -11392,9 +11334,9 @@ msgstr[0] ""
 "zu gering für die maschinelle Übersetzung ist (erforderlicher Mindestwert: "
 "{min_required})"
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht übersetzt werden, da ihre "
-"HIX Werte für die maschinelle Übersetzung zu gering sind (erforderlicher "
-"Mindestwert: {min_required}): {object_names}"
+"Die folgenden {model_name} konnten nicht übersetzt werden, da ihre HIX Werte "
+"für die maschinelle Übersetzung zu gering sind (erforderlicher Mindestwert: "
+"{min_required}): {object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
@@ -11402,8 +11344,8 @@ msgid ""
 "{model_name} {object_names} could not be translated because it would exceed "
 "the remaining budget of {remaining_budget} words."
 msgid_plural ""
-"The following {model_name} could not be translated because they would "
-"exceed the remaining budget of {remaining_budget} words: {object_names}"
+"The following {model_name} could not be translated because they would exceed "
+"the remaining budget of {remaining_budget} words: {object_names}"
 msgstr[0] ""
 "{model_name} {object_names} konnte nicht übersetzt werden, da die "
 "Übersetzung das verbleibende Übersetzungsbudget von {remaining_budget} "
@@ -11486,8 +11428,8 @@ msgid_plural ""
 msgstr[0] ""
 "{model_name} {object_names} wurde erfolgreich in Leichte Sprache übersetzt."
 msgstr[1] ""
-"Die folgenden {model_name} wurden erfolgreich in Leichte Sprache "
-"übersetzt: {object_names}"
+"Die folgenden {model_name} wurden erfolgreich in Leichte Sprache übersetzt: "
+"{object_names}"
 
 #: summ_ai_api/summ_ai_api_client.py
 #, python-brace-format
@@ -11501,8 +11443,8 @@ msgstr[0] ""
 "{model_name} {object_names} konnte nicht automatisch in Leichte Sprache "
 "übersetzt werden."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht automatisch in Leichte "
-"Sprache übersetzt werden: {object_names}"
+"Die folgenden {model_name} konnten nicht automatisch in Leichte Sprache "
+"übersetzt werden: {object_names}"
 
 #: summ_ai_api/utils.py
 msgid "No German translation could be found for {} \"{}\"."
@@ -11629,6 +11571,76 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Page access statistics tutorial seen"
+#~ msgstr "Tutorial zu seitenbasierten Zugriffe angesehen"
+
+#~ msgid ""
+#~ "Will be set to true once the user dismissed the tutorial for page access "
+#~ "statistics"
+#~ msgstr ""
+#~ "Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum "
+#~ "Seitezugriff angesehen hat"
+
+#~ msgid ""
+#~ "There is a text here that helps employees to interpret the numbers and "
+#~ "statistics appropriately."
+#~ msgstr ""
+#~ "Hier steht ein Text, der Mitarbeiter:innen dabei hilft, die Zahlen und "
+#~ "Statistiken angemessen interpretieren zu können."
+
+#~ msgid ""
+#~ "Offline access cannot be counted. This means that even a page with few "
+#~ "hits in the list can have higher hits that took place offline."
+#~ msgstr ""
+#~ "Offline-Zugriffe können nicht mitgerechnet werden. D.h. auch eine Seite "
+#~ "mit wenigen Zugriffen in der Liste kann höhere Zugriffe haben, die "
+#~ "offline stattgefunden haben."
+
+#~ msgid ""
+#~ "Pages that contain specific information about seasonal or one-time events "
+#~ "(e.g. events or election times) may receive higher traffic during certain "
+#~ "periods. Outside these phases, traffic may be lower."
+#~ msgstr ""
+#~ "Seiten, die spezifische Informationen zu saisonalen oder einmaligen "
+#~ "Ereignissen enthalten (z.B. Veranstaltungen oder Wahlzeiten), können in "
+#~ "bestimmten Phasen höhere Zugriffszahlen aufweisen. Außerhalb dieser "
+#~ "Phasen sind die Zugriffe eventuell niedriger."
+
+#~ msgid ""
+#~ "Page views should not be viewed in isolation, but always in the context "
+#~ "of the overall communication strategy. A page with few hits can still be "
+#~ "an important part of user guidance and information."
+#~ msgstr ""
+#~ "Seitenzugriffe sollten nicht isoliert betrachtet werden, sondern immer im "
+#~ "Kontext der gesamten Kommunikationsstrategie. Eine Seite mit wenigen "
+#~ "Zugriffen kann trotzdem ein wichtiger Bestandteil der Nutzerführung und "
+#~ "Information sein."
+
+#~ msgid ""
+#~ "Some pages may be rarely visited, but are extremely important for "
+#~ "specific target groups (e.g. newcomers, people with special needs). For "
+#~ "example, information about special advisory services or integration "
+#~ "offers could not be used by the general public, but could be "
+#~ "indispensable for the target group."
+#~ msgstr ""
+#~ "Manche Seiten werden möglicherweise selten besucht, sind aber für "
+#~ "spezifische Zielgruppen (z.B. Neuankömmlinge, Menschen mit besonderen "
+#~ "Bedürfnissen) extrem wichtig. Zum Beispiel könnten Informationen über "
+#~ "spezielle Beratungsdienste oder Integrationsangebote nicht von der "
+#~ "breiten Masse genutzt werden, aber für die Zielgruppe unverzichtbar sein."
+
+#~ msgid ""
+#~ "Content that is no longer current or appears outdated can lead to a "
+#~ "decrease in traffic. It is therefore important to regularly check whether "
+#~ "content has been updated and how this affects the statistics. Low traffic "
+#~ "numbers could indicate that the page is no longer perceived as relevant."
+#~ msgstr ""
+#~ "Inhalte, die nicht mehr aktuell sind oder veraltet erscheinen, können zu "
+#~ "einem Rückgang der Zugriffe führen. Es ist daher wichtig, regelmäßig zu "
+#~ "überprüfen, ob Inhalte aktualisiert wurden und wie dies die Statistiken "
+#~ "beeinflusst. Niedrige Zugriffszahlen könnten darauf hinweisen, dass die "
+#~ "Seite nicht mehr als relevant wahrgenommen wird."
 
 #~ msgid "Number of pages with at least one outdated translation"
 #~ msgstr ""
@@ -11827,15 +11839,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have "
-#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have <b>"
+#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell "
-#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
-#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
-#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell <b>"
+#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
+#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
+#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
