@@ -16,7 +16,7 @@ from lxml.html import rewrite_links
 from ....cms.models import Region
 from ....cms.utils import internal_link_utils
 from ....cms.utils.link_utils import fix_content_link_encoding
-from ....cms.utils.linkcheck_utils import get_region_links
+from ....cms.utils.linkcheck_utils import get_link_query
 from ..log_command import LogCommand
 
 if TYPE_CHECKING:
@@ -115,7 +115,7 @@ class Command(LogCommand):
 
         query = Url.objects.all()
         if region:
-            region_links = get_region_links(region)
+            region_links = get_link_query(region)
             query = Url.objects.filter(links__in=region_links).distinct()
 
         for url in query:
