@@ -82,6 +82,13 @@ class PushNotification(AbstractBaseModel):
         verbose_name=_("News template name"),
         help_text=_("Provide a distinct name for the template"),
     )
+    archived = models.BooleanField(
+        default=False,
+        verbose_name=_("archived"),
+        help_text=_(
+            "Whether or not the push notification is read-only and hidden in the API."
+        ),
+    )
 
     @cached_property
     def languages(self) -> QuerySet[Language]:
@@ -184,13 +191,27 @@ class PushNotification(AbstractBaseModel):
         """
         return f"<PushNotification (id: {self.id}, channel: {self.channel!r}, regions: {self.regions.values_list('slug', flat=True)})>"
 
+    def archive(self) -> None:
+        """
+        Archives the contact
+        """
+        self.archived = True
+        self.save()
+
+    def restore(self) -> None:
+        """
+        Restores the contact
+        """
+        self.archived = False
+        self.save()
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("push notification")
         #: The plural verbose name of the model
         verbose_name_plural = _("push notifications")
         #: The default permissions for this model
-        default_permissions = ("change", "delete", "view")
+        default_permissions = ("change", "delete", "view", "archive")
         #: The custom permissions for this model
         permissions = (("send_push_notification", "Can send push notification"),)
         #: The fields which are used to sort the returned objects of a QuerySet

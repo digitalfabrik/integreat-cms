@@ -105,6 +105,7 @@ EDITOR_PERMISSIONS: Final[list[str]] = [
 #: The permissions of the management role
 MANAGEMENT_PERMISSIONS: Final[list[str]] = [
     *EDITOR_PERMISSIONS,
+    "archive_pushnotification",
     "change_feedback",
     "change_imprintpage",
     "change_organization",
@@ -175,6 +176,7 @@ APP_TEAM_PERMISSIONS: Final[list[str]] = [
 #: The permissions of the service team
 SERVICE_TEAM_PERMISSIONS: Final[list[str]] = [
     *APP_TEAM_PERMISSIONS,
+    "archive_pushnotification",
     "change_externalcalendar",
     "change_language",
     "change_languagetreenode",

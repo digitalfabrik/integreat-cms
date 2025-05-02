@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 
     from django.db.models.query import QuerySet
 
-    from ..models import Region
+    from ...models import Region
 
 
 class PushNotificationForm(CustomModelForm):
