@@ -22,6 +22,7 @@ from ..forms import (
 from ..models import (
     Event,
     Language,
+    LanguageTreeNode,
     OfferTemplate,
     Page,
     POI,
@@ -990,6 +991,13 @@ urlpatterns: list[URLPattern] = [
                                             name="bulk_restore_pages",
                                         ),
                                         path(
+                                            "bulk-delete/",
+                                            bulk_action_views.BulkDeletingView.as_view(
+                                                model=Page,
+                                            ),
+                                            name="bulk_delete_pages",
+                                        ),
+                                        path(
                                             "machine-translate/",
                                             bulk_action_views.BulkMachineTranslationView.as_view(
                                                 model=Page,
@@ -1276,6 +1284,13 @@ urlpatterns: list[URLPattern] = [
                                             name="draft_multiple_events",
                                         ),
                                         path(
+                                            "bulk-delete/",
+                                            bulk_action_views.BulkDeletingView.as_view(
+                                                model=Event,
+                                            ),
+                                            name="delete_multiple_events",
+                                        ),
+                                        path(
                                             "<int:event_id>/",
                                             include(
                                                 [
@@ -1389,6 +1404,13 @@ urlpatterns: list[URLPattern] = [
                                                 model=POI,
                                             ),
                                             name="draft_multiple_pois",
+                                        ),
+                                        path(
+                                            "bulk-delete/",
+                                            bulk_action_views.BulkDeletingView.as_view(
+                                                model=POI,
+                                            ),
+                                            name="bulk_delete_pois",
                                         ),
                                         path(
                                             "show-poi-form-ajax/<str:poi_title>/",
@@ -1713,6 +1735,13 @@ urlpatterns: list[URLPattern] = [
                                 "bulk-disable/",
                                 language_tree.BulkDisableView.as_view(),
                                 name="bulk_disable_languagetreenodes",
+                            ),
+                            path(
+                                "bulk-delete/",
+                                bulk_action_views.BulkDeletingView.as_view(
+                                    model=LanguageTreeNode,
+                                ),
+                                name="bulk_delete_languagetreenodes",
                             ),
                             path(
                                 "<int:pk>/",

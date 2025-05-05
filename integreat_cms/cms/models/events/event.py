@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, time
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from django.db import models
 from django.db.models import Q
@@ -336,6 +336,14 @@ class Event(AbstractContentModel):
         for translation in self.translations.distinct("event__pk", "language__pk"):
             # The post_save signal will create link objects from the content
             translation.save(update_timestamp=False)
+
+    def delete(self, *args: Any, **kwargs: Any) -> tuple[int, dict[str, int]]:
+        """
+        Deletes the event and its recurrence rule
+        """
+        if self.recurrence_rule:
+            self.recurrence_rule.delete()
+        return super().delete(*args, **kwargs)
 
     class Meta:
         #: The verbose name of the model

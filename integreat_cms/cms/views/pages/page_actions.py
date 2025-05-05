@@ -248,13 +248,12 @@ def delete_page(
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
-    if page.children.exists():
-        messages.error(request, _("You cannot delete a page which has subpages."))
-    elif page.mirroring_pages.exists():
+    can_delete, error_msg = page.can_be_deleted()
+    if not can_delete:
         messages.error(
             request,
-            _(
-                "This page cannot be deleted because it was embedded as live content from another page.",
+            _("The page could not be deleted, because {failure_reason}").format(
+                failure_reason=error_msg
             ),
         )
     else:
