@@ -115,7 +115,7 @@ class Command(LogCommand):
 
         query = Url.objects.all()
         if region:
-            region_links = get_link_query(region)
+            region_links = get_link_query([region])
             query = Url.objects.filter(links__in=region_links).distinct()
 
         for url in query:

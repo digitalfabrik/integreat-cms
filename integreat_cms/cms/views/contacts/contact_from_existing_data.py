@@ -68,7 +68,7 @@ class PotentialContactSourcesView(TemplateView):
         :return: The rendered template response
         """
 
-        region_links = get_link_query(request.region)
+        region_links = get_link_query([request.region])
         email_or_phone_links = region_links.filter(
             Q(url__url__startswith="mailto") | Q(url__url__startswith="tel")
         )
