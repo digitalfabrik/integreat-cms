@@ -225,7 +225,7 @@ class RegionForm(CustomModelForm):
             "zammad_url",
             "zammad_access_token",
             "zammad_webhook_token",
-            "zammad_chat_handlers",
+            "zammad_privacy_policy",
             "chat_beta_tester_percentage",
         ]
         #: The widgets which are used in this form

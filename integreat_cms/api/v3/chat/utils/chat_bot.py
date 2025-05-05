@@ -130,6 +130,7 @@ def process_user_message(
             internal=True,
             automatic_message=True,
         )
+    zammad_chat.processing_answer = False
     if answer:
         if answer["status"] == "error":
             logger.error("Integreat Chat: %s", answer["message"])
@@ -140,7 +141,6 @@ def process_user_message(
                 automatic_message=True,
             )
             zammad_chat.save_automatic_answers(answer["automatic_answers"])
-    zammad_chat.processing_answer = False
 
 
 async def async_process_translate(

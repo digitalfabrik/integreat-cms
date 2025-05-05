@@ -477,13 +477,13 @@ class Region(AbstractBaseModel):
             "Token used by Zammad webhooks to inform the Integreat CMS about changed tickets. The token has to be appended with a token= GET parameter to the webhook path.",
         ),
     )
-    zammad_chat_handlers = models.CharField(
+    zammad_privacy_policy = models.CharField(
         max_length=1024,
         blank=True,
         default="",
-        verbose_name=_("Zammad chat handlers"),
+        verbose_name=_("Custom Integreat Chat privacy policy"),
         help_text=_(
-            "Comma-separated email addresses of the accounts which should automatically be subscribed to new chat tickets. Note that these users must have full group permissions for the group:",
+            "Link to custom privacy policy for self-hosted Zammad server.",
         ),
     )
 

@@ -42,42 +42,43 @@ RESPONSE
 
    [
      {
-       "id": Number,                    // id of region
-       "name": String,                  // prefix + name of region
-       "path": String,                  // path to site (without host)
-       "live": Boolean,                 // determines if the region is live or hidden
-       "prefix": String | null,         // prefix of region name, e.g. "Stadt"
-       "name_without_prefix": String,   // region name without prefix
-       "plz": Number | null,            // plz (Postleitzahl/ZIP) of region
-       "extras": Boolean,               // true if at least one extra is enabled
-       "events": Boolean,               // true if events are enabled
-       "pois": Boolean,                 // true if points of interest are enabled
-       "push_notifications": Boolean,   // true if push-notifications are enabled
-       "longitude": Number | null,      // longitude of the geographic center of the region
-       "latitude": Number | null,       // latitude of the geographic center of the region
-       "bounding_box": [                // The bounding box of the region, containing two coordinates
+       "id": Number,                       // id of region
+       "name": String,                     // prefix + name of region
+       "path": String,                     // path to site (without host)
+       "live": Boolean,                    // determines if the region is live or hidden
+       "prefix": String | null,            // prefix of region name, e.g. "Stadt"
+       "name_without_prefix": String,      // region name without prefix
+       "plz": Number | null,               // plz (Postleitzahl/ZIP) of region
+       "extras": Boolean,                  // true if at least one extra is enabled
+       "events": Boolean,                  // true if events are enabled
+       "pois": Boolean,                    // true if points of interest are enabled
+       "push_notifications": Boolean,      // true if push-notifications are enabled
+       "longitude": Number | null,         // longitude of the geographic center of the region
+       "latitude": Number | null,          // latitude of the geographic center of the region
+       "bounding_box": [                   // The bounding box of the region, containing two coordinates
             [Number, Number], [Number, Number]
         ],
-       "aliases": {                     // value can also be NULL
-           "<alias>": {                 // name of a region alias (smaller municipality within a region)
-               "longitude": Number,     // longitude of the geographic center of the region alias
-               "latitude": Number,      // latitude of the geographic center of the region alias
+       "aliases": {                        // value can also be NULL
+           "<alias>": {                    // name of a region alias (smaller municipality within a region)
+               "longitude": Number,        // longitude of the geographic center of the region alias
+               "latitude": Number,         // latitude of the geographic center of the region alias
            } | null,
            ...
         }
-       "tunews": Boolean,               // true if TüNews are enabled
-       "external_news": Boolean,       // true if external news provider are enabled
+       "tunews": Boolean,                  // true if TüNews are enabled
+       "zammad_privacy_policy": str | null // link to custom Integreat Chat privacy policy
+       "external_news": Boolean,           // true if external news provider are enabled
        "languages": [
          {
             "id": Number,
-            "code": String,              // language-code, e.g. "de" or "en"
+            "code": String,                // language-code, e.g. "de" or "en"
             "bcp47_tag": String,
             "native_name": String,
-            "dir": String                // reading direction {"ltr"|"rtl"}
+            "dir": String                  // reading direction {"ltr"|"rtl"}
          },
          ...
         ],
-        "is_chat_enabled": Boolean,     // whether the Integreat Chat is enabled for the region
+        "is_chat_enabled": Boolean,        // whether the Integreat Chat is enabled for the region
      },
      ...
    ]
