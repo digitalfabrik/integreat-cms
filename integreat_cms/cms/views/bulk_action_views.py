@@ -16,7 +16,7 @@ from cacheops import invalidate_model
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.db.models import Q
+from django.db.models import ProtectedError, Q
 from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -505,4 +505,76 @@ class BulkDraftingView(BulkActionView):
             kwargs["language_slug"],
             status.DRAFT,
         )
+        return super().post(request, *args, **kwargs)
+
+
+class BulkDeletingView(BulkActionView):
+    """
+    Bulk action to delete multiple entries at once
+    """
+
+    def get_permission_required(self) -> tuple[str]:
+        r"""
+        This method overwrites get_permission_required()
+
+        :return: The needed permission to delete entries
+        """
+        return (f"cms.delete_{self.model._meta.model_name}",)
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        r"""
+        Function to delete multiple entries at once
+
+        :param request: The current request
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        :return: The redirect
+        """
+        delete_sucessful = []
+        delete_failure = []
+        can_delete = True
+
+        for content_object in self.get_queryset():
+            if hasattr(content_object, "can_be_deleted"):
+                can_delete, error_msg = content_object.can_be_deleted()
+            if can_delete:
+                try:
+                    content_object_name = str(content_object)
+                    content_object.delete()
+                    delete_sucessful.append(content_object_name)
+                except ProtectedError:
+                    delete_failure.append(content_object)
+                    error_msg = "other entries in the database relate to it"
+            else:
+                delete_failure.append(content_object)
+
+        if delete_sucessful:
+            messages.success(
+                request,
+                ngettext_lazy(
+                    "{model_name} {object_names} was successfully deleted.",
+                    "The following {model_name_plural} were successfully deleted: {object_names}",
+                    len(delete_sucessful),
+                ).format(
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(delete_sucessful),
+                ),
+            )
+
+        if delete_failure:
+            messages.error(
+                request,
+                ngettext_lazy(
+                    "{model_name} {object_names} cannot be deleted, because "
+                    + error_msg,
+                    "The following {model_name_plural} could not be deleted: {object_names}",
+                    len(delete_failure),
+                ).format(
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(delete_failure),
+                ),
+            )
+
         return super().post(request, *args, **kwargs)

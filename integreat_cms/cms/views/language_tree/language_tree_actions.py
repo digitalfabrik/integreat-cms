@@ -13,7 +13,6 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from cacheops import invalidate_obj
 from django.contrib import messages
 from django.db.models import ProtectedError
 from django.shortcuts import get_object_or_404, redirect
@@ -29,7 +28,6 @@ from ...utils.tree_mutex import tree_mutex
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponseRedirect
 
-    from ...models import Region
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +65,7 @@ def move_language_tree_node(
         # (The move()-method executes raw sql which might cause problems if the instance isn't fetched again)
         language_tree_node = LanguageTreeNode.objects.get(id=pk)
         language_tree_node.save()
-        manually_invalidate_models(region)
+        language_tree_node.manually_invalidate_models(region)
         messages.success(
             request,
             _('The language tree node "{}" was successfully moved.').format(
@@ -109,33 +107,27 @@ def delete_language_tree_node(
     region = request.region
     # get current selected language node
     language_node = get_object_or_404(region.language_tree_nodes, id=pk)
-    # get all page translation assigned to the language node
-    page_translations = language_node.language.page_translations
-    # filter those translation that belong to the region and delete them
-    page_translations.filter(page__region=region).delete()
-    # get all event translation assigned to the language node
-    event_translations = language_node.language.event_translations
-    # filter those translation that belong to the region and delete them
-    event_translations.filter(event__region=region).delete()
-    # get all poi translation assigned to the language node
-    poi_translations = language_node.language.poi_translations
-    # filter those translation that belong to the region and delete them
-    poi_translations.filter(poi__region=region).delete()
 
-    logger.debug("%r deleted by %r", language_node, request.user)
-
-    try:
-        language_node.delete()
-    except ProtectedError:
+    can_delete, error_msg = language_node.can_be_deleted()
+    if can_delete:
+        try:
+            language_node.delete()
+        except ProtectedError:
+            messages.error(
+                request,
+                _(
+                    'The language tree node "{}" cannot be deleted because it is the source language of other language(s).',
+                ).format(language_node.translated_name),
+            )
+            return redirect("languagetreenodes", **{"region_slug": region_slug})
+    else:
         messages.error(
             request,
             _(
-                'The language tree node "{}" cannot be deleted because it is the source language of other language(s).',
+                'The language tree node "{}" cannot be deleted because ' + error_msg,
             ).format(language_node.translated_name),
         )
         return redirect("languagetreenodes", **{"region_slug": region_slug})
-
-    manually_invalidate_models(region)
 
     messages.success(
         request,
@@ -144,22 +136,3 @@ def delete_language_tree_node(
         ).format(language_node.translated_name),
     )
     return redirect("languagetreenodes", **{"region_slug": region_slug})
-
-
-def manually_invalidate_models(region: Region) -> None:
-    """
-    This is a helper function to iterate through all affected objects and invalidate their cache.
-    This is necessary as the original cache invalidation of cacheops only triggers for direct foreign key relationships.
-
-    :param region: The affected region
-    """
-    for page in region.pages.all():
-        invalidate_obj(page)
-    for event in region.events.all():
-        invalidate_obj(event)
-    for poi in region.pois.all():
-        invalidate_obj(poi)
-    for push_notification in region.push_notifications.all():
-        invalidate_obj(push_notification)
-    if region.imprint:
-        invalidate_obj(region.imprint)
