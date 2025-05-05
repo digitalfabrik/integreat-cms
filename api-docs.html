@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-05-02T15:12:50+00:00" />
+    <meta property="article:modified_time" content="2025-05-05T08:48:49+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Documentation &mdash; integreat-cms 2025.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -2172,42 +2172,43 @@
 <h3>RESPONSE<a class="headerlink" href="#response" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">                    </span><span class="c1">// id of region</span>
-<span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">                  </span><span class="c1">// prefix + name of region</span>
-<span class="w">    </span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">                  </span><span class="c1">// path to site (without host)</span>
-<span class="w">    </span><span class="s2">&quot;live&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">                 </span><span class="c1">// determines if the region is live or hidden</span>
-<span class="w">    </span><span class="s2">&quot;prefix&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">         </span><span class="c1">// prefix of region name, e.g. &quot;Stadt&quot;</span>
-<span class="w">    </span><span class="s2">&quot;name_without_prefix&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">   </span><span class="c1">// region name without prefix</span>
-<span class="w">    </span><span class="s2">&quot;plz&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">            </span><span class="c1">// plz (Postleitzahl/ZIP) of region</span>
-<span class="w">    </span><span class="s2">&quot;extras&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">               </span><span class="c1">// true if at least one extra is enabled</span>
-<span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">               </span><span class="c1">// true if events are enabled</span>
-<span class="w">    </span><span class="s2">&quot;pois&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">                 </span><span class="c1">// true if points of interest are enabled</span>
-<span class="w">    </span><span class="s2">&quot;push_notifications&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">   </span><span class="c1">// true if push-notifications are enabled</span>
-<span class="w">    </span><span class="s2">&quot;longitude&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">      </span><span class="c1">// longitude of the geographic center of the region</span>
-<span class="w">    </span><span class="s2">&quot;latitude&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">       </span><span class="c1">// latitude of the geographic center of the region</span>
-<span class="w">    </span><span class="s2">&quot;bounding_box&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">                </span><span class="c1">// The bounding box of the region, containing two coordinates</span>
+<span class="w">    </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">                       </span><span class="c1">// id of region</span>
+<span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">                     </span><span class="c1">// prefix + name of region</span>
+<span class="w">    </span><span class="s2">&quot;path&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">                     </span><span class="c1">// path to site (without host)</span>
+<span class="w">    </span><span class="s2">&quot;live&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">                    </span><span class="c1">// determines if the region is live or hidden</span>
+<span class="w">    </span><span class="s2">&quot;prefix&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">            </span><span class="c1">// prefix of region name, e.g. &quot;Stadt&quot;</span>
+<span class="w">    </span><span class="s2">&quot;name_without_prefix&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">      </span><span class="c1">// region name without prefix</span>
+<span class="w">    </span><span class="s2">&quot;plz&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">               </span><span class="c1">// plz (Postleitzahl/ZIP) of region</span>
+<span class="w">    </span><span class="s2">&quot;extras&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">                  </span><span class="c1">// true if at least one extra is enabled</span>
+<span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">                  </span><span class="c1">// true if events are enabled</span>
+<span class="w">    </span><span class="s2">&quot;pois&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">                    </span><span class="c1">// true if points of interest are enabled</span>
+<span class="w">    </span><span class="s2">&quot;push_notifications&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">      </span><span class="c1">// true if push-notifications are enabled</span>
+<span class="w">    </span><span class="s2">&quot;longitude&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">         </span><span class="c1">// longitude of the geographic center of the region</span>
+<span class="w">    </span><span class="s2">&quot;latitude&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">          </span><span class="c1">// latitude of the geographic center of the region</span>
+<span class="w">    </span><span class="s2">&quot;bounding_box&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">                   </span><span class="c1">// The bounding box of the region, containing two coordinates</span>
 <span class="w">         </span><span class="p">[</span><span class="nb">Number</span><span class="p">,</span><span class="w"> </span><span class="nb">Number</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="nb">Number</span><span class="p">,</span><span class="w"> </span><span class="nb">Number</span><span class="p">]</span>
 <span class="w">     </span><span class="p">],</span>
-<span class="w">    </span><span class="s2">&quot;aliases&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">                     </span><span class="c1">// value can also be NULL</span>
-<span class="w">        </span><span class="s2">&quot;&lt;alias&gt;&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">                 </span><span class="c1">// name of a region alias (smaller municipality within a region)</span>
-<span class="w">            </span><span class="s2">&quot;longitude&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">     </span><span class="c1">// longitude of the geographic center of the region alias</span>
-<span class="w">            </span><span class="s2">&quot;latitude&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">      </span><span class="c1">// latitude of the geographic center of the region alias</span>
+<span class="w">    </span><span class="s2">&quot;aliases&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">                        </span><span class="c1">// value can also be NULL</span>
+<span class="w">        </span><span class="s2">&quot;&lt;alias&gt;&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">                    </span><span class="c1">// name of a region alias (smaller municipality within a region)</span>
+<span class="w">            </span><span class="s2">&quot;longitude&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">        </span><span class="c1">// longitude of the geographic center of the region alias</span>
+<span class="w">            </span><span class="s2">&quot;latitude&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">         </span><span class="c1">// latitude of the geographic center of the region alias</span>
 <span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">        </span><span class="p">...</span>
 <span class="w">     </span><span class="p">}</span>
-<span class="w">    </span><span class="s2">&quot;tunews&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">               </span><span class="c1">// true if TüNews are enabled</span>
-<span class="w">    </span><span class="s2">&quot;external_news&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">       </span><span class="c1">// true if external news provider are enabled</span>
+<span class="w">    </span><span class="s2">&quot;tunews&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">                  </span><span class="c1">// true if TüNews are enabled</span>
+<span class="w">    </span><span class="s2">&quot;zammad_privacy_policy&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="c1">// link to custom Integreat Chat privacy policy</span>
+<span class="w">    </span><span class="s2">&quot;external_news&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">           </span><span class="c1">// true if external news provider are enabled</span>
 <span class="w">    </span><span class="s2">&quot;languages&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
 <span class="w">         </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span>
-<span class="w">         </span><span class="s2">&quot;code&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">              </span><span class="c1">// language-code, e.g. &quot;de&quot; or &quot;en&quot;</span>
+<span class="w">         </span><span class="s2">&quot;code&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">                </span><span class="c1">// language-code, e.g. &quot;de&quot; or &quot;en&quot;</span>
 <span class="w">         </span><span class="s2">&quot;bcp47_tag&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
 <span class="w">         </span><span class="s2">&quot;native_name&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
-<span class="w">         </span><span class="s2">&quot;dir&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w">                </span><span class="c1">// reading direction {&quot;ltr&quot;|&quot;rtl&quot;}</span>
+<span class="w">         </span><span class="s2">&quot;dir&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w">                  </span><span class="c1">// reading direction {&quot;ltr&quot;|&quot;rtl&quot;}</span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">      </span><span class="p">...</span>
 <span class="w">     </span><span class="p">],</span>
-<span class="w">     </span><span class="s2">&quot;is_chat_enabled&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">     </span><span class="c1">// whether the Integreat Chat is enabled for the region</span>
+<span class="w">     </span><span class="s2">&quot;is_chat_enabled&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">        </span><span class="c1">// whether the Integreat Chat is enabled for the region</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="p">...</span>
 <span class="p">]</span>
@@ -3191,7 +3192,7 @@ it will be passed along in the following format, together with a matching HTTP s
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 02, 2025.
+      <span class="lastupdated">Last updated on May 05, 2025.
       </span></p>
   </div>
 
