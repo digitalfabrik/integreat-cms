@@ -451,7 +451,7 @@ VIEWS: ViewConfig = [
             ),
             (
                 "bulk_restore_pages",
-                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"selected_ids[]": [1, 2, 3]},
             ),
             (
@@ -1286,7 +1286,7 @@ VIEWS: ViewConfig = [
             ),
             (
                 "restore_page",
-                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
+                [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
                 {"post_data": True},
             ),
         ],
