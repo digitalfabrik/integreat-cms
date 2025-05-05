@@ -429,6 +429,7 @@ class MachineTranslationApiClient(ABC):
                 object_names=iter_to_string(
                     self.failed_because_insufficient_hix_score,
                 ),
+                min_required=settings.HIX_REQUIRED_FOR_MT,
             ),
         )
 
