@@ -18,7 +18,7 @@ from ...utils.pdf_utils import generate_pdf
 from ...utils.stringify_list import iter_to_string
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
-from ..bulk_action_views import BulkActionView, BulkArchiveView
+from ..bulk_action_views import BulkActionView, BulkArchiveView, BulkRestoreView
 from .page_actions import cancel_translation_process_ajax
 
 if TYPE_CHECKING:
@@ -75,6 +75,15 @@ class GeneratePdfView(PageBulkActionMixin, BulkActionView):
 class PageBulkArchiveView(PageBulkActionMixin, BulkArchiveView):
     """
     Bulk action for archiving multiple pages at once
+    """
+
+    def get_permission_required(self) -> tuple[str]:
+        return ("cms.publish_page_object",)
+
+
+class PageBulkRestoreView(PageBulkActionMixin, BulkRestoreView):
+    """
+    Bulk action for restoring multiple pages at once
     """
 
     def get_permission_required(self) -> tuple[str]:
