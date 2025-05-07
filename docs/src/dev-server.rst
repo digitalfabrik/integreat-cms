@@ -29,6 +29,8 @@ Two different types of local database servers are supported:
     + Username: ``integreat``
     + Password: ``password``
 
+  - Set the permissions to create a database manually (needed for tests) inside the PostrgreSQL shell with ``ALTER ROLE integreat CREATE_DB``
+
 .. Note::
 
     If you want to remove all contents of your database, use :github-source:`tools/prune_database.sh`.
