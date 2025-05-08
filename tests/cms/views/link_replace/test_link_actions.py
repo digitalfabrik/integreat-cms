@@ -342,9 +342,14 @@ def test_bulk_recheck_links(
 
     target_url_object = Url.objects.filter(url=RECHECK_TARGET_URL).first()
     assert target_url_object
+    target_url_object.last_checked = None
+    target_url_object.status = None
+    target_url_object.save()
 
     region_slug = region if region != "network_management" else None
     unchecked_url, _ = filter_urls(region_slug, "unchecked")
+
+    target_url_object = Url.objects.filter(url=RECHECK_TARGET_URL).first()
     assert len(unchecked_url) == 1
 
     kwargs = {"url_filter": "unchecked"}
