@@ -64,15 +64,16 @@ For being able to run in Debug mode, you will need a ``launch.json`` file in whi
             "django": true,
             "autoStartBrowser": false,
             "program": "${workspaceFolder}/integreat_cms/integreat-cms-cli"
+            "env": {"INTEGREAT_CMS_DEBUG": "true"}
          }
       ]
    }
 
-You might need to change the ``"program"`` variable to your local location of the ``integreat_cms/`` folder. For more options, check the VSCode `documentation <https://code.visualstudio.com/docs/python/debugging>` 
+You might need to change the ``"program"`` variable to your local location of the ``integreat_cms/`` folder. With the ``"env"`` variable, you can set environment variables with settings for the CMS like ``"INTERGREAT_CMS_DEBUG"``. For more options, check the VSCode `documentation <https://code.visualstudio.com/docs/python/debugging>` 
 
 Now debugging should work when you go to ``Run and Debug`` and hit ``Start Debugging``. The local server should start and you should be able to use the CMS like after running ``run.sh``.
 
-For VSCodium it should work the same as long as you use the official ``Python Extension``, though I never tested this at this point (15th April 2025).
+For VSCodium it should work the same as long as you use the official ``Python Extension``, though I never tested this at this point (8th May 2025).
 
 PyCharm (Professional)
 ^^^^^^^^^^^^^^^^^^^^^^
