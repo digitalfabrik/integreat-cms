@@ -99,6 +99,11 @@ class Event(AbstractContentModel):
         on_delete=models.PROTECT,
         verbose_name=_("location"),
     )
+    online_link = models.URLField(
+        blank=True,
+        verbose_name=_("Online event link"),
+        help_text=_("Link to the online event if it has no physical location."),
+    )
     start = models.DateTimeField(verbose_name=_("start"))
     end = models.DateTimeField(
         verbose_name=_("end"),

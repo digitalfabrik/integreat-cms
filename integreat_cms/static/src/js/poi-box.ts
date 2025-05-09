@@ -45,6 +45,20 @@ const setPoi = ({ target }: Event) => {
     document.getElementById("info-location-mandatory")?.classList.add("hidden");
 };
 
+const toggleFields = () => {
+    const checkbox = document.getElementById("id_has_not_location");
+    const locationBlock = document.getElementById("location-block");
+    const onlineLinkBlock = document.getElementById("online-link-block");
+
+    if ((checkbox as HTMLInputElement).checked) {
+        locationBlock.classList.add("hidden");
+        onlineLinkBlock.classList.remove("hidden");
+    } else {
+        locationBlock.classList.remove("hidden");
+        onlineLinkBlock.classList.add("hidden");
+    }
+};
+
 const showMessage = (response: FormResponse) => {
     const timeoutDuration = 10000;
     if (response.success) {
@@ -216,6 +230,8 @@ const setPoiQueryEventListeners = () => {
 };
 
 window.addEventListener("load", () => {
+    const checkbox = document.getElementById("id_has_not_location");
+
     if (document.getElementById("poi-query-input") && !document.querySelector("[data-disable-poi-query]")) {
         setPoiQueryEventListeners();
         // event handler to reset filter form
@@ -228,4 +244,9 @@ window.addEventListener("load", () => {
             showContactFieldBox();
         }
     });
+
+    if (checkbox) {
+        checkbox.addEventListener("change", toggleFields);
+        toggleFields();
+    }
 });
