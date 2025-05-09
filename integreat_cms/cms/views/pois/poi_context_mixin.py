@@ -6,8 +6,9 @@ from typing import TYPE_CHECKING
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin
 
-from ...constants import translation_status, weekdays
-from ...models import POI
+from integreat_cms.cms.views.utils.opening_hour import get_open_hour_config_data
+
+from ...constants import translation_status
 
 if TYPE_CHECKING:
     from typing import Any
@@ -29,54 +30,9 @@ class POIContextMixin(ContextMixin):
         :return: The template context
         """
         context = super().get_context_data(**kwargs)
-        opening_hour_config_data = {
-            "days": {
-                "all": list(dict(weekdays.CHOICES).keys()),
-                "workingDays": weekdays.WORKING_DAYS,
-                "weekend": weekdays.WEEKEND,
-            },
-            "translations": {
-                "weekdays": dict(weekdays.CHOICES),
-                "openingHoursLabel": POI._meta.get_field(
-                    "opening_hours",
-                ).verbose_name.title(),
-                "editWeekdayLabel": _("Edit opening hours for this weekday"),
-                "editAllLabel": _("Edit all opening hours"),
-                "editWorkingDaysLabel": _('Edit "Mo - Fr"'),
-                "editWeekendLabel": _('Edit "Sa & Su"'),
-                "closedLabel": _("Closed"),
-                "openingTimeLabel": _("Opening time"),
-                "closingTimeLabel": _("Closing time"),
-                "allDayLabel": _("Open around the clock"),
-                "appointmentOnlyLabel": _("By prior appointment only"),
-                "selectText": _(
-                    "Select the days for which the times selected below should apply",
-                ),
-                "saveText": _("Save"),
-                "cancelText": _("Cancel"),
-                "addMoreText": _("Add another time slot"),
-                "removeTimeSlotText": _("Remove this time slot"),
-                "errorOnlyLastSlotEmpty": _("Only the last time slot may be empty"),
-                "errorLastSlotRequired": _(
-                    "If the location is neither closed nor open all day, you have to specify at least one time slot",
-                ),
-                "errorClosingTimeMissing": _("Closing time is missing"),
-                "errorOpeningTimeMissing": _("Opening time is missing"),
-                "errorClosingTimeEarlier": _(
-                    "Closing time is earlier than the opening time",
-                ),
-                "errorClosingTimeIdentical": _(
-                    "Closing time is identical with the opening time",
-                ),
-                "errorOpeningTimeEarlier": _(
-                    "Opening time is earlier than the closing time of the previous slot",
-                ),
-                "errorOpeningTimeIdentical": _(
-                    "Opening time is identical with the closing time of the previous slot",
-                ),
-            },
-            "canChangeLocation": self.request.user.has_perm("cms.change_poi"),
-        }
+        opening_hour_config_data = get_open_hour_config_data(
+            can_change_location=self.request.user.has_perm("cms.change_poi")
+        )
         context.update(
             {
                 "current_menu_item": "pois",
