@@ -78,7 +78,7 @@ RESPONSE
          },
          ...
         ],
-        "is_chat_enabled": Boolean,        // whether the Integreat Chat is enabled for the region
+        "is_chat_enabled": Boolean,     // whether the public chat is enabled for the region
      },
      ...
    ]

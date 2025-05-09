@@ -1,5 +1,5 @@
 """
-This module provides the API endpoints for the Integreat Chat API
+This module provides the API endpoints for the public chat API
 """
 
 from __future__ import annotations

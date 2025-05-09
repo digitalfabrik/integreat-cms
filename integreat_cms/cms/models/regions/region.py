@@ -446,8 +446,8 @@ class Region(AbstractBaseModel):
 
     integreat_chat_enabled = models.BooleanField(
         default=False,
-        verbose_name=_("Enable Integreat Chat"),
-        help_text=_("Toggle the Integreat Chat on/off."),
+        verbose_name=_("Enable public chat"),
+        help_text=_("Toggle the public chat (chat bot) on/off."),
     )
 
     zammad_url = models.URLField(
@@ -493,7 +493,7 @@ class Region(AbstractBaseModel):
         validators=[MinValueValidator(0), MaxValueValidator(100)],
         verbose_name=_("Chat beta tester percentage"),
         help_text=_(
-            "Percentage of users selected as beta testers for the Integreat Chat feature",
+            "Percentage of users selected as beta testers for the public chat feature",
         ),
     )
 
