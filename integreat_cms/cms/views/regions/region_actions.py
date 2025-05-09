@@ -7,6 +7,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+from celery import shared_task
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, redirect
@@ -90,6 +91,28 @@ def delete_region(
             },
         )
 
+    async_delete_region.apply_async(args=[region.id])
+    logger.info(
+        "%r requested deletion of region %r",
+        request.user,
+        region,
+    )
+
+    messages.success(
+        request,
+        _('Region "{}" will be deleted').format(
+            region.name,
+        ),
+    )
+    messages.info(request, _("This procedure can take several minutes."))
+
+    return redirect("regions")
+
+
+@shared_task
+def async_delete_region(region_id: int) -> None:
+    region = Region.objects.get(id=region_id)
+
     # Remove hierarchy to prevent ProtectedError when children get deleted before their parents
     region.pages.update(parent=None)
     region.language_tree_nodes.update(parent=None)
@@ -109,8 +132,7 @@ def delete_region(
         # Delete region and cascade delete all contents
         deleted_objects = region.delete()
     logger.info(
-        "%r deleted %r, cascade deleted objects: %r",
-        request.user,
+        "%r was deleted, cascade deleted objects: %r",
         region,
         deleted_objects,
     )
@@ -135,7 +157,3 @@ def delete_region(
             orphan_pns,
         )
         orphan_pns.delete()
-
-    messages.success(request, _("Region was successfully deleted"))
-
-    return redirect("regions")

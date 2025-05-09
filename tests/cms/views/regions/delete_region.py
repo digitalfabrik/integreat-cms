@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -70,11 +72,18 @@ def test_delete_all_regions_is_successful(
             assert response.status_code == 302
             redirect = response.headers.get("location")
             response = client.get(redirect)
-            assert "Region wurde erfolgreich gelöscht" in response.content.decode(
-                "utf-8",
+            assert (
+                "Dieser Vorgang kann mehrere Minuten dauern."
+                in response.content.decode(
+                    "utf-8",
+                )
             )
 
     if role in [CMS_TEAM, SERVICE_TEAM, ROOT]:
+        for _n in range(30):
+            time.sleep(1)
+            if Region.objects.count() == 0:
+                break
         assert Region.objects.count() == 0
         # No users without region
         assert (
