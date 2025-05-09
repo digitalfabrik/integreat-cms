@@ -17,6 +17,13 @@
                for="{{ form.has_not_location.id_for_label }}">
             {{ form.has_not_location.label }}
         </label>
+        <div id="online-link-block"
+             class="{% if not form.has_not_location.value %}hidden{% endif %}">
+            <label for="{{ form.online_link.id_for_label }}">
+                {{ form.online_link.label }}
+            </label>
+            {% render_field form.online_link class+="input w-full" %}
+        </div>
     {% endif %}
     {% if current_menu_item == "contacts" %}
         <div class="help-text">
