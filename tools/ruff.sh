@@ -6,11 +6,13 @@
 # shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
+as_precommit=()
 PATHS=()
 
 # Parse given command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
+        '--as-precommit') as_precommit+=("$1");shift;;
         *) PATHS+=("$1");shift;;
     esac
 done
@@ -31,7 +33,7 @@ else
 fi
 
 # shellcheck source=./tools/ruff_check.sh
-"$(dirname "${BASH_SOURCE[0]}")/ruff_check.sh" "${PATHS[@]}"
+"$(dirname "${BASH_SOURCE[0]}")/ruff_check.sh" "${as_precommit[@]}" "${PATHS[@]}"
 
 # shellcheck source=./tools/ruff_format.sh
-"$(dirname "${BASH_SOURCE[0]}")/ruff_format.sh" "${PATHS[@]}"
+"$(dirname "${BASH_SOURCE[0]}")/ruff_format.sh" "${as_precommit[@]}" "${PATHS[@]}"
