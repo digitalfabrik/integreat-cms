@@ -1,20 +1,23 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% block content %}
-    <div class="flex justify-between">
+    <div class="table-header">
         <h1 class="heading">
             {% translate "Region condition" %}
         </h1>
-        <form action="{% url "export_region_conditions" file_format="csv" %}"
-              method="post">
-            {% csrf_token %}
-            <button type="submit"
-                    title="{% translate "Download region condition as CSV" %}"
-                    class="btn">
-                {% translate "Download as CSV" %}
-                <i icon-name="download"></i>
-            </button>
-        </form>
+        <div class="flex justify-between">
+            {% include "search_input_form.html" with object_type="region" object_archived=True %}
+            <form action="{% url "export_region_conditions" file_format="csv" %}"
+                  method="post">
+                {% csrf_token %}
+                <button type="submit"
+                        title="{% translate "Download region condition as CSV" %}"
+                        class="btn">
+                    {% translate "Download as CSV" %}
+                    <i icon-name="download"></i>
+                </button>
+            </form>
+        </div>
     </div>
     <div>
         <table id="region-condition"
@@ -49,6 +52,16 @@
             </thead>
             {% for region in regions %}
                 {% include "./region_condition_row.html" %}
+            {% empty %}
+                <tr>
+                    <td colspan="7" class="px-4 py-3">
+                        {% if search_query %}
+                            {% translate "No regions found with these filters." %}
+                        {% else %}
+                            {% translate "No regions available yet." %}
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
         </table>
     </div>

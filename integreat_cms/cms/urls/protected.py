@@ -1541,7 +1541,7 @@ urlpatterns: list[URLPattern] = [
                                 ),
                             ),
                             path(
-                                "potential_targets",
+                                "potential-targets",
                                 contacts.PotentialContactSourcesView.as_view(),
                                 name="potential_targets",
                             ),

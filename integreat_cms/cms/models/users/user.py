@@ -111,13 +111,6 @@ class User(AbstractUser, AbstractBaseModel):
             "Will be set to true once the user dismissed the page tree tutorial",
         ),
     )
-    statistics_tutorial_seen = models.BooleanField(
-        default=False,
-        verbose_name=_("Page access statistics tutorial seen"),
-        help_text=_(
-            "Will be set to true once the user dismissed the tutorial for page access statistics"
-        ),
-    )
     distribute_sidebar_boxes = models.BooleanField(
         default=False,
         verbose_name=_("automatically distribute sidebar boxes"),

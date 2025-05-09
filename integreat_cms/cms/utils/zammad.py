@@ -255,13 +255,15 @@ class ZammadAPI:
     @property
     def processing_answer(self) -> None:
         """
-        Indicate that an answer is currently being generated.
+        Indicate that an answer is currently being generated. This value is stored
+        in the cache and does not require the object to be saved.
         """
         return cache.get(f"generating_answer_{self.device_id}", False)
 
     @processing_answer.setter
     def processing_answer(self, processing: bool) -> None:
         """
-        Set the processing indicator in the cache
+        Set the processing indicator in the cache. This value is stored
+        in the cache and does not require the object to be saved.
         """
         cache.set(f"generating_answer_{self.device_id}", processing, 120)

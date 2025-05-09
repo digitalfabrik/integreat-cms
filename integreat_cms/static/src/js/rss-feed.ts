@@ -2,27 +2,31 @@
  * This file contains all functions which are needed for the RSS feed
  */
 
-const loadRssEntries = (doc: Document, firstEntry: number, lastEntry: number): string => {
-    let feed = "";
+const checkIfShouldBeIncluded = (node: any): boolean =>
+    Array.from(node.querySelectorAll("category")).some(
+        (category): boolean => (category as HTMLLinkElement).textContent === "Redaktionssystem"
+    );
 
+const loadRssEntries = (doc: Document, firstEntry: number, lastEntry: number): string =>
     Array.from(doc.querySelectorAll("item"))
-        .slice(firstEntry, lastEntry)
-        .forEach((node) => {
+        .filter(checkIfShouldBeIncluded)
+        .reduce((accumulator, node) => {
             const link: string = node.querySelector("link").innerHTML;
             const title: string = node.querySelector("title").innerHTML;
             const content: string = node.querySelector("description").textContent;
             if (title && link && content) {
-                const rssEntry =
+                accumulator.push(
                     `<div class="rss-entry pb-2 border-b border-gray-400 mb-2">` +
-                    `<a href="${link}" target="_blank" rel="noopener noreferrer" class="block py-b font-bold text-blue-500 hover:text-blue-700">${title}</a>` +
-                    `<div class="text-gray-600 py-2"></div>` +
-                    `<p class="pb-1">${content}</div>`;
-
-                feed += rssEntry;
+                        `<a href="${link}" target="_blank" rel="noopener noreferrer" class="block py-b font-bold text-blue-500 hover:text-blue-700">${title}</a>` +
+                        `<div class="text-gray-600 py-2"></div>` +
+                        `<p class="pb-1">${content}</p></div>`
+                );
             }
-        });
-    return feed;
-};
+            return accumulator;
+        }, [])
+        // needs to be here, because it implements pagination
+        .slice(firstEntry, lastEntry)
+        .join("\n");
 
 const loadRssFeed = async () => {
     const feedWidget = document.querySelector(".rss-feed");

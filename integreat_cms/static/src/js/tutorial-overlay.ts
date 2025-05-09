@@ -40,4 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
             overlayHost.classList.add("flex");
         });
     });
+
+    document.getElementById("close-statistics-popup-button")?.addEventListener("click", () => {
+        document.querySelector(`[data-tutorial-overlay="page-access-statistics-info"]`).classList.add("hidden");
+    });
 });
