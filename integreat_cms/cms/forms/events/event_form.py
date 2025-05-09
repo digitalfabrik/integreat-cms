@@ -132,7 +132,7 @@ class EventForm(CustomModelForm):
     def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
-            
+
         :return: The cleaned form data
         """
         cleaned_data = super().clean()
@@ -224,7 +224,7 @@ class EventForm(CustomModelForm):
             self.data["start"] = cleaned_data["start"]
             self.data["end"] = cleaned_data["end"]
         logger.debug("EventForm validated [2] with cleaned data %r", cleaned_data)
-                # Handle location/link requirement logic
+        # Handle location/link requirement logic
         has_not_location = cleaned_data.get("has_not_location")
         online_link = cleaned_data.get("online_link")
 
@@ -232,7 +232,9 @@ class EventForm(CustomModelForm):
             self.add_error(
                 "online_link",
                 forms.ValidationError(
-                    _("Online link is required when the event has no physical location."),
+                    _(
+                        "Online link is required when the event has no physical location."
+                    ),
                     code="required",
                 ),
             )

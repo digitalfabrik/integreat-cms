@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("cms", "0122_add_do_not_translate_title_field"),
     ]
@@ -25,7 +24,6 @@ class Migration(migrations.Migration):
             field=models.URLField(
                 blank=True,
                 help_text="Link to the online event if it has no physical location.",
-                null=True,
                 verbose_name="Online event link",
             ),
         ),

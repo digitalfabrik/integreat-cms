@@ -104,16 +104,11 @@ class Event(AbstractContentModel):
         verbose_name=_("Has physical location"),
         help_text=_("Whether the event has a physical location."),
     )
-
     online_link = models.URLField(
         blank=True,
-        null=True,
         verbose_name=_("Online event link"),
         help_text=_("Link to the online event if it has no physical location."),
     )
-
-
-
     start = models.DateTimeField(verbose_name=_("start"))
     end = models.DateTimeField(
         verbose_name=_("end"),
