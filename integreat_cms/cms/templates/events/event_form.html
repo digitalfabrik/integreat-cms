@@ -193,3 +193,26 @@
 {% block javascript %}
     {% render_bundle 'editor' 'js' %}
 {% endblock javascript %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const checkbox = document.getElementById("id_has_not_location");
+      const locationBlock = document.getElementById("location-block");
+      const onlineLinkBlock = document.getElementById("online-link-block");
+  
+      function toggleFields() {
+        if (checkbox.checked) {
+          locationBlock.classList.add("hidden");
+          onlineLinkBlock.classList.remove("hidden");
+        } else {
+          locationBlock.classList.remove("hidden");
+          onlineLinkBlock.classList.add("hidden");
+        }
+      }
+  
+      if (checkbox) {
+        checkbox.addEventListener("change", toggleFields);
+        toggleFields();  // run on page load
+      }
+    });
+  </script>
+  

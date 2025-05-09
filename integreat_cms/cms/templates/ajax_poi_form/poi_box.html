@@ -54,6 +54,15 @@
                     </button>
                 </div>
             </div>
+
+            <div id="online-link-block" class="{% if not form.has_not_location.value %}hidden{% endif %}">
+                <label for="{{ form.online_link.id_for_label }}">
+                    {{ form.online_link.label }}
+                </label>
+                {% render_field form.online_link class+="input w-full" %}
+            </div>
+            
+
             <p class="text-sm italic block mt-2 mb-2">
                 {% if current_menu_item == "events_form" %}
                     {{ help_text }}
