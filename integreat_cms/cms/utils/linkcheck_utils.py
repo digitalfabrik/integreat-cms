@@ -263,7 +263,10 @@ def filter_urls(
     )
     for url in urls:
         if region_slug is None:
-            url.regions_links = url.links.all()
+            regions = Region.objects.filter(status=region_status.ACTIVE)
+            url.regions_links = url.links.filter(
+                page_translation__page__region__in=regions
+            )
         if not url.non_ignored_links:
             ignored_urls.append(url)
         elif url.status:
