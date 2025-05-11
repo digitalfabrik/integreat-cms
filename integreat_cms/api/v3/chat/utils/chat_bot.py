@@ -124,7 +124,7 @@ def celery_translate_and_answer_question(
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
     zammad_chat.processing_answer = True
-    messages = zammad_chat.get_messages(before=message_timestamp)
+    messages = zammad_chat.get_messages(before=message_timestamp, only_user=True)
     translation, answer = asyncio.run(
         async_process_user_message(
             zammad_chat.language.slug,

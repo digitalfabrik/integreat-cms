@@ -143,11 +143,14 @@ class ZammadAPI:
         ]
         return {key: message[key] for key in message if key in keys_to_keep}
 
-    def get_messages(self, before: datetime | None = None) -> list[dict]:
+    def get_messages(
+        self, before: datetime | None = None, only_user: bool = False
+    ) -> list[dict]:
         """
         Return all messages stored in Zammad for this ticket
 
-        :param before: Optional timestamp to remove messages created after given timestamp
+        :param before: optionally remove messages created after given timestamp
+        :param only_user: optionally only retrieve user messages
         :return: formatted chat messages
         """
         cache_key = f"{self.region.slug}_{self.device_id}"
@@ -159,6 +162,8 @@ class ZammadAPI:
         messages = []
         for message in response:
             if message["internal"]:
+                continue
+            if only_user and message["sender"] != "Customer":
                 continue
             messages.append(self.clean_message(message))
         if before:
