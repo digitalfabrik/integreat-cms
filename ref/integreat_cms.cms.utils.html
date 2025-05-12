@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-05-12T10:25:54+00:00" />
+    <meta property="article:modified_time" content="2025-05-12T11:52:29+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2025.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -4220,12 +4220,12 @@ version and also attach the integreat logo.</p>
 <p>Zammad API helper functions</p>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.zammad.</span></span><span class="sig-name descname"><span class="pre">ZammadAPI</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.zammad.</span></span><span class="sig-name descname"><span class="pre">ZammadAPI</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Zammad API Wrapper. This is intended to be used as a UserChat parent class.</p>
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">automatic_answers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">automatic_answers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Check if automatic answers are turned on/off</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -4236,7 +4236,25 @@ version and also attach the integreat logo.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">create_ticket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">clean_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Remove and rename message attributes received from Zammad.
+The remaining keys can be used/published in the API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – message dict including internal keys</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>message dict that only contains keys needed for API</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">create_ticket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create Zammad ticket and return ticket ID</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4253,13 +4271,13 @@ version and also attach the integreat logo.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Property that has to be defined in child classes</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluation_consent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluation_consent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get user evaluation consent</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -4270,7 +4288,50 @@ version and also attach the integreat logo.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_zammad_ticket_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">filter_messages_before</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">before_timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.datetime" title="(in Python v3.11)"><span class="pre">datetime</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Filter messages by timestamp and remove all created after the given
+timestamp.</p>
+<p>This prevents a race condition where new articles can be added to a ticket
+while the webhook has not yet sent to and processed by the Integreat CMS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>messages</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>]</em>) – list of Zammad articles</p></li>
+<li><p><strong>before_timestamp</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.datetime" title="(in Python v3.11)"><em>datetime</em></a>) – cut-off timestamp</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of filtered messages</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">before</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.datetime" title="(in Python v3.11)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L146"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return all messages stored in Zammad for this ticket</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>before</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.datetime" title="(in Python v3.11)"><em>datetime</em></a><em> | </em><em>None</em>) – optionally remove messages created after given timestamp</p></li>
+<li><p><strong>only_user</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – optionally only retrieve user messages</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>formatted chat messages</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_zammad_ticket_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get Zammad ticket articles</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -4284,7 +4345,7 @@ version and also attach the integreat logo.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_zammad_user_mail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_zammad_user_mail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get Zammad user e-mail</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4301,31 +4362,20 @@ version and also attach the integreat logo.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">messages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Return all messages stored in Zammad for this ticket</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>formatted chat messages</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">processing_answer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">processing_answer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Indicate that an answer is currently being generated. This value is stored
 in the cache and does not require the object to be saved.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">region</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><span class="pre">Region</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">region</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><span class="pre">Region</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Property that has to be defined in child classes</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">save_automatic_answers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L220"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">save_automatic_answers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L260"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Turn automatic answers on/off</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4342,7 +4392,7 @@ in the cache and does not require the object to be saved.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">save_evaluation_consent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">save_evaluation_consent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L225"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Set user evaluation consent</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4359,7 +4409,7 @@ in the cache and does not require the object to be saved.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">save_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">automatic_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">save_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">automatic_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Save a new message (article) to a Zammad ticket.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4380,13 +4430,13 @@ in the cache and does not require the object to be saved.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">zammad_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">zammad_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Property that has to be defined in child classes</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">zammad_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response" title="(in Requests v2.32.3)"><span class="pre">Response</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">zammad_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response" title="(in Requests v2.32.3)"><span class="pre">Response</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/zammad.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Wrapper for calling the Zammad API. Mostly takes care of auth and timeout.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
