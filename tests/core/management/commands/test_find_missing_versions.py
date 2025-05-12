@@ -47,6 +47,11 @@ def test_find_missing_versions_failure(load_test_data: None) -> None:
     """
     # Create version inconsistency
     page_translation = Page.objects.get(id=1).get_translation("de")
+
+    # Ensure that the title is as expected in the output later. Some other test seems
+    # to change the title, which results in flaky CI tests.
+    page_translation.slug = "willkommen"
+
     page_translation.version += 1
     page_translation.save()
     out, err = get_command_output("find_missing_versions", "page")
@@ -59,3 +64,5 @@ def test_find_missing_versions_failure(load_test_data: None) -> None:
         " in <Language (id: 1, slug: de, name: German)>"
         " is 3, but there are only 2 translation objects!\x1b[0m\n"
     )
+    page_translation.version -= 1
+    page_translation.save()
