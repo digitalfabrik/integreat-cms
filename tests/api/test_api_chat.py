@@ -107,7 +107,7 @@ def test_api_chat_incorrect_server_error(
 )
 @patch("integreat_cms.api.v3.chat.user_chat.UserChat.create_ticket", return_value=111)
 @patch(
-    "integreat_cms.api.v3.chat.user_chat.UserChat.messages",
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_messages",
     return_value=[{"body": "message1", "user_is_author": True}],
 )
 @patch(
@@ -150,7 +150,7 @@ def test_api_chat_first_chat(
     return_value="tech@tuerantuer.org",
 )
 @patch(
-    "integreat_cms.api.v3.chat.user_chat.UserChat.messages",
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_messages",
     return_value=[{"body": "message1", "user_is_author": True}],
 )
 @patch(
@@ -199,7 +199,7 @@ def test_api_chat_set_evaluation_consent(
     return_value=True,
 )
 @patch(
-    "integreat_cms.api.v3.chat.user_chat.UserChat.messages",
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_messages",
     return_value=[{"body": "message1", "user_is_author": True}],
 )
 @patch(
@@ -240,7 +240,7 @@ def test_api_chat_send_message(
     return_value="tech@tuerantuer.org",
 )
 @patch(
-    "integreat_cms.api.v3.chat.user_chat.UserChat.messages",
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_messages",
     return_value=[{"body": "message1", "user_is_author": True}],
 )
 @patch(
@@ -305,7 +305,7 @@ def test_api_chat_get_messages_failure(
     return_value="tech@tuerantuer.org",
 )
 @patch(
-    "integreat_cms.api.v3.chat.user_chat.UserChat.messages",
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_messages",
     return_value=[{"body": "message1", "user_is_author": True}],
 )
 @patch(
@@ -366,7 +366,7 @@ def test_api_chat_ratelimiting(
     return_value="tech@tuerantuer.org",
 )
 @patch(
-    "integreat_cms.api.v3.chat.user_chat.UserChat.messages",
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_messages",
     return_value=[{"body": "message1", "user_is_author": True}],
 )
 @patch(

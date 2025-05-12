@@ -130,7 +130,7 @@ class UserChat(AbstractBaseModel, ZammadAPI):
         API compatible dict representation of the chat
         """
         response = {
-            "messages": list(self.messages),
+            "messages": list(self.get_messages()),
             "evaluation_consent": bool(self.evaluation_consent),
             "chatbot_typing": bool(self.processing_answer),
         }
