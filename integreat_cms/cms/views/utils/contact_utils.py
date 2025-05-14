@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-MAX_RESULT_COUNT: int = 20
+MAX_RESULT_COUNT: int = 50
 
 
 @require_POST
