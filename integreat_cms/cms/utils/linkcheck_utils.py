@@ -185,9 +185,11 @@ def get_link_query(regions: QuerySet[Region]) -> QuerySet:
     """
     non_archived_pages = regions[0].non_archived_pages.values("pk")
     for region in regions[1:]:
-        non_archived_pages = non_archived_pages.union(
-            region.non_archived_pages.values("pk"), all=True
-        )
+        # When more than one region is requested, the request comes from the central linkchecker and only active regions should be considered
+        if region.status == region_status.ACTIVE:
+            non_archived_pages = non_archived_pages.union(
+                region.non_archived_pages.values("pk"), all=True
+            )
     latest_pagetranslation_versions = Subquery(
         PageTranslation.objects.filter(
             page__id__in=non_archived_pages,
@@ -262,16 +264,6 @@ def filter_urls(
         [] for _ in range(6)
     )
     for url in urls:
-        # When region slug is none, the request is send by the general linkchecker and the links need to be filtered by active regions
-        if region_slug is None:
-            regions = Region.objects.filter(status=region_status.ACTIVE)
-            url.regions_links = url.links.filter(
-                Q(page_translation__page__region__in=regions)
-                | Q(event_translation__event__region__in=regions)
-                | Q(poi_translation__poi__region__in=regions)
-                | Q(imprint_translation__page__region__in=regions)
-                | Q(organization__region__in=regions)
-            )
         if not url.non_ignored_links:
             ignored_urls.append(url)
         elif url.status:
