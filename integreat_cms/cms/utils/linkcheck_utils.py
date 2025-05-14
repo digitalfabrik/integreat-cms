@@ -262,8 +262,16 @@ def filter_urls(
         [] for _ in range(6)
     )
     for url in urls:
+        # When region slug is none, the request is send by the general linkchecker and the links need to be filtered by active regions
         if region_slug is None:
-            url.regions_links = url.links.all()
+            regions = Region.objects.filter(status=region_status.ACTIVE)
+            url.regions_links = url.links.filter(
+                Q(page_translation__page__region__in=regions)
+                | Q(event_translation__event__region__in=regions)
+                | Q(poi_translation__poi__region__in=regions)
+                | Q(imprint_translation__page__region__in=regions)
+                | Q(organization__region__in=regions)
+            )
         if not url.non_ignored_links:
             ignored_urls.append(url)
         elif url.status:
