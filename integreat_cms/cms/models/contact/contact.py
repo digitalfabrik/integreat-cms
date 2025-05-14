@@ -107,6 +107,7 @@ class Contact(AbstractBaseModel):
         query = SearchQuery(query, search_type="websearch")
         return (
             Contact.objects.filter(location__region=region, archived=False)
+            .distinct()
             .annotate(rank=SearchRank(vector, query))
             .order_by("-rank")
         )
