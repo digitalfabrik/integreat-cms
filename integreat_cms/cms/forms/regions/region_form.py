@@ -23,7 +23,7 @@ from integreat_cms.cms.utils.linkcheck_utils import replace_links
 from ....gvz_api.utils import GvzRegion
 from ....matomo_api.matomo_api_client import MatomoException
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
-from ...constants import duplicate_pbo_behaviors, status
+from ...constants import duplicate_pbo_behaviors, region_status, status
 from ...models import LanguageTreeNode, OfferTemplate, Page, PageTranslation, Region
 from ...models.regions.region import format_mt_help_text, format_summ_ai_help_text
 from ...utils.slug_utils import generate_unique_slug_helper
@@ -293,13 +293,16 @@ class RegionForm(CustomModelForm):
             not self.instance.id and self.cleaned_data["duplicated_region"]
         )
 
+        if duplicate_region:
+            self.instance.status = region_status.IN_CLONING
+            self.instance.hix_enabled = False
+
         # Save CustomModelForm
         region = super().save(commit=commit)
 
         if duplicate_region:
             # Disable HIX during the duplication process,
             # to skip recalculation for already known content
-            region.hix_enabled = False
             source_region = self.cleaned_data["duplicated_region"]
             keep_status = self.cleaned_data["duplication_keep_status"]
             keep_translations = self.cleaned_data["duplication_keep_translations"]
@@ -328,13 +331,13 @@ class RegionForm(CustomModelForm):
                     region.pk,
                     keep_status,
                     keep_translations,
+                    self.cleaned_data["hix_enabled"],
+                    self.cleaned_data["status"],
                     [offer.pk for offer in offers_to_discard]
                     if offers_to_discard
                     else None,
                 ]
             )
-
-        region.hix_enabled = self.cleaned_data["hix_enabled"]
         return region
 
     def clean(self) -> dict[str, Any]:
@@ -696,6 +699,8 @@ def async_clone_region_content(
     target_region_id: int,
     keep_status: bool,
     keep_translations: bool,
+    hix_enabled: bool,
+    region_status: str,
     offers_to_discard_ids: list[int] | None,
 ) -> None:
     source_region = Region.objects.get(id=source_region_id)
@@ -736,7 +741,7 @@ def async_clone_region_content(
     duplicate_media(source_region, region)
 
     # Create links for the most recent versions of all translations manually and replace internal links
-    create_and_replace_links_async(source_region, region)
+    create_and_replace_links_async(source_region, region, hix_enabled, region_status)
 
 
 def duplicate_language_tree(
@@ -1039,7 +1044,9 @@ def duplicate_media(
     # https://github.com/digitalfabrik/integreat-cms/issues/1414
 
 
-def create_and_replace_links_async(source_region: Region, region: Region) -> None:
+def create_and_replace_links_async(
+    source_region: Region, region: Region, hix_enabled: bool, region_status: str
+) -> None:
     """
     Create all links for the latest versions of the region's page translations, then replace all links in the content.
     This is run as a background task.
@@ -1055,6 +1062,7 @@ def create_and_replace_links_async(source_region: Region, region: Region) -> Non
     def create_and_update_links() -> None:
         find_links(region)
         replace_internal_links(source_region, region)
+        adjust_hix_setting_and_region_status(region.id, hix_enabled, region_status)
 
     t = threading.Thread(target=create_and_update_links, daemon=True)
     t.start()
@@ -1100,3 +1108,15 @@ def replace_internal_links(source_region: Region, region: Region) -> None:
     old_link = f"{settings.WEBAPP_URL}/{source_region.slug}/"
     new_link = f"{settings.WEBAPP_URL}/{region.slug}/"
     replace_links(old_link, new_link, region=region, link_types=["internal"])
+
+
+def adjust_hix_setting_and_region_status(
+    region_id: int,
+    hix_enabled: bool,
+    region_status: str,
+) -> None:
+    region = Region.objects.get(id=region_id)
+    region.hix_enabled = hix_enabled
+    region.status = region_status
+
+    region.save()
