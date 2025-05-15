@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% block content %}
+    {% get_current_language as LANGUAGE_CODE %}
     <div class="table-header">
         <div class="flex flex-wrap justify-between">
             <h1 class="heading">
@@ -33,12 +34,17 @@
                 {% endif %}
             </div>
         </div>
-        <div class="flex flex-wrap justify-end gap-4">
-            {% if perms.cms.change_contact and not is_archive %}
-                <a href="{% url 'new_contact' region_slug=request.region.slug %}"
-                   class="btn">
-                    {% translate "Create contact" %}
-                </a>
+        <div class="flex flex-wrap justify-between gap-4">
+            {% if is_archive %}
+                {% include "search_input_form.html" with object_type="contact" object_archived=True language_slug=LANGUAGE_CODE %}
+            {% else %}
+                {% include "search_input_form.html" with object_type="contact" object_archived=False language_slug=LANGUAGE_CODE %}
+                {% if perms.cms.change_contact %}
+                    <a href="{% url 'new_contact' region_slug=request.region.slug %}"
+                       class="btn">
+                        {% translate "Create contact" %}
+                    </a>
+                {% endif %}
             {% endif %}
         </div>
         <div class="table-listing">
@@ -84,9 +90,17 @@
                         <tr>
                             <td colspan="8" class="px-4 py-3">
                                 {% if is_archive %}
-                                    {% translate "No contacts archived yet." %}
+                                    {% if search_query %}
+                                        {% translate "No archived contacts found with these filters." %}
+                                    {% else %}
+                                        {% translate "No contacts archived yet." %}
+                                    {% endif %}
                                 {% else %}
-                                    {% translate "No contacts available yet." %}
+                                    {% if search_query %}
+                                        {% translate "No contacts found with these filters." %}
+                                    {% else %}
+                                        {% translate "No contacts available yet." %}
+                                    {% endif %}
                                 {% endif %}
                             </td>
                         </tr>

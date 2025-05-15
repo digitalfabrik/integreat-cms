@@ -1,3 +1,3 @@
 """
-Utils for the Integreat Chat
+Utils for the public chat
 """

@@ -3,6 +3,7 @@ Zammad API helper functions
 """
 
 from abc import abstractmethod
+from datetime import datetime
 from typing import TYPE_CHECKING
 
 import requests
@@ -92,18 +93,44 @@ class ZammadAPI:
             f"/api/v1/ticket_articles/by_ticket/{self.zammad_id}",
         ).json()
 
-    @property
-    def messages(self) -> list[dict]:
+    def filter_messages_before(
+        self, messages: list[dict], before_timestamp: datetime
+    ) -> list[dict]:
         """
-        Return all messages stored in Zammad for this ticket
+        Filter messages by timestamp and remove all created after the given
+        timestamp.
 
-        :return: formatted chat messages
+        This prevents a race condition where new articles can be added to a ticket
+        while the webhook has not yet sent to and processed by the Integreat CMS.
+
+        :param messages: list of Zammad articles
+        :param before_timestamp: cut-off timestamp
+        :return: list of filtered messages
         """
-        cache_key = f"{self.region.slug}_{self.device_id}"
-        response = cache.get(cache_key)
-        if response is None:
-            response = self.get_zammad_ticket_messages()
-            cache.set(cache_key, response, 60)
+        if before_timestamp is None:
+            raise ValueError(
+                "Cannot filter messages because no valid timestamp was received."
+            )
+        return [
+            message
+            for message in messages
+            if datetime.fromisoformat(message["created_at"]) <= before_timestamp
+        ]
+
+    def clean_message(self, message: dict) -> dict:
+        """
+        Remove and rename message attributes received from Zammad.
+        The remaining keys can be used/published in the API.
+
+        :param message: message dict including internal keys
+        :return: message dict that only contains keys needed for API
+        """
+        message["role"] = "user" if message["sender"] == "Customer" else "agent"
+        message["automatic_answer"] = (
+            message["subject"] == "automatically generated message"
+        )
+        message["user_is_author"] = message["role"] == "user"
+        message["content"] = message["body"]
         keys_to_keep = [
             "status",
             "error",
@@ -114,20 +141,33 @@ class ZammadAPI:
             "content",
             "created_at",
         ]
+        return {key: message[key] for key in message if key in keys_to_keep}
+
+    def get_messages(
+        self, before: datetime | None = None, only_user: bool = False
+    ) -> list[dict]:
+        """
+        Return all messages stored in Zammad for this ticket
+
+        :param before: optionally remove messages created after given timestamp
+        :param only_user: optionally only retrieve user messages
+        :return: formatted chat messages
+        """
+        cache_key = f"{self.region.slug}_{self.device_id}"
+        response = cache.get(cache_key)
+        if response is None:
+            response = self.get_zammad_ticket_messages()
+            cache.set(cache_key, response, 60)
+
         messages = []
         for message in response:
             if message["internal"]:
                 continue
-            message["role"] = "user" if message["sender"] == "Customer" else "agent"
-            message["automatic_answer"] = (
-                message["subject"] == "automatically generated message"
-            )
-            message["user_is_author"] = message["role"] == "user"
-            message["content"] = message["body"]
-            reduced_message = {
-                key: message[key] for key in message if key in keys_to_keep
-            }
-            messages.append(reduced_message)
+            if only_user and message["sender"] != "Customer":
+                continue
+            messages.append(self.clean_message(message))
+        if before:
+            messages = self.filter_messages_before(messages, before)
         return messages
 
     def save_message(
@@ -255,13 +295,15 @@ class ZammadAPI:
     @property
     def processing_answer(self) -> None:
         """
-        Indicate that an answer is currently being generated.
+        Indicate that an answer is currently being generated. This value is stored
+        in the cache and does not require the object to be saved.
         """
         return cache.get(f"generating_answer_{self.device_id}", False)
 
     @processing_answer.setter
     def processing_answer(self, processing: bool) -> None:
         """
-        Set the processing indicator in the cache
+        Set the processing indicator in the cache. This value is stored
+        in the cache and does not require the object to be saved.
         """
         cache.set(f"generating_answer_{self.device_id}", processing, 120)

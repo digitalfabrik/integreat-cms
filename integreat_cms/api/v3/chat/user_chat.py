@@ -1,5 +1,5 @@
 """
-This module provides the API endpoints for the Integreat Chat API
+This module provides the API endpoints for the public chat API
 """
 
 from __future__ import annotations
@@ -19,9 +19,9 @@ from django.views.decorators.csrf import csrf_exempt
 from ....cms.models import ABTester, Language, Region, UserChat
 from ...decorators import json_response, rate_limit
 from .utils.chat_bot import (
-    process_translate_answer,
-    process_translate_question,
-    process_user_message,
+    celery_translate_and_answer_question,
+    celery_translate_answer,
+    celery_translate_question,
 )
 
 if TYPE_CHECKING:
@@ -62,7 +62,7 @@ def is_chat_enabled_for_user(
 
 
 def get_or_create_user_chat(
-    request: HttpRequest, device_id: str, language_slug: str
+    request: HttpRequest, device_id: str, language: Language
 ) -> UserChat | None:
     """
     Get existing UserChat or create a new one if the HTTP method is POST.
@@ -77,7 +77,7 @@ def get_or_create_user_chat(
         return UserChat.objects.create(
             region=request.region,
             device_id=device_id,
-            language=Language.objects.get(slug=language_slug),
+            language=language,
         )
     return None
 
@@ -93,14 +93,15 @@ def process_chat_payload(
     :param device_id: UUID of the app device
     :param language_slug: slug of language that is used by the app
     """
-    if (
-        user_chat := get_or_create_user_chat(request, device_id, language_slug)
-    ) is None:
+    language = Language.objects.get(slug=language_slug)
+    if (user_chat := get_or_create_user_chat(request, device_id, language)) is None:
         return JsonResponse({"error": "Chat not found."}, status=404)
     if request.POST.get("message"):
         user_chat.save_message(
             message=request.POST.get("message"), internal=False, automatic_message=False
         )
+        user_chat.language = language
+        user_chat.save()
     if request.POST.get("evaluation_consent"):
         user_chat.save_evaluation_consent(request.POST.get("evaluation_consent"))
     return JsonResponse(user_chat.as_dict())
@@ -192,17 +193,17 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
         and not webhook_message["ticket"]["automatic_answers"]
     ):
         actions.append("question translation queued")
-        process_translate_question.apply_async(
+        celery_translate_question.apply_async(
             args=[message_text, region.slug, webhook_message["ticket"]["id"]]
         )
     elif is_app_user_message(webhook_message):
         actions.append("question translation and answering queued")
-        process_user_message.apply_async(
+        celery_translate_and_answer_question.apply_async(
             args=[message_timestamp, region.slug, webhook_message["ticket"]["id"]],
         )
     else:
         actions.append("answer translation queued")
-        process_translate_answer.apply_async(
+        celery_translate_answer.apply_async(
             args=[message_text, region.slug, webhook_message["ticket"]["id"]],
         )
     return JsonResponse(

@@ -70,3 +70,13 @@ class RegionConditionView(TemplateView):
                 "search_query": query,
             },
         )
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        r"""
+        Apply the query and filter the rendered regions
+        :param request: The current request
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        :return: The rendered template response
+        """
+        return self.get(request, *args, **kwargs, search_data=request.POST)
