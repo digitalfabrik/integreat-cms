@@ -19,6 +19,10 @@ const updateTimezoneAreaDropdown = (event?: Event) => {
         .forEach((option) => option.classList.remove("hidden"));
 };
 
+const hideCurrentlyInCloning = () => {
+    document.querySelector("option[value=IN_CLONING]")?.classList.add("hidden");
+};
+
 // event handler to toggle push notification fields
 window.addEventListener("load", () => {
     const enablePushNotificationButton = document.getElementById("id_push_notifications_enabled");
@@ -53,4 +57,7 @@ window.addEventListener("load", () => {
         updateTimezoneAreaDropdown();
         timezoneAreaDropdown.addEventListener("change", updateTimezoneAreaDropdown);
     }
+
+    // Hide the region status "Currently in cloning" form the choice
+    hideCurrentlyInCloning();
 });
