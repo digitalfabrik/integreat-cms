@@ -18,6 +18,7 @@ class SearchResultFeedback(Feedback):
     """
 
     search_query = models.CharField(max_length=1000, verbose_name=_("search term"))
+    is_automatically_send = models.BooleanField(null=True, blank=True)
 
     @property
     def object_name(self) -> str:
