@@ -123,7 +123,8 @@ class PushNotificationFormView(TemplateView):
             regions=request.available_regions,
             selected_regions=[region],
             instance=push_notification,
-            disabled=details["disable_edit"],
+            disabled=details["disable_edit"]
+            or (push_notification and push_notification.archived),
             template=("template" in request.GET),
         )
 
@@ -146,7 +147,9 @@ class PushNotificationFormView(TemplateView):
             ],
         )
 
-        if details["disable_edit"]:
+        if details["disable_edit"] or (
+            push_notification and push_notification.archived
+        ):
             # Mark fields disabled when push notification was already sent
             for formset in pnt_formset:
                 for field in formset.fields.values():
@@ -208,7 +211,8 @@ class PushNotificationFormView(TemplateView):
             },
             regions=request.available_regions,
             selected_regions=[region],
-            disabled=details["disable_edit"],
+            disabled=details["disable_edit"]
+            or (push_notification_instance and push_notification_instance.archived),
         )
 
         PushNotificationTranslationFormSet = inlineformset_factory(
@@ -445,6 +449,15 @@ def send_pn(
 
     :return: Whether sending (or scheduling) was successful
     """
+    if pn_form.instance.archived:
+        messages.error(
+            request,
+            _('News "{}" cannot be sent, because it is archived').format(
+                pn_form.instance,
+            ),
+        )
+        return False
+
     if not request.user.has_perm("cms.send_push_notification"):
         logger.warning(
             "%r does not have the permission to send %r",

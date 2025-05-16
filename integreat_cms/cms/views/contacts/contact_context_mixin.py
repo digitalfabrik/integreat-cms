@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class ContactContextMixin(ContextMixin):
     """
-    This mixin provides extra context for language tree views
+    This mixin provides extra context for contacts.
     """
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:

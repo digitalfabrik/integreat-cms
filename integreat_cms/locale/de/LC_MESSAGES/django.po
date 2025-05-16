@@ -2801,6 +2801,7 @@ msgstr "Webseite"
 
 #: cms/models/contact/contact.py cms/models/events/event.py
 #: cms/models/feedback/feedback.py cms/models/pois/poi.py
+#: cms/models/push_notifications/push_notification.py
 #: cms/models/users/organization.py
 msgid "archived"
 msgstr "archiviert"
@@ -3931,6 +3932,12 @@ msgid "Provide a distinct name for the template"
 msgstr "Bitte vergeben Sie einen eindeutigen Namen für die Vorlage"
 
 #: cms/models/push_notifications/push_notification.py
+msgid ""
+"Whether or not the push notification is read-only and hidden in the API."
+msgstr ""
+"Ob die Nachricht schreibgeschützt und in der API verborgen ist oder nicht."
+
+#: cms/models/push_notifications/push_notification.py
 #: cms/models/push_notifications/push_notification_translation.py
 msgid "push notification"
 msgstr "Push-Benachrichtigung"
@@ -4354,7 +4361,9 @@ msgstr "Angepasste Integreat Chat Datenschutzerklärung"
 
 #: cms/models/regions/region.py
 msgid "Link to custom privacy policy for self-hosted Zammad server."
-msgstr "Link zur angepassten Datenschutzerklärung für einen selbstverwalteten Zammad-Server"
+msgstr ""
+"Link zur angepassten Datenschutzerklärung für einen selbstverwalteten Zammad-"
+"Server."
 
 #: cms/models/regions/region.py
 msgid "Chat beta tester percentage"
@@ -5599,7 +5608,9 @@ msgstr "Webseite"
 #: cms/templates/offertemplates/offertemplate_list.html
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html cms/templates/roles/role_list.html
+#: cms/templates/pois/poi_list_archived.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/roles/role_list.html
 msgid "Options"
 msgstr "Optionen"
 
@@ -5632,6 +5643,7 @@ msgstr "Kontakte ausgewählt"
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html
+#: cms/templates/push_notifications/push_notification_list.html
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
@@ -5657,6 +5669,7 @@ msgstr "Kontakte löschen"
 #: cms/templates/pages/_page_xliff_export_overlay.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html
+#: cms/templates/push_notifications/push_notification_list.html
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -8241,6 +8254,14 @@ msgid "News not sent yet"
 msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_list.html
+msgid "Archived news"
+msgstr "Archivierte Nachrichten"
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Back to news"
+msgstr "Zurück zu Nachrichten"
+
+#: cms/templates/push_notifications/push_notification_list.html
 msgid "Open Templates"
 msgstr "Vorlagen öffnen"
 
@@ -8253,6 +8274,14 @@ msgid "Planned send date"
 msgstr "Terminiert am"
 
 #: cms/templates/push_notifications/push_notification_list.html
+msgid "No archived push notifications found with these filters."
+msgstr "Keine archivierten Push-Benachrichtigungen mit diesen Filter gefunden."
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "No push notifications archived yet."
+msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+
+#: cms/templates/push_notifications/push_notification_list.html
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "No push notifications found with these filters."
 msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
@@ -8261,6 +8290,18 @@ msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "No push notifications available yet."
 msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Push notifications selected"
+msgstr "Push-Benachrichtigungen ausgewählt"
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Restore push notifications"
+msgstr "Push-Benachrichtigungen wiederherstellen"
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Archive push notifications"
+msgstr "Push-Benachrichtigungen archivieren"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Title not available"
@@ -8273,6 +8314,26 @@ msgstr "Nachricht ist überfällig und wird nicht mehr gesendet"
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Message not sent yet"
 msgstr "Nachricht noch nicht gesendet"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Restore push notification"
+msgstr "Push-Benachrichtigung wiederherstellen"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Please confirm that you really want to restore this push notification"
+msgstr ""
+"Bitte bestätigen Sie, dass diese Push-Benachrichtigung wiederhergestellt "
+"werden soll"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Archive push notification"
+msgstr "Push-Benachrichtigung archivieren"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Please confirm that you really want to archive this push notification"
+msgstr ""
+"Bitte bestätigen Sie, dass diese Push-Benachrichtigung archiviert werden "
+"soll"
 
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "News Templates"
@@ -8914,8 +8975,8 @@ msgstr "Kontext zählt: Auch Seiten mit wenigen Zugriffen können wichtig sein."
 
 #: cms/templates/tutorials/page_access_statistics.html
 msgid ""
-"Pages relevant to target groups: fewer views, but high relevance for specific "
-"target groups."
+"Pages relevant to target groups: fewer views, but high relevance for "
+"specific target groups."
 msgstr ""
 "Zielgruppen-relevante Seiten: Weniger Aufrufe, aber hohe Relevanz für "
 "spezifische Zielgruppen."
@@ -9405,6 +9466,7 @@ msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
+#: cms/views/push_notifications/push_notification_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully archived."
 msgid_plural ""
@@ -9452,6 +9514,7 @@ msgstr[1] ""
 
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
+#: cms/views/push_notifications/push_notification_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully restored."
 msgid_plural ""
@@ -10879,6 +10942,16 @@ msgstr ""
 msgid "Back to the poi form"
 msgstr "Zurück zum Formular"
 
+#: cms/views/push_notifications/push_notification_actions.py
+#, python-brace-format
+msgid "Push notification {0} was successfully archived"
+msgstr "Push-Benachrichtigung {0} wurde erfolgreich archiviert"
+
+#: cms/views/push_notifications/push_notification_actions.py
+#, python-brace-format
+msgid "Push notification {0} was successfully restored"
+msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
+
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
 msgid "Push notifications are disabled."
@@ -10965,6 +11038,10 @@ msgstr "Nachricht \"{}\" wurde erfolgreich aus der Vorlage \"{}\" erstellt."
 #: cms/views/push_notifications/push_notification_form_view.py
 msgid "In the next step, the news can now be sent."
 msgstr "Im nächsten Schritt kann diese Nachricht nun versendet werden."
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" cannot be sent, because it is archived"
+msgstr "Nachricht \"{}\" kann nicht gesendet werden, weil sie archiviert ist."
 
 #: cms/views/push_notifications/push_notification_form_view.py
 msgid "News \"{}\" could not be sent due to a configuration error."
@@ -11813,15 +11890,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
@@ -12913,9 +12990,6 @@ msgstr ""
 #~ msgid "Page was successfully created"
 #~ msgstr "Seite wurde erfolgreich erstellt"
 
-#~ msgid "Push notifications"
-#~ msgstr "Push-Benachrichtigungen"
-
 #~ msgid "All language tree nodes"
 #~ msgstr "Alle Sprach-Knoten"
 
@@ -13024,9 +13098,6 @@ msgstr ""
 
 #~ msgid "All push notifications"
 #~ msgstr "Alle Push-Benachrichtigungen"
-
-#~ msgid "Create push notification"
-#~ msgstr "Push-Benachrichtigung verfassen"
 
 #~ msgid "Offers"
 #~ msgstr "Angebote"
@@ -13415,9 +13486,6 @@ msgstr ""
 #~ msgid "Activate events"
 #~ msgstr "Veranstaltungen aktivieren"
 
-#~ msgid "Activate push notifications"
-#~ msgstr "Push-Benachrichtigungen aktivieren"
-
 #~ msgid "Push notification channels"
 #~ msgstr "Push-Benachrichtigungskanäle"
 
@@ -13679,12 +13747,6 @@ msgstr ""
 
 #~ msgid "Insert content in %(language)s here"
 #~ msgstr "Inhalt auf %(language)s hier eingeben"
-
-#~ msgid "Push notification was successfully saved"
-#~ msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert"
-
-#~ msgid "Push notification was successfully created"
-#~ msgstr "Push-Benachrichtigung wurde erfolgreich erstellt"
 
 #~ msgid "All POIs"
 #~ msgstr "Alle POIs"

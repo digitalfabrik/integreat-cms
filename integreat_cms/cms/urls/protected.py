@@ -26,6 +26,7 @@ from ..models import (
     Page,
     POI,
     POICategory,
+    PushNotification,
     Role,
 )
 from ..views import (
@@ -1614,6 +1615,27 @@ urlpatterns: list[URLPattern] = [
                                             name="push_notifications",
                                         ),
                                         path(
+                                            "archived/",
+                                            push_notifications.PushNotificationListView.as_view(
+                                                archived=True
+                                            ),
+                                            name="archived_push_notifications",
+                                        ),
+                                        path(
+                                            "bulk-archive/",
+                                            push_notifications.ArchivePushNotificationsBulkAction.as_view(
+                                                model=PushNotification,
+                                            ),
+                                            name="bulk_archive_push_notifications",
+                                        ),
+                                        path(
+                                            "bulk-restore/",
+                                            push_notifications.RestorePushNotificationsBulkAction.as_view(
+                                                model=PushNotification,
+                                            ),
+                                            name="bulk_restore_push_notifications",
+                                        ),
+                                        path(
                                             "templates/",
                                             push_notifications.PushNotificationListView.as_view(
                                                 templates=True,
@@ -1633,6 +1655,16 @@ urlpatterns: list[URLPattern] = [
                                                         "edit/",
                                                         push_notifications.PushNotificationFormView.as_view(),
                                                         name="edit_push_notification",
+                                                    ),
+                                                    path(
+                                                        "archive/",
+                                                        push_notifications.archive_push_notification,
+                                                        name="archive_push_notification",
+                                                    ),
+                                                    path(
+                                                        "restore/",
+                                                        push_notifications.restore_push_notification,
+                                                        name="restore_push_notification",
                                                     ),
                                                 ],
                                             ),

@@ -1,5 +1,12 @@
 {% load i18n %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+    <td class="py-3 pl-4">
+        <input type="checkbox"
+               name="selected_ids[]"
+               value="{{ push_notification.id }}"
+               form="bulk-action-form"
+               class="bulk-select-item" />
+    </td>
     <td class="pl-2">
         <a title="{% if push_notification_translation.title %} {{ push_notification_translation.title }}{% endif %}"
            href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}"
@@ -58,6 +65,29 @@
             <i icon-name="x" class="text-red-500 align-text-top"></i> {% translate "Message is overdue and will not be sent" %}
         {% else %}
             <i icon-name="x" class="text-red-500 align-text-top"></i> {% translate "Message not sent yet" %}
+        {% endif %}
+    </td>
+    <td>
+        {% if is_archived %}
+            {% if perms.cms.archive_pushnotification %}
+                <button title="{% translate "Restore push notification" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{% trans "Please confirm that you really want to restore this push notification" %}"
+                        data-confirmation-subject="{{ push_notification.title }}"
+                        data-action="{% url 'restore_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="refresh-ccw"></i>
+                </button>
+            {% endif %}
+        {% else %}
+            {% if perms.cms.archive_pushnotification %}
+                <button title="{% translate "Archive push notification" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{% trans "Please confirm that you really want to archive this push notification" %}"
+                        data-confirmation-subject="{{ push_notification.title }}"
+                        data-action="{% url 'archive_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="archive"></i>
+                </button>
+            {% endif %}
         {% endif %}
     </td>
 </tr>
