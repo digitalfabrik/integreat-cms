@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import uuid
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from html import escape
 from typing import TYPE_CHECKING
 
@@ -47,6 +47,7 @@ from ...constants import (
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel
 from ..offers.offer_template import OfferTemplate
+from ..statistics.page_accesses import PageAccesses
 
 logger = logging.getLogger(__name__)
 
@@ -1037,6 +1038,29 @@ class Region(AbstractBaseModel):
             latest_imprint_update,
             self.last_updated,
         )
+
+    def get_page_accesses_by_language(
+        self,
+        pages: list[Page],
+        start_date: date,
+        end_date: date,
+        languages: list[Language],
+    ) -> dict:
+        """
+        Get the page accesses of the requested pages of this region during the specified timerange
+        :param pages: List of requested pages
+        :param start_date: Earliest date
+        :param end_date: Latest date
+        :param languages: List of requested languages
+
+        :return: Page accesses of the requested pages
+        """
+        return PageAccesses.objects.filter(
+            page__region=self,
+            page__in=pages,
+            access_date__range=(start_date, end_date + timedelta(days=1)),
+            language__in=languages,
+        ).values()
 
     def __str__(self) -> SafeString:
         """
