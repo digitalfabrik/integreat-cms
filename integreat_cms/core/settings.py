@@ -1432,7 +1432,7 @@ CELERY_TASK_TRACK_STARTED = True
 
 #: Task hard time limit in seconds. The worker processing the task will be killed
 #: and replaced with a new one when this is exceeded.
-CELERY_TASK_TIME_LIMIT = 60 * 60 * 1
+CELERY_TASK_TIME_LIMIT = 60 * 60 * 3
 
 #: Default broker URL.
 CELERY_BROKER_URL = os.environ.get(
