@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-12-04T10:41:41+00:00" />
+    <meta property="article:modified_time" content="2025-05-19T15:00:06+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Debugging &mdash; integreat-cms 2025.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1848,7 +1848,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Debugging</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#django-debug-toolbar">Django Debug Toolbar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#debugging-in-various-editors-and-ides">Debugging in various editors and IDEs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#vscodium">VSCodium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vscode-vscodium">VSCode/VSCodium</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pycharm-professional">PyCharm (Professional)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#enable-django-support">Enable Django Support</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#create-a-run-configuration">Create a Run Configuration</a></li>
@@ -2179,9 +2179,34 @@ significantly reducing the setup effort.</p>
 <p>It is DAP’s task to connect these two parts of the puzzle.
 Below, you can find more specific instructions for configuring your preferred editor or IDE.
 Note that <code class="docutils literal notranslate"><span class="pre">debugpy</span></code> itself is included in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> dependencies in our <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, so you do not have to install it separately.</p>
-<section id="vscodium">
-<h3>VSCodium<a class="headerlink" href="#vscodium" title="Link to this heading"></a></h3>
-<p>Coming soon(TM)?</p>
+<section id="vscode-vscodium">
+<h3>VSCode/VSCodium<a class="headerlink" href="#vscode-vscodium" title="Link to this heading"></a></h3>
+<p>The VSCode <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Extension</span></code> should automaticly contain the <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Debugger</span> <span class="pre">Extension</span></code>. You can check and install it via the Extensions view.</p>
+<p>For being able to run in Debug mode, you will need a <code class="docutils literal notranslate"><span class="pre">launch.json</span></code> file in which you define the settings under which you want to run and debug the CMS.</p>
+<ol class="arabic simple">
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">launch.json</span></code> file in the <code class="docutils literal notranslate"><span class="pre">.vscode/</span></code> folder</p></li>
+<li><p>Populate the file with the desired settings. The code below should work (at least for the Dev Container)</p></li>
+</ol>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;configurations&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+         <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Python Debugger: Django&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;debugpy&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="s2">&quot;launch&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;runserver&quot;</span><span class="p">],</span>
+         <span class="s2">&quot;django&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+         <span class="s2">&quot;autoStartBrowser&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+         <span class="s2">&quot;program&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceFolder}/integreat_cms/integreat-cms-cli&quot;</span>
+         <span class="s2">&quot;env&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;INTEGREAT_CMS_DEBUG&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You might need to change the <code class="docutils literal notranslate"><span class="pre">&quot;program&quot;</span></code> variable to your local location of the <code class="docutils literal notranslate"><span class="pre">integreat_cms/</span></code> folder. With the <code class="docutils literal notranslate"><span class="pre">&quot;env&quot;</span></code> variable, you can set environment variables with settings for the CMS like <code class="docutils literal notranslate"><span class="pre">&quot;INTERGREAT_CMS_DEBUG&quot;</span></code>. For more options, check the VSCode <cite>documentation &lt;https://code.visualstudio.com/docs/python/debugging&gt;</cite></p>
+<p>Now debugging should work when you go to <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">and</span> <span class="pre">Debug</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Debugging</span></code>. The local server should start and you should be able to use the CMS like after running <code class="docutils literal notranslate"><span class="pre">run.sh</span></code>.</p>
+<p>For VSCodium it should work the same as long as you use the official <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Extension</span></code>, though I never tested this at this point (8th May 2025).</p>
 </section>
 <section id="pycharm-professional">
 <h3>PyCharm (Professional)<a class="headerlink" href="#pycharm-professional" title="Link to this heading"></a></h3>
@@ -2435,7 +2460,7 @@ programs<span class="o">.</span>nixvim<span class="o">.</span><span class="ss">k
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 04, 2024.
+      <span class="lastupdated">Last updated on May 19, 2025.
       </span></p>
   </div>
 
