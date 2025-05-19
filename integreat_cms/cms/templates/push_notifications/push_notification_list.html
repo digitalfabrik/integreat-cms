@@ -33,7 +33,11 @@
         <div class="flex flex-wrap justify-between gap-4">
             <div class="flex flex-wrap gap-4">
                 {% include "generic_language_switcher.html" with target="push_notifications" %}
-                {% include "search_input_form.html" with object_type="push_notification" language_slug=language.slug %}
+                {% if is_archived %}
+                    {% include "search_input_form.html" with object_type="push_notification" language_slug=language.slug object_archived=True %}
+                {% else %}
+                    {% include "search_input_form.html" with object_type="push_notification" language_slug=language.slug object_archived=False %}
+                {% endif %}
             </div>
             {% if perms.cms.change_pushnotification and not is_archived %}
                 <div class="flex flex-wrap gap-4">

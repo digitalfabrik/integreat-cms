@@ -243,6 +243,8 @@ def search_content_ajax(  # noqa: PLR0915, PLR0912, C901
                 region,
                 language_slug,
                 query,
+            ).filter(
+                push_notification__archived=archived_flag,
             )
         )
 
