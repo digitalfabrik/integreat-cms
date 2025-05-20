@@ -3,9 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django.conf import settings
+from django.contrib import messages
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
@@ -39,6 +41,9 @@ class ContactListView(TemplateView, ContactContextMixin):
         """
         region = request.region
         query = None
+
+        if not region.default_language:
+            self.redirect_to_language_tree(request)
 
         contacts = Contact.objects.filter(
             location__region=region,
@@ -88,3 +93,23 @@ class ContactListView(TemplateView, ContactContextMixin):
         :return: The rendered template response
         """
         return self.get(request, *args, **kwargs, search_data=request.POST)
+
+    def redirect_to_language_tree(self, request: HttpRequest) -> None:
+        """
+        This function redirects to the language tree if there is no default language.
+
+        :param request: The current request
+
+        :return: template of language tree
+        """
+        region = request.region
+        messages.error(
+            request,
+            _("Please create at least one language node and locations before creating contacts."),
+        )
+        return redirect(
+            "languagetreenodes",
+            **{
+                "region_slug": region.slug,
+            },
+        )
