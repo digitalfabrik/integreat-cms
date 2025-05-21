@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-05-20T19:07:56+00:00" />
+    <meta property="article:modified_time" content="2025-05-21T07:37:14+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2025.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -1917,6 +1917,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fix-internal-links"><code class="docutils literal notranslate"><span class="pre">fix_internal_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../management-commands.html#create-new-commands">Create new commands</a><ul>
@@ -2239,6 +2240,12 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.summ_ai_bulk">SUMM.AI Bulk</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.summ_ai_bulk.Command"><code class="docutils literal notranslate"><span class="pre">Command</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.summ_ai_bulk.summ_ai_bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.update_link_text">Update Link Text</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.update_link_text.Command"><code class="docutils literal notranslate"><span class="pre">Command</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.update_link_text.get_url"><code class="docutils literal notranslate"><span class="pre">get_url()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.update_link_text.get_user"><code class="docutils literal notranslate"><span class="pre">get_user()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2644,7 +2651,7 @@ For the full list of settings and their values, see <a class="reference external
 <span class="w">    </span><span class="s1">&#39;filters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7faf13a8a980</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7fcbdee8bb00</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="s1">&#39;formatters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
@@ -3872,7 +3879,7 @@ to determine whether a link is internal.</p>
 <span class="w">    </span><span class="s1">&#39;filters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7faf2305e520</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7fcbeeb8e520</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_false&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugFalse&#39;</span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_true&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugTrue&#39;</span><span class="p">},</span>
@@ -4839,7 +4846,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 20, 2025.
+      <span class="lastupdated">Last updated on May 21, 2025.
       </span></p>
   </div>
 

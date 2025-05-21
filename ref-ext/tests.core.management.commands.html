@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-05-20T19:07:56+00:00" />
+    <meta property="article:modified_time" content="2025-05-21T07:37:14+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2025.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -1917,6 +1917,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fix-internal-links"><code class="docutils literal notranslate"><span class="pre">fix_internal_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../management-commands.html#create-new-commands">Create new commands</a><ul>
@@ -3169,6 +3170,71 @@ and after certain other tests (relative ordering).</p>
 </dd></dl>
 
 </section>
+<section id="module-tests.core.management.commands.test_update_link_text">
+<span id="test-update-link-text"></span><h2>Test Update Link Text<a class="headerlink" href="#module-tests.core.management.commands.test_update_link_text" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_update_link_text.test_command_succeeds">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_update_link_text.</span></span><span class="sig-name descname"><span class="pre">test_command_succeeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_update_link_text.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_update_link_text.test_command_succeeds" title="Link to this definition"></a></dt>
+<dd><p>Tests that the command runs successfully when supplied with an occurring URL
+and that both the content and indexed link object are updated accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<em>Any</em><em> | </em><em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_update_link_text.test_fails_if_no_url_found">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_update_link_text.</span></span><span class="sig-name descname"><span class="pre">test_fails_if_no_url_found</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_update_link_text.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_update_link_text.test_fails_if_no_url_found" title="Link to this definition"></a></dt>
+<dd><p>Tests that the command fails when there is no URL object that has the given URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_update_link_text.test_no_argument_fails">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_update_link_text.</span></span><span class="sig-name descname"><span class="pre">test_no_argument_fails</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_update_link_text.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_update_link_text.test_no_argument_fails" title="Link to this definition"></a></dt>
+<dd><p>Tests that the command fails when no argument is supplied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_update_link_text.test_no_new_link_text_fails">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_update_link_text.</span></span><span class="sig-name descname"><span class="pre">test_no_new_link_text_fails</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_update_link_text.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_update_link_text.test_no_new_link_text_fails" title="Link to this definition"></a></dt>
+<dd><p>Tests that the command fails when no link text is supplied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_update_link_text.test_no_url_fails">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_update_link_text.</span></span><span class="sig-name descname"><span class="pre">test_no_url_fails</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_update_link_text.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_update_link_text.test_no_url_fails" title="Link to this definition"></a></dt>
+<dd><p>Tests that the command fails when no URL is supplied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -3186,7 +3252,7 @@ and after certain other tests (relative ordering).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 20, 2025.
+      <span class="lastupdated">Last updated on May 21, 2025.
       </span></p>
   </div>
 
