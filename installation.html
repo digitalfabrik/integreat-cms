@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-05-02T15:12:50+00:00" />
+    <meta property="article:modified_time" content="2025-05-21T14:46:58+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; integreat-cms 2025.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -2160,7 +2160,7 @@
 <li><p><a class="reference external" href="https://git-scm.com/">git</a></p></li>
 <li><p><a class="reference external" href="https://www.npmjs.com/">npm</a> version 7 or later</p></li>
 <li><p><a class="reference external" href="https://nodejs.org/">nodejs</a> version 18 or later</p></li>
-<li><p><a class="reference external" href="https://www.python.org/">python3</a> version 3.9 or later</p></li>
+<li><p><a class="reference external" href="https://www.python.org/">python3</a> version 3.9 to 3.11 (for above 3.11 see below)</p></li>
 <li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3-pip">python3-pip</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>) / <a class="reference external" href="https://www.archlinux.de/packages/extra/x86_64/python-pip">python-pip</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
 <li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3+venv">python3-venv</a> (Only <a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>)</p></li>
 <li><p>Either <a class="reference external" href="https://www.postgresql.org/">postgresql</a> <strong>or</strong> <a class="reference external" href="https://www.docker.com/">docker</a> to run a local database server</p></li>
@@ -2239,8 +2239,12 @@ cd integreat-cms</pre>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pip.
-If only one of both dependency-managers should be invoked, run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code> or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[dev-pinned,pinned]</span></code> directly.</p>
+<ul class="simple">
+<li><p>This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pip.
+If only one of both dependency-managers should be invoked, run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code> or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[dev-pinned,pinned]</span></code> directly.</p></li>
+<li><p>If your system uses Python 3.12 as the default (e.g., Ubuntu 24.04 or similar), you need to install Python 3.11 alongside it, without changing the default python3 symlink.
+Then, to ensure the CMS uses Python 3.11, run the installation script with the appropriate interpreter: <code class="docutils literal notranslate"><span class="pre">./tools/install.sh</span> <span class="pre">--python</span> <span class="pre">python3.11</span></code></p></li>
+</ul>
 </div>
 </section>
 </section>
@@ -2260,7 +2264,7 @@ If only one of both dependency-managers should be invoked, run <code class="docu
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 02, 2025.
+      <span class="lastupdated">Last updated on May 21, 2025.
       </span></p>
   </div>
 
