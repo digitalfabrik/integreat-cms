@@ -41,7 +41,9 @@ def generate_thumbnail(
         if original_image.content_type == "image/svg+xml":
             original_image.seek(0)
             svg_bytes = original_image.read()
-            png_bytes = cairosvg.svg2png(bytestring=svg_bytes)
+            png_bytes = cairosvg.svg2png(
+                bytestring=svg_bytes, output_width=size, output_height=size
+            )
             image = Image.open(BytesIO(png_bytes))
         else:
             image = Image.open(original_image)
