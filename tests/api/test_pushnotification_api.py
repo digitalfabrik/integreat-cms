@@ -17,7 +17,7 @@ from integreat_cms.cms.models import (
 REGION_SLUG = "artland"
 
 
-def create_a_pushnotification(region_slug: str) -> int:
+def create_a_pushnotification(region_slug: str) -> tuple[int, int]:
     """
     A function to create a new push notification and a translation in the default language of the region.
     """
@@ -43,7 +43,7 @@ def create_a_pushnotification(region_slug: str) -> int:
     )
     pushnotification_translation.save()
 
-    return pushnotification.id
+    return pushnotification.id, pushnotification_translation.id
 
 
 @pytest.mark.django_db
@@ -61,12 +61,14 @@ def test_no_archived_pushnotification(load_test_data: None) -> None:
     start_response = client.get(api)
     start_result = start_response.content.decode("utf-8")
 
-    pushnotification_id = create_a_pushnotification(REGION_SLUG)
+    pushnotification_id, pushnotification_translation_id = create_a_pushnotification(
+        REGION_SLUG
+    )
 
     response_after_new_pn = client.get(api)
     result_after_new_pn = response_after_new_pn.content.decode("utf-8")
     assert (
-        '"id": 11, "title": "German Traslation", "message": "Hello World"'
+        f'"id": {pushnotification_translation_id}, "title": "German Traslation", "message": "Hello World"'
         in result_after_new_pn
     )
 
