@@ -37,7 +37,8 @@ def sent_push_notifications(
     """
     channel = request.GET.get("channel", "all")
     query_result = (
-        PushNotificationTranslation.objects.filter(
+        PushNotificationTranslation.objects.filter(push_notification__archived=False)
+        .filter(
             push_notification__regions__slug=region_slug,
         )
         .filter(
