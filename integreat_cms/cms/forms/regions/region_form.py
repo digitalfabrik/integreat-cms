@@ -342,8 +342,36 @@ class RegionForm(CustomModelForm):
         """
         cleaned_data = super().clean()
 
-        # Check whether statistics can be enabled
-        if cleaned_data["statistics_enabled"] and not cleaned_data["matomo_token"]:
+        cleaned_data.update(self.clean_statistics())
+        cleaned_data.update(self.clean_summ_ai())
+        cleaned_data.update(self.clean_mt_budget())
+        cleaned_data.update(self.clean_zammad())
+        cleaned_data.update(self.clean_chat())
+        cleaned_data.update(self.clean_gvz())
+        cleaned_data.update(self.clean_coordinates())
+        cleaned_data.update(self.clean_duplicate_region())
+        self.autofill_bounding_box(cleaned_data)
+
+        logger.debug("RegionForm validated [2] with cleaned data %r", cleaned_data)
+        return cleaned_data
+
+    def clean_statistics(self) -> dict[str, Any]:
+        """
+        Check whether statistics can be enabled
+        This is not a typical django method cleaning only one, but a group of fields, and has to be called explicitly.
+        """
+        relevant_fields = [
+            "statistics_enabled",
+            "matomo_token",
+            "matomo_id",
+        ]
+        cleaned: dict[str, Any] = {
+            key: self.cleaned_data[key]
+            for key in relevant_fields
+            if key in self.cleaned_data
+        }
+
+        if cleaned["statistics_enabled"] and not cleaned["matomo_token"]:
             self.add_error(
                 "statistics_enabled",
                 _(
@@ -351,10 +379,10 @@ class RegionForm(CustomModelForm):
                 ),
             )
         # Automatically set the Matomo ID
-        if cleaned_data["matomo_token"]:
+        if cleaned["matomo_token"]:
             try:
-                cleaned_data["matomo_id"] = self.instance.statistics.get_matomo_id(
-                    token_auth=cleaned_data["matomo_token"],
+                cleaned["matomo_id"] = self.instance.statistics.get_matomo_id(
+                    token_auth=cleaned["matomo_token"],
                 )
             except MatomoException:
                 logger.exception("")
@@ -363,30 +391,29 @@ class RegionForm(CustomModelForm):
                     _("The provided access token is invalid."),
                 )
         else:
-            cleaned_data["matomo_id"] = None
+            cleaned["matomo_id"] = None
 
-        # If Summ AI budget year differs from the set renewal date, make sure a budget year start date is set
-        if (
-            cleaned_data["summ_ai_midyear_start_enabled"]
-            and cleaned_data["summ_ai_midyear_start_month"] is None
-        ):
-            self.add_error(
-                "summ_ai_midyear_start_month",
-                _(
-                    "Please provide a valid budget year start date for simplified language translation."
-                ),
-            )
-        elif (
-            not cleaned_data["summ_ai_midyear_start_enabled"]
-            or cleaned_data["summ_ai_midyear_start_month"]
-            == cleaned_data["summ_ai_renewal_month"]
-        ):
-            cleaned_data["summ_ai_midyear_start_month"] = None
+        return cleaned
 
-        # If MT budget year differs from the set renewal date, make sure a budget year start date is set
+    def clean_mt_budget(self) -> dict[str, Any]:
+        """
+        If MT budget year differs from the set renewal date, make sure a budget year start date is set
+        This is not a typical django method cleaning only one, but a group of fields, and has to be called explicitly.
+        """
+        relevant_fields = [
+            "mt_midyear_start_enabled",
+            "mt_midyear_start_month",
+            "mt_renewal_month",
+        ]
+        cleaned: dict[str, Any] = {
+            key: self.cleaned_data[key]
+            for key in relevant_fields
+            if key in self.cleaned_data
+        }
+
         if (
-            cleaned_data["mt_midyear_start_enabled"]
-            and cleaned_data["mt_midyear_start_month"] is None
+            cleaned["mt_midyear_start_enabled"]
+            and cleaned["mt_midyear_start_month"] is None
         ):
             self.add_error(
                 "mt_midyear_start_month",
@@ -395,20 +422,70 @@ class RegionForm(CustomModelForm):
                 ),
             )
         elif (
-            not cleaned_data["mt_midyear_start_enabled"]
-            or cleaned_data["mt_midyear_start_month"]
-            == cleaned_data["mt_renewal_month"]
+            not cleaned["mt_midyear_start_enabled"]
+            or cleaned["mt_midyear_start_month"] == cleaned["mt_renewal_month"]
         ):
-            cleaned_data["mt_midyear_start_month"] = None
+            cleaned["mt_midyear_start_month"] = None
+        return cleaned
 
-        # Re-combine all offers and make sure no non-disableable offers have been disabled
-        if not cleaned_data["zammad_url"]:
-            cleaned_data["zammad_offers"] = []
-        cleaned_data["offers"] = list(cleaned_data["offers"]) + list(
-            cleaned_data["zammad_offers"],
+    def clean_summ_ai(self) -> dict[str, Any]:
+        """
+        If Summ AI budget year differs from the set renewal date, make sure a budget year start date is set.
+        This is not a typical django method cleaning only one, but a group of fields, and has to be called explicitly.
+        """
+        relevant_fields = [
+            "summ_ai_midyear_start_enabled",
+            "summ_ai_midyear_start_month",
+            "summ_ai_renewal_month",
+        ]
+        cleaned: dict[str, Any] = {
+            key: self.cleaned_data[key]
+            for key in relevant_fields
+            if key in self.cleaned_data
+        }
+
+        if (
+            cleaned["summ_ai_midyear_start_enabled"]
+            and cleaned["summ_ai_midyear_start_month"] is None
+        ):
+            self.add_error(
+                "summ_ai_midyear_start_month",
+                _(
+                    "Please provide a valid budget year start date for simplified language translation."
+                ),
+            )
+        elif (
+            not cleaned["summ_ai_midyear_start_enabled"]
+            or cleaned["summ_ai_midyear_start_month"]
+            == cleaned["summ_ai_renewal_month"]
+        ):
+            cleaned["summ_ai_midyear_start_month"] = None
+        return cleaned
+
+    def clean_zammad(self) -> dict[str, Any]:
+        """
+        Re-combine all offers and make sure no non-disableable offers have been disabled
+        This is not a typical django method cleaning only one, but a group of fields, and has to be called explicitly.
+        """
+        relevant_fields = [
+            "zammad_url",
+            "zammad_offers",
+            "zammad_webhook_token",
+            "offers",
+        ]
+        cleaned: dict[str, Any] = {
+            key: self.cleaned_data[key]
+            for key in relevant_fields
+            if key in self.cleaned_data
+        }
+
+        if not cleaned["zammad_url"]:
+            cleaned["zammad_offers"] = []
+        cleaned["offers"] = list(cleaned["offers"]) + list(
+            cleaned["zammad_offers"],
         )
         if self.disabled_offer_options and not all(
-            offer in cleaned_data["offers"] for offer in self.disabled_offer_options
+            offer in cleaned["offers"] for offer in self.disabled_offer_options
         ):
             self.add_error(
                 "offers",
@@ -416,12 +493,26 @@ class RegionForm(CustomModelForm):
                     "Some offers could not be disabled, since they are currently embedded in at least one page.",
                 ),
             )
+        return cleaned
 
-        # Public chat can only be enabled if Zammad URL and access key are set
-        if cleaned_data["integreat_chat_enabled"] and (
-            not cleaned_data["zammad_url"]
-            or not cleaned_data["zammad_access_token"]
-            or not cleaned_data["zammad_webhook_token"]
+    def clean_chat(self) -> dict[str, Any]:
+        """
+        Public chat can only be enabled if Zammad URL and access key are set
+        This is not a typical django method cleaning only one, but a group of fields, and has to be called explicitly.
+        """
+        relevant_fields = [
+            "integreat_chat_enabled",
+        ]
+        cleaned: dict[str, Any] = {
+            key: self.cleaned_data[key]
+            for key in relevant_fields
+            if key in self.cleaned_data
+        }
+
+        if cleaned["integreat_chat_enabled"] and (
+            not cleaned["zammad_url"]
+            or not cleaned["zammad_access_token"]
+            or not cleaned["zammad_webhook_token"]
         ):
             self.add_error(
                 "integreat_chat_enabled",
@@ -429,26 +520,58 @@ class RegionForm(CustomModelForm):
                     "A Zammad URL, Zammad Webhook Token and Access Token are required in order to enable the public chat.",
                 ),
             )
+        return cleaned
 
-        # Get additional data from GVZ API
+    def clean_gvz(self) -> dict[str, Any]:
+        """
+        Get additional data from GVZ API
+        This is not a typical django method cleaning only one, but a group of fields, and has to be called explicitly.
+        """
+        relevant_fields = [
+            "name",
+            "common_id",
+            "administrative_division",
+            "aliases",
+        ]
+        cleaned: dict[str, Any] = {
+            key: self.cleaned_data[key]
+            for key in relevant_fields
+            if key in self.cleaned_data
+        }
+
         if apps.get_app_config("gvz_api").api_available:
             gvz_region = GvzRegion(
-                region_name=cleaned_data["name"],
-                region_ags=cleaned_data["common_id"],
-                region_type=cleaned_data["administrative_division"],
+                region_name=cleaned["name"],
+                region_ags=cleaned["common_id"],
+                region_type=cleaned["administrative_division"],
             )
             logger.debug("GVZ API match: %r", gvz_region)
-            if gvz_region.child_coordinates and not cleaned_data.get("aliases"):
-                cleaned_data["aliases"] = gvz_region.child_coordinates
-            if gvz_region.longitude and not cleaned_data.get("longitude"):
-                cleaned_data["longitude"] = gvz_region.longitude
-            if gvz_region.latitude and not cleaned_data.get("latitude"):
-                cleaned_data["latitude"] = gvz_region.latitude
-            if gvz_region.ags and not cleaned_data.get("common_id"):
-                cleaned_data["common_id"] = gvz_region.ags
+            if gvz_region.child_coordinates and not cleaned.get("aliases"):
+                cleaned["aliases"] = gvz_region.child_coordinates
+            if gvz_region.longitude and not self.cleaned_data.get("longitude"):
+                cleaned["longitude"] = gvz_region.longitude
+            if gvz_region.latitude and not self.cleaned_data.get("latitude"):
+                cleaned["latitude"] = gvz_region.latitude
+            if gvz_region.ags and not cleaned.get("common_id"):
+                cleaned["common_id"] = gvz_region.ags
+        return cleaned
 
-        # If the coordinates could not be filled automatically and have not been filled manually either, throw an error
-        if not cleaned_data.get("latitude"):
+    def clean_coordinates(self) -> dict[str, Any]:
+        """
+        If the coordinates could not be filled automatically and have not been filled manually either, throw an error
+        This is not a typical django method cleaning only one, but a group of fields, and has to be called explicitly.
+        """
+        relevant_fields = [
+            "longitude",
+            "latitude",
+        ]
+        cleaned: dict[str, Any] = {
+            key: self.cleaned_data[key]
+            for key in relevant_fields
+            if key in self.cleaned_data
+        }
+
+        if not cleaned.get("latitude"):
             self.add_error(
                 "latitude",
                 forms.ValidationError(
@@ -458,7 +581,7 @@ class RegionForm(CustomModelForm):
                     code="required",
                 ),
             )
-        if not cleaned_data.get("longitude"):
+        if not cleaned.get("longitude"):
             self.add_error(
                 "longitude",
                 forms.ValidationError(
@@ -468,9 +591,24 @@ class RegionForm(CustomModelForm):
                     code="required",
                 ),
             )
+        return cleaned
 
-        # If a region is being cloned but no PBO cloning behavior has been selected, throw an error
-        if cleaned_data.get("duplicated_region") and not cleaned_data.get(
+    def clean_duplicate_region(self) -> dict[str, Any]:
+        """
+        If a region is being cloned but no PBO cloning behavior has been selected, throw an error
+        This is not a typical django method cleaning only one, but a group of fields, and has to be called explicitly.
+        """
+        relevant_fields = [
+            "duplicated_region",
+            "duplication_pbo_behavior",
+        ]
+        cleaned: dict[str, Any] = {
+            key: self.cleaned_data[key]
+            for key in relevant_fields
+            if key in self.cleaned_data
+        }
+
+        if cleaned.get("duplicated_region") and not cleaned.get(
             "duplication_pbo_behavior",
         ):
             self.add_error(
@@ -480,12 +618,7 @@ class RegionForm(CustomModelForm):
                     code="required",
                 ),
             )
-
-        # Automatically fill the bounding box coordinates
-        cleaned_data = self.autofill_bounding_box(cleaned_data)
-
-        logger.debug("RegionForm validated [2] with cleaned data %r", cleaned_data)
-        return cleaned_data
+        return cleaned
 
     def clean_slug(self) -> str:
         """
