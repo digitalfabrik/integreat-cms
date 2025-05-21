@@ -49,10 +49,13 @@
                             </h3>
                         </div>
                         <div class="p-4">
-                            <div class="help-text">
-                                {% translate "Enter the data you wish to store for the contact here." %}
+                            <div class="bg-blue-100 border-t-2 border-b-2 border-blue-500 text-blue-700 px-4 py-3 mb-5"
+                                 role="alert">
+                                <div class="font-semibold">
+                                    {% translate "At least one field must be filled." %}
+                                </div>
                                 <br>
-                                {% translate "At least one field must be filled." %}
+                                {% translate "Please note: there can only be one contact per location without area of responsibility" %}
                             </div>
                             <label for="{{ contact_form.area_of_responsibility.id_for_label }}">
                                 {{ contact_form.area_of_responsibility.label }}
