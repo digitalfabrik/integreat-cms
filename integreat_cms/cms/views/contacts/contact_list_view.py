@@ -105,7 +105,9 @@ class ContactListView(TemplateView, ContactContextMixin):
         region = request.region
         messages.error(
             request,
-            _("Please create at least one language node and locations before creating contacts."),
+            _(
+                "Please create at least one language node and locations before creating contacts."
+            ),
         )
         return redirect(
             "languagetreenodes",
