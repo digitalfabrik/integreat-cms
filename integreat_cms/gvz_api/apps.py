@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING
 import requests
 from django.apps import AppConfig, apps
 from django.conf import settings
+from django.core.cache import cache
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
@@ -30,8 +31,16 @@ class GvzApiConfig(AppConfig):
     name: Final[str] = "integreat_cms.gvz_api"
     #: Human-readable name for the application
     verbose_name: Final[Promise] = _("GVZ API")
-    #: Whether the API is available
-    api_available: bool = False
+
+    @property
+    def api_available(self) -> bool:
+        return cache.get("gvz_available", False)
+
+    @api_available.setter
+    def api_available(self, value: bool) -> None:
+        return cache.set(
+            "gvz_available", value, timeout=settings.GVZ_API_AVAILABLE_STATUS_TTL
+        )
 
     def ready(self) -> None:
         """
@@ -53,6 +62,7 @@ class GvzApiConfig(AppConfig):
                     requests.exceptions.Timeout,
                     ValueError,
                 ):
+                    self.api_available = False
                     logger.exception(
                         "GVZ API is unavailable. You won't be able to "
                         "automatically import region coordinates and aliases.",
