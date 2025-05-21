@@ -124,19 +124,20 @@ class UploadMediaFileForm(CustomModelForm):
                 ),
             )
 
-        # If everything looks good until now, generate a thumbnail and an optimized image
         if (
             not self.errors
             and (img_type := cleaned_data.get("type"))
             and img_type.startswith("image")
         ):
-            if optimized_image := generate_thumbnail(
-                file,
-                settings.MEDIA_OPTIMIZED_SIZE,
-                False,
-            ):
-                cleaned_data["file"] = optimized_image
-                cleaned_data["thumbnail"] = generate_thumbnail(file)
+            if thumbnail := generate_thumbnail(file):
+                cleaned_data["thumbnail"] = thumbnail
+                if img_type != "image/svg+xml":
+                    # Generate an optimized image
+                    cleaned_data["file"] = generate_thumbnail(
+                        file,
+                        settings.MEDIA_OPTIMIZED_SIZE,
+                        False,
+                    )
 
             else:
                 self.add_error(
