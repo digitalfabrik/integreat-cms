@@ -43,7 +43,7 @@ class ContactListView(TemplateView, ContactContextMixin):
         query = None
 
         if not region.default_language:
-            self.redirect_to_language_tree(request)
+            return self.redirect_to_language_tree(request)
 
         contacts = Contact.objects.filter(
             location__region=region,
@@ -105,9 +105,7 @@ class ContactListView(TemplateView, ContactContextMixin):
         region = request.region
         messages.error(
             request,
-            _(
-                "Please create at least one language node and locations before creating contacts."
-            ),
+            _("Please create at least one language node before creating contacts."),
         )
         return redirect(
             "languagetreenodes",
