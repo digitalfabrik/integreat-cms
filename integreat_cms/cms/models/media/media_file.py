@@ -77,6 +77,8 @@ def upload_path_thumbnail(
     """
     # Derive the thumbnail name from the original file name
     name, extension = splitext(instance.file.name)
+    if extension.lower() == ".svg":
+        extension = ".png"
     path = f"{name}_thumbnail{extension}"
     logger.debug("Upload path for thumbnail of %r: %r", instance.thumbnail, path)
     return path
