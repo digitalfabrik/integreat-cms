@@ -156,7 +156,6 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
             period=statistics_form.cleaned_data["period"],
             region=region,
         )
-        return JsonResponse(result, safe=False)
     except TimeoutError:
         logger.exception("Timeout during request to Matomo API")
         return JsonResponse(
@@ -167,6 +166,17 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
         return JsonResponse(
             {"error": "The request to the Matomo API failed."}, status=500
         )
+
+    region_pages = Page.objects.filter(region=region)
+    languages = region.language_tree
+    region.get_page_accesses_by_language(
+        pages=region_pages,
+        start_date=statistics_form.cleaned_data["start_date"],
+        end_date=statistics_form.cleaned_data["end_date"],
+        languages=languages,
+    )
+
+    return JsonResponse(result, safe=False)
 
 
 def load_page_accesses(start_date: date, end_date: date, period: str, region: Region):
