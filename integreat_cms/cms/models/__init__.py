@@ -43,6 +43,7 @@ from .push_notifications.push_notification_translation import (
     PushNotificationTranslation,
 )
 from .regions.region import Region
+from .statistics.page_accesses import PageAccesses
 from .users.organization import Organization
 from .users.role import Role
 from .users.user import User
