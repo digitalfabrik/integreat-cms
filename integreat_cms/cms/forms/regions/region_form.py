@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import json
 import logging
-import threading
 import time
 from copy import deepcopy
 from typing import TYPE_CHECKING
 from zoneinfo import available_timezones
 
+from celery import shared_task
 from django import forms
 from django.apps import apps
 from django.conf import settings
@@ -18,11 +18,12 @@ from linkcheck.listeners import disable_listeners, tasks_queue
 from linkcheck.models import Link
 
 from integreat_cms.cms.utils.linkcheck_utils import replace_links
+from integreat_cms.core.management.commands.hix_bulk import calculate_hix_for_region
 
 from ....gvz_api.utils import GvzRegion
 from ....matomo_api.matomo_api_client import MatomoException
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
-from ...constants import duplicate_pbo_behaviors, status
+from ...constants import duplicate_pbo_behaviors, region_status, status
 from ...models import LanguageTreeNode, OfferTemplate, Page, PageTranslation, Region
 from ...models.regions.region import format_mt_help_text, format_summ_ai_help_text
 from ...utils.slug_utils import generate_unique_slug_helper
@@ -292,13 +293,16 @@ class RegionForm(CustomModelForm):
             not self.instance.id and self.cleaned_data["duplicated_region"]
         )
 
+        if duplicate_region:
+            self.instance.status = region_status.IN_CLONING
+            self.instance.hix_enabled = False
+
         # Save CustomModelForm
         region = super().save(commit=commit)
 
         if duplicate_region:
             # Disable HIX during the duplication process,
             # to skip recalculation for already known content
-            region.hix_enabled = False
             source_region = self.cleaned_data["duplicated_region"]
             keep_status = self.cleaned_data["duplication_keep_status"]
             keep_translations = self.cleaned_data["duplication_keep_translations"]
@@ -321,39 +325,19 @@ class RegionForm(CustomModelForm):
                     id__in=region.offers.values_list("id", flat=True),
                 )
 
-            # Duplicate language tree
-            logger.info("Duplicating language tree of %r to %r", source_region, region)
-            duplicate_language_tree(
-                source_region,
-                region,
-                only_root=not keep_translations,
+            async_clone_region_content.apply_async(
+                args=[
+                    source_region.pk,
+                    region.pk,
+                    keep_status,
+                    keep_translations,
+                    self.cleaned_data["hix_enabled"],
+                    self.cleaned_data["status"],
+                    [offer.pk for offer in offers_to_discard]
+                    if offers_to_discard
+                    else None,
+                ]
             )
-            # Disable linkcheck listeners to prevent links to be created for outdated versions
-            with disable_listeners():
-                # Duplicate pages
-                logger.info("Duplicating page tree of %r to %r", source_region, region)
-                duplicate_pages(
-                    source_region,
-                    region,
-                    keep_status=keep_status,
-                    offers_to_discard=offers_to_discard,
-                    only_root=not keep_translations,
-                )
-                # Duplicate Imprint
-                if source_region.imprint:
-                    logger.info(
-                        "Duplicating imprint of %r to %r",
-                        source_region,
-                        region,
-                    )
-                    duplicate_imprint(source_region, region)
-            # Duplicate media content
-            duplicate_media(source_region, region)
-
-            # Create links for the most recent versions of all translations manually and replace internal links
-            create_and_replace_links_async(source_region, region)
-
-        region.hix_enabled = self.cleaned_data["hix_enabled"]
         return region
 
     def clean(self) -> dict[str, Any]:
@@ -709,6 +693,63 @@ class RegionForm(CustomModelForm):
         return cleaned_data
 
 
+@shared_task
+def async_clone_region_content(
+    source_region_id: int,
+    target_region_id: int,
+    keep_status: bool,
+    keep_translations: bool,
+    hix_enabled: bool,
+    target_region_status: str,
+    offers_to_discard_ids: list[int] | None,
+) -> None:
+    source_region = Region.objects.get(id=source_region_id)
+    region = Region.objects.get(id=target_region_id)
+    try:
+        offers_to_discard = (
+            OfferTemplate.objects.filter(id__in=offers_to_discard_ids)
+            if offers_to_discard_ids
+            else None
+        )
+
+        # Duplicate language tree
+        logger.info("Duplicating language tree of %r to %r", source_region, region)
+        duplicate_language_tree(
+            source_region,
+            region,
+            only_root=not keep_translations,
+        )
+        # Disable linkcheck listeners to prevent links to be created for outdated versions
+        with disable_listeners():
+            # Duplicate pages
+            logger.info("Duplicating page tree of %r to %r", source_region, region)
+            duplicate_pages(
+                source_region,
+                region,
+                keep_status=keep_status,
+                offers_to_discard=offers_to_discard,
+                only_root=not keep_translations,
+            )
+            # Duplicate Imprint
+            if source_region.imprint:
+                logger.info(
+                    "Duplicating imprint of %r to %r",
+                    source_region,
+                    region,
+                )
+                duplicate_imprint(source_region, region)
+        # Duplicate media content
+        duplicate_media(source_region, region)
+
+        # Create links for the most recent versions of all translations manually and replace internal links
+        create_and_update_links(source_region, region)
+        adjust_hix_setting_and_region_status(region, hix_enabled, target_region_status)
+    except Exception:
+        logger.exception("Error during region cloning")
+        region.status = region_status.CLONING_ERROR
+        region.save()
+
+
 def duplicate_language_tree(
     source_region: Region,
     target_region: Region,
@@ -1009,10 +1050,12 @@ def duplicate_media(
     # https://github.com/digitalfabrik/integreat-cms/issues/1414
 
 
-def create_and_replace_links_async(source_region: Region, region: Region) -> None:
+def create_and_update_links(
+    source_region: Region,
+    region: Region,
+) -> None:
     """
     Create all links for the latest versions of the region's page translations, then replace all links in the content.
-    This is run as a background task.
 
 
     :param source_region: The region with the slug of the to be replaced links
@@ -1021,15 +1064,8 @@ def create_and_replace_links_async(source_region: Region, region: Region) -> Non
     :param region: The region in which the links should be replaced and created
     :type region: ~integreat_cms.cms.models.regions.region.Region
     """
-
-    def create_and_update_links() -> None:
-        find_links(region)
-        replace_internal_links(source_region, region)
-
-    t = threading.Thread(target=create_and_update_links, daemon=True)
-    t.start()
-    if not settings.BACKGROUND_TASKS_ENABLED:
-        t.join()
+    find_links(region)
+    replace_internal_links(source_region, region)
 
 
 def find_links(region: Region) -> None:
@@ -1070,3 +1106,17 @@ def replace_internal_links(source_region: Region, region: Region) -> None:
     old_link = f"{settings.WEBAPP_URL}/{source_region.slug}/"
     new_link = f"{settings.WEBAPP_URL}/{region.slug}/"
     replace_links(old_link, new_link, region=region, link_types=["internal"])
+
+
+def adjust_hix_setting_and_region_status(
+    region: Region,
+    hix_enabled: bool,
+    target_region_status: str,
+) -> None:
+    region.hix_enabled = hix_enabled
+    region.status = target_region_status
+    region.save()
+
+    if settings.TEXTLAB_API_ENABLED and hix_enabled:
+        with disable_listeners():
+            calculate_hix_for_region(region)
