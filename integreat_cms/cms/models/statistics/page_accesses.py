@@ -29,6 +29,9 @@ class PageAccesses(AbstractBaseModel):
         validators=[MinValueValidator(0)], verbose_name="Page accesses"
     )
 
+    def __str__(self) -> str:
+        return f"{self.page} - Accesses: {self.accesses}, language: {self.language}, date: {self.access_date}"
+
     class Meta:
         verbose_name = _("page accesses")
         default_related_name = "page_accesses"
