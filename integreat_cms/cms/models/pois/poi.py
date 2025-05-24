@@ -7,10 +7,16 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.functional import cached_property
 
+from integreat_cms.cms.constants import status
 from integreat_cms.cms.models.utils import get_default_opening_hours
+from integreat_cms.cms.utils.slug_utils import generate_unique_slug
 
 if TYPE_CHECKING:
     from django.db.models.base import ModelBase
+
+    from integreat_cms.cms.models.users.user import User
+
+    from ...utils.slug_utils import SlugKwargs
 
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
@@ -166,6 +172,45 @@ class POI(AbstractContentModel):
         for translation in self.translations.distinct("poi__pk", "language__pk"):
             # The post_save signal will create link objects from the content
             translation.save(update_timestamp=False)
+
+    def copy(self, user: User) -> POI:
+        """
+        This method creates a copy of a poi and all of its translations.
+        This method saves the new event.
+
+        :param user: The user who initiated this copy
+        :return: A copy of a poi
+
+        :raises CouldNotBeCopied: When event can't be copied
+        """
+        # save all translations on the original object, so that they can be copied later
+        translations = list(self.translations.all())
+
+        # create the copied event
+        self.pk = None
+        self.save()
+
+        copy_translation = _("copy")
+        # Create new translations for this poi
+        for translation in translations:
+            translation.pk = None
+            translation.poi = self
+            translation.status = status.DRAFT
+            translation.title = f"{translation.title} ({copy_translation})"
+            kwargs: SlugKwargs = {
+                "slug": translation.slug,
+                "manager": type(translation).objects,
+                "object_instance": translation,
+                "foreign_model": "poi",
+                "region": self.region,
+                "language": translation.language,
+            }
+            translation.slug = generate_unique_slug(**kwargs)
+            translation.currently_in_translation = False
+            translation.creator = user
+            translation.save()
+
+        return self
 
     @property
     def is_used(self) -> bool:
