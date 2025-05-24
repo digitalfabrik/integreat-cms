@@ -143,8 +143,8 @@
                 <i icon-name="pencil"></i>
             </a>
         {% endif %}
-        {% has_perm 'cms.publish_page_object' request.user as can_publish_pages %}
-        {% if not is_archive and can_publish_pages %}
+        {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
+        {% if not is_archive and can_publish_page %}
             {% if page.mirroring_pages.exists %}
                 <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
                         class="btn-icon"
@@ -162,7 +162,7 @@
                 </button>
             {% endif %}
         {% endif %}
-        {% if is_archive and can_edit_pages %}
+        {% if is_archive and can_publish_page %}
             {% if page.explicitly_archived %}
                 <button title="{% translate "Restore page" %}"
                         class="confirmation-button btn-icon"
