@@ -3,7 +3,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0129_remove_region_zammad_chat_handlers_and_more"),
+        ("cms", "0133_add_page_accesses"),
     ]
 
     operations = [
