@@ -73,6 +73,10 @@ def format_object_translation(
     }
 
 
+CONTENT_TYPES = ["contact", "organization", "language", "feedback", "region", "user", "mediafile"]
+TRANSLATION_CONTENT_TYPES = ["event", "page", "poi", "pushnotification"]
+
+
 @require_POST
 def search_content_ajax(  # noqa: PLR0915, PLR0912, C901
     request: HttpRequest,
@@ -107,196 +111,164 @@ def search_content_ajax(  # noqa: PLR0915, PLR0912, C901
 
     user = request.user
 
-    if "contact" in object_types:
-        object_types.remove("contact")
-        if not user.has_perm("cms.view_contact"):
-            raise PermissionDenied
-        results.extend(
-            {
-                "title": contact.name,
-                "url": None,
-                "type": "contact",
-            }
-            for contact in Contact.objects.filter(
-                name__icontains=query, location__region=region, archived=archived_flag
-            ).distinct()
-        )
-        if TYPE_CHECKING:
-            assert language_slug
-        results.extend(
-            {
-                "title": poi_translation.title,
-                "url": None,
-                "type": "contact",
-            }
-            for poi_translation in POITranslation.search(
-                region, language_slug, query
-            ).filter(poi__archived=False)
-        )
+    for object_type in object_types:
+        if object_type not in CONTENT_TYPES + TRANSLATION_CONTENT_TYPES:
+            raise AttributeError(f"Unexpected object type(s): {object_types}")
 
-    if "event" in object_types:
-        if TYPE_CHECKING:
-            assert language_slug
-        object_types.remove("event")
-        if not user.has_perm("cms.view_event"):
+        if not user.has_perm(f"cms.view_{object_type}"):
             raise PermissionDenied
-        event_translations = (
-            EventTranslation.search(region, language_slug, query)
-            .filter(event__archived=archived_flag, status=status.PUBLIC)
-            .select_related("event__region", "language")
-        )
-        results.extend(
-            format_object_translation(obj, "event", language_slug)
-            for obj in event_translations
-        )
 
-    if "feedback" in object_types:
-        object_types.remove("feedback")
-        if not user.has_perm("cms.view_feedback"):
-            raise PermissionDenied
-        results.extend(
-            {
-                "title": feedback.comment,
-                "url": None,
-                "type": "feedback",
-            }
-            for feedback in Feedback.search(region, query).filter(
-                archived=archived_flag,
+        if object_type == "contact":
+            results.extend(
+                {
+                    "title": contact.name,
+                    "url": None,
+                    "type": "contact",
+                }
+                for contact in Contact.objects.filter(
+                    name__icontains=query, location__region=region, archived=archived_flag
+                ).distinct()
             )
-        )
-
-    if "organization" in object_types:
-        object_types.remove("organization")
-        if not user.has_perm("cms.view_organization"):
-            raise PermissionDenied
-        results.extend(
-            {
-                "title": organization.name,
-                "url": None,
-                "type": "orgaization",
-            }
-            for organization in Organization.search(region, query).filter(
-                archived=archived_flag,
+            if TYPE_CHECKING:
+                assert language_slug
+            results.extend(
+                {
+                    "title": poi_translation.title,
+                    "url": None,
+                    "type": "contact",
+                }
+                for poi_translation in POITranslation.search(
+                    region, language_slug, query
+                ).filter(poi__archived=False)
             )
-        )
 
-    if "language" in object_types:
-        object_types.remove("language")
-        if not user.has_perm("cms.view_language"):
-            raise PermissionDenied
-
-        results.extend(
-            {
-                "title": language.translated_name,
-                "url": None,
-                "type": "feedback",
-            }
-            for language in Language.search(query)
-        )
-
-    if "page" in object_types:
-        if TYPE_CHECKING:
-            assert language_slug
-        object_types.remove("page")
-        if not user.has_perm("cms.view_page"):
-            raise PermissionDenied
-        pages = region.pages.all().cache_tree(archived=archived_flag)
-        for page in pages:
-            page_translation = page.get_translation(language_slug)
-            if page_translation and (
-                query.lower() in page_translation.slug
-                or query.lower() in page_translation.title.lower()
-            ):
-                results.append(
-                    format_object_translation(page_translation, "page", language_slug),
+        if object_type == "organization":
+            results.extend(
+                {
+                    "title": organization.name,
+                    "url": None,
+                    "type": "orgaization",
+                }
+                for organization in Organization.search(region, query).filter(
+                    archived=archived_flag,
                 )
-
-    if "poi" in object_types:
-        if TYPE_CHECKING:
-            assert language_slug
-        object_types.remove("poi")
-        if not user.has_perm("cms.view_poi"):
-            raise PermissionDenied
-        poi_translations = (
-            POITranslation.search(region, language_slug, query)
-            .filter(poi__archived=archived_flag, status=status.PUBLIC)
-            .select_related("poi__region", "language")
-        )
-        results.extend(
-            format_object_translation(obj, "poi", language_slug)
-            for obj in poi_translations
-        )
-
-    if "push_notification" in object_types:
-        if TYPE_CHECKING:
-            assert language_slug
-        object_types.remove("push_notification")
-        if not user.has_perm("cms.view_pushnotification"):
-            raise PermissionDenied
-        results.extend(
-            {
-                "title": push_notification.title,
-                "url": None,
-                "type": "push_notification",
-            }
-            for push_notification in PushNotificationTranslation.search(
-                region,
-                language_slug,
-                query,
             )
-        )
 
-    if "region" in object_types:
-        object_types.remove("region")
-        if not user.has_perm("cms.view_region"):
-            raise PermissionDenied
+        if object_type ==  "language":
+            results.extend(
+                {
+                    "title": language.translated_name,
+                    "url": None,
+                    "type": "feedback",
+                }
+                for language in Language.search(query)
+            )      
 
-        regions = Region.search(query)
-        if archived_flag:
-            regions = regions.exclude(status=region_status.ARCHIVED)
-        results.extend(
-            {
-                "title": region.name,
-                "url": None,
-                "type": "region",
-            }
-            for region in regions
-        )
+        if object_type == "feedback":
+            results.extend(
+                {
+                    "title": feedback.comment,
+                    "url": None,
+                    "type": "feedback",
+                }
+                for feedback in Feedback.search(region, query).filter(
+                    archived=archived_flag,
+                )
+            )
 
-    if "user" in object_types:
-        object_types.remove("user")
-        if not user.has_perm("cms.view_user"):
-            raise PermissionDenied
-        results.extend(
-            {
-                "title": user.username,
-                "url": None,
-                "type": "user",
-            }
-            for user in search_users(region, query)
-        )
+        if object_type == "region":
+            regions = Region.search(query)
+            if archived_flag:
+                regions = regions.exclude(status=region_status.ARCHIVED)
+            results.extend(
+                {
+                    "title": region.name,
+                    "url": None,
+                    "type": "region",
+                }
+                for region in regions
+            )
 
-    if "media" in object_types:
-        object_types.remove("media")
-        results.extend(
-            {
-                "title": file.name,
-                "url": None,
-                "type": "file",
-            }
-            for file in MediaFile.search(region, query)
-        )
-        results.extend(
-            {
-                "title": directory.name,
-                "url": None,
-                "type": "directory",
-            }
-            for directory in Directory.search(region, query)
-        )
+        if object_type == "user":
+            results.extend(
+                {
+                    "title": user.username,
+                    "url": None,
+                    "type": "user",
+                }
+                for user in search_users(region, query)
+            )
 
-    if object_types:
-        raise AttributeError(f"Unexpected object type(s): {object_types}")
+        if object_type == "mediafile":
+            results.extend(
+                {
+                    "title": file.name,
+                    "url": None,
+                    "type": "file",
+                }
+                for file in MediaFile.search(region, query)
+            )
+            results.extend(
+                {
+                    "title": directory.name,
+                    "url": None,
+                    "type": "directory",
+                }
+                for directory in Directory.search(region, query)
+            )
+
+        if object_type in TRANSLATION_CONTENT_TYPES and not language_slug:
+            raise AttributeError("Language slug is not provided")
+
+        if object_type == "event" and language_slug:
+            event_translations = (
+                EventTranslation.search(region, language_slug, query)
+                .filter(event__archived=archived_flag, status=status.PUBLIC)
+                .select_related("event__region", "language")
+            )
+            results.extend(
+                format_object_translation(obj, "event", language_slug)
+                for obj in event_translations
+            )
+
+        if object_type == "page" and language_slug:
+            pages = region.pages.all().cache_tree(archived=archived_flag)
+            for page in pages:
+                page_translation = page.get_translation(language_slug)
+                if page_translation and (
+                    query.lower() in page_translation.slug
+                    or query.lower() in page_translation.title.lower()
+                ):
+                    results.append(
+                        format_object_translation(
+                            page_translation, "page", language_slug
+                        ),
+                    )
+
+        if object_type == "poi" and language_slug:
+            poi_translations = (
+                POITranslation.search(region, language_slug, query)
+                .filter(poi__archived=archived_flag, status=status.PUBLIC)
+                .select_related("poi__region", "language")
+            )
+            results.extend(
+                format_object_translation(obj, "poi", language_slug)
+                for obj in poi_translations
+            )
+
+        if object_type == "pushnotification" and language_slug:
+            results.extend(
+                {
+                    "title": push_notification.title,
+                    "url": None,
+                    "type": "push_notification",
+                }
+                for push_notification in PushNotificationTranslation.search(
+                    region,
+                    language_slug,
+                    query,
+                )
+            )
 
     # sort alphabetically by title
     results.sort(key=lambda k: k["title"])
