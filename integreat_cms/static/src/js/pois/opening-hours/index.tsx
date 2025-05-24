@@ -15,6 +15,7 @@ type Props = {
     days: any;
     initial: OpeningHours[];
     canChangeLocation: boolean;
+    updateDataRegisterCallback: (setter: (data: OpeningHours[]) => void) => void;
 };
 
 type TimeSlot = {
@@ -29,8 +30,8 @@ export type OpeningHours = {
     appointmentOnly: boolean;
 };
 
-const OpeningHoursWidget = ({ translations, days, initial, canChangeLocation }: Props) => {
-    // The state contains the current opening hours of the location
+const OpeningHoursWidget = ({ translations, days, initial, canChangeLocation, updateDataRegisterCallback }: Props) => {
+    // The state contains the current opening hours
     const [openingHours, setOpeningHours] = useState<OpeningHours[]>(initial);
     // This state contains the days which are currently selected for being edited
     const [selectedDays, setSelectedDays] = useState<number[]>([]);
@@ -44,6 +45,9 @@ const OpeningHoursWidget = ({ translations, days, initial, canChangeLocation }: 
             body.classList.remove("overflow-hidden");
         }
     }, [selectedDays]);
+
+    // This is a way to extract the new state from the preact component, so we can use it in our traditional, imperative spaghetti Typescript
+    updateDataRegisterCallback(setOpeningHours);
 
     return (
         <div>
@@ -74,6 +78,19 @@ const OpeningHoursWidget = ({ translations, days, initial, canChangeLocation }: 
 };
 export default OpeningHoursWidget;
 
+// will be populated during initialization
+let setOpeningHours: (_: OpeningHours[]) => void;
+
+export const resetOpeningHoursListener = () => {
+    const openingHourLocationData = JSON.parse(document.getElementById("openingHourLocationData").textContent);
+    setOpeningHours(openingHourLocationData);
+};
+
+export const addOpeningHoursDataChangedListener = () => {
+    const useLocationOpeningHours = document.getElementById("id_use_location_opening_hours") as HTMLInputElement;
+    useLocationOpeningHours.checked = false;
+};
+
 export const addOpeningHoursListener = () => {
     document.querySelectorAll("opening-hours-widget").forEach((el) => {
         const openingHourConfigData = JSON.parse(document.getElementById("openingHourConfigData").textContent);
@@ -85,9 +102,44 @@ export const addOpeningHoursListener = () => {
                 {...openingHourConfigData}
                 initial={openingHourInitialData}
                 globalEdit={el.hasAttribute("data-enable-global-edit")}
+                updateDataRegisterCallback={(setter: (data: OpeningHours[]) => void) => {
+                    setOpeningHours = setter;
+                }}
             />,
             el
         );
+    });
+
+    let updateLatch = 0;
+
+    document.getElementById("id_use_location_opening_hours").addEventListener("change", (e) => {
+        // Only reset if we changed to adopt the opening hours from the location
+        if ((e.target as HTMLInputElement).checked) {
+            updateLatch += 1;
+            const thisTimeAround = updateLatch;
+            setTimeout(() => {
+                if (updateLatch === thisTimeAround) {
+                    updateLatch = 0;
+                }
+            }, 1);
+            resetOpeningHoursListener();
+        }
+    });
+
+    const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+            if (mutation.type === "childList" || mutation.type === "attributes" || mutation.type === "characterData") {
+                if (updateLatch === 0) {
+                    addOpeningHoursDataChangedListener();
+                }
+            }
+        }
+    });
+
+    observer.observe(document.getElementById("id_opening_hours"), {
+        childList: true,
+        characterData: true,
+        subtree: true,
     });
 };
 
