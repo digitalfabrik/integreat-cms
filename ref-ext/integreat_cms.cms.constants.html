@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-05-21T07:37:14+00:00" />
+    <meta property="article:modified_time" content="2025-05-26T15:33:52+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Constants &mdash; integreat-cms 2025.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -1292,6 +1292,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.integreat_celery.html#module-integreat_cms.integreat_celery.celery">Celery</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.integreat_celery.html#integreat_cms.integreat_celery.celery.config_loggers"><code class="docutils literal notranslate"><span class="pre">config_loggers()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.integreat_celery.html#integreat_cms.integreat_celery.celery.setup_periodic_tasks"><code class="docutils literal notranslate"><span class="pre">setup_periodic_tasks()</span></code></a></li>
 </ul>
 </li>
@@ -3332,17 +3333,35 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.region_status.CHOICES">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.region_status.</span></span><span class="sig-name descname"><span class="pre">CHOICES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Promise</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('ACTIVE',</span> <span class="pre">'Active'),</span> <span class="pre">('HIDDEN',</span> <span class="pre">'Hidden'),</span> <span class="pre">('ARCHIVED',</span> <span class="pre">'Archived')]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/region_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.region_status.CHOICES" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.region_status.</span></span><span class="sig-name descname"><span class="pre">CHOICES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Promise</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('ACTIVE',</span> <span class="pre">'Active'),</span> <span class="pre">('HIDDEN',</span> <span class="pre">'Hidden'),</span> <span class="pre">('ARCHIVED',</span> <span class="pre">'Archived'),</span> <span class="pre">('IN_CLONING',</span> <span class="pre">'Currently</span> <span class="pre">in</span> <span class="pre">cloning'),</span> <span class="pre">('CLONING_ERROR',</span> <span class="pre">'Error</span> <span class="pre">during</span> <span class="pre">cloning')]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/region_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.region_status.CHOICES" title="Link to this definition"></a></dt>
 <dd><p>Choices to use these constants in a database field</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[(</span><span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Active&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;HIDDEN&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Hidden&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;ARCHIVED&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Archived&#39;</span><span class="p">)]</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Active&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;HIDDEN&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Hidden&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;ARCHIVED&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Archived&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;IN_CLONING&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Currently in cloning&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;CLONING_ERROR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Error during cloning&#39;</span><span class="p">),</span>
+<span class="p">]</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.cms.constants.region_status.CLONING_ERROR">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.region_status.</span></span><span class="sig-name descname"><span class="pre">CLONING_ERROR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CLONING_ERROR'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/region_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.region_status.CLONING_ERROR" title="Link to this definition"></a></dt>
+<dd><p>Error during cloning</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.region_status.HIDDEN">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.region_status.</span></span><span class="sig-name descname"><span class="pre">HIDDEN</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HIDDEN'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/region_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.region_status.HIDDEN" title="Link to this definition"></a></dt>
 <dd><p>Hidden</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.cms.constants.region_status.IN_CLONING">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.region_status.</span></span><span class="sig-name descname"><span class="pre">IN_CLONING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'IN_CLONING'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/region_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.region_status.IN_CLONING" title="Link to this definition"></a></dt>
+<dd><p>Currently in cloning. A region is being created/duplicated</p>
 </dd></dl>
 
 </section>
@@ -4457,7 +4476,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 21, 2025.
+      <span class="lastupdated">Last updated on May 26, 2025.
       </span></p>
   </div>
 
