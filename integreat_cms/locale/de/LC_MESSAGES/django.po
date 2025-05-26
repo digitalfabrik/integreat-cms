@@ -2085,6 +2085,11 @@ msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
 
+#: cms/forms/language_tree/language_tree_node_form.py
+#: cms/templates/languagetreenodes/languagetreenode_form.html
+msgid "An inactive language tree node cannot be visible."
+msgstr "Ein inaktiver Sprach-Knoten kann nicht sichtbar sein."
+
 #: cms/forms/linkcheck/edit_url_form.py
 msgid "Enter a valid email address."
 msgstr "Bitte gültige E-Mail-Adresse eingeben."
@@ -3433,6 +3438,10 @@ msgstr "Sprach-Knoten"
 #: cms/models/languages/language_tree_node.py
 msgid "language tree nodes"
 msgstr "Sprach-Knoten"
+
+#: cms/models/languages/language_tree_node.py
+msgid "An inactive language tree node has to be invisible."
+msgstr "Ein inaktiver Sprach-Knoten kann nicht sichtbar sein."
 
 #: cms/models/media/directory.py cms/models/media/media_file.py
 msgid "parent directory"
@@ -4864,7 +4873,6 @@ msgstr "Mehr anzeigen"
 #: cms/templates/events/event_form.html
 #: cms/templates/events/external_calendar_form.html
 #: cms/templates/generic_confirmation_dialog.html
-#: cms/templates/languagetreenodes/languagetreenode_form.html
 #: cms/templates/linkcheck/link_list_row.html
 #: cms/templates/organizations/organization_form.html
 #: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
@@ -10201,6 +10209,30 @@ msgstr "aktiviert"
 msgid "disabled"
 msgstr "deaktiviert"
 
+#: cms/views/language_tree/language_tree_bulk_actions.py
+#, python-brace-format
+msgid "{model_name} {object_names} was successfully deactivated."
+msgid_plural ""
+"The following {model_name} were successfully deactivated: {object_names}"
+msgstr[0] "{model_name} {object_names} wurde erfolgreich deaktiviert."
+msgstr[1] ""
+"Die folgenden {model_name} wurden erfolgreich deaktiviert: {object_names}"
+
+#: cms/views/language_tree/language_tree_bulk_actions.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} could not be deactivated, because inactive "
+"language tree nodes cannot be visible."
+msgid_plural ""
+"The following {model_name} could not be deactivated, because inactive "
+"language tree nodes cannot be visible: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} konnte nicht deaktiviert werden, da die Quell-"
+"Übersetzung fehlt."
+msgstr[1] ""
+"Die folgenden {model_name} konnten nicht deaktiviert werden, da ihre Quell-"
+"Übersetzungen fehlen: {object_names}"
+
 #: cms/views/language_tree/language_tree_context_mixin.py
 msgid "Please confirm that you really want to delete this language node"
 msgstr "Bitte bestätigen Sie, dass dieser Sprachknoten gelöscht werden soll"
@@ -13553,9 +13585,6 @@ msgstr ""
 
 #~ msgid "The passwords do not match."
 #~ msgstr "Die Passwörter stimmen nicht überein."
-
-#~ msgid "You can only move language tree nodes within one region."
-#~ msgstr "Sie können Sprach-Knoten nur innerhalb einer Region verschieben."
 
 #~ msgid "Author Chat"
 #~ msgstr "Autor:innen-Chat"

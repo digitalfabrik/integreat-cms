@@ -8,10 +8,13 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import cast, TYPE_CHECKING
 
 from cacheops import invalidate_obj
+from django.contrib import messages
+from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext, ngettext_lazy
 
 from ...models import (
     EventTranslation,
@@ -19,6 +22,7 @@ from ...models import (
     PageTranslation,
     POITranslation,
 )
+from ...utils.stringify_list import iter_to_string
 from ...utils.tree_mutex import tree_mutex
 from ..bulk_action_views import BulkUpdateBooleanFieldView
 
@@ -160,3 +164,71 @@ class BulkDisableView(BulkActivateView):
 
     #: The name of the action
     action = _("disabled")
+
+    def post(
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
+    ) -> HttpResponseRedirect:
+        compliant_ltn = []
+        non_compliant_ltn = []
+        for language_tree_node in self.get_queryset():
+            if language_tree_node.visible:
+                non_compliant_ltn.append(language_tree_node)
+            else:
+                compliant_ltn.append(language_tree_node)
+        self._use_subset = True
+        response = super().post(request, *args, **kwargs)
+        self._use_subset = False
+        list(messages.get_messages(request))
+        if compliant_ltn:
+            messages.success(
+                request,
+                ngettext_lazy(
+                    "{model_name} {object_names} was successfully deactivated.",
+                    "The following {model_name} were successfully deactivated: {object_names}",
+                    len(compliant_ltn),
+                ).format(
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(compliant_ltn),
+                    ),
+                    object_names=iter_to_string(compliant_ltn),
+                ),
+            )
+        if non_compliant_ltn:
+            messages.error(
+                request,
+                ngettext_lazy(
+                    "{model_name} {object_names} could not be deactivated, because inactive language tree nodes cannot be visible.",
+                    "The following {model_name} could not be deactivated, because inactive language tree nodes cannot be visible: {object_names}",
+                    len(compliant_ltn),
+                ).format(
+                    model_name=ngettext(
+                        self.model._meta.verbose_name.title(),
+                        self.model._meta.verbose_name_plural,
+                        len(non_compliant_ltn),
+                    ),
+                    object_names=iter_to_string(non_compliant_ltn),
+                ),
+            )
+        return response
+
+    def get_queryset(self) -> Any:
+        """
+        Get the queryset of selected items for this bulk action
+
+        :raises ~django.http.Http404: HTTP status 404 if no objects with the given ids exist
+
+        :return: The QuerySet of the filtered links
+        """
+
+        queryset = cast(QuerySet[LanguageTreeNode], super().get_queryset())
+
+        # Filter for subset that complies with constraint
+        if getattr(self, "_use_subset", False):
+            queryset = queryset.filter(visible=False)
+
+        return queryset
