@@ -48,7 +48,7 @@ listen_for_devserver &
 
 # Run Celery worker process
 if [ "$INTEGREAT_CMS_REDIS_CACHE" == "1" ]; then
-  deescalate_privileges celery -A integreat_cms.integreat_celery worker -l INFO -B --concurrency=1 &
+  deescalate_privileges celery -A integreat_cms.integreat_celery worker -l INFO -B --concurrency=4 &
 fi
 
 # Start Integreat CMS development webserver

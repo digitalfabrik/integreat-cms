@@ -750,6 +750,10 @@ LOGGING: dict[str, Any] = {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
+        "celery": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
         "deepl": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
