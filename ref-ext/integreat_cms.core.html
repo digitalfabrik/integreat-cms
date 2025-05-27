@@ -446,6 +446,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-push-page">Test API Push Page</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-result">Test API Result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-social">Test API Social</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-pushnotification-api">Test Pushnotification API</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.cms.html">CMS</a><ul>
@@ -1481,6 +1482,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_social">Test API Social</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_social.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_pushnotification_api">Test Pushnotification API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_pushnotification_api.create_a_pushnotification"><code class="docutils literal notranslate"><span class="pre">create_a_pushnotification()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_pushnotification_api.test_no_archived_pushnotification"><code class="docutils literal notranslate"><span class="pre">test_no_archived_pushnotification()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2654,7 +2660,7 @@ For the full list of settings and their values, see <a class="reference external
 <span class="w">    </span><span class="s1">&#39;filters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7faae8f6efc0</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f74bf9c0c20</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="s1">&#39;formatters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
@@ -3882,7 +3888,7 @@ to determine whether a link is internal.</p>
 <span class="w">    </span><span class="s1">&#39;filters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7faaf06c25c0</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f74c72165c0</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_false&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugFalse&#39;</span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_true&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugTrue&#39;</span><span class="p">},</span>
