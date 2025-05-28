@@ -48,11 +48,6 @@ class RegionConditionResource(resources.ModelResource):
 
     num_outdated_pages = fields.Field(column_name=_("Number of outdated pages"))
 
-    has_translation_package_been_booked = fields.Field(
-        column_name=_("Has translation package been booked?"),
-        attribute="mt_addon_booked",
-    )
-
     num_languages_besides_root_language = fields.Field(
         column_name=_("Number of active languages besides default language")
     )
