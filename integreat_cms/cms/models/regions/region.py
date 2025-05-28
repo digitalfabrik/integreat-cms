@@ -41,6 +41,7 @@ from ....matomo_api.matomo_api_client import MatomoApiClient
 from ....nominatim_api.utils import BoundingBox
 from ...constants import (
     administrative_division,
+    machine_translation_budget,
     machine_translation_permissions,
     months,
     region_status,
@@ -51,20 +52,6 @@ from ..abstract_base_model import AbstractBaseModel
 from ..offers.offer_template import OfferTemplate
 
 logger = logging.getLogger(__name__)
-
-
-@keep_lazy_text
-def format_mt_help_text(help_text: Promise) -> str:
-    """
-    Helper function to lazily format help text with number separators
-
-    :param help_text: MT field help text to format
-    :return: formatted help text
-    """
-    return help_text.format(
-        floatformat(settings.MT_CREDITS_ADDON, "g"),
-        floatformat(settings.MT_CREDITS_FREE, "g"),
-    )
 
 
 @keep_lazy_text
@@ -397,21 +384,17 @@ class Region(AbstractBaseModel):
         verbose_name=_("used budget"),
     )
 
+    mt_budget_booked = models.PositiveIntegerField(
+        choices=machine_translation_budget.CHOICES,
+        default=machine_translation_budget.MINIMAL,
+        verbose_name=_("Machine translation budget"),
+    )
+
     mt_renewal_month = models.PositiveIntegerField(
         choices=months.CHOICES,
         default=months.JANUARY,
         verbose_name=_("Credits renewal date for foreign language translation"),
         help_text=_("Budget usage will be reset on the 1st of the month"),
-    )
-
-    mt_addon_booked = models.BooleanField(
-        default=False,
-        verbose_name=_("Add-on package for foreign languages booked"),
-        help_text=format_mt_help_text(
-            _(
-                "This makes {} translation credits available to the region in addition to the {} free ones.",
-            ),
-        ),
     )
 
     mt_midyear_start_month = models.PositiveIntegerField(
@@ -949,18 +932,15 @@ class Region(AbstractBaseModel):
 
         :return: The region's total MT budget
         """
-        # All regions which did not book the add-on get the free credits
-        if not self.mt_addon_booked:
-            return settings.MT_CREDITS_FREE
-        # All regions which did book the add-on, but not mid-year, get the add-on credits
+        # Return the booked MT budget if the region does not have midyear start
         if self.mt_midyear_start_month is None:
-            return settings.MT_CREDITS_ADDON + settings.MT_CREDITS_FREE
+            return self.mt_budget_booked
         # All regions which booked the add-on in mid-year get a fraction of the add-on credits
         # Calculate how many months lie between the renewal month and the start month of the add-on
         months_difference = self.mt_renewal_month - self.mt_midyear_start_month
         # Calculate the available fraction of the add-on
         multiplier = (months_difference % 12) / 12
-        return int(multiplier * settings.MT_CREDITS_ADDON + settings.MT_CREDITS_FREE)
+        return int(multiplier * self.mt_budget_booked)
 
     @property
     def mt_budget_remaining(self) -> int:

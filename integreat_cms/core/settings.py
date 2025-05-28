@@ -940,19 +940,14 @@ DEFAULT_PHONE_NUMBER_COUNTRY_CODE: Final[str] = os.environ.get(
 # MT Global - AUTOMATIC TRANSLATION #
 #####################################
 
-#: An integer specifying the number of translation credits available to regions for free
-MT_CREDITS_FREE: Final[int] = int(os.environ.get("MT_CREDITS_FREE", 50_000))
-
-#: An integer specifying the number of translation credits that can be bought as an add-on
-MT_CREDITS_ADDON: Final[int] = int(os.environ.get("MT_CREDITS_ADDON", 1_000_000))
-
-#: A floating point that specifies the percentage of MT_CREDITS_FREE used as a soft margin
+#: A floating point that specifies the percentage of MT budget used as a soft margin
 MT_SOFT_MARGIN_FRACTION: Final[float] = float(
     os.environ.get("INTEGREAT_CMS_MT_SOFT_MARGIN", 0.01),
 )
 
-#: The actual number of words which are used as soft margin
-MT_SOFT_MARGIN: Final[int] = int(MT_SOFT_MARGIN_FRACTION * MT_CREDITS_FREE)
+MT_BUDGET_BUFFER: Final[float] = float(
+    os.environ.get("INTEGREAT_CMS_MT_SOFT_MARGIN", 0.05),
+)
 
 
 #################################
