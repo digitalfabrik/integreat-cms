@@ -263,6 +263,19 @@ class PushNotificationFormView(TemplateView):
             elif "submit_update" in request.POST:
                 pn_form.instance.draft = False
                 pn_form.instance.save()
+                if pn_form.instance.sent_date:
+                    messages.warning(
+                        request,
+                        __(
+                            _(
+                                "No new push notification is sent. Changes to the news will merely become visible in the message area."
+                            ),
+                            _('News "{}" was already sent on {}').format(
+                                pn_form.instance,
+                                localize(localtime(pn_form.instance.sent_date)),
+                            ),
+                        ),
+                    )
             elif "create_from_template" in request.POST:
                 if new_push_notification := create_from_template(request, pn_form):
                     return redirect(

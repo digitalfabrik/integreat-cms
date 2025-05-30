@@ -8,8 +8,6 @@ from django import forms
 from django.conf import settings
 from django.forms import CheckboxSelectMultiple
 from django.utils import timezone
-from django.utils.formats import localize
-from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import region_status
@@ -114,17 +112,6 @@ class PushNotificationForm(CustomModelForm):
                 "scheduled_send_date_day",
                 forms.ValidationError(
                     _("Cannot be unspecified"),
-                ),
-            )
-
-        if cleaned_data.get("schedule_send") and self.instance.sent_date:
-            self.add_error(
-                "schedule_send",
-                forms.ValidationError(
-                    _('News "{}" was already sent on {}').format(
-                        self.instance,
-                        localize(localtime(self.instance.sent_date)),
-                    ),
                 ),
             )
 
