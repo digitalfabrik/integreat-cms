@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import mimetypes
 from os.path import splitext
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 import magic
 from django import forms
@@ -82,35 +82,50 @@ class UploadMediaFileForm(CustomModelForm):
         """
         cleaned_data = super().clean()
 
-        # Only validate type if a file is uploaded - otherwise, the form throws an error anyways
-        if file := cleaned_data.get("file"):
-            # Check magic bytes for actual file type - the content_type of the file can easily be forged
-            cleaned_data["type"] = magic.from_buffer(file.read(), mime=True)
-            if cleaned_data.get("type") not in dict(allowed_media.UPLOAD_CHOICES):
-                self.add_error(
-                    "type",
-                    forms.ValidationError(
-                        _("The file type {} is not allowed.").format(
-                            cleaned_data.get("type"),
-                        )
-                        + " "
-                        + _("Allowed file types")
-                        + ": "
-                        + ", ".join(
-                            map(str, dict(allowed_media.UPLOAD_CHOICES).values()),
-                        ),
-                        code="invalid",
-                    ),
-                )
-            cleaned_data["name"] = file.name
-            name, extension = splitext(file.name)
-            # Replace file extension if it doesn't match it's mime type
-            valid_extensions = mimetypes.guess_all_extensions(
-                cleaned_data.get("type", ""),
-            )
-            if extension not in valid_extensions and valid_extensions:
-                file.name = name + valid_extensions[0]
+        self.process_file_metadata(cleaned_data)
+        self.process_parent_dir(cleaned_data)
+        self.process_file(cleaned_data)
 
+        logger.debug(
+            "UploadMediaFileForm validated [2] with cleaned data %r",
+            cleaned_data,
+        )
+        return cleaned_data
+
+    def process_file_metadata(self, cleaned_data: dict[str, Any]) -> None:
+        # Only validate type if a file is uploaded - otherwise, the form throws an error anyways
+        if not (file := cleaned_data.get("file")):
+            return
+
+        file = cleaned_data.get("file")
+        # Check magic bytes for actual file type - the content_type of the file can easily be forged
+        cleaned_data["type"] = magic.from_buffer(file.read(), mime=True)
+        if cleaned_data.get("type") not in dict(allowed_media.UPLOAD_CHOICES):
+            self.add_error(
+                "type",
+                forms.ValidationError(
+                    _("The file type {} is not allowed.").format(
+                        cleaned_data.get("type"),
+                    )
+                    + " "
+                    + _("Allowed file types")
+                    + ": "
+                    + ", ".join(
+                        map(str, dict(allowed_media.UPLOAD_CHOICES).values()),
+                    ),
+                    code="invalid",
+                ),
+            )
+        cleaned_data["name"] = file.name
+        name, extension = splitext(file.name)
+        # Replace file extension if it doesn't match it's mime type
+        valid_extensions = mimetypes.guess_all_extensions(
+            cleaned_data.get("type", ""),
+        )
+        if extension not in valid_extensions and valid_extensions:
+            file.name = name + valid_extensions[0]
+
+    def process_parent_dir(self, cleaned_data: dict[str, Any]) -> None:
         if (
             (parent_directory := cleaned_data.get("parent_directory"))
             and self.instance
@@ -124,36 +139,38 @@ class UploadMediaFileForm(CustomModelForm):
                 ),
             )
 
+    def process_file(self, cleaned_data: dict[str, Any]) -> None:
         if (
-            not self.errors
-            and (img_type := cleaned_data.get("type"))
-            and img_type.startswith("image")
+            self.errors
+            or not (img_type := cleaned_data.get("type"))
+            or not img_type.startswith("image")
         ):
-            if thumbnail := generate_thumbnail(file):
-                cleaned_data["thumbnail"] = thumbnail
-                if img_type != "image/svg+xml":
-                    # Generate an optimized image
-                    cleaned_data["file"] = generate_thumbnail(
-                        file,
-                        settings.MEDIA_OPTIMIZED_SIZE,
-                        False,
-                    )
+            return
 
-            else:
-                self.add_error(
-                    "file",
-                    forms.ValidationError(
-                        _("This image file is corrupt."),
-                        code="invalid",
-                    ),
+        file = cleaned_data.get("file")
+        img_type = cleaned_data.get("type")
+        if thumbnail := generate_thumbnail(file):
+            cleaned_data["thumbnail"] = thumbnail
+            if img_type != "image/svg+xml":
+                # Generate an optimized image just large enough
+                # No need to cling onto the full resolution 1.8 billion pixel panorama from NASAs curiosity rover on mars
+                # if it is ever only going to be displayed on crappy 4K monitors, at best.
+                cleaned_data["file"] = generate_thumbnail(
+                    file,
+                    settings.MEDIA_OPTIMIZED_SIZE,
+                    False,
                 )
+
+        else:
+            self.add_error(
+                "file",
+                forms.ValidationError(
+                    _("This image file is corrupt."),
+                    code="invalid",
+                ),
+            )
+
         # Add the calculated file_size and the modification date to the form data
         if file := cleaned_data.get("file"):
             cleaned_data["file_size"] = file.size
         cleaned_data["last_modified"] = timezone.now()
-
-        logger.debug(
-            "UploadMediaFileForm validated [2] with cleaned data %r",
-            cleaned_data,
-        )
-        return cleaned_data
