@@ -235,7 +235,11 @@ class MachineTranslationApiClient(ABC):
 
         for content_object in self.queryset:
             if (
-                max(1, content_object.word_count - settings.MT_SOFT_MARGIN)
+                max(
+                    1,
+                    content_object.word_count
+                    - settings.MT_SOFT_MARGIN * self.region.mt_budget_booked,
+                )
                 < remaining_budget
             ):
                 filtered_queryset.append(content_object)
