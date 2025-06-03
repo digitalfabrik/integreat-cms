@@ -185,7 +185,7 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
     return JsonResponse(page_accesses_dict, safe=False)
 
 
-def save_page_accesses(
+def fetch_page_accesses(
     start_date: date, end_date: date, period: str, region: Region
 ) -> None:
     """
