@@ -9,12 +9,13 @@ from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
 import aiohttp
+import requests
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
 from ..cms.constants import language_color, matomo_periods
-from .utils import async_get_translation_slug
+from .utils import get_translation_slug
 
 if TYPE_CHECKING:
     from asyncio import AbstractEventLoop
@@ -64,7 +65,7 @@ class MatomoApiClient:
         self.matomo_id = region.matomo_id
         self.languages = region.active_languages
 
-    async def fetch(
+    async def async_fetch(
         self,
         session: ClientSession,
         **kwargs: Any,
@@ -112,10 +113,58 @@ class MatomoApiClient:
                 f"An error occurred {mask_token_auth(str(e))}",
             ) from None
 
+    def fetch(
+        self,
+        **kwargs: Any,
+    ) -> dict[str, Any] | list[int]:
+        r"""
+        Uses :meth:`aiohttp.ClientSession.get` to perform an asynchronous GET request to the Matomo API.
+
+        :param session: The session object which is used for the request
+        :param \**kwargs: The parameters which are passed to the Matomo API
+        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+                                                               Matomo API request
+
+        :return: The parsed :mod:`json` result
+        """
+        # The default get parameters for all requests
+        query_params = {
+            "format": "JSON",
+            "module": "API",
+            "token_auth": self.matomo_token,
+        }
+        # Update with the custom params for this request
+        query_params.update(kwargs)
+
+        def mask_token_auth(req_url: str) -> str:
+            return re.sub("&token_auth=[^&]+", "&token_auth=********", req_url)
+
+        url = f"{settings.MATOMO_URL}/?{urlencode(query_params)}"
+        logger.debug(
+            "Requesting %r: %s",
+            query_params.get("method"),
+            # Mask auth token in log
+            mask_token_auth(url),
+        )
+        try:
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+            response_data = response.json()
+            if (
+                isinstance(response_data, dict)
+                and response_data.get("result") == "error"
+            ):
+                raise MatomoException(response_data["message"])
+            return response_data
+        except requests.exceptions.RequestException as e:
+            raise MatomoException(
+                f"An error occurred {mask_token_auth(str(e))}",
+            ) from None
+
     async def get_matomo_id_async(self, **query_params: Any) -> list[int]:
         r"""
         Async wrapper to fetch the Matomo ID with :mod:`aiohttp`.
-        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch`.
+        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.async_fetch`.
         Called from :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_matomo_id`.
 
         :param \**query_params: The parameters which are passed to the Matomo API
@@ -124,7 +173,7 @@ class MatomoApiClient:
                                                                              Matomo API request
         """
         async with aiohttp.ClientSession() as session:
-            result = await self.fetch(session, **query_params)
+            result = await self.async_fetch(session, **query_params)
             if TYPE_CHECKING:
                 assert isinstance(result, list)
             return result
@@ -164,7 +213,7 @@ class MatomoApiClient:
     ) -> dict[str, Any]:
         """
         Async wrapper to fetch the total visits with :mod:`aiohttp`.
-        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch`.
+        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.async_fetch`.
         Called from :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_total_visits`.
 
         :param query_params: The parameters which are passed to the Matomo API
@@ -174,7 +223,7 @@ class MatomoApiClient:
         :return: The parsed :mod:`json` result
         """
         async with aiohttp.ClientSession() as session:
-            result = await self.fetch(
+            result = await self.async_fetch(
                 session,
                 **query_params,
             )
@@ -240,7 +289,7 @@ class MatomoApiClient:
         """
         Async wrapper to fetch the total visits with :mod:`aiohttp`.
         Opens a :class:`~aiohttp.ClientSession`, creates a :class:`~asyncio.Task` for each language to call
-        :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch` and waits for all tasks to finish with
+        :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.async_fetch` and waits for all tasks to finish with
         :func:`~asyncio.gather`.
         The returned list of gathered results has the correct order in which the tasks were created (at first the
         ordered list of languages and the last element is the task for the total visits).
@@ -258,7 +307,7 @@ class MatomoApiClient:
             # Create tasks for visits by language
             tasks = [
                 loop.create_task(
-                    self.fetch(
+                    self.async_fetch(
                         session,
                         **query_params,
                         segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/,pageUrl=@/api/v3/{self.region_slug}/{language.slug}/",
@@ -269,7 +318,7 @@ class MatomoApiClient:
             # Create separate task to gather offline download hits
             tasks.append(
                 loop.create_task(
-                    self.fetch(
+                    self.async_fetch(
                         session,
                         **query_params,
                         segment="pageUrl=@/wp-json/extensions/v3/pages,pageUrl=$/pages/",
@@ -279,7 +328,7 @@ class MatomoApiClient:
             # Create separate task to gather WebApp download hits
             tasks.append(
                 loop.create_task(
-                    self.fetch(
+                    self.async_fetch(
                         session,
                         **query_params,
                         segment="pageUrl=@/children/?depth",
@@ -289,7 +338,7 @@ class MatomoApiClient:
             # Create task for all downloads
             tasks.append(
                 loop.create_task(
-                    self.fetch(
+                    self.async_fetch(
                         session,
                         **query_params,
                     ),
@@ -545,9 +594,8 @@ class MatomoApiClient:
         ]
         return data_entries, legend_entries
 
-    async def get_page_accesses_async(
+    def get_page_accesses_async(
         self,
-        loop: AbstractEventLoop,
         query_params: dict[str, Any],
         languages: list[Language],
         pages: list[Page],
@@ -561,29 +609,23 @@ class MatomoApiClient:
                                                                Matomo API request
         :return:
         """
-        translation_slugs = await async_get_translation_slug(pages, languages)
-        async with aiohttp.ClientSession() as session:
-            # Create tasks for visits by language
-            tasks = [
-                loop.create_task(
-                    self.retrieve_accesses_for_page(
-                        session,
-                        query_params,
-                        page_id=page_id,
-                        lang_slug=lang_slug,
-                        full_slug=full_slug,
-                    )
-                )
-                for page_id, langs in translation_slugs.items()
-                for lang_slug, full_slug in langs.items()
-            ]
-            # Wait for all tasks to finish and collect the results
-            # (the results are sorted in the order the tasks were created)
-            return await asyncio.gather(*tasks)
+        translation_slugs = get_translation_slug(pages, languages)
+        # Create tasks for visits by language
+        return [
+            self.retrieve_accesses_for_page(
+                query_params,
+                page_id=page_id,
+                lang_slug=lang_slug,
+                full_slug=full_slug,
+            )
+            for page_id, langs in translation_slugs.items()
+            for lang_slug, full_slug in langs.items()
+        ]
+        # Wait for all tasks to finish and collect the results
+        # (the results are sorted in the order the tasks were created)
 
-    async def retrieve_accesses_for_page(
+    def retrieve_accesses_for_page(
         self,
-        session: aiohttp.ClientSession,
         query_params: dict[str, Any],
         page_id: int,
         lang_slug: str,
@@ -601,8 +643,7 @@ class MatomoApiClient:
         """
         return {
             page_id: {
-                lang_slug: await self.fetch(
-                    session,
+                lang_slug: self.fetch(
                     **query_params,
                     segment=f"pageUrl=@/children/?depth=2&url={full_slug}",
                 )
@@ -634,12 +675,8 @@ class MatomoApiClient:
         }
         languages = list(self.languages)
         pages = region.get_pages()
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        logger.debug("Fetching visits for languages %r asynchronously.", languages)
-        datasets = loop.run_until_complete(
-            self.get_page_accesses_async(loop, query_params, languages, pages)
-        )
+        logger.debug("Fetching visits for %rlanguages.", languages)
+        datasets = self.get_page_accesses_async(query_params, languages, pages)
 
         def deep_merge(*dicts: Mapping[Any, Any]) -> dict:
             """

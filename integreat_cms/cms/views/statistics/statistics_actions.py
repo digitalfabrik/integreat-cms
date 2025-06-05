@@ -8,11 +8,13 @@ import logging
 from datetime import date, timedelta
 from typing import Any, TYPE_CHECKING
 
+from celery import shared_task
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
 from integreat_cms.cms.models.languages.language import Language
 from integreat_cms.cms.models.pages.page import Page
+from integreat_cms.cms.models.regions.region import Region
 from integreat_cms.cms.models.statistics.page_accesses import PageAccesses
 
 from ....matomo_api.matomo_api_client import MatomoException
@@ -22,7 +24,6 @@ from ...forms import StatisticsFilterForm
 if TYPE_CHECKING:
     from django.http import HttpRequest
 
-    from integreat_cms.cms.models.regions.region import Region
 
 logger = logging.getLogger(__name__)
 
@@ -196,7 +197,16 @@ def fetch_page_accesses(
     :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
     :param region: The region for which we want our page based accesses
     """
-    # Get page accesses from the matomo api client
+    async_fetch_page_accesses.apply_async(
+        args=[start_date, end_date, period, region.id]
+    )
+
+
+@shared_task
+def async_fetch_page_accesses(
+    start_date: date, end_date: date, period: str, region_id: int
+) -> None:
+    region = Region.objects.get(id=region_id)
     result = region.statistics.get_page_accesses(
         start_date=start_date,
         end_date=end_date,
@@ -204,7 +214,6 @@ def fetch_page_accesses(
         region=region,
     )
 
-    # Create PageAccess Objects
     accesses = [
         PageAccesses(
             access_date=access_date,
