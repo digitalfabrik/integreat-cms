@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import datetime
 from typing import TYPE_CHECKING
 
 from django.core.management.base import CommandError
@@ -53,13 +54,13 @@ class Command(LogCommand):
 
         :param parser: The argument parser
         """
-        parser.add_argument("start_date", required=True, help="Earliest date")
-        parser.add_argument("end_date", required=True, help="Latest date")
+        parser.add_argument("--start-date", required=True, help="Earliest date")
+        parser.add_argument("--end-date", required=True, help="Latest date")
         parser.add_argument(
-            "period", required=True, help="Period. Needs to be day, week or month"
+            "--period", required=True, help="Period. Needs to be day, week or month"
         )
         parser.add_argument(
-            "--region_slug",
+            "--region-slug",
             help="The slug of the region to fetch page accesses from. Statistics need to be activatet",
         )
 
@@ -70,6 +71,7 @@ class Command(LogCommand):
         end_date: str,
         period: str,
         region_slug: str | None,
+        **options: Any,
     ) -> None:
         r"""
         Try to run the command
@@ -93,8 +95,8 @@ class Command(LogCommand):
         else:
             regions = list(Region.objects.filter(statistics_enabled=True))
         fetch_page_accesses(
-            start_date=start_date.strftime("%Y-%m-%d"),
-            end_date=end_date.strftime("%Y-%m-%d"),
+            start_date=datetime.strptime(start_date, "%Y-%m-%d").date(),
+            end_date=datetime.strptime(end_date, "%Y-%m-%d").date(),
             period=period,
             regions=regions,
         )

@@ -207,6 +207,7 @@ def async_fetch_page_accesses(
     start_date: date, end_date: date, period: str, region_id: int
 ) -> None:
     region = Region.objects.get(id=region_id)
+    logger.info("start fetching page accesses from Matomo for%s", region)
     result = region.statistics.get_page_accesses(
         start_date=start_date,
         end_date=end_date,
