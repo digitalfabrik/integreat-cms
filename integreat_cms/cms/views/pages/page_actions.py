@@ -15,6 +15,7 @@ import time
 import uuid
 from typing import TYPE_CHECKING
 
+from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
@@ -260,6 +261,7 @@ def delete_page(
         logger.info("%r deleted by %r", page, request.user)
         page.delete()
         messages.success(request, _("Page was successfully deleted"))
+        invalidate_model(Page)
 
     return redirect(
         "pages",
