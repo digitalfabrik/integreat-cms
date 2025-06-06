@@ -44,6 +44,9 @@
                     <th class="text-sm text-left uppercase py-3 pr-2 min">
                         {% translate "Last updated" %}
                     </th>
+                    <th class="text-sm text-right uppercase py-3 pr-4 min">
+                        {% translate "Options" %}
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -64,6 +67,7 @@
             </tbody>
         </table>
     </div>
+    {% include "../generic_confirmation_dialog.html" %}
     {% url "push_notifications" as url %}
     {% include "pagination.html" with chunk=push_notifications %}
 {% endblock content %}
