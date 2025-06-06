@@ -30,4 +30,15 @@
     <td class="pr-2">
         {{ push_notification_translation.last_updated }}
     </td>
+    <td>
+        {% if perms.cms.delete_pushnotification %}
+            <button title="{% translate "Delete template" %}"
+                    class="confirmation-button btn-icon"
+                    data-confirmation-title="{% trans "Please confirm that you really want to delete this push notification template" %}"
+                    data-confirmation-subject="{{ push_notification.best_translation.title }}"
+                    data-action="{% url 'delete_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="trash-2"></i>
+            </button>
+        {% endif %}
+    </td>
 </tr>
