@@ -63,6 +63,11 @@ class Contact(AbstractBaseModel):
         verbose_name=_("archived"),
         help_text=_("Whether or not the location is read-only and hidden in the API."),
     )
+    opening_hours = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name=_("opening hours"),
+    )
     last_updated = models.DateTimeField(
         auto_now=True,
         verbose_name=_("modification date"),
@@ -70,6 +75,14 @@ class Contact(AbstractBaseModel):
     created_date = models.DateTimeField(
         default=timezone.now,
         verbose_name=_("creation date"),
+    )
+    appointment_url = models.URLField(
+        max_length=500,
+        blank=True,
+        verbose_name=_("appointment link"),
+        help_text=_(
+            "Link to an external website where an appointment for this contact can be made.",
+        ),
     )
 
     @cached_property
