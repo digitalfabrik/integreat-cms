@@ -27,6 +27,7 @@
  *     page_ids = request.POST.getlist("selected_ids[]")
  *
  */
+import { showConfirmationPopupWithData } from "./confirmation-popups";
 
 /*
  * Update the selection count after a checkbox has been toggled
@@ -84,11 +85,19 @@ export const bulkActionExecute = (event: Event) => {
     form.action = selectedAction.getAttribute("data-bulk-action");
     // Set form target in case action is to be opened in a new tab
     const target = selectedAction.getAttribute("data-target");
+    const showDialog = selectedAction.classList.contains("bulk-confirmation-dialog");
     if (target !== null) {
         form.target = target;
     }
-    // Submit form and execute bulk action
-    form.submit();
+    if (showDialog) {
+        const text = selectedAction.getAttribute("data-popup-text");
+        const subject = selectedAction.getAttribute("data-popup-subject");
+        const title = selectedAction.getAttribute("data-popup-title");
+        showConfirmationPopupWithData(subject, title, text, () => form.submit());
+    } else {
+        // Submit form and execute bulk action
+        form.submit();
+    }
 };
 
 /*
