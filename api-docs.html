@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-05-16T06:31:19+00:00" />
+    <meta property="article:modified_time" content="2025-06-06T10:05:52+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Documentation &mdash; integreat-cms 2025.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -211,6 +211,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.html#abstract-content-translation">Abstract Content Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.html#abstract-tree-node">Abstract Tree Node</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.html#decorators">Decorators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.html#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -804,6 +805,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_translation">Abstract Content Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_tree_node">Abstract Tree Node</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.decorators">Decorators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -2440,12 +2442,27 @@ This needs to be equalized in the server-side include e.g. as follows:</p>
 <span class="w">      </span><span class="s2">&quot;phone_number&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">  </span><span class="c1">// The phone number for this location if primary_contact exists</span>
 <span class="w">      </span><span class="s2">&quot;contacts&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">                   </span><span class="c1">// The contact data linked to this location</span>
 <span class="w">         </span><span class="p">{</span>
-<span class="w">             </span><span class="s2">&quot;area_of_responsibility&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="w">   </span><span class="c1">// The area of responsibility, e.g. advisory, of a contact</span>
-<span class="w">             </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">              </span><span class="c1">// The name of the contact</span>
-<span class="w">             </span><span class="s2">&quot;email&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">             </span><span class="c1">// An email address of the contact</span>
-<span class="w">             </span><span class="s2">&quot;phone_number&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">      </span><span class="c1">// A phone number of the contact</span>
-<span class="w">             </span><span class="s2">&quot;mobile_number&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">     </span><span class="c1">// An additional mobile number</span>
-<span class="w">             </span><span class="s2">&quot;website&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">           </span><span class="c1">// The website of the contact</span>
+<span class="w">            </span><span class="s2">&quot;area_of_responsibility&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="w">   </span><span class="c1">// The area of responsibility, e.g. advisory, of a contact</span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">              </span><span class="c1">// The name of the contact</span>
+<span class="w">            </span><span class="s2">&quot;email&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">             </span><span class="c1">// An email address of the contact</span>
+<span class="w">            </span><span class="s2">&quot;phone_number&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">      </span><span class="c1">// A phone number of the contact</span>
+<span class="w">            </span><span class="s2">&quot;mobile_number&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">     </span><span class="c1">// An additional mobile number</span>
+<span class="w">            </span><span class="s2">&quot;website&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">           </span><span class="c1">// The website of the contact</span>
+<span class="w">            </span><span class="s2">&quot;opening_hours&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">              </span><span class="c1">// The opening hours for the location</span>
+<span class="w">               </span><span class="p">{</span><span class="w">                            </span><span class="c1">// The opening hours for day 0 (Monday)</span>
+<span class="w">                  </span><span class="s2">&quot;allDay&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">        </span><span class="c1">// Whether the location is all day open</span>
+<span class="w">                  </span><span class="s2">&quot;closed&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">        </span><span class="c1">// Whether the location is all day closed</span>
+<span class="w">                  </span><span class="s2">&quot;appointmentOnly&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="c1">// Whether the location is accessible by prior appointment only</span>
+<span class="w">                  </span><span class="s2">&quot;timeSlots&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">            </span><span class="c1">// If allDay and closed are false, the timeslots for this day, when the location is open</span>
+<span class="w">                     </span><span class="p">{</span>
+<span class="w">                        </span><span class="s2">&quot;start&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">    </span><span class="c1">// The start time of the timeslot, in the format `HH:MM`, 24 Hour time</span>
+<span class="w">                        </span><span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">      </span><span class="c1">// The end time of the timeslot</span>
+<span class="w">                     </span><span class="p">},</span>
+<span class="w">                     </span><span class="p">...</span>
+<span class="w">                  </span><span class="p">],</span>
+<span class="w">               </span><span class="p">},</span>
+<span class="w">            </span><span class="p">...</span>
+<span class="w">            </span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">         </span><span class="p">},</span>
 <span class="w">      </span><span class="p">],</span>
 <span class="w">      </span><span class="s2">&quot;category&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">                   </span><span class="c1">// The category of this location</span>
@@ -3204,7 +3221,7 @@ it will be passed along in the following format, together with a matching HTTP s
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 16, 2025.
+      <span class="lastupdated">Last updated on Jun 06, 2025.
       </span></p>
   </div>
 
