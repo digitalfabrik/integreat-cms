@@ -57,14 +57,19 @@ class ContactForm(CustomModelForm):
 
     def __init__(self, **kwargs: Any) -> None:
         self.request = kwargs.pop("request", None)
-        adopt_hours = True
         instance = kwargs.get("instance")
+
+        adopt_hours = True
         if instance and instance.id:
             adopt_hours = instance.opening_hours is None
             if adopt_hours:
                 instance.opening_hours = instance.location.opening_hours
+
         super().__init__(**kwargs)
         self.fields["use_location_opening_hours"].initial = adopt_hours
+
+        if instance and not instance.area_of_responsibility:
+            self.fields["area_of_responsibility"].disabled = True
 
     def clean(self) -> dict[str, Any]:
         """
