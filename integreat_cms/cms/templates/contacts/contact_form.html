@@ -60,6 +60,12 @@
                             <label for="{{ contact_form.area_of_responsibility.id_for_label }}">
                                 {{ contact_form.area_of_responsibility.label }}
                             </label>
+                            {% if is_primary_contact %}
+                                <div class="bg-blue-100 border-t-2 border-b-2 border-blue-500 text-blue-700 px-4 py-3 mb-5"
+                                     role="alert">
+                                    {% translate "The contact details provided here are displayed by default. Additional contacts can be added for specific responsibilities." %}
+                                </div>
+                            {% endif %}
                             {% render_field contact_form.area_of_responsibility|add_error_class:"border-red-500" %}
                             <label for="{{ contact_form.name.id_for_label }}">
                                 {{ contact_form.name.label }}

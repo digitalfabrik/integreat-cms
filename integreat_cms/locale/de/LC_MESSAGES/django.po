@@ -2228,6 +2228,19 @@ msgstr "Übersetzung auf {}"
 msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
 
+#: cms/forms/pois/poi_form.py cms/models/contact/contact.py
+#: cms/models/users/organization.py
+msgid "website"
+msgstr "Webseite"
+
+#: cms/forms/pois/poi_form.py cms/models/contact/contact.py
+msgid "email address"
+msgstr "E-Mail-Adresse"
+
+#: cms/forms/pois/poi_form.py cms/models/contact/contact.py
+msgid "phone number"
+msgstr "Telefonnummer"
+
 #: cms/forms/pois/poi_form.py
 msgid ""
 "Could not derive the coordinates from the address, please fill the field "
@@ -2804,20 +2817,8 @@ msgid "location"
 msgstr "Ort"
 
 #: cms/models/contact/contact.py
-msgid "email address"
-msgstr "E-Mail-Adresse"
-
-#: cms/models/contact/contact.py
-msgid "phone number"
-msgstr "Telefonnummer"
-
-#: cms/models/contact/contact.py
 msgid "mobile phone number"
 msgstr "Mobiltelefonnummer"
-
-#: cms/models/contact/contact.py cms/models/users/organization.py
-msgid "website"
-msgstr "Webseite"
 
 #: cms/models/contact/contact.py cms/models/events/event.py
 #: cms/models/feedback/feedback.py cms/models/pois/poi.py
@@ -4081,6 +4082,14 @@ msgstr "Orte aktivieren"
 #: cms/models/regions/region.py
 msgid "Whether or not locations are enabled in the region"
 msgstr "Ob Orte in der Region aktiviert sind oder nicht"
+
+#: cms/models/regions/region.py
+msgid "activate contacts"
+msgstr "Kontakte aktivieren"
+
+#: cms/models/regions/region.py
+msgid "Whether or not contacts are enabled in the region"
+msgstr "Ob Kontakte in der Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py
 msgid "activate push notifications"
@@ -5484,6 +5493,15 @@ msgid ""
 msgstr ""
 "Bitte beachten: Pro Ort darf es nur einen Kontakt ohne Angabe des "
 "Zuständigkeitsbereichs geben."
+
+#: cms/templates/contacts/contact_form.html
+#: cms/templates/pois/poi_form_sidebar/contact_box.html
+msgid ""
+"The contact details provided here are displayed by default. Additional "
+"contacts can be added for specific responsibilities."
+msgstr ""
+"Die hier angegebenen Kontaktdaten werden standardmäßig angezeigt. Für "
+"bestimmte Zuständigkeiten können zusätzliche Kontakte hinterlegt werden."
 
 #: cms/templates/contacts/contact_form.html
 msgid "Contact information"
@@ -8090,6 +8108,10 @@ msgstr[1] "Löschen Sie zuerst diese Kontakte, um den Ort zu löschen:"
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
+#: cms/templates/pois/poi_form_sidebar/contact_box.html
+msgid "Contact details"
+msgstr "Kontaktdaten"
+
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 msgid "Position"
 msgstr "Position"
@@ -9816,6 +9838,10 @@ msgstr ""
 #: cms/views/contacts/contact_list_view.py
 msgid "Please create at least one location before creating contacts."
 msgstr "Bitte erstellen Sie mindestens einen Ort bevor Sie Kontakte erstellen."
+
+#: cms/views/contacts/contact_list_view.py
+msgid "Contacts are not enabled for this region."
+msgstr "Kontakte sind für diese Region nicht aktiviert."
 
 #: cms/views/content_version_view.py
 msgid "Back to the form"
@@ -12191,15 +12217,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have "
-#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have <b>"
+#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell "
-#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
-#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
-#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell <b>"
+#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
+#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
+#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"

@@ -97,7 +97,12 @@ def test_edit_a_contact(
     settings.LANGUAGE_CODE = "en"
 
     region = Region.objects.filter(slug=REGION_SLUG).first()
-    contact_id = Contact.objects.filter(location__region=region).first().id
+    contact_id = (
+        Contact.objects.filter(location__region=region)
+        .exclude(area_of_responsibility="")
+        .first()
+        .id
+    )
 
     edit_contact = reverse(
         "edit_contact",

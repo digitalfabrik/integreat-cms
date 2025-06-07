@@ -195,7 +195,7 @@
                         </a>
                     </div>
                 {% endif %}
-                {% if perms.cms.view_contact %}
+                {% if request.region.contacts_enabled and perms.cms.view_contact %}
                     <div class="{% if current_menu_item|in_list:'contacts,contacts_form' %} active {% endif %}">
                         <a href="{% url 'contacts' region_slug=request.region.slug %}">
                             <i icon-name="book-open"></i>
