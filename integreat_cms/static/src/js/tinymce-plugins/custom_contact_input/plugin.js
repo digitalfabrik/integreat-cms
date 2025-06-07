@@ -3,6 +3,12 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
 (() => {
     const tinymceConfig = document.getElementById("tinymce-config-options");
+    const contactEnabled = tinymceConfig.getAttribute("data-contact-module-activated");
+
+    if (contactEnabled === "False") {
+        return;
+    }
+
     const completionUrl = tinymceConfig.getAttribute("data-contact-ajax-url");
     const noEmptyContactHint = tinymceConfig.getAttribute("data-no-empty-contact-hint");
     const HTTP_STATUS_OK = 200;
