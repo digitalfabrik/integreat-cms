@@ -117,6 +117,8 @@ def delete_poi(
     poi = POI.objects.get(id=poi_id)
     can_delete, error_msg = poi.can_be_deleted()
     if can_delete:
+        if not poi.region.contacts_enabled:
+            poi.contacts.all().delete()
         poi.delete()
         logger.info("%r deleted by %r", poi, request.user)
         messages.success(request, _("Location was successfully deleted"))
