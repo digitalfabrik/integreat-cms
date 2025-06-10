@@ -56,6 +56,7 @@ class ContactForm(CustomModelForm):
         }
 
     def __init__(self, **kwargs: Any) -> None:
+        self.request = kwargs.pop("request", None)
         adopt_hours = True
         instance = kwargs.get("instance")
         if instance and instance.id:
@@ -93,6 +94,10 @@ class ContactForm(CustomModelForm):
 
         :return: The valid opening hours
         """
+        # Remove when opening hours become available for all users
+        if not self.request.user.has_perm("cms.test_beta_features"):
+            return None
+
         if self.cleaned_data["use_location_opening_hours"]:
             return None
 
@@ -102,6 +107,11 @@ class ContactForm(CustomModelForm):
             _("Please contact an administrator."),
         )
         cleaned_opening_hours = self.cleaned_data["opening_hours"]
+
+        # Remove when opening hours become available for all users or after implementing opening hours for the ajax contact form too
+        if cleaned_opening_hours is None:
+            return None
+
         # If a string is given, try to load as JSON string
         if isinstance(cleaned_opening_hours, str):
             try:
