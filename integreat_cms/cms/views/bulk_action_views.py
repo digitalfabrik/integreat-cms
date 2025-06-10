@@ -310,7 +310,7 @@ class BulkArchiveView(BulkActionView):
             title = content_object.best_translation.title
             if self.model is Page and content_object.mirroring_pages.exists():
                 archive_failed_because_embedded.append(title)
-            elif self.model is POI and content_object.is_used:
+            elif self.model is POI and content_object.is_currently_used:
                 archive_failed_because_reference.append(title)
             elif content_object.archived:
                 archive_unchanged.append(title)

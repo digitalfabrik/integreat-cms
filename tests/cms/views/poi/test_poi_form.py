@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import timedelta
 from typing import TYPE_CHECKING
 
 import pytest
@@ -11,6 +12,7 @@ if TYPE_CHECKING:
 
 from django.conf import settings
 from django.urls import reverse
+from django.utils import timezone
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import (
@@ -101,15 +103,56 @@ def create_used_poi(region_slug: str) -> int:
     return used_poi.id
 
 
+def create_not_currently_used_poi(region_slug: str) -> int:
+    """
+    A helper function to create a new POI that is used in an event that is already past
+    """
+    region = Region.objects.filter(slug=region_slug).first()
+    event = Event.objects.create(
+        start=timezone.now() - timedelta(days=2),
+        end=timezone.now() - timedelta(days=1),
+        region=region,
+    )
+    poi_category = POICategory.objects.first()
+
+    used_poi = POI.objects.create(
+        region_id=region.id,
+        address="Adress 42",
+        postcode="00000",
+        city="Augsburg",
+        country="Deutschland",
+        latitude="48.3780446",
+        longitude="10.8879783",
+        category=poi_category,
+    )
+
+    german_language = Language.objects.filter(slug="de").first()
+    POITranslation.objects.create(
+        title="Ort",
+        slug="ort",
+        status=status.PUBLIC,
+        content="",
+        language=german_language,
+        poi=used_poi,
+    )
+
+    event.location = used_poi
+    event.save()
+
+    assert used_poi.events.count() > 0
+
+    return used_poi.id
+
+
 @pytest.mark.django_db
-def test_poi_in_use_cannot_be_archived(
+def test_poi_currently_in_use_cannot_be_archived(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
     settings: SettingsWrapper,
 ) -> None:
     """
-    Checks whether a POI is protected from archiving if it is used in an event
+    Checks whether a POI is protected from archiving if it is currently used in an event
     """
     settings.LANGUAGE_CODE = "en"
     client, role = login_role_user
@@ -140,6 +183,43 @@ def test_poi_in_use_cannot_be_archived(
 
     # Check the POI is not archived
     assert not POI.objects.filter(id=poi_id).first().archived
+
+
+@pytest.mark.django_db
+def test_poi_used_by_past_event_can_be_archived(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    caplog: LogCaptureFixture,
+    settings: SettingsWrapper,
+) -> None:
+    """
+    Checks whether a POI can be arhcived if it is used by a past event
+    """
+    settings.LANGUAGE_CODE = "en"
+    client, role = login_role_user
+
+    # Make sure the target POI is used in a past event only
+    poi_id = create_not_currently_used_poi("augsburg")
+
+    # Try to archive the POI
+    archive_poi = reverse(
+        "archive_poi",
+        kwargs={"region_slug": "augsburg", "language_slug": "de", "poi_id": poi_id},
+    )
+    response = client.post(archive_poi)
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location")
+            == f"{settings.LOGIN_URL}?next={archive_poi}"
+        )
+    elif role in PRIV_STAFF_ROLES + WRITE_ROLES:
+        assert_message_in_log("SUCCESS  Location was successfully archived", caplog)
+        # Check the POI is archived
+        assert POI.objects.get(id=poi_id).archived
+    else:
+        assert response.status_code == 403
 
 
 @pytest.mark.django_db
