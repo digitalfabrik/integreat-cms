@@ -101,6 +101,7 @@ class Event(AbstractContentModel):
     )
     online_link = models.URLField(
         blank=True,
+        default="",
         verbose_name=_("Online event link"),
         help_text=_("Link to the online event if it has no physical location."),
     )
