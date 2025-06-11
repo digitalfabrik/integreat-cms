@@ -1666,6 +1666,11 @@ urlpatterns: list[URLPattern] = [
                                                         push_notifications.restore_push_notification,
                                                         name="restore_push_notification",
                                                     ),
+                                                    path(
+                                                        "delete/",
+                                                        push_notifications.delete_push_notification,
+                                                        name="delete_push_notification",
+                                                    ),
                                                 ],
                                             ),
                                         ),
