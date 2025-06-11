@@ -63,6 +63,7 @@ class ContactFormAjaxView(TemplateView, ContactContextMixin):
         data = request.POST.dict()
 
         contact_form = ContactForm(
+            request=request,
             data=data,
             files=request.FILES,
             instance=None,
