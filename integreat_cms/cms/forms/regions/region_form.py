@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import logging
-import time
 from copy import deepcopy
 from typing import TYPE_CHECKING
 from zoneinfo import available_timezones
@@ -11,20 +10,17 @@ from celery import shared_task
 from django import forms
 from django.apps import apps
 from django.conf import settings
-from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import override
-from linkcheck.listeners import disable_listeners, tasks_queue
-from linkcheck.models import Link
+from linkcheck.listeners import disable_listeners
 
-from integreat_cms.cms.utils.linkcheck_utils import replace_links
 from integreat_cms.core.management.commands.hix_bulk import calculate_hix_for_region
 
 from ....gvz_api.utils import GvzRegion
 from ....matomo_api.matomo_api_client import MatomoException
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...constants import duplicate_pbo_behaviors, region_status, status
-from ...models import LanguageTreeNode, OfferTemplate, Page, PageTranslation, Region
+from ...models import LanguageTreeNode, OfferTemplate, Page, Region
 from ...models.regions.region import format_mt_help_text, format_summ_ai_help_text
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
@@ -741,8 +737,6 @@ def async_clone_region_content(
         # Duplicate media content
         duplicate_media(source_region, region)
 
-        # Create links for the most recent versions of all translations manually and replace internal links
-        create_and_update_links(source_region, region)
         adjust_hix_setting_and_region_status(region, hix_enabled, target_region_status)
     except Exception:
         logger.exception("Error during region cloning")
@@ -1048,64 +1042,6 @@ def duplicate_media(
     """
     # TODO(timobrembeck): implement duplication of all media files
     # https://github.com/digitalfabrik/integreat-cms/issues/1414
-
-
-def create_and_update_links(
-    source_region: Region,
-    region: Region,
-) -> None:
-    """
-    Create all links for the latest versions of the region's page translations, then replace all links in the content.
-
-
-    :param source_region: The region with the slug of the to be replaced links
-    :type source_region: ~integreat_cms.cms.models.regions.region.Region
-
-    :param region: The region in which the links should be replaced and created
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-    """
-    find_links(region)
-    replace_internal_links(source_region, region)
-
-
-def find_links(region: Region) -> None:
-    """
-    Find all link objects in the latest versions of the region's page translations
-
-    :param region: The region which should be scanned for links
-    """
-    logger.info("Scanning for broken links in region %r", region)
-    # Get the latest page translations of the region
-    translations = PageTranslation.objects.filter(page__region=region).distinct(
-        "page_id",
-        "language_id",
-    )
-    # Trigger post-save signal to create link objects
-    for translation in translations:
-        translation.save(update_timestamp=False)
-    # Wait until all post-save signals have been processed
-    time.sleep(0.1)
-    tasks_queue.join()
-    # Check whether finding links succeeded
-    logger.debug(
-        "Found links: %r",
-        Link.objects.filter(Q(page_translation__page__region=region)),
-    )
-
-
-def replace_internal_links(source_region: Region, region: Region) -> None:
-    """
-    Replace all internal link objects with the latest versions of the region's page translations
-
-    :param source_region: The region with the slug of the to be replaced links
-    :type source_region: ~integreat_cms.cms.models.regions.region.Region
-
-    :param region: The region in which the links should be replaced
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-    """
-    old_link = f"{settings.WEBAPP_URL}/{source_region.slug}/"
-    new_link = f"{settings.WEBAPP_URL}/{region.slug}/"
-    replace_links(old_link, new_link, region=region, link_types=["internal"])
 
 
 def adjust_hix_setting_and_region_status(
