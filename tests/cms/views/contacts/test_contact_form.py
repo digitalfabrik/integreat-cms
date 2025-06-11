@@ -341,4 +341,4 @@ def test_phone_number_conversion(
         )
         form.is_valid()  # this is not an assert, because it would fail. calling is_valid() is required to populate cleaned_data.
         cleaned = form.clean()
-        assert cleaned["phone_number"] == "+49 (0) 123456789"
+        assert cleaned["phone_number"] == "+49123456789"
