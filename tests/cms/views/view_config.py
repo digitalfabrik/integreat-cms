@@ -153,7 +153,7 @@ VIEWS: ViewConfig = [
             (
                 "bulk_disable_languagetreenodes",
                 HIGH_PRIV_STAFF_ROLES,
-                {"selected_ids[]": [1, 2, 3]},
+                {"selected_ids[]": [9, 10, 11]},
             ),
             ("new_region_user", [*STAFF_ROLES, MANAGEMENT]),
             (
