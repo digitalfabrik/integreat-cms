@@ -44,7 +44,6 @@ msgstr "Landkreis"
 #: cms/forms/users/user_filter_form.py
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/languages/region_list_section/region_list.html
 #: cms/templates/region_condition/region_condition.html
 #: cms/templates/users/_pages_with_observer_access.html
@@ -1705,6 +1704,14 @@ msgstr "Versteckt"
 msgid "Archived"
 msgstr "Archiviert"
 
+#: cms/constants/region_status.py
+msgid "Currently in cloning"
+msgstr "Wird derzeit dupliziert"
+
+#: cms/constants/region_status.py
+msgid "Error during cloning"
+msgstr "Fehler beim Duplizieren"
+
 #: cms/constants/roles.py
 msgid "Manager"
 msgstr "Verwalter:in"
@@ -1866,12 +1873,24 @@ msgid "Last week"
 msgstr "Letzte Woche"
 
 #: cms/forms/contacts/contact_form.py
+msgid "Adopt opening hours from linked location"
+msgstr "Öffnungszeiten aus dem hinterlegten Ort übernehmen"
+
+#: cms/forms/contacts/contact_form.py
 msgid "Location cannot be empty."
 msgstr "Ort darf nicht leer sein."
 
 #: cms/forms/contacts/contact_form.py
 msgid "An archived location cannot be used for contacts."
 msgstr "Ein archivierter Ort kann nicht für Kontakte verwendet werden."
+
+#: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
+msgid "An error occurred while saving the opening hours."
+msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
+
+#: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
+msgid "Please contact an administrator."
+msgstr "Bitte kontaktieren Sie einen Administrator."
 
 #: cms/forms/custom_content_model_form.py
 msgid ""
@@ -2003,9 +2022,7 @@ msgstr "Alle Regionen"
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/analytics/translation_coverage.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/statistics/statistics_sidebar.html
@@ -2023,9 +2040,7 @@ msgstr "Alle Kategorien"
 
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
 #: cms/views/feedback/feedback_resource.py
 msgid "Category"
@@ -2045,9 +2060,7 @@ msgstr "Status"
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/views/feedback/feedback_resource.py
 msgid "Rating"
 msgstr "Bewertung"
@@ -2218,14 +2231,6 @@ msgstr "Übersetzung auf {}"
 #: cms/forms/poi_categories/poi_category_translation_form.py
 msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
-
-#: cms/forms/pois/poi_form.py
-msgid "An error occurred while saving the opening hours."
-msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
-
-#: cms/forms/pois/poi_form.py
-msgid "Please contact an administrator."
-msgstr "Bitte kontaktieren Sie einen Administrator."
 
 #: cms/forms/pois/poi_form.py
 msgid ""
@@ -2808,6 +2813,7 @@ msgstr "Webseite"
 
 #: cms/models/contact/contact.py cms/models/events/event.py
 #: cms/models/feedback/feedback.py cms/models/pois/poi.py
+#: cms/models/push_notifications/push_notification.py
 #: cms/models/users/organization.py
 msgid "archived"
 msgstr "archiviert"
@@ -2815,6 +2821,22 @@ msgstr "archiviert"
 #: cms/models/contact/contact.py cms/models/pois/poi.py
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
+
+#: cms/models/contact/contact.py cms/models/pois/poi.py
+msgid "opening hours"
+msgstr "Öffnungszeiten"
+
+#: cms/models/contact/contact.py cms/models/pois/poi.py
+msgid "appointment link"
+msgstr "Terminvereinbarungslink"
+
+#: cms/models/contact/contact.py
+msgid ""
+"Link to an external website where an appointment for this contact can be "
+"made."
+msgstr ""
+"Link zu einer externen Seite über welche Termine für diesen Kontakt "
+"vereinbart werden können."
 
 #: cms/models/contact/contact.py
 msgid "with area of responsibility: {}"
@@ -2892,6 +2914,14 @@ msgid ""
 msgstr ""
 "Eines der folgenden Felder muss ausgefüllt werden: Zuständigkeitsbereich, "
 "Name, E-Mail, Telefonnummer, Mobiltelefonnummer, Website."
+
+#: cms/models/events/event.py
+msgid "Online event link"
+msgstr "Online Veranstaltungslink"
+
+#: cms/models/events/event.py
+msgid "Link to the online event if it has no physical location."
+msgstr "Link zur online Veranstaltung wenn sie keinen physischen Ort hat."
 
 #: cms/models/events/event.py
 msgid "start"
@@ -3821,20 +3851,12 @@ msgid "The opening hours remain and are only hidden."
 msgstr "Die Öffnungszeiten bleiben erhalten und werden nur ausgeblendet."
 
 #: cms/models/pois/poi.py
-msgid "appointment link"
-msgstr "Terminvereinbarungslink"
-
-#: cms/models/pois/poi.py
 msgid ""
 "Link to an external website where an appointment for this location can be "
 "made."
 msgstr ""
 "Link zu einer externen Seite über welche Termine für diesen Ort vereinbart "
 "werden können."
-
-#: cms/models/pois/poi.py
-msgid "opening hours"
-msgstr "Öffnungszeiten"
 
 #: cms/models/pois/poi.py cms/models/users/organization.py
 #: cms/models/users/user.py
@@ -3936,6 +3958,12 @@ msgstr "Name der Nachrichten-Vorlage"
 #: cms/models/push_notifications/push_notification.py
 msgid "Provide a distinct name for the template"
 msgstr "Bitte vergeben Sie einen eindeutigen Namen für die Vorlage"
+
+#: cms/models/push_notifications/push_notification.py
+msgid ""
+"Whether or not the push notification is read-only and hidden in the API."
+msgstr ""
+"Ob die Nachricht schreibgeschützt und in der API verborgen ist oder nicht."
 
 #: cms/models/push_notifications/push_notification.py
 #: cms/models/push_notifications/push_notification_translation.py
@@ -4361,7 +4389,9 @@ msgstr "Angepasste Integreat Chat Datenschutzerklärung"
 
 #: cms/models/regions/region.py
 msgid "Link to custom privacy policy for self-hosted Zammad server."
-msgstr "Link zur angepassten Datenschutzerklärung für einen selbstverwalteten Zammad-Server"
+msgstr ""
+"Link zur angepassten Datenschutzerklärung für einen selbstverwalteten Zammad-"
+"Server."
 
 #: cms/models/regions/region.py
 msgid "Chat beta tester percentage"
@@ -4373,6 +4403,10 @@ msgid ""
 msgstr ""
 "Prozentsatz der Nutzer, die als Beta-Tester für den öffentlichen Chat "
 "ausgewählt werden sollen"
+
+#: cms/models/statistics/page_accesses.py
+msgid "page accesses"
+msgstr "Seitenzugriffe"
 
 #: cms/models/users/organization.py
 msgid "organizations"
@@ -4594,10 +4628,8 @@ msgstr "Statistiken"
 msgid "Translation Report"
 msgstr "Übersetzungsbericht"
 
-#: cms/templates/_base.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/_base.html cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -4819,8 +4851,7 @@ msgstr "Mehr anzeigen"
 #: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 #: cms/templates/push_notifications/push_notification_form.html
-#: cms/templates/users/region_user_form.html
-#: cms/views/pois/poi_context_mixin.py
+#: cms/templates/users/region_user_form.html cms/views/utils/opening_hour.py
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -5420,13 +5451,16 @@ msgid "Manage contact data"
 msgstr "Kontaktdaten verwalten"
 
 #: cms/templates/contacts/contact_form.html
-msgid "Enter the data you wish to store for the contact here."
-msgstr ""
-"Tragen Sie hier die Daten ein, die Sie für den Kontakt hinterlegen möchten."
-
-#: cms/templates/contacts/contact_form.html
 msgid "At least one field must be filled."
 msgstr "Es muss mindestens ein Feld ausgefüllt werden."
+
+#: cms/templates/contacts/contact_form.html
+msgid ""
+"Please note: there can only be one contact per location without area of "
+"responsibility"
+msgstr ""
+"Bitte beachten: Pro Ort darf es nur einen Kontakt ohne Angabe des "
+"Zuständigkeitsbereichs geben."
 
 #: cms/templates/contacts/contact_form.html
 msgid "Contact information"
@@ -5608,7 +5642,9 @@ msgstr "Webseite"
 #: cms/templates/offertemplates/offertemplate_list.html
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html cms/templates/roles/role_list.html
+#: cms/templates/pois/poi_list_archived.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/roles/role_list.html
 msgid "Options"
 msgstr "Optionen"
 
@@ -5635,14 +5671,13 @@ msgstr "Kontakte ausgewählt"
 #: cms/templates/contacts/contact_list.html
 #: cms/templates/events/event_list.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html
+#: cms/templates/push_notifications/push_notification_list.html
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
@@ -5661,15 +5696,14 @@ msgstr "Kontakte löschen"
 #: cms/templates/contacts/contact_list.html
 #: cms/templates/events/event_list.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/_page_xliff_export_overlay.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html
+#: cms/templates/push_notifications/push_notification_list.html
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -5706,9 +5740,7 @@ msgstr "Versionen von \"%(content_title)s\""
 #: cms/templates/content_versions.html
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/views/feedback/feedback_resource.py
 msgid "Date"
 msgstr "Datum"
@@ -6313,18 +6345,14 @@ msgstr "Zurück zu Veranstaltungen"
 
 #: cms/templates/events/event_list.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/users/user_list.html
 msgid "Show filters"
 msgstr "Filter einblenden"
 
 #: cms/templates/events/event_list.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/users/user_list.html
 msgid "Hide filters"
 msgstr "Filter ausblenden"
@@ -6461,9 +6489,7 @@ msgstr "Externen Kalender löschen"
 
 #: cms/templates/events/external_calendar_form.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/organizations/organization_form.html
 msgid "Delete"
@@ -6481,7 +6507,7 @@ msgstr "Aktualisieren & Importieren"
 #: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
 #: cms/templates/translations/translations_management.html
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
-#: cms/views/pois/poi_context_mixin.py
+#: cms/views/utils/opening_hour.py
 msgid "Save"
 msgstr "Speichern"
 
@@ -6531,18 +6557,14 @@ msgstr "Die fünf aktuellsten Einträge werden aufgeführt."
 
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/views/feedback/feedback_resource.py
 msgid "Feedback on"
 msgstr "Feedback zu"
 
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/views/feedback/feedback_resource.py
 msgid "Comment"
 msgstr "Kommentar"
@@ -6560,32 +6582,29 @@ msgid "Technical Feedback"
 msgstr "Technisches Feedback"
 
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Archived Feedback"
-msgstr "Archivierte Feedback"
+msgstr "Archiviertes Feedback"
 
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Select all"
 msgstr "Alle auswählen"
 
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "overall"
 msgstr "insgesamt"
 
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Marked as read by"
 msgstr "Als gelesen markiert von"
+
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/region_feedback_list.html
+msgid "Automatically send"
+msgstr "Automatisch gesendet"
 
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
@@ -6594,13 +6613,21 @@ msgstr "Kein Feedback mit diesen Filtern gefunden."
 
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
+msgid "No archived feedback found with these filters."
+msgstr "Kein archiviertes Feedback mit diesen Filtern gefunden."
+
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/region_feedback_list.html
 msgid "No feedback available yet."
 msgstr "Noch kein Feedback vorhanden."
 
 #: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
+msgid "No archived feedback available yet."
+msgstr "Noch kein archiviertes Feedback vorhanden."
+
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/region_feedback_list.html
 msgid "Feedback entries selected"
 msgstr "Feedback Einträge ausgewählt"
 
@@ -6619,18 +6646,8 @@ msgstr "Als ungelesen markieren"
 msgid "Archive"
 msgstr "Archivieren"
 
-#: cms/templates/feedback/admin_feedback_list_archived.html
-#: cms/templates/feedback/region_feedback_list_archived.html
-msgid "No archived feedback found with these filters."
-msgstr "Keine archivierten Feedback mit diesen Filtern gefunden."
-
-#: cms/templates/feedback/admin_feedback_list_archived.html
-#: cms/templates/feedback/region_feedback_list_archived.html
-msgid "No archived feedback available yet."
-msgstr "Noch kein archivierten Feedback vorhanden."
-
-#: cms/templates/feedback/admin_feedback_list_archived.html
-#: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/region_feedback_list.html
 msgid "Restore"
 msgstr "Wiederherstellen"
 
@@ -8271,6 +8288,14 @@ msgid "News not sent yet"
 msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_list.html
+msgid "Archived news"
+msgstr "Archivierte Nachrichten"
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Back to news"
+msgstr "Zurück zu Nachrichten"
+
+#: cms/templates/push_notifications/push_notification_list.html
 msgid "Open Templates"
 msgstr "Vorlagen öffnen"
 
@@ -8283,6 +8308,14 @@ msgid "Planned send date"
 msgstr "Terminiert am"
 
 #: cms/templates/push_notifications/push_notification_list.html
+msgid "No archived push notifications found with these filters."
+msgstr "Keine archivierten Push-Benachrichtigungen mit diesen Filter gefunden."
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "No push notifications archived yet."
+msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+
+#: cms/templates/push_notifications/push_notification_list.html
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "No push notifications found with these filters."
 msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
@@ -8291,6 +8324,18 @@ msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "No push notifications available yet."
 msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Push notifications selected"
+msgstr "Push-Benachrichtigungen ausgewählt"
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Restore push notifications"
+msgstr "Push-Benachrichtigungen wiederherstellen"
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Archive push notifications"
+msgstr "Push-Benachrichtigungen archivieren"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Title not available"
@@ -8303,6 +8348,25 @@ msgstr "Nachricht ist überfällig und wird nicht mehr gesendet"
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Message not sent yet"
 msgstr "Nachricht noch nicht gesendet"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Restore push notification"
+msgstr "Push-Benachrichtigung wiederherstellen"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Please confirm that you really want to restore this push notification"
+msgstr ""
+"Bitte bestätigen Sie, dass diese Push-Benachrichtigung wiederhergestellt "
+"werden soll"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Archive push notification"
+msgstr "Push-Benachrichtigung archivieren"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Please confirm that you really want to archive this push notification"
+msgstr ""
+"Bitte bestätigen Sie, dass diese Push-Benachrichtigung archiviert werden soll"
 
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "News Templates"
@@ -8944,8 +9008,8 @@ msgstr "Kontext zählt: Auch Seiten mit wenigen Zugriffen können wichtig sein."
 
 #: cms/templates/tutorials/page_access_statistics.html
 msgid ""
-"Pages relevant to target groups: fewer views, but high relevance for specific "
-"target groups."
+"Pages relevant to target groups: fewer views, but high relevance for "
+"specific target groups."
 msgstr ""
 "Zielgruppen-relevante Seiten: Weniger Aufrufe, aber hohe Relevanz für "
 "spezifische Zielgruppen."
@@ -9435,6 +9499,7 @@ msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
+#: cms/views/push_notifications/push_notification_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully archived."
 msgid_plural ""
@@ -9482,6 +9547,7 @@ msgstr[1] ""
 
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
+#: cms/views/push_notifications/push_notification_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully restored."
 msgid_plural ""
@@ -9624,6 +9690,16 @@ msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 #: cms/views/contacts/contact_form_view.py
 msgid "Contact for \"{}\" was successfully saved"
 msgstr "Kontakt für \"{}\" wurde erfolgreich gespeichert"
+
+#: cms/views/contacts/contact_list_view.py
+msgid "Please create at least one language node before creating contacts."
+msgstr ""
+"Bitte erstellen Sie mindestens einen Sprach-Knoten bevor Sie Kontakte "
+"erstellen."
+
+#: cms/views/contacts/contact_list_view.py
+msgid "Please create at least one location before creating contacts."
+msgstr "Bitte erstellen Sie mindestens einen Ort bevor Sie Kontakte erstellen."
 
 #: cms/views/content_version_view.py
 msgid "Back to the form"
@@ -10622,6 +10698,11 @@ msgstr ""
 "'{user_slug}' bereits von <a>{translation}</a> verwendet wird."
 
 #: cms/views/pages/page_form_view.py
+#, python-brace-format
+msgid "The slug was changed from '{user_slug}' to '{slug}."
+msgstr "Der URL-Parameter wurde von '{user_slug}' zu '{slug}' geändert."
+
+#: cms/views/pages/page_form_view.py
 msgid ""
 "The \"minor edit\" option was disabled because the first version can never "
 "be a minor edit."
@@ -10741,94 +10822,6 @@ msgid "Address could not be found"
 msgstr "Adresse konnte nicht gefunden werden"
 
 #: cms/views/pois/poi_context_mixin.py
-msgid "Edit opening hours for this weekday"
-msgstr "Öffnungszeiten für diesen Wochentag bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Edit all opening hours"
-msgstr "Alle Öffnungszeiten bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Edit \"Mo - Fr\""
-msgstr "\"Mo - Fr\" bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Edit \"Sa & Su\""
-msgstr "\"Sa & So\" bearbeiten"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closed"
-msgstr "Geschlossen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time"
-msgstr "Öffnungszeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time"
-msgstr "Schließzeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Open around the clock"
-msgstr "Rund um die Uhr geöffnet"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "By prior appointment only"
-msgstr "Nur nach Terminvereinbarung"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Select the days for which the times selected below should apply"
-msgstr ""
-"Wählen Sie die Tage aus, für die die unten gewählten Zeiten gelten sollen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Add another time slot"
-msgstr "Weiteres Zeitfenster hinzufügen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Remove this time slot"
-msgstr "Dieses Zeitfenster entfernen"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Only the last time slot may be empty"
-msgstr "Nur das letzte Zeitfenster darf leer sein."
-
-#: cms/views/pois/poi_context_mixin.py
-msgid ""
-"If the location is neither closed nor open all day, you have to specify at "
-"least one time slot"
-msgstr ""
-"Wenn der Ort weder geschlossen noch ganztägig geöffnet ist, müssen Sie "
-"mindestens ein Zeitfenster angeben"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time is missing"
-msgstr "Die Schließzeit fehlt"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time is missing"
-msgstr "Die Öffnungszeit fehlt"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time is earlier than the opening time"
-msgstr "Die Schließzeit ist früher als die Öffnungszeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Closing time is identical with the opening time"
-msgstr "Die Schließzeit ist identisch mit der Öffnungszeit"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time is earlier than the closing time of the previous slot"
-msgstr ""
-"Die Öffnungszeit ist früher als die Schließzeit des vorherigen Zeitfensters"
-
-#: cms/views/pois/poi_context_mixin.py
-msgid "Opening time is identical with the closing time of the previous slot"
-msgstr ""
-"Die Öffnungszeit ist ist identisch mit der Schließzeit des vorherigen "
-"Zeitfensters"
-
-#: cms/views/pois/poi_context_mixin.py
 msgid "Please confirm that you really want to archive this location"
 msgstr "Bitte bestätigen Sie, dass dieser Ort archiviert werden soll."
 
@@ -10908,6 +10901,16 @@ msgstr ""
 #: cms/views/pois/poi_version_view.py
 msgid "Back to the poi form"
 msgstr "Zurück zum Formular"
+
+#: cms/views/push_notifications/push_notification_actions.py
+#, python-brace-format
+msgid "Push notification {0} was successfully archived"
+msgstr "Push-Benachrichtigung {0} wurde erfolgreich archiviert"
+
+#: cms/views/push_notifications/push_notification_actions.py
+#, python-brace-format
+msgid "Push notification {0} was successfully restored"
+msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
@@ -10997,6 +11000,10 @@ msgid "In the next step, the news can now be sent."
 msgstr "Im nächsten Schritt kann diese Nachricht nun versendet werden."
 
 #: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" cannot be sent, because it is archived"
+msgstr "Nachricht \"{}\" kann nicht gesendet werden, weil sie archiviert ist."
+
+#: cms/views/push_notifications/push_notification_form_view.py
 msgid "News \"{}\" could not be sent due to a configuration error."
 msgstr ""
 "Nachricht \"{}\" konnte aufgrund eines Konfigurationsproblems nicht gesendet "
@@ -11077,8 +11084,24 @@ msgid "is mirrored here:"
 msgstr "wird hier gespiegelt:"
 
 #: cms/views/regions/region_actions.py
-msgid "Region was successfully deleted"
-msgstr "Region wurde erfolgreich gelöscht"
+msgid "Region \"{}\" will be deleted"
+msgstr "Region \"{}\" wird gelöscht"
+
+#: cms/views/regions/region_actions.py
+msgid "This procedure can take several minutes."
+msgstr "Dieser Vorgang kann mehrere Minuten dauern."
+
+#: cms/views/regions/region_update_view.py
+msgid "The cloning procedure for this region is not finished yet."
+msgstr "Der Klonvorgang für diese Region ist noch nicht abgeschlossen."
+
+#: cms/views/regions/region_update_view.py
+msgid ""
+"An error occurred during cloning of this region. Please contact your "
+"administrator."
+msgstr ""
+"Fehler beim Duplizieren der Region. Bitte kontaktieren Sie eine:n "
+"Administrator:in."
 
 #: cms/views/regions/region_update_view.py
 msgid "Locations are enabled but the bounding box coordinates are incomplete."
@@ -11222,6 +11245,94 @@ msgstr ""
 msgid "Only superusers can enable or disable passwordless authentication."
 msgstr ""
 "Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit opening hours for this weekday"
+msgstr "Öffnungszeiten für diesen Wochentag bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit all opening hours"
+msgstr "Alle Öffnungszeiten bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit \"Mo - Fr\""
+msgstr "\"Mo - Fr\" bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit \"Sa & Su\""
+msgstr "\"Sa & So\" bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closed"
+msgstr "Geschlossen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time"
+msgstr "Öffnungszeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time"
+msgstr "Schließzeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Open around the clock"
+msgstr "Rund um die Uhr geöffnet"
+
+#: cms/views/utils/opening_hour.py
+msgid "By prior appointment only"
+msgstr "Nur nach Terminvereinbarung"
+
+#: cms/views/utils/opening_hour.py
+msgid "Select the days for which the times selected below should apply"
+msgstr ""
+"Wählen Sie die Tage aus, für die die unten gewählten Zeiten gelten sollen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Add another time slot"
+msgstr "Weiteres Zeitfenster hinzufügen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Remove this time slot"
+msgstr "Dieses Zeitfenster entfernen"
+
+#: cms/views/utils/opening_hour.py
+msgid "Only the last time slot may be empty"
+msgstr "Nur das letzte Zeitfenster darf leer sein."
+
+#: cms/views/utils/opening_hour.py
+msgid ""
+"If the location is neither closed nor open all day, you have to specify at "
+"least one time slot"
+msgstr ""
+"Wenn der Ort weder geschlossen noch ganztägig geöffnet ist, müssen Sie "
+"mindestens ein Zeitfenster angeben"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time is missing"
+msgstr "Die Schließzeit fehlt"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time is missing"
+msgstr "Die Öffnungszeit fehlt"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time is earlier than the opening time"
+msgstr "Die Schließzeit ist früher als die Öffnungszeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Closing time is identical with the opening time"
+msgstr "Die Schließzeit ist identisch mit der Öffnungszeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time is earlier than the closing time of the previous slot"
+msgstr ""
+"Die Öffnungszeit ist früher als die Schließzeit des vorherigen Zeitfensters"
+
+#: cms/views/utils/opening_hour.py
+msgid "Opening time is identical with the closing time of the previous slot"
+msgstr ""
+"Die Öffnungszeit ist ist identisch mit der Schließzeit des vorherigen "
+"Zeitfensters"
 
 #: cms/views/utils/publication_status.py
 #, python-brace-format
@@ -11576,6 +11687,35 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Online link is required when the event has no physical location."
+#~ msgstr ""
+#~ "Ein Online ist erforderlich wenn die Veranstaltung keinen physischen Ort "
+#~ "hat."
+
+#~ msgid "Has physical location"
+#~ msgstr "Hat einen physischen Ort"
+
+#~ msgid "Whether the event has a physical location."
+#~ msgstr "Legt fest, ob zu die Veranstaltung einen physischen Ort hat."
+
+#~ msgid "Enter the data you wish to store for the contact here."
+#~ msgstr ""
+#~ "Tragen Sie hier die Daten ein, die Sie für den Kontakt hinterlegen "
+#~ "möchten."
+
+#~ msgid ""
+#~ "Please create at least one language node and locations before creating "
+#~ "contacts."
+#~ msgstr ""
+#~ "Bitte erstellen Sie mindestens einen Sprach-Knoten und einen Ort, bevor "
+#~ "Sie Kontakte verwalten."
+
+#~ msgid "Region "
+#~ msgstr "Region"
+
+#~ msgid "Adopt opening hours"
+#~ msgstr "Öffnungszeiten übernehmen"
+
 #~ msgid "Page access statistics tutorial seen"
 #~ msgstr "Tutorial zu seitenbasierten Zugriffe angesehen"
 
@@ -11843,15 +11983,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
@@ -12943,9 +13083,6 @@ msgstr ""
 #~ msgid "Page was successfully created"
 #~ msgstr "Seite wurde erfolgreich erstellt"
 
-#~ msgid "Push notifications"
-#~ msgstr "Push-Benachrichtigungen"
-
 #~ msgid "All language tree nodes"
 #~ msgstr "Alle Sprach-Knoten"
 
@@ -13054,9 +13191,6 @@ msgstr ""
 
 #~ msgid "All push notifications"
 #~ msgstr "Alle Push-Benachrichtigungen"
-
-#~ msgid "Create push notification"
-#~ msgstr "Push-Benachrichtigung verfassen"
 
 #~ msgid "Offers"
 #~ msgstr "Angebote"
@@ -13445,9 +13579,6 @@ msgstr ""
 #~ msgid "Activate events"
 #~ msgstr "Veranstaltungen aktivieren"
 
-#~ msgid "Activate push notifications"
-#~ msgstr "Push-Benachrichtigungen aktivieren"
-
 #~ msgid "Push notification channels"
 #~ msgstr "Push-Benachrichtigungskanäle"
 
@@ -13709,12 +13840,6 @@ msgstr ""
 
 #~ msgid "Insert content in %(language)s here"
 #~ msgstr "Inhalt auf %(language)s hier eingeben"
-
-#~ msgid "Push notification was successfully saved"
-#~ msgstr "Push-Benachrichtigung wurde erfolgreich gespeichert"
-
-#~ msgid "Push notification was successfully created"
-#~ msgstr "Push-Benachrichtigung wurde erfolgreich erstellt"
 
 #~ msgid "All POIs"
 #~ msgstr "Alle POIs"

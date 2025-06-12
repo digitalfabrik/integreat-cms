@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from typing import Final
 
     from _pytest.fixtures import SubRequest
+    from pytest_django.fixtures import SettingsWrapper
     from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]
     from pytest_httpserver.httpserver import HTTPServer
 
@@ -152,3 +153,11 @@ def mock_firebase_credentials() -> Generator[None, None, None]:
     yield
 
     patch_obj.stop()
+
+
+@pytest.fixture(autouse=True)
+def configure_celery_for_tests(settings: SettingsWrapper) -> None:
+    # by default, no worker is running to consume tasks during tests,
+    # so we set celery to run synchronously and propagate errors to the test runner
+    settings.CELERY_TASK_ALWAYS_EAGER = True
+    settings.CELERY_TASK_EAGER_PROPAGATES = True

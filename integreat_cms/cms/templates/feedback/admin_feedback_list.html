@@ -8,19 +8,37 @@
         <div class="table-header">
             <div class="flex flex-wrap justify-between">
                 <h1 class="heading">
-                    {% translate "Technical Feedback" %}
-                </h1>
-                <a href="{% url 'admin_feedback_archived' %}"
-                   class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
-                    <span>
-                        <i icon-name="archive" class="align-top h-5"></i>
+                    {% if not is_archive %}
+                        {% translate "Technical Feedback" %}
+                    {% else %}
                         {% translate "Archived Feedback" %}
-                        ({{ archived_count }})
-                    </span>
-                </a>
+                    {% endif %}
+                </h1>
+                {% if not is_archive %}
+                    <a href="{% url 'admin_feedback_archived' %}"
+                       class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+                        <span>
+                            <i icon-name="archive" class="align-top h-5"></i>
+                            {% translate "Archived Feedback" %}
+                            ({{ archived_count }})
+                        </span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'admin_feedback' %}"
+                       class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+                        <span>
+                            <i icon-name="thumbs-up" class="align-top h-5"></i>
+                            {% translate "Feedback" %}
+                        </span>
+                    </a>
+                {% endif %}
             </div>
             <div class="flex justify-between">
-                {% include "_search_input.html" with object_type="feedback" related_form="admin-feedback-filter-form" %}
+                {% if not is_archive %}
+                    {% include "_search_input.html" with object_type="feedback" related_form="admin-feedback-filter-form" %}
+                {% else %}
+                    {% include "_search_input.html" with object_type="feedback" object_archived=True related_form="admin-feedback-filter-form" %}
+                {% endif %}
                 <button id="filter-toggle" class="btn btn-ghost">
                     <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% translate "Show filters" %}</span>
                     <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% translate "Hide filters" %}</span>
@@ -70,8 +88,11 @@
                     <th class="text-sm text-left uppercase py-3 pr-2">
                         {% translate "Marked as read by" %}
                     </th>
-                    <th class="text-sm text-right uppercase py-3 pr-2">
+                    <th class="text-sm text-left uppercase py-3 pr-2">
                         {% translate "Date" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Automatically send" %}
                     </th>
                 </tr>
             </thead>
@@ -82,11 +103,19 @@
                     {% endfor %}
                 {% else %}
                     <tr>
-                        <td colspan="9" class="px-2 py-3 text-center">
+                        <td colspan="10" class="px-2 py-3 text-center">
                             {% if filter_form.has_changed %}
-                                {% translate "No feedback found with these filters." %}
+                                {% if not is_archive %}
+                                    {% translate "No feedback found with these filters." %}
+                                {% else %}
+                                    {% translate "No archived feedback found with these filters." %}
+                                {% endif %}
                             {% else %}
-                                {% translate "No feedback available yet." %}
+                                {% if not is_archive %}
+                                    {% translate "No feedback available yet." %}
+                                {% else %}
+                                    {% translate "No archived feedback available yet." %}
+                                {% endif %}
                             {% endif %}
                         </td>
                     </tr>
@@ -108,15 +137,21 @@
                     <option>
                         {% translate "Select bulk action" %}
                     </option>
-                    <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">
-                        {% translate "Mark as read" %}
-                    </option>
-                    <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">
-                        {% translate "Mark as unread" %}
-                    </option>
-                    <option data-bulk-action="{% url 'archive_admin_feedback' %}">
-                        {% translate "Archive" %}
-                    </option>
+                    {% if not is_archive %}
+                        <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">
+                            {% translate "Mark as read" %}
+                        </option>
+                        <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">
+                            {% translate "Mark as unread" %}
+                        </option>
+                        <option data-bulk-action="{% url 'archive_admin_feedback' %}">
+                            {% translate "Archive" %}
+                        </option>
+                    {% else %}
+                        <option data-bulk-action="{% url 'restore_admin_feedback' %}">
+                            {% translate "Restore" %}
+                        </option>
+                    {% endif %}
                     {% if perms.cms.delete_feedback %}
                         <option data-bulk-action="{% url 'delete_admin_feedback' %}">
                             {% translate "Delete" %}

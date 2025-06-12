@@ -164,7 +164,17 @@ def exclude_links_in_contacts(
                 Replace(F("phone_number"), Value(" (0) "), Value("")),
                 output_field=CharField(),
             ),
-        ).values_list("transformed_email", "transformed_phone", "website")
+            transformed_mobile_phone=Concat(
+                Value("tel:"),
+                Replace(F("mobile_phone_number"), Value(" (0) "), Value("")),
+                output_field=CharField(),
+            ),
+        ).values_list(
+            "transformed_email",
+            "transformed_phone",
+            "transformed_mobile_phone",
+            "website",
+        )
     )
     urls = urls.exclude(url__in=contact_links)
 

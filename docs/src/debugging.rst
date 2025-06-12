@@ -41,9 +41,39 @@ It is DAP's task to connect these two parts of the puzzle.
 Below, you can find more specific instructions for configuring your preferred editor or IDE.
 Note that ``debugpy`` itself is included in the ``dev`` dependencies in our ``pyproject.toml``, so you do not have to install it separately.
 
-VSCodium
-^^^^^^^^
-Coming soon(TM)?
+VSCode/VSCodium
+^^^^^^^^^^^^^^^
+
+The VSCode ``Python Extension`` should automaticly contain the ``Python Debugger Extension``. You can check and install it via the Extensions view.
+
+For being able to run in Debug mode, you will need a ``launch.json`` file in which you define the settings under which you want to run and debug the CMS.
+
+#. Create a ``launch.json`` file in the ``.vscode/`` folder
+#. Populate the file with the desired settings. The code below should work (at least for the Dev Container)
+
+.. code-block:: lua
+
+   {
+      "version": "0.2.0",
+      "configurations": [
+         {
+            "name": "Python Debugger: Django",
+            "type": "debugpy",
+            "request": "launch",
+            "args": ["runserver"],
+            "django": true,
+            "autoStartBrowser": false,
+            "program": "${workspaceFolder}/integreat_cms/integreat-cms-cli"
+            "env": {"INTEGREAT_CMS_DEBUG": "true"}
+         }
+      ]
+   }
+
+You might need to change the ``"program"`` variable to your local location of the ``integreat_cms/`` folder. With the ``"env"`` variable, you can set environment variables with settings for the CMS like ``"INTERGREAT_CMS_DEBUG"``. For more options, check the VSCode `documentation <https://code.visualstudio.com/docs/python/debugging>` 
+
+Now debugging should work when you go to ``Run and Debug`` and hit ``Start Debugging``. The local server should start and you should be able to use the CMS like after running ``run.sh``.
+
+For VSCodium it should work the same as long as you use the official ``Python Extension``, though I never tested this at this point (8th May 2025).
 
 PyCharm (Professional)
 ^^^^^^^^^^^^^^^^^^^^^^

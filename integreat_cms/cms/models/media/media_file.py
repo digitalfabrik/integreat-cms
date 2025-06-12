@@ -77,6 +77,11 @@ def upload_path_thumbnail(
     """
     # Derive the thumbnail name from the original file name
     name, extension = splitext(instance.file.name)
+    if extension.lower() == ".svg":
+        # If we are SVG, the thumbnail will still be PNG.
+        # We could just name it SVG, as browsers use the mime type sent, not the file extension,
+        # but unfortunately the web server itself derives the mime type from the file extension and not the content
+        extension = ".png"
     path = f"{name}_thumbnail{extension}"
     logger.debug("Upload path for thumbnail of %r: %r", instance.thumbnail, path)
     return path

@@ -340,12 +340,27 @@ RESPONSE
          "phone_number": String | null,  // The phone number for this location if primary_contact exists
          "contacts": [                   // The contact data linked to this location
             {
-                "area_of_responsibility": String | null   // The area of responsibility, e.g. advisory, of a contact
-                "name": String,              // The name of the contact
-                "email": String,             // An email address of the contact
-                "phone_number": String,      // A phone number of the contact
-                "mobile_number": String,     // An additional mobile number
-                "website": String,           // The website of the contact
+               "area_of_responsibility": String | null   // The area of responsibility, e.g. advisory, of a contact
+               "name": String,              // The name of the contact
+               "email": String,             // An email address of the contact
+               "phone_number": String,      // A phone number of the contact
+               "mobile_number": String,     // An additional mobile number
+               "website": String,           // The website of the contact
+               "opening_hours": [              // The opening hours for the location
+                  {                            // The opening hours for day 0 (Monday)
+                     "allDay": Boolean,        // Whether the location is all day open
+                     "closed": Boolean,        // Whether the location is all day closed
+                     "appointmentOnly": Boolean,// Whether the location is accessible by prior appointment only
+                     "timeSlots": [            // If allDay and closed are false, the timeslots for this day, when the location is open
+                        {
+                           "start": String,    // The start time of the timeslot, in the format `HH:MM`, 24 Hour time
+                           "end": String,      // The end time of the timeslot
+                        },
+                        ...
+                     ],
+                  },
+               ...
+               ] | null,
             },
          ],
          "category": {                   // The category of this location

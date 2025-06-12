@@ -49,10 +49,13 @@
                             </h3>
                         </div>
                         <div class="p-4">
-                            <div class="help-text">
-                                {% translate "Enter the data you wish to store for the contact here." %}
+                            <div class="bg-blue-100 border-t-2 border-b-2 border-blue-500 text-blue-700 px-4 py-3 mb-5"
+                                 role="alert">
+                                <div class="font-semibold">
+                                    {% translate "At least one field must be filled." %}
+                                </div>
                                 <br>
-                                {% translate "At least one field must be filled." %}
+                                {% translate "Please note: there can only be one contact per location without area of responsibility" %}
                             </div>
                             <label for="{{ contact_form.area_of_responsibility.id_for_label }}">
                                 {{ contact_form.area_of_responsibility.label }}
@@ -86,6 +89,40 @@
                                 {{ contact_form.website.label }}
                             </label>
                             {% render_field contact_form.website|add_error_class:"border-red-500" %}
+                            {% if perms.cms.test_beta_features %}
+                                <div class="{% if not contact_form.instance.id %} hidden {% endif %}">
+                                    <p>
+                                        <label for="{{ contact_form.opening_hours.id_for_label }}">
+                                            {{ contact_form.opening_hours.label }}
+                                        </label>
+                                        {% render_field contact_form.use_location_opening_hours %}
+                                        <label class="font-medium text-base"
+                                               for="{{ contact_form.use_location_opening_hours.id_for_label }}">
+                                            {{ contact_form.use_location_opening_hours.label }}
+                                        </label>
+                                    </p>
+                                    <opening-hours-widget></opening-hours-widget>
+                                    {{ opening_hour_config_data|json_script:"openingHourConfigData" }}
+                                    {{ contact_form.opening_hours.value|json_script:"openingHourInitialData" }}
+                                    {{ contact_form.instance.location.opening_hours|json_script:"openingHourLocationData" }}
+                                    <div class="py-2 px-4">
+                                        {% render_field contact_form.temporarily_closed %}
+                                        <label for="{{ contact_form.temporarily_closed.id_for_label }}">
+                                            {{ contact_form.temporarily_closed.label }}
+                                        </label>
+                                        <div class="help-text">
+                                            {{ contact_form.temporarily_closed.help_text }}
+                                        </div>
+                                        <label for="{{ contact_form.appointment_url.id_for_label }}">
+                                            {{ contact_form.appointment_url.label }}
+                                        </label>
+                                        {% render_field contact_form.appointment_url %}
+                                        <div class="help-text">
+                                            {{ contact_form.appointment_url.help_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                     {% if contact_form.instance.id %}

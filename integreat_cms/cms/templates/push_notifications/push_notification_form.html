@@ -46,24 +46,26 @@
                             {# BUTTONS FOR NEWS #}
                             <a href="{% url 'push_notifications' region_slug=request.region.slug %}"
                                class="btn btn-ghost">{% translate "Cancel" %}</a>
-                            <button name="submit_draft" class="btn btn-outline">
-                                {% translate "Save as draft" %}
-                            </button>
-                            {% if push_notification_form.instance.sent_date %}
-                                <button name="submit_update" class="btn">
-                                    {% translate "Update" %}
+                            {% if not push_notification_form.instance.archived %}
+                                <button name="submit_draft" class="btn btn-outline">
+                                    {% translate "Save as draft" %}
                                 </button>
-                            {% elif perms.cms.send_push_notification %}
-                                <div id="button_submit_send">
-                                    <button name="submit_send"
-                                            class="btn {% if push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
-                                        {% translate "Save & Send" %}
+                                {% if push_notification_form.instance.sent_date %}
+                                    <button name="submit_update" class="btn">
+                                        {% translate "Update" %}
                                     </button>
-                                    <button name="submit_schedule"
-                                            class="btn {% if not push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
-                                        {% translate "Save & Schedule" %}
-                                    </button>
-                                </div>
+                                {% elif perms.cms.send_push_notification %}
+                                    <div id="button_submit_send">
+                                        <button name="submit_send"
+                                                class="btn {% if push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
+                                            {% translate "Save & Send" %}
+                                        </button>
+                                        <button name="submit_schedule"
+                                                class="btn {% if not push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
+                                            {% translate "Save & Schedule" %}
+                                        </button>
+                                    </div>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                     {% endif %}

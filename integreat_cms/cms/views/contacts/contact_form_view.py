@@ -153,6 +153,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
             location__region=region,
         ).first()
         contact_form = ContactForm(
+            request=request,
             data=request.POST,
             instance=contact_instance,
             additional_instance_attributes={"region": region},
