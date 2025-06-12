@@ -11,6 +11,8 @@ from geopy.distance import distance
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
+from integreat_cms.cms.models.contact.contact import Contact
+
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...constants import opening_hours, status
 from ...models import POI
@@ -32,6 +34,17 @@ class POIForm(CustomModelForm):
 
     #: The distance in km between the manually entered coordinates and the coordinates returned from Nominatim
     nominatim_distance_delta = 0
+
+    website = forms.URLField(max_length=250, required=False, label=_("website"))
+    email = forms.EmailField(
+        label=_("email address"),
+        required=False,
+    )
+    phone_number = forms.CharField(
+        max_length=250,
+        required=False,
+        label=_("phone number"),
+    )
 
     class Meta:
         """
@@ -71,6 +84,11 @@ class POIForm(CustomModelForm):
         :param \**kwargs: The supplied keyword arguments
         """
         super().__init__(**kwargs)
+
+        if contact := self.instance.contacts.first():
+            self.fields["phone_number"].initial = contact.phone_number
+            self.fields["website"].initial = contact.website
+            self.fields["email"].initial = contact.email
 
         self.fields[
             "organization"
@@ -166,6 +184,23 @@ class POIForm(CustomModelForm):
                     return cleaned_opening_hours
         return cleaned_opening_hours
 
+    def cleaning_contact(self, cleaned_data: dict[str, Any]) -> None:
+        """
+        This procedure cleans the contact fields.
+        Note: Can't be named clean_contact because we want to call this function manually
+        :param cleaned_data: The cleaned data
+        """
+        contact = self.instance.contacts.first() or None
+        if self.instance.contacts.first():
+            contact = self.instance.contacts.first()
+        else:
+            contact = Contact(location=self.instance)
+
+        contact.website = cleaned_data.get("website")
+        contact.phone_number = cleaned_data.get("phone_number")
+        contact.email = cleaned_data.get("email")
+        contact.save()
+
     def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
@@ -173,6 +208,7 @@ class POIForm(CustomModelForm):
         :return: The cleaned form data
         """
         cleaned_data = super().clean()
+        self.cleaning_contact(cleaned_data)
 
         # When the Nominatim API is enabled, validate the coordinates
         if settings.NOMINATIM_API_ENABLED:
