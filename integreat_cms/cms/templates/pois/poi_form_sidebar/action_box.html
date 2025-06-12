@@ -28,8 +28,8 @@
             <label class="mt-0">
                 {% translate "Archive location" %}
             </label>
-            {% if poi_form.instance.is_used %}
-                {% if poi_form.instance.events.exists %}
+            {% if poi_form.instance.is_currently_used %}
+                {% if poi_form.instance.events.filter_upcoming.exists %}
                     <div class="mb-5">
                         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
                              role="alert">
@@ -43,7 +43,7 @@
                                 {% endblocktranslate %}
                             </p>
                         </div>
-                        {% for event in poi_form.instance.events.all %}
+                        {% for event in poi_form.instance.events.filter_upcoming %}
                             <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
                                class="block pt-2 hover:underline">
                                 <i icon-name="pen-square" class="mr-2"></i> {{ event.best_translation.title }}

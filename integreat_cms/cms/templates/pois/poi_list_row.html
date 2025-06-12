@@ -139,21 +139,16 @@
             </button>
         {% endif %}
         {% if perms.cms.change_poi %}
-            {% if poi.is_used %}
-                <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
-                   title="{% translate "Edit location" %}"
-                   class="btn-icon">
-                    <i icon-name="pencil"></i>
-                </a>
+            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
+               title="{% translate "Edit location" %}"
+               class="btn-icon">
+                <i icon-name="pencil"></i>
+            </a>
+            {% if poi.is_currently_used %}
                 <button title="{{ cannot_archive_title }}" class="btn-icon" disabled>
                     <i icon-name="archive"></i>
                 </button>
             {% else %}
-                <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
-                   title="{% translate "Edit location" %}"
-                   class="btn-icon">
-                    <i icon-name="pencil"></i>
-                </a>
                 <button title="{% translate "Archive location" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ archive_dialog_title }}"
