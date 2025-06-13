@@ -92,6 +92,7 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
                 "mobile_number": contact.mobile_phone_number,
                 "website": contact.website,
                 "opening_hours": contact.opening_hours,
+                "appointment_url": contact.appointment_url or None,
             }
         )
 
