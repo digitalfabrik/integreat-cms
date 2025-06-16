@@ -23,7 +23,8 @@ if TYPE_CHECKING:
 
 @pytest.mark.django_db
 def test_directory_path(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -56,7 +57,8 @@ def test_directory_path(
 
 @pytest.mark.django_db
 def test_get_directory_content(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -89,7 +91,8 @@ def test_get_directory_content(
 
 @pytest.mark.django_db
 def test_create_directory(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -129,7 +132,8 @@ def test_create_directory(
 
 @pytest.mark.django_db
 def test_edit_directory(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -180,7 +184,8 @@ def test_edit_directory(
 
 @pytest.mark.django_db
 def test_delete_directory(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -210,7 +215,8 @@ def test_delete_directory(
 
 @pytest.mark.django_db
 def test_upload_file(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -253,7 +259,8 @@ def test_upload_file(
 
 @pytest.mark.django_db
 def test_replace_file(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -293,7 +300,8 @@ def test_replace_file(
 
 @pytest.mark.django_db
 def test_edit_file(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -346,7 +354,8 @@ def test_edit_file(
 
 @pytest.mark.django_db
 def test_move_file(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -395,7 +404,8 @@ def test_move_file(
 
 @pytest.mark.django_db
 def test_delete_file(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -421,7 +431,8 @@ def test_delete_file(
 
 @pytest.mark.django_db
 def test_get_file_usages(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -454,7 +465,8 @@ def test_get_file_usages(
 
 @pytest.mark.django_db
 def test_get_search_result(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in

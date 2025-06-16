@@ -46,7 +46,8 @@ feedback_type_dict: Final[dict[str, ModelBase]] = {
 @pytest.mark.django_db
 @pytest.mark.parametrize("view_name,post_data", API_FEEDBACK_VIEWS)
 def test_api_feedback_success(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     view_name: str,
     post_data: dict[str, str],
 ) -> None:
@@ -95,7 +96,8 @@ def test_api_feedback_success(
     API_FEEDBACK_ERRORS,
 )
 def test_api_feedback_errors(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     view_name: str,
     kwargs: dict[str, str],
     post_data: dict[str, str],
@@ -121,7 +123,10 @@ def test_api_feedback_errors(
 
 
 @pytest.mark.django_db
-def test_api_feedback_invalid_method(load_test_data: None) -> None:
+def test_api_feedback_invalid_method(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Check error when request method is not POST
 

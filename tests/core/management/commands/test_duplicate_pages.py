@@ -47,7 +47,11 @@ def test_duplicate_pages_non_existing_region(settings: SettingsWrapper) -> None:
 
 
 @pytest.mark.django_db
-def test_duplicate_pages(settings: SettingsWrapper, load_test_data: None) -> None:
+def test_duplicate_pages(
+    settings: SettingsWrapper,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Ensure that pages are really duplicated
     """

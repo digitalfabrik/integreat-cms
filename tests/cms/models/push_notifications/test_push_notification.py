@@ -8,7 +8,10 @@ from integreat_cms.cms.models import (
 
 
 @pytest.mark.django_db
-def test_best_translation(load_test_data: None) -> None:
+def test_best_translation(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Test whether the `best_translation` method functions correctly. This is to prevent the following bug: https://github.com/digitalfabrik/integreat-cms/issues/2726
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)

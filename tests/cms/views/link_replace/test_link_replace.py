@@ -38,7 +38,8 @@ parameters = [
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", parameters)
 def test_find_target_url_per_content_invalid_links(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     parameter: tuple[list[str], list[str], tuple[ContentType, int]],
 ) -> None:
     """

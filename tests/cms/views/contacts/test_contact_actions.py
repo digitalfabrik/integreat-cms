@@ -35,7 +35,8 @@ test_archive_parameters = [(NOT_USED_CONTACT_ID, True), (USED_CONTACT_ID, False)
 @pytest.mark.parametrize("parameter", test_archive_parameters)
 @pytest.mark.django_db
 def test_archive_contact(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -100,7 +101,8 @@ test_delete_parameters = [(NOT_USED_CONTACT_ID, True), (USED_CONTACT_ID, False)]
 @pytest.mark.parametrize("parameter", test_delete_parameters)
 @pytest.mark.django_db
 def test_delete_contact(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -160,7 +162,8 @@ def test_delete_contact(
 
 @pytest.mark.django_db
 def test_restore_contact(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -214,7 +217,8 @@ BULK_ARCHIVE_SELECTED_IDS = [NOT_USED_CONTACT_ID, USED_CONTACT_ID]
 
 @pytest.mark.django_db
 def test_bulk_archive_contacts(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -280,7 +284,8 @@ BULK_DELETE_SELECTED_IDS = [NOT_USED_CONTACT_ID, USED_CONTACT_ID]
 
 @pytest.mark.django_db
 def test_bulk_delete_contacts(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -346,7 +351,8 @@ BULK_RESTORE_SELECTED_IDS = [ARCHIVED_CONTACT_ID]
 
 @pytest.mark.django_db
 def test_bulk_restore_contacts(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,

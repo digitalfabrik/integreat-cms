@@ -74,7 +74,8 @@ api_errors = [404, 413, 429, 456, 500]
 )
 @pytest.mark.parametrize("error", api_errors)
 def test_deepl_bulk_mt_api_error(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     error: int,
     settings: SettingsWrapper,

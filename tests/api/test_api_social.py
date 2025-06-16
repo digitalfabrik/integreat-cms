@@ -17,7 +17,8 @@ from .api_config import API_SOCIAL_ENDPOINTS
     API_SOCIAL_ENDPOINTS,
 )
 def test_api_result(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     django_assert_num_queries: Callable,
     endpoint: str,
     expected_result: str,

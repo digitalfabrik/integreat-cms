@@ -16,7 +16,8 @@ data = [
 
 @pytest.mark.django_db
 def test_filtering_by_single_selected_recurrence_is_successful(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user

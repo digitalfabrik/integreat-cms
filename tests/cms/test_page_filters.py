@@ -11,7 +11,11 @@ if TYPE_CHECKING:
 
 
 @pytest.mark.django_db
-def test_page_filters(load_test_data: None, admin_client: Client) -> None:
+def test_page_filters(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+    admin_client: Client
+) -> None:
     """
     Test whether duplicating regions works as expected
 

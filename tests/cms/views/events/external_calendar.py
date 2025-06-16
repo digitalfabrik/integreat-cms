@@ -9,7 +9,8 @@ from tests.conftest import ANONYMOUS, CMS_TEAM, ROOT, SERVICE_TEAM
 
 @pytest.mark.django_db
 def test_permissions_for_external_calendar_list(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -34,7 +35,8 @@ def test_permissions_for_external_calendar_list(
 
 @pytest.mark.django_db
 def test_permissions_for_creating_new_external_calendar(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -59,7 +61,8 @@ def test_permissions_for_creating_new_external_calendar(
 
 @pytest.mark.django_db
 def test_creating_new_external_calendar(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user

@@ -76,7 +76,8 @@ def create_page(
 
 @pytest.mark.django_db
 def test_hix_score_create(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
@@ -134,7 +135,8 @@ def test_hix_score_create(
 
 @pytest.mark.django_db
 def test_hix_score_create_content_empty(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
@@ -172,7 +174,8 @@ def test_hix_score_create_content_empty(
 
 @pytest.mark.django_db
 def test_ignore_hix_on_page_create(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
@@ -215,7 +218,8 @@ def test_ignore_hix_on_page_create(
 
 @pytest.mark.django_db
 def test_hix_disabled_on_region_on_page_create(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
@@ -257,7 +261,8 @@ def test_hix_disabled_on_region_on_page_create(
 
 @pytest.mark.django_db
 def test_hix_response_400_on_page_create(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
@@ -379,7 +384,8 @@ dummy_hix_result = {
 
 @pytest.mark.django_db
 def test_hix_score_update(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
@@ -434,7 +440,8 @@ def test_hix_score_update(
 
 @pytest.mark.django_db
 def test_hix_disable_on_region(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
@@ -477,7 +484,8 @@ def test_hix_disable_on_region(
 
 @pytest.mark.django_db
 def test_ignore_hix_on_page_update(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
@@ -522,7 +530,8 @@ def test_ignore_hix_on_page_update(
 
 @pytest.mark.django_db
 def test_hix_page_content_empty(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
@@ -566,7 +575,8 @@ def test_hix_page_content_empty(
 
 @pytest.mark.django_db
 def test_hix_no_content_changes(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
@@ -621,7 +631,8 @@ def test_hix_no_content_changes(
 
 @pytest.mark.django_db
 def test_hix_response_400_on_page_update(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,

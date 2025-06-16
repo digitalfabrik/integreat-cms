@@ -37,7 +37,11 @@ def test_summ_ai_bulk_missing_username() -> None:
 
 
 @pytest.mark.django_db
-def test_summ_ai_bulk_disabled(settings: SettingsWrapper, load_test_data: None) -> None:
+def test_summ_ai_bulk_disabled(
+    settings: SettingsWrapper,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Ensure that calling when globally disabled throws an error
     """
@@ -58,7 +62,10 @@ def test_summ_ai_bulk_non_existing_region() -> None:
 
 
 @pytest.mark.django_db
-def test_summ_ai_bulk_disabled_region(load_test_data: None) -> None:
+def test_summ_ai_bulk_disabled_region(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Ensure that calling when disabled in a region throws an error
     """
@@ -71,7 +78,10 @@ def test_summ_ai_bulk_disabled_region(load_test_data: None) -> None:
 
 
 @pytest.mark.django_db
-def test_summ_ai_bulk_non_existing_username(load_test_data: None) -> None:
+def test_summ_ai_bulk_non_existing_username(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Ensure that a non existing username throws an error
     """

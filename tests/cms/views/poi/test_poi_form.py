@@ -36,7 +36,8 @@ from tests.utils import assert_message_in_log
 
 @pytest.mark.django_db
 def test_barrier_free_and_organization_box_appear(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     barrier_free_box = '<div id="poi-barrier-free"'
@@ -103,7 +104,8 @@ def create_used_poi(region_slug: str) -> int:
 
 @pytest.mark.django_db
 def test_poi_in_use_cannot_be_archived(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
     settings: SettingsWrapper,
@@ -144,7 +146,8 @@ def test_poi_in_use_cannot_be_archived(
 
 @pytest.mark.django_db
 def test_poi_in_use_not_deleted(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     caplog: LogCaptureFixture,
     login_role_user: tuple[Client, str],
 ) -> None:
@@ -185,7 +188,8 @@ def test_poi_in_use_not_deleted(
 
 @pytest.mark.django_db
 def test_poi_in_use_not_bulk_archived(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
     settings: SettingsWrapper,
@@ -226,7 +230,8 @@ def test_poi_in_use_not_bulk_archived(
 
 @pytest.mark.django_db
 def test_poi_form_shows_associated_contacts(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
 ) -> None:
@@ -280,7 +285,8 @@ def test_poi_form_shows_associated_contacts(
 
 @pytest.mark.django_db
 def test_poi_form_shows_no_associated_contacts(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
 ) -> None:

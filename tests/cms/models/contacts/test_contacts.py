@@ -13,7 +13,8 @@ from integreat_cms.cms.models import Contact
 
 @pytest.mark.django_db
 def test_contact_string(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     settings: SettingsWrapper,
 ) -> None:
     """
@@ -37,7 +38,8 @@ def test_contact_string(
 
 @pytest.mark.django_db
 def test_copying_contact_works(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     assert Contact.objects.all().count() == 5
 
@@ -49,7 +51,8 @@ def test_copying_contact_works(
 
 @pytest.mark.django_db
 def test_deleting_contact_works(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     assert Contact.objects.all().count() == 5
 
@@ -61,7 +64,8 @@ def test_deleting_contact_works(
 
 @pytest.mark.django_db
 def test_archiving_contact_works(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     assert Contact.objects.all().count() == 5
 
@@ -75,7 +79,8 @@ def test_archiving_contact_works(
 
 @pytest.mark.django_db
 def test_restoring_contact_works(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     assert Contact.objects.all().count() == 5
 

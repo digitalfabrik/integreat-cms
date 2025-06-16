@@ -10,7 +10,8 @@ from integreat_cms.cms.models.events.event import CouldNotBeCopied
 
 @pytest.mark.django_db
 def test_copying_imported_event_is_unsucessful(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     _, role = login_role_user

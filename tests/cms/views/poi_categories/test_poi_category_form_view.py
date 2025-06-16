@@ -29,7 +29,8 @@ DEFAULT_POST_DATA = {
 
 @pytest.mark.django_db
 def test_permission_to_view_poi_categories_list(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -52,7 +53,8 @@ def test_permission_to_view_poi_categories_list(
 @pytest.mark.parametrize("login_role_user", STAFF_ROLES, indirect=True)
 @pytest.mark.django_db
 def test_poicategories_list_shows_all_items(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, _ = login_role_user
@@ -74,7 +76,8 @@ def test_correct_number_of_poicategories_in_database() -> None:
 
 @pytest.mark.django_db
 def test_permission_to_create_new_poicategory(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -104,7 +107,8 @@ def test_permission_to_create_new_poicategory(
 )
 @pytest.mark.django_db
 def test_create_poi_category_with_missing_translation_was_not_successful(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -132,7 +136,8 @@ def test_create_poi_category_with_missing_translation_was_not_successful(
 )
 @pytest.mark.django_db
 def test_create_poi_category_was_successful(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, _ = login_role_user
@@ -165,7 +170,8 @@ def test_create_poi_category_was_successful(
 )
 @pytest.mark.django_db
 def test_edit_poi_category_was_successful(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, _ = login_role_user
@@ -229,7 +235,8 @@ def test_edit_poi_category_was_successful(
 )
 @pytest.mark.django_db
 def test_no_changes_were_made_message(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, _ = login_role_user
@@ -289,7 +296,8 @@ def test_no_changes_were_made_message(
 )
 @pytest.mark.django_db
 def test_delete_unused_poi_category_was_successful(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     current_amount_of_poicategories = POICategory.objects.count()
@@ -327,7 +335,8 @@ def test_delete_unused_poi_category_was_successful(
 )
 @pytest.mark.django_db
 def test_delete_used_poi_category_was_not_successful(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     current_amount_of_poicategories = POICategory.objects.count()

@@ -52,7 +52,8 @@ def strip(arg: str | object) -> str:
 
 @pytest.mark.django_db
 def test_search_contact_single(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
 ) -> None:
@@ -87,7 +88,8 @@ def test_search_contact_single(
 
 @pytest.mark.django_db
 def test_search_contact_multiple(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
 ) -> None:
@@ -124,7 +126,8 @@ def test_search_contact_multiple(
 
 @pytest.mark.django_db
 def test_get_contact_card(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
 ) -> None:
@@ -155,7 +158,8 @@ def test_get_contact_card(
 
 @pytest.mark.django_db
 def test_get_contact_card_raw(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
 ) -> None:
@@ -185,7 +189,8 @@ def test_get_contact_card_raw(
 
 @pytest.mark.django_db
 def test_update_contact_card_single(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Test that a contact card is correctly recognized,
@@ -202,7 +207,8 @@ def test_update_contact_card_single(
 
 @pytest.mark.django_db
 def test_update_contact_card_multiple(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Test that multiple contact cards are correctly recognized,

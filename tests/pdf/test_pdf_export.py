@@ -86,7 +86,8 @@ if TYPE_CHECKING:
     ],
 )
 def test_pdf_export(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     client: Client,
     admin_client: Client,
     language_slug: str,
@@ -143,7 +144,8 @@ def test_pdf_export(
 # Override urls to serve PDF files
 @pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")
 def test_pdf_export_invalid(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     client: Client,
     admin_client: Client,
 ) -> None:

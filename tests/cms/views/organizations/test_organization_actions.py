@@ -29,7 +29,8 @@ test_archive_parameters = [
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", test_archive_parameters)
 def test_archive_organization(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -98,7 +99,8 @@ test_delete_parameters = [
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", test_delete_parameters)
 def test_delete_organization(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -159,7 +161,8 @@ def test_delete_organization(
 
 @pytest.mark.django_db
 def test_restore_organization(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -220,7 +223,8 @@ BULK_ARCHIVE_SELECTED_IDS = [REFERENCED_ORGANIZATION_ID, NOT_REFERENCED_ORGANIZA
 
 @pytest.mark.django_db
 def test_bulk_archive_organizations(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -290,7 +294,8 @@ BULK_DELETE_SELECTED_IDS = [REFERENCED_ORGANIZATION_ID, NOT_REFERENCED_ORGANIZAT
 
 @pytest.mark.django_db
 def test_bulk_delete_organizations(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -354,7 +359,8 @@ BULK_RESTORE_SELECTED_IDS = [ARCHIVED_ORGANIZATION_ID]
 
 @pytest.mark.django_db
 def test_bulk_restore_organizations(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,

@@ -312,7 +312,8 @@ class TestFirebaseDataClient:
     def test_client_throws_exception_when_fcm_disabled(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
         mock_firebase_credentials: None,
     ) -> None:
         """
@@ -331,7 +332,8 @@ class TestFirebaseDataClient:
     def test_avg_per_region(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
         requests_mock: Mocker,
         mock_firebase_credentials: None,
     ) -> None:
@@ -450,7 +452,8 @@ class TestFirebaseDataClient:
     def test_without_analytics_labels(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
         requests_mock: Mocker,
         mock_firebase_credentials: None,
     ) -> None:

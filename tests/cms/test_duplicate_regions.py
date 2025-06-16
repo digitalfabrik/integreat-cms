@@ -17,9 +17,10 @@ if TYPE_CHECKING:
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_duplicate_regions(
-    load_test_data_transactional: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
 ) -> None:
     """
@@ -202,9 +203,10 @@ def test_duplicate_regions(
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_duplicate_regions_no_translations(
-    load_test_data_transactional: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     admin_client: Client,
 ) -> None:
     """

@@ -22,7 +22,8 @@ parameters = [
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", parameters)
 def test_region_mt_budget_calc(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     parameter: tuple[int, bool, int, int],
 ) -> None:
     """

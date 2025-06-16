@@ -26,7 +26,10 @@ default_kwargs = {
 
 
 @pytest.mark.django_db
-def test_api_is_chat_enabled_for_user(load_test_data: None) -> None:
+def test_api_is_chat_enabled_for_user(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Check that whether a user is chat beta tester is stored in the DB
 
@@ -48,7 +51,9 @@ def test_api_is_chat_enabled_for_user(load_test_data: None) -> None:
 @pytest.mark.django_db
 @patch("integreat_cms.api.v3.chat.user_chat.UserChat.zammad_request")
 def test_api_chat_missing_auth_error(
-    zammad_request: Mock, load_test_data: None
+    zammad_request: Mock,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Check that missing/wrong auth information leads to an error
@@ -79,7 +84,8 @@ def test_api_chat_missing_auth_error(
 )
 def test_api_chat_incorrect_server_error(
     mock_zammad_url: Mock,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Check that incorrect server url leads to an error
@@ -124,7 +130,8 @@ def test_api_chat_first_chat(
     messages: Mock,
     create_ticket: Mock,
     get_zammad_user_mail: Mock,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Check that sending a message from a never seen-before device_id creates a new chat
@@ -171,7 +178,8 @@ def test_api_chat_set_evaluation_consent(
     save_evaluation_consent: Mock,
     messages: Mock,
     get_zammad_user_mail: Mock,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Check that sending a message from a never seen-before device_id creates a new chat
@@ -211,7 +219,8 @@ def test_api_chat_send_message(
     messages: Mock,
     save_message: Mock,
     get_zammad_user_mail: Mock,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Check that sending a message with a known device_id works and does not create a new chat
@@ -256,7 +265,8 @@ def test_api_chat_get_messages_success(
     evaluation_consent: Mock,
     messages: Mock,
     get_zammad_user_mail: Mock,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Check that GET-ing messages works for an existing chat
@@ -279,7 +289,9 @@ def test_api_chat_get_messages_success(
     return_value="tech@tuerantuer.org",
 )
 def test_api_chat_get_messages_failure(
-    get_zammad_user_mail: Mock, load_test_data: None
+    get_zammad_user_mail: Mock,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Check that GET-ing messages for a non-existing chat returns an error
@@ -321,7 +333,8 @@ def test_api_chat_ratelimiting(
     evaluation_consent: Mock,
     messages: Mock,
     get_zammad_user_mail: Mock,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Check that the ratelimiting correctly prevents further API requests
@@ -383,7 +396,8 @@ def test_api_chat_ratelimiting_trusted_ip_header(
     evaluation_consent: Mock,
     messages: Mock,
     get_zammad_user_mail: Mock,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Check that ratelimiting kicks in when a trusted IP header is configured but not set in the request.

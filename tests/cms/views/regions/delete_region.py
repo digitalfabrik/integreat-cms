@@ -22,7 +22,8 @@ PAGE_FEEDBACK_AUGSBURG_ID = 2
 
 @pytest.mark.django_db
 def test_delete_all_regions_is_successful(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     current_number_of_regions = Region.objects.count()
@@ -89,7 +90,8 @@ def test_delete_all_regions_is_successful(
 
 @pytest.mark.django_db
 def test_deleting_mirrored_region_is_unsucessful(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user

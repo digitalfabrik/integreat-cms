@@ -31,7 +31,11 @@ def test_find_missing_versions_invalid_model() -> None:
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("model", ["page", "event", "poi"])
-def test_find_missing_versions_success(load_test_data: None, model: str) -> None:
+def test_find_missing_versions_success(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+    model: str
+) -> None:
     """
     Ensure no errors are found in default test data
     """
@@ -41,7 +45,10 @@ def test_find_missing_versions_success(load_test_data: None, model: str) -> None
 
 
 @pytest.mark.django_db
-def test_find_missing_versions_failure(load_test_data: None) -> None:
+def test_find_missing_versions_failure(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Ensure that inconsistencies are listed
     """

@@ -19,7 +19,8 @@ if TYPE_CHECKING:
 
 @pytest.mark.django_db
 def test_create_new_language_node(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -83,7 +84,8 @@ def test_create_new_language_node(
 
 @pytest.mark.django_db
 def test_update_language_node(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -137,7 +139,8 @@ def test_update_language_node(
 
 @pytest.mark.django_db
 def test_move_language_node(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in
@@ -182,7 +185,8 @@ def test_move_language_node(
 
 @pytest.mark.django_db
 def test_delete_language_node(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     # Log the user in

@@ -17,7 +17,8 @@ from tests.conftest import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
 
 @pytest.mark.django_db
 def test_validate_forms_with_no_german_title(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
 ) -> None:
@@ -72,7 +73,8 @@ def test_validate_forms_with_no_german_title(
 
 @pytest.mark.django_db
 def test_validate_forms_with_only_german_title(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
 ) -> None:

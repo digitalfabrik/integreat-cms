@@ -14,7 +14,8 @@ from .sitemap_config import SITEMAPS
 @pytest.mark.django_db
 @pytest.mark.parametrize("url,expected_sitemap,expected_queries", SITEMAPS)
 def test_sitemap(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     django_assert_num_queries: Callable,
     url: str,
     expected_sitemap: str,

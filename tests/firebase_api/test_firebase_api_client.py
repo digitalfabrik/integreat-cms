@@ -67,7 +67,8 @@ class TestFirebaseApiClient:
     def test_client_throws_exception_when_fcm_disabled(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
     ) -> None:
         """
         Tests that an ImproperlyConfigured exception is thrown, if firebase API is disabled in settings
@@ -81,7 +82,12 @@ class TestFirebaseApiClient:
             FirebaseApiClient(notification)
 
     @pytest.mark.django_db
-    def test_is_valid(self, settings: SettingsWrapper, load_test_data: None) -> None:
+    def test_is_valid(
+        self,
+        settings: SettingsWrapper,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
+    ) -> None:
         """
         Tests that :meth:`~integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.is_valid` is ``True``,
         when FCM_ENABLED and pushNotification valid (with title and translation)
@@ -97,7 +103,8 @@ class TestFirebaseApiClient:
     def test_is_invalid_when_no_translation(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
     ) -> None:
         """
         Tests that :meth:`~integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.is_valid` is ``False``,
@@ -116,7 +123,8 @@ class TestFirebaseApiClient:
     def test_is_invalid_when_no_title(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
     ) -> None:
         """
         Tests that :meth:`~integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.is_valid` is ``False``,
@@ -135,7 +143,8 @@ class TestFirebaseApiClient:
     def test_firebase_api_200_success(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
         requests_mock: Mocker,
         caplog: LogCaptureFixture,
     ) -> None:
@@ -162,7 +171,8 @@ class TestFirebaseApiClient:
     def test_firebase_api_200_unexpected_api_response(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
         requests_mock: Mocker,
         caplog: LogCaptureFixture,
     ) -> None:
@@ -188,7 +198,8 @@ class TestFirebaseApiClient:
     def test_firebase_api_403_wrong_token(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
         requests_mock: Mocker,
         caplog: LogCaptureFixture,
     ) -> None:
@@ -214,7 +225,8 @@ class TestFirebaseApiClient:
     def test_firebase_api_404(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
         requests_mock: Mocker,
         caplog: LogCaptureFixture,
     ) -> None:
@@ -267,7 +279,8 @@ class TestFirebaseApiClient:
     def test_region_notification_send(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
         requests_mock: Mocker,
     ) -> None:
         targets = set()
@@ -294,7 +307,8 @@ class TestFirebaseApiClient:
     def test_multiple_regions_notification_send(
         self,
         settings: SettingsWrapper,
-        load_test_data: None,
+        test_data_db_snapshot: None,
+        db_snapshot: None,
         requests_mock: Mocker,
     ) -> None:
         targets = set()

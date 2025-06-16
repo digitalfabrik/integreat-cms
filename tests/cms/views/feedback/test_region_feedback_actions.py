@@ -29,7 +29,8 @@ region_slug_param = {"region_slug": "augsburg"}
 
 @pytest.mark.django_db
 def test_mark_region_feedback_as_read(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:
@@ -79,7 +80,8 @@ def test_mark_region_feedback_as_read(
 
 @pytest.mark.django_db
 def test_mark_region_feedback_as_unread(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:
@@ -129,7 +131,8 @@ def test_mark_region_feedback_as_unread(
 
 @pytest.mark.django_db
 def test_archive_region_feedback(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:
@@ -176,7 +179,8 @@ def test_archive_region_feedback(
 
 @pytest.mark.django_db
 def test_restore_region_feedback(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:
@@ -223,7 +227,8 @@ def test_restore_region_feedback(
 
 @pytest.mark.django_db
 def test_delete_region_feedback(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:
@@ -266,7 +271,8 @@ def test_delete_region_feedback(
 
 @pytest.mark.django_db
 def test_csv_export_feedback(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:

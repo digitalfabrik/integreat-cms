@@ -34,7 +34,8 @@ url_replace_parameters = [("network_management", 4, 0), ("augsburg", 4, 1)]
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", url_replace_parameters)
 def test_url_replace(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -128,7 +129,8 @@ search_replace_parameters = [("network_management", 4, 0), ("augsburg", 4, 1)]
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", search_replace_parameters)
 def test_search_and_replace_links(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -229,7 +231,8 @@ ignore_unignore_parameters = [
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", ignore_unignore_parameters)
 def test_bulk_ignore_unignore_links(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -327,7 +330,8 @@ recheck_parameters = ["network_management", "augsburg"]
 @pytest.mark.django_db
 @pytest.mark.parametrize("region", recheck_parameters)
 def test_bulk_recheck_links(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,

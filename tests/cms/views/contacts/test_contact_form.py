@@ -23,7 +23,8 @@ POI_ID = 6
 
 @pytest.mark.django_db
 def test_create_a_new_contact(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -78,7 +79,8 @@ def test_create_a_new_contact(
 
 @pytest.mark.django_db
 def test_edit_a_contact(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -137,7 +139,8 @@ def test_edit_a_contact(
 
 @pytest.mark.django_db
 def test_no_contact_without_poi(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -186,7 +189,8 @@ def test_no_contact_without_poi(
 
 @pytest.mark.django_db
 def test_at_least_one_field_filled(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -240,7 +244,8 @@ def test_at_least_one_field_filled(
 
 @pytest.mark.django_db
 def test_one_primary_contact_per_poi(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,

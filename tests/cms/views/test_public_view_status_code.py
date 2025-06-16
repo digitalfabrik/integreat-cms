@@ -18,7 +18,8 @@ if TYPE_CHECKING:
 @pytest.mark.django_db
 @pytest.mark.parametrize("view_name,post_data", PARAMETRIZED_PUBLIC_VIEWS)
 def test_public_view_status_code(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     caplog: LogCaptureFixture,
     view_name: ViewNameStr,
     post_data: PostData,

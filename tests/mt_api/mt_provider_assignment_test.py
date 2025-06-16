@@ -50,7 +50,8 @@ def check_mt_provider(
 
 @pytest.mark.django_db
 def test_no_available_provider(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -72,7 +73,8 @@ def test_no_available_provider(
 
 @pytest.mark.django_db
 def test_only_deepl_available(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -94,7 +96,8 @@ def test_only_deepl_available(
 
 @pytest.mark.django_db
 def test_only_google_translate_available(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -116,7 +119,8 @@ def test_only_google_translate_available(
 
 @pytest.mark.django_db
 def test_both_providers_available(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -140,7 +144,8 @@ def test_both_providers_available(
 
 @pytest.mark.django_db
 def test_change_to_supporting_provider(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -192,7 +197,8 @@ def test_change_to_supporting_provider(
 
 @pytest.mark.django_db
 def test_change_to_not_supporting_provider(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,

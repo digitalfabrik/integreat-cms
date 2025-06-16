@@ -46,8 +46,8 @@ def test_not_first_day() -> None:
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_reset_mt_budget(load_test_data_transactional: Any | None) -> None:
+@pytest.mark.django_db(transaction=True)
+def test_reset_mt_budget(empty_db_snapshot: Any | None, db_snapshot: None) -> None:
     """
     Ensure that MT budget gets reset successfully
     """

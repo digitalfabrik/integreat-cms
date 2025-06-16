@@ -26,7 +26,8 @@ NEW_ORGANIZATION_NAME = "New Organization"
 
 @pytest.mark.django_db
 def test_organization_form_shows_no_contents(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
 ) -> None:
@@ -69,7 +70,8 @@ def test_organization_form_shows_no_contents(
 
 @pytest.mark.django_db
 def test_organization_form_shows_associated_contents(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
 ) -> None:
@@ -147,7 +149,8 @@ def test_organization_form_shows_associated_contents(
 
 @pytest.mark.django_db
 def test_create_new_organization(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -203,7 +206,8 @@ def test_create_new_organization(
 
 @pytest.mark.django_db
 def test_cannot_create_organization_with_duplicate_name(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -259,7 +263,8 @@ def test_cannot_create_organization_with_duplicate_name(
 
 @pytest.mark.django_db
 def test_edit_organization(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,

@@ -18,7 +18,8 @@ from tests.utils import assert_message_in_log
 
 @pytest.mark.django_db
 def test_mark_admin_feedback_as_read(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:
@@ -65,7 +66,8 @@ def test_mark_admin_feedback_as_read(
 
 @pytest.mark.django_db
 def test_mark_admin_feedback_as_unread(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:
@@ -112,7 +114,8 @@ def test_mark_admin_feedback_as_unread(
 
 @pytest.mark.django_db
 def test_archive_admin_feedback(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:
@@ -156,7 +159,8 @@ def test_archive_admin_feedback(
 
 @pytest.mark.django_db
 def test_restore_admin_feedback(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:
@@ -200,7 +204,8 @@ def test_restore_admin_feedback(
 
 @pytest.mark.django_db
 def test_delete_admin_feedback(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:

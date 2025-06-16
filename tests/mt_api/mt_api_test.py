@@ -108,7 +108,8 @@ content_role_id_combination = [
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 @pytest.mark.parametrize("content_role_id_combination", content_role_id_combination)
 def test_bulk_mt(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     content_role_id_combination: tuple[Any, list, list[int]],
@@ -226,7 +227,8 @@ def test_bulk_mt(
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_exceeds_limit(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     settings: SettingsWrapper,
@@ -315,7 +317,8 @@ def test_bulk_mt_exceeds_limit(
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_up_to_date(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     settings: SettingsWrapper,
@@ -387,7 +390,8 @@ def test_bulk_mt_up_to_date(
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_up_to_date_and_ready_for_mt(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     settings: SettingsWrapper,
@@ -528,7 +532,8 @@ content_role_id_data_combination = [
     content_role_id_data_combination,
 )
 def test_automatic_translation(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     content_role_id_data_combination: tuple[Any, list, int, dict],
@@ -656,7 +661,8 @@ def test_automatic_translation(
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_no_source_language(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     settings: SettingsWrapper,
@@ -738,7 +744,8 @@ def test_bulk_mt_no_source_language(
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_deepl_bulk_mt_no_target_language(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     settings: SettingsWrapper,
@@ -818,7 +825,8 @@ do_not_translate_title = [True, False]
 @pytest.mark.django_db
 @pytest.mark.parametrize("do_not_translate_title", do_not_translate_title)
 def test_do_not_translate_title(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     do_not_translate_title: bool,
     settings: SettingsWrapper,

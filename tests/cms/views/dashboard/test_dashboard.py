@@ -22,7 +22,8 @@ from tests.conftest import (
 
 @pytest.mark.django_db
 def test_permission_to_view_chat(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -57,7 +58,8 @@ def test_permission_to_view_chat(
 
 @pytest.mark.django_db
 def test_permission_to_view_news(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -82,7 +84,8 @@ def test_permission_to_view_news(
 
 @pytest.mark.django_db
 def test_permission_to_view_to_do_board(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -119,7 +122,8 @@ def test_permission_to_view_to_do_board(
 
 @pytest.mark.django_db
 def test_permission_to_view_admin_dashboard(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -150,7 +154,8 @@ def test_permission_to_view_admin_dashboard(
 @pytest.mark.django_db
 @freeze_time("2024-01-01")
 def test_number_of_outdated_pages_is_correct(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -187,7 +192,8 @@ def test_number_of_outdated_pages_is_correct(
 @pytest.mark.django_db
 @freeze_time("2024-01-01")
 def test_most_outdated_page_is_correct(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -218,7 +224,8 @@ def test_most_outdated_page_is_correct(
 )
 @pytest.mark.django_db
 def test_link_to_most_outdated_page_is_valid(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, _ = login_role_user
@@ -254,7 +261,8 @@ def assert_button_leads_to_valid_page(client: Client) -> None:
 )
 @pytest.mark.django_db
 def test_number_of_drafted_pages_is_correct(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
@@ -290,7 +298,8 @@ def test_number_of_drafted_pages_is_correct(
 )
 @pytest.mark.django_db
 def test_single_drafted_page_is_correct(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user

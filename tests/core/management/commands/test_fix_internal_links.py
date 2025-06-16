@@ -15,7 +15,10 @@ from ..utils import get_command_output
 
 
 @pytest.mark.django_db
-def test_fix_internal_links_non_existing_region(load_test_data: None) -> None:
+def test_fix_internal_links_non_existing_region(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Ensure that a non existing region slug throws an error
 
@@ -30,7 +33,8 @@ def test_fix_internal_links_non_existing_region(load_test_data: None) -> None:
 
 @pytest.mark.django_db
 def test_fix_internal_links_non_existing_username(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Ensure that a non existing username throws an error
@@ -62,9 +66,10 @@ new_urls = [
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_fix_internal_links_dry_run(
-    load_test_data_transactional: Any | None,
+    test_data_db_snapshot: Any | None,
+    db_snapshot: None,
 ) -> None:
     """
     Ensure that dry run works as expected
@@ -109,8 +114,8 @@ def test_fix_internal_links_dry_run(
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_fix_internal_links_commit(load_test_data_transactional: Any | None) -> None:
+@pytest.mark.django_db(transaction=True)
+def test_fix_internal_links_commit(test_data_db_snapshot: Any | None, db_snapshot: None) -> None:
     """
     Ensure that committing changes to the database works as expected
 

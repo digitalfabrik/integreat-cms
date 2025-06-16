@@ -17,7 +17,8 @@ if TYPE_CHECKING:
     ["root", "root@root.root", "management", "management@example.com"],
 )
 def test_login_success(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     client: Client,
     settings: SettingsWrapper,
     username: str,
@@ -68,7 +69,8 @@ def test_login_success(
     ],
 )
 def test_login_failure(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     client: Client,
     settings: SettingsWrapper,
     username: str,

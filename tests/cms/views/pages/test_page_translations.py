@@ -14,7 +14,8 @@ from tests.conftest import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 )
 @pytest.mark.django_db
 def test_cleanup_autosaves(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user

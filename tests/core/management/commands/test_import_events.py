@@ -124,7 +124,8 @@ def test_import_without_calendars() -> None:
 @pytest.mark.django_db
 def test_import_successful(
     httpserver: HTTPServer,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     calendar_data: tuple[str, list[str], set[str]],
 ) -> None:
     """
@@ -165,7 +166,11 @@ def test_import_successful(
 
 
 @pytest.mark.django_db
-def test_update_event(httpserver: HTTPServer, load_test_data: None) -> None:
+def test_update_event(
+    httpserver: HTTPServer,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Tests that an event gets updated if it is updated in the ical file
     :param httpserver: The server
@@ -195,7 +200,11 @@ def test_update_event(httpserver: HTTPServer, load_test_data: None) -> None:
 
 
 @pytest.mark.django_db
-def test_delete_event(httpserver: HTTPServer, load_test_data: None) -> None:
+def test_delete_event(
+    httpserver: HTTPServer,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Tests that an event gets deleted if it is deleted in the ical file
     :param httpserver: The server
@@ -224,7 +233,11 @@ def test_delete_event(httpserver: HTTPServer, load_test_data: None) -> None:
 
 
 @pytest.mark.django_db
-def test_import_corrupted_event(httpserver: HTTPServer, load_test_data: None) -> None:
+def test_import_corrupted_event(
+    httpserver: HTTPServer,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Tests that an invalid event gets handled correctly and does not cause the command to crash
     :param httpserver: The server
@@ -240,7 +253,8 @@ def test_import_corrupted_event(httpserver: HTTPServer, load_test_data: None) ->
 @pytest.mark.django_db
 def test_import_event_without_tags(
     httpserver: HTTPServer,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Tests that an event does not get imported if it does not have tags, but tags are required
@@ -261,7 +275,8 @@ def test_import_event_without_tags(
 @pytest.mark.django_db
 def test_import_event_with_wrong_tag(
     httpserver: HTTPServer,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Tests that an event does not get imported if it does not have the right tag
@@ -285,7 +300,8 @@ def test_import_event_with_wrong_tag(
 @pytest.mark.django_db
 def test_import_event_with_correct_tag(
     httpserver: HTTPServer,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Tests that an event gets imported if it has the right tag
@@ -316,7 +332,8 @@ def test_import_event_with_correct_tag(
 @pytest.mark.django_db
 def test_import_event_with_multiple_categories(
     httpserver: HTTPServer,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Tests that an event does not get imported if it has multiple category definitions
@@ -335,7 +352,8 @@ def test_import_event_with_multiple_categories(
 @pytest.mark.django_db
 def test_import_and_remove_recurrence_rule(
     httpserver: HTTPServer,
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
 ) -> None:
     """
     Imports an event with a recurrence rule and later the same event without recurrence rule.
@@ -368,7 +386,11 @@ def test_import_and_remove_recurrence_rule(
 
 
 @pytest.mark.django_db
-def test_daily_event_not_imported(httpserver: HTTPServer, load_test_data: None) -> None:
+def test_daily_event_not_imported(
+    httpserver: HTTPServer,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     Tests that an event with daily recurrence is not imported
     :param httpserver: The server

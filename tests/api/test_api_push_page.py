@@ -8,7 +8,10 @@ from integreat_cms.cms.models import Page
 
 
 @pytest.mark.django_db
-def test_api_push_page_content(load_test_data: None) -> None:
+def test_api_push_page_content(
+    test_data_db_snapshot: None,
+    db_snapshot: None,
+) -> None:
     """
     This test class checks all endpoints defined in :attr:`~tests.api.api_config.API_ENDPOINTS`.
     It verifies that the content delivered by the endpoint is equivalent with the data

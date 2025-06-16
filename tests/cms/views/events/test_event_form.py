@@ -37,7 +37,8 @@ location_test_parameters = [
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", location_test_parameters)
 def test_create_event_location_check(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -129,7 +130,8 @@ event_creation_test_parameters = [
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", event_creation_test_parameters)
 def test_create_event(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -223,7 +225,8 @@ def test_create_event(
 
 @pytest.mark.django_db
 def test_no_daily_event_created(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -287,7 +290,8 @@ recurrence_rule_change_parameters = [None, "2030-12-31"]
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", recurrence_rule_change_parameters)
 def test_no_orpahned_recurrence_rule(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
@@ -389,7 +393,8 @@ end_date_change_parameters = [True, False]
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", end_date_change_parameters)
 def test_end_date_changed(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,

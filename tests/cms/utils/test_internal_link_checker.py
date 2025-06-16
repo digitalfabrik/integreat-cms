@@ -88,7 +88,8 @@ def prepage_url(link: str, trailing_slash: bool) -> Url:
 @pytest.mark.parametrize("link", VALID_INTERNAL_LINKS)
 @pytest.mark.parametrize("trailing_slash", [True, False])
 def test_check_internal_valid(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     link: str,
     trailing_slash: bool,
 ) -> None:
@@ -107,7 +108,8 @@ def test_check_internal_valid(
 @pytest.mark.parametrize("link", INVALID_INTERNAL_LINKS)
 @pytest.mark.parametrize("trailing_slash", [True, False])
 def test_check_internal_invalid(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     link: str,
     trailing_slash: bool,
 ) -> None:
@@ -128,7 +130,8 @@ def test_check_internal_invalid(
 @pytest.mark.parametrize("link", SKIPPED_INTERNAL_LINKS)
 @pytest.mark.parametrize("trailing_slash", [True, False])
 def test_check_internal_skipped(
-    load_test_data: None,
+    test_data_db_snapshot: None,
+    db_snapshot: None,
     link: str,
     trailing_slash: bool,
 ) -> None:

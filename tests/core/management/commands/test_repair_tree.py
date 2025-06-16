@@ -29,8 +29,8 @@ after_tests = (
 
 
 @pytest.mark.order("last", after=after_tests)
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_check_clean_tree_fields(load_test_data_transactional: None) -> None:
+@pytest.mark.django_db(transaction=True)
+def test_check_clean_tree_fields(test_data_db_snapshot: None, db_snapshot: None) -> None:
     """
     Ensure no errors are found in default test data.
     """
@@ -48,8 +48,8 @@ def test_check_clean_tree_fields(load_test_data_transactional: None) -> None:
 
 
 @pytest.mark.order("last", after=after_tests)
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_fix_clean_tree_fields(load_test_data_transactional: None) -> None:
+@pytest.mark.django_db(transaction=True)
+def test_fix_clean_tree_fields(test_data_db_snapshot: None, db_snapshot: None) -> None:
     """
     Ensure no errors need to be fixed in default test data.
     """
@@ -64,8 +64,8 @@ def test_fix_clean_tree_fields(load_test_data_transactional: None) -> None:
 
 
 @pytest.mark.order("last", after=after_tests)
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_check_broken_tree_fields(load_test_data_transactional: None) -> None:
+@pytest.mark.django_db(transaction=True)
+def test_check_broken_tree_fields(test_data_db_snapshot: None, db_snapshot: None) -> None:
     """
     Introduce an error to the test data and ensure it is found.
     """
@@ -84,8 +84,8 @@ def test_check_broken_tree_fields(load_test_data_transactional: None) -> None:
 
 
 @pytest.mark.order("last", after=after_tests)
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_fix_broken_tree_fields(load_test_data_transactional: None) -> None:
+@pytest.mark.django_db(transaction=True)
+def test_fix_broken_tree_fields(test_data_db_snapshot: None, db_snapshot: None) -> None:
     """
     Introduce an error to the test data and ensure it is fixed.
     """
