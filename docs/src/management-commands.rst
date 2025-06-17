@@ -220,7 +220,7 @@ Update ALL link text of links of the given URL:
 
 Fetches page accesses from Matomo and store them in them in the database
 
-    integreat-cms-cli fetch_page_accesses --strart-date START_DATE --end-date END_DATE --period PERIOD [--region-slug REGION_SLUG]
+    integreat-cms-cli fetch_page_accesses --start-date START_DATE --end-date END_DATE --period PERIOD [--region-slug REGION_SLUG]
 
 **Arguments:**
 

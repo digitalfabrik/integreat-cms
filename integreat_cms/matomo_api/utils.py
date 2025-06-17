@@ -3,10 +3,10 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-logger = logging.getLogger(__name__)
-
 if TYPE_CHECKING:
     from ..cms.models import Language, Page
+
+logger = logging.getLogger(__name__)
 
 
 def get_translation_slug(

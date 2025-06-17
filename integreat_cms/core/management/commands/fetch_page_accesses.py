@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 from django.core.management.base import CommandError
 
+from integreat_cms.cms.constants.region_status import ACTIVE
 from integreat_cms.cms.views.statistics.statistics_actions import (
     async_fetch_page_accesses,
 )
@@ -78,13 +79,18 @@ class Command(LogCommand):
 
         :param \*args: The supplied arguments
         :param start_date: The earliest date
-        :param end_date: the latest date
+        :param end_date: The latest date
         :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
         :param region_slug: The slug of the given region
         :param \**options: The supplied keyword options
         """
         self.set_logging_stream()
         regions = []
+        try:
+            start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+            end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
+        except ValueError as e:
+            raise CommandError("Wrong date format, please use YYYY-MM-DD") from e
         if region_slug is not None:
             try:
                 regions.append(Region.objects.get(slug=region_slug))
@@ -92,11 +98,16 @@ class Command(LogCommand):
                 raise CommandError(
                     f'Region with slug "{region_slug}" does not exist.',
                 ) from e
+            if not regions[0].statistics_enabled:
+                logger.error("Statistics are not enabled for this region.")
+                raise CommandError(f"Statistics are disabled in {regions[0].slug}.")
         else:
-            regions = list(Region.objects.filter(statistics_enabled=True))
+            regions = list(
+                Region.objects.filter(statistics_enabled=True, status=ACTIVE)
+            )
         fetch_page_accesses(
-            start_date=datetime.strptime(start_date, "%Y-%m-%d").date(),
-            end_date=datetime.strptime(end_date, "%Y-%m-%d").date(),
+            start_date=start_date,
+            end_date=end_date,
             period=period,
             regions=regions,
         )

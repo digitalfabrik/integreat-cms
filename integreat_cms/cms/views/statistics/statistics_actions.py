@@ -15,7 +15,6 @@ from django.views.decorators.http import require_POST
 from integreat_cms.cms.models.languages.language import Language
 from integreat_cms.cms.models.pages.page import Page
 from integreat_cms.cms.models.regions.region import Region
-from integreat_cms.cms.models.statistics.page_accesses import PageAccesses
 
 from ....matomo_api.matomo_api_client import MatomoException
 from ...decorators import permission_required
@@ -186,11 +185,11 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
     return JsonResponse(page_accesses_dict, safe=False)
 
 
-def fetch_page_accesses(
+def strart_fetch_page_accesses(
     start_date: date, end_date: date, period: str, region: Region
 ) -> None:
     """
-    Load page accesses from Matomo and save them to page accesses model
+    Start celery job to fetch page accesses
 
     :param start_date: Earliest date
     :param end_date: Latest date
@@ -206,15 +205,24 @@ def fetch_page_accesses(
 def async_fetch_page_accesses(
     start_date: date, end_date: date, period: str, region_id: int
 ) -> None:
+    """
+    Fetch page accesses from Matomo and save them to page accesses model
+
+    :param start_date: Earliest date
+    :param end_date: Latest date
+    :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
+    :param region: The region for which we want our page based accesses
+    """
     region = Region.objects.get(id=region_id)
-    logger.info("start fetching page accesses from Matomo for%s", region)
-    result = region.statistics.get_page_accesses(
+    logger.info("start fetching page accesses from Matomo for %s", region)
+    region.statistics.get_page_accesses(
         start_date=start_date,
         end_date=end_date,
         period=period,
         region=region,
     )
 
+    """
     accesses = [
         PageAccesses(
             access_date=access_date,
@@ -231,4 +239,4 @@ def async_fetch_page_accesses(
         update_conflicts=True,
         unique_fields=["page", "language", "access_date"],
         update_fields=["accesses"],
-    )
+    )"""

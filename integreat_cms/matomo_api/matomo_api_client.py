@@ -3,7 +3,6 @@ from __future__ import annotations
 import asyncio
 import logging
 import re
-from collections.abc import Mapping
 from datetime import date, datetime
 from typing import TYPE_CHECKING
 from urllib.parse import urlencode
@@ -13,6 +12,8 @@ import requests
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
+
+from integreat_cms.cms.models.statistics.page_accesses import PageAccesses
 
 from ..cms.constants import language_color, matomo_periods
 from .utils import get_translation_slug
@@ -118,7 +119,7 @@ class MatomoApiClient:
         **kwargs: Any,
     ) -> dict[str, Any] | list[int]:
         r"""
-        Uses :meth:`aiohttp.ClientSession.get` to perform an asynchronous GET request to the Matomo API.
+        Uses :meth:`request.get` to perform an synchronous GET request to the Matomo API.
 
         :param session: The session object which is used for the request
         :param \**kwargs: The parameters which are passed to the Matomo API
@@ -155,7 +156,7 @@ class MatomoApiClient:
                 and response_data.get("result") == "error"
             ):
                 raise MatomoException(response_data["message"])
-            return response_data
+            return response_data  # noqa: TRY300
         except requests.exceptions.RequestException as e:
             raise MatomoException(
                 f"An error occurred {mask_token_auth(str(e))}",
@@ -594,65 +595,41 @@ class MatomoApiClient:
         ]
         return data_entries, legend_entries
 
-    def get_page_accesses_async(
-        self,
-        query_params: dict[str, Any],
-        languages: list[Language],
-        pages: list[Page],
-    ) -> list[dict[str, Any]]:
-        """
-        :param loop: The asyncio event loop
-        :param query_params: The parameters which are passed to the Matomo API
-        :param languages: The list of languages which should be retrieved
-        :param pages: The list of pages which should be retrieved
-        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
-                                                               Matomo API request
-        :return:
-        """
-        translation_slugs = get_translation_slug(pages, languages)
-        # Create tasks for visits by language
-        return [
-            self.retrieve_accesses_for_page(
-                query_params,
-                page_id=page_id,
-                lang_slug=lang_slug,
-                full_slug=full_slug,
-            )
-            for page_id, langs in translation_slugs.items()
-            for lang_slug, full_slug in langs.items()
-        ]
-        # Wait for all tasks to finish and collect the results
         # (the results are sorted in the order the tasks were created)
 
     def retrieve_accesses_for_page(
         self,
         query_params: dict[str, Any],
-        page_id: int,
-        lang_slug: str,
         full_slug: str,
-    ) -> dict:
+        language: Language,
+        page: Page,
+    ) -> None:
         """
-        This function retrieves the accesses for a single page (from Matomo).
+        This function retrieves the accesses for a single page from Matomo and saves it to the database.
 
         :param session: The current session
         :param query_params: The parameters which are passed to the Matomo API
         :param page_id: Id of page for which accesses are retrieved
         :param lang_slug: Language slug for which accesses are retrieved
         :param full_slug: The absolute url slug for the page
-        :return: dict of page and it's accesses
         """
-        return {
-            page_id: {
-                lang_slug: self.fetch(
-                    **query_params,
-                    segment=f"pageUrl=@/children/?depth=2&url={full_slug}",
-                )
-            }
-        }
+        result = self.fetch(
+            **query_params,
+            segment=f"pageUrl=@/children/?depth=2&url={full_slug}",
+        )
+        access_date = next(iter(result))
+        accesses = result[access_date]
+        access_date = datetime.strptime(access_date, "%Y-%m-%d").date()
+        PageAccesses.objects.update_or_create(
+            access_date=access_date,
+            language=language,
+            page=page,
+            accesses=accesses,
+        )
 
     def get_page_accesses(
         self, start_date: date, end_date: date, period: str, region: Region
-    ) -> dict[int, dict[str, int]]:
+    ) -> None:
         """
         This function handles the page based accesses
 
@@ -660,9 +637,6 @@ class MatomoApiClient:
         :param end_date: End date
         :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
         :param region: The region for which we want our page based accesses
-        :return: The page accesses for the given region
-        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
-                                                                         Matomo API request
         """
         query_params = {
             "date": f"{start_date},{end_date}",
@@ -676,26 +650,18 @@ class MatomoApiClient:
         languages = list(self.languages)
         pages = region.get_pages()
         logger.debug("Fetching visits for %rlanguages.", languages)
-        datasets = self.get_page_accesses_async(query_params, languages, pages)
+        translation_slugs = get_translation_slug(pages, languages)
 
-        def deep_merge(*dicts: Mapping[Any, Any]) -> dict:
-            """
-            Recursively merges dictionaries. Values in later dictionaries override earlier ones
-            for non-dict values, while dictionaries are merged recursively.
-            """
-            merged: dict[Any, Any] = {}
-            for d in dicts:
-                for key, value in d.items():
-                    if (
-                        key in merged
-                        and isinstance(merged[key], Mapping)
-                        and isinstance(value, Mapping)
-                    ):
-                        # Recursively merge dictionaries
-                        merged[key] = deep_merge(merged[key], value)
-                    else:
-                        # Otherwise, override or add the value
-                        merged[key] = value
-            return merged
-
-        return deep_merge(*datasets)
+        # retrieve and save accesses per page and language with the corresponding url slugs
+        for page_id, langs in translation_slugs.items():
+            for lang_slug, full_slug in langs.items():
+                for language in languages:
+                    if language.slug == lang_slug:
+                        for page in pages:
+                            if page.id == page_id:
+                                self.retrieve_accesses_for_page(
+                                    query_params,
+                                    full_slug=full_slug,
+                                    language=language,
+                                    page=page,
+                                )
