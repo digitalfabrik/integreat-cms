@@ -141,34 +141,32 @@ class UploadMediaFileForm(CustomModelForm):
 
     def process_file(self, cleaned_data: dict[str, Any]) -> None:
         if (
-            self.errors
-            or not (img_type := cleaned_data.get("type"))
-            or not img_type.startswith("image")
+            not self.errors
+            and (img_type := cleaned_data.get("type"))
+            and img_type.startswith("image")
         ):
-            return
+            file = cleaned_data.get("file")
+            img_type = cleaned_data.get("type")
+            if thumbnail := generate_thumbnail(file):
+                cleaned_data["thumbnail"] = thumbnail
+                if img_type != "image/svg+xml":
+                    # Generate an optimized image just large enough
+                    # No need to cling onto the full resolution 1.8 billion pixel panorama from NASAs curiosity rover on mars
+                    # if it is ever only going to be displayed on crappy 4K monitors, at best.
+                    cleaned_data["file"] = generate_thumbnail(
+                        file,
+                        settings.MEDIA_OPTIMIZED_SIZE,
+                        False,
+                    )
 
-        file = cleaned_data.get("file")
-        img_type = cleaned_data.get("type")
-        if thumbnail := generate_thumbnail(file):
-            cleaned_data["thumbnail"] = thumbnail
-            if img_type != "image/svg+xml":
-                # Generate an optimized image just large enough
-                # No need to cling onto the full resolution 1.8 billion pixel panorama from NASAs curiosity rover on mars
-                # if it is ever only going to be displayed on crappy 4K monitors, at best.
-                cleaned_data["file"] = generate_thumbnail(
-                    file,
-                    settings.MEDIA_OPTIMIZED_SIZE,
-                    False,
+            else:
+                self.add_error(
+                    "file",
+                    forms.ValidationError(
+                        _("This image file is corrupt."),
+                        code="invalid",
+                    ),
                 )
-
-        else:
-            self.add_error(
-                "file",
-                forms.ValidationError(
-                    _("This image file is corrupt."),
-                    code="invalid",
-                ),
-            )
 
         # Add the calculated file_size and the modification date to the form data
         if file := cleaned_data.get("file"):
