@@ -317,7 +317,9 @@ class Page(AbstractTreeNode, AbstractBasePage):
         if self.children.exists():
             return False, _("you cannot delete a page which has subpages.")
         if self.mirroring_pages.exists():
-            return False, _("it was embedded as live content from another page.")
+            return False, _(
+                "you cannot delete a page that is embedded as live content by another page."
+            )
         return True, None
 
     def move(self, target: Page, pos: str | None = None) -> None:

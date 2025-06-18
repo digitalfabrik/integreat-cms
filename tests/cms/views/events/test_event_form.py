@@ -25,7 +25,7 @@ from integreat_cms.cms.models import (
     RecurrenceRule,
     Region,
 )
-from tests.cms.views.bulk_actions import bulk_delete, BulkActionIDs
+from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
 from tests.conftest import ANONYMOUS, PRIV_STAFF_ROLES, WRITE_ROLES
 from tests.utils import assert_message_in_log
 
@@ -521,10 +521,10 @@ def test_end_date_changed(
 @pytest.mark.django_db
 @pytest.mark.parametrize("role", ["ROOT", "AUTHOR"])
 @pytest.mark.parametrize(
-    "num_allowed, num_blocked",
+    "num_deletable, num_undeletable",
     [
-        (1, 0),
-        (2, 0),
+        pytest.param(1, 0, id="deletable_event=1"),
+        pytest.param(2, 0, id="deletable_events=2"),
     ],
 )
 def test_bulk_delete_events(
@@ -533,8 +533,8 @@ def test_bulk_delete_events(
     load_test_data: None,
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
-    num_allowed: int,
-    num_blocked: int,
+    num_deletable: int,
+    num_undeletable: int,
 ) -> None:
     """
     Test whether bulk deleting of pois works as expected
@@ -542,14 +542,14 @@ def test_bulk_delete_events(
     user = get_user_model().objects.get(username=role.lower())
     client.force_login(user)
 
-    allowed_pois = [create_event("augsburg", f"-{i}") for i in range(num_allowed)]
+    deletable_events = [create_event("augsburg", f"-{i}") for i in range(num_deletable)]
 
-    instance_ids: BulkActionIDs = {"allowed": allowed_pois, "not_allowed": [[]]}
+    instance_ids: BulkActionIDs = {"deletable": deletable_events, "undeletable": [[]]}
     fail_reason = ""
     url = reverse(
         "delete_multiple_events",
         kwargs={"region_slug": "augsburg", "language_slug": "en"},
     )
-    bulk_delete(
+    assert_bulk_delete(
         Event, instance_ids, url, (client, role), caplog, settings, [fail_reason]
     )

@@ -22,7 +22,7 @@ from integreat_cms.cms.models import (
     POITranslation,
     Region,
 )
-from tests.cms.views.bulk_actions import bulk_delete, BulkActionIDs
+from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
 from tests.conftest import (
     ANONYMOUS,
     AUTHOR,
@@ -368,12 +368,12 @@ def test_poi_form_shows_no_associated_contacts(
 @pytest.mark.django_db
 @pytest.mark.parametrize("role", ["ROOT", "AUTHOR"])
 @pytest.mark.parametrize(
-    "num_allowed, num_blocked",
+    "num_deletable, num_undeletable",
     [
-        (1, 1),
-        (2, 0),
-        (0, 2),
-        (2, 2),
+        pytest.param(1, 1, id="deletable_poi=1_undeletable_poi=1"),
+        pytest.param(2, 0, id="deletable_pois=2"),
+        pytest.param(0, 2, id="undeletable_pois=2"),
+        pytest.param(2, 2, id="deletable_pois=2_undeletable_pois=2"),
     ],
 )
 def test_bulk_delete_pois(
@@ -382,8 +382,8 @@ def test_bulk_delete_pois(
     load_test_data: None,
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
-    num_allowed: int,
-    num_blocked: int,
+    num_deletable: int,
+    num_undeletable: int,
 ) -> None:
     """
     Test whether bulk deleting of pois works as expected
@@ -391,17 +391,21 @@ def test_bulk_delete_pois(
     user = get_user_model().objects.get(username=role.lower())
     client.force_login(user)
 
-    allowed_pois = [create_unused_poi("augsburg", f"-{i}") for i in range(num_allowed)]
-    not_allowed_pois = [
-        create_used_poi("augsburg", f"-{i}-used") for i in range(num_blocked)
+    deletable_pois = [
+        create_unused_poi("augsburg", f"-{i}") for i in range(num_deletable)
+    ]
+    undeletable_pois = [
+        create_used_poi("augsburg", f"-{i}-used") for i in range(num_undeletable)
     ]
     instance_ids: BulkActionIDs = {
-        "allowed": allowed_pois,
-        "not_allowed": [not_allowed_pois],
+        "deletable": deletable_pois,
+        "undeletable": [undeletable_pois],
     }
     fail_reason = "this poi is used by an event or a contact."
     url = reverse(
         "bulk_delete_pois",
         kwargs={"region_slug": "augsburg", "language_slug": "en"},
     )
-    bulk_delete(POI, instance_ids, url, (client, role), caplog, settings, [fail_reason])
+    assert_bulk_delete(
+        POI, instance_ids, url, (client, role), caplog, settings, [fail_reason]
+    )

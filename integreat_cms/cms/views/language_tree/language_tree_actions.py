@@ -116,23 +116,25 @@ def delete_language_tree_node(
             messages.error(
                 request,
                 _(
-                    'The language tree node "{}" cannot be deleted because it is the source language of other language(s).',
-                ).format(language_node.translated_name),
+                    'The language tree node "{model_name}" cannot be deleted because it is the source language of other language(s).',
+                ).format(model_name=language_node.translated_name),
             )
             return redirect("languagetreenodes", **{"region_slug": region_slug})
     else:
         messages.error(
             request,
             _(
-                'The language tree node "{}" cannot be deleted because ' + error_msg,
-            ).format(language_node.translated_name),
+                'The language tree node "{model_name}" cannot be deleted because {failure_reason}',
+            ).format(
+                model_name=language_node.translated_name, failure_reason=error_msg
+            ),
         )
         return redirect("languagetreenodes", **{"region_slug": region_slug})
 
     messages.success(
         request,
         _(
-            'The language tree node "{}" and all corresponding translations were successfully deleted.',
-        ).format(language_node.translated_name),
+            'The language tree node "{model_name}" and all corresponding translations were successfully deleted.',
+        ).format(model_name=language_node.translated_name),
     )
     return redirect("languagetreenodes", **{"region_slug": region_slug})

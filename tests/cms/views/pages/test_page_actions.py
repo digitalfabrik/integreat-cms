@@ -13,7 +13,7 @@ from django.urls import reverse
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import Page, PageTranslation, Region
-from tests.cms.views.bulk_actions import bulk_delete, BulkActionIDs
+from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
 
 
 def create_page(
@@ -153,12 +153,16 @@ def create_page_with_mirror(
 @pytest.mark.django_db
 @pytest.mark.parametrize("role", ["ROOT", "AUTHOR"])
 @pytest.mark.parametrize(
-    "num_allowed, num_blocked_1, num_blocked_2",
+    "num_deletable, num_undeletable_1, num_undeletable_2",
     [
-        (1, 1, 1),
-        (2, 0, 0),
-        (0, 2, 2),
-        (2, 2, 2),
+        pytest.param(
+            1, 1, 1, id="deletable_page=1-page_with_children=1-page_with_mirror=1"
+        ),
+        pytest.param(2, 0, 0, id="deletable_pages=2"),
+        pytest.param(0, 2, 2, id="pages_with_children=2-pages_with_mirror=2"),
+        pytest.param(
+            2, 2, 2, id="deletable_pages=2-pages_with_children=2-pages_with_mirror=2"
+        ),
     ],
 )
 def test_bulk_delete_pages(
@@ -167,9 +171,9 @@ def test_bulk_delete_pages(
     load_test_data: None,
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
-    num_allowed: int,
-    num_blocked_1: int,
-    num_blocked_2: int,
+    num_deletable: int,
+    num_undeletable_1: int,
+    num_undeletable_2: int,
 ) -> None:
     """
     Test whether bulk deleting of pois works as expected
@@ -177,7 +181,7 @@ def test_bulk_delete_pages(
     user = get_user_model().objects.get(username=role.lower())
     client.force_login(user)
 
-    allowed_pages = [
+    deletable_pages = [
         create_page(
             "augsburg",
             lft=2 * i + 1,
@@ -186,30 +190,30 @@ def test_bulk_delete_pages(
             tree_id=20,
             name_add=f"-{i}",
         )
-        for i in range(num_allowed)
+        for i in range(num_deletable)
     ]
-    not_allowed_pages_1 = [
+    undeletable_pages_1 = [
         create_page_with_mirror(
             region_slug="augsburg",
             name_add=f"-{i}",
-            start_lft=num_allowed * 2 + i * 2 + 1,
+            start_lft=num_deletable * 2 + i * 2 + 1,
             tree_id=20,
         )[0]
-        for i in range(num_blocked_1)
+        for i in range(num_undeletable_1)
     ]
-    not_allowed_pages_2 = [
+    undeletable_pages_2 = [
         create_page_with_children(
             region_slug="augsburg",
             root_name_add=f"-{i}",
             num_children=1,
             tree_id=20,
-            start_lft=num_allowed * 2 + num_blocked_1 * 2 + i * 4 + 3,
+            start_lft=num_deletable * 2 + num_undeletable_1 * 2 + i * 4 + 3,
         )[0]
-        for i in range(num_blocked_2)
+        for i in range(num_undeletable_2)
     ]
     instance_ids: BulkActionIDs = {
-        "allowed": allowed_pages,
-        "not_allowed": [not_allowed_pages_1, not_allowed_pages_2],
+        "deletable": deletable_pages,
+        "undeletable": [undeletable_pages_1, undeletable_pages_2],
     }
     fail_reason = [
         "it was embedded as live content from another page.",
@@ -219,4 +223,6 @@ def test_bulk_delete_pages(
         "bulk_delete_pages",
         kwargs={"region_slug": "augsburg", "language_slug": "en"},
     )
-    bulk_delete(Page, instance_ids, url, (client, role), caplog, settings, fail_reason)
+    assert_bulk_delete(
+        Page, instance_ids, url, (client, role), caplog, settings, fail_reason
+    )

@@ -249,7 +249,12 @@ def delete_page(
 
     can_delete, error_msg = page.can_be_deleted()
     if not can_delete:
-        messages.error(request, error_msg)
+        messages.error(
+            request,
+            _("The page could not be deleted, because {failure_reason}").format(
+                failure_reason=error_msg
+            ),
+        )
     else:
         logger.info("%r deleted by %r", page, request.user)
         page.delete()

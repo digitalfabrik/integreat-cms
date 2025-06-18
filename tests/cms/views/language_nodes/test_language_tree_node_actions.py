@@ -12,7 +12,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 from integreat_cms.cms.models import Language, LanguageTreeNode, Region
-from tests.cms.views.bulk_actions import bulk_delete, BulkActionIDs
+from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
 
 
 def create_language_tree_node(
@@ -65,22 +65,22 @@ def create_language_tree_node_with_children(
 @pytest.mark.django_db
 @pytest.mark.parametrize("role", ["ROOT", "AUTHOR"])
 @pytest.mark.parametrize(
-    "num_allowed, num_blocked",
+    "num_deletable, num_undeletable",
     [
-        (1, 1),
-        (2, 0),
-        (0, 2),
-        (2, 2),
+        pytest.param(1, 1, id="deletable_node=1_undeletable_node=1"),
+        pytest.param(2, 0, id="deletable_nodes=2"),
+        pytest.param(0, 2, id="undeletable_nodes=2"),
+        pytest.param(2, 2, id="deletable_nodes=2_undeletable_nodes=2"),
     ],
 )
-def test_bulk_delete_pages(
+def test_bulk_delete_language_tree_nodes(
     role: str,
     client: Client,
     load_test_data: None,
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
-    num_allowed: int,
-    num_blocked: int,
+    num_deletable: int,
+    num_undeletable: int,
 ) -> None:
     """
     Test whether bulk deleting of pois works as expected
@@ -88,26 +88,26 @@ def test_bulk_delete_pages(
     user = get_user_model().objects.get(username=role.lower())
     client.force_login(user)
 
-    allowed_pages = [
+    deletable_nodes = [
         create_language_tree_node("empty-region", language_id=i + 1)
-        for i in range(num_allowed)
+        for i in range(num_deletable)
     ]
-    not_allowed_pages = [
+    undeletable_nodes = [
         create_language_tree_node_with_children(
-            "empty-region", language_id=i * 2 + 1 + num_allowed, num_children=1
+            "empty-region", language_id=i * 2 + 1 + num_deletable, num_children=1
         )
-        for i in range(num_blocked)
+        for i in range(num_undeletable)
     ]
     instance_ids: BulkActionIDs = {
-        "allowed": allowed_pages,
-        "not_allowed": [not_allowed_pages],
+        "deletable": deletable_nodes,
+        "undeletable": [undeletable_nodes],
     }
     fail_reason = ["it is the source language of other language(s)."]
     url = reverse(
         "bulk_delete_languagetreenodes",
         kwargs={"region_slug": "empty-region"},
     )
-    bulk_delete(
+    assert_bulk_delete(
         LanguageTreeNode,
         instance_ids,
         url,

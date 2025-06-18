@@ -147,7 +147,7 @@ class POI(AbstractContentModel):
         Checks if poi can be deleted
         """
         if self.is_used:
-            return False, _("this poi is used by an event or a contact.")
+            return False, _("a poi used by an event or a contact cannot be deleted.")
         return True, None
 
     def archive(self) -> bool:

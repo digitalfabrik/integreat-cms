@@ -147,7 +147,7 @@ class LanguageTreeNode(AbstractTreeNode):
         Checks if language node can be deleted
         """
         if not self.is_leaf():
-            return False, _("it is the source language of other language(s).")
+            return False, _("a source language of other language(s) cannot be deleted.")
         return True, None
 
     def manually_invalidate_models(self, region: Region) -> None:

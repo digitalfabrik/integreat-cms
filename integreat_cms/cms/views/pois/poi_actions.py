@@ -122,7 +122,12 @@ def delete_poi(
         messages.success(request, _("Location was successfully deleted"))
     else:
         logger.info("%r couldn't be deleted by %r", poi, request.user)
-        messages.error(request, _("Location couldn't be deleted, because ") + error_msg)
+        messages.error(
+            request,
+            _("Location couldn't be deleted, because {failure_reason}").format(
+                failure_reason=error_msg
+            ),
+        )
 
     return redirect(
         "pois",
