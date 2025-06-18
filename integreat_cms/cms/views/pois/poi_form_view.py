@@ -211,6 +211,7 @@ class POIFormView(
             data = request.POST.dict()
             data.update({"location": poi.id})
             contact_form = ContactForm(
+                request=request,
                 data=data,
                 instance=None,
                 additional_instance_attributes={

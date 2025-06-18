@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import uuid
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from html import escape
 from typing import TYPE_CHECKING
 
@@ -22,6 +22,8 @@ from django.utils.translation import gettext, override
 from django.utils.translation import gettext_lazy as _
 
 from integreat_cms.cms.constants import translation_status
+
+from ..statistics.page_accesses import PageAccesses
 
 if TYPE_CHECKING:
     from django.db.models.query import QuerySet
@@ -138,7 +140,7 @@ class Region(AbstractBaseModel):
     )
     #: Manage choices in :mod:`~integreat_cms.cms.constants.region_status`
     status = models.CharField(
-        max_length=8,
+        max_length=25,
         choices=region_status.CHOICES,
         default=region_status.HIDDEN,
         verbose_name=_("status"),
@@ -1037,6 +1039,29 @@ class Region(AbstractBaseModel):
             latest_imprint_update,
             self.last_updated,
         )
+
+    def get_page_accesses_by_language(
+        self,
+        pages: list[Page],
+        start_date: date,
+        end_date: date,
+        languages: list[Language],
+    ) -> dict:
+        """
+        Get the page accesses of the requested pages of this region during the specified time range
+        :param pages: List of requested pages
+        :param start_date: Earliest date
+        :param end_date: Latest date
+        :param languages: List of requested languages
+
+        :return: Page accesses of the requested pages
+        """
+        return PageAccesses.objects.filter(
+            page__region=self,
+            page__in=pages,
+            access_date__range=(start_date, end_date + timedelta(days=1)),
+            language__in=languages,
+        ).values()
 
     def __str__(self) -> SafeString:
         """

@@ -11,6 +11,10 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+from integreat_cms.cms.models.push_notifications.push_notification import (
+    PushNotification,
+)
+
 from ...decorators import permission_required
 from ...forms import ObjectSearchForm
 from ...models import PushNotificationTranslation
@@ -19,6 +23,8 @@ if TYPE_CHECKING:
     from typing import Any
 
     from django.http import HttpRequest, HttpResponse
+
+    from integreat_cms.cms.models.regions.region import Region
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +37,7 @@ class PushNotificationListView(TemplateView):
 
     #: If true, shows the template push notification list
     templates = False
+    archived = False
     #: The template to render if templates is False
     template = "push_notifications/push_notification_list.html"
     #: The template to render if templates is True
@@ -47,8 +54,16 @@ class PushNotificationListView(TemplateView):
 
         :return: Path to HTML template
         """
-
         return self.template_templates if self.templates else self.template
+
+    def count_archived_push_notifications(self, region: Region) -> int:
+        """
+        Counts the amount of archived push notifications
+        """
+        return PushNotification.objects.filter(
+            regions=region,
+            archived=True,
+        ).count()
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
@@ -104,6 +119,7 @@ class PushNotificationListView(TemplateView):
 
         push_notifications = region.push_notifications.filter(
             is_template=self.templates,
+            archived=self.archived,
         )
         query = None
 
@@ -120,6 +136,7 @@ class PushNotificationListView(TemplateView):
                 pk__in=push_notification_keys,
             )
 
+        archived_count = self.count_archived_push_notifications(region)
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
         paginator = Paginator(push_notifications, chunk_size)
@@ -135,6 +152,8 @@ class PushNotificationListView(TemplateView):
                 "languages": region.active_languages,
                 "region_slug": region.slug,
                 "search_query": query,
+                "is_archived": self.archived,
+                "archived_count": archived_count,
             },
         )
 

@@ -267,6 +267,11 @@ GVZ_API_ENABLED: Final[bool] = True
 #: (see :mod:`~integreat_cms.gvz_api` for more information).
 GVZ_API_URL: Final[str] = "https://gvz.integreat-app.de"
 
+#: The Time To Live for caching the availibility status of the API in seconds.
+#: ``None`` will cache the status forever (until the server is restarted), ``0`` will invalidate it immediately.
+#: Note that at the moment there is no automatic re-checking of the availability status, and after expiring the API will be assumed unavailable.
+GVZ_API_AVAILABLE_STATUS_TTL: Final[int | None] = None  # 60*60*24
+
 
 #################
 # Nominatim API #
@@ -747,6 +752,10 @@ LOGGING: dict[str, Any] = {
         },
         # Loggers of dependencies
         "aiohttp.client": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
+        "celery": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
@@ -1432,7 +1441,7 @@ CELERY_TASK_TRACK_STARTED = True
 
 #: Task hard time limit in seconds. The worker processing the task will be killed
 #: and replaced with a new one when this is exceeded.
-CELERY_TASK_TIME_LIMIT = 60 * 60 * 1
+CELERY_TASK_TIME_LIMIT = 60 * 60 * 3
 
 #: Default broker URL.
 CELERY_BROKER_URL = os.environ.get(
