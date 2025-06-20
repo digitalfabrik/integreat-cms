@@ -56,7 +56,7 @@ class POIContextMixin(ContextMixin):
                     "All translations of this location will also be deleted.",
                 ),
                 "cannot_archive_title": _(
-                    "You cannot archive a location which is used by an event or a contact. \nThis also involves archived events and contacts",
+                    "You cannot archive a location which is used by an upcoming event or a contact. \nThis also involves archived events and contacts",
                 ),
                 "cannot_delete_title": _(
                     "You cannot delete a location which is used by an event or a contact. \nThis also involves archived events and contacts",
