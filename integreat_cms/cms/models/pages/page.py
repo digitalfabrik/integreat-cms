@@ -27,6 +27,8 @@ if TYPE_CHECKING:
     from django.db.models.base import ModelBase
     from django.utils.safestring import SafeString
 
+    # from integreat_cms.cms.models.users.user import User
+
 logger = logging.getLogger(__name__)
 
 
@@ -356,6 +358,9 @@ class Page(AbstractTreeNode, AbstractBasePage):
                 ):
                     # The post_save signal will create link objects from the content
                     translation.save(update_timestamp=False)
+
+    def copy(self, user: User):
+        raise NotImplementedError("The copy method is not available for pages")
 
     def __str__(self) -> SafeString:
         """

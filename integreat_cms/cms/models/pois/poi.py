@@ -12,6 +12,7 @@ from integreat_cms.cms.models.utils import get_default_opening_hours
 if TYPE_CHECKING:
     from django.db.models.base import ModelBase
 
+
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
