@@ -118,6 +118,14 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
                     code="invalid",
                 ),
             )
+        if not self.instance.active and self.instance.visible:
+            self.add_error(
+                None,
+                forms.ValidationError(
+                    _("An inactive language tree node cannot be visible.")
+                ),
+                code="invalid",
+            )
         logger.debug(
             "LanguageTreeNodeForm validated [2] with cleaned data %r",
             cleaned_data,
