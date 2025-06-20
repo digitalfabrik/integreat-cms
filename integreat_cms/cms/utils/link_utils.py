@@ -49,4 +49,4 @@ def format_phone_number(phone_number: str) -> str:
         prefix = phone_number[0:3]
         phone_number = phone_number[3:]
 
-    return f"{prefix} (0) {phone_number}"
+    return f"{prefix}{phone_number}"
