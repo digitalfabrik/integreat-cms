@@ -9,10 +9,12 @@ from ..abstract_base_model import AbstractBaseModel
 
 class PageAccesses(AbstractBaseModel):
     """
-    Data Model representing the accesses of a page
+    Data model representing the accesses to a page.
+    This is essentially a cache to alleviate pressure on the Matomo server
+    and this table should be able to get wiped without actual data loss.
     """
 
-    access_date = models.DateTimeField(
+    access_date = models.DateField(
         verbose_name="Date of the page accesses",
     )
     language = models.ForeignKey(
@@ -31,6 +33,15 @@ class PageAccesses(AbstractBaseModel):
 
     def __str__(self) -> str:
         return f"{self.page} - Accesses: {self.accesses}, language: {self.language}, date: {self.access_date}"
+
+    def get_repr(self) -> str:
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<PageAccesses: PageAccesses object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the PageAccesses
+        """
+        return f"<PageAccesses (id: {self.id}, accesses: {self.accesses})>"
 
     class Meta:
         verbose_name = _("page accesses")
