@@ -115,14 +115,18 @@ def delete_poi(
     """
 
     poi = POI.objects.get(id=poi_id)
-    if poi.delete():
+    can_delete, error_msg = poi.can_be_deleted()
+    if can_delete:
+        poi.delete()
         logger.info("%r deleted by %r", poi, request.user)
         messages.success(request, _("Location was successfully deleted"))
     else:
         logger.info("%r couldn't be deleted by %r", poi, request.user)
         messages.error(
             request,
-            _("Location couldn't be deleted as it's used by an event or contact"),
+            _("Location couldn't be deleted, because {failure_reason}").format(
+                failure_reason=error_msg
+            ),
         )
 
     return redirect(
