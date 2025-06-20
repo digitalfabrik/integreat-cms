@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import configparser
 import os
+from datetime import datetime, timedelta
 from typing import TYPE_CHECKING
 
 from celery import Celery
@@ -65,13 +66,31 @@ def wrapper_import_events_from_external_calendars() -> None:
     call_command("import_events")
 
 
+@app.task
+def wrapper_fetch_page_accesses() -> None:
+    """
+    Periodic task to fetch page accesses of the previous day from Matomo
+    """
+    fetch_date = datetime.today() - timedelta(days=1)
+    fetch_date = fetch_date.strftime("%Y-%m-%d")
+    call_command(
+        "fetch_page_accesses", start_date=fetch_date, end_date=fetch_date, period="day"
+    )
+
+
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender: Any, **kwargs: Any) -> None:
     """
-    Set up a periodic job to import evens from the external calendars at 0:23 every day
+    Set up periodic jobs
     """
     sender.add_periodic_task(
         crontab(hour=0, minute=23),
         wrapper_import_events_from_external_calendars.s(),
         name="wrapper_import_events_from_external_calendars",
+    )
+
+    sender.add_periodic_task(
+        crontab(hour=0, minute=40),
+        wrapper_fetch_page_accesses.s(),
+        name="wrapper_fetch_page_accesses",
     )

@@ -9,10 +9,12 @@ from ..abstract_base_model import AbstractBaseModel
 
 class PageAccesses(AbstractBaseModel):
     """
-    Data Model representing the accesses of a page
+    Data model representing the accesses to a page.
+    This is essentially a cache to alleviate pressure on the Matomo server
+    and this table should be able to get wiped without actual data loss.
     """
 
-    access_date = models.DateTimeField(
+    access_date = models.DateField(
         verbose_name="Date of the page accesses",
     )
     language = models.ForeignKey(
