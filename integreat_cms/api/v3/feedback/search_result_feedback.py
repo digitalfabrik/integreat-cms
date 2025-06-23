@@ -37,6 +37,7 @@ def search_result_feedback(
     :return: JSON object according to APIv3 search result feedback endpoint definition
     """
     if query := data.get("query"):
+        is_automatically_send = data.get("is_automatically_send")
         SearchResultFeedback.objects.create(
             search_query=query,
             region=region,
@@ -44,6 +45,7 @@ def search_result_feedback(
             rating=rating,
             comment=comment,
             is_technical=is_technical,
+            is_automatically_send=is_automatically_send,
         )
         return JsonResponse({"success": "Feedback successfully submitted"}, status=201)
     return JsonResponse({"error": "Search query is required."}, status=400)

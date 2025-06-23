@@ -7,11 +7,14 @@ if TYPE_CHECKING:
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
 
+from io import StringIO
+
 import pytest
+from django.core.handlers.wsgi import WSGIRequest
 from django.urls import reverse
 
 from integreat_cms.cms.forms import ContactForm
-from integreat_cms.cms.models import Contact, Region
+from integreat_cms.cms.models import Contact, Region, User
 from tests.conftest import ANONYMOUS, AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from tests.utils import assert_message_in_log
 
@@ -51,6 +54,8 @@ def test_create_a_new_contact(
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
             "website": "https://integreat-app.de/",
+            "use_location_opening_hours": True,
+            "opening_hours": "null",
         },
     )
 
@@ -110,6 +115,8 @@ def test_edit_a_contact(
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
             "website": "https://integreat-app.de/",
+            "use_location_opening_hours": True,
+            "opening_hours": "null",
         },
     )
 
@@ -292,7 +299,9 @@ def test_one_primary_contact_per_poi(
 
 
 @pytest.mark.django_db
-def test_phone_number_conversion() -> None:
+def test_phone_number_conversion(
+    load_test_data: None,
+) -> None:
     """
     Test that phone numbers are converted to the expected international format.
     """
@@ -315,7 +324,17 @@ def test_phone_number_conversion() -> None:
             "website": "https://integreat-app.de/",
         }
 
+        contact = Contact.objects.filter(location__region__slug=REGION_SLUG).first()
+        request = WSGIRequest(
+            {
+                "REQUEST_METHOD": "POST",
+                "PATH_INFO": f"/{REGION_SLUG}/contact/{contact.id}/edit/",
+                "wsgi.input": StringIO(),
+            }
+        )
+        request.user = User.objects.get(username="service_team")
         form = ContactForm(
+            request=request,
             data=form_data,
             instance=None,
             additional_instance_attributes={"region": REGION_SLUG},

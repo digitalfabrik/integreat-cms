@@ -28,6 +28,7 @@ from typing import TYPE_CHECKING
 
 from celery import Celery
 from celery.schedules import crontab
+from celery.signals import setup_logging
 from django.core.management import call_command
 
 if TYPE_CHECKING:
@@ -42,6 +43,17 @@ for section in config.sections():
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
 app = Celery("celery_app")
 app.config_from_object("django.conf:settings", namespace="CELERY")
+
+
+@setup_logging.connect
+def config_loggers(*args: Any, **kwags: Any) -> None:
+    from logging.config import dictConfig
+
+    from django.conf import settings
+
+    dictConfig(settings.LOGGING)
+
+
 app.autodiscover_tasks()
 
 

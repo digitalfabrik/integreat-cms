@@ -7,9 +7,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.functional import cached_property
 
-if TYPE_CHECKING:
-    from typing import Any
+from integreat_cms.cms.models.utils import get_default_opening_hours
 
+if TYPE_CHECKING:
     from django.db.models.base import ModelBase
 
 from django.utils.translation import gettext_lazy as _
@@ -23,18 +23,6 @@ from ..pois.poi_translation import POITranslation
 from ..users.organization import Organization
 
 logger = logging.getLogger(__name__)
-
-
-def get_default_opening_hours() -> list[dict[str, Any]]:
-    """
-    Return the default opening hours
-
-    :return: The default opening hours
-    """
-    return [
-        {"allDay": False, "closed": True, "appointmentOnly": False, "timeSlots": []}
-        for _ in range(7)
-    ]
 
 
 class POI(AbstractContentModel):

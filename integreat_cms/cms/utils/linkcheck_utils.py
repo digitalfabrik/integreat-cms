@@ -164,7 +164,17 @@ def exclude_links_in_contacts(
                 Replace(F("phone_number"), Value(" (0) "), Value("")),
                 output_field=CharField(),
             ),
-        ).values_list("transformed_email", "transformed_phone", "website")
+            transformed_mobile_phone=Concat(
+                Value("tel:"),
+                Replace(F("mobile_phone_number"), Value(" (0) "), Value("")),
+                output_field=CharField(),
+            ),
+        ).values_list(
+            "transformed_email",
+            "transformed_phone",
+            "transformed_mobile_phone",
+            "website",
+        )
     )
     urls = urls.exclude(url__in=contact_links)
 
@@ -185,9 +195,11 @@ def get_link_query(regions: QuerySet[Region]) -> QuerySet:
     """
     non_archived_pages = regions[0].non_archived_pages.values("pk")
     for region in regions[1:]:
-        non_archived_pages = non_archived_pages.union(
-            region.non_archived_pages.values("pk"), all=True
-        )
+        # When more than one region is requested, the request comes from the central linkchecker and only active regions should be considered
+        if region.status == region_status.ACTIVE:
+            non_archived_pages = non_archived_pages.union(
+                region.non_archived_pages.values("pk"), all=True
+            )
     latest_pagetranslation_versions = Subquery(
         PageTranslation.objects.filter(
             page__id__in=non_archived_pages,
@@ -262,8 +274,6 @@ def filter_urls(
         [] for _ in range(6)
     )
     for url in urls:
-        if region_slug is None:
-            url.regions_links = url.links.all()
         if not url.non_ignored_links:
             ignored_urls.append(url)
         elif url.status:
