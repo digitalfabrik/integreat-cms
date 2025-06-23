@@ -6,13 +6,13 @@ window.addEventListener("load", () => {
         const warningDiv = document.getElementById("visible-warning") as HTMLDivElement;
         if (!activeCheckbox.checked) {
             if (visibleCheckbox.checked) {
-                warningDiv.style.display = "block";
+                warningDiv.classList.toggle("hidden", false);
             }
             visibleCheckbox.disabled = true;
             visibleCheckbox.checked = false;
         } else {
             visibleCheckbox.disabled = false;
-            warningDiv.style.display = "none";
+            warningDiv.classList.toggle("hidden", true);
         }
     });
 });
