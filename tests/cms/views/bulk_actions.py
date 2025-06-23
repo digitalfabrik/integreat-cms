@@ -95,6 +95,11 @@ def assert_bulk_delete(
                         caplog,
                     )
                 elif len(sublist) > 1:
+                    print(
+                        html.escape(
+                            f"The following {model_name_plural} could not be deleted: {undeletable_sub_instances_names}, because {fail_reasons[index]}"
+                        )
+                    )
                     assert (
                         html.escape(
                             f"The following {model_name_plural} could not be deleted: {undeletable_sub_instances_names}, because {fail_reasons[index]}"

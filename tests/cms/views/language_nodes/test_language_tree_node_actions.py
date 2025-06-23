@@ -102,7 +102,7 @@ def test_bulk_delete_language_tree_nodes(
         "deletable": deletable_nodes,
         "undeletable": [undeletable_nodes],
     }
-    fail_reason = ["it is the source language of other language(s)."]
+    fail_reason = ["a source language of other language(s) cannot be deleted."]
     url = reverse(
         "bulk_delete_languagetreenodes",
         kwargs={"region_slug": "empty-region"},

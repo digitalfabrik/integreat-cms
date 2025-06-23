@@ -210,7 +210,7 @@ def test_poi_in_use_not_deleted(
     elif role in HIGH_PRIV_STAFF_ROLES:
         client.post(delete_poi)
         assert_message_in_log(
-            "ERROR    Location couldn't be deleted, because this poi is used by an event or a contact.",
+            "ERROR    Location couldn't be deleted, because a poi used by an event or a contact cannot be deleted.",
             caplog,
         )
     else:
@@ -401,7 +401,7 @@ def test_bulk_delete_pois(
         "deletable": deletable_pois,
         "undeletable": [undeletable_pois],
     }
-    fail_reason = "this poi is used by an event or a contact."
+    fail_reason = "a poi used by an event or a contact cannot be deleted."
     url = reverse(
         "bulk_delete_pois",
         kwargs={"region_slug": "augsburg", "language_slug": "en"},

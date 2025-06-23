@@ -216,7 +216,7 @@ def test_bulk_delete_pages(
         "undeletable": [undeletable_pages_1, undeletable_pages_2],
     }
     fail_reason = [
-        "it was embedded as live content from another page.",
+        "you cannot delete a page that is embedded as live content by another page.",
         "you cannot delete a page which has subpages.",
     ]
     url = reverse(
