@@ -3,18 +3,20 @@ from __future__ import annotations
 import asyncio
 import logging
 import re
-from collections.abc import Mapping
 from datetime import date, datetime
 from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
 import aiohttp
+import requests
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
+from integreat_cms.cms.models.statistics.page_accesses import PageAccesses
+
 from ..cms.constants import language_color, matomo_periods
-from .utils import async_get_translation_slug
+from .utils import get_translation_slug
 
 if TYPE_CHECKING:
     from asyncio import AbstractEventLoop
@@ -23,6 +25,8 @@ if TYPE_CHECKING:
 
     from aiohttp import ClientSession
     from django.utils.functional import Promise
+
+    from integreat_cms.cms.models.pages.page_translation import PageTranslation
 
     from ..cms.models import Language, Page, Region
 
@@ -64,7 +68,7 @@ class MatomoApiClient:
         self.matomo_id = region.matomo_id
         self.languages = region.active_languages
 
-    async def fetch(
+    async def async_fetch(
         self,
         session: ClientSession,
         **kwargs: Any,
@@ -112,10 +116,59 @@ class MatomoApiClient:
                 f"An error occurred {mask_token_auth(str(e))}",
             ) from None
 
+    def fetch(
+        self,
+        **kwargs: Any,
+    ) -> dict[str, Any]:
+        r"""
+        Uses :meth:`request.post` to perform an synchronous GET request to the Matomo API.
+
+        :param session: The session object which is used for the request
+        :param \**kwargs: The parameters which are passed to the Matomo API
+        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+                                                               Matomo API request
+
+        :return: The parsed :mod:`json` result
+        """
+        # The default get parameters for all requests
+        query_params = {
+            "format": "JSON",
+            "module": "API",
+            "token_auth": self.matomo_token,
+        }
+        # Update with the custom params for this request
+        query_params.update(kwargs)
+
+        def mask_token_auth(req_url: str) -> str:
+            return re.sub("&token_auth=[^&]+", "&token_auth=********", req_url)
+
+        url = f"{settings.MATOMO_URL}"
+        logger.debug(
+            "Requesting %r: %s",
+            query_params.get("method"),
+            # Mask auth token in log
+            mask_token_auth(url),
+        )
+        try:
+            response = requests.post(url, data=query_params, timeout=600)
+            response.raise_for_status()
+            response_data = response.json()
+            if (
+                isinstance(response_data, dict)
+                and response_data.get("result") == "error"
+            ):
+                raise MatomoException(response_data["message"])
+            return response_data  # noqa: TRY300
+        except requests.exceptions.RequestException as e:
+            logger.exception("Error occurred during fetching of page accesses")
+            raise MatomoException(
+                f"An error occurred {mask_token_auth(str(e))}",
+            ) from None
+
     async def get_matomo_id_async(self, **query_params: Any) -> list[int]:
         r"""
         Async wrapper to fetch the Matomo ID with :mod:`aiohttp`.
-        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch`.
+        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.async_fetch`.
         Called from :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_matomo_id`.
 
         :param \**query_params: The parameters which are passed to the Matomo API
@@ -124,7 +177,7 @@ class MatomoApiClient:
                                                                              Matomo API request
         """
         async with aiohttp.ClientSession() as session:
-            result = await self.fetch(session, **query_params)
+            result = await self.async_fetch(session, **query_params)
             if TYPE_CHECKING:
                 assert isinstance(result, list)
             return result
@@ -164,7 +217,7 @@ class MatomoApiClient:
     ) -> dict[str, Any]:
         """
         Async wrapper to fetch the total visits with :mod:`aiohttp`.
-        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch`.
+        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.async_fetch`.
         Called from :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_total_visits`.
 
         :param query_params: The parameters which are passed to the Matomo API
@@ -174,7 +227,7 @@ class MatomoApiClient:
         :return: The parsed :mod:`json` result
         """
         async with aiohttp.ClientSession() as session:
-            result = await self.fetch(
+            result = await self.async_fetch(
                 session,
                 **query_params,
             )
@@ -240,7 +293,7 @@ class MatomoApiClient:
         """
         Async wrapper to fetch the total visits with :mod:`aiohttp`.
         Opens a :class:`~aiohttp.ClientSession`, creates a :class:`~asyncio.Task` for each language to call
-        :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch` and waits for all tasks to finish with
+        :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.async_fetch` and waits for all tasks to finish with
         :func:`~asyncio.gather`.
         The returned list of gathered results has the correct order in which the tasks were created (at first the
         ordered list of languages and the last element is the task for the total visits).
@@ -258,7 +311,7 @@ class MatomoApiClient:
             # Create tasks for visits by language
             tasks = [
                 loop.create_task(
-                    self.fetch(
+                    self.async_fetch(
                         session,
                         **query_params,
                         segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/,pageUrl=@/api/v3/{self.region_slug}/{language.slug}/",
@@ -269,7 +322,7 @@ class MatomoApiClient:
             # Create separate task to gather offline download hits
             tasks.append(
                 loop.create_task(
-                    self.fetch(
+                    self.async_fetch(
                         session,
                         **query_params,
                         segment="pageUrl=@/wp-json/extensions/v3/pages,pageUrl=$/pages/",
@@ -279,7 +332,7 @@ class MatomoApiClient:
             # Create separate task to gather WebApp download hits
             tasks.append(
                 loop.create_task(
-                    self.fetch(
+                    self.async_fetch(
                         session,
                         **query_params,
                         segment="pageUrl=@/children/?depth",
@@ -289,7 +342,7 @@ class MatomoApiClient:
             # Create task for all downloads
             tasks.append(
                 loop.create_task(
-                    self.fetch(
+                    self.async_fetch(
                         session,
                         **query_params,
                     ),
@@ -545,120 +598,81 @@ class MatomoApiClient:
         ]
         return data_entries, legend_entries
 
-    async def get_page_accesses_async(
-        self,
-        loop: AbstractEventLoop,
-        query_params: dict[str, Any],
-        languages: list[Language],
-        pages: list[Page],
-    ) -> list[dict[str, Any]]:
-        """
-        :param loop: The asyncio event loop
-        :param query_params: The parameters which are passed to the Matomo API
-        :param languages: The list of languages which should be retrieved
-        :param pages: The list of pages which should be retrieved
-        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
-                                                               Matomo API request
-        :return:
-        """
-        translation_slugs = await async_get_translation_slug(pages, languages)
-        async with aiohttp.ClientSession() as session:
-            # Create tasks for visits by language
-            tasks = [
-                loop.create_task(
-                    self.retrieve_accesses_for_page(
-                        session,
-                        query_params,
-                        page_id=page_id,
-                        lang_slug=lang_slug,
-                        full_slug=full_slug,
-                    )
-                )
-                for page_id, langs in translation_slugs.items()
-                for lang_slug, full_slug in langs.items()
-            ]
-            # Wait for all tasks to finish and collect the results
-            # (the results are sorted in the order the tasks were created)
-            return await asyncio.gather(*tasks)
-
-    async def retrieve_accesses_for_page(
-        self,
-        session: aiohttp.ClientSession,
-        query_params: dict[str, Any],
-        page_id: int,
-        lang_slug: str,
-        full_slug: str,
-    ) -> dict:
-        """
-        This function retrieves the accesses for a single page (from Matomo).
-
-        :param session: The current session
-        :param query_params: The parameters which are passed to the Matomo API
-        :param page_id: Id of page for which accesses are retrieved
-        :param lang_slug: Language slug for which accesses are retrieved
-        :param full_slug: The absolute url slug for the page
-        :return: dict of page and it's accesses
-        """
-        return {
-            page_id: {
-                lang_slug: await self.fetch(
-                    session,
-                    **query_params,
-                    segment=f"pageUrl=@/children/?depth=2&url={full_slug}",
-                )
-            }
-        }
+        # (the results are sorted in the order the tasks were created)
 
     def get_page_accesses(
-        self, start_date: date, end_date: date, period: str, region: Region
-    ) -> dict[int, dict[str, int]]:
+        self,
+        start_date: date,
+        end_date: date,
+        region_slug: str,
+        languages: list[Language],
+        pages: list[Page],
+        prefetched_translations: list[PageTranslation],
+    ) -> None:
         """
-        This function handles the page based accesses
+        This function handles getting the page based accesses from Matomo and saving them to the database
 
         :param start_date: Start date
         :param end_date: End date
-        :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
-        :param region: The region for which we want our page based accesses
-        :return: The page accesses for the given region
-        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
-                                                                         Matomo API request
+        :param region_slug: The region for which we want our page based accesses
+        :param languages: List with the active languages of the region
+        :param pages: List with prefetch pages of the region
+        :param prefetched_translations: List with prefetched page translations
         """
+        total_query = {
+            "method": "API.getBulkRequest",
+        }
         query_params = {
+            "method": "VisitsSummary.getActions",
             "date": f"{start_date},{end_date}",
             "expanded": "1",
             "filter_limit": "-1",
             "format_metrics": "1",
             "idSite": self.matomo_id,
-            "method": "VisitsSummary.getActions",
-            "period": period,
+            "period": matomo_periods.DAY,
         }
-        languages = list(self.languages)
-        pages = region.get_pages()
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        logger.debug("Fetching visits for languages %r asynchronously.", languages)
-        datasets = loop.run_until_complete(
-            self.get_page_accesses_async(loop, query_params, languages, pages)
+        logger.debug("Fetching visits for %rlanguages.", languages)
+        translation_slugs = get_translation_slug(
+            region_slug=region_slug, prefetched_translations=prefetched_translations
         )
 
-        def deep_merge(*dicts: Mapping[Any, Any]) -> dict:
-            """
-            Recursively merges dictionaries. Values in later dictionaries override earlier ones
-            for non-dict values, while dictionaries are merged recursively.
-            """
-            merged: dict[Any, Any] = {}
-            for d in dicts:
-                for key, value in d.items():
-                    if (
-                        key in merged
-                        and isinstance(merged[key], Mapping)
-                        and isinstance(value, Mapping)
-                    ):
-                        # Recursively merge dictionaries
-                        merged[key] = deep_merge(merged[key], value)
-                    else:
-                        # Otherwise, override or add the value
-                        merged[key] = value
-            return merged
-
-        return deep_merge(*datasets)
+        # retrieve and save accesses per page and language with the corresponding url slugs
+        page_map = {page.id: page for page in pages}
+        language_map = {lang.slug: lang for lang in languages}
+        accesses_objects = []
+        for page_id, langs in translation_slugs.items():
+            page = page_map.get(page_id)
+            if not page:
+                continue
+            page_params = total_query
+            page_query = query_params
+            i = 0
+            for lang_slug, full_slug in langs.items():
+                language = language_map.get(lang_slug)
+                if not language:
+                    continue
+                page_query.update(
+                    {"segment": f"pageUrl=@/children/?depth=2&url={full_slug}"}
+                )
+                url_param = {f"urls[{i}]": urlencode(page_query)}
+                i += 1
+                page_params.update(url_param)
+            result = self.fetch(**page_params)
+            for lang_slug, accesses_list in zip(langs, result, strict=False):
+                language = language_map.get(lang_slug)
+                if not language:
+                    continue
+                for accesses_date, accesses in accesses_list.items():  # type: ignore [attr-defined]
+                    access = PageAccesses(
+                        access_date=datetime.strptime(accesses_date, "%Y-%m-%d").date(),
+                        language=language,
+                        page=page,
+                        accesses=accesses,
+                    )
+                    accesses_objects.append(access)
+        PageAccesses.objects.bulk_create(
+            accesses_objects,
+            update_conflicts=True,
+            unique_fields=["page", "language", "access_date"],
+            update_fields=["accesses"],
+        )
