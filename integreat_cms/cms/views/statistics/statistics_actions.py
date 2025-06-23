@@ -15,6 +15,7 @@ from django.views.decorators.http import require_POST
 from integreat_cms.cms.models.languages.language import Language
 from integreat_cms.cms.models.pages.page import Page
 from integreat_cms.cms.models.regions.region import Region
+from integreat_cms.cms.models.statistics.page_accesses import PageAccesses
 
 from ....matomo_api.matomo_api_client import MatomoException
 from ...decorators import permission_required
@@ -185,7 +186,43 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
     return JsonResponse(page_accesses_dict, safe=False)
 
 
-def strart_fetch_page_accesses(
+def fetch_page_accesses(
+    start_date: date, end_date: date, period: str, region: Region
+) -> None:
+    """
+    Load page accesses synchronuos from Matomo and save them to page accesses model
+    :param start_date: Earliest date
+    :param end_date: Latest date
+    :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
+    :param region: The region for which we want our page based accesses
+    """
+    result = region.statistics.get_page_accesses(
+        start_date=start_date,
+        end_date=end_date,
+        period=period,
+        region=region,
+    )
+
+    accesses = [
+        PageAccesses(
+            access_date=access_date,
+            language=Language.objects.get(slug=language),
+            page=Page.objects.get(id=page),
+            accesses=result[page][language][access_date],
+        )
+        for page in result
+        for language in result[page]
+        for access_date in result[page][language]
+    ]
+    PageAccesses.objects.bulk_create(
+        accesses,
+        update_conflicts=True,
+        unique_fields=["page", "language", "access_date"],
+        update_fields=["accesses"],
+    )
+
+
+def start_fetch_page_accesses(
     start_date: date, end_date: date, period: str, region: Region
 ) -> None:
     """
@@ -206,7 +243,7 @@ def async_fetch_page_accesses(
     start_date: date, end_date: date, period: str, region_id: int
 ) -> None:
     """
-    Fetch page accesses from Matomo and save them to page accesses model
+    Fetch page accesses async with celery from Matomo and save them to page accesses model
 
     :param start_date: Earliest date
     :param end_date: Latest date
@@ -221,22 +258,3 @@ def async_fetch_page_accesses(
         period=period,
         region=region,
     )
-
-    """
-    accesses = [
-        PageAccesses(
-            access_date=access_date,
-            language=Language.objects.get(slug=language),
-            page=Page.objects.get(id=page),
-            accesses=result[page][language][access_date],
-        )
-        for page in result
-        for language in result[page]
-        for access_date in result[page][language]
-    ]
-    PageAccesses.objects.bulk_create(
-        accesses,
-        update_conflicts=True,
-        unique_fields=["page", "language", "access_date"],
-        update_fields=["accesses"],
-    )"""
