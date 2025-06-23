@@ -15,7 +15,6 @@ from django.views.decorators.http import require_POST
 from integreat_cms.cms.models.languages.language import Language
 from integreat_cms.cms.models.pages.page import Page
 from integreat_cms.cms.models.regions.region import Region
-from integreat_cms.cms.models.statistics.page_accesses import PageAccesses
 
 from ....matomo_api.matomo_api_client import MatomoException
 from ...decorators import permission_required
@@ -196,33 +195,15 @@ def fetch_page_accesses(
     :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
     :param region: The region for which we want our page based accesses
     """
-    result = region.statistics.get_page_accesses(
+    region.statistics.get_page_accesses(
         start_date=start_date,
         end_date=end_date,
         period=period,
         region=region,
     )
 
-    accesses = [
-        PageAccesses(
-            access_date=access_date,
-            language=Language.objects.get(slug=language),
-            page=Page.objects.get(id=page),
-            accesses=result[page][language][access_date],
-        )
-        for page in result
-        for language in result[page]
-        for access_date in result[page][language]
-    ]
-    PageAccesses.objects.bulk_create(
-        accesses,
-        update_conflicts=True,
-        unique_fields=["page", "language", "access_date"],
-        update_fields=["accesses"],
-    )
 
-
-def start_fetch_page_accesses(
+def start_async_fetch_page_accesses(
     start_date: date, end_date: date, period: str, region: Region
 ) -> None:
     """
@@ -252,7 +233,7 @@ def async_fetch_page_accesses(
     """
     region = Region.objects.get(id=region_id)
     logger.info("start fetching page accesses from Matomo for %s", region)
-    region.statistics.get_page_accesses(
+    fetch_page_accesses(
         start_date=start_date,
         end_date=end_date,
         period=period,
