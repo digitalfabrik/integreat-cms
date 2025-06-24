@@ -87,8 +87,8 @@ class Command(LogCommand):
         self.set_logging_stream()
         regions = []
         try:
-            start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
-            end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
+            starting_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+            ending_date = datetime.strptime(end_date, "%Y-%m-%d").date()
             if region_slug is not None:
                 try:
                     regions.append(Region.objects.get(slug=region_slug))
@@ -104,8 +104,8 @@ class Command(LogCommand):
                     Region.objects.filter(statistics_enabled=True, status=ACTIVE)
                 )
             fetch_page_accesses(
-                start_date=start_date,
-                end_date=end_date,
+                start_date=starting_date,
+                end_date=ending_date,
                 period=period,
                 regions=regions,
             )

@@ -117,7 +117,7 @@ class MatomoApiClient:
     def fetch(
         self,
         **kwargs: Any,
-    ) -> dict[str, Any] | list[int]:
+    ) -> dict[str, Any]:
         r"""
         Uses :meth:`request.get` to perform an synchronous GET request to the Matomo API.
 
