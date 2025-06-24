@@ -79,7 +79,7 @@ class EventForm(CustomModelForm):
             "end",
             "icon",
             "location",
-            "online_link",
+            "meeting_url",
             "external_calendar",
             "external_event_id",
             "only_weekdays",
@@ -139,6 +139,12 @@ class EventForm(CustomModelForm):
 
         # make self.data mutable to allow values to be changed manually
         self.data = self.data.copy()
+
+        # Apparently we need to drop the invalid fields from data altogether, only from cleaned_data is not sufficient
+        if cleaned_data.get("has_not_location", False):
+            self.data["location"] = None
+        else:
+            self.data["meeting_url"] = ""
 
         if cleaned_data.get("is_all_day"):
             cleaned_data["start_time"] = time.min
@@ -224,11 +230,6 @@ class EventForm(CustomModelForm):
             self.data["start"] = cleaned_data["start"]
             self.data["end"] = cleaned_data["end"]
         logger.debug("EventForm validated [2] with cleaned data %r", cleaned_data)
-        # Handle location/link requirement logic
-        has_not_location = cleaned_data.get("has_not_location")
-
-        # Set the model's has_physical_location flag based on the inverse of the form checkbox
-        self.instance.has_physical_location = not has_not_location
 
         return cleaned_data
 
