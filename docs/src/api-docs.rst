@@ -505,7 +505,7 @@ RESPONSE
             "longitude": Number | null,     // The longitude of this location
          },
          "location_path": String | null,     // The path to the location for this event translation
-         "online_link": String | null,       // The link for online meetings
+         "meeting_url": String | null,       // The link for online meetings
          "event": {
             "id": Number | null,            // The id of this event. Null if this is a recurrence of an event
             "start": String,                // The start date&time of this event
