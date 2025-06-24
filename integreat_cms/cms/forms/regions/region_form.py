@@ -344,7 +344,25 @@ class RegionForm(CustomModelForm):
         """
         cleaned_data = super().clean()
 
-        # Check whether statistics can be enabled
+        cleaned_data = self.clean_statistics(cleaned_data)
+        cleaned_data = self.clean_summ_ai(cleaned_data)
+        cleaned_data = self.clean_mt_budget(cleaned_data)
+        cleaned_data = self.clean_zammad(cleaned_data)
+        cleaned_data = self.clean_chat(cleaned_data)
+        cleaned_data = self.clean_gvz(cleaned_data)
+        cleaned_data = self.clean_coordinates(cleaned_data)
+        cleaned_data = self.clean_duplicate_region(cleaned_data)
+        cleaned_data = self.autofill_bounding_box(cleaned_data)
+
+        logger.debug("RegionForm validated [2] with cleaned data %r", cleaned_data)
+        return cleaned_data
+
+    def clean_statistics(self, cleaned_data: dict[str, Any]) -> dict[str, Any]:
+        """
+        Check whether statistics can be enabled
+
+        :param cleaned_data: The cleaned data
+        """
         if cleaned_data["statistics_enabled"] and not cleaned_data["matomo_token"]:
             self.add_error(
                 "statistics_enabled",
@@ -367,25 +385,14 @@ class RegionForm(CustomModelForm):
         else:
             cleaned_data["matomo_id"] = None
 
-        # If Summ AI budget year differs from the set renewal date, make sure a budget year start date is set
-        if (
-            cleaned_data["summ_ai_midyear_start_enabled"]
-            and cleaned_data["summ_ai_midyear_start_month"] is None
-        ):
-            self.add_error(
-                "summ_ai_midyear_start_month",
-                _(
-                    "Please provide a valid budget year start date for simplified language translation."
-                ),
-            )
-        elif (
-            not cleaned_data["summ_ai_midyear_start_enabled"]
-            or cleaned_data["summ_ai_midyear_start_month"]
-            == cleaned_data["summ_ai_renewal_month"]
-        ):
-            cleaned_data["summ_ai_midyear_start_month"] = None
+        return cleaned_data
 
-        # If MT budget year differs from the set renewal date, make sure a budget year start date is set
+    def clean_mt_budget(self, cleaned_data: dict[str, Any]) -> dict[str, Any]:
+        """
+        If MT budget year differs from the set renewal date, make sure a budget year start date is set
+
+        :param cleaned_data: The cleaned data
+        """
         if (
             cleaned_data["mt_midyear_start_enabled"]
             and cleaned_data["mt_midyear_start_month"] is None
@@ -402,8 +409,38 @@ class RegionForm(CustomModelForm):
             == cleaned_data["mt_renewal_month"]
         ):
             cleaned_data["mt_midyear_start_month"] = None
+        return cleaned_data
 
-        # Re-combine all offers and make sure no non-disableable offers have been disabled
+    def clean_summ_ai(self, cleaned_data: dict[str, Any]) -> dict[str, Any]:
+        """
+        If Summ AI budget year differs from the set renewal date, make sure a budget year start date is set
+
+        :param cleaned_data: The cleaned data
+        """
+        if (
+            cleaned_data["summ_ai_midyear_start_enabled"]
+            and cleaned_data["summ_ai_midyear_start_month"] is None
+        ):
+            self.add_error(
+                "summ_ai_midyear_start_month",
+                _(
+                    "Please provide a valid budget year start date for simplified language translation."
+                ),
+            )
+        elif (
+            not cleaned_data["summ_ai_midyear_start_enabled"]
+            or cleaned_data["summ_ai_midyear_start_month"]
+            == cleaned_data["summ_ai_renewal_month"]
+        ):
+            cleaned_data["summ_ai_midyear_start_month"] = None
+        return cleaned_data
+
+    def clean_zammad(self, cleaned_data: dict[str, Any]) -> dict[str, Any]:
+        """
+        Re-combine all offers and make sure no non-disableable offers have been disabled
+
+        :param cleaned_data: The cleaned data
+        """
         if not cleaned_data["zammad_url"]:
             cleaned_data["zammad_offers"] = []
         cleaned_data["offers"] = list(cleaned_data["offers"]) + list(
@@ -418,8 +455,14 @@ class RegionForm(CustomModelForm):
                     "Some offers could not be disabled, since they are currently embedded in at least one page.",
                 ),
             )
+        return cleaned_data
 
-        # Public chat can only be enabled if Zammad URL and access key are set
+    def clean_chat(self, cleaned_data: dict[str, Any]) -> dict[str, Any]:
+        """
+        Public chat can only be enabled if Zammad URL and access key are set
+
+        :param cleaned_data: The cleaned data
+        """
         if cleaned_data["integreat_chat_enabled"] and (
             not cleaned_data["zammad_url"]
             or not cleaned_data["zammad_access_token"]
@@ -431,8 +474,14 @@ class RegionForm(CustomModelForm):
                     "A Zammad URL, Zammad Webhook Token and Access Token are required in order to enable the public chat.",
                 ),
             )
+        return cleaned_data
 
-        # Get additional data from GVZ API
+    def clean_gvz(self, cleaned_data: dict[str, Any]) -> dict[str, Any]:
+        """
+        Get additional data from GVZ API
+
+        :param cleaned_data: The cleaned data
+        """
         if apps.get_app_config("gvz_api").api_available:
             gvz_region = GvzRegion(
                 region_name=cleaned_data["name"],
@@ -448,8 +497,14 @@ class RegionForm(CustomModelForm):
                 cleaned_data["latitude"] = gvz_region.latitude
             if gvz_region.ags and not cleaned_data.get("common_id"):
                 cleaned_data["common_id"] = gvz_region.ags
+        return cleaned_data
 
-        # If the coordinates could not be filled automatically and have not been filled manually either, throw an error
+    def clean_coordinates(self, cleaned_data: dict[str, Any]) -> dict[str, Any]:
+        """
+        If the coordinates could not be filled automatically and have not been filled manually either, throw an error
+
+        :param cleaned_data: The cleaned data
+        """
         if not cleaned_data.get("latitude"):
             self.add_error(
                 "latitude",
@@ -470,8 +525,14 @@ class RegionForm(CustomModelForm):
                     code="required",
                 ),
             )
+        return cleaned_data
 
-        # If a region is being cloned but no PBO cloning behavior has been selected, throw an error
+    def clean_duplicate_region(self, cleaned_data: dict[str, Any]) -> dict[str, Any]:
+        """
+        If a region is being cloned but no PBO cloning behavior has been selected, throw an error
+
+        :param cleaned_data: The cleaned data
+        """
         if cleaned_data.get("duplicated_region") and not cleaned_data.get(
             "duplication_pbo_behavior",
         ):
@@ -482,11 +543,6 @@ class RegionForm(CustomModelForm):
                     code="required",
                 ),
             )
-
-        # Automatically fill the bounding box coordinates
-        cleaned_data = self.autofill_bounding_box(cleaned_data)
-
-        logger.debug("RegionForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data
 
     def clean_slug(self) -> str:
