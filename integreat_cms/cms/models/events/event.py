@@ -100,6 +100,7 @@ class Event(AbstractContentModel):
         verbose_name=_("location"),
     )
     meeting_url = models.URLField(
+        null=True,
         blank=True,
         verbose_name=_("Online event link"),
         help_text=_("Link to the online event if it has no physical location."),
@@ -350,3 +351,13 @@ class Event(AbstractContentModel):
         default_permissions = ("change", "delete", "view")
         #: The custom permissions for this model
         permissions = (("publish_event", "Can publish events"),)
+        #: The constraints for this model
+        constraints = [
+            models.CheckConstraint(
+                check=Q(meeting_url=None) | Q(location=None),
+                name="meeting_url_requires_no_location",
+                violation_error_message=_(
+                    "An event with a location can't have a meeting URL",
+                ),
+            ),
+        ]
