@@ -32,7 +32,11 @@
     {% endif %}
     <div id="location-block"
          class="{% if form.has_not_location.value %}hidden{% endif %}">
-        <label for="{{ form.location.id_for_label }}">
+        {% comment %}
+            This is not for="{{ form.location.id_for_label }}" because the element with that id is a hidden input containing the locations id.
+            The visible input element is poi-query-input (created a few lines further down) and updates the hidden input on user interaction.
+        {% endcomment %}
+        <label for="poi-query-input">
             {{ form.location.label }}
         </label>
         {% if archived %}
