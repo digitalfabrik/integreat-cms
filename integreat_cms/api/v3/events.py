@@ -101,7 +101,7 @@ def transform_event_translation(
         "location_path": (
             poi_translation.get_absolute_url() if poi_translation else None
         ),
-        "online_link": event.online_link or None,
+        "meeting_url": event.meeting_url or None,
         "event": transform_event(event, recurrence_date),
         "hash": None,
         "recurrence_rule": (

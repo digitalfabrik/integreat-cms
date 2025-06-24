@@ -17,12 +17,12 @@
                for="{{ form.has_not_location.id_for_label }}">
             {{ form.has_not_location.label }}
         </label>
-        <div id="online-link-block"
+        <div id="meeting-url-block"
              class="{% if not form.has_not_location.value %}hidden{% endif %}">
-            <label for="{{ form.online_link.id_for_label }}">
-                {{ form.online_link.label }}
+            <label for="{{ form.meeting_url.id_for_label }}">
+                {{ form.meeting_url.label }}
             </label>
-            {% render_field form.online_link class+="input w-full" %}
+            {% render_field form.meeting_url class+="input w-full" %}
         </div>
     {% endif %}
     {% if current_menu_item == "contacts" %}
@@ -32,7 +32,11 @@
     {% endif %}
     <div id="location-block"
          class="{% if form.has_not_location.value %}hidden{% endif %}">
-        <label for="{{ form.location.id_for_label }}">
+        {% comment %}
+            This is not for="{{ form.location.id_for_label }}" because the element with that id is a hidden input containing the locations id.
+            The visible input element is poi-query-input (created a few lines further down) and updates the hidden input on user interaction.
+        {% endcomment %}
+        <label for="poi-query-input">
             {{ form.location.label }}
         </label>
         {% if archived %}
