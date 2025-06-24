@@ -617,9 +617,9 @@ class MatomoApiClient:
             **query_params,
             segment=f"pageUrl=@/children/?depth=2&url={full_slug}",
         )
-        access_date = next(iter(result))
-        accesses = result[access_date]
-        access_date = datetime.strptime(access_date, "%Y-%m-%d").date()
+        access_date_str = next(iter(result.keys()))
+        accesses = next(iter(result.values()))
+        access_date = datetime.strptime(access_date_str, "%Y-%m-%d").date()
         PageAccesses.objects.update_or_create(
             access_date=access_date,
             language=language,

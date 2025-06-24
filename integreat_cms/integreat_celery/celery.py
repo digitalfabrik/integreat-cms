@@ -72,9 +72,12 @@ def wrapper_fetch_page_accesses() -> None:
     Periodic task to fetch page accesses of the previous day from Matomo
     """
     fetch_date = datetime.today() - timedelta(days=1)
-    fetch_date = fetch_date.strftime("%Y-%m-%d")
+    fetch_date_str = fetch_date.strftime("%Y-%m-%d")
     call_command(
-        "fetch_page_accesses", start_date=fetch_date, end_date=fetch_date, period="day"
+        "fetch_page_accesses",
+        start_date=fetch_date_str,
+        end_date=fetch_date_str,
+        period="day",
     )
 
 

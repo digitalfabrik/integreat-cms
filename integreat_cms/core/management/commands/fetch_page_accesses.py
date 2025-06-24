@@ -89,25 +89,25 @@ class Command(LogCommand):
         try:
             start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
             end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
+            if region_slug is not None:
+                try:
+                    regions.append(Region.objects.get(slug=region_slug))
+                except Region.DoesNotExist as e:
+                    raise CommandError(
+                        f'Region with slug "{region_slug}" does not exist.',
+                    ) from e
+                if not regions[0].statistics_enabled:
+                    logger.error("Statistics are not enabled for this region.")
+                    raise CommandError(f"Statistics are disabled in {regions[0].slug}.")
+            else:
+                regions = list(
+                    Region.objects.filter(statistics_enabled=True, status=ACTIVE)
+                )
+            fetch_page_accesses(
+                start_date=start_date,
+                end_date=end_date,
+                period=period,
+                regions=regions,
+            )
         except ValueError as e:
             raise CommandError("Wrong date format, please use YYYY-MM-DD") from e
-        if region_slug is not None:
-            try:
-                regions.append(Region.objects.get(slug=region_slug))
-            except Region.DoesNotExist as e:
-                raise CommandError(
-                    f'Region with slug "{region_slug}" does not exist.',
-                ) from e
-            if not regions[0].statistics_enabled:
-                logger.error("Statistics are not enabled for this region.")
-                raise CommandError(f"Statistics are disabled in {regions[0].slug}.")
-        else:
-            regions = list(
-                Region.objects.filter(statistics_enabled=True, status=ACTIVE)
-            )
-        fetch_page_accesses(
-            start_date=start_date,
-            end_date=end_date,
-            period=period,
-            regions=regions,
-        )

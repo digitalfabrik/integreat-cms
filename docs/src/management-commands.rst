@@ -216,7 +216,7 @@ Update ALL link text of links of the given URL:
 
 
 ``fetch_page_accesses``
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Fetches page accesses from Matomo and store them in them in the database
 
