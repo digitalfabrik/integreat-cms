@@ -88,3 +88,27 @@ class FirebaseDataClient:
                     )
 
         return statistics_list
+
+    def fetch_subscriptions(self, iid_token: str) -> dict[str, dict[str, str]]:
+        """
+        Fetches active subscriptions for a given device from the Firebase API.
+        See `the FCM documentation by Google <https://developers.google.com/instance-id/reference/server#get_information_about_app_instances>`_
+        (return value is ``.rel.topics`` of the fcm response)
+        """
+        endpoint_url = f"https://iid.googleapis.com/iid/info/{iid_token}?details=true"
+        headers = {
+            "Authorization": f"Bearer {FirebaseSecurityService.get_data_access_token()}",
+            # "Content-Type": "application/json; UTF-8",
+            "access_token_auth": "true",
+        }
+
+        response = requests.get(
+            endpoint_url,
+            headers=headers,
+            timeout=settings.DEFAULT_REQUEST_TIMEOUT,
+        )
+
+        if response.status_code != 200:
+            return {}
+
+        return response.json().get("rel", {}).get("topics", {})

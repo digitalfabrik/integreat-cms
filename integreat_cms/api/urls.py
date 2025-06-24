@@ -37,7 +37,7 @@ from .v3.pages import (
     single_page,
 )
 from .v3.pdf_export import pdf_export
-from .v3.push_notifications import sent_push_notifications
+from .v3.push_notifications import query_subscriptions, sent_push_notifications
 from .v3.regions import region_by_slug, regions
 from .v3.social_media_headers import (
     event_social_media_headers,
@@ -265,5 +265,10 @@ urlpatterns: list[URLPattern] = [
                 ),
             ],
         ),
+    ),
+    path(
+        "api/v3/fcm-subscriptions/",
+        query_subscriptions,
+        name="query_fcm_subscriptions",
     ),
 ]
