@@ -67,8 +67,14 @@ window.addEventListener("load", () => {
         const onlineInput = document.getElementById("id_online_link") as HTMLInputElement;
         // event handler to show location selection
         noLocation.addEventListener("click", () => {
-            document.getElementById("location-block").classList.toggle("hidden");
-            locationInput.disabled = !locationInput.disabled;
+            const classList = document.getElementById("location-block").classList;
+            if (noLocation) {
+                classList.add("hidden");
+            } else {
+                classList.remove("hidden");
+            }
+            locationInput.disabled = noLocation.checked;
+            onlineInput.disabled = !noLocation.checked;
         });
         // remove hidden field on sending
         // (we don't do this whenever the checkbox is clicked because in case
