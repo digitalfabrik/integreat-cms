@@ -61,12 +61,30 @@ window.addEventListener("load", () => {
         });
     }
 
-    // event handler to show location selection
-    document.getElementById("id_has_not_location")?.addEventListener("click", () => {
-        document.getElementById("location-block").classList.toggle("hidden");
+    const noLocation = document.getElementById("id_has_not_location") as HTMLInputElement;
+    if (noLocation) {
         const locationInput = document.getElementById("id_location") as HTMLInputElement;
-        locationInput.disabled = !locationInput.disabled;
-    });
+        const onlineInput = document.getElementById("id_online_link") as HTMLInputElement;
+        // event handler to show location selection
+        noLocation.addEventListener("click", () => {
+            document.getElementById("location-block").classList.toggle("hidden");
+            locationInput.disabled = !locationInput.disabled;
+        });
+        // remove hidden field on sending
+        // (we don't do this whenever the checkbox is clicked because in case
+        // the user e.g. mis-clicked, they would have to enter it all over again)
+        document.body.querySelectorAll('form#content_form button[name="status"]')
+            .forEach(e => e.addEventListener("submit", () => {
+                if (noLocation.checked) {
+                    // no physical location → clear the location
+                    locationInput.value = "";
+                } else {
+                    // physical location → clear online URL
+                    onlineInput.value = "";
+                }
+            }));
+    }
+
 
     // The list of time range options
     const eventsCustomTimeRangeCheckboxList = document.getElementById("id_events_time_range");
