@@ -330,13 +330,14 @@ class Contact(AbstractBaseModel):
         self.archived = False
         self.save()
 
-    def copy(self) -> None:
+    def copy(self) -> Contact:
         """
         Copies the contact
         """
         self.pk = None
         self.area_of_responsibility = self.area_of_responsibility + " " + _("(Copy)")
         self.save()
+        return self
 
     @cached_property
     def absolute_url(self) -> str:
