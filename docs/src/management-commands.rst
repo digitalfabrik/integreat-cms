@@ -78,7 +78,7 @@ Duplicate all currently existing pages to make it easier to create production-li
 
 
 ``copy_pois_events_and_contacts``
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Duplicate all POIs of the template region, also all events and contacts if specified, into the target regions
 
