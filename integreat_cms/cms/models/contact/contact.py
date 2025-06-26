@@ -122,6 +122,7 @@ class Contact(AbstractBaseModel):
             Contact.objects.filter(location__region=region, archived=False)
             .annotate(rank=SearchRank(vector, query))
             .order_by("-rank")
+            .distinct()
         )
 
     @classmethod

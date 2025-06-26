@@ -89,5 +89,14 @@
                 </button>
             {% endif %}
         {% endif %}
+        {% if perms.cms.delete_pushnotification %}
+            <button title="{% translate "Delete push notification" %}"
+                    class="confirmation-button btn-icon"
+                    data-confirmation-title="{% trans "Please confirm that you really want to delete this push notification" %}"
+                    data-confirmation-subject="{{ push_notification.title }}"
+                    data-action="{% url 'delete_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="trash-2"></i>
+            </button>
+        {% endif %}
     </td>
 </tr>

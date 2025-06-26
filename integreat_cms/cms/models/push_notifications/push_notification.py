@@ -193,14 +193,14 @@ class PushNotification(AbstractBaseModel):
 
     def archive(self) -> None:
         """
-        Archives the contact
+        Archives the push notification
         """
         self.archived = True
         self.save()
 
     def restore(self) -> None:
         """
-        Restores the contact
+        Restores the push notification
         """
         self.archived = False
         self.save()
