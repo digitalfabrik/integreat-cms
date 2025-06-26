@@ -613,19 +613,18 @@ class MatomoApiClient:
         :param lang_slug: Language slug for which accesses are retrieved
         :param full_slug: The absolute url slug for the page
         """
+        logger.info("Fetching accesses for page %s", page)
         result = self.fetch(
             **query_params,
             segment=f"pageUrl=@/children/?depth=2&url={full_slug}",
         )
-        access_date_str = next(iter(result.keys()))
-        accesses = next(iter(result.values()))
-        access_date = datetime.strptime(access_date_str, "%Y-%m-%d").date()
-        PageAccesses.objects.update_or_create(
-            access_date=access_date,
-            language=language,
-            page=page,
-            accesses=accesses,
-        )
+        for access_date in result:
+            PageAccesses.objects.update_or_create(
+                access_date=datetime.strptime(access_date, "%Y-%m-%d").date(),
+                language=language,
+                page=page,
+                accesses=result[access_date],
+            )
 
     def get_page_accesses(
         self, start_date: date, end_date: date, period: str, region: Region

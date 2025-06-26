@@ -9,6 +9,7 @@ from django.core.management.base import CommandError
 from integreat_cms.cms.constants.region_status import ACTIVE
 from integreat_cms.cms.views.statistics.statistics_actions import (
     async_fetch_page_accesses,
+    fetch_page_accesses,
 )
 
 from ....cms.models import Region
@@ -23,8 +24,12 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-def fetch_page_accesses(
-    start_date: date, end_date: date, period: str, regions: list[Region]
+def start_fetch_page_accesses(
+    start_date: date,
+    end_date: date,
+    period: str,
+    regions: list[Region],
+    synchronous: bool | None,
 ) -> None:
     """
     Load page accesses from Matomo and save them to page accesses model
@@ -34,10 +39,16 @@ def fetch_page_accesses(
     :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
     :param regions: The regions for which we want our page based accesses
     """
-    for region in regions:
-        async_fetch_page_accesses.apply_async(
-            args=[start_date, end_date, period, region.id]
-        )
+    if not synchronous:
+        for region in regions:
+            async_fetch_page_accesses.apply_async(
+                args=[start_date, end_date, period, region.id]
+            )
+    if synchronous:
+        for region in regions:
+            fetch_page_accesses(
+                start_date=start_date, end_date=end_date, period=period, region=region
+            )
 
 
 class Command(LogCommand):
@@ -64,6 +75,11 @@ class Command(LogCommand):
             "--region-slug",
             help="The slug of the region to fetch page accesses from. Statistics need to be activatet",
         )
+        parser.add_argument(
+            "--synchronous",
+            type=bool,
+            help="Whether page accesses should be fetched asynchronous, defaults to True",
+        )
 
     def handle(
         self,
@@ -72,6 +88,7 @@ class Command(LogCommand):
         end_date: str,
         period: str,
         region_slug: str | None,
+        synchronous: bool | None,
         **options: Any,
     ) -> None:
         r"""
@@ -103,11 +120,12 @@ class Command(LogCommand):
                 regions = list(
                     Region.objects.filter(statistics_enabled=True, status=ACTIVE)
                 )
-            fetch_page_accesses(
+            start_fetch_page_accesses(
                 start_date=starting_date,
                 end_date=ending_date,
                 period=period,
                 regions=regions,
+                synchronous=synchronous,
             )
         except ValueError as e:
             raise CommandError("Wrong date format, please use YYYY-MM-DD") from e
