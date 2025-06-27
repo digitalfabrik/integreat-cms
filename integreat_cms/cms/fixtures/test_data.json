@@ -97,6 +97,7 @@
       "custom_prefix": "",
       "events_enabled": true,
       "locations_enabled": true,
+      "contacts_enabled": true,
       "push_notifications_enabled": true,
       "latitude": 48.36882,
       "longitude": 10.8958715,
@@ -151,6 +152,7 @@
       "custom_prefix": "",
       "events_enabled": true,
       "locations_enabled": false,
+      "contacts_enabled": true,
       "push_notifications_enabled": true,
       "latitude": 49.455288,
       "longitude": 11.0766198,
@@ -205,6 +207,7 @@
       "custom_prefix": "",
       "events_enabled": true,
       "locations_enabled": false,
+      "contacts_enabled": true,
       "push_notifications_enabled": true,
       "latitude": 49.6474779,
       "longitude": 7.1636583,
@@ -259,6 +262,7 @@
       "custom_prefix": "Samtgemeinde",
       "events_enabled": true,
       "locations_enabled": false,
+      "contacts_enabled": true,
       "push_notifications_enabled": true,
       "latitude": 52.6740169362763,
       "longitude": 9.47213037234444,
@@ -313,6 +317,7 @@
       "custom_prefix": "Nationalparklandkreis",
       "events_enabled": true,
       "locations_enabled": false,
+      "contacts_enabled": true,
       "push_notifications_enabled": true,
       "latitude": 49.6474779,
       "longitude": 7.1636583,
@@ -366,6 +371,7 @@
       "aliases": {},
       "custom_prefix": "",
       "events_enabled": true,
+      "contacts_enabled": true,
       "locations_enabled": false,
       "push_notifications_enabled": true,
       "latitude": 48.3780811,
@@ -420,6 +426,7 @@
       "aliases": {},
       "custom_prefix": "",
       "events_enabled": true,
+      "contacts_enabled": true,
       "locations_enabled": true,
       "push_notifications_enabled": true,
       "latitude": 1.0,
@@ -474,6 +481,7 @@
       "aliases": {},
       "custom_prefix": "",
       "events_enabled": true,
+      "contacts_enabled": false,
       "locations_enabled": false,
       "push_notifications_enabled": true,
       "latitude": 13.404954,
@@ -955,6 +963,68 @@
     }
   },
   {
+    "model": "cms.poi",
+    "pk": 7,
+    "fields": {
+      "region": 8,
+      "created_date": "2024-05-25T13:19:34.829Z",
+      "address": "Am Tierpark 125",
+      "postcode": "10319",
+      "city": "Berlin",
+      "country": "Deutschland",
+      "latitude": 52.50320695,
+      "longitude": 13.5301106452759,
+      "location_on_map": false,
+      "icon": null,
+      "archived": false,
+      "category": 2,
+      "temporarily_closed": false,
+      "appointment_url": "",
+      "opening_hours": [
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false }
+      ],
+      "organization": null,
+      "barrier_free": null
+    }
+  },
+  {
+    "model": "cms.poi",
+    "pk": 8,
+    "fields": {
+      "region": 8,
+      "created_date": "2024-05-25T13:19:34.829Z",
+      "address": "Spreeweg 1",
+      "postcode": "10557",
+      "city": "Berlin",
+      "country": "Deutschland",
+      "latitude": 52.5175553,
+      "longitude": 13.3527497,
+      "location_on_map": false,
+      "icon": null,
+      "archived": false,
+      "category": 2,
+      "temporarily_closed": false,
+      "appointment_url": "",
+      "opening_hours": [
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false },
+        { "allDay": false, "closed": true, "timeSlots": [], "appointmentOnly": false }
+      ],
+      "organization": null,
+      "barrier_free": null
+    }
+  },
+  {
     "model": "cms.contact",
     "pk": 1,
     "fields": {
@@ -1035,6 +1105,22 @@
       "archived": false,
       "opening_hours": null,
       "appointment_url": "",
+      "last_updated": "2025-01-08T13:53:31.813Z",
+      "created_date": "2025-01-08T13:53:31.806Z"
+    }
+  },
+  {
+    "model": "cms.contact",
+    "pk": 7,
+    "fields": {
+      "area_of_responsibility": "Tierwärtin",
+      "name": "Tanja",
+      "location": 7,
+      "email": "tanja.tierwärterin@test.de",
+      "phone_number": "0123456789",
+      "website": "",
+      "archived": false,
+      "opening_hours": null,
       "last_updated": "2025-01-08T13:53:31.813Z",
       "created_date": "2025-01-08T13:53:31.806Z"
     }
@@ -6371,6 +6457,46 @@
       "creator": ["root"],
       "automatic_translation": false,
       "poi": 4,
+      "meta_description": "Meta description of the test location"
+    }
+  },
+  {
+    "model": "cms.poitranslation",
+    "pk": 10,
+    "fields": {
+      "title": "Tierpark Berlin",
+      "slug": "tierpark-berlin",
+      "status": "PUBLIC",
+      "content": "",
+      "language": 2,
+      "currently_in_translation": false,
+      "machine_translated": false,
+      "version": 1,
+      "minor_edit": false,
+      "last_updated": "2025-06-09T12:52:56.726Z",
+      "creator": ["root"],
+      "automatic_translation": false,
+      "poi": 7,
+      "meta_description": "Meta description of the test location"
+    }
+  },
+  {
+    "model": "cms.poitranslation",
+    "pk": 11,
+    "fields": {
+      "title": "Schloss Bellevue",
+      "slug": "schloss-bellevue",
+      "status": "PUBLIC",
+      "content": "",
+      "language": 2,
+      "currently_in_translation": false,
+      "machine_translated": false,
+      "version": 1,
+      "minor_edit": false,
+      "last_updated": "2025-06-09T12:52:56.726Z",
+      "creator": ["root"],
+      "automatic_translation": false,
+      "poi": 8,
       "meta_description": "Meta description of the test location"
     }
   }

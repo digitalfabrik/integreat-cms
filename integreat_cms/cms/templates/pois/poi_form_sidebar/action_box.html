@@ -28,7 +28,7 @@
             <label class="mt-0">
                 {% translate "Archive location" %}
             </label>
-            {% if poi_form.instance.is_used %}
+            {% if poi_form.instance.is_used and request.region.contacts_enabled %}
                 {% if poi_form.instance.events.exists %}
                     <div class="mb-5">
                         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
@@ -90,7 +90,7 @@
             <label>
                 {% translate "Delete location" %}
             </label>
-            {% if poi_form.instance.is_used %}
+            {% if poi_form.instance.is_used and request.region.contacts_enabled %}
                 {% if poi_form.instance.events.exists %}
                     <div class="mb-5">
                         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
