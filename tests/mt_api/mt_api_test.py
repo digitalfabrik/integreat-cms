@@ -247,7 +247,9 @@ def test_bulk_mt_exceeds_limit(
     mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, None)
 
     # Setup available translation credits to 0
-    settings.MT_CREDITS_FREE = 0
+    region = Region.objects.get(slug=REGION_SLUG)
+    region.mt_budget_used = region.mt_budget_booked
+    region.save()
 
     # Log the user in
     client, _role = login_role_user
