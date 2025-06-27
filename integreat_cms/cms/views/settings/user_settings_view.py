@@ -9,7 +9,7 @@ from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from ...forms import UserEmailForm, UserPasswordForm, UserPreferencesForm
+from ...forms import UserEmailForm, UserNameForm, UserPasswordForm, UserPreferencesForm
 
 if TYPE_CHECKING:
     from typing import Any
@@ -44,6 +44,7 @@ class UserSettingsView(TemplateView):
                 "user_preferences_form": UserPreferencesForm(
                     instance=self.request.user,
                 ),
+                "user_name_form": UserNameForm(instance=self.request.user),
             },
         )
         return context
@@ -126,6 +127,24 @@ class UserSettingsView(TemplateView):
             else:
                 user_preferences_form.save()
                 messages.success(request, _("Preferences were successfully saved"))
+
+        elif request.POST.get("submit_form") == "name_form":
+            user_name_form = UserNameForm(data=request.POST, instance=user)
+            if not user_name_form.is_valid():
+                user_name_form.add_error_messages(request)
+                return render(
+                    request,
+                    self.template_name,
+                    {
+                        **self.get_context_data(**kwargs),
+                        "user_name_form": user_name_form,
+                    },
+                )
+            if not user_name_form.has_changed():
+                messages.info(request, _("No changes made"))
+            else:
+                user_name_form.save()
+                messages.success(request, _("Name was successfully updated"))
 
         kwargs = {"region_slug": region.slug} if region else {}
         return redirect("user_settings", **kwargs)

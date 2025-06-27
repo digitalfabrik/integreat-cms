@@ -52,5 +52,6 @@ from .users.region_user_form import RegionUserForm
 from .users.user_email_form import UserEmailForm
 from .users.user_filter_form import UserFilterForm
 from .users.user_form import UserForm
+from .users.user_name_form import UserNameForm
 from .users.user_password_form import UserPasswordForm
 from .users.user_preferences_form import UserPreferencesForm
