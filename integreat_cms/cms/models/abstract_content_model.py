@@ -10,6 +10,9 @@ from django.utils.functional import cached_property
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
+# from integreat_cms.cms.models.users.user import User
+# from integreat_cms.cms.utils.slug_utils import SlugKwargs, generate_unique_slug
+
 if TYPE_CHECKING:
     from collections.abc import Iterator
     from typing import Any
@@ -178,6 +181,36 @@ class AbstractContentModel(AbstractBaseModel):
         for language in all_languages:
             if public_translation := self.get_public_translation(language.slug):
                 yield public_translation
+
+    def copy(self, user: User):
+        """
+        Erstellt eine Kopie des Objekts und aller seiner Übersetzungen.
+        """
+        translations = list(self.translations.all())
+        self.pk = None
+        self.save()
+
+        copy_translation = _("copy")
+        for translation in translations:
+            translation.pk = None
+            # set foreign key to current object
+            translation.content_object = self
+            translation.status = status.DRAFT
+            translation.title = f"{translation.title} ({copy_translation})"
+            kwargs: SlugKwargs = {
+                "slug": translation.slug,
+                "manager": type(translation).objects,
+                "object_instance": translation,
+                "foreign_model": self._meta.model_name,
+                "region": self.region,
+                "language": translation.language,
+            }
+            translation.slug = generate_unique_slug(**kwargs)
+            translation.currently_in_translation = False
+            translation.creator = user
+            translation.save()
+
+        return self
 
     @cached_property
     def public_languages(self) -> list[Language]:

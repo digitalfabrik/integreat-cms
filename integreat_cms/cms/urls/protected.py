@@ -1415,6 +1415,11 @@ urlpatterns: list[URLPattern] = [
                                                         name="edit_poi",
                                                     ),
                                                     path(
+                                                        "copy/",
+                                                        pois.copy_poi,
+                                                        name="copy_poi",
+                                                    ),
+                                                    path(
                                                         "archive/",
                                                         pois.archive_poi,
                                                         name="archive_poi",
