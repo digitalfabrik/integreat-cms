@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import copy
+from datetime import timedelta
 from typing import TYPE_CHECKING
+
+from django.utils.timezone import now
 
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
@@ -9,12 +12,20 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
+from django.contrib.auth import get_user_model
 from django.db.models import F, Q
 from django.urls import reverse
 from django.utils import timezone
 
 from integreat_cms.cms.constants import frequency, status
-from integreat_cms.cms.models import Event, EventTranslation, RecurrenceRule
+from integreat_cms.cms.models import (
+    Event,
+    EventTranslation,
+    Language,
+    RecurrenceRule,
+    Region,
+)
+from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
 from tests.conftest import ANONYMOUS, PRIV_STAFF_ROLES, WRITE_ROLES
 from tests.utils import assert_message_in_log
 
@@ -32,6 +43,36 @@ location_test_parameters = [
     (None, True, True),
     (POI_ID, False, True),
 ]
+
+
+def create_event(region_slug: str, name_add: str = "") -> int:
+    """
+    A helper function to create a new POI that is unused (and therefore deletable)
+
+    Returns the new events ID
+    """
+
+    start_time = now()
+    end_time = start_time + timedelta(hours=1)
+
+    region = Region.objects.get(slug=region_slug)
+    language = Language.objects.get(slug="en")
+
+    event = Event.objects.create(
+        region=region,
+        start=start_time,
+        end=end_time,
+        archived=False,
+    )
+
+    EventTranslation.objects.create(
+        event=event,
+        language=language,
+        title=f"Test Event{name_add}",
+        slug=f"test-event{name_add}".lower(),
+    )
+
+    return event.id
 
 
 @pytest.mark.django_db
@@ -475,3 +516,40 @@ def test_end_date_changed(
         )
     else:
         assert response.status_code == 403
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("role", ["ROOT", "AUTHOR"])
+@pytest.mark.parametrize(
+    "num_deletable, num_undeletable",
+    [
+        pytest.param(1, 0, id="deletable_event=1"),
+        pytest.param(2, 0, id="deletable_events=2"),
+    ],
+)
+def test_bulk_delete_events(
+    role: str,
+    client: Client,
+    load_test_data: None,
+    settings: SettingsWrapper,
+    caplog: LogCaptureFixture,
+    num_deletable: int,
+    num_undeletable: int,
+) -> None:
+    """
+    Test whether bulk deleting of pois works as expected
+    """
+    user = get_user_model().objects.get(username=role.lower())
+    client.force_login(user)
+
+    deletable_events = [create_event("augsburg", f"-{i}") for i in range(num_deletable)]
+
+    instance_ids: BulkActionIDs = {"deletable": deletable_events, "undeletable": [[]]}
+    fail_reason = ""
+    url = reverse(
+        "delete_multiple_events",
+        kwargs={"region_slug": "augsburg", "language_slug": "en"},
+    )
+    assert_bulk_delete(
+        Event, instance_ids, url, (client, role), caplog, settings, [fail_reason]
+    )
