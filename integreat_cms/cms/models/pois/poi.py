@@ -151,7 +151,7 @@ class POI(AbstractContentModel):
         Archives the poi and removes all links of this poi from the linkchecker
         """
         was_successful = False
-        if not self.is_used:
+        if not self.is_currently_used:
             self.archived = True
             self.save()
             # Delete related link objects as they are no longer required
@@ -159,7 +159,7 @@ class POI(AbstractContentModel):
             was_successful = True
         else:
             logger.debug(
-                "Can't be archived because this poi is used by an event or a contact",
+                "Can't be archived because this poi is used by a contact or an upcoming event",
             )
         return was_successful
 
@@ -181,6 +181,14 @@ class POI(AbstractContentModel):
         :return: whether this poi is used by another model
         """
         return self.events.exists() or self.contacts.exists()
+
+    @property
+    def is_currently_used(self) -> bool:
+        """
+        :return: whether this poi is used by a contact or an upcoming event
+        """
+        upcoming_events = self.events.filter_upcoming()
+        return self.contacts.exists() or upcoming_events.exists()
 
     @cached_property
     def short_address(self) -> str:
