@@ -21,7 +21,8 @@
             {% if perms.cms.change_languagetreenode %}
                 <div class="flex flex-wrap gap-2">
                     <a href="{% url 'languagetreenodes' region_slug=request.region.slug %}"
-                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                       class="btn btn-ghost">{% translate
+                    "Cancel" %}</a>
                     {% if form.instance.id %}
                         <button class="btn ml-auto mr-0">
                             {% translate "Update" %}
@@ -78,6 +79,12 @@
                     <label for="{{ form.visible.id_for_label }}">
                         {{ form.visible.label }}
                     </label>
+                    <div id="visible-warning"
+                         class="hidden bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3 mb-5">
+                        <p>
+                            {% translate "An inactive language tree node cannot be visible." %}
+                        </p>
+                    </div>
                     <div class="help-text">
                         {{ form.visible.help_text }}
                     </div>
