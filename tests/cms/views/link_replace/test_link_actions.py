@@ -179,7 +179,7 @@ def test_search_and_replace_links(
         assert response.status_code == 302
 
         assert_message_in_log(
-            "SUCCESS  Links were replaced successfully.",
+            f"SUCCESS  {before - after} Links were replaced successfully.",
             caplog,
         )
 
