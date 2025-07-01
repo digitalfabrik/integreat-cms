@@ -80,12 +80,22 @@ class LinkReplaceView(TemplateView):
                 },
             )
 
-        form.save()
+        number_of_links = form.save()
 
-        messages.success(
-            request,
-            _("Links were replaced successfully."),
-        )
+        if not number_of_links:
+            messages.info(
+                request,
+                _(
+                    "No link was found with the given search criteria. No change has been made."
+                ),
+            )
+        else:
+            messages.success(
+                request,
+                _("{} Links were replaced successfully.").format(
+                    number_of_links,
+                ),
+            )
 
         if request.region:
             return redirect(

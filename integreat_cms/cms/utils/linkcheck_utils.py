@@ -362,7 +362,7 @@ def replace_links(
     user: User | None = None,
     commit: bool = True,
     link_types: list[str] | None = None,
-) -> None:
+) -> int:
     """
     Perform search & replace in the content links
 
@@ -384,6 +384,8 @@ def replace_links(
     time.sleep(0.1)
     tasks_queue.join()
     logger.info("Finished replacing %r with %r in content links", search, replace)
+
+    return len(content_objects)
 
 
 def find_target_url_per_content(
