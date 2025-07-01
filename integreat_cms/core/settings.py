@@ -30,6 +30,11 @@ if TYPE_CHECKING:
 
     from django.utils.functional import Promise
 
+import linkcheck.listeners
+
+# Make linkcheck run inline instead of a background thread to see if CI problems magically resolve itself
+linkcheck.listeners.tests_running = True
+
 ###################
 # CUSTOM SETTINGS #
 ###################
