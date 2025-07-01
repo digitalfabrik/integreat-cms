@@ -44,12 +44,12 @@ class LinkReplaceForm(forms.Form):
         self.region = kwargs.pop("region")
         super().__init__(**kwargs)
 
-    def save(self) -> None:
+    def save(self) -> bool:
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to call replace_link function
         """
 
-        replace_links(
+        return replace_links(
             self.cleaned_data["search"],
             self.cleaned_data["replace"],
             region=self.region,
