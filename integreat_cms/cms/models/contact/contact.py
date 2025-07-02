@@ -127,6 +127,16 @@ class Contact(AbstractBaseModel):
 
     @classmethod
     def search_for_query(cls, region: Region, query: str) -> QuerySet:
+        """
+        Searches for all contacts in the specified region whose name or location information 
+        matches the search query. The match is case-insensitive and supports partial text matching.
+        :param region: The region to filter contacts by.
+        :type region: Region
+        :param query: The search string used to match against contact names or location titles.
+        :type query: str
+        :return: A QuerySet containing all matching contact objects.
+        :rtype: QuerySet
+        """
         return cls.objects.filter(location__region=region).filter(
             Q(name__icontains=query) | Q(location__translations__title__icontains=query)
         )
