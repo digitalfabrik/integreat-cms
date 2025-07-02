@@ -148,7 +148,7 @@ class MatomoApiClient:
             mask_token_auth(url),
         )
         try:
-            response = requests.get(url, timeout=10)
+            response = requests.get(url, timeout=30)
             response.raise_for_status()
             response_data = response.json()
             if (
@@ -158,6 +158,7 @@ class MatomoApiClient:
                 raise MatomoException(response_data["message"])
             return response_data  # noqa: TRY300
         except requests.exceptions.RequestException as e:
+            logger.exception("Error occurred during fetching of page accesses")
             raise MatomoException(
                 f"An error occurred {mask_token_auth(str(e))}",
             ) from None
