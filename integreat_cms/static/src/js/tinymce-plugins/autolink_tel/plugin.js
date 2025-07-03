@@ -193,7 +193,9 @@
                 editor.dom.setAttrib(editor.selection.getNode(), "target", defaultLinkTarget);
                 editor.selection.setContent(prettyPrintedNumber);
             }
-            editor.selection.moveToBookmark(bookmark);
+            const link = editor.selection.getNode();
+            editor.selection.select(link, false);
+            editor.selection.collapse(false);
             editor.nodeChanged();
         }
     };
@@ -201,7 +203,7 @@
         parseCurrentLine(editor, -1, "(");
     };
     const handleSpacebar = (editor) => {
-        parseCurrentLine(editor, 0, "");
+        parseCurrentLine(editor, -1, "");
     };
     const handleEnter = (editor) => {
         parseCurrentLine(editor, -1, "");
@@ -210,12 +212,28 @@
         const KEY_CODE_ENTER = 13;
         const KEY_CODE_SPACE = 32;
         const KEY_CODE_SELECT = 41;
+        const NODE_TYPE_TEXT = 3;
 
         let autoUrlDetectState;
         /* eslint-disable-next-line consistent-return */
         editor.on("keydown", (e) => {
+            if (e.keyCode === KEY_CODE_SPACE) {
+                const rng = editor.selection.getRng();
+                const node = rng.startContainer;
+                if (
+                    node.nodeType === NODE_TYPE_TEXT &&
+                    node.parentNode &&
+                    node.parentNode.tagName === "A" &&
+                    rng.startOffset === node.length
+                ) {
+                    return;
+                }
+                handleSpacebar(editor);
+                return;
+            }
+
             if (e.keyCode === KEY_CODE_ENTER) {
-                return handleEnter(editor);
+                handleEnter(editor);
             }
         });
         if (global$1.browser.isIE()) {
@@ -233,12 +251,6 @@
         editor.on("keypress", (e) => {
             if (e.keyCode === KEY_CODE_SELECT) {
                 return handleEclipse(editor);
-            }
-        });
-        /* eslint-disable-next-line consistent-return */
-        editor.on("keyup", (e) => {
-            if (e.keyCode === KEY_CODE_SPACE) {
-                return handleSpacebar(editor);
             }
         });
         return "";
