@@ -193,13 +193,14 @@ def get_link_query(regions: QuerySet[Region]) -> QuerySet:
 
     :return: A query containing the relevant links
     """
-    non_archived_pages = regions[0].non_archived_pages.values("pk")
-    for region in regions[1:]:
-        # When more than one region is requested, the request comes from the central linkchecker and only active regions should be considered
-        if region.status == region_status.ACTIVE:
-            non_archived_pages = non_archived_pages.union(
-                region.non_archived_pages.values("pk"), all=True
-            )
+    non_archived_pages = [
+        region.non_archived_pages.values("pk")
+        for region in regions
+        if region.status == region_status.ACTIVE or region == regions[0]
+    ]
+
+    non_archived_pages = non_archived_pages[0].union(*non_archived_pages[1:], all=True)
+
     latest_pagetranslation_versions = Subquery(
         PageTranslation.objects.filter(
             page__id__in=non_archived_pages,
@@ -223,20 +224,38 @@ def get_link_query(regions: QuerySet[Region]) -> QuerySet:
         .values_list("pk", flat=True),
     )
     organizations = Organization.objects.filter(region__in=regions, archived=False)
-    # Get all link objects of the requested region
-    regions_links = Link.objects.filter(
-        page_translation__id__in=latest_pagetranslation_versions,
-    ).union(
+
+    link_querysets = [
+        Link.objects.filter(page_translation__id__in=latest_pagetranslation_versions),
         Link.objects.filter(
-            imprint_translation__id__in=latest_imprinttranslation_versions,
+            imprint_translation__id__in=latest_imprinttranslation_versions
         ),
         Link.objects.filter(event_translation__id__in=latest_eventtranslation_versions),
         Link.objects.filter(poi_translation__id__in=latest_poitranslation_versions),
         Link.objects.filter(organization__id__in=organizations),
-        all=True,
-    )
+    ]
 
-    return Link.objects.filter(id__in=regions_links.values("pk")).order_by("id")
+    regions_links = link_querysets[0]
+    regions_link_regions = {link.id: [regions[0]] for link in link_querysets[0]}
+    for region, link_queryset in zip(regions[1:], link_querysets[1:], strict=False):
+        regions_links = regions_links.union(link_queryset, all=True)
+        for link in link_queryset:
+            if link.id in regions_link_regions:
+                regions_link_regions[link.id].append(region)
+            else:
+                regions_link_regions[link.id] = [region]
+
+    final_link_queryset = Link.objects.filter(
+        id__in=regions_links.values("pk")
+    ).order_by("id")
+    for link in final_link_queryset:
+        logger.debug(
+            "Link %s has its origin in these regions: %s",
+            link.id,
+            regions_link_regions[link.id],
+        )
+
+    return final_link_queryset
 
 
 def get_url_count(region_slug: str | None = None) -> dict[str, int]:
