@@ -228,7 +228,7 @@ const Library = ({
                             />
                             <div
                                 id="table-search-suggestions"
-                                class="absolute hidden shadow rounded-b top-full bg-graz-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer"
+                                class="absolute hidden shadow rounded-b top-full bg-gray-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer"
                             />
                         </form>
                         {searchQuery && (
