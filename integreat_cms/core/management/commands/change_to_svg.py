@@ -87,6 +87,9 @@ class Command(LogCommand):
         )
 
     def handle(self, *args: Any, **options: Any) -> None:
+        successful = 0
+        failed = 0
+
         with (
             open(options["path"], newline="")
             if not self.should_stdin_be_used(options)
@@ -125,7 +128,14 @@ class Command(LogCommand):
                             print(
                                 f"{which} path is not valid. Old path was {old_path} and new path was {new_path}"
                             )
+
                 #print(file["old"], file["new"])
+                if file["old"] and file["new"]:
+                    successful += 1
+                else:
+                    failed += 1
+        print()
+        print(f"DONE  Replaced {successful} files  ({failed} failed)")
 
         # change reference from .png or .jpeg to .svg (if existant)
         """pages = Page.objects.filter(explicitly_archived=False).exclude(icon=None)
