@@ -249,6 +249,32 @@ Fetches page accesses from Matomo and store them in the database
 * ``SYNC``: When True page accesses will be fetched as a synchronous process. If not provided or False, page accesses are fetched via celery.
 
 
+``bulk_replace_page_icons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Swap media files used as icons on pages according to a CSV file (files need to exist in the media library):
+
+    integreat-cms-cli bulk_replace_page_icons csv
+
+**Arguments:**
+
+* ``csv``: The path to the csv file we want to read the replacements from
+
+**CSV format:**
+
+The file needs to have at least two columns. The header and any additional columns are ignored.
+The paths describe the path of the file *on disk* on the server (relative to the root location where all media is stored), not the "virtual" one in the media library.
+This path is also used directly as part of the URL that clients use to retrieve the file contents.
+That full URL can also be specified so and will be stripped out automatically.
+
+======================================================================================================  =========================================================================  ========================================
+Source path                                                                                             Target path                                                                Comment
+======================================================================================================  =========================================================================  ========================================
+``https://cms.integreat-app.de/media/sites/83/2015/09/phone-handset_icon-icons.com_48252-300x300.png``  ``/sites/0/2025/08/phone_85134.svg``                                       this is a comment that will be discarded
+``admin.integreat-app.de/media/sites/83/2016/04/calendar60.png``                                        ``https://cms.integreat-app.de/media/sites/0/2025/08/calendar_26397.svg``  etc.
+======================================================================================================  =========================================================================  ========================================
+
+
 Create new commands
 -------------------
 
