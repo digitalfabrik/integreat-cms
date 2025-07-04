@@ -79,7 +79,7 @@ class EventForm(CustomModelForm):
             "end",
             "icon",
             "location",
-            "online_link",
+            "meeting_url",
             "external_calendar",
             "external_event_id",
             "only_weekdays",
@@ -226,6 +226,9 @@ class EventForm(CustomModelForm):
         logger.debug("EventForm validated [2] with cleaned data %r", cleaned_data)
         # Handle location/link requirement logic
         has_not_location = cleaned_data.get("has_not_location")
+
+        if self.instance.has_location:
+            self.instance.meeting_url = None
 
         # Set the model's has_physical_location flag based on the inverse of the form checkbox
         self.instance.has_physical_location = not has_not_location
