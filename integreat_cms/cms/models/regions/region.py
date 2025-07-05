@@ -26,6 +26,8 @@ from integreat_cms.cms.constants import translation_status
 from ..statistics.page_accesses import PageAccesses
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.db.models.query import QuerySet
     from django.utils.functional import Promise
     from django.utils.safestring import SafeString
@@ -897,6 +899,33 @@ class Region(AbstractBaseModel):
         :return: A query for all matching objects
         """
         return cls.objects.filter(name__icontains=query)
+
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for region search
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+        """
+        results: list[dict[str, Any]] = []
+
+        query = kwargs["query"]
+        archived_flag = kwargs["archived_flag"]
+
+        regions = cls.search(query)
+        if archived_flag:
+            regions = regions.exclude(status=region_status.ARCHIVED)
+
+        results.extend(
+            {
+                "title": region.name,
+                "url": None,
+                "type": "region",
+            }
+            for region in regions
+        )
+        return results
 
     @cached_property
     def imprint(self) -> ImprintPage | None:

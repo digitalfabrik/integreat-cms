@@ -12,6 +12,8 @@ from ..languages.language import Language
 from .push_notification import PushNotification
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.db.models.query import QuerySet
 
     from ..regions.region import Region
@@ -64,6 +66,36 @@ class PushNotificationTranslation(AbstractBaseModel):
             language__slug=language_slug,
             title__icontains=query,
         )
+
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for push notification search
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+        """
+        results: list[dict[str, Any]] = []
+
+        region = kwargs["region"]
+        query = kwargs["query"]
+        archived_flag = kwargs["archived_flag"]
+        language_slug = kwargs["language_slug"]
+
+        push_notifications = PushNotificationTranslation.search(
+            region, language_slug, query
+        ).filter(push_notification__archived=archived_flag)
+
+        results.extend(
+            {
+                "title": push_notification.title,
+                "url": None,
+                "type": "push_notification",
+            }
+            for push_notification in push_notifications
+        )
+
+        return results
 
     def get_title(self) -> str:
         """
