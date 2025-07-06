@@ -6,7 +6,8 @@ from typing import Any
 from django.core.management.base import CommandParser
 from django.db import connection
 
-from integreat_cms.cms.models.media.media_file import MediaFile, Directory
+from integreat_cms.cms.models.media.media_file import Directory, MediaFile
+from integreat_cms.cms.models.pages.page import Page
 
 from ..log_command import LogCommand
 
@@ -49,13 +50,7 @@ def get_mixed_tree_paths():
         """)
 
         rows = cursor.fetchall()
-        return {
-            row[1]: {
-                "id": row[0],
-                "is_directory": row[2]
-            }
-            for row in rows
-        }
+        return {row[1]: {"id": row[0], "is_directory": row[2]} for row in rows}
 
 
 class Command(LogCommand):
@@ -63,6 +58,7 @@ class Command(LogCommand):
     Management command to change references from .png or .jpeg to .svg
     """
 
+    # TODO: update help at the end, once we know the exact usage
     help = "Change the reference from .png icons to .svg icons, if they share the same name"
 
     def add_arguments(self, parser: CommandParser) -> None:
@@ -112,32 +108,41 @@ class Command(LogCommand):
                         .removeprefix("https://")
                         .removeprefix("admin.integreat-app.de/media/")
                         .removeprefix("cms.integreat-app.de/media/")
-                    )
+                    ),
                 }
                 file = {"old": None, "new": None}
 
                 for which, p in path.items():
                     if p not in full_path_lookup:
-                        print(f"{which} path does not exist. Old path was {old_path} and new path was {new_path}")
+                        print(
+                            f"{which} path does not exist. Old path was {path['old']} and new path was {path['new']}"
+                        )
                     elif full_path_lookup[p]["is_directory"]:
-                        print(f"{which} path is a directory. Old path was {old_path} and new path was {new_path}")
+                        print(
+                            f"{which} path is a directory. Old path was {path['old']} and new path was {path['new']}"
+                        )
                     else:
                         try:
-                            file[which] = MediaFile.objects.get(id=full_path_lookup[path]["id"])
+                            file[which] = MediaFile.objects.get(
+                                id=full_path_lookup[path]["id"]
+                            )
                         except MediaFile.DoesNotExist:
                             print(
-                                f"{which} path is not valid. Old path was {old_path} and new path was {new_path}"
+                                f"{which} path is not valid. Old path was {path['old']} and new path was {path['new']}"
                             )
 
-                #print(file["old"], file["new"])
                 if file["old"] and file["new"]:
+                    pages = Page.objects.filter(explicitly_archived=False, icon=file["old"] )
+                    for page in pages:
+                        print("page {page} found ")
+                        page.icon = file["new"]
+                        page.save()
+
                     successful += 1
                 else:
                     failed += 1
+
         print()
         print(f"DONE  Replaced {successful} files  ({failed} failed)")
 
         # change reference from .png or .jpeg to .svg (if existant)
-        """pages = Page.objects.filter(explicitly_archived=False).exclude(icon=None)
-        for page in pages:
-            print(page.icon)"""
