@@ -72,7 +72,7 @@ def get_referencing_translations(
     :param content_translation: The `content_translation` for which links should be searched
     :return: All referencing content translations
     """
-    result = set()
+    result: set[AbstractContentTranslation] = set()
 
     public_translation = content_translation.public_version
 
@@ -108,12 +108,13 @@ def get_referencing_translations(
         url__startswith=f"{settings.WEBAPP_URL.removesuffix('/')}/{region_slug}/{language_slug}/"
     )
 
-    urls = (url for url in Url.objects.filter(filter_query) if url.internal)
+    urls = Url.objects.filter(filter_query)
     for url in urls:
         if linked_translation := get_public_translation_for_link(url.url):
             if linked_translation != public_translation:
                 continue
 
-            for link in url.links.all():
-                result.add(link.content_object.latest_version)
+            result.update(
+                link.content_object.latest_version for link in url.links.all()
+            )
     return result
