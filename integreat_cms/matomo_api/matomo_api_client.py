@@ -141,6 +141,7 @@ class MatomoApiClient:
             return re.sub("&token_auth=[^&]+", "&token_auth=********", req_url)
 
         url = f"{settings.MATOMO_URL}/?{urlencode(query_params)}"
+        # print(url)
         logger.debug(
             "Requesting %r: %s",
             query_params.get("method"),
@@ -148,7 +149,7 @@ class MatomoApiClient:
             mask_token_auth(url),
         )
         try:
-            response = requests.get(url, timeout=30)
+            response = requests.get(url, timeout=60)
             response.raise_for_status()
             response_data = response.json()
             if (
@@ -638,13 +639,17 @@ class MatomoApiClient:
         :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
         :param region: The region for which we want our page based accesses
         """
+        num_of_days = (end_date - start_date).days
+        total_query = {
+            "method": "API.getBulkRequest",
+        }
         query_params = {
+            "method": "VisitsSummary.getActions",
             "date": f"{start_date},{end_date}",
             "expanded": "1",
             "filter_limit": "-1",
             "format_metrics": "1",
             "idSite": self.matomo_id,
-            "method": "VisitsSummary.getActions",
             "period": period,
         }
         languages = list(self.languages)
@@ -654,14 +659,33 @@ class MatomoApiClient:
 
         # retrieve and save accesses per page and language with the corresponding url slugs
         for page_id, langs in translation_slugs.items():
-            for lang_slug, full_slug in langs.items():
-                for language in languages:
-                    if language.slug == lang_slug:
-                        for page in pages:
-                            if page.id == page_id:
-                                self.retrieve_accesses_for_page(
-                                    query_params,
-                                    full_slug=full_slug,
-                                    language=language,
-                                    page=page,
+            for page in pages:
+                if page.id == page_id:
+                    page_params = total_query
+                    page_query = query_params
+                    i = 0
+                    for lang_slug, full_slug in langs.items():
+                        for language in languages:
+                            if language.slug == lang_slug:
+                                page_query.update(
+                                    {
+                                        "segment": f"pageUrl=@/children/?depth=2&url={full_slug}"
+                                    }
                                 )
+                                url_param = {f"urls[{i}]": urlencode(page_query)}
+                                i += 1
+                                page_params.update(url_param)
+                    logger.info("Fetching accesses for page %s", page)
+                    result = self.fetch(**page_params)
+                    for j, lang_slug in enumerate(langs):
+                        for language in languages:
+                            if language.slug == lang_slug:
+                                for access_date in result[j]:
+                                    PageAccesses.objects.update_or_create(
+                                        access_date=datetime.strptime(
+                                            access_date, "%Y-%m-%d"
+                                        ).date(),
+                                        language=language,
+                                        page=page,
+                                        accesses=result[j][access_date],
+                                    )
