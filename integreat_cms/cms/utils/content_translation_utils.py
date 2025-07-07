@@ -9,6 +9,7 @@ import operator
 from functools import reduce
 from typing import TYPE_CHECKING
 
+from django.conf import settings
 from django.db.models import Q
 from linkcheck.models import Url
 
@@ -83,13 +84,28 @@ def get_referencing_translations(
         translation_slugs,
         translation_ids,
     )
+    # Links end in the slug or id, and might or might not have a trailing slash
     filter_query = reduce(
         operator.or_,
-        (Q(url__contains=slug) for slug in translation_slugs),
+        (
+            Q(url__endswith=f"/{slug}{trailing}")
+            for slug in translation_slugs
+            for trailing in ["", "/"]
+        ),
     )
     filter_query = filter_query | reduce(
         operator.or_,
-        (Q(url__contains=str(uid)) for uid in translation_ids),
+        (
+            Q(url__endswith=f"/{uid}{trailing}")
+            for uid in translation_ids
+            for trailing in ["", "/"]
+        ),
+    )
+    # Links also start with the domain followed by the region and language slug
+    region_slug = content_translation.foreign_object.region.slug
+    language_slug = content_translation.language.slug
+    filter_query = filter_query & Q(
+        url__startswith=f"{settings.WEBAPP_URL.removesuffix('/')}/{region_slug}/{language_slug}/"
     )
 
     urls = (url for url in Url.objects.filter(filter_query) if url.internal)
