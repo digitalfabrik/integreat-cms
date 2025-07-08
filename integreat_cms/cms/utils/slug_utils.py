@@ -21,6 +21,7 @@ if TYPE_CHECKING:
 
     from ..models import Language, Region
     from ..models.abstract_base_model import AbstractBaseModel
+    from ..models.abstract_content_model import AbstractContentModel
 
 
 logger = logging.getLogger(__name__)
@@ -44,6 +45,7 @@ if TYPE_CHECKING:
         cleaned_data: NotRequired[QueryDict]
         fallback: NotRequired[Literal["name", "title"]]
         foreign_model: ForeignModelType
+        foreign_object: NotRequired[AbstractContentModel]
         language: NotRequired[Language]
         manager: Manager
         object_instance: AbstractBaseModel
@@ -108,6 +110,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     """
     slug: str = kwargs.get("slug", "")
     foreign_model: str | None = kwargs.get("foreign_model")
+    foreign_object: AbstractContentModel | None = kwargs.get("foreign_object")
     object_instance: AbstractBaseModel = kwargs["object_instance"]
     fallback: Literal["name", "title", ""] = kwargs.get("fallback", "")
     cleaned_data: dict[str, Any] = kwargs.get("cleaned_data", {})
@@ -117,6 +120,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     logger.debug("foreign_model: %r", foreign_model)
     if foreign_model in ["page", "event", "poi"]:
         logger.debug("%r, %r", region, language)
+    logger.debug("slug: %r", slug)
 
     # if slug is empty and fallback field is set, generate from fallback:title/name
     if not slug:
@@ -155,7 +159,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
                 # other objects which are just other versions of this object are allowed to have the same slug
                 other_objects = other_objects.exclude(
                     **{
-                        foreign_model: object_instance.foreign_object,
+                        foreign_model: foreign_object or object_instance.foreign_object,
                         "language": language,
                     },
                 )
