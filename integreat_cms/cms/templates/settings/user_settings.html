@@ -68,6 +68,33 @@
             <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="w-full p-4 rounded bg-water-500">
                     <h3 class="font-bold text-black">
+                        <i icon-name="user" class="mr-2"></i> {% translate "My Username and Name" %}
+                    </h3>
+                </div>
+                <div class="px-4 pb-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        <label for="{{ user_name_form.username.id_for_label }}">
+                            {{ user_name_form.username.label }}
+                        </label>
+                        {% render_field user_name_form.username|add_error_class:"border-red-500" %}
+                        <label for="{{ user_name_form.first_name.id_for_label }}">
+                            {{ user_name_form.first_name.label }}
+                        </label>
+                        {% render_field user_name_form.first_name|add_error_class:"border-red-500" %}
+                        <label for="{{ user_name_form.last_name.id_for_label }}">
+                            {{ user_name_form.last_name.label }}
+                        </label>
+                        {% render_field user_name_form.last_name|add_error_class:"border-red-500" %}
+                        <button name="submit_form" value="name_form" class="btn mt-4">
+                            {% translate "Change name" %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="w-full p-4 rounded bg-water-500">
+                    <h3 class="font-bold text-black">
                         <i icon-name="mail" class="mr-2"></i> {% translate "My E-mail-address" %}
                     </h3>
                 </div>

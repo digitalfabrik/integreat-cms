@@ -21,7 +21,7 @@ from ....matomo_api.matomo_api_client import MatomoException
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...constants import duplicate_pbo_behaviors, region_status, status
 from ...models import LanguageTreeNode, OfferTemplate, Page, Region
-from ...models.regions.region import format_mt_help_text, format_summ_ai_help_text
+from ...models.regions.region import format_summ_ai_help_text
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
@@ -151,11 +151,8 @@ class RegionForm(CustomModelForm):
     mt_midyear_start_enabled = forms.BooleanField(
         required=False,
         label=_("Budget year start differs from the renewal date"),
-        help_text=__(
-            _("Enable to set an add-on starting date differing from the renewal date."),
-            format_mt_help_text(
-                _("Budget will be set as a monthly fraction of {} credits"),
-            ),
+        help_text=_(
+            "Enable to set an starting date of machine translation budget calculation differing from the renewal date. Budget will be set as a monthly fraction of the booked machine translation budget.",
         ),
     )
 
@@ -215,8 +212,9 @@ class RegionForm(CustomModelForm):
             "summ_ai_midyear_start_enabled",
             "summ_ai_midyear_start_month",
             "hix_enabled",
+            "mt_budget_booked",
             "mt_renewal_month",
-            "mt_addon_booked",
+            "mt_midyear_start_enabled",
             "mt_midyear_start_month",
             "integreat_chat_enabled",
             "zammad_url",

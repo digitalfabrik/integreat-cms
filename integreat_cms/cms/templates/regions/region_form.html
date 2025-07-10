@@ -375,6 +375,12 @@
                     <label>
                         {% trans "Foreign language machine translation" %}
                     </label>
+                    <div>
+                        <label for="{{ form.mt_budget_booked.id_for_label }}" class="secondary">
+                            {{ form.mt_budget_booked.label }}
+                        </label>
+                        {% render_field form.mt_budget_booked %}
+                    </div>
                     {% if form.instance.id %}
                         <div class="max-w-xs">
                             <div class="flex flex-wrap justify-between">
@@ -410,15 +416,7 @@
                     <div class="help-text">
                         {{ form.mt_renewal_month.help_text }}
                     </div>
-                    {% render_field form.mt_addon_booked %}
-                    <label for="{{ form.mt_addon_booked.id_for_label }}" class="secondary">
-                        {{ form.mt_addon_booked.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.mt_addon_booked.help_text }}
-                    </div>
-                    <div id="mt-toggle-div"
-                         {% if not form.instance.mt_addon_booked %}class="hidden"{% endif %}>
+                    <div id="mt-toggle-div">
                         {% render_field form.mt_midyear_start_enabled %}
                         <label for="{{ form.mt_midyear_start_enabled.id_for_label }}"
                                class="secondary">

@@ -15,6 +15,7 @@ from django.db import transaction
 from django.utils.translation import ngettext, ngettext_lazy
 
 from ...cms.constants.machine_translatable_attributes import TRANSLATABLE_ATTRIBUTES
+from ...cms.constants.machine_translation_budget import MINIMAL
 from ...cms.utils.stringify_list import iter_to_string
 from ...textlab_api.utils import check_hix_score
 from .word_count import word_count
@@ -235,7 +236,11 @@ class MachineTranslationApiClient(ABC):
 
         for content_object in self.queryset:
             if (
-                max(1, content_object.word_count - settings.MT_SOFT_MARGIN)
+                max(
+                    1,
+                    content_object.word_count
+                    - settings.MT_SOFT_MARGIN_FRACTION * MINIMAL,
+                )
                 < remaining_budget
             ):
                 filtered_queryset.append(content_object)

@@ -1459,12 +1459,10 @@ msgid "Verification needed"
 msgstr "Überprüfung notwendig"
 
 #: cms/constants/machine_translation_permissions.py
-#: cms/templates/region_condition/region_condition_row.html
 msgid "No"
 msgstr "Nein"
 
 #: cms/constants/machine_translation_permissions.py
-#: cms/templates/region_condition/region_condition_row.html
 msgid "Yes"
 msgstr "Ja"
 
@@ -2344,10 +2342,14 @@ msgid "Budget will be set as a monthly fraction of {} credits"
 msgstr "Das Budget wird monatsanteilig von {} Credits berechnet."
 
 #: cms/forms/regions/region_form.py
-msgid "Enable to set an add-on starting date differing from the renewal date."
+msgid ""
+"Enable to set an starting date of machine translation budget calculation "
+"differing from the renewal date. Budget will be set as a monthly fraction of "
+"the booked machine translation budget."
 msgstr ""
-"Aktivieren, um ein Startdatum für das Add-On Paket anzugeben, welches sich "
-"vom Zurücksetzungsdatum unterscheidet."
+"Aktivieren, um ein Startdatum für die Rechnung des Budgets für maschinelle "
+"Übersetztung anzugeben, welches sich vom Zurücksetzungsdatum unterscheidet. "
+"Das Budget wird monatsanteilig vom gebuchten Budgets berechnet."
 
 #: cms/forms/regions/region_form.py
 msgid "Zammad forms"
@@ -2590,6 +2592,10 @@ msgid ""
 msgstr ""
 "Benutzer:innen können nur Mitglieder von Organisationen in Regionen sein, "
 "auf die sie Zugriff haben"
+
+#: cms/forms/users/user_name_form.py
+msgid "This username is already taken."
+msgstr "Dieser Benutzername ist bereits vergeben."
 
 #: cms/forms/users/user_password_form.py
 msgid "My old password"
@@ -4297,20 +4303,12 @@ msgid "used budget"
 msgstr "verbrauchtes Budget"
 
 #: cms/models/regions/region.py
+msgid "Machine translation budget"
+msgstr "Budget für Maschinelle Übersetzung"
+
+#: cms/models/regions/region.py
 msgid "Credits renewal date for foreign language translation"
 msgstr "Credits Zurücksetzungsdatum für Fremdsprachenübersetzung"
-
-#: cms/models/regions/region.py
-msgid "Add-on package for foreign languages booked"
-msgstr "Add-On Paket für Fremdsprachenübersetzung gebucht"
-
-#: cms/models/regions/region.py
-msgid ""
-"This makes {} translation credits available to the region in addition to the "
-"{} free ones."
-msgstr ""
-"Damit stehen der Region {} Übersetzungs-Credits zur Verfügung zusätzlich zu "
-"den {} kostenlosen."
 
 #: cms/models/regions/region.py
 msgid "Budget year start date for foreign language translation"
@@ -8402,7 +8400,8 @@ msgstr "Vorlage löschen"
 msgid ""
 "Please confirm that you really want to delete this push notification template"
 msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigungs-Vorlage gelöscht werden soll"
+"Bitte bestätigen Sie, dass diese Push-Benachrichtigungs-Vorlage gelöscht "
+"werden soll"
 
 #: cms/templates/region_condition/region_condition.html
 msgid "Download region condition as CSV"
@@ -8425,8 +8424,8 @@ msgid "Active languages besides default language"
 msgstr "aktiver Sprachen neben der Standard-Sprache"
 
 #: cms/templates/region_condition/region_condition.html
-msgid "Add-on for MT"
-msgstr "Add-on für MT"
+msgid "Booked MT budget"
+msgstr "Gebuchtes MT Budget"
 
 #: cms/templates/region_condition/region_condition.html
 #: cms/templates/regions/region_list.html
@@ -8728,6 +8727,14 @@ msgstr "Anzeigeeinstellungen"
 #: cms/templates/settings/user_settings.html
 msgid "Save preferences"
 msgstr "Einstellungen speichern"
+
+#: cms/templates/settings/user_settings.html
+msgid "My Username and Name"
+msgstr "Mein Benutzername und Name"
+
+#: cms/templates/settings/user_settings.html
+msgid "Change name"
+msgstr "Namen ändern"
 
 #: cms/templates/settings/user_settings.html
 msgid "My E-mail-address"
@@ -10867,10 +10874,11 @@ msgstr "Alle Übersetzungen dieses Ortes werden gelöscht."
 
 #: cms/views/pois/poi_context_mixin.py
 msgid ""
-"You cannot archive a location which is used by an event or a contact. \n"
+"You cannot archive a location which is used by an upcoming event or a "
+"contact. \n"
 "This also involves archived events and contacts"
 msgstr ""
-"Sie können keinen Ort archivieren, der von einer Veranstaltung oder einem "
+"Sie können keinen Ort archivieren, der von einer zukünftigen Veranstaltung oder einem "
 "Kontakt verwendet wird. \n"
 "Dies betrifft auch archivierte Veranstaltungen und Kontakte"
 
@@ -11089,10 +11097,6 @@ msgid "Number of outdated pages"
 msgstr "Anzahl veralteter Seiten"
 
 #: cms/views/region_condition/region_condition_actions.py
-msgid "Has translation package been booked?"
-msgstr "Wurde das Add-On für Übersetzungen gebucht?"
-
-#: cms/views/region_condition/region_condition_actions.py
 msgid "Number of active languages besides default language"
 msgstr "Anzahl aktiver Sprachen neben der Standard-Sprache"
 
@@ -11175,6 +11179,10 @@ msgstr "Passwort wurde erfolgreich geändert"
 #: cms/views/settings/user_settings_view.py
 msgid "Preferences were successfully saved"
 msgstr "Einstellungen wurden erfolgreich gespeichert"
+
+#: cms/views/settings/user_settings_view.py
+msgid "Name was successfully updated"
+msgstr "Name wurde erfolgreich aktualisiert"
 
 #: cms/views/settings/webauthn/authenticate_modify_mfa_view.py
 msgid "The provided password is not correct"
@@ -11734,6 +11742,22 @@ msgstr ""
 #~ msgstr ""
 #~ "Bitte erstellen Sie mindestens einen Sprach-Knoten und einen Ort, bevor "
 #~ "Sie Kontakte verwalten."
+
+#~ msgid "Add-on for MT"
+#~ msgstr "Add-on für MT"
+
+#~ msgid "Has translation package been booked?"
+#~ msgstr "Wurde das Add-On für Übersetzungen gebucht?"
+
+#~ msgid "Add-on package for foreign languages booked"
+#~ msgstr "Add-On Paket für Fremdsprachenübersetzung gebucht"
+
+#~ msgid ""
+#~ "This makes {} translation credits available to the region in addition to "
+#~ "the {} free ones."
+#~ msgstr ""
+#~ "Damit stehen der Region {} Übersetzungs-Credits zur Verfügung zusätzlich "
+#~ "zu den {} kostenlosen."
 
 #~ msgid "Region "
 #~ msgstr "Region"

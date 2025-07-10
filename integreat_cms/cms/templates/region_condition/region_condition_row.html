@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load rules %}
+{% load humanize %}
 {% load content_filters %}
 {% load hix_pages %}
 {% load link_checker %}
@@ -31,10 +32,6 @@
         {{ region.active_languages_without_default_language|length }}
     </td>
     <td class="text-center py-3 pr-2">
-        {% if region.mt_addon_booked %}
-            {% translate "Yes" %}
-        {% else %}
-            {% translate "No" %}
-        {% endif %}
+        {{ region.mt_budget_booked|intcomma }}
     </td>
 </tr>
