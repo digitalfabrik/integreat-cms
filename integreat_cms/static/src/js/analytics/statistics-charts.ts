@@ -190,6 +190,7 @@ const exportStatisticsData = (): void => {
                 downloadFile(`${filename}.png`, image);
 
                 chart.options.plugins.legend.display = false;
+                ctx.globalCompositeOperation = "source-over";
                 chart.update();
             }
         }, timeoutDuration);
