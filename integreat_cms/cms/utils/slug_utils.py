@@ -154,16 +154,15 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     while True:
         # get other objects with same slug
         other_objects = pre_filtered_objects.filter(slug=unique_slug)
-        if object_instance and object_instance.id:
+        if object_instance:
             if foreign_model in ["page", "event", "poi"]:
                 # other objects which are just other versions of this object are allowed to have the same slug
                 other_objects = other_objects.exclude(
                     **{
                         foreign_model: foreign_object or object_instance.foreign_object,
-                        "language": language,
                     },
                 )
-            else:
+            elif object_instance.id:
                 # the current object is also allowed to have the same slug
                 other_objects = other_objects.exclude(id=object_instance.id)
         if (
