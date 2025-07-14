@@ -22,7 +22,7 @@ def test_when_creating_page_translations_to_automatically_create_unique_slugs() 
         depth=1,
     )
     language = Language.objects.create(
-        slug="da", bcp47_tag="du_DU", primary_country_code="de"
+        slug="da", primary_country_code="de"
     )
 
     page_translation1 = PageTranslation.objects.create(
