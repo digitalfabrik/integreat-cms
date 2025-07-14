@@ -20,9 +20,7 @@ def test_when_creating_even_translations_to_automatically_create_unique_slugs() 
         end=timezone.now() + timedelta(days=2),
         region=region,
     )
-    language = Language.objects.create(
-        slug="da", primary_country_code="de"
-    )
+    language = Language.objects.create(slug="da", primary_country_code="de")
 
     event_translation1 = EventTranslation.objects.create(
         event=event1, language=language, slug="new-slug"
