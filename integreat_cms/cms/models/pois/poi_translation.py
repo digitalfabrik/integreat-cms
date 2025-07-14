@@ -155,6 +155,7 @@ class POITranslation(AbstractContentTranslation):
                 "foreign_model": "poi",
                 "region": self.poi.region,
                 "language": self.language,
+                "fallback": "title",
             }
             self.slug = generate_unique_slug(**kwargs)
 

@@ -418,6 +418,7 @@ class PageTranslation(AbstractBasePageTranslation):
                 "foreign_model": "page",
                 "region": self.page.region,
                 "language": self.language,
+                "fallback": "title",
             }
             self.slug = generate_unique_slug(**kwargs)
 
