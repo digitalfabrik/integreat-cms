@@ -32,7 +32,7 @@ def test_creating_poi_translations_to_automatically_create_unique_slugs() -> Non
         category=poi_category,
     )
     language = Language.objects.create(
-        slug="da", bcp47_tag="du_DU", primary_country_code="de"
+        slug="da", primary_country_code="de"
     )
     poi_translation1 = POITranslation.objects.create(
         poi=poi1, language=language, slug="new-slug"

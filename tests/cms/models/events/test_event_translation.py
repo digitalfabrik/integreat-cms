@@ -21,7 +21,7 @@ def test_when_creating_even_translations_to_automatically_create_unique_slugs() 
         region=region,
     )
     language = Language.objects.create(
-        slug="da", bcp47_tag="du_DU", primary_country_code="de"
+        slug="da", primary_country_code="de"
     )
 
     event_translation1 = EventTranslation.objects.create(
