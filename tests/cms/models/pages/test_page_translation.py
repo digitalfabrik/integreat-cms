@@ -21,9 +21,7 @@ def test_when_creating_page_translations_to_automatically_create_unique_slugs() 
         tree_id=15,
         depth=1,
     )
-    language = Language.objects.create(
-        slug="da", primary_country_code="de"
-    )
+    language = Language.objects.create(slug="da", primary_country_code="de")
 
     page_translation1 = PageTranslation.objects.create(
         page=page1, language=language, slug="new-slug"
