@@ -3423,6 +3423,10 @@ msgid "Preferred provider for translations into this language"
 msgstr "Bevorzugter Anbieter für Übersetzungen in diese Sprache"
 
 #: cms/models/languages/language_tree_node.py
+msgid "a source language of other language(s) cannot be deleted."
+msgstr "eine Quell-Sprache für andere Sprachen nicht löschbar ist."
+
+#: cms/models/languages/language_tree_node.py
 msgid "language tree node"
 msgstr "Sprach-Knoten"
 
@@ -3719,6 +3723,18 @@ msgstr ""
 "Wählen Sie einen Anbieter aus, dessen Angebote auf dieser Seite angezeigt "
 "werden sollen."
 
+#: cms/models/pages/page.py
+msgid "you cannot delete a page which has subpages."
+msgstr "keine Seiten gelöscht werden können, die Unterseiten haben."
+
+#: cms/models/pages/page.py
+msgid ""
+"you cannot delete a page that is embedded as live content by another page."
+msgstr ""
+"eine Seite, die von einer anderen Seite als "
+"Live-Inhalt eingebunden wurde, nicht gelöscht "
+"werden kann."
+
 #: cms/models/pages/page.py cms/models/pages/page_translation.py
 msgid "page"
 msgstr "Seite"
@@ -3880,6 +3896,10 @@ msgstr "barrierefrei"
 #: cms/models/pois/poi.py
 msgid "Indicate if the location is barrier free."
 msgstr "Geben Sie an, ob dieser Ort barrierefrei ist."
+
+#: cms/models/pois/poi.py
+msgid "a poi used by an event or a contact cannot be deleted."
+msgstr "ein Ort, der von einer Veranstaltung oder einem Kontakt verwendet wird, nicht gelöscht werden kann."
 
 #: cms/models/pois/poi.py cms/templates/pois/poi_list.html
 msgid "locations"
@@ -6445,6 +6465,32 @@ msgstr "%(content_type)s maschinell auf %(language)s übersetzen"
 msgid "Restore events"
 msgstr "Veranstaltungen wiederherstellen"
 
+#: cms/templates/events/event_list.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+#, python-format
+msgid "You are about to delete multiple selected %(content_type)s"
+msgstr "Sie sind dabei mehrere %(content_type)s zu löschen."
+
+#: cms/templates/events/event_list.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+msgid "This action cannot be undone"
+msgstr "Diese Handlung kann nicht rückgängig gemacht werden"
+
+#: cms/templates/events/event_list.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+msgid "Do you want to continue?"
+msgstr "Möchten Sie fortfahren?"
+
+#: cms/templates/events/event_list.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+#, python-format
+msgid "Delete %(content_type)s"
+msgstr "%(content_type)s löschen"
+
 #: cms/templates/events/event_list_row.html
 msgid "Not specified"
 msgstr "Nicht festgelegt"
@@ -7041,6 +7087,10 @@ msgid "Language tree node"
 msgstr "Sprach-Knoten"
 
 #: cms/templates/languagetreenodes/languagetreenode_list.html
+msgid "Language tree nodes"
+msgstr "Sprach-Knoten"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html
 msgid "Language tree"
 msgstr "Sprach-Baum"
 
@@ -7570,7 +7620,6 @@ msgstr "Seite löschen"
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/pages_page_tree_node.html
-#: cms/views/pages/page_actions.py
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -7587,7 +7636,6 @@ msgstr[1] ""
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/pages_page_tree_node.html
-#: cms/views/pages/page_actions.py
 msgid ""
 "This page cannot be deleted because it was embedded as live content from "
 "another page."
@@ -9604,6 +9652,29 @@ msgstr[1] ""
 "Die folgenden Seiten konnten nicht wiederhergestellt werden, weil mindestens "
 "eine übergeordnete Seite archiviert ist: {}"
 
+#: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
+#: cms/views/organizations/organization_bulk_actions.py
+#, python-brace-format
+msgid "{model_name} {object_names} was successfully deleted."
+msgid_plural ""
+"The following {model_name} were successfully deleted: {object_names}"
+msgstr[0] "{model_name} {object_names} wurde erfolgreich gelöscht."
+msgstr[1] ""
+"Die folgenden {model_name} wurden erfolgreich gelöscht: {object_names}"
+
+#: cms/views/bulk_action_views.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} could not be deleted, because {failure_reason}"
+msgid_plural ""
+"The following {model_name} could not be deleted: {object_names}, because "
+"{failure_reason}"
+msgstr[0] ""
+"{model_name} {object_names} kann nicht gelöscht werden, da {failure_reason}"
+msgstr[1] ""
+"Die folgenden {model_name} konnten nicht gelöscht werden: {object_names}, da "
+"{failure_reason}"
+
 #: cms/views/contacts/contact_actions.py
 #, python-brace-format
 msgid "Contact {0} was successfully archived"
@@ -9647,16 +9718,6 @@ msgstr[0] ""
 "ihn verweisen."
 msgstr[1] ""
 "Die folgenden {model_name} konnten nicht archiviert werden: {object_names}"
-
-#: cms/views/contacts/contact_bulk_actions.py
-#: cms/views/organizations/organization_bulk_actions.py
-#, python-brace-format
-msgid "{model_name} {object_names} was successfully deleted."
-msgid_plural ""
-"The following {model_name} were successfully deleted: {object_names}"
-msgstr[0] "{model_name} {object_names} wurde erfolgreich gelöscht."
-msgstr[1] ""
-"Die folgenden {model_name} wurden erfolgreich gelöscht: {object_names}"
 
 #: cms/views/contacts/contact_bulk_actions.py
 #, python-brace-format
@@ -10082,20 +10143,31 @@ msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
 
 #: cms/views/language_tree/language_tree_actions.py
+#, python-brace-format
 msgid ""
-"The language tree node \"{}\" cannot be deleted because it is the source "
-"language of other language(s)."
+"The language tree node \"{model_name}\" cannot be deleted because it is the "
+"source language of other language(s)."
 msgstr ""
-"Der Sprach-Knoten \"{}\" kann nicht gelöscht werden, da er die Quell-Sprache "
-"anderer Sprachen ist."
+"Der Sprach-Knoten \"{model_name}\" kann nicht gelöscht werden, da er die "
+"Quell-Sprache anderer Sprachen ist."
 
 #: cms/views/language_tree/language_tree_actions.py
+#, python-brace-format
 msgid ""
-"The language tree node \"{}\" and all corresponding translations were "
-"successfully deleted."
+"The language tree node \"{model_name}\" cannot be deleted because "
+"{failure_reason}"
 msgstr ""
-"Der Sprach-Knoten \"{}\" und alle entsprechenden Übersetzungen wurden "
-"erfolgreich gelöscht."
+"Der Sprach-Knoten \"{model_name}\" kann nicht gelöscht werden, da "
+"{failure_reason}"
+
+#: cms/views/language_tree/language_tree_actions.py
+#, python-brace-format
+msgid ""
+"The language tree node \"{model_name}\" and all corresponding translations "
+"were successfully deleted."
+msgstr ""
+"Der Sprach-Knoten \"{model_name}\" und alle entsprechenden Übersetzungen "
+"wurden erfolgreich gelöscht."
 
 #: cms/views/language_tree/language_tree_bulk_actions.py
 msgid "made visible"
@@ -10515,6 +10587,11 @@ msgstr ""
 "archiviert ist."
 
 #: cms/views/pages/page_actions.py
+#, python-brace-format
+msgid "The page could not be deleted, because {failure_reason}"
+msgstr "Der Ort konnte nicht gelöscht werden, da {failure_reason}"
+
+#: cms/views/pages/page_actions.py
 msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
@@ -10835,10 +10912,9 @@ msgid "Location was successfully deleted"
 msgstr "Ort wurde erfolgreich gelöscht"
 
 #: cms/views/pois/poi_actions.py
-msgid "Location couldn't be deleted as it's used by an event or contact"
-msgstr ""
-"Der Ort konnte nicht gelöscht werden, da er von einer Veranstaltung oder "
-"einem Kontakt verwendet wird"
+#, python-brace-format
+msgid "Location couldn't be deleted, because {failure_reason}"
+msgstr "Der Ort konnte nicht gelöscht werden, da {failure_reason}"
 
 #: cms/views/pois/poi_actions.py
 msgid "Location service is disabled"
@@ -11724,6 +11800,9 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "it was embedded as live content from another page."
+#~ msgstr "sie als Live Inhalt in anderen Seiten eingebettet ist."
+
 #~ msgid "Has translation package been booked?"
 #~ msgstr "Wurde das Add-On für Übersetzungen gebucht?"
 
@@ -11842,6 +11921,9 @@ msgstr ""
 #~ msgid "Number of pages with at least one outdated translation"
 #~ msgstr ""
 #~ "Anzahl Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
+
+#~ msgid "Language Tree Nodes"
+#~ msgstr "Sprach-Knoten"
 
 #~ msgid "attachment map"
 #~ msgstr "Anhangs-Mapping"
@@ -12036,15 +12118,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
@@ -13505,9 +13587,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Die URL, die Sie eingegeben haben, ist inkorrekt. Bitte prüfen Sie die "
 #~ "Einstellungen."
-
-#~ msgid "What do you want to do?"
-#~ msgstr "Was möchten Sie tun?"
 
 #~ msgid "Confirm your new password here"
 #~ msgstr "Ihr neues Passwort erneut eingeben"

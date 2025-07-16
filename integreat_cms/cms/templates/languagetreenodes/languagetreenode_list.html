@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% block content %}
+    {% translate "Language tree nodes" as content_type %}
     <div class="table-header flex flex-wrap justify-between">
         <h1 class="heading">
             {% translate "Language tree" %}
@@ -85,6 +86,17 @@
                 <option data-bulk-action="{% url 'bulk_disable_languagetreenodes' region_slug=request.region.slug %}">
                     {% translate "Disable languages in content management system" %}
                 </option>
+                {% if perms.cms.delete_languagetreenode %}
+                    <option class="bulk-confirmation-dialog"
+                            data-bulk-action="{% url 'bulk_delete_languagetreenodes' region_slug=request.region.slug %}"
+                            data-popup-title="{% blocktranslate %}You are about to delete multiple selected {{content_type}}{% endblocktranslate %}"
+                            data-popup-subject="{% blocktranslate %}This action cannot be undone{% endblocktranslate %}"
+                            data-popup-text="{% blocktranslate %}Do you want to continue?{% endblocktranslate %}">
+                        {% blocktranslate trimmed %}
+                            Delete {{ content_type }}
+                        {% endblocktranslate %}
+                    </option>
+                {% endif %}
             </select>
             <button id="bulk-action-execute" class="btn" disabled>
                 {% translate "Execute" %}

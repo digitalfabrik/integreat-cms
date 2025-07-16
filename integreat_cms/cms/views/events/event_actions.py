@@ -156,8 +156,6 @@ def delete(
 
     logger.info("%r deleted by %r", event, request.user)
 
-    if event.recurrence_rule:
-        event.recurrence_rule.delete()
     event.delete()
     messages.success(request, _("Event was successfully deleted"))
 

@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
+from cacheops import invalidate_obj
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -11,6 +12,9 @@ from ...constants import machine_translation_providers
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
 from .language import Language
+
+if TYPE_CHECKING:
+    from ...models import Region
 
 if TYPE_CHECKING:
     from integreat_cms.core.utils.machine_translation_provider import (
@@ -137,6 +141,57 @@ class LanguageTreeNode(AbstractTreeNode):
             (p for p in self.mt_providers if p.name == self.preferred_mt_provider),
             next(iter(self.mt_providers), None),
         )
+
+    def can_be_deleted(self) -> tuple[bool, str | None]:
+        """
+        Checks if language node can be deleted
+        """
+        if not self.is_leaf():
+            return False, _("a source language of other language(s) cannot be deleted.")
+        return True, None
+
+    def manually_invalidate_models(self, region: Region) -> None:
+        """
+        This is a helper function to iterate through all affected objects and invalidate their cache.
+        This is necessary as the original cache invalidation of cacheops only triggers for direct foreign key relationships.
+
+        :param region: The affected region
+        """
+        for page in region.pages.all():
+            invalidate_obj(page)
+        for event in region.events.all():
+            invalidate_obj(event)
+        for poi in region.pois.all():
+            invalidate_obj(poi)
+        for push_notification in region.push_notifications.all():
+            invalidate_obj(push_notification)
+        if region.imprint:
+            invalidate_obj(region.imprint)
+
+    def delete(self, *args: Any, **kwargs: Any) -> tuple[int, dict[str, int]]:
+        """
+        Deletes the language node and its translations
+        """
+        # get current region
+        region = self.region
+        # get all page translations assigned to the language node
+        page_translations = self.language.page_translations
+        # filter those translations that belong to the region and delete them
+        page_translations.filter(page__region=region).delete()
+        # get all event translations assigned to the language node
+        event_translations = self.language.event_translations
+        # filter those translations that belong to the region and delete them
+        event_translations.filter(event__region=region).delete()
+        # get all poi translations assigned to the language node
+        poi_translations = self.language.poi_translations
+        # filter those translations that belong to the region and delete them
+        poi_translations.filter(poi__region=region).delete()
+
+        result = super().delete(*args, **kwargs)
+
+        self.manually_invalidate_models(region)
+
+        return result
 
     def __str__(self) -> str:
         """
