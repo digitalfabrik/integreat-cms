@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-07-10T17:56:05+00:00" />
+    <meta property="article:modified_time" content="2025-07-16T11:01:10+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SUMM.AI API &mdash; integreat-cms 2025.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -467,6 +467,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#bulk-actions">Bulk Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#test-public-view-status-code">Test Public View Status Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#test-view-redirect">Test View Redirect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#utils">Utils</a></li>
@@ -1509,6 +1510,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.bulk_actions">Bulk Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.test_public_view_status_code">Test Public View Status Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.test_view_redirect">Test View Redirect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.utils">Utils</a></li>
@@ -2181,7 +2183,7 @@
 <li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>aiohttp_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev53)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev54)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2200,7 +2202,7 @@ otherwise False</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The Django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev53)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev54)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2273,7 +2275,7 @@ Checks that __anext__() removes one element each from the queue</p>
 <li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev53)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev54)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2344,7 +2346,7 @@ Checks that __anext__() removes one element each from the queue</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The Django settings</p></li>
 <li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev53)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev54)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2573,7 +2575,7 @@ that can return any text as response (not just JSON)</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 10, 2025.
+      <span class="lastupdated">Last updated on Jul 16, 2025.
       </span></p>
   </div>
 

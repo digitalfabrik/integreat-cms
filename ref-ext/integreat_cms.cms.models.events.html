@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-07-10T17:56:05+00:00" />
+    <meta property="article:modified_time" content="2025-07-16T11:01:10+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events &mdash; integreat-cms 2025.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -467,6 +467,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#bulk-actions">Bulk Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#test-public-view-status-code">Test Public View Status Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#test-view-redirect">Test View Redirect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#utils">Utils</a></li>
@@ -1509,6 +1510,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.bulk_actions">Bulk Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.test_public_view_status_code">Test Public View Status Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.test_view_redirect">Test View Redirect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.utils">Utils</a></li>
@@ -2480,8 +2482,20 @@ after the page has been created, the default translation might not exist).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.events.event.Event.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/db/models/base.py#L1123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.Event.delete" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L340"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.Event.delete" title="Link to this definition"></a></dt>
+<dd><p>Deletes the event and its recurrence rule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>)</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)">int</a>, <a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)">int</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.events.event.Event.do_not_translate_title">
@@ -5179,7 +5193,7 @@ failed.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 10, 2025.
+      <span class="lastupdated">Last updated on Jul 16, 2025.
       </span></p>
   </div>
 

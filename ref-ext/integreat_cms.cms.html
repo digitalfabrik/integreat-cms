@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-06-30T11:49:30+00:00" />
+    <meta property="article:modified_time" content="2025-07-16T11:01:10+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CMS &mdash; integreat-cms 2025.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -467,6 +467,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#bulk-actions">Bulk Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#test-public-view-status-code">Test Public View Status Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#test-view-redirect">Test View Redirect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#utils">Utils</a></li>
@@ -1509,6 +1510,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.bulk_actions">Bulk Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.test_public_view_status_code">Test Public View Status Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.test_view_redirect">Test View Redirect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.utils">Utils</a></li>
@@ -4229,7 +4231,6 @@
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#module-integreat_cms.cms.views.language_tree.language_tree_actions">Language Tree Actions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_actions.delete_language_tree_node"><code class="docutils literal notranslate"><span class="pre">delete_language_tree_node()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_actions.manually_invalidate_models"><code class="docutils literal notranslate"><span class="pre">manually_invalidate_models()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_actions.move_language_tree_node"><code class="docutils literal notranslate"><span class="pre">move_language_tree_node()</span></code></a></li>
 </ul>
 </li>
@@ -4763,6 +4764,62 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.setup"><code class="docutils literal notranslate"><span class="pre">BulkArchiveView.setup()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.url"><code class="docutils literal notranslate"><span class="pre">BulkArchiveView.url</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.view_is_async"><code class="docutils literal notranslate"><span class="pre">BulkArchiveView.view_is_async</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.__init__"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.allow_empty"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.allow_empty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.as_view"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.as_view()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.context_object_name"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.context_object_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.delete"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.dispatch"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.dispatch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.extra_context"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.extra_context</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_allow_empty"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_allow_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_context_data"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_context_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_context_object_name"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_context_object_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_extra_filters"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_extra_filters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_login_url"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_login_url()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_ordering"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_ordering()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_paginate_by"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_paginate_by()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_paginate_orphans"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_paginate_orphans()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_paginator"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_paginator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_permission_denied_message"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_permission_denied_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_permission_required"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_permission_required()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_queryset"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_queryset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_redirect_field_name"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_redirect_field_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.get_redirect_url"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.get_redirect_url()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.handle_no_permission"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.handle_no_permission()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.has_permission"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.has_permission()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.head"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.head()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.http_method_names"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.http_method_names</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.http_method_not_allowed"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.http_method_not_allowed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.login_url"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.login_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.model"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.options"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.options()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.ordering"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.ordering</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.page_kwarg"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.page_kwarg</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.paginate_by"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.paginate_by</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.paginate_orphans"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.paginate_orphans</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.paginate_queryset"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.paginate_queryset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.paginator_class"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.paginator_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.patch"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.patch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.pattern_name"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.pattern_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.permanent"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.permanent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.permission_denied_message"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.permission_denied_message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.permission_required"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.permission_required</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.post"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.prefetch_public_translations"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.prefetch_public_translations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.prefetch_translations"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.prefetch_translations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.put"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.query_string"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.query_string</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.queryset"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.queryset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.raise_exception"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.raise_exception</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.redirect_field_name"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.redirect_field_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.require_change_permission"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.require_change_permission</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.setup"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.setup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.url"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDeletingView.view_is_async"><code class="docutils literal notranslate"><span class="pre">BulkDeletingView.view_is_async</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkDraftingView"><code class="docutils literal notranslate"><span class="pre">BulkDraftingView</span></code></a><ul>
@@ -6557,7 +6614,7 @@ If not, the PermissionDenied exception is raised.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 30, 2025.
+      <span class="lastupdated">Last updated on Jul 16, 2025.
       </span></p>
   </div>
 
