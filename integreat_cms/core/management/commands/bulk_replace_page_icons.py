@@ -1,4 +1,5 @@
 import csv
+import logging
 import select
 import sys
 from typing import Any
@@ -11,8 +12,10 @@ from integreat_cms.cms.models.pages.page import Page
 
 from ..log_command import LogCommand
 
+logger = logging.getLogger(__name__)
 
-def get_mixed_tree_paths():
+
+def get_mixed_tree_paths() -> dict[str, Any]:
     """
     Recursively builds paths for both Directory and MediaFile objects.
     The CTE will first build paths for directories and then attach MediaFile objects.
@@ -21,6 +24,7 @@ def get_mixed_tree_paths():
     directory_table = Directory._meta.db_table
     mediafile_table = MediaFile._meta.db_table
 
+    # ruff: noqa: S608
     with connection.cursor() as cursor:
         cursor.execute(f"""
             WITH RECURSIVE directory_tree(id, name, parent_id, full_path, is_directory) AS (
@@ -55,11 +59,11 @@ def get_mixed_tree_paths():
 
 class Command(LogCommand):
     """
-    Management command to change references from .png or .jpeg to .svg
+    Management command to change references of media files from a source path to a target path.
+    This command reads a CSV file and then changes the reference from the first column (source path) to the second column (target path).
     """
 
-    # TODO: update help at the end, once we know the exact usage
-    help = "Change the reference from .png icons to .svg icons, if they share the same name"
+    help = "Replace references of media files from source paths with target paths based on a CSV file."
 
     def add_arguments(self, parser: CommandParser) -> None:
         """
@@ -75,7 +79,7 @@ class Command(LogCommand):
         )
 
     def should_stdin_be_used(self, options: dict) -> bool:
-        return (
+        return bool(
             sys.platform != "win32"
             and not sys.stdin.isatty()
             and select.select([sys.stdin], [], [], 0)[0]
@@ -114,27 +118,38 @@ class Command(LogCommand):
 
                 for which, p in path.items():
                     if p not in full_path_lookup:
-                        print(
-                            f"{which} path does not exist. Old path was {path['old']} and new path was {path['new']}"
+                        logger.info(
+                            "%r path does not exist. Old path was %r and new path was %r",
+                            which,
+                            path["old"],
+                            path["new"],
                         )
                     elif full_path_lookup[p]["is_directory"]:
-                        print(
-                            f"{which} path is a directory. Old path was {path['old']} and new path was {path['new']}"
+                        logger.info(
+                            "%r path is a directory. Old path was %r and new path was %r",
+                            which,
+                            path["old"],
+                            path["new"],
                         )
                     else:
                         try:
                             file[which] = MediaFile.objects.get(
-                                id=full_path_lookup[path]["id"]
+                                id=full_path_lookup[p]["id"]
                             )
                         except MediaFile.DoesNotExist:
-                            print(
-                                f"{which} path is not valid. Old path was {path['old']} and new path was {path['new']}"
+                            logger.info(
+                                "%r path is not valid. Old path was %r and new path was %r",
+                                which,
+                                path["old"],
+                                path["new"],
                             )
 
                 if file["old"] and file["new"]:
-                    pages = Page.objects.filter(explicitly_archived=False, icon=file["old"] )
+                    pages = Page.objects.filter(
+                        explicitly_archived=False, icon=file["old"]
+                    )
                     for page in pages:
-                        print("page {page} found ")
+                        logger.info("page %r found", page)
                         page.icon = file["new"]
                         page.save()
 
@@ -142,7 +157,4 @@ class Command(LogCommand):
                 else:
                     failed += 1
 
-        print()
-        print(f"DONE  Replaced {successful} files  ({failed} failed)")
-
-        # change reference from .png or .jpeg to .svg (if existant)
+        logger.info("DONE  Replaced %r files (%r failed)", successful, failed)
