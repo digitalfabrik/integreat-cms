@@ -79,6 +79,12 @@
             <div class="flex flex-wrap">
                 {% render_field filter_form.recurring|add_error_class:"border-red-500" class+="leading-normal rounded" %}
             </div>
+            <label for="{{ filter_form.status.id_for_label }}" class="mt-4">
+                {% translate "Event Status" %}
+            </label>
+            <div class="flex flex-wrap">
+                {% render_field filter_form.status|add_error_class:"border-red-500" class+="leading-normal rounded" %}
+            </div>
         </div>
     </div>
     <div class="w-full flex p-4 justify-end gap-4">

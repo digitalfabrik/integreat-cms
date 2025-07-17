@@ -11,22 +11,35 @@ from typing import TYPE_CHECKING
 
 from django import forms
 from django.db.models import F, Q
+from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     from ...models import POI, Region
     from ...models.events.event import EventQuerySet
 
-from ...constants import all_day, calendar_filters, events_time_range, recurrence
+from ...constants import all_day, calendar_filters, events_time_range, recurrence, status
 from ...models import EventTranslation
 from ..custom_filter_form import CustomFilterForm
 
+
+
 logger = logging.getLogger(__name__)
+
+# If your Event model has other statuses (e.g., 'archived'), you can add them here:
+# ARCHIVED = "archived"
+
+EVENT_STATUS_CHOICES = ( # Renamed to avoid clash with other CHOICES
+    (status.DRAFT, _("Events in draft")),
+    (status.PUBLIC, _("Published events")),
+    # If you added ARCHIVED above, uncomment and add it here:
+    # (ARCHIVED, _("Archived events")),
+)
+
+EVENT_STATUS_DATATYPE = str
+# --- NEW CONSTANTS FOR EVENT STATUS FILTER END ---
 
 
 class EventFilterForm(CustomFilterForm):
-    """
-    Form to filter the event list
-    """
 
     all_day = forms.TypedMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple(attrs={"class": "default-checked"}),
@@ -82,6 +95,14 @@ class EventFilterForm(CustomFilterForm):
     poi_id = forms.IntegerField(widget=forms.HiddenInput, initial=-1, required=False)
 
     query = forms.CharField(required=False)
+
+    status = forms.TypedMultipleChoiceField( # <--- ADD THIS NEW FIELD
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "default-checked"}),
+        choices=EVENT_STATUS_CHOICES, # Uses the constants defined above
+        initial=[status.PUBLIC], # You can change this: [PUBLISHED] for published only, or [DRAFT, PUBLISHED] for both, or [key for (key, val) in EVENT_STATUS_CHOICES] to show all by default
+        coerce=EVENT_STATUS_DATATYPE, # Uses the constants defined above
+        required=False,
+    )
 
     def filter_events_by_time_range(self, events: EventQuerySet) -> EventQuerySet:
         """
@@ -218,6 +239,33 @@ class EventFilterForm(CustomFilterForm):
             events = events.filter(pk__in=event_ids)
         return events, query
 
+    def filter_events_by_status(self, events: EventQuerySet) -> EventQuerySet:
+        """ Filter events by their status (draft, published, etc.) """
+        distinct_db_statuses = events.filter(
+            translations__language__slug=self.language_slug 
+        ).values_list('translations__status', flat=True).distinct()
+
+        logger.info("Filtering with statuses: %s. Distinct DB statuses: %s",
+                self.cleaned_data["status"],
+                distinct_db_statuses)
+        
+        # If the 'status' filter is not active, or all available statuses in the current language are selected
+        if not self.cleaned_data["status"] or set(self.cleaned_data["status"]) == set(distinct_db_statuses): 
+            return events
+
+        # IMPORTANT: Now, the language filter is applied to ALL subsequent status filters
+        if len(self.cleaned_data["status"]) == 1:
+            selected_status = self.cleaned_data["status"][0]
+            if selected_status == status.DRAFT:
+                events = events.filter(translations__status=status.DRAFT)
+            elif selected_status == status.PUBLIC:
+                events = events.filter(translations__status= status.PUBLIC)
+            
+        else:
+             events = events.filter(translations__status__in=self.cleaned_data["status"])
+
+        return events   
+
     def apply(
         self,
         events: EventQuerySet,
@@ -243,6 +291,7 @@ class EventFilterForm(CustomFilterForm):
         events = self.filter_events_by_all_day(events)
         events = self.filter_events_by_recurrence(events)
         events = self.filter_events_by_imported_event(events)
+        events = self.filter_events_by_status(events)
         events, query = self.search_events(events)
 
         return events, poi, query
