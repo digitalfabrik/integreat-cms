@@ -117,32 +117,17 @@ class Command(LogCommand):
                 file = {"old": None, "new": None}
 
                 for which, p in path.items():
-                    if p not in full_path_lookup:
+                    try:
+                        file[which] = MediaFile.objects.get(
+                            file=p,
+                        )
+                    except MediaFile.DoesNotExist:
                         logger.info(
-                            "%r path does not exist. Old path was %r and new path was %r",
+                            "%r path is not valid. Old path was %r and new path was %r",
                             which,
                             path["old"],
                             path["new"],
                         )
-                    elif full_path_lookup[p]["is_directory"]:
-                        logger.info(
-                            "%r path is a directory. Old path was %r and new path was %r",
-                            which,
-                            path["old"],
-                            path["new"],
-                        )
-                    else:
-                        try:
-                            file[which] = MediaFile.objects.get(
-                                id=full_path_lookup[p]["id"]
-                            )
-                        except MediaFile.DoesNotExist:
-                            logger.info(
-                                "%r path is not valid. Old path was %r and new path was %r",
-                                which,
-                                path["old"],
-                                path["new"],
-                            )
 
                 if file["old"] and file["new"]:
                     pages = Page.objects.filter(
