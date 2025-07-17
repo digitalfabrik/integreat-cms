@@ -337,12 +337,15 @@ class Contact(AbstractBaseModel):
         self.archived = False
         self.save()
 
-    def copy(self) -> Contact:
+    def copy(self, add_suffix: bool = True) -> Contact:
         """
         Copies the contact
         """
         self.pk = None
-        self.area_of_responsibility = self.area_of_responsibility + " " + _("(Copy)")
+        if add_suffix:
+            self.area_of_responsibility = (
+                self.area_of_responsibility + " " + _("(Copy)")
+            )
         self.save()
         return self
 

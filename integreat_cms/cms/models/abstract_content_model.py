@@ -10,9 +10,14 @@ from django.utils.functional import cached_property
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
+from integreat_cms.cms.utils.slug_utils import generate_unique_slug
+
 if TYPE_CHECKING:
     from collections.abc import Iterator
     from typing import Any
+
+    from integreat_cms.cms.models.users.user import User
+    from integreat_cms.cms.utils.slug_utils import SlugKwargs
 
     from .abstract_content_translation import AbstractContentTranslation
     from .languages.language import Language
@@ -178,6 +183,37 @@ class AbstractContentModel(AbstractBaseModel):
         for language in all_languages:
             if public_translation := self.get_public_translation(language.slug):
                 yield public_translation
+
+    def copy(self, user: User, add_suffix: bool = True) -> AbstractContentModel:
+        """
+        Creates a copy of the object and all it's translations
+        """
+        translations = list(self.translations.all())
+        self.pk = None
+        self.save()
+
+        if add_suffix:
+            copy_translation = _("copy")
+        for translation in translations:
+            translation.pk = None
+            setattr(translation, translation.foreign_field(), self)
+            translation.status = status.DRAFT
+            if add_suffix:
+                translation.title = f"{translation.title} ({copy_translation})"
+            kwargs: SlugKwargs = {
+                "slug": translation.slug,
+                "manager": type(translation).objects,
+                "object_instance": translation,
+                "foreign_model": self._meta.model_name,
+                "region": self.region,
+                "language": translation.language,
+            }
+            translation.slug = generate_unique_slug(**kwargs)
+            translation.currently_in_translation = False
+            translation.creator = user
+            translation.save()
+
+        return self
 
     @cached_property
     def public_languages(self) -> list[Language]:
