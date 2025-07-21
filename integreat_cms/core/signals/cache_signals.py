@@ -16,10 +16,8 @@ logger = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from typing import Any
 
-    from django.apps import AppConfig
-
 
 @receiver(post_migrate)
-def flush_cache_after_migrate(_sender: AppConfig, **kwargs: Any) -> None:
+def flush_cache_after_migrate(*args: Any, **kwargs: Any) -> None:
     cache.clear()
     logger.debug("Cache flushed after post_migrate call.")
