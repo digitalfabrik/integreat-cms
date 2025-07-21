@@ -78,6 +78,12 @@
                     <label for="{{ form.visible.id_for_label }}">
                         {{ form.visible.label }}
                     </label>
+                    <div id="visible-warning"
+                         class="hidden bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3 mb-5">
+                        <p>
+                            {% translate "An inactive language tree node cannot be visible." %}
+                        </p>
+                    </div>
                     <div class="help-text">
                         {{ form.visible.help_text }}
                     </div>
