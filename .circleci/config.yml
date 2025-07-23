@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   shellcheck: circleci/shellcheck@3.2.0
-  qlty: qlty/qlty@1.0.0
+  qlty: qltysh/qlty-orb@0.0.10
 jobs:
   pip-install:
     docker:
@@ -285,6 +285,12 @@ jobs:
           at: .
       - qlty/coverage_publish:
           files: coverage.xml
+      - run:
+          name: Copy CMS log
+          command: cp integreat_cms/integreat-cms.log integreat-cms.log
+          when: on_fail
+      - store_artifacts:
+          path: integreat-cms.log
   build-package:
     docker:
       - image: cimg/python:3.11.7
