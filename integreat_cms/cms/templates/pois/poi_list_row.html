@@ -144,6 +144,13 @@
                class="btn-icon">
                 <i icon-name="pencil"></i>
             </a>
+            <form action="{% url 'copy_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
+                  method="post">
+                {% csrf_token %}
+                <button class="btn-icon" title="{% translate "Copy location" %}">
+                    <i icon-name="copy"></i>
+                </button>
+            </form>
             {% if poi.is_currently_used %}
                 <button title="{{ cannot_archive_title }}" class="btn-icon" disabled>
                     <i icon-name="archive"></i>

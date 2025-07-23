@@ -7,6 +7,7 @@ from __future__ import annotations
 from .poi_actions import (
     archive_poi,
     auto_complete_address,
+    copy_poi,
     delete_poi,
     get_address_from_coordinates,
     restore_poi,

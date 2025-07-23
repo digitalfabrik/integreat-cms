@@ -164,6 +164,17 @@
                         </option>
                     {% endif %}
                 {% endif %}
+                {% if perms.cms.delete_poi %}
+                    <option class="bulk-confirmation-dialog"
+                            data-bulk-action="{% url 'bulk_delete_pois' region_slug=request.region.slug language_slug=language.slug %}"
+                            data-popup-title="{% blocktranslate %}You are about to delete multiple selected {{content_type}}{% endblocktranslate %}"
+                            data-popup-subject="{% blocktranslate %}This action cannot be undone{% endblocktranslate %}"
+                            data-popup-text="{% blocktranslate %}Do you want to continue?{% endblocktranslate %}">
+                        {% blocktranslate trimmed %}
+                            Delete {{ content_type }}
+                        {% endblocktranslate %}
+                    </option>
+                {% endif %}
             </select>
             <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
                 {% translate "Execute" %}

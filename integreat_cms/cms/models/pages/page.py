@@ -27,6 +27,8 @@ if TYPE_CHECKING:
     from django.db.models.base import ModelBase
     from django.utils.safestring import SafeString
 
+    from integreat_cms.cms.models.users.user import User
+
 logger = logging.getLogger(__name__)
 
 
@@ -310,6 +312,18 @@ class Page(AbstractTreeNode, AbstractBasePage):
             return self._relative_depth
         return self.depth
 
+    def can_be_deleted(self) -> tuple[bool, str | None]:
+        """
+        Checks whether the page can be deleted
+        """
+        if self.children.exists():
+            return False, _("you cannot delete a page which has subpages.")
+        if self.mirroring_pages.exists():
+            return False, _(
+                "you cannot delete a page that is embedded as live content by another page."
+            )
+        return True, None
+
     def move(self, target: Page, pos: str | None = None) -> None:
         """
         Moving tree nodes potentially causes changes to the fields tree_id, lft and rgt in :class:`~treebeard.ns_tree.NS_Node`
@@ -356,6 +370,13 @@ class Page(AbstractTreeNode, AbstractBasePage):
                 ):
                     # The post_save signal will create link objects from the content
                     translation.save(update_timestamp=False)
+
+    def copy(self, user: User, add_suffix: bool = True) -> Page:
+        """
+        Copy function inherited from the `abstract_content_model`, but for pages it's not implemented and therefore raises an Exception.
+        :raises: NotImplementedError
+        """
+        raise NotImplementedError("The copy method is not available for pages")
 
     def __str__(self) -> SafeString:
         """

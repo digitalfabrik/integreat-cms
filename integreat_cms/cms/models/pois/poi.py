@@ -12,6 +12,7 @@ from integreat_cms.cms.models.utils import get_default_opening_hours
 if TYPE_CHECKING:
     from django.db.models.base import ModelBase
 
+
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
@@ -130,21 +131,13 @@ class POI(AbstractContentModel):
         """
         return POITranslation
 
-    def delete(self, *args: list, **kwargs: dict) -> bool:
-        r"""
-        Deletes the poi
-        :param \*args: The supplied arguments
-        :param \**kwargs: The supplied keyword arguments
+    def can_be_deleted(self) -> tuple[bool, str | None]:
         """
-        was_successful = False
-        if not self.is_used:
-            super().delete(*args, **kwargs)
-            was_successful = True
-        else:
-            logger.debug(
-                "Can't be deleted because this poi is used by an event or a contact",
-            )
-        return was_successful
+        Checks if poi can be deleted
+        """
+        if self.is_used:
+            return False, _("a poi used by an event or a contact cannot be deleted.")
+        return True, None
 
     def archive(self) -> bool:
         """

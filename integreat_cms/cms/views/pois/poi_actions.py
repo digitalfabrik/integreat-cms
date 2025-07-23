@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING
 from django.conf import settings
 from django.contrib import messages
 from django.http import Http404, HttpResponse, JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 
@@ -115,14 +115,18 @@ def delete_poi(
     """
 
     poi = POI.objects.get(id=poi_id)
-    if poi.delete():
+    can_delete, error_msg = poi.can_be_deleted()
+    if can_delete:
+        poi.delete()
         logger.info("%r deleted by %r", poi, request.user)
         messages.success(request, _("Location was successfully deleted"))
     else:
         logger.info("%r couldn't be deleted by %r", poi, request.user)
         messages.error(
             request,
-            _("Location couldn't be deleted as it's used by an event or contact"),
+            _("Location couldn't be deleted, because {failure_reason}").format(
+                failure_reason=error_msg
+            ),
         )
 
     return redirect(
@@ -158,6 +162,37 @@ def view_poi(
         template_name = "pois/poi_view.html"
         return render(request, template_name, {"poi_translation": poi_translation})
     raise Http404
+
+
+@require_POST
+@permission_required("cms.change_poi")
+def copy_poi(
+    request: HttpRequest,
+    poi_id: int,
+    region_slug: str,
+    language_slug: str,
+) -> HttpResponseRedirect:
+    """
+    Duplicates the given event and all of its translations.
+
+    :param request: Object representing the user call
+    :param poi_id: internal id of the location to be copied
+    :param region_slug: slug of the region which the event belongs to
+    :param language_slug: current GUI language slug
+    :return: The rendered template response
+    """
+    region = request.region
+    poi = get_object_or_404(region.pois, id=poi_id)
+
+    poi.copy(request.user)
+
+    logger.debug("%r copied by %r", poi, request.user)
+    messages.success(request, _("Location was successfully copied"))
+
+    return redirect(
+        "pois",
+        **{"region_slug": region_slug, "language_slug": language_slug},
+    )
 
 
 @json_response

@@ -67,7 +67,7 @@ def test_repair_tree(load_test_data_transactional: None) -> None:
     assert child2_page.lft == 4
     assert child2_page.rgt == 5
 
-    repair_tree(page_id=[root_page.pk], commit=True)
+    repair_tree(page_id=[root_page.pk], commit=True)  # type: ignore[list-item]
 
     # We have to reload the objects from the database
     root_page = Page.objects.get(pk=root_page.pk)
@@ -356,7 +356,7 @@ def test_repair_tree_complex(  # noqa: PLR0915
     assert orphan2.tree_id == 19730
     assert orphan2.depth == 3
 
-    repair_tree(page_id=[A_1.pk, B_1.pk], commit=True)
+    repair_tree(page_id=[A_1.pk, B_1.pk], commit=True)  # type: ignore[list-item]
 
     # We have to reload the objects from the database
     A = Page.objects.get(pk=A.pk)

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, time
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from django.db import models
 from django.db.models import Q
@@ -10,8 +10,6 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
-from ...constants import status
-from ...utils.slug_utils import generate_unique_slug
 from ..abstract_content_model import AbstractContentModel, ContentQuerySet
 from ..external_calendars.external_calendar import ExternalCalendar
 from ..media.media_file import MediaFile
@@ -25,7 +23,6 @@ if TYPE_CHECKING:
 
     from django.db.models.base import ModelBase
 
-    from ...utils.slug_utils import SlugKwargs
     from ..users.user import User
 
 
@@ -263,57 +260,17 @@ class Event(AbstractContentModel):
             else []
         )
 
-    def copy(self, user: User) -> Event:
-        """
-        This method creates a copy of this event and all of its translations.
-        This method saves the new event.
-
-        :param user: The user who initiated this copy
-        :return: A copy of this event
-
-        :raises CouldNotBeCopied: When event can't be copied
-        """
+    def copy(self, user: User, add_suffix: bool = True) -> Event:
         if self.external_calendar:
             raise CouldNotBeCopied
 
-        # save all translations on the original object, so that they can be copied later
-        translations = list(self.translations.all())
-
         # Clear the own recurrence rule.
-        # If the own recurrence rule would not be cleared, django would throw an
-        # error that the recurrence rule is not unique (because it would belong to both
-        # the cloned and the new object)
         if recurrence_rule := self.recurrence_rule:
-            # copy the recurrence rule, if it exists
             recurrence_rule.pk = None
             recurrence_rule.save()
             self.recurrence_rule = recurrence_rule
 
-        # create the copied event
-        self.pk = None
-        self.save()
-
-        copy_translation = _("copy")
-        # Create new translations for this event
-        for translation in translations:
-            translation.pk = None
-            translation.event = self
-            translation.status = status.DRAFT
-            translation.title = f"{translation.title} ({copy_translation})"
-            kwargs: SlugKwargs = {
-                "slug": translation.slug,
-                "manager": type(translation).objects,
-                "object_instance": translation,
-                "foreign_model": "event",
-                "region": self.region,
-                "language": translation.language,
-            }
-            translation.slug = generate_unique_slug(**kwargs)
-            translation.currently_in_translation = False
-            translation.creator = user
-            translation.save()
-
-        return self
+        return super().copy(user, add_suffix)
 
     def archive(self) -> None:
         """
@@ -336,6 +293,14 @@ class Event(AbstractContentModel):
         for translation in self.translations.distinct("event__pk", "language__pk"):
             # The post_save signal will create link objects from the content
             translation.save(update_timestamp=False)
+
+    def delete(self, *args: Any, **kwargs: Any) -> tuple[int, dict[str, int]]:
+        """
+        Deletes the event and its recurrence rule
+        """
+        if self.recurrence_rule:
+            self.recurrence_rule.delete()
+        return super().delete(*args, **kwargs)
 
     class Meta:
         #: The verbose name of the model

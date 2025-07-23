@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils import timezone
 
@@ -23,6 +24,7 @@ from integreat_cms.cms.models import (
     POITranslation,
     Region,
 )
+from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
 from tests.conftest import (
     ANONYMOUS,
     AUTHOR,
@@ -66,7 +68,7 @@ def test_barrier_free_and_organization_box_appear(
 REGION_SLUG = "augsburg"
 
 
-def create_used_poi(region_slug: str) -> int:
+def create_used_poi(region_slug: str, name_add: str = "") -> int:
     """
     A helper function to create a new POI used in an event
     """
@@ -87,8 +89,8 @@ def create_used_poi(region_slug: str) -> int:
 
     german_language = Language.objects.filter(slug="de").first()
     POITranslation.objects.create(
-        title="Ort",
-        slug="ort",
+        title="Ort" + name_add,
+        slug="ort" + name_add,
         status=status.PUBLIC,
         content="",
         language=german_language,
@@ -142,6 +144,39 @@ def create_not_currently_used_poi(region_slug: str) -> int:
     assert used_poi.events.count() > 0
 
     return used_poi.id
+
+
+def create_unused_poi(region_slug: str, name_add: str = "") -> int:
+    """
+    A helper function to create a new POI that is unused (and therefore deletable)
+    """
+    region = Region.objects.filter(slug=region_slug).first()
+    poi_category = POICategory.objects.first()
+
+    unused_poi = POI.objects.create(
+        region_id=region.id,
+        address="Adress 42",
+        postcode="00000",
+        city="Augsburg",
+        country="Deutschland",
+        latitude="48.3780446",
+        longitude="10.8879783",
+        category=poi_category,
+    )
+
+    german_language = Language.objects.filter(slug="de").first()
+    POITranslation.objects.create(
+        title="Ort" + name_add,
+        slug="ort" + name_add,
+        status=status.PUBLIC,
+        content="",
+        language=german_language,
+        poi=unused_poi,
+    )
+
+    assert unused_poi.events.count() == 0
+
+    return unused_poi.id
 
 
 @pytest.mark.django_db
@@ -227,11 +262,14 @@ def test_poi_in_use_not_deleted(
     load_test_data: None,
     caplog: LogCaptureFixture,
     login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
 ) -> None:
     """
     Checks whether a POI is protected from deleting if it is used in an event
     """
     client, role = login_role_user
+
+    settings.LANGUAGE_CODE = "en"
 
     # Make sure the target POI is used in an event
     poi_id = create_used_poi("augsburg")
@@ -239,7 +277,7 @@ def test_poi_in_use_not_deleted(
     # Try to delete the POI
     delete_poi = reverse(
         "delete_poi",
-        kwargs={"region_slug": "augsburg", "language_slug": "de", "poi_id": poi_id},
+        kwargs={"region_slug": "augsburg", "language_slug": "en", "poi_id": poi_id},
     )
 
     if role == ANONYMOUS:
@@ -252,7 +290,7 @@ def test_poi_in_use_not_deleted(
     elif role in HIGH_PRIV_STAFF_ROLES:
         client.post(delete_poi)
         assert_message_in_log(
-            "ERROR    Location couldn't be deleted as it's used by an event or contact",
+            "ERROR    Location couldn't be deleted, because a poi used by an event or a contact cannot be deleted.",
             caplog,
         )
     else:
@@ -405,3 +443,49 @@ def test_poi_form_shows_no_associated_contacts(
             "This location is not currently referred to in any contact."
             not in response.content.decode("utf-8")
         )
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("role", ["ROOT", "AUTHOR"])
+@pytest.mark.parametrize(
+    "num_deletable, num_undeletable",
+    [
+        pytest.param(1, 1, id="deletable_poi=1_undeletable_poi=1"),
+        pytest.param(2, 0, id="deletable_pois=2"),
+        pytest.param(0, 2, id="undeletable_pois=2"),
+        pytest.param(2, 2, id="deletable_pois=2_undeletable_pois=2"),
+    ],
+)
+def test_bulk_delete_pois(
+    role: str,
+    client: Client,
+    load_test_data: None,
+    settings: SettingsWrapper,
+    caplog: LogCaptureFixture,
+    num_deletable: int,
+    num_undeletable: int,
+) -> None:
+    """
+    Test whether bulk deleting of pois works as expected
+    """
+    user = get_user_model().objects.get(username=role.lower())
+    client.force_login(user)
+
+    deletable_pois = [
+        create_unused_poi("augsburg", f"-{i}") for i in range(num_deletable)
+    ]
+    undeletable_pois = [
+        create_used_poi("augsburg", f"-{i}-used") for i in range(num_undeletable)
+    ]
+    instance_ids: BulkActionIDs = {
+        "deletable": deletable_pois,
+        "undeletable": [undeletable_pois],
+    }
+    fail_reason = "a poi used by an event or a contact cannot be deleted."
+    url = reverse(
+        "bulk_delete_pois",
+        kwargs={"region_slug": "augsburg", "language_slug": "en"},
+    )
+    assert_bulk_delete(
+        POI, instance_ids, url, (client, role), caplog, settings, [fail_reason]
+    )
