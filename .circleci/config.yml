@@ -241,25 +241,6 @@ jobs:
       - run:
           name: Check for missing migrations
           command: integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
-  setup-test-reporter:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - attach_workspace:
-          at: .
-      #- run:
-       #   name: Install CodeClimate Test Reporter
-       #   command: |
-       #     curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-       #     chmod +x ./cc-test-reporter
-      #- run:
-      #    name: Notify CodeClimate of a pending report
-      #    command: ./cc-test-reporter before-build
-      #- persist_to_workspace:
-      #    root: .
-      #    paths:
-      #      - cc-test-reporter
   test:
     docker:
       - image: cimg/python:3.11.7
@@ -286,9 +267,9 @@ jobs:
       - run:
           name: Run tests
           command: pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report=xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
-      #- run:
-      #    name: Format test coverage
-      #    command: ./cc-test-reporter format-coverage -t coverage.py -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+      - run:
+          name: Move coverage file to unique name
+          command: mv coverage.xml coverage_$CIRCLE_NODE_INDEX.xml
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -296,30 +277,25 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-          #  - cc-test-reporter
-            - coverage
+            - coverage_*.xml
+  upload-test-coverage:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install Qlty CLI
+          command: curl -s https://get.qlty.sh | bash
+      - run:
+          name: Upload coverage to Qlty
+          command: ./qlty report coverage --path "coverage_*.xml"
       - run:
           name: Copy CMS log
           command: cp integreat_cms/integreat-cms.log integreat-cms.log
           when: on_fail
       - store_artifacts:
           path: integreat-cms.log
-  upload-test-coverage:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - attach_workspace:
-          at: .
-      #- run:
-      #    name: Install CodeClimate Test Reporter
-      #    command: |
-      #      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      #      chmod +x ./cc-test-reporter
-      #- run:
-      #    name: Sum coverage data and upload to CodeClimate
-      #    command: |
-      #      ./cc-test-reporter sum-coverage -o - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
   build-package:
     docker:
       - image: cimg/python:3.11.7
@@ -597,17 +573,11 @@ workflows:
       - check-migrations:
           requires:
             - pip-install
-      - setup-test-reporter:
-          context: codeclimate
-          filters:
-            branches:
-              ignore: main
       - test:
           requires:
             - pip-install
             - webpack
             - compile-translations
-            - setup-test-reporter
       - upload-test-coverage:
           context: codeclimate
           requires:
