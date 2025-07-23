@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   shellcheck: circleci/shellcheck@3.2.0
+  qlty: qlty/qlty@1.0.0
 jobs:
   pip-install:
     docker:
@@ -266,10 +267,7 @@ jobs:
           command: integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
       - run:
           name: Run tests
-          command: pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report=xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
-      - run:
-          name: Move coverage file to unique name
-          command: mv coverage.xml coverage_$CIRCLE_NODE_INDEX.xml
+          command: pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -277,25 +275,16 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - coverage_*.xml
+            - coverage.xml
   upload-test-coverage:
     docker:
       - image: cimg/base:stable
+    resource_class: small
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Install Qlty CLI
-          command: curl -s https://get.qlty.sh | bash
-      - run:
-          name: Upload coverage to Qlty
-          command: ./qlty report coverage --path "coverage_*.xml"
-      - run:
-          name: Copy CMS log
-          command: cp integreat_cms/integreat-cms.log integreat-cms.log
-          when: on_fail
-      - store_artifacts:
-          path: integreat-cms.log
+      - qlty/coverage_publish:
+          files: coverage.xml 
   build-package:
     docker:
       - image: cimg/python:3.11.7
