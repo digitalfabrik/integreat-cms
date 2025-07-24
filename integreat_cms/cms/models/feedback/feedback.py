@@ -17,6 +17,8 @@ from ..languages.language import Language
 from ..regions.region import Region
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.db.models.query import QuerySet
 
 
@@ -160,6 +162,33 @@ class Feedback(PolymorphicModel, AbstractBaseModel):
             kwargs["region"] = region
 
         return cls.objects.filter(**kwargs)
+
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for feedback search
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+        """
+        results: list[dict[str, Any]] = []
+
+        region = kwargs["region"]
+        query = kwargs["query"]
+        archived_flag = kwargs["archived_flag"]
+
+        results.extend(
+            {
+                "title": feedback.comment,
+                "url": None,
+                "type": "feedback",
+            }
+            for feedback in cls.search(region, query).filter(
+                archived=archived_flag,
+            )
+        )
+
+        return results
 
     def __str__(self) -> str:
         """

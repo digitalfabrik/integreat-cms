@@ -19,6 +19,8 @@ from ..regions.region import Region
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.db.models.query import QuerySet
 
     from ..users.user import User
@@ -123,6 +125,33 @@ class Organization(AbstractBaseModel):
         :return: A query for all matching objects
         """
         return cls.objects.filter(region=region, name__icontains=query)
+
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for organization search
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+        """
+        results: list[dict[str, Any]] = []
+
+        region = kwargs["region"]
+        query = kwargs["query"]
+        archived_flag = kwargs["archived_flag"]
+
+        results.extend(
+            {
+                "title": organization.name,
+                "url": None,
+                "type": "organization",
+            }
+            for organization in cls.search(region, query).filter(
+                archived=archived_flag,
+            )
+        )
+
+        return results
 
     def __str__(self) -> str:
         """

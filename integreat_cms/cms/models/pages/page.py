@@ -16,6 +16,7 @@ from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_model import ContentQuerySet
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
+from ..utils import format_object_translation
 from .abstract_base_page import AbstractBasePage
 from .page_translation import PageTranslation
 
@@ -400,6 +401,34 @@ class Page(AbstractTreeNode, AbstractBasePage):
             f", slug: {self.best_translation.slug}" if self.best_translation else ""
         )
         return f"<Page (id: {self.id}{parent_str}{region_str}{slug_str})>"
+
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for page search
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+        """
+        results: list[dict[str, Any]] = []
+
+        region = kwargs["region"]
+        query = kwargs["query"]
+        archived_flag = kwargs["archived_flag"]
+        language_slug = kwargs["language_slug"]
+
+        pages = region.pages.all().cache_tree(archived=archived_flag)
+        for page in pages:
+            page_translation = page.get_translation(language_slug)
+            if page_translation and (
+                query.lower() in page_translation.slug
+                or query.lower() in page_translation.title.lower()
+            ):
+                results.append(
+                    format_object_translation(page_translation, "page", language_slug),
+                )
+
+        return results
 
     class Meta(AbstractTreeNode.Meta):
         #: The verbose name of the model
