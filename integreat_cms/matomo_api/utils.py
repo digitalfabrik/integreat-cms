@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
-
-from asgiref.sync import sync_to_async
 
 if TYPE_CHECKING:
     from ..cms.models import Language, Page
+
+logger = logging.getLogger(__name__)
 
 
 def get_translation_slug(
@@ -29,6 +30,3 @@ def get_translation_slug(
                     page_translation.get_absolute_url().rstrip("/")
                 )
     return translation_slugs
-
-
-async_get_translation_slug = sync_to_async(get_translation_slug, thread_sensitive=False)
