@@ -9,6 +9,7 @@ from contextlib import contextmanager
 from typing import TYPE_CHECKING
 
 from django.db.models.signals import pre_save
+from lxml.html import fromstring, HtmlElement, tostring
 
 from integreat_cms.cms.models import PageTranslation
 from integreat_cms.core.signals.hix_signals import page_translation_save_handler
@@ -17,6 +18,7 @@ if TYPE_CHECKING:
     from collections.abc import Generator
 
     from _pytest.logging import LogCaptureFixture
+    from django.http import HttpResponse
 
 
 def get_messages(caplog: LogCaptureFixture) -> list[str]:
@@ -80,3 +82,31 @@ def disable_hix_post_save_signal() -> Generator[None, None, None]:
         yield None
     finally:
         pre_save.connect(receiver=page_translation_save_handler, sender=PageTranslation)
+
+
+def get_messages_in_html(response: HttpResponse) -> str:
+    """
+    Filter the response content for the div with ``id="messages"``
+    ànd return its HTML with any superfluous whitespace stripped out.
+    """
+    content = response.content.decode("utf-8")
+    doc = fromstring(content)
+    matches = doc.xpath("//div[@id='messages']")
+
+    def strip_whitespace(element: HtmlElement) -> HtmlElement:
+        if element.text is not None:
+            element.text = element.text.strip()
+        if element.tail is not None:
+            element.tail = element.tail.strip()
+        for child in element:
+            strip_whitespace(child)
+        return element
+
+    # Technically there might be multiple divs with the id,
+    # so we just join the string representation of all of them together
+    return "".join(
+        [
+            tostring(strip_whitespace(messages), encoding="unicode")
+            for messages in matches
+        ]
+    )

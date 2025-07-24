@@ -6,6 +6,7 @@ from django.urls import resolve, reverse
 from integreat_cms.cms.models.poi_categories.poi_category import POICategory
 from integreat_cms.cms.models.pois.poi import POI
 from tests.conftest import ANONYMOUS, CMS_TEAM, ROOT, SERVICE_TEAM, STAFF_ROLES
+from tests.utils import get_messages_in_html
 
 DEFAULT_POST_DATA = {
     "icon": "daily_routine",
@@ -120,8 +121,8 @@ def test_create_poi_category_with_missing_translation_was_not_successful(
     )
 
     assert response.status_code == 200
-    assert "Mindestens eine Übersetzung ist erforderlich." in response.content.decode(
-        "utf-8",
+    assert "Mindestens eine Übersetzung ist erforderlich." in get_messages_in_html(
+        response
     )
 
 
@@ -152,8 +153,8 @@ def test_create_poi_category_was_successful(
     response = client.get(edit_url)
     assert response.status_code == 200
     assert (
-        "Ortskategorie &quot;Neu erstellte Ortskategorie&quot; wurde erfolgreich erstellt"
-        in response.content.decode("utf-8")
+        'Ortskategorie "Neu erstellte Ortskategorie" wurde erfolgreich erstellt'
+        in get_messages_in_html(response)
     )
     assert POICategory.objects.get(id=id_of_poicategory) is not None
 
@@ -215,8 +216,8 @@ def test_edit_poi_category_was_successful(
     assert response.status_code == 200
 
     assert (
-        "Ortskategorie &quot;Neu erstellte Ortskategorie&quot; wurde erfolgreich gespeichert"
-        in response.content.decode("utf-8")
+        'Ortskategorie "Neu erstellte Ortskategorie" wurde erfolgreich gespeichert'
+        in get_messages_in_html(response)
     )
     translation = poicategory.translations.get(language__slug="de")
     assert translation.name == "Umbenannte Ortskategorie"
@@ -279,7 +280,7 @@ def test_no_changes_were_made_message(
     response = client.get(edit_url)
     assert response.status_code == 200
 
-    assert "Keine Änderungen vorgenommen" in response.content.decode("utf-8")
+    assert "Keine Änderungen vorgenommen" in get_messages_in_html(response)
 
 
 @pytest.mark.parametrize(
@@ -374,5 +375,5 @@ def test_delete_used_poi_category_was_not_successful(
     assert amount_of_poicategories == expected_amount_of_poicategories
     assert (
         "Diese Kategorie kann nicht gelöscht werden, da sie von mindestens einem Ort verwendet wird."
-        in response.content.decode("utf-8")
+        in get_messages_in_html(response)
     )
