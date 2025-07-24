@@ -1,0 +1,31 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    phone
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Contact details" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div>
+        <label class="mt-0" for="{{ poi_form.website.id_for_label }}">
+            {{ poi_form.website.label }}
+        </label>
+        {% render_field poi_form.website|add_error_class:"border-red-500" %}
+    </div>
+    <div>
+        <label for="{{ poi_form.email.id_for_label }}">
+            {{ poi_form.email.label }}
+        </label>
+        {% render_field poi_form.email|add_error_class:"border-red-500" %}
+    </div>
+    <div>
+        <label for="{{ poi_form.phone_number.id_for_label }}">
+            {{ poi_form.phone_number.label }}
+        </label>
+        {% render_field poi_form.phone_number|add_error_class:"border-red-500" %}
+    </div>
+{% endblock collapsible_box_content %}

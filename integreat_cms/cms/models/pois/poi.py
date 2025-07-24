@@ -169,11 +169,21 @@ class POI(AbstractContentModel):
             translation.save(update_timestamp=False)
 
     @property
+    def referring_contacts_exist(self) -> bool:
+        """
+        return: whether there are contact objects referring the POI.
+        If the contact module is disabled in the region, it's always False
+        """
+        if not self.region.contacts_enabled:
+            return False
+        return self.contacts.exists()
+
+    @property
     def is_used(self) -> bool:
         """
         :return: whether this poi is used by another model
         """
-        return self.events.exists() or self.contacts.exists()
+        return self.events.exists() or self.referring_contacts_exist
 
     @property
     def is_currently_used(self) -> bool:
@@ -181,7 +191,8 @@ class POI(AbstractContentModel):
         :return: whether this poi is used by a contact or an upcoming event
         """
         upcoming_events = self.events.filter_upcoming()
-        return self.contacts.exists() or upcoming_events.exists()
+
+        return self.referring_contacts_exist or upcoming_events.exists()
 
     @cached_property
     def short_address(self) -> str:
