@@ -535,6 +535,8 @@ class PageFormView(
         context = super().get_context_data(**kwargs)
         region = self.request.region
         page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
+        if page_instance is None:
+            return context
         # users without publish permission don't have any actions in archived pages
         # thus we hide the action box for these cases
         context["show_actions_box"] = self.request.user.has_perm(
