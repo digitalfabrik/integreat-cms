@@ -28,7 +28,10 @@ const renderIconPreview = ({ target }: Event) => {
 const colorizeIcons = () => {
     const icons = document.querySelectorAll(".preview-color:not([data-color=''])") as NodeListOf<HTMLObjectElement>;
     Array.from(icons).forEach((icon) => {
-        icon.getSVGDocument().querySelector("circle").setAttribute("fill", icon.dataset.color);
+        const iconEl = icon;
+        const svg = icon.getSVGDocument().querySelector("svg");
+        svg.style.color = "white";
+        iconEl.style.visibility = "visible";
     });
 };
 
