@@ -24,6 +24,7 @@ from .page_bulk_actions import (
     ExportXliffView,
     GeneratePdfView,
     PageBulkArchiveView,
+    PageBulkRestoreView,
 )
 from .page_form_view import PageFormView
 from .page_permission_actions import (
