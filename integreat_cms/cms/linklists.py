@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from django.conf import settings
 from django.db.models import Exists, OuterRef
@@ -20,6 +20,31 @@ from .models import (
 if TYPE_CHECKING:
     from django.db.models.base import ModelBase
     from django.db.models.query import QuerySet
+
+
+import linkcheck.listeners
+from django.db.models.signals import post_migrate, pre_migrate
+
+from integreat_cms.core.management.commands.loaddata import post_loaddata, pre_loaddata
+
+
+def set_linkcheck_immediate(sender: Any, **kwargs: dict[str, Any]) -> None:  # noqa: ARG001
+    # Make linkcheck run inline instead of a background thread to see if CI problems magically resolve itself
+    linkcheck.listeners.tests_running = True
+
+
+def set_linkcheck_in_background(sender: Any, **kwargs: dict[str, Any]) -> None:  # noqa: ARG001
+    # Revert to the default behaviour of running linkcheck in the background
+    linkcheck.listeners.tests_running = False
+
+
+pre_migrate.connect(set_linkcheck_in_background)
+post_migrate.connect(set_linkcheck_immediate)
+
+pre_loaddata.connect(set_linkcheck_in_background)
+post_loaddata.connect(set_linkcheck_immediate)
+
+set_linkcheck_immediate(__name__)
 
 
 class ActiveLanguageLinklist(Linklist):
