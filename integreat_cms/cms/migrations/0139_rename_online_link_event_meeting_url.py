@@ -25,7 +25,7 @@ def forwards_func(
             if event.location:
                 # event.location and event.online_link are both set, which is not allowed.
                 # Therefore remove the online_link. This only happens when the online_link was set first and location was added.
-                event.online_link = None
+                event.online_link = ""
             else:
                 event.meeting_url = event.online_link
             event.save()
