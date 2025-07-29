@@ -1620,6 +1620,11 @@ urlpatterns: list[URLPattern] = [
                                 feedback.export_region_feedback,
                                 name="export_region_feedback",
                             ),
+                            path(
+                                "forward/",
+                                feedback.forward_region_feedback,
+                                name="forward_region_feedback",
+                            ),
                         ],
                     ),
                 ),
