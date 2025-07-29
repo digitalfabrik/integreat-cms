@@ -4,13 +4,14 @@ import logging
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ..cms.models import Language, Page
+    from ..cms.models.pages.page_translation import PageTranslation
 
 logger = logging.getLogger(__name__)
 
 
 def get_translation_slug(
-    pages: list[Page], languages: list[Language]
+    region_slug: str,
+    prefetched_translations: list[PageTranslation],
 ) -> dict[int, dict[str, str]]:
     """
     Produce mapping of page ids and language slugs to the absolute url of the corresponding translation.
@@ -21,12 +22,44 @@ def get_translation_slug(
     :return: A dictionary of page ids, language slugs and the absolute url of the corresponding translation.
     """
     translation_slugs: dict = {}
-    for page in pages:
-        for language in languages:
-            if page_translation := page.get_translation(language.slug):
-                if page.id not in translation_slugs:
-                    translation_slugs[page.id] = {}
-                translation_slugs[page.id][language.slug] = (
-                    page_translation.get_absolute_url().rstrip("/")
-                )
+    for page_translation in prefetched_translations:
+        page_id = page_translation.page.id
+        language_slug = page_translation.language.slug
+        absolute_url = page_translation.slug
+        absolute_url = build_infix_recursively(
+            absolute_url=absolute_url,
+            language_slug=language_slug,
+            current_page_translation=page_translation,
+            prefetched_translations=prefetched_translations,
+        )
+        absolute_url = "/" + region_slug + "/" + language_slug + "/" + absolute_url
+        if page_id not in translation_slugs:
+            translation_slugs[page_id] = {}
+        translation_slugs[page_id][language_slug] = absolute_url
+
     return translation_slugs
+
+
+def build_infix_recursively(
+    absolute_url: str,
+    language_slug: str,
+    current_page_translation: PageTranslation,
+    prefetched_translations: list[PageTranslation],
+) -> str:
+    if current_page_translation.page.parent:
+        parent = current_page_translation.page.parent
+        for page_translation in prefetched_translations:
+            if (
+                page_translation.page == parent
+                and page_translation.language.slug == language_slug
+            ):
+                parent_translation_slug = page_translation.slug
+                absolute_url = parent_translation_slug + "/" + absolute_url
+                current_page_translation = page_translation
+                return build_infix_recursively(
+                    absolute_url=absolute_url,
+                    language_slug=language_slug,
+                    current_page_translation=current_page_translation,
+                    prefetched_translations=prefetched_translations,
+                )
+    return absolute_url

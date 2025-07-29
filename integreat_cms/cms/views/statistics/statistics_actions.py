@@ -9,11 +9,13 @@ from datetime import date, timedelta
 from typing import Any, TYPE_CHECKING
 
 from celery import shared_task
+from django.db.models import OuterRef
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
 from integreat_cms.cms.models.languages.language import Language
 from integreat_cms.cms.models.pages.page import Page
+from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.models.regions.region import Region
 
 from ....matomo_api.matomo_api_client import MatomoException
@@ -196,11 +198,38 @@ def fetch_page_accesses(
     :param region: The region for which we want our page based accesses
     """
     logger.info("start fetching page accesses from Matomo for %s", region)
-    region.statistics.get_page_accesses(
+    languages = list(region.active_languages)
+    pages = region.get_pages()
+    region_slug = region.slug
+    subquery = (
+        PageTranslation.objects.filter(
+            page_id=OuterRef("page_id"), language=OuterRef("language")
+        )
+        .prefetch_related("page", "language")
+        .order_by("-version")
+        .values("pk")[:1]
+    )
+    prefetched_translations = PageTranslation.objects.filter(
+        page__in=pages, pk__in=subquery
+    )
+    # prefetched_translations = (
+    #    PageTranslation.objects.filter(page__in=pages, language__in=languages)
+    #    .select_related("page", "language")
+    #    .order_by("page_id", "language", "-version")
+    #    .distinct("page_id", "language")
+    #    .all()
+    # )
+    # for page_translation in prefetched_translations:
+    #    parent_pages = pages.filter(page_id=page_translation__page__parent__id)
+
+    region.statistics.get_page_accesses_whole_region(
         start_date=start_date,
         end_date=end_date,
         period=period,
-        region=region,
+        region_slug=region_slug,
+        languages=languages,
+        pages=pages,
+        prefetched_translations=prefetched_translations,
     )
 
 
