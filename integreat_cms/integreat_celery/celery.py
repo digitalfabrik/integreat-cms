@@ -93,7 +93,7 @@ def setup_periodic_tasks(sender: Any, **kwargs: Any) -> None:
     )
 
     sender.add_periodic_task(
-        crontab(hour=0, minute=40),
+        crontab(hour=0, minute=30),
         wrapper_fetch_page_accesses.s(),
         name="wrapper_fetch_page_accesses",
     )
