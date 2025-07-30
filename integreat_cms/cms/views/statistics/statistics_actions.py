@@ -223,22 +223,6 @@ def fetch_page_accesses(start_date: date, end_date: date, region: Region) -> Non
     )
 
 
-def start_async_fetch_page_accesses(
-    start_date: date, end_date: date, period: str, region: Region
-) -> None:
-    """
-    Start celery job to fetch page accesses
-
-    :param start_date: Earliest date
-    :param end_date: Latest date
-    :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
-    :param region: The region for which we want our page based accesses
-    """
-    async_fetch_page_accesses.apply_async(
-        args=[start_date, end_date, period, region.id]
-    )
-
-
 @shared_task
 def async_fetch_page_accesses(start_date: date, end_date: date, region_id: int) -> None:
     """

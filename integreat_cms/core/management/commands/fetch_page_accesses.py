@@ -15,26 +15,11 @@ from ....cms.models import Region
 from ..log_command import LogCommand
 
 if TYPE_CHECKING:
-    from datetime import date
     from typing import Any
 
     from django.core.management.base import CommandParser
 
 logger = logging.getLogger(__name__)
-
-
-def fetch_page_accesses(
-    start_date: date, end_date: date, regions: list[Region]
-) -> None:
-    """
-    Load page accesses from Matomo and save them to page accesses model
-
-    :param start_date: Earliest date
-    :param end_date: Latest date
-    :param regions: The regions for which we want our page based accesses
-    """
-    for region in regions:
-        async_fetch_page_accesses.apply_async(args=[start_date, end_date, region.id])
 
 
 class Command(LogCommand):
@@ -82,24 +67,23 @@ class Command(LogCommand):
         try:
             starting_date = datetime.strptime(start_date, "%Y-%m-%d").date()
             ending_date = datetime.strptime(end_date, "%Y-%m-%d").date()
-            if region_slug is not None:
-                try:
-                    regions.append(Region.objects.get(slug=region_slug))
-                except Region.DoesNotExist as e:
-                    raise CommandError(
-                        f'Region with slug "{region_slug}" does not exist.',
-                    ) from e
-                if not regions[0].statistics_enabled:
-                    logger.error("Statistics are not enabled for this region.")
-                    raise CommandError(f"Statistics are disabled in {regions[0].slug}.")
-            else:
-                regions = list(
-                    Region.objects.filter(statistics_enabled=True, status=ACTIVE)
-                )
-            fetch_page_accesses(
-                start_date=starting_date,
-                end_date=ending_date,
-                regions=regions,
-            )
         except ValueError as e:
             raise CommandError("Wrong date format, please use YYYY-MM-DD") from e
+        if region_slug is not None:
+            try:
+                regions.append(Region.objects.get(slug=region_slug))
+            except Region.DoesNotExist as e:
+                raise CommandError(
+                    f'Region with slug "{region_slug}" does not exist.',
+                ) from e
+            if not regions[0].statistics_enabled:
+                logger.error("Statistics are not enabled for this region.")
+                raise CommandError(f"Statistics are disabled in {regions[0].slug}.")
+        else:
+            regions = list(
+                Region.objects.filter(statistics_enabled=True, status=ACTIVE)
+            )
+        for region in regions:
+            async_fetch_page_accesses.apply_async(
+                args=[starting_date, ending_date, region.id]
+            )
