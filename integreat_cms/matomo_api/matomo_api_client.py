@@ -633,7 +633,6 @@ class MatomoApiClient:
         self,
         start_date: date,
         end_date: date,
-        period: str,
         region_slug: str,
         languages: list[Language],
         pages: list[Page],
@@ -644,7 +643,6 @@ class MatomoApiClient:
 
         :param start_date: Start date
         :param end_date: End date
-        :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
         :param region_slug: The region for which we want our page based accesses
         :param languages: List with the active languages of the region
         :param pages: List with prefetch pages of the region
@@ -660,7 +658,7 @@ class MatomoApiClient:
             "filter_limit": "-1",
             "format_metrics": "1",
             "idSite": self.matomo_id,
-            "period": period,
+            "period": matomo_periods.DAY,
         }
         logger.debug("Fetching visits for %rlanguages.", languages)
         logger.info("Fetching slugs...")
@@ -703,90 +701,3 @@ class MatomoApiClient:
                                         accesses=result[j][access_date],
                                     )
                     logger.info("Finished Saving")
-
-    def get_page_accesses_whole_region(
-        self,
-        start_date: date,
-        end_date: date,
-        period: str,
-        region_slug: str,
-        languages: list[Language],
-        pages: list[Page],
-        prefetched_translations: list[PageTranslation],
-    ) -> None:
-        """
-        This function handles the page based accesses
-
-        :param start_date: Start date
-        :param end_date: End date
-        :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
-        :param region: The region for which we want our page based accesses
-        """
-        # num_of_days = (end_date - start_date).days
-        total_query = {
-            "method": "API.getBulkRequest",
-        }
-        query_params = {
-            "method": "VisitsSummary.getActions",
-            "date": f"{start_date},{end_date}",
-            "expanded": "1",
-            "filter_limit": "-1",
-            "format_metrics": "1",
-            "idSite": self.matomo_id,
-            "period": period,
-        }
-        logger.debug("Fetching visits for %rlanguages.", languages)
-        logger.info("Fetching slugs...")
-        translation_slugs = get_translation_slug(
-            region_slug=region_slug, prefetched_translations=prefetched_translations
-        )
-        logger.info("Finished fetching slugs")
-
-        # retrieve and save accesses per page and language with the corresponding url slugs
-        i = 0
-        for page_id, langs in translation_slugs.items():
-            for page in pages:
-                if page.id == page_id:
-                    page_params = total_query
-                    page_query = query_params
-                    for lang_slug, full_slug in langs.items():
-                        for language in languages:
-                            if language.slug == lang_slug:
-                                page_query.update(
-                                    {
-                                        "segment": f"pageUrl=@/children/?depth=2&url={full_slug}"
-                                    }
-                                )
-                                url_param = {f"urls[{i}]": urlencode(page_query)}
-                                page_params.update(url_param)
-                                i += 1
-        logger.info("Fetching...")
-        result = self.fetch(**page_params)
-        logger.info("Done fetching, start saving...")
-        i = 0
-        accesses = []
-        logger.info(result)
-        for page_id, langs in translation_slugs.items():
-            for page in pages:
-                if page.id == page_id:
-                    for lang_slug in langs:
-                        for language in languages:
-                            if language.slug == lang_slug:
-                                for access_date in result[i]:
-                                    access = PageAccesses(
-                                        access_date=datetime.strptime(
-                                            access_date, "%Y-%m-%d"
-                                        ).date(),
-                                        language=language,
-                                        page=page,
-                                        accesses=result[i][access_date],
-                                    )
-                                    accesses.append(access)
-                                i += 1
-        PageAccesses.objects.bulk_create(
-            accesses,
-            update_conflicts=True,
-            unique_fields=["page", "language", "access_date"],
-            update_fields=["accesses"],
-        )
-        logger.info("Accesses saved")

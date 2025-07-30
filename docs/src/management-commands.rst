@@ -218,7 +218,7 @@ Update ALL link text of links of the given URL:
 ``fetch_page_accesses``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Fetches page accesses from Matomo and store them in them in the database
+Fetches page accesses from Matomo and store them in the database
 
     integreat-cms-cli fetch_page_accesses --start-date START_DATE --end-date END_DATE --period PERIOD [--region-slug REGION_SLUG]
 
@@ -226,7 +226,6 @@ Fetches page accesses from Matomo and store them in them in the database
 
 * ``START_DATE``: Earliest date to fetch, format should be yyyy-mm-dd
 * ``END_DATE``: Latest date to fetch, format should be yyyy-mm-dd
-* ``PERIOD``: Fetch period, one of the following options: day, month, year
 
 **Options:**
 

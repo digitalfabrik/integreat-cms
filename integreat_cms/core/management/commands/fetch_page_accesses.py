@@ -24,20 +24,17 @@ logger = logging.getLogger(__name__)
 
 
 def fetch_page_accesses(
-    start_date: date, end_date: date, period: str, regions: list[Region]
+    start_date: date, end_date: date, regions: list[Region]
 ) -> None:
     """
     Load page accesses from Matomo and save them to page accesses model
 
     :param start_date: Earliest date
     :param end_date: Latest date
-    :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
     :param regions: The regions for which we want our page based accesses
     """
     for region in regions:
-        async_fetch_page_accesses.apply_async(
-            args=[start_date, end_date, period, region.id]
-        )
+        async_fetch_page_accesses.apply_async(args=[start_date, end_date, region.id])
 
 
 class Command(LogCommand):
@@ -58,9 +55,6 @@ class Command(LogCommand):
         parser.add_argument("--start-date", required=True, help="Earliest date")
         parser.add_argument("--end-date", required=True, help="Latest date")
         parser.add_argument(
-            "--period", required=True, help="Period. Needs to be day, week or month"
-        )
-        parser.add_argument(
             "--region-slug",
             help="The slug of the region to fetch page accesses from. Statistics need to be activatet",
         )
@@ -70,7 +64,6 @@ class Command(LogCommand):
         *args: Any,
         start_date: str,
         end_date: str,
-        period: str,
         region_slug: str | None,
         **options: Any,
     ) -> None:
@@ -106,7 +99,6 @@ class Command(LogCommand):
             fetch_page_accesses(
                 start_date=starting_date,
                 end_date=ending_date,
-                period=period,
                 regions=regions,
             )
         except ValueError as e:

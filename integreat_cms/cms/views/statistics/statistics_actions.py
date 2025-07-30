@@ -187,9 +187,7 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
     return JsonResponse(page_accesses_dict, safe=False)
 
 
-def fetch_page_accesses(
-    start_date: date, end_date: date, period: str, region: Region
-) -> None:
+def fetch_page_accesses(start_date: date, end_date: date, region: Region) -> None:
     """
     Load page accesses synchronuos from Matomo and save them to page accesses model
     :param start_date: Earliest date
@@ -218,7 +216,6 @@ def fetch_page_accesses(
     region.statistics.get_page_accesses(
         start_date=start_date,
         end_date=end_date,
-        period=period,
         region_slug=region_slug,
         languages=languages,
         pages=pages,
@@ -243,9 +240,7 @@ def start_async_fetch_page_accesses(
 
 
 @shared_task
-def async_fetch_page_accesses(
-    start_date: date, end_date: date, period: str, region_id: int
-) -> None:
+def async_fetch_page_accesses(start_date: date, end_date: date, region_id: int) -> None:
     """
     Fetch page accesses async with celery from Matomo and save them to page accesses model
 
@@ -259,6 +254,5 @@ def async_fetch_page_accesses(
     fetch_page_accesses(
         start_date=start_date,
         end_date=end_date,
-        period=period,
         region=region,
     )

@@ -77,7 +77,6 @@ def wrapper_fetch_page_accesses() -> None:
         "fetch_page_accesses",
         start_date=fetch_date_str,
         end_date=fetch_date_str,
-        period="day",
     )
 
 
