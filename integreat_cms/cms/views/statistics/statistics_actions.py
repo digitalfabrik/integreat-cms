@@ -195,7 +195,7 @@ def fetch_page_accesses(start_date: date, end_date: date, region: Region) -> Non
     :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
     :param region: The region for which we want our page based accesses
     """
-    logger.info("start fetching page accesses from Matomo for %s", region)
+    logger.info("Start fetching page accesses from Matomo for %s", region)
     languages = list(region.active_languages)
     pages = region.get_pages()
     region_slug = region.slug
@@ -234,7 +234,6 @@ def async_fetch_page_accesses(start_date: date, end_date: date, region_id: int) 
     :param region: The region for which we want our page based accesses
     """
     region = Region.objects.get(id=region_id)
-    logger.info("start fetching page accesses from Matomo for %s", region)
     fetch_page_accesses(
         start_date=start_date,
         end_date=end_date,

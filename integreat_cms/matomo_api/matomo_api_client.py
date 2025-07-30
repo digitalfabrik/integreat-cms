@@ -661,11 +661,9 @@ class MatomoApiClient:
             "period": matomo_periods.DAY,
         }
         logger.debug("Fetching visits for %rlanguages.", languages)
-        logger.info("Fetching slugs...")
         translation_slugs = get_translation_slug(
             region_slug=region_slug, prefetched_translations=prefetched_translations
         )
-        logger.info("Finished fetching slugs")
 
         # retrieve and save accesses per page and language with the corresponding url slugs
         for page_id, langs in translation_slugs.items():
@@ -685,19 +683,16 @@ class MatomoApiClient:
                                 url_param = {f"urls[{i}]": urlencode(page_query)}
                                 i += 1
                                 page_params.update(url_param)
-                    logger.info("Fetching...")
                     result = self.fetch(**page_params)
-                    logger.info("Saving...")
-                    for j, lang_slug in enumerate(langs):
+                    for lang_slug, accesses_list in zip(langs, result, strict=False):
                         for language in languages:
                             if language.slug == lang_slug:
-                                for access_date in result[j]:
+                                for accesses_date, accesses in accesses_list.items():  # type: ignore [attr-defined]
                                     PageAccesses.objects.update_or_create(
                                         access_date=datetime.strptime(
-                                            access_date, "%Y-%m-%d"
+                                            accesses_date, "%Y-%m-%d"
                                         ).date(),
                                         language=language,
                                         page=page,
-                                        accesses=result[j][access_date],
+                                        accesses=accesses,
                                     )
-                    logger.info("Finished Saving")
