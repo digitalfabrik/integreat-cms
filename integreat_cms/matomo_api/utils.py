@@ -17,8 +17,8 @@ def get_translation_slug(
     Produce mapping of page ids and language slugs to the absolute url of the corresponding translation.
     In detail, we need to construct a slug in the foreign language, for example /en/lebensmittel-und-einkaufen needs to become /en/groceries-and-shopping.
 
-    :param pages: The list of pages for which we want the absolute url of
-    :param languages: The list of languages for which we want the absolute url of
+    :param region_slug: Slug of the region we want the absolute url of
+    :param prefetched_translations: List of prefetched Pagetranslations that we want the absolute urls of
     :return: A dictionary of page ids, language slugs and the absolute url of the corresponding translation.
     """
     translation_slugs: dict = {}
@@ -46,6 +46,15 @@ def build_infix_recursively(
     current_page_translation: PageTranslation,
     prefetched_translations: list[PageTranslation],
 ) -> str:
+    """
+    Build infix of the absolute url of a PageTranslation object from the prefetched PageTranslations recursively. This is a workaround to avoid calling the cache, which is needed when page accesses are fetched with celery.
+
+    :param absolut_url: absolute url build at hte point of calling
+    :param language_slug: Language slug of the current page translation
+    :param current_page_translation: Page translation for that we want the parent slug of
+    :param prefetched_translations: List with prefetched page translations we select from
+    :return: A string containing the url build until the point of calling. At the end of the recursion it returns the absolute url of the page translation from the first call
+    """
     if current_page_translation.page.parent:
         parent = current_page_translation.page.parent
         for page_translation in prefetched_translations:

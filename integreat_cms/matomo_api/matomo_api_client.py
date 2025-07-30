@@ -143,7 +143,6 @@ class MatomoApiClient:
             return re.sub("&token_auth=[^&]+", "&token_auth=********", req_url)
 
         url = f"{settings.MATOMO_URL}"
-        logger.info(url)
         logger.debug(
             "Requesting %r: %s",
             query_params.get("method"),
@@ -641,14 +640,16 @@ class MatomoApiClient:
         prefetched_translations: list[PageTranslation],
     ) -> None:
         """
-        This function handles the page based accesses
+        This function handles getting the page based accesses from Matomo and saving them to the database
 
         :param start_date: Start date
         :param end_date: End date
         :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
-        :param region: The region for which we want our page based accesses
+        :param region_slug: The region for which we want our page based accesses
+        :param languages: List with the active languages of the region
+        :param pages: List with prefetch pages of the region
+        :param prefetched_translations: List with prefetched page translations
         """
-        num_of_days = (end_date - start_date).days
         total_query = {
             "method": "API.getBulkRequest",
         }
@@ -721,7 +722,7 @@ class MatomoApiClient:
         :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
         :param region: The region for which we want our page based accesses
         """
-        num_of_days = (end_date - start_date).days
+        # num_of_days = (end_date - start_date).days
         total_query = {
             "method": "API.getBulkRequest",
         }

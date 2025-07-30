@@ -201,6 +201,8 @@ def fetch_page_accesses(
     languages = list(region.active_languages)
     pages = region.get_pages()
     region_slug = region.slug
+
+    # Querry PageTranslation and the related Page and Language objects directly from the database to avoid calling data from the cache, due to celery starting with an empty cache
     subquery = (
         PageTranslation.objects.filter(
             page_id=OuterRef("page_id"), language=OuterRef("language")
@@ -212,17 +214,8 @@ def fetch_page_accesses(
     prefetched_translations = PageTranslation.objects.filter(
         page__in=pages, pk__in=subquery
     )
-    # prefetched_translations = (
-    #    PageTranslation.objects.filter(page__in=pages, language__in=languages)
-    #    .select_related("page", "language")
-    #    .order_by("page_id", "language", "-version")
-    #    .distinct("page_id", "language")
-    #    .all()
-    # )
-    # for page_translation in prefetched_translations:
-    #    parent_pages = pages.filter(page_id=page_translation__page__parent__id)
 
-    region.statistics.get_page_accesses_whole_region(
+    region.statistics.get_page_accesses(
         start_date=start_date,
         end_date=end_date,
         period=period,
