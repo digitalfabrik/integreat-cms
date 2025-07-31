@@ -2,14 +2,15 @@ from __future__ import annotations
 
 import json
 import logging
+from contextlib import contextmanager
 from typing import TYPE_CHECKING
 
 from django.db.models.signals import pre_save
-from django.dispatch import receiver
 
 from ..utils.decorators import disable_for_loaddata
 
 if TYPE_CHECKING:
+    from collections.abc import Generator
     from typing import Any
 
     from integreat_cms.cms.models.pages.page_translation import PageTranslation
@@ -20,7 +21,6 @@ from ...cms.views.utils.hix import lookup_hix_score
 logger = logging.getLogger(__name__)
 
 
-@receiver(pre_save, sender=PageTranslation)
 @disable_for_loaddata
 def page_translation_save_handler(instance: PageTranslation, **kwargs: Any) -> None:
     r"""
@@ -69,3 +69,29 @@ def page_translation_save_handler(instance: PageTranslation, **kwargs: Any) -> N
             instance.hix_feedback = json.dumps(feedback)
     else:
         logger.warning("Failed to retrieve the hix data for %r", instance)
+
+
+def register_listeners() -> None:
+    pre_save.connect(page_translation_save_handler, sender=PageTranslation)
+
+
+def unregister_listeners() -> None:
+    pre_save.disconnect(page_translation_save_handler, sender=PageTranslation)
+
+
+@contextmanager
+def enable_listeners() -> Generator[None, None, None]:
+    register_listeners()
+    try:
+        yield
+    finally:
+        unregister_listeners()
+
+
+@contextmanager
+def disable_listeners() -> Generator[None, None, None]:
+    unregister_listeners()
+    try:
+        yield
+    finally:
+        register_listeners()

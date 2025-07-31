@@ -11,9 +11,10 @@ from django.db.models import Q
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from linkcheck.listeners import disable_listeners
+from linkcheck.listeners import disable_listeners as disable_linkcheck
 from lxml.html import rewrite_links
 
+from ...core.signals.hix_signals import disable_listeners as disable_hix
 from ..utils.tinymce_icon_utils import get_icon_html, make_icon
 
 if TYPE_CHECKING:
@@ -712,7 +713,8 @@ class AbstractContentTranslation(AbstractBaseModel):
         logger.debug("Remaining versions: %r", remaining_versions)
 
         # Disable linkcheck listeners to prevent links to be created for outdated versions
-        with disable_listeners():
+        # Also disable page translation listener (HIX score etc.)
+        with disable_linkcheck(), disable_hix():
             # Make version numbers continuous
             for new_version, translation in enumerate(
                 remaining_versions,
