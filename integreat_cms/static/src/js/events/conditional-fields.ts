@@ -61,12 +61,38 @@ window.addEventListener("load", () => {
         });
     }
 
-    // event handler to show location selection
-    document.getElementById("id_has_not_location")?.addEventListener("click", () => {
-        document.getElementById("location-block").classList.toggle("hidden");
+    const noLocation = document.getElementById("id_has_not_location") as HTMLInputElement;
+    if (noLocation) {
         const locationInput = document.getElementById("id_location") as HTMLInputElement;
-        locationInput.disabled = !locationInput.disabled;
-    });
+        const onlineInput = document.getElementById("id_meeting_url") as HTMLInputElement;
+        // event handler to show location selection
+        noLocation.addEventListener("click", () => {
+            const classList = document.getElementById("location-block").classList;
+            if (noLocation) {
+                classList.add("hidden");
+            } else {
+                classList.remove("hidden");
+            }
+            locationInput.disabled = noLocation.checked;
+            onlineInput.disabled = !noLocation.checked;
+        });
+
+        const form = document.body.querySelector('form#content_form:has(button[name="status"])') as HTMLFormElement;
+        form.addEventListener("formdata", (e) => {
+            // Remove hidden field on sending. This is necessary at all because
+            // the state of the checkbox is never sent to the server, only the values for location and meeting url
+            // (we don't unset those whenever the checkbox is clicked because in case
+            // the user e.g. mis-clicked, they would have to enter it all over again)
+            const formData = e.formData;
+            if (noLocation.checked) {
+                // no physical location → clear the location
+                formData.delete("id_location");
+            } else {
+                // physical location → clear online URL
+                formData.set("meeting_url", "");
+            }
+        });
+    }
 
     // The list of time range options
     const eventsCustomTimeRangeCheckboxList = document.getElementById("id_events_time_range");
