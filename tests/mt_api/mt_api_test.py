@@ -504,6 +504,9 @@ content_role_id_data_combination = [
             "latitude": 1,
             "opening_hours": json.dumps(get_default_opening_hours()),
             "category": 1,
+            "email": "",
+            "website": "",
+            "phone_number": "",
         },
     ),
     (

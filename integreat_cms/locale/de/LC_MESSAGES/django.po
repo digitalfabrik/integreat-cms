@@ -2230,6 +2230,19 @@ msgstr "Übersetzung auf {}"
 msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
 
+#: cms/forms/pois/poi_form.py cms/models/contact/contact.py
+#: cms/models/users/organization.py
+msgid "website"
+msgstr "Webseite"
+
+#: cms/forms/pois/poi_form.py cms/models/contact/contact.py
+msgid "email address"
+msgstr "E-Mail-Adresse"
+
+#: cms/forms/pois/poi_form.py cms/models/contact/contact.py
+msgid "phone number"
+msgstr "Telefonnummer"
+
 #: cms/forms/pois/poi_form.py
 msgid ""
 "Could not derive the coordinates from the address, please fill the field "
@@ -2806,20 +2819,8 @@ msgid "location"
 msgstr "Ort"
 
 #: cms/models/contact/contact.py
-msgid "email address"
-msgstr "E-Mail-Adresse"
-
-#: cms/models/contact/contact.py
-msgid "phone number"
-msgstr "Telefonnummer"
-
-#: cms/models/contact/contact.py
 msgid "mobile phone number"
 msgstr "Mobiltelefonnummer"
-
-#: cms/models/contact/contact.py cms/models/users/organization.py
-msgid "website"
-msgstr "Webseite"
 
 #: cms/models/contact/contact.py cms/models/events/event.py
 #: cms/models/feedback/feedback.py cms/models/pois/poi.py
@@ -3731,9 +3732,8 @@ msgstr "keine Seiten gelöscht werden können, die Unterseiten haben."
 msgid ""
 "you cannot delete a page that is embedded as live content by another page."
 msgstr ""
-"eine Seite, die von einer anderen Seite als "
-"Live-Inhalt eingebunden wurde, nicht gelöscht "
-"werden kann."
+"eine Seite, die von einer anderen Seite als Live-Inhalt eingebunden wurde, "
+"nicht gelöscht werden kann."
 
 #: cms/models/pages/page.py cms/models/pages/page_translation.py
 msgid "page"
@@ -3899,7 +3899,9 @@ msgstr "Geben Sie an, ob dieser Ort barrierefrei ist."
 
 #: cms/models/pois/poi.py
 msgid "a poi used by an event or a contact cannot be deleted."
-msgstr "ein Ort, der von einer Veranstaltung oder einem Kontakt verwendet wird, nicht gelöscht werden kann."
+msgstr ""
+"ein Ort, der von einer Veranstaltung oder einem Kontakt verwendet wird, "
+"nicht gelöscht werden kann."
 
 #: cms/models/pois/poi.py cms/templates/pois/poi_list.html
 msgid "locations"
@@ -4074,6 +4076,14 @@ msgstr "Orte aktivieren"
 #: cms/models/regions/region.py
 msgid "Whether or not locations are enabled in the region"
 msgstr "Ob Orte in der Region aktiviert sind oder nicht"
+
+#: cms/models/regions/region.py
+msgid "activate contacts"
+msgstr "Kontakte aktivieren"
+
+#: cms/models/regions/region.py
+msgid "Whether or not contacts are enabled in the region"
+msgstr "Ob Kontakte in der Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py
 msgid "activate push notifications"
@@ -5479,6 +5489,15 @@ msgid ""
 msgstr ""
 "Bitte beachten: Pro Ort darf es nur einen Kontakt ohne Angabe des "
 "Zuständigkeitsbereichs geben."
+
+#: cms/templates/contacts/contact_form.html
+#: cms/templates/pois/poi_form_sidebar/contact_box.html
+msgid ""
+"The contact details provided here are displayed by default. Additional "
+"contacts can be added for specific responsibilities."
+msgstr ""
+"Die hier angegebenen Kontaktdaten werden standardmäßig angezeigt. Für "
+"bestimmte Zuständigkeiten können zusätzliche Kontakte hinterlegt werden."
 
 #: cms/templates/contacts/contact_form.html
 msgid "Contact information"
@@ -8075,6 +8094,10 @@ msgstr[1] "Löschen Sie zuerst diese Kontakte, um den Ort zu löschen:"
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
+#: cms/templates/pois/poi_form_sidebar/contact_box.html
+msgid "Contact details"
+msgstr "Kontaktdaten"
+
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 msgid "Position"
 msgstr "Position"
@@ -9792,6 +9815,10 @@ msgstr ""
 #: cms/views/contacts/contact_list_view.py
 msgid "Please create at least one location before creating contacts."
 msgstr "Bitte erstellen Sie mindestens einen Ort bevor Sie Kontakte erstellen."
+
+#: cms/views/contacts/contact_list_view.py
+msgid "Contacts are not enabled for this region."
+msgstr "Kontakte sind für diese Region nicht aktiviert."
 
 #: cms/views/content_version_view.py
 msgid "Back to the form"

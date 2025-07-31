@@ -52,6 +52,7 @@ RESPONSE
        "extras": Boolean,                  // true if at least one extra is enabled
        "events": Boolean,                  // true if events are enabled
        "pois": Boolean,                    // true if points of interest are enabled
+       "contacts": Boolean,                // true if contacts are enabled
        "push_notifications": Boolean,      // true if push-notifications are enabled
        "longitude": Number | null,         // longitude of the geographic center of the region
        "latitude": Number | null,          // latitude of the geographic center of the region
