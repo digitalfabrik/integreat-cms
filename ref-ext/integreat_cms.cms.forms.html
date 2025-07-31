@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-07-24T09:29:25+00:00" />
+    <meta property="article:modified_time" content="2025-07-31T08:39:26+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forms &mdash; integreat-cms 2025.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -3717,10 +3717,18 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.changed_data"><code class="docutils literal notranslate"><span class="pre">RegionForm.changed_data</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_aliases"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_aliases()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_chat"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_chat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_coordinates"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_coordinates()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_custom_prefix"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_custom_prefix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_duplicate_region"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_duplicate_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_gvz"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_gvz()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_hix_enabled"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_hix_enabled()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_mt_budget"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_mt_budget()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_slug"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_slug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_statistics"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_statistics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_summ_ai"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_summ_ai()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_summ_ai_enabled"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_summ_ai_enabled()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_zammad"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_zammad()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_zammad_access_token"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_zammad_access_token()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_zammad_url"><code class="docutils literal notranslate"><span class="pre">RegionForm.clean_zammad_url()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.default_renderer"><code class="docutils literal notranslate"><span class="pre">RegionForm.default_renderer</span></code></a></li>
@@ -6454,7 +6462,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 24, 2025.
+      <span class="lastupdated">Last updated on Jul 31, 2025.
       </span></p>
   </div>
 
