@@ -59,7 +59,6 @@
                     <button name="preview_page" type="button" data-preview-page data-edit-page-mode data-right-to-left={{ right_to_left }} class="btn btn-ghost">
                         {% translate "Preview" %}
                     </button>
-                    {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
                     {% if can_publish_page %}
                         <button name="status"
                                 value="{{ DRAFT }}"
@@ -214,7 +213,7 @@
                 {% if page %}
                     <div id="right-sidebar-column"
                          class="md:w-full 3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col">
-                        {% if can_edit_page %}
+                        {% if show_actions_box %}
                             {% include "./page_form_sidebar/actions_box.html" with box_id="page-actions" %}
                         {% endif %}
                         {% include "./page_form_sidebar/translator_view_box.html" with box_id="page-side-by-side" %}
