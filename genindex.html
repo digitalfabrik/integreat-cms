@@ -329,6 +329,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.middleware.html">Middleware</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.middleware.html#access-control-middleware">Access Control Middleware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.middleware.html#debug-request">Debug Request</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.middleware.html#region-middleware">Region Middleware</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.middleware.html#timezone-middleware">Timezone Middleware</a></li>
 </ul>
@@ -354,6 +355,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#docker-settings">Docker Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#logging-filter">Logging Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#settings">Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#sphinx-settings">Sphinx Settings</a></li>
@@ -954,6 +956,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.middleware.html">Middleware</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.access_control_middleware">Access Control Middleware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.debug_request">Debug Request</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.timezone_middleware">Timezone Middleware</a></li>
 </ul>
@@ -1009,6 +1012,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.docker_settings.DATABASES"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_filter">Logging Filter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.logging_filter.DebugRequestFilter"><code class="docutils literal notranslate"><span class="pre">DebugRequestFilter</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a><ul>
@@ -1140,6 +1147,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE"><code class="docutils literal notranslate"><span class="pre">PER_PAGE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.REDIS_CACHE"><code class="docutils literal notranslate"><span class="pre">REDIS_CACHE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RELEASE_NOTES_DIRS"><code class="docutils literal notranslate"><span class="pre">RELEASE_NOTES_DIRS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.REQUEST_DEBUG_USERS"><code class="docutils literal notranslate"><span class="pre">REQUEST_DEBUG_USERS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_PAGE_PATTERNS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_PAGE_PATTERNS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_SLUGS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_SLUGS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ROOT_URLCONF"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a></li>
@@ -2905,6 +2913,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.__init__">(integreat_cms.core.authentication_backends.EmailAuthenticationBackend method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.logging_filter.DebugRequestFilter.__init__">(integreat_cms.core.logging_filter.DebugRequestFilter method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.logging_formatter.ColorFormatter.__init__">(integreat_cms.core.logging_formatter.ColorFormatter method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.logging_formatter.RequestFormatter.__init__">(integreat_cms.core.logging_formatter.RequestFormatter method)</a>
@@ -2944,6 +2954,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.html#integreat_cms.core.management.log_command.LogCommand.__init__">(integreat_cms.core.management.log_command.LogCommand method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.middleware.html#integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware.__init__">(integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.middleware.html#integreat_cms.core.middleware.debug_request.DebugRequestMiddleware.__init__">(integreat_cms.core.middleware.debug_request.DebugRequestMiddleware method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.middleware.html#integreat_cms.core.middleware.region_middleware.RegionMiddleware.__init__">(integreat_cms.core.middleware.region_middleware.RegionMiddleware method)</a>
 </li>
@@ -8585,6 +8597,10 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.management.html#integreat_cms.core.management.debug_command.DebugCommand">DebugCommand (class in integreat_cms.core.management.debug_command)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.logging_filter.DebugRequestFilter">DebugRequestFilter (class in integreat_cms.core.logging_filter)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.middleware.html#integreat_cms.core.middleware.debug_request.DebugRequestMiddleware">DebugRequestMiddleware (class in integreat_cms.core.middleware.debug_request)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.months.DECEMBER">DECEMBER (in module integreat_cms.cms.constants.months)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.auth.WPBCryptPasswordHasher.decode">decode() (integreat_cms.cms.auth.WPBCryptPasswordHasher method)</a>
@@ -10819,6 +10835,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.RegionManager.filter">(integreat_cms.cms.models.regions.region.RegionManager method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.filter">(integreat_cms.cms.models.users.user.CustomUserManager method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.logging_filter.DebugRequestFilter.filter">(integreat_cms.core.logging_filter.DebugRequestFilter method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_filter_form.PageFilterForm.filter_by_end_date">filter_by_end_date() (integreat_cms.cms.forms.pages.page_filter_form.PageFilterForm method)</a>
@@ -15345,6 +15363,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.get_repr">(integreat_cms.cms.models.users.user_fido_key.FidoKey method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.middleware.html#integreat_cms.core.middleware.debug_request.get_request">get_request() (in module integreat_cms.core.middleware.debug_request)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_result_class">get_result_class() (integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource class method)</a>
 
       <ul>
@@ -19817,8 +19837,6 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.password_reset_view">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication.passwordless_login_view
 
@@ -19826,6 +19844,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.passwordless_login_view">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication.totp_login_view
 
@@ -20905,6 +20925,13 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.core.logging_filter
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_filter">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.core.logging_formatter
 
       <ul>
@@ -21056,6 +21083,13 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.access_control_middleware">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.core.middleware.debug_request
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.debug_request">module</a>
 </li>
       </ul></li>
       <li>
@@ -24321,6 +24355,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.formats.en.html#module-integreat_cms.core.formats.en.formats">integreat_cms.core.formats.en.formats</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_filter">integreat_cms.core.logging_filter</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_formatter">integreat_cms.core.logging_formatter</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.html#module-integreat_cms.core.management">integreat_cms.core.management</a>
@@ -24364,6 +24400,8 @@
         <li><a href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware">integreat_cms.core.middleware</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.access_control_middleware">integreat_cms.core.middleware.access_control_middleware</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.debug_request">integreat_cms.core.middleware.debug_request</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">integreat_cms.core.middleware.region_middleware</a>
 </li>
@@ -29824,6 +29862,8 @@
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.request">(integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.REQUEST_DEBUG_USERS">REQUEST_DEBUG_USERS (in module integreat_cms.core.settings)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.logging_formatter.RequestFormatter">RequestFormatter (class in integreat_cms.core.logging_formatter)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.base_serializer.Deserializer.require_attribute">require_attribute() (integreat_cms.xliff.base_serializer.Deserializer static method)</a>
@@ -31135,6 +31175,8 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.set_password">set_password() (integreat_cms.cms.models.users.user.User method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.middleware.html#integreat_cms.core.middleware.debug_request.set_request">set_request() (in module integreat_cms.core.middleware.debug_request)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.set_unusable_password">set_unusable_password() (integreat_cms.cms.models.users.user.User method)</a>
 </li>

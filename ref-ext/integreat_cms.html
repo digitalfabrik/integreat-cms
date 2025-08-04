@@ -333,6 +333,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.middleware.html">Middleware</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.middleware.html#access-control-middleware">Access Control Middleware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.middleware.html#debug-request">Debug Request</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.middleware.html#region-middleware">Region Middleware</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.middleware.html#timezone-middleware">Timezone Middleware</a></li>
 </ul>
@@ -358,6 +359,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#docker-settings">Docker Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#logging-filter">Logging Filter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#settings">Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#sphinx-settings">Sphinx Settings</a></li>
@@ -958,6 +960,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.middleware.html">Middleware</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.access_control_middleware">Access Control Middleware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.debug_request">Debug Request</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.timezone_middleware">Timezone Middleware</a></li>
 </ul>
@@ -1013,6 +1016,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.docker_settings.DATABASES"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.logging_filter">Logging Filter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.logging_filter.DebugRequestFilter"><code class="docutils literal notranslate"><span class="pre">DebugRequestFilter</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a><ul>
@@ -1144,6 +1151,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE"><code class="docutils literal notranslate"><span class="pre">PER_PAGE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.REDIS_CACHE"><code class="docutils literal notranslate"><span class="pre">REDIS_CACHE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.RELEASE_NOTES_DIRS"><code class="docutils literal notranslate"><span class="pre">RELEASE_NOTES_DIRS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.REQUEST_DEBUG_USERS"><code class="docutils literal notranslate"><span class="pre">REQUEST_DEBUG_USERS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_PAGE_PATTERNS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_PAGE_PATTERNS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_SLUGS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_SLUGS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.ROOT_URLCONF"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a></li>
@@ -3569,6 +3577,12 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware"><code class="docutils literal notranslate"><span class="pre">AccessControlMiddleware</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.debug_request">Debug Request</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#integreat_cms.core.middleware.debug_request.DebugRequestMiddleware"><code class="docutils literal notranslate"><span class="pre">DebugRequestMiddleware</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#integreat_cms.core.middleware.debug_request.get_request"><code class="docutils literal notranslate"><span class="pre">get_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#integreat_cms.core.middleware.debug_request.set_request"><code class="docutils literal notranslate"><span class="pre">set_request()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#integreat_cms.core.middleware.region_middleware.RegionMiddleware"><code class="docutils literal notranslate"><span class="pre">RegionMiddleware</span></code></a></li>
 </ul>
@@ -3685,6 +3699,14 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.docker_settings.DATABASES"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.logging_filter">Logging Filter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.logging_filter.DebugRequestFilter"><code class="docutils literal notranslate"><span class="pre">DebugRequestFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.logging_filter.DebugRequestFilter.__init__"><code class="docutils literal notranslate"><span class="pre">DebugRequestFilter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.logging_filter.DebugRequestFilter.filter"><code class="docutils literal notranslate"><span class="pre">DebugRequestFilter.filter()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a><ul>
@@ -3841,6 +3863,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE"><code class="docutils literal notranslate"><span class="pre">PER_PAGE</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.REDIS_CACHE"><code class="docutils literal notranslate"><span class="pre">REDIS_CACHE</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.RELEASE_NOTES_DIRS"><code class="docutils literal notranslate"><span class="pre">RELEASE_NOTES_DIRS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.REQUEST_DEBUG_USERS"><code class="docutils literal notranslate"><span class="pre">REQUEST_DEBUG_USERS</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_PAGE_PATTERNS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_PAGE_PATTERNS</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_SLUGS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_SLUGS</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.ROOT_URLCONF"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a></li>
