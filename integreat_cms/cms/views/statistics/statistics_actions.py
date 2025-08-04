@@ -200,7 +200,7 @@ def fetch_page_accesses(start_date: date, end_date: date, region: Region) -> Non
     pages = region.get_pages()
     region_slug = region.slug
 
-    # Querry PageTranslation and the related Page and Language objects directly from the database to avoid calling data from the cache, due to celery starting with an empty cache
+    # Query PageTranslation and the related Page and Language objects directly from the database to avoid calling data from the cache, due to celery starting with an empty cache
     subquery = (
         PageTranslation.objects.filter(
             page_id=OuterRef("page_id"), language=OuterRef("language")

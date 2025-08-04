@@ -121,7 +121,7 @@ class MatomoApiClient:
         **kwargs: Any,
     ) -> dict[str, Any]:
         r"""
-        Uses :meth:`request.get` to perform an synchronous GET request to the Matomo API.
+        Uses :meth:`request.post` to perform an synchronous GET request to the Matomo API.
 
         :param session: The session object which is used for the request
         :param \**kwargs: The parameters which are passed to the Matomo API
@@ -599,35 +599,6 @@ class MatomoApiClient:
         return data_entries, legend_entries
 
         # (the results are sorted in the order the tasks were created)
-
-    def retrieve_accesses_for_page(
-        self,
-        query_params: dict[str, Any],
-        full_slug: str,
-        language: Language,
-        page: Page,
-    ) -> None:
-        """
-        This function retrieves the accesses for a single page from Matomo and saves it to the database.
-
-        :param session: The current session
-        :param query_params: The parameters which are passed to the Matomo API
-        :param page_id: Id of page for which accesses are retrieved
-        :param lang_slug: Language slug for which accesses are retrieved
-        :param full_slug: The absolute url slug for the page
-        """
-        logger.info("Fetching accesses for page %s", page)
-        result = self.fetch(
-            **query_params,
-            segment=f"pageUrl=@/children/?depth=2&url={full_slug}",
-        )
-        for access_date in result:
-            PageAccesses.objects.update_or_create(
-                access_date=datetime.strptime(access_date, "%Y-%m-%d").date(),
-                language=language,
-                page=page,
-                accesses=result[access_date],
-            )
 
     def get_page_accesses(
         self,
