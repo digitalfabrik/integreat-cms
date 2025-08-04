@@ -407,7 +407,7 @@ RESPONSE
                "logo": String,           // The icon url of the organization
                "website": String,        // The url of the organization website
          } | null,
-         "barrier_free": Boolean,        // Whether this location is barrier free
+         "barrier_free": Boolean | null, // Whether this location is barrier free
       },
       ...
    ]
