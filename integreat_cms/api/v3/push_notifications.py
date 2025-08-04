@@ -13,6 +13,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 
 from ...cms.models import PushNotificationTranslation
+from ...firebase_api.firebase_data_client import FirebaseDataClient
 from ..decorators import json_response
 
 if TYPE_CHECKING:
@@ -79,3 +80,16 @@ def transform_notification(pnt: PushNotificationTranslation) -> dict[str, Any]:
         "channel": pnt.push_notification.channel,
         "available_languages": available_languages_dict,
     }
+
+
+@json_response
+def query_subscriptions(
+    request: HttpRequest,
+) -> dict[str, dict[str, str]]:
+    """
+    Fetches active subscriptions for a given device from the Firebase API.
+    See `the FCM documentation by Google <https://developers.google.com/instance-id/reference/server#get_information_about_app_instances>`_
+    (return value is ``.rel.topics`` of the fcm response)
+    """
+    iid_token = request.POST.get("iid_token")
+    return FirebaseDataClient().fetch_subscriptions(iid_token)
