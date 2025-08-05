@@ -26,5 +26,7 @@ class DebugRequestFilter(logging.Filter):
             ):
                 record.msg = f"Debug User: {request.user.username} - {record.msg}"
                 return True
-            return record.levelno >= getattr(settings, "LOG_LEVEL_NORMAL", logging.INFO)
+            return record.levelno >= logging.getLevelName(
+                getattr(settings, "LOG_LEVEL_NORMAL", "INFO")
+            )
         return True

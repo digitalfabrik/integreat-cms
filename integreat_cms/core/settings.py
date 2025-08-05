@@ -611,7 +611,7 @@ LOG_LEVEL: str = os.environ.get("INTEGREAT_CMS_LOG_LEVEL", "DEBUG" if DEBUG else
 REQUEST_DEBUG_USERS = [
     item.strip()
     for item in os.environ.get("INTEGREAT_CMS_REQUEST_DEBUG_USERS", "").split(",")
-]
+].remove("")
 
 if REQUEST_DEBUG_USERS:
     LOG_LEVEL_NORMAL = LOG_LEVEL
