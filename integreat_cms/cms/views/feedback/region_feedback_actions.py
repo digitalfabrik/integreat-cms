@@ -238,7 +238,7 @@ def forward_region_feedback(
     region_slug: str,
 ) -> HttpResponse:
     """
-    Turn a list of feedback items into technical feedback to forward to Integreat Staff Team
+    Turn a list of feedback items into technical feedback to forward to Integreat staff
 
     :param request: Object representing the user call
     :param region_slug: The slug of the current region
