@@ -152,7 +152,7 @@ class ContactListView(TemplateView, ContactContextMixin):
 
         :return: template of region dashboard
         """
-        messages.error(request, _("Contacts are not enabled for this region."))
+        messages.info(request, _("Contacts are not enabled for this region."))
         return redirect(
             "dashboard",
             **{
