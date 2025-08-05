@@ -205,13 +205,13 @@ def fetch_page_accesses(start_date: date, end_date: date, region: Region) -> Non
         PageTranslation.objects.filter(
             page_id=OuterRef("page_id"), language=OuterRef("language")
         )
-        .prefetch_related("page", "language")
+        .select_related("page", "language")
         .order_by("-version")
         .values("pk")[:1]
     )
     prefetched_translations = PageTranslation.objects.filter(
         page__in=pages, pk__in=subquery
-    )
+    ).prefetch_related("page", "language")
 
     region.statistics.get_page_accesses(
         start_date=start_date,

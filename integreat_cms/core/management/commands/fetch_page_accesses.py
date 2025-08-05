@@ -9,6 +9,7 @@ from django.core.management.base import CommandError
 from integreat_cms.cms.constants.region_status import ACTIVE
 from integreat_cms.cms.views.statistics.statistics_actions import (
     async_fetch_page_accesses,
+    fetch_page_accesses,
 )
 
 from ....cms.models import Region
@@ -43,6 +44,7 @@ class Command(LogCommand):
             "--region-slug",
             help="The slug of the region to fetch page accesses from. Statistics need to be activatet",
         )
+        parser.add_argument("--sync")
 
     def handle(
         self,
@@ -50,6 +52,7 @@ class Command(LogCommand):
         start_date: str,
         end_date: str,
         region_slug: str | None,
+        sync: bool | None,
         **options: Any,
     ) -> None:
         r"""
@@ -84,6 +87,9 @@ class Command(LogCommand):
                 Region.objects.filter(statistics_enabled=True, status=ACTIVE)
             )
         for region in regions:
-            async_fetch_page_accesses.apply_async(
-                args=[starting_date, ending_date, region.id]
-            )
+            if sync:
+                fetch_page_accesses(starting_date, ending_date, region)
+            else:
+                async_fetch_page_accesses.apply_async(
+                    args=[starting_date, ending_date, region.id]
+                )
