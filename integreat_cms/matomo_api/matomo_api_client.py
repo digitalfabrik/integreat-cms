@@ -632,40 +632,47 @@ class MatomoApiClient:
             "period": matomo_periods.DAY,
         }
         logger.debug("Fetching visits for %rlanguages.", languages)
-        logger.info("Fetching slugs...")
         translation_slugs = get_translation_slug(
             region_slug=region_slug, prefetched_translations=prefetched_translations
         )
-        logger.info("Finished fetching slugs")
 
         # retrieve and save accesses per page and language with the corresponding url slugs
+        page_map = {page.id: page for page in pages}
+        language_map = {lang.slug: lang for lang in languages}
+        accesses_objects = []
         for page_id, langs in translation_slugs.items():
-            for page in pages:
-                if page.id == page_id:
-                    page_params = total_query
-                    page_query = query_params
-                    i = 0
-                    for lang_slug, full_slug in langs.items():
-                        for language in languages:
-                            if language.slug == lang_slug:
-                                page_query.update(
-                                    {
-                                        "segment": f"pageUrl=@/children/?depth=2&url={full_slug}"
-                                    }
-                                )
-                                url_param = {f"urls[{i}]": urlencode(page_query)}
-                                i += 1
-                                page_params.update(url_param)
-                    result = self.fetch(**page_params)
-                    for lang_slug, accesses_list in zip(langs, result, strict=False):
-                        for language in languages:
-                            if language.slug == lang_slug:
-                                for accesses_date, accesses in accesses_list.items():  # type: ignore [attr-defined]
-                                    PageAccesses.objects.update_or_create(
-                                        access_date=datetime.strptime(
-                                            accesses_date, "%Y-%m-%d"
-                                        ).date(),
-                                        language=language,
-                                        page=page,
-                                        accesses=accesses,
-                                    )
+            page = page_map.get(page_id)
+            if not page:
+                continue
+            page_params = total_query
+            page_query = query_params
+            i = 0
+            for lang_slug, full_slug in langs.items():
+                language = language_map.get(lang_slug)
+                if not language:
+                    continue
+                page_query.update(
+                    {"segment": f"pageUrl=@/children/?depth=2&url={full_slug}"}
+                )
+                url_param = {f"urls[{i}]": urlencode(page_query)}
+                i += 1
+                page_params.update(url_param)
+            result = self.fetch(**page_params)
+            for lang_slug, accesses_list in zip(langs, result, strict=False):
+                language = language_map.get(lang_slug)
+                if not language:
+                    continue
+                for accesses_date, accesses in accesses_list.items():  # type: ignore [attr-defined]
+                    access = PageAccesses(
+                        access_date=datetime.strptime(accesses_date, "%Y-%m-%d").date(),
+                        language=language,
+                        page=page,
+                        accesses=accesses,
+                    )
+                    accesses_objects.append(access)
+        PageAccesses.objects.bulk_create(
+            accesses_objects,
+            update_conflicts=True,
+            unique_fields=["page", "language", "access_date"],
+            update_fields=["accesses"],
+        )
