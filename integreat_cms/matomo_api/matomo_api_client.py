@@ -632,9 +632,11 @@ class MatomoApiClient:
             "period": matomo_periods.DAY,
         }
         logger.debug("Fetching visits for %rlanguages.", languages)
+        logger.info("Fetching slugs...")
         translation_slugs = get_translation_slug(
             region_slug=region_slug, prefetched_translations=prefetched_translations
         )
+        logger.info("Finished fetching slugs")
 
         # retrieve and save accesses per page and language with the corresponding url slugs
         for page_id, langs in translation_slugs.items():
