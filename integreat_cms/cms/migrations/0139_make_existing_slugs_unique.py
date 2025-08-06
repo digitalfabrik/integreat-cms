@@ -2,7 +2,8 @@
 
 from typing import Any
 
-from django.db import migrations
+import django.db.models.deletion
+from django.db import migrations, models
 
 from integreat_cms.cms.utils.slug_utils import generate_unique_slug
 
@@ -63,5 +64,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(make_slugs_unique),
+        migrations.RunPython(make_slugs_unique, migrations.RunPython.noop),
+        migrations.AddField(
+            model_name="pagetranslation",
+            name="region",
+            field=models.ForeignKey(
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="cms.region",
+            ),
+        ),
     ]

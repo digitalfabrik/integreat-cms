@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+import pgtrigger
 from cacheops import invalidate_model, invalidate_obj
 from django.conf import settings
 from django.db import models
@@ -444,3 +445,22 @@ class Page(AbstractTreeNode, AbstractBasePage):
             ("publish_page", "Can publish page"),
             ("grant_page_permissions", "Can grant page permission"),
         )
+
+        triggers = [
+            pgtrigger.Trigger(
+                name="update_translations_on_region_change",
+                when=pgtrigger.After,
+                operation=pgtrigger.Update,
+                condition=pgtrigger.Condition(
+                    'OLD."region_id" IS DISTINCT FROM NEW."region_id"'
+                ),
+                func="""
+                BEGIN
+                    UPDATE cms_pagetranslation
+                    SET region_id = NEW.region_id
+                    WHERE page_id = NEW.id;
+                    RETURN NULL;
+                END;
+                """,
+            )
+        ]
