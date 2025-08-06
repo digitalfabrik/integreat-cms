@@ -14,7 +14,7 @@ def fix_inactive_visible_nodes(
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0134_alter_region_status"),
+        ("cms", "0138_configurable_mt_budget"),
     ]
 
     operations = [
