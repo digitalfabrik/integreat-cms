@@ -20,6 +20,8 @@ from ..pois.poi import POI
 from ..pois.poi_translation import POITranslation
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.db.models.query import QuerySet
 
     from ..abstract_content_translation import AbstractContentTranslation
@@ -124,6 +126,47 @@ class Contact(AbstractBaseModel):
             .order_by("-rank")
             .distinct()
         )
+
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for contact search
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+        """
+        results: list[dict[str, Any]] = []
+
+        region = kwargs["region"]
+        query = kwargs["query"]
+        archived_flag = kwargs["archived_flag"]
+        language_slug = kwargs["language_slug"]
+
+        results.extend(
+            {
+                "title": contact.name,
+                "url": None,
+                "type": "contact",
+            }
+            for contact in cls.objects.filter(
+                name__icontains=query,
+                location__region=region,
+                archived=archived_flag,
+            ).distinct()
+        )
+        if language_slug:
+            results.extend(
+                {
+                    "title": poi_translation.title,
+                    "url": None,
+                    "type": "contact",
+                }
+                for poi_translation in POITranslation.search(
+                    region, language_slug, query
+                ).filter(poi__archived=False)
+            )
+
+        return results
 
     @classmethod
     def search_for_query(cls, region: Region, query: str) -> QuerySet:

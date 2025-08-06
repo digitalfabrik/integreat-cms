@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import logging
+from typing import TYPE_CHECKING
 
 from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -60,6 +64,18 @@ class AbstractBaseModel(models.Model):
                     exc_info=e,
                 )
             return fallback_repr
+
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for searching the objects of the class
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+
+        To be implemented in the inheriting model
+        """
+        raise NotImplementedError
 
     class Meta:
         #: This model is an abstract base class

@@ -362,9 +362,10 @@ def replace_links(
     user: User | None = None,
     commit: bool = True,
     link_types: list[str] | None = None,
-) -> None:
+) -> bool:
     """
-    Perform search & replace in the content links
+    Perform search & replace in the content links.
+    Return number of translations in which links are replaced, to give users feedback whether any links were replaced or nothing was changed.
 
     :param search: The (partial) URL to search
     :param replace: The (partial) URL to replace
@@ -375,6 +376,7 @@ def replace_links(
     """
     log_replacement_is_starting(search, replace, region, user)
     content_objects = find_target_url_per_content(search, replace, region, link_types)
+
     with update_lock:
         for content, urls_to_replace in content_objects.items():
             content.replace_urls(urls_to_replace, user, commit)
@@ -384,6 +386,8 @@ def replace_links(
     time.sleep(0.1)
     tasks_queue.join()
     logger.info("Finished replacing %r with %r in content links", search, replace)
+
+    return len(content_objects) > 0
 
 
 def find_target_url_per_content(

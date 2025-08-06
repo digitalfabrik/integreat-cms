@@ -607,6 +607,18 @@ LOGOUT_REDIRECT_URL: Final[str] = "/login/"
 #: The log level for integreat-cms django apps
 LOG_LEVEL: str = os.environ.get("INTEGREAT_CMS_LOG_LEVEL", "DEBUG" if DEBUG else "INFO")
 
+#: List of usersnames for which DEBUG logs are enabled
+REQUEST_DEBUG_USERS = [
+    item.strip()
+    for item in os.environ.get("INTEGREAT_CMS_REQUEST_DEBUG_USERS", "").split(",")
+    if item.strip()
+]
+
+if REQUEST_DEBUG_USERS:
+    LOG_LEVEL_NORMAL = LOG_LEVEL
+    LOG_LEVEL = "DEBUG"
+    MIDDLEWARE.append("integreat_cms.core.middleware.DebugRequestMiddleware")
+
 #: The log level for the syslog
 SYS_LOG_LEVEL: Final[str] = "INFO"
 
@@ -669,6 +681,9 @@ LOGGING: dict[str, Any] = {
         },
     },
     "filters": {
+        "debug_request": {
+            "()": "integreat_cms.core.logging_filter.DebugRequestFilter",
+        },
         "require_debug_true": {
             "()": "django.utils.log.RequireDebugTrue",
         },
@@ -706,6 +721,7 @@ LOGGING: dict[str, Any] = {
             "level": "WARNING",
         },
         "logfile": {
+            "filters": ["debug_request"] if REQUEST_DEBUG_USERS else [],
             "class": "logging.FileHandler",
             "filename": LOGFILE,
             "formatter": "logfile",

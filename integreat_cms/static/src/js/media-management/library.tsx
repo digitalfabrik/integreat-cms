@@ -222,7 +222,7 @@ const Library = ({
                                     "!bg-gray-100 !border-gray-100": selectionMode,
                                 })}
                                 data-url={apiEndpoints.getSearchSuggestions}
-                                data-object-type="media"
+                                data-object-type="mediafile"
                                 data-archived="false"
                                 value={searchQuery}
                             />

@@ -17,12 +17,15 @@ from webauthn.helpers import generate_user_handle
 
 if TYPE_CHECKING:
     from datetime import datetime
+    from typing import Any
 
     from django.db.models.query import QuerySet
 
     from .role import Role
 
+
 from ...utils.translation_utils import gettext_many_lazy as __
+from ...utils.user_utils import search_users
 from ..abstract_base_model import AbstractBaseModel
 from ..chat.chat_message import ChatMessage
 from ..decorators import modify_fields
@@ -227,6 +230,30 @@ class User(AbstractUser, AbstractBaseModel):
                 Page.objects.filter(organization=self.organization),
             )
         return access_granted_pages
+
+    @classmethod
+    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
+        r"""
+        Suggests keywords for user search
+
+        :param \**kwargs: The supplied kwargs
+        :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+        """
+
+        results: list[dict[str, Any]] = []
+
+        region = kwargs["region"]
+        query = kwargs["query"]
+
+        results.extend(
+            {
+                "title": user.username,
+                "url": None,
+                "type": "user",
+            }
+            for user in search_users(region, query)
+        )
+        return results
 
     def __str__(self) -> str:
         """
