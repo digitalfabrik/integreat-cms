@@ -4,19 +4,28 @@ import logging
 from html import escape
 from typing import TYPE_CHECKING
 
+import pgtrigger
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
+from django.contrib.postgres.constraints import ExclusionConstraint
+from django.contrib.postgres.fields import RangeOperators
 from django.db import models
+from django.db.models import F
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
 
+from integreat_cms.cms.utils.slug_utils import generate_unique_slug
+
 if TYPE_CHECKING:
     from datetime import datetime
+    from typing import Any
 
     from django.db.models.query import QuerySet
     from django.utils.functional import Promise
     from django.utils.safestring import SafeString
+
+    from integreat_cms.cms.utils.slug_utils import SlugKwargs
 
     from ..languages.language import Language
     from ..regions.region import Region
@@ -48,6 +57,10 @@ class PageTranslation(AbstractBasePageTranslation):
         on_delete=models.CASCADE,
         related_name="translations",
         verbose_name=_("page"),
+    )
+
+    region = models.ForeignKey(
+        "cms.Region", null=True, editable=False, on_delete=models.CASCADE
     )
 
     hix_score = models.FloatField(
@@ -401,6 +414,29 @@ class PageTranslation(AbstractBasePageTranslation):
         # mark as safe so that the arrow and the warning triangle are not escaped
         return mark_safe(label)
 
+    def clean(self) -> None:
+        """
+        Checks if the slug is unique and generates when necessary
+        """
+        if not getattr(self, "is_validated", False):
+            kwargs: SlugKwargs = {
+                "slug": self.slug,
+                "manager": type(self).objects,
+                "object_instance": self,
+                "foreign_model": "page",
+                "region": self.page.region,
+                "language": self.language,
+                "fallback": "title",
+            }
+            self.slug = generate_unique_slug(**kwargs)
+
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        """
+        Override save to perform unique slug validation
+        """
+        self.clean()
+        super().save(*args, **kwargs)
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("page translation")
@@ -417,5 +453,49 @@ class PageTranslation(AbstractBasePageTranslation):
             models.UniqueConstraint(
                 fields=["page", "language", "version"],
                 name="%(class)s_unique_version",
+            ),
+            ExclusionConstraint(
+                name="exclude_same_slug_lang_region_diff_page",
+                expressions=[
+                    (F("slug"), RangeOperators.EQUAL),
+                    (F("language"), RangeOperators.EQUAL),
+                    (F("region"), RangeOperators.EQUAL),
+                    (F("page"), RangeOperators.NOT_EQUAL),
+                ],
+                index_type="gist",
+            ),
+        ]
+
+        triggers = [
+            # Trigger for INSERT (always fires, no OLD reference)
+            pgtrigger.Trigger(
+                name="set_region_on_insert",
+                when=pgtrigger.Before,
+                operation=pgtrigger.Insert,
+                func="""
+                BEGIN
+                    SELECT region_id INTO NEW.region_id
+                    FROM cms_page
+                    WHERE id = NEW.page_id;
+                    RETURN NEW;
+                END;
+                """,
+            ),
+            # Trigger for UPDATE (fires only if page_id changed)
+            pgtrigger.Trigger(
+                name="set_region_on_page_change",
+                when=pgtrigger.Before,
+                operation=pgtrigger.Update,
+                condition=pgtrigger.Condition(
+                    'OLD."page_id" IS DISTINCT FROM NEW."page_id"'
+                ),
+                func="""
+                BEGIN
+                    SELECT region_id INTO NEW.region_id
+                    FROM cms_page
+                    WHERE id = NEW.page_id;
+                    RETURN NEW;
+                END;
+                """,
             ),
         ]
