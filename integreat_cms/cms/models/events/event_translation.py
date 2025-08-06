@@ -10,10 +10,14 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
+from integreat_cms.cms.utils.slug_utils import generate_unique_slug
+
 if TYPE_CHECKING:
     from typing import Any, Literal
 
     from django.db.models import QuerySet
+
+    from integreat_cms.cms.utils.slug_utils import SlugKwargs
 
     from ...models import Event, Region
 
@@ -146,6 +150,29 @@ class EventTranslation(AbstractContentTranslation):
         )
 
         return results
+
+    def clean(self) -> None:
+        """
+        Checks if the slug is unique and generates when necessary
+        """
+        if not getattr(self, "is_validated", False):
+            kwargs: SlugKwargs = {
+                "slug": self.slug,
+                "manager": type(self).objects,
+                "object_instance": self,
+                "foreign_model": "event",
+                "region": self.event.region,
+                "language": self.language,
+                "fallback": "title",
+            }
+            self.slug = generate_unique_slug(**kwargs)
+
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        """
+        Override save to perform unique slug validation
+        """
+        self.clean()
+        super().save(*args, **kwargs)
 
     class Meta:
         #: The verbose name of the model
