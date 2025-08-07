@@ -7,6 +7,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.db.models.signals import post_save
@@ -20,6 +21,7 @@ from ...constants import status, text_directions
 from ...decorators import permission_required
 from ...forms import ContactForm, POIForm, POITranslationForm
 from ...models import Contact, Language, POI, POITranslation
+from ...utils.link_utils import format_phone_number
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
@@ -178,6 +180,10 @@ class POIFormView(
         )
         user_slug = poi_translation_form.data.get("slug")
 
+        phone_number = poi_form.data.get("primary_phone_number")
+        email = poi_form.data.get("primary_email")
+        website = poi_form.data.get("primary_website")
+
         if not poi_form.is_valid() or not poi_translation_form.is_valid():
             # Add error messages
             poi_form.add_error_messages(request)
@@ -227,6 +233,28 @@ class POIFormView(
                         contact,
                     ),
                 )
+
+            # Look explicitly for the primary contact, not the any first one,
+            # as we do not delete non-primary contacts when deactivating contact in a region.
+            # "get()" is not used as it raises an exception if there is no primary contact.
+            contact = poi.contacts.filter(area_of_responsibility="").first()
+
+            if website != "" or phone_number != "" or email != "":
+                if not contact:
+                    contact = Contact(location=poi)
+
+                if phone_number:
+                    phone_number = format_phone_number(phone_number)
+
+                contact.website = website
+                contact.phone_number = phone_number
+                contact.email = email
+                contact.name = poi.default_translation.title
+                contact.save()
+            elif contact is not None:
+                contact.delete()
+
+            invalidate_model(Contact)
 
             # If any source translation changes to draft, set all depending translations/versions to draft
             if poi_translation_form.instance.status == status.DRAFT:
