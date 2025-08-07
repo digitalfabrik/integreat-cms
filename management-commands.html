@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-06-30T11:49:30+00:00" />
+    <meta property="article:modified_time" content="2025-08-07T10:11:21+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Management Commands &mdash; integreat-cms 2025.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1929,6 +1929,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#custom-commands">Custom Commands</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#integreat-cms">integreat-cms</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#copy-pois"><code class="docutils literal notranslate"><span class="pre">copy_pois</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
@@ -2236,6 +2237,20 @@ when you use this command in production to make sure links in archived pages are
 <p>This command inherits from <a class="reference internal" href="ref-ext/integreat_cms.core.management.html#integreat_cms.core.management.debug_command.DebugCommand" title="integreat_cms.core.management.debug_command.DebugCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">DebugCommand</span></code></a>, so it is only available in debug mode.</p>
 </div>
 </section>
+<section id="copy-pois">
+<h4><code class="docutils literal notranslate"><span class="pre">copy_pois</span></code><a class="headerlink" href="#copy-pois" title="Link to this heading"></a></h4>
+<p>Duplicate all POIs of the template region, also all events and contacts if specified, into the target regions</p>
+<blockquote>
+<div><p>integreat-cms-cli copy_pois TEMPLATE-SLUG TARGET-SLUG [TARGET-SLUG …] [–username USERNAME] [–contacts] [–events] [–add-suffix]</p>
+</div></blockquote>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--username</span></code>: The user as which to create the objects</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--contacts</span></code>: Whether contacts should be copied too</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--events</span></code>: Whether events should be copied too</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--add-suffix</span></code>: Whether the suffix ‘ (Copy)’ should be added to copied objects</p></li>
+</ul>
+</section>
 <section id="find-large-files">
 <h4><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code><a class="headerlink" href="#find-large-files" title="Link to this heading"></a></h4>
 <p>Find large media files in the CMS:</p>
@@ -2396,7 +2411,7 @@ when you use this command in production to make sure links in archived pages are
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 30, 2025.
+      <span class="lastupdated">Last updated on Aug 07, 2025.
       </span></p>
   </div>
 

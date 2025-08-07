@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-08-06T16:24:56+00:00" />
+    <meta property="article:modified_time" content="2025-08-07T10:11:21+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2025.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -1929,6 +1929,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../management-commands.html#custom-commands">Custom Commands</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../management-commands.html#integreat-cms">integreat-cms</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#copy-pois"><code class="docutils literal notranslate"><span class="pre">copy_pois</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
@@ -2183,6 +2184,37 @@
   <section id="commands">
 <h1>Commands<a class="headerlink" href="#commands" title="Link to this heading"></a></h1>
 <p>This package contains tests of the <a class="reference internal" href="../ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands" title="integreat_cms.core.management.commands"><code class="xref py py-mod docutils literal notranslate"><span class="pre">integreat_cms.core.management.commands</span></code></a> module</p>
+<section id="test-copy-pois">
+<h2>Test Copy POIs<a class="headerlink" href="#test-copy-pois" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_copy_pois.</span></span><span class="sig-name descname"><span class="pre">test_copy_pois_succeeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_copy_pois.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Tests whether POIs are duplicated as expected</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data_transactional</strong> (<em>None</em>)</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_copy_pois.</span></span><span class="sig-name descname"><span class="pre">test_no_argument_fails</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_copy_pois.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Tests that the command fails when no argument is supplied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="test-duplicate-pages">
 <h2>Test Duplicate Pages<a class="headerlink" href="#test-duplicate-pages" title="Link to this heading"></a></h2>
 <dl class="py function">
@@ -3162,7 +3194,7 @@ and that both the content and indexed link object are updated accordingly.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 06, 2025.
+      <span class="lastupdated">Last updated on Aug 07, 2025.
       </span></p>
   </div>
 
