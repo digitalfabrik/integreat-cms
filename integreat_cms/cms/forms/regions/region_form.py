@@ -509,10 +509,10 @@ class RegionForm(CustomModelForm):
             if key in self.cleaned_data
         }
 
-        if cleaned["integreat_chat_enabled"] and (
-            not cleaned["zammad_url"]
-            or not cleaned["zammad_access_token"]
-            or not cleaned["zammad_webhook_token"]
+        if self.cleaned_data.get("integreat_chat_enabled") and (
+            not self.cleaned_data.get("zammad_url")
+            or not self.cleaned_data.get("zammad_access_token")
+            or not self.cleaned_data.get("zammad_webhook_token")
         ):
             self.add_error(
                 "integreat_chat_enabled",
