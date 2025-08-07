@@ -80,6 +80,7 @@ export const bulkActionExecute = (event: Event) => {
     event.preventDefault();
     const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
     const form = event.target as HTMLFormElement;
+    const initialTarget = form.target;
     const selectedAction = bulkAction.options[bulkAction.selectedIndex];
     // Set form action to url of the bulk action
     form.action = selectedAction.getAttribute("data-bulk-action");
@@ -98,6 +99,9 @@ export const bulkActionExecute = (event: Event) => {
         // Submit form and execute bulk action
         form.submit();
     }
+    // Reset the target to prevent a new tab from always opening regardless of the next actions
+    // after the PDF export is used once
+    form.target = initialTarget;
 };
 
 /*
