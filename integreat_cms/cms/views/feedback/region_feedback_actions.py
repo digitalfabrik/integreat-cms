@@ -229,3 +229,40 @@ def export_region_feedback(
         f'attachment; filename="Integreat_{request.region}_feedback.{file_format}'
     )
     return response
+
+
+@require_POST
+@permission_required("cms.change_feedback")
+def forward_region_feedback(
+    request: HttpRequest,
+    region_slug: str,
+) -> HttpResponse:
+    """
+    Turn a list of feedback items into technical feedback to forward to Integreat staff
+
+    :param request: Object representing the user call
+    :param region_slug: The slug of the current region
+    :return: A redirection to the region feedback list
+    """
+    region = request.region
+
+    selected_ids = request.POST.getlist("selected_ids[]")
+    selected_feedback = Feedback.objects.filter(
+        id__in=selected_ids,
+        region=region,
+        is_technical=False,
+    )
+
+    for feedback in selected_feedback:
+        invalidate_obj(feedback)
+        if hasattr(feedback, "feedback_ptr"):
+            invalidate_obj(feedback.feedback_ptr)
+    selected_feedback.update(read_by=None)
+
+    selected_feedback.update(is_technical=True)
+    invalidate_model(Feedback)
+
+    logger.info("Feedback objects %r deleted by %r", selected_ids, request.user)
+    messages.success(request, _("Feedback was successfully forwarded"))
+
+    return redirect("region_feedback", region_slug=region_slug)
