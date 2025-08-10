@@ -21,9 +21,15 @@
         </div>
     </div>
     <div class="table-listing">
+        <form id="bulk-action-form" method="post">
+            {% csrf_token %}
+        </form>
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
+                    <th class="py-3 pl-4 min">
+                        <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
+                    </th>
                     <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
                         {% translate "Template Name" %}
                     </th>
@@ -66,6 +72,30 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% if perms.cms.delete_pushnotification %}
+            <div class="flex flex-wrap gap-2 mt-4">
+                <select id="bulk-action" class="w-auto max-w-full">
+                    <option>
+                        {% translate "Select bulk action" %}
+                    </option>
+                    {% if perms.cms.delete_pushnotification %}
+                        {% translate "Push notifications" as content_type %}
+                        <option class="bulk-confirmation-dialog"
+                                data-bulk-action="{% url 'bulk_delete_push_notifications' region_slug=request.region.slug language_slug=language.slug %}"
+                                data-popup-title="{% blocktranslate %}You are about to delete multiple selected {{content_type}}{% endblocktranslate %}"
+                                data-popup-subject="{% blocktranslate %}This action cannot be undone{% endblocktranslate %}"
+                                data-popup-text="{% blocktranslate %}Do you want to continue?{% endblocktranslate %}">
+                            {% blocktranslate trimmed %}
+                                Delete {{ content_type }}
+                            {% endblocktranslate %}
+                        </option>
+                    {% endif %}
+                </select>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
+                    {% translate "Execute" %}
+                </button>
+            </div>
+        {% endif %}
     </div>
     {% include "../generic_confirmation_dialog.html" %}
     {% url "push_notifications" as url %}

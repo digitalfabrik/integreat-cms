@@ -1,5 +1,12 @@
 {% load i18n %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+    <td class="py-3 pl-4">
+        <input type="checkbox"
+               name="selected_ids[]"
+               value="{{ push_notification.id }}"
+               form="bulk-action-form"
+               class="bulk-select-item" />
+    </td>
     <td class="pl-2">
         <a title="{% if push_notification.template_name %} {{ push_notification.template_name }}{% endif %}"
            href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}"
