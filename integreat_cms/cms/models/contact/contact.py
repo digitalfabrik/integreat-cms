@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib.postgres.search import (
+    SearchQuery,
+    SearchRank,
+    SearchVector,
+    TrigramSimilarity,
+)
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
@@ -97,11 +102,11 @@ class Contact(AbstractBaseModel):
         return self.location.region
 
     @classmethod
-    def search(cls, region: Region, query: str) -> QuerySet:
+    def search(cls, region: Region, user_input: str) -> QuerySet:
         """
         Searches for all contacts which match the given `query` in their comment.
         :param region: The current region
-        :param query: The query string used for filtering the contacts
+        :param user_input: The query string used for filtering the contacts
         :return: A query for all matching objects
         """
         contact_vector = SearchVector(
@@ -119,11 +124,18 @@ class Contact(AbstractBaseModel):
             "location__city",
         )
         vector = contact_vector + location_vector
-        query = SearchQuery(query, search_type="websearch")
+        query = SearchQuery(user_input, search_type="websearch")
         return (
-            Contact.objects.filter(location__region=region, archived=False)
-            .annotate(rank=SearchRank(vector, query))
-            .order_by("-rank")
+            Contact.objects.annotate(
+                rank=SearchRank(vector, query),
+                similarity=TrigramSimilarity("name", user_input),
+            )
+            .filter(
+                Q(rank__gt=0.0) | Q(similarity__gt=0.1),
+                location__region=region,
+                archived=False,
+            )
+            .order_by("-rank", "-similarity")
             .distinct()
         )
 
