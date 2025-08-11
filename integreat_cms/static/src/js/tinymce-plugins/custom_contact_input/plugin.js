@@ -3,11 +3,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
 (() => {
     const tinymceConfig = document.getElementById("tinymce-config-options");
-    const contactEnabled = tinymceConfig.getAttribute("data-contact-module-activated");
-
-    if (contactEnabled === "False") {
-        return;
-    }
+    const isContactsEnabled = tinymceConfig.getAttribute("data-contact-module-activated") !== "False";
 
     const completionUrl = tinymceConfig.getAttribute("data-contact-ajax-url");
     const noEmptyContactHint = tinymceConfig.getAttribute("data-no-empty-contact-hint");
@@ -237,14 +233,16 @@ import { getCsrfToken } from "../../utils/csrf-token";
             return editor.windowManager.open(dialogConfig);
         };
 
-        editor.addShortcut("Meta+L", tinymceConfig.getAttribute("data-contact-menu-text"), openDialog);
+        if (isContactsEnabled) {
+            editor.addShortcut("Meta+L", tinymceConfig.getAttribute("data-contact-menu-text"), openDialog);
 
-        editor.ui.registry.addMenuItem("add_contact", {
-            text: tinymceConfig.getAttribute("data-contact-menu-text"),
-            icon: "contact",
-            shortcut: "Meta+L",
-            onAction: openDialog,
-        });
+            editor.ui.registry.addMenuItem("add_contact", {
+                text: tinymceConfig.getAttribute("data-contact-menu-text"),
+                icon: "contact",
+                shortcut: "Meta+L",
+                onAction: openDialog,
+            });
+        }
 
         editor.ui.registry.addButton("change_contact", {
             text: tinymceConfig.getAttribute("data-contact-change-text"),
@@ -275,7 +273,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
             predicate: isContact,
             position: "node",
             scope: "node",
-            items: "change_contact remove_contact",
+            items: isContactsEnabled ? "change_contact remove_contact" : "remove_contact",
         });
 
         return {};
