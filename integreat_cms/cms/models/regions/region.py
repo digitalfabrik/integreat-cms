@@ -184,6 +184,11 @@ class Region(AbstractBaseModel):
         verbose_name=_("activate push notifications"),
         help_text=_("Whether or not push notifications are enabled in the region"),
     )
+    term_explanations_enabled = models.BooleanField(
+        default=True,
+        verbose_name=_("activate term explanations"),
+        help_text=_("Whether or not term explanations are enabled in the region"),
+    )
     latitude = models.FloatField(
         null=True,
         verbose_name=_("latitude"),
