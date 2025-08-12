@@ -530,3 +530,19 @@ class PageFormView(
                     },
                 )
         return side_by_side_language_options
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        region = self.request.region
+        page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
+        if page_instance is None:
+            return context
+        # users without publish permission don't have any actions in archived pages
+        # thus we hide the action box for these cases
+        context["show_actions_box"] = self.request.user.has_perm(
+            "cms.publish_page_object", page_instance
+        ) or (
+            self.request.user.has_perm("cms.change_page_object", page_instance)
+            and not page_instance.archived
+        )
+        return context

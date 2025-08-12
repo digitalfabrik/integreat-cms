@@ -985,9 +985,7 @@ urlpatterns: list[URLPattern] = [
                                         ),
                                         path(
                                             "bulk-restore/",
-                                            bulk_action_views.BulkRestoreView.as_view(
-                                                model=Page,
-                                            ),
+                                            pages.PageBulkRestoreView.as_view(),
                                             name="bulk_restore_pages",
                                         ),
                                         path(

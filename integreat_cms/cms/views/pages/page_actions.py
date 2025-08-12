@@ -119,7 +119,7 @@ def restore_page(
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
-    if not request.user.has_perm("cms.change_page_object", page):
+    if not request.user.has_perm("cms.publish_page_object", page):
         raise PermissionDenied(
             f"{request.user!r} does not have the permission to restore {page!r}",
         )
