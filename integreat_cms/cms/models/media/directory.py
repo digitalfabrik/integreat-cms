@@ -98,6 +98,9 @@ class Directory(AbstractBaseModel):
 
         :return: The canonical string representation of the directory
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         region = f"region: {self.region.slug}" if self.region else "global"
         return f"<Directory (id: {self.id}, name: {self.name}, {region})>"
 
