@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import TYPE_CHECKING
 
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
+from django.db.models import Sum
 from django.http import JsonResponse
 from django.urls import reverse
 from django.utils import translation
@@ -13,7 +14,7 @@ from django.views.generic import TemplateView
 
 from ....api.decorators import json_response
 from ...constants import status
-from ...models import Feedback, PageTranslation
+from ...models import Feedback, PageTranslation, UserChat
 from ...utils.linkcheck_utils import filter_urls
 from ...views.utils.hix import get_translation_under_hix_threshold
 from ..chat.chat_context_mixin import ChatContextMixin
@@ -40,7 +41,7 @@ class DashboardView(TemplateView, ChatContextMixin):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
-        Extend context by blog urls
+        Extend context by blog urls and dashboard data
 
         :param \**kwargs: The supplied keyword arguments
         :return: The context dictionary
@@ -77,6 +78,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         context.update(self.get_low_hix_value_context())
         context.update(self.get_outdated_pages_context())
         context.update(self.get_drafted_pages())
+        context.update(self.get_user_chat_stats())
 
         return context
 
@@ -145,6 +147,46 @@ class DashboardView(TemplateView, ChatContextMixin):
         )
         return {
             "unread_feedback": unread_feedback,
+        }
+
+    def get_user_chat_stats(self) -> dict[str, QuerySet]:
+        r"""
+        Extend context by latest and total number of Frag Integreat chats.
+
+        :return: Dictionary containing the context for the Frag Integreat chats
+        """
+        total_chats = UserChat.objects.filter(region=self.request.region)
+        chats_last_6h = UserChat.objects.filter(
+            region=self.request.region,
+            last_message_timestamp__gt=datetime.today() - timedelta(hours=6),
+        )
+        chats_last_month = UserChat.objects.filter(
+            region=self.request.region,
+            last_message_timestamp__gt=datetime.today() - timedelta(days=30),
+        )
+        chats_previous_month = UserChat.objects.filter(
+            region=self.request.region,
+            last_message_timestamp__lte=datetime.today() - timedelta(days=30),
+            last_message_timestamp__gt=datetime.today() - timedelta(days=60),
+        )
+
+        return {
+            "chats_total": total_chats.count(),
+            "chats_last_6h": chats_last_6h.count(),
+            "chats_total_budget": total_chats.aggregate(Sum("total_words_generated"))[
+                "total_words_generated__sum"
+            ]
+            or 0,
+            "chats_last_month": chats_last_month.count(),
+            "chats_last_month_budget": chats_last_month.aggregate(
+                Sum("total_words_generated")
+            )["total_words_generated__sum"]
+            or 0,
+            "chats_previous_month": chats_previous_month.count(),
+            "chats_previous_month_budget": chats_previous_month.aggregate(
+                Sum("total_words_generated")
+            )["total_words_generated__sum"]
+            or 0,
         }
 
     @staticmethod

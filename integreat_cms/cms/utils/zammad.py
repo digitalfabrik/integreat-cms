@@ -43,6 +43,12 @@ class ZammadAPI:
         """
         raise NotImplementedError
 
+    @abstractmethod
+    def update_mt_budget(self, words_generated: int) -> None:
+        """
+        Property that has to be defined in child classes
+        """
+
     def zammad_request(
         self,
         method: str,
@@ -171,7 +177,11 @@ class ZammadAPI:
         return messages
 
     def save_message(
-        self, message: str, internal: bool, automatic_message: bool
+        self,
+        message: str,
+        internal: bool,
+        automatic_message: bool,
+        words_generated: int = 0,
     ) -> bool:
         """
         Save a new message (article) to a Zammad ticket.
@@ -179,8 +189,11 @@ class ZammadAPI:
         :param message: message text to be saved
         :param internal: true if message should not be visible to app user
         :param automatic_message: true if message does not originate from a human
+        :param num_words: number of words in the generated message
         :return: success
         """
+        self.update_mt_budget(words_generated)
+
         cache.delete(f"{self.region.slug}_{self.device_id}")
         try:
             response = self.zammad_request(
@@ -287,7 +300,7 @@ class ZammadAPI:
             "/api/v1/tickets",
             {
                 "title": title,
-                "group": settings.USER_CHAT_TICKET_GROUP,
+                "group": settings.INTEGREAT_CHAT_TICKET_GROUP,
                 "customer": self.get_zammad_user_mail(),
             },
         ).json()["id"]
