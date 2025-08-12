@@ -1414,7 +1414,10 @@ API_RATE_LIMIT_WINDOW: Final[int] = 100
 ############
 
 #: Zammad ticket group used for Integreat chat messages
-USER_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"
+INTEGREAT_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"
+
+#: How much of the regions machine translation budget should be deducted per word generated in Frag Integreat
+INTEGREAT_CHAT_BUDGET_WEIGHT: Final[float] = 1
 
 #: Integreat Chat (app) backend server domain
 INTEGREAT_CHAT_BACK_END_DOMAIN = os.environ.get(
