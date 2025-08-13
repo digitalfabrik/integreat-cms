@@ -96,7 +96,10 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
         poi_translation_form.instance.poi = poi_form.save()
         poi_translation_form.save()
 
-        return JsonResponse(
+        return render(request, "ajax_poi_form/_poi_address_container.html", {
+            "poi": poi_translation_form.instance.poi
+        })
+    '''JsonResponse(
             data={
                 "success": True,
                 "poi_address_container": render_to_string(
@@ -105,4 +108,4 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
                 ),
                 "poi_id": poi_translation_form.instance.poi.id,
             }
-        )
+        )'''

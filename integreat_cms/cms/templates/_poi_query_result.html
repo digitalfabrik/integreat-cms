@@ -23,9 +23,12 @@
     {% endif %}
     {% if create_poi_option %}
         <button id="show-poi-form-button"
+                type="button"
                 class="btn w-full option-new-poi mb-2"
                 data-poi-title="{{ poi_query }}"
-                data-url="{% url 'show_poi_form_ajax' region_slug=request.region.slug language_slug=request.region.default_language.slug poi_title=poi_query %}">
+                hx-get="{% url 'show_poi_form_ajax' region_slug=request.region.slug language_slug=request.region.default_language.slug poi_title=poi_query %}"
+                hx-target="#poi-form-widget"
+                hx-swap="innerHTML">
             <i icon-name="map-pin"></i>
             {% blocktranslate trimmed %}
                 Create location "{{ poi_query }}"

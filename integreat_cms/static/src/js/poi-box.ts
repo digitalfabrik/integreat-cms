@@ -1,3 +1,4 @@
+import htmx from "htmx.org";
 import { createIconsAt } from "./utils/create-icons";
 import { getCsrfToken } from "./utils/csrf-token";
 
@@ -147,15 +148,16 @@ const queryPois = async (url: string, queryString: string, regionSlug: string, c
         const queryResult = document.getElementById("poi-query-result");
         queryResult.classList.remove("hidden");
         queryResult.innerHTML = data;
+        htmx.process(document.getElementById("show-poi-form-button"));
         createIconsAt(queryResult);
     }
 
-    document.querySelectorAll(".option-new-poi").forEach((node) => {
+    /*document.querySelectorAll(".option-new-poi").forEach((node) => {
         node.addEventListener("click", (event) => {
             event.preventDefault();
             showPoiFormWidget(event);
         });
-    });
+    });*/
 
     document.querySelectorAll(".option-existing-poi").forEach((node) => {
         console.debug("Set event listener for existing POI:", node);

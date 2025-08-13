@@ -1,6 +1,11 @@
 {% load i18n %}
 {% load widget_tweaks %}
-<div>
+<form
+    id="ajax_poi_form"
+    hx-post="{% url 'create_poi_ajax' region_slug=request.region.slug language_slug=request.region.default_language.slug %}"
+    hx-target="#poi-address-container"
+    hx-swap="innerHTML"
+>
     <label for="{{ poi_translation_form.title.id_for_label }}">
         {{ poi_translation_form.title.label }}
     </label>
@@ -39,10 +44,7 @@
     {% render_field poi_form.category|append_attr:"form:ajax_poi_form" %}
     <button name="status"
             value="{{ PUBLIC }}"
-            form="ajax_poi_form"
-            data-btn-save-poi-form
-            class="btn w-full mt-4 mb-2"
-            data-url="{% url 'create_poi_ajax' region_slug=request.region.slug language_slug=request.region.default_language.slug %}">
+            class="btn w-full mt-4 mb-2">
         {% translate "Publish" %}
     </button>
-</div>
+</form>

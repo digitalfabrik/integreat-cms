@@ -108,6 +108,9 @@ import "./js/dashboard/broken-links";
 import "./js/dashboard/translation-coverage";
 
 import "./js/ajax-contact-form";
+
+import htmx from 'htmx.org';
+(window as any).htmx = htmx;
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 require("element-closest").default(window);
