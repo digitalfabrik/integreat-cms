@@ -59,6 +59,7 @@
                     <button name="preview_page" type="button" data-preview-page data-edit-page-mode data-right-to-left={{ right_to_left }} class="btn btn-ghost">
                         {% translate "Preview" %}
                     </button>
+                    {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
                     {% if can_publish_page %}
                         <button name="status"
                                 value="{{ DRAFT }}"
