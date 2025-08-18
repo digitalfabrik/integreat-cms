@@ -56,6 +56,7 @@ def transform_event(event: Event, custom_date: date | None = None) -> dict[str, 
         "end_date": end_local.date(),  # deprecated field in the future
         "end_time": end_local.time(),  # deprecated field in the future
         "all_day": event.is_all_day,
+        "only_weekdays": event.only_weekdays,
         "recurrence_id": event.recurrence_rule.id if event.recurrence_rule else None,
         "timezone": event.timezone,
     }
