@@ -1661,6 +1661,13 @@ urlpatterns: list[URLPattern] = [
                                             name="bulk_restore_push_notifications",
                                         ),
                                         path(
+                                            "bulk-delete/",
+                                            bulk_action_views.BulkDeletingView.as_view(
+                                                model=PushNotification,
+                                            ),
+                                            name="bulk_delete_push_notifications",
+                                        ),
+                                        path(
                                             "templates/",
                                             push_notifications.PushNotificationListView.as_view(
                                                 templates=True,

@@ -25,6 +25,10 @@ from django.utils.translation import ngettext, ngettext_lazy
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
+from integreat_cms.cms.models.push_notifications.push_notification import (
+    PushNotification,
+)
+
 from ..constants import status
 from ..models import Page, POI
 from ..utils.stringify_list import iter_to_string
@@ -82,6 +86,12 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
         # If this bulk action is bound to a language url parameter, also pass this to the redirect url
         if "language_slug" in kwargs:
             redirect_kwargs["language_slug"] = kwargs["language_slug"]
+
+        if self.model is PushNotification:
+            # For push notifications we have an unpleasant side effect.
+            # Our model_name is pushnotification without an underscore.
+            # Our redirect however contains an underscore. Therefore we need this extra line.
+            return reverse("push_notifications", kwargs=redirect_kwargs)
         return reverse(f"{self.model._meta.model_name}s", kwargs=redirect_kwargs)
 
     def get_queryset(self) -> Any:
@@ -116,6 +126,8 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
 
         :return: Q Object to be used as filter argument
         """
+        if self.model is PushNotification:
+            return Q(regions=self.request.region)
         return Q(region=self.request.region)
 
 
