@@ -515,6 +515,7 @@ RESPONSE
             "end_date": String,             // Deprecated field
             "end_time": String,             // Deprecated field
             "all_day": Boolean,             // Whether this event is active the entire day
+            "only_weekdays": Boolean,       // Whether this event is held only from monday to friday
             "recurrence_id": Number | null, // The id of the recurrence rule of this event
             "timezone": String,             // The timezone of this event, e.g. Europe/Berlin
          },
