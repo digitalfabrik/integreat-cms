@@ -9598,8 +9598,23 @@ msgstr[0] "Es gibt bereits eine aktuelle Übersetzung für {}"
 msgstr[1] "Es gibt bereits aktuelle Übersetzungen für {}"
 
 #: cms/views/bulk_action_views.py
-msgid "The selected {} were successfully {}"
-msgstr "Die ausgewählten {} wurden erfolgreich {}"
+#, python-brace-format
+msgid ""
+"The selected {model_name} could not be {action}, because inactive language "
+"tree nodes cannot be visible."
+msgstr ""
+"Die ausgewählten {model_name} konnten nicht {action} werden, da inaktive "
+"Sprachknoten nicht sichtbar sein dürfen."
+
+#: cms/views/bulk_action_views.py
+#, python-brace-format
+msgid "The selected {model_name} could not be {action}"
+msgstr "Die ausgewählten {model_name} konnten nicht {action} werden"
+
+#: cms/views/bulk_action_views.py
+#, python-brace-format
+msgid "The selected {model_name} were successfully {action}"
+msgstr "Die ausgewählten {model_name} wurden erfolgreich {action}"
 
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
@@ -10209,30 +10224,6 @@ msgstr "aktiviert"
 #: cms/views/language_tree/language_tree_bulk_actions.py
 msgid "disabled"
 msgstr "deaktiviert"
-
-#: cms/views/language_tree/language_tree_bulk_actions.py
-#, python-brace-format
-msgid "{model_name} {object_names} was successfully deactivated."
-msgid_plural ""
-"The following {model_name} were successfully deactivated: {object_names}"
-msgstr[0] "{model_name} {object_names} wurde erfolgreich deaktiviert."
-msgstr[1] ""
-"Die folgenden {model_name} wurden erfolgreich deaktiviert: {object_names}"
-
-#: cms/views/language_tree/language_tree_bulk_actions.py
-#, python-brace-format
-msgid ""
-"{model_name} {object_names} could not be deactivated, because inactive "
-"language tree nodes cannot be visible."
-msgid_plural ""
-"The following {model_name} could not be deactivated, because inactive "
-"language tree nodes cannot be visible: {object_names}"
-msgstr[0] ""
-"{model_name} {object_names} konnte nicht deaktiviert werden, da inaktive "
-"Sprachknoten nicht sichtbar sein dürfen."
-msgstr[1] ""
-"Die folgenden {model_name} konnten nicht deaktiviert werden, da inaktive "
-"Sprachknoten nicht sichtbar sein dürfen: {object_names}"
 
 #: cms/views/language_tree/language_tree_context_mixin.py
 msgid "Please confirm that you really want to delete this language node"
@@ -11871,6 +11862,14 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#, python-brace-format
+#~ msgid "{model_name} {object_names} was successfully deactivated."
+#~ msgid_plural ""
+#~ "The following {model_name} were successfully deactivated: {object_names}"
+#~ msgstr[0] "{model_name} {object_names} wurde erfolgreich deaktiviert."
+#~ msgstr[1] ""
+#~ "Die folgenden {model_name} wurden erfolgreich deaktiviert: {object_names}"
 
 #~ msgid "it was embedded as live content from another page."
 #~ msgstr "sie als Live Inhalt in anderen Seiten eingebettet ist."

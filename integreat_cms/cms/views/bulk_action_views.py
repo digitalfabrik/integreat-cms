@@ -17,9 +17,11 @@ from cacheops import invalidate_model
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.db import IntegrityError
 from django.db.models import ProtectedError, Q
 from django.http import Http404
 from django.urls import reverse
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext, ngettext_lazy
 from django.views.generic import RedirectView
@@ -272,24 +274,61 @@ class BulkUpdateBooleanFieldView(BulkActionView):
         :return: The redirect
         """
 
-        # Archive objects
-        self.get_queryset().update(**{self.field_name: self.value})
+        try:
+            self.get_queryset().update(**{self.field_name: self.value})
+
+        except IntegrityError as e:
+            logger.debug(
+                "Failed to update %s=%s for %r by %r",
+                self.field_name,
+                self.value,
+                self.get_queryset(),
+                request.user,
+            )
+            msg = str(e)
+            if "language_tree_node_inactive_requires_invisible" in msg.lower():
+                messages.error(
+                    request,
+                    format_lazy(
+                        _(
+                            "The selected {model_name} could not be {action}, because inactive language tree nodes cannot be visible."
+                        ).format(
+                            model_name=self.model._meta.verbose_name_plural,
+                            action=self.action,
+                        )
+                    ),
+                )
+            else:
+                messages.error(
+                    request,
+                    format_lazy(
+                        _("The selected {model_name} could not be {action}").format(
+                            model_name=self.model._meta.verbose_name_plural,
+                            action=self.action,
+                        )
+                    ),
+                )
+        else:
+            logger.debug(
+                "Updated %s=%s for %r by %r",
+                self.field_name,
+                self.value,
+                self.get_queryset(),
+                request.user,
+            )
+            messages.success(
+                request,
+                format_lazy(
+                    _("The selected {model_name} were successfully {action}").format(
+                        model_name=self.model._meta.verbose_name_plural,
+                        action=self.action,
+                    )
+                ),
+            )
+
         # Invalidate cache
         invalidate_model(self.model)
-        logger.debug(
-            "Updated %s=%s for %r by %r",
-            self.field_name,
-            self.value,
-            self.get_queryset(),
-            request.user,
-        )
-        messages.success(
-            request,
-            _("The selected {} were successfully {}").format(
-                self.model._meta.verbose_name_plural,
-                self.action,
-            ),
-        )
+
         # Let the base view handle the redirect
         return super().post(request, *args, **kwargs)
 
