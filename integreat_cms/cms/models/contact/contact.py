@@ -10,6 +10,7 @@ from django.contrib.postgres.search import (
 )
 from django.db import models
 from django.db.models import Q
+from django.db.models.functions import Greatest
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -128,7 +129,13 @@ class Contact(AbstractBaseModel):
         return (
             Contact.objects.annotate(
                 rank=SearchRank(vector, query),
-                similarity=TrigramSimilarity("name", user_input),
+                similarity=Greatest(
+                    *[
+                        TrigramSimilarity(expr, user_input)
+                        for vector in (contact_vector, location_vector)
+                        for expr in vector.source_expressions
+                    ]
+                ),
             )
             .filter(
                 Q(rank__gt=0.0) | Q(similarity__gt=0.1),
