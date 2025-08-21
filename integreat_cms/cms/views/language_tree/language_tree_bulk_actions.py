@@ -11,6 +11,10 @@ import logging
 from typing import TYPE_CHECKING
 
 from cacheops import invalidate_obj
+from django.contrib import messages
+from django.db import IntegrityError, transaction
+from django.http import HttpResponseRedirect
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 from ...models import (
@@ -19,12 +23,13 @@ from ...models import (
     PageTranslation,
     POITranslation,
 )
+from ...utils.tree_mutex import tree_mutex
 from ..bulk_action_views import BulkUpdateBooleanFieldView
 
 if TYPE_CHECKING:
     from typing import Any
 
-    from django.http import HttpRequest, HttpResponseRedirect
+    from django.http import HttpRequest
 
 logger = logging.getLogger(__name__)
 
@@ -60,6 +65,7 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
             "Subclasses of LanguageTreeBulkActionView must provide an 'action' attribute",
         )
 
+    @tree_mutex("languagetreenode")
     def post(
         self,
         request: HttpRequest,
@@ -74,19 +80,49 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
         :param \**kwargs: The supplied keyword arguments
         :return: The redirect
         """
+        redirect_url = self.get_redirect_url()
+
+        response = None
+
         # Execute bulk action
-        response = super().post(request, *args, **kwargs)
+        try:
+            with transaction.atomic():
+                response = super().post(request, *args, **kwargs)
+        except IntegrityError as e:
+            logger.debug(
+                "Failed to update %s=%s for %r by %r",
+                self.field_name,
+                self.value,
+                self.get_queryset(),
+                request.user,
+            )
+            msg = str(e)
+            if "language_tree_node_inactive_requires_invisible" in msg.lower():
+                messages.error(
+                    request,
+                    format_lazy(
+                        _(
+                            "The selected {model_name} could not be {action}, because inactive language tree nodes cannot be visible."
+                        ).format(
+                            model_name=self.model._meta.verbose_name_plural,
+                            action=self.action,
+                        )
+                    ),
+                )
 
-        # Flush cache of content objects
-        for page in self.request.region.pages.all():
-            invalidate_obj(page)
-        for poi in self.request.region.pois.all():
-            invalidate_obj(poi)
-        for event in self.request.region.events.all():
-            invalidate_obj(event)
+        else:
 
-        # Let the base view handle the redirect
-        return response
+            def flush_region_cache() -> None:
+                for page in self.request.region.pages.all():
+                    invalidate_obj(page)
+                for poi in self.request.region.pois.all():
+                    invalidate_obj(poi)
+                for event in self.request.region.events.all():
+                    invalidate_obj(event)
+                transaction.on_commit(flush_region_cache)
+
+        # Let the base view handle the redirect on success and redirect ourselves on IntegrityError
+        return response or HttpResponseRedirect(redirect_url)
 
 
 class BulkMakeVisibleView(LanguageTreeBulkActionView):
