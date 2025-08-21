@@ -985,9 +985,7 @@ urlpatterns: list[URLPattern] = [
                                         ),
                                         path(
                                             "bulk-restore/",
-                                            bulk_action_views.BulkRestoreView.as_view(
-                                                model=Page,
-                                            ),
+                                            pages.PageBulkRestoreView.as_view(),
                                             name="bulk_restore_pages",
                                         ),
                                         path(
@@ -1661,6 +1659,13 @@ urlpatterns: list[URLPattern] = [
                                                 model=PushNotification,
                                             ),
                                             name="bulk_restore_push_notifications",
+                                        ),
+                                        path(
+                                            "bulk-delete/",
+                                            bulk_action_views.BulkDeletingView.as_view(
+                                                model=PushNotification,
+                                            ),
+                                            name="bulk_delete_push_notifications",
                                         ),
                                         path(
                                             "templates/",

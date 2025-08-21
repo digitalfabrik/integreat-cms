@@ -130,19 +130,33 @@
             </div>
         </div>
     {% endif %}
-    {% if perms.cms.archive_pushnotification %}
+    {% if perms.cms.archive_pushnotification or perms.cms.delete_pushnotification %}
         <div class="flex flex-wrap gap-2 mt-4">
             <select id="bulk-action" class="w-auto max-w-full">
                 <option>
                     {% translate "Select bulk action" %}
                 </option>
-                {% if is_archived %}
-                    <option data-bulk-action="{% url "bulk_restore_push_notifications" region_slug=request.region.slug language_slug=language.slug %}">
-                        {% translate "Restore push notifications" %}
-                    </option>
-                {% else %}
-                    <option data-bulk-action="{% url "bulk_archive_push_notifications" region_slug=request.region.slug language_slug=language.slug %}">
-                        {% translate "Archive push notifications" %}
+                {% if perms.cms.archive_pushnotification %}
+                    {% if is_archived %}
+                        <option data-bulk-action="{% url "bulk_restore_push_notifications" region_slug=request.region.slug language_slug=language.slug %}">
+                            {% translate "Restore push notifications" %}
+                        </option>
+                    {% else %}
+                        <option data-bulk-action="{% url "bulk_archive_push_notifications" region_slug=request.region.slug language_slug=language.slug %}">
+                            {% translate "Archive push notifications" %}
+                        </option>
+                    {% endif %}
+                {% endif %}
+                {% translate "Push notifications" as content_type %}
+                {% if perms.cms.delete_pushnotification %}
+                    <option class="bulk-confirmation-dialog"
+                            data-bulk-action="{% url 'bulk_delete_push_notifications' region_slug=request.region.slug language_slug=language.slug %}"
+                            data-popup-title="{% blocktranslate %}You are about to delete multiple selected {{content_type}}{% endblocktranslate %}"
+                            data-popup-subject="{% blocktranslate %}This action cannot be undone{% endblocktranslate %}"
+                            data-popup-text="{% blocktranslate %}Do you want to continue?{% endblocktranslate %}">
+                        {% blocktranslate trimmed %}
+                            Delete {{ content_type }}
+                        {% endblocktranslate %}
                     </option>
                 {% endif %}
             </select>

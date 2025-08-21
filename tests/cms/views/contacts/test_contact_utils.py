@@ -106,7 +106,7 @@ def test_search_contact_multiple(
         ),
         json.dumps(
             {
-                "query_string": "integr",
+                "query_string": "show address",
             }
         ),
         content_type="application/json",

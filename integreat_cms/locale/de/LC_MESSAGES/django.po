@@ -3731,9 +3731,8 @@ msgstr "keine Seiten gelöscht werden können, die Unterseiten haben."
 msgid ""
 "you cannot delete a page that is embedded as live content by another page."
 msgstr ""
-"eine Seite, die von einer anderen Seite als "
-"Live-Inhalt eingebunden wurde, nicht gelöscht "
-"werden kann."
+"eine Seite, die von einer anderen Seite als Live-Inhalt eingebunden wurde, "
+"nicht gelöscht werden kann."
 
 #: cms/models/pages/page.py cms/models/pages/page_translation.py
 msgid "page"
@@ -3899,7 +3898,9 @@ msgstr "Geben Sie an, ob dieser Ort barrierefrei ist."
 
 #: cms/models/pois/poi.py
 msgid "a poi used by an event or a contact cannot be deleted."
-msgstr "ein Ort, der von einer Veranstaltung oder einem Kontakt verwendet wird, nicht gelöscht werden kann."
+msgstr ""
+"ein Ort, der von einer Veranstaltung oder einem Kontakt verwendet wird, "
+"nicht gelöscht werden kann."
 
 #: cms/models/pois/poi.py cms/templates/pois/poi_list.html
 msgid "locations"
@@ -5697,6 +5698,7 @@ msgstr "Kontakte ausgewählt"
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html
 #: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
@@ -5723,6 +5725,7 @@ msgstr "Kontakte löschen"
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html
 #: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -6468,6 +6471,8 @@ msgstr "Veranstaltungen wiederherstellen"
 #: cms/templates/events/event_list.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_template_list.html
 #, python-format
 msgid "You are about to delete multiple selected %(content_type)s"
 msgstr "Sie sind dabei mehrere %(content_type)s zu löschen."
@@ -6475,18 +6480,24 @@ msgstr "Sie sind dabei mehrere %(content_type)s zu löschen."
 #: cms/templates/events/event_list.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "This action cannot be undone"
 msgstr "Diese Handlung kann nicht rückgängig gemacht werden"
 
 #: cms/templates/events/event_list.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Do you want to continue?"
 msgstr "Möchten Sie fortfahren?"
 
 #: cms/templates/events/event_list.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_template_list.html
 #, python-format
 msgid "Delete %(content_type)s"
 msgstr "%(content_type)s löschen"
@@ -8387,6 +8398,11 @@ msgstr "Push-Benachrichtigungen wiederherstellen"
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "Archive push notifications"
 msgstr "Push-Benachrichtigungen archivieren"
+
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_template_list.html
+msgid "Push notifications"
+msgstr "Push-Benachrichtigungen"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Title not available"
@@ -11514,6 +11530,14 @@ msgstr[1] ""
 msgid "Core"
 msgstr "Core"
 
+#: core/management/commands/copy_pois.py
+msgid "The slug of the template region"
+msgstr "Der Slug der Template-Region"
+
+#: core/management/commands/copy_pois.py
+msgid "The slugs of the target regions"
+msgstr "Die Slugs der Ziel-Regionen"
+
 #: core/settings.py
 msgid "English"
 msgstr "Englisch"
@@ -12133,15 +12157,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"

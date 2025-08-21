@@ -76,6 +76,22 @@ Duplicate all currently existing pages to make it easier to create production-li
     This command inherits from :class:`~integreat_cms.core.management.debug_command.DebugCommand`, so it is only available in debug mode.
 
 
+
+``copy_pois``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Duplicate all POIs of the template region, also all events and contacts if specified, into the target regions
+
+    integreat-cms-cli copy_pois TEMPLATE-SLUG TARGET-SLUG [TARGET-SLUG ...] [--username USERNAME] [--contacts] [--events] [--add-suffix]
+
+**Options:**
+
+* ``--username``: The user as which to create the objects
+* ``--contacts``: Whether contacts should be copied too
+* ``--events``: Whether events should be copied too
+* ``--add-suffix``: Whether the suffix ' (Copy)' should be added to copied objects
+
+
 ``find_large_files``
 ~~~~~~~~~~~~~~~~~~~~
 
