@@ -147,6 +147,9 @@
                         <option data-bulk-action="{% url 'export_region_feedback' region_slug=request.region.slug file_format='csv' %}">
                             {% translate "Export to CSV" %}
                         </option>
+                        <option data-bulk-action="{% url 'forward_region_feedback' region_slug=request.region.slug %}">
+                            {% translate "Forward to Integreat team" %}
+                        </option>
                     {% else %}
                         <option data-bulk-action="{% url 'restore_region_feedback' region_slug=request.region.slug %}">
                             {% translate "Restore" %}
