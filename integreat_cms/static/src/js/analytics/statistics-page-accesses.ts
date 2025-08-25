@@ -32,16 +32,17 @@ const setAccessesPerLanguage = (
     const parentElement = accessField as HTMLElement;
     const childElement = parentElement.querySelector(`.accesses span[data-language-slug="${languageSlug}"]`);
     const languageColor = childElement.getAttribute("data-language-color");
+    const languageTitle = childElement.getAttribute("data-language-title");
     const accesses = countAccesses(accessesOverTime);
     const roundedPercentage = ((accesses / allAccesses) * 100).toFixed(2);
     const width = allAccesses !== 0 ? (accesses / allAccesses) * 100 : 0;
     (childElement as HTMLElement).style.backgroundColor = languageColor;
     (childElement as HTMLElement).style.width = `${String(width)}%`;
     (childElement as HTMLElement).title =
-        `${accesses} ${childElement.getAttribute("data-access-translation")} (${roundedPercentage} %)`;
+        `${languageTitle}: ${accesses} ${childElement.getAttribute("data-access-translation")} (${roundedPercentage} %)`;
 };
 
-/* This function ensures that when there are no accesses in the selected timeframe and languages, the AccessesBar gets updatet */
+/* Ensure that when there are no accesses in the selected timeframe and languages, the AccessesBar gets updatet */
 const resetAccessesBar = (
     accessFields: HTMLCollectionOf<Element>,
     isEmpty : boolean
@@ -62,7 +63,7 @@ const resetAccessesBar = (
     }
 }
 
-/* This function toggles the loader icon */
+/* Toggle the loader icon */
 const toggleLoader = (hidden: boolean): boolean => {
     const loaderIcons = document.getElementsByClassName("page-accesses-loading");
     if (hidden) {
@@ -174,7 +175,7 @@ window.addEventListener("load", async () => {
 
         // Set event handler for updating Page Accesses when selected languages change
         document.addEventListener("change", async (event) => {
-            if ((event.target as HTMLInputElement).type === 'checkbox') {
+            if ((event.target as HTMLInputElement).type === 'checkbox' && (event.target as HTMLInputElement).getAttribute("data-language-slug")) {
                 loaderIsHidden = toggleLoader(loaderIsHidden);
                 await updatePageAccesses();
             }
