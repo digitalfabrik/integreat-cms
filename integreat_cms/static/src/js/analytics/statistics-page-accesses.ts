@@ -11,7 +11,7 @@ export type Access = {
 };
 
 let chart: Chart | null = null;
-let loaderIsHidden : boolean;
+let loaderIsHidden: boolean;
 
 /* Loop over the object containing the accesses over time and count them to a total */
 const countAccesses = (accessesOverTime: object): number => {
@@ -43,10 +43,7 @@ const setAccessesPerLanguage = (
 };
 
 /* Ensure that when there are no accesses in the selected timeframe and languages, the AccessesBar gets updatet */
-const resetAccessesBar = (
-    accessFields: HTMLCollectionOf<Element>,
-    isEmpty : boolean
-) => {
+const resetAccessesBar = (accessFields: HTMLCollectionOf<Element>, isEmpty: boolean) => {
     if (isEmpty) {
         Array.from(accessFields).forEach((accessField) => {
             const allAccessesField = Array.from(accessField.parentElement?.children || []).find(
@@ -61,7 +58,7 @@ const resetAccessesBar = (
             accessField.classList.remove("hidden");
         });
     }
-}
+};
 
 /* Toggle the loader icon */
 const toggleLoader = (hidden: boolean): boolean => {
@@ -104,7 +101,7 @@ const updatePageAccesses = async (): Promise<void> => {
     const response = await fetch(pageAccessesURL, parameters);
     const data = (await response.json()) as AjaxResponse;
     const isEmpty = Object.keys(data).length === 0;
-    resetAccessesBar(accessFields, isEmpty)
+    resetAccessesBar(accessFields, isEmpty);
     /* data is the nested response we get from our client. On the first level it contains the page_id and an object.
     This object in itself contains the language_slug and another object. On the third level this object contains the accesses over time with
     a date and the according accesses. */
@@ -132,9 +129,7 @@ const updatePageAccesses = async (): Promise<void> => {
                         const fullLabel = document
                             .querySelector(`#chart-legend [data-language-slug="${languageSlug}"]`)
                             .getAttribute("data-chart-item");
-                        const datasetId = chart.data.datasets.findIndex(
-                            (dataset) => dataset.label === fullLabel
-                        );
+                        const datasetId = chart.data.datasets.findIndex((dataset) => dataset.label === fullLabel);
                         languageSlugToDatasetId.set(languageSlug, datasetId);
                     }
                     if (chart.isDatasetVisible(languageSlugToDatasetId.get(languageSlug))) {
@@ -175,7 +170,10 @@ window.addEventListener("load", async () => {
 
         // Set event handler for updating Page Accesses when selected languages change
         document.addEventListener("change", async (event) => {
-            if ((event.target as HTMLInputElement).type === 'checkbox' && (event.target as HTMLInputElement).getAttribute("data-language-slug")) {
+            if (
+                (event.target as HTMLInputElement).type === "checkbox" &&
+                (event.target as HTMLInputElement).getAttribute("data-language-slug")
+            ) {
                 loaderIsHidden = toggleLoader(loaderIsHidden);
                 await updatePageAccesses();
             }
