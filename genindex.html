@@ -1317,7 +1317,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">Utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug"><code class="docutils literal notranslate"><span class="pre">async_get_translation_slug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.build_infix_recursively"><code class="docutils literal notranslate"><span class="pre">build_infix_recursively()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug"><code class="docutils literal notranslate"><span class="pre">get_translation_slug()</span></code></a></li>
 </ul>
 </li>
@@ -1936,6 +1936,7 @@
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="management-commands.html#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="management-commands.html#create-new-commands">Create new commands</a><ul>
@@ -2931,6 +2932,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.__init__">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.__init__">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.__init__">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.__init__">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
@@ -3413,6 +3416,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.add_arguments">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.add_arguments">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.add_arguments">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.add_arguments">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
@@ -3450,6 +3455,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command.add_base_argument">(integreat_cms.core.management.commands.drop_expired_user_accounts.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.add_base_argument">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.add_base_argument">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.add_base_argument">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
@@ -6006,7 +6013,7 @@
 </li>
       <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.apps.DeepLApiClientConfig.assert_usage_limit_not_reached">assert_usage_limit_not_reached() (integreat_cms.deepl_api.apps.DeepLApiClientConfig static method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug">async_get_translation_slug() (in module integreat_cms.matomo_api.utils)</a>
+      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.async_fetch">async_fetch() (integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.api.v3.chat.utils.html#integreat_cms.api.v3.chat.utils.chat_bot.async_process_translate">async_process_translate() (in module integreat_cms.api.v3.chat.utils.chat_bot)</a>
 </li>
@@ -6287,6 +6294,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.base_stealth_options">(integreat_cms.core.management.commands.duplicate_pages.Command attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.base_stealth_options">(integreat_cms.core.management.commands.fetch_page_accesses.Command attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.base_stealth_options">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.base_stealth_options">(integreat_cms.core.management.commands.find_missing_versions.Command attribute)</a>
@@ -6418,6 +6427,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_permission_actions.PublishPagePermission.build_grant_message">(integreat_cms.cms.views.pages.page_permission_actions.PublishPagePermission method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.build_infix_recursively">build_infix_recursively() (in module integreat_cms.matomo_api.utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.utils.html#integreat_cms.cms.views.utils.machine_translations.build_json_for_machine_translation">build_json_for_machine_translation() (in module integreat_cms.cms.views.utils.machine_translations)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_permission_actions.AbstractPagePermission.build_revoke_message">build_revoke_message() (integreat_cms.cms.views.pages.page_permission_actions.AbstractPagePermission method)</a>
@@ -6919,6 +6930,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.check">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.check">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.check">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.check">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
@@ -6968,6 +6981,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command.check_migrations">(integreat_cms.core.management.commands.drop_expired_user_accounts.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.check_migrations">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.check_migrations">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.check_migrations">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
@@ -7546,6 +7561,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command">(class in integreat_cms.core.management.commands.drop_expired_user_accounts)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command">(class in integreat_cms.core.management.commands.duplicate_pages)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command">(class in integreat_cms.core.management.commands.fetch_page_accesses)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command">(class in integreat_cms.core.management.commands.find_large_files)</a>
 </li>
@@ -8191,6 +8208,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command.create_parser">(integreat_cms.core.management.commands.drop_expired_user_accounts.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.create_parser">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.create_parser">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.create_parser">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
@@ -10049,6 +10068,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command.execute">(integreat_cms.core.management.commands.drop_expired_user_accounts.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.execute">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.execute">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.execute">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
@@ -14221,8 +14242,6 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.statistics.html#integreat_cms.cms.views.statistics.statistics_actions.get_page_accesses_ajax">get_page_accesses_ajax() (in module integreat_cms.cms.views.statistics.statistics_actions)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_page_accesses_async">get_page_accesses_async() (integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_page_accesses_by_language">get_page_accesses_by_language() (integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_actions.get_page_content_ajax">get_page_content_ajax() (in module integreat_cms.cms.views.pages.page_actions)</a>
@@ -15992,6 +16011,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.get_version">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.get_version">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.get_version">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.get_version">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
@@ -16167,6 +16188,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command.handle">(integreat_cms.core.management.commands.drop_expired_user_accounts.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.handle">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.handle">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.handle">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
@@ -16789,6 +16812,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command.help">(integreat_cms.core.management.commands.drop_expired_user_accounts.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.help">(integreat_cms.core.management.commands.duplicate_pages.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.help">(integreat_cms.core.management.commands.fetch_page_accesses.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.help">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
@@ -21066,6 +21091,13 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.core.management.commands.fetch_page_accesses
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.fetch_page_accesses">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.core.management.commands.find_large_files
 
       <ul>
@@ -24476,6 +24508,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.duplicate_pages">integreat_cms.core.management.commands.duplicate_pages</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.fetch_page_accesses">integreat_cms.core.management.commands.fetch_page_accesses</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.find_large_files">integreat_cms.core.management.commands.find_large_files</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.find_missing_versions">integreat_cms.core.management.commands.find_missing_versions</a>
@@ -26103,6 +26137,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command.output_transaction">(integreat_cms.core.management.commands.drop_expired_user_accounts.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.output_transaction">(integreat_cms.core.management.commands.duplicate_pages.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.output_transaction">(integreat_cms.core.management.commands.fetch_page_accesses.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.output_transaction">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
@@ -28300,6 +28336,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.print_help">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.print_help">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.print_help">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.print_help">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
@@ -30104,6 +30142,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.requires_migrations_checks">(integreat_cms.core.management.commands.duplicate_pages.Command attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.requires_migrations_checks">(integreat_cms.core.management.commands.fetch_page_accesses.Command attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.requires_migrations_checks">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.requires_migrations_checks">(integreat_cms.core.management.commands.find_missing_versions.Command attribute)</a>
@@ -30141,6 +30181,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command.requires_system_checks">(integreat_cms.core.management.commands.drop_expired_user_accounts.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.requires_system_checks">(integreat_cms.core.management.commands.duplicate_pages.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.requires_system_checks">(integreat_cms.core.management.commands.fetch_page_accesses.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.requires_system_checks">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
@@ -30421,8 +30463,6 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_bulk_actions.RestorePushNotificationsBulkAction">RestorePushNotificationsBulkAction (class in integreat_cms.cms.views.push_notifications.push_notification_bulk_actions)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.retrieve_accesses_for_page">retrieve_accesses_for_page() (integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.reverse">reverse() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
 
       <ul>
@@ -30561,6 +30601,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command.run_from_argv">(integreat_cms.core.management.commands.drop_expired_user_accounts.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.run_from_argv">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.run_from_argv">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.run_from_argv">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
@@ -31308,6 +31350,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.set_logging_stream">(integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.set_logging_stream">(integreat_cms.core.management.commands.fetch_page_accesses.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.set_logging_stream">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.set_logging_stream">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
@@ -31984,6 +32028,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.stealth_options">(integreat_cms.core.management.commands.duplicate_pages.Command attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.stealth_options">(integreat_cms.core.management.commands.fetch_page_accesses.Command attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.stealth_options">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.stealth_options">(integreat_cms.core.management.commands.find_missing_versions.Command attribute)</a>
@@ -32341,6 +32387,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.drop_expired_user_accounts.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.drop_expired_user_accounts.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.duplicate_pages.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fetch_page_accesses.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.fetch_page_accesses.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-08-21T16:00:11+00:00" />
+    <meta property="article:modified_time" content="2025-08-25T09:21:45+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Integreat CMS &mdash; integreat-cms 2025.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -1321,7 +1321,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">Utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug"><code class="docutils literal notranslate"><span class="pre">async_get_translation_slug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.build_infix_recursively"><code class="docutils literal notranslate"><span class="pre">build_infix_recursively()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug"><code class="docutils literal notranslate"><span class="pre">get_translation_slug()</span></code></a></li>
 </ul>
 </li>
@@ -1940,6 +1940,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../management-commands.html#create-new-commands">Create new commands</a><ul>
@@ -3552,6 +3553,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.copy_pois">Copy POIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.drop_expired_user_accounts">Drop Expired User Accounts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.duplicate_pages">Duplicate Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.fetch_page_accesses">Fetch Page Accesses</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.find_large_files">Find Large Files</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.find_missing_versions">Find Missing Versions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.firebase_data_backup">Firebase Data Backup</a></li>
@@ -4235,13 +4237,13 @@
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.matomo_api_client">Matomo API Client</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.__init__"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.async_fetch"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.async_fetch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.fetch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_access_data"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.get_access_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_language_data"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.get_language_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_matomo_id"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.get_matomo_id()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_matomo_id_async"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.get_matomo_id_async()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_page_accesses"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.get_page_accesses()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_page_accesses_async"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.get_page_accesses_async()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_total_visits"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.get_total_visits()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_total_visits_async"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.get_total_visits_async()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_visits_per_language"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.get_visits_per_language()</span></code></a></li>
@@ -4249,7 +4251,6 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.languages"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.languages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.matomo_id"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.matomo_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.matomo_token"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.matomo_token</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.retrieve_accesses_for_page"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.retrieve_accesses_for_page()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.simplify_date_labels"><code class="docutils literal notranslate"><span class="pre">MatomoApiClient.simplify_date_labels()</span></code></a></li>
 </ul>
 </li>
@@ -4263,7 +4264,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug"><code class="docutils literal notranslate"><span class="pre">async_get_translation_slug()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.build_infix_recursively"><code class="docutils literal notranslate"><span class="pre">build_infix_recursively()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug"><code class="docutils literal notranslate"><span class="pre">get_translation_slug()</span></code></a></li>
 </ul>
 </li>
@@ -4937,7 +4938,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 21, 2025.
+      <span class="lastupdated">Last updated on Aug 25, 2025.
       </span></p>
   </div>
 

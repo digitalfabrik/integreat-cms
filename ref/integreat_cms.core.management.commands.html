@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-08-24T11:31:24+00:00" />
+    <meta property="article:modified_time" content="2025-08-25T09:21:45+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2025.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -1321,7 +1321,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">Utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug"><code class="docutils literal notranslate"><span class="pre">async_get_translation_slug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.build_infix_recursively"><code class="docutils literal notranslate"><span class="pre">build_infix_recursively()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug"><code class="docutils literal notranslate"><span class="pre">get_translation_slug()</span></code></a></li>
 </ul>
 </li>
@@ -1940,6 +1940,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../management-commands.html#create-new-commands">Create new commands</a><ul>
@@ -2389,6 +2390,53 @@
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+</dd></dl>
+
+</section>
+<section id="fetch-page-accesses">
+<h2>Fetch Page Accesses<a class="headerlink" href="#fetch-page-accesses" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.core.management.commands.fetch_page_accesses.</span></span><span class="sig-name descname"><span class="pre">Command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/fetch_page_accesses.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.core.management.html#integreat_cms.core.management.log_command.LogCommand" title="integreat_cms.core.management.log_command.LogCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogCommand</span></code></a></p>
+<p>Management command to fetch page accesses from matomo</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">add_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandParser</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/fetch_page_accesses.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Define the arguments of this command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parser</strong> (<em>CommandParser</em>) – The argument parser</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sync</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/fetch_page_accesses.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Try to run the command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>start_date</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The earliest date</p></li>
+<li><p><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The latest date</p></li>
+<li><p><strong>period</strong> – The period (one of <a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.matomo_periods.CHOICES" title="integreat_cms.cms.constants.matomo_periods.CHOICES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">CHOICES</span></code></a>)</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> | </em><em>None</em>) – The slug of the given region</p></li>
+<li><p><strong>**options</strong> (<em>Any</em>) – The supplied keyword options</p></li>
+<li><p><strong>sync</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>**options</strong></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -3231,7 +3279,7 @@ This applies in ALL regions.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 24, 2025.
+      <span class="lastupdated">Last updated on Aug 25, 2025.
       </span></p>
   </div>
 

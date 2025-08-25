@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-08-21T15:52:07+00:00" />
+    <meta property="article:modified_time" content="2025-08-25T09:21:45+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Management Commands &mdash; integreat-cms 2025.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1321,7 +1321,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">Utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug"><code class="docutils literal notranslate"><span class="pre">async_get_translation_slug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.build_infix_recursively"><code class="docutils literal notranslate"><span class="pre">build_infix_recursively()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug"><code class="docutils literal notranslate"><span class="pre">get_translation_slug()</span></code></a></li>
 </ul>
 </li>
@@ -1940,6 +1940,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#create-new-commands">Create new commands</a><ul>
@@ -2382,6 +2383,23 @@ when you use this command in production to make sure links in archived pages are
 <li><p><code class="docutils literal notranslate"><span class="pre">USERNAME</span></code>: Associate any new created translations with <code class="docutils literal notranslate"><span class="pre">USERNAME</span></code></p></li>
 </ul>
 </section>
+<section id="fetch-page-accesses">
+<h4><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code><a class="headerlink" href="#fetch-page-accesses" title="Link to this heading"></a></h4>
+<p>Fetches page accesses from Matomo and store them in the database</p>
+<blockquote>
+<div><p>integreat-cms-cli fetch_page_accesses –start-date START_DATE –end-date END_DATE –period PERIOD [–region-slug REGION_SLUG] [–sync SYNC]</p>
+</div></blockquote>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">START_DATE</span></code>: Earliest date to fetch, format should be yyyy-mm-dd</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">END_DATE</span></code>: Latest date to fetch, format should be yyyy-mm-dd</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">REGION_SLUG</span></code>: Region to fetch page accesses for, must have statistics activated. If non provided, page accesses from all regions with statistics activated will be fetched</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SYNC</span></code>: When True page accesses will be fetched as a synchronous process. If not provided or False, page accesses are fetched via celery.</p></li>
+</ul>
+</section>
 </section>
 <section id="create-new-commands">
 <h3>Create new commands<a class="headerlink" href="#create-new-commands" title="Link to this heading"></a></h3>
@@ -2413,7 +2431,7 @@ when you use this command in production to make sure links in archived pages are
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 21, 2025.
+      <span class="lastupdated">Last updated on Aug 25, 2025.
       </span></p>
   </div>
 

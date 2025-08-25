@@ -1321,7 +1321,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">Utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug"><code class="docutils literal notranslate"><span class="pre">async_get_translation_slug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.build_infix_recursively"><code class="docutils literal notranslate"><span class="pre">build_infix_recursively()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug"><code class="docutils literal notranslate"><span class="pre">get_translation_slug()</span></code></a></li>
 </ul>
 </li>
@@ -1940,6 +1940,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../management-commands.html#create-new-commands">Create new commands</a><ul>
@@ -2202,6 +2203,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.commands.html#copy-pois">Copy POIs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.commands.html#drop-expired-user-accounts">Drop Expired User Accounts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.commands.html#duplicate-pages">Duplicate Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.commands.html#fetch-page-accesses">Fetch Page Accesses</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.commands.html#find-large-files">Find Large Files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.commands.html#find-missing-versions">Find Missing Versions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.commands.html#firebase-data-backup">Firebase Data Backup</a></li>
@@ -2403,7 +2405,7 @@ For the full list of settings and their values, see <a class="reference external
 <span class="w">    </span><span class="s1">&#39;filters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f3e06f137e0</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f4ae1bcbce0</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="s1">&#39;formatters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
@@ -3499,7 +3501,7 @@ to determine whether a link is internal.</p>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f3e1dd727a0</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f4aeb4967a0</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_false&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugFalse&#39;</span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_true&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugTrue&#39;</span><span class="p">},</span>

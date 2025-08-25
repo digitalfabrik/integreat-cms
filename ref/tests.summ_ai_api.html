@@ -1321,7 +1321,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">Utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug"><code class="docutils literal notranslate"><span class="pre">async_get_translation_slug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.build_infix_recursively"><code class="docutils literal notranslate"><span class="pre">build_infix_recursively()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug"><code class="docutils literal notranslate"><span class="pre">get_translation_slug()</span></code></a></li>
 </ul>
 </li>
@@ -1940,6 +1940,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../management-commands.html#create-new-commands">Create new commands</a><ul>
@@ -2196,7 +2197,7 @@
 <li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>aiohttp_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev78)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev80)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2215,7 +2216,7 @@ otherwise False</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The Django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev78)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev80)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2288,7 +2289,7 @@ Checks that __anext__() removes one element each from the queue</p>
 <li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev78)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev80)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2359,7 +2360,7 @@ Checks that __anext__() removes one element each from the queue</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The Django settings</p></li>
 <li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev78)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev80)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

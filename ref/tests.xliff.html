@@ -1321,7 +1321,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#module-integreat_cms.matomo_api.utils">Utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.async_get_translation_slug"><code class="docutils literal notranslate"><span class="pre">async_get_translation_slug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.build_infix_recursively"><code class="docutils literal notranslate"><span class="pre">build_infix_recursively()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug"><code class="docutils literal notranslate"><span class="pre">get_translation_slug()</span></code></a></li>
 </ul>
 </li>
@@ -1940,6 +1940,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../management-commands.html#create-new-commands">Create new commands</a><ul>
@@ -2262,7 +2263,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>client</strong> (<em>Client</em>) – The authenticated client</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev78)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev80)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 <li><p><strong>response</strong> (<em>HttpResponseRedirect</em>) – The response of the confirm view to be validated</p></li>
 <li><p><strong>import_1</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict of import information</p></li>
 <li><p><strong>import_2</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A list of import information</p></li>
@@ -2373,7 +2374,7 @@
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>import_1</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict of import information</p></li>
 <li><p><strong>import_2</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A list of import information</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev78)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.5.0.dev80)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
