@@ -40,147 +40,149 @@
             {% endif %}
         </div>
     </div>
-    <div class="table-listing">
-        <form id="bulk-action-form" method="post">
-            {% csrf_token %}
-        </form>
-        <table class="w-full mt-4 rounded border border-gray-200 shadow bg-white">
-            <thead>
-                <tr class="border-b border-gray-200">
-                    <th class="py-3 pl-4 pr-2 min">
-                        {% if perms.cms.change_poi %}
-                            <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
-                        {% endif %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Title in" %} {{ language.translated_name }}
-                    </th>
-                    {% if backend_language and backend_language != language %}
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Title in" %} {{ backend_language.translated_name }}
-                        </th>
-                    {% endif %}
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        <div class="lang-grid flags whitespace-nowrap">
-                            {% spaceless %}
-                                {% for lang in languages %}
-                                    {% if lang != request.region.default_language %}
-                                        <a href="{% url 'pois' region_slug=request.region.slug language_slug=lang.slug %}">
-                                            <span class="fp fp-rounded fp-{{ lang.primary_country_code }}"
-                                                  title="{{ lang.translated_name }}"></span>
-                                        </a>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endspaceless %}
-                        </div>
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Publication status" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Street" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Postal Code" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "City" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Country" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Category" %}
-                    </th>
-                    <th class="text-sm text-right uppercase py-3 pr-4 min">
-                        {% translate "Options" %}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for poi in pois %}
-                    {% get_translation poi language.slug as poi_translation %}
-                    {% include "pois/poi_list_row.html" %}
-                {% empty %}
-                    <tr>
-                        <td colspan="7" class="px-4 py-3">
-                            {% if search_query %}
-                                {% translate "No locations found with these filters." %}
-                            {% else %}
-                                {% translate "No locations available yet." %}
+    <div data-js-form="bulk-actions">
+        <div class="table-listing">
+            <form id="bulk-action-form" method="post">
+                {% csrf_token %}
+            </form>
+            <table class="w-full mt-4 rounded border border-gray-200 shadow bg-white">
+                <thead>
+                    <tr class="border-b border-gray-200">
+                        <th class="py-3 pl-4 pr-2 min">
+                            {% if perms.cms.change_poi %}
+                                <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
                             {% endif %}
-                        </td>
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Title in" %} {{ language.translated_name }}
+                        </th>
+                        {% if backend_language and backend_language != language %}
+                            <th class="text-sm text-left uppercase py-3 pr-2">
+                                {% translate "Title in" %} {{ backend_language.translated_name }}
+                            </th>
+                        {% endif %}
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            <div class="lang-grid flags whitespace-nowrap">
+                                {% spaceless %}
+                                    {% for lang in languages %}
+                                        {% if lang != request.region.default_language %}
+                                            <a href="{% url 'pois' region_slug=request.region.slug language_slug=lang.slug %}">
+                                                <span class="fp fp-rounded fp-{{ lang.primary_country_code }}"
+                                                    title="{{ lang.translated_name }}"></span>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endspaceless %}
+                            </div>
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Publication status" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Street" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Postal Code" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "City" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Country" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Category" %}
+                        </th>
+                        <th class="text-sm text-right uppercase py-3 pr-4 min">
+                            {% translate "Options" %}
+                        </th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% if pois and perms.cms.change_poi %}
-        <div class="pt-2 px-2">
-            <div class="inline">
-                <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Locations selected" %}</span>
-            </div>
+                </thead>
+                <tbody>
+                    {% for poi in pois %}
+                        {% get_translation poi language.slug as poi_translation %}
+                        {% include "pois/poi_list_row.html" %}
+                    {% empty %}
+                        <tr>
+                            <td colspan="7" class="px-4 py-3">
+                                {% if search_query %}
+                                    {% translate "No locations found with these filters." %}
+                                {% else %}
+                                    {% translate "No locations available yet." %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    {% endif %}
-    {% if perms.cms.change_poi %}
-        <div class="flex flex-wrap gap-2 mt-4">
-            <select id="bulk-action" class="w-auto max-w-full">
-                <option>
-                    {% translate "Select bulk action" %}
-                </option>
-                <option data-bulk-action="{% url 'bulk_archive_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                    {% translate "Archive locations" %}
-                </option>
-                {% if request.user.is_superuser or request.user.is_staff %}
-                    {% translate "locations" as content_type %}
-                    <option data-bulk-action="{% url 'publish_multiple_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% blocktranslate trimmed %}
-                            Publish {{ content_type }}
-                        {% endblocktranslate %}
+        {% if pois and perms.cms.change_poi %}
+            <div class="pt-2 px-2">
+                <div class="inline">
+                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Locations selected" %}</span>
+                </div>
+            </div>
+        {% endif %}
+        {% if perms.cms.change_poi %}
+            <div class="flex flex-wrap gap-2 mt-4">
+                <select id="bulk-action" class="w-auto max-w-full">
+                    <option>
+                        {% translate "Select bulk action" %}
                     </option>
-                    <option data-bulk-action="{% url 'draft_multiple_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% blocktranslate trimmed %}
-                            Draft {{ content_type }}
-                        {% endblocktranslate %}
+                    <option data-bulk-action="{% url 'bulk_archive_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% translate "Archive locations" %}
                     </option>
-                {% endif %}
-                {% if MT_PERMITTED %}
-                    {% translate "locations" as content_type %}
-                    {% if MT_PROVIDER %}
-                        <option id="machine-translation-option"
-                                data-mt-provider="{{ MT_PROVIDER.name }}"
-                                data-bulk-action="{% url 'machine_translation_pois' region_slug=request.region.slug language_slug=language.slug %}"
-                                data-url="{% url 'word_count' region_slug=request.region.slug language_slug=language.slug model_type="poi" %}">
-                            {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
-                                Machine translate {{ content_type }} via {{ provider }} to {{ language }}
+                    {% if request.user.is_superuser or request.user.is_staff %}
+                        {% translate "locations" as content_type %}
+                        <option data-bulk-action="{% url 'publish_multiple_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% blocktranslate trimmed %}
+                                Publish {{ content_type }}
                             {% endblocktranslate %}
                         </option>
-                    {% else %}
-                        <option disabled
-                                title="{% translate "This language is not supported by any available machine translation provider." %}">
+                        <option data-bulk-action="{% url 'draft_multiple_pois' region_slug=request.region.slug language_slug=language.slug %}">
                             {% blocktranslate trimmed %}
-                                Machine translate {{ content_type }} to {{ language }}
+                                Draft {{ content_type }}
                             {% endblocktranslate %}
                         </option>
                     {% endif %}
-                {% endif %}
-                {% if perms.cms.delete_poi %}
-                    <option class="bulk-confirmation-dialog"
-                            data-bulk-action="{% url 'bulk_delete_pois' region_slug=request.region.slug language_slug=language.slug %}"
-                            data-popup-title="{% blocktranslate %}You are about to delete multiple selected {{content_type}}{% endblocktranslate %}"
-                            data-popup-subject="{% blocktranslate %}This action cannot be undone{% endblocktranslate %}"
-                            data-popup-text="{% blocktranslate %}Do you want to continue?{% endblocktranslate %}">
-                        {% blocktranslate trimmed %}
-                            Delete {{ content_type }}
-                        {% endblocktranslate %}
-                    </option>
-                {% endif %}
-            </select>
-            <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
-                {% translate "Execute" %}
-            </button>
-        </div>
-    {% endif %}
+                    {% if MT_PERMITTED %}
+                        {% translate "locations" as content_type %}
+                        {% if MT_PROVIDER %}
+                            <option id="machine-translation-option"
+                                    data-mt-provider="{{ MT_PROVIDER.name }}"
+                                    data-bulk-action="{% url 'machine_translation_pois' region_slug=request.region.slug language_slug=language.slug %}"
+                                    data-url="{% url 'word_count' region_slug=request.region.slug language_slug=language.slug model_type="poi" %}">
+                                {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
+                                    Machine translate {{ content_type }} via {{ provider }} to {{ language }}
+                                {% endblocktranslate %}
+                            </option>
+                        {% else %}
+                            <option disabled
+                                    title="{% translate "This language is not supported by any available machine translation provider." %}">
+                                {% blocktranslate trimmed %}
+                                    Machine translate {{ content_type }} to {{ language }}
+                                {% endblocktranslate %}
+                            </option>
+                        {% endif %}
+                    {% endif %}
+                    {% if perms.cms.delete_poi %}
+                        <option class="bulk-confirmation-dialog"
+                                data-bulk-action="{% url 'bulk_delete_pois' region_slug=request.region.slug language_slug=language.slug %}"
+                                data-popup-title="{% blocktranslate %}You are about to delete multiple selected {{content_type}}{% endblocktranslate %}"
+                                data-popup-subject="{% blocktranslate %}This action cannot be undone{% endblocktranslate %}"
+                                data-popup-text="{% blocktranslate %}Do you want to continue?{% endblocktranslate %}">
+                            {% blocktranslate trimmed %}
+                                Delete {{ content_type }}
+                            {% endblocktranslate %}
+                        </option>
+                    {% endif %}
+                </select>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
+                    {% translate "Execute" %}
+                </button>
+            </div>
+        {% endif %}
+    </div>
     {% include "../generic_confirmation_dialog.html" %}
     {% include "../_machine_translation_overlay.html" %}
     {% url "pois" as url %}

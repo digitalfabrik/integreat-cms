@@ -1,6 +1,7 @@
 import { getCsrfToken } from "./utils/csrf-token";
 import { createIconsAt } from "./utils/create-icons";
 
+// used in: poi_form.html > related_contacts_box.html
 const hideContactFormWidget = () => {
     const widget = document.getElementById("contact-form-widget") as HTMLElement;
     if (widget) {
@@ -77,22 +78,25 @@ const renderContactForm = async () => {
     document.getElementById("show-contact-form-button").classList.add("hidden");
 };
 
-window.addEventListener("load", () => {
-    document.getElementById("show-contact-form-button")?.addEventListener("click", (event) => {
+export function initContactForm(el: HTMLElement) {
+    const showButton = el.querySelector("#show-contact-form-button");
+    const formWidget = el.querySelector("#contact-form-widget");
+
+    showButton?.addEventListener("click", (event) => {
         event.preventDefault();
         renderContactForm();
     });
 
-    document.querySelectorAll("[contact-poi-box]").forEach((el) => {
-        el.addEventListener("submit", async (event) => {
+    el.querySelectorAll("[contact-poi-box]").forEach((form) => {
+        form.addEventListener("submit", async (event) => {
             event.preventDefault();
             const btn = event.target as HTMLInputElement;
             const form = btn.form as HTMLFormElement;
             const formData: FormData = new FormData(form);
             formData.append(btn.name, btn.value);
-            if (!form.reportValidity()) {
-                return;
-            }
+
+            if (!form.reportValidity()) return;
+
             const response = await fetch(btn.getAttribute("data-url"), {
                 method: "POST",
                 headers: {
@@ -100,8 +104,9 @@ window.addEventListener("load", () => {
                 },
                 body: formData,
             });
+
             const messages = await response.json();
             showMessage(messages);
         });
     });
-});
+}

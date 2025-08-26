@@ -4,7 +4,7 @@
 
 import { createIconsAt } from "../utils/create-icons";
 import { getCsrfToken } from "../utils/csrf-token";
-import { setBulkActionEventListeners } from "../bulk-actions";
+import { initBulkActions } from "../bulk-actions";
 import { setToggleSubpagesEventListeners } from "./toggle-subpages";
 import { addDragAndDropListeners } from "../tree-drag-and-drop";
 import { addConfirmationDialogListeners } from "../confirmation-popups";
@@ -93,7 +93,7 @@ window.addEventListener("load", async () => {
         console.debug("Finished loading all subpages");
         // Set event handlers
         setToggleSubpagesEventListeners();
-        setBulkActionEventListeners();
+        initBulkActions();
         addDragAndDropListeners();
         addConfirmationDialogListeners();
         addPreviewWindowListeners(openPreviewWindowInPageTree);

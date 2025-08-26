@@ -27,6 +27,8 @@
  *     page_ids = request.POST.getlist("selected_ids[]")
  *
  */
+
+//currently used in: poi_list-html, 
 import { showConfirmationPopupWithData } from "./confirmation-popups";
 
 /*
@@ -118,43 +120,39 @@ const setCheckboxRecursively = (pageId: number, checked: boolean) => {
     }
 };
 
-/**
- * Set all event handlers
- */
-export const setBulkActionEventListeners = () => {
-    const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
-    if (!bulkAction) {
-        return;
-    }
-    console.debug("Set event handlers for bulk actions");
-    const selectAllCheckbox = document.getElementById("bulk-select-all") as HTMLInputElement;
-    const bulkActionForm = document.getElementById("bulk-action-form");
-    const selectItems = <HTMLInputElement[]>Array.from(document.getElementsByClassName("bulk-select-item"));
-    // Set event listener for select all checkbox
-    selectAllCheckbox.classList.remove("cursor-wait");
-    selectAllCheckbox.addEventListener("click", () => {
+export const initBulkActions = (root: HTMLElement) => {
+    const bulkActionForm = root.querySelector("#bulk-action-form") as HTMLFormElement;
+    const bulkSelectAll = root.querySelector("#bulk-select-all") as HTMLInputElement;
+    const bulkActionSelect = root.querySelector("#bulk-action") as HTMLSelectElement;
+    const bulkActionButton = root.querySelector("#bulk-action-execute") as HTMLButtonElement;
+    const bulkItems = Array.from(root.querySelectorAll(".bulk-select-item")) as HTMLInputElement[];
+
+    if (!bulkActionForm || !bulkSelectAll || !bulkActionSelect || !bulkActionButton) return;
+
+    bulkSelectAll.classList.remove("cursor-wait");
+    bulkSelectAll.addEventListener("click", () => {
         // Set all checkboxes to the same value as the "select all" checkbox
-        selectItems.forEach((checkbox) => {
+        bulkItems.forEach((checkbox) => {
             /* eslint-disable-next-line no-param-reassign */
-            checkbox.checked = selectAllCheckbox.checked;
+            checkbox.checked = bulkSelectAll.checked;
         });
         updateSelectionCount();
         toggleBulkActionButton();
     });
     // Set all checkboxes initially in case the page tree was reloaded
-    selectItems.forEach((checkbox) => {
+    bulkItems.forEach((checkbox) => {
         /* eslint-disable-next-line no-param-reassign */
-        checkbox.checked = selectAllCheckbox.checked;
+        checkbox.checked = bulkSelectAll.checked;
     });
     // Update selection counter initially
     updateSelectionCount();
     // Set event listener for bulk action button
-    bulkAction.addEventListener("change", toggleBulkActionButton);
+    bulkActionSelect.addEventListener("change", toggleBulkActionButton);
     toggleBulkActionButton();
     // Set event listener for bulk action form
     bulkActionForm.addEventListener("submit", bulkActionExecute);
     // Set event listener for bulk action checkboxes
-    selectItems.forEach((selectItem) => {
+    bulkItems.forEach((selectItem) => {
         selectItem.classList.remove("cursor-wait");
         selectItem.addEventListener("change", () => {
             toggleBulkActionButton();
@@ -170,11 +168,4 @@ export const setBulkActionEventListeners = () => {
             updateSelectionCount();
         });
     });
-};
-
-window.addEventListener("load", () => {
-    // On the page tree, the event listeners are set after all subpages have been loaded
-    if (!document.querySelector("[data-delay-event-handlers]")) {
-        setBulkActionEventListeners();
-    }
-});
+}

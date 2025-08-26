@@ -24,7 +24,7 @@ import "./js/collapsible-boxes";
 import "./js/push-notifications";
 import "./js/filter-form";
 import "./js/copy-clipboard";
-import "./js/bulk-actions";
+import { initBulkActions } from "./js/bulk-actions";
 import "./js/conditional-fields";
 import "./js/confirmation-popups";
 import "./js/language-tabs";
@@ -107,10 +107,12 @@ import "./js/poi-categories/poicategory-colors-icons";
 import "./js/dashboard/broken-links";
 import "./js/dashboard/translation-coverage";
 
-import "./js/ajax-contact-form";
+import { initContactForm } from "./js/ajax-contact-form";
 
 import htmx from 'htmx.org';
 (window as any).htmx = htmx;
+
+
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 require("element-closest").default(window);
@@ -119,4 +121,21 @@ window.addEventListener("DOMContentLoaded", () => {
     createIconsAt(document.documentElement);
     const event = new Event("icon-load");
     window.dispatchEvent(event);
+
+    document.querySelectorAll('[data-js-component]').forEach(el => {
+        const components = el.getAttribute("data-js-component")?.split(",") || [];
+        if (components.includes("contact-form")) {
+            initContactForm(el as HTMLElement);
+        }
+
+    });
+
+    document.querySelectorAll('[data-js-form]').forEach(el => {
+        const formFeatures = el.getAttribute("data-js-form")?.split(",") || [];
+        if (formFeatures.includes("bulk-actions")) {
+            initBulkActions(el as HTMLElement)
+        }
+    })
+
 });
+
