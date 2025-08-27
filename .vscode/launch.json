@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger: Django (with Docker)",
+      "type": "debugpy",
+      "request": "launch",
+      "args": ["runserver"],
+      "django": true,
+      "autoStartBrowser": false,
+      "program": "${workspaceFolder}/integreat_cms/integreat-cms-cli",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "INTEGREAT_CMS_DEBUG": "true",
+        "DJANGO_SETTINGS_MODULE": "integreat_cms.core.docker_settings"
+      },
+      "preLaunchTask": "start-docker",
+      "postDebugTask": "stop-docker"
+    },
+    {
+      "name": "Python Debugger: Django (without Docker)",
+      "type": "debugpy",
+      "request": "launch",
+      "args": ["runserver"],
+      "django": true,
+      "autoStartBrowser": false,
+      "program": "${workspaceFolder}/integreat_cms/integreat-cms-cli",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "INTEGREAT_CMS_DEBUG": "true",
+        "DJANGO_SETTINGS_MODULE": "integreat_cms.core.settings"
+      }
+    }
+  ]
+}
