@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-06-30T11:49:30+00:00" />
+    <meta property="article:modified_time" content="2025-08-27T08:58:17+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Debugging &mdash; integreat-cms 2025.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -2217,30 +2217,10 @@ Note that <code class="docutils literal notranslate"><span class="pre">debugpy</
 <section id="vscode-vscodium">
 <h3>VSCode/VSCodium<a class="headerlink" href="#vscode-vscodium" title="Link to this heading"></a></h3>
 <p>The VSCode <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Extension</span></code> should automaticly contain the <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Debugger</span> <span class="pre">Extension</span></code>. You can check and install it via the Extensions view.</p>
-<p>For being able to run in Debug mode, you will need a <code class="docutils literal notranslate"><span class="pre">launch.json</span></code> file in which you define the settings under which you want to run and debug the CMS.</p>
-<ol class="arabic simple">
-<li><p>Create a <code class="docutils literal notranslate"><span class="pre">launch.json</span></code> file in the <code class="docutils literal notranslate"><span class="pre">.vscode/</span></code> folder</p></li>
-<li><p>Populate the file with the desired settings. The code below should work (at least for the Dev Container)</p></li>
-</ol>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-   <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
-   <span class="s2">&quot;configurations&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-         <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Python Debugger: Django&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;debugpy&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="s2">&quot;launch&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;runserver&quot;</span><span class="p">],</span>
-         <span class="s2">&quot;django&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-         <span class="s2">&quot;autoStartBrowser&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-         <span class="s2">&quot;program&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceFolder}/integreat_cms/integreat-cms-cli&quot;</span>
-         <span class="s2">&quot;env&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;INTEGREAT_CMS_DEBUG&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">}</span>
-      <span class="p">}</span>
-   <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+<p>In your <code class="docutils literal notranslate"><span class="pre">.vscode/launch.json</span></code> two Debugging modes are defined: With or without Docker.</p>
 <p>You might need to change the <code class="docutils literal notranslate"><span class="pre">&quot;program&quot;</span></code> variable to your local location of the <code class="docutils literal notranslate"><span class="pre">integreat_cms/</span></code> folder. With the <code class="docutils literal notranslate"><span class="pre">&quot;env&quot;</span></code> variable, you can set environment variables with settings for the CMS like <code class="docutils literal notranslate"><span class="pre">&quot;INTERGREAT_CMS_DEBUG&quot;</span></code>. For more options, check the VSCode <cite>documentation &lt;https://code.visualstudio.com/docs/python/debugging&gt;</cite></p>
-<p>Now debugging should work when you go to <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">and</span> <span class="pre">Debug</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Debugging</span></code>. The local server should start and you should be able to use the CMS like after running <code class="docutils literal notranslate"><span class="pre">run.sh</span></code>.</p>
+<p>When you go to <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">and</span> <span class="pre">Debug</span></code>, select <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Debugger:</span> <span class="pre">Django</span> <span class="pre">(with</span> <span class="pre">Docker)</span></code> or <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Debugger:</span> <span class="pre">Django</span> <span class="pre">(without</span> <span class="pre">Docker)</span></code> from the drop-down and hit <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Debugging</span></code>.</p>
+<p>The local server should start and you should be able to use the CMS like after running <code class="docutils literal notranslate"><span class="pre">run.sh</span></code>.</p>
 <p>For VSCodium it should work the same as long as you use the official <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">Extension</span></code>, though I never tested this at this point (8th May 2025).</p>
 </section>
 <section id="pycharm-professional">
@@ -2495,7 +2475,7 @@ programs<span class="o">.</span>nixvim<span class="o">.</span><span class="ss">k
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 30, 2025.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
       </span></p>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-08-06T16:24:56+00:00" />
+    <meta property="article:modified_time" content="2025-08-27T08:58:17+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feedback &mdash; integreat-cms 2025.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -2376,7 +2376,7 @@ The base model <a class="reference internal" href="../ref-ext/integreat_cms.cms.
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.feedback.feedback.</span></span><span class="sig-name descname"><span class="pre">CascadeDeletePolymorphicManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://django-polymorphic.readthedocs.io/en/latest/api/polymorphic.managers.html#polymorphic.managers.PolymorphicManager" title="(in django-polymorphic v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PolymorphicManager</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://django-polymorphic.readthedocs.io/en/latest/api/polymorphic.managers.html#polymorphic.managers.PolymorphicManager" title="(in Django Polymorphic v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PolymorphicManager</span></code></a></p>
 <p>This class is used as a workaround for a bug in django-polymorphic.
 For more information, see <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet" title="integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet"><code class="xref py py-class docutils literal notranslate"><span class="pre">CascadeDeletePolymorphicQuerySet</span></code></a>.</p>
 <dl class="py attribute">
@@ -2390,7 +2390,7 @@ For more information, see <a class="reference internal" href="../ref-ext/integre
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.feedback.feedback.</span></span><span class="sig-name descname"><span class="pre">CascadeDeletePolymorphicQuerySet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://django-polymorphic.readthedocs.io/en/latest/api/polymorphic.managers.html#polymorphic.managers.PolymorphicQuerySet" title="(in django-polymorphic v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PolymorphicQuerySet</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://django-polymorphic.readthedocs.io/en/latest/api/polymorphic.managers.html#polymorphic.managers.PolymorphicQuerySet" title="(in Django Polymorphic v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PolymorphicQuerySet</span></code></a></p>
 <p>Patch the QuerySet to call delete on the non_polymorphic QuerySet, avoiding models.deletion.Collector typing problem</p>
 <p>Based on workarounds proposed in: <a class="reference external" href="https://github.com/django-polymorphic/django-polymorphic/issues/229">https://github.com/django-polymorphic/django-polymorphic/issues/229</a>
 See also: <a class="reference external" href="https://github.com/django-polymorphic/django-polymorphic/issues/34">https://github.com/django-polymorphic/django-polymorphic/issues/34</a>, <a class="reference external" href="https://github.com/django-polymorphic/django-polymorphic/issues/84">https://github.com/django-polymorphic/django-polymorphic/issues/84</a>
@@ -2414,7 +2414,7 @@ Related Django ticket: <a class="reference external" href="https://code.djangopr
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.feedback.feedback.</span></span><span class="sig-name descname"><span class="pre">Feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://django-polymorphic.readthedocs.io/en/latest/api/polymorphic.models.html#polymorphic.models.PolymorphicModel" title="(in django-polymorphic v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PolymorphicModel</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel" title="integreat_cms.cms.models.abstract_base_model.AbstractBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBaseModel</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://django-polymorphic.readthedocs.io/en/latest/api/polymorphic.models.html#polymorphic.models.PolymorphicModel" title="(in Django Polymorphic v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PolymorphicModel</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel" title="integreat_cms.cms.models.abstract_base_model.AbstractBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBaseModel</span></code></a></p>
 <p>Database model representing feedback from app-users.
 Do not directly create instances of this base model, but of the submodels (e.g. PageFeedback) instead.</p>
 <dl class="field-list simple">
@@ -3270,7 +3270,7 @@ otherwise.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 06, 2025.
+      <span class="lastupdated">Last updated on Aug 27, 2025.
       </span></p>
   </div>
 
