@@ -919,11 +919,11 @@ class Region(AbstractBaseModel):
 
         results.extend(
             {
-                "title": region.name,
+                "title": region_name,
                 "url": None,
                 "type": "region",
             }
-            for region in regions
+            for region_name in regions.values_list("name", flat=True).distinct()
         )
         return results
 

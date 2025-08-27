@@ -82,9 +82,12 @@ class PushNotificationTranslation(AbstractBaseModel):
         archived_flag = kwargs["archived_flag"]
         language_slug = kwargs["language_slug"]
 
-        push_notifications = PushNotificationTranslation.search(
-            region, language_slug, query
-        ).filter(push_notification__archived=archived_flag)
+        push_notifications = (
+            PushNotificationTranslation.search(region, language_slug, query)
+            .filter(push_notification__archived=archived_flag)
+            .order_by("title")
+            .distinct("title")
+        )
 
         results.extend(
             {
