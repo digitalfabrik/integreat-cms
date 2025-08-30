@@ -68,7 +68,8 @@ def generate_unique_slug_helper(
     :return: An unique slug identifier
     """
     kwargs: SlugKwargs = {
-        "slug": form_object.cleaned_data["slug"],
+        "slug": form_object.cleaned_data["slug"]
+        or getattr(form_object.instance, "slug", ""),
         "cleaned_data": form_object.cleaned_data,
         "manager": form_object.Meta.model.objects,
         "object_instance": form_object.instance,
