@@ -9,6 +9,7 @@ import {
     Legend,
     Tooltip,
 } from "chart.js";
+import { setPageAccessesEventListeners } from "./statistics-page-accesses";
 
 export type AjaxResponse = {
     exportLabels: Array<string>;
@@ -252,6 +253,9 @@ window.addEventListener("load", async () => {
 
     // Initialize chart data
     await updateChart();
+
+    // Set event handlers for page based statistics
+    setPageAccessesEventListeners();
 
     // Initialize export button
     toggleExportButton();

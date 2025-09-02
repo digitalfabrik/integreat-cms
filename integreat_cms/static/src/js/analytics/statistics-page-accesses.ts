@@ -155,12 +155,13 @@ const updatePageAccesses = async (): Promise<void> => {
     setDates();
 };
 
-window.addEventListener("load", async () => {
+export const setPageAccessesEventListeners = () => {
+    loaderIsHidden = false
     if (document.getElementById("statistics-page-access")) {
-        updatePageAccesses();
         chart = Chart.instances[0];
         // Set event handler for updating Page Accesses when date is changed
         const statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
+        updatePageAccesses();
         statisticsForm?.addEventListener("submit", async (event: Event) => {
             // Prevent form submit
             event.preventDefault();
@@ -175,8 +176,9 @@ window.addEventListener("load", async () => {
                 (event.target as HTMLInputElement).getAttribute("data-language-slug")
             ) {
                 loaderIsHidden = toggleLoader(loaderIsHidden);
-                await updatePageAccesses();
+                updatePageAccesses();
             }
         });
     }
-});
+};
+
