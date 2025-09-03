@@ -33,7 +33,7 @@ class EventListView(TemplateView, EventContextMixin, MachineTranslationContextMi
     :attr:`~integreat_cms.cms.views.events.event_list_view.EventListView.archived`)
     """
 
-    #: Template for list of non-archived events
+    #: Template for list of non-archived and archived events
     template_name = "events/event_list.html"
     #: Whether or not to show archived events
     archived = False

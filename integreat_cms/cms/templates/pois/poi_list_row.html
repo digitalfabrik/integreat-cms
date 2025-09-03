@@ -123,46 +123,59 @@
         </a>
     </td>
     <td class="pl-2 pr-4 py-3 min text-right flex flex-nowrap gap-2">
-        {% if poi_translation.status == PUBLIC %}
-            <a href="{{ WEBAPP_URL }}{{ poi_translation.get_absolute_url }}"
-               rel="noopener noreferrer"
-               target="_blank"
-               title="{% translate "Open location in web app" %}"
-               class="btn-icon">
-                <i icon-name="external-link"></i>
-            </a>
-        {% else %}
-            <button title="{% translate "This location cannot be opened in the web app, because it is not public." %}"
-                    class="btn-icon"
-                    disabled>
-                <i icon-name="external-link"></i>
-            </button>
+        {% if not is_archive %}
+            {% if poi_translation.status == PUBLIC %}
+                <a href="{{ WEBAPP_URL }}{{ poi_translation.get_absolute_url }}"
+                   rel="noopener noreferrer"
+                   target="_blank"
+                   title="{% translate "Open location in web app" %}"
+                   class="btn-icon">
+                    <i icon-name="external-link"></i>
+                </a>
+            {% else %}
+                <button title="{% translate "This location cannot be opened in the web app, because it is not public." %}"
+                        class="btn-icon"
+                        disabled>
+                    <i icon-name="external-link"></i>
+                </button>
+            {% endif %}
         {% endif %}
         {% if perms.cms.change_poi %}
-            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
-               title="{% translate "Edit location" %}"
-               class="btn-icon">
-                <i icon-name="pencil"></i>
-            </a>
-            <form action="{% url 'copy_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
-                  method="post">
-                {% csrf_token %}
-                <button class="btn-icon" title="{% translate "Copy location" %}">
-                    <i icon-name="copy"></i>
-                </button>
-            </form>
-            {% if poi.is_currently_used %}
-                <button title="{{ cannot_archive_title }}" class="btn-icon" disabled>
-                    <i icon-name="archive"></i>
-                </button>
+            {% if not is_archive %}
+                <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
+                   title="{% translate "Edit location" %}"
+                   class="btn-icon">
+                    <i icon-name="pencil"></i>
+                </a>
+                <form action="{% url 'copy_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
+                      method="post">
+                    {% csrf_token %}
+                    <button class="btn-icon" title="{% translate "Copy location" %}">
+                        <i icon-name="copy"></i>
+                    </button>
+                </form>
+                {% if poi.is_currently_used %}
+                    <button title="{{ cannot_archive_title }}" class="btn-icon" disabled>
+                        <i icon-name="archive"></i>
+                    </button>
+                {% else %}
+                    <button title="{% translate "Archive location" %}"
+                            class="confirmation-button btn-icon"
+                            data-confirmation-title="{{ archive_dialog_title }}"
+                            data-confirmation-text="{{ archive_dialog_text }}"
+                            data-confirmation-subject="{{ poi_translation.title }}"
+                            data-action="{% url 'archive_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
+                        <i icon-name="archive"></i>
+                    </button>
+                {% endif %}
             {% else %}
-                <button title="{% translate "Archive location" %}"
+                <button title="{% translate "Restore location" %}"
                         class="confirmation-button btn-icon"
-                        data-confirmation-title="{{ archive_dialog_title }}"
-                        data-confirmation-text="{{ archive_dialog_text }}"
+                        data-confirmation-title="{{ restore_dialog_title }}"
+                        data-confirmation-text="{{ restore_dialog_text }}"
                         data-confirmation-subject="{{ poi_translation.title }}"
-                        data-action="{% url 'archive_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
-                    <i icon-name="archive"></i>
+                        data-action="{% url 'restore_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="refresh-ccw"></i>
                 </button>
             {% endif %}
         {% endif %}

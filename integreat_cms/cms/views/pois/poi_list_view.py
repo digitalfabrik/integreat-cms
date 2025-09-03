@@ -31,24 +31,12 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
     View for listing POIs (points of interests)
     """
 
-    #: Template for list of non-archived POIs
-    template = "pois/poi_list.html"
-    #: Template for list of archived POIs
-    template_archived = "pois/poi_list_archived.html"
+    #: Template for list of non-archived and archived POIs
+    template_name = "pois/poi_list.html"
     #: Whether or not to show archived POIs
     archived = False
     #: The translation model of this list view (used to determine whether machine translations are permitted)
     translation_model = POITranslation
-
-    @property
-    def template_name(self) -> str:
-        """
-        Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.pois.poi_list_view.POIListView.archived` flag
-        (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-
-        :return: Path to HTML template
-        """
-        return self.template_archived if self.archived else self.template
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
@@ -127,6 +115,7 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
                 "search_query": query,
                 "source_language": region.get_source_language(language.slug),
                 "content_type": "locations",
+                "is_archive": self.archived,
             },
         )
 
