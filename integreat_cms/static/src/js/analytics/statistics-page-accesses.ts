@@ -156,7 +156,7 @@ const updatePageAccesses = async (): Promise<void> => {
 };
 
 export const setPageAccessesEventListeners = () => {
-    loaderIsHidden = false
+    loaderIsHidden = false;
     if (document.getElementById("statistics-page-access")) {
         chart = Chart.instances[0];
         // Set event handler for updating Page Accesses when date is changed
@@ -181,4 +181,3 @@ export const setPageAccessesEventListeners = () => {
         });
     }
 };
-
