@@ -38,8 +38,7 @@ const setAccessesPerLanguage = (
     const width = allAccesses !== 0 ? (accesses / allAccesses) * 100 : 0;
     (childElement as HTMLElement).style.backgroundColor = languageColor;
     (childElement as HTMLElement).style.width = `${String(width)}%`;
-    (childElement as HTMLElement).title =
-        `${languageTitle}: ${accesses} ${childElement.getAttribute("data-access-translation")} (${roundedPercentage} %)`;
+    (childElement as HTMLElement).title = `${languageTitle}: ${accesses} (${roundedPercentage} %)`;
 };
 
 /* Ensure that when there are no accesses in the selected timeframe and languages, the AccessesBar gets updatet */
@@ -137,7 +136,13 @@ const updatePageAccesses = async (): Promise<void> => {
                         allAccesses += countAccesses(accessesOverTime);
                     }
                 });
-                editableAllAccessField.textContent = `${String(allAccesses)} ${editableAllAccessField.getAttribute("data-translation")}`;
+                if (allAccesses === 0) {
+                    editableAllAccessField.textContent = `${editableAllAccessField.getAttribute("data-translation-no-accesses")}`;
+                } else if (allAccesses === 1) {
+                    editableAllAccessField.textContent = `${String(allAccesses)} ${editableAllAccessField.getAttribute("data-translation-singular")}`;
+                } else {
+                    editableAllAccessField.textContent = `${String(allAccesses)} ${editableAllAccessField.getAttribute("data-translation-plural")}`;
+                }
                 // Go to the object on the second level. Set the bar of accesses for every language for the selected timeframe.
                 Object.entries(accesses).forEach((access) => {
                     const languageSlug = access[0];
