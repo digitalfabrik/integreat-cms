@@ -38,12 +38,12 @@ class Command(LogCommand):
         group_input = parser.add_argument_group("Input")
         group_input.add_argument(
             "--zip",
-            help="The path to the zip file we want to upload media from",
+            help="The path to the zip archive to upload media from",
         )
         group_input.add_argument(
             "--dir",
             "--directory",
-            help="The path to the directory file we want to upload media from",
+            help="The path to the directory file to upload media from",
         )
         group_input.add_argument(
             "-r",
@@ -67,11 +67,11 @@ class Command(LogCommand):
         group_output.add_argument(
             "--region",
             default=None,
-            help="The region slug whose media library we want to upload the files to (upload to global library if not given)",
+            help="The region slug whose media library to upload the files to (upload to global library if not given)",
         )
         parser.add_argument(
             "csv",
-            help="The path to which the data should be written to",
+            help="Path to which to write the CSV information of successfully uploaded files, along with their new location on disk",
         )
 
     def handle(self, *args: Any, **options: Any) -> None:

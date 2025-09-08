@@ -215,6 +215,30 @@ Update ALL link text of links of the given URL:
 * ``USERNAME``: Associate any new created translations with ``USERNAME``
 
 
+``bulk_media_upload``
+~~~~~~~~~~~~~~~~~~~~~~
+
+"Upload" files from a directory or zip file into the media library, including thumbnail creation etc.:
+
+    integreat-cms-cli bulk_media_upload [--zip ZIP] [--dir DIR] [-r] [--dest DEST] [-p] [--region REGION] csv
+
+**Arguments:**
+
+* ``csv``: Path to which to write the CSV information of successfully uploaded files, along with their new location on disk
+
+**Input options:**
+
+* ``--zip ZIP``: The path to the zip archive to upload media from
+* ``--dir DIR``, ``--directory DIR``: The path to the directory file to upload media from
+* ``-r`` or ``--recursive``: Recursively descend into sub directories and upload their contents as well
+
+**Output options:**
+
+* ``--dest DEST``, ``--destination DEST``: The "path" to the directory inside the media library to which the media should be uploaded to
+* ``-p``, ``--parents``: Make parent directories as needed
+* ``--region REGION``: The region slug whose media library to upload the files to (upload to global library if not given)
+
+
 Create new commands
 -------------------
 
