@@ -75,10 +75,16 @@ class Command(LogCommand):
         )
 
     def handle(self, *args: Any, **options: Any) -> None:
-        if not options["zip"] or options["dir"]:
+        # INPUT VALIDATION & PREPARATION
+        if not (options["zip"] or options["dir"]):
+            # We need at least one of the options, else we cannot do anything
             raise CommandError("Specify --zip or --directory")
         if options["region"]:
+            # Find the region belonging to the slug
+            # This simultaneously validates the slug, since this will throw an exception if no matching region is found
             options["region"] = Region.objects.get(slug=options["region"])
+            # If no region is given, the global library is meant (represented by None in our model, so no need to do anything special)
+        # Determine the directory object representing the given destination path
         destination: Directory | None = None
         if options["dest"]:
             for part in Path(options["dest"]).parts:
@@ -96,6 +102,7 @@ class Command(LogCommand):
                             parent=getattr(destination, "id", None),
                         )
                     except Directory.DoesNotExist as e:
+                        # Build the string to report which library it is
                         realm = (
                             f"region {options['region'].slug}"
                             if options["region"]
@@ -104,11 +111,17 @@ class Command(LogCommand):
                         raise CommandError(
                             f"Directory not found ({realm}): {options['dest']} (use --parents to automatically create missing directories)",
                         ) from e
+        # Make an object to pass into functions for reporting
         stats: dict[str, set] = {
             "successful": set(),
             "failed": set(),
         }
-        with open(options["csv"], "w") as out:
+
+        # DO THE UPLOADING
+        with open(
+            options["csv"], "w"
+        ) as out:  # TODO: Fail if file exists (add --force option?)
+            # Write out the CSV header
             out.write("name,upload_path\n")
             if options["zip"]:
                 with ZipFile(options["zip"]) as zipfile:
@@ -147,15 +160,18 @@ class Command(LogCommand):
         Upload all files in a directory to the destination directory in the media library
         """
         if root is None:
+            # Keep track of recursion levels
             root = str(path)
-        # Make a sane default for stats
+        # Ensure sane and usable stats, even if not or only partially given
         stats = {
             "successful": set(),
             "failed": set(),
         } | (stats if stats is not None else {})
         # The region is always that of the parent directory, we don't mix regions
+        # (In the media library, the user always sees the items from the global library in addition to their own, even if the names coincide)
         region = destination.region if destination is not None else options["region"]
 
+        # Gather files and directories before processing them
         files = set()
         dirs = set()
         for item in path.iterdir():
@@ -164,8 +180,11 @@ class Command(LogCommand):
             elif item.is_dir() and options.get("recursive", False):
                 dirs.add(item)
         if files:
+            # For each file, create and submit an instance of the upload form and mimic how files would be passed to it from the webserver normally
+            # The query data is the same for all files in a directory
             query = QueryDict("", mutable=True)
             query["parent_directory"] = destination
+
             for file_path in files:
                 relative_path = (
                     str(file_path).removeprefix(str(root))
@@ -176,9 +195,11 @@ class Command(LogCommand):
                     # Find out the uncompressed size
                     data.seek(0, 2)
                     uncompressed_size = data.tell()
-                    # Seek back to the start
+                    # Seek back to the start, so when the form is submitted it doesn't complain that it is invalid
                     data.seek(0)
+                    # Find out the mime type
                     mimetype = mimetypes.guess_type(str(file_path))[0]
+                    # Mimic the way a file uploaded by a user is normally passed to the form
                     file_data = MultiValueDict(
                         {
                             "file": [
@@ -194,8 +215,10 @@ class Command(LogCommand):
                             ]
                         }
                     )
-                    mediafile = None
+                    # Initialize the mediafile object with None already, so we can later check whether we were successful or not
+                    mediafile: MediaFile | None = None
                     form = UploadMediaFileForm(data=query, files=file_data)
+                    # We need to set the region manually (normally done directly by upload_file_ajax() in media_actions.py)
                     form.instance.region = region
                     try:
                         if form.is_valid():
@@ -207,6 +230,7 @@ class Command(LogCommand):
                                 relative_path,
                                 form.get_error_messages(),
                             )
+                            continue
                     except (UnicodeDecodeError, IntegrityError):
                         pass
                     if mediafile:
@@ -214,8 +238,12 @@ class Command(LogCommand):
                         if created is not None:
                             created.write(f"{relative_path},{mediafile.file}" + "\n")
                     else:
+                        # I'm not quite sure whether there's actually a case where form.save() would not return a valid object
+                        # while form.is_valid() was True – I'm hoping for a confident reviewer to know and clearify this… *puppy eyes*
+                        # If not, then this would move up into the exception handler and the branch above into a finally: clause
                         stats["failed"].add(relative_path)
                         logger.error("Upload failed: %s", relative_path)
+
         if dirs:
             # Make one single query now instead of one for each individual subdir or file
             child_dirs = {
@@ -235,6 +263,7 @@ class Command(LogCommand):
                     else item.relative_to(root)
                 )
                 if item.name not in child_dirs:
+                    # Build the string to report which library it is
                     realm = f"region {region.slug}" if region else "global"
                     if item.name in child_files:
                         logger.error(
@@ -243,20 +272,26 @@ class Command(LogCommand):
                             relative_path,
                         )
                         continue
-                    if "parents" not in options:
+                    if "parents" in options:
+                        child_dir = Directory.objects.create(
+                            name=item.name,
+                            region=region,
+                            parent=destination,
+                        )
+                    else:
                         logger.error(
                             "Directory not found (%s): %s (use --parents to automatically create missing directories)",
                             realm,
                             relative_path,
                         )
                         continue
-                    child_dir = Directory.objects.create(
-                        name=item.name,
-                        region=region,
-                        parent=destination,
-                    )
                 else:
                     child_dir = child_dirs[item.name]
                 self.upload_directory(
-                    item, child_dir, root=root, created=created, stats=stats, **options
+                    item,
+                    destination=child_dir,
+                    root=root,
+                    created=created,
+                    stats=stats,
+                    **options,
                 )
