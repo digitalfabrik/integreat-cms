@@ -14,6 +14,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                 query_string: query,
                 object_types: ["event", "page", "poi"],
                 archived: false,
+                is_link_suggestion: true,
             }),
         });
         const HTTP_STATUS_OK = 200;

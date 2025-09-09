@@ -58,6 +58,7 @@ def search_content_ajax(
     query = body["query_string"]
     # whether to return only archived object, ignored if not applicable
     archived_flag = body["archived"]
+    link_suggestion_flag = body.get("is_link_suggestion")
     object_types = set(body.get("object_types", []))
 
     logger.debug("Ajax call: Live search for %r with query %r", object_types, query)
@@ -71,6 +72,7 @@ def search_content_ajax(
         "query": query,
         "archived_flag": archived_flag,
         "language_slug": language_slug,
+        "link_suggestion_flag": link_suggestion_flag,
     }
 
     for object_type in object_types:
