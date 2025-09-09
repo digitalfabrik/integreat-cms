@@ -267,7 +267,7 @@ jobs:
           command: integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
       - run:
           name: Run tests
-          command: pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
+          command: pytest -vv --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings --log-cli-level=INFO
       - store_test_results:
           path: test-results
       - store_artifacts:

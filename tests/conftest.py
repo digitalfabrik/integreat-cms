@@ -23,6 +23,7 @@ from integreat_cms.cms.constants.roles import (
     OBSERVER,
     SERVICE_TEAM,
 )
+from integreat_cms.cms.models import User
 from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 from tests.mock import MockServer
 
@@ -34,6 +35,11 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
     from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]
     from pytest_httpserver.httpserver import HTTPServer
+
+import logging
+import os
+
+logging.basicConfig(level=logging.INFO)
 
 
 #: A role identifier for superusers
@@ -69,7 +75,9 @@ def load_test_data(django_db_setup: None, django_db_blocker: _DatabaseBlocker) -
     :param django_db_blocker: The fixture providing the database blocker
     """
     with django_db_blocker.unblock():
+        logging.info("Testdata fixture")
         call_command("loaddata", "integreat_cms/cms/fixtures/test_data.json")
+        logging.info("Users in DB: %s", User.objects.count())
 
 
 @pytest.fixture(scope="function")
@@ -161,3 +169,9 @@ def configure_celery_for_tests(settings: SettingsWrapper) -> None:
     # so we set celery to run synchronously and propagate errors to the test runner
     settings.CELERY_TASK_ALWAYS_EAGER = True
     settings.CELERY_TASK_EAGER_PROPAGATES = True
+
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_setup(item: pytest.Item) -> None:
+    worker_id = os.environ.get("CIRCLE_NODE_INDEX", "unknown")
+    logging.info("Running test %s on CircleCI worker %s", item.name, worker_id)
