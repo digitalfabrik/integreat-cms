@@ -171,7 +171,7 @@ def configure_celery_for_tests(settings: SettingsWrapper) -> None:
     settings.CELERY_TASK_EAGER_PROPAGATES = True
 
 
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+@pytest.hookimpl(tryfirst=True)
 def pytest_runtest_setup(item: pytest.Item) -> None:
     worker_id = os.environ.get("CIRCLE_NODE_INDEX", "unknown")
     logging.info("Running test %s on CircleCI worker %s", item.name, worker_id)
