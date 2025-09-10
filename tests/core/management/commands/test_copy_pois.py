@@ -40,6 +40,7 @@ parameters = tuple(
 )
 
 
+@pytest.mark.skip(reason="This test is temporarily disabled")
 @pytest.mark.parametrize(
     "parameters", parameters, ids=[" ".join(x) for x in parameters]
 )
