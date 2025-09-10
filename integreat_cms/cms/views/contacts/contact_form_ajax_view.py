@@ -83,7 +83,7 @@ class ContactFormAjaxView(TemplateView, ContactContextMixin):
 
         return JsonResponse(
             data={
-                "success": "Successfully created location",
+                "success": "Successfully created contact",
                 "contact_label": contact.label_in_reference_list(),
                 "edit_url": contact.backend_edit_link,
             }
