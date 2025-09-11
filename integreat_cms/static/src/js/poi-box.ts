@@ -46,17 +46,21 @@ const setPoi = ({ target }: Event) => {
 };
 
 const toggleFields = () => {
-    const checkbox = document.getElementById("id_has_not_location");
+    const checkbox = document.getElementById("id_has_not_location") as HTMLInputElement;
     const locationBlock = document.getElementById("location-block");
-    const onlineLinkBlock = document.getElementById("online-link-block");
+    const meetingUrlBlock = document.getElementById("meeting-url-block");
+    const locationInput = document.getElementById("id_location") as HTMLInputElement;
+    const onlineInput = document.getElementById("id_meeting_url") as HTMLInputElement;
 
-    if ((checkbox as HTMLInputElement).checked) {
+    if (checkbox.checked) {
         locationBlock.classList.add("hidden");
-        onlineLinkBlock.classList.remove("hidden");
+        meetingUrlBlock.classList.remove("hidden");
     } else {
         locationBlock.classList.remove("hidden");
-        onlineLinkBlock.classList.add("hidden");
+        meetingUrlBlock.classList.add("hidden");
     }
+    locationInput.disabled = checkbox.checked;
+    onlineInput.disabled = !checkbox.checked;
 };
 
 const showMessage = (response: FormResponse) => {

@@ -13,13 +13,14 @@ from typing import TYPE_CHECKING
 from cacheops import invalidate_obj
 from django.utils.translation import gettext_lazy as _
 
+from integreat_cms.cms.utils.tree_mutex import tree_mutex
+
 from ...models import (
     EventTranslation,
     LanguageTreeNode,
     PageTranslation,
     POITranslation,
 )
-from ...utils.tree_mutex import tree_mutex
 from ..bulk_action_views import BulkUpdateBooleanFieldView
 
 if TYPE_CHECKING:

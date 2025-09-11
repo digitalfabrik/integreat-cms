@@ -9,34 +9,50 @@
     <div class="table-header">
         <div class="flex flex-wrap justify-between">
             <h1 class="heading">
-                {% translate "Locations" %}
-            </h1>
-            <a href="{% url 'archived_pois' region_slug=request.region.slug language_slug=language.slug %}"
-               class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
-                <span>
-                    <i icon-name="archive" class="align-top h-5"></i>
+                {% if not is_archive %}
+                    {% translate "Locations" %}
+                {% else %}
                     {% translate "Archived locations" %}
-                    ({{ archived_count }})
-                </span>
-            </a>
+                {% endif %}
+            </h1>
+            {% if not is_archive %}
+                <a href="{% url 'archived_pois' region_slug=request.region.slug language_slug=language.slug %}"
+                   class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+                    <span>
+                        <i icon-name="archive" class="align-top h-5"></i>
+                        {% translate "Archived locations" %}
+                        ({{ archived_count }})
+                    </span>
+                </a>
+            {% else %}
+                <a href="{% url 'pois' region_slug=request.region.slug language_slug=language.slug %}"
+                   class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+                    <span>
+                        <i icon-name="map-pin" class="align-top h-5"></i>
+                        {% translate "Back to locations" %}
+                    </span>
+                </a>
+            {% endif %}
         </div>
         <div class="flex flex-wrap justify-between gap-4">
             <div class="flex flex-wrap gap-4">
                 {% include "generic_language_switcher.html" with target="pois" %}
                 {% include "search_input_form.html" with object_type="poi" %}
             </div>
-            {% if request.region.default_language == language and perms.cms.change_poi %}
-                <a href="{% url 'new_poi' region_slug=request.region.slug language_slug=language.slug %}"
-                   class="btn">
-                    {% translate "Create location" %}
-                </a>
-            {% elif perms.cms.change_poi %}
-                {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
-                    You can only create locations in the default language ({{ default_language }}).
-                {% endblocktranslate %}
-                <button title="{{ disabled_button_title }}" class="btn" disabled>
-                    {% translate "Create location" %}
-                </button>
+            {% if not is_archive %}
+                {% if request.region.default_language == language and perms.cms.change_poi %}
+                    <a href="{% url 'new_poi' region_slug=request.region.slug language_slug=language.slug %}"
+                       class="btn">
+                        {% translate "Create location" %}
+                    </a>
+                {% elif perms.cms.change_poi %}
+                    {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
+                        You can only create locations in the default language ({{ default_language }}).
+                    {% endblocktranslate %}
+                    <button title="{{ disabled_button_title }}" class="btn" disabled>
+                        {% translate "Create location" %}
+                    </button>
+                {% endif %}
             {% endif %}
         </div>
     </div>
@@ -100,14 +116,22 @@
             <tbody>
                 {% for poi in pois %}
                     {% get_translation poi language.slug as poi_translation %}
-                    {% include "pois/poi_list_row.html" %}
+                    {% include "pois/poi_list_row.html" with poi=poi poi_translation=poi_translation %}
                 {% empty %}
                     <tr>
-                        <td colspan="7" class="px-4 py-3">
+                        <td colspan="8" class="px-4 py-3">
                             {% if search_query %}
-                                {% translate "No locations found with these filters." %}
+                                {% if not is_archive %}
+                                    {% translate "No locations found with these filters." %}
+                                {% else %}
+                                    {% translate "No archived locations found with these filters." %}
+                                {% endif %}
                             {% else %}
-                                {% translate "No locations available yet." %}
+                                {% if not is_archive %}
+                                    {% translate "No locations available yet." %}
+                                {% else %}
+                                    {% translate "No archived locations available yet." %}
+                                {% endif %}
                             {% endif %}
                         </td>
                     </tr>
@@ -128,41 +152,47 @@
                 <option>
                     {% translate "Select bulk action" %}
                 </option>
-                <option data-bulk-action="{% url 'bulk_archive_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                    {% translate "Archive locations" %}
-                </option>
-                {% if request.user.is_superuser or request.user.is_staff %}
-                    {% translate "locations" as content_type %}
-                    <option data-bulk-action="{% url 'publish_multiple_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% blocktranslate trimmed %}
-                            Publish {{ content_type }}
-                        {% endblocktranslate %}
+                {% translate "locations" as content_type %}
+                {% if not is_archive %}
+                    <option data-bulk-action="{% url 'bulk_archive_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% translate "Archive locations" %}
                     </option>
-                    <option data-bulk-action="{% url 'draft_multiple_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% blocktranslate trimmed %}
-                            Draft {{ content_type }}
-                        {% endblocktranslate %}
-                    </option>
-                {% endif %}
-                {% if MT_PERMITTED %}
-                    {% translate "locations" as content_type %}
-                    {% if MT_PROVIDER %}
-                        <option id="machine-translation-option"
-                                data-mt-provider="{{ MT_PROVIDER.name }}"
-                                data-bulk-action="{% url 'machine_translation_pois' region_slug=request.region.slug language_slug=language.slug %}"
-                                data-url="{% url 'word_count' region_slug=request.region.slug language_slug=language.slug model_type="poi" %}">
-                            {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
-                                Machine translate {{ content_type }} via {{ provider }} to {{ language }}
+                    {% if request.user.is_superuser or request.user.is_staff %}
+                        <option data-bulk-action="{% url 'publish_multiple_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% blocktranslate trimmed %}
+                                Publish {{ content_type }}
                             {% endblocktranslate %}
                         </option>
-                    {% else %}
-                        <option disabled
-                                title="{% translate "This language is not supported by any available machine translation provider." %}">
+                        <option data-bulk-action="{% url 'draft_multiple_pois' region_slug=request.region.slug language_slug=language.slug %}">
                             {% blocktranslate trimmed %}
-                                Machine translate {{ content_type }} to {{ language }}
+                                Draft {{ content_type }}
                             {% endblocktranslate %}
                         </option>
                     {% endif %}
+                    {% if MT_PERMITTED %}
+                        {% translate "locations" as content_type %}
+                        {% if MT_PROVIDER %}
+                            <option id="machine-translation-option"
+                                    data-mt-provider="{{ MT_PROVIDER.name }}"
+                                    data-bulk-action="{% url 'machine_translation_pois' region_slug=request.region.slug language_slug=language.slug %}"
+                                    data-url="{% url 'word_count' region_slug=request.region.slug language_slug=language.slug model_type="poi" %}">
+                                {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
+                                    Machine translate {{ content_type }} via {{ provider }} to {{ language }}
+                                {% endblocktranslate %}
+                            </option>
+                        {% else %}
+                            <option disabled
+                                    title="{% translate "This language is not supported by any available machine translation provider." %}">
+                                {% blocktranslate trimmed %}
+                                    Machine translate {{ content_type }} to {{ language }}
+                                {% endblocktranslate %}
+                            </option>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <option data-bulk-action="{% url 'bulk_restore_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% translate "Restore locations" %}
+                    </option>
                 {% endif %}
                 {% if perms.cms.delete_poi %}
                     <option class="bulk-confirmation-dialog"

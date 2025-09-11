@@ -27,7 +27,6 @@ msgid "CMS"
 msgstr "CMS"
 
 #: cms/constants/administrative_division.py cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html
 msgid "City"
 msgstr "Stadt"
 
@@ -1781,7 +1780,6 @@ msgstr "Rechts nach Links"
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/pages_page_tree_node.html
-#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Translation up-to-date"
 msgstr "Übersetzung ist aktuell"
@@ -1790,7 +1788,6 @@ msgstr "Übersetzung ist aktuell"
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/pages_page_tree_node.html
-#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Currently in translation"
 msgstr "Wird derzeit übersetzt"
@@ -1799,7 +1796,6 @@ msgstr "Wird derzeit übersetzt"
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/pages_page_tree_node.html
-#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Translation outdated"
 msgstr "Übersetzung ist veraltet"
@@ -1808,7 +1804,6 @@ msgstr "Übersetzung ist veraltet"
 #: cms/templates/events/event_list_row.html
 #: cms/templates/pages/pages_page_tree_node.html
 #: cms/templates/poicategories/poicategory_list_row.html
-#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Translation missing"
 msgstr "Übersetzung fehlt"
@@ -1817,7 +1812,6 @@ msgstr "Übersetzung fehlt"
 #: cms/templates/events/event_list_row.html
 #: cms/templates/pages/page_xliff_import_view.html
 #: cms/templates/pages/pages_page_tree_node.html
-#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Machine translated"
 msgstr "Maschinelle Übersetzung"
@@ -2039,8 +2033,7 @@ msgstr "Alle Kategorien"
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
-#: cms/views/feedback/feedback_resource.py
+#: cms/templates/pois/poi_list.html cms/views/feedback/feedback_resource.py
 msgid "Category"
 msgstr "Kategorie"
 
@@ -2084,6 +2077,11 @@ msgid ""
 msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
+
+#: cms/forms/language_tree/language_tree_node_form.py
+#: cms/templates/languagetreenodes/languagetreenode_form.html
+msgid "An inactive language tree node cannot be visible."
+msgstr "Ein inaktiver Sprach-Knoten kann nicht sichtbar sein."
 
 #: cms/forms/linkcheck/edit_url_form.py
 msgid "Enter a valid email address."
@@ -2976,6 +2974,10 @@ msgstr "Veranstaltung"
 msgid "events"
 msgstr "Veranstaltungen"
 
+#: cms/models/events/event.py
+msgid "An event with a location can't have a meeting URL"
+msgstr "Eine Veranstaltung mit einem Ort kann keinen Meetinglink haben"
+
 #: cms/models/events/event_translation.py
 msgid "event link"
 msgstr "Veranstaltungslink"
@@ -3434,6 +3436,10 @@ msgstr "Sprach-Knoten"
 msgid "language tree nodes"
 msgstr "Sprach-Knoten"
 
+#: cms/models/languages/language_tree_node.py
+msgid "An inactive language tree node has to be invisible."
+msgstr "Ein inaktiver Sprach-Knoten kann nicht sichtbar sein."
+
 #: cms/models/media/directory.py cms/models/media/media_file.py
 msgid "parent directory"
 msgstr "Elternverzeichnis"
@@ -3592,7 +3598,7 @@ msgstr "Ob die Seite explizit archiviert ist oder nicht"
 #: cms/templates/events/event_form.html cms/templates/events/event_list.html
 #: cms/templates/pages/_generic_page_tree_header.html
 #: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
-#: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
+#: cms/templates/pois/poi_list.html
 msgid "Title in"
 msgstr "Titel auf"
 
@@ -4758,7 +4764,6 @@ msgstr ""
 
 #: cms/templates/_form_language_tabs.html
 #: cms/templates/events/event_list_row.html
-#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Default language is duplicated"
 msgstr "Standard-Sprache wird dupliziert"
@@ -4908,7 +4913,6 @@ msgstr "Inhalt ansehen"
 #: cms/templates/_related_contents_table.html
 #: cms/templates/events/event_list_row.html
 #: cms/templates/pages/_generic_page_tree_node.html
-#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Translation not available"
 msgstr "Übersetzung nicht verfügbar"
@@ -5661,7 +5665,6 @@ msgstr "Webseite"
 #: cms/templates/offertemplates/offertemplate_list.html
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html
 #: cms/templates/push_notifications/push_notification_list.html
 #: cms/templates/push_notifications/push_notification_template_list.html
 #: cms/templates/roles/role_list.html
@@ -5696,7 +5699,6 @@ msgstr "Kontakte ausgewählt"
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html
 #: cms/templates/push_notifications/push_notification_list.html
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Select bulk action"
@@ -5723,7 +5725,6 @@ msgstr "Kontakte löschen"
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/_page_xliff_export_overlay.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html
 #: cms/templates/push_notifications/push_notification_list.html
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Execute"
@@ -6710,6 +6711,10 @@ msgstr "Wiederherstellen"
 #: cms/templates/feedback/region_feedback_list.html
 msgid "Export to CSV"
 msgstr "Als CSV-Datei exportieren"
+
+#: cms/templates/feedback/region_feedback_list.html
+msgid "Forward to Integreat team"
+msgstr "Zum Integreat-Team weiterleiten"
 
 #: cms/templates/generic_auto_save_note.html
 msgid "Automatically saved on:"
@@ -8010,7 +8015,7 @@ msgid "SEO section"
 msgstr "SEO-Bereich"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
-#: cms/templates/pois/poi_list_archived_row.html
+#: cms/templates/pois/poi_list_row.html
 msgid "Restore location"
 msgstr "Ort wiederherstellen"
 
@@ -8053,7 +8058,6 @@ msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
-#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Delete location"
 msgstr "Ort löschen"
@@ -8154,9 +8158,13 @@ msgstr "Kontakt erstellen"
 msgid "The new contact was successfully created."
 msgstr "Der neue Kontakt wurde erfolgreich erstellt."
 
-#: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
+#: cms/templates/pois/poi_list.html
 msgid "Archived locations"
 msgstr "Archivierte Orte"
+
+#: cms/templates/pois/poi_list.html
+msgid "Back to locations"
+msgstr "Zurück zu Orte"
 
 #: cms/templates/pois/poi_list.html
 msgid "Create location"
@@ -8169,15 +8177,15 @@ msgid ""
 msgstr ""
 "Sie können Orte nur in der Standard-Sprache (%(default_language)s) anlegen."
 
-#: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
+#: cms/templates/pois/poi_list.html
 msgid "Street"
 msgstr "Straße"
 
-#: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
+#: cms/templates/pois/poi_list.html
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
+#: cms/templates/pois/poi_list.html
 msgid "Country"
 msgstr "Land"
 
@@ -8186,10 +8194,18 @@ msgid "No locations found with these filters."
 msgstr "Keine Orte mit diesen Filtern gefunden."
 
 #: cms/templates/pois/poi_list.html
+msgid "No archived locations found with these filters."
+msgstr "Keine archivierten Orte mit diesen Filtern gefunden."
+
+#: cms/templates/pois/poi_list.html
 msgid "No locations available yet."
 msgstr "Noch keine Orte vorhanden."
 
-#: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
+#: cms/templates/pois/poi_list.html
+msgid "No archived locations available yet."
+msgstr "Noch keine archivierten Orte vorhanden."
+
+#: cms/templates/pois/poi_list.html
 msgid "Locations selected"
 msgstr "Orte ausgewählt"
 
@@ -8197,36 +8213,13 @@ msgstr "Orte ausgewählt"
 msgid "Archive locations"
 msgstr "Orte archivieren"
 
-#: cms/templates/pois/poi_list_archived.html
-msgid "Back to locations"
-msgstr "Zurück zu Orte"
-
-#: cms/templates/pois/poi_list_archived.html
-msgid "Publication Status"
-msgstr "Veröffentlichungsstatus"
-
-#: cms/templates/pois/poi_list_archived.html
-msgid "No locations archived yet."
-msgstr "Noch keine Orte archiviert."
-
-#: cms/templates/pois/poi_list_archived.html
+#: cms/templates/pois/poi_list.html
 msgid "Restore locations"
 msgstr "Orte wiederherstellen"
 
-#: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "No category assigned"
 msgstr "Keine Kategorie zugewiesen"
-
-#: cms/templates/pois/poi_list_archived_row.html
-msgid "You cannot delete a location which is used by an event."
-msgstr ""
-"Der Ort kann nicht gelöscht werden, da er von einer Veranstaltung oder einem "
-"Kontakt verwendet wird."
-
-#: cms/templates/pois/poi_list_archived_row.html
-msgid "This also involves archived events."
-msgstr "Dies betrifft auch archivierte Veranstaltungen."
 
 #: cms/templates/pois/poi_list_row.html
 msgid "Open location in web app"
@@ -9589,8 +9582,23 @@ msgstr[0] "Es gibt bereits eine aktuelle Übersetzung für {}"
 msgstr[1] "Es gibt bereits aktuelle Übersetzungen für {}"
 
 #: cms/views/bulk_action_views.py
-msgid "The selected {} were successfully {}"
-msgstr "Die ausgewählten {} wurden erfolgreich {}"
+#, python-brace-format
+msgid ""
+"The selected {model_name} could not be {action}, because inactive language "
+"tree nodes cannot be visible."
+msgstr ""
+"Die ausgewählten {model_name} konnten nicht {action} werden, da inaktive "
+"Sprachknoten nicht sichtbar sein dürfen."
+
+#: cms/views/bulk_action_views.py
+#, python-brace-format
+msgid "The selected {model_name} could not be {action}"
+msgstr "Die ausgewählten {model_name} konnten nicht {action} werden"
+
+#: cms/views/bulk_action_views.py
+#, python-brace-format
+msgid "The selected {model_name} were successfully {action}"
+msgstr "Die ausgewählten {model_name} wurden erfolgreich {action}"
 
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
@@ -10095,6 +10103,10 @@ msgstr "Feedback wurde erfolgreich gelöscht"
 #: cms/views/feedback/feedback_resource.py
 msgid "Read by"
 msgstr "Gelesen von"
+
+#: cms/views/feedback/region_feedback_actions.py
+msgid "Feedback was successfully forwarded"
+msgstr "Feedback wurde erfolgreich weitergeleitet"
 
 #: cms/views/form_views.py cms/views/poi_categories/poi_category_form_view.py
 msgid "{} \"{}\" was successfully saved"
@@ -11839,6 +11851,28 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#, python-brace-format
+#~ msgid "{model_name} {object_names} was successfully deactivated."
+#~ msgid_plural ""
+#~ "The following {model_name} were successfully deactivated: {object_names}"
+#~ msgstr[0] "{model_name} {object_names} wurde erfolgreich deaktiviert."
+#~ msgstr[1] ""
+#~ "Die folgenden {model_name} wurden erfolgreich deaktiviert: {object_names}"
+
+#~ msgid "Publication Status"
+#~ msgstr "Veröffentlichungsstatus"
+
+#~ msgid "No locations archived yet."
+#~ msgstr "Noch keine Orte archiviert."
+
+#~ msgid "You cannot delete a location which is used by an event."
+#~ msgstr ""
+#~ "Der Ort kann nicht gelöscht werden, da er von einer Veranstaltung oder "
+#~ "einem Kontakt verwendet wird."
+
+#~ msgid "This also involves archived events."
+#~ msgstr "Dies betrifft auch archivierte Veranstaltungen."
+
 #~ msgid "it was embedded as live content from another page."
 #~ msgstr "sie als Live Inhalt in anderen Seiten eingebettet ist."
 
@@ -12958,9 +12992,6 @@ msgstr ""
 #~ "Sie erhalten diese E-Mail, weil für Sie ein Integreat-Konto erstellt "
 #~ "wurde."
 
-#~ msgid "Your Integreat team"
-#~ msgstr "Ihr Integreat-Team"
-
 #~ msgid "Activate your Integreat account"
 #~ msgstr "Aktivieren Sie Ihr Integreat-Konto"
 
@@ -13553,9 +13584,6 @@ msgstr ""
 
 #~ msgid "The passwords do not match."
 #~ msgstr "Die Passwörter stimmen nicht überein."
-
-#~ msgid "You can only move language tree nodes within one region."
-#~ msgstr "Sie können Sprach-Knoten nur innerhalb einer Region verschieben."
 
 #~ msgid "Author Chat"
 #~ msgstr "Autor:innen-Chat"

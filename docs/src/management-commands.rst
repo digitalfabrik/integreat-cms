@@ -231,6 +231,24 @@ Update ALL link text of links of the given URL:
 * ``USERNAME``: Associate any new created translations with ``USERNAME``
 
 
+``fetch_page_accesses``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Fetches page accesses from Matomo and store them in the database
+
+    integreat-cms-cli fetch_page_accesses --start-date START_DATE --end-date END_DATE --period PERIOD [--region-slug REGION_SLUG] [--sync SYNC]
+
+**Arguments:**
+
+* ``START_DATE``: Earliest date to fetch, format should be yyyy-mm-dd
+* ``END_DATE``: Latest date to fetch, format should be yyyy-mm-dd
+
+**Options:**
+
+* ``REGION_SLUG``: Region to fetch page accesses for, must have statistics activated. If non provided, page accesses from all regions with statistics activated will be fetched
+* ``SYNC``: When True page accesses will be fetched as a synchronous process. If not provided or False, page accesses are fetched via celery.
+
+
 Create new commands
 -------------------
 

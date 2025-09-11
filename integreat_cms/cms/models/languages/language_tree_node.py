@@ -4,6 +4,7 @@ from typing import Any, TYPE_CHECKING
 
 from cacheops import invalidate_obj
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
@@ -232,3 +233,14 @@ class LanguageTreeNode(AbstractTreeNode):
         )
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view")
+        #: The constraints for this model
+        constraints = [
+            *AbstractTreeNode.Meta.constraints,
+            models.CheckConstraint(
+                check=~Q(active=False, visible=True),
+                name="language_tree_node_inactive_requires_invisible",
+                violation_error_message=_(
+                    "An inactive language tree node has to be invisible.",
+                ),
+            ),
+        ]
