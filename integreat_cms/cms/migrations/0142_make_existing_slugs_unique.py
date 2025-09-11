@@ -59,7 +59,7 @@ def make_slugs_unique(apps: Any, _schema_editor: Any) -> None:
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0138_configurable_mt_budget"),
+        ("cms", "0141_languagetreenode_language_tree_node_inactive_requires_invisible"),
     ]
 
     operations = [
