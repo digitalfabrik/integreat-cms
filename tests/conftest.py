@@ -114,6 +114,7 @@ def login_role_user(
     # Only log in user if the role is not anonymous
     if request.param != ANONYMOUS:
         with django_db_blocker.unblock():
+            logging.info("Inside <login_role_user> request.param: " + request.param.lower())
             user = get_user_model().objects.get(username=request.param.lower())
             client.force_login(user)
     return client, request.param
