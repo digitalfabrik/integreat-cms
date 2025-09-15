@@ -43,7 +43,8 @@ parameters = tuple(
 @pytest.mark.parametrize(
     "parameters", parameters, ids=[" ".join(x) for x in parameters]
 )
-@pytest.mark.django_db
+@pytest.mark.order("last")
+@pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_copy_pois_succeeds(
     load_test_data_transactional: None,
     parameters: tuple[str],
