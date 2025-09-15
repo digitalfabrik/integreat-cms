@@ -99,7 +99,7 @@ window.addEventListener("load", () => {
                 },
                 insert: {
                     title: "Insert",
-                    items: "add_shortcode | openmediacenter add_link add_contact media | charmap hr",
+                    items: "add_shortcode_page | add_shortcode_contact | openmediacenter add_link add_contact media | charmap hr",
                 },
             },
             link_title: false,
