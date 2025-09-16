@@ -3,6 +3,14 @@
 <div class="p-4">
     <p class="uppercase font-bold">
         {% translate "Shown languages" %}
+        <div class="grid grid-cols-[auto_auto_1fr] gap-x-4 items-center space-y-2">
+            <input type="checkbox"
+                checked=""
+                id="select-all-languages"/>
+            <label for="select-all-languages">
+                {% translate "Select all languages"%}
+            </label>
+        </div>
         <div class="grid grid-cols-[auto_auto_auto_1fr] gap-x-4 items-center space-y-2">
             {% for language in languages %}
                 {{ language }}

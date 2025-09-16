@@ -8,8 +8,9 @@ import {
     LinearScale,
     Legend,
     Tooltip,
+    LegendItem,
 } from "chart.js";
-import { setPageAccessesEventListeners } from "./statistics-page-accesses";
+import { setPageAccessesEventListeners, updatePageAccesses } from "./statistics-page-accesses";
 
 export type AjaxResponse = {
     exportLabels: Array<string>;
@@ -23,6 +24,64 @@ Chart.register(LineElement, PointElement, LineController, CategoryScale, LinearS
 
 // global variable for export labels (better for csv than the readable labels)
 let exportLabels: Array<string>;
+
+/*
+ * This function toggles a single language in the chart
+ */
+const toggleSingleChartLanguage = (item: LegendItem, chart: Chart): void => {
+    chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
+    chart.update();
+};
+
+/*
+ * This function sets the language legend with the available languages for a region
+ */
+const setStatisticsLegend = (data: AjaxResponse): void => {
+    const legendDiv = document.getElementById("chart-legend-container");
+    const legendDivInner = document.getElementById("chart-legend");
+    if (legendDiv && legendDivInner) {
+        legendDivInner.innerHTML = data.legend;
+        legendDiv.classList.remove("hidden");
+    }
+};
+
+/*
+ * This function sets the event listener for selecting all languages at the same time
+ */
+const setSelectAllLanguagesEventListener = (chart: Chart, items: LegendItem[]): void => {
+    const allLanguagesSelected: HTMLInputElement = document.getElementById("select-all-languages") as HTMLInputElement;
+    allLanguagesSelected?.addEventListener("change", () => {
+        const languageCheckboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll("[data-chart-item]");
+        languageCheckboxes.forEach((checkbox: HTMLInputElement) => {
+            const editableCheckbox = checkbox;
+            if (checkbox.getAttribute("data-language-slug")) {
+                editableCheckbox.checked = allLanguagesSelected.checked;
+                const dataChartItem = checkbox.getAttribute("data-chart-item");
+                const item = items.find((item) => item.text === dataChartItem);
+                toggleSingleChartLanguage(item, chart);
+                updatePageAccesses();
+            }
+        });
+    });
+};
+
+/*
+ * This function sets the event listeners for the language legend
+ */
+const setLegendEventlisteners = (): void => {
+    const chart = Chart.instances[0];
+    const items = chart.options.plugins.legend.labels.generateLabels(chart);
+    items.forEach((item) => {
+        const checkbox = document.querySelector(`[data-chart-item="${item.text}"]`);
+        checkbox?.addEventListener("change", () => {
+            toggleSingleChartLanguage(item, chart);
+            if (checkbox.getAttribute("data-language-slug")) {
+                updatePageAccesses();
+            }
+        });
+    });
+    setSelectAllLanguagesEventListener(chart, items);
+};
 
 /*
  * This function updates the chart according to the dates currently selected in the form.
@@ -88,19 +147,7 @@ const updateChart = async (): Promise<void> => {
             // Save export labels
             exportLabels = data.exportLabels;
 
-            const legendDiv = document.getElementById("chart-legend-container");
-            const legendDivInner = document.getElementById("chart-legend");
-            if (legendDiv && legendDivInner) {
-                legendDivInner.innerHTML = data.legend;
-                legendDiv.classList.remove("hidden");
-            }
-            const items = chart.options.plugins.legend.labels.generateLabels(chart);
-            items.forEach((item) => {
-                document.querySelector(`[data-chart-item="${item.text}"]`)?.addEventListener("change", () => {
-                    chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
-                    chart.update();
-                });
-            });
+            setStatisticsLegend(data);
         } else if (response.status === HTTP_STATUS_BAD_REQUEST) {
             // Client error - invalid form parameters supplied
             const data = await response.json();
@@ -257,6 +304,9 @@ window.addEventListener("load", async () => {
     // Set event handlers for page based statistics
     setPageAccessesEventListeners();
 
+    // Set event handlers for language legend
+    setLegendEventlisteners();
+
     // Initialize export button
     toggleExportButton();
 
@@ -267,6 +317,7 @@ window.addEventListener("load", async () => {
         event.preventDefault();
         // Update chart
         await updateChart();
+        setLegendEventlisteners();
     });
 
     // Set event handler for exporting the data

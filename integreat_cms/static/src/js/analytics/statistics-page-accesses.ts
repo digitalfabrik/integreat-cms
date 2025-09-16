@@ -84,7 +84,7 @@ const setDates = () => {
 };
 
 /* The main function which updates the accesses */
-const updatePageAccesses = async (): Promise<void> => {
+export const updatePageAccesses = async (): Promise<void> => {
     let parameters = {};
 
     const statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
@@ -168,17 +168,5 @@ export const setPageAccessesEventListeners = () => {
             loaderIsHidden = toggleLoader(loaderIsHidden);
             await updatePageAccesses();
         });
-
-        // Set event handler for updating Page Accesses when selected languages change
-        const chartLegendElement = document.getElementById("chart-legend");
-        if (chartLegendElement) {
-            chartLegendElement.addEventListener("change", async (event) => {
-                const targetElement = event.target as HTMLInputElement;
-                if (targetElement.type === "checkbox" && targetElement.getAttribute("data-language-slug")) {
-                    loaderIsHidden = toggleLoader(loaderIsHidden);
-                    updatePageAccesses();
-                }
-            });
-        }
     }
 };
