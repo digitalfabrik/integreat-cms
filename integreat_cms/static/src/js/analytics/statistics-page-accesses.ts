@@ -17,7 +17,6 @@ let chart: Chart | null = null;
 let statisticsForm: HTMLFormElement;
 let pageAccessesURL: string;
 let pageAccessesForm: HTMLFormElement;
-let chartLegendElement: HTMLElement;
 
 /* Loop over the object containing the accesses over time and count them to a total */
 const countAccesses = (accessesOverTime: object): number => {
@@ -147,7 +146,7 @@ const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
 };
 
 /* The main function which updates the accesses */
-const updatePageAccesses = async (): Promise<void> => {
+export const updatePageAccesses = async (): Promise<void> => {
     const pageAccessesLoading = document.getElementById("page-accesses-loading");
     pageAccessesLoading.classList.remove("hidden");
 
@@ -176,7 +175,6 @@ export const setPageAccessesEventListeners = () => {
     statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
     pageAccessesForm = document.getElementById("statistics-page-access") as HTMLFormElement;
     pageAccessesURL = pageAccessesForm.getAttribute("data-page-accesses-url");
-    chartLegendElement = document.getElementById("chart-legend");
     if (pageAccessesForm && statisticsForm) {
         chart = Chart.instances[0];
         updatePageAccesses();
@@ -184,14 +182,6 @@ export const setPageAccessesEventListeners = () => {
             // Prevent form submit
             event.preventDefault();
             updatePageAccesses();
-        });
-
-        // Set event handler for updating Page Accesses when selected languages change
-        chartLegendElement.addEventListener("change", async (event) => {
-            const targetElement = event.target as HTMLInputElement;
-            if (targetElement.type === "checkbox" && targetElement.getAttribute("data-language-slug")) {
-                updatePageAccesses();
-            }
         });
     }
 };
