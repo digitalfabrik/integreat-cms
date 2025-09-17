@@ -16,6 +16,7 @@ if TYPE_CHECKING:
 from unittest.mock import patch
 
 import pytest
+import logging
 from django.urls import reverse
 
 from integreat_cms.cms.constants import status
@@ -49,7 +50,7 @@ provider_language_combination = [
     ("DeepL", "de", "en"),
     ("Google Translate", "en", "ar"),
 ]
-
+logger = logging.getLogger(__name__)
 
 def mt_setup(
     deepl_source: list[str],
@@ -172,6 +173,7 @@ def test_bulk_mt(
                 source_language_slug,
                 target_language_slug,
             )
+            logger.debug(translations)
 
             for translation in translations:
                 assert_message_in_log(
@@ -614,6 +616,7 @@ def test_automatic_translation(
                 source_language_slug,
                 target_language_slug,
             )
+            logger.debug(translations)
             source_translation = translations[0][source_language_slug]
             target_translation = translations[0][target_language_slug]
 

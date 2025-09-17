@@ -38,7 +38,10 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
         :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
                            subclass of the current content type
         """
+        logger.debug("settings")
+        logger.debug(settings)
         super().__init__(request, form_class)
+
         if not MachineTranslationProvider.is_permitted(
             request.region,
             request.user,
@@ -97,6 +100,12 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                     if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
                         mime_type = "text/html" if attr == "content" else "text/plain"
                         parent = settings.GOOGLE_PARENT_PARAM
+                        logger.debug("Parameters for TranslatTextRequest")
+                        logger.debug(attr_val)
+                        logger.debug(parent)
+                        logger.debug(self.target_language_key)
+                        logger.debug(self.source_language.slug)
+                        logger.debug(mime_type)
                         request = translate_v3.TranslateTextRequest(
                             contents=[attr_val],
                             parent=parent,
@@ -104,6 +113,8 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                             source_language_code=self.source_language.slug,
                             mime_type=mime_type,
                         )
+                        logger.debug("Self of invoke_translation_api")
+                        logger.debug(self)
                         data[attr] = (
                             self.translator_v3.translate_text(request=request)
                             .translations[0]
