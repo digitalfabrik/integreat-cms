@@ -14,7 +14,7 @@ Following packages are required before installing the project (install them with
 
 * `git <https://git-scm.com/>`_
 * `npm <https://www.npmjs.com/>`_ version 7 or later
-* `nodejs <https://nodejs.org/>`_ version 18 or later
+* `nodejs <https://nodejs.org/>`_ version 22 or later
 * `python3 <https://www.python.org/>`_ version 3.9 to 3.11 (for above 3.11 see below)
 * `python3-pip <https://packages.ubuntu.com/search?keywords=python3-pip>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__) / `python-pip <https://www.archlinux.de/packages/extra/x86_64/python-pip>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
 * `python3-venv <https://packages.ubuntu.com/search?keywords=python3+venv>`_ (Only `Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__)
@@ -42,7 +42,7 @@ In the following, we provide the commands to install all these prerequisites on 
     # Install basic requirements
     sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3-venv libcairo2
     # Add PPA repository for NodeJS
-    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
     # Add PPA repository for Docker
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
@@ -63,7 +63,7 @@ In the following, we provide the commands to install all these prerequisites on 
     # Install basic requirements
     sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3.11 python3.11-venv libcairo2
     # Add PPA repository for NodeJS
-    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
     # Add PPA repository for Docker
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
