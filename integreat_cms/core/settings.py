@@ -1473,3 +1473,13 @@ CELERY_RESULT_BACKEND = os.environ.get(
         else "redis://localhost:6379/0"
     ),
 )
+
+########################
+# Beta test permission #
+########################
+
+# Slugs of regions participating in the pilot phase of page based statistics
+PILOT_REGIONS_PAGE_BASED_STATISTICS = os.environ.get(
+    "INTEGREAT_CMS_PILOT_REGIONS_PAGE_BASED_STATISTICS",
+    [""],
+)
