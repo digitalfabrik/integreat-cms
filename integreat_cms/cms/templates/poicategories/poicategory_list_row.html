@@ -28,10 +28,13 @@
     </td>
     <td class="py-2 pr-2 text-left flex items-center gap-2">
         {% if poi_category.icon %}
-            <object class="preview-color w-8 h-8"
-                    data="{% get_static_prefix %}/svg/poi-category-icons/{{ poi_category.icon }}.svg"
-                    data-color="{{ poi_category.color|default_if_none:"" }}"
-                    type="image/svg+xml"></object>
+            <div class="w-8 h-8 poi-category-circle"
+                 style="background: {{ poi_category.color|default_if_none:"" }}">
+                <object class="preview-color w-1.4 h-1.4"
+                        data="{% get_static_prefix %}svg/poi-category-icons/{{ poi_category.icon }}.svg"
+                        data-color="{{ poi_category.color|default_if_none:"" }}"
+                        type="image/svg+xml"></object>
+            </div>
             <div>
                 {{ poi_category.get_icon_display }}
             </div>
