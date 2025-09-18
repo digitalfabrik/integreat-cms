@@ -20,7 +20,7 @@ There are no intended deviations from the issue and design.
 
 
 ### How to test
-<!-- Non-trivial prerequisites and notes to test this (e.g. specific environment variables and settings to be set, --> 
+<!-- Non-trivial prerequisites and notes on how to test this (e.g. specific environment variables and settings to be set, --> 
 <!-- and things to pay attention to) -->
 
 
