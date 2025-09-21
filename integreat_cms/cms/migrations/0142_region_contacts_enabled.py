@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0138_configurable_mt_budget"),
+        ("cms", "0141_languagetreenode_language_tree_node_inactive_requires_invisible"),
     ]
 
     operations = [
