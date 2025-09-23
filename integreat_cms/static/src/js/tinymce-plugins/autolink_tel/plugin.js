@@ -191,9 +191,10 @@
             editor.execCommand("createlink", false, callableNumber);
             if (defaultLinkTarget !== false) {
                 editor.dom.setAttrib(editor.selection.getNode(), "target", defaultLinkTarget);
-                editor.selection.setContent(prettyPrintedNumber);
+                editor.insertContent(prettyPrintedNumber);
             }
             const link = editor.selection.getNode();
+            console.log(editor.selection.getNode());
             editor.selection.select(link, false);
             editor.selection.collapse(false);
             editor.nodeChanged();
