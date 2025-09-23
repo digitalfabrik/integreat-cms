@@ -12,7 +12,7 @@
             <div class="pt-4 lg:pt-0 3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
                 <div class="flex flex-col flex-wrap col-span-1 3xl:col-span-1">
                     {% include "statistics/statistics_chart.html" with box_id="statistics_chart" %}
-                    {% if perms.cms.view_page_based_statistics %}
+                    {% if show_page_based_statistics %}
                         {% include "statistics/statistics_viewed_pages.html" with box_id="statistics_viewed_pages" %}
                     {% endif %}
                 </div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        {% if perms.cms.view_page_based_statistics %}
+        {% if show_page_based_statistics %}
             {% include "../tutorials/page_access_statistics.html" %}
         {% endif %}
     {% endblock content %}
