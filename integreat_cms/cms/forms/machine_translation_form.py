@@ -131,6 +131,9 @@ class MachineTranslationForm(CustomContentModelForm):
         if not cleaned_data.get("automatic_translation"):
             cleaned_data["mt_translations_to_create"] = LanguageTreeNode.objects.none()
             cleaned_data["mt_translations_to_update"] = LanguageTreeNode.objects.none()
+
+        if not self.errors:
+            self.instance.is_validated = True
         return cleaned_data
 
     def save(

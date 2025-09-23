@@ -233,6 +233,7 @@ class TestMediaFile:
             event=upcoming_event,
             language=german_language,
             content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>',
+            slug="slug",
         )
 
         find_all_links()
@@ -274,6 +275,7 @@ class TestMediaFile:
             event=past_event,
             language=german_language,
             content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>',
+            slug="slug",
         )
 
         find_all_links()
@@ -325,6 +327,7 @@ class TestMediaFile:
             event=past_event,
             language=german_language,
             content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>',
+            slug="slug",
         )
 
         find_all_links()
@@ -374,6 +377,7 @@ class TestMediaFile:
             event=recurring_event,
             language=german_language,
             content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>',
+            slug="slug",
         )
 
         find_all_links()
