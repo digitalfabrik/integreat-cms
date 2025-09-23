@@ -39,7 +39,7 @@ To configure your development environment on your system, please follow these st
 
 1. Ensure that the following packages are installed alongside your preferred IDE:
    - `npm` version 7 or later
-   - `nodejs` version 18 or later
+   - `nodejs` version 22 or later
    - `python3` version 3.11 or later
    - `python3-pip` (Debian-based distributions) / `python-pip` (Arch-based distributions)
    - `python3-venv` (only on Debian-based distributions)
