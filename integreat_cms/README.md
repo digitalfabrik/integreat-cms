@@ -11,6 +11,8 @@
 
 This content management system helps local integration experts to provide multilingual information for newcomers.
 
+![A screenshot of the content form](../screenshots/page-form.png)
+
 ## TL;DR
 
 ### Prerequisites
