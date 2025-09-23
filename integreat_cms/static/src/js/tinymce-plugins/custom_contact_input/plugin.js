@@ -66,7 +66,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
             return null;
         };
         const closeContextToolbar = () => {
-            editor.fire("contexttoolbar-hide", {
+            editor.dispatch("contexttoolbar-hide", {
                 toolbarKey: "contact_context_toolbar",
             });
         };
