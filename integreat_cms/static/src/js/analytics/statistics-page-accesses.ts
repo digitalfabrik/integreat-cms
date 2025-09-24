@@ -59,7 +59,6 @@ const resetAllAccessesField = (accessFields: HTMLCollectionOf<Element>, isEmpty:
     }
 };
 
-
 /* Set the selected date at the top of the table */
 const setDates = () => {
     const unformattedStartDate = (document.getElementById("id_start_date") as HTMLInputElement).value;
