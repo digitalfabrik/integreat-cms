@@ -59,10 +59,11 @@ def test_find_missing_versions_failure(load_test_data: None) -> None:
         out
         == "\x1b[0;34mChecking the model PageTranslation for version inconsistencies...\x1b[0m\n"
     )
+
+    page = page_translation.foreign_object.get_repr()
+    language = page_translation.language.get_repr()
     assert err == (
-        "\x1b[0;31mThe latest version of <Page (id: 1, region: augsburg, slug: willkommen)>"
-        " in <Language (id: 1, slug: de, name: German)>"
-        " is 3, but there are only 2 translation objects!\x1b[0m\n"
+        f"\x1b[0;31mThe latest version of {page} in {language} is 3, but there are only 2 translation objects!\x1b[0m\n"
     )
     # restore previous state to not interfere with other tests.
     page_translation.version -= 1
