@@ -5,9 +5,8 @@ import sys
 from typing import Any
 
 from django.core.management.base import CommandParser
-from django.db import connection
 
-from integreat_cms.cms.models.media.media_file import Directory, MediaFile
+from integreat_cms.cms.models.media.media_file import MediaFile
 from integreat_cms.cms.models.pages.page import Page
 
 from ..log_command import LogCommand
@@ -15,52 +14,11 @@ from ..log_command import LogCommand
 logger = logging.getLogger(__name__)
 
 
-def get_mixed_tree_paths() -> dict[str, Any]:
-    """
-    Recursively builds paths for both Directory and MediaFile objects.
-    The CTE will first build paths for directories and then attach MediaFile objects.
-    """
-    # Get the table names dynamically
-    directory_table = Directory._meta.db_table
-    mediafile_table = MediaFile._meta.db_table
-
-    # ruff: noqa: S608
-    with connection.cursor() as cursor:
-        cursor.execute(f"""
-            WITH RECURSIVE directory_tree(id, name, parent_id, full_path, is_directory) AS (
-                -- Base case: Select root directories (parent_id IS NULL)
-                SELECT id, name, parent_id, name::TEXT AS full_path, TRUE
-                FROM {directory_table}
-                WHERE parent_id IS NULL
-
-                UNION ALL
-
-                -- Recursive case: Join directories and their subdirectories (children)
-                SELECT d.id, d.name, d.parent_id, (dt.full_path || '/' || d.name)::TEXT, TRUE
-                FROM {directory_table} d
-                JOIN directory_tree dt ON d.parent_id = dt.id
-            ),
-            mediafile_tree AS (
-                -- MediaFile case: Attach MediaFile objects to the full path of the parent directory
-                SELECT mf.id, mf.name, mf.parent_directory_id AS parent_id, (dt.full_path || '/' || mf.name)::TEXT AS full_path, FALSE AS is_directory
-                FROM {mediafile_table} mf
-                JOIN directory_tree dt ON mf.parent_directory_id = dt.id
-            )
-
-            -- Combine the results from both directories and media files
-            SELECT id, full_path, is_directory FROM directory_tree
-            UNION ALL
-            SELECT id, full_path, is_directory FROM mediafile_tree;
-        """)
-
-        rows = cursor.fetchall()
-        return {row[1]: {"id": row[0], "is_directory": row[2]} for row in rows}
-
-
 class Command(LogCommand):
     """
     Management command to change references of media files from a source path to a target path.
-    This command reads a CSV file and then changes the reference from the first column (source path) to the second column (target path).
+    This command reads a CSV file and then changes the reference from the first and second column (source region and path)
+    to the one of the third and fourth column (target region and path).
     """
 
     help = "Replace references of media files from source paths with target paths based on a CSV file."
@@ -72,10 +30,10 @@ class Command(LogCommand):
         :param parser: The argument parser
         """
         parser.add_argument(
-            "path",
+            "csv",
             nargs="?",
             default=None,
-            help="The path to the csv file we want to import from",
+            help="The path to the csv file we want to read the replacements from",
         )
 
     def should_stdin_be_used(self, options: dict) -> bool:
@@ -83,7 +41,7 @@ class Command(LogCommand):
             sys.platform != "win32"
             and not sys.stdin.isatty()
             and select.select([sys.stdin], [], [], 0)[0]
-            and not options["path"]
+            and not options["csv"]
         )
 
     def handle(self, *args: Any, **options: Any) -> None:
@@ -91,13 +49,12 @@ class Command(LogCommand):
         failed = 0
 
         with (
-            open(options["path"], newline="")
+            open(options["csv"], newline="")
             if not self.should_stdin_be_used(options)
             else sys.stdin as csvfile
         ):
             reader = csv.reader(csvfile, delimiter=",", quotechar="|")
             next(reader, None)
-            full_path_lookup = get_mixed_tree_paths()
 
             for row in reader:
                 path = {
