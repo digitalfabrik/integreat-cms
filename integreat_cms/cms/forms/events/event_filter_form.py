@@ -11,12 +11,19 @@ from typing import TYPE_CHECKING
 
 from django import forms
 from django.db.models import F, Q
+from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     from ...models import POI, Region
     from ...models.events.event import EventQuerySet
 
-from ...constants import all_day, calendar_filters, events_time_range, recurrence
+from ...constants import (
+    all_day,
+    calendar_filters,
+    events_time_range,
+    recurrence,
+    status,
+)
 from ...models import EventTranslation
 from ..custom_filter_form import CustomFilterForm
 
@@ -24,10 +31,6 @@ logger = logging.getLogger(__name__)
 
 
 class EventFilterForm(CustomFilterForm):
-    """
-    Form to filter the event list
-    """
-
     all_day = forms.TypedMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple(attrs={"class": "default-checked"}),
         choices=all_day.CHOICES,
@@ -82,6 +85,12 @@ class EventFilterForm(CustomFilterForm):
     poi_id = forms.IntegerField(widget=forms.HiddenInput, initial=-1, required=False)
 
     query = forms.CharField(required=False)
+
+    status = forms.ChoiceField(
+        label=_("Publication status"),
+        choices=[("", _("All")), *status.without(status.REVIEW)],
+        required=False,
+    )
 
     def filter_events_by_time_range(self, events: EventQuerySet) -> EventQuerySet:
         """
@@ -218,6 +227,26 @@ class EventFilterForm(CustomFilterForm):
             events = events.filter(pk__in=event_ids)
         return events, query
 
+    def filter_events_by_status(
+        self, events: EventQuerySet, language_slug: str
+    ) -> EventQuerySet:
+        """
+        This method filters events by their status (draft, published, etc.)
+        :param events: Queryset of events that should be filtered
+        """
+        if self.cleaned_data["status"]:
+            selected_status = self.cleaned_data["status"]
+            event_ids = []
+            for event in events:
+                current_translation = event.get_translation(language_slug)
+                if (
+                    current_translation
+                    and selected_status == current_translation.status
+                ):
+                    event_ids.append(event.id)
+            return events.model.objects.filter(id__in=event_ids)
+        return events
+
     def apply(
         self,
         events: EventQuerySet,
@@ -243,6 +272,7 @@ class EventFilterForm(CustomFilterForm):
         events = self.filter_events_by_all_day(events)
         events = self.filter_events_by_recurrence(events)
         events = self.filter_events_by_imported_event(events)
+        events = self.filter_events_by_status(events, self.language_slug)
         events, query = self.search_events(events)
 
         return events, poi, query
