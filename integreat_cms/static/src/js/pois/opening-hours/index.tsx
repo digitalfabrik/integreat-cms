@@ -112,35 +112,47 @@ export const addOpeningHoursListener = () => {
 
     let updateLatch = 0;
 
-    document.getElementById("id_use_location_opening_hours").addEventListener("change", (e) => {
-        // Only reset if we changed to adopt the opening hours from the location
-        if ((e.target as HTMLInputElement).checked) {
-            updateLatch += 1;
-            const thisTimeAround = updateLatch;
-            setTimeout(() => {
-                if (updateLatch === thisTimeAround) {
-                    updateLatch = 0;
-                }
-            }, 1);
-            resetOpeningHoursListener();
-        }
-    });
+    const useLocationOpeningHours: HTMLElement | null = document.getElementById(
+        "id_use_location_opening_hours"
+    ) as HTMLInputElement | null;
+    if (useLocationOpeningHours) {
+        useLocationOpeningHours.addEventListener("change", (e) => {
+            // Only reset if we changed to adopt the opening hours from the location
+            if ((e.target as HTMLInputElement).checked) {
+                updateLatch += 1;
+                const thisTimeAround = updateLatch;
+                setTimeout(() => {
+                    if (updateLatch === thisTimeAround) {
+                        updateLatch = 0;
+                    }
+                }, 1);
+                resetOpeningHoursListener();
+            }
+        });
+    }
 
-    const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-            if (mutation.type === "childList" || mutation.type === "attributes" || mutation.type === "characterData") {
-                if (updateLatch === 0) {
-                    addOpeningHoursDataChangedListener();
+    const openingHoursTextarea = document.getElementById("id_opening_hours");
+    if (openingHoursTextarea) {
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                if (
+                    mutation.type === "childList" ||
+                    mutation.type === "attributes" ||
+                    mutation.type === "characterData"
+                ) {
+                    if (updateLatch === 0) {
+                        addOpeningHoursDataChangedListener();
+                    }
                 }
             }
-        }
-    });
+        });
 
-    observer.observe(document.getElementById("id_opening_hours"), {
-        childList: true,
-        characterData: true,
-        subtree: true,
-    });
+        observer.observe(document.getElementById("id_opening_hours"), {
+            childList: true,
+            characterData: true,
+            subtree: true,
+        });
+    }
 };
 
 document.addEventListener("DOMContentLoaded", addOpeningHoursListener);
