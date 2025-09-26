@@ -4,7 +4,7 @@
 <div id="left-sidebar-column"
      class="flex flex-col flex-auto mt-4 md:mt-0 md:mr-4 3xl:mr-0 md:w-full 4xl:mr-4"
      {% if request.user.distribute_sidebar_boxes %}data-enable-automatic-sidebar-distribution{% endif %}>
-    <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white hidden mb-2"
+    <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white mb-2"
          id="chart-legend-container">
         <div class="rounded p-4 bg-water-500">
             <h3 class="heading font-bold text-black">
@@ -13,7 +13,7 @@
         </div>
         <div id="chart-legend">
             {% if request.region.statistics_enabled and perms.cms.view_statistics %}
-                {% include "statistics/_statistics_legend.html" with box_id="statistics_legend" %}
+                {% include "statistics/_statistics_legend.html" with box_id="statistics_legend" languages=languages access_legends=access_legends %}
             {% endif %}
         </div>
     </div>

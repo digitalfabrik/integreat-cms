@@ -5,7 +5,7 @@
         {% translate "Shown languages" %}
         <div class="grid grid-cols-[auto_auto_auto_1fr] gap-x-4 items-center space-y-2">
             {% for language in languages %}
-                {{ language }}
+                {% include "statistics/_statistics_legend_item.html" with name=language.translated_name language=language color=language.language_color %}
             {% endfor %}
         </div>
     </p>
@@ -17,8 +17,8 @@
         {% translate "Accesses" %}
     </p>
     <div class="grid grid-cols-[auto_auto_1fr] gap-x-4 items-center space-y-2">
-        {% for access in accesses %}
-            {{ access }}
+        {% for name, color in access_legends.items %}
+            {% include "statistics/_statistics_legend_item.html" with name=name color=color language=None %}
         {% endfor %}
     </div>
 </div>
