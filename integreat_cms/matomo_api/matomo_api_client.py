@@ -610,9 +610,9 @@ class MatomoApiClient:
                 language = language_map.get(lang_slug)
                 if not language:
                     continue
-                page_query.update({
-                    "segment": f"pageUrl=@/children/?depth=2&url={full_slug}"
-                })
+                page_query.update(
+                    {"segment": f"pageUrl=@/children/?depth=2&url={full_slug}"}
+                )
                 url_param = {f"urls[{i}]": urlencode(page_query)}
                 i += 1
                 page_params.update(url_param)
