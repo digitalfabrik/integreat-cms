@@ -436,7 +436,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
                 results.append(
                     format_object_translation(page_translation, "page", language_slug),
                 )
-                title_already_in_result.append(page_translation.title)
+                title_already_in_result.add(page_translation.title)
 
         return results
 
