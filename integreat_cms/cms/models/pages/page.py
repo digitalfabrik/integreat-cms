@@ -419,7 +419,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         link_suggestion_flag = kwargs["link_suggestion_flag"]
 
         pages = region.pages.all().cache_tree(archived=archived_flag)
-        title_already_in_result: list[str] = []
+        title_already_in_result: set[str] = {}
 
         for page in pages:
             page_translation = page.get_translation(language_slug)
