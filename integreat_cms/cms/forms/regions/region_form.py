@@ -183,6 +183,7 @@ class RegionForm(CustomModelForm):
             "locations_enabled",
             "chat_enabled",
             "push_notifications_enabled",
+            "term_explanations_enabled",
             "latitude",
             "longitude",
             "longitude_min",
