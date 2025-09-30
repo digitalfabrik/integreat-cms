@@ -423,17 +423,16 @@ class Page(AbstractTreeNode, AbstractBasePage):
 
         for page in pages:
             page_translation = page.get_translation(language_slug)
-            if (
-                page_translation
-                and (
-                    link_suggestion_flag
-                    or page_translation.title not in title_already_in_result
-                )
-                and (
-                    query.lower() in page_translation.slug
-                    or query.lower() in page_translation.title.lower()
-                )
+            if page_translation and (
+                query.lower() in page_translation.slug
+                or query.lower() in page_translation.title.lower()
             ):
+                if (
+                    not link_suggestion_flag
+                    and page_translation.title in title_already_in_result
+                ):
+                    continue
+
                 results.append(
                     format_object_translation(page_translation, "page", language_slug),
                 )
