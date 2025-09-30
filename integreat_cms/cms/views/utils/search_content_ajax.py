@@ -67,10 +67,12 @@ def search_content_ajax(
 
     user = request.user
 
-    # This function is used for the search window in a content list and link suggestion in the "Insert link" menu in the editor.
-    # Two objects of the same model with the same name have different links each other.
-    # `link_suggestion_flag` is set to True if a link of each matched content must be included in the result too ("Insert link" is the case),
-    # to avoid one of them to be removed from the result just because of the same name even though a different link
+    # This function is used for the search window in a content list view and to suggest targets for internal links in the "Insert link" menu in the editor.
+    # For the former we only care about the plain text representation and don't want any duplicates
+    # (e.g. if we have two events titled "Community kitchen" we only want one suggestion to search for this string –
+    # both events will still show in the list view as soon as the user submits his actual search).
+    # For the latter we need the information uniquely identifying each object (such as the url).
+    # `link_suggestion_flag` is set to True if we want all unique objects, even if there are multiple with the same title.
     kwargs = {
         "region": region,
         "query": query,
