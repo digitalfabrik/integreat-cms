@@ -6,6 +6,7 @@ from datetime import datetime, time
 from typing import TYPE_CHECKING
 
 from django import forms
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import status
@@ -139,6 +140,24 @@ class EventForm(CustomModelForm):
 
         # make self.data mutable to allow values to be changed manually
         self.data = self.data.copy()
+
+        # new validation: start_date must be today or later (not in the past)
+        if start_date := cleaned_data.get("start_date"):
+            today = timezone.now().date()
+            if start_date < today:
+                # If it's before today, add an error on start_date
+                self.add_error(
+                    "start_date",
+                    forms.ValidationError(
+                        _(
+                            "The start of the event can't be before today. Please choose today or a future date."
+                        ),
+                        code="invalid",
+                    ),
+                )
+            else:
+                # start_date is OK (today or in the future) — nothing to do here
+                pass
 
         # Apparently we need to drop the invalid fields from data altogether, only from cleaned_data is not sufficient
         if cleaned_data.get("has_not_location", False):
