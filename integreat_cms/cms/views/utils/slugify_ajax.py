@@ -63,6 +63,12 @@ def slugify_ajax(
     ):
         raise PermissionDenied
 
+    if object_instance and getattr(object_instance, "slug", None):
+        # if a content object already has an existing slug
+        # we don't want to override it by accident when changing e.g. the title
+        existing_slug = object_instance.slug
+        return JsonResponse({"unique_slug": existing_slug})
+
     form_title = slugify(json_data["title"], allow_unicode=True)
     kwargs: SlugKwargs = {
         "slug": form_title,
