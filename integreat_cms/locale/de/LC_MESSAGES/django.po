@@ -1924,6 +1924,18 @@ msgstr "{} \"{}\" wurde erfolgreich aktualisiert"
 msgid "Enter {} here"
 msgstr "{} hier eingeben"
 
+#: cms/forms/events/event_filter_form.py cms/forms/pages/page_filter_form.py
+#: cms/templates/content_versions.html cms/templates/events/event_form.html
+#: cms/templates/events/event_list.html cms/templates/pages/page_form.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_form.html
+#: cms/templates/pois/poi_list.html
+msgid "Publication status"
+msgstr "Veröffentlichungsstatus"
+
+#: cms/forms/events/event_filter_form.py cms/forms/pages/page_filter_form.py
+msgid "All"
+msgstr "Alle"
+
 #: cms/forms/events/event_form.py
 msgid "All-day"
 msgstr "Ganztägig"
@@ -2171,17 +2183,6 @@ msgid ""
 msgstr ""
 "Eine Organisation mit diesem Namen existiert bereits in dieser Region. Bitte "
 "wählen Sie einen anderen Namen."
-
-#: cms/forms/pages/page_filter_form.py cms/templates/content_versions.html
-#: cms/templates/events/event_form.html cms/templates/events/event_list.html
-#: cms/templates/pages/page_form.html cms/templates/pages/pages_page_tree.html
-#: cms/templates/pois/poi_form.html cms/templates/pois/poi_list.html
-msgid "Publication status"
-msgstr "Veröffentlichungsstatus"
-
-#: cms/forms/pages/page_filter_form.py
-msgid "All"
-msgstr "Alle"
 
 #: cms/forms/pages/page_filter_form.py
 msgid "Translation status"
@@ -2913,7 +2914,7 @@ msgstr "Kontakte"
 #: cms/models/contact/contact.py
 msgid "Only one contact per location can have an empty area of responsibility."
 msgstr ""
-"Pro Ort darf nur einen Kontakt ohne Angabe des Zuständigkeitsbereichs geben."
+"Pro Ort darf es nur einen Kontakt ohne Angabe des Zuständigkeitsbereichs geben."
 
 #: cms/models/contact/contact.py
 msgid ""
@@ -5130,7 +5131,6 @@ msgstr "Detailansicht"
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
-#: cms/templates/statistics/statistics_viewed_pages.html
 #: cms/views/media/media_context_mixin.py
 msgid "A network error has occurred."
 msgstr "Ein Netzwerkfehler ist aufgetreten."
@@ -5139,7 +5139,6 @@ msgstr "Ein Netzwerkfehler ist aufgetreten."
 #: cms/templates/chat/_chat_widget.html cms/templates/hix_widget.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
-#: cms/templates/statistics/statistics_viewed_pages.html
 #: cms/views/media/media_context_mixin.py
 msgid "Please try again later."
 msgstr "Bitte versuchen Sie es später erneut."
@@ -5148,15 +5147,13 @@ msgstr "Bitte versuchen Sie es später erneut."
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
-#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "A server error has occurred."
 msgstr "Ein Serverfehler ist aufgetreten."
 
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_chart.html
-#: cms/templates/statistics/statistics_viewed_pages.html xliff/utils.py
+#: cms/templates/statistics/statistics_chart.html xliff/utils.py
 msgid "Please contact the administrator."
 msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 
@@ -6208,6 +6205,10 @@ msgstr "Veranstaltungsort"
 #: cms/templates/events/_event_filter_form.html
 msgid "Empty query input"
 msgstr "Sucheingabe löschen"
+
+#: cms/templates/events/_event_filter_form.html
+msgid "Event Status"
+msgstr "Veröffentlichungsstatus von Veranstaltungen"
 
 #: cms/templates/events/_event_filter_form.html
 msgid "All day events"
@@ -8940,7 +8941,6 @@ msgstr "Anzahl der Gesamtzugriffe der letzten 14 Tage."
 
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
-#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "The statistics network is currently experiencing heavy traffic."
 msgstr "Der Statistik-Server hat aktuell eine hohe Auslastung."
 
@@ -11878,6 +11878,12 @@ msgstr ""
 
 #~ msgid "Has translation package been booked?"
 #~ msgstr "Wurde das Add-On für Übersetzungen gebucht?"
+
+#~ msgid "Events in draft"
+#~ msgstr "Veranstaltungen im Entwurf"
+
+#~ msgid "Published events"
+#~ msgstr "Veröffentlichte Veranstaltungen"
 
 #~ msgid "Online link is required when the event has no physical location."
 #~ msgstr ""

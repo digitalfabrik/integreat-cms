@@ -11,12 +11,17 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
 
+from integreat_cms.cms.utils.slug_utils import generate_unique_slug
+
 if TYPE_CHECKING:
     from datetime import datetime
+    from typing import Any
 
     from django.db.models.query import QuerySet
     from django.utils.functional import Promise
     from django.utils.safestring import SafeString
+
+    from integreat_cms.cms.utils.slug_utils import SlugKwargs
 
     from ..languages.language import Language
     from ..regions.region import Region
@@ -156,10 +161,15 @@ class PageTranslation(AbstractBasePageTranslation):
             return content
 
         # Get all translations of this page which have a corresponding translation of the mirrored page
-        languages = self.page.mirrored_page.prefetched_major_public_translations_by_language_slug.keys()
+        available_source_languages = self.page.mirrored_page.prefetched_major_public_translations_by_language_slug.keys()
+        available_page_languages = (
+            self.page.prefetched_major_public_translations_by_language_slug.keys()
+        )
+        availabe_languages = available_source_languages & available_page_languages
+
         translations = [
             self.page.get_public_translation(language_slug)
-            for language_slug in languages
+            for language_slug in availabe_languages
             if (
                 translation := self.page.get_mirrored_page_translation(language_slug)
             ).content
@@ -400,6 +410,29 @@ class PageTranslation(AbstractBasePageTranslation):
             label += " (⚠ " + _("Archived") + ")"
         # mark as safe so that the arrow and the warning triangle are not escaped
         return mark_safe(label)
+
+    def clean(self) -> None:
+        """
+        Checks if the slug is unique and generates when necessary
+        """
+        if not getattr(self, "is_validated", False):
+            kwargs: SlugKwargs = {
+                "slug": self.slug,
+                "manager": type(self).objects,
+                "object_instance": self,
+                "foreign_model": "page",
+                "region": self.page.region,
+                "language": self.language,
+                "fallback": "title",
+            }
+            self.slug = generate_unique_slug(**kwargs)
+
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        """
+        Override save to perform unique slug validation
+        """
+        self.clean()
+        super().save(*args, **kwargs)
 
     class Meta:
         #: The verbose name of the model

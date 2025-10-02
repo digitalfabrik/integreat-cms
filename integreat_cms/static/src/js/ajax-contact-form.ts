@@ -22,22 +22,34 @@ const addNewContactToList = (label: string, url: string) => {
 };
 
 const showMessage = (data: any) => {
-    const timeoutDuration = 10000;
     if (data.success) {
         hideContactFormWidget();
         addNewContactToList(data.contact_label, data.edit_url);
         const successMessageField = document.getElementById("contact-ajax-success-message");
         successMessageField.classList.remove("hidden");
-        setTimeout(() => {
-            successMessageField.classList.add("hidden");
-        }, timeoutDuration);
-    } else {
+    } else if (data.contact_form.length > 0) {
         const errorMessageField = document.getElementById("contact-ajax-error-message");
-        errorMessageField.classList.remove("hidden");
-        setTimeout(() => {
-            errorMessageField.classList.add("hidden");
-        }, timeoutDuration);
+        data.contact_form.forEach((error: any) => {
+            const node = document.createElement("div");
+            node.classList.add("bg-red-100", "border-l-4", "border-red-500", "text-red-700", "px-4", "py-3", "my-1");
+            node.innerText = error.text;
+            errorMessageField.append(node);
+        });
+    } else {
+        const unexpectedErrorMessageField = document.getElementById("contact-ajax-unexpected-error-message");
+        unexpectedErrorMessageField.classList.remove("hidden");
     }
+};
+
+const clearPreviousMessages = () => {
+    const successMessageField = document.getElementById("contact-ajax-success-message");
+    successMessageField.classList.add("hidden");
+
+    const errorMessageField = document.getElementById("contact-ajax-error-message");
+    errorMessageField.replaceChildren();
+
+    const unexpectedErrorMessageField = document.getElementById("contact-ajax-unexpected-error-message");
+    unexpectedErrorMessageField.classList.add("hidden");
 };
 
 const createContact = async (event: Event) => {
@@ -49,6 +61,8 @@ const createContact = async (event: Event) => {
     if (!form.reportValidity()) {
         return;
     }
+
+    clearPreviousMessages();
 
     const response = await fetch(btn.getAttribute("data-url"), {
         method: "POST",
@@ -80,6 +94,7 @@ const renderContactForm = async () => {
 window.addEventListener("load", () => {
     document.getElementById("show-contact-form-button")?.addEventListener("click", (event) => {
         event.preventDefault();
+        clearPreviousMessages();
         renderContactForm();
     });
 

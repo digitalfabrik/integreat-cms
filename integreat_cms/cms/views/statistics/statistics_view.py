@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
@@ -66,6 +67,11 @@ class AnalyticsView(TemplateView):
             .cache_tree(archived=False)
         )
 
+        show_page_based_statistics = (
+            request.user.has_perm("cms.test_beta_features")
+            or region.slug in settings.PILOT_REGIONS_PAGE_BASED_STATISTICS
+        )
+
         return render(
             request,
             self.template_name,
@@ -77,5 +83,6 @@ class AnalyticsView(TemplateView):
                 "language": region.default_language,
                 "languages": region.active_languages,
                 "is_statistics": True,
+                "show_page_based_statistics": show_page_based_statistics,
             },
         )
