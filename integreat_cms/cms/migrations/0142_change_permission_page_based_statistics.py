@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0142_make_existing_slugs_unique"),
+        ("cms", "0141_languagetreenode_language_tree_node_inactive_requires_invisible"),
     ]
 
     operations = [
