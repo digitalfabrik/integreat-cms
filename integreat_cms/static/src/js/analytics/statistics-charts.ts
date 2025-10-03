@@ -88,12 +88,6 @@ const updateChart = async (): Promise<void> => {
             // Save export labels
             exportLabels = data.exportLabels;
 
-            const legendDiv = document.getElementById("chart-legend-container");
-            const legendDivInner = document.getElementById("chart-legend");
-            if (legendDiv && legendDivInner) {
-                legendDivInner.innerHTML = data.legend;
-                legendDiv.classList.remove("hidden");
-            }
             const items = chart.options.plugins.legend.labels.generateLabels(chart);
             items.forEach((item) => {
                 document.querySelector(`[data-chart-item="${item.text}"]`)?.addEventListener("change", () => {

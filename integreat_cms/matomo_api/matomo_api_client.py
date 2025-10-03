@@ -10,7 +10,6 @@ from urllib.parse import urlencode
 import aiohttp
 import requests
 from django.conf import settings
-from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
 from integreat_cms.cms.models.statistics.page_accesses import PageAccesses
@@ -411,8 +410,8 @@ class MatomoApiClient:
         # Get the separately created datasets for offline downloads
         offline_downloads = datasets.pop()
 
-        language_data, language_legends = self.get_language_data(languages, datasets)
-        access_data, access_legends = self.get_access_data(
+        language_data = self.get_language_data(languages, datasets)
+        access_data = self.get_access_data(
             total_visits,
             webapp_downloads,
             offline_downloads,
@@ -427,10 +426,6 @@ class MatomoApiClient:
                 "labels": self.simplify_date_labels(total_visits.keys(), period),
                 "datasets": language_data + access_data,
             },
-            "legend": render_to_string(
-                "statistics/_statistics_legend.html",
-                {"languages": language_legends, "accesses": access_legends},
-            ),
         }
 
     @staticmethod
@@ -504,7 +499,7 @@ class MatomoApiClient:
     def get_language_data(
         languages: list[Language],
         datasets: list[dict],
-    ) -> tuple[list[dict], list[str]]:
+    ) -> list[dict]:
         """
         Structure the datasets for languages in a chart.js-compatible format,
         returning it and the custom legend entries
@@ -514,7 +509,6 @@ class MatomoApiClient:
         :return: The chart.js-datasets and custom legend entries
         """
         data_entries = []
-        legend_entries = []
 
         for language, dataset in zip(languages, datasets, strict=False):
             data_entries.append(
@@ -525,24 +519,14 @@ class MatomoApiClient:
                     "data": list(dataset.values()),
                 },
             )
-            legend_entries.append(
-                render_to_string(
-                    "statistics/_statistics_legend_item.html",
-                    {
-                        "name": language.translated_name,
-                        "color": language.language_color,
-                        "language": language,
-                    },
-                ),
-            )
-        return data_entries, legend_entries
+        return data_entries
 
     @staticmethod
     def get_access_data(
         total_visits: dict,
         webapp_downloads: dict,
         offline_downloads: dict,
-    ) -> tuple[list[dict], list[str]]:
+    ) -> list[dict]:
         """
         Structure the datasets for accesses in a chart.js-compatible format,
         returning it and the custom legend entries
@@ -552,7 +536,7 @@ class MatomoApiClient:
         :param offline_downloads: The amount of offline downloads
         :return: The chart.js-datasets and custom legend entries
         """
-        data_entries = [
+        return [
             {
                 "label": _("Phone App Accesses"),
                 "backgroundColor": language_color.OFFLINE_ACCESS,
@@ -572,31 +556,6 @@ class MatomoApiClient:
                 "data": list(total_visits.values()),
             },
         ]
-
-        legend_entries = [
-            render_to_string(
-                "statistics/_statistics_legend_item.html",
-                {
-                    "name": _("Phone App Accesses"),
-                    "color": language_color.OFFLINE_ACCESS,
-                },
-            ),
-            render_to_string(
-                "statistics/_statistics_legend_item.html",
-                {
-                    "name": _("WebApp Accesses"),
-                    "color": language_color.WEB_APP_ACCESS,
-                },
-            ),
-            render_to_string(
-                "statistics/_statistics_legend_item.html",
-                {
-                    "name": _("Total Accesses"),
-                    "color": language_color.TOTAL_ACCESS,
-                },
-            ),
-        ]
-        return data_entries, legend_entries
 
         # (the results are sorted in the order the tasks were created)
 
