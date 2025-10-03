@@ -58,6 +58,7 @@ class ShortcodeHandle {
     }
 
     text(text: TextDescriptor): string {
+        // A helper method to render a string from either a fixed value or a dynamic function
         if (typeof text === "string") {
             return text;
         }
@@ -65,16 +66,20 @@ class ShortcodeHandle {
     }
 
     predicate(node: Element): boolean {
+        // A method determining whether a node in TinyMCE represents this shortcode
+        // (e.g. whether the toolbar specific to this shortcode should be shown)
         if (!(node instanceof HTMLElement)) return false;
         return "shortcode" in node.dataset && node.dataset.shortcode == this.keyword;
     }
 
     getNode(): HTMLElement | null {
+        // A helper method to get the shortcode node the user has currently selected
         const node = this.editor.selection.getNode();
         return this.predicate(node) ? node : null;
     };
 
     sortKWargs(kwpairs: [string, string][]): [string, string][] {
+        // A helper method determining a canonical order for keyword arguments
         const order = this.kwargs !== null ? this.kwargs.map(kw => typeof kw === "string" ? kw : kw[0]) : [];
         return kwpairs.sort((a, b) => {
             const aPos = order.includes(a[0]) ? order.indexOf(a[0]) : order.length;
@@ -84,12 +89,14 @@ class ShortcodeHandle {
     }
 
     renderShortcode(pargs: string[], kwargs: Map<string, string>): string {
+        // The canonical text representation of the shortcode
         const pairs = this.sortKWargs(Object.entries(kwargs)).map(pair => pair.map(escape).join("="));
         const parts = [escape(this.keyword), ...pargs.map(escape), ...pairs];
         return `[${parts.join(" ")}]`;
     }
 
     renderPreview(pargs: string[], kwargs: Map<string, string>): string {
+        // The html string representation of the shortcode in the TinyMCE editor
         const ppairs = pargs.map((arg, i) => `data-parg${i}="${arg}"`);
         const kwpairs = this.sortKWargs(Object.entries(kwargs)).map(([key, value]) => `data-kw-${key}=${escape(value)}`);
         const parts = [`class="mceNonEditable"`, `data-shortcode="${this.keyword}"`, ...ppairs, ...kwpairs];
@@ -97,6 +104,7 @@ class ShortcodeHandle {
     }
 
     openEditDialog(formApi: MenuItemInstanceApi | ContextFormInstanceApi) {
+        // The default implementation for constructing the edit dialog for a generic shortcode
         const node = this.getNode();
 
         const initialPargs = node !== null ? node.dataset.pargs.split(" ") : [];
