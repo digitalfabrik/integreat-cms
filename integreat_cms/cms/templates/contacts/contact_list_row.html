@@ -101,7 +101,7 @@
                 </a>
             {% endif %}
             {% if perms.cms.archive_contact %}
-                <button {% if contact.referring_objects %}title="{% translate "Archival is not possible. At least one content object refers to this contact." %}" disabled {% else %} title="{% translate "Archive contact" %}"{% endif %}
+                <button {% if request.region.contacts_enabled and contact.referring_objects %}title="{% translate "Archival is not possible. At least one content object refers to this contact." %}" disabled {% else %} title="{% translate "Archive contact" %}"{% endif %}
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ archive_dialog_title }}"
                         data-confirmation-subject="{{ contact.name }}"
@@ -111,7 +111,7 @@
             {% endif %}
         {% endif %}
         {% if perms.cms.delete_contact %}
-            <button {% if contact.referring_objects %}title="{% translate "Deletion is not possible. At least one content object refers to this contact." %}" disabled {% else %} title="{% translate "Delete contact" %}"{% endif %}
+            <button {% if request.region.contacts_enabled and contact.referring_objects %}title="{% translate "Deletion is not possible. At least one content object refers to this contact." %}" disabled {% else %} title="{% translate "Delete contact" %}"{% endif %}
                     class="confirmation-button btn-icon"
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-subject="{{ contact.name }}"

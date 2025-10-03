@@ -1,0 +1,37 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    phone
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Contact details" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    {% if request.region.contacts_enabled %}
+        <div class="bg-blue-100 border-t-2 border-b-2 border-blue-500 text-blue-700 px-4 py-3 mb-5"
+             role="alert">
+            {% translate "The contact details provided here are displayed by default. Additional contacts can be added for specific responsibilities." %}
+        </div>
+    {% endif %}
+    <div>
+        <label class="mt-0" for="{{ poi_form.primary_website.id_for_label }}">
+            {{ poi_form.primary_website.label }}
+        </label>
+        {% render_field poi_form.primary_website|add_error_class:"border-red-500" %}
+    </div>
+    <div>
+        <label for="{{ poi_form.primary_.id_for_label }}">
+            {{ poi_form.primary_email.label }}
+        </label>
+        {% render_field poi_form.primary_email|add_error_class:"border-red-500" %}
+    </div>
+    <div>
+        <label for="{{ poi_form.primary_phone_number.id_for_label }}">
+            {{ poi_form.primary_phone_number.label }}
+        </label>
+        {% render_field poi_form.primary_phone_number|add_error_class:"border-red-500" %}
+    </div>
+{% endblock collapsible_box_content %}

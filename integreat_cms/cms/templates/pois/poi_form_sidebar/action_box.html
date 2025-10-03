@@ -51,7 +51,7 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-                {% if poi_form.instance.contacts.exists %}
+                {% if request.region.contacts_enabled and poi_form.instance.contacts.exists %}
                     <div class="mb-5">
                         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
                              role="alert">
@@ -113,7 +113,7 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-                {% if poi_form.instance.contacts.exists %}
+                {% if request.region.contacts_enabled and poi_form.instance.contacts.exists %}
                     <div class="mb-5">
                         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
                              role="alert">
