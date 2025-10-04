@@ -158,12 +158,17 @@ class POITranslation(AbstractContentTranslation):
         query = kwargs["query"]
         archived_flag = kwargs["archived_flag"]
         language_slug = kwargs["language_slug"]
+        link_suggestion_flag = kwargs["link_suggestion_flag"]
 
         poi_translations = (
             cls.search(region, language_slug, query)
             .filter(poi__archived=archived_flag, status=status.PUBLIC)
             .select_related("poi__region", "language")
         )
+
+        if not link_suggestion_flag:
+            poi_translations = poi_translations.order_by("title").distinct("title")
+
         results.extend(
             format_object_translation(obj, "poi", language_slug)
             for obj in poi_translations

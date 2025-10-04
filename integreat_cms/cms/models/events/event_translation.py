@@ -137,12 +137,16 @@ class EventTranslation(AbstractContentTranslation):
         query = kwargs["query"]
         archived_flag = kwargs["archived_flag"]
         language_slug = kwargs["language_slug"]
+        link_suggestion_flag = kwargs["link_suggestion_flag"]
 
         event_translations = (
             cls.search(region, language_slug, query)
             .filter(event__archived=archived_flag, status=status.PUBLIC)
             .select_related("event__region", "language")
         )
+
+        if not link_suggestion_flag:
+            event_translations = event_translations.order_by("title").distinct("title")
 
         results.extend(
             format_object_translation(obj, "event", language_slug)
