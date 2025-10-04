@@ -27,6 +27,10 @@
                 {% endif %}
                 <!-- News Widget -->
                 {% include "dashboard/_news_widget.html" with box_id="dashboard-news" %}
+                <!-- User Chat / Ask Integreat -->
+                {% if request.region.integreat_chat_enabled and perms.cms.view_statistics %}
+                    {% include "dashboard/_public_chat_stats.html" %}
+                {% endif %}
             </div>
         </div>
     </div>
