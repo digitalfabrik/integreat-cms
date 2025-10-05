@@ -96,7 +96,7 @@ class Text extends ASTNode {
 // Base class for atomic and block-scoped shortcodes.
 class Shortcode extends ASTNode {
     // Regex for parsing the shortcode's arguments.
-    re_args = new RegExp(`
+    re_args = new RegExp(String.raw`
         (?:([^\s'"=]+)=)?
         (
             "((?:[^\\"]|\\.)*)"
@@ -107,7 +107,7 @@ class Shortcode extends ASTNode {
         ([^\s'"=]+)=(\S+)
         |
         (\S+)
-    `, "g");
+    `.replace(/\s+/g, ""), "g");
 
     handler: (pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string;
     pargs: string[];
@@ -126,18 +126,19 @@ class Shortcode extends ASTNode {
         const pargs: string[] = [];
         const kwargs = new Map<string, string>();
         for (const match of argstring.matchAll(this.re_args)) {
-            if (match.groups[2] || match.groups[5]) {
-                const key = match.groups[1] || match.groups[5];
-                const value = match.groups[3] || match.groups[4] || match.groups[6];
+            if (match[2] || match[5]) {
+                const key = match[1] || match[5];
+                const value = match[3] || match[4] || match[6];
                 if (key) {
                     kwargs.set(key, value);
                 } else {
                     pargs.push(value);
                 }
             } else {
-                pargs.push(match.groups[7]);
+                pargs.push(match[7]);
             }
         }
+        console.log(`parsed from argstring: »${argstring}«`, pargs, kwargs);
         return [pargs, kwargs];
     }
 }
@@ -208,6 +209,7 @@ class Parser {
     keywords: Map<string, [(pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string, string]>;
     endwords: Set<string>;
     ignore_unknown: boolean;
+    unknownHandlerFactory: (keyword: string) => (pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string; // patched in
 
     constructor(start: string = '[%', end: string = '%]', esc: string = '\\', inherit_globals: boolean = true, ignore_unknown: boolean = false) {
         this.start = start;
@@ -216,6 +218,7 @@ class Parser {
         this.keywords = new Map<string, [(pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string, string]>(inherit_globals ? global_keywords : null);
         this.endwords = new Set<string>(inherit_globals ? global_endwords : null);
         this.ignore_unknown = ignore_unknown;
+        this.unknownHandlerFactory = null; // patched in
     }
 
     register(func: (pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string, keyword: string, endword: string = null) {
@@ -223,6 +226,11 @@ class Parser {
         if (endword) {
             this.endwords.add(endword);
         }
+    }
+
+    // patched in
+    setUnknownHandlerFactory(func: (keyword: string) => (pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string) {
+        this.unknownHandlerFactory = func;
     }
 
     parse(text: string, context: any = null) {
@@ -263,6 +271,12 @@ class Parser {
                 const msg = `Empty shortcode tag in line ${token.line_number}.`;
                 throw new ShortcodeSyntaxError(msg);
             } else if (this.ignore_unknown) {
+                if (this.unknownHandlerFactory !== null) { // START patched in
+                    // Instead of treating the unknown shortcode as text, parse it as a dummy one
+                    const node = new AtomicShortcode(token, this.unknownHandlerFactory(token.keyword));
+                    stack[stack.length-1].children.push(node);
+                    continue;
+                } // END patched in
                 stack[stack.length-1].children.push(new Text(token.raw_text));
             } else {
                 const msg = `Unrecognised shortcode tag '${token.keyword}' in line ${token.line_number}.`

@@ -1,15 +1,22 @@
 import { Parser } from "./shortcodes";
 import ContactHandle from "./contact";
 import PageHandle from "./page";
-import { Registry } from "./utils";
+import { Registry, ShortcodeHandle } from "./utils";
 
 Registry.register(new PageHandle());
-Registry.register(new ContactHandle());
+//Registry.register(new ContactHandle());
+
+function DummyHandleFactory(keyword) {
+    const handle = new ShortcodeHandle();
+    handle.keyword = keyword;
+    return handle;
+}
+Registry.setUnknownHandleFactory(DummyHandleFactory);
 
 
 (() => {
     const tinymceConfig = document.getElementById("tinymce-config-options");
-    const parser = new Parser("[", "]", "\\", true);
+    const parser = new Parser("[", "]", "\\", true, true);
     const context = {
         language: tinymceConfig.getAttribute("data-language"),
         directionality: tinymceConfig.getAttribute("data-directionality"),
@@ -38,9 +45,15 @@ Registry.register(new ContactHandle());
             }
         });
 
-        editor.on('PostProcess', function(e) {
+        editor.on('PreProcess', function(e) {
             // Strip the mce marker out when extracting the content for saving or the source code view
-            e.content = e.content.replace(/<span class="mceNonEditable" data-shortcode="shortcode"([^>]*)>([^<]+)<\/span>/g, '$2');
+            console.log(`PreProcess – restoring canonical form`, e);
+            const shortcodes = Array.from(e.node.querySelectorAll('span.mceNonEditable[data-shortcode]'));
+            shortcodes.forEach(node => {
+                const keyword = node.dataset.shortcode;
+                const handle = Registry.get(keyword);
+                node.outerText = handle.renderShortcode(...handle.argsFromNode(node));
+            });
         });
 
         /*

@@ -44,8 +44,8 @@ class ShortcodeHandle {
     removeText: TextDescriptor = (self: ShortcodeHandle) => `Remove ${self.keyword}`;
     removeIcon: string = "unlink";
 
-    static escape() {
-        return (str: string): string => str.includes(" ") ? `"${str.replace(/"/g, '\\"')}"` : str;
+    static escape(str: string): string {
+        return str.includes(" ") ? `"${str.replace(/"/g, '\\"')}"` : str;
     }
 
     pargs: PargsConstraint = null;
@@ -68,8 +68,11 @@ class ShortcodeHandle {
     predicate(node: Element): boolean {
         // A method determining whether a node in TinyMCE represents this shortcode
         // (e.g. whether the toolbar specific to this shortcode should be shown)
-        if (!(node instanceof HTMLElement)) return false;
-        return "shortcode" in node.dataset && node.dataset.shortcode == this.keyword;
+        console.log(`predicate()`, node);
+        if (!("dataset" in node))  return false;
+        const dataset = (node as HTMLElement).dataset;
+        console.log(`dataset`, dataset, !!(dataset.shortcode), this.keyword, (dataset.shortcode == this.keyword), !this.keyword);
+        return dataset.shortcode && (dataset.shortcode == this.keyword || !this.keyword);
     }
 
     getNode(): HTMLElement | null {
@@ -78,51 +81,74 @@ class ShortcodeHandle {
         return this.predicate(node) ? node : null;
     };
 
-    sortKWargs(kwpairs: [string, string][]): [string, string][] {
+    sortKWargs(kwpairs: Iterable<[string, string]> | [string, string][]): [string, string][] {
         // A helper method determining a canonical order for keyword arguments
         const order = this.kwargs !== null ? this.kwargs.map(kw => typeof kw === "string" ? kw : kw[0]) : [];
-        return kwpairs.sort((a, b) => {
+        if (!(kwpairs instanceof Array))  kwpairs = Array.from(kwpairs);
+        return (kwpairs as Array<[string, string]>).sort((a, b) => {
             const aPos = order.includes(a[0]) ? order.indexOf(a[0]) : order.length;
             const bPos = order.includes(b[0]) ? order.indexOf(b[0]) : order.length;
             return aPos - bPos;
         });
     }
 
+    argsFromNode(node: HTMLElement | null): [string[], Map<string, string>] {
+        let prefix = "parg";
+        const pargs = [...Object.entries(node !== null ? node.dataset : {})].reduce((acc, pair) => {
+            if (pair[0].startsWith(prefix)) {
+                const index = parseInt(pair[0].slice(prefix.length));
+                acc[index] = pair[1];
+            }
+            return acc;
+        }, []);
+        while (pargs.length < this.minPargs) {
+            pargs.push("");
+        }
+
+        prefix = "kw";
+        const kwargs = [...Object.entries(node !== null ? node.dataset : {})].reduce((acc, pair) => {
+            if (pair[0].startsWith(prefix)) {
+                // Revert camelCase transformation automatically done by the dataset api
+                let keyword = pair[0].replace(/[A-Z]/g, c => `-${c.toLowerCase()}`);
+                // Strip the prefix + dash
+                keyword = keyword.slice(prefix.length + 1);
+                acc.push([keyword, pair[1]]);
+            }
+            return acc;
+        }, []);
+
+        return [pargs, new Map(kwargs)];
+    }
+
     renderShortcode(pargs: string[], kwargs: Map<string, string>): string {
         // The canonical text representation of the shortcode
-        const pairs = this.sortKWargs(Object.entries(kwargs)).map(pair => pair.map(escape).join("="));
-        const parts = [escape(this.keyword), ...pargs.map(escape), ...pairs];
+        const pairs = this.sortKWargs(kwargs.entries()).map(pair => pair.map(ShortcodeHandle.escape).join("="));
+        const parts = [ShortcodeHandle.escape(this.keyword), ...pargs.map(ShortcodeHandle.escape), ...pairs];
         return `[${parts.join(" ")}]`;
     }
 
-    renderPreview(pargs: string[], kwargs: Map<string, string>): string {
+    renderPreviewNode(pargs: string[], kwargs: Map<string, string>): string {
         // The html string representation of the shortcode in the TinyMCE editor
+        console.log(`renderPreviewNode()`, pargs, kwargs);
         const ppairs = pargs.map((arg, i) => `data-parg${i}="${arg}"`);
-        const kwpairs = this.sortKWargs(Object.entries(kwargs)).map(([key, value]) => `data-kw-${key}=${escape(value)}`);
+        const kwpairs = this.sortKWargs(kwargs.entries()).map(([key, value]) => `data-kw-${key}=${ShortcodeHandle.escape(value)}`);
         const parts = [`class="mceNonEditable"`, `data-shortcode="${this.keyword}"`, ...ppairs, ...kwpairs];
-        return `<span ${parts.join(" ")}>${this.renderShortcode(pargs, kwargs)}</span>`;
+        return `<span ${parts.join(" ")}>${this.renderPreview(pargs, kwargs)}</span>`;
+    }
+
+    renderPreview(pargs: string[], kwargs: Map<string, string>): string {
+        // The html string representation of the shortcode preview in the TinyMCE editor
+        // By default this is just the canonical text representation. This function will be overwritten by most subclasses.
+        return this.renderShortcode(pargs, kwargs);
     }
 
     openEditDialog(formApi: MenuItemInstanceApi | ContextFormInstanceApi) {
         // The default implementation for constructing the edit dialog for a generic shortcode
         const node = this.getNode();
-
-        const initialPargs = node !== null ? node.dataset.pargs.split(" ") : [];
-        while (initialPargs.length < this.minPargs) {
-            initialPargs.push("");
-        }
-
-        const prefix = "data-kw-";
-        const initialKWargs = this.sortKWargs(Object.entries(node !== null ? node.dataset : {}).reduce((acc, pair) => {
-            if (pair[0].startsWith(prefix)) {
-                const keyword = pair[0].slice(prefix.length);
-                acc.push([keyword, pair[1]]);
-            }
-            return acc;
-        }, []));
+        const [initialPargs, initialKWargs] = this.argsFromNode(node);
 
         initialPargs.push("8");
-        initialKWargs.push(["test", "3"])
+        initialKWargs.set("test", "3")
 
         const argumentItems: BodyComponentSpec[] = [];
         initialPargs.forEach((parg: string, i: number) => {
@@ -149,7 +175,7 @@ class ShortcodeHandle {
                 ],
             });
         }
-        initialKWargs.forEach(([keyword, value]: [string, string], i: number) => {
+        this.sortKWargs(initialKWargs.entries()).forEach(([keyword, value]: [string, string], i: number) => {
             if (this.kwargs === null) {
                 argumentItems.push({
                     type: "bar",
@@ -212,7 +238,7 @@ class ShortcodeHandle {
             ],
             initialData: {
                 ...Object.fromEntries(initialPargs.map((parg: string, i: number) => [`parg${i}`, parg])),
-                ...Object.fromEntries(initialKWargs.reduce((acc, [keyword, value], i) => {
+                ...Object.fromEntries(Array.from(initialKWargs.entries()).reduce((acc, [keyword, value], i) => {
                     if (this.kwargs === null) {
                         return acc.concat([
                             [`kwarg${i}-name`, keyword],
@@ -250,6 +276,8 @@ class ShortcodeHandle {
                             if (acc[id][(which+1) % 2] !== null) {
                                 // Pair is complete!
                                 [key, value] = acc[id];
+                                // Normalize keys to dash-style
+                                key = key.toLowerCase().replace(/\s+/g, "-");
                                 acc[key] = value;
                                 delete acc[id];
                             }
@@ -259,6 +287,7 @@ class ShortcodeHandle {
                 }, {}) as unknown as FinalizedPairs;
 
                 if (pargs.length <= this.minPargs || pargs.length >= this.maxPargs) {
+                    // Invalid number of positional arguments, don't close dialog
                     return;
                 }
                 api.close();
@@ -305,7 +334,7 @@ class ShortcodeHandle {
             position: "node",
             scope: "node",
             commands: [
-                {
+                /*{
                     type: "contextformbutton",
                     icon: this.editIcon,
                     text: this.text(this.editText),
@@ -329,7 +358,7 @@ class ShortcodeHandle {
                         }
                         closeContextToolbar();
                     }).bind(this),
-                },
+                },*/
             ],
         });
     }
@@ -340,9 +369,11 @@ class Registry {
     static #instance: Registry;
 
     handles: Map<string, ShortcodeHandle>;
+    unknownHandleFactory: null | ((keyword: string) => ShortcodeHandle);
 
     private constructor() {
         this.handles = new Map<string, ShortcodeHandle>();
+        this.unknownHandleFactory = null;
     }
 
     public static get instance(): Registry {
@@ -352,15 +383,23 @@ class Registry {
         return Registry.#instance;
     }
 
+    public static has(keyword: string): boolean {
+        return Registry.instance.handles.has(keyword);
+    }
+
+    public static get(keyword: string): ShortcodeHandle | null {
+        return Registry.instance.handles.get(keyword);
+    }
+
     public static register(handle: ShortcodeHandle) {
-        if (Registry.instance.handles.has(handle.keyword)) {
-            throw Error(`Keyword ${handle.keyword} already registered as ${Registry.instance.handles.get(handle.keyword)}`);
+        if (Registry.has(handle.keyword)) {
+            throw Error(`Keyword ${handle.keyword} already registered as ${Registry.get(handle.keyword)}`);
         }
         Registry.instance.handles.set(handle.keyword, handle);
     }
     public static unregister(handle: ShortcodeHandle | string): ShortcodeHandle {
         const keyword = handle instanceof ShortcodeHandle ? handle.keyword : handle;
-        const old_handle = Registry.instance.handles.get(keyword);
+        const old_handle = Registry.get(keyword);
         if (handle instanceof ShortcodeHandle && old_handle !== handle) {
             throw Error(`Keyword ${keyword} registered as a different handle: ${old_handle}`);
         }
@@ -371,11 +410,28 @@ class Registry {
         Registry.instance.handles.clear();
     }
 
+    public static setUnknownHandleFactory(factory: (keyword: string) => ShortcodeHandle) {
+        this.instance.unknownHandleFactory = factory;
+    }
+
     public static setupAll(editor: Editor, parser: Parser) {
         Registry.instance.handles.forEach((value: ShortcodeHandle, key: string) => {
             value.setup(editor);
-            parser.register(value.renderPreview.bind(value), key, value.endword);
+            parser.register(value.renderPreviewNode.bind(value), key, value.endword);
         });
+        if (this.instance.unknownHandleFactory !== null) {
+            parser.setUnknownHandlerFactory((keyword: string) => {
+                const handle = this.instance.unknownHandleFactory(keyword);
+                const fn = handle.renderPreviewNode.bind(handle);
+                Registry.register(handle);
+                handle.setup(editor);
+                parser.register(fn, keyword);
+                console.log(`created and registered dummy handler for ${keyword}`);
+                return fn;
+            });
+        } else {
+            parser.setUnknownHandlerFactory(null);
+        }
     }
 }
 
