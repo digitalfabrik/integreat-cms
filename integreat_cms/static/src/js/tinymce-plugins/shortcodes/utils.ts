@@ -56,6 +56,24 @@ class ShortcodeHandle {
     get minPargs() {
         return this.pargs === null ? 0        : (typeof this.pargs === "number" ? this.pargs : this.pargs[1]);
     }
+    get requiredKWargs(): Set<string> {
+        return new Set(this.kwargs.reduce((acc, key: string | [string, boolean]) => {
+            if (typeof key === "string") {
+                acc.push(key);
+            } else if (key[1]) {
+                acc.push(key[0]);
+            }
+            return acc;
+        }, []));
+    }
+    get optionalKWargs(): Set<string> {
+        return new Set(this.kwargs.reduce((acc, key: string | [string, boolean]) => {
+            if (!(typeof key === "string") && !key[1]) {
+                acc.push(key[0]);
+            }
+            return acc;
+        }, []));
+    }
     lastUnsavedPargs: string[] | null = null;
     lastUnsavedKWargs: [string, string][] | null = null;
 
@@ -93,7 +111,19 @@ class ShortcodeHandle {
     }
 
     validate(pargs: string[], kwargs: {[key: string]: string}): boolean {
-        return pargs.length >= this.minPargs && pargs.length <= this.maxPargs;
+        if (pargs.length < this.minPargs || pargs.length > this.maxPargs) return false;
+        // Positional arguments pass!
+
+        if (this.kwargs === null) return true;
+        const keywords = new Set(Object.keys(kwargs));
+        const requiredKWargs = this.requiredKWargs;
+        // Check if any required keyword arguments are missing
+        if (requiredKWargs.difference(keywords).size > 0) return false;
+        // Check if there are any keyword arguments that are not allowed
+        if (keywords.difference(requiredKWargs).difference(this.optionalKWargs).size > 0) return false;
+
+        // All arguments pass!
+        return true;
     }
 
     argsFromNode(node: HTMLElement | null): [string[], Map<string, string>] {
