@@ -1,5 +1,5 @@
 /// <reference path="../tinymce.d.ts" />
-import type { ContextFormInstanceApi, ContextFormButtonInstanceApi, ContextFormToggleButtonInstanceApi, DialogInstanceApi, DialogData, MenuItemInstanceApi, DialogSpec, BodyComponentSpec } from "../tinymce.d.ts";
+import type { ToolbarButtonInstanceApi, ContextFormInstanceApi, ContextFormButtonInstanceApi, ContextFormToggleButtonInstanceApi, DialogInstanceApi, DialogData, MenuItemInstanceApi, DialogSpec, BodyComponentSpec } from "../tinymce.d.ts";
 import { Editor } from "tinymce";
 
 import type { Parser } from "./shortcodes";
@@ -328,38 +328,35 @@ class ShortcodeHandle {
             onAction: this.openEditDialog.bind(this),
         });
 
+        editor.ui.registry.addButton(`edit_shortcode_${this.keyword}`, {
+            text: this.text(this.editText),
+            tooltip: this.text(this.editText),
+            icon: this.editIcon,
+            onAction: ((api: ToolbarButtonInstanceApi) => {
+                this.openEditDialog(api);
+                closeContextToolbar();
+            }).bind(this),
+        });
+
+        editor.ui.registry.addButton(`remove_shortcode_${this.keyword}`, {
+            text: this.text(this.removeText),
+            tooltip: this.text(this.removeText),
+            icon: this.removeIcon,
+            onAction: (() => {
+                const node = this.getNode();
+                if (node) {
+                    node.remove();
+                }
+                closeContextToolbar();
+            }).bind(this),
+        });
+
         // This form opens when a shortcode is currently selected with the cursor
-        editor.ui.registry.addContextForm(`shortcode_${this.keyword}_context_form`, {
+        editor.ui.registry.addContextToolbar(`shortcode_${this.keyword}_context_form`, {
             predicate: this.predicate.bind(this),
             position: "node",
             scope: "node",
-            commands: [
-                /*{
-                    type: "contextformbutton",
-                    icon: this.editIcon,
-                    text: this.text(this.editText),
-                    tooltip: this.text(this.editText),
-                    primary: true,
-                    onAction: ((formApi: ContextFormInstanceApi, api: ContextFormButtonInstanceApi) => {
-                        this.openEditDialog(formApi);
-                        closeContextToolbar();
-                    }).bind(this),
-                },
-                {
-                    type: "contextformbutton",
-                    icon: this.removeIcon,
-                    text: this.text(this.removeText),
-                    tooltip: this.text(this.removeText),
-                    primary: false,
-                    onAction: (() => {
-                        const node = this.getNode();
-                        if (node) {
-                            node.remove();
-                        }
-                        closeContextToolbar();
-                    }).bind(this),
-                },*/
-            ],
+            items: `edit_shortcode_${this.keyword} remove_shortcode_${this.keyword}`,
         });
     }
 }
