@@ -56,6 +56,8 @@ class ShortcodeHandle {
     get minPargs() {
         return this.pargs === null ? 0        : (typeof this.pargs === "number" ? this.pargs : this.pargs[1]);
     }
+    lastUnsavedPargs: string[] | null = null;
+    lastUnsavedKWargs: [string, string][] | null = null;
 
     text(text: TextDescriptor): string {
         // A helper method to render a string from either a fixed value or a dynamic function
@@ -68,10 +70,8 @@ class ShortcodeHandle {
     predicate(node: Element): boolean {
         // A method determining whether a node in TinyMCE represents this shortcode
         // (e.g. whether the toolbar specific to this shortcode should be shown)
-        console.log(`predicate()`, node);
         if (!("dataset" in node))  return false;
         const dataset = (node as HTMLElement).dataset;
-        console.log(`dataset`, dataset, !!(dataset.shortcode), this.keyword, (dataset.shortcode == this.keyword), !this.keyword);
         return dataset.shortcode && (dataset.shortcode == this.keyword || !this.keyword);
     }
 
@@ -90,6 +90,10 @@ class ShortcodeHandle {
             const bPos = order.includes(b[0]) ? order.indexOf(b[0]) : order.length;
             return aPos - bPos;
         });
+    }
+
+    validate(pargs: string[], kwargs: {[key: string]: string}): boolean {
+        return pargs.length >= this.minPargs && pargs.length <= this.maxPargs;
     }
 
     argsFromNode(node: HTMLElement | null): [string[], Map<string, string>] {
@@ -142,14 +146,60 @@ class ShortcodeHandle {
         return this.renderShortcode(pargs, kwargs);
     }
 
-    openEditDialog(formApi: MenuItemInstanceApi | ContextFormInstanceApi) {
-        // The default implementation for constructing the edit dialog for a generic shortcode
+    reconstructArgsFromDialog(api: DialogInstanceApi<DialogData>): [string[], {[key: string]: string}, [string, string][]] {
+        // Reconstruct the positional and keyword arguments from the form data
+        const data = api.getData();
+        const pargs = Object.entries(data).reduce((acc: string[], [key, value]) => {
+            const match = key.match(/^parg([0-9]+)$/);
+            if (match) {
+                acc[parseInt(match[1])] = value;
+            }
+            return acc;
+        }, []);
+        type TemporaryPairs = {[key: number]: [null | string, null | string]};
+        type FinalizedPairs = {[key: string]: string};
+        type OrderedPairs = [string, string][];
+        const orderedKWargs: OrderedPairs = [];
+        const kwargs = Object.entries(data).reduce((acc: TemporaryPairs & FinalizedPairs, [key, value]) => {
+            // First piece together the names with the values again
+            const match = key.match(/^(kw-(.+)|kwarg([0-9]+)-(name|value))$/);
+            if (match) {
+                if (match[2]) {
+                    acc[match[2]] = value;
+                } else {
+                    const id = parseInt(match[3]);
+                    const which = match[4] == "name" ? 0 : 1;
+                    if (acc[id] === undefined)  acc[id] = [null, null];
+                    acc[id][which] = value;
+                    if (acc[id][(which+1) % 2] !== null) {
+                        // Pair is complete!
+                        [key, value] = acc[id];
+                        // Normalize keys to dash-style
+                        // This is not its own overridable function because it is already automatically transformed
+                        // to dash-style on the marker node representing the shortode to TinyMCE (this is how HTML attributes work)
+                        // and to camelCase by the dataset API on JS side.
+                        key = key.toLowerCase().replace(/\s+/g, "-");
+                        acc[key] = value;
+                        orderedKWargs[id] = [key, value];
+                        delete acc[id];
+                    }
+                }
+            }
+            return acc;
+        }, {}) as unknown as FinalizedPairs;
+        return [pargs, kwargs, orderedKWargs];
+    }
+
+    openEditDialog() {
         const node = this.getNode();
         const [initialPargs, initialKWargs] = this.argsFromNode(node);
+        this.lastUnsavedPargs = initialPargs;
+        this.lastUnsavedKWargs = this.sortKWargs(initialKWargs.entries());
+        return this.displayEditDialog(initialPargs, this.lastUnsavedKWargs);
+    }
 
-        initialPargs.push("8");
-        initialKWargs.set("test", "3")
-
+    displayEditDialog(initialPargs: string[], initialKWargs: [string, string][]) {
+        // The default implementation for constructing the edit dialog for a generic shortcode
         const argumentItems: BodyComponentSpec[] = [];
         initialPargs.forEach((parg: string, i: number) => {
             argumentItems.push({
@@ -160,7 +210,16 @@ class ShortcodeHandle {
         });
         if (this.minPargs != this.maxPargs) {
             argumentItems.push({
-                type: "bar",
+                type: "htmlpanel",
+                html: `<div class="tox-bar tox-form__controls-h-stack">
+                    <div class="tox-form__group">
+                        <button id="parg-remove" type="button" title="Remove positional argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">-</button>
+                    </div>
+                    <div class="tox-form__group">
+                        <button id="parg-add" type="button" title="Add positional argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">+</button>
+                    </div>
+                </div>`,
+                /*type: "bar",
                 items: [
                     {
                         type: "button",
@@ -172,10 +231,10 @@ class ShortcodeHandle {
                         text: "+",
                         name: "parg-add",
                     },
-                ],
+                ],*/
             });
         }
-        this.sortKWargs(initialKWargs.entries()).forEach(([keyword, value]: [string, string], i: number) => {
+        initialKWargs.forEach(([keyword, value]: [string, string], i: number) => {
             if (this.kwargs === null) {
                 argumentItems.push({
                     type: "bar",
@@ -205,6 +264,17 @@ class ShortcodeHandle {
                 type: "bar",
                 items: [
                     {
+                        type: "htmlpanel",
+                        html: `<div class="tox-bar tox-form__controls-h-stack">
+                            <div class="tox-form__group">
+                                <button id="kwarg-remove" type="button" title="Remove keyword argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">-</button>
+                            </div>
+                            <div class="tox-form__group">
+                                <button id="kwarg-add" type="button" title="Add keyword argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">+</button>
+                            </div>
+                        </div>`,
+                    },
+                    /*{
                         type: "button",
                         text: "–",
                         name: "kwarg-remove",
@@ -213,7 +283,7 @@ class ShortcodeHandle {
                         type: "button",
                         text: "+",
                         name: "kwarg-add",
-                    },
+                    },*/
                 ],
             });
         }
@@ -238,7 +308,7 @@ class ShortcodeHandle {
             ],
             initialData: {
                 ...Object.fromEntries(initialPargs.map((parg: string, i: number) => [`parg${i}`, parg])),
-                ...Object.fromEntries(Array.from(initialKWargs.entries()).reduce((acc, [keyword, value], i) => {
+                ...Object.fromEntries(initialKWargs.reduce((acc, [keyword, value], i) => {
                     if (this.kwargs === null) {
                         return acc.concat([
                             [`kwarg${i}-name`, keyword],
@@ -252,45 +322,16 @@ class ShortcodeHandle {
                 }, [])),
             },
             onSubmit: (api: DialogInstanceApi<DialogData>) => {
-                const data = api.getData();
-                const pargs = Object.entries(data).reduce((acc: string[], [key, value]) => {
-                    const match = key.match(/^parg([0-9]+)$/);
-                    if (match) {
-                        acc[parseInt(match[1])] = value;
-                    }
-                    return acc;
-                }, []);
-                type TemporaryPairs = {[key: number]: [null | string, null | string]};
-                type FinalizedPairs = {[key: string]: string};
-                const kwargs = Object.entries(data).reduce((acc: TemporaryPairs & FinalizedPairs, [key, value]) => {
-                    // First piece together the names with the values again
-                    const match = key.match(/^(kw-(.+)|kwarg([0-9]+)-(name|value))$/);
-                    if (match) {
-                        if (match[2]) {
-                            acc[match[2]] = value;
-                        } else {
-                            const id = parseInt(match[3]);
-                            const which = match[4] == "name" ? 0 : 1;
-                            if (acc[id] === undefined)  acc[id] = [null, null];
-                            acc[id][which] = value;
-                            if (acc[id][(which+1) % 2] !== null) {
-                                // Pair is complete!
-                                [key, value] = acc[id];
-                                // Normalize keys to dash-style
-                                key = key.toLowerCase().replace(/\s+/g, "-");
-                                acc[key] = value;
-                                delete acc[id];
-                            }
-                        }
-                    }
-                    return acc;
-                }, {}) as unknown as FinalizedPairs;
+                const [pargs, kwargs, orderedKWargs] = this.reconstructArgsFromDialog(api);
+                this.lastUnsavedPargs = pargs;
+                this.lastUnsavedKWargs = orderedKWargs;
 
-                if (pargs.length <= this.minPargs || pargs.length >= this.maxPargs) {
-                    // Invalid number of positional arguments, don't close dialog
-                    return;
-                }
+                // Don't close the dialog if the arguments are not valid
+                if (!this.validate(pargs, kwargs)) return;
+
                 api.close();
+                this.lastUnsavedPargs = null;
+                this.lastUnsavedKWargs = null;
 
                 // Either insert a new shortcode or update the existing one
                 const node = this.getNode();
@@ -301,9 +342,53 @@ class ShortcodeHandle {
                     this.editor.insertContent(this.renderShortcode(pargs, new Map(Object.entries(kwargs))));
                 }
             },
-            //onChange: updateDialog,
+            onChange: (api: DialogInstanceApi<DialogData>) => {
+                const [pargs, kwargs, orderedKWargs] = this.reconstructArgsFromDialog(api);
+                this.lastUnsavedPargs = pargs;
+                this.lastUnsavedKWargs = orderedKWargs;
+            },
         };
         console.log(`[${this.keyword}]`, this, dialogConfig);
+
+        setTimeout(() => {
+            const dialog = document.querySelector('.tox-dialog');
+            const pargRemove = dialog.querySelector('#parg-remove');
+            const pargAdd    = dialog.querySelector('#parg-add');
+            if (pargRemove) {
+                pargRemove.addEventListener("click", (() => {
+                    if (this.lastUnsavedPargs === null) return;
+                    this.lastUnsavedPargs.pop();
+                    this.editor.windowManager.close();
+                    this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
+                }).bind(this));
+            }
+            if (pargAdd) {
+                pargAdd.addEventListener("click", (() => {
+                    if (this.lastUnsavedPargs === null) return;
+                    this.lastUnsavedPargs.push("");
+                    this.editor.windowManager.close();
+                    this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
+                }).bind(this));
+            }
+            const kwargRemove = dialog.querySelector('#kwarg-remove');
+            const kwargAdd    = dialog.querySelector('#kwarg-add');
+            if (kwargRemove) {
+                kwargRemove.addEventListener("click", (() => {
+                    if (this.lastUnsavedKWargs === null) return;
+                    this.lastUnsavedKWargs.pop();
+                    this.editor.windowManager.close();
+                    this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
+                }).bind(this));
+            }
+            if (kwargAdd) {
+                kwargAdd.addEventListener("click", (() => {
+                    if (this.lastUnsavedKWargs === null) return;
+                    this.lastUnsavedKWargs.push(["", ""]);
+                    this.editor.windowManager.close();
+                    this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
+                }).bind(this));
+            }
+        }, 0);
 
         return this.editor.windowManager.open(dialogConfig);
     }
@@ -333,7 +418,7 @@ class ShortcodeHandle {
             tooltip: this.text(this.editText),
             icon: this.editIcon,
             onAction: ((api: ToolbarButtonInstanceApi) => {
-                this.openEditDialog(api);
+                this.openEditDialog();
                 closeContextToolbar();
             }).bind(this),
         });
