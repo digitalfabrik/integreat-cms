@@ -149,6 +149,18 @@ COMPANY_URL: Final[str] = os.environ.get(
     "https://tuerantuer.de/digitalfabrik/",
 )
 
+#: The URL to the privacy policy
+PRIVACY_POLICY_URL: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_PRIVACY_POLICY_URL",
+    "https://example.com/",
+)
+
+#: The URL to the imprint
+IMPRINT_URL: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_IMPRINT_URL",
+    "https://example.com/",
+)
+
 #: The available inbuilt brandings of the CMS
 AVAILABLE_BRANDINGS: Final[dict[str, str]] = {
     "integreat": "Integreat",
