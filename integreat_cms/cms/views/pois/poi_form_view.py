@@ -209,7 +209,9 @@ class POIFormView(
                     )
 
             data = request.POST.dict()
-            data.update({"location": poi.id})
+            # Flush opening_hours which is meant for the location
+            # The contact can also have opening hours itself, but here we want it to always mirror those of the location
+            data.update({"location": poi.id, "opening_hours": ""})
             contact_form = ContactForm(
                 request=request,
                 data=data,
