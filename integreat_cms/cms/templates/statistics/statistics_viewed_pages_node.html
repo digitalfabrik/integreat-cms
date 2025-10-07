@@ -10,9 +10,6 @@
     {% include "pages/_generic_page_tree_node.html" %}
     <td class="flex items-stretch accesses px-2"
         data-no-data="{% translate "This page has no accesses in the selected time span" %}">
-        <div class="page-accesses-loading px-4">
-            <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
-        </div>
         {% for language in languages %}
             <span data-language-color="{{ language.language_color }}"
                   data-language-slug="{{ language.slug }}"

@@ -11,7 +11,6 @@ export type Access = {
 };
 
 let chart: Chart | null = null;
-let loaderIsHidden: boolean;
 
 /* Loop over the object containing the accesses over time and count them to a total */
 const countAccesses = (accessesOverTime: object): number => {
@@ -60,21 +59,6 @@ const resetAllAccessesField = (accessFields: HTMLCollectionOf<Element>, isEmpty:
     }
 };
 
-/* Toggle the loader icon */
-const toggleLoader = (show: boolean): boolean => {
-    const loaderIcons = document.getElementsByClassName("page-accesses-loading");
-    if (show) {
-        Array.from(loaderIcons).forEach((loaderIcon) => {
-            loaderIcon.classList.remove("hidden");
-        });
-        return false;
-    }
-    Array.from(loaderIcons).forEach((loaderIcon) => {
-        loaderIcon.classList.add("hidden");
-    });
-    return true;
-};
-
 /* Set the selected date at the top of the table */
 const setDates = () => {
     const unformattedStartDate = (document.getElementById("id_start_date") as HTMLInputElement).value;
@@ -96,8 +80,12 @@ const updatePageAccesses = async (): Promise<void> => {
         };
     }
 
+    const pageAccessesLoading = document.getElementById("page-accesses-loading");
     const pageAccessesURL = document.getElementById("statistics-page-access").getAttribute("data-page-accesses-url");
     const accessFields = document.getElementsByClassName("accesses");
+
+    pageAccessesLoading.classList.remove("hidden");
+
     const response = await fetch(pageAccessesURL, parameters);
     const data = (await response.json()) as AjaxResponse;
     const isEmpty = Object.keys(data).length === 0;
@@ -151,12 +139,11 @@ const updatePageAccesses = async (): Promise<void> => {
             }
         });
     });
-    loaderIsHidden = toggleLoader(loaderIsHidden);
+    pageAccessesLoading.classList.add("hidden");
     setDates();
 };
 
 export const setPageAccessesEventListeners = () => {
-    loaderIsHidden = false;
     if (document.getElementById("statistics-page-access")) {
         chart = Chart.instances[0];
         // Set event handler for updating Page Accesses when date is changed
@@ -165,7 +152,6 @@ export const setPageAccessesEventListeners = () => {
         statisticsForm?.addEventListener("submit", async (event: Event) => {
             // Prevent form submit
             event.preventDefault();
-            loaderIsHidden = toggleLoader(loaderIsHidden);
             await updatePageAccesses();
         });
 
@@ -175,7 +161,6 @@ export const setPageAccessesEventListeners = () => {
             chartLegendElement.addEventListener("change", async (event) => {
                 const targetElement = event.target as HTMLInputElement;
                 if (targetElement.type === "checkbox" && targetElement.getAttribute("data-language-slug")) {
-                    loaderIsHidden = toggleLoader(loaderIsHidden);
                     updatePageAccesses();
                 }
             });
