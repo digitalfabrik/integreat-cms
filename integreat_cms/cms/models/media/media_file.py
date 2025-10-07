@@ -393,21 +393,31 @@ class MediaFile(AbstractBaseModel):
         region = kwargs["region"]
         query = kwargs["query"]
 
-        results.extend(
-            {
-                "title": file.name,
-                "url": None,
-                "type": "file",
-            }
-            for file in cls.search(region, query)
+        file_matches = (
+            cls.search(region, query)
+            .order_by("name")
+            .distinct("name")
+            .values_list("name", flat=True)
         )
         results.extend(
             {
-                "title": directory.name,
+                "title": match,
+                "url": None,
+                "type": "file",
+            }
+            for match in file_matches
+        )
+        results.extend(
+            {
+                "title": match,
                 "url": None,
                 "type": "directory",
             }
-            for directory in Directory.search(region, query)
+            for match in Directory.search(region, query)
+            .exclude(name__in=file_matches)
+            .order_by("name")
+            .distinct("name")
+            .values_list("name", flat=True)
         )
         return results
 

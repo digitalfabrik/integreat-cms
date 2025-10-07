@@ -161,28 +161,38 @@ class Contact(AbstractBaseModel):
         archived_flag = kwargs["archived_flag"]
         language_slug = kwargs["language_slug"]
 
-        results.extend(
-            {
-                "title": contact.name,
-                "url": None,
-                "type": "contact",
-            }
-            for contact in cls.objects.filter(
+        contact_matches = (
+            cls.objects.filter(
                 name__icontains=query,
                 location__region=region,
                 archived=archived_flag,
-            ).distinct()
+            )
+            .order_by("name")
+            .distinct("name")
+            .values_list("name", flat=True)
         )
+
+        results.extend(
+            {
+                "title": match,
+                "url": None,
+                "type": "contact",
+            }
+            for match in contact_matches
+        )
+
         if language_slug:
             results.extend(
                 {
-                    "title": poi_translation.title,
+                    "title": match.title,
                     "url": None,
                     "type": "contact",
                 }
-                for poi_translation in POITranslation.search(
-                    region, language_slug, query
-                ).filter(poi__archived=False)
+                for match in POITranslation.search(region, language_slug, query)
+                .filter(poi__archived=False)
+                .exclude(title__in=contact_matches)
+                .order_by("title")
+                .distinct("title")
             )
 
         return results
