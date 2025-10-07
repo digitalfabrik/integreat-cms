@@ -102,13 +102,12 @@ const createLanguageDatasetLookups = (chart: Chart, dataSample: AccessesPerLangu
     return indexToSlug;
 };
 
-const getVisibleSlugs = (chart: Chart, indexToSlug: Map<number, string>) => {
-    return chart.data.datasets
+const getVisibleSlugs = (chart: Chart, indexToSlug: Map<number, string>) =>
+    chart.data.datasets
         .map((dataset, index) => index)
         .filter((index) => chart.isDatasetVisible(index))
         .map((index) => indexToSlug.get(index))
         .filter((slug) => slug);
-};
 
 const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
     Object.entries(data).forEach((values) => {
