@@ -4,7 +4,7 @@ import PageHandle from "./page";
 import { Registry, ShortcodeHandle } from "./utils";
 
 Registry.register(new PageHandle());
-//Registry.register(new ContactHandle());
+Registry.register(new ContactHandle());
 
 function DummyHandleFactory(keyword) {
     const handle = new ShortcodeHandle();

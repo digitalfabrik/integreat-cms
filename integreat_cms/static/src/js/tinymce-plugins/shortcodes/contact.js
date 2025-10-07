@@ -6,7 +6,8 @@ class ContactHandle extends ShortcodeHandle {
 	editIcon = "contact";
 	removeIcon = "remove";
 
-	t() {}
+	pargs = [2, 8];
+	kwargs = ["one", "two"];
 }
 
 

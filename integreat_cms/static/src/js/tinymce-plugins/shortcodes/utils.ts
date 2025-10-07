@@ -17,19 +17,30 @@ import { Shortcode as parser } from "./shortcodes";
 */
 
 
+class InfiniteSet<T> extends Set<T> {
+    // A way to model a set containing everything
+    size: number = Infinity;
+
+    has(value: T): boolean {
+        return true;
+    }
+}
+
+
 type TextDescriptor = string | ((self: ShortcodeHandle) => string);
 /* Positional arguments:
- * - number:            How many positional arguments have to be given (exactly, not more and not less)
- * - [number, number]:  Up to how many positional arguments CAN be given, and how many of those are required
- * - null:              Allow any number of positional arguments
+ * - number:                   How many positional arguments have to be given (exactly, not more and not less).
+ * - [number, number | null]:  How many positional arguments are required, and up to how many CAN be given (Infinity or null means unbounded).
+ * - null:                     Allow any number of positional arguments.
  * Keyword arguments:
- * - (string | [string, boolean])[]:  List of all keyword arguments being accepted.
- *                                    If an item is given as a list where the second value is true, the keyword is required.
- *                                    Also serves as a canonical order normalizing the shortcode
- * - null:                            Allow any keyword argument
+ * - (string | [string, boolean] | null)[]:  List of all keyword arguments being accepted.
+ *                                           If an item is given as a list where the second value is true, the keyword is required.
+ *                                           Also serves as a canonical order normalizing the shortcode.
+ *                                           If the list contains null, anything is accepted as optional argument.
+ * - null:                                   Allow any keyword argument.
  */
-type PargsConstraint = number | [number, number] | null;
-type KWargsDescriptor = (string | [string, boolean])[] | null;
+type PargsConstraint = number | [number, number | null] | null;
+type KWargsDescriptor = (string | [string, boolean] | null)[] | null;
 
 
 class ShortcodeHandle {
@@ -51,24 +62,39 @@ class ShortcodeHandle {
     pargs: PargsConstraint = null;
     kwargs: KWargsDescriptor = null;
     get maxPargs() {
-        return this.pargs === null ? Infinity : (typeof this.pargs === "number" ? this.pargs : this.pargs[0]);
+        if (this.pargs === null)
+            return Infinity;
+        if (typeof this.pargs === "number")
+            return this.pargs;
+        else if (this.pargs[1])
+            return Infinity;
+        else
+            this.pargs[0];
     }
     get minPargs() {
-        return this.pargs === null ? 0        : (typeof this.pargs === "number" ? this.pargs : this.pargs[1]);
+        if (this.pargs === null)
+            return 0;
+        if (typeof this.pargs === "number")
+            return this.pargs;
+        else
+            this.pargs[0];
     }
     get requiredKWargs(): Set<string> {
-        return new Set(this.kwargs.reduce((acc, key: string | [string, boolean]) => {
+        if (this.kwargs === null)  return new Set();
+        return new Set(this.kwargs.reduce((acc, key: string | [string, boolean] | null) => {
             if (typeof key === "string") {
                 acc.push(key);
-            } else if (key[1]) {
+            } else if (key !== null && key[1]) {
                 acc.push(key[0]);
             }
             return acc;
         }, []));
     }
-    get optionalKWargs(): Set<string> {
-        return new Set(this.kwargs.reduce((acc, key: string | [string, boolean]) => {
-            if (!(typeof key === "string") && !key[1]) {
+    get optionalKWargs(): Set<string> | InfiniteSet<string> {
+        if (this.kwargs === null)  return new InfiniteSet();
+        const set = this.kwargs.includes(null) ? InfiniteSet : Set;
+        return new set(this.kwargs.reduce((acc, key: string | [string, boolean] | null) => {
+            if (key !== null && !(typeof key === "string") && !key[1]) {
                 acc.push(key[0]);
             }
             return acc;
@@ -88,7 +114,8 @@ class ShortcodeHandle {
     predicate(node: Element): boolean {
         // A method determining whether a node in TinyMCE represents this shortcode
         // (e.g. whether the toolbar specific to this shortcode should be shown)
-        if (!("dataset" in node))  return false;
+        if (!("dataset" in node))
+            return false;
         const dataset = (node as HTMLElement).dataset;
         return dataset.shortcode && (dataset.shortcode == this.keyword || !this.keyword);
     }
@@ -111,16 +138,22 @@ class ShortcodeHandle {
     }
 
     validate(pargs: string[], kwargs: {[key: string]: string}): boolean {
-        if (pargs.length < this.minPargs || pargs.length > this.maxPargs) return false;
+        if (pargs.length < this.minPargs || pargs.length > this.maxPargs)
+            return false;
         // Positional arguments pass!
 
-        if (this.kwargs === null) return true;
+        if (this.kwargs === null)
+            return true;
         const keywords = new Set(Object.keys(kwargs));
         const requiredKWargs = this.requiredKWargs;
         // Check if any required keyword arguments are missing
-        if (requiredKWargs.difference(keywords).size > 0) return false;
+        if (requiredKWargs.difference(keywords).size > 0)
+            return false;
         // Check if there are any keyword arguments that are not allowed
-        if (keywords.difference(requiredKWargs).difference(this.optionalKWargs).size > 0) return false;
+        // InfiniteSet currently just says "yes I have that element" to every key it is asked about via .has(), and reports its size as Infinity.
+        // If .difference() ever stops relying on .has() and instead looks at the actual elements, this line will break.
+        if (keywords.difference(requiredKWargs).difference(this.optionalKWargs).size > 0)
+            return false;
 
         // All arguments pass!
         return true;
@@ -152,6 +185,37 @@ class ShortcodeHandle {
         }, []);
 
         return [pargs, new Map(kwargs)];
+    }
+
+    truncateArgs(pargs: string[], kwargs: Map<string, string>): [string[], Map<string, string>] {
+        // Ensure the arguments fit the specification
+        let newPargs = [...pargs];
+        const newKWargs = new Map(kwargs);
+
+        // Ensure the correct number of positional arguments
+        if (newPargs.length > this.maxPargs) {
+            newPargs = newPargs.slice(0, this.maxPargs);
+        }
+        while (newPargs.length < this.minPargs) {
+            newPargs.push("");
+        }
+
+        // Ensure all required keywords exist
+        const requiredKWargs = this.requiredKWargs;
+        const optionalKWargs = this.optionalKWargs;
+        requiredKWargs.forEach(kwarg => {
+            if (!newKWargs.has(kwarg)) {
+                newKWargs.set(kwarg, "");
+            }
+        });
+        // Ensure no unallowed keywords exist
+        kwargs.forEach(kwarg => {
+            if (!requiredKWargs.has(kwarg) && !optionalKWargs.has(kwarg)) {
+                newKWargs.delete(kwarg);
+            }
+        });
+
+        return [newPargs, newKWargs];
     }
 
     renderShortcode(pargs: string[], kwargs: Map<string, string>): string {
@@ -222,7 +286,7 @@ class ShortcodeHandle {
 
     openEditDialog() {
         const node = this.getNode();
-        const [initialPargs, initialKWargs] = this.argsFromNode(node);
+        const [initialPargs, initialKWargs] = this.truncateArgs(...this.argsFromNode(node));
         this.lastUnsavedPargs = initialPargs;
         this.lastUnsavedKWargs = this.sortKWargs(initialKWargs.entries());
         return this.displayEditDialog(initialPargs, this.lastUnsavedKWargs);
@@ -357,7 +421,8 @@ class ShortcodeHandle {
                 this.lastUnsavedKWargs = orderedKWargs;
 
                 // Don't close the dialog if the arguments are not valid
-                if (!this.validate(pargs, kwargs)) return;
+                if (!this.validate(pargs, kwargs))
+                    return;
 
                 api.close();
                 this.lastUnsavedPargs = null;
@@ -386,7 +451,8 @@ class ShortcodeHandle {
             const pargAdd    = dialog.querySelector('#parg-add');
             if (pargRemove) {
                 pargRemove.addEventListener("click", (() => {
-                    if (this.lastUnsavedPargs === null) return;
+                    if (this.lastUnsavedPargs === null)
+                        return;
                     this.lastUnsavedPargs.pop();
                     this.editor.windowManager.close();
                     this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
@@ -394,7 +460,8 @@ class ShortcodeHandle {
             }
             if (pargAdd) {
                 pargAdd.addEventListener("click", (() => {
-                    if (this.lastUnsavedPargs === null) return;
+                    if (this.lastUnsavedPargs === null)
+                        return;
                     this.lastUnsavedPargs.push("");
                     this.editor.windowManager.close();
                     this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
@@ -404,7 +471,8 @@ class ShortcodeHandle {
             const kwargAdd    = dialog.querySelector('#kwarg-add');
             if (kwargRemove) {
                 kwargRemove.addEventListener("click", (() => {
-                    if (this.lastUnsavedKWargs === null) return;
+                    if (this.lastUnsavedKWargs === null)
+                        return;
                     this.lastUnsavedKWargs.pop();
                     this.editor.windowManager.close();
                     this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
@@ -412,7 +480,8 @@ class ShortcodeHandle {
             }
             if (kwargAdd) {
                 kwargAdd.addEventListener("click", (() => {
-                    if (this.lastUnsavedKWargs === null) return;
+                    if (this.lastUnsavedKWargs === null)
+                        return;
                     this.lastUnsavedKWargs.push(["", ""]);
                     this.editor.windowManager.close();
                     this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
