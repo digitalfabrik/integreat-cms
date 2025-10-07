@@ -1,7 +1,7 @@
 from typing import Any
 
 from django.utils.translation import gettext_lazy as _
-from lxml.html import Element, tostring
+from lxml.html import Element, tostring, fromstring
 
 from ...models import Page
 from .utils import shortcode
@@ -49,7 +49,11 @@ def page(
     else:
         element = Element("a")
         if text is None:
-            element.append(translation.link_title)
+            # LXML needs a single root element, so we're doing this in a roundabout way
+            root = fromstring(f"<root>{translation.link_title}</root>")
+            element.text = root.text
+            for child in root:
+                element.append(child)
         else:
             element.text = text or ""
         element.attrib["href"] = translation.get_absolute_url()
