@@ -42,6 +42,9 @@ class ContactListView(TemplateView, ContactContextMixin):
         region = request.region
         query = None
 
+        if not region.contacts_enabled:
+            return self.redirect_to_dashboard(request)
+
         if not region.default_language:
             return self.redirect_to_language_tree(request)
 
@@ -138,5 +141,21 @@ class ContactListView(TemplateView, ContactContextMixin):
             "pois",
             **{
                 "region_slug": region.slug,
+            },
+        )
+
+    def redirect_to_dashboard(self, request: HttpRequest) -> None:
+        """
+        This function redirects to the dashboard if contacts are not enabled.
+
+        :param request: The current request
+
+        :return: template of region dashboard
+        """
+        messages.info(request, _("Contacts are not enabled for this region."))
+        return redirect(
+            "dashboard",
+            **{
+                "region_slug": request.region.slug,
             },
         )

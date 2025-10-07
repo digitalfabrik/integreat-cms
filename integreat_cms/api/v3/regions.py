@@ -37,6 +37,7 @@ def transform_region(region: Region) -> dict[str, Any]:
         "extras": region.offers.exists(),
         "events": region.events_enabled,
         "pois": region.locations_enabled,
+        "contacts": region.contacts_enabled,
         "push_notifications": region.push_notifications_enabled,
         "longitude": region.longitude,
         "latitude": region.latitude,

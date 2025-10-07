@@ -263,6 +263,16 @@
                         {{ form.locations_enabled.help_text }}
                     </div>
                 </div>
+                <div>
+                    <!-- Options related to contacts -->
+                    {% render_field form.contacts_enabled %}
+                    <label for="{{ form.contacts_enabled.id_for_label }}">
+                        {{ form.contacts_enabled.label }}
+                    </label>
+                    <div class="help-text">
+                        {{ form.contacts_enabled.help_text }}
+                    </div>
+                </div>
                 <div class="pt-2">
                     <!-- Options related to Fallback language -->
                     {% render_field form.fallback_translations_enabled class+="inline-block" %}
