@@ -7,7 +7,11 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.core.exceptions import (
+    ImproperlyConfigured,
+    ObjectDoesNotExist,
+    PermissionDenied,
+)
 from django.forms import inlineformset_factory
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
@@ -489,6 +493,18 @@ def send_pn(
             ),
         )
         return False
+    except ObjectDoesNotExist:
+        logger.exception(
+            "News could not be sent due to a missing translation",
+        )
+        messages.error(
+            request,
+            _('News "{}" could not be sent due to a missing translation in {}.').format(
+                pn_form.instance, pn_form.instance.default_language
+            ),
+        )
+        return False
+
     if not push_sender.is_valid():
         messages.error(
             request,
