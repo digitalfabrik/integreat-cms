@@ -24,6 +24,18 @@ class InfiniteSet<T> extends Set<T> {
     has(value: T): boolean {
         return true;
     }
+    union(other) {
+        return new InfiniteSet(super.union(other));
+    }
+    difference(other) {
+        return new InfiniteSet(super.difference(other));
+    }
+    symmetricDifference(other) {
+        return new InfiniteSet(super.symmetricDifference(other));
+    }
+    intersection(other) {
+        return new InfiniteSet(super.intersection(other));
+    }
 }
 
 
@@ -210,7 +222,7 @@ class ShortcodeHandle {
         });
         // Ensure no unallowed keywords exist
         kwargs.forEach(kwarg => {
-            if (!requiredKWargs.has(kwarg) && !optionalKWargs.has(kwarg)) {
+            if (!(requiredKWargs.has(kwarg) || optionalKWargs.has(kwarg))) {
                 newKWargs.delete(kwarg);
             }
         });
@@ -329,7 +341,7 @@ class ShortcodeHandle {
             });
         }
         initialKWargs.forEach(([keyword, value]: [string, string], i: number) => {
-            if (this.kwargs === null) {
+            if (this.kwargs === null || this.kwargs.includes(null)) {
                 argumentItems.push({
                     type: "bar",
                     items: [
@@ -353,7 +365,7 @@ class ShortcodeHandle {
                 });
             }
         });
-        if (this.kwargs === null) {
+        if (this.kwargs === null || this.kwargs.includes(null)) {
             argumentItems.push({
                 type: "bar",
                 items: [
@@ -451,7 +463,7 @@ class ShortcodeHandle {
             const pargAdd    = dialog.querySelector('#parg-add');
             if (pargRemove) {
                 pargRemove.addEventListener("click", (() => {
-                    if (this.lastUnsavedPargs === null)
+                    if (this.lastUnsavedPargs === null || this.lastUnsavedPargs.length <= this.minPargs)
                         return;
                     this.lastUnsavedPargs.pop();
                     this.editor.windowManager.close();
@@ -460,7 +472,7 @@ class ShortcodeHandle {
             }
             if (pargAdd) {
                 pargAdd.addEventListener("click", (() => {
-                    if (this.lastUnsavedPargs === null)
+                    if (this.lastUnsavedPargs === null || this.lastUnsavedPargs.length >= this.maxPargs)
                         return;
                     this.lastUnsavedPargs.push("");
                     this.editor.windowManager.close();
@@ -473,7 +485,16 @@ class ShortcodeHandle {
                 kwargRemove.addEventListener("click", (() => {
                     if (this.lastUnsavedKWargs === null)
                         return;
-                    this.lastUnsavedKWargs.pop();
+                    const requiredKWargs = this.requiredKWargs;
+                    // Throw away the last keyword that is not required
+                    for (let i = this.lastUnsavedKWargs.length-1; i >= 0; i--) {
+                        if (requiredKWargs.has(e[0]))
+                            continue;
+                        const beforeThis = this.lastUnsavedKWargs.slice(0, i);
+                        const afterThis = this.lastUnsavedKWargs.slice(i+1, this.lastUnsavedKWargs.length);
+                        this.lastUnsavedKWargs = beforeThis.concat(afterThis);
+                        break;
+                    };
                     this.editor.windowManager.close();
                     this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
                 }).bind(this));
@@ -482,7 +503,31 @@ class ShortcodeHandle {
                 kwargAdd.addEventListener("click", (() => {
                     if (this.lastUnsavedKWargs === null)
                         return;
-                    this.lastUnsavedKWargs.push(["", ""]);
+                    // A flat list of known keywords in canonical order
+                    const order = this.kwargs === null ? [] : this.kwargs.map(([key, required]) => key);
+                    function index(x: string): number {
+                        // Determine the canonical position of the keyword
+                        const i = order.indexOf(x);
+                        if (i == -1) return Infinity; // If the keyword is unknown, sort it last
+                        return i;
+                    }
+                    const requiredKWargs = this.requiredKWargs;
+                    const keys = new Set(this.lastUnsavedKWargs.map(([key, value]) => key));
+                    const missingRequired = requiredKWargs.difference(keys);
+                    let key;
+                    if (missingRequired.size > 0) {
+                        // Somehow, required keywords are missing. Add the first one by canonical order
+                        key = Array.from(missingRequired).sort((a, b) => index(a) - index(b)).reverse()[0];
+                    } else {
+                        const optionalKWargs = this.optionalKWargs;
+                        const missingOptional = optionalKWargs.difference(keys);
+                        if (missingOptional.size == 0)
+                            return; // There are no arguments left to add
+                        // Add the first known optional argument by canonical order. If we don't know any and we accept arbitrary arguments, leave the key empty
+                        key = Array.from(missingOptional).sort((a, b) => index(a) - index(b)).reverse()[0] || "";
+                    }
+                    // Finally, actually append the key value pair and retrigger the dialog
+                    this.lastUnsavedKWargs.push([key, ""]);
                     this.editor.windowManager.close();
                     this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
                 }).bind(this));
