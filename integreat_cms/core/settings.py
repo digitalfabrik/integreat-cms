@@ -190,6 +190,10 @@ DEFAULT_REQUEST_TIMEOUT: Final[int] = int(
 #: Where release notes are stored
 RELEASE_NOTES_DIRS: Final[str] = os.path.join(BASE_DIR, "release_notes")
 
+#: Where SBoM files are stored
+SBOM_DIR: Final[str] = os.path.join(BASE_DIR, "_manifest/spdx_2.2/")
+SBOM_FILE_NAME: Final[str] = "manifest.spdx.json"
+
 #: Custom path for additional local translation files
 CUSTOM_LOCALE_PATH: Final[str] = os.environ.get(
     "INTEGREAT_CMS_CUSTOM_LOCALE_PATH",
