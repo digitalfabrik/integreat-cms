@@ -34,6 +34,20 @@ if TYPE_CHECKING:
     from ..regions.region import Region
 
 
+class ContactQuerySet(models.QuerySet):
+    """
+    A QuerySet class for contact model.
+
+    It extends the standard queryset of Django.
+    """
+
+    def get_primary_contact(self) -> Contact | None:
+        """
+        Returns the primary contact, i.e. the contact with an empty area_of_responsibility.
+        """
+        return self.filter(area_of_responsibility="").first()
+
+
 class Contact(AbstractBaseModel):
     """
     Data model representing a contact
@@ -92,6 +106,7 @@ class Contact(AbstractBaseModel):
             "Link to an external website where an appointment for this contact can be made.",
         ),
     )
+    objects = models.Manager.from_queryset(ContactQuerySet)()
 
     @cached_property
     def region(self) -> Region:
