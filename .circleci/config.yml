@@ -424,6 +424,15 @@ jobs:
             # Bump version to next alpha version
             echo "Bump to the next version"
             bumpver update -n -t alpha --no-commit
+      - run:
+          name: Generate SBOM
+          command: |
+            curl -Lo ./.venv/bin/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
+            chmod +x .venv/bin/sbom-tool
+            rm -rf integreat_cms/_manifest
+            sbom-tool generate -b ./integreat_cms -bc ./ -pn integreat-cms -pv ${CURRENT_VERSION} -ps "Tür an Tür Digitalfabrik gGmbH" -nsb "https://tuerantuer.org"
+            git add integreat_cms/_manifest
+            git commit --amend --no-edit
       - persist_to_workspace:
           root: .
           paths:
@@ -468,6 +477,15 @@ jobs:
             NEW_DIR="integreat_cms/release_notes/$(echo "${CURRENT_VERSION}" | cut -c1-4)"
             mkdir -p "${NEW_DIR}"
             git mv "${OLD_DIR}" "${NEW_DIR}/${CURRENT_VERSION}"
+            git commit --amend --no-edit
+      - run:
+          name: Generate SBOM
+          command: |
+            curl -Lo ./.venv/bin/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
+            chmod +x .venv/bin/sbom-tool
+            rm -rf integreat_cms/_manifest
+            sbom-tool generate -b ./integreat_cms -bc ./ -pn integreat-cms -pv ${CURRENT_VERSION} -ps "Tür an Tür Digitalfabrik gGmbH" -nsb "https://tuerantuer.org"
+            git add integreat_cms/_manifest
             git commit --amend --no-edit
       - run:
           name: Tag and push commit
