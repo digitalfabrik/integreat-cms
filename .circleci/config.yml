@@ -431,8 +431,6 @@ jobs:
             chmod +x .venv/bin/sbom-tool
             rm -rf integreat_cms/_manifest
             sbom-tool generate -b ./integreat_cms -bc ./ -pn integreat-cms -pv ${CURRENT_VERSION} -ps "Tür an Tür Digitalfabrik gGmbH" -nsb "https://tuerantuer.org"
-            git add integreat_cms/_manifest
-            git commit --amend --no-edit
       - persist_to_workspace:
           root: .
           paths:
