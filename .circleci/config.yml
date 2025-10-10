@@ -391,7 +391,7 @@ jobs:
   bump-dev-version:
     docker:
       - image: cimg/python:3.11.7
-    resource_class: xlarge
+    resource_class: large
     steps:
       - checkout
       - attach_workspace:
@@ -427,6 +427,7 @@ jobs:
       - run:
           name: Generate SBOM
           command: |
+            CURRENT_VERSION=$(python -c "import integreat_cms; print(integreat_cms.__version__)")
             curl -Lo ./.venv/bin/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
             chmod +x .venv/bin/sbom-tool
             rm -rf integreat_cms/_manifest
@@ -441,7 +442,7 @@ jobs:
   bump-version:
     docker:
       - image: cimg/python:3.11.7
-    resource_class: xlarge
+    resource_class: large
     steps:
       - checkout
       - attach_workspace:
@@ -481,6 +482,7 @@ jobs:
       - run:
           name: Generate SBOM
           command: |
+            CURRENT_VERSION=$(python -c "import integreat_cms; print(integreat_cms.__version__)")
             curl -Lo ./.venv/bin/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
             chmod +x .venv/bin/sbom-tool
             rm -rf integreat_cms/_manifest
