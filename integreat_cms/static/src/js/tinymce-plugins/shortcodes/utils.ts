@@ -17,28 +17,6 @@ import { Shortcode as parser } from "./shortcodes";
 */
 
 
-class InfiniteSet<T> extends Set<T> {
-    // A way to model a set containing everything
-    size: number = Infinity;
-
-    has(value: T): boolean {
-        return true;
-    }
-    union(other) {
-        return new InfiniteSet(super.union(other));
-    }
-    difference(other) {
-        return new InfiniteSet(super.difference(other));
-    }
-    symmetricDifference(other) {
-        return new InfiniteSet(super.symmetricDifference(other));
-    }
-    intersection(other) {
-        return new InfiniteSet(super.intersection(other));
-    }
-}
-
-
 type TextDescriptor = string | ((self: ShortcodeHandle) => string);
 /* Positional arguments:
  * - number:                   How many positional arguments have to be given (exactly, not more and not less).
@@ -78,10 +56,10 @@ class ShortcodeHandle {
             return Infinity;
         if (typeof this.pargs === "number")
             return this.pargs;
-        else if (this.pargs[1])
+        else if (this.pargs[1] === null)
             return Infinity;
         else
-            this.pargs[0];
+            return this.pargs[1];
     }
     get minPargs() {
         if (this.pargs === null)
@@ -89,11 +67,11 @@ class ShortcodeHandle {
         if (typeof this.pargs === "number")
             return this.pargs;
         else
-            this.pargs[0];
+            return this.pargs[0];
     }
     get requiredKWargs(): Set<string> {
         if (this.kwargs === null)  return new Set();
-        return new Set(this.kwargs.reduce((acc, key: string | [string, boolean] | null) => {
+        return new Set(this.kwargs.filter(kw => kw !== null).reduce((acc, key: string | [string, boolean] | null) => {
             if (typeof key === "string") {
                 acc.push(key);
             } else if (key !== null && key[1]) {
@@ -102,15 +80,19 @@ class ShortcodeHandle {
             return acc;
         }, []));
     }
-    get optionalKWargs(): Set<string> | InfiniteSet<string> {
-        if (this.kwargs === null)  return new InfiniteSet();
-        const set = this.kwargs.includes(null) ? InfiniteSet : Set;
-        return new set(this.kwargs.reduce((acc, key: string | [string, boolean] | null) => {
+    get optionalKWargs(): Set<string> {
+        if (this.kwargs === null)  return new Set();
+        return new Set(this.kwargs.filter(kw => kw !== null).reduce((acc, key: string | [string, boolean] | null) => {
             if (key !== null && !(typeof key === "string") && !key[1]) {
                 acc.push(key[0]);
             }
             return acc;
         }, []));
+    }
+    get acceptingArbitraryKWargs(): boolean {
+        if (this.kwargs === null)  return true;
+        if (this.kwargs.includes(null))  return true;
+        return false;
     }
     lastUnsavedPargs: string[] | null = null;
     lastUnsavedKWargs: [string, string][] | null = null;
@@ -140,7 +122,7 @@ class ShortcodeHandle {
 
     sortKWargs(kwpairs: Iterable<[string, string]> | [string, string][]): [string, string][] {
         // A helper method determining a canonical order for keyword arguments
-        const order = this.kwargs !== null ? this.kwargs.map(kw => typeof kw === "string" ? kw : kw[0]) : [];
+        const order = this.kwargs !== null ? this.kwargs.filter(kw => kw !== null).map(kw => typeof kw === "string" ? kw : kw[0]) : [];
         if (!(kwpairs instanceof Array))  kwpairs = Array.from(kwpairs);
         return (kwpairs as Array<[string, string]>).sort((a, b) => {
             const aPos = order.includes(a[0]) ? order.indexOf(a[0]) : order.length;
@@ -162,9 +144,7 @@ class ShortcodeHandle {
         if (requiredKWargs.difference(keywords).size > 0)
             return false;
         // Check if there are any keyword arguments that are not allowed
-        // InfiniteSet currently just says "yes I have that element" to every key it is asked about via .has(), and reports its size as Infinity.
-        // If .difference() ever stops relying on .has() and instead looks at the actual elements, this line will break.
-        if (keywords.difference(requiredKWargs).difference(this.optionalKWargs).size > 0)
+        if (!this.acceptingArbitraryKWargs && keywords.difference(requiredKWargs).difference(this.optionalKWargs).size > 0)
             return false;
 
         // All arguments pass!
@@ -220,13 +200,16 @@ class ShortcodeHandle {
                 newKWargs.set(kwarg, "");
             }
         });
-        // Ensure no unallowed keywords exist
-        kwargs.forEach(kwarg => {
-            if (!(requiredKWargs.has(kwarg) || optionalKWargs.has(kwarg))) {
-                newKWargs.delete(kwarg);
-            }
-        });
+        if (!this.acceptingArbitraryKWargs) {
+            // Ensure no unallowed keywords exist
+            kwargs.forEach((v, kwarg) => {
+                if (!(requiredKWargs.has(kwarg) || optionalKWargs.has(kwarg))) {
+                    newKWargs.delete(kwarg);
+                }
+            });
+        }
 
+        console.log(`truncateArgs() →`, newKWargs);
         return [newPargs, newKWargs];
     }
 
@@ -341,7 +324,7 @@ class ShortcodeHandle {
             });
         }
         initialKWargs.forEach(([keyword, value]: [string, string], i: number) => {
-            if (this.kwargs === null || this.kwargs.includes(null)) {
+            if (this.acceptingArbitraryKWargs) {
                 argumentItems.push({
                     type: "bar",
                     items: [
@@ -365,7 +348,7 @@ class ShortcodeHandle {
                 });
             }
         });
-        if (this.kwargs === null || this.kwargs.includes(null)) {
+        if (this.acceptingArbitraryKWargs) {
             argumentItems.push({
                 type: "bar",
                 items: [
@@ -380,16 +363,6 @@ class ShortcodeHandle {
                             </div>
                         </div>`,
                     },
-                    /*{
-                        type: "button",
-                        text: "–",
-                        name: "kwarg-remove",
-                    },
-                    {
-                        type: "button",
-                        text: "+",
-                        name: "kwarg-add",
-                    },*/
                 ],
             });
         }
@@ -483,12 +456,13 @@ class ShortcodeHandle {
             const kwargAdd    = dialog.querySelector('#kwarg-add');
             if (kwargRemove) {
                 kwargRemove.addEventListener("click", (() => {
+                    console.log(`kwargRemove() this.lastUnsavedKWargs === null ? ${this.lastUnsavedKWargs === null}`);
                     if (this.lastUnsavedKWargs === null)
                         return;
                     const requiredKWargs = this.requiredKWargs;
                     // Throw away the last keyword that is not required
                     for (let i = this.lastUnsavedKWargs.length-1; i >= 0; i--) {
-                        if (requiredKWargs.has(e[0]))
+                        if (requiredKWargs.has(this.lastUnsavedKWargs[i][0]))
                             continue;
                         const beforeThis = this.lastUnsavedKWargs.slice(0, i);
                         const afterThis = this.lastUnsavedKWargs.slice(i+1, this.lastUnsavedKWargs.length);
@@ -501,10 +475,11 @@ class ShortcodeHandle {
             }
             if (kwargAdd) {
                 kwargAdd.addEventListener("click", (() => {
+                    console.log(`kwargAdd() this.lastUnsavedKWargs === null ? ${this.lastUnsavedKWargs === null}`);
                     if (this.lastUnsavedKWargs === null)
                         return;
                     // A flat list of known keywords in canonical order
-                    const order = this.kwargs === null ? [] : this.kwargs.map(([key, required]) => key);
+                    const order = this.kwargs === null ? [] : this.kwargs.filter(kw => kw !== null).map(([key, required]) => key);
                     function index(x: string): number {
                         // Determine the canonical position of the keyword
                         const i = order.indexOf(x);
@@ -521,10 +496,13 @@ class ShortcodeHandle {
                     } else {
                         const optionalKWargs = this.optionalKWargs;
                         const missingOptional = optionalKWargs.difference(keys);
-                        if (missingOptional.size == 0)
-                            return; // There are no arguments left to add
-                        // Add the first known optional argument by canonical order. If we don't know any and we accept arbitrary arguments, leave the key empty
-                        key = Array.from(missingOptional).sort((a, b) => index(a) - index(b)).reverse()[0] || "";
+                        if (missingOptional.size > 0) {
+                            // Add the first known optional argument by canonical order. If we don't know any and we accept arbitrary arguments, leave the key empty
+                            key = Array.from(missingOptional).sort((a, b) => index(a) - index(b)).reverse()[0] || "";
+                        } else if (this.acceptingArbitraryKWargs)
+                            key = "";
+                        else
+                            return; // There are no arguments left to add, stop without doing anything
                     }
                     // Finally, actually append the key value pair and retrigger the dialog
                     this.lastUnsavedKWargs.push([key, ""]);
