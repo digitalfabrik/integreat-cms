@@ -45,7 +45,8 @@ class ShortcodeHandle {
     removeText: TextDescriptor = (self: ShortcodeHandle) => `Remove ${self.keyword}`;
     removeIcon: string = "unlink";
 
-    static escape(str: string): string {
+    static escape(str: string | undefined): string {
+        if (!str)  return '""';
         return str.includes(" ") ? `"${str.replace(/"/g, '\\"')}"` : str;
     }
 
@@ -151,7 +152,7 @@ class ShortcodeHandle {
         return true;
     }
 
-    argsFromNode(node: HTMLElement | null): [string[], Map<string, string>] {
+    argsFromNode(node: HTMLElement | null): [string[], Map<string, string | undefined>] {
         let prefix = "parg";
         const pargs = [...Object.entries(node !== null ? node.dataset : {})].reduce((acc, pair) => {
             if (pair[0].startsWith(prefix)) {
@@ -179,7 +180,7 @@ class ShortcodeHandle {
         return [pargs, new Map(kwargs)];
     }
 
-    truncateArgs(pargs: string[], kwargs: Map<string, string>): [string[], Map<string, string>] {
+    truncateArgs(pargs: string[], kwargs: Map<string, string | undefined>): [string[], Map<string, string | undefined>] {
         // Ensure the arguments fit the specification
         let newPargs = [...pargs];
         const newKWargs = new Map(kwargs);
@@ -209,27 +210,25 @@ class ShortcodeHandle {
             });
         }
 
-        console.log(`truncateArgs() →`, newKWargs);
         return [newPargs, newKWargs];
     }
 
-    renderShortcode(pargs: string[], kwargs: Map<string, string>): string {
+    renderShortcode(pargs: string[], kwargs: Map<string, string | undefined>): string {
         // The canonical text representation of the shortcode
         const pairs = this.sortKWargs(kwargs.entries()).map(pair => pair.map(ShortcodeHandle.escape).join("="));
         const parts = [ShortcodeHandle.escape(this.keyword), ...pargs.map(ShortcodeHandle.escape), ...pairs];
         return `[${parts.join(" ")}]`;
     }
 
-    renderPreviewNode(pargs: string[], kwargs: Map<string, string>): string {
+    renderPreviewNode(pargs: string[], kwargs: Map<string, string | undefined>): string {
         // The html string representation of the shortcode in the TinyMCE editor
-        console.log(`renderPreviewNode()`, pargs, kwargs);
         const ppairs = pargs.map((arg, i) => `data-parg${i}="${arg}"`);
         const kwpairs = this.sortKWargs(kwargs.entries()).map(([key, value]) => `data-kw-${key}=${ShortcodeHandle.escape(value)}`);
         const parts = [`class="mceNonEditable"`, `data-shortcode="${this.keyword}"`, ...ppairs, ...kwpairs];
         return `<span ${parts.join(" ")}>${this.renderPreview(pargs, kwargs)}</span>`;
     }
 
-    renderPreview(pargs: string[], kwargs: Map<string, string>): string {
+    renderPreview(pargs: string[], kwargs: Map<string, string | undefined>): string {
         // The html string representation of the shortcode preview in the TinyMCE editor
         // By default this is just the canonical text representation. This function will be overwritten by most subclasses.
         return this.renderShortcode(pargs, kwargs);
@@ -302,25 +301,14 @@ class ShortcodeHandle {
                 type: "htmlpanel",
                 html: `<div class="tox-bar tox-form__controls-h-stack">
                     <div class="tox-form__group">
-                        <button id="parg-remove" type="button" title="Remove positional argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">-</button>
+                        <button id="parg-remove" type="button" title="Remove positional argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary"
+                            ${initialPargs.length <= this.minPargs ? "disabled" : ""}>-</button>
                     </div>
                     <div class="tox-form__group">
-                        <button id="parg-add" type="button" title="Add positional argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">+</button>
+                        <button id="parg-add" type="button" title="Add positional argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary"
+                            ${initialPargs.length >= this.maxPargs ? "disabled" : ""}>+</button>
                     </div>
-                </div>`,
-                /*type: "bar",
-                items: [
-                    {
-                        type: "button",
-                        text: "–",
-                        name: "parg-remove",
-                    },
-                    {
-                        type: "button",
-                        text: "+",
-                        name: "parg-add",
-                    },
-                ],*/
+                </div>`.replace(/\s+/g, " "),
             });
         }
         initialKWargs.forEach(([keyword, value]: [string, string], i: number) => {
@@ -348,7 +336,12 @@ class ShortcodeHandle {
                 });
             }
         });
-        if (this.acceptingArbitraryKWargs) {
+        const optionalKWargs = this.optionalKWargs;
+        if (this.acceptingArbitraryKWargs || optionalKWargs.size > 0) {
+            const keys = new Set(initialKWargs.map(([key, value]) => key));
+            const missingRequired = this.requiredKWargs.difference(keys);
+            const missingOptional = optionalKWargs.difference(keys);
+            const givenOptional = optionalKWargs.intersection(keys);
             argumentItems.push({
                 type: "bar",
                 items: [
@@ -356,12 +349,14 @@ class ShortcodeHandle {
                         type: "htmlpanel",
                         html: `<div class="tox-bar tox-form__controls-h-stack">
                             <div class="tox-form__group">
-                                <button id="kwarg-remove" type="button" title="Remove keyword argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">-</button>
+                                <button id="kwarg-remove" type="button" title="Remove keyword argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary"
+                                    ${givenOptional.size == 0 ? "disabled" : ""}>-</button>
                             </div>
                             <div class="tox-form__group">
-                                <button id="kwarg-add" type="button" title="Add keyword argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">+</button>
+                                <button id="kwarg-add" type="button" title="Add keyword argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary"
+                                    ${!this.acceptingArbitraryKWargs && missingOptional.size == 0 && missingRequired.size == 0 ? "disabled" : ""}>+</button>
                             </div>
-                        </div>`,
+                        </div>`.replace(/\s+/g, " "),
                     },
                 ],
             });
@@ -456,7 +451,6 @@ class ShortcodeHandle {
             const kwargAdd    = dialog.querySelector('#kwarg-add');
             if (kwargRemove) {
                 kwargRemove.addEventListener("click", (() => {
-                    console.log(`kwargRemove() this.lastUnsavedKWargs === null ? ${this.lastUnsavedKWargs === null}`);
                     if (this.lastUnsavedKWargs === null)
                         return;
                     const requiredKWargs = this.requiredKWargs;
@@ -475,11 +469,10 @@ class ShortcodeHandle {
             }
             if (kwargAdd) {
                 kwargAdd.addEventListener("click", (() => {
-                    console.log(`kwargAdd() this.lastUnsavedKWargs === null ? ${this.lastUnsavedKWargs === null}`);
                     if (this.lastUnsavedKWargs === null)
                         return;
                     // A flat list of known keywords in canonical order
-                    const order = this.kwargs === null ? [] : this.kwargs.filter(kw => kw !== null).map(([key, required]) => key);
+                    const order = this.kwargs !== null ? this.kwargs.filter(kw => kw !== null).map(kw => typeof kw === "string" ? kw : kw[0]) : [];
                     function index(x: string): number {
                         // Determine the canonical position of the keyword
                         const i = order.indexOf(x);
@@ -492,17 +485,17 @@ class ShortcodeHandle {
                     let key;
                     if (missingRequired.size > 0) {
                         // Somehow, required keywords are missing. Add the first one by canonical order
-                        key = Array.from(missingRequired).sort((a, b) => index(a) - index(b)).reverse()[0];
+                        key = Array.from(missingRequired).sort((a, b) => index(a) - index(b))[0];
                     } else {
                         const optionalKWargs = this.optionalKWargs;
                         const missingOptional = optionalKWargs.difference(keys);
                         if (missingOptional.size > 0) {
                             // Add the first known optional argument by canonical order. If we don't know any and we accept arbitrary arguments, leave the key empty
-                            key = Array.from(missingOptional).sort((a, b) => index(a) - index(b)).reverse()[0] || "";
+                            key = Array.from(missingOptional).sort((a, b) => index(a) - index(b))[0] || "";
                         } else if (this.acceptingArbitraryKWargs)
                             key = "";
                         else
-                            return; // There are no arguments left to add, stop without doing anything
+                            return; // There are no arguments left to add, immediately stop without doing anything
                     }
                     // Finally, actually append the key value pair and retrigger the dialog
                     this.lastUnsavedKWargs.push([key, ""]);

@@ -5,7 +5,7 @@
 
 
 // Globally-registered handler functions indexed by keyword.
-const global_keywords = new Map<string, [(pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string, string]>();
+const global_keywords = new Map<string, [(pargs: string[], kwargs: Map<string, string | undefined>, context: any, content?: string) => string, string]>();
 
 
 // The set of all end-words for globally-registered block-scoped shortcodes.
@@ -15,7 +15,7 @@ const global_endwords = new Set<string>();
 // Decorator function for globally registering shortcode handlers.
 function register(keyword: string, endword: string) {
 
-    function register_function(func: (pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string) {
+    function register_function(func: (pargs: string[], kwargs: Map<string, string | undefined>, context: any, content?: string) => string) {
         global_keywords.set(keyword, [func, endword]);
         if (endword) {
             global_endwords.add(endword);
@@ -109,12 +109,12 @@ class Shortcode extends ASTNode {
         (\S+)
     `.replace(/\s+/g, ""), "g");
 
-    handler: (pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string;
+    handler: (pargs: string[], kwargs: Map<string, string | undefined>, context: any, content?: string) => string;
     pargs: string[];
-    kwargs: Map<string, string>;
+    kwargs: Map<string, string | undefined>;
     children: ASTNode[];
 
-    constructor(token: Token, handler_function: (pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string) {
+    constructor(token: Token, handler_function: (pargs: string[], kwargs: Map<string, string | undefined>, context: any, content?: string) => string) {
         super();
         this.token = token;
         this.handler = handler_function;
@@ -122,9 +122,9 @@ class Shortcode extends ASTNode {
         this.children = [];
     }
 
-    parse_args(argstring: string): [string[], Map<string, string>] {
+    parse_args(argstring: string): [string[], Map<string, string | undefined>] {
         const pargs: string[] = [];
-        const kwargs = new Map<string, string>();
+        const kwargs = new Map<string, string | undefined>();
         for (const match of argstring.matchAll(this.re_args)) {
             if (match[2] || match[5]) {
                 const key = match[1] || match[5];
@@ -206,22 +206,22 @@ class Parser {
     start: string;
     end: string;
     esc_start: string;
-    keywords: Map<string, [(pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string, string]>;
+    keywords: Map<string, [(pargs: string[], kwargs: Map<string, string | undefined>, context: any, content?: string) => string, string]>;
     endwords: Set<string>;
     ignore_unknown: boolean;
-    unknownHandlerFactory: (keyword: string) => (pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string; // patched in
+    unknownHandlerFactory: (keyword: string) => (pargs: string[], kwargs: Map<string, string | undefined>, context: any, content?: string) => string; // patched in
 
     constructor(start: string = '[%', end: string = '%]', esc: string = '\\', inherit_globals: boolean = true, ignore_unknown: boolean = false) {
         this.start = start;
         this.end = end;
         this.esc_start = esc + start;
-        this.keywords = new Map<string, [(pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string, string]>(inherit_globals ? global_keywords : null);
+        this.keywords = new Map<string, [(pargs: string[], kwargs: Map<string, string | undefined>, context: any, content?: string) => string, string]>(inherit_globals ? global_keywords : null);
         this.endwords = new Set<string>(inherit_globals ? global_endwords : null);
         this.ignore_unknown = ignore_unknown;
         this.unknownHandlerFactory = null; // patched in
     }
 
-    register(func: (pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string, keyword: string, endword: string = null) {
+    register(func: (pargs: string[], kwargs: Map<string, string | undefined>, context: any, content?: string) => string, keyword: string, endword: string = null) {
         this.keywords.set(keyword, [func, endword]);
         if (endword) {
             this.endwords.add(endword);
@@ -229,7 +229,7 @@ class Parser {
     }
 
     // patched in
-    setUnknownHandlerFactory(func: (keyword: string) => (pargs: string[], kwargs: Map<string, string>, context: any, content?: string) => string) {
+    setUnknownHandlerFactory(func: (keyword: string) => (pargs: string[], kwargs: Map<string, string | undefined>, context: any, content?: string) => string) {
         this.unknownHandlerFactory = func;
     }
 
