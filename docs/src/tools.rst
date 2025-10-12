@@ -126,6 +126,8 @@ with :github-source:`tools/integreat-cms-cli`::
 
 * ``COMMAND``: Invoke the management command ``COMMAND``. List all available commands with ``help``.
 
+Some are explained in more detail in :doc:`management-commands`.
+
 
 Code Quality
 ============
