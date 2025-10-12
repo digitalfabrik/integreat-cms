@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-09-11T14:25:42+00:00" />
+    <meta property="article:modified_time" content="2025-10-12T20:08:50+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Management Commands &mdash; integreat-cms 2025.10.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1943,6 +1943,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bulk-replace-page-icons"><code class="docutils literal notranslate"><span class="pre">bulk_replace_page_icons</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#create-new-commands">Create new commands</a><ul>
@@ -2403,6 +2404,40 @@ when you use this command in production to make sure links in archived pages are
 <li><p><code class="docutils literal notranslate"><span class="pre">SYNC</span></code>: When True page accesses will be fetched as a synchronous process. If not provided or False, page accesses are fetched via celery.</p></li>
 </ul>
 </section>
+<section id="bulk-replace-page-icons">
+<h4><code class="docutils literal notranslate"><span class="pre">bulk_replace_page_icons</span></code><a class="headerlink" href="#bulk-replace-page-icons" title="Link to this heading"></a></h4>
+<p>Swap media files used as icons on pages according to a CSV file (files need to exist in the media library):</p>
+<blockquote>
+<div><p>integreat-cms-cli bulk_replace_page_icons csv</p>
+</div></blockquote>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">csv</span></code>: The path to the csv file we want to read the replacements from</p></li>
+</ul>
+<p><strong>CSV format:</strong></p>
+<p>The file needs to have at least two columns. The header and any additional columns are ignored.
+The paths describe the path of the file <em>on disk</em> on the server (relative to the root location where all media is stored), not the “virtual” one in the media library.
+This path is also used directly as part of the URL that clients use to retrieve the file contents.
+That full URL can also be specified so and will be stripped out automatically.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Source path</p></th>
+<th class="head"><p>Target path</p></th>
+<th class="head"><p>Comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">https://cms.integreat-app.de/media/sites/83/2015/09/phone-handset_icon-icons.com_48252-300x300.png</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/sites/0/2025/08/phone_85134.svg</span></code></p></td>
+<td><p>this is a comment that will be discarded</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">admin.integreat-app.de/media/sites/83/2016/04/calendar60.png</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">https://cms.integreat-app.de/media/sites/0/2025/08/calendar_26397.svg</span></code></p></td>
+<td><p>etc.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="create-new-commands">
 <h3>Create new commands<a class="headerlink" href="#create-new-commands" title="Link to this heading"></a></h3>
@@ -2434,7 +2469,7 @@ when you use this command in production to make sure links in archived pages are
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 11, 2025.
+      <span class="lastupdated">Last updated on Oct 12, 2025.
       </span></p>
   </div>
 
