@@ -33,7 +33,7 @@ const insertIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string): v
 };
 /* This function adds an icon which can be inserted in the content */
 const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string, alt: string, shortcut: string): void => {
-    /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require, import/no-dynamic-require */
+    /* eslint-disable-next-line @typescript-eslint/no-require-imports, global-require, import/no-dynamic-require */
     editor.ui.registry.addIcon(name, parseSvg(require(`../../svg/${name}.svg`)));
     editor.ui.registry.addMenuItem(name, {
         text: tinymceConfig.getAttribute(`data-${name}-icon-text`),
@@ -184,7 +184,7 @@ window.addEventListener("load", () => {
                 addIcon(editor, tinymceConfig, "contact", "meta+alt+8", "");
                 addIcon(editor, tinymceConfig, "speech", "meta+alt+9", "");
                 addIcon(editor, tinymceConfig, "fax", "meta+alt+0", "");
-                /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require */
+                /* eslint-disable-next-line @typescript-eslint/no-require-imports, global-require */
                 editor.ui.registry.addIcon("no-translate", parseSvg(require(`../../svg/no-translate.svg`)));
                 editor.ui.registry.addButton("notranslate", {
                     tooltip: tinymceConfig.getAttribute("data-no-translate-tooltip"),
