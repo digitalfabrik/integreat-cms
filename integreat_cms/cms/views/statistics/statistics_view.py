@@ -12,6 +12,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+from integreat_cms.cms.constants import language_color
+
 from ...decorators import permission_required
 from ...forms import StatisticsFilterForm
 
@@ -46,6 +48,8 @@ class AnalyticsView(TemplateView):
         :return: The rendered template response
         """
         region = request.region
+        default_language = region.default_language
+        languages = region.active_languages
 
         if not region.statistics_enabled:
             messages.error(request, _("Statistics are not enabled for this region."))
@@ -72,6 +76,12 @@ class AnalyticsView(TemplateView):
             or region.slug in settings.PILOT_REGIONS_PAGE_BASED_STATISTICS
         )
 
+        access_legends = {
+            _("Phone App Accesses"): language_color.OFFLINE_ACCESS,
+            _("WebApp Accesses"): language_color.WEB_APP_ACCESS,
+            _("Total Accesses"): language_color.TOTAL_ACCESS,
+        }
+
         return render(
             request,
             self.template_name,
@@ -80,8 +90,9 @@ class AnalyticsView(TemplateView):
                 "form": form,
                 "pages": pages,
                 "region": region,
-                "language": region.default_language,
-                "languages": region.active_languages,
+                "language": default_language,
+                "languages": languages,
+                "access_legends": access_legends,
                 "is_statistics": True,
                 "show_page_based_statistics": show_page_based_statistics,
             },
