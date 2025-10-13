@@ -2,6 +2,7 @@ import pytest
 from django.conf import settings
 from django.test.client import Client
 from django.urls import resolve, reverse
+from django.contrib.messages import get_messages
 
 from integreat_cms.cms.models.poi_categories.poi_category import POICategory
 from integreat_cms.cms.models.pois.poi import POI
@@ -241,8 +242,11 @@ def test_no_changes_were_made_message(
         data=DEFAULT_POST_DATA
         | {"translations-2-name": "Nicht veränderte Ortskategorie"},
     )
+    print("Hier ist die Response",response)
 
     edit_url = response.headers.get("location")
+
+    print("Hier ist die Edit URL", edit_url)
     assert response.status_code == 302
 
     id_of_poicategory = resolve(edit_url).kwargs["pk"]
@@ -278,6 +282,9 @@ def test_no_changes_were_made_message(
     assert response.status_code == 302
     response = client.get(edit_url)
     assert response.status_code == 200
+
+    messages = list(get_messages(response.wsgi_request))
+    print([str(m) for m in messages])
 
     assert "Keine Änderungen vorgenommen" in response.content.decode("utf-8")
 
