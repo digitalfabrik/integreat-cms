@@ -272,7 +272,7 @@ jobs:
             circleci tests glob "tests/**/*.py" | circleci tests split --split-by=timings
       - run:
           name: Run tests
-          command: pytest -s tests/cms/views/status_code/test_view_status_code_1.py tests/cms/views/status_code/test_view_status_code_8.py tests/cms/views/status_code/test_view_status_code_14.py tests/cms/views/utils/test_hix.py tests/cms/views/poi_categories/test_poi_category_form_view.py tests/cms/utils/test_rounded_hix_value.py tests/api/test_pushnotification_api.py tests/core/management/commands/test_hix_bulk.py -vv --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings --log-cli-level=INFO
+          command: pytest --disable-test-ordering -s tests/cms/views/status_code/test_view_status_code_1.py tests/cms/views/status_code/test_view_status_code_8.py tests/cms/views/status_code/test_view_status_code_14.py tests/cms/views/utils/test_hix.py tests/cms/views/poi_categories/test_poi_category_form_view.py tests/cms/utils/test_rounded_hix_value.py tests/api/test_pushnotification_api.py tests/core/management/commands/test_hix_bulk.py -vv --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings --log-cli-level=INFO
       - store_test_results:
           path: test-results
       - store_artifacts:
