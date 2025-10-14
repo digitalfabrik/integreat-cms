@@ -11,6 +11,9 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+from integreat_cms.core.utils.word_count import word_count
+
+from ...constants.machine_translatable_attributes import TRANSLATABLE_ATTRIBUTES
 from ...constants.status import CHOICES
 from ...decorators import permission_required
 from ...forms import TranslationsManagementForm
@@ -47,13 +50,13 @@ class TranslationsManagementView(TemplateView):
         region = self.request.region
         content_types = [Event, POI, Page]
 
-        word_count: dict[str, Counter] = {}
+        word_counter: dict[str, Counter] = {}
 
         for content_type in content_types:
             content_name = content_type._meta.verbose_name_plural.title()
-            word_count[content_name] = Counter()
+            word_counter[content_name] = Counter()
             for status, _name in CHOICES:
-                word_count[content_name][status] = 0
+                word_counter[content_name][status] = 0
 
             contents = (
                 region.get_pages(prefetch_translations=True)
@@ -67,19 +70,25 @@ class TranslationsManagementView(TemplateView):
                 if latest_version := content.get_translation(
                     region.default_language.slug,
                 ):
-                    word_count[content_name][latest_version.status] += len(
-                        latest_version.content.split(),
+                    attributes_to_translate = [
+                        (attr, getattr(latest_version, attr))
+                        for attr in TRANSLATABLE_ATTRIBUTES
+                        if hasattr(latest_version, attr)
+                        and getattr(latest_version, attr)
+                    ]
+                    word_counter[content_name][latest_version.status] += word_count(
+                        attributes_to_translate
                     )
 
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "word_count": word_count,
-                "total_public_words": sum(c["PUBLIC"] for c in word_count.values()),
-                "total_draft_words": sum(c["DRAFT"] for c in word_count.values()),
-                "total_review_words": sum(c["REVIEW"] for c in word_count.values()),
+                "word_count": word_counter,
+                "total_public_words": sum(c["PUBLIC"] for c in word_counter.values()),
+                "total_draft_words": sum(c["DRAFT"] for c in word_counter.values()),
+                "total_review_words": sum(c["REVIEW"] for c in word_counter.values()),
                 "total_autosave_words": sum(
-                    c["AUTO_SAVE"] for c in word_count.values()
+                    c["AUTO_SAVE"] for c in word_counter.values()
                 ),
             },
         )
