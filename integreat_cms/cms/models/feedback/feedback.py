@@ -177,15 +177,23 @@ class Feedback(PolymorphicModel, AbstractBaseModel):
         query = kwargs["query"]
         archived_flag = kwargs["archived_flag"]
 
+        feedback_comments = (
+            cls.search(region, query)
+            .filter(
+                archived=archived_flag,
+            )
+            .order_by("comment")
+            .distinct("comment")
+            .values_list("comment", flat=True)
+        )
+
         results.extend(
             {
-                "title": feedback.comment,
+                "title": feedback_comment,
                 "url": None,
                 "type": "feedback",
             }
-            for feedback in cls.search(region, query).filter(
-                archived=archived_flag,
-            )
+            for feedback_comment in feedback_comments
         )
 
         return results

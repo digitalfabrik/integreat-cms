@@ -174,6 +174,11 @@ class Region(AbstractBaseModel):
         verbose_name=_("activate locations"),
         help_text=_("Whether or not locations are enabled in the region"),
     )
+    contacts_enabled = models.BooleanField(
+        default=True,
+        verbose_name=_("activate contacts"),
+        help_text=_("Whether or not contacts are enabled in the region"),
+    )
     push_notifications_enabled = models.BooleanField(
         default=True,
         verbose_name=_("activate push notifications"),
@@ -919,11 +924,13 @@ class Region(AbstractBaseModel):
 
         results.extend(
             {
-                "title": region.name,
+                "title": region_name,
                 "url": None,
                 "type": "region",
             }
-            for region in regions
+            for region_name in regions.order_by("name")
+            .distinct("name")
+            .values_list("name", flat=True)
         )
         return results
 

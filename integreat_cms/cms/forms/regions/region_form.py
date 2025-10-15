@@ -181,6 +181,7 @@ class RegionForm(CustomModelForm):
             "slug",
             "events_enabled",
             "locations_enabled",
+            "contacts_enabled",
             "chat_enabled",
             "push_notifications_enabled",
             "latitude",

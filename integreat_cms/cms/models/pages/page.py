@@ -416,17 +416,27 @@ class Page(AbstractTreeNode, AbstractBasePage):
         query = kwargs["query"]
         archived_flag = kwargs["archived_flag"]
         language_slug = kwargs["language_slug"]
+        link_suggestion_flag = kwargs["link_suggestion_flag"]
 
         pages = region.pages.all().cache_tree(archived=archived_flag)
+        title_already_in_result: set[str] = set()
+
         for page in pages:
             page_translation = page.get_translation(language_slug)
             if page_translation and (
                 query.lower() in page_translation.slug
                 or query.lower() in page_translation.title.lower()
             ):
+                if (
+                    not link_suggestion_flag
+                    and page_translation.title in title_already_in_result
+                ):
+                    continue
+
                 results.append(
                     format_object_translation(page_translation, "page", language_slug),
                 )
+                title_already_in_result.add(page_translation.title)
 
         return results
 

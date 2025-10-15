@@ -130,6 +130,8 @@ class ContactFormView(TemplateView, ContactContextMixin):
                 "referring_locations": referring_locations,
                 "referring_events": referring_events,
                 "help_text": help_text,
+                "is_primary_contact": contact_instance
+                and not contact_instance.area_of_responsibility,
             },
         )
 

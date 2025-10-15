@@ -2229,6 +2229,19 @@ msgstr "Übersetzung auf {}"
 msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
 
+#: cms/forms/pois/poi_form.py cms/templates/contacts/contact_list.html
+#: cms/templates/organizations/organization_list.html
+msgid "Website"
+msgstr "Webseite"
+
+#: cms/forms/pois/poi_form.py
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+#: cms/forms/pois/poi_form.py cms/templates/contacts/contact_list.html
+msgid "Phone number"
+msgstr "Telefonnummer"
+
 #: cms/forms/pois/poi_form.py
 msgid ""
 "Could not derive the coordinates from the address, please fill the field "
@@ -2914,7 +2927,8 @@ msgstr "Kontakte"
 #: cms/models/contact/contact.py
 msgid "Only one contact per location can have an empty area of responsibility."
 msgstr ""
-"Pro Ort darf es nur einen Kontakt ohne Angabe des Zuständigkeitsbereichs geben."
+"Pro Ort darf es nur einen Kontakt ohne Angabe des Zuständigkeitsbereichs "
+"geben."
 
 #: cms/models/contact/contact.py
 msgid ""
@@ -4084,6 +4098,14 @@ msgid "Whether or not locations are enabled in the region"
 msgstr "Ob Orte in der Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py
+msgid "activate contacts"
+msgstr "Kontakte aktivieren"
+
+#: cms/models/regions/region.py
+msgid "Whether or not contacts are enabled in the region"
+msgstr "Ob Kontakte in der Region aktiviert sind oder nicht"
+
+#: cms/models/regions/region.py
 msgid "activate push notifications"
 msgstr "Push-Benachrichtigungen aktivieren"
 
@@ -5162,7 +5184,7 @@ msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
-#: cms/templates/statistics/statistics_viewed_pages_node.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "Loading..."
 msgstr "Laden..."
 
@@ -5483,6 +5505,15 @@ msgstr ""
 "Zuständigkeitsbereichs geben."
 
 #: cms/templates/contacts/contact_form.html
+#: cms/templates/pois/poi_form_sidebar/contact_box.html
+msgid ""
+"The contact details provided here are displayed by default. Additional "
+"contacts can be added for specific responsibilities."
+msgstr ""
+"Die hier angegebenen Kontaktdaten werden standardmäßig angezeigt. Für "
+"bestimmte Zuständigkeiten können zusätzliche Kontakte hinterlegt werden."
+
+#: cms/templates/contacts/contact_form.html
 msgid "Contact information"
 msgstr "Kontaktinformationen"
 
@@ -5643,17 +5674,8 @@ msgid "E-Mail"
 msgstr "E-Mail"
 
 #: cms/templates/contacts/contact_list.html
-msgid "Phone number"
-msgstr "Telefonnummer"
-
-#: cms/templates/contacts/contact_list.html
 msgid "Mobile phone number"
 msgstr "Mobiltelefonnummer"
-
-#: cms/templates/contacts/contact_list.html
-#: cms/templates/organizations/organization_list.html
-msgid "Website"
-msgstr "Webseite"
 
 #: cms/templates/contacts/contact_list.html
 #: cms/templates/events/event_list.html
@@ -8091,6 +8113,10 @@ msgstr[1] "Löschen Sie zuerst diese Kontakte, um den Ort zu löschen:"
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
+#: cms/templates/pois/poi_form_sidebar/contact_box.html
+msgid "Contact details"
+msgstr "Kontaktdaten"
+
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 msgid "Position"
 msgstr "Position"
@@ -9817,6 +9843,10 @@ msgstr ""
 msgid "Please create at least one location before creating contacts."
 msgstr "Bitte erstellen Sie mindestens einen Ort bevor Sie Kontakte erstellen."
 
+#: cms/views/contacts/contact_list_view.py
+msgid "Contacts are not enabled for this region."
+msgstr "Kontakte sind für diese Region nicht aktiviert."
+
 #: cms/views/content_version_view.py
 msgid "Back to the form"
 msgstr "Zurück zum Formular"
@@ -11358,6 +11388,18 @@ msgstr ""
 msgid "Statistics are not enabled for this region."
 msgstr "Statistiken sind für diese Region nicht aktiviert."
 
+#: cms/views/statistics/statistics_view.py matomo_api/matomo_api_client.py
+msgid "Phone App Accesses"
+msgstr "Handy-App Zugriffe"
+
+#: cms/views/statistics/statistics_view.py matomo_api/matomo_api_client.py
+msgid "WebApp Accesses"
+msgstr "Web-App Zugriffe"
+
+#: cms/views/statistics/statistics_view.py matomo_api/matomo_api_client.py
+msgid "Total Accesses"
+msgstr "Alle Zugriffe"
+
 #: cms/views/translations/translations_management_view.py
 msgid "Automatic translation settings were saved successfully."
 msgstr ""
@@ -11669,20 +11711,8 @@ msgid "Matomo API"
 msgstr "Matomo API"
 
 #: matomo_api/matomo_api_client.py
-msgid "Total Accesses"
-msgstr "Alle Zugriffe"
-
-#: matomo_api/matomo_api_client.py
 msgid "CW"
 msgstr "KW"
-
-#: matomo_api/matomo_api_client.py
-msgid "Phone App Accesses"
-msgstr "Handy-App Zugriffe"
-
-#: matomo_api/matomo_api_client.py
-msgid "WebApp Accesses"
-msgstr "Web-App Zugriffe"
 
 #: nominatim_api/apps.py
 msgid "Nominatim API"
@@ -11851,7 +11881,6 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
-#, python-brace-format
 #~ msgid "{model_name} {object_names} was successfully deactivated."
 #~ msgid_plural ""
 #~ "The following {model_name} were successfully deactivated: {object_names}"
@@ -12197,15 +12226,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have "
-#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have <b>"
+#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell "
-#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
-#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
-#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell <b>"
+#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
+#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
+#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"

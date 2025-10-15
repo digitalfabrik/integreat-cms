@@ -33,6 +33,17 @@ class POIForm(CustomModelForm):
     #: The distance in km between the manually entered coordinates and the coordinates returned from Nominatim
     nominatim_distance_delta = 0
 
+    primary_website = forms.URLField(max_length=250, required=False, label=_("Website"))
+    primary_email = forms.EmailField(
+        label=_("Email address"),
+        required=False,
+    )
+    primary_phone_number = forms.CharField(
+        max_length=250,
+        required=False,
+        label=_("Phone number"),
+    )
+
     class Meta:
         """
         This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
@@ -71,6 +82,17 @@ class POIForm(CustomModelForm):
         :param \**kwargs: The supplied keyword arguments
         """
         super().__init__(**kwargs)
+
+        # Look explicitly for the primary contact, not the any first one,
+        # as we do not delete non-primary contacts when deactivating contact in a region.
+        # "get()" is not used as it raises an exception if there is no primary contact.
+        if self.instance.id:
+            contact = self.instance.contacts.filter(area_of_responsibility="").first()
+            self.fields["primary_phone_number"].initial = (
+                contact.phone_number if contact else ""
+            )
+            self.fields["primary_website"].initial = contact.website if contact else ""
+            self.fields["primary_email"].initial = contact.email if contact else ""
 
         self.fields[
             "organization"
