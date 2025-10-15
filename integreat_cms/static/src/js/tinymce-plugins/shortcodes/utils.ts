@@ -17,20 +17,23 @@ import { Shortcode as parser } from "./shortcodes";
 */
 
 
+const AcceptArbitraryArguments = Symbol("AcceptArbitraryArguments");
+type ARBITRARY = typeof AcceptArbitraryArguments;
+
 type TextDescriptor = string | ((self: ShortcodeHandle) => string);
-/* Positional arguments:
- * - number:                   How many positional arguments have to be given (exactly, not more and not less).
- * - [number, number | null]:  How many positional arguments are required, and up to how many CAN be given (Infinity or null means unbounded).
- * - null:                     Allow any number of positional arguments.
- * Keyword arguments:
- * - (string | [string, boolean] | null)[]:  List of all keyword arguments being accepted.
- *                                           If an item is given as a list where the second value is true, the keyword is required.
- *                                           Also serves as a canonical order normalizing the shortcode.
- *                                           If the list contains null, anything is accepted as optional argument.
- * - null:                                   Allow any keyword argument.
- */
-type PargsConstraint = number | [number, number | null] | null;
-type KWargsDescriptor = (string | [string, boolean] | null)[] | null;
+
+type SingleParg = null              // Just to occupy this index.
+                | string            // Name for the positional argument.
+                | [string, string]; // Name and description of the positional argument.
+type PargsConstraint = ARBITRARY                                                                // Allow any number of positional arguments.
+                     | number                                                                   // How many positional arguments have to be given (exactly, not more and not less).
+                     | [number, number | ARBITRARY]                                             // How many positional arguments are required, and up to how many CAN be given (Infinity or null means unbounded).
+                     | [SingleParg[], SingleParg[] | [...SingleParg[], ARBITRARY] | ARBITRARY]; // The list of the required and the list of optional positional arguments.
+type SingleKWarg = string                       // Keyword (required)
+                 | [string, boolean?, string?]; // Keyword, whether it is required (default: not required) and a description of the argument.
+type KWargsDescriptor = ARBITRARY                      // Allow any keyword argument.
+                      | SingleKWarg[]                  // List of all keyword arguments being accepted. Also serves as a canonical order normalizing the shortcode.
+                      | [...SingleKWarg[], ARBITRARY]; // If the last element is AcceptArbitraryArguments, anything is accepted as optional argument.
 
 
 class ShortcodeHandle {
@@ -50,50 +53,79 @@ class ShortcodeHandle {
         return str.includes(" ") ? `"${str.replace(/"/g, '\\"')}"` : str;
     }
 
-    pargs: PargsConstraint = null;
-    kwargs: KWargsDescriptor = null;
-    get maxPargs() {
-        if (this.pargs === null)
+    pargs: PargsConstraint = AcceptArbitraryArguments;
+    kwargs: KWargsDescriptor = AcceptArbitraryArguments;
+    get maxPargs(): number {
+        if (this.pargs === AcceptArbitraryArguments)
             return Infinity;
         if (typeof this.pargs === "number")
             return this.pargs;
-        else if (this.pargs[1] === null)
-            return Infinity;
-        else
-            return this.pargs[1];
+        else if (this.pargs.length > 0 && typeof this.pargs[0] === "number") {
+            // [min, max] style
+            if (this.pargs[1] === AcceptArbitraryArguments)
+                return Infinity;
+            else
+                return this.pargs[1] as number;
+        } else {
+            // Listing all individual arguments style
+            if (this.pargs.includes(AcceptArbitraryArguments))
+                return Infinity;
+            else
+                return this.pargs.length;
+        }
     }
-    get minPargs() {
-        if (this.pargs === null)
+    get minPargs(): number {
+        if (this.pargs === AcceptArbitraryArguments)
             return 0;
         if (typeof this.pargs === "number")
             return this.pargs;
-        else
+        else if (this.pargs.length > 0 && typeof this.pargs[0] === "number") {
+            // [min, max] style
             return this.pargs[0];
+        } else {
+            // Listing all individual arguments style
+            if (this.pargs.includes(AcceptArbitraryArguments))
+                return Infinity;
+            else
+                return this.pargs.length;
+        }
     }
     get requiredKWargs(): Set<string> {
-        if (this.kwargs === null)  return new Set();
-        return new Set(this.kwargs.filter(kw => kw !== null).reduce((acc, key: string | [string, boolean] | null) => {
+        if (this.kwargs === AcceptArbitraryArguments)  return new Set();
+        const known = this.kwargs.filter(kw => kw !== AcceptArbitraryArguments) as SingleKWarg[];
+        const required = known.reduce((acc: string[], key: SingleKWarg) => {
             if (typeof key === "string") {
                 acc.push(key);
-            } else if (key !== null && key[1]) {
+            } else if (key.length > 1 && key[1]) {
                 acc.push(key[0]);
             }
             return acc;
-        }, []));
+        }, []);
+        return new Set(required);
     }
     get optionalKWargs(): Set<string> {
-        if (this.kwargs === null)  return new Set();
-        return new Set(this.kwargs.filter(kw => kw !== null).reduce((acc, key: string | [string, boolean] | null) => {
-            if (key !== null && !(typeof key === "string") && !key[1]) {
+        if (this.kwargs === AcceptArbitraryArguments)  return new Set();
+        const known = this.kwargs.filter(kw => kw !== AcceptArbitraryArguments) as SingleKWarg[];
+        const optional = known.reduce((acc, key: SingleKWarg) => {
+            if (!(typeof key === "string") && !(key.length > 1 && key[1])) {
                 acc.push(key[0]);
             }
             return acc;
-        }, []));
+        }, []);
+        return new Set(optional);
     }
     get acceptingArbitraryKWargs(): boolean {
-        if (this.kwargs === null)  return true;
-        if (this.kwargs.includes(null))  return true;
-        return false;
+        if (this.kwargs === AcceptArbitraryArguments)
+            return true;
+        return (this.kwargs as [...SingleKWarg[], ARBITRARY]) // Wrong type, it might also not contain AcceptArbitraryArguments, but this way typescript doesn't complain
+            .includes(AcceptArbitraryArguments); // This would make perfect sense to me even if kwargs is regarded as  SingleKWarg[] | [...SingleKWarg[], ARBITRARY]
+    }
+    get kwargsOrder(): string[] {
+        if (this.kwargs === AcceptArbitraryArguments)
+            return [];
+        const kwargs = this.kwargs.filter(kw => kw !== AcceptArbitraryArguments) as SingleKWarg[]
+        const keywords = kwargs.map((kw: SingleKWarg) => typeof kw === "string" ? kw : kw[0]);
+        return keywords;
     }
     lastUnsavedPargs: string[] | null = null;
     lastUnsavedKWargs: [string, string][] | null = null;
@@ -123,7 +155,7 @@ class ShortcodeHandle {
 
     sortKWargs(kwpairs: Iterable<[string, string]> | [string, string][]): [string, string][] {
         // A helper method determining a canonical order for keyword arguments
-        const order = this.kwargs !== null ? this.kwargs.filter(kw => kw !== null).map(kw => typeof kw === "string" ? kw : kw[0]) : [];
+        const order = this.kwargsOrder;
         if (!(kwpairs instanceof Array))  kwpairs = Array.from(kwpairs);
         return (kwpairs as Array<[string, string]>).sort((a, b) => {
             const aPos = order.includes(a[0]) ? order.indexOf(a[0]) : order.length;
@@ -137,8 +169,8 @@ class ShortcodeHandle {
             return false;
         // Positional arguments pass!
 
-        if (this.kwargs === null)
-            return true;
+        if (this.kwargs === AcceptArbitraryArguments)
+            return true; // Early exit if we don't define any required keyword arguments and accept everything
         const keywords = new Set(Object.keys(kwargs));
         const requiredKWargs = this.requiredKWargs;
         // Check if any required keyword arguments are missing
@@ -222,7 +254,7 @@ class ShortcodeHandle {
 
     renderPreviewNode(pargs: string[], kwargs: Map<string, string | undefined>): string {
         // The html string representation of the shortcode in the TinyMCE editor
-        const ppairs = pargs.map((arg, i) => `data-parg${i}="${arg}"`);
+        const ppairs = pargs.map((arg, i) => `data-parg${i}=${ShortcodeHandle.escape(arg)}`);
         const kwpairs = this.sortKWargs(kwargs.entries()).map(([key, value]) => `data-kw-${key}=${ShortcodeHandle.escape(value)}`);
         const parts = [`class="mceNonEditable"`, `data-shortcode="${this.keyword}"`, ...ppairs, ...kwpairs];
         return `<span ${parts.join(" ")}>${this.renderPreview(pargs, kwargs)}</span>`;
@@ -383,7 +415,7 @@ class ShortcodeHandle {
             initialData: {
                 ...Object.fromEntries(initialPargs.map((parg: string, i: number) => [`parg${i}`, parg])),
                 ...Object.fromEntries(initialKWargs.reduce((acc, [keyword, value], i) => {
-                    if (this.kwargs === null) {
+                    if (this.kwargs === AcceptArbitraryArguments) {
                         return acc.concat([
                             [`kwarg${i}-name`, keyword],
                             [`kwarg${i}-value`, value],
@@ -472,7 +504,7 @@ class ShortcodeHandle {
                     if (this.lastUnsavedKWargs === null)
                         return;
                     // A flat list of known keywords in canonical order
-                    const order = this.kwargs !== null ? this.kwargs.filter(kw => kw !== null).map(kw => typeof kw === "string" ? kw : kw[0]) : [];
+                    const order = this.kwargsOrder;
                     function index(x: string): number {
                         // Determine the canonical position of the keyword
                         const i = order.indexOf(x);
@@ -633,4 +665,4 @@ class Registry {
 }
 
 
-export { ShortcodeHandle, Registry };
+export { ShortcodeHandle, Registry, AcceptArbitraryArguments };
