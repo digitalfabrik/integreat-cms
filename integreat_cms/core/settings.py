@@ -752,6 +752,10 @@ LOGGING: dict[str, Any] = {
             "handlers": ["console-colored", "logfile"],
             "level": LOG_LEVEL,
         },
+        "tests": {
+            "handlers": ["console-colored", "logfile"],
+            "level": "DEBUG",
+        },
         "integreat_cms.core.management.commands": {
             "handlers": [
                 "management-command-stdout",
