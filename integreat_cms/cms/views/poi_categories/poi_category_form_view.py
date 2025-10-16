@@ -243,14 +243,22 @@ class POICategoryUpdateView(POICategoryMixin, UpdateView):
         if TYPE_CHECKING:
             assert self.object
             assert self.formset
-        logger.debug(f"formset changed: {self.formset.has_changed()}; form changed: {form.has_changed()}")
+        formset_has_changed = self.formset.has_changed()
+        form_has_changed = form.has_changed()
+        logger.debug(
+            "formset changed: %s; form changed: %s",
+            formset_has_changed,
+            form_has_changed,
+        )
         if not self.formset.has_changed() and not form.has_changed():
             logger.debug("form has not changed")
             messages.info(self.request, _("No changes made"))
         else:
             logger.debug("form has changed")
-            logger.debug(f"changed data in form is {form.changed_data}")
-            logger.debug(f"changed data in formset is {list(f.changed_data for f in self.formset)}")
+            logger.debug("changed data in form is %s", form.changed_data)
+            logger.debug(
+                "changed data in formset is %s", [f.changed_data for f in self.formset]
+            )
             self.formset.save()
             messages.success(
                 self.request,
