@@ -1,4 +1,4 @@
-import { ShortcodeHandle } from "./utils";
+import { ShortcodeHandle, AcceptArbitraryArguments } from "./utils";
 
 class ContactHandle extends ShortcodeHandle {
 	keyword = "contact";
@@ -7,7 +7,7 @@ class ContactHandle extends ShortcodeHandle {
 	removeIcon = "remove";
 
 	pargs = [2, 8];
-	kwargs = ["one", ["etc", false], "two", ["opt", false]];
+	kwargs = ["one", ["etc", false, "The id "], "two", ["opt", false], AcceptArbitraryArguments];
 }
 
 

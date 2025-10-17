@@ -22,10 +22,10 @@ type ARBITRARY = typeof AcceptArbitraryArguments;
 
 type TextDescriptor = string | ((self: ShortcodeHandle) => string);
 
-type SingleParg = null              // Just to occupy this index.
-                | string            // Name for the positional argument.
-                | [string, string]; // Name and description of the positional argument.
-type PargsConstraint = ARBITRARY                                                                // Allow any number of positional arguments.
+type SingleParg = null               // Just to occupy this index.
+                | string             // Name for the positional argument.
+                | [string, string?]; // Name and description of the positional argument.
+type PargsDescriptor = ARBITRARY                                                                // Allow any number of positional arguments.
                      | number                                                                   // How many positional arguments have to be given (exactly, not more and not less).
                      | [number, number | ARBITRARY]                                             // How many positional arguments are required, and up to how many CAN be given (Infinity or null means unbounded).
                      | [SingleParg[], SingleParg[] | [...SingleParg[], ARBITRARY] | ARBITRARY]; // The list of the required and the list of optional positional arguments.
@@ -34,6 +34,11 @@ type SingleKWarg = string                       // Keyword (required)
 type KWargsDescriptor = ARBITRARY                      // Allow any keyword argument.
                       | SingleKWarg[]                  // List of all keyword arguments being accepted. Also serves as a canonical order normalizing the shortcode.
                       | [...SingleKWarg[], ARBITRARY]; // If the last element is AcceptArbitraryArguments, anything is accepted as optional argument.
+type ExplicitArg = {
+    name: string;
+    required: boolean;
+    description: string;
+};
 
 
 class ShortcodeHandle {
@@ -53,7 +58,7 @@ class ShortcodeHandle {
         return str.includes(" ") ? `"${str.replace(/"/g, '\\"')}"` : str;
     }
 
-    pargs: PargsConstraint = AcceptArbitraryArguments;
+    pargs:  PargsDescriptor  = AcceptArbitraryArguments;
     kwargs: KWargsDescriptor = AcceptArbitraryArguments;
     get maxPargs(): number {
         if (this.pargs === AcceptArbitraryArguments)
@@ -90,6 +95,49 @@ class ShortcodeHandle {
                 return this.pargs.length;
         }
     }
+    getExplicitParg(index: number): ExplicitArg {
+        // Get an explicit descriptor of the positional argument at this index
+        if (index < 0 || index >= this.maxPargs)
+            throw RangeError;
+        const parg: ExplicitArg = {
+            name: null,
+            required: null,
+            description: null,
+        };
+        if (this.pargs === AcceptArbitraryArguments)
+            parg.required = false;
+        else if (typeof this.pargs === "number")
+            parg.required = true;
+        else if (this.pargs.length > 0 && typeof this.pargs[0] === "number") {
+            let [min, max] = this.pargs;
+            parg.required = index < min;
+        } else {
+            // Listing all individual arguments style
+            let length = this.pargs.length;
+            if (this.pargs[length-1] === AcceptArbitraryArguments)
+                length -= 1;
+            if (index < length) {
+                if (typeof this.pargs[index] === "string")
+                    parg.name = this.pargs[index];
+                else if (this.pargs[index] !== null) {
+                    const arg = this.pargs[index] as [string, string?];
+                    parg.name = arg[0];
+                    if (arg.length > 1)
+                        parg.description = arg[1];
+                }
+            } else
+                parg.required = false;
+        }
+        // Fill in generic name and description
+        if (parg.name === null)
+            parg.name = `Argument ${index}`;
+        if (parg.required === null)
+            parg.required = index < this.minPargs;
+        if (parg.description === null)
+            parg.description = ``; // Description stays empty
+        return parg;
+    }
+
     get requiredKWargs(): Set<string> {
         if (this.kwargs === AcceptArbitraryArguments)  return new Set();
         const known = this.kwargs.filter(kw => kw !== AcceptArbitraryArguments) as SingleKWarg[];
@@ -127,6 +175,41 @@ class ShortcodeHandle {
         const keywords = kwargs.map((kw: SingleKWarg) => typeof kw === "string" ? kw : kw[0]);
         return keywords;
     }
+    getExplicitKWarg(name: string): ExplicitArg {
+        // Get an explicit descriptor of the keyword argument at this index
+        if (!this.acceptingArbitraryKWargs && !this.requiredKWargs.has(name) && !this.optionalKWargs.has(name))
+            throw RangeError;
+
+        const kwarg: ExplicitArg = {
+            name: name,
+            required: null,
+            description: null,
+        };
+        if (this.kwargs === AcceptArbitraryArguments)
+            kwarg.required = false;
+        else {
+            // Listing all individual arguments style
+            for (const descriptor of this.kwargs) {
+                if (typeof descriptor === "string")
+                    if (descriptor == name)
+                        break; // no description to add
+                else if (descriptor[0] == name) {
+                    if (descriptor.length > 1)
+                        kwarg.description = descriptor[1];
+                    break;
+                }
+            }
+        }
+        // Fill in generic name and description
+        if (kwarg.name === null)
+            kwarg.name = `${name}`;
+        if (kwarg.required === null)
+            kwarg.required = this.requiredKWargs.has(name);
+        if (kwarg.description === null)
+            kwarg.description = ``; // Description stays empty
+        return kwarg;
+    }
+
     lastUnsavedPargs: string[] | null = null;
     lastUnsavedKWargs: [string, string][] | null = null;
 
