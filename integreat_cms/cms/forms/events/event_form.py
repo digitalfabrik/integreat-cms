@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import zoneinfo
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 from typing import TYPE_CHECKING
 
 from django import forms
@@ -143,7 +143,7 @@ class EventForm(CustomModelForm):
 
         # new validation: start_date must be today or later (not in the past)
         if start_date := cleaned_data.get("start_date"):
-            today = timezone.now().date()
+            today = timezone.now().date() + timedelta(days=1)
             if start_date < today:
                 # If it's before today, add an error on start_date
                 self.add_error(
