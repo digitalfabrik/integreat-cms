@@ -27,38 +27,35 @@ from tests.utils import disable_hix_post_save_signal
 
 if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
-    from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]
 
 
-@pytest.fixture(scope="session")
-def dummy_region(django_db_setup: None, django_db_blocker: _DatabaseBlocker) -> Region:
+def create_dummy_region() -> tuple[Language, Region]:
     """
-    Fixture to create a hix enabled dummy region, along with a dummy language.
+    Function to create a hix enabled dummy region, along with a dummy language.
     """
-    with django_db_blocker.unblock():
-        dummy_language = Language.objects.create(
-            slug="du",
-            bcp47_tag="du_DU",
-            primary_country_code="de",
-        )
-        dummy_language.save()
-        dummy_region = Region.objects.create(
-            name="HIX Test",
-            slug="hix-test",
-            status=ACTIVE,
-            administrative_division=MUNICIPALITY,
-            postal_code="12345",
-            admin_mail="admin@example.com",
-            hix_enabled=True,
-        )
-        dummy_region.save()
-        dummy_tree_node = LanguageTreeNode.add_root(
-            language=dummy_language,
-            region=dummy_region,
-        )
-        dummy_tree_node.save()
+    dummy_language = Language.objects.create(
+        slug="du",
+        bcp47_tag="du_DU",
+        primary_country_code="de",
+    )
+    dummy_language.save()
+    dummy_region = Region.objects.create(
+        name="HIX Test",
+        slug="hix-test",
+        status=ACTIVE,
+        administrative_division=MUNICIPALITY,
+        postal_code="12345",
+        admin_mail="admin@example.com",
+        hix_enabled=True,
+    )
+    dummy_region.save()
+    dummy_tree_node = LanguageTreeNode.add_root(
+        language=dummy_language,
+        region=dummy_region,
+    )
+    dummy_tree_node.save()
 
-    return dummy_region
+    return (dummy_language, dummy_region)
 
 
 def test_hix_rounding(settings: SettingsWrapper) -> None:
@@ -88,9 +85,8 @@ def test_hix_rounding(settings: SettingsWrapper) -> None:
 @pytest.mark.django_db
 def test_disregard_archived_pages(
     settings: SettingsWrapper,
-    dummy_region: Region,
 ) -> None:
-    dummy_language = dummy_region.default_language
+    dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
 
     with disable_hix_post_save_signal():
@@ -151,9 +147,8 @@ def test_disregard_archived_pages(
 @pytest.mark.django_db
 def test_disregard_pages_with_hix_ignore(
     settings: SettingsWrapper,
-    dummy_region: Region,
 ) -> None:
-    dummy_language = dummy_region.default_language
+    dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
 
     with disable_hix_post_save_signal():
@@ -217,8 +212,8 @@ def test_disregard_pages_with_hix_ignore(
 
 
 @pytest.mark.django_db
-def test_hix_values(settings: SettingsWrapper, dummy_region: Region) -> None:
-    dummy_language = dummy_region.default_language
+def test_hix_values(settings: SettingsWrapper) -> None:
+    dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
 
     HIX_ROUNDING_PRECISION = 0.01
@@ -295,8 +290,8 @@ def test_hix_values(settings: SettingsWrapper, dummy_region: Region) -> None:
 
 
 @pytest.mark.django_db
-def test_versions_of_hix_page(settings: SettingsWrapper, dummy_region: Region) -> None:
-    dummy_language = dummy_region.default_language
+def test_versions_of_hix_page(settings: SettingsWrapper) -> None:
+    dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
 
     with disable_hix_post_save_signal():
