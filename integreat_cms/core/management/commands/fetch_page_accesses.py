@@ -42,7 +42,7 @@ class Command(LogCommand):
         parser.add_argument("--end-date", required=True, help="Latest date")
         parser.add_argument(
             "--region-slug",
-            help="The slug of the region to fetch page accesses from. Statistics need to be activatet",
+            help="The slug of the region to fetch page accesses from. Statistics need to be activated",
         )
         parser.add_argument("--sync")
 
