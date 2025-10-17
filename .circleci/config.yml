@@ -251,7 +251,7 @@ jobs:
           POSTGRES_DB: integreat
           POSTGRES_PASSWORD: password
     resource_class: large
-    parallelism: 16
+    parallelism: 1
     steps:
       - checkout
       - attach_workspace:
@@ -266,8 +266,12 @@ jobs:
           name: Migrate database
           command: integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
       - run:
-          name: Run tests
-          command: pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
+          name: Run specific tests in strict order
+          command: |
+            pytest tests/cms/views/status_code/test_view_status_code_11.py tests/pdf/test_pdf_export.py tests/cms/test_media_library.py tests/cms/test_page_filters.py tests/cms/views/utils/test_hix.py tests/cms/views/poi_categories/test_poi_category_form_view.py tests/cms/views/test_public_view_status_code.py tests/core/management/commands/test_summ_ai_bulk.py --disable-warnings --ds=integreat_cms.core.circleci_settings
+      #- run:
+      #    name: Run tests
+      #    command: pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
       - store_test_results:
           path: test-results
       - store_artifacts:

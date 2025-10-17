@@ -7,6 +7,7 @@ from django.test.client import Client
 from django.urls import resolve, reverse
 from django.utils.html import strip_tags
 
+from integreat_cms.cms.models.languages.language import Language
 from integreat_cms.cms.models.poi_categories.poi_category import POICategory
 from integreat_cms.cms.models.pois.poi import POI
 from tests.conftest import ANONYMOUS, CMS_TEAM, ROOT, SERVICE_TEAM, STAFF_ROLES
@@ -243,6 +244,9 @@ def test_no_changes_were_made_message(
 
     new_poicategory_url = reverse("new_poicategory")
 
+    for language in Language.objects.all():
+        logger.debug("Language: %s - language-id: %s - slug:%s",language, language.id, language.slug)
+
     response = client.post(
         new_poicategory_url,
         data=DEFAULT_POST_DATA
@@ -256,6 +260,12 @@ def test_no_changes_were_made_message(
 
     poicategory = POICategory.objects.get(id=id_of_poicategory)
     translation = poicategory.translations.get(language__slug="de")
+
+    translations = poicategory.translations.all()
+
+    logger.debug("Translations after first save")
+    for translation in translations:
+        logger.debug("Translation: %s - language: %s", translation, translation.language)
 
     response = client.post(
         edit_url,
@@ -281,6 +291,21 @@ def test_no_changes_were_made_message(
             "translations-MAX_NUM_FORMS": "10",
         },
     )
+
+    edit_url = response.headers.get("location")
+
+    id_of_poicategory = resolve(edit_url).kwargs["pk"]
+
+    poicategory = POICategory.objects.get(id=id_of_poicategory)
+    translation = poicategory.translations.get(language__slug="de")
+
+    translations = poicategory.translations.all()
+
+    logger.debug("Translations after second save")
+    for translation in translations:
+        logger.debug("Translation: %s - language: %s", translation, translation.language)
+
+  
 
     assert response.status_code == 302
     response = client.get(edit_url)

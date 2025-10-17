@@ -161,3 +161,30 @@ def configure_celery_for_tests(settings: SettingsWrapper) -> None:
     # so we set celery to run synchronously and propagate errors to the test runner
     settings.CELERY_TASK_ALWAYS_EAGER = True
     settings.CELERY_TASK_EAGER_PROPAGATES = True
+
+def pytest_collection_modifyitems(items):
+    DESIRED_ORDER = [
+        "tests.cms.views.status_code.test_view_status_code_11",
+        "tests.pdf.test_pdf_export",
+        "tests.cms.test_media_library",
+        "tests.cms.test_page_filters",
+        "test_hix",
+        "test_poi_category_form_view",
+        "tests.cms.views.test_public_view_status_code",
+        "tests.core.management.commands.test_summ_ai_bulk",
+    ]
+
+    def module_name(item):
+        return item.module.__name__
+
+    sorted_items = []
+    remaining = items.copy()
+
+    for module in DESIRED_ORDER:
+        matching = [it for it in remaining if module_name(it) == module]
+        remaining = [it for it in remaining if module_name(it) != module]
+        sorted_items.extend(matching)
+
+    print(sorted_items)
+
+    items[:] = sorted_items
