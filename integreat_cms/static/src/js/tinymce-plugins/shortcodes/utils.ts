@@ -29,37 +29,40 @@ type PargsDescriptor = ARBITRARY                                                
                      | number                                                                   // How many positional arguments have to be given (exactly, not more and not less).
                      | [number, number | ARBITRARY]                                             // How many positional arguments are required, and up to how many CAN be given (Infinity or null means unbounded).
                      | [SingleParg[], SingleParg[] | [...SingleParg[], ARBITRARY] | ARBITRARY]; // The list of the required and the list of optional positional arguments.
-type SingleKWarg = string                       // Keyword (required)
-                 | [string, boolean?, string?]; // Keyword, whether it is required (default: not required) and a description of the argument.
+type SingleKWarg = string                                // Keyword (required)
+                 | [string, boolean?, string?, string?]; // Keyword, whether it is required (default: not required), a description of the argument and a human readable name to use instead of the default conversion of the keyword.
 type KWargsDescriptor = ARBITRARY                      // Allow any keyword argument.
                       | SingleKWarg[]                  // List of all keyword arguments being accepted. Also serves as a canonical order normalizing the shortcode.
                       | [...SingleKWarg[], ARBITRARY]; // If the last element is AcceptArbitraryArguments, anything is accepted as optional argument.
 type ExplicitArg = {
     name: string;
+    specifiedName?: string;
+    genericName?: string;
     required: boolean;
     description: string;
+    unifiedDescription: string;
 };
 
 
 class ShortcodeHandle {
-    keyword: string;
-    endword: string | null = null;
+    readonly keyword: string;
+    readonly endword: string | null = null;
     editor: Editor;
     tinymceConfig: HTMLElement;
-    addText: TextDescriptor = (self: ShortcodeHandle) => `Insert ${self.keyword}`;
-    addIcon: string = "link";
-    editText: TextDescriptor = (self: ShortcodeHandle) => `Edit ${self.keyword}`;
-    editIcon: string = "link";
-    removeText: TextDescriptor = (self: ShortcodeHandle) => `Remove ${self.keyword}`;
-    removeIcon: string = "unlink";
+    readonly addText: TextDescriptor = (self: ShortcodeHandle) => `Insert ${self.keyword}`;
+    readonly addIcon: string = "link";
+    readonly editText: TextDescriptor = (self: ShortcodeHandle) => `Edit ${self.keyword}`;
+    readonly editIcon: string = "link";
+    readonly removeText: TextDescriptor = (self: ShortcodeHandle) => `Remove ${self.keyword}`;
+    readonly removeIcon: string = "unlink";
 
     static escape(str: string | undefined): string {
         if (!str)  return '""';
         return str.includes(" ") ? `"${str.replace(/"/g, '\\"')}"` : str;
     }
 
-    pargs:  PargsDescriptor  = AcceptArbitraryArguments;
-    kwargs: KWargsDescriptor = AcceptArbitraryArguments;
+    readonly pargs:  PargsDescriptor  = AcceptArbitraryArguments;
+    readonly kwargs: KWargsDescriptor = AcceptArbitraryArguments;
     get maxPargs(): number {
         if (this.pargs === AcceptArbitraryArguments)
             return Infinity;
@@ -72,11 +75,13 @@ class ShortcodeHandle {
             else
                 return this.pargs[1] as number;
         } else {
-            // Listing all individual arguments style
-            if (this.pargs.includes(AcceptArbitraryArguments))
+            // Listing of required and list of optional positional arguments style
+            const required = this.pargs[0] as SingleParg[];
+            const optional = this.pargs[1] as SingleParg[] | [...SingleParg[], ARBITRARY];
+            if (optional[optional.length] === AcceptArbitraryArguments)
                 return Infinity;
             else
-                return this.pargs.length;
+                return required.length + optional.length;
         }
     }
     get minPargs(): number {
@@ -88,11 +93,8 @@ class ShortcodeHandle {
             // [min, max] style
             return this.pargs[0];
         } else {
-            // Listing all individual arguments style
-            if (this.pargs.includes(AcceptArbitraryArguments))
-                return Infinity;
-            else
-                return this.pargs.length;
+            // Listing of required and list of optional positional arguments style
+            return (this.pargs[0] as SingleParg[]).length;
         }
     }
     getExplicitParg(index: number): ExplicitArg {
@@ -101,8 +103,11 @@ class ShortcodeHandle {
             throw RangeError;
         const parg: ExplicitArg = {
             name: null,
+            specifiedName: null,
+            genericName: `Argument ${index}`,
             required: null,
             description: null,
+            unifiedDescription: null,
         };
         if (this.pargs === AcceptArbitraryArguments)
             parg.required = false;
@@ -112,29 +117,40 @@ class ShortcodeHandle {
             let [min, max] = this.pargs;
             parg.required = index < min;
         } else {
-            // Listing all individual arguments style
-            let length = this.pargs.length;
-            if (this.pargs[length-1] === AcceptArbitraryArguments)
-                length -= 1;
+            // Listing of required and list of optional positional arguments style
+            const required = this.pargs[0] as SingleParg[];
+            const optional = this.pargs[1] === AcceptArbitraryArguments ? [] : this.pargs[1] as SingleParg[] | [...SingleParg[], ARBITRARY];
+            // Create a joined list that only contains argument descriptions, not the Symbol
+            const pargs = required.concat((
+                optional[optional.length-1] === AcceptArbitraryArguments ?
+                optional.slice(0, optional.length-1)
+                : optional
+            ) as SingleParg[]);
+            let length = pargs.length;
             if (index < length) {
-                if (typeof this.pargs[index] === "string")
-                    parg.name = this.pargs[index];
-                else if (this.pargs[index] !== null) {
-                    const arg = this.pargs[index] as [string, string?];
-                    parg.name = arg[0];
+                if (typeof pargs[index] === "string")
+                    parg.specifiedName = pargs[index];
+                else if (pargs[index] !== null) {
+                    const arg = pargs[index] as [string, string?];
+                    parg.specifiedName = arg[0];
                     if (arg.length > 1)
                         parg.description = arg[1];
                 }
             } else
                 parg.required = false;
         }
-        // Fill in generic name and description
-        if (parg.name === null)
-            parg.name = `Argument ${index}`;
+        // Fill in missing details
+        parg.name = parg.specifiedName !== null ? parg.specifiedName : parg.genericName;
         if (parg.required === null)
             parg.required = index < this.minPargs;
         if (parg.description === null)
             parg.description = ``; // Description stays empty
+        if (parg.specifiedName !== null) {
+            parg.unifiedDescription = parg.specifiedName;
+            if (parg.description)
+                parg.unifiedDescription += ` – ${parg.description}`;
+        } else
+            parg.unifiedDescription = parg.description || parg.genericName;
         return parg;
     }
 
@@ -177,36 +193,48 @@ class ShortcodeHandle {
     }
     getExplicitKWarg(name: string): ExplicitArg {
         // Get an explicit descriptor of the keyword argument at this index
-        if (!this.acceptingArbitraryKWargs && !this.requiredKWargs.has(name) && !this.optionalKWargs.has(name))
-            throw RangeError;
+        /*if (!this.acceptingArbitraryKWargs && !this.requiredKWargs.has(name) && !this.optionalKWargs.has(name))
+            throw RangeError;*/
 
         const kwarg: ExplicitArg = {
-            name: name,
+            name: null,
+            specifiedName: null,
+            genericName: `${name.slice(0,1).toUpperCase()}${name.slice(1).replace("-", " ")}`,
             required: null,
             description: null,
+            unifiedDescription: null,
         };
-        if (this.kwargs === AcceptArbitraryArguments)
+        if (this.kwargs === AcceptArbitraryArguments) {
             kwarg.required = false;
-        else {
+        } else if (name) {
             // Listing all individual arguments style
+            // Iterate over them until we find the argument we are looking for
             for (const descriptor of this.kwargs) {
-                if (typeof descriptor === "string")
-                    if (descriptor == name)
-                        break; // no description to add
-                else if (descriptor[0] == name) {
+                if (typeof descriptor === "string") {
+                    if (descriptor == name) {
+                        kwarg.required = true;
+                        break;
+                    }
+                } else if (typeof descriptor === "object" && "length" in descriptor && descriptor[0] == name) {
                     if (descriptor.length > 1)
-                        kwarg.description = descriptor[1];
+                        kwarg.required = descriptor[1];
+                    if (descriptor.length > 2)
+                        kwarg.description = descriptor[2];
+                    if (descriptor.length > 3)
+                        kwarg.specifiedName = descriptor[3];
                     break;
                 }
             }
         }
-        // Fill in generic name and description
-        if (kwarg.name === null)
-            kwarg.name = `${name}`;
+        // Fill in missing details
+        kwarg.name = kwarg.specifiedName !== null ? kwarg.specifiedName : kwarg.genericName;
         if (kwarg.required === null)
             kwarg.required = this.requiredKWargs.has(name);
         if (kwarg.description === null)
             kwarg.description = ``; // Description stays empty
+        kwarg.unifiedDescription = kwarg.name;
+        if (kwarg.description)
+            kwarg.unifiedDescription += ` – ${kwarg.description}`;
         return kwarg;
     }
 
@@ -405,10 +433,11 @@ class ShortcodeHandle {
         // The default implementation for constructing the edit dialog for a generic shortcode
         const argumentItems: BodyComponentSpec[] = [];
         initialPargs.forEach((parg: string, i: number) => {
+            const explicit = this.getExplicitParg(i);
             argumentItems.push({
                 type: "input",
                 name: `parg${i}`,
-                label: `Argument ${i}`,
+                label: explicit.unifiedDescription,
             });
         });
         if (this.minPargs != this.maxPargs) {
@@ -427,6 +456,7 @@ class ShortcodeHandle {
             });
         }
         initialKWargs.forEach(([keyword, value]: [string, string], i: number) => {
+            const explicit = this.getExplicitKWarg(keyword);
             if (this.acceptingArbitraryKWargs) {
                 argumentItems.push({
                     type: "bar",
@@ -434,12 +464,12 @@ class ShortcodeHandle {
                         {
                             type: "input",
                             name: `kwarg${i}-name`,
-                            label: `Keyword argument ${i}`,
+                            label: explicit.name,
                         },
                         {
                             type: "input",
                             name: `kwarg${i}-value`,
-                            label: `Value`,
+                            label: explicit.description || `Value`,
                         },
                     ],
                 });
@@ -447,7 +477,7 @@ class ShortcodeHandle {
                 argumentItems.push({
                     type: "input",
                     name: `kw-${keyword}`,
-                    label: `${keyword.slice(0,1).toUpperCase()}${keyword.slice(1).replace("-", " ")}`,
+                    label: explicit.unifiedDescription,
                 });
             }
         });
@@ -498,7 +528,7 @@ class ShortcodeHandle {
             initialData: {
                 ...Object.fromEntries(initialPargs.map((parg: string, i: number) => [`parg${i}`, parg])),
                 ...Object.fromEntries(initialKWargs.reduce((acc, [keyword, value], i) => {
-                    if (this.kwargs === AcceptArbitraryArguments) {
+                    if (this.acceptingArbitraryKWargs) {
                         return acc.concat([
                             [`kwarg${i}-name`, keyword],
                             [`kwarg${i}-value`, value],
@@ -607,9 +637,9 @@ class ShortcodeHandle {
                         if (missingOptional.size > 0) {
                             // Add the first known optional argument by canonical order. If we don't know any and we accept arbitrary arguments, leave the key empty
                             key = Array.from(missingOptional).sort((a, b) => index(a) - index(b))[0] || "";
-                        } else if (this.acceptingArbitraryKWargs)
+                        } else if (this.acceptingArbitraryKWargs) {
                             key = "";
-                        else
+                        } else
                             return; // There are no arguments left to add, immediately stop without doing anything
                     }
                     // Finally, actually append the key value pair and retrigger the dialog
@@ -748,4 +778,4 @@ class Registry {
 }
 
 
-export { ShortcodeHandle, Registry, AcceptArbitraryArguments };
+export { ShortcodeHandle, Registry, AcceptArbitraryArguments, TextDescriptor, SingleParg, PargsDescriptor, SingleKWarg, KWargsDescriptor, ExplicitArg };
