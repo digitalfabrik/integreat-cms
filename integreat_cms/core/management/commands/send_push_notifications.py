@@ -5,7 +5,7 @@ from datetime import timedelta
 from typing import TYPE_CHECKING
 
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.core.management.base import CommandError
 from django.utils import timezone
 
@@ -128,6 +128,13 @@ class Command(LogCommand):
         except ImproperlyConfigured:
             logger.exception(
                 "Push notification %d/%d could not be sent due to a configuration error: %r",
+                counter,
+                total,
+                push_notification,
+            )
+        except ObjectDoesNotExist:
+            logger.exception(
+                "Push notification %d/%d could not be sent due to a missing translation: %r",
                 counter,
                 total,
                 push_notification,
