@@ -79,7 +79,9 @@ class IcalEventData:
             language_slug=language_slug,
         )
         start = event.decoded("DTSTART")
-        end = event.decoded("DTEND")
+        end = event.decoded(
+            "DTEND", start + event.decoded("DURATION", datetime.timedelta(days=1))
+        )
 
         # Categories can be a "vCategory" object, a list of such objects, or be missing
         categories = event.get("categories", [])
