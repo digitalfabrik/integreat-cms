@@ -79,7 +79,7 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
 
     # Note(johannes): Remove the primary_contact and the according three fields (phone_number, website, and email) in late 2025
     # https://github.com/digitalfabrik/integreat-cms/issues/3475
-    primary_contact = contacts.filter(area_of_responsibility="").first()
+    primary_contact = contacts.get_primary_contact()
 
     contacts = contacts.filter(archived=False)
 
