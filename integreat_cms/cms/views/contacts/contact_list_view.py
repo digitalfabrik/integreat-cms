@@ -2,17 +2,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from django.conf import settings
 from django.contrib import messages
-from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
-from ...forms import ObjectSearchForm
+from ...forms.contacts.contact_search_form import ContactSearchForm
 from ...models import Contact
+from ..mixins import FilterSortMixin, PaginationMixin
 from .contact_context_mixin import ContactContextMixin
 
 if TYPE_CHECKING:
@@ -22,13 +21,16 @@ if TYPE_CHECKING:
 
 
 @method_decorator(permission_required("cms.view_contact"), name="dispatch")
-class ContactListView(TemplateView, ContactContextMixin):
+class ContactListView(
+    TemplateView, ContactContextMixin, FilterSortMixin, PaginationMixin
+):
     """
     View for listing contacts
     """
 
     template_name = "contacts/contact_list.html"
     archived = False
+    filter_form_class = ContactSearchForm
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
@@ -65,20 +67,8 @@ class ContactListView(TemplateView, ContactContextMixin):
             archived=True,
         ).count()
 
-        search_data = kwargs.get("search_data")
-        search_form = ObjectSearchForm(search_data)
-        if search_form.is_valid():
-            query = search_form.cleaned_data["query"]
-            contact_keys = Contact.search_for_query(region, query).values("pk")
-            contacts = contacts.filter(pk__in=contact_keys)
-
-        chunk_size = int(request.GET.get("size", settings.PER_PAGE))
-        paginator = Paginator(
-            contacts,
-            chunk_size,
-        )
-        chunk = request.GET.get("page")
-        contact_chunk = paginator.get_page(chunk)
+        contacts = self.get_filtered_sorted_queryset(contacts)
+        contact_chunk = self.paginate_queryset(contacts)
 
         return render(
             request,
