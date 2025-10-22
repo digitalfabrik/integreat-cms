@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-10-21T06:17:54+00:00" />
+    <meta property="article:modified_time" content="2025-10-22T09:31:25+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2025.10.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -934,6 +934,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.OrganizationLinklist"><code class="docutils literal notranslate"><span class="pre">OrganizationLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.POITranslationLinklist"><code class="docutils literal notranslate"><span class="pre">POITranslationLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.PageTranslationLinklist"><code class="docutils literal notranslate"><span class="pre">PageTranslationLinklist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.set_linkcheck_immediate"><code class="docutils literal notranslate"><span class="pre">set_linkcheck_immediate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.set_linkcheck_in_background"><code class="docutils literal notranslate"><span class="pre">set_linkcheck_in_background()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#module-integreat_cms.cms.rules">Rules</a><ul>
@@ -4411,6 +4413,373 @@ Has to be called as part of the command’s handle() function.</p>
 </dd></dl>
 
 </section>
+<section id="module-integreat_cms.core.management.commands.loaddata">
+<span id="loaddata"></span><h2>Loaddata<a class="headerlink" href="#module-integreat_cms.core.management.commands.loaddata" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.core.management.commands.loaddata.</span></span><span class="sig-name descname"><span class="pre">Command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Command</span></code></p>
+<p>Wrapper around djangos loaddata command to emit signals before and after loading data.
+This command acts as a drop-in replacement by shadowing the original one.</p>
+<p>None</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.add_arguments">
+<span class="sig-name descname"><span class="pre">add_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/loaddata.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.add_arguments" title="Link to this definition"></a></dt>
+<dd><p>Entry point for subclassed commands to add custom arguments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.add_base_argument">
+<span class="sig-name descname"><span class="pre">add_base_argument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L376"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.add_base_argument" title="Link to this definition"></a></dt>
+<dd><p>Call the parser’s add_argument() method, suppressing the help text
+according to BaseCommand.suppressed_base_arguments.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.base_stealth_options">
+<span class="sig-name descname"><span class="pre">base_stealth_options</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('stderr',</span> <span class="pre">'stdout')</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.base_stealth_options" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.check">
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_configs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_num_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_deployment_checks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fail_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">databases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L470"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.check" title="Link to this definition"></a></dt>
+<dd><p>Use the system check framework to validate entire Django project.
+Raise CommandError for any serious message (error or critical errors).
+If there are only light messages (like warnings), print them to stderr
+and don’t raise an exception.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.check_migrations">
+<span class="sig-name descname"><span class="pre">check_migrations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L566"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.check_migrations" title="Link to this definition"></a></dt>
+<dd><p>Print a warning if the set of migrations on disk don’t match the
+migrations in the database.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.compression_formats">
+<span class="sig-name descname"><span class="pre">compression_formats</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.compression_formats" title="Link to this definition"></a></dt>
+<dd><p>A dict mapping format names to (open function, mode arg) tuples.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.create_parser">
+<span class="sig-name descname"><span class="pre">create_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prog_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subcommand</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L294"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.create_parser" title="Link to this definition"></a></dt>
+<dd><p>Create and return the <code class="docutils literal notranslate"><span class="pre">ArgumentParser</span></code> which will be used to
+parse the arguments to this command.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L431"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.execute" title="Link to this definition"></a></dt>
+<dd><p>Try to execute this command, performing system checks if needed (as
+controlled by the <code class="docutils literal notranslate"><span class="pre">requires_system_checks</span></code> attribute, except if
+force-skipped).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.find_fixture_files_in_dir">
+<span class="sig-name descname"><span class="pre">find_fixture_files_in_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixture_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixture_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/loaddata.py#L304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.find_fixture_files_in_dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.find_fixtures">
+<span class="sig-name descname"><span class="pre">find_fixtures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixture_label</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/loaddata.py#L314"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.find_fixtures" title="Link to this definition"></a></dt>
+<dd><p>Find fixture files for a given label.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.fixture_dirs">
+<span class="sig-name descname"><span class="pre">fixture_dirs</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.fixture_dirs" title="Link to this definition"></a></dt>
+<dd><p>Return a list of fixture directories.</p>
+<p>The list contains the ‘fixtures’ subdirectory of each installed
+application, if it exists, the directories in FIXTURE_DIRS, and the
+current directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.get_fixture_name_and_dirs">
+<span class="sig-name descname"><span class="pre">get_fixture_name_and_dirs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixture_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/loaddata.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.get_fixture_name_and_dirs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixture_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ser_fmt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmp_fmt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/loaddata.py#L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.get_targets" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.get_version">
+<span class="sig-name descname"><span class="pre">get_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L286"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.get_version" title="Link to this definition"></a></dt>
+<dd><p>Return the Django version, which should be correct for all built-in
+Django commands. User-supplied commands can override this method to
+return their own version.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">fixture_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.handle" title="Link to this definition"></a></dt>
+<dd><p>None</p>
+<p>Emits a signal before and after loading.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fixture_labels</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>)</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.help">
+<span class="sig-name descname"><span class="pre">help</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Installs</span> <span class="pre">the</span> <span class="pre">named</span> <span class="pre">fixture(s)</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">database.'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.help" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.load_label">
+<span class="sig-name descname"><span class="pre">load_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixture_label</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/loaddata.py#L225"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.load_label" title="Link to this definition"></a></dt>
+<dd><p>Load fixtures files for a given label.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.loaddata">
+<span class="sig-name descname"><span class="pre">loaddata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixture_labels</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/loaddata.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.loaddata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.missing_args_message">
+<span class="sig-name descname"><span class="pre">missing_args_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'No</span> <span class="pre">database</span> <span class="pre">fixture</span> <span class="pre">specified.</span> <span class="pre">Please</span> <span class="pre">provide</span> <span class="pre">the</span> <span class="pre">path</span> <span class="pre">of</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">fixture</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">command</span> <span class="pre">line.'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.missing_args_message" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.output_transaction">
+<span class="sig-name descname"><span class="pre">output_transaction</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.output_transaction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.parse_name">
+<span class="sig-name descname"><span class="pre">parse_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixture_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/loaddata.py#L385"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.parse_name" title="Link to this definition"></a></dt>
+<dd><p>Split fixture name in name, serialization format, compression format.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.print_help">
+<span class="sig-name descname"><span class="pre">print_help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prog_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subcommand</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L387"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.print_help" title="Link to this definition"></a></dt>
+<dd><p>Print the help message for this command, derived from
+<code class="docutils literal notranslate"><span class="pre">self.usage()</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.requires_migrations_checks">
+<span class="sig-name descname"><span class="pre">requires_migrations_checks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.requires_migrations_checks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.requires_system_checks">
+<span class="sig-name descname"><span class="pre">requires_system_checks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'__all__'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.requires_system_checks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.reset_sequences">
+<span class="sig-name descname"><span class="pre">reset_sequences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">models</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/loaddata.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.reset_sequences" title="Link to this definition"></a></dt>
+<dd><p>Reset database sequences for the given connection and models.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.run_from_argv">
+<span class="sig-name descname"><span class="pre">run_from_argv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L395"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.run_from_argv" title="Link to this definition"></a></dt>
+<dd><p>Set up any environment changes requested (e.g., Python path
+and Django settings), then run this command. If the
+command raises a <code class="docutils literal notranslate"><span class="pre">CommandError</span></code>, intercept it and print it sensibly
+to stderr. If the <code class="docutils literal notranslate"><span class="pre">--traceback</span></code> option is present or the raised
+<code class="docutils literal notranslate"><span class="pre">Exception</span></code> is not <code class="docutils literal notranslate"><span class="pre">CommandError</span></code>, raise it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.save_obj">
+<span class="sig-name descname"><span class="pre">save_obj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/loaddata.py#L197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.save_obj" title="Link to this definition"></a></dt>
+<dd><p>Save an object if permitted.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.stealth_options">
+<span class="sig-name descname"><span class="pre">stealth_options</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.stealth_options" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.loaddata.Command.suppressed_base_arguments">
+<span class="sig-name descname"><span class="pre">suppressed_base_arguments</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/loaddata.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.loaddata.Command.suppressed_base_arguments" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-integreat_cms.core.management.commands.migrate">
+<span id="migrate"></span><h2>Migrate<a class="headerlink" href="#module-integreat_cms.core.management.commands.migrate" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.core.management.commands.migrate.</span></span><span class="sig-name descname"><span class="pre">Command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/migrate.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Command</span></code></p>
+<p>Wrapper around djangos migrate command to emit signals when a migration starts or ends.
+There exist the <code class="docutils literal notranslate"><span class="pre">pre_migrate</span></code> and <code class="docutils literal notranslate"><span class="pre">post_migrate</span></code> signals,
+but the latter are emitted multiple times during migration without any way to tell when the process has actually concluded.
+This command acts as a drop-in replacement by shadowing the original one.</p>
+<p>None</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.add_arguments">
+<span class="sig-name descname"><span class="pre">add_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/migrate.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.add_arguments" title="Link to this definition"></a></dt>
+<dd><p>Entry point for subclassed commands to add custom arguments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.add_base_argument">
+<span class="sig-name descname"><span class="pre">add_base_argument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L376"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.add_base_argument" title="Link to this definition"></a></dt>
+<dd><p>Call the parser’s add_argument() method, suppressing the help text
+according to BaseCommand.suppressed_base_arguments.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.base_stealth_options">
+<span class="sig-name descname"><span class="pre">base_stealth_options</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('stderr',</span> <span class="pre">'stdout')</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/migrate.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.base_stealth_options" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.check">
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_configs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_num_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_deployment_checks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fail_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">databases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L470"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.check" title="Link to this definition"></a></dt>
+<dd><p>Use the system check framework to validate entire Django project.
+Raise CommandError for any serious message (error or critical errors).
+If there are only light messages (like warnings), print them to stderr
+and don’t raise an exception.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.check_migrations">
+<span class="sig-name descname"><span class="pre">check_migrations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L566"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.check_migrations" title="Link to this definition"></a></dt>
+<dd><p>Print a warning if the set of migrations on disk don’t match the
+migrations in the database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.create_parser">
+<span class="sig-name descname"><span class="pre">create_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prog_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subcommand</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L294"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.create_parser" title="Link to this definition"></a></dt>
+<dd><p>Create and return the <code class="docutils literal notranslate"><span class="pre">ArgumentParser</span></code> which will be used to
+parse the arguments to this command.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.describe_operation">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">describe_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backwards</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/migrate.py#L489"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.describe_operation" title="Link to this definition"></a></dt>
+<dd><p>Return a string that describes a migration operation for –plan.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L431"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.execute" title="Link to this definition"></a></dt>
+<dd><p>Try to execute this command, performing system checks if needed (as
+controlled by the <code class="docutils literal notranslate"><span class="pre">requires_system_checks</span></code> attribute, except if
+force-skipped).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.get_version">
+<span class="sig-name descname"><span class="pre">get_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L286"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.get_version" title="Link to this definition"></a></dt>
+<dd><p>Return the Django version, which should be correct for all built-in
+Django commands. User-supplied commands can override this method to
+return their own version.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">fixture_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/migrate.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.handle" title="Link to this definition"></a></dt>
+<dd><p>None</p>
+<p>Emits a signal before and after migration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fixture_labels</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>)</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.help">
+<span class="sig-name descname"><span class="pre">help</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Updates</span> <span class="pre">database</span> <span class="pre">schema.</span> <span class="pre">Manages</span> <span class="pre">both</span> <span class="pre">apps</span> <span class="pre">with</span> <span class="pre">migrations</span> <span class="pre">and</span> <span class="pre">those</span> <span class="pre">without.'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/migrate.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.help" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.migration_progress_callback">
+<span class="sig-name descname"><span class="pre">migration_progress_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">migration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fake</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/migrate.py#L392"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.migration_progress_callback" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.output_transaction">
+<span class="sig-name descname"><span class="pre">output_transaction</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/migrate.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.output_transaction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.print_help">
+<span class="sig-name descname"><span class="pre">print_help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prog_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subcommand</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L387"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.print_help" title="Link to this definition"></a></dt>
+<dd><p>Print the help message for this command, derived from
+<code class="docutils literal notranslate"><span class="pre">self.usage()</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.requires_migrations_checks">
+<span class="sig-name descname"><span class="pre">requires_migrations_checks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/migrate.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.requires_migrations_checks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.requires_system_checks">
+<span class="sig-name descname"><span class="pre">requires_system_checks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/migrate.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.requires_system_checks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.run_from_argv">
+<span class="sig-name descname"><span class="pre">run_from_argv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/base.py#L395"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.run_from_argv" title="Link to this definition"></a></dt>
+<dd><p>Set up any environment changes requested (e.g., Python path
+and Django settings), then run this command. If the
+command raises a <code class="docutils literal notranslate"><span class="pre">CommandError</span></code>, intercept it and print it sensibly
+to stderr. If the <code class="docutils literal notranslate"><span class="pre">--traceback</span></code> option is present or the raised
+<code class="docutils literal notranslate"><span class="pre">Exception</span></code> is not <code class="docutils literal notranslate"><span class="pre">CommandError</span></code>, raise it.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.stealth_options">
+<span class="sig-name descname"><span class="pre">stealth_options</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/migrate.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.stealth_options" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.suppressed_base_arguments">
+<span class="sig-name descname"><span class="pre">suppressed_base_arguments</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/migrate.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.suppressed_base_arguments" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.migrate.Command.sync_apps">
+<span class="sig-name descname"><span class="pre">sync_apps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_labels</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/core/management/commands/migrate.py#L432"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.migrate.Command.sync_apps" title="Link to this definition"></a></dt>
+<dd><p>Run the old syncdb-style operation on a list of app_labels.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-integreat_cms.core.management.commands.repair_tree">
 <span id="repair-tree"></span><h2>Repair Tree<a class="headerlink" href="#module-integreat_cms.core.management.commands.repair_tree" title="Link to this heading"></a></h2>
 <dl class="py class">
@@ -5448,7 +5817,7 @@ Has to be called as part of the command’s handle() function.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 21, 2025.
+      <span class="lastupdated">Last updated on Oct 22, 2025.
       </span></p>
   </div>
 
