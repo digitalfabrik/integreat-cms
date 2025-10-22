@@ -7,10 +7,16 @@ class ContactHandle extends ShortcodeHandle {
 	removeIcon = "remove";
 
 	pargs: PargsDescriptor = [
-		["first", ["second", "very descriptive"]],
-		[["third", "such wow"], "fourth"],
+		[["Contact ID", "The ID of the Contact whose details should be displayed"]],
+		[
+			["address", "Whether the address should be shown and other, not explicitly wanted details should be hidden"],
+			["email", "Whether the email should be shown and other, not explicitly wanted details should be hidden"],
+			["phone_number", "Whether the phone number should be shown and other, not explicitly wanted details should be hidden"],
+			["mobile_phone_number", "Whether the mobile phone number should be shown and other, not explicitly wanted details should be hidden"],
+			["website", "Whether the website should be shown and other, not explicitly wanted details should be hidden"],
+		],
 	];
-	kwargs: KWargsDescriptor = ["one", ["etc", true, "The id ", "e.t.C."], "two", ["opt", false], AcceptArbitraryArguments];
+	kwargs: KWargsDescriptor = [];
 }
 
 

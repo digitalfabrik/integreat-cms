@@ -11,4 +11,4 @@ import "./js/tinymce-plugins/mediacenter/plugin.js";
 import "./js/tinymce-plugins/shortcodes/plugin.js";
 
 /* Custom tinymce content css */
-import "./css/tinymce_custom.css";
+import "./css/tinymce_custom_content_styles.css";

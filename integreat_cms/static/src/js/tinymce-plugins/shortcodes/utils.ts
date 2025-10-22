@@ -434,11 +434,29 @@ class ShortcodeHandle {
         const argumentItems: BodyComponentSpec[] = [];
         initialPargs.forEach((parg: string, i: number) => {
             const explicit = this.getExplicitParg(i);
-            argumentItems.push({
-                type: "input",
-                name: `parg${i}`,
-                label: explicit.unifiedDescription,
-            });
+            argumentItems.push.apply(argumentItems, [
+                {
+                    type: "label",
+                    label: explicit.unifiedDescription,
+                    for: `parg${i}`,
+                    items: [
+                        {
+                            type: "bar",
+                            items: [
+                                {
+                                    type: "input",
+                                    name: `parg${i}`,
+                                    //label: explicit.unifiedDescription,
+                                },
+                                ...(explicit.required ? [] : [{
+                                    type: "htmlpanel",
+                                    html: `<button id="parg${i}-remove type="button" title="Remove optional argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">×</button>`,
+                                }] as BodyComponentSpec[]),
+                            ],
+                        },
+                    ],
+                },
+            ]);
         });
         if (this.minPargs != this.maxPargs) {
             argumentItems.push({
@@ -458,26 +476,55 @@ class ShortcodeHandle {
         initialKWargs.forEach(([keyword, value]: [string, string], i: number) => {
             const explicit = this.getExplicitKWarg(keyword);
             if (this.acceptingArbitraryKWargs) {
-                argumentItems.push({
-                    type: "bar",
+            argumentItems.push.apply(argumentItems, [
+                {
+                    type: "label",
+                    label: explicit.description || `Value`,
+                    for: `parg${i}`,
                     items: [
                         {
-                            type: "input",
-                            name: `kwarg${i}-name`,
-                            label: explicit.name,
-                        },
-                        {
-                            type: "input",
-                            name: `kwarg${i}-value`,
-                            label: explicit.description || `Value`,
+                            type: "bar",
+                            items: [
+                                {
+                                    type: "input",
+                                    name: `kwarg${i}-name`,
+                                    label: explicit.name,
+                                },
+                                {
+                                    type: "input",
+                                    name: `kwarg${i}-value`,
+                                    //label: explicit.description || `Value`,
+                                },
+                                ...(explicit.required ? [] : [{
+                                    type: "htmlpanel",
+                                    html: `<button id="kwarg${i}-remove type="button" title="Remove optional argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">×</button>`,
+                                }] as BodyComponentSpec[]),
+                            ],
                         },
                     ],
-                });
+                },
+            ]);
             } else {
                 argumentItems.push({
-                    type: "input",
-                    name: `kw-${keyword}`,
-                    label: explicit.unifiedDescription,
+                    type: "label",
+                    label: explicit.description || `Value`,
+                    for: `parg${i}`,
+                    items: [
+                        {
+                            type: "bar",
+                            items: [
+                                {
+                                    type: "input",
+                                    name: `kw-${keyword}`,
+                                    label: explicit.unifiedDescription,
+                                },
+                                ...(explicit.required ? [] : [{
+                                    type: "htmlpanel",
+                                    html: `<button id="kwarg${i}-remove type="button" title="Remove optional argument" tabindex="-1" data-alloy-tabstop="true" class="tox-button tox-button--secondary">×</button>`,
+                                }] as BodyComponentSpec[]),
+                            ],
+                        },
+                    ],
                 });
             }
         });
