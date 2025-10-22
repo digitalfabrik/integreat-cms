@@ -170,9 +170,14 @@ class EventForm(CustomModelForm):
                         code="required",
                     ),
                 )
-            elif cleaned_data["start_time"] == time.min and cleaned_data[
-                "end_time"
-            ] == time.max.replace(second=0, microsecond=0):
+            if (
+                cleaned_data.get("start_time")
+                and cleaned_data.get("end_time")
+                and cleaned_data["start_time"] == time.min
+                and cleaned_data["end_time"]
+                == time.max.replace(second=0, microsecond=0)
+            ):
+                # Client didn't set is_all_day, but time is effectively one day – normalize this to make things simple
                 self.data["is_all_day"] = True
 
         if not cleaned_data.get("is_long_term") and not cleaned_data.get(
