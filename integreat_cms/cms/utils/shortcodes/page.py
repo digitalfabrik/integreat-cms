@@ -41,7 +41,7 @@ def page(
     try:
         page = Page.objects.get(id=page_id)
         translation = page.get_public_translation(
-            context.get("language_slug", page.region.default_language.slug)
+            (context or {}).get("language_slug", page.region.default_language.slug)
         )
     except Page.DoesNotExist:
         element = Element("i")
