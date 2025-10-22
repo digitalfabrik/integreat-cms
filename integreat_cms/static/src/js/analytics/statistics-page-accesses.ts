@@ -91,6 +91,17 @@ const getData = async (): Promise<AjaxResponse> => {
     return data;
 };
 
+const getAllSlugsFromData = (data: AjaxResponse): Set<string> => {
+    const languageSlugs: Set<string> = new Set();
+
+    Object.keys(data).forEach((pageId) => {
+        Object.keys(data[pageId]).forEach((languageSlug) => {
+            languageSlugs.add(languageSlug);
+        });
+    });
+    return languageSlugs;
+};
+
 const createLanguageDatasetLookup = (chart: Chart, slugSet: Set<string>): Map<number, string> => {
     const indexToSlug = new Map<number, string>();
 
@@ -149,15 +160,9 @@ const updatePageAccesses = async (): Promise<void> => {
     resetTotalAccessesField(accessFields, isEmpty);
 
     if (!isEmpty) {
-        const languageSlugs = new Set<string>();
+        const accessedSlugs = getAllSlugsFromData(data);
 
-        Object.keys(data).forEach((pageId) => {
-            Object.keys(data[pageId]).forEach((languageSlug) => {
-                languageSlugs.add(languageSlug);
-            });
-        });
-
-        const indexToAccessedSlugs = createLanguageDatasetLookup(chart, languageSlugs);
+        const indexToAccessedSlugs = createLanguageDatasetLookup(chart, accessedSlugs);
 
         const visibleDatasetSlugs: string[] = getVisibleSlugs(chart, indexToAccessedSlugs);
 
