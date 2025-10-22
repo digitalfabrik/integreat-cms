@@ -60,6 +60,10 @@ const resetTotalAccessesField = (accessFields: HTMLCollectionOf<Element>, isEmpt
     }
 };
 
+const toggleElementCollection = (elements: HTMLCollectionOf<Element>, show: boolean) => {
+    Array.from(elements).forEach((el) => el.classList.toggle("hidden", !show));
+};
+
 const setDates = () => {
     const unformattedStartDate = (document.getElementById("id_start_date") as HTMLInputElement).value;
     const unformattedEndDate = (document.getElementById("id_end_date") as HTMLInputElement).value;
@@ -77,7 +81,6 @@ const getData = async (): Promise<AjaxResponse> => {
         body: new FormData(statisticsForm),
     };
 
-
     const response = await fetch(pageAccessesURL, parameters);
     if (!response.ok) {
         console.error(`Fetch failed with status ${response.status}`);
@@ -88,10 +91,10 @@ const getData = async (): Promise<AjaxResponse> => {
     return data;
 };
 
-const createLanguageDatasetLookups = (chart: Chart, dataSample: AccessesPerLanguage): Map<number, string> => {
+const createLanguageDatasetLookup = (chart: Chart, slugSet: Set<string>): Map<number, string> => {
     const indexToSlug = new Map<number, string>();
 
-    Object.keys(dataSample).forEach((languageSlug) => {
+    slugSet.forEach((languageSlug) => {
         const fullLabel = document
             .querySelector(`#chart-legend [data-language-slug="${languageSlug}"]`)
             .getAttribute("data-chart-item");
@@ -137,25 +140,31 @@ const updatePageAccesses = async (): Promise<void> => {
     const pageAccessesLoading = document.getElementById("page-accesses-loading");
     pageAccessesLoading.classList.remove("hidden");
 
-    let data = await getData();
+    const data = await getData();
 
     const isEmpty = Object.keys(data).length === 0;
     const accessFields = document.getElementsByClassName("accesses");
 
+    toggleElementCollection(accessFields, !isEmpty);
     resetTotalAccessesField(accessFields, isEmpty);
 
     if (!isEmpty) {
-        const firstAccessesObject = Object.values(data)[0];
+        const languageSlugs = new Set<string>();
 
-        const indexToSlug = createLanguageDatasetLookups(chart, firstAccessesObject);
+        Object.keys(data).forEach((pageId) => {
+            Object.keys(data[pageId]).forEach((languageSlug) => {
+                languageSlugs.add(languageSlug);
+            });
+        });
 
-        const visibleDatasetSlugs: string[] = getVisibleSlugs(chart, indexToSlug);
+        const indexToAccessedSlugs = createLanguageDatasetLookup(chart, languageSlugs);
+
+        const visibleDatasetSlugs: string[] = getVisibleSlugs(chart, indexToAccessedSlugs);
 
         updateDOM(data, visibleDatasetSlugs);
-
-        pageAccessesLoading.classList.add("hidden");
-        setDates();
     }
+    pageAccessesLoading.classList.add("hidden");
+    setDates();
 };
 
 export const setPageAccessesEventListeners = () => {
