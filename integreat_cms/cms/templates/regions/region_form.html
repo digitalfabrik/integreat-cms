@@ -273,6 +273,21 @@
                         {{ form.contacts_enabled.help_text }}
                     </div>
                 </div>
+                <div>
+                    <!-- Options related to term explanations -->
+                    {% render_field form.term_explanations_enabled %}
+                    <label for="{{ form.term_explanations_enabled.id_for_label }}">
+                        {{ form.term_explanations_enabled.label }}
+                    </label>
+                    <div class="help-text">
+                        {{ form.term_explanations_enabled.help_text }}
+                    </div>
+                    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3 mb-5">
+                        <p>
+                            {% translate "Term explanations are not yet implemented. This checkbox currently does not bring any effect." %}
+                        </p>
+                    </div>
+                </div>
                 <div class="pt-2">
                     <!-- Options related to Fallback language -->
                     {% render_field form.fallback_translations_enabled class+="inline-block" %}
