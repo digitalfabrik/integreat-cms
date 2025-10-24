@@ -489,6 +489,12 @@ jobs:
             git add integreat_cms/_manifest
             git commit --amend --no-edit
       - run:
+          name: Bump version in publiccode.yaml
+          command: |
+            sed -i -E "s/softwareVersion: \"[0-9]{4}\.[0-9]{1,2}\.[0-9]{1,2}\"/softwareVersion: \"$CURRENT_VERSION\"/" publiccode.yml
+            git add publiccode.yml
+            git commit --amend --no-edit
+      - run:
           name: Tag and push commit
           command: |
             # Get most recent release notes
