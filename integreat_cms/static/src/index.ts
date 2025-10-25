@@ -109,8 +109,9 @@ import "./js/dashboard/broken-links";
 import "./js/dashboard/translation-coverage";
 
 import "./js/ajax-contact-form";
+import "./js/region_timezone_filter";
 // IE11: fetch
-/* eslint-disable-next-line @typescript-eslint/no-require-imports */
+/* eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires */
 require("element-closest").default(window);
 
 window.addEventListener("DOMContentLoaded", () => {
