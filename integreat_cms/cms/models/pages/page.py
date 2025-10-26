@@ -38,20 +38,22 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
     Custom queryset for pages to inherit methods from both querysets for tree nodes and content objects
     """
 
-    def cache_tree(
+    def cache_tree_dict(
         self,
         archived: bool | None = None,
         language_slug: str | None = None,
-    ) -> list[Page]:
+        subtree_root_id: int | None = None,
+    ) -> dict[int, Page]:
         """
         Caches a page tree queryset in a python data structure.
 
         :param archived: Whether the pages should be limited to either archived  or non-archived pages.
                          If not passed or ``None``, both archived and non-archived pages are returned.
         :param language_slug: Code to identify the desired language (optional, requires ``archived`` to be ``False``)
+        :param subtree_root_id: If given, identifies the root of the queried subtree.
         :raises ValueError: Indicates that the combination of parameters is not supported.
 
-        :return: A list of pages with cached children, descendants and ancestors and a list of all skipped pages
+        :return: A dictionary of pages keyed by their id with cached children, descendants and ancestors
         """
         if language_slug is not None and archived is not False:
             raise ValueError(
@@ -75,8 +77,11 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
                 or (
                     not page.explicitly_archived
                     and (
-                        # If the page is a root page, include it only when archive is either False or None
-                        (not page.parent_id and not archived)
+                        # If the page is a root page or the root of the subtree, include it only when archive is either False or None
+                        (
+                            (not page.parent_id or page.id == subtree_root_id)
+                            and not archived
+                        )
                         # Alternatively, include it if its parent is in the result
                         or (page.parent_id in result)
                     )
@@ -111,7 +116,24 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
                 skipped_pages.append(page)
         logger.debug("Cached pages: %r", len(result))
         logger.debug("Skipped pages: %r", len(skipped_pages))
-        return list(result.values())
+        return result
+
+    def cache_tree(
+        self,
+        archived: bool | None = None,
+        language_slug: str | None = None,
+    ) -> list[Page]:
+        """
+        Caches a page tree queryset in a python data structure.
+
+        :param archived: Whether the pages should be limited to either archived  or non-archived pages.
+                         If not passed or ``None``, both archived and non-archived pages are returned.
+        :param language_slug: Code to identify the desired language (optional, requires ``archived`` to be ``False``)
+        :raises ValueError: Indicates that the combination of parameters is not supported.
+
+        :return: A list of pages with cached children, descendants and ancestors
+        """
+        return list(self.cache_tree_dict(archived, language_slug).values())
 
 
 class PageManager(models.Manager):
