@@ -285,7 +285,10 @@ def children(
         .prefetch_related("embedded_offers")
         .filter(Q(explicitly_archived=False) & filters)
         .cache_tree_dict(
-            archived=False, language_slug=language_slug, subtree_root_id=subtree_root_id
+            archived=False,
+            language_slug=language_slug,
+            subtree_root_id=subtree_root_id,
+            should_prefetch_nonpublic_translations=False,
         )
     )
     result = [

@@ -43,6 +43,7 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
         archived: bool | None = None,
         language_slug: str | None = None,
         subtree_root_id: int | None = None,
+        should_prefetch_nonpublic_translations: bool = True,
     ) -> dict[int, Page]:
         """
         Caches a page tree queryset in a python data structure.
@@ -51,6 +52,7 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
                          If not passed or ``None``, both archived and non-archived pages are returned.
         :param language_slug: Code to identify the desired language (optional, requires ``archived`` to be ``False``)
         :param subtree_root_id: If given, identifies the root of the queried subtree.
+        :param should_prefetch_nonpublic_translations: Whether nonpublic translations should be prefetched alongside the public translations.
         :raises ValueError: Indicates that the combination of parameters is not supported.
 
         :return: A dictionary of pages keyed by their id with cached children, descendants and ancestors
@@ -61,11 +63,12 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
             )
         result: dict[int, Page] = {}
         skipped_pages: list[Page] = []
-        for page in (
-            self.prefetch_translations()
-            .prefetch_public_translations()
-            .order_by("tree_id", "lft")
-        ):
+
+        queryset = self
+        if should_prefetch_nonpublic_translations:
+            queryset = queryset.prefetch_translations()
+
+        for page in queryset.prefetch_public_translations().order_by("tree_id", "lft"):
             page._cached_ancestors = []
             page._cached_descendants = []
             page._cached_children = []
