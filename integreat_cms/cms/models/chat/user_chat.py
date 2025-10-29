@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -12,6 +14,9 @@ from ..regions.region import Region
 
 if TYPE_CHECKING:
     from typing import Any
+
+
+logger = logging.getLogger(__name__)
 
 
 class UserChatManager(models.Manager):
@@ -103,6 +108,15 @@ class UserChat(AbstractBaseModel, ZammadAPI):
         related_name="chats",
         verbose_name="Language of chat app user",
     )
+    total_words_generated = models.IntegerField(
+        help_text="Number of words generated in this chat.", default=0
+    )
+    created_timestamp = models.DateTimeField(
+        help_text="Date and time when the chat was started.", auto_now_add=True
+    )
+    last_message_timestamp = models.DateTimeField(
+        help_text="Date and time when the last chat message was sent.", auto_now=True
+    )
 
     # manager for fetching only the newest (i.e. current) chat
     objects = UserChatManager()
@@ -139,6 +153,26 @@ class UserChat(AbstractBaseModel, ZammadAPI):
                 f"{self.region.zammad_url}/#ticket/zoom/{self.zammad_id}"
             )
         return response
+
+    def update_mt_budget(self, words_generated: int) -> None:
+        """
+        Update the machine translation budget and number of generated words.
+
+        :param words_generate: the number of words generated in an automatic response
+        """
+        self.refresh_from_db()
+        self.total_words_generated += words_generated
+        self.region.mt_budget_used += (
+            words_generated * settings.INTEGREAT_CHAT_BUDGET_WEIGHT
+        )
+        self.save()
+        self.region.save()
+        logger.info(
+            "Subtracting %i generated chat answer words from machine translation budget for %s. New used budget: %i.",
+            words_generated,
+            self.region.slug,
+            self.region.mt_budget_used,
+        )
 
     class Meta:
         verbose_name = _("user chat")
