@@ -49,7 +49,8 @@ const setSelectAllLanguagesEventListener = (chart: Chart, items: LegendItem[]): 
 };
 
 const setLegendEventlisteners = (): void => {
-    const chart = Chart.instances[0];
+    // const chart = Chart.instances[0];
+    const chart = Chart.getChart("statistics");
     const items = chart.options.plugins.legend.labels.generateLabels(chart);
     const allLanguagesSelected: HTMLInputElement = document.getElementById("select-all-languages") as HTMLInputElement;
     items.forEach((item) => {
@@ -72,7 +73,7 @@ const initSelectedChartData = (chart: Chart, data: AjaxResponse): void => {
         const checkbox: HTMLInputElement = document.querySelector(
             `[data-chart-item="${dataSetItem.label}"]`
         ) as HTMLInputElement;
-        if (!checkbox.checked) {
+        if (checkbox && !checkbox.checked) {
             dataSetItem.hidden = true;
         }
     }
@@ -83,7 +84,7 @@ const initSelectedChartData = (chart: Chart, data: AjaxResponse): void => {
  */
 const updateChart = async (): Promise<void> => {
     // Get Chart instance
-    const chart = Chart.instances[0];
+    const chart = Chart.getChart("statistics");
 
     // Get HTML elements
     const chartNetworkError = document.getElementById("chart-network-error");
@@ -203,7 +204,7 @@ const downloadFile = (filename: string, content: string) => {
  */
 const exportStatisticsData = (): void => {
     // Get Chart instance
-    const chart = Chart.instances[0];
+    const chart = Chart.getChart("statistics");
     // Get format select field
     const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
     // Build filename

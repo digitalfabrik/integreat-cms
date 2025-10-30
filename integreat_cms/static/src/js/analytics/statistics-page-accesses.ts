@@ -174,9 +174,9 @@ export const updatePageAccesses = async (): Promise<void> => {
 export const setPageAccessesEventListeners = () => {
     statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
     pageAccessesForm = document.getElementById("statistics-page-access") as HTMLFormElement;
-    pageAccessesURL = pageAccessesForm.getAttribute("data-page-accesses-url");
     if (pageAccessesForm && statisticsForm) {
-        chart = Chart.instances[0];
+        pageAccessesURL = pageAccessesForm.getAttribute("data-page-accesses-url");
+        chart = Chart.getChart("statistics");
         updatePageAccesses();
         statisticsForm.addEventListener("submit", async (event: Event) => {
             // Prevent form submit
