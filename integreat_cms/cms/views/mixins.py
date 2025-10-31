@@ -6,7 +6,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from django.conf import settings
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
@@ -15,6 +17,11 @@ from ...core.utils.machine_translation_provider import MachineTranslationProvide
 
 if TYPE_CHECKING:
     from typing import Any
+
+    from django.core.paginator import Page
+    from django.db.models.query import QuerySet
+
+    from ..forms import ObjectSearchForm
 
 
 class RegionPermissionRequiredMixing(UserPassesTestMixin):
@@ -140,3 +147,73 @@ class MachineTranslationContextMixin(ContextMixin):
             )
         )
         return context
+
+
+class PaginationMixin:
+    """
+    Mixin to add pagination to a view.
+    The number of the page to view can be given by the ``page`` parameter in the request.
+    The page size can be defined by a ``size`` parameter in the request.
+    If no size is set explicitly, the page size is given by the ``PER_PAGE` setting,
+    and the fallback page size value is 10.
+    Note that this mixin is intended for extending Django's View class (or child classes),
+    and expects a ``self.request`` attribute. Django's generic View defines the request attribute
+    in the dispatch phase.
+    """
+
+    request: Any
+    default_page_size: int = settings.PER_PAGE or 10
+    max_page_size: int = 100
+
+    def paginate_queryset(self, queryset: QuerySet) -> Page:
+        page = self.request.GET.get("page", 1)
+        size = self.request.GET.get("size", self.default_page_size)
+
+        try:
+            size = min(int(size), self.max_page_size)
+        except (TypeError, ValueError):
+            size = self.default_page_size
+
+        paginator = Paginator(queryset, size)
+        try:
+            page_obj = paginator.page(page)
+        except PageNotAnInteger:
+            page_obj = paginator.page(1)
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+
+        return page_obj
+
+
+class FilterSortMixin:
+    """
+    Mixin to add filtering and sorting to a view.
+    Filtering logic is handled by the SearchForm. To add filtering to a view,
+    set a ``filter_form_class` attribute (the ``filter_form_class`` should be a child of
+    :class:`~integreat_cms.cms.forms.object_search_form.ObjectSearchForm`).
+    To allow sorting, add a ``sort_fields`` list attribute to your view.
+    Note that this mixin is intended for extending Django's View class (or child classes),
+    and expects a ``self.request`` attribute. Django's generic View defines the request attribute
+    in the dispatch phase.
+    """
+
+    request: Any
+    filter_form_class: type[ObjectSearchForm] | None = None
+    sort_fields: list[str] = []
+
+    def get_filter_form(self) -> ObjectSearchForm | None:
+        if self.filter_form_class is None:
+            return None
+        return self.filter_form_class(self.request.POST or None)
+
+    def get_filtered_sorted_queryset(self, queryset: QuerySet) -> QuerySet:
+        form = self.get_filter_form()
+        if form and form.is_valid():
+            queryset = form.apply_filters(queryset)
+
+        order_by = [
+            f
+            for f in self.request.POST.get("sort", "").split(",")
+            if f.lstrip("-") in self.sort_fields
+        ]
+        return queryset.order_by(*order_by)
