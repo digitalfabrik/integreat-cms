@@ -8,8 +8,9 @@ import {
     LinearScale,
     Legend,
     Tooltip,
+    LegendItem,
 } from "chart.js";
-import { setPageAccessesEventListeners } from "./statistics-page-accesses";
+import { setPageAccessesEventListeners, updatePageAccesses } from "./statistics-page-accesses";
 
 export type AjaxResponse = {
     exportLabels: Array<string>;
@@ -24,12 +25,66 @@ Chart.register(LineElement, PointElement, LineController, CategoryScale, LinearS
 // global variable for export labels (better for csv than the readable labels)
 let exportLabels: Array<string>;
 
+const toggleSingleChartItem = (item: LegendItem, chart: Chart): void => {
+    chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
+    chart.update();
+};
+
+const setSelectAllLanguagesEventListener = (chart: Chart, items: LegendItem[]): void => {
+    const allLanguagesSelected: HTMLInputElement = document.getElementById("select-all-languages") as HTMLInputElement;
+    allLanguagesSelected?.addEventListener("change", () => {
+        const checked = allLanguagesSelected.checked;
+        const languageCheckboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll("[data-chart-item]");
+        languageCheckboxes.forEach((checkbox: HTMLInputElement) => {
+            const editableCheckbox = checkbox;
+            if (checkbox.getAttribute("data-language-slug") && checked !== checkbox.checked) {
+                const dataChartItem = checkbox.getAttribute("data-chart-item");
+                const item = items.find((item) => item.text === dataChartItem);
+                toggleSingleChartItem(item, chart);
+                editableCheckbox.checked = checked;
+            }
+        });
+        updatePageAccesses();
+    });
+};
+
+const setLegendEventlisteners = (): void => {
+    // const chart = Chart.instances[0];
+    const chart = Chart.getChart("statistics");
+    const items = chart.options.plugins.legend.labels.generateLabels(chart);
+    const allLanguagesSelected: HTMLInputElement = document.getElementById("select-all-languages") as HTMLInputElement;
+    items.forEach((item) => {
+        const checkbox = document.querySelector(`[data-chart-item="${item.text}"]`);
+        checkbox?.addEventListener("change", () => {
+            toggleSingleChartItem(item, chart);
+            if (checkbox.getAttribute("data-language-slug")) {
+                updatePageAccesses();
+                allLanguagesSelected.checked = false;
+            }
+        });
+    });
+    setSelectAllLanguagesEventListener(chart, items);
+};
+
+const initSelectedChartData = (chart: Chart, data: AjaxResponse): void => {
+    const dataKeys = Object.keys(data.chartData.datasets);
+    for (let i = 0; i < dataKeys.length; i++) {
+        const dataSetItem = chart.data.datasets[i];
+        const checkbox: HTMLInputElement = document.querySelector(
+            `[data-chart-item="${dataSetItem.label}"]`
+        ) as HTMLInputElement;
+        if (checkbox && !checkbox.checked) {
+            dataSetItem.hidden = true;
+        }
+    }
+};
+
 /*
  * This function updates the chart according to the dates currently selected in the form.
  */
 const updateChart = async (): Promise<void> => {
     // Get Chart instance
-    const chart = Chart.instances[0];
+    const chart = Chart.getChart("statistics");
 
     // Get HTML elements
     const chartNetworkError = document.getElementById("chart-network-error");
@@ -84,17 +139,10 @@ const updateChart = async (): Promise<void> => {
             // The response text contains the data from Matomo as JSON.
             const data = (await response.json()) as AjaxResponse;
             chart.data = data.chartData;
+            initSelectedChartData(chart, data);
             chart.update();
             // Save export labels
             exportLabels = data.exportLabels;
-
-            const items = chart.options.plugins.legend.labels.generateLabels(chart);
-            items.forEach((item) => {
-                document.querySelector(`[data-chart-item="${item.text}"]`)?.addEventListener("change", () => {
-                    chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
-                    chart.update();
-                });
-            });
         } else if (response.status === HTTP_STATUS_BAD_REQUEST) {
             // Client error - invalid form parameters supplied
             const data = await response.json();
@@ -156,7 +204,7 @@ const downloadFile = (filename: string, content: string) => {
  */
 const exportStatisticsData = (): void => {
     // Get Chart instance
-    const chart = Chart.instances[0];
+    const chart = Chart.getChart("statistics");
     // Get format select field
     const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
     // Build filename
@@ -247,6 +295,9 @@ window.addEventListener("load", async () => {
 
     // Initialize chart data
     await updateChart();
+
+    // Set event handlers for language legend
+    setLegendEventlisteners();
 
     // Set event handlers for page based statistics
     setPageAccessesEventListeners();
