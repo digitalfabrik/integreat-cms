@@ -1,0 +1,44 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1 class="heading">
+        {% translate "Open Source Licenses" %}
+    </h1>
+    <div class="table-listing">
+        <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <thead>
+                <tr class="border-b border-solid border-gray-200">
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                        {% translate "Packages" %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for package in packages %}
+                    <tr class="border-b border-solid border-gray-200 hover:bg-gray-100">
+                        <td class="px-4 py-3">
+                            <p class="font-bold">
+                                {{ package.name }}
+                            </p>
+                            <p>
+                                {% translate "Version" %}:
+                                {{ package.versionInfo }}
+                            </p>
+                            <a href="{{ package.url }}" target="_blank" class="text-blue-500">
+                                <i icon-name="external-link" class="inline-block align-center"></i>
+                                {% translate "See license" %}
+                                {{ package.license }}
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="1" class="px-2 py-3">
+                            {% translate "No license information available." %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

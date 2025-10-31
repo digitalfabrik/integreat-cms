@@ -18,6 +18,10 @@
                            class="hover:underline"
                            target="_blank"
                            rel="noopener noreferrer">{{ version }}</a>
+                        {% if forloop.first and sbom %}
+                            (<a class="text-blue-500 underline"
+   href="{% url 'public:open_source_licenses' %}">{% translate "Licenses of used software" %}</a>)
+                        {% endif %}
                     </h2>
                 {% endif %}
                 {% include "release_notes/version.html" %}
