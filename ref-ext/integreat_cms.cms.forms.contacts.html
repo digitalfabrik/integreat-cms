@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-10-24T17:36:04+00:00" />
+    <meta property="article:modified_time" content="2025-10-31T14:58:37+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contacts &mdash; integreat-cms 2025.10.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -2553,6 +2553,254 @@ The opposite of the hidden_fields() method.</p>
 </dd></dl>
 
 </section>
+<section id="module-integreat_cms.cms.forms.contacts.contact_search_form">
+<span id="contact-search-form"></span><h2>Contact Search Form<a class="headerlink" href="#module-integreat_cms.cms.forms.contacts.contact_search_form" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.contacts.contact_search_form.</span></span><span class="sig-name descname"><span class="pre">ContactSearchForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.object_search_form.ObjectSearchForm" title="integreat_cms.cms.forms.object_search_form.ObjectSearchForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectSearchForm</span></code></a></p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">query</span></code>: Query (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/fields/#django.forms.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.add_error">
+<span class="sig-name descname"><span class="pre">add_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L363"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.add_error" title="Link to this definition"></a></dt>
+<dd><p>Update the content of <cite>self._errors</cite>.</p>
+<p>The <cite>field</cite> argument is the name of the field to which the errors
+should be added. If it’s None, treat the errors as NON_FIELD_ERRORS.</p>
+<p>The <cite>error</cite> argument can be a single error, a list of errors, or a
+dictionary that maps field names to lists of errors. An “error” can be
+either a simple string or an instance of ValidationError with its
+message attribute set and a “list or dictionary” can be an actual
+<cite>list</cite> or <cite>dict</cite> or an instance of ValidationError with its
+<cite>error_list</cite> or <cite>error_dict</cite> attribute set.</p>
+<p>If <cite>error</cite> is a dictionary, the <cite>field</cite> argument <em>must</em> be None and
+errors will be added to the fields that correspond to the keys of the
+dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.add_initial_prefix">
+<span class="sig-name descname"><span class="pre">add_initial_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.add_initial_prefix" title="Link to this definition"></a></dt>
+<dd><p>Add an ‘initial’ prefix for checking dynamic initial values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.add_prefix">
+<span class="sig-name descname"><span class="pre">add_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.add_prefix" title="Link to this definition"></a></dt>
+<dd><p>Return the field name with a prefix appended, if this Form has a
+prefix set.</p>
+<p>Subclasses may wish to override.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.apply_filters">
+<span class="sig-name descname"><span class="pre">apply_filters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v4.2)"><span class="pre">QuerySet</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v4.2)"><span class="pre">QuerySet</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.apply_filters" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>queryset</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v4.2)"><em>QuerySet</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v4.2)"><em>QuerySet</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.as_div">
+<span class="sig-name descname"><span class="pre">as_div</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/utils.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.as_div" title="Link to this definition"></a></dt>
+<dd><p>Render as &lt;div&gt; elements.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.as_p">
+<span class="sig-name descname"><span class="pre">as_p</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/utils.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.as_p" title="Link to this definition"></a></dt>
+<dd><p>Render as &lt;p&gt; elements.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.as_table">
+<span class="sig-name descname"><span class="pre">as_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/utils.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.as_table" title="Link to this definition"></a></dt>
+<dd><p>Render as &lt;tr&gt; elements excluding the surrounding &lt;table&gt; tag.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.as_ul">
+<span class="sig-name descname"><span class="pre">as_ul</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/utils.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.as_ul" title="Link to this definition"></a></dt>
+<dd><p>Render as &lt;li&gt; elements excluding the surrounding &lt;ul&gt; tag.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.changed_data">
+<span class="sig-name descname"><span class="pre">changed_data</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.changed_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L469"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.clean" title="Link to this definition"></a></dt>
+<dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
+called on every field. Any ValidationError raised by this method will
+not be associated with a particular field; it will have a special-case
+association with the field named ‘__all__’.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.default_renderer">
+<span class="sig-name descname"><span class="pre">default_renderer</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.default_renderer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.errors">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">errors</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.errors" title="Link to this definition"></a></dt>
+<dd><p>Return an ErrorDict for the data provided for the form.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.field_order">
+<span class="sig-name descname"><span class="pre">field_order</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.field_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.full_clean">
+<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L420"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.full_clean" title="Link to this definition"></a></dt>
+<dd><p>Clean all of self.data and populate self._errors and self.cleaned_data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.get_context">
+<span class="sig-name descname"><span class="pre">get_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L319"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.get_context" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.get_initial_for_field">
+<span class="sig-name descname"><span class="pre">get_initial_for_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L515"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.get_initial_for_field" title="Link to this definition"></a></dt>
+<dd><p>Return initial data for field on form. Use initial data from the form
+or the field, in that order. Evaluate callable values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.has_changed">
+<span class="sig-name descname"><span class="pre">has_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L478"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.has_changed" title="Link to this definition"></a></dt>
+<dd><p>Return True if data differs from initial.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.has_error">
+<span class="sig-name descname"><span class="pre">has_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L414"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.has_error" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.hidden_fields">
+<span class="sig-name descname"><span class="pre">hidden_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L501"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.hidden_fields" title="Link to this definition"></a></dt>
+<dd><p>Return a list of all the BoundField objects that are hidden fields.
+Useful for manual form layout in templates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.is_multipart">
+<span class="sig-name descname"><span class="pre">is_multipart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L494"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.is_multipart" title="Link to this definition"></a></dt>
+<dd><p>Return True if the form needs to be multipart-encoded, i.e. it has
+FileInput, or False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.is_valid" title="Link to this definition"></a></dt>
+<dd><p>Return True if the form has no errors, or False otherwise.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.media">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.media" title="Link to this definition"></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.non_field_errors">
+<span class="sig-name descname"><span class="pre">non_field_errors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L352"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.non_field_errors" title="Link to this definition"></a></dt>
+<dd><p>Return an ErrorList of errors that aren’t associated with a particular
+field – i.e., from Form.clean(). Return an empty ErrorList if there
+are none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.order_fields">
+<span class="sig-name descname"><span class="pre">order_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.order_fields" title="Link to this definition"></a></dt>
+<dd><p>Rearrange the fields according to field_order.</p>
+<p>field_order is a list of field names specifying the order. Append fields
+not included in the list in the default order for backward compatibility
+with subclasses not overriding field_order. If field_order is None,
+keep all fields in the order defined in the class. Ignore unknown
+fields in field_order to allow disabling fields in form subclasses
+without redefining ordering.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.prefix">
+<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.prefix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/utils.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.render" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.search_fields">
+<span class="sig-name descname"><span class="pre">search_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['name',</span> <span class="pre">'location__translations__title',</span> <span class="pre">'area_of_responsibility']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.search_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">template_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name_div">
+<span class="sig-name descname"><span class="pre">template_name_div</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django/forms/div.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name_div" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name_label">
+<span class="sig-name descname"><span class="pre">template_name_label</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django/forms/label.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name_label" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name_p">
+<span class="sig-name descname"><span class="pre">template_name_p</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django/forms/p.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name_p" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name_table">
+<span class="sig-name descname"><span class="pre">template_name_table</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django/forms/table.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name_table" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name_ul">
+<span class="sig-name descname"><span class="pre">template_name_ul</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django/forms/ul.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.template_name_ul" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.use_required_attribute">
+<span class="sig-name descname"><span class="pre">use_required_attribute</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/contacts/contact_search_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.use_required_attribute" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.visible_fields">
+<span class="sig-name descname"><span class="pre">visible_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/forms/forms.py#L508"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.contacts.contact_search_form.ContactSearchForm.visible_fields" title="Link to this definition"></a></dt>
+<dd><p>Return a list of BoundField objects that aren’t hidden fields.
+The opposite of the hidden_fields() method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -2570,7 +2818,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 24, 2025.
+      <span class="lastupdated">Last updated on Oct 31, 2025.
       </span></p>
   </div>
 
