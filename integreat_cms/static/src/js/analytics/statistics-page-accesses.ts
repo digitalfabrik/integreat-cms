@@ -45,7 +45,7 @@ const setAccessBarPerLanguage = (
     const width = allAccesses !== 0 ? (accesses / allAccesses) * 100 : 0;
     childElement.style.backgroundColor = languageColor;
     childElement.style.width = `${String(width)}%`;
-    childElement.title = `${languageTitle}: ${accesses} ${childElement.getAttribute("data-access-translation")} (${roundedPercentage} %)`;
+    childElement.title = `${languageTitle}: ${accesses} (${roundedPercentage} %)`;
 };
 
 const resetTotalAccessesField = (accessFields: HTMLCollectionOf<Element>, isEmpty: boolean) => {
@@ -55,7 +55,7 @@ const resetTotalAccessesField = (accessFields: HTMLCollectionOf<Element>, isEmpt
                 (el) => el !== accessField && el.classList.contains("total-accesses")
             );
             const editableAllAccessField = allAccessesField;
-            editableAllAccessField.textContent = `0 ${editableAllAccessField.getAttribute("data-translation")}`;
+            editableAllAccessField.textContent = `${editableAllAccessField.getAttribute("data-translation-no-accesses")}`;
         });
     }
 };
@@ -137,7 +137,13 @@ const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
                 allAccesses += countAccesses(accesses[languageSlug]);
             }
         });
-        allAccessesField.textContent = `${String(allAccesses)} ${allAccessesField.getAttribute("data-translation")}`;
+        if (allAccesses === 0) {
+            allAccessesField.textContent = `${allAccessesField.getAttribute("data-translation-no-accesses")}`;
+        } else if (allAccesses === 1) {
+            allAccessesField.textContent = `${String(allAccesses)} ${allAccessesField.getAttribute("data-translation-singular")}`;
+        } else {
+            allAccessesField.textContent = `${String(allAccesses)} ${allAccessesField.getAttribute("data-translation-plural")}`;
+        }
         Object.entries(accesses).forEach((access) => {
             const languageSlug = access[0];
             const accessesOverTime: AccessesPerTime = visibleDatasetSlugs.includes(languageSlug) ? access[1] : {};
