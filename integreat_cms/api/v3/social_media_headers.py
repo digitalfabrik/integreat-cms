@@ -5,6 +5,7 @@ This module contains views of the social media headers API endpoint.
 from __future__ import annotations
 
 import logging
+import re
 from functools import wraps
 from html import unescape
 from typing import TYPE_CHECKING
@@ -41,13 +42,24 @@ logger = logging.getLogger(__name__)
 
 def get_excerpt(content: str) -> str:
     """
-    Correctly escapes, truncates and normalizes the content of the page to display in a search result
+    Correctly escapes, truncates and normalizes the content of the page to display in a search result.
 
     :param content: The content of the page
 
     :return: A page excerpt containing the first 100 characters of "raw" content
     """
-    return unescape(strip_tags(content))[:100].replace("\n", " ").replace("\r", "")
+    stripped_content = re.sub(
+        r"\s+",
+        " ",
+        unescape(
+            strip_tags(
+                content.replace("\n", " ").replace("\r", "").replace("<br>", " ")
+            )
+        ),
+    ).strip()
+    if len(stripped_content) <= 100:
+        return stripped_content
+    return stripped_content[:100].rsplit(" ", 1)[0] + " …"
 
 
 def get_region_title(region: Region, page_title: str) -> str:
