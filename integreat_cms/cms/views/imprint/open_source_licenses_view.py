@@ -42,9 +42,17 @@ class OpenSourceLicensesView(TemplateView):
             package["versionInfo"] = (
                 package["versionInfo"] if package["versionInfo"] else "N/A"
             )
-            package["url"] = self.create_url_from_reference_locator(
-                package["externalRefs"][0]["referenceLocator"]
-            )
+            package["url"] = None
+            if "externalRefs" in package:
+                package_managers = [
+                    ref["referenceLocator"]
+                    for ref in package["externalRefs"]
+                    if ref["referenceCategory"] == "PACKAGE-MANAGER"
+                ]
+                if package_managers:
+                    package["url"] = self.create_url_from_reference_locator(
+                        package_managers[0]
+                    )
 
         return {
             "packages": packages,
