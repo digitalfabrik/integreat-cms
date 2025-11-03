@@ -701,7 +701,11 @@ LOGGING: dict[str, Any] = {
     },
     "handlers": {
         "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "console",
             "filters": ["require_debug_true"],
+        },
+        "console-service": {
             "class": "logging.StreamHandler",
             "formatter": "console",
         },
@@ -776,8 +780,8 @@ LOGGING: dict[str, Any] = {
             "level": DEPS_LOG_LEVEL,
         },
         "celery": {
-            "handlers": ["console", "logfile"],
-            "level": DEPS_LOG_LEVEL,
+            "handlers": ["console-service", "logfile"],
+            "level": "INFO" if DEPS_LOG_LEVEL == "DEBUG" else DEPS_LOG_LEVEL,
         },
         "deepl": {
             "handlers": ["console", "logfile"],
