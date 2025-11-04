@@ -9,7 +9,7 @@ from django.contrib.postgres.search import (
     TrigramSimilarity,
 )
 from django.db import models
-from django.db.models import Q
+from django.db.models import Case, CharField, F, Q, When
 from django.db.models.functions import Greatest
 from django.urls import reverse
 from django.utils import timezone
@@ -178,13 +178,23 @@ class Contact(AbstractBaseModel):
 
         contact_matches = (
             cls.objects.filter(
-                name__icontains=query,
+                Q(name__icontains=query) | Q(area_of_responsibility__icontains=query),
                 location__region=region,
                 archived=archived_flag,
             )
-            .order_by("name")
-            .distinct("name")
-            .values_list("name", flat=True)
+            .annotate(
+                match=Case(
+                    When(name__icontains=query, then=F("name")),
+                    When(
+                        area_of_responsibility__icontains=query,
+                        then=F("area_of_responsibility"),
+                    ),
+                    output_field=CharField(),
+                )
+            )
+            .order_by("match")
+            .distinct("match")
+            .values_list("match", flat=True)
         )
 
         results.extend(
