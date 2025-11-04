@@ -6,15 +6,15 @@ from __future__ import annotations
 
 import logging
 import time
+from collections import defaultdict
 from datetime import date, timedelta
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from celery import shared_task
 from django.db.models import OuterRef
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from integreat_cms.cms.models.languages.language import Language
 from integreat_cms.cms.models.pages.page import Page
 from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.models.regions.region import Region
@@ -132,7 +132,7 @@ def get_visits_per_language_ajax(
 # pylint: disable=unused-argument
 def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonResponse:
     """
-    Ajax method to request the app hits for a certain timerange distinguished by languages.
+    Ajax method to request the accesses per page for a certain timerange distinguished by languages.
 
     :param request: The current request
     :param region_slug: The slug of the current region
@@ -157,36 +157,18 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
 
     region_pages = Page.objects.filter(region=region)
     languages = region.languages
-    page_accesses = region.get_page_accesses_by_language(
+    page_access_sums = region.get_page_access_count_by_language(
         pages=region_pages,
         start_date=statistics_form.cleaned_data["start_date"],
         end_date=statistics_form.cleaned_data["end_date"],
         languages=languages,
     )
 
-    language_slug_table = Language.objects.only("id", "slug")
-
-    page_accesses_dict: dict[Any, Any] = {}
-    for access in page_accesses:
-        page_id = str(access["page_id"])
-        language_slug = language_slug_table.filter(id=access["language_id"]).values(
-            "slug"
-        )[0]["slug"]
-        if page_id in page_accesses_dict:
-            if language_slug in page_accesses_dict[page_id]:
-                page_accesses_dict[page_id][language_slug][
-                    access["access_date"].strftime("%Y-%m-%d")
-                ] = access["accesses"]
-            else:
-                page_accesses_dict[page_id][language_slug] = {
-                    access["access_date"].strftime("%Y-%m-%d"): access["accesses"]
-                }
-        else:
-            page_accesses_dict[page_id] = {
-                language_slug: {
-                    access["access_date"].strftime("%Y-%m-%d"): access["accesses"]
-                }
-            }
+    page_accesses_dict: dict[str, dict[str, int]] = defaultdict(dict)
+    for access_sum in page_access_sums:
+        page_id = str(access_sum["page__id"])
+        language_slug = str(access_sum["language__slug"])
+        page_accesses_dict[page_id][language_slug] = access_sum["total_accesses"]
 
     return JsonResponse(page_accesses_dict, safe=False)
 

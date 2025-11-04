@@ -10,7 +10,7 @@ import {
     Tooltip,
     LegendItem,
 } from "chart.js";
-import { setPageAccessesEventListeners, updatePageAccesses } from "./statistics-page-accesses";
+import { updatePageAccesses } from "./statistics-page-accesses";
 
 export type AjaxResponse = {
     exportLabels: Array<string>;
@@ -298,9 +298,6 @@ window.addEventListener("load", async () => {
 
     // Set event handlers for language legend
     setLegendEventlisteners();
-
-    // Set event handlers for page based statistics
-    setPageAccessesEventListeners();
 
     // Initialize export button
     toggleExportButton();
