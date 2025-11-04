@@ -15,13 +15,13 @@
 
 
 ### Faithfulness to issue description and design
-<!-- If the implementation is different from the issue description and design, replace the following with an explain why. -->
+<!-- If the implementation is different from the issue description and design, replace the following with an explaination why. -->
 There are no intended deviations from the issue and design.
 
 
 ### How to test
-<!-- Non-trivial prerequisites and notes on how to test this (e.g. specific environment variables and settings to be set, --> 
-<!-- and things to pay attention to) -->
+<!-- Non-trivial prerequisites and notes on how to test this
+     (e.g. specific environment variables and settings to be set, and things to pay attention to) -->
 
 
 ### Resolved issues
