@@ -255,7 +255,7 @@ class CancelTranslationProcess(PageBulkActionMixin, BulkActionView):
                     cancel_failed.append(content_object.best_translation.title)
 
         if not_in_translation:
-            messages.success(
+            messages.info(
                 request,
                 ngettext_lazy(
                     "{model_name} {object_names} was not in translation process.",

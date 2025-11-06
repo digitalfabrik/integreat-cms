@@ -14,12 +14,13 @@
             <span data-language-color="{{ language.language_color }}"
                   data-language-slug="{{ language.slug }}"
                   data-language-title="{{ language.translated_name }}"
-                  data-access-translation="{% translate "Accesses" %}"
                   class="cursor-pointer bg-[{{ language.language_color }}] h-9">
             </span>
         {% endfor %}
     </td>
     <td class="total-accesses font-bold ml-4"
-        data-translation="{% translate "Accesses in total" %}">
+        data-translation-plural="{% translate "Accesses in total" %}"
+        data-translation-singular="{% translate "Access in total" %}"
+        data-translation-no-accesses="{% translate "No Accesses" %}">
     </td>
 </tr>

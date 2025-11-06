@@ -62,7 +62,7 @@ def test_bulk_cancel_translation_process(
             in response.content.decode("utf-8")
         )
         assert_message_in_log(
-            'SUCCESS  The following pages were not in translation process: "Welcome" and "Willkommen in Augsburg"',
+            'INFO     The following pages were not in translation process: "Welcome" and "Willkommen in Augsburg"',
             caplog,
         )
         assert (

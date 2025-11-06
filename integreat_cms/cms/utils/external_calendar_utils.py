@@ -70,16 +70,24 @@ class IcalEventData:
         """
         event_id = event.decoded("UID").decode("utf-8")
         title = event.decoded("SUMMARY").decode("utf-8")
+        raw_description = (
+            event.decoded("DESCRIPTION").decode("utf-8")
+            if "DESCRIPTION" in event
+            else ""
+        )
+        location = (
+            event.decoded("LOCATION").decode("utf-8") if "LOCATION" in event else ""
+        )
+        if location:
+            raw_description += "\n\n" + location
         content = clean_content(
-            content=(
-                event.decoded("DESCRIPTION").decode("utf-8")
-                if "DESCRIPTION" in event
-                else ""
-            ).replace("\n", "<br>"),
+            content=raw_description.replace("\n", "<br>"),
             language_slug=language_slug,
         )
         start = event.decoded("DTSTART")
-        end = event.decoded("DTEND")
+        end = event.decoded(
+            "DTEND", start + event.decoded("DURATION", datetime.timedelta(days=1))
+        )
 
         # Categories can be a "vCategory" object, a list of such objects, or be missing
         categories = event.get("categories", [])

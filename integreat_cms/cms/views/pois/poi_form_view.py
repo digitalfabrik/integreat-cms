@@ -239,7 +239,7 @@ class POIFormView(
             # Look explicitly for the primary contact, not any first one,
             # as we do not delete non-primary contacts when deactivating contact in a region.
             # "get()" is not used as it raises an exception if there is no primary contact.
-            contact = poi.contacts.filter(area_of_responsibility="").first()
+            contact = poi.contacts.get_primary_contact()
 
             if website != "" or phone_number != "" or email != "":
                 if not contact:

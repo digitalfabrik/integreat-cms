@@ -382,6 +382,7 @@ RESPONSE
                   {
                      "start": String,    // The start time of the timeslot, in the format `HH:MM`, 24 Hour time
                      "end": String,      // The end time of the timeslot
+                     "timezone": String      // IANA timezone key, e.g. "Europe/Berlin"
                   },
                   ...
                ],

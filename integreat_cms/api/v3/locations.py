@@ -26,6 +26,28 @@ if TYPE_CHECKING:
 
     from ...cms.models import POI, POITranslation
 
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+
+def _ensure_zoneinfo(tz_candidate: str | ZoneInfo | None) -> ZoneInfo:
+    """
+    Convert an optional string/ZoneInfo to a valid :class:`ZoneInfo`, defaulting to settings.TIME_ZONE.
+
+    :param tz_candidate: IANA zone string, ZoneInfo, or None.
+    :return: Validated ZoneInfo.
+    """
+    default_tz = getattr(settings, "TIME_ZONE", "Europe/Berlin")
+    if isinstance(tz_candidate, ZoneInfo):
+        return tz_candidate
+    if isinstance(tz_candidate, str):
+        tz_str = tz_candidate.strip()
+        if tz_str:
+            try:
+                return ZoneInfo(tz_str)
+            except ZoneInfoNotFoundError:
+                pass
+    return ZoneInfo(default_tz)
+
 
 def transform_poi(poi: POI | None) -> dict[str, Any]:
     """
@@ -65,21 +87,26 @@ def transform_poi(poi: POI | None) -> dict[str, Any]:
     }
 
 
-def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]:
+def transform_poi_translation(
+    poi_translation: POITranslation,
+    *,
+    region_tz: ZoneInfo,
+) -> dict[str, Any]:
     """
-    Function to create a JSON from a single poi_translation object.
+    Create JSON for a POI translation and enrich opening hours with ISO-8601 times.
 
-    :param poi_translation: The poi translation object which should be converted
-    :return: data necessary for API
+
+    :param poi_translation: POI translation to convert.
+    :param region_tz: Validated time zone used to compute DST-aware numeric offsets.
+    :return: Data for the APIv3 locations endpoint.
     """
-
     poi = poi_translation.poi
 
     contacts = Contact.objects.filter(location=poi).all()
 
     # Note(johannes): Remove the primary_contact and the according three fields (phone_number, website, and email) in late 2025
     # https://github.com/digitalfabrik/integreat-cms/issues/3475
-    primary_contact = contacts.filter(area_of_responsibility="").first()
+    primary_contact = contacts.get_primary_contact()
 
     contacts = contacts.filter(archived=False)
 
@@ -99,11 +126,19 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
                 "appointment_url": contact.appointment_url or None,
             }
         )
-
     # Only return opening hours if they differ from the default value and the location is not temporarily closed
     opening_hours = None
     if not poi.temporarily_closed and poi.opening_hours != get_default_opening_hours():
-        opening_hours = poi.opening_hours
+        tz_key = getattr(region_tz, "key", str(region_tz))
+        opening_hours = [
+            day
+            | {
+                "timeSlots": [
+                    (slot | {"timezone": tz_key}) for slot in day.get("timeSlots", [])
+                ]
+            }
+            for day in (poi.opening_hours or [])
+        ]
     return {
         "id": poi_translation.id,
         "url": settings.BASE_URL + poi_translation.get_absolute_url(),
@@ -188,9 +223,10 @@ def locations(
             return JsonResponse({"error": str(e)}, status=400)
         pois = pois.filter(location_on_map=location_on_map)
 
+    region_tz = _ensure_zoneinfo(getattr(region, "timezone", None))
     for poi in pois:
         if translation := poi.get_public_translation(language_slug):
-            result.append(transform_poi_translation(translation))
+            result.append(transform_poi_translation(translation, region_tz=region_tz))
 
     return JsonResponse(
         result,

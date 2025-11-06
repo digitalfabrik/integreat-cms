@@ -86,10 +86,7 @@
         }
         /* eslint-enable no-magic-numbers */
 
-        return [
-            `<span class="notranslate" translate="no" dir="ltr">${countryCode}&nbsp;(0)&nbsp;${phoneNumberBody}</span>`,
-            `tel:${phoneNumberCallable}`,
-        ];
+        return [`${countryCode} (0) ${phoneNumberBody}`, `${phoneNumberCallable}`];
     };
     const parseCurrentLine = (editor, endOffset, delimiter) => {
         let end;
@@ -185,18 +182,15 @@
             editor.selection.moveToBookmark(bookmark);
             editor.nodeChanged();
         } else if (phoneMatches) {
-            const [prettyPrintedNumber, callableNumber] = convertToInternational(phoneMatches[0]);
+            const [phoneNumberPrettyPrinted, phoneNumberCallable] = convertToInternational(phoneMatches[0]);
             bookmark = editor.selection.getBookmark();
             editor.selection.setRng(rng);
-            editor.execCommand("createlink", false, callableNumber);
+
+            const phoneLink = `<a href="tel:${phoneNumberCallable}"><span class="notranslate" translate="no" dir="ltr">${phoneNumberPrettyPrinted.replace(" ", "&nbsp;")}</span></a>`;
+            editor.insertContent(phoneLink);
             if (defaultLinkTarget !== false) {
                 editor.dom.setAttrib(editor.selection.getNode(), "target", defaultLinkTarget);
-                editor.selection.setContent(prettyPrintedNumber);
             }
-            const link = editor.selection.getNode();
-            editor.selection.select(link, false);
-            editor.selection.collapse(false);
-            editor.nodeChanged();
         }
     };
     const handleEclipse = (editor) => {

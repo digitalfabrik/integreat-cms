@@ -33,15 +33,10 @@ module.exports = {
         "docs/",
         "package.json",
         "package-lock.json",
+        "vitest.config.ts",
     ],
 
-    extends: [
-        "airbnb",
-        "airbnb/hooks",
-        "eslint-config-preact",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:import/typescript",
-    ],
+    extends: ["airbnb", "airbnb/hooks", "eslint-config-preact", "plugin:import/typescript"],
     parser: "@typescript-eslint/parser",
     parserOptions: {
         ecmaVersion: 6,
@@ -52,11 +47,9 @@ module.exports = {
             jsx: true,
         },
     },
-    plugins: ["@typescript-eslint", "prefer-arrow", "prettier"],
+    plugins: ["prefer-arrow", "prettier"],
     rules: {
         // probably a good idea to re-enable at some point
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/explicit-module-boundary-types": "off",
         "import/no-cycle": "off",
 
         // leave these to prettier
@@ -76,7 +69,6 @@ module.exports = {
         "wrap-iife": "off",
 
         // overly strict rules
-        "@typescript-eslint/strict-boolean-expressions": "off",
         "function-paren-newline": "off",
         "jsx-a11y/label-has-associated-control": "off",
         "jsx-a11y/no-noninteractive-element-interactions": "off",
@@ -99,23 +91,6 @@ module.exports = {
         "default-case": "off", // => @typescript-eslint/switch-exhaustiveness-check
         "no-unused-vars": "off", // => @typescript-eslint/no-unused-vars
         "no-use-before-define": "off", // => @typescript-eslint/no-use-before-define
-
-        // project-specific (typescript)
-        "@typescript-eslint/await-thenable": "error",
-        "@typescript-eslint/ban-ts-comment": "error",
-        "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-        "@typescript-eslint/no-empty-function": "error",
-        "@typescript-eslint/no-unused-vars": [
-            "error",
-            {
-                argsIgnorePattern: "_(unused)?",
-                varsIgnorePattern: "_(unused)?",
-                ignoreRestSiblings: true,
-            },
-        ],
-        "@typescript-eslint/no-use-before-define": "error",
-        "@typescript-eslint/prefer-ts-expect-error": "error",
-        "@typescript-eslint/switch-exhaustiveness-check": "error",
 
         // project-specific (general)
         "curly": ["error", "all"],
@@ -141,8 +116,18 @@ module.exports = {
     overrides: [
         {
             files: ["*.js"],
+            parser: "espree",
+            parserOptions: {
+                ecmaVersion: 2020,
+                sourceType: "module",
+            },
+            extends: ["eslint:recommended"],
+            plugins: [],
             rules: {
                 "global-require": "off",
+                "no-empty": "off",
+                "no-unused-vars": "off",
+                "no-undef": "off",
             },
             globals: {
                 tinymce: "readonly",
@@ -152,8 +137,29 @@ module.exports = {
         // https://typescript-eslint.io/docs/linting/troubleshooting/
         {
             files: ["*.ts", "*.mts", "*.cts", "*.tsx"],
+            extends: ["plugin:@typescript-eslint/recommended"],
+            plugins: ["@typescript-eslint"],
             rules: {
                 "no-undef": "off",
+                "@typescript-eslint/no-explicit-any": "off",
+                "@typescript-eslint/explicit-module-boundary-types": "off",
+                "@typescript-eslint/strict-boolean-expressions": "off",
+                // project-specific (typescript)
+                "@typescript-eslint/await-thenable": "error",
+                "@typescript-eslint/ban-ts-comment": "error",
+                "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+                "@typescript-eslint/no-empty-function": "error",
+                "@typescript-eslint/no-unused-vars": [
+                    "error",
+                    {
+                        argsIgnorePattern: "_(unused)?",
+                        varsIgnorePattern: "_(unused)?",
+                        ignoreRestSiblings: true,
+                    },
+                ],
+                "@typescript-eslint/no-use-before-define": "error",
+                "@typescript-eslint/prefer-ts-expect-error": "error",
+                "@typescript-eslint/switch-exhaustiveness-check": "error",
             },
         },
     ],

@@ -5,6 +5,7 @@ This module contains view actions related to pages.
 from __future__ import annotations
 
 import logging
+import time
 from datetime import date, timedelta
 from typing import Any, TYPE_CHECKING
 
@@ -27,6 +28,9 @@ if TYPE_CHECKING:
 
 
 logger = logging.getLogger(__name__)
+
+MAX_ATTEMPTS = 5
+TIME_TO_NEXT_FETCH_ATTEMPT = 120
 
 
 @permission_required("cms.view_statistics")
@@ -187,7 +191,9 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
     return JsonResponse(page_accesses_dict, safe=False)
 
 
-def fetch_page_accesses(start_date: date, end_date: date, region: Region) -> None:
+def fetch_page_accesses(
+    start_date: date, end_date: date, region: Region, times_tried: int = 0
+) -> None:
     """
     Load page accesses synchronuos from Matomo and save them to page accesses model
     :param start_date: Earliest date
@@ -199,6 +205,7 @@ def fetch_page_accesses(start_date: date, end_date: date, region: Region) -> Non
     languages = list(region.active_languages)
     pages = region.get_pages()
     region_slug = region.slug
+    times_tried = times_tried + 1
 
     # Query PageTranslation and the related Page and Language objects directly from the database to avoid calling data from the cache, due to celery starting with an empty cache
     subquery = (
@@ -212,14 +219,31 @@ def fetch_page_accesses(start_date: date, end_date: date, region: Region) -> Non
         page__in=pages, pk__in=subquery
     ).select_related("page", "language")
 
-    region.statistics.get_page_accesses(
-        start_date=start_date,
-        end_date=end_date,
-        region_slug=region_slug,
-        languages=languages,
-        pages=pages,
-        prefetched_translations=prefetched_translations,
-    )
+    try:
+        region.statistics.get_page_accesses(
+            start_date=start_date,
+            end_date=end_date,
+            region_slug=region_slug,
+            languages=languages,
+            pages=pages,
+            prefetched_translations=prefetched_translations,
+        )
+    except MatomoException:
+        if times_tried < MAX_ATTEMPTS:
+            logger.exception(
+                "Matomo not reachable, trying again in 2 Minutes for %s", region
+            )
+            time.sleep(TIME_TO_NEXT_FETCH_ATTEMPT)
+            fetch_page_accesses(
+                start_date=start_date,
+                end_date=end_date,
+                region=region,
+                times_tried=times_tried,
+            )
+        else:
+            logger.exception(
+                "Matomo remains not reachable for %s. Skipping region", region
+            )
 
 
 @shared_task

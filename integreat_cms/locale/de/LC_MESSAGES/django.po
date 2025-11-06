@@ -4114,6 +4114,14 @@ msgid "Whether or not push notifications are enabled in the region"
 msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py
+msgid "activate term explanations"
+msgstr "Begriffslexikon aktivieren"
+
+#: cms/models/regions/region.py
+msgid "Whether or not term explanations are enabled in the region"
+msgstr "Ob Begriffslexikon in der Region aktiviert ist oder nicht"
+
+#: cms/models/regions/region.py
 msgid "The latitude coordinate of an approximate center of the region"
 msgstr "Die Breitengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
@@ -4762,8 +4770,10 @@ msgstr "Ortskategorien"
 
 #: cms/templates/_base.html cms/templates/content_versions.html
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
-#: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
+#: cms/templates/imprint/imprint_sbs.html
+#: cms/templates/imprint/open_source_licenses.html
+#: cms/templates/pages/page_form.html cms/templates/pages/page_sbs.html
+#: cms/templates/pois/poi_form.html
 msgid "Version"
 msgstr "Version"
 
@@ -5091,15 +5101,6 @@ msgstr "Automatisch den Titel des verlinkten Inhalts als Linktext verwenden"
 #: cms/templates/_tinymce_config.html
 msgid "Media Library..."
 msgstr "Medienbibliothek..."
-
-#: cms/templates/ajax_contact_form/_contact_form_widget.html
-#: cms/templates/contacts/contact_form.html
-msgid ""
-"Currently, the mobile phone number is not displayed in the Integreat App. "
-"You can find more information in the"
-msgstr ""
-"Aktuell wird die Mobiltelefonnummer nicht in der Integreat App angezeigt. "
-"Mehr Informationen finden Sie im"
 
 #: cms/templates/ajax_poi_form/_poi_address_container.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
@@ -5894,6 +5895,51 @@ msgstr "Seite neu laden"
 msgid "Continue reading"
 msgstr "Weiterlesen"
 
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Frag Integreat Statistics"
+msgstr "Frag Integreat Statistiken"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Chats in last 6 hours"
+msgstr "Unterhaltungen in Letzten 6 Stunden"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Open Chat Support System (Zammad)"
+msgstr "Chat-Support-System (Zammad) öffnen"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Chats in last 30 days"
+msgstr "Unterhaltungen in den letzten 30 Tagen"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Used budget in last 30 days"
+msgstr "Genutztes Budget in den letzten 30 Tagen"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Chats in previous 30 days"
+msgstr "Unterhaltungen in den vorherigen 30 Tagen"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Used budget in previous 30 days"
+msgstr "Genutztes Budget in den vorherigen 30 Tagen"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Total chats"
+msgstr "Gesamtzahl Unterhaltungen"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Total used budget"
+msgstr "Insgesamt verbrauchtes Budget"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Note:"
+msgstr "Hinweis:"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+#, python-format
+msgid "1 word = %(budget_weight)s budget points."
+msgstr "1 Wort = %(budget_weight)s Budgetpunkte."
+
 #: cms/templates/dashboard/_todo_dashboard_row.html
 msgid "in total"
 msgstr "Insgesamt"
@@ -6378,6 +6424,7 @@ msgstr "optional"
 #: cms/templates/events/event_form_sidebar/minor_edit_box.html
 #: cms/templates/pages/page_form_sidebar/minor_edit_box.html
 #: cms/templates/pois/poi_form_sidebar/minor_edit_box.html
+#: cms/templates/statistics/_statistics_legend.html
 msgid "Select all languages"
 msgstr "Alle Sprachen auswählen"
 
@@ -6963,6 +7010,22 @@ msgstr "Noch nicht gespeichert"
 #: cms/templatetags/content_filters.py
 msgid "Implications on translations"
 msgstr "Auswirkungen auf Übersetzungen"
+
+#: cms/templates/imprint/open_source_licenses.html
+msgid "Open Source Licenses"
+msgstr "Open Source Lizenzen"
+
+#: cms/templates/imprint/open_source_licenses.html
+msgid "Packages"
+msgstr "Pakete"
+
+#: cms/templates/imprint/open_source_licenses.html
+msgid "See license"
+msgstr "Lizenz ansehen"
+
+#: cms/templates/imprint/open_source_licenses.html
+msgid "No license information available."
+msgstr "Keine Lizenzinformationen vorhanden."
 
 #: cms/templates/languages/language_form.html
 #, python-format
@@ -8571,6 +8634,14 @@ msgid "Features"
 msgstr "Funktionen"
 
 #: cms/templates/regions/region_form.html
+msgid ""
+"Term explanations are not yet implemented. This checkbox currently does not "
+"bring any effect."
+msgstr ""
+"Begriffslexikon ist noch nicht implementiert. Dieses Kontrollkästchen hat "
+"derzeit keine Auswirkung."
+
+#: cms/templates/regions/region_form.html
 msgid "Simplified language machine translation"
 msgstr "Maschinelle Übersetzungen für Einfache Sprache verwalten"
 
@@ -8665,6 +8736,10 @@ msgstr "Änderungsprotokoll"
 #: cms/templates/release_notes/release_notes.html
 msgid "Unreleased"
 msgstr "Unveröffentlicht"
+
+#: cms/templates/release_notes/release_notes.html
+msgid "Licenses of used software"
+msgstr "Lizenzen verwendeter Software"
 
 #: cms/templates/roles/role_form.html
 #, python-format
@@ -8957,7 +9032,6 @@ msgstr "Angezeigte Sprachen"
 
 #: cms/templates/statistics/_statistics_legend.html
 #: cms/templates/statistics/statistics_viewed_pages.html
-#: cms/templates/statistics/statistics_viewed_pages_node.html
 msgid "Accesses"
 msgstr "Zugriffe"
 
@@ -9017,6 +9091,14 @@ msgstr "Diese Seite hat keine Zugriffe für den ausgewählten Zeitraum"
 #: cms/templates/statistics/statistics_viewed_pages_node.html
 msgid "Accesses in total"
 msgstr "Zugriffe insgesamt"
+
+#: cms/templates/statistics/statistics_viewed_pages_node.html
+msgid "Access in total"
+msgstr "Zugriff insgesamt"
+
+#: cms/templates/statistics/statistics_viewed_pages_node.html
+msgid "No Accesses"
+msgstr "Keine Zugriffe"
 
 #: cms/templates/translations/translations_management.html
 msgid "Manage machine translations"
@@ -11192,6 +11274,12 @@ msgstr ""
 "werden."
 
 #: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" could not be sent due to a missing translation in {}."
+msgstr ""
+"Nachricht \"{}\" konnte aufgrund einer fehlenden Übersetzung in {} nicht "
+"gesendet werden."
+
+#: cms/views/push_notifications/push_notification_form_view.py
 msgid "News \"{}\" cannot be sent because required texts are missing"
 msgstr ""
 "Nachricht \"{}\" kann nicht gesendet werden, da erforderliche Texte fehlen"
@@ -11881,6 +11969,28 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid ""
+#~ "Currently, the mobile phone number is not displayed in the Integreat App. "
+#~ "You can find more information in the"
+#~ msgstr ""
+#~ "Aktuell wird die Mobiltelefonnummer nicht in der Integreat App angezeigt. "
+#~ "Mehr Informationen finden Sie im"
+
+#~ msgid "License"
+#~ msgstr "Lizenz"
+
+#~ msgid "Chats in last month"
+#~ msgstr "Unterhaltungen im letzten Monat"
+
+#~ msgid "Used budget"
+#~ msgstr "Verbrauchtes Budget"
+
+#~ msgid "Used Licenses"
+#~ msgstr "Verwendete Lizenzen"
+
+#~ msgid "Licence"
+#~ msgstr "Lizenz"
+
 #~ msgid "{model_name} {object_names} was successfully deactivated."
 #~ msgid_plural ""
 #~ "The following {model_name} were successfully deactivated: {object_names}"
@@ -12226,15 +12336,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"

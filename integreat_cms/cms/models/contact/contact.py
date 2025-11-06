@@ -9,7 +9,7 @@ from django.contrib.postgres.search import (
     TrigramSimilarity,
 )
 from django.db import models
-from django.db.models import Q
+from django.db.models import Case, CharField, F, Q, When
 from django.db.models.functions import Greatest
 from django.urls import reverse
 from django.utils import timezone
@@ -32,6 +32,20 @@ if TYPE_CHECKING:
 
     from ..abstract_content_translation import AbstractContentTranslation
     from ..regions.region import Region
+
+
+class ContactQuerySet(models.QuerySet):
+    """
+    A QuerySet class for contact model.
+
+    It extends the standard queryset of Django.
+    """
+
+    def get_primary_contact(self) -> Contact | None:
+        """
+        Returns the primary contact, i.e. the contact with an empty area_of_responsibility.
+        """
+        return self.filter(area_of_responsibility="").first()
 
 
 class Contact(AbstractBaseModel):
@@ -92,6 +106,7 @@ class Contact(AbstractBaseModel):
             "Link to an external website where an appointment for this contact can be made.",
         ),
     )
+    objects = models.Manager.from_queryset(ContactQuerySet)()
 
     @cached_property
     def region(self) -> Region:
@@ -163,13 +178,23 @@ class Contact(AbstractBaseModel):
 
         contact_matches = (
             cls.objects.filter(
-                name__icontains=query,
+                Q(name__icontains=query) | Q(area_of_responsibility__icontains=query),
                 location__region=region,
                 archived=archived_flag,
             )
-            .order_by("name")
-            .distinct("name")
-            .values_list("name", flat=True)
+            .annotate(
+                match=Case(
+                    When(name__icontains=query, then=F("name")),
+                    When(
+                        area_of_responsibility__icontains=query,
+                        then=F("area_of_responsibility"),
+                    ),
+                    output_field=CharField(),
+                )
+            )
+            .order_by("match")
+            .distinct("match")
+            .values_list("match", flat=True)
         )
 
         results.extend(

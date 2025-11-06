@@ -7,7 +7,7 @@
  */
 /* eslint-disable import/first */
 if (process.env.NODE_ENV !== "production") {
-    /* eslint-disable-next-line global-require */
+    /* eslint-disable-next-line @typescript-eslint/no-require-imports, global-require */
     require("preact/debug");
 }
 /* Babel requirements & polyfills */
@@ -110,7 +110,7 @@ import "./js/dashboard/translation-coverage";
 
 import "./js/ajax-contact-form";
 // IE11: fetch
-/* eslint-disable-next-line @typescript-eslint/no-var-requires */
+/* eslint-disable-next-line @typescript-eslint/no-require-imports */
 require("element-closest").default(window);
 
 window.addEventListener("DOMContentLoaded", () => {

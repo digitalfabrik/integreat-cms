@@ -87,7 +87,7 @@ class POIForm(CustomModelForm):
         # as we do not delete non-primary contacts when deactivating contact in a region.
         # "get()" is not used as it raises an exception if there is no primary contact.
         if self.instance.id:
-            contact = self.instance.contacts.filter(area_of_responsibility="").first()
+            contact = self.instance.contacts.get_primary_contact()
             self.fields["primary_phone_number"].initial = (
                 contact.phone_number if contact else ""
             )

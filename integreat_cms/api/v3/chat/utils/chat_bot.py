@@ -133,11 +133,10 @@ def celery_translate_and_answer_question(
             messages,
         ),
     )
+    zammad_chat.refresh_from_db()
     if translation and translation["translation"] != messages[-1]["content"]:
         zammad_chat.save_message(
-            message=translation["translation"],
-            internal=True,
-            automatic_message=True,
+            message=translation["translation"], internal=True, automatic_message=True
         )
     zammad_chat.processing_answer = False
     if answer:
@@ -148,6 +147,7 @@ def celery_translate_and_answer_question(
                 message=answer["answer"],
                 internal=False,
                 automatic_message=True,
+                words_generated=answer["length_generated_answer"],
             )
             zammad_chat.save_automatic_answers(answer["automatic_answers"])
 

@@ -1,8 +1,8 @@
 {% load i18n %}
 {% load static %}
 <input type="checkbox"
+       {% if not language %} checked="" {% endif %}
        data-chart-item="{{ name }}"
-       checked=""
        id="{{ name|slugify }}"
        data-language-slug="{{ language.slug }}" />
 <div class="h-5 w-5 rounded-full" style="background-color: {{ color }}">

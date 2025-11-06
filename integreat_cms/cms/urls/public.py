@@ -109,6 +109,11 @@ urlpatterns: list[URLPattern] = [
         name="logout",
     ),
     path(
+        "open-source-licenses/",
+        imprint.OpenSourceLicensesView.as_view(extra_context=auth_context),
+        name="open_source_licenses",
+    ),
+    path(
         "reset-password/",
         include(
             [

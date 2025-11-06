@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 import requests
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from requests.exceptions import RequestException
 
 from ..cms.constants import push_notifications as pnt_const
@@ -40,10 +40,17 @@ class FirebaseApiClient:
         self.push_notification = push_notification
         self.fcm_url = settings.FCM_URL
         self.prepared_pnts = []
-        self.primary_pnt = PushNotificationTranslation.objects.get(
-            push_notification=push_notification,
-            language=push_notification.default_language,
-        )
+
+        try:
+            primary_pnt = PushNotificationTranslation.objects.get(
+                push_notification=push_notification,
+                language=push_notification.default_language,
+            )
+        except PushNotificationTranslation.DoesNotExist as e:
+            raise ObjectDoesNotExist("A translation is missing.") from e
+
+        self.primary_pnt = primary_pnt
+
         if self.primary_pnt.title:
             self.prepared_pnts.append(self.primary_pnt)
         self.load_secondary_pnts()
