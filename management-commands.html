@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-11-06T18:07:48+00:00" />
+    <meta property="article:modified_time" content="2025-11-07T15:15:52+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Management Commands &mdash; integreat-cms 2025.11.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1946,6 +1946,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bulk-replace-page-icons"><code class="docutils literal notranslate"><span class="pre">bulk_replace_page_icons</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bulk-media-upload"><code class="docutils literal notranslate"><span class="pre">bulk_media_upload</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#create-new-commands">Create new commands</a><ul>
@@ -2442,6 +2443,30 @@ That full URL can also be specified so and will be stripped out automatically.</
 </tbody>
 </table>
 </section>
+<section id="bulk-media-upload">
+<h4><code class="docutils literal notranslate"><span class="pre">bulk_media_upload</span></code><a class="headerlink" href="#bulk-media-upload" title="Link to this heading"></a></h4>
+<p>“Upload” files from a directory or zip file into the media library, including thumbnail creation etc.:</p>
+<blockquote>
+<div><p>integreat-cms-cli bulk_media_upload [–zip ZIP] [–dir DIR] [-r] [–dest DEST] [-p] [–region REGION] [–global] csv</p>
+</div></blockquote>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">csv</span></code>: Path to which to write the CSV information of successfully uploaded files, along with their new location on disk</p></li>
+</ul>
+<p><strong>Input options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--zip</span> <span class="pre">ZIP</span></code>: The path to the zip archive to upload media from</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--dir</span> <span class="pre">DIR</span></code>, <code class="docutils literal notranslate"><span class="pre">--directory</span> <span class="pre">DIR</span></code>: The path to the directory to upload media from</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-r</span></code> or <code class="docutils literal notranslate"><span class="pre">--recursive</span></code>: Recursively descend into sub directories and upload their contents as well</p></li>
+</ul>
+<p><strong>Output options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--dest</span> <span class="pre">DEST</span></code>, <code class="docutils literal notranslate"><span class="pre">--destination</span> <span class="pre">DEST</span></code>: The “path” to the directory inside the media library to which the media should be uploaded to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-p</span></code>, <code class="docutils literal notranslate"><span class="pre">--parents</span></code>: Make parent directories as needed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--region</span> <span class="pre">REGION</span></code>: The region slug whose media library to upload the files to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--global</span></code>: Upload the files to the global library</p></li>
+</ul>
+</section>
 </section>
 <section id="create-new-commands">
 <h3>Create new commands<a class="headerlink" href="#create-new-commands" title="Link to this heading"></a></h3>
@@ -2473,7 +2498,7 @@ That full URL can also be specified so and will be stripped out automatically.</
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 06, 2025.
+      <span class="lastupdated">Last updated on Nov 07, 2025.
       </span></p>
   </div>
 
