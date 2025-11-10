@@ -338,6 +338,14 @@ jobs:
           name: Install requirements
           command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
       - run:
+          name: Install Node.js
+          command: |
+            curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+      - run:
+          name: Install frontend dependencies
+          command: npm ci
+      - run:
           name: Generate documentation
           command: ./tools/make_docs.sh
       - persist_to_workspace:
