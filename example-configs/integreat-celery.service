@@ -1,0 +1,13 @@
+[Unit]
+Description=Celery worker for the Integreat CMS
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/integreat-cms
+ExecStart=/opt/integreat-cms/.venv/bin/celery -A integreat_cms.integreat_celery worker -l INFO -B --concurrency=10 -Q default,chat,statistics
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
