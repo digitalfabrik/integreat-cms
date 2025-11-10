@@ -56,6 +56,10 @@ def config_loggers(*args: Any, **kwags: Any) -> None:
 
 
 app.autodiscover_tasks()
+app.conf.task_routes = {
+    "integreat_cms.cms.views.statistics.statistics_actions": {"queue": "statistics"},
+    "integreat_cms.api.v3.chat.utils.chat_bot.*": {"queue": "chat"},
+}
 
 
 @app.task
