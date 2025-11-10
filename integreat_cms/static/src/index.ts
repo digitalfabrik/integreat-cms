@@ -30,7 +30,6 @@ import "./js/confirmation-popups";
 import "./js/language-tabs";
 import "./js/machine-translation-overlay";
 import "./js/revisions";
-import "./js/search-query";
 import "./js/event-duration";
 
 import "./js/forms/slug-error";
@@ -108,12 +107,55 @@ import "./js/dashboard/broken-links";
 import "./js/dashboard/translation-coverage";
 
 import "./js/ajax-contact-form";
+
+import {registry} from "./registry";
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-require-imports */
 require("element-closest").default(window);
+
+function markInited(el: HTMLElement, key: string) {
+    const anyEl = el as any;
+    anyEl.__inited ??= new Set<string>();
+    anyEl.__inited.add(key);
+}
+
+function hasInited(el: HTMLElement, key: string) {
+    return (el as any).__inited?.has(key);
+}
+
+/**
+ * 
+ * @function bootstrap
+ * 
+ * A function that initializes all registered modules from registry.ts to the element(s) they are attached to in the DOM 
+ * with the attribute "data-js-<moduleName>". 
+ * - 
+ * - it imports the module for the element
+ * 
+ * @param root 
+ */
+export async function bootstrapModules(root: ParentNode = document) {
+    const registeredModules = Object.keys(registry);
+    const dataAttributes = registeredModules.map((k) => `[data-js-${k}]`).join(', ');
+    const rootElements = root.querySelectorAll<HTMLElement>(dataAttributes);
+
+    for (const element of rootElements) {
+        for (const moduleName of registeredModules) {
+            if (!element.hasAttribute(`data-js-${moduleName}`) || hasInited(element, moduleName)) continue;
+            try {
+                const mod = await registry[moduleName]();       //dynamically import module from registry
+                await mod.default(element);                     //execute default function 
+                markInited(element, moduleName);                //mark element as initialized with module
+            } catch (error) {
+                console.error(`[bootstrapModules] Failed to init ${moduleName}`, error, element);
+            }
+        }
+    }
+}
 
 window.addEventListener("DOMContentLoaded", () => {
     createIconsAt(document.documentElement);
     const event = new Event("icon-load");
     window.dispatchEvent(event);
+    bootstrapModules();
 });
