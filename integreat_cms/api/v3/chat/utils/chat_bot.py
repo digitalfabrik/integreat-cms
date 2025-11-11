@@ -200,6 +200,8 @@ def celery_translate_answer(
     """
     region = Region.objects.get(slug=region_slug)
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
+    if zammad_chat.language == region.default_language:
+        return
     translation = asyncio.run(
         async_process_translate(
             message_text,
