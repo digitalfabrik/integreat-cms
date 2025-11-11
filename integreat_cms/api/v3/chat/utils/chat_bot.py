@@ -150,6 +150,18 @@ def celery_translate_and_answer_question(
                 words_generated=answer["length_generated_answer"],
             )
             zammad_chat.save_automatic_answers(answer["automatic_answers"])
+            zammad_chat.save_message(
+                message="Used Sources\n<ul>"
+                + "\n".join(
+                    [
+                        f"<li><a href='{source['source']}'>{source['source'].split('/')[-2]}</a>: {source['reason_inclusion']}</li>"
+                        for source in answer["details"]
+                    ]
+                )
+                + "</ul>",
+                internal=True,
+                automatic_message=True,
+            )
 
 
 async def async_process_translate(
