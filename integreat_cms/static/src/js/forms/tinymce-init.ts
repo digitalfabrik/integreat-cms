@@ -1,3 +1,14 @@
+/**
+ *
+ * used in:
+ * _tinymce_config.html     > event_form.html
+ *                          > imprint_form.html
+ *                          > imprint_sbs.html
+ *                          > page_form.html
+ *                          > page_sbs.html
+ *                          > poi_form.html
+ */
+
 import tinymce, { Editor } from "tinymce";
 
 import "tinymce/icons/default";

@@ -1,3 +1,10 @@
+/**
+ *
+ * used in:
+ * user_form.html
+ * region_user_form.html
+ */
+
 window.addEventListener("load", () => {
     const passwordInput = document.getElementById("id_password") as HTMLInputElement;
     const passwordWrapper = passwordInput?.closest("div");

@@ -1,3 +1,11 @@
+/**
+ *
+ * used in:
+ * _machine_translation_overlay.html    > event_list.html
+ *                                      > pages_page_tree.html
+ *                                      > poi_list.html
+ */
+
 import { getCsrfToken } from "./utils/csrf-token";
 
 const resetValue = 0;
