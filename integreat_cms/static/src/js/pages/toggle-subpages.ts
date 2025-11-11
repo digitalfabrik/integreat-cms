@@ -1,5 +1,10 @@
-/*
+/**
  * The functionality to toggle subpages
+ *
+ * used in:
+ * _generic_page_tree_node.html > pages_page_tree_node.html > pages_page_tree.html
+ *                              > statistics_viewed_pages_node.html > statistics_viewed_pages.html
+ *
  */
 import { createIconsAt } from "../utils/create-icons";
 import { restorePageTreeLayout, storeExpandedState } from "./persistent_page_tree";

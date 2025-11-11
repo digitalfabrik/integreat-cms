@@ -1,3 +1,14 @@
+/**
+ *
+ * used in:
+ * _form_language_tabs.html     > event_form.html
+ *                              > imprint_form.html
+ *                              > page_form.html
+ *                              > poi_form.html
+ * _event_duration_tab.html ??
+ * generic_language_switcher.html ??
+ */
+
 const BUFFER = 20;
 
 const hideElement = (element: HTMLElement | null) => {

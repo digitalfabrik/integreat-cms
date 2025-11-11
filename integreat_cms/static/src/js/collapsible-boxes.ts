@@ -1,6 +1,9 @@
 /**
  * Handles toggling boxes on the dashboard
  * @param {Event} event Click event for dashboard containers
+ *
+ * used in:
+ * _collapsible_box.html > more than 20 templates
  */
 
 import { getCookie } from "./utils/cookies";

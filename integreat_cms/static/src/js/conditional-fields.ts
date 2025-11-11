@@ -1,3 +1,10 @@
+/**
+ * used in:
+ * region_form.html
+ * push_notification_form.html
+ * minor_edit_box.html (events, pages, pois)
+ */
+
 window.addEventListener("load", () => {
     // event handler to toggle form fields
     const toggleables = [

@@ -1,5 +1,12 @@
-/*
+/**
  * Scripts for filter forms
+ *
+ * used in:
+ * event_list.html
+ * admin_feedback_list.html
+ * region_feedback_list.html
+ * pages_page_tree.html
+ * user_list.html
  */
 const resetToDefaultValue = (node: HTMLSelectElement | HTMLInputElement) => {
     if (node instanceof HTMLInputElement && node.getAttribute("type") === "checkbox") {

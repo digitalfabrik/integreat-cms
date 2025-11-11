@@ -2,6 +2,13 @@
  * Generate a page preview pop-up.
  * Put the form handling in a separate file because it interacts
  * with the TinyMCE components which can only be initialized once.
+ *
+ * used in:
+ * page_form.html
+ *      + _page_preview_overlay.html    > page_form.html
+ *                                      > pages_page_tree.html
+ *      + mirrored_page_field.html      > settings_box.html > page_form.html
+ *
  */
 import { getContent } from "../forms/tinymce-init";
 import { addPreviewWindowListeners } from "./page-preview";

@@ -15,7 +15,7 @@ import EditSidebar from "./component/edit-sidebar";
 import { Message } from "./component/message";
 import CreateDirectory from "./component/create-directory";
 import UploadFile from "./component/upload-file";
-import { setSearchQueryEventListeners } from "../search-query";
+import { setSearchQueryEventListeners } from "../feature/search-query";
 import { getCsrfToken } from "../utils/csrf-token";
 
 export type LibraryProps = {
