@@ -1,5 +1,10 @@
 /**
  * This file contains the deletion function for the author chat
+ *
+ * used in:
+ * _chat_messages.html [chat_actions.py:send_chat_message()] > _chat_widget.html
+ * _chat_messages.html > _chat_widget.html  > admin_dashboard.html
+ *                                          > dashboard.html
  */
 import { getCsrfToken } from "../utils/csrf-token";
 import { refreshAjaxConfirmationHandlers } from "../confirmation-popups";

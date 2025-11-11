@@ -1,3 +1,9 @@
+/**
+ * used in:
+ * statistics_sidebar.html > statistics_overview.html
+ * statistics_viewed_pages.html > statistics_overview.html
+ */
+
 type AccessesPerLanguage = {
     [lang: string]: number;
 };

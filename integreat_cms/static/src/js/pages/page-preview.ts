@@ -1,5 +1,9 @@
 /**
  * Generate a page preview pop-up.
+ *
+ * used in:
+ * _page_preview_overlay.html   > page_form.html
+ *                              > pages_page_tree.html
  */
 
 export const openPreviewWindowInPageTree = (overlay: HTMLElement, btn: Element) => {

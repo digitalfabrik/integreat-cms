@@ -1,3 +1,15 @@
+/**
+ *
+ * used in:
+ * contact_form.html
+ * event_form.html
+ * imprint_form.html
+ * imprint_sbs.html
+ * page_form.html
+ * page_sbs.html
+ * poi_form.html
+ */
+
 import tinymce from "tinymce";
 import { getCsrfToken } from "../utils/csrf-token";
 
