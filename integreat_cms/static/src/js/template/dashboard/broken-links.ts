@@ -1,10 +1,3 @@
-/**
- *
- * used in:
- * _broken_links_row.html??? > _todo_dashboard_widget.html > dashboard.html
- *
- */
-
 import { getCsrfToken } from "../../utils/csrf-token";
 
 type Content = {

@@ -1,10 +1,6 @@
 /**
  * This file contains all functions which are needed for the page side by side view dropdown and button.
  *
- * used in:
- * imprint_form.html
- * translator_view_box.html > page_form.html
- *
  */
 
 const toggleSbsButton = ({ target }: Event) => {

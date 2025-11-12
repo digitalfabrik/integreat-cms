@@ -1,8 +1,5 @@
 /**
  * This file contains functions to show and hide conditional fields
- *
- * used in:
- * date_and_time_box.html > event_form.html
  */
 
 // event handler to show time fields

@@ -1,8 +1,6 @@
 /**
  * Generate and (un)set the API token.
  *
- * used in:
- * settings_box.html > page_form.html
  */
 
 import { copyToClipboard } from "../../copy-clipboard";

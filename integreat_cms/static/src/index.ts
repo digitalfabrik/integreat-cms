@@ -1,9 +1,11 @@
-/*
+/**
  * Enable Preact debugging during development
  *
  * Install the Preact Devtools browser extension to make use of it:
  *
  *     https://preactjs.github.io/preact-devtools/
+ *
+ * @module index
  */
 /* eslint-disable import/first */
 if (process.env.NODE_ENV !== "production") {
@@ -91,12 +93,10 @@ const hasInited = (el: HTMLElement, key: string) => (el as any).inited?.has(key)
 
 /**
  *
- * @function bootstrap
+ * A function that dynamically imports all registered modules that are used in the current page.
+ * And then runs their default export, which initializes the module
+ * on the root:HTMLElement that they are attached to
  *
- * A function that initializes all registered modules from registry.ts to the element(s) they are attached to in the DOM
- * with the attribute "data-js-<moduleName>".
- * -
- * - it imports the module for the element
  *
  * @param root
  */

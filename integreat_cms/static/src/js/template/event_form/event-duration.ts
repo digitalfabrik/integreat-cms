@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * _event_duration_tab.html > date_and_time_box.html > event_form.html
- */
-
 const toggleTabColorAndBorder = (tabId: string, color: string) => {
     const targetTab = document.getElementById(tabId);
 

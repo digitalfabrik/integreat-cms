@@ -1,10 +1,3 @@
-/**
- *
- * used in:
- * position_box.html > poi_form.html
- *
- */
-
 import { FullscreenControl, LngLat, LngLatBoundsLike, Map, MapOptions, MapMouseEvent, Marker } from "maplibre-gl";
 import { getCsrfToken } from "../../utils/csrf-token";
 import { updateField } from "../../pois/poi-actions";

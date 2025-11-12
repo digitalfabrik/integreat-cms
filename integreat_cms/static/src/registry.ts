@@ -4,11 +4,14 @@
  *  This registry record is automatically generated and enables dynamic imports in index.ts
  * based on what modules are required in the DOM
  *
- *  To generate the registry run the command 'npm run generate:registry'
+ *  To generate the registry run the command `npm run generate:registry`
  *
- *  In order to register a module export a
- *  - export const moduleName of type string
- *  - export default function <name> of type (el: HTMLElement) => void
+ *  In order to register a module, it must be located inside the `/integreat_cms/static/src/js/feature/` folder and it must contain:
+ *  - `export const moduleName = <name-of-module>;`
+ *  - `const init = (root:HTMLElement) => {
+ *          //register all eventListeners on or inside the root Element
+ *      } `
+ *  - `export default init;`
  *
  * @module registry
  *

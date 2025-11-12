@@ -1,8 +1,6 @@
 /**
  * This file contains all event handlers and functions which are needed for granting and revoking permissions on individual pages.
  *
- * used in:
- * _page_permission_table.html > settings_box.html > page_form.html
  */
 import { createIconsAt } from "../../utils/create-icons";
 import { getCsrfToken } from "../../utils/csrf-token";

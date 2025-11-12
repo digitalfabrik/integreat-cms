@@ -1,8 +1,6 @@
 /**
  * This file contains functions for country flag fields in the language form
  *
- * used in:
- * language_form.html
  */
 
 window.addEventListener("load", () => {

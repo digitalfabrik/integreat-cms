@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * _page_xliff_export_overlay.html > pages_page_tree.html
- */
-
 const toggleXliffBulkActionButton = () => {
     // Only activate button if at least one language item is selected
     const selectLanguages = <HTMLInputElement[]>Array.from(document.getElementsByClassName("bulk-select-language"));

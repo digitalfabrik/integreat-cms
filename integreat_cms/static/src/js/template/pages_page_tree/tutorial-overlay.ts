@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * generic_tutorial_dialog.html extended by page_tree.html > pages_page_tree.html
- */
-
 document.addEventListener("DOMContentLoaded", () => {
     /* Hide the overlay when the form is submitted, mark a tutorial as dismissed if the checkbox was set */
     document.querySelectorAll("form[data-tutorial-overlay-form]").forEach((overlayForm) => {

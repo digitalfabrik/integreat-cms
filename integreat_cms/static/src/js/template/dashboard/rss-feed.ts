@@ -1,10 +1,3 @@
-/**
- * This file contains all functions which are needed for the RSS feed
- *
- * used in:
- * _news_widget.html > dashboard.html
- */
-
 const checkIfShouldBeIncluded = (node: any): boolean =>
     Array.from(node.querySelectorAll("category")).some(
         (category): boolean => (category as HTMLLinkElement).textContent === "Redaktionssystem"

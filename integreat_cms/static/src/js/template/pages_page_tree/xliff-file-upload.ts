@@ -1,8 +1,6 @@
 /**
  * This file contains all functions used for the XLIFF import
  *
- * used in:
- * pages_page_tree.html
  */
 
 /**

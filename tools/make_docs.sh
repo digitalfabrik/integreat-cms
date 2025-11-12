@@ -116,6 +116,11 @@ sed --in-place '/\.\. autofunction:: /a \ \ \ \ \ \ :noindex:' "${APIDOC_SRC_DIR
 RELEASE_NOTES="${DOCS_SRC_DIR}/release-notes.rst"
 "${DEV_TOOL_DIR}/make_release_notes.sh" --format=rst --all --output="${RELEASE_NOTES}"
 
+echo -e "Generating frontend TypeScript documentation..." | print_info
+
+# Run npm script that generates Markdown docs from TS files
+npm run docs:frontend
+
 echo -e "Compiling reStructuredText files to HTML documentation..." | print_info
 
 # Compile .rst files to html documentation

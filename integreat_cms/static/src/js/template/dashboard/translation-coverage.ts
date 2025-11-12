@@ -1,7 +1,3 @@
-/**
- * used in:
- * number_of_missing_or_outdated_translations_row.html > todo_dashboard_widget.html > dashboard.html
- */
 import { getCsrfToken } from "../../utils/csrf-token";
 
 type Content = {

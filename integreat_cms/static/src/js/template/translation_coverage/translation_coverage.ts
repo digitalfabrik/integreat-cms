@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * translation_coverage.html
- */
-
 import { Chart, ChartData, BarElement, BarController, CategoryScale, LinearScale, Legend, Tooltip } from "chart.js";
 
 // Register all components that are being used - the others will be excluded from the final webpack build

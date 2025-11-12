@@ -1,9 +1,6 @@
 /**
  *  Updates the endDate and endTime Input fields with the startDate/startTime value if not set yet
  *
- * used in:
- * date_and_time_box.html > event_form.html
- *
  */
 
 const autocompleteEndDate = (startDateInput: HTMLInputElement, endDateInput: HTMLInputElement) => {

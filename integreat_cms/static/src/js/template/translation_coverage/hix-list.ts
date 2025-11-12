@@ -1,8 +1,3 @@
-/**
- * used in:
- * _page_hix_widget.html > translation_coverage.html
- */
-
 window.addEventListener("load", () => {
     const table = document.getElementById("page_hix_list") as HTMLTableElement;
     const trigger = document.getElementById("toggle-hix-score-list-trigger");

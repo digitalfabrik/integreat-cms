@@ -1,8 +1,6 @@
 /**
  * This file contains a function to count the input length of push notifications
  *
- * used in:
- * push_notification_form.html
  */
 
 // Function to update the content length of a push notification

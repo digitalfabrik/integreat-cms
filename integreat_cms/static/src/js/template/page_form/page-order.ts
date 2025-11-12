@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * _page_order_table.html > settings_box.html > page_form.html
- */
-
 import { createIconsAt } from "../../utils/create-icons";
 import { off, on } from "../../utils/wrapped-events";
 
