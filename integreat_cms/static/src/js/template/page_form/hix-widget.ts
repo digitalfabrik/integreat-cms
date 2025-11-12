@@ -1,8 +1,3 @@
-/**
- * used in:
- * hix_widget.html > page_form.html
- */
-
 import { getContent } from "../../forms/tinymce-init";
 import { getCsrfToken } from "../../utils/csrf-token";
 

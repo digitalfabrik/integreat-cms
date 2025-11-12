@@ -1,8 +1,6 @@
 /**
  * This file contains all functions which are needed for the diff calculation of revisions.
  *
- * used in:
- * _page_xliff_import_diff.html > page_xliff_import_view.html
  */
 
 import HtmlDiff from "htmldiff-js";

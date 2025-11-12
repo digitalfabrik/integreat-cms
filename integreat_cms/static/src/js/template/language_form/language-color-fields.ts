@@ -1,8 +1,3 @@
-/**
- * used in:
- * language_form.html
- */
-
 const renderLanguageColorPreview = ({ target }: Event) => {
     const languageColorSelectFromChoices = target as HTMLSelectElement;
     const colorPreview = document.getElementById("language-color-preview");

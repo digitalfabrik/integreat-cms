@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * poicategory_list_row.html > poicategory_list.html
- */
-
 const renderColorPreview = ({ target }: Event) => {
     const colorSelect = target as HTMLSelectElement;
     const colorPreview = document.getElementById("poi-category-color-preview");

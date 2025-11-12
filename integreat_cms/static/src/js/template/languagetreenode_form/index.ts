@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * languagetreenode_form.html
- * maybe others?
- */
 window.addEventListener("load", () => {
     const activeButton = document.getElementById("id_active");
     if (activeButton) {

@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * related_contacts_box.html > poi_form.html
- */
-
 import { getCsrfToken } from "../../utils/csrf-token";
 import { createIconsAt } from "../../utils/create-icons";
 

@@ -33,10 +33,12 @@ Project Architecture / Reference
 .. toctree::
     :caption: Reference
     :hidden:
+    :glob:
 
     ref/integreat_cms
     ref/tests
     api-docs
+    frontend_md/README.md
 
 * :doc:`ref/integreat_cms`: The main package of the integreat-cms with the following sub-packages:
 

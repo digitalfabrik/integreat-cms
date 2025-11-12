@@ -1,8 +1,6 @@
 /**
- * This file contains functions to show and hide conditional fields
+ * This file contains functions to show and hide conditional fields in the region_form.html
  *
- * used in:
- * region_form.html
  */
 
 const updateTimezoneAreaDropdown = (event?: Event) => {

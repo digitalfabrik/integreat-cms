@@ -1,16 +1,13 @@
-import { getCsrfToken } from "../utils/csrf-token";
-
 /**
  *
- * Module to provide DOM Manipulation functionality
- *
- * used in the template _search_input.html
- *
- * module's attribute: "data-js-<moduleName>"
+ * Module to provide DOM Manipulation functionality for the search input field used in several template's with lists
+ * entries (like pages, pois, ...). Especially on the "keyup" event the search suggestions are fetched from the backend.
  *
  * @module search-query
  *
  */
+
+import { getCsrfToken } from "../utils/csrf-token";
 
 /**
  * The moduleName used to construct the module's attribute
