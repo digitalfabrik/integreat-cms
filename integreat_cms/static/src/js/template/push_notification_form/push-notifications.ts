@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * push_notification_form.html
- */
-
 const switchLanguage = (language: string) => {
     document.querySelectorAll(".language-tab-header").forEach((tab) => {
         tab.classList.remove("z-10", "text-blue-500", "bg-white", "cursor-default");

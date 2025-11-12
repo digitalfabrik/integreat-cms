@@ -1,5 +1,5 @@
 import fs from "fs";
-import path, { relative } from "path";
+import path from "path";
 import prettier from "prettier";
 
 const MODULES_DIR = path.resolve("./integreat_cms/static/src/js/feature");
@@ -11,20 +11,11 @@ type ModuleEntry = {
     path: string;
 };
 
-const getRelativePath = (fullPath: string): string => {
-    return (
-        "./" +
-        path
-            .relative(REGISTRY_DIR, fullPath)
-            .replace(/\\/g, "/")
-            .replace(/\.ts$/, "")
-    );
-};
+const getRelativePath = (fullPath: string): string =>
+    `./${path.relative(REGISTRY_DIR, fullPath).replace(/\\/g, "/").replace(/\.ts$/, "")}`;
 
 const getAllFiles = (dir: string, files: ModuleEntry[] = []): ModuleEntry[] => {
-    const entries = fs
-        .readdirSync(dir, { withFileTypes: true })
-        .sort((a, b) => a.name.localeCompare(b.name));
+    const entries = fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name));
 
     for (const entry of entries) {
         const fullPath = path.join(dir, entry.name);
@@ -36,9 +27,7 @@ const getAllFiles = (dir: string, files: ModuleEntry[] = []): ModuleEntry[] => {
             const matchName = content.match(/export const moduleName\s*=\s*["'`](.+?)["'`]/);
             const moduleName = matchName ? matchName[1] : null;
             const matchDefault = content.match(/export default init;/);
-            const matchInit = content.match(
-                /const init\s*=\s*\(\s*root\s*:\s*HTMLElement\s*\)\s*=>\s*{/
-            );
+            const matchInit = content.match(/const init\s*=\s*\(\s*root\s*:\s*HTMLElement\s*\)\s*=>\s*{/);
             if (moduleName && matchDefault && matchInit) {
                 const relativePath = getRelativePath(fullPath);
                 files.push({ name: moduleName, path: relativePath });
@@ -47,7 +36,7 @@ const getAllFiles = (dir: string, files: ModuleEntry[] = []): ModuleEntry[] => {
                     It needs to contain a 'export const moduleName = <name-of-module>.
                     And a 'export default init;', where init follows the pattern:
                     'const init = (root:HTMLElement) => {...}'
-                    `)
+                    `);
             }
         }
     }
@@ -71,11 +60,14 @@ const generateRegistryTS = (registry: ModuleEntry[]): string => {
  *  This registry record is automatically generated and enables dynamic imports in index.ts
  * based on what modules are required in the DOM
  *
- *  To generate the registry run the command 'npm run generate:registry'
+ *  To generate the registry run the command \`npm run generate:registry\`
  *
- *  In order to register a module export a
- *  - export const moduleName of type string
- *  - export default function <name> of type (el: HTMLElement) => void
+ *  In order to register a module, it must be located inside the \`/integreat_cms/static/src/js/feature/\` folder and it must contain:
+ *  - \`export const moduleName = <name-of-module>;\`
+ *  - \`const init = (root:HTMLElement) => {
+ *          //register all eventListeners on or inside the root Element
+ *      } \`
+ *  - \`export default init;\`
  *
  * @module registry
  *
@@ -95,10 +87,9 @@ ${mapping}
 };
 
 const main = async () => {
-    const files = getAllFiles(MODULES_DIR)
-        .sort((a, b) => a.name.localeCompare(b.name));;
+    const files = getAllFiles(MODULES_DIR).sort((a, b) => a.name.localeCompare(b.name));
 
-    const formatted = await prettier.format(generateRegistryTS(files), { parser: "typescript" })
+    const formatted = await prettier.format(generateRegistryTS(files), { parser: "typescript" });
     fs.writeFileSync(REGISTRY_TS_FILE, formatted, "utf-8");
 
     console.debug(` Generated registry at ${REGISTRY_TS_FILE} with ${files.length} modules.`);

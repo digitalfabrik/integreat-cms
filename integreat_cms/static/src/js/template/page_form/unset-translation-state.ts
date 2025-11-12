@@ -1,8 +1,3 @@
-/**
- *
- * used in: page_form.html
- */
-
 import { getCsrfToken } from "../../utils/csrf-token";
 
 const updateTranslationForm = (data: any) => {

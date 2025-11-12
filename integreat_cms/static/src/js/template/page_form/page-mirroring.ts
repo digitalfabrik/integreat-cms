@@ -1,7 +1,6 @@
 /**
  * This file contains all functions which are needed for embedding live content aka page mirroring.
  *
- * used in: settings_box.html > page_form.html
  */
 
 const renderMirroredPageField = ({ target }: Event) => {

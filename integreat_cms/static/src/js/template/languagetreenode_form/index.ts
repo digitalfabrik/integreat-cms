@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * languagetreenode_form.html
- * maybe others?
- */
 window.addEventListener("load", () => {
     const warningDiv = document.getElementById("visible-warning") as HTMLDivElement;
     const activeCheckbox = document.getElementById("id_active") as HTMLInputElement;
