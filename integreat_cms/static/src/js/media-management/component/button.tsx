@@ -15,7 +15,7 @@ const Button = ({ label, disabled, href, onClick }: Props) => (
     <Link
         href={href}
         onClick={onClick}
-        disabled={disabled}
+        data-disabled={disabled}
         className={cn(
             "text-white font-bold py-2 px-4 rounded",
             { "cursor-not-allowed bg-gray-500": disabled },

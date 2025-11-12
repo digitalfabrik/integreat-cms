@@ -388,7 +388,7 @@ const EditSidebar = ({
                                             { "cursor-not-allowed bg-gray-500": isLoading },
                                             { "bg-blue-500 hover:bg-blue-600": !isLoading }
                                         )}
-                                        disabled={isLoading}>
+                                        data-disabled={isLoading}>
                                         <RefreshCw class="mr-1 inline-block h-5" />
                                         {mediaTranslations.btn_replace_file}
                                     </label>
