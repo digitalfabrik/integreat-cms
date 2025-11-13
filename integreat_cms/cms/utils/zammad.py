@@ -182,7 +182,7 @@ class ZammadAPI:
         internal: bool,
         automatic_message: bool,
         words_generated: int = 0,
-    ) -> bool:
+    ) -> dict | None:
         """
         Save a new message (article) to a Zammad ticket.
 
@@ -190,7 +190,7 @@ class ZammadAPI:
         :param internal: true if message should not be visible to app user
         :param automatic_message: true if message does not originate from a human
         :param num_words: number of words in the generated message
-        :return: success
+        :return: Zammad ticket information
         """
         self.update_mt_budget(words_generated)
 
@@ -215,8 +215,10 @@ class ZammadAPI:
                 },
             )
         except ValueError:
-            return False
-        return response.status_code == 200
+            return None
+        if response.status_code != 200:
+            return None
+        return response.json()
 
     @property
     def evaluation_consent(self) -> bool:
