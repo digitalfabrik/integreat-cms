@@ -380,18 +380,23 @@ const EditSidebar = ({
                                     </button>
                                 )}
                                 {!selectionMode && canReplaceFile && (
-                                    <label
-                                        for="replace-file-input"
+                                    <button
+                                        type="button"
                                         title={mediaTranslations.btn_replace_file}
                                         className={cn(
                                             "w-full text-white text-center font-bold py-3 px-4 m-0 rounded",
                                             { "cursor-not-allowed bg-gray-500": isLoading },
                                             { "bg-blue-500 hover:bg-blue-600": !isLoading }
                                         )}
-                                        data-disabled={isLoading}>
-                                        <RefreshCw class="mr-1 inline-block h-5" />
+                                        onClick={() => {
+                                            if (isLoading) {
+                                                return;
+                                            }
+                                            document.getElementById("replace-file-input")?.click();
+                                        }}>
+                                        <RefreshCw className="mr-1 inline-block h-5" />
                                         {mediaTranslations.btn_replace_file}
-                                    </label>
+                                    </button>
                                 )}
                                 {canDeleteFile && (
                                     <button
