@@ -271,7 +271,6 @@ const Library = ({
                                 title={mediaTranslations.btn_filter_unused}
                                 className="btn btn-ghost"
                                 type="submit"
-                                action={apiEndpoints.filterUnusedMediaFiles}
                                 onClick={() => {
                                     setDirectoryPath([]);
                                     route("/filter/unused/");
