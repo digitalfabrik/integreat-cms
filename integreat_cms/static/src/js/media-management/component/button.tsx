@@ -14,7 +14,13 @@ type Props = {
 const Button = ({ label, disabled, href, onClick }: Props) => (
     <Link
         href={href}
-        onClick={onClick}
+        onClick={(e) => {
+            if (disabled) {
+                e.preventDefault();
+                return;
+            }
+            onClick();
+        }}
         data-disabled={disabled}
         className={cn(
             "text-white font-bold py-2 px-4 rounded",
