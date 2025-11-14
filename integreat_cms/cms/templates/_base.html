@@ -115,7 +115,7 @@
                 </div>
             </a>
         </div>
-        <div id="menu" class="pb-10 overflow-y-auto {{ BRANDING }}-branding">
+        <div id="menu" class="pb-[90px] overflow-y-auto {{ BRANDING }}-branding">
             {% if request.region %}
                 <a href="{% url 'dashboard' region_slug=request.region.slug %}"
                    class="{% if current_menu_item == 'region_dashboard' %} active{% endif %}">
@@ -343,7 +343,7 @@
         <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-600">
             <a href="{% if request.region %}{% url "release_notes" region_slug=request.region.slug %}{% else %}{% url "release_notes" %}{% endif %}"
                class="hover:underline pb-2">{% translate "Version" %}: {{ version }}</a>
-             <a href="{{ PRIVACY_POLICY_URL }}" class="hover:underline text-sm">
+            <a href="{{ PRIVACY_POLICY_URL }}" class="hover:underline text-sm">
                 {% translate "Privacy policy" %}
             </a>
             <i icon-name="dot" class="inline-block mx-1"></i>
