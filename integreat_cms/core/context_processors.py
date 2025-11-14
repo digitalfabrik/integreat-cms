@@ -45,6 +45,8 @@ def settings_processor(request: HttpRequest) -> dict[str, Any]:
         "TEXTLAB_API_ENABLED": settings.TEXTLAB_API_ENABLED,
         "TEST": settings.TEST,
         "INTEGREAT_CHAT_TICKET_GROUP": settings.INTEGREAT_CHAT_TICKET_GROUP,
+        "PRIVACY_POLICY_URL": settings.PRIVACY_POLICY_URL,
+        "IMPRINT_URL": settings.IMPRINT_URL,
     }
 
 
