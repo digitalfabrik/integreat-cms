@@ -22,11 +22,7 @@
             <label for="{{ form.meeting_url.id_for_label }}">
                 {{ form.meeting_url.label }}
             </label>
-            {% if archived %}
-                {{ form.instance.meeting_url }}
-            {% else %}
-                {% render_field form.meeting_url class+="input w-full" %}
-            {% endif %}
+            {% render_field form.meeting_url class+="input w-full" %}
         </div>
     {% endif %}
     {% if current_menu_item == "contacts" %}
