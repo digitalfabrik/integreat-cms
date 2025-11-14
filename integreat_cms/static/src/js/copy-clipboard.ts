@@ -1,3 +1,18 @@
+/**
+ *
+ * used in:
+ * event_form.html
+ * _feedback_widget.html
+ * admin_feedback_list_row.html
+ * region_feedback_list_row.html
+ * imprint_form.html
+ * imprint_sbs.html
+ * page_form.html
+ * pages_page_tree_node.html
+ * poi_form.html
+ *
+ */
+
 const applyCopyFeedback = (node: HTMLElement) => {
     const copy = node.querySelector("[icon-name=copy]");
     const check = node.querySelector("[icon-name=check]");

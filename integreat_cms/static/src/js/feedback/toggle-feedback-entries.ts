@@ -1,5 +1,13 @@
-/*
+/**
  * This file provides a simple spoiler for feedback list entries with hide/show functionality.
+ *
+ * used in:
+ *
+ * _feedback_widget.html > admin_dashboard.html
+ * admin_feedback_list_row.html > admin_feedback_list.html
+ * region_feedback_list_row.html > region_feedback_list.html
+ * link_list_row.html > links_by_filter.html
+ *
  */
 window.addEventListener("icon-load", () => {
     // Check which feedback entries need the toggle button

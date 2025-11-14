@@ -1,3 +1,9 @@
+/**
+ * used in:
+ * _statistics_widget.html > dashboard.html
+ * statistics_chart.html > statistics_overview.html
+ */
+
 import {
     Chart,
     ChartData,

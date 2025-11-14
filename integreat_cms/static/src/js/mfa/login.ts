@@ -1,3 +1,9 @@
+/**
+ *
+ * used in:
+ * login_mfa.html < in use??
+ * login_webauthn.html
+ */
 import { getCsrfToken } from "../utils/csrf-token";
 import { transformAssertionForServer, transformCredentialRequestOptions } from "../utils/mfa-utils";
 
