@@ -1,11 +1,7 @@
 import { Chart } from "chart.js";
 
-type AccessesPerTime = {
-    [date: string]: number;
-};
-
 type AccessesPerLanguage = {
-    [lang: string]: AccessesPerTime;
+    [lang: string]: number;
 };
 
 type AjaxResponse = {
@@ -18,19 +14,10 @@ let statisticsForm: HTMLFormElement;
 let pageAccessesURL: string;
 let pageAccessesForm: HTMLFormElement;
 
-/* Loop over the object containing the accesses over time and count them to a total */
-const countAccesses = (accessesOverTime: object): number => {
-    let accesses: number = 0;
-    Object.values(accessesOverTime).forEach((entry) => {
-        accesses += entry;
-    });
-    return accesses;
-};
-
 const setAccessBarPerLanguage = (
     accessField: Element,
     languageSlug: string,
-    accessesOverTime: AccessesPerTime,
+    accessesOverTime: number,
     allAccesses: number
 ) => {
     const parentElement = accessField as HTMLElement;
@@ -39,12 +26,11 @@ const setAccessBarPerLanguage = (
     ) as HTMLElement;
     const languageColor = childElement.getAttribute("data-language-color");
     const languageTitle = childElement.getAttribute("data-language-title");
-    const accesses = countAccesses(accessesOverTime);
-    const roundedPercentage = ((accesses / allAccesses) * 100).toFixed(2);
-    const width = allAccesses !== 0 ? (accesses / allAccesses) * 100 : 0;
+    const roundedPercentage = ((accessesOverTime / allAccesses) * 100).toFixed(2);
+    const width = allAccesses !== 0 ? (accessesOverTime / allAccesses) * 100 : 0;
     childElement.style.backgroundColor = languageColor;
     childElement.style.width = `${String(width)}%`;
-    childElement.title = `${languageTitle}: ${accesses} (${roundedPercentage} %)`;
+    childElement.title = `${languageTitle}: ${accessesOverTime} (${roundedPercentage} %)`;
 };
 
 const resetTotalAccessesField = (accessFields: HTMLCollectionOf<Element>, isEmpty: boolean) => {
@@ -133,7 +119,7 @@ const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
         let allAccesses: number = 0;
         visibleDatasetSlugs.forEach((languageSlug) => {
             if (accesses[languageSlug]) {
-                allAccesses += countAccesses(accesses[languageSlug]);
+                allAccesses += accesses[languageSlug];
             }
         });
         if (allAccesses === 0) {
@@ -143,9 +129,9 @@ const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
         } else {
             allAccessesField.textContent = `${String(allAccesses)} ${allAccessesField.getAttribute("data-translation-plural")}`;
         }
-        Object.entries(accesses).forEach((access) => {
-            const languageSlug = access[0];
-            const accessesOverTime: AccessesPerTime = visibleDatasetSlugs.includes(languageSlug) ? access[1] : {};
+        Object.entries(accesses).forEach((accessesForLanguage) => {
+            const languageSlug = accessesForLanguage[0];
+            const accessesOverTime = visibleDatasetSlugs.includes(languageSlug) ? accessesForLanguage[1] : 0;
             setAccessBarPerLanguage(accessField, languageSlug, accessesOverTime, allAccesses);
         });
     });
