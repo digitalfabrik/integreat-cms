@@ -343,15 +343,13 @@
         <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-600">
             <a href="{% if request.region %}{% url "release_notes" region_slug=request.region.slug %}{% else %}{% url "release_notes" %}{% endif %}"
                class="hover:underline px-3 py-3">{% translate "Version" %}: {{ version }}</a>
-            <br>
-            <a href="{{ PRIVACY_POLICY_URL }}" class="hover:underline px-3 py-3">
+             <a href="{{ PRIVACY_POLICY_URL }}" class="hover:underline text-sm">
                 {% translate "Privacy policy" %}
             </a>
-            <br>
-            <a href="{{ IMPRINT_URL }}" class="hover:underline px-3 py-3">
+            <i icon-name="dot" class="inline-block mx-1"></i>
+            <a href="{{ IMPRINT_URL }}" class="hover:underline text-sm">
                 {% translate "Imprint" %}
             </a>
-            <br>
         </div>
     </nav>
     <main class="relative min-h-screen flex lg:pl-72 {% if TEST %}pt-20{% else %}pt-14{% endif %} bg-gray-100">
