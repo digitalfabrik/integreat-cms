@@ -1452,8 +1452,7 @@ msgstr "Email-Links"
 msgid "Phone links"
 msgstr "Telefonnummern-Links"
 
-#: cms/constants/linkcheck.py cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/linkcheck/links_by_filter.html
+#: cms/constants/linkcheck.py cms/templates/linkcheck/links_by_filter.html
 msgid "Verification needed"
 msgstr "Überprüfung notwendig"
 
@@ -4697,7 +4696,7 @@ msgstr "Übersetzungsbericht"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: cms/templates/_base.html cms/templates/analytics/_broken_links_widget.html
+#: cms/templates/_base.html
 msgid "Broken Links"
 msgstr "Fehlerhafte Links"
 
@@ -5151,75 +5150,6 @@ msgstr "Ein neuer Ort wurde erfolgreich erstellt."
 msgid "An error occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
-#: cms/templates/analytics/_broken_links_widget.html
-msgid "The list below shows all detected errors related to links."
-msgstr "Hier können Sie eine Übersicht über fehlerhafte Links sehen."
-
-#: cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/analytics/_translation_overview_widget.html
-#: cms/templates/analytics/_website_size_widget.html
-#: cms/templates/statistics/_statistics_widget.html
-msgid "Details"
-msgstr "Detailansicht"
-
-#: cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/chat/_chat_widget.html
-#: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_chart.html
-#: cms/views/media/media_context_mixin.py
-msgid "A network error has occurred."
-msgstr "Ein Netzwerkfehler ist aufgetreten."
-
-#: cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/chat/_chat_widget.html cms/templates/hix_widget.html
-#: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_chart.html
-#: cms/views/media/media_context_mixin.py
-msgid "Please try again later."
-msgstr "Bitte versuchen Sie es später erneut."
-
-#: cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/chat/_chat_widget.html
-#: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_chart.html
-msgid "A server error has occurred."
-msgstr "Ein Serverfehler ist aufgetreten."
-
-#: cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/chat/_chat_widget.html
-#: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_chart.html xliff/utils.py
-msgid "Please contact the administrator."
-msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
-
-#: cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/dashboard/_news_widget.html cms/templates/hix_widget.html
-#: cms/templates/pois/poi_form_sidebar/position_box.html
-#: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_chart.html
-#: cms/templates/statistics/statistics_viewed_pages.html
-msgid "Loading..."
-msgstr "Laden..."
-
-#: cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Valid links"
-msgstr "Gültige Links"
-
-#: cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Link verified"
-msgstr "Link überprüft"
-
-#: cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Unchecked links"
-msgstr "Nicht geprüfte Links"
-
-#: cms/templates/analytics/_broken_links_widget.html
-msgid "Total links"
-msgstr "Links insgesamt"
-
 #: cms/templates/analytics/_page_hix_widget.html
 msgid "Overview of the text understandability of the pages"
 msgstr "Übersicht der Textverständlichkeiten der Seiten"
@@ -5283,6 +5213,12 @@ msgstr "Status der Übersetzungen"
 #: cms/templates/analytics/_translation_overview_widget.html
 msgid "The list below shows the current status of the translations."
 msgstr "Hier können Sie den Status der Übersetzungen sehen."
+
+#: cms/templates/analytics/_translation_overview_widget.html
+#: cms/templates/analytics/_website_size_widget.html
+#: cms/templates/statistics/_statistics_widget.html
+msgid "Details"
+msgstr "Detailansicht"
 
 #: cms/templates/analytics/_website_size_widget.html
 msgid "Size of the App"
@@ -5479,6 +5415,32 @@ msgstr "Chat"
 #: cms/templates/chat/_chat_widget.html
 msgid "Send message"
 msgstr "Nachricht abschicken"
+
+#: cms/templates/chat/_chat_widget.html
+#: cms/templates/statistics/_statistics_widget.html
+#: cms/templates/statistics/statistics_chart.html
+#: cms/views/media/media_context_mixin.py
+msgid "A network error has occurred."
+msgstr "Ein Netzwerkfehler ist aufgetreten."
+
+#: cms/templates/chat/_chat_widget.html cms/templates/hix_widget.html
+#: cms/templates/statistics/_statistics_widget.html
+#: cms/templates/statistics/statistics_chart.html
+#: cms/views/media/media_context_mixin.py
+msgid "Please try again later."
+msgstr "Bitte versuchen Sie es später erneut."
+
+#: cms/templates/chat/_chat_widget.html
+#: cms/templates/statistics/_statistics_widget.html
+#: cms/templates/statistics/statistics_chart.html
+msgid "A server error has occurred."
+msgstr "Ein Serverfehler ist aufgetreten."
+
+#: cms/templates/chat/_chat_widget.html
+#: cms/templates/statistics/_statistics_widget.html
+#: cms/templates/statistics/statistics_chart.html xliff/utils.py
+msgid "Please contact the administrator."
+msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 
 #: cms/templates/contacts/contact_form.html
 #: cms/templates/contacts/contact_list_row.html
@@ -5894,6 +5856,14 @@ msgstr "Diese Revision wiederherstellen und zur Freigabe vorlegen"
 #: cms/templates/dashboard/_news_widget.html
 msgid "Integreat News"
 msgstr "Integreat Neuigkeiten"
+
+#: cms/templates/dashboard/_news_widget.html cms/templates/hix_widget.html
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+#: cms/templates/statistics/_statistics_widget.html
+#: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages.html
+msgid "Loading..."
+msgstr "Laden..."
 
 #: cms/templates/dashboard/_news_widget.html
 msgid "Unfortunately there was a problem and the news feed could not load."
@@ -7264,6 +7234,18 @@ msgstr "URL zentral in der aktuellen Region ersetzen"
 #: cms/templates/linkcheck/link_list_row.html
 msgid "Replace URL globally in all the regions"
 msgstr "URL global in allen Regionen ersetzen"
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "Valid links"
+msgstr "Gültige Links"
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "Unchecked links"
+msgstr "Nicht geprüfte Links"
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "Link verified"
+msgstr "Link überprüft"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "All links"
@@ -11980,6 +11962,12 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "The list below shows all detected errors related to links."
+#~ msgstr "Hier können Sie eine Übersicht über fehlerhafte Links sehen."
+
+#~ msgid "Total links"
+#~ msgstr "Links insgesamt"
 
 #~ msgid ""
 #~ "Currently, the mobile phone number is not displayed in the Integreat App. "
