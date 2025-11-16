@@ -198,20 +198,20 @@ class EventFormView(
         )
         user_slug = event_translation_form.data.get("slug")
 
-        if (
-            not event_form_valid
-            or not event_translation_form.is_valid()
-            or (
-                event_form.cleaned_data["is_recurring"]
-                and not recurrence_rule_form.is_valid()
-            )
+        event = None
+        if not event_form_valid or (
+            event_form.cleaned_data["is_recurring"]
+            and not recurrence_rule_form.is_valid()
         ):
-            # Add error messages
             event_form.add_error_messages(request)
-            event_translation_form.add_error_messages(request)
             # do not call recurrence rule form clean method when recurrence rule is not set
             if event_form.cleaned_data["is_recurring"]:
                 recurrence_rule_form.add_error_messages(request)
+        else:
+            event = event_form.save()
+
+        if not event_translation_form.is_valid():
+            event_translation_form.add_error_messages(request)
         elif (
             event_translation_form.instance.status == status.AUTO_SAVE
             and not event_form.has_changed()
@@ -219,7 +219,7 @@ class EventFormView(
             and not recurrence_rule_form.has_changed()
         ):
             messages.info(request, _("No changes detected, autosave skipped"))
-        else:
+        elif event is not None:
             # Check publish permissions
             if event_translation_form.instance.status in [
                 status.DRAFT,
@@ -228,7 +228,7 @@ class EventFormView(
                 raise PermissionDenied(
                     f"{request.user!r} does not have the permission 'cms.publish_event'",
                 )
-            # Save forms
+            # Save translation form
             if event_form.cleaned_data.get("is_recurring"):
                 # If event is recurring, save recurrence rule
                 event_form.instance.recurrence_rule = recurrence_rule_form.save()

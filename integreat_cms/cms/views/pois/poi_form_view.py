@@ -131,7 +131,7 @@ class POIFormView(
             },
         )
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:  # noqa: PLR0915
         r"""
         Submit :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and
         :class:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm` and save :class:`~integreat_cms.cms.models.pois.poi.POI` and
@@ -191,9 +191,27 @@ class POIFormView(
             },
         )
 
-        if not poi_form.is_valid() or not poi_translation_form.is_valid():
+        data = request.POST.dict()
+        new_poi_and_new_related_contact = (
+            not is_edit and self.related_contact_data_added(data)
+        )
+
+        contact_form = ContactForm(
+            request=request,
+            data=data,
+            instance=None,
+            additional_instance_attributes={
+                "region": request.region,
+            },
+        )
+
+        poi = None
+        if not poi_form.is_valid():
             # Add error messages
             poi_form.add_error_messages(request)
+        else:
+            poi = poi_form.save()
+        if not poi_translation_form.is_valid():
             poi_translation_form.add_error_messages(request)
         elif (
             poi_translation_form.instance.status == status.AUTO_SAVE
@@ -201,7 +219,7 @@ class POIFormView(
             and not poi_translation_form.has_changed()
         ):
             messages.info(request, _("No changes detected, autosave skipped"))
-        else:
+        elif poi is not None:
             success = True
 
             with transaction.atomic():
