@@ -95,12 +95,14 @@
                     <i icon-name="settings"></i>
                     {% translate "Account Settings" %}
                 </a>
-                <form action="{% url 'public:logout' %}" method="post"
-                    class="block px-4 py-3 text-gray-800 hover:bg-gray-400 rounded-b">
+                <form action="{% url 'public:logout' %}"
+                      method="post"
+                      class="block px-4 py-3 text-gray-800 hover:bg-gray-400 rounded-b">
                     {% csrf_token %}
-
                     <i icon-name="log-out" class="text-red-500"></i>
-                    <button type="submit">{% translate "Log out" %}</button>
+                    <button type="submit">
+                        {% translate "Log out" %}
+                    </button>
                 </form>
             </div>
         </div>
