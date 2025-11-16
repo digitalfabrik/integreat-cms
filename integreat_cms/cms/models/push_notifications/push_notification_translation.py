@@ -156,6 +156,9 @@ class PushNotificationTranslation(AbstractBaseModel):
 
         :return: The canonical string representation of the event
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<PushNotificationTranslation (id: {self.id}, push_notification_id: {self.push_notification.id}, title: {self.title!r})>"
 
     class Meta:

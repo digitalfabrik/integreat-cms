@@ -79,6 +79,9 @@ class ABTester(AbstractBaseModel):
 
         :return: The canonical string representation of the ab tester
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<ABTester (id: {self.pk}, device_id: {self.device_id}, is_tester: {self.is_tester})>"
 
     class Meta:
@@ -137,6 +140,9 @@ class UserChat(AbstractBaseModel, ZammadAPI):
 
         :return: The canonical string representation of the user chat
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<UserChat (id: {self.pk}, device_id: {self.device_id}, zammad_id: {self.zammad_id})>"
 
     def as_dict(self) -> dict[str, Any]:

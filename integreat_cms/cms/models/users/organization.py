@@ -169,7 +169,10 @@ class Organization(AbstractBaseModel):
 
         :return: The canonical string representation of the organization
         """
-        return f"<Organization (id: {self.id}, slug: {self.slug}, region: {self.region.slug})>"
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
+        return f"<{class_name} (id: {self.id}, slug: {self.slug}, region: {self.region.slug})>"
 
     def delete(self, *args: list, **kwargs: dict) -> bool:
         r"""
