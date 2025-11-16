@@ -110,6 +110,9 @@ class POICategory(AbstractBaseModel):
 
         :return: The canonical string representation of the category
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<POI Category (id: {self.id}, name: {self.name}>"
 
     class Meta:

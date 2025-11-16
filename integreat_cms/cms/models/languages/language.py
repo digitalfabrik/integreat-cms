@@ -281,6 +281,8 @@ class Language(AbstractBaseModel):
 
         :return: The canonical string representation of the language
         """
+        if not self.pk:
+            return "<Lanuguage (unsaved instance)>"
         return (
             f"<Language (id: {self.id}, slug: {self.slug}, name: {self.english_name})>"
         )

@@ -47,6 +47,9 @@ class POICategoryTranslation(AbstractBaseModel):
 
         :return: The canonical string representation of the category translation
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<POI CategoryTranslation (id: {self.id}, category: {self.category_id}, language: {self.language_id}, name: {self.name})>"
 
     class Meta:
