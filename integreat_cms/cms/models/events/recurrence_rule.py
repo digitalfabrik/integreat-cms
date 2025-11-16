@@ -195,6 +195,9 @@ class RecurrenceRule(AbstractBaseModel):
 
         :return: The canonical string representation of the recurrence rule
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<RecurrenceRule (id: {self.id}, event: {self.event.best_translation.slug})>"
 
     def to_ical_rrule(self) -> rrule.rrule:
