@@ -102,9 +102,8 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :param region_slug: The slug of the requested :class:`~integreat_cms.cms.models.regions.region.Region`
         :return: A queryset containing the root nodes in the tree.
         """
-        class_name = type(self).__name__
         if not self.pk:
-            return f"<{class_name} (unsaved instance)>"
+            return f"<AbstractTreeNode (unsaved instance)>"
         return super().get_root_nodes().filter(region__slug=region_slug)
 
     def add_child(self, **kwargs: Any) -> AbstractTreeNode:
