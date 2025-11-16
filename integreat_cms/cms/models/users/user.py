@@ -271,6 +271,9 @@ class User(AbstractUser, AbstractBaseModel):
 
         :return: The canonical string representation of the user
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         # Get username representation
         username_str = f", username: {self.username}" if self.username else ""
         # Get role representation

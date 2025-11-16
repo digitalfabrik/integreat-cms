@@ -1108,6 +1108,9 @@ class Region(AbstractBaseModel):
 
         :return: The canonical string representation of the region
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<Region (id: {self.id}, slug: {self.slug})>"
 
     class Meta:

@@ -59,6 +59,9 @@ class FidoKey(AbstractBaseModel):
 
         :return: The canonical string representation of the user MFA
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<UserMfaKey (id: {self.id}, name: {self.name}, user: {self.user.username})>"
 
     class Meta:

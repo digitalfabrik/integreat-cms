@@ -437,6 +437,9 @@ class MediaFile(AbstractBaseModel):
 
         :return: The canonical string representation of the document
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         file_path = f"path: {self.file.path}, " if self.file else ""
         return (
             f"<MediaFile (id: {self.id}, name: {self.name}, {file_path}{self.region})>"
