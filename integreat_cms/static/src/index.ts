@@ -103,20 +103,6 @@ const hasInited = (el: HTMLElement, key: string) => (el as any).inited?.has(key)
 export const bootstrapModules = async (root: ParentNode = document) => {
     const registeredModules = Object.keys(registry);
 
-    const domDataModules = Array.from(root.querySelectorAll<HTMLElement>("[data-js-*]")).flatMap((el) =>
-        Array.from(el.attributes)
-            .filter((attr) => attr.name.startsWith("data-js-"))
-            .map((attr) => attr.name.replace("data-js-", ""))
-    );
-
-    domDataModules.forEach((name) => {
-        if (!registeredModules.includes(name)) {
-            console.error(
-                `[Modules] Unknown feature module "${name}" in DOM. No matching registry entry. Possible typo?`
-            );
-        }
-    });
-
     const dataAttributes = registeredModules.map((k) => `[data-js-${k}]`).join(", ");
     const rootElements = root.querySelectorAll<HTMLElement>(dataAttributes);
 
