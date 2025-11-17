@@ -35,6 +35,8 @@ app_name: Final = "public"
 auth_context: dict[str, str] = {
     "COMPANY": settings.COMPANY,
     "COMPANY_URL": settings.COMPANY_URL,
+    "PRIVACY_POLICY_URL": settings.PRIVACY_POLICY_URL,
+    "IMPRINT_URL": settings.IMPRINT_URL,
 }
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
