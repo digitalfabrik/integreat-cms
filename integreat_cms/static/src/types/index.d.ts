@@ -11,6 +11,7 @@ declare module "htmldiff-js" {
 }
 
 declare module "*.scss";
+declare module "*.css";
 
 type ReplaceElementOptions = {
     nameAttr: string;
