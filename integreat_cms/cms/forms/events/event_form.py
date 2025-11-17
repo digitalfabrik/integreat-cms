@@ -128,6 +128,8 @@ class EventForm(CustomModelForm):
             self.fields["external_event_id"].initial = self.instance.external_event_id
             if self.instance.start_local.date() != self.instance.end_local.date():
                 self.fields["is_long_term"].initial = True
+            if self.instance.archived:
+                self.fields["meeting_url"].widget.attrs["readonly"] = True
 
     def clean(self) -> dict[str, Any]:
         """
