@@ -12,7 +12,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.db.models import Q, Subquery
+from django.db.models import Q, Subquery, Sum
 from django.http import Http404
 from django.template.defaultfilters import floatformat
 from django.urls import reverse
@@ -1061,7 +1061,7 @@ class Region(AbstractBaseModel):
             self.last_updated,
         )
 
-    def get_page_accesses_by_language(
+    def get_page_access_count_by_language(
         self,
         pages: list[Page],
         start_date: date,
@@ -1069,20 +1069,24 @@ class Region(AbstractBaseModel):
         languages: list[Language],
     ) -> dict:
         """
-        Get the page accesses of the requested pages of this region during the specified time range
+        Get the sum of page accesses per page and language of this region during the specified time range
         :param pages: List of requested pages
         :param start_date: Earliest date
         :param end_date: Latest date
         :param languages: List of requested languages
 
-        :return: Page accesses of the requested pages
+        :return: Sum of page accesses per page and language
         """
-        return PageAccesses.objects.filter(
-            page__region=self,
-            page__in=pages,
-            access_date__range=(start_date, end_date + timedelta(days=1)),
-            language__in=languages,
-        ).values()
+        return (
+            PageAccesses.objects.filter(
+                page__region=self,
+                page__in=pages,
+                access_date__range=(start_date, end_date + timedelta(days=1)),
+                language__in=languages,
+            )
+            .values("page__id", "language__slug")
+            .annotate(total_accesses=Sum("accesses"))
+        )
 
     def __str__(self) -> SafeString:
         """
