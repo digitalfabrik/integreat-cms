@@ -18,12 +18,12 @@ labels: 'feature'
 
 
 ### Alternatives
-<!-- A clear and concise description of any alternative solutions or features you've considered, and why you're proposed solution is better. -->
+<!-- A clear and concise description of any alternative solutions or features you've considered, and why your proposed solution is better. -->
 
 
 ### User Story
 <!-- A clear description of the User Stories that should be achieved by the new feature. The User Stories should follow this pattern:
-As a [type of user] I want [goals or objectives] so that [values or benefits]. -->
+     As a [type of user] I want [goals or objectives] so that [values or benefits]. -->
 
 
 ### Additional Context
@@ -31,15 +31,16 @@ As a [type of user] I want [goals or objectives] so that [values or benefits]. -
 
 
 ### Design Requirements
-<!-- If the customization includes input from our design team, the detailed requirements will be collected here. Note: These will exist mainly in German to simplify internal communication. -->
+<!-- If the customization includes input from our design team, the detailed requirements will be collected here.
+     Note: These will exist mainly in German to simplify internal communication. -->
 
 ### Related Issues
-<!-- A collection of all issues that are related to this issue and could be useful. -->
-<!-- Please also include the related integreat-app issues, if possible. -->
-<!-- If the app issue does not exist yet, ping Toni on Mattermost to create one and then link it here. -->
+<!-- A collection of all issues that are related to this issue and could be useful.
+     Please also include the related integreat-app issues, if possible.
+     If the app issue does not exist yet, ping @svenja.osmers on Mattermost to create one and then link it here. -->
 
 
 ### Summary of discussion and updates to the description
-<!-- Summarize the discussion if a long conversation was made that changed something. E.g. -->
-<!-- - <TIMESTAMP>: Discussed UX of the modal and decided that a two-stage flow would be best after all. Updated the link to this alternative design and changed the spec for the new ajax endpoint accordingly -->
-<!-- Leave this section blank during the initial issue creation. -->
+<!-- Summarize the discussion if a long conversation was made that changed something. E.g.
+     - <TIMESTAMP>: Discussed UX of the modal and decided that a two-stage flow would be best after all. Updated the link to this alternative design and changed the spec for the new ajax endpoint accordingly
+     Leave this section blank during the initial issue creation. -->
