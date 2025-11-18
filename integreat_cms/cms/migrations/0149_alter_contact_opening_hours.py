@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0145_userchat_created_timestamp_and_more"),
+        ("cms", "0148_region_machine_translate_pushnotifications"),
     ]
 
     operations = [
