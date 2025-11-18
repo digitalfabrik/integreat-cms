@@ -1,9 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development webpack watch --mode development --color --stats=errors-warnings",
-    "prod": "NODE_ENV=production webpack --mode production",
-    "build": "webpack build",
+    "docs:frontend": "typedoc && ts-node tools/npm/markOrphan.ts",
+    "generate:registry": "ts-node tools/npm/generateRegistry.ts",
+    "dev": "npm run generate:registry && NODE_ENV=development webpack watch --mode development --color --stats=errors-warnings",
+    "prod": "npm run generate:registry && NODE_ENV=production webpack --mode production",
+    "build": "npm run generate:registry && webpack build",
     "test": "vitest run",
     "test:watch": "vitest watch"
   },
@@ -70,6 +72,9 @@
     "tinymce-i18n": "^24.6.3",
     "tom-select": "^2.4.3",
     "ts-loader": "^9.5.4",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.28.13",
+    "typedoc-plugin-markdown": "^4.9.0",
     "typescript": "^5.9.2",
     "url-loader": "^4.1.1",
     "vitest": "^1.6.0",

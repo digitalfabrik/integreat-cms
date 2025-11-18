@@ -1,5 +1,11 @@
-/*
+/**
  * Takes a list of boxes and calculates an even distribution into two columns
+ *
+ * used in:
+ * event_form.html
+ * page_form.html
+ * poi_form.html
+ * statistics_sidebar.html > statistics_overview.html
  */
 const findPartition = (boxes: Array<HTMLElement>) => {
     // Remember the box heights so we don't have to calculate them for every recursion step

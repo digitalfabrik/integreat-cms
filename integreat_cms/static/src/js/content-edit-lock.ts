@@ -2,6 +2,14 @@
  * If the content-edit-lock-data div exists, this file provides some functionality to periodically send heartbeats to the
  * server to acquire and keep the content editing look.
  * This file also registers an unload handler to quickly release the lock when not required anymore.
+ *
+ * used in:
+ * _content_edit_lock.html  > event_form.html
+ *                          > imprint_form.html
+ *                          > imprint_sbs.html
+ *                          > page_form.html
+ *                          > page_sbs.html
+ *                          > poi_form.html
  */
 import { showConfirmationPopupWithData } from "./confirmation-popups";
 import { storeDraft } from "./forms/tinymce-init";

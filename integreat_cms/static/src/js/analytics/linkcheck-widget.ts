@@ -1,3 +1,7 @@
+/**
+ * used in:
+ * _broken_links_widget.html >> seems unused
+ */
 export type LinkcheckStats = {
     number_invalid_urls: number;
     number_valid_urls: number;
