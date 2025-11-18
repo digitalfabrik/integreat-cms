@@ -54,9 +54,9 @@ const toggleNoTranslate = (editor: Editor) => {
         tinymce.activeEditor.dom.removeClass(tinymce.activeEditor.selection.getNode(), "notranslate");
         tinymce.activeEditor.dom.setAttrib(tinymce.activeEditor.selection.getNode(), "dir", null);
     } else if (editor.selection.getContent().length > 0) {
-        editor.insertContent(
-            `<span class="notranslate" translate="no" dir="ltr">${editor.selection.getContent()}</span>`
-        );
+        tinymce.activeEditor.dom.setAttrib(tinymce.activeEditor.selection.getNode(), "translate", "no");
+        tinymce.activeEditor.dom.addClass(tinymce.activeEditor.selection.getNode(), "notranslate");
+        tinymce.activeEditor.dom.setAttrib(tinymce.activeEditor.selection.getNode(), "dir", "ltr");
     }
 };
 
