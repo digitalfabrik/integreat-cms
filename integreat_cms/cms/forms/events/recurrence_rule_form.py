@@ -4,6 +4,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from django import forms
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import frequency, weekdays
@@ -120,6 +121,17 @@ class RecurrenceRuleForm(CustomModelForm):
                 "recurrence_end_date",
                 forms.ValidationError(
                     _("The recurrence end date has to be after the event's start date"),
+                    code="invalid",
+                ),
+            )
+        if (
+            cleaned_data.get("recurrence_end_date")
+            and cleaned_data.get("recurrence_end_date") < timezone.now().date()
+        ):
+            self.add_error(
+                "recurrence_end_date",
+                forms.ValidationError(
+                    _("The recurrence end date has to be in the future"),
                     code="invalid",
                 ),
             )
