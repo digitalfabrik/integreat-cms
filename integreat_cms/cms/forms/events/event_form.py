@@ -143,21 +143,6 @@ class EventForm(CustomModelForm):
         # make self.data mutable to allow values to be changed manually
         self.data = self.data.copy()
 
-        # start_date must be today or later (not in the past)
-        if start_date := cleaned_data.get("start_date"):
-            today = timezone.now().date()
-            if start_date < today:
-                # If it's before today, add an error on start_date
-                self.add_error(
-                    "start_date",
-                    forms.ValidationError(
-                        _(
-                            "The start of the event can't be before today. Please choose today or a future date."
-                        ),
-                        code="invalid",
-                    ),
-                )
-
         # Apparently we need to drop the invalid fields from data altogether, only from cleaned_data is not sufficient
         if cleaned_data.get("has_not_location", False):
             self.data["location"] = None
@@ -232,6 +217,23 @@ class EventForm(CustomModelForm):
                     forms.ValidationError(
                         _(
                             "The end of the event can't be before the start of the event",
+                        ),
+                        code="invalid",
+                    ),
+                )
+            today = timezone.now()
+            if not cleaned_data.get("is_recurring") and (
+                end_date < today.date()
+                or (
+                    end_date == today.date()
+                    and cleaned_data.get("end_time") < today.time()
+                )
+            ):
+                self.add_error(
+                    "end_date",
+                    forms.ValidationError(
+                        _(
+                            "The end of the event can't be in the past. Please choose today or a future date and time."
                         ),
                         code="invalid",
                     ),
