@@ -71,4 +71,7 @@ class RequestFormatter(logging.Formatter):
                 else:
                     # If the string consists of one single line, just append it to the end
                     message += f"?{query}"
+        if len(message) > 4096:
+            hint_truncated = f"  [truncated from {len(message)} characters]"
+            return message[: 4096 - len(hint_truncated)] + hint_truncated
         return message
