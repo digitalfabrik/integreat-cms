@@ -1290,6 +1290,9 @@ LINKCHECK_COMMAND_RUNNING: Final[bool] = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_COMMAND_RUNNING", "False")),
 )
 
+# Linkcheck should always run as a celery job
+LINKCHECK_IN_CELERY: Final[bool] = True
+
 
 #################
 # INTERNAL URLS #
