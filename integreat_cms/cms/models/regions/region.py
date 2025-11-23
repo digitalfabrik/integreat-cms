@@ -12,7 +12,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.db.models import Q, Subquery, Sum
+from django.db.models import Q, Subquery, Value, IntegerField, F
+from django.db.models.functions import Coalesce
 from django.http import Http404
 from django.template.defaultfilters import floatformat
 from django.urls import reverse
@@ -23,7 +24,7 @@ from django.utils.translation import gettext_lazy as _
 
 from integreat_cms.cms.constants import translation_status
 
-from ..statistics.page_accesses import PageAccesses
+from ..statistics.page_accesses import PageAccesses, StatisticsDay
 
 if TYPE_CHECKING:
     from typing import Any
@@ -1077,12 +1078,28 @@ class Region(AbstractBaseModel):
 
         :return: Sum of page accesses per page and language
         """
+        page_hits_sq = PageAccesses.objects.filter(
+            statistics_day=OuterRef("day_id"),
+            page=OuterRef("page_id"),
+            language=OuterRef("language_id"),
+        ).values("accesses")[:1]
+
         return (
-            PageAccesses.objects.filter(
-                page__region=self,
-                page__in=pages,
-                access_date__range=(start_date, end_date + timedelta(days=1)),
-                language__in=languages,
+            StatisticsDay.objects.filter(
+                access_date__range=(start_date, end_date + timedelta(days=1))
+            )
+            .values(day_id=F("id"))
+            .annotate(key=Value(1))
+            .union(
+                Page.objects.filter(id__in=[page.pk for page in pages])
+                .values(page_id=F("id"))
+                .annotate(key=Value(1)),
+                Language.objects.filter(id__in=[language.pk for language in languages]),
+            )
+            .annotate(
+                accesses=Coalesce(
+                    Subquery(page_hits_sq), Value(0), output_field=IntegerField()
+                )
             )
             .values("page__id", "language__slug")
             .annotate(total_accesses=Sum("accesses"))
