@@ -321,4 +321,4 @@ class ZammadAPI:
         Set the processing indicator in the cache. This value is stored
         in the cache and does not require the object to be saved.
         """
-        cache.set(f"generating_answer_{self.device_id}", processing, 120)
+        cache.set(f"generating_answer_{self.device_id}", processing, 60)

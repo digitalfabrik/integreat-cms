@@ -130,7 +130,7 @@ def celery_translate_and_answer_question(
             "Could not find the given chat: %s %s", zammad_ticket_id, region
         )
         return
-    zammad_chat.processing_answer = True
+    zammad_chat.processing_answer = True  # type: ignore[assignment]
     messages = zammad_chat.get_messages(before=message_timestamp, only_user=True)
     translation, answer = asyncio.run(
         async_process_user_message(
@@ -145,7 +145,6 @@ def celery_translate_and_answer_question(
         zammad_chat.save_message(
             message=translation["translation"], internal=True, automatic_message=True
         )
-    zammad_chat.processing_answer = False
     if answer:
         if answer["status"] == "error":
             logger.error("Integreat Chat: %s", answer["message"])
@@ -169,6 +168,7 @@ def celery_translate_and_answer_question(
                 internal=True,
                 automatic_message=True,
             )
+    zammad_chat.processing_answer = False
 
 
 async def async_process_translate(

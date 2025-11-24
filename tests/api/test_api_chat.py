@@ -152,6 +152,7 @@ def test_api_chat_first_chat(
     save_message.assert_called_once()
     assert response.status_code == 200
     assert UserChat.objects.current_chat("never_seen_before").zammad_id == 111
+    assert UserChat.objects.current_chat("never_seen_before").processing_answer
 
 
 @pytest.mark.django_db
@@ -258,10 +259,12 @@ def test_api_chat_send_message(
     response = client.post(url, data={"message": "test message"})
 
     assert response.status_code == 200
+    assert response.json()["chatbot_typing"]
     assert (
         UserChat.objects.current_chat(default_kwargs["device_id"]).zammad_id
         == previous_chat
     )
+    assert UserChat.objects.current_chat(default_kwargs["device_id"]).processing_answer
 
 
 @pytest.mark.django_db
