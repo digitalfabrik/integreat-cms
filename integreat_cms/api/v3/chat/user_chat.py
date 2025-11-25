@@ -102,6 +102,7 @@ def process_chat_payload(
         )
         user_chat.language = language
         user_chat.save()
+        user_chat.processing_answer = True  # type: ignore[assignment]
         if response is not None:
             if user_chat.automatic_answers:
                 celery_translate_and_answer_question.apply_async(
