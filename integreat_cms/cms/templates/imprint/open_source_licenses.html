@@ -24,11 +24,15 @@
                                 {% translate "Version" %}:
                                 {{ package.versionInfo }}
                             </p>
-                            <a href="{{ package.url }}" target="_blank" class="text-blue-500">
-                                <i icon-name="external-link" class="inline-block align-center"></i>
-                                {% translate "See license" %}
-                                {{ package.license }}
-                            </a>
+                            {% if package.url %}
+                                <a href="{{ package.url }}" target="_blank" class="text-blue-500">
+                                    <i icon-name="external-link" class="inline-block align-center"></i>
+                                    {% translate "See license" %}
+                                    {{ package.license }}
+                                </a>
+                            {% else %}
+                                {% translate "No project URL available." %}
+                            {% endif %}
                         </td>
                     </tr>
                 {% empty %}
