@@ -28,7 +28,7 @@ def contact(
     * ``mobile_phone_number`` (optional) – Whether the mobile phone number should be shown and other, not explicitly wanted details should be hidden
     * ``website``             (optional) – Whether the website             should be shown and other, not explicitly wanted details should be hidden
     """
-    contact_id = pargs[0]
+    contact_id = pargs[0] if pargs else None
     options = (
         "address",
         "email",

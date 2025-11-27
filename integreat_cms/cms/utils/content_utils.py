@@ -5,6 +5,7 @@ from urllib.parse import unquote, urlparse
 from django.conf import settings
 from django.db.models import Q
 from django.template import loader
+from django.utils.translation import gettext_lazy as _
 from lxml.etree import LxmlError
 from lxml.html import Element, fromstring, HtmlElement, tostring
 
@@ -155,11 +156,18 @@ def render_contact_card(contact_id: int, wanted_details: list[str]) -> HtmlEleme
             "contact": Contact.objects.get(pk=contact_id),
             "wanted": wanted_details,
         }
-        raw_element = template.render(context)
-        return fromstring(raw_element)
     except Contact.DoesNotExist:
-        logger.warning("Contact with id=%i does not exist!", contact_id)
-        return fromstring("<div><p></p></div>")
+        logger.warning("Contact with id=%r does not exist!", contact_id)
+        # Provide a "dummy contact"
+        # This is super hacky and barely renders a card,
+        # but makes it obvious to the user that there should be a contact here, but there was an error
+        context = {
+            "contact": {
+                "name": _("Oops! Error displaying contact data"),
+                "absolute_url": f"/{None}/contact/{contact_id}/",
+            },
+            "wanted": ["name"],
+        }
     except LxmlError as e:
         logger.debug(
             "Failed to parse rendered HTML for contact card: %r\n→ %s\nEOF",
@@ -167,6 +175,9 @@ def render_contact_card(contact_id: int, wanted_details: list[str]) -> HtmlEleme
             raw_element,
         )
         return Element("pre", raw_element)
+
+    raw_element = template.render(context)
+    return fromstring(raw_element)
 
 
 def update_contacts(content: HtmlElement) -> None:
