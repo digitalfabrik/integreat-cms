@@ -36,7 +36,7 @@ def page(
         * - ``[page 999999]``
           - ``<i>[MISSING LINK]</i>``
     """
-    page_id = pargs[0]
+    page_id = pargs[0] if pargs else None
     text = pargs[1] if len(pargs) > 1 else None
     try:
         page = Page.objects.get(id=page_id)
