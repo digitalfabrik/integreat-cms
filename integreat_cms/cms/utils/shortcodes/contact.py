@@ -22,11 +22,11 @@ def contact(
 
     The remaining positional arguments might be of the following:
 
-    * ``only_address``             (optional) – Whether the address             should be shown and other, not explicitly wanted details should be hidden
-    * ``only_email``               (optional) – Whether the email address       should be shown and other, not explicitly wanted details should be hidden
-    * ``only_phone_number``        (optional) – Whether the phone number        should be shown and other, not explicitly wanted details should be hidden
-    * ``only_mobile_phone_number`` (optional) – Whether the mobile phone number should be shown and other, not explicitly wanted details should be hidden
-    * ``only_website``             (optional) – Whether the website             should be shown and other, not explicitly wanted details should be hidden
+    * ``address``             (optional) – Whether the address             should be shown and other, not explicitly wanted details should be hidden
+    * ``email``               (optional) – Whether the email address       should be shown and other, not explicitly wanted details should be hidden
+    * ``phone_number``        (optional) – Whether the phone number        should be shown and other, not explicitly wanted details should be hidden
+    * ``mobile_phone_number`` (optional) – Whether the mobile phone number should be shown and other, not explicitly wanted details should be hidden
+    * ``website``             (optional) – Whether the website             should be shown and other, not explicitly wanted details should be hidden
     """
     contact_id = pargs[0]
     options = (
@@ -36,9 +36,6 @@ def contact(
         "mobile_phone_number",
         "website",
     )
-    wanted = (
-        tuple(filter(lambda arg: arg.removeprefix("only_") in options, pargs[1:]))
-        or options
-    )
+    wanted = (arg for arg in pargs[1:] if arg in options) or options
     element = render_contact_card(contact_id, wanted)
     return tostring(element).decode("utf-8")
