@@ -149,6 +149,18 @@ COMPANY_URL: Final[str] = os.environ.get(
     "https://tuerantuer.de/digitalfabrik/",
 )
 
+#: The URL to the privacy policy
+PRIVACY_POLICY_URL: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_PRIVACY_POLICY_URL",
+    "https://example.com/",
+)
+
+#: The URL to the imprint
+IMPRINT_URL: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_IMPRINT_URL",
+    "https://example.com/",
+)
+
 #: The available inbuilt brandings of the CMS
 AVAILABLE_BRANDINGS: Final[dict[str, str]] = {
     "integreat": "Integreat",
@@ -701,7 +713,11 @@ LOGGING: dict[str, Any] = {
     },
     "handlers": {
         "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "console",
             "filters": ["require_debug_true"],
+        },
+        "console-service": {
             "class": "logging.StreamHandler",
             "formatter": "console",
         },
@@ -776,8 +792,8 @@ LOGGING: dict[str, Any] = {
             "level": DEPS_LOG_LEVEL,
         },
         "celery": {
-            "handlers": ["console", "logfile"],
-            "level": DEPS_LOG_LEVEL,
+            "handlers": ["console-service", "logfile"],
+            "level": "INFO" if DEPS_LOG_LEVEL == "DEBUG" else DEPS_LOG_LEVEL,
         },
         "deepl": {
             "handlers": ["console", "logfile"],

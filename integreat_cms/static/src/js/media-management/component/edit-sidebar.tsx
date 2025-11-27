@@ -13,7 +13,7 @@
  *   6. submitForm() submits the deletion form via AJAX
  *   7. On success, the media library is refreshed
  */
-import { Dispatch, StateUpdater, useEffect, useState } from "preact/hooks";
+import { Dispatch, StateUpdater, useEffect, useState, useRef } from "preact/hooks";
 import {
     AlertTriangle,
     CheckCircle,
@@ -92,6 +92,8 @@ const EditSidebar = ({
     const [isAltTextEditable, setAltTextEditable] = useState<boolean>(false);
     // Editing is allowed if either global edit is enabled or the file is not global
     const isEditingAllowed = globalEdit || !file.isGlobal;
+    // Replace file input reference
+    const replaceFileInputRef = useRef<HTMLInputElement>(null);
 
     const toggleFileUsages = () => {
         if (isFileUsagesLoading) {
@@ -380,18 +382,19 @@ const EditSidebar = ({
                                     </button>
                                 )}
                                 {!selectionMode && canReplaceFile && (
-                                    <label
-                                        for="replace-file-input"
+                                    <button
+                                        type="button"
                                         title={mediaTranslations.btn_replace_file}
                                         className={cn(
                                             "w-full text-white text-center font-bold py-3 px-4 m-0 rounded",
                                             { "cursor-not-allowed bg-gray-500": isLoading },
                                             { "bg-blue-500 hover:bg-blue-600": !isLoading }
                                         )}
-                                        disabled={isLoading}>
-                                        <RefreshCw class="mr-1 inline-block h-5" />
+                                        disabled={isLoading}
+                                        onClick={() => replaceFileInputRef.current?.click()}>
+                                        <RefreshCw className="mr-1 inline-block h-5" />
                                         {mediaTranslations.btn_replace_file}
-                                    </label>
+                                    </button>
                                 )}
                                 {canDeleteFile && (
                                     <button
@@ -451,6 +454,7 @@ const EditSidebar = ({
                         maxLength={255}
                         accept={file.type}
                         disabled={isLoading}
+                        ref={replaceFileInputRef}
                         onChange={() => {
                             document.getElementById("replace-file").click();
                         }}

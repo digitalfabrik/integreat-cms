@@ -7,13 +7,13 @@ from __future__ import annotations
 import json
 import logging
 import random
-from datetime import datetime
 from typing import TYPE_CHECKING
 
 import requests
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
+from django.utils.dateparse import parse_datetime
 from django.views.decorators.csrf import csrf_exempt
 
 from ....cms.models import ABTester, Language, Region, UserChat
@@ -97,11 +97,29 @@ def process_chat_payload(
     if (user_chat := get_or_create_user_chat(request, device_id, language)) is None:
         return JsonResponse({"error": "Chat not found."}, status=404)
     if request.POST.get("message"):
-        user_chat.save_message(
+        response = user_chat.save_message(
             message=request.POST.get("message"), internal=False, automatic_message=False
         )
         user_chat.language = language
         user_chat.save()
+        user_chat.processing_answer = True  # type: ignore[assignment]
+        if response is not None:
+            if user_chat.automatic_answers:
+                celery_translate_and_answer_question.apply_async(
+                    args=[
+                        parse_datetime(response["updated_at"]),
+                        request.region.slug,
+                        response["ticket_id"],
+                    ],
+                )
+            else:
+                celery_translate_question.apply_async(
+                    args=[
+                        request.POST.get("message"),
+                        request.region.slug,
+                        response["ticket_id"],
+                    ]
+                )
     if request.POST.get("evaluation_consent"):
         user_chat.save_evaluation_consent(request.POST.get("evaluation_consent"))
     return JsonResponse(user_chat.as_dict())
@@ -178,7 +196,6 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
         return JsonResponse({"status": "Integreat Chat disabled"})
     webhook_message = json.loads(request.body)
     message_text = webhook_message["article"]["body"]
-    message_timestamp = datetime.fromisoformat(webhook_message["article"]["created_at"])
 
     actions = []
     if webhook_message["article"]["internal"]:
@@ -192,15 +209,9 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
         is_app_user_message(webhook_message)
         and not webhook_message["ticket"]["automatic_answers"]
     ):
-        actions.append("question translation queued")
-        celery_translate_question.apply_async(
-            args=[message_text, region.slug, webhook_message["ticket"]["id"]]
-        )
+        actions.append("question translation already tasked")
     elif is_app_user_message(webhook_message):
-        actions.append("question translation and answering queued")
-        celery_translate_and_answer_question.apply_async(
-            args=[message_timestamp, region.slug, webhook_message["ticket"]["id"]],
-        )
+        actions.append("question translation and answering already tasked")
     else:
         actions.append("answer translation queued")
         celery_translate_answer.apply_async(

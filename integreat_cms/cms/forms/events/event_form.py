@@ -6,6 +6,7 @@ from datetime import datetime, time
 from typing import TYPE_CHECKING
 
 from django import forms
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import status
@@ -128,6 +129,8 @@ class EventForm(CustomModelForm):
             self.fields["external_event_id"].initial = self.instance.external_event_id
             if self.instance.start_local.date() != self.instance.end_local.date():
                 self.fields["is_long_term"].initial = True
+            if self.instance.archived:
+                self.fields["meeting_url"].widget.attrs["readonly"] = True
 
     def clean(self) -> dict[str, Any]:
         """
@@ -214,6 +217,23 @@ class EventForm(CustomModelForm):
                     forms.ValidationError(
                         _(
                             "The end of the event can't be before the start of the event",
+                        ),
+                        code="invalid",
+                    ),
+                )
+            today = timezone.now()
+            if not cleaned_data.get("is_recurring") and (
+                end_date < today.date()
+                or (
+                    end_date == today.date()
+                    and cleaned_data.get("end_time") < today.time()
+                )
+            ):
+                self.add_error(
+                    "end_date",
+                    forms.ValidationError(
+                        _(
+                            "The end of the event can't be in the past. Please choose today or a future date and time."
                         ),
                         code="invalid",
                     ),

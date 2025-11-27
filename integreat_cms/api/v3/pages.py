@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import MultipleObjectsReturned
-from django.db.models import prefetch_related_objects
+from django.db.models import prefetch_related_objects, Q
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -19,7 +19,6 @@ from django.utils.text import slugify
 from django.views.decorators.csrf import csrf_exempt
 
 from ...cms.forms import PageTranslationForm
-from ...cms.models import Page
 from ..decorators import json_response, matomo_tracking
 from .offers import transform_offer
 
@@ -28,7 +27,7 @@ if TYPE_CHECKING:
 
     from django.http import HttpRequest
 
-    from ...cms.models import PageTranslation
+    from ...cms.models import Page, PageTranslation
 
 logger = logging.getLogger(__name__)
 
@@ -254,31 +253,49 @@ def children(
     depth = int(request.GET.get("depth", 1))
     try:
         # try to get a single ancestor page based on the requests query string
-        root_pages = [get_single_page(request, language_slug)]
+        root_page = get_single_page(request, language_slug)
     except RuntimeError:
         # if neither id nor url is set then get all root pages
-        root_pages = Page.get_root_pages(region_slug)
-        # simulate a virtual root node for WP compatibility
-        # so that depth = 1 returns only those pages without parents (immediate children of this virtual root page)
-        # like in wordpress depth = 0 will return no results in this case
-        depth -= 1
-    result = []
-    public_region_pages = (
+        root_page = None
+        # Here, depth = 1 returns only those pages without parents (immediate children of a virtual root page).
+        # Like in wordpress, depth = 0 will return no results in this case.
+
+    if root_page is None:
+        filters = Q(depth__lte=depth)
+        subtree_root_id = None
+    else:
+        # We query the descendants of root_page up to the given relative depth
+        # and the parent of root_page if it exists.
+        # The parent is used only in transform_page for root_page (see below) and is not
+        # emitted itself.
+        filters = Q(
+            tree_id=root_page.tree_id,
+            depth__lte=root_page.depth + depth,
+            lft__gte=root_page.lft,
+            rgt__lte=root_page.rgt,
+        )
+        if root_page.parent_id is not None:
+            filters = filters | Q(id=root_page.parent_id)
+            subtree_root_id = root_page.parent_id
+        else:
+            subtree_root_id = root_page.id
+
+    pages = (
         request.region.pages.select_related("organization__icon")
         .prefetch_related("embedded_offers")
-        .filter(
-            explicitly_archived=False,
-            tree_id__in=[page.tree_id for page in root_pages],
+        .filter(Q(explicitly_archived=False) & filters)
+        .cache_tree_dict(
+            archived=False,
+            language_slug=language_slug,
+            subtree_root_id=subtree_root_id,
+            should_prefetch_nonpublic_translations=False,
         )
-        .cache_tree(archived=False, language_slug=language_slug)
     )
-    for root in root_pages:
-        descendants = root.get_tree_max_depth(max_depth=depth)
-        for descendant in public_region_pages:
-            if descendant in descendants:
-                result.append(
-                    transform_page(descendant.get_public_translation(language_slug)),
-                )
+    result = [
+        transform_page(page.get_public_translation(language_slug))
+        for page in pages.values()
+        if root_page is None or page.id != root_page.parent_id
+    ]
     return JsonResponse(result, safe=False)
 
 

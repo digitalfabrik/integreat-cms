@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING
 import aiohttp
 from celery import shared_task
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 from integreat_cms.cms.models import Region, UserChat
 
@@ -122,8 +123,14 @@ def celery_translate_and_answer_question(
     :param zammad_ticket_id: Ticket ID contained in webhook request
     """
     region = Region.objects.get(slug=region_slug)
-    zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
-    zammad_chat.processing_answer = True
+    try:
+        zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
+    except ObjectDoesNotExist:
+        logger.exception(
+            "Could not find the given chat: %s %s", zammad_ticket_id, region
+        )
+        return
+    zammad_chat.processing_answer = True  # type: ignore[assignment]
     messages = zammad_chat.get_messages(before=message_timestamp, only_user=True)
     translation, answer = asyncio.run(
         async_process_user_message(
@@ -138,7 +145,6 @@ def celery_translate_and_answer_question(
         zammad_chat.save_message(
             message=translation["translation"], internal=True, automatic_message=True
         )
-    zammad_chat.processing_answer = False
     if answer:
         if answer["status"] == "error":
             logger.error("Integreat Chat: %s", answer["message"])
@@ -150,6 +156,19 @@ def celery_translate_and_answer_question(
                 words_generated=answer["length_generated_answer"],
             )
             zammad_chat.save_automatic_answers(answer["automatic_answers"])
+            zammad_chat.save_message(
+                message="Used Sources\n<ul>"
+                + "\n".join(
+                    [
+                        f"<li><a href='{source['source']}'>{source['source'].split('/')[-2]}</a>: {source['reason_inclusion']}</li>"
+                        for source in answer["details"]
+                    ]
+                )
+                + "</ul>",
+                internal=True,
+                automatic_message=True,
+            )
+    zammad_chat.processing_answer = False
 
 
 async def async_process_translate(
@@ -187,7 +206,15 @@ def celery_translate_answer(
     :param zammad_ticket_id: Ticket ID contained in webhook request
     """
     region = Region.objects.get(slug=region_slug)
-    zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
+    try:
+        zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
+    except ObjectDoesNotExist:
+        logger.exception(
+            "Could not find the given chat: %s %s", zammad_ticket_id, region
+        )
+        return
+    if zammad_chat.language == region.default_language:
+        return
     translation = asyncio.run(
         async_process_translate(
             message_text,
@@ -216,7 +243,13 @@ def celery_translate_question(
     :param zammad_ticket_id: Ticket ID contained in webhook request
     """
     region = Region.objects.get(slug=region_slug)
-    zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
+    try:
+        zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
+    except ObjectDoesNotExist:
+        logger.exception(
+            "Could not find the given chat: %s %s", zammad_ticket_id, region
+        )
+        return
     translation = asyncio.run(
         async_process_translate(
             message_text, zammad_chat.language.slug, region.default_language.slug

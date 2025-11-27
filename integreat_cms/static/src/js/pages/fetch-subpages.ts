@@ -10,6 +10,7 @@ import { addDragAndDropListeners } from "../tree-drag-and-drop";
 import { addConfirmationDialogListeners } from "../confirmation-popups";
 import { addPreviewWindowListeners, openPreviewWindowInPageTree } from "./page-preview";
 import { restorePageTreeLayout } from "./persistent_page_tree";
+import { setPageAccessesEventListeners } from "../analytics/statistics-page-accesses";
 
 /**
  * Function to insert children of selected page into DOM at right position
@@ -92,6 +93,7 @@ window.addEventListener("load", async () => {
 
         console.debug("Finished loading all subpages");
         // Set event handlers
+        setPageAccessesEventListeners();
         setToggleSubpagesEventListeners();
         setBulkActionEventListeners();
         addDragAndDropListeners();

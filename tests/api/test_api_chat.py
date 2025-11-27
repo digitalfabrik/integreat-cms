@@ -102,6 +102,10 @@ def test_api_chat_incorrect_server_error(
 
 @pytest.mark.django_db
 @patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
+    return_value=True,
+)
+@patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
     return_value="tech@tuerantuer.org",
 )
@@ -112,18 +116,24 @@ def test_api_chat_incorrect_server_error(
 )
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.save_message",
-    return_value=True,
+    return_value={"ticket_id": 2, "updated_at": "2025-11-13T21:49+01:00"},
 )
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.evaluation_consent",
     return_value=True,
 )
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.celery_translate_and_answer_question",
+    return_value=True,
+)
 def test_api_chat_first_chat(
+    automatic_answers: Mock,
+    get_zammad_user_mail: Mock,
+    create_ticket: Mock,
     evaluation_consent: Mock,
     save_message: Mock,
     messages: Mock,
-    create_ticket: Mock,
-    get_zammad_user_mail: Mock,
+    celery_translate_and_answer_question: Mock,
     load_test_data: None,
 ) -> None:
     """
@@ -142,9 +152,14 @@ def test_api_chat_first_chat(
     save_message.assert_called_once()
     assert response.status_code == 200
     assert UserChat.objects.current_chat("never_seen_before").zammad_id == 111
+    assert UserChat.objects.current_chat("never_seen_before").processing_answer
 
 
 @pytest.mark.django_db
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
+    return_value=True,
+)
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
     return_value="tech@tuerantuer.org",
@@ -159,18 +174,24 @@ def test_api_chat_first_chat(
 )
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.save_message",
-    return_value=True,
+    return_value={"ticket_id": 1, "updated_at": "2025-11-13T21:49+01:00"},
 )
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.evaluation_consent",
     return_value=True,
 )
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.celery_translate_and_answer_question",
+    return_value=lambda: True,
+)
 def test_api_chat_set_evaluation_consent(
+    celery_translate_and_answer_question: Mock,
     evaluation_consent: Mock,
     save_message: Mock,
     save_evaluation_consent: Mock,
     messages: Mock,
     get_zammad_user_mail: Mock,
+    automatic_answers: Mock,
     load_test_data: None,
 ) -> None:
     """
@@ -191,11 +212,11 @@ def test_api_chat_set_evaluation_consent(
 
 @pytest.mark.django_db
 @patch(
-    "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
-    return_value="tech@tuerantuer.org",
+    "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
+    return_value=True,
 )
 @patch(
-    "integreat_cms.api.v3.chat.user_chat.UserChat.save_message",
+    "integreat_cms.api.v3.chat.user_chat.UserChat.evaluation_consent",
     return_value=True,
 )
 @patch(
@@ -203,14 +224,24 @@ def test_api_chat_set_evaluation_consent(
     return_value=[{"body": "message1", "user_is_author": True}],
 )
 @patch(
-    "integreat_cms.api.v3.chat.user_chat.UserChat.evaluation_consent",
+    "integreat_cms.api.v3.chat.user_chat.UserChat.save_message",
+    return_value={"ticket_id": 1, "updated_at": "2025-11-13T21:49+01:00"},
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
+    return_value="tech@tuerantuer.org",
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.celery_translate_and_answer_question",
     return_value=True,
 )
 def test_api_chat_send_message(
-    evaluation_consent: Mock,
-    messages: Mock,
-    save_message: Mock,
+    celery_translate_and_answer_question: Mock,
     get_zammad_user_mail: Mock,
+    save_message: Mock,
+    get_messages: Mock,
+    evaluation_consent: Mock,
+    automatic_answers: Mock,
     load_test_data: None,
 ) -> None:
     """
@@ -228,10 +259,12 @@ def test_api_chat_send_message(
     response = client.post(url, data={"message": "test message"})
 
     assert response.status_code == 200
+    assert response.json()["chatbot_typing"]
     assert (
         UserChat.objects.current_chat(default_kwargs["device_id"]).zammad_id
         == previous_chat
     )
+    assert UserChat.objects.current_chat(default_kwargs["device_id"]).processing_answer
 
 
 @pytest.mark.django_db
@@ -249,7 +282,7 @@ def test_api_chat_send_message(
 )
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.save_message",
-    return_value=True,
+    return_value={"ticket_id": 1, "updated_at": "2025-11-13T21:49+01:00"},
 )
 def test_api_chat_get_messages_success(
     save_message: Mock,
