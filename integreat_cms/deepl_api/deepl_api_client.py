@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import logging
-from celery import shared_task, group
 from html import unescape
 from typing import TYPE_CHECKING
 
 import deepl
+from celery import group, shared_task
 from deepl.exceptions import DeepLException
 from django.apps import apps
 from django.conf import settings
@@ -25,6 +25,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
+
 def chunks(seq, size: int = 10):
     """
     Helper function to split ids list into chunks
@@ -32,18 +33,19 @@ def chunks(seq, size: int = 10):
     if size <= 0:
         raise ValueError("Chunk size must be > 0")
     for i in range(0, len(seq), size):
-        yield seq[i:i + size]
+        yield seq[i : i + size]
 
 
 @shared_task
-def translate_queryset_async(ids_chunk, app_label, model_name, source_language_slug, target_language_key):
+def translate_queryset_async(
+    ids_chunk, app_label, model_name, source_language_slug, target_language_key
+):
     translator = deepl.Translator(
         auth_key=settings.DEEPL_AUTH_KEY,
         server_url=settings.DEEPL_API_URL,
     )
     Model = apps.get_model(app_label, model_name)
     qs = Model.objects.filter(pk__in=ids_chunk)
-
 
     deepl_config: DeepLApiClientConfig = apps.get_app_config("deepl_api")
 
@@ -56,11 +58,26 @@ def translate_queryset_async(ids_chunk, app_label, model_name, source_language_s
         }
 
         for attr, attr_val in content_object.translatable_attributes:
-            translate_attr(data, attr, attr_val, translator, deepl_config, source_language_slug,
-                           target_language_key)
+            translate_attr(
+                data,
+                attr,
+                attr_val,
+                translator,
+                deepl_config,
+                source_language_slug,
+                target_language_key,
+            )
 
 
-def translate_attr(data, attr, attr_val, translator, deepl_config, source_language_slug, target_language_key):
+def translate_attr(
+    data,
+    attr,
+    attr_val,
+    translator,
+    deepl_config,
+    source_language_slug,
+    target_language_key,
+):
     # data has to be unescaped for DeepL to recognize Umlaute
     glossary = deepl_config.get_glossary(
         source_language_slug,
@@ -126,7 +143,7 @@ class DeepLApiClient(MachineTranslationApiClient):
         if translate_async:
             app_label = self.queryset[0]._meta.app_label
             model_name = self.queryset[0]._meta.model_name
-            ids = list(x.id for x in self.queryset)
+            ids = [x.id for x in self.queryset]
             job = group(
                 translate_queryset_async.s(
                     ids_chunk,
@@ -152,7 +169,15 @@ class DeepLApiClient(MachineTranslationApiClient):
 
             for attr, attr_val in content_object.translatable_attributes:
                 try:
-                    translate_attr(data, attr, attr_val, self.translator, deepl_config, self.source_language.slug, self.target_language_key)
+                    translate_attr(
+                        data,
+                        attr,
+                        attr_val,
+                        self.translator,
+                        deepl_config,
+                        self.source_language.slug,
+                        self.target_language_key,
+                    )
                 except DeepLException:
                     messages.error(
                         self.request,
