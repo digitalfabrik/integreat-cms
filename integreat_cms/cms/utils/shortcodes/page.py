@@ -1,9 +1,9 @@
 from typing import Any
 
 from django.utils.translation import gettext_lazy as _
-from lxml.html import Element, tostring, fromstring
+from lxml.html import Element, fromstring, tostring
 
-from ...models import Page
+from ...models import Page, PageTranslation
 from .utils import shortcode
 
 
@@ -43,7 +43,9 @@ def page(
         translation = page.get_public_translation(
             (context or {}).get("language_slug", page.region.default_language.slug)
         )
-    except Page.DoesNotExist:
+        if translation is None:
+            raise PageTranslation.DoesNotExist  # noqa: TRY301  # But… I want the two lines handling this to not be duplicated
+    except (Page.DoesNotExist, PageTranslation.DoesNotExist):
         element = Element("i")
         element.text = f"[{text or _('MISSING LINK')}]"
     else:
