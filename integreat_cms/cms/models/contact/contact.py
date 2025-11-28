@@ -85,10 +85,10 @@ class Contact(AbstractBaseModel):
         verbose_name=_("archived"),
         help_text=_("Whether or not the location is read-only and hidden in the API."),
     )
-    opening_hours = models.JSONField(
+    office_hours = models.JSONField(
         null=True,
         blank=True,
-        verbose_name=_("opening hours"),
+        verbose_name=_("office hours"),
     )
     last_updated = models.DateTimeField(
         auto_now=True,
