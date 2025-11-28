@@ -41,11 +41,6 @@ class PushNotification(AbstractBaseModel):
         default=settings.FCM_CHANNELS[0][0],
         verbose_name=_("channel"),
     )
-    draft = models.BooleanField(
-        default=True,
-        verbose_name=_("draft"),
-        help_text=_("Whether or not the News is a draft (drafts cannot be sent)"),
-    )
     #: :obj:`None` if the push notification is not yet sent
     sent_date = models.DateTimeField(
         null=True,
@@ -69,18 +64,6 @@ class PushNotification(AbstractBaseModel):
         choices=PN_MODES,
         verbose_name=_("mode"),
         help_text=_("Sets behavior for dealing with not existing News translations"),
-    )
-    #: Distinct functionalities for templates
-    is_template = models.BooleanField(
-        default=False,
-        verbose_name=_("News template"),
-    )
-    template_name = models.CharField(
-        null=True,
-        blank=True,
-        max_length=128,
-        verbose_name=_("News template name"),
-        help_text=_("Provide a distinct name for the template"),
     )
     archived = models.BooleanField(
         default=False,

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-from copy import deepcopy
 from datetime import datetime
 from typing import TYPE_CHECKING
 
@@ -129,7 +128,6 @@ class PushNotificationFormView(TemplateView):
             instance=push_notification,
             disabled=details["disable_edit"]
             or (push_notification and push_notification.archived),
-            template=("template" in request.GET),
         )
 
         PushNotificationTranslationFormSet = inlineformset_factory(
@@ -371,49 +369,6 @@ def save_forms(
     pnt_formset.save()
 
 
-def create_from_template(
-    request: HttpRequest,
-    pn_form: PushNotificationForm,
-) -> PushNotification | None:
-    """
-    Create a push notification from a template
-
-    :param request: The current request
-    :param pn_form: The push notification form
-    :return: The new created push notification object
-    """
-    if not pn_form.instance.is_template:
-        messages.error(
-            request,
-            _('News "{}" is not a template').format(pn_form.instance),
-        )
-        return None
-
-    new_push_notification = deepcopy(pn_form.instance)
-    new_push_notification.pk = None
-    new_push_notification.is_template = False
-    new_push_notification.template_name = None
-    new_push_notification.draft = True
-    new_push_notification.save()
-    new_push_notification.regions.set(pn_form.instance.regions.all())
-    for translation in pn_form.instance.translations.all():
-        new_translation = deepcopy(translation)
-        new_translation.push_notification = new_push_notification
-        new_translation.pk = None
-        new_translation.save()
-    messages.success(
-        request,
-        __(
-            _('News "{}" was successfully created from template "{}".').format(
-                new_push_notification,
-                pn_form.instance.template_name,
-            ),
-            _("In the next step, the news can now be sent."),
-        ),
-    )
-    return new_push_notification
-
-
 def send_pn(
     request: HttpRequest,
     pn_form: PushNotificationForm,
@@ -498,7 +453,6 @@ def send_pn(
                 ),
             )
             return False
-        pn_form.instance.draft = False
         pn_form.instance.save()
         messages.success(
             request,
@@ -518,7 +472,6 @@ def send_pn(
         )
         return False
     pn_form.instance.sent_date = datetime.now()
-    pn_form.instance.draft = False
     pn_form.instance.save()
     messages.success(
         request,
