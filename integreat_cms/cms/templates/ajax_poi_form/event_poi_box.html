@@ -1,0 +1,15 @@
+{% extends "_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% load poi_filters %}
+{% block collapsible_box_icon %}
+    map-pin
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {{ title }}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    {% include "ajax_poi_form/_base_poi_box.html" with form=form box_id=box_id %}
+{% endblock collapsible_box_content %}
