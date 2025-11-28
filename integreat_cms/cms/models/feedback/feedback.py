@@ -215,6 +215,8 @@ class Feedback(PolymorphicModel, AbstractBaseModel):
         :return: The canonical string representation of the feedback
         """
         class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<{class_name} (id: {self.id})>"
 
     class Meta:
