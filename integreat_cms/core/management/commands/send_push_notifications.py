@@ -56,16 +56,13 @@ class Command(LogCommand):
         scheduled_push_notifications = PushNotification.objects.filter(
             scheduled_send_date__isnull=False,
             sent_date__isnull=True,
-            draft=False,
             archived=False,
             scheduled_send_date__lte=timezone.now(),
             scheduled_send_date__gte=timezone.now() - timedelta(hours=retain_time),
         )
 
         failed_push_notifications = PushNotification.objects.filter(
-            draft=False,
             archived=False,
-            is_template=False,
             sent_date__isnull=True,
             scheduled_send_date__isnull=True,
             created_date__gte=timezone.now() - timedelta(hours=retain_time),
