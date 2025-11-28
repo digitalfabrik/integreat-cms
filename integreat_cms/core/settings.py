@@ -687,6 +687,7 @@ LOGGING: dict[str, Any] = {
             "style": "{",
         },
         "syslog": {
+            "()": RequestFormatter,
             "format": "INTEGREAT CMS - {levelname}: {message}",
             "style": "{",
         },
