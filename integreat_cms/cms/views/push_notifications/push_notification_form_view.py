@@ -245,46 +245,22 @@ class PushNotificationFormView(TemplateView):
             save_forms(push_notification_instance, pn_form, pnt_formset)
             # Add the success message
             action = _("updated") if push_notification_instance else _("created")
-            if pn_form.instance.is_template:
-                messages.success(
-                    request,
-                    _('Template "{}" was successfully {}').format(
-                        pn_form.instance.template_name,
-                        action,
-                    ),
-                )
-            else:
-                messages.success(
-                    request,
-                    _('News "{}" was successfully {}').format(pn_form.instance, action),
-                )
+            messages.success(
+                request,
+                _('News "{}" was successfully {}').format(pn_form.instance, action),
+            )
 
             success = True
 
-            if "submit_draft" in request.POST:
-                pn_form.instance.draft = True
+            if "submit_update" in request.POST:
                 pn_form.instance.save()
-            elif "submit_update" in request.POST:
-                pn_form.instance.draft = False
-                pn_form.instance.save()
-            elif "create_from_template" in request.POST:
-                if new_push_notification := create_from_template(request, pn_form):
-                    return redirect(
-                        "edit_push_notification",
-                        **{
-                            "push_notification_id": new_push_notification.pk,
-                            "region_slug": region.slug,
-                            "language_slug": language.slug,
-                        },
-                    )
-                success = False
             elif "submit_schedule" in request.POST:
                 success = send_pn(request, pn_form, schedule=True)
             elif "submit_send" in request.POST:
                 success = send_pn(request, pn_form)
             else:
                 raise NotImplementedError(
-                    "One of the following keys is required in POST data: 'submit_draft', 'submit_update', 'create_from_template', 'submit_schedule', 'submit_send'",
+                    "One of the following keys is required in POST data: 'submit_update', 'submit_schedule', 'submit_send'",
                 )
 
             if success:

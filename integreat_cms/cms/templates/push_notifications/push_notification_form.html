@@ -28,44 +28,27 @@
                 </h1>
                 <div class="flex flex-wrap gap-4 ml-auto mr-0">
                     {% if perms.cms.change_pushnotification and not not_accessible_regions_warning %}
-                        {% if push_notification_form.is_template.value %}
-                            {# BUTTONS FOR NEWS TEMPLATES #}
-                            <a href="{% url 'push_notifications_templates' region_slug=request.region.slug language_slug=language.slug %}"
-                               class="btn btn-ghost">{% translate "Cancel" %}</a>
-                            <button name="submit_draft" class="btn btn-outline">
-                                {% if push_notification_form.instance.id %}
-                                    {% translate "Update template" %}
+                        <a href="{% if not push_notification_form.instance.archived %}{% url 'push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% endif %}"
+                           class="btn btn-ghost">{% translate "Cancel" %}</a>
+                        {% if not push_notification_form.instance.archived %}
+                            <button name="submit_update" class="btn btn-ghost">
+                                {% if not push_notification_form.instance.sent_date %}
+                                    {% translate "Save" %}
                                 {% else %}
-                                    {% translate "Save template" %}
+                                    {% translate "Update" %}
                                 {% endif %}
                             </button>
-                            <button name="create_from_template" class="btn">
-                                {% translate "Create news from template" %}
-                            </button>
-                        {% else %}
-                            {# BUTTONS FOR NEWS #}
-                            <a href="{% url 'push_notifications' region_slug=request.region.slug %}"
-                               class="btn btn-ghost">{% translate "Cancel" %}</a>
-                            {% if not push_notification_form.instance.archived %}
-                                <button name="submit_draft" class="btn btn-outline">
-                                    {% translate "Save as draft" %}
-                                </button>
-                                {% if push_notification_form.instance.sent_date %}
-                                    <button name="submit_update" class="btn">
-                                        {% translate "Update" %}
+                            {% if push_notification_form.instance.id and not push_notification_form.instance.sent_date and perms.cms.send_push_notification %}
+                                <div id="button_submit_send">
+                                    <button name="submit_send"
+                                            class="btn {% if push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
+                                        {% translate "Send" %}
                                     </button>
-                                {% elif perms.cms.send_push_notification %}
-                                    <div id="button_submit_send">
-                                        <button name="submit_send"
-                                                class="btn {% if push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
-                                            {% translate "Save & Send" %}
-                                        </button>
-                                        <button name="submit_schedule"
-                                                class="btn {% if not push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
-                                            {% translate "Save & Schedule" %}
-                                        </button>
-                                    </div>
-                                {% endif %}
+                                    <button name="submit_schedule"
+                                            class="btn {% if not push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
+                                        {% translate "Schedule" %}
+                                    </button>
+                                </div>
                             {% endif %}
                         {% endif %}
                     {% endif %}
@@ -209,7 +192,7 @@
                         </div>
                     </div>
                 </div>
-                {% if push_notification_form.instance.id and not push_notification_form.instance.is_template %}
+                {% if push_notification_form.instance.id %}
                     <div class="rounded border border-blue-500 shadow-2xl bg-white">
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
@@ -219,44 +202,26 @@
                         </div>
                         <div class="px-4 pb-4 rounded bg-white">
                             {% if push_notification_form.instance.sent_date %}
-                                {% if push_notification_form.instance.draft %}
-                                    <label>
-                                        <i icon-name="check" class="text-green-500 align-text-top"></i>
-                                        {% translate "Sent draft" %}
-                                    </label>
-                                    {% blocktranslate trimmed with sent_date=push_notification_form.instance.sent_date %}
-                                        News was sent on {{ sent_date }}, but is now in draft state, which means it is no longer shown in the news section of the app.
-                                    {% endblocktranslate %}
-                                {% else %}
-                                    <label>
-                                        <i icon-name="check" class="text-green-500 align-text-top"></i>
-                                        {% translate "Sent" %}
-                                    </label>
-                                    {% translate "News sent on:" %}
-                                    <br>
-                                    {{ push_notification_form.instance.sent_date }}
-                                {% endif %}
+                                <label>
+                                    <i icon-name="check" class="text-green-500 align-text-top"></i>
+                                    {% translate "Sent" %}
+                                </label>
+                                {% translate "News sent on:" %}
+                                <br>
+                                {{ push_notification_form.instance.sent_date }}
                                 <br>
                             {% elif push_notification_form.instance.scheduled_send_date %}
-                                {% if push_notification_form.instance.draft %}
-                                    <label>
-                                        <i icon-name="calendar-off" class="align-text-bottom"></i>
-                                        {% translate "Draft" %}
-                                    </label>
-                                    {% translate "News is scheduled, but in draft and will not be sent automatically." %}
-                                {% else %}
-                                    <label>
-                                        <i icon-name="calendar-clock" class="text-blue-500 align-text-bottom"></i>
-                                        {% translate "Scheduled" %}
-                                    </label>
-                                    {% translate "News will be sent automatically on:" %}
-                                    <br>
-                                    {{ push_notification_form.instance.scheduled_send_date }}
-                                {% endif %}
+                                <label>
+                                    <i icon-name="calendar-clock" class="text-blue-500 align-text-bottom"></i>
+                                    {% translate "Scheduled" %}
+                                </label>
+                                {% translate "News will be sent automatically on:" %}
+                                <br>
+                                {{ push_notification_form.instance.scheduled_send_date }}
                             {% else %}
                                 <label>
                                     <i icon-name="pencil-line" class="text-blue-500 align-text-bottom"></i>
-                                    {% translate "Draft" %}
+                                    {% translate "Not yet sent" %}
                                 </label>
                                 {% translate "News not sent yet" %}
                             {% endif %}

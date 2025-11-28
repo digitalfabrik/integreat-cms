@@ -205,6 +205,30 @@ class PushNotification(AbstractBaseModel):
         self.archived = False
         self.save()
 
+    def copy(self, add_suffix: bool = True) -> None:
+        """
+        Duplicates the push notification for re-use
+        """
+
+        translations = list(self.translations.all())
+        regions = self.regions.all()
+
+        self.scheduled_send_date = None
+        self.sent_date = None
+        self.pk = None
+        self.save()
+        for region in regions:
+            self.regions.add(region)
+
+        if add_suffix:
+            copy_translation = _("copy")
+        for translation in translations:
+            translation.pk = None
+            translation.push_notification = self
+            if add_suffix:
+                translation.title = f"{translation.title} ({copy_translation})"
+            translation.save()
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("push notification")
