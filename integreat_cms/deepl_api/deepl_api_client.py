@@ -10,6 +10,7 @@ from deepl.exceptions import DeepLException
 from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
+from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
@@ -38,13 +39,20 @@ def chunks(seq, size: int = 10):
 
 @shared_task
 def translate_queryset_async(
-    ids_chunk, app_label, model_name, source_language_slug, target_language_key
+    ids_chunk,
+    app_label,
+    model_name,
+    source_language_slug,
+    target_language_key,
+    form_module,
+    form_name,
 ):
     translator = deepl.Translator(
         auth_key=settings.DEEPL_AUTH_KEY,
         server_url=settings.DEEPL_API_URL,
     )
     Model = apps.get_model(app_label, model_name)
+    form_class = import_string(f"{form_module}.{form_name}")
     qs = Model.objects.filter(pk__in=ids_chunk)
 
     deepl_config: DeepLApiClientConfig = apps.get_app_config("deepl_api")
@@ -67,6 +75,32 @@ def translate_queryset_async(
                 source_language_slug,
                 target_language_key,
             )
+        save_translation_async(content_object, data, form_class, target_language_key)
+
+
+def save_translation_async(content_object, data, form_class, target_language_key):
+    content_translation_form = form_class(
+        data=data,
+        instance=content_object.existing_target_translation,
+        additional_instance_attributes={
+            "language": target_language_key,
+            content_object.source_translation.foreign_field(): content_object,
+        },
+    )
+
+    # Validate content translation
+    if content_translation_form.is_valid():
+        content_translation_form.save()
+        # Revert "currently in translation" value of all versions
+        if content_object.existing_target_translation:
+            if settings.REDIS_CACHE:
+                content_object.existing_target_translation.all_versions.invalidated_update(
+                    currently_in_translation=False,
+                )
+            else:
+                content_object.existing_target_translation.all_versions.update(
+                    currently_in_translation=False,
+                )
 
 
 def translate_attr(
@@ -151,6 +185,8 @@ class DeepLApiClient(MachineTranslationApiClient):
                     model_name=model_name,
                     source_language_slug=self.source_language.slug,
                     target_language_key=self.target_language_key,
+                    form_module=self.form_class.__module__,
+                    form_name=self.form_class.__name__,
                 )
                 for ids_chunk in chunks(ids)
             )
