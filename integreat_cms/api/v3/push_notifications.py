@@ -46,7 +46,6 @@ def sent_push_notifications(
             - timezone.timedelta(days=settings.FCM_HISTORY_DAYS),
         )
         .filter(language__slug=language_slug)
-        .filter(push_notification__draft=False)
         .annotate(
             display_date=Greatest(F("last_updated"), F("push_notification__sent_date"))
         )

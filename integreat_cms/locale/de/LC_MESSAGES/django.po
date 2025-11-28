@@ -1746,7 +1746,6 @@ msgid "Marketing team"
 msgstr "Marketing-Team"
 
 #: cms/constants/status.py
-#: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/push_notifications/push_notification_list_row.html
 #: cms/templates/translations/translations_management.html
 msgid "Draft"
@@ -2284,10 +2283,6 @@ msgid "News \"{}\" was already sent on {}"
 msgstr "Nachricht \"{}\" wurde bereits gesendet am {}"
 
 #: cms/forms/push_notifications/push_notification_form.py
-msgid "Please provide a name for your template"
-msgstr "Bitte geben Sie der Vorlage einen Namen"
-
-#: cms/forms/push_notifications/push_notification_form.py
 msgid "The scheduled send date cannot be in the past"
 msgstr ""
 "Der geplante Zeitpunkt zum Senden kann nicht in der Vergangenheit liegen"
@@ -2668,6 +2663,7 @@ msgid ""
 msgstr "Kreuzen Sie an, wenn Sie den Titel nicht übersetzen wollen."
 
 #: cms/models/abstract_content_model.py
+#: cms/models/push_notifications/push_notification.py
 msgid "copy"
 msgstr "Kopie"
 
@@ -3976,16 +3972,6 @@ msgid "channel"
 msgstr "Kanal"
 
 #: cms/models/push_notifications/push_notification.py
-msgid "draft"
-msgstr "Entwurf"
-
-#: cms/models/push_notifications/push_notification.py
-msgid "Whether or not the News is a draft (drafts cannot be sent)"
-msgstr ""
-"Ob die Nachricht ein Entwurf ist oder nicht (Entwürfe können nicht gesendet "
-"werden)"
-
-#: cms/models/push_notifications/push_notification.py
 msgid "The date and time when the News was sent."
 msgstr "Datum und Uhrzeit zu der die Nachricht gesendet wurde"
 
@@ -4006,18 +3992,6 @@ msgid "Sets behavior for dealing with not existing News translations"
 msgstr ""
 "Legt das Verhalten für den Umgang mit nicht vorhandenen Übersetzungen von "
 "Nachrichten fest"
-
-#: cms/models/push_notifications/push_notification.py
-msgid "News template"
-msgstr "Nachrichten-Vorlage"
-
-#: cms/models/push_notifications/push_notification.py
-msgid "News template name"
-msgstr "Name der Nachrichten-Vorlage"
-
-#: cms/models/push_notifications/push_notification.py
-msgid "Provide a distinct name for the template"
-msgstr "Bitte vergeben Sie einen eindeutigen Namen für die Vorlage"
 
 #: cms/models/push_notifications/push_notification.py
 msgid ""
@@ -5665,7 +5639,6 @@ msgstr "Mobiltelefonnummer"
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 #: cms/templates/roles/role_list.html
 msgid "Options"
 msgstr "Optionen"
@@ -5699,7 +5672,6 @@ msgstr "Kontakte ausgewählt"
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
@@ -5725,7 +5697,6 @@ msgstr "Kontakte löschen"
 #: cms/templates/pages/_page_xliff_export_overlay.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -6306,7 +6277,6 @@ msgstr "Veranstaltung erstellen"
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
 #: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
-#: cms/templates/push_notifications/push_notification_form.html
 msgid "Save as draft"
 msgstr "Als Entwurf speichern"
 
@@ -6534,7 +6504,6 @@ msgstr "Veranstaltungen wiederherstellen"
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 #, python-format
 msgid "You are about to delete multiple selected %(content_type)s"
 msgstr "Sie sind dabei mehrere %(content_type)s zu löschen."
@@ -6543,7 +6512,6 @@ msgstr "Sie sind dabei mehrere %(content_type)s zu löschen."
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "This action cannot be undone"
 msgstr "Diese Handlung kann nicht rückgängig gemacht werden"
 
@@ -6551,7 +6519,6 @@ msgstr "Diese Handlung kann nicht rückgängig gemacht werden"
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Do you want to continue?"
 msgstr "Möchten Sie fortfahren?"
 
@@ -6559,7 +6526,6 @@ msgstr "Möchten Sie fortfahren?"
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 #, python-format
 msgid "Delete %(content_type)s"
 msgstr "%(content_type)s löschen"
@@ -6622,6 +6588,7 @@ msgstr "Aktualisieren & Importieren"
 #: cms/templates/linkcheck/link_list_row.html
 #: cms/templates/offertemplates/offertemplate_form.html
 #: cms/templates/poicategories/poicategory_form.html
+#: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
 #: cms/templates/translations/translations_management.html
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
@@ -6656,7 +6623,6 @@ msgstr "Zuletzt geändert von"
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/pages/pages_page_tree.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 #: cms/templates/regions/region_list.html
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
@@ -8339,18 +8305,8 @@ msgstr "Ort kopieren"
 
 #: cms/templates/push_notifications/push_notification_form.html
 #, python-format
-msgid "Edit Template \"%(push_notification_title)s\""
-msgstr "Nachrichten-Vorlage \"%(push_notification_title)s\" bearbeiten"
-
-#: cms/templates/push_notifications/push_notification_form.html
-#, python-format
 msgid "Edit News \"%(push_notification_title)s\""
 msgstr "Nachricht \"%(push_notification_title)s\" bearbeiten"
-
-#: cms/templates/push_notifications/push_notification_form.html
-#: cms/templates/push_notifications/push_notification_template_list.html
-msgid "Create News Template"
-msgstr "Neue Nachrichten-Vorlage erstellen"
 
 #: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/push_notifications/push_notification_list.html
@@ -8358,24 +8314,16 @@ msgid "Create News"
 msgstr "Nachricht erstellen"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "Update template"
-msgstr "Vorlage aktualisieren"
+msgid "Send"
+msgstr "Senden"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "Save template"
-msgstr "Vorlage speichern"
+msgid "Re-schedule"
+msgstr "Neu terminieren"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "Create news from template"
-msgstr "Neue Nachricht aus dieser Vorlage erstellen"
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "Save & Send"
-msgstr "Speichern & Senden"
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "Save & Schedule"
-msgstr "Speichern & Terminieren"
+msgid "Schedule"
+msgstr "Terminieren"
 
 #: cms/templates/push_notifications/push_notification_form.html
 #, python-format
@@ -8385,32 +8333,10 @@ msgstr "Nachrichten werden alle %(schedule_interval)s Minuten gesendet"
 #: cms/templates/push_notifications/push_notification_form.html
 msgid ""
 "Any manager with access to only some of the selected regions can view but "
-"not edit this news template."
-msgstr ""
-"Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
-"können diese Vorlage ansehen, aber nicht bearbeiten."
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid ""
-"Any manager with access to only some of the selected regions can view but "
 "not edit this news."
 msgstr ""
 "Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
 "können diese Nachricht ansehen, aber nicht bearbeiten."
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "Sent draft"
-msgstr "Gesendeter Entwurf"
-
-#: cms/templates/push_notifications/push_notification_form.html
-#, python-format
-msgid ""
-"News was sent on %(sent_date)s, but is now in draft state, which means it is "
-"no longer shown in the news section of the app."
-msgstr ""
-"Die Nachricht wurde am %(sent_date)s gesendet, befindet sich jetzt aber im "
-"Entwurfsstatus, d.h. sie wird nicht mehr im Nachrichtenbereich der App "
-"angezeigt"
 
 #: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/push_notifications/push_notification_list.html
@@ -8422,18 +8348,16 @@ msgid "News sent on:"
 msgstr "Nachricht wurde gesendet am:"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "News is scheduled, but in draft and will not be sent automatically."
-msgstr ""
-"Die Nachricht ist terminiert, aber im Entwurf und wird nicht automatisch "
-"gesendet."
-
-#: cms/templates/push_notifications/push_notification_form.html
 msgid "Scheduled"
 msgstr "Terminiert"
 
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "News will be sent automatically on:"
 msgstr "Nachricht wird automatisch versendet am:"
+
+#: cms/templates/push_notifications/push_notification_form.html
+msgid "Not yet sent"
+msgstr "Noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "News not sent yet"
@@ -8448,8 +8372,12 @@ msgid "Back to news"
 msgstr "Zurück zu Nachrichten"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Open Templates"
-msgstr "Vorlagen öffnen"
+msgid "All News"
+msgstr "Alle Nachrichten"
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Not sent"
+msgstr "Nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "Channel"
@@ -8468,12 +8396,10 @@ msgid "No push notifications archived yet."
 msgstr "Noch keine Push-Benachrichtigungen vorhanden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "No push notifications found with these filters."
 msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "No push notifications available yet."
 msgstr "Noch keine Push-Benachrichtigungen vorhanden."
 
@@ -8490,7 +8416,6 @@ msgid "Archive push notifications"
 msgstr "Push-Benachrichtigungen archivieren"
 
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Push notifications"
 msgstr "Push-Benachrichtigungen"
 
@@ -8534,32 +8459,9 @@ msgid "Please confirm that you really want to delete this push notification"
 msgstr ""
 "Bitte bestätigen Sie, dass diese Push-Benachrichtigung gelöscht werden soll"
 
-#: cms/templates/push_notifications/push_notification_template_list.html
-msgid "News Templates"
-msgstr "Nachrichten-Vorlagen"
-
-#: cms/templates/push_notifications/push_notification_template_list.html
-msgid "Open News"
-msgstr "Nachrichten öffnen"
-
-#: cms/templates/push_notifications/push_notification_template_list.html
-msgid "Template Name"
-msgstr "Name der Vorlage"
-
-#: cms/templates/push_notifications/push_notification_template_list_row.html
-msgid "Template name not available"
-msgstr "Name der Vorlage nicht verfügbar"
-
-#: cms/templates/push_notifications/push_notification_template_list_row.html
-msgid "Delete template"
-msgstr "Vorlage löschen"
-
-#: cms/templates/push_notifications/push_notification_template_list_row.html
-msgid ""
-"Please confirm that you really want to delete this push notification template"
-msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigungs-Vorlage gelöscht "
-"werden soll"
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Copy"
+msgstr "Kopieren"
 
 #: cms/templates/region_condition/region_condition.html
 msgid "Download region condition as CSV"
@@ -11191,6 +11093,11 @@ msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
 msgid "Push notification {0} was successfully deleted"
 msgstr "Push-Benachrichtigung {0} wurde erfolgreich gelöscht"
 
+#: cms/views/push_notifications/push_notification_actions.py
+#, python-brace-format
+msgid "Push notification {0} was successfully copied"
+msgstr "Push-Benachrichtigung {0} wurde erfolgreich kopiert"
+
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
 msgid "Push notifications are disabled."
@@ -11241,10 +11148,6 @@ msgid "created"
 msgstr "erstellt"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "Template \"{}\" was successfully {}"
-msgstr "Vorlage \"{}\" wurde erfolgreich {}"
-
-#: cms/views/push_notifications/push_notification_form_view.py
 msgid "News \"{}\" was successfully {}"
 msgstr "Nachricht \"{}\" wurde erfolgreich {}"
 
@@ -11265,18 +11168,6 @@ msgid ""
 msgstr ""
 "Bitte wenden Sie sich an denjenigen, der für all diese Regionen zuständig "
 "ist oder kontaktieren Sie eine:n Administrator:in."
-
-#: cms/views/push_notifications/push_notification_form_view.py
-msgid "News \"{}\" is not a template"
-msgstr "Nachricht \"{}\" ist keine Vorlage."
-
-#: cms/views/push_notifications/push_notification_form_view.py
-msgid "News \"{}\" was successfully created from template \"{}\"."
-msgstr "Nachricht \"{}\" wurde erfolgreich aus der Vorlage \"{}\" erstellt."
-
-#: cms/views/push_notifications/push_notification_form_view.py
-msgid "In the next step, the news can now be sent."
-msgstr "Im nächsten Schritt kann diese Nachricht nun versendet werden."
 
 #: cms/views/push_notifications/push_notification_form_view.py
 msgid "News \"{}\" cannot be sent, because it is archived"
@@ -11984,6 +11875,107 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid ""
+#~ "Any manager with access to only some of the selected regions can view but "
+#~ "not edit this news template."
+#~ msgstr ""
+#~ "Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff "
+#~ "haben, können diese Vorlage ansehen, aber nicht bearbeiten."
+
+#~ msgid "Edit Template \"%(push_notification_title)s\""
+#~ msgstr "Nachrichten-Vorlage \"%(push_notification_title)s\" bearbeiten"
+
+#~ msgid "Create News Template"
+#~ msgstr "Neue Nachrichten-Vorlage erstellen"
+
+#~ msgid "Please provide a name for your template"
+#~ msgstr "Bitte geben Sie der Vorlage einen Namen"
+
+#~ msgid "draft"
+#~ msgstr "Entwurf"
+
+#~ msgid "Whether or not the News is a draft (drafts cannot be sent)"
+#~ msgstr ""
+#~ "Ob die Nachricht ein Entwurf ist oder nicht (Entwürfe können nicht "
+#~ "gesendet werden)"
+
+#~ msgid "News template"
+#~ msgstr "Nachrichten-Vorlage"
+
+#~ msgid "News template name"
+#~ msgstr "Name der Nachrichten-Vorlage"
+
+#~ msgid "Provide a distinct name for the template"
+#~ msgstr "Bitte vergeben Sie einen eindeutigen Namen für die Vorlage"
+
+#~ msgid "News Templates"
+#~ msgstr "Nachrichten-Vorlagen"
+
+#~ msgid "Open News"
+#~ msgstr "Nachrichten öffnen"
+
+#~ msgid "Template Name"
+#~ msgstr "Name der Vorlage"
+
+#~ msgid "Template name not available"
+#~ msgstr "Name der Vorlage nicht verfügbar"
+
+#~ msgid "Delete template"
+#~ msgstr "Vorlage löschen"
+
+#~ msgid ""
+#~ "Please confirm that you really want to delete this push notification "
+#~ "template"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigungs-Vorlage gelöscht "
+#~ "werden soll"
+
+#~ msgid "News \"{}\" is not a template"
+#~ msgstr "Nachricht \"{}\" ist keine Vorlage."
+
+#~ msgid "News \"{}\" was successfully created from template \"{}\"."
+#~ msgstr "Nachricht \"{}\" wurde erfolgreich aus der Vorlage \"{}\" erstellt."
+
+#~ msgid "In the next step, the news can now be sent."
+#~ msgstr "Im nächsten Schritt kann diese Nachricht nun versendet werden."
+
+#~ msgid "Update template"
+#~ msgstr "Vorlage aktualisieren"
+
+#~ msgid "Save template"
+#~ msgstr "Vorlage speichern"
+
+#~ msgid "Create news from template"
+#~ msgstr "Neue Nachricht aus dieser Vorlage erstellen"
+
+#~ msgid "Save & Send"
+#~ msgstr "Speichern & Senden"
+
+#~ msgid "Save & Schedule"
+#~ msgstr "Speichern & Terminieren"
+
+#~ msgid "Sent draft"
+#~ msgstr "Gesendeter Entwurf"
+
+#~ msgid ""
+#~ "News was sent on %(sent_date)s, but is now in draft state, which means it "
+#~ "is no longer shown in the news section of the app."
+#~ msgstr ""
+#~ "Die Nachricht wurde am %(sent_date)s gesendet, befindet sich jetzt aber "
+#~ "im Entwurfsstatus, d.h. sie wird nicht mehr im Nachrichtenbereich der App "
+#~ "angezeigt"
+
+#~ msgid "News is scheduled, but in draft and will not be sent automatically."
+#~ msgstr ""
+#~ "Die Nachricht ist terminiert, aber im Entwurf und wird nicht automatisch "
+#~ "gesendet."
+
+#~ msgid "Template \"{}\" was successfully {}"
+#~ msgstr "Vorlage \"{}\" wurde erfolgreich {}"
+
+#~ msgid "Open Templates"
+#~ msgstr "Vorlagen öffnen"
+
 #~ msgid "The list below shows all detected errors related to links."
 #~ msgstr "Hier können Sie eine Übersicht über fehlerhafte Links sehen."
 
@@ -12261,9 +12253,6 @@ msgstr ""
 #~ "Einzelne Sprachen können durch Anklicken der Beschriftungen ausgeblendet "
 #~ "werden."
 
-#~ msgid "Copy"
-#~ msgstr "(Kopie)"
-
 #~ msgid "Number of online accesses"
 #~ msgstr "Anzahl der Online-Zugriffe"
 
@@ -12357,15 +12346,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have "
-#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have <b>"
+#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell "
-#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
-#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
-#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell <b>"
+#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
+#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
+#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
@@ -13729,9 +13718,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Sie können keinen Aktivierungslink an bereits aktive Benutzer:innen "
 #~ "versenden."
-
-#~ msgid "All news"
-#~ msgstr "Alle Nachrichten"
 
 #~ msgid "Create User"
 #~ msgstr "Konto erstellen"

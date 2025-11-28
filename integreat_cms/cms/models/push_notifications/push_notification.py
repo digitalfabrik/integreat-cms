@@ -41,11 +41,6 @@ class PushNotification(AbstractBaseModel):
         default=settings.FCM_CHANNELS[0][0],
         verbose_name=_("channel"),
     )
-    draft = models.BooleanField(
-        default=True,
-        verbose_name=_("draft"),
-        help_text=_("Whether or not the News is a draft (drafts cannot be sent)"),
-    )
     #: :obj:`None` if the push notification is not yet sent
     sent_date = models.DateTimeField(
         null=True,
@@ -69,18 +64,6 @@ class PushNotification(AbstractBaseModel):
         choices=PN_MODES,
         verbose_name=_("mode"),
         help_text=_("Sets behavior for dealing with not existing News translations"),
-    )
-    #: Distinct functionalities for templates
-    is_template = models.BooleanField(
-        default=False,
-        verbose_name=_("News template"),
-    )
-    template_name = models.CharField(
-        null=True,
-        blank=True,
-        max_length=128,
-        verbose_name=_("News template name"),
-        help_text=_("Provide a distinct name for the template"),
     )
     archived = models.BooleanField(
         default=False,
@@ -204,6 +187,32 @@ class PushNotification(AbstractBaseModel):
         """
         self.archived = False
         self.save()
+
+    def copy(self, add_suffix: bool = True) -> PushNotification:
+        """
+        Duplicates the push notification for re-use
+        """
+
+        translations = list(self.translations.all())
+        regions = self.regions.all()
+
+        self.scheduled_send_date = None
+        self.sent_date = None
+        self.pk = None
+        self.save()
+        for region in regions:
+            self.regions.add(region)
+
+        if add_suffix:
+            copy_translation = _("copy")
+        for translation in translations:
+            translation.pk = None
+            translation.push_notification = self
+            if add_suffix:
+                translation.title = f"{translation.title} ({copy_translation})"
+            translation.save()
+
+        return self
 
     class Meta:
         #: The verbose name of the model
