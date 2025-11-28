@@ -319,7 +319,6 @@ class PageFormView(
         user_slug = page_translation_form.data.get("slug")
 
         if not page_form.is_valid() or not page_translation_form.is_valid():
-            # Add error messages
             page_form.add_error_messages(request)
             page_translation_form.add_error_messages(request)
         elif not request.user.has_perm(
@@ -347,69 +346,21 @@ class PageFormView(
                 or page_translation_form.instance.status != status.AUTO_SAVE
             ):
                 page_translation_form.instance.page = page_form.save()
-            # Save page translation form
+
             page_translation_instance = page_translation_form.save(
                 foreign_form_changed=page_form.has_changed(),
             )
 
-            # Show a message that the slug was changed if it was not unique
             if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:
-                other_translation = PageTranslation.objects.filter(
-                    page__region=region,
-                    slug=user_slug,
-                    language=language,
-                ).first()
-                if other_translation:
-                    other_translation_link = reverse(
-                        "page_versions",
-                        kwargs={
-                            "page_id": other_translation.page.id,
-                            "language_slug": language.slug,
-                            "region_slug": region.slug,
-                            "selected_version": other_translation.version,
-                        },
-                    )
-                    message = _(
-                        "The slug was changed from '{user_slug}' to '{slug}', "
-                        "because '{user_slug}' is already used by <a>{translation}</a>.",
-                    ).format(
-                        user_slug=user_slug,
-                        slug=page_translation_form.cleaned_data["slug"],
-                        translation=other_translation,
-                    )
-                    messages.warning(
-                        request,
-                        translate_link(
-                            message,
-                            attributes={
-                                "href": other_translation_link,
-                                "class": "underline hover:no-underline",
-                            },
-                        ),
-                    )
-                else:
-                    logger.warning(
-                        "Slug was changed from the one the user provided, but we can't find the translation that already used it: %s (cleaned to %s)",
-                        user_slug,
-                        page_translation_form.cleaned_data["slug"],
-                    )
-                    messages.warning(
-                        _("The slug was changed from '{user_slug}' to '{slug}.").format(
-                            user_slug=user_slug,
-                            slug=page_translation_form.cleaned_data["slug"],
-                        )
-                    )
+                self.report_conflicting_slug(
+                    request, page_translation_form, region, user_slug, language
+                )
 
-            # If any source translation changes to draft, set all depending translations/versions to draft
             if page_translation_form.instance.status == status.DRAFT:
-                language_tree_node = region.language_node_by_slug.get(language.slug)
-                languages = [language] + [
-                    node.language for node in language_tree_node.get_descendants()
-                ]
-                page_translation_form.instance.page.translations.filter(
-                    language__in=languages,
-                    status=status.PUBLIC,
-                ).update(status=status.DRAFT)
+                self.set_translations_to_draft(
+                    page_translation_form.instance.page, region, language
+                )
+
             # If this is the first version and the minor edit checkbox is checked, remove it
             if (
                 page_translation_form.instance.version == 1
@@ -423,7 +374,7 @@ class PageFormView(
                         'The "minor edit" option was disabled because the first version can never be a minor edit.',
                     ),
                 )
-            # If this is not an autosave, clean up previous auto saves
+
             if page_translation_form.instance.status != status.AUTO_SAVE:
                 page_translation_form.instance.cleanup_autosaves()
 
@@ -448,7 +399,6 @@ class PageFormView(
             ):
                 messages.info(request, _("No changes detected, but date refreshed"))
             else:
-                # Add the success message
                 page_translation_form.add_success_message(request)
 
             return redirect(
@@ -546,3 +496,76 @@ class PageFormView(
             and not page_instance.archived
         )
         return context
+
+    def report_conflicting_slug(
+        self,
+        request: HttpRequest,
+        page_translation_form: PageTranslationForm,
+        region: Region,
+        user_slug: str,
+        language: Language,
+    ) -> None:
+        """
+        Informs the user that the slug they chose was not unique
+        and therefore changed by the system.
+        """
+        other_translation = PageTranslation.objects.filter(
+            page__region=region,
+            slug=user_slug,
+            language=language,
+        ).first()
+        if other_translation:
+            other_translation_link = reverse(
+                "page_versions",
+                kwargs={
+                    "page_id": other_translation.page.id,
+                    "language_slug": language.slug,
+                    "region_slug": region.slug,
+                    "selected_version": other_translation.version,
+                },
+            )
+            message = _(
+                "The slug was changed from '{user_slug}' to '{slug}', "
+                "because '{user_slug}' is already used by <a>{translation}</a>.",
+            ).format(
+                user_slug=user_slug,
+                slug=page_translation_form.cleaned_data["slug"],
+                translation=other_translation,
+            )
+            messages.warning(
+                request,
+                translate_link(
+                    message,
+                    attributes={
+                        "href": other_translation_link,
+                        "class": "underline hover:no-underline",
+                    },
+                ),
+            )
+        else:
+            logger.warning(
+                "Slug was changed from the one the user provided, but we can't find the translation that already used it: %s (cleaned to %s)",
+                user_slug,
+                page_translation_form.cleaned_data["slug"],
+            )
+            messages.warning(
+                _("The slug was changed from '{user_slug}' to '{slug}.").format(
+                    user_slug=user_slug,
+                    slug=page_translation_form.cleaned_data["slug"],
+                )
+            )
+
+    def set_translations_to_draft(
+        self, page: Page, region: Region, language: Language
+    ) -> None:
+        """
+        Sets all dependent translations and versions of the given translation to draft.
+        """
+        language_tree_node = region.language_node_by_slug.get(language.slug)
+        languages = [language] + [
+            node.language for node in language_tree_node.get_descendants()
+        ]
+        page.translations.filter(
+            language__in=languages,
+            status=status.PUBLIC,
+        ).update(status=status.DRAFT)
