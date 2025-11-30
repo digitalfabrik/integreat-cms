@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin
 
-from integreat_cms.cms.forms.contacts.contact_form import ContactForm
 from integreat_cms.cms.models.contact.contact import Contact
 from integreat_cms.cms.views.utils.opening_hour import get_open_hour_config_data
 
@@ -19,10 +18,6 @@ class ContactContextMixin(ContextMixin):
     """
 
     related_class: type[Contact] = Contact
-
-    @property
-    def form_class(self) -> ContactForm | None:
-        return getattr(self, "form_class", None)
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
