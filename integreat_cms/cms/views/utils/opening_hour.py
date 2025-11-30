@@ -11,7 +11,6 @@ def get_open_hour_config_data(
     related_class: type[POIForm] | type[Contact], can_change_location: bool
 ) -> dict:
     use_office_hours = related_class == Contact
-    print(use_office_hours)
     if use_office_hours:
         edit_label = _("Edit office hours for this weekday")
         edit_all_label = _("Edit all office hours")
