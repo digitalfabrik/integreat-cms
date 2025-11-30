@@ -15,7 +15,7 @@ def get_open_hour_config_data(
         edit_label = _("Edit office hours for this weekday")
         edit_all_label = _("Edit all office hours")
         model_verbose_name = Contact._meta.get_field(
-            "office_hours",
+            "opening_hours",
         ).verbose_name.title()
         openingTimeLabel = _("start time")
         closingTimeLabel = _("end time")

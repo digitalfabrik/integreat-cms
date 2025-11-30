@@ -28,7 +28,7 @@ class ContactForm(CustomModelForm):
 
     use_location_opening_hours = forms.BooleanField(
         required=False,
-        label=_("Adopt of opening hours from linked location as office hours"),
+        label=_("Adopt opening hours from linked location as office hours"),
     )
 
     class Meta:
@@ -48,7 +48,7 @@ class ContactForm(CustomModelForm):
             "phone_number",
             "mobile_phone_number",
             "website",
-            "office_hours",
+            "opening_hours",
             "appointment_url",
         ]
 
@@ -62,9 +62,9 @@ class ContactForm(CustomModelForm):
 
         adopt_hours = True
         if instance and instance.id:
-            adopt_hours = instance.office_hours is None
+            adopt_hours = instance.opening_hours is None
             if adopt_hours:
-                instance.office_hours = instance.location.opening_hours
+                instance.opening_hours = instance.location.opening_hours
 
         super().__init__(**kwargs)
         self.fields["use_location_opening_hours"].initial = adopt_hours
@@ -80,7 +80,7 @@ class ContactForm(CustomModelForm):
         """
 
         cleaned_data = super().clean()
-        self.cleaned_data["office_hours"] = self.validate_office_hours()
+        self.cleaned_data["opening_hours"] = self.validate_opening_hours()
 
         if (location := cleaned_data.get("location")) and location.archived:
             self.add_error(
@@ -94,12 +94,13 @@ class ContactForm(CustomModelForm):
             )
         return cleaned_data
 
-    def validate_office_hours(self) -> list[dict[str, Any]] | None:
+    def validate_opening_hours(self) -> list[dict[str, Any]] | None:
         """
         Validate the opening hours field (see :ref:`overriding-modelform-clean-method`).
 
         :return: The valid opening hours
         """
+
         # Remove when opening hours become available for all users
         if not self.request.user.has_perm("cms.test_beta_features"):
             return None
@@ -112,28 +113,28 @@ class ContactForm(CustomModelForm):
             _("An error occurred while saving the office hours."),
             _("Please contact an administrator."),
         )
-        cleaned_office_hours = self.cleaned_data["office_hours"]
+        cleaned_opening_hours = self.cleaned_data["opening_hours"]
 
         # Remove when opening hours become available for all users or after implementing opening hours for the ajax contact form too
-        if cleaned_office_hours is None:
+        if cleaned_opening_hours is None:
             return None
 
         # If a string is given, try to load as JSON string
-        if isinstance(cleaned_office_hours, str):
+        if isinstance(cleaned_opening_hours, str):
             try:
-                cleaned_office_hours = json.loads(cleaned_office_hours)
+                cleaned_opening_hours = json.loads(cleaned_opening_hours)
             except json.JSONDecodeError:
                 logger.warning(
                     "Opening hours of %r: No valid JSON: %r",
                     self.instance,
-                    cleaned_office_hours,
+                    cleaned_opening_hours,
                 )
-                self.add_error("office_hours", generic_error)
-                return cleaned_office_hours
+                self.add_error("opening_hours", generic_error)
+                return cleaned_opening_hours
         # Check whether input matches the given schema
         try:
             validate(
-                instance=cleaned_office_hours,
+                instance=cleaned_opening_hours,
                 schema=opening_hours.JSON_SCHEMA,
             )
         except ValidationError as e:
@@ -142,10 +143,10 @@ class ContactForm(CustomModelForm):
                 self.instance,
                 e,
             )
-            self.add_error("office_hours", generic_error)
-            return cleaned_office_hours
+            self.add_error("opening_hours", generic_error)
+            return cleaned_opening_hours
         # Validate each day
-        for index, day in enumerate(cleaned_office_hours):
+        for index, day in enumerate(cleaned_opening_hours):
             # Check for invalid combinations
             if day["allDay"] and day["closed"]:
                 logger.warning(
@@ -153,24 +154,24 @@ class ContactForm(CustomModelForm):
                     self.instance,
                     index,
                 )
-                self.add_error("office_hours", generic_error)
-                return cleaned_office_hours
+                self.add_error("opening_hours", generic_error)
+                return cleaned_opening_hours
             if (day["allDay"] or day["closed"]) and len(day["timeSlots"]) > 0:
                 logger.warning(
                     "Opening hours of %r: Day %s is open all day or closed, but has time slots",
                     self.instance,
                     index,
                 )
-                self.add_error("office_hours", generic_error)
-                return cleaned_office_hours
+                self.add_error("opening_hours", generic_error)
+                return cleaned_opening_hours
             if not (day["allDay"] or day["closed"]) and not day["timeSlots"]:
                 logger.warning(
                     "Opening hours of %r: Day %s is neither open all day nor closed, but has no time slots",
                     self.instance,
                     index,
                 )
-                self.add_error("office_hours", generic_error)
-                return cleaned_office_hours
+                self.add_error("opening_hours", generic_error)
+                return cleaned_opening_hours
             # Validate time slots
             for slot_index, time_slot in enumerate(day["timeSlots"]):
                 if time_slot["start"] >= time_slot["end"]:
@@ -180,8 +181,8 @@ class ContactForm(CustomModelForm):
                         slot_index,
                         index,
                     )
-                    self.add_error("office_hours", generic_error)
-                    return cleaned_office_hours
+                    self.add_error("opening_hours", generic_error)
+                    return cleaned_opening_hours
                 if (
                     slot_index > 0
                     and time_slot["start"] <= day["timeSlots"][slot_index - 1]["end"]
@@ -192,9 +193,9 @@ class ContactForm(CustomModelForm):
                         slot_index,
                         index,
                     )
-                    self.add_error("office_hours", generic_error)
-                    return cleaned_office_hours
-        return cleaned_office_hours
+                    self.add_error("opening_hours", generic_error)
+                    return cleaned_opening_hours
+        return cleaned_opening_hours
 
     def clean_phone_number(self) -> str:
         """

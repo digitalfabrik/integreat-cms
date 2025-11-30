@@ -85,7 +85,7 @@ class Contact(AbstractBaseModel):
         verbose_name=_("archived"),
         help_text=_("Whether or not the location is read-only and hidden in the API."),
     )
-    office_hours = models.JSONField(
+    opening_hours = models.JSONField(
         null=True,
         blank=True,
         verbose_name=_("office hours"),
@@ -417,6 +417,9 @@ class Contact(AbstractBaseModel):
 
         if self.website:
             details["website"] = _("show website")
+
+        if self.opening_hours:
+            details["opening_hours"] = _("show office hours")
 
         return details
 
