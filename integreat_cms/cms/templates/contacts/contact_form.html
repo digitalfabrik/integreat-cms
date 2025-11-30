@@ -90,8 +90,8 @@
                             {% if perms.cms.test_beta_features %}
                                 <div class="{% if not contact_form.instance.id %} hidden {% endif %}">
                                     <p>
-                                        <label for="{{ contact_form.office_hours.id_for_label }}">
-                                            {{ contact_form.office_hours.label }}
+                                        <label for="{{ contact_form.opening_hours.id_for_label }}">
+                                            {{ contact_form.opening_hours.label }}
                                         </label>
                                         <div class="flex">
                                             {% render_field contact_form.use_location_opening_hours class+=" mt-1" %}
@@ -103,7 +103,7 @@
                                     </p>
                                     <opening-hours-widget></opening-hours-widget>
                                     {{ opening_hour_config_data|json_script:"openingHourConfigData" }}
-                                    {{ contact_form.office_hours.value|json_script:"openingHourInitialData" }}
+                                    {{ contact_form.opening_hours.value|json_script:"openingHourInitialData" }}
                                     {{ contact_form.instance.location.opening_hours|json_script:"openingHourLocationData" }}
                                     <div class="py-2 px-4">
                                         {% render_field contact_form.temporarily_closed %}
