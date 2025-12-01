@@ -292,7 +292,10 @@ class Contact(AbstractBaseModel):
 
         :return: The canonical string representation of the contact
         """
-        return f"<Contact (id: {self.id}, area of responsibility: {self.area_of_responsibility}, name: {self.name}, region: {self.region.slug})>"
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
+        return f"<{class_name} (id: {self.id}, area of responsibility: {self.area_of_responsibility}, name: {self.name}, region: {self.region.slug})>"
 
     @cached_property
     def get_repr_short(self) -> str:
@@ -301,6 +304,9 @@ class Contact(AbstractBaseModel):
 
         :return: The short representation of the contact
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         full_address = f"{self.location} {self.location.address} {self.location.postcode} {self.location.city}"
         full_address_string_repr = (
             f"| Linked location: {full_address}" if self.location else ""

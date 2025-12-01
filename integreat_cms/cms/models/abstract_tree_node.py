@@ -335,6 +335,9 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
 
         :return: The canonical string representation of the tree node
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         parent_str = f", parent: {self.parent_id}" if self.parent_id else ""
         region_str = f", region: {self.region.slug}" if self.region else ""
         return f"<{type(self).__name__} (id: {self.id}{parent_str}{region_str})>"

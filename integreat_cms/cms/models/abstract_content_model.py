@@ -561,6 +561,8 @@ class AbstractContentModel(AbstractBaseModel):
         :return: The canonical string representation of the content object
         """
         class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         translation_slug = f", slug: {self.best_translation.slug}" if self.id else ""
         return f"<{class_name} (id: {self.id}, region: {self.region.slug}{translation_slug})>"
 

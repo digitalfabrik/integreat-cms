@@ -420,6 +420,9 @@ class Page(AbstractTreeNode, AbstractBasePage):
 
         :return: The canonical string representation of the page
         """
+        if not self.pk:
+            return "<Page (unsaved instance)>"
+
         parent_str = f", parent: {self.parent_id}" if self.parent_id else ""
         region_str = f", region: {self.region.slug}" if self.region else ""
         slug_str = (

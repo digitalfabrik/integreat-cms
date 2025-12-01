@@ -210,6 +210,8 @@ class LanguageTreeNode(AbstractTreeNode):
 
         :return: The canonical string representation of the language node
         """
+        if not self.pk:
+            return "<LanguageTreeNode (unsaved instance)>"
         language_str = f", language: {self.language.slug}" if self.language else ""
         parent_str = f", parent: {self.parent_id}" if self.parent_id else ""
         region_str = f", region: {self.region.slug}" if self.region else ""

@@ -60,6 +60,9 @@ class Role(AbstractBaseModel):
 
         :return: The canonical string representation of the role
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<Role (id: {self.id}, name: {self.english_name}{', staff role' if self.staff_role else ''})>"
 
     class Meta:
