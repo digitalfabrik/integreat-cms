@@ -1,4 +1,6 @@
 {% load svg_tags %}
+{% load i18n %}
+{% load content_filters %}
 {% load static %}
 {% spaceless %}
     <div>
@@ -60,6 +62,42 @@
                 <p>
                     <img src="{% get_svg_icon "www" %}" alt="Website: " width="15" height="15" />
                     <a href="{{ contact.website }}">{{ contact.website }}</a>
+                </p>
+            {% endif %}
+            {% if contact.opening_hours and "opening_hours" in wanted %}
+                <p>
+                    <img src="{% get_svg_icon "clock" %}"
+                         alt="Office hours: "
+                         width="15"
+                         height="15" />
+                    <b>{% translate "Office hours" %}</b>
+                    <details>
+                        <summary>
+                            {% translate "Show opening hours" %}
+                        </summary>
+                        <p>
+                            {% for item in contact.opening_hours %}
+                                {% with "Monday Tuesday Wednesday Thursday Friday Saturday Sunday" as list %}
+                                    {{ list[forloop.counter] }}
+                                    {% if item.allDay %}
+                                        {% translate "All day" %}
+                                        <br>
+                                    {% endif %}
+                                    {% if item.closed %}
+                                        {% translate "Closed" %}
+                                        <br>
+                                    {% endif %}
+                                    {% if item.timeSlots %}
+                                        {% for slot in item.timeSlots %}
+                                            {{ slot.start }} - {{ slot.end }}
+                                        {% endfor %}
+                                        <br>
+                                    {% endif %}
+                                {% endfor %}
+                                <br>
+                            {% endfor %}
+                        </p>
+                    </details>
                 </p>
             {% endif %}
         </div>
