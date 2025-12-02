@@ -424,6 +424,7 @@ INSTALLED_APPS: Final[list[str]] = [
     "db_mutex",
     "import_export",
     "linkcheck",
+    "pgtrigger",
     "polymorphic",
     "rules.apps.AutodiscoverRulesConfig",
     "treebeard",
