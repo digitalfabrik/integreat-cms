@@ -1,0 +1,17 @@
+{% load sort_tags %}
+<tr>
+    <th class="py-3 pl-4 min">
+        <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
+    </th>
+    {% for field, label in table_fields %}
+        <th class="text-left py-3 px-2">
+            {% if field %}
+                {# SORTABLE #}
+                {% sort_link label field %}
+            {% else %}
+                {# NON-SORTABLE #}
+                {{ label }}
+            {% endif %}
+        </th>
+    {% endfor %}
+</tr>

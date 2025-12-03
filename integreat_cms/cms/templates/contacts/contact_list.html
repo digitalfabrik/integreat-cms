@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load static %}
+{% load sort_tags %}
 {% block content %}
     {% get_current_language as LANGUAGE_CODE %}
     <div class="table-header">
@@ -54,33 +55,7 @@
             <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
                 <thead>
                     <tr class="border-b border-solid border-gray-200">
-                        <th class="py-3 pl-4 min">
-                            <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Name of related location" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Area of responsibility" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Name" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "E-Mail" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Phone number" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Mobile phone number" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Website" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-4 min">
-                            {% translate "Options" %}
-                        </th>
+                        {% render_table_header view.table_fields %}
                     </tr>
                 </thead>
                 <tbody>
