@@ -622,6 +622,8 @@ class MatomoApiClient:
                 if not language:
                     continue
                 for accesses_date, accesses in accesses_list.items():  # type: ignore [attr-defined]
+                    if accesses == 0:
+                        continue
                     access = PageAccesses(
                         access_date=datetime.strptime(accesses_date, "%Y-%m-%d").date(),
                         language=language,

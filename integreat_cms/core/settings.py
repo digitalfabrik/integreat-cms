@@ -687,6 +687,7 @@ LOGGING: dict[str, Any] = {
             "style": "{",
         },
         "syslog": {
+            "()": RequestFormatter,
             "format": "INTEGREAT CMS - {levelname}: {message}",
             "style": "{",
         },
@@ -1289,6 +1290,9 @@ LINKCHECK_PHONE_ENABLED: Final[bool] = "phone" not in LINKCHECK_IGNORED_URL_TYPE
 LINKCHECK_COMMAND_RUNNING: Final[bool] = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_COMMAND_RUNNING", "False")),
 )
+
+# Linkcheck should always run as a celery job
+LINKCHECK_IN_CELERY: Final[bool] = True
 
 
 #################
