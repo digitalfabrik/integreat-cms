@@ -216,7 +216,7 @@ class ZammadAPI:
             )
         except ValueError:
             return None
-        if response.status_code < 200 or response.status_code > 299:
+        if response.ok:
             return None
         return response.json()
 
