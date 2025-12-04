@@ -1,11 +1,19 @@
+import logging
+import re
+
 import pytest
 from django.conf import settings
 from django.test.client import Client
 from django.urls import resolve, reverse
+from django.utils.html import strip_tags
 
+from integreat_cms.cms.models.languages.language import Language
 from integreat_cms.cms.models.poi_categories.poi_category import POICategory
 from integreat_cms.cms.models.pois.poi import POI
 from tests.conftest import ANONYMOUS, CMS_TEAM, ROOT, SERVICE_TEAM, STAFF_ROLES
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 DEFAULT_POST_DATA = {
     "icon": "daily_routine",
@@ -236,6 +244,9 @@ def test_no_changes_were_made_message(
 
     new_poicategory_url = reverse("new_poicategory")
 
+    for language in Language.objects.all():
+        logger.debug("Language: %s - language-id: %s - slug:%s",language, language.id, language.slug)
+
     response = client.post(
         new_poicategory_url,
         data=DEFAULT_POST_DATA
@@ -249,6 +260,12 @@ def test_no_changes_were_made_message(
 
     poicategory = POICategory.objects.get(id=id_of_poicategory)
     translation = poicategory.translations.get(language__slug="de")
+
+    translations = poicategory.translations.all()
+
+    logger.debug("Translations after first save")
+    for translation in translations:
+        logger.debug("Translation: %s - language: %s", translation, translation.language)
 
     response = client.post(
         edit_url,
@@ -275,9 +292,39 @@ def test_no_changes_were_made_message(
         },
     )
 
+    edit_url = response.headers.get("location")
+
+    id_of_poicategory = resolve(edit_url).kwargs["pk"]
+
+    poicategory = POICategory.objects.get(id=id_of_poicategory)
+    translation = poicategory.translations.get(language__slug="de")
+
+    translations = poicategory.translations.all()
+
+    logger.debug("Translations after second save")
+    for translation in translations:
+        logger.debug("Translation: %s - language: %s", translation, translation.language)
+
+  
+
     assert response.status_code == 302
     response = client.get(edit_url)
     assert response.status_code == 200
+
+    content = response.content.decode("utf-8")
+
+    # clean up response content for logs:
+    # add newlines where HTML block elements usually separate content
+    clean_content = re.sub(
+        r"</?(div|p|br|li|ul|ol|tr|td|section|article)[^>]*>",
+        "\n",
+        content,
+        flags=re.IGNORECASE,
+    )
+    clean_content = strip_tags(clean_content)
+    clean_content = re.sub(r"\s*\n\s*", "\n", clean_content)  # clean up newlines
+    clean_content = re.sub(r"\n{2,}", "\n", clean_content)  # collapse double newlines
+    logger.debug("response is: %s", clean_content)
 
     assert "Keine Änderungen vorgenommen" in response.content.decode("utf-8")
 
