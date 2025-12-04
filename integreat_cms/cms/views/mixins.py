@@ -199,10 +199,10 @@ class FilterSortMixin:
 
     request: Any
     filter_form_class: type[ObjectSearchForm] | None = None
-    table_fields: list[str] = []
+    table_fields: list[tuple[str | None, str]] = []
 
     @property
-    def sort_fields(self):
+    def sort_fields(self) -> list[str]:
         """
         Extract only sortable field names from table_fields.
         A field is sortable if its first element is not None.

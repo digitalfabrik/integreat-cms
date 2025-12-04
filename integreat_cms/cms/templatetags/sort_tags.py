@@ -1,4 +1,5 @@
 from django import template
+from django.template.context import RequestContext
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 
@@ -6,7 +7,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def sort_link(context, label, field):
+def sort_link(context: RequestContext, label: str, field: str) -> str:
     """
     Usage:
         {% sort_link "Name" "name" %}
@@ -39,7 +40,7 @@ def sort_link(context, label, field):
 
 
 @register.inclusion_tag("_sortable_table_header.html", takes_context=True)
-def render_table_header(context, table_fields):
+def render_table_header(context: RequestContext, table_fields: dict[str, str]) -> dict:
     return {
         "request": context["request"],
         "table_fields": table_fields,
