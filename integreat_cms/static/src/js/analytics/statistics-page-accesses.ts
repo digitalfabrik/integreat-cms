@@ -141,6 +141,7 @@ const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
 export const updatePageAccesses = async (): Promise<void> => {
     const pageAccessesLoading = document.getElementById("page-accesses-loading");
     pageAccessesLoading.classList.remove("hidden");
+    setDates();
 
     const data = await getData();
 
@@ -160,7 +161,6 @@ export const updatePageAccesses = async (): Promise<void> => {
         updateDOM(data, visibleDatasetSlugs);
     }
     pageAccessesLoading.classList.add("hidden");
-    setDates();
 };
 
 export const setPageAccessesEventListeners = () => {
