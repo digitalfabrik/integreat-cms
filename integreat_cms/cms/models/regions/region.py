@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import uuid
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 from html import escape
 from typing import TYPE_CHECKING
 
@@ -1087,7 +1087,7 @@ class Region(AbstractBaseModel):
             PageAccesses.objects.filter(
                 page__region=self,
                 page__in=pages,
-                access_date__range=(start_date, end_date + timedelta(days=1)),
+                access_date__range=(start_date, end_date),
                 language__slug__in=language_slugs,
             )
             .values("page__id", "language__slug")
