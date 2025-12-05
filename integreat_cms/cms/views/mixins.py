@@ -216,7 +216,7 @@ class FilterSortMixin:
     def get_filter_form(self) -> ObjectSearchForm | None:
         if self.filter_form_class is None:
             return None
-        return self.filter_form_class(self.request.POST or None)
+        return self.filter_form_class(self.request.GET or None)
 
     def get_filtered_sorted_queryset(self, queryset: QuerySet) -> QuerySet:
         form = self.get_filter_form()
