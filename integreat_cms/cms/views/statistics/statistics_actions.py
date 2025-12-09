@@ -139,6 +139,8 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
     :return: A JSON with all API-Hits of the requested time period
     """
     region = request.region
+    data = request.POST
+    language_slugs = data.getlist("language_slugs")
 
     if not region.statistics_enabled:
         logger.error("Statistics are not enabled for this region.")
@@ -146,7 +148,7 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
             {"error": "Statistics are not enabled for this region."}, status=500
         )
 
-    statistics_form = StatisticsFilterForm(data=request.POST)
+    statistics_form = StatisticsFilterForm(data=data)
 
     if not statistics_form.is_valid():
         logger.error(statistics_form.errors)
@@ -156,12 +158,12 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
         )
 
     region_pages = Page.objects.filter(region=region)
-    languages = region.languages
+
     page_access_sums = region.get_page_access_count_by_language(
         pages=region_pages,
         start_date=statistics_form.cleaned_data["start_date"],
         end_date=statistics_form.cleaned_data["end_date"],
-        languages=languages,
+        language_slugs=language_slugs,
     )
 
     page_accesses_dict: dict[str, dict[str, int]] = defaultdict(dict)
