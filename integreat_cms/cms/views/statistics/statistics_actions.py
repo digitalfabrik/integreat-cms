@@ -15,6 +15,7 @@ from django.db.models import OuterRef
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
+from integreat_cms.cms.models.pages.page import Page
 from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.models.regions.region import Region
 
@@ -156,16 +157,7 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
             status=400,
         )
 
-    non_archived_pages = region.non_archived_pages
-    region_pages = (
-        PageTranslation.objects.filter(
-            page__region=region,
-            page__in=non_archived_pages,
-            language__slug__in=language_slugs,
-        )
-        .values("page__id")
-        .distinct("page__id")
-    )
+    region_pages = Page.objects.filter(region=region)
 
     page_access_sums = region.get_page_access_count_by_language(
         pages=region_pages,
