@@ -279,9 +279,9 @@ class PushNotificationFormView(TemplateView):
                     )
                 success = False
             elif "submit_schedule" in request.POST:
-                success = send_pn(request, pn_form, schedule=True)
+                send_pn(request, pn_form, schedule=True)
             elif "submit_send" in request.POST:
-                success = send_pn(request, pn_form)
+                send_pn(request, pn_form)
             else:
                 raise NotImplementedError(
                     "One of the following keys is required in POST data: 'submit_draft', 'submit_update', 'create_from_template', 'submit_schedule', 'submit_send'",
