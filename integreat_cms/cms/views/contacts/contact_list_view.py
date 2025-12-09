@@ -31,6 +31,16 @@ class ContactListView(
     template_name = "contacts/contact_list.html"
     archived = False
     filter_form_class = ContactSearchForm
+    table_fields = [
+        (None, _("Name of related location")),
+        ("area_of_responsibility", _("Area of responsibility")),
+        ("name", _("Name")),
+        ("email", _("E-Mail")),
+        ("phone_number", _("Phone number")),
+        ("mobile_phone_number", _("Mobile phone number")),
+        ("website", _("Website")),
+        (None, _("Options")),
+    ]
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
