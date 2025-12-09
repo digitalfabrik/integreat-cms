@@ -25,16 +25,16 @@ def migrate_phone_number_format(
     for contact in Contact.objects.all():
         phone_number = contact.phone_number
         if phone_number and phone_number.startswith("+49 (0) "):
-            contact.phone_number = f"+49{phone_number[8:]}"
+            contact.phone_number = f"+49 {phone_number[8:]}"
         mobile_phone_number = contact.mobile_phone_number
         if mobile_phone_number and mobile_phone_number.startswith("+49 (0) "):
-            contact.mobile_phone_number = f"+49{mobile_phone_number[8:]}"
+            contact.mobile_phone_number = f"+49 {mobile_phone_number[8:]}"
         contact.save()
 
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0136_event_online_link"),
+        ("cms", "0145_userchat_created_timestamp_and_more"),
     ]
 
     operations = [
