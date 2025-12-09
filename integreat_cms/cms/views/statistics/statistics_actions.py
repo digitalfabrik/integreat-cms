@@ -15,7 +15,6 @@ from django.db.models import OuterRef
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from integreat_cms.cms.models.pages.page import Page
 from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.models.regions.region import Region
 
@@ -139,6 +138,8 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
     :return: A JSON with all API-Hits of the requested time period
     """
     region = request.region
+    data = request.POST
+    language_slugs = data.getlist("language_slugs")
 
     if not region.statistics_enabled:
         logger.error("Statistics are not enabled for this region.")
@@ -146,7 +147,7 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
             {"error": "Statistics are not enabled for this region."}, status=500
         )
 
-    statistics_form = StatisticsFilterForm(data=request.POST)
+    statistics_form = StatisticsFilterForm(data=data)
 
     if not statistics_form.is_valid():
         logger.error(statistics_form.errors)
@@ -155,13 +156,22 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
             status=400,
         )
 
-    region_pages = Page.objects.filter(region=region)
-    languages = region.languages
+    non_archived_pages = region.non_archived_pages
+    region_pages = (
+        PageTranslation.objects.filter(
+            page__region=region,
+            page__in=non_archived_pages,
+            language__slug__in=language_slugs,
+        )
+        .values("page__id")
+        .distinct("page__id")
+    )
+
     page_access_sums = region.get_page_access_count_by_language(
         pages=region_pages,
         start_date=statistics_form.cleaned_data["start_date"],
         end_date=statistics_form.cleaned_data["end_date"],
-        languages=languages,
+        language_slugs=language_slugs,
     )
 
     page_accesses_dict: dict[str, dict[str, int]] = defaultdict(dict)
