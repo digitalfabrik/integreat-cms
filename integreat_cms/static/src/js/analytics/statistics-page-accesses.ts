@@ -57,8 +57,8 @@ const getData = async (visibleDatasetSlugs: string[]): Promise<AjaxResponse> => 
         return {} as AjaxResponse;
     }
 
-    const formData = new FormData(statisticsForm)
-    visibleDatasetSlugs.forEach((slug) => formData.append("language_slugs", slug))
+    const formData = new FormData(statisticsForm);
+    visibleDatasetSlugs.forEach((slug) => formData.append("language_slugs", slug));
 
     const parameters: RequestInit = {
         method: "POST",
@@ -82,14 +82,14 @@ const getCheckedSlugs = (): string[] => {
     languageCheckboxes.forEach((checkbox: HTMLInputElement) => {
         if (checkbox.checked) {
             const slug = checkbox.getAttribute("data-language-slug");
-            visibleDatasetSlugs.push(slug)
+            visibleDatasetSlugs.push(slug);
         }
     });
-    return visibleDatasetSlugs
-}
+    return visibleDatasetSlugs;
+};
 
 const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
-    const pageNodes = document.querySelectorAll(`.page-row`)
+    const pageNodes = document.querySelectorAll(`.page-row`);
     pageNodes.forEach((parentField) => {
         const pageId: string = parentField.id.split("-")[1];
         const accesses: AccessesPerLanguage = data[pageId];
@@ -112,7 +112,10 @@ const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
         }
         accessFieldChildElements.forEach((child) => {
             const languageSlug = child.getAttribute("data-language-slug");
-            const accessesOverTime = visibleDatasetSlugs.includes(languageSlug) && accesses && accesses[languageSlug] ? accesses[languageSlug] : 0;
+            const accessesOverTime =
+                visibleDatasetSlugs.includes(languageSlug) && accesses && accesses[languageSlug]
+                    ? accesses[languageSlug]
+                    : 0;
             setAccessBarPerLanguage(accessField, languageSlug, accessesOverTime, allAccesses);
         });
     });
