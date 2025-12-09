@@ -251,7 +251,8 @@ class POIFormView(
                 contact.website = website
                 contact.phone_number = phone_number
                 contact.email = email
-                contact.name = poi.default_translation.title
+                if not contact.name and language == region.default_language:
+                    contact.name = poi_translation_form.instance.title
                 contact.save()
             elif contact is not None:
                 contact.delete()
