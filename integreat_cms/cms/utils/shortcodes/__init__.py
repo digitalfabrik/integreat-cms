@@ -9,6 +9,7 @@ import shortcodes
 from django import template
 from django.template.defaultfilters import stringfilter
 
+from .contact import contact
 from .page import page
 
 logger = logging.getLogger(__name__)
