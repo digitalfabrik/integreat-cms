@@ -279,9 +279,9 @@ class PushNotificationFormView(TemplateView):
                     )
                 success = False
             elif "submit_schedule" in request.POST:
-                success = send_pn(request, pn_form, schedule=True)
+                send_pn(request, pn_form, schedule=True)
             elif "submit_send" in request.POST:
-                success = send_pn(request, pn_form)
+                send_pn(request, pn_form)
             else:
                 raise NotImplementedError(
                     "One of the following keys is required in POST data: 'submit_draft', 'submit_update', 'create_from_template', 'submit_schedule', 'submit_send'",
@@ -442,7 +442,7 @@ def send_pn(
     request: HttpRequest,
     pn_form: PushNotificationForm,
     schedule: bool = False,
-) -> bool:
+) -> None:
     """
     Send (or schedule) a push notification
 
@@ -460,7 +460,7 @@ def send_pn(
                 pn_form.instance,
             ),
         )
-        return False
+        return
 
     if not request.user.has_perm("cms.send_push_notification"):
         logger.warning(
@@ -478,7 +478,7 @@ def send_pn(
                 localize(localtime(pn_form.instance.sent_date)),
             ),
         )
-        return False
+        return
 
     try:
         push_sender = FirebaseApiClient(pn_form.instance)
@@ -492,7 +492,7 @@ def send_pn(
                 pn_form.instance,
             ),
         )
-        return False
+        return
     except ObjectDoesNotExist:
         logger.exception(
             "News could not be sent due to a missing translation",
@@ -503,7 +503,7 @@ def send_pn(
                 pn_form.instance, pn_form.instance.default_language
             ),
         )
-        return False
+        return
 
     if not push_sender.is_valid():
         messages.error(
@@ -512,7 +512,7 @@ def send_pn(
                 pn_form.instance,
             ),
         )
-        return False
+        return
     if schedule:
         if not pn_form.instance.scheduled_send_date:
             messages.error(
@@ -521,7 +521,7 @@ def send_pn(
                     pn_form.instance,
                 ),
             )
-            return False
+            return
         pn_form.instance.draft = False
         pn_form.instance.save()
         messages.success(
@@ -531,7 +531,7 @@ def send_pn(
                 localize(localtime(pn_form.instance.scheduled_send_date)),
             ),
         )
-        return True
+        return
     if not push_sender.send_all():
         messages.error(
             request,
@@ -540,7 +540,7 @@ def send_pn(
                 _("Please try again later or contact an administrator."),
             ),
         )
-        return False
+        return
     pn_form.instance.sent_date = datetime.now()
     pn_form.instance.draft = False
     pn_form.instance.save()
@@ -548,7 +548,6 @@ def send_pn(
         request,
         _('News "{}" was successfully sent').format(pn_form.instance),
     )
-    return True
 
 
 def extract_pn_details(
