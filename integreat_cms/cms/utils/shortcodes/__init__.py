@@ -9,6 +9,8 @@ import shortcodes
 from django import template
 from django.template.defaultfilters import stringfilter
 
+from .page import page
+
 logger = logging.getLogger(__name__)
 
 register = template.Library()
