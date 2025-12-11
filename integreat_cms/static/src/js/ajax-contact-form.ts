@@ -119,4 +119,9 @@ window.addEventListener("load", () => {
             showMessage(messages);
         });
     });
+
+    if (document.getElementById("id_area_of_responsibility")?.classList.contains("border-red-500")) {
+        document.getElementById("contact-form-widget").classList.remove("hidden");
+        document.getElementById("show-contact-form-button").classList.add("hidden");
+    }
 });
