@@ -12,7 +12,7 @@ from django import template
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from ..constants import translation_status
+from ..constants import translation_status, weekdays
 from ..models import (
     EventTranslation,
     ImprintPageTranslation,
@@ -23,6 +23,7 @@ from ..models import (
 )
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
     from typing import Any
 
     from django.http import QueryDict
@@ -258,3 +259,13 @@ def object_translation_has_view_perm(
     if isinstance(obj, Organization):
         return user.has_perm("cms.view:organization")
     raise ValueError(f"Invalid model: {type(obj)}")
+
+
+@register.filter
+def as_weekday_iterator(
+    opening_hours: list[dict[str, Any]],
+) -> Iterable[tuple[str, dict[str, Any]]]:
+    """
+    This tag returns the opening hours as a dictionary with weekday names as keys.
+    """
+    return {day: opening_hours[i] for i, day in weekdays.CHOICES}.items()

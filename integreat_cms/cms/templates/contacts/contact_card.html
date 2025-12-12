@@ -73,28 +73,25 @@
                     <b>{% translate "Office hours" %}</b>
                     <details>
                         <summary>
-                            {% translate "Show opening hours" %}
+                            {% translate "Show office hours" %}
                         </summary>
                         <p>
-                            {% for item in contact.opening_hours %}
-                                {% with "Monday Tuesday Wednesday Thursday Friday Saturday Sunday" as list %}
-                                    {{ list[forloop.counter] }}
-                                    {% if item.allDay %}
-                                        {% translate "All day" %}
-                                        <br>
-                                    {% endif %}
-                                    {% if item.closed %}
-                                        {% translate "Closed" %}
-                                        <br>
-                                    {% endif %}
-                                    {% if item.timeSlots %}
-                                        {% for slot in item.timeSlots %}
-                                            {{ slot.start }} - {{ slot.end }}
-                                        {% endfor %}
-                                        <br>
-                                    {% endif %}
-                                {% endfor %}
-                                <br>
+                            {% for day, item in contact.opening_hours|as_weekday_iterator %}
+                                <b>{{ day }}:</b>
+                                {% if item.allDay %}
+                                    {% translate "All day" %}
+                                    <br>
+                                {% endif %}
+                                {% if item.closed %}
+                                    {% translate "Closed" %}
+                                    <br>
+                                {% endif %}
+                                {% if item.timeSlots %}
+                                    {% for slot in item.timeSlots %}
+                                        {{ slot.start }} - {{ slot.end }}
+                                    {% endfor %}
+                                    <br>
+                                {% endif %}
                             {% endfor %}
                         </p>
                     </details>
