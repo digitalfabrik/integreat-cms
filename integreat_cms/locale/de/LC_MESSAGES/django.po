@@ -1864,8 +1864,8 @@ msgid "Last week"
 msgstr "Letzte Woche"
 
 #: cms/forms/contacts/contact_form.py
-msgid "Adopt opening hours from linked location"
-msgstr "Öffnungszeiten aus dem hinterlegten Ort übernehmen"
+msgid "Adopt opening hours from linked location as office hours"
+msgstr "Öffnungszeiten aus dem hinterlegten Ort als Sprechzeiten übernehmen"
 
 #: cms/forms/contacts/contact_form.py
 msgid "Location cannot be empty."
@@ -1875,9 +1875,9 @@ msgstr "Ort darf nicht leer sein."
 msgid "An archived location cannot be used for contacts."
 msgstr "Ein archivierter Ort kann nicht für Kontakte verwendet werden."
 
-#: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
-msgid "An error occurred while saving the opening hours."
-msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
+#: cms/forms/contacts/contact_form.py
+msgid "An error occurred while saving the office hours."
+msgstr "Beim Speichern der Sprechzeiten ist ein Fehler aufgetreten."
 
 #: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
 msgid "Please contact an administrator."
@@ -1964,11 +1964,11 @@ msgstr "Start-Datum"
 msgid "end date"
 msgstr "End-Datum"
 
-#: cms/forms/events/event_form.py
+#: cms/forms/events/event_form.py cms/views/utils/opening_hour.py
 msgid "start time"
 msgstr "Start-Uhrzeit"
 
-#: cms/forms/events/event_form.py
+#: cms/forms/events/event_form.py cms/views/utils/opening_hour.py
 msgid "end time"
 msgstr "End-Uhrzeit"
 
@@ -2252,6 +2252,10 @@ msgstr "E-Mail-Adresse"
 #: cms/forms/pois/poi_form.py cms/templates/contacts/contact_list.html
 msgid "Phone number"
 msgstr "Telefonnummer"
+
+#: cms/forms/pois/poi_form.py
+msgid "An error occurred while saving the opening hours."
+msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
 
 #: cms/forms/pois/poi_form.py
 msgid ""
@@ -2855,9 +2859,9 @@ msgstr "archiviert"
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
-#: cms/models/contact/contact.py cms/models/pois/poi.py
-msgid "opening hours"
-msgstr "Öffnungszeiten"
+#: cms/models/contact/contact.py
+msgid "office hours"
+msgstr "Sprechzeiten"
 
 #: cms/models/contact/contact.py cms/models/pois/poi.py
 msgid "appointment link"
@@ -2922,6 +2926,10 @@ msgstr "Mobiltelefonnummer anzeigen"
 #: cms/models/contact/contact.py
 msgid "show website"
 msgstr "Webseite anzeigen"
+
+#: cms/models/contact/contact.py
+msgid "show office hours"
+msgstr "Sprechzeiten anzeigen"
 
 #: cms/models/contact/contact.py
 msgid "(Copy)"
@@ -3911,6 +3919,10 @@ msgid ""
 msgstr ""
 "Link zu einer externen Seite über welche Termine für diesen Ort vereinbart "
 "werden können."
+
+#: cms/models/pois/poi.py
+msgid "opening hours"
+msgstr "Öffnungszeiten"
 
 #: cms/models/pois/poi.py cms/models/users/organization.py
 #: cms/models/users/user.py
@@ -5446,6 +5458,22 @@ msgstr "Ein Serverfehler ist aufgetreten."
 #: cms/templates/statistics/statistics_chart.html xliff/utils.py
 msgid "Please contact the administrator."
 msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
+
+#: cms/templates/contacts/contact_card.html
+msgid "Office hours"
+msgstr "Sprechzeiten"
+
+#: cms/templates/contacts/contact_card.html
+msgid "Show office hours"
+msgstr "Sprechzeiten anzeigen"
+
+#: cms/templates/contacts/contact_card.html
+msgid "All day"
+msgstr "Ganztägig"
+
+#: cms/templates/contacts/contact_card.html cms/views/utils/opening_hour.py
+msgid "Closed"
+msgstr "Geschlossen"
 
 #: cms/templates/contacts/contact_form.html
 #: cms/templates/contacts/contact_list_row.html
@@ -11548,6 +11576,14 @@ msgstr ""
 "Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
 
 #: cms/views/utils/opening_hour.py
+msgid "Edit office hours for this weekday"
+msgstr "Sprechzeiten für diesen Wochentag bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit all office hours"
+msgstr "Alle Sprechzeiten bearbeiten"
+
+#: cms/views/utils/opening_hour.py
 msgid "Edit opening hours for this weekday"
 msgstr "Öffnungszeiten für diesen Wochentag bearbeiten"
 
@@ -11556,24 +11592,20 @@ msgid "Edit all opening hours"
 msgstr "Alle Öffnungszeiten bearbeiten"
 
 #: cms/views/utils/opening_hour.py
-msgid "Edit \"Mo - Fr\""
-msgstr "\"Mo - Fr\" bearbeiten"
-
-#: cms/views/utils/opening_hour.py
-msgid "Edit \"Sa & Su\""
-msgstr "\"Sa & So\" bearbeiten"
-
-#: cms/views/utils/opening_hour.py
-msgid "Closed"
-msgstr "Geschlossen"
-
-#: cms/views/utils/opening_hour.py
 msgid "Opening time"
 msgstr "Öffnungszeit"
 
 #: cms/views/utils/opening_hour.py
 msgid "Closing time"
 msgstr "Schließzeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit \"Mo - Fr\""
+msgstr "\"Mo - Fr\" bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit \"Sa & Su\""
+msgstr "\"Sa & So\" bearbeiten"
 
 #: cms/views/utils/opening_hour.py
 msgid "Open around the clock"
@@ -11983,6 +12015,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Show opening hours"
+#~ msgstr "Öffnungszeiten anzeigen"
 
 #~ msgid "The list below shows all detected errors related to links."
 #~ msgstr "Hier können Sie eine Übersicht über fehlerhafte Links sehen."
