@@ -642,6 +642,9 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         :return: The canonical string representation of the content translation
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return (
             f"<{type(self).__name__} ("
             f"id: {self.id}, "
