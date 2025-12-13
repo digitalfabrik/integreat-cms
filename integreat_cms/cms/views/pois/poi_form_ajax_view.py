@@ -75,25 +75,33 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
             },
         )
 
+        if not poi_form.is_valid():
+            return JsonResponse(
+                data={
+                    "success": False,
+                },
+            )
+        poi = poi_form.save()
+
         poi_translation_form = POITranslationForm(
             data=request.POST,
             instance=None,
             additional_instance_attributes={
                 "creator": request.user,
                 "language": language,
-                "poi": poi_form.instance,
+                "poi": poi,
             },
             changed_by_user=request.user,
         )
 
-        if not poi_form.is_valid() or not poi_translation_form.is_valid():
+        if not poi_translation_form.is_valid():
             return JsonResponse(
                 data={
                     "success": False,
                 },
             )
 
-        poi_translation_form.instance.poi = poi_form.save()
+        poi_translation_form.instance.poi = poi
         poi_translation_form.save()
 
         return JsonResponse(
