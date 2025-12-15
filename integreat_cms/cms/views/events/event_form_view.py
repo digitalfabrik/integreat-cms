@@ -179,6 +179,15 @@ class EventFormView(
         )
         # clean data of event form to be able to pass the cleaned start date to the recurrence form for validation
         event_form_valid = event_form.is_valid()
+
+        if event_form_valid and event_form.instance.pk is None:
+            event = event_form.save(commit=False)
+            event.region = region
+            event.location = poi
+            event.save()
+        else:
+            event = event_form.instance
+
         recurrence_rule_form = RecurrenceRuleForm(
             data=request.POST,
             instance=recurrence_rule_instance,
