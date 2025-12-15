@@ -324,7 +324,7 @@ class PageFormView(
                 not page_instance
                 or page_translation_form.instance.status != status.AUTO_SAVE
             ):
-                page_translation_form.instance.page = page_form.save()
+                page_translation_form.instance.page = page_form.instance
 
             page_translation_instance = page_translation_form.save(
                 foreign_form_changed=page_form.has_changed(),
@@ -539,8 +539,13 @@ class PageFormView(
         """
         Pre-validates whether the page and page translation forms can be saved.
         """
-        if not page_form.is_valid() or not page_translation_form.is_valid():
+        page = None
+        if not page_form.is_valid():
             page_form.add_error_messages(request)
+            return False
+        page = page_form.save()
+
+        if not page_translation_form.is_valid():
             page_translation_form.add_error_messages(request)
             return False
 
@@ -563,7 +568,7 @@ class PageFormView(
             messages.info(request, _("No changes detected, autosave skipped"))
             return False
 
-        return True
+        return page is not None
 
     def handle_messages(
         self,
