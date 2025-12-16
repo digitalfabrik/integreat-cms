@@ -30,7 +30,7 @@ class DismissTutorial(View):
         """
 
         if (tutorial_slug := kwargs.get("slug")) == "page-tree":
-            request.user.page_tree_tutorial_seen = True
+            request.user.has_seen_page_tree_tutorial = True
         else:
             return JsonResponse(
                 {"error": f"Tutorial '{tutorial_slug}' not found."},
