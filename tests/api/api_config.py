@@ -128,7 +128,7 @@ API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
         "/augsburg/de/wp-json/extensions/v3/children/?depth=3&url=/augsburg/de/behörden-und-beratung/behörden/",
         "tests/api/expected-outputs/augsburg_de_children_archived_descendants.json",
         200,
-        12,
+        13,
     ),
     (
         "/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/",
