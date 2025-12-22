@@ -276,6 +276,18 @@ import { getCsrfToken } from "../../utils/csrf-token";
             items: isContactsEnabled ? "change_contact remove_contact" : "remove_contact",
         });
 
+        // Ensure <details> are by default open in the editor, when they are not clickable as part of the contact card, but outside
+        /* eslint no-param-reassign: ["error", { "props": false }] */
+        editor.on("BeforeSetContent", (e) => {
+            e.content = e.content.replace("<details>", "<details open>");
+        });
+        editor.on("PreProcess", (e) => {
+            const elements = Array.from(e.node.querySelectorAll('[data-contact-id][contenteditable="false"] details'));
+            elements.forEach((node) => {
+                node.open = false;
+            });
+        });
+
         return {};
     });
 })();
