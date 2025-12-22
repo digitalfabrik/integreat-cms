@@ -27,7 +27,8 @@ class ContactForm(CustomModelForm):
     """
 
     use_location_opening_hours = forms.BooleanField(
-        required=False, label=_("Adopt opening hours from linked location")
+        required=False,
+        label=_("Adopt opening hours from linked location as office hours"),
     )
 
     class Meta:
@@ -99,6 +100,7 @@ class ContactForm(CustomModelForm):
 
         :return: The valid opening hours
         """
+
         # Remove when opening hours become available for all users
         if not self.request.user.has_perm("cms.test_beta_features"):
             return None
@@ -108,7 +110,7 @@ class ContactForm(CustomModelForm):
 
         # Only show generic error message because users cannot directly modify the JSON input
         generic_error = __(
-            _("An error occurred while saving the opening hours."),
+            _("An error occurred while saving the office hours."),
             _("Please contact an administrator."),
         )
         cleaned_opening_hours = self.cleaned_data["opening_hours"]
