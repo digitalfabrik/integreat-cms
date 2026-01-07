@@ -136,10 +136,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "page_tree_tutorial_seen",
+                    "has_seen_page_tree_tutorial",
                     models.BooleanField(
                         default=False,
-                        help_text="Will be set to true once the user dismissed the page tree tutorial",
+                        help_text="has seen tutorial for page tree",
                         verbose_name="Page tree tutorial seen",
                     ),
                 ),
