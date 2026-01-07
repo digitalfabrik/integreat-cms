@@ -45,16 +45,13 @@ class Migration(migrations.Migration):
     # therefore causes a KeyError when building the migration state. Keeping this
     # migration as a no-op preserves numbering while avoiding errors.
     operations = [
-
-    migrations.AddField(
-        model_name="user",
-        name="has_seen_page_tree_tutorial",
-        field=models.BooleanField(default=False),
-    ),
-
-
-    migrations.RunPython(
-        copy_page_tree_tutorial_seen_forward,
-        copy_page_tree_tutorial_seen_backward,
-    )
-]
+        migrations.AddField(
+            model_name="user",
+            name="has_seen_page_tree_tutorial",
+            field=models.BooleanField(default=False),
+        ),
+        migrations.RunPython(
+            copy_page_tree_tutorial_seen_forward,
+            copy_page_tree_tutorial_seen_backward,
+        ),
+    ]
