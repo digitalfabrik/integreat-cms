@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-11-27T17:53:46+00:00" />
+    <meta property="article:modified_time" content="2026-01-12T13:49:13+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Views &mdash; integreat-cms 2025.12.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -5553,6 +5553,7 @@ anything meets your requirements.</p>
 <li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html">Push Notifications</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#module-integreat_cms.cms.views.push_notifications.push_notification_actions">Push Notification Actions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_actions.archive_push_notification"><code class="docutils literal notranslate"><span class="pre">archive_push_notification()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_actions.copy_push_notification"><code class="docutils literal notranslate"><span class="pre">copy_push_notification()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_actions.delete_push_notification"><code class="docutils literal notranslate"><span class="pre">delete_push_notification()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_actions.restore_push_notification"><code class="docutils literal notranslate"><span class="pre">restore_push_notification()</span></code></a></li>
 </ul>
@@ -5750,7 +5751,6 @@ anything meets your requirements.</p>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_form_view.PushNotificationFormView.view_is_async"><code class="docutils literal notranslate"><span class="pre">PushNotificationFormView.view_is_async</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_form_view.create_from_template"><code class="docutils literal notranslate"><span class="pre">create_from_template()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_form_view.extract_pn_details"><code class="docutils literal notranslate"><span class="pre">extract_pn_details()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_form_view.save_forms"><code class="docutils literal notranslate"><span class="pre">save_forms()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_form_view.send_pn"><code class="docutils literal notranslate"><span class="pre">send_pn()</span></code></a></li>
@@ -5771,6 +5771,7 @@ anything meets your requirements.</p>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.get_template_names"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.get_template_names()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.http_method_names"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.http_method_names</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.http_method_not_allowed"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.http_method_not_allowed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.not_sent"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.not_sent</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.options"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.options()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.post"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.post()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.render_to_response"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.render_to_response()</span></code></a></li>
@@ -5779,8 +5780,6 @@ anything meets your requirements.</p>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.template"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.template</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.template_engine"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.template_engine</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.template_name"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.template_name</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.template_templates"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.template_templates</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.templates"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.templates</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.view_is_async"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView.view_is_async</span></code></a></li>
 </ul>
 </li>
@@ -12031,7 +12030,7 @@ in the dispatch phase.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 27, 2025.
+      <span class="lastupdated">Last updated on Jan 12, 2026.
       </span></p>
   </div>
 
