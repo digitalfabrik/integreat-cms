@@ -11,6 +11,7 @@ const DirectoryContentLibrary = (props: LibraryProps) => {
         mediaLibraryContentState,
         fileIndexState,
         refreshState,
+        loadingState,
         directoryId,
         ajaxRequest,
         apiEndpoints: { getDirectoryContent, getDirectoryPath },
@@ -25,30 +26,37 @@ const DirectoryContentLibrary = (props: LibraryProps) => {
     const [_fileIndex, setFileIndex] = fileIndexState;
     // This state is used to refresh the media library after changes were made
     const [refresh, _setRefresh] = refreshState;
+    //This callback is used to set the Loading State when doing ajax requests
+    const [_isLoading, setLoading] = loadingState;
 
     // Load the directory path each time the directory id changes
     useEffect(() => {
-        // Reset search query buffer
-        const urlParams = new URLSearchParams({});
-        if (directoryId) {
-            console.debug(`Loading directory with id ${directoryId}...`);
-            urlParams.append("directory", directoryId);
-        } else {
-            console.debug(`Loading root directory...`);
-        }
-        // Load the new directory path
-        if (directoryId) {
-            ajaxRequest(getDirectoryPath, urlParams, setDirectoryPath);
-        } else {
-            // The root directory is no real directory object, so the path is empty
-            setDirectoryPath([]);
-        }
-        // Load the new directory content
-        ajaxRequest(getDirectoryContent, urlParams, setMediaLibraryContent);
+        const loadDirectory = async () => {
+            setLoading(true);
+            const urlParams = new URLSearchParams({});
+            if (directoryId) {
+                console.debug(`Loading directory with id ${directoryId}...`);
+                urlParams.append("directory", directoryId);
+            } else {
+                console.debug(`Loading root directory...`);
+            }
+            try {
+                await Promise.all([
+                    directoryId
+                        ? ajaxRequest(getDirectoryPath, urlParams, setDirectoryPath)
+                        : setDirectoryPath([]),
+                    ajaxRequest(getDirectoryContent, urlParams, setMediaLibraryContent)
+                ])
+            } finally {
+                setLoading(false)
+            }
 
-        // Close the file sidebar
-        setFileIndex(null);
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+            // Close the file sidebar
+            setFileIndex(null);
+            /* eslint-disable-next-line react-hooks/exhaustive-deps */
+        }
+
+        loadDirectory();
     }, [directoryId, refresh]);
 
     // Debug output on directory change
