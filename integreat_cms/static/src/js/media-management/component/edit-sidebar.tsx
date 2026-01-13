@@ -53,7 +53,7 @@ type Props = {
         urlParams: URLSearchParams,
         successCallback: (data: any) => void,
         loadingSetter?: Dispatch<StateUpdater<boolean>>
-    ) => void;
+    ) => Promise<void>;
     isLoading: boolean;
     canDeleteFile: boolean;
     canReplaceFile: boolean;

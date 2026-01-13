@@ -111,7 +111,11 @@ const MediaManagement = (props: Props) => {
     } = props;
 
     // This function is used to get information about a directory (either the path or the content)
-    const ajaxRequest = async (url: string, urlParams: URLSearchParams, successCallback: (data: any) => void) => {
+    const ajaxRequest = async (
+        url: string,
+        urlParams: URLSearchParams,
+        successCallback: (data: any) => void
+    ): Promise<void> => {
         try {
             const response = await fetch(`${url}?${urlParams}`);
             const HTTP_STATUS_OK = 200;

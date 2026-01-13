@@ -22,7 +22,7 @@ const SearchResultLibrary = (props: LibraryProps) => {
     const [_fileIndex, setFileIndex] = fileIndexState;
     // This state is used to refresh the media library after changes were made
     const [refresh, _setRefresh] = refreshState;
-    //This callback is used to set the Loading State when doing ajax requests
+    // This callback is used to set the Loading State when doing ajax requests
     const [_isLoading, setLoading] = loadingState;
 
     useEffect(() => {
@@ -36,10 +36,10 @@ const SearchResultLibrary = (props: LibraryProps) => {
             await ajaxRequest(getSearchResult, urlParams, setMediaLibraryContent);
             // Close the file sidebar
             setFileIndex(null);
-            /* eslint-disable-next-line react-hooks/exhaustive-deps */
             setLoading(false);
         };
         applySearch();
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [searchQuery, refresh]);
 
     return <Library {...props} />;

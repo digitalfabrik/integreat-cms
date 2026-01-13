@@ -22,7 +22,7 @@ const FilterResultLibrary = (props: LibraryProps) => {
     const [_fileIndex, setFileIndex] = fileIndexState;
     // This state is used to refresh the media library after changes were made
     const [refresh, _setRefresh] = refreshState;
-    //This callback is used to set the Loading State when doing ajax requests
+    // This callback is used to set the Loading State when doing ajax requests
     const [_isLoading, setLoading] = loadingState;
 
     useEffect(() => {
