@@ -90,7 +90,7 @@ def get_directory_content_ajax(
     media_files = MediaFile.objects.filter(
         Q(region=region) | Q(region__isnull=True, is_hidden=False),
         Q(parent_directory=directory),
-    )
+    ).prefetch_related("icon_organizations", "icon_regions", "events", "pages", "pois")
     directories = Directory.objects.filter(
         Q(region=region) | Q(region__isnull=True, is_hidden=False),
         parent=directory,

@@ -42,19 +42,17 @@ const DirectoryContentLibrary = (props: LibraryProps) => {
             }
             try {
                 await Promise.all([
-                    directoryId
-                        ? ajaxRequest(getDirectoryPath, urlParams, setDirectoryPath)
-                        : setDirectoryPath([]),
-                    ajaxRequest(getDirectoryContent, urlParams, setMediaLibraryContent)
-                ])
+                    directoryId ? ajaxRequest(getDirectoryPath, urlParams, setDirectoryPath) : setDirectoryPath([]),
+                    ajaxRequest(getDirectoryContent, urlParams, setMediaLibraryContent),
+                ]);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
 
             // Close the file sidebar
             setFileIndex(null);
             /* eslint-disable-next-line react-hooks/exhaustive-deps */
-        }
+        };
 
         loadDirectory();
     }, [directoryId, refresh]);

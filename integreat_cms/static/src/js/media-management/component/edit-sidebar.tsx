@@ -95,7 +95,7 @@ const EditSidebar = ({
     // Replace file input reference
     const replaceFileInputRef = useRef<HTMLInputElement>(null);
 
-    const toggleFileUsages = async() => {
+    const toggleFileUsages = async () => {
         if (isFileUsagesLoading) {
             return;
         }
@@ -109,7 +109,7 @@ const EditSidebar = ({
             // Load the search result
             setFileUsagesLoading(true);
             await ajaxRequest(getFileUsages, urlParams, setFileUsages);
-            setFileUsagesLoading(false)
+            setFileUsagesLoading(false);
         }
     };
 

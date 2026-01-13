@@ -27,7 +27,7 @@ const SearchResultLibrary = (props: LibraryProps) => {
 
     useEffect(() => {
         const applySearch = async () => {
-            setLoading(true)
+            setLoading(true);
             const urlParams = new URLSearchParams({
                 query: searchQuery,
             });
@@ -37,10 +37,9 @@ const SearchResultLibrary = (props: LibraryProps) => {
             // Close the file sidebar
             setFileIndex(null);
             /* eslint-disable-next-line react-hooks/exhaustive-deps */
-            setLoading(false)
-        }
-        applySearch()
-
+            setLoading(false);
+        };
+        applySearch();
     }, [searchQuery, refresh]);
 
     return <Library {...props} />;

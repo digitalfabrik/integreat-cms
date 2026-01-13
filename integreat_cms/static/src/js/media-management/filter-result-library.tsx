@@ -27,7 +27,7 @@ const FilterResultLibrary = (props: LibraryProps) => {
 
     useEffect(() => {
         const applyFilter = async () => {
-            setLoading(true)
+            setLoading(true);
             if (mediaFilter === "unused") {
                 console.debug("Loading unused media files...");
                 const urlParams = new URLSearchParams({});
@@ -38,10 +38,9 @@ const FilterResultLibrary = (props: LibraryProps) => {
             } else {
                 console.error("Unsupported filter: ", mediaFilter);
             }
-            setLoading(false)
-        }
-        applyFilter()
-
+            setLoading(false);
+        };
+        applyFilter();
     }, [refresh]); /* eslint-disable-line react-hooks/exhaustive-deps */
 
     return <Library {...props} />;
