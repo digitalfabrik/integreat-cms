@@ -4,15 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('cms', '0145_userchat_created_timestamp_and_more'),
+        ("cms", "0145_userchat_created_timestamp_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='has_seen_page_tree_tutorial',
-            field=models.BooleanField(default=False, help_text='Has seen tutorial for page tree', verbose_name='Page tree tutorial seen'),
+            model_name="user",
+            name="has_seen_page_tree_tutorial",
+            field=models.BooleanField(
+                default=False,
+                help_text="Has seen tutorial for page tree",
+                verbose_name="Page tree tutorial seen",
+            ),
         ),
     ]
