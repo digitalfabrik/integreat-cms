@@ -61,19 +61,10 @@ class Command(LogCommand):
             scheduled_send_date__gte=timezone.now() - timedelta(hours=retain_time),
         )
 
-        failed_push_notifications = PushNotification.objects.filter(
-            archived=False,
-            sent_date__isnull=True,
-            scheduled_send_date__isnull=True,
-            created_date__gte=timezone.now() - timedelta(hours=retain_time),
-        )
-
-        pending_push_notifications = list(failed_push_notifications) + list(
-            scheduled_push_notifications,
-        )
-
-        if total := len(pending_push_notifications):
-            for counter, push_notification in enumerate(pending_push_notifications, 1):
+        if total := len(scheduled_push_notifications):
+            for counter, push_notification in enumerate(
+                scheduled_push_notifications, 1
+            ):
                 self.send_push_notification(counter, total, push_notification)
             logger.success(  # type: ignore[attr-defined]
                 "✔ All %d scheduled push notifications have been processed.",
