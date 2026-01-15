@@ -1652,6 +1652,21 @@ urlpatterns: list[URLPattern] = [
                                             name="archived_push_notifications",
                                         ),
                                         path(
+                                            "not_sent/",
+                                            push_notifications.PushNotificationListView.as_view(
+                                                not_sent=True,
+                                            ),
+                                            name="push_notifications_not_sent",
+                                        ),
+                                        path(
+                                            "archived_not_sent/",
+                                            push_notifications.PushNotificationListView.as_view(
+                                                archived=True,
+                                                not_sent=True,
+                                            ),
+                                            name="archived_push_notifications_not_sent",
+                                        ),
+                                        path(
                                             "bulk-archive/",
                                             push_notifications.ArchivePushNotificationsBulkAction.as_view(
                                                 model=PushNotification,
@@ -1671,13 +1686,6 @@ urlpatterns: list[URLPattern] = [
                                                 model=PushNotification,
                                             ),
                                             name="bulk_delete_push_notifications",
-                                        ),
-                                        path(
-                                            "templates/",
-                                            push_notifications.PushNotificationListView.as_view(
-                                                templates=True,
-                                            ),
-                                            name="push_notifications_templates",
                                         ),
                                         path(
                                             "new/",
@@ -1707,6 +1715,11 @@ urlpatterns: list[URLPattern] = [
                                                         "delete/",
                                                         push_notifications.delete_push_notification,
                                                         name="delete_push_notification",
+                                                    ),
+                                                    path(
+                                                        "copy/",
+                                                        push_notifications.copy_push_notification,
+                                                        name="copy_push_notification",
                                                     ),
                                                 ],
                                             ),

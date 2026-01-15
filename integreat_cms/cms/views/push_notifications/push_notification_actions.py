@@ -122,3 +122,42 @@ def delete_push_notification(
             "language_slug": language_slug,
         },
     )
+
+
+@permission_required("cms.change_pushnotification")
+def copy_push_notification(
+    request: HttpRequest,
+    push_notification_id: int,
+    region_slug: str,
+    language_slug: str,
+) -> HttpResponseRedirect:
+    """
+    Copy given push notification
+
+    :param request: The current request
+    :param push_notification_id: The id of the push notification which should be deleted
+    :param region_slug: The slug of the current region
+    :return: A redirection to the :class:`~integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView`
+    """
+    to_be_copied_pn = get_object_or_404(
+        PushNotification,
+        id=push_notification_id,
+        regions=request.region,
+    )
+    # we need to save the title in a new variable to show it in the message
+    best_translation = to_be_copied_pn.best_translation
+    copied_pn = to_be_copied_pn.copy()
+
+    messages.success(
+        request,
+        _("Push notification {0} was successfully copied").format(best_translation),
+    )
+
+    return redirect(
+        "edit_push_notification",
+        **{
+            "push_notification_id": copied_pn.id,
+            "region_slug": region_slug,
+            "language_slug": language_slug,
+        },
+    )

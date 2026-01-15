@@ -134,22 +134,16 @@ class TestSendPushNotification:
 
         push_notification = PushNotification.objects.create(
             channel="default",
-            draft=False,
             sent_date=None,
             scheduled_send_date=datetime.now(),
             mode="ONLY_AVAILABLE",
-            is_template=False,
-            template_name=None,
         )
 
         overdue_push_notification = PushNotification.objects.create(
             channel="default",
-            draft=False,
             sent_date=None,
             scheduled_send_date=datetime.now() - timedelta(days=2),
             mode="ONLY_AVAILABLE",
-            is_template=False,
-            template_name=None,
         )
 
         PushNotificationTranslation.objects.create(
@@ -204,11 +198,8 @@ class TestSendPushNotification:
 
         push_notification = PushNotification.objects.create(
             channel="default",
-            draft=False,
             sent_date=None,
             mode="ONLY_AVAILABLE",
-            is_template=False,
-            template_name=None,
         )
 
         PushNotificationTranslation.objects.create(

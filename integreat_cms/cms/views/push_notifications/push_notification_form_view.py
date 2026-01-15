@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-from copy import deepcopy
 from datetime import datetime
 from typing import TYPE_CHECKING
 
@@ -129,7 +128,6 @@ class PushNotificationFormView(TemplateView):
             instance=push_notification,
             disabled=details["disable_edit"]
             or (push_notification and push_notification.archived),
-            template=("template" in request.GET),
         )
 
         PushNotificationTranslationFormSet = inlineformset_factory(
@@ -245,46 +243,22 @@ class PushNotificationFormView(TemplateView):
             save_forms(push_notification_instance, pn_form, pnt_formset)
             # Add the success message
             action = _("updated") if push_notification_instance else _("created")
-            if pn_form.instance.is_template:
-                messages.success(
-                    request,
-                    _('Template "{}" was successfully {}').format(
-                        pn_form.instance.template_name,
-                        action,
-                    ),
-                )
-            else:
-                messages.success(
-                    request,
-                    _('News "{}" was successfully {}').format(pn_form.instance, action),
-                )
+            messages.success(
+                request,
+                _('News "{}" was successfully {}').format(pn_form.instance, action),
+            )
 
             success = True
 
-            if "submit_draft" in request.POST:
-                pn_form.instance.draft = True
+            if "submit_update" in request.POST:
                 pn_form.instance.save()
-            elif "submit_update" in request.POST:
-                pn_form.instance.draft = False
-                pn_form.instance.save()
-            elif "create_from_template" in request.POST:
-                if new_push_notification := create_from_template(request, pn_form):
-                    return redirect(
-                        "edit_push_notification",
-                        **{
-                            "push_notification_id": new_push_notification.pk,
-                            "region_slug": region.slug,
-                            "language_slug": language.slug,
-                        },
-                    )
-                success = False
             elif "submit_schedule" in request.POST:
-                success = send_pn(request, pn_form, schedule=True)
+                send_pn(request, pn_form, schedule=True)
             elif "submit_send" in request.POST:
-                success = send_pn(request, pn_form)
+                send_pn(request, pn_form)
             else:
                 raise NotImplementedError(
-                    "One of the following keys is required in POST data: 'submit_draft', 'submit_update', 'create_from_template', 'submit_schedule', 'submit_send'",
+                    "One of the following keys is required in POST data: 'submit_update', 'submit_schedule', 'submit_send'",
                 )
 
             if success:
@@ -395,54 +369,11 @@ def save_forms(
     pnt_formset.save()
 
 
-def create_from_template(
-    request: HttpRequest,
-    pn_form: PushNotificationForm,
-) -> PushNotification | None:
-    """
-    Create a push notification from a template
-
-    :param request: The current request
-    :param pn_form: The push notification form
-    :return: The new created push notification object
-    """
-    if not pn_form.instance.is_template:
-        messages.error(
-            request,
-            _('News "{}" is not a template').format(pn_form.instance),
-        )
-        return None
-
-    new_push_notification = deepcopy(pn_form.instance)
-    new_push_notification.pk = None
-    new_push_notification.is_template = False
-    new_push_notification.template_name = None
-    new_push_notification.draft = True
-    new_push_notification.save()
-    new_push_notification.regions.set(pn_form.instance.regions.all())
-    for translation in pn_form.instance.translations.all():
-        new_translation = deepcopy(translation)
-        new_translation.push_notification = new_push_notification
-        new_translation.pk = None
-        new_translation.save()
-    messages.success(
-        request,
-        __(
-            _('News "{}" was successfully created from template "{}".').format(
-                new_push_notification,
-                pn_form.instance.template_name,
-            ),
-            _("In the next step, the news can now be sent."),
-        ),
-    )
-    return new_push_notification
-
-
 def send_pn(
     request: HttpRequest,
     pn_form: PushNotificationForm,
     schedule: bool = False,
-) -> bool:
+) -> None:
     """
     Send (or schedule) a push notification
 
@@ -460,7 +391,7 @@ def send_pn(
                 pn_form.instance,
             ),
         )
-        return False
+        return
 
     if not request.user.has_perm("cms.send_push_notification"):
         logger.warning(
@@ -478,7 +409,7 @@ def send_pn(
                 localize(localtime(pn_form.instance.sent_date)),
             ),
         )
-        return False
+        return
 
     try:
         push_sender = FirebaseApiClient(pn_form.instance)
@@ -492,7 +423,7 @@ def send_pn(
                 pn_form.instance,
             ),
         )
-        return False
+        return
     except ObjectDoesNotExist:
         logger.exception(
             "News could not be sent due to a missing translation",
@@ -503,7 +434,7 @@ def send_pn(
                 pn_form.instance, pn_form.instance.default_language
             ),
         )
-        return False
+        return
 
     if not push_sender.is_valid():
         messages.error(
@@ -512,7 +443,7 @@ def send_pn(
                 pn_form.instance,
             ),
         )
-        return False
+        return
     if schedule:
         if not pn_form.instance.scheduled_send_date:
             messages.error(
@@ -521,8 +452,8 @@ def send_pn(
                     pn_form.instance,
                 ),
             )
-            return False
-        pn_form.instance.draft = False
+            return
+
         pn_form.instance.save()
         messages.success(
             request,
@@ -531,7 +462,7 @@ def send_pn(
                 localize(localtime(pn_form.instance.scheduled_send_date)),
             ),
         )
-        return True
+        return
     if not push_sender.send_all():
         messages.error(
             request,
@@ -540,15 +471,13 @@ def send_pn(
                 _("Please try again later or contact an administrator."),
             ),
         )
-        return False
+        return
     pn_form.instance.sent_date = datetime.now()
-    pn_form.instance.draft = False
     pn_form.instance.save()
     messages.success(
         request,
         _('News "{}" was successfully sent').format(pn_form.instance),
     )
-    return True
 
 
 def extract_pn_details(
