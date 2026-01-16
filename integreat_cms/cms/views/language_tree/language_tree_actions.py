@@ -18,6 +18,7 @@ from django.db.models import ProtectedError
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
+from linkcheck.listeners import disable_listeners
 from treebeard.exceptions import InvalidMoveToDescendant, InvalidPosition
 
 from ...constants import position
@@ -111,7 +112,13 @@ def delete_language_tree_node(
     can_delete, error_msg = language_node.can_be_deleted()
     if can_delete:
         try:
-            language_node.delete()
+            # Disable linkcheck listeners to prevent timeouts during deletion.
+            # When a language is deleted, all translations (pages, events, POIs) are cascade-deleted.
+            # For each deletion, linkcheck's pre_delete signal calls get_absolute_url().
+            # With many translations, this causes a timeout before the DELETE query reaches the database.
+            # This pattern is also used in region_actions.py for the same reason.
+            with disable_listeners():
+                language_node.delete()
         except ProtectedError:
             messages.error(
                 request,
