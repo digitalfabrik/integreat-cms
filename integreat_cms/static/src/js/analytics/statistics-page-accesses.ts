@@ -9,6 +9,7 @@ type AjaxResponse = {
 let statisticsForm: HTMLFormElement;
 let pageAccessesURL: string;
 let pageAccessesForm: HTMLFormElement;
+let ajaxRequestID: number;
 
 const setAccessBarPerLanguage = (
     accessField: Element,
@@ -52,9 +53,9 @@ const setDates = () => {
     document.getElementById("date-range-end").innerHTML = new Date(unformattedEndDate).toLocaleDateString();
 };
 
-const getData = async (visibleDatasetSlugs: string[]): Promise<AjaxResponse> => {
+const getData = async (visibleDatasetSlugs: string[], requestID: number): Promise<[AjaxResponse, number]> => {
     if (!statisticsForm) {
-        return {} as AjaxResponse;
+        return [{} as AjaxResponse, requestID];
     }
 
     const formData = new FormData(statisticsForm);
@@ -68,11 +69,11 @@ const getData = async (visibleDatasetSlugs: string[]): Promise<AjaxResponse> => 
     const response = await fetch(pageAccessesURL, parameters);
     if (!response.ok) {
         console.error(`Fetch failed with status ${response.status}`);
-        return {} as AjaxResponse;
+        return [{} as AjaxResponse, requestID];
     }
 
     const data: AjaxResponse = await response.json();
-    return data;
+    return [data, requestID];
 };
 
 const getCheckedSlugs = (): string[] => {
@@ -128,7 +129,8 @@ export const updatePageAccesses = async (): Promise<void> => {
     setDates();
     const visibleDatasetSlugs = getCheckedSlugs();
 
-    const data = await getData(visibleDatasetSlugs);
+    ajaxRequestID += 1;
+    const [data, requestID] = await getData(visibleDatasetSlugs, ajaxRequestID);
 
     const isEmpty = Object.keys(data).length === 0;
     const accessFields = document.getElementsByClassName("accesses");
@@ -136,13 +138,14 @@ export const updatePageAccesses = async (): Promise<void> => {
     toggleElementCollection(accessFields, !isEmpty);
     resetTotalAccessesField(accessFields, isEmpty);
 
-    if (!isEmpty) {
+    if (!isEmpty && requestID === ajaxRequestID) {
         updateDOM(data, visibleDatasetSlugs);
     }
     pageAccessesLoading.classList.add("hidden");
 };
 
 export const setPageAccessesEventListeners = () => {
+    ajaxRequestID = 0;
     statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
     pageAccessesForm = document.getElementById("statistics-page-access") as HTMLFormElement;
     if (pageAccessesForm && statisticsForm) {
