@@ -42,6 +42,10 @@ window.addEventListener("load", () => {
 
     document.querySelectorAll("#id_title").forEach((item) => {
         item.addEventListener("focusout", ({ target }) => {
+            // Only auto-generate slug if the field is empty
+            if (slugField?.value) {
+                return;
+            }
             const submissionLock = new SubmissionPrevention(".no-premature-submission");
             const currentTitle = (target as HTMLInputElement).value;
             const nodeList: NodeListOf<HTMLInputElement> = document.querySelectorAll(
