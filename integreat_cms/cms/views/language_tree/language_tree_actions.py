@@ -18,6 +18,7 @@ from django.db.models import ProtectedError
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
+from linkcheck.listeners import disable_listeners
 from treebeard.exceptions import InvalidMoveToDescendant, InvalidPosition
 
 from ...constants import position
@@ -111,7 +112,10 @@ def delete_language_tree_node(
     can_delete, error_msg = language_node.can_be_deleted()
     if can_delete:
         try:
-            language_node.delete()
+            # Disable linkcheck listeners to prevent timeouts during cascade deletion of translations.
+            # Orphaned links will be cleaned up by the next findlinks management command run.
+            with disable_listeners():
+                language_node.delete()
         except ProtectedError:
             messages.error(
                 request,
