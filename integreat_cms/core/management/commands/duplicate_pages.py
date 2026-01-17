@@ -47,12 +47,12 @@ def duplicate_page(old_page: Page, new_parent: Page | None = None) -> Page:
     new_page.parent = new_page.get_parent(update=True)
     new_page.save()
     for translation in translations:
-        rand_str = "".join(random.choices(string.printable, k=5))  # noqa: S311
+        rand_str = "".join(random.choices(string.ascii_lowercase + string.digits, k=5))  # noqa: S311
         new_title = translation.title.split(" - ")[0] + f" - {rand_str}"
         translation.id = None
         translation.page = new_page
         translation.title = new_title
-        translation.slug = slugify(new_title)
+        translation.slug = slugify(new_title, allow_unicode=True)
         translation.save()
     logger.debug("New translations: %r", new_page.translations.all())
     return new_page
