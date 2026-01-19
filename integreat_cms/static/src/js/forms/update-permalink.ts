@@ -41,13 +41,20 @@ window.addEventListener("load", () => {
     };
 
     document.querySelectorAll("#id_title").forEach((item) => {
+        /* Store original title to detect actual changes */
+        let originalTitle: string;
+
+        item.addEventListener("focusin", ({ target }) => {
+            originalTitle = (target as HTMLInputElement).value;
+        });
+
         item.addEventListener("focusout", ({ target }) => {
-            // Only auto-generate slug if the field is empty
-            if (slugField?.value) {
+            const currentTitle = (target as HTMLInputElement).value;
+            // Only update slug if the title actually changed
+            if (currentTitle === originalTitle) {
                 return;
             }
             const submissionLock = new SubmissionPrevention(".no-premature-submission");
-            const currentTitle = (target as HTMLInputElement).value;
             const nodeList: NodeListOf<HTMLInputElement> = document.querySelectorAll(
                 '[for="id_title"],[for="id_slug"]'
             );
