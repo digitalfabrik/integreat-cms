@@ -21,6 +21,10 @@ class Migration(migrations.Migration):
             model_name="pushnotification",
             name="template_name",
         ),
+        migrations.RemoveField(
+            model_name="user",
+            name="page_tree_tutorial_seen",
+        ),
         migrations.AlterField(
             model_name="user",
             name="has_seen_page_tree_tutorial",
