@@ -2,6 +2,7 @@ from collections.abc import Callable
 from datetime import timedelta
 
 import pytest
+from django.db import IntegrityError, transaction
 from django.utils import timezone
 
 from integreat_cms.cms.models import Language, PageTranslation, Region
@@ -165,3 +166,45 @@ def test_get_translatable_attributes_first_translation(
 
     assert "title" in attr_names
     assert "content" in attr_names
+
+
+@pytest.mark.order("last")
+@pytest.mark.django_db(transaction=True)
+def test_db_trigger_prevents_duplicate_slug_on_page_translations(
+    create_page: Callable[..., Page],
+) -> None:
+    region = Region.objects.create(slug="trigger-test-region")
+    page1 = create_page(region=region)
+    page2 = create_page(region=region)
+    language = Language.objects.create(slug="zz", primary_country_code="de")
+
+    PageTranslation.objects.create(page=page1, language=language, slug="conflict-slug")
+    t2 = PageTranslation.objects.create(
+        page=page2, language=language, slug="other-slug"
+    )
+
+    with pytest.raises(IntegrityError), transaction.atomic():
+        # .update() bypasses save() and the application-level slug deduplication,
+        # so only the database trigger prevents the duplicate
+        PageTranslation.objects.filter(pk=t2.pk).update(slug="conflict-slug")
+
+
+@pytest.mark.order("last")
+@pytest.mark.django_db(transaction=True)
+def test_db_trigger_enforce_slug_uniqueness_on_bulk_creation(
+    create_page: Callable[..., Page],
+) -> None:
+    region = Region.objects.create(slug="trigger-test-region")
+    page1 = create_page(region=region)
+    page2 = create_page(region=region)
+    language = Language.objects.create(slug="zz", primary_country_code="de")
+
+    with pytest.raises(IntegrityError), transaction.atomic():
+        # .bulk_create() bypasses save() and the application-level slug deduplication,
+        # so only the database trigger prevents the duplicate
+        PageTranslation.objects.bulk_create(
+            [
+                PageTranslation(page=page1, language=language, slug="conflict-slug"),
+                PageTranslation(page=page2, language=language, slug="conflict-slug"),
+            ]
+        )
