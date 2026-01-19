@@ -306,21 +306,36 @@ class MachineTranslationApiClient(ABC):
         Create a translation form based on the extracted content object data,
         save it, and validate the translation.
         """
+        attributes = {
+            "language": self.target_language,
+        }
+        if content_object._meta.model_name != "pushnotification":
+            attributes.update(
+                {
+                    "creator": self.request.user,
+                    content_object.source_translation.foreign_field(): content_object,
+                }
+            )
+        else:
+            attributes.update(
+                {
+                    "push_notification": content_object,
+                }
+            )
         content_translation_form = self.form_class(
             data=translation_data,
             instance=content_object.existing_target_translation,
-            additional_instance_attributes={
-                "creator": self.request.user,
-                "language": self.target_language,
-                content_object.source_translation.foreign_field(): content_object,
-            },
+            additional_instance_attributes=attributes,
         )
 
         # Validate content translation
         if content_translation_form.is_valid():
             content_translation_form.save()
             # Revert "currently in translation" value of all versions
-            if content_object.existing_target_translation:
+            if (
+                content_object._meta.model_name != "pushnotification"
+                and content_object.existing_target_translation
+            ):
                 if settings.REDIS_CACHE:
                     content_object.existing_target_translation.all_versions.invalidated_update(
                         currently_in_translation=False,

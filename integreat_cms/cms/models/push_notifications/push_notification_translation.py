@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import push_notifications as pnt_const
@@ -12,7 +13,7 @@ from ..languages.language import Language
 from .push_notification import PushNotification
 
 if TYPE_CHECKING:
-    from typing import Any
+    from typing import Any, Literal
 
     from django.db.models.query import QuerySet
 
@@ -45,6 +46,13 @@ class PushNotificationTranslation(AbstractBaseModel):
     last_updated = models.DateTimeField(
         auto_now=True,
         verbose_name=_("modification date"),
+    )
+    automatic_translation = models.BooleanField(
+        default=False,
+        verbose_name=_("Automatic translation"),
+        help_text=_(
+            "Tick if updating this content should automatically refresh or create its translations.",
+        ),
     )
 
     @classmethod
@@ -99,6 +107,29 @@ class PushNotificationTranslation(AbstractBaseModel):
         )
 
         return results
+
+    @cached_property
+    def foreign_object(self) -> PushNotification:
+        """
+        This property is an alias of the PushNotification foreign key and is needed to generalize the :mod:`~integreat_cms.cms.utils.slug_utils`
+        for all content types
+
+        :return: The PushNotification to which the translation belongs
+        """
+        return self.push_notification
+
+    @staticmethod
+    def foreign_field() -> Literal["pushnotification"]:
+        """
+        Returns the string "pushnotification" which ist the field name of the reference to the push notification which the translation belongs to
+
+        :return: The foreign field name
+        """
+        return "pushnotification"
+
+    @cached_property
+    def hix_enabled(self) -> bool:
+        return False
 
     def get_title(self) -> str:
         """

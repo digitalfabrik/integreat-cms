@@ -1864,7 +1864,9 @@ msgstr "Letzte Woche"
 
 #: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
 msgid "Enter a valid phone number: +49 1234567, 0049 1234567, or 01234567."
-msgstr "Geben Sie eine zulässige Telefonnummer an: +49 1234567, 0049 1234567, oder 01234567."
+msgstr ""
+"Geben Sie eine zulässige Telefonnummer an: +49 1234567, 0049 1234567, oder "
+"01234567."
 
 #: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
 #: cms/templates/contacts/contact_list.html
@@ -2078,7 +2080,7 @@ msgstr "Kategorie"
 #: cms/templates/imprint/imprint_sbs.html
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/pages/page_sbs.html
-#: cms/templates/push_notifications/push_notification_form.html
+#: cms/templates/push_notifications/push_notification_setting_box.html
 #: cms/templates/regions/region_list.html
 msgid "Status"
 msgstr "Status"
@@ -2146,10 +2148,12 @@ msgid "Link type"
 msgstr "Linktyp"
 
 #: cms/forms/machine_translation_form.py
+#: cms/forms/push_notifications/push_notification_translation_form.py
 msgid "Create new translations:"
 msgstr "Neue Übersetzungen erstellen:"
 
 #: cms/forms/machine_translation_form.py
+#: cms/forms/push_notifications/push_notification_translation_form.py
 msgid "Update existing translations:"
 msgstr "Bestehende Übersetzungen aktualisieren:"
 
@@ -2663,10 +2667,12 @@ msgid "creation date"
 msgstr "Erstellungsdatum"
 
 #: cms/models/abstract_content_model.py
+#: cms/models/push_notifications/push_notification.py
 msgid "do not translate the title"
 msgstr "Titel nicht übersetzen"
 
 #: cms/models/abstract_content_model.py
+#: cms/models/push_notifications/push_notification.py
 msgid ""
 "Tick if you do not want to translate the title by automatic translation."
 msgstr "Kreuzen Sie an, wenn Sie den Titel nicht übersetzen wollen."
@@ -2764,10 +2770,12 @@ msgid "creator"
 msgstr "Ersteller:in"
 
 #: cms/models/abstract_content_translation.py
+#: cms/models/push_notifications/push_notification_translation.py
 msgid "Automatic translation"
 msgstr "Automatische Übersetzungen"
 
 #: cms/models/abstract_content_translation.py
+#: cms/models/push_notifications/push_notification_translation.py
 msgid ""
 "Tick if updating this content should automatically refresh or create its "
 "translations."
@@ -4388,6 +4396,10 @@ msgid "Events"
 msgstr "Veranstaltungen"
 
 #: cms/models/regions/region.py
+msgid "Push Notifications"
+msgstr "Push-Benachrichtigungen"
+
+#: cms/models/regions/region.py
 msgid "Enable public chat"
 msgstr "Öffentlichen Chat aktivieren"
 
@@ -4709,7 +4721,7 @@ msgid "News"
 msgstr "Nachrichten"
 
 #: cms/templates/_base.html
-#: cms/templates/push_notifications/push_notification_form.html
+#: cms/templates/push_notifications/push_notification_setting_box.html
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -4801,6 +4813,7 @@ msgid "Default language is duplicated"
 msgstr "Standard-Sprache wird dupliziert"
 
 #: cms/templates/_form_language_tabs.html
+#: cms/templates/push_notifications/push_notification_form.html
 msgid "Other Languages"
 msgstr "Weitere Sprachen"
 
@@ -4967,7 +4980,6 @@ msgid "Location"
 msgstr "Ort"
 
 #: cms/templates/_tinymce_config.html
-#: cms/templates/push_notifications/push_notification_form.html
 msgid "Link"
 msgstr "Link"
 
@@ -6394,6 +6406,7 @@ msgstr "optional"
 #: cms/templates/events/event_form_sidebar/minor_edit_box.html
 #: cms/templates/pages/page_form_sidebar/minor_edit_box.html
 #: cms/templates/pois/poi_form_sidebar/minor_edit_box.html
+#: cms/templates/push_notifications/push_notification_translation_box.html
 #: cms/templates/statistics/_statistics_legend.html
 msgid "Select all languages"
 msgstr "Alle Sprachen auswählen"
@@ -8334,44 +8347,6 @@ msgstr "Neu terminieren"
 msgid "Schedule"
 msgstr "Terminieren"
 
-#: cms/templates/push_notifications/push_notification_form.html
-#, python-format
-msgid "News are sent every %(schedule_interval)s minutes"
-msgstr "Nachrichten werden alle %(schedule_interval)s Minuten gesendet"
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid ""
-"Any manager with access to only some of the selected regions can view but "
-"not edit this news."
-msgstr ""
-"Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
-"können diese Nachricht ansehen, aber nicht bearbeiten."
-
-#: cms/templates/push_notifications/push_notification_form.html
-#: cms/templates/push_notifications/push_notification_list.html
-msgid "Sent"
-msgstr "Gesendet"
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "News sent on:"
-msgstr "Nachricht wurde gesendet am:"
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "Scheduled"
-msgstr "Terminiert"
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "News will be sent automatically on:"
-msgstr "Nachricht wird automatisch versendet am:"
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "Not yet sent"
-msgstr "Noch nicht gesendet"
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "News not sent yet"
-msgstr "Nachricht noch nicht gesendet"
-
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "Archived news"
 msgstr "Archivierte Nachrichten"
@@ -8395,6 +8370,11 @@ msgstr "Kanal"
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "Planned send date"
 msgstr "Terminiert am"
+
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_setting_box.html
+msgid "Sent"
+msgstr "Gesendet"
 
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "No archived push notifications found with these filters."
@@ -8471,6 +8451,39 @@ msgstr ""
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Copy"
 msgstr "Kopieren"
+
+#: cms/templates/push_notifications/push_notification_setting_box.html
+#, python-format
+msgid "News are sent every %(schedule_interval)s minutes"
+msgstr "Nachrichten werden alle %(schedule_interval)s Minuten gesendet"
+
+#: cms/templates/push_notifications/push_notification_setting_box.html
+msgid ""
+"Any manager with access to only some of the selected regions can view but "
+"not edit this news."
+msgstr ""
+"Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
+"können diese Nachricht ansehen, aber nicht bearbeiten."
+
+#: cms/templates/push_notifications/push_notification_setting_box.html
+msgid "News sent on:"
+msgstr "Nachricht wurde gesendet am:"
+
+#: cms/templates/push_notifications/push_notification_setting_box.html
+msgid "Scheduled"
+msgstr "Terminiert"
+
+#: cms/templates/push_notifications/push_notification_setting_box.html
+msgid "News will be sent automatically on:"
+msgstr "Nachricht wird automatisch versendet am:"
+
+#: cms/templates/push_notifications/push_notification_setting_box.html
+msgid "Not yet sent"
+msgstr "Noch nicht gesendet"
+
+#: cms/templates/push_notifications/push_notification_setting_box.html
+msgid "News not sent yet"
+msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/region_condition/region_condition.html
 msgid "Download region condition as CSV"
@@ -11183,6 +11196,11 @@ msgid "News \"{}\" cannot be sent, because it is archived"
 msgstr "Nachricht \"{}\" kann nicht gesendet werden, weil sie archiviert ist."
 
 #: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" requires a translation in \"{}\" for \"{}\""
+msgstr ""
+"Nachricht \"{}\" hat keine Übersetzung für die Sprache \"{}\" für \"{}\""
+
+#: cms/views/push_notifications/push_notification_form_view.py
 msgid "News \"{}\" could not be sent due to a configuration error."
 msgstr ""
 "Nachricht \"{}\" konnte aufgrund eines Konfigurationsproblems nicht gesendet "
@@ -13748,9 +13766,6 @@ msgstr ""
 
 #~ msgid "Author Chat"
 #~ msgstr "Autor:innen-Chat"
-
-#~ msgid "Push Notifications"
-#~ msgstr "Push-Benachrichtigungen"
 
 #~ msgid "Points of Interest"
 #~ msgstr "Points of Interest"

@@ -72,6 +72,13 @@ class PushNotification(AbstractBaseModel):
             "Whether or not the push notification is read-only and hidden in the API."
         ),
     )
+    do_not_translate_title = models.BooleanField(
+        default=False,
+        verbose_name=_("do not translate the title"),
+        help_text=_(
+            "Tick if you do not want to translate the title by automatic translation."
+        ),
+    )
 
     @cached_property
     def languages(self) -> QuerySet[Language]:
@@ -155,6 +162,9 @@ class PushNotification(AbstractBaseModel):
             hours=settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS,
         )
         return timezone.localtime(self.scheduled_send_date) <= retention_time
+
+    def get_translation(self, language_slug: str) -> PushNotificationTranslation | None:
+        return self.translations.filter(language__slug=language_slug).first()
 
     def __str__(self) -> str:
         """
