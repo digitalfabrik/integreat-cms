@@ -4,6 +4,7 @@ A view representing an instance of a point of interest. POIs can be created or u
 
 from __future__ import annotations
 
+import json
 import logging
 from typing import TYPE_CHECKING
 
@@ -191,41 +192,27 @@ class POIFormView(
             },
         )
 
-        data = request.POST.dict()
-        new_poi_and_new_related_contact = (
-            not is_edit and self.related_contact_data_added(data)
-        )
-
-        contact_form = ContactForm(
-            request=request,
-            data=data,
-            instance=None,
-            additional_instance_attributes={
-                "region": request.region,
-            },
-        )
-
         poi = None
-        if not poi_form.is_valid():
-            # Add error messages
-            poi_form.add_error_messages(request)
-        else:
-            poi = poi_form.save()
-        if not poi_translation_form.is_valid():
-            poi_translation_form.add_error_messages(request)
-        elif (
-            poi_translation_form.instance.status == status.AUTO_SAVE
-            and not poi_form.has_changed()
-            and not poi_translation_form.has_changed()
-        ):
-            messages.info(request, _("No changes detected, autosave skipped"))
-        elif poi is not None:
-            success = True
-
-            with transaction.atomic():
-                sid = transaction.savepoint()
-                # Save forms
+        success = True
+        with transaction.atomic():
+            sid = transaction.savepoint()
+            if not poi_form.is_valid():
+                # Add error messages
+                poi_form.add_error_messages(request)
+                success = False
+            else:
                 poi = poi_form.save()
+            if not poi_translation_form.is_valid():
+                poi_translation_form.add_error_messages(request)
+                success = False
+            elif (
+                poi_translation_form.instance.status == status.AUTO_SAVE
+                and not poi_form.has_changed()
+                and not poi_translation_form.has_changed()
+            ):
+                messages.info(request, _("No changes detected, autosave skipped"))
+            elif success:
+                
                 poi_translation_form.instance.poi = poi
                 poi_translation_instance = poi_translation_form.save(
                     foreign_form_changed=poi_form.has_changed(),
@@ -337,6 +324,7 @@ class POIFormView(
                             "language_slug": language.slug,
                         },
                     )
+                
                 transaction.savepoint_rollback(sid)
                 poi_instance, poi_translation_instance = self.get_instances(
                     language=language, poi_id=poi_id
