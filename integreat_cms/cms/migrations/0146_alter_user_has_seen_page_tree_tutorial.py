@@ -9,6 +9,22 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RemoveField(
+            model_name="pushnotification",
+            name="draft",
+        ),
+        migrations.RemoveField(
+            model_name="pushnotification",
+            name="is_template",
+        ),
+        migrations.RemoveField(
+            model_name="pushnotification",
+            name="template_name",
+        ),
+        migrations.RemoveField(
+            model_name="user",
+            name="page_tree_tutorial_seen",
+        ),
         migrations.AlterField(
             model_name="user",
             name="has_seen_page_tree_tutorial",
