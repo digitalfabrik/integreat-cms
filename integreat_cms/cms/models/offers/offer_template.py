@@ -97,6 +97,8 @@ class OfferTemplate(AbstractBaseModel):
 
         :return: The canonical string representation of the offer template
         """
+        if not self.pk:
+            return "<OfferTemplate (unsaved instance)>"
         return f"<OfferTemplate (id: {self.id}, slug: {self.slug})>"
 
     class Meta:

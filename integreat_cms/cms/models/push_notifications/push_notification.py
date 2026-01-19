@@ -172,6 +172,9 @@ class PushNotification(AbstractBaseModel):
 
         :return: The canonical string representation of the push notification
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<PushNotification (id: {self.id}, channel: {self.channel!r}, regions: {self.regions.values_list('slug', flat=True)})>"
 
     def archive(self) -> None:

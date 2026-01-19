@@ -26,6 +26,8 @@ if TYPE_CHECKING:
 
     from django.http import HttpRequest, HttpResponse
 
+    from integreat_cms.cms.models.regions.region import Region
+
 logger = logging.getLogger(__name__)
 
 
@@ -63,46 +65,14 @@ class EventFormView(
             only_active=True,
         )
 
-        # get event and event translation objects if they exist, otherwise objects are None
-        event_instance = region.events.filter(id=kwargs.get("event_id")).first()
-        event_translation_instance = language.event_translations.filter(
-            event=event_instance,
-        ).first()
-        recurrence_rule_instance = RecurrenceRule.objects.filter(
-            event=event_instance,
-        ).first()
-        # Make form disabled if event is archived or user doesn't have the permission to edit the event
-        if event_instance and event_instance.archived:
-            disabled = True
-            messages.warning(
-                request,
-                _("You cannot edit this event because it is archived."),
-            )
-        elif event_instance and event_instance.external_calendar:
-            disabled = True
-            messages.warning(
-                request,
-                _(
-                    "You cannot edit this event because it was imported from an external calendar.",
-                ),
-            )
-        elif not request.user.has_perm("cms.change_event"):
-            disabled = True
-            messages.warning(
-                request,
-                _("You don't have the permission to edit events."),
-            )
-        elif not request.user.has_perm("cms.publish_event"):
-            disabled = False
-            messages.warning(
-                request,
-                _(
-                    "You don't have the permission to publish events, but you can propose changes and submit them for review instead.",
-                ),
-            )
-        else:
-            disabled = False
-
+        event_instance = self.get_first_or_none(Event, id=kwargs.get("event_id"))
+        recurrence_rule_instance = self.get_first_or_none(
+            RecurrenceRule, event=event_instance
+        )
+        event_translation_instance = self.get_first_or_none(
+            EventTranslation, event=event_instance, language=language
+        )
+        disabled = self.check_if_event_is_locked(request, event_instance)
         event_form = EventForm(
             instance=event_instance,
             disabled=disabled,
@@ -179,6 +149,15 @@ class EventFormView(
         )
         # clean data of event form to be able to pass the cleaned start date to the recurrence form for validation
         event_form_valid = event_form.is_valid()
+
+        if event_form_valid and event_form.instance.pk is None:
+            event = event_form.save(commit=False)
+            event.region = region
+            event.location = poi
+            event.save()
+        else:
+            event = event_form.instance
+
         recurrence_rule_form = RecurrenceRuleForm(
             data=request.POST,
             instance=recurrence_rule_instance,
@@ -198,28 +177,31 @@ class EventFormView(
         )
         user_slug = event_translation_form.data.get("slug")
 
-        if (
-            not event_form_valid
-            or not event_translation_form.is_valid()
-            or (
-                event_form.cleaned_data["is_recurring"]
-                and not recurrence_rule_form.is_valid()
-            )
+        event = None
+        if not event_form_valid or (
+            event_form.cleaned_data["is_recurring"]
+            and not recurrence_rule_form.is_valid()
         ):
-            # Add error messages
             event_form.add_error_messages(request)
-            event_translation_form.add_error_messages(request)
             # do not call recurrence rule form clean method when recurrence rule is not set
             if event_form.cleaned_data["is_recurring"]:
                 recurrence_rule_form.add_error_messages(request)
-        elif (
-            event_translation_form.instance.status == status.AUTO_SAVE
-            and not event_form.has_changed()
+        else:
+            event = event_form.save()
+
+        forms_unchanged = (
+            not event_form.has_changed()
             and not event_translation_form.has_changed()
             and not recurrence_rule_form.has_changed()
+        )
+        if not event_translation_form.is_valid():
+            event_translation_form.add_error_messages(request)
+        elif (
+            event_translation_form.instance.status == status.AUTO_SAVE
+            and forms_unchanged
         ):
             messages.info(request, _("No changes detected, autosave skipped"))
-        else:
+        elif event is not None:
             # Check publish permissions
             if event_translation_form.instance.status in [
                 status.DRAFT,
@@ -228,7 +210,7 @@ class EventFormView(
                 raise PermissionDenied(
                     f"{request.user!r} does not have the permission 'cms.publish_event'",
                 )
-            # Save forms
+            # Save translation form
             if event_form.cleaned_data.get("is_recurring"):
                 # If event is recurring, save recurrence rule
                 event_form.instance.recurrence_rule = recurrence_rule_form.save()
@@ -249,67 +231,16 @@ class EventFormView(
             # Invalidate event translation cache to refresh API result
             invalidate_model(EventTranslation)
 
-            # If any source translation changes to draft, set all depending translations/versions to draft
-            if event_translation_form.instance.status == status.DRAFT:
-                language_tree_node = region.language_node_by_slug.get(language.slug)
-                languages = [language] + [
-                    node.language for node in language_tree_node.get_descendants()
-                ]
-                event_translation_form.instance.event.translations.filter(
-                    language__in=languages,
-                ).update(status=status.DRAFT)
+            self.adjust_status_of_depending_translations(
+                event_translation_form, language, region
+            )
 
-            elif (
-                event_translation_form.instance.status == status.PUBLIC
-                and event_translation_form.instance.minor_edit
-            ):
-                event_translation_form.instance.event.translations.filter(
-                    language=language,
-                ).update(status=status.PUBLIC)
-            # Show a message that the slug was changed if it was not unique
-            if user_slug and user_slug != event_translation_form.cleaned_data["slug"]:
-                other_translation = EventTranslation.objects.filter(
-                    event__region=region,
-                    slug=user_slug,
-                    language=language,
-                ).first()
-                other_translation_link = other_translation.backend_edit_link
-                message = _(
-                    "The slug was changed from '{user_slug}' to '{slug}', "
-                    "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
-                ).format(
-                    user_slug=user_slug,
-                    slug=event_translation_form.cleaned_data["slug"],
-                    translation=other_translation,
-                )
-                messages.warning(
-                    request,
-                    translate_link(
-                        message,
-                        attributes={
-                            "href": other_translation_link,
-                            "class": "underline hover:no-underline",
-                        },
-                    ),
-                )
-
-            # Add the success message and redirect to the edit page
-            if not event_instance:
-                messages.success(
-                    request,
-                    _('Event "{}" was successfully created').format(
-                        event_translation_form.instance,
-                    ),
-                )
-            elif (
-                not event_form.has_changed()
-                and not event_translation_form.has_changed()
-                and not recurrence_rule_form.has_changed()
-            ):
-                messages.info(request, _("No changes detected, but date refreshed"))
-            else:
-                # Add the success message
-                event_translation_form.add_success_message(request)
+            self.show_message_that_slug_changed_if_not_unique(
+                request, user_slug, event_translation_form, region, language
+            )
+            self.add_success_message(
+                request, event_instance, forms_unchanged, event_translation_form
+            )
 
             return redirect(
                 "edit_event",
@@ -340,3 +271,133 @@ class EventFormView(
                 ),
             },
         )
+
+    def get_first_or_none(
+        self, model: type[Event | EventTranslation | RecurrenceRule], **filters: Any
+    ) -> Event | EventTranslation | RecurrenceRule | None:
+        return model.objects.filter(**filters).first()
+
+    def check_if_event_is_locked(
+        self,
+        request: HttpRequest,
+        event_instance: Event | None,
+    ) -> bool:
+        """
+        Checks if the event is locked for editing and should be disabled, or not
+        """
+        disabled = False
+        if event_instance and event_instance.archived:
+            disabled = True
+            messages.warning(
+                request,
+                _("You cannot edit this event because it is archived."),
+            )
+        elif event_instance and event_instance.external_calendar:
+            disabled = True
+            messages.warning(
+                request,
+                _(
+                    "You cannot edit this event because it was imported from an external calendar.",
+                ),
+            )
+        elif not request.user.has_perm("cms.change_event"):
+            disabled = True
+            messages.warning(
+                request,
+                _("You don't have the permission to edit events."),
+            )
+        elif not request.user.has_perm("cms.publish_event"):
+            disabled = False
+            messages.warning(
+                request,
+                _(
+                    "You don't have the permission to publish events, but you can propose changes and submit them for review instead.",
+                ),
+            )
+
+        return disabled
+
+    def show_message_that_slug_changed_if_not_unique(
+        self,
+        request: HttpRequest,
+        user_slug: str,
+        event_translation_form: EventTranslationForm,
+        region: Region,
+        language: Language,
+    ) -> None:
+        """
+        Shows a message to the user if the slug they provided was not unique and therefore changed.
+        """
+        if user_slug and user_slug != event_translation_form.cleaned_data["slug"]:
+            other_translation = EventTranslation.objects.filter(
+                event__region=region,
+                slug=user_slug,
+                language=language,
+            ).first()
+            other_translation_link = other_translation.backend_edit_link
+            message = _(
+                "The slug was changed from '{user_slug}' to '{slug}', "
+                "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
+            ).format(
+                user_slug=user_slug,
+                slug=event_translation_form.cleaned_data["slug"],
+                translation=other_translation,
+            )
+            messages.warning(
+                request,
+                translate_link(
+                    message,
+                    attributes={
+                        "href": other_translation_link,
+                        "class": "underline hover:no-underline",
+                    },
+                ),
+            )
+
+    def add_success_message(
+        self,
+        request: HttpRequest,
+        event_instance: EventTranslation,
+        forms_unchanged: bool = False,
+        event_translation_form: EventTranslationForm | None = None,
+    ) -> None:
+        """
+        Adds success messages to the request.
+        """
+        if event_translation_form and not event_instance:
+            messages.success(
+                request,
+                _('Event "{}" was successfully created').format(
+                    event_translation_form.instance,
+                ),
+            )
+        elif forms_unchanged:
+            messages.info(request, _("No changes detected, but date refreshed"))
+        elif event_translation_form:
+            event_translation_form.add_success_message(request)
+
+    def adjust_status_of_depending_translations(
+        self,
+        event_translation_form: EventTranslationForm,
+        language: Language,
+        region: Region,
+    ) -> None:
+        """
+        Adjusts the translation statuses of all depending translations of the event.
+        """
+        if event_translation_form.instance.status == status.DRAFT:
+            language_tree_node = region.language_node_by_slug.get(language.slug)
+            languages = [language] + [
+                node.language for node in language_tree_node.get_descendants()
+            ]
+            event_translation_form.instance.event.translations.filter(
+                language__in=languages,
+            ).update(status=status.DRAFT)
+
+        elif (
+            event_translation_form.instance.status == status.PUBLIC
+            and event_translation_form.instance.minor_edit
+        ):
+            event_translation_form.instance.event.translations.filter(
+                language=language,
+            ).update(status=status.PUBLIC)
