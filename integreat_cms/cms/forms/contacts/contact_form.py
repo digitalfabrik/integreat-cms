@@ -5,6 +5,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from django import forms
+from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
@@ -20,11 +21,29 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
+phone_validator = RegexValidator(
+    regex=r"^(?:\+|00)\d{1,3}\s?\d+$|^0\d+$",
+    message=_("Enter a valid phone number: +49 1234567, 0049 1234567, or 01234567."),
+)
+
 
 class ContactForm(CustomModelForm):
     """
     Form for creating and modifying contact objects
     """
+
+    phone_number = forms.CharField(
+        validators=[phone_validator],
+        required=False,
+        max_length=40,
+        label=_("Phone number"),
+    )
+    mobile_phone_number = forms.CharField(
+        validators=[phone_validator],
+        required=False,
+        max_length=40,
+        label=_("Mobile Phone number"),
+    )
 
     use_location_opening_hours = forms.BooleanField(
         required=False, label=_("Adopt opening hours from linked location")

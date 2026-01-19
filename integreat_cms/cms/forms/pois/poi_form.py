@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 from django import forms
 from django.conf import settings
+from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 from geopy.distance import distance
 from jsonschema import validate
@@ -24,6 +25,11 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
+phone_validator = RegexValidator(
+    regex=r"^(?:\+|00)\d{1,3}\s?\d+$|^0\d+$",
+    message=_("Enter a valid phone number: +49 1234567, 0049 1234567, or 01234567."),
+)
+
 
 class POIForm(CustomModelForm):
     """
@@ -39,7 +45,8 @@ class POIForm(CustomModelForm):
         required=False,
     )
     primary_phone_number = forms.CharField(
-        max_length=250,
+        validators=[phone_validator],
+        max_length=40,
         required=False,
         label=_("Phone number"),
     )

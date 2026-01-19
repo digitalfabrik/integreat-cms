@@ -86,7 +86,7 @@
         }
         /* eslint-enable no-magic-numbers */
 
-        return [`${countryCode} (0) ${phoneNumberBody}`, `${phoneNumberCallable}`];
+        return [`${countryCode} ${phoneNumberBody}`, `${phoneNumberCallable}`];
     };
     const parseCurrentLine = (editor, endOffset, delimiter) => {
         let end;
