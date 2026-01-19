@@ -21,8 +21,13 @@ class Migration(migrations.Migration):
             model_name="pushnotification",
             name="template_name",
         ),
-        migrations.RemoveField(
+        migrations.AlterField(
             model_name="user",
-            name="page_tree_tutorial_seen",
+            name="has_seen_page_tree_tutorial",
+            field=models.BooleanField(
+                default=False,
+                help_text="Has seen tutorial for page tree",
+                verbose_name="Page tree tutorial seen",
+            ),
         ),
     ]
