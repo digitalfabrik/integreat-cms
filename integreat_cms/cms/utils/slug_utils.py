@@ -245,12 +245,7 @@ def make_all_slugs_unique(
         translation_model = apps.get_model(
             "cms", f"{model_name.capitalize()}Translation"
         )
-        latest_translations = (
-            translation_model.objects.select_related("language", model_name)
-            .order_by("language__id", f"{model_name}__id", "-version")
-            .distinct("language__id", f"{model_name}__id")
-            .all()
-        )
+        latest_translations = translation_model.objects.all()
         slug_counter += update_translations(latest_translations, model_name, dry_run)
 
     end_time = time() - start_time
