@@ -10,6 +10,8 @@ let statisticsForm: HTMLFormElement;
 let pageAccessesURL: string;
 let pageAccessesForm: HTMLFormElement;
 let ajaxRequestID: number;
+let exportTable: string[][];
+let visibleDatasetSlugs: string[];
 
 const setAccessBarPerLanguage = (
     accessField: Element,
@@ -89,7 +91,7 @@ const getCheckedSlugs = (): string[] => {
     return visibleDatasetSlugs;
 };
 
-const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
+const updateDOM = (data: AjaxResponse) => {
     const pageNodes = document.querySelectorAll(`.page-row`);
     pageNodes.forEach((parentField) => {
         const pageId: string = parentField.id.split("-")[1];
@@ -122,12 +124,34 @@ const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
     });
 };
 
+const updateExportTable = (data: AjaxResponse) => {
+    const pageIds = Object.keys(data);
+    exportTable = [];
+    pageIds.forEach((pageId) => {
+        const exportTableEntry: string[] = [];
+        exportTableEntry.push(pageId);
+        const accesses = data[pageId];
+
+        let allAccesses: number = 0;
+        visibleDatasetSlugs?.forEach((languageSlug) => {
+            if (accesses && accesses[languageSlug]) {
+                allAccesses += accesses[languageSlug];
+                exportTableEntry[visibleDatasetSlugs.indexOf(languageSlug) + 1] = String(accesses[languageSlug]);
+            } else {
+                exportTableEntry[visibleDatasetSlugs.indexOf(languageSlug) + 1] = "0";
+            }
+        });
+        exportTableEntry[visibleDatasetSlugs.length + 1] = String(allAccesses);
+        exportTable.push(exportTableEntry);
+    })
+}
+
 /* The main function which updates the accesses */
 export const updatePageAccesses = async (): Promise<void> => {
     const pageAccessesLoading = document.getElementById("page-accesses-loading");
     pageAccessesLoading.classList.remove("hidden");
     setDates();
-    const visibleDatasetSlugs = getCheckedSlugs();
+    visibleDatasetSlugs = getCheckedSlugs();
 
     ajaxRequestID += 1;
     const [data, requestID] = await getData(visibleDatasetSlugs, ajaxRequestID);
@@ -139,7 +163,8 @@ export const updatePageAccesses = async (): Promise<void> => {
     resetTotalAccessesField(accessFields, isEmpty);
 
     if (!isEmpty && requestID === ajaxRequestID) {
-        updateDOM(data, visibleDatasetSlugs);
+        updateDOM(data);
+        updateExportTable(data);
     }
     pageAccessesLoading.classList.add("hidden");
 };
@@ -156,7 +181,7 @@ const downloadFile = (filename: string, content: string) => {
     downloadLink.click();
 };
 
-const exportPageAccessesData = (_exportTable: string[][]): void => {
+const exportPageAccessesData = (): void => {
     // Get kind of statistics to export. If page access statistics is requested, proceed.
     const exportStatistics = document.getElementById("export-statistics") as HTMLSelectElement;
     if (exportStatistics.value === "page-accesses") {
@@ -164,13 +189,13 @@ const exportPageAccessesData = (_exportTable: string[][]): void => {
         const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
         if (exportFormat.value === "csv") {
             // Build labels
-            const exportLabels: string [] = ["ID"].concat(languageLabels).concat(["Total Accesses"])
+            const exportLabels: string [] = ["ID"].concat(visibleDatasetSlugs).concat(["Total Accesses"])
             // Build filename
             const filename = `Integreat ${exportFormat.getAttribute("data-filename-prefix")} ${exportLabels[0]} - ${
                 exportLabels[exportLabels.length - 1]
             }`;
             // Create matrix with date labels in the first row and the hits per language in the subsequent rows
-            const csvMatrix: string[][] = [exportLabels].concat(_exportTable);
+            const csvMatrix: string[][] = [exportLabels].concat(exportTable);
             // Join Matrix to a single csv string
             const csvContent = csvMatrix.map((i) => i.join(",")).join("\n");
             // Initiate download
@@ -194,6 +219,9 @@ export const setPageAccessesEventListeners = () => {
             // Prevent form submit
             event.preventDefault();
             updatePageAccesses();
+        });
+        document.getElementById("export-button")?.addEventListener("click", async () => {
+            exportPageAccessesData();
         });
     }
 };
