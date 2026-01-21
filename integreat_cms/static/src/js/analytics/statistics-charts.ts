@@ -185,7 +185,7 @@ const toggleExportButton = () => {
     if (!exportFormat || !exportStatistics || !exportButton) {
         return;
     }
-    exportButton.disabled = (exportFormat.value === "" || exportStatistics.value === "");
+    exportButton.disabled = exportFormat.value === "" || exportStatistics.value === "";
 };
 
 /*

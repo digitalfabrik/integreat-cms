@@ -143,8 +143,8 @@ const updateExportTable = (data: AjaxResponse) => {
         });
         exportTableEntry[visibleDatasetSlugs.length + 1] = String(allAccesses);
         exportTable.push(exportTableEntry);
-    })
-}
+    });
+};
 
 /* The main function which updates the accesses */
 export const updatePageAccesses = async (): Promise<void> => {
@@ -189,7 +189,7 @@ const exportPageAccessesData = (): void => {
         const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
         if (exportFormat.value === "csv") {
             // Build labels
-            const exportLabels: string [] = ["ID"].concat(visibleDatasetSlugs).concat(["Total Accesses"])
+            const exportLabels: string[] = ["ID"].concat(visibleDatasetSlugs).concat(["Total Accesses"]);
             // Build filename
             const filename = `Integreat ${exportFormat.getAttribute("data-filename-prefix")} ${exportLabels[0]} - ${
                 exportLabels[exportLabels.length - 1]
