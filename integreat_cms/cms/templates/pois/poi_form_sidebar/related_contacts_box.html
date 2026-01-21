@@ -8,7 +8,7 @@
     {% trans "Related contacts" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    {% if poi_form.instance.id %}
+    {% if is_edit %}
         {% with poi_form.instance.contacts.all as contacts %}
             <div id="related-contact">
                 <div class="help-text">
@@ -40,7 +40,7 @@
                 <div>
                     <button id="show-contact-form-button"
                             form="ajax_contact_form"
-                            class="btn w-full mt-4 mb-2"
+                            class="btn w-full mt-4 mb-2{% if show_contact_form_widget %} hidden{% endif %}"
                             {% if poi_id %}data-url="{% url 'show_contact_form_ajax' region_slug=request.region.slug poi_id=poi_id %}"{% endif %}>
                         {% translate "Create a new contact" %}
                     </button>
@@ -56,7 +56,8 @@
                  class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 my-1 hidden">
                 {% trans "An error occurred." %}
             </div>
-            <div id="contact-form-widget" class="hidden">
+            <div id="contact-form-widget"
+                 class="{% if not show_contact_form_widget %} hidden {% endif %}">
                 {% if not poi_id %}
                     {% include "ajax_contact_form/_contact_form_widget.html" %}
                 {% endif %}

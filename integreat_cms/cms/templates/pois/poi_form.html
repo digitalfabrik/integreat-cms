@@ -14,7 +14,7 @@
         {% csrf_token %}
         <div class="flex flex-wrap justify-between w-full mb-4">
             <h1 class="overflow-hidden heading text-ellipsis">
-                {% if poi_form.instance.id %}
+                {% if is_edit %}
                     {% if poi_translation_form.instance.id %}
                         {% with poi_translation_form.instance.title as poi_title %}
                             {% blocktranslate trimmed %}
