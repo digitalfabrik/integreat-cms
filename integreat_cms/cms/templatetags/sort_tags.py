@@ -9,30 +9,25 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def sort_link(context: RequestContext, label: str, field: str) -> str:
     """
-    Usage:
+    Sets the correct href for sortable table headers
+
+    Usage in template:
         {% sort_link "Name" "name" %}
     """
 
     request = context["request"]
-    current = request.GET.getlist("sort")
-    current = [c.strip() for c in current]
-
-    if field in current:
-        new_field = f"-{field}"
-        arrow = " ▲"
-        new_sort = [new_field] + [c for c in current if c != field]
-    elif f"-{field}" in current:
-        new_field = field
-        arrow = " ▼"
-        new_sort = [new_field] + [c for c in current if c != f"-{field}"]
-    else:
-        new_field = field
-        arrow = ""
-        new_sort = [new_field, *current]
-
     params = request.GET.copy()
-    params.pop("sort", None)
-    params.setlist("sort", new_sort)
+    current = params.get("sort")
+
+    if field == current:
+        params["sort"] = f"-{field}"
+        arrow = " ▼"
+    elif f"-{field}" == current:
+        params.pop("sort", None)
+        arrow = " ▲"
+    else:
+        params["sort"] = field
+        arrow = ""
 
     url = f"?{urlencode(params, doseq=True)}"
 

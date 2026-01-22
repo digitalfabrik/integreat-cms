@@ -80,3 +80,4 @@ class AbstractBaseModel(models.Model):
     class Meta:
         #: This model is an abstract base class
         abstract = True
+        ordering = ["-pk"]
