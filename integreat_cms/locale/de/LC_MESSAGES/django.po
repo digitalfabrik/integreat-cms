@@ -1746,7 +1746,6 @@ msgid "Marketing team"
 msgstr "Marketing-Team"
 
 #: cms/constants/status.py
-#: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/push_notifications/push_notification_list_row.html
 #: cms/templates/translations/translations_management.html
 msgid "Draft"
@@ -1863,6 +1862,19 @@ msgstr "Vierte Woche"
 msgid "Last week"
 msgstr "Letzte Woche"
 
+#: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
+msgid "Enter a valid phone number: +49 1234567, 0049 1234567, or 01234567."
+msgstr "Geben Sie eine zulässige Telefonnummer an: +49 1234567, 0049 1234567, oder 01234567."
+
+#: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
+#: cms/templates/contacts/contact_list.html
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#: cms/forms/contacts/contact_form.py
+msgid "Mobile Phone number"
+msgstr "Mobiltelefonnummer"
+
 #: cms/forms/contacts/contact_form.py
 msgid "Adopt opening hours from linked location"
 msgstr "Öffnungszeiten aus dem hinterlegten Ort übernehmen"
@@ -1900,32 +1912,26 @@ msgstr ""
 "schließen sich gegenseitig aus."
 
 #: cms/forms/custom_content_model_form.py
-#, python-brace-format
 msgid "{} \"{}\" was saved automatically"
 msgstr "{} \"{}\" wurde automatisch gespeichert"
 
 #: cms/forms/custom_content_model_form.py
-#, python-brace-format
 msgid "{} \"{}\" was successfully submitted for review"
 msgstr "{} \"{}\" wurde erfolgreich zur Überprüfung eingereicht"
 
 #: cms/forms/custom_content_model_form.py
-#, python-brace-format
 msgid "{} \"{}\" was successfully saved as draft"
 msgstr "{} \"{}\" wurde erfolgreich als Entwurf gespeichert"
 
 #: cms/forms/custom_content_model_form.py
-#, python-brace-format
 msgid "{} \"{}\" was successfully published"
 msgstr "{} \"{}\" wurde erfolgreich veröffentlicht"
 
 #: cms/forms/custom_content_model_form.py
-#, python-brace-format
 msgid "{} \"{}\" was successfully updated"
 msgstr "{} \"{}\" wurde erfolgreich aktualisiert"
 
 #: cms/forms/custom_model_form.py
-#, python-brace-format
 msgid "Enter {} here"
 msgstr "{} hier eingeben"
 
@@ -2154,8 +2160,6 @@ msgstr ""
 "erstellt werden."
 
 #: cms/forms/media/create_directory_form.py
-#, fuzzy, python-brace-format
-#| msgid "A directory with the name \"{}\" already exists."
 msgid "A directory with the name \"{}\" already exists."
 msgstr "Ein Ordner mit diesem Namen existiert bereits"
 
@@ -2166,7 +2170,6 @@ msgstr ""
 "werden."
 
 #: cms/forms/media/replace_media_file_form.py
-#, python-brace-format
 msgid ""
 "The file type of the new file ({}) does not match the original file's type "
 "({})."
@@ -2179,7 +2182,6 @@ msgid "This image file is corrupt."
 msgstr "Diese Bilddatei ist fehlerhaft."
 
 #: cms/forms/media/upload_media_file_form.py
-#, python-brace-format
 msgid "The file type {} is not allowed."
 msgstr "Der Dateityp {} ist nicht erlaubt."
 
@@ -2239,12 +2241,10 @@ msgid "Enable write access via API for this page"
 msgstr "Schreib-Zugriff via API für diese Seite aktivieren"
 
 #: cms/forms/poi_categories/poi_category_translation_form.py
-#, python-brace-format
 msgid "Enter name in {} here"
 msgstr "Name auf {} hier eingeben"
 
 #: cms/forms/poi_categories/poi_category_translation_form.py
-#, python-brace-format
 msgid "Translation in {}"
 msgstr "Übersetzung auf {}"
 
@@ -2252,19 +2252,14 @@ msgstr "Übersetzung auf {}"
 msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
 
-#: cms/forms/pois/poi_form.py
+#: cms/forms/pois/poi_form.py cms/templates/contacts/contact_list.html
 #: cms/templates/organizations/organization_list.html
-#: cms/views/contacts/contact_list_view.py
 msgid "Website"
 msgstr "Webseite"
 
 #: cms/forms/pois/poi_form.py
 msgid "Email address"
 msgstr "E-Mail-Adresse"
-
-#: cms/forms/pois/poi_form.py cms/views/contacts/contact_list_view.py
-msgid "Phone number"
-msgstr "Telefonnummer"
 
 #: cms/forms/pois/poi_form.py
 msgid ""
@@ -2293,13 +2288,8 @@ msgstr "Kann nicht leer gelassen werden"
 
 #: cms/forms/push_notifications/push_notification_form.py
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "News \"{}\" was already sent on {}"
 msgstr "Nachricht \"{}\" wurde bereits gesendet am {}"
-
-#: cms/forms/push_notifications/push_notification_form.py
-msgid "Please provide a name for your template"
-msgstr "Bitte geben Sie der Vorlage einen Namen"
 
 #: cms/forms/push_notifications/push_notification_form.py
 msgid "The scheduled send date cannot be in the past"
@@ -2375,7 +2365,6 @@ msgstr ""
 "Zurücksetzungsdatum unterscheidet."
 
 #: cms/forms/regions/region_form.py
-#, python-brace-format
 msgid "Budget will be set as a monthly fraction of {} credits"
 msgstr "Das Budget wird monatsanteilig von {} Credits berechnet."
 
@@ -2456,22 +2445,18 @@ msgid "Please choose a behavior for cloning embedded offers."
 msgstr "Bitte wählen Sie ein Klonverhalten für eingebettete Angebote."
 
 #: cms/forms/regions/region_form.py
-#, python-brace-format
 msgid "'{}' is already selected as administrative division."
 msgstr "'{}' ist bereits als Verwaltungseinheit ausgewählt."
 
 #: cms/forms/regions/region_form.py
-#, python-brace-format
 msgid "Please select '{}' as administrative division."
 msgstr "Bitte wählen Sie '{}' als Verwaltungseinheit."
 
 #: cms/forms/regions/region_form.py
-#, python-brace-format
 msgid "Please set {} as default language for this region."
 msgstr "Bitte setzen Sie '{}' als Standard-Sprache für diese Region."
 
 #: cms/forms/regions/region_form.py
-#, python-brace-format
 msgid "Please enable '{}'."
 msgstr "Bitte aktivieren Sie '{}'."
 
@@ -2515,12 +2500,6 @@ msgstr "Passwort"
 #: cms/forms/users/password_reset_form.py cms/templates/_tinymce_config.html
 msgid "Email"
 msgstr "Email"
-
-#: cms/forms/users/password_reset_form.py
-#: cms/templates/authentication/password_reset_confirm.html
-#: cms/templates/authentication/password_reset_form.html
-msgid "Reset password"
-msgstr "Passwort zurücksetzen"
 
 #: cms/forms/users/passwordless_authentication_form.py
 msgid "The username or email address is incorrect."
@@ -2693,6 +2672,7 @@ msgid ""
 msgstr "Kreuzen Sie an, wenn Sie den Titel nicht übersetzen wollen."
 
 #: cms/models/abstract_content_model.py
+#: cms/models/push_notifications/push_notification.py
 msgid "copy"
 msgstr "Kopie"
 
@@ -2800,7 +2780,6 @@ msgid "parent"
 msgstr "übergeordneter Knoten"
 
 #: cms/models/abstract_tree_node.py
-#, python-brace-format
 msgid "The node \"{}\" in region \"{}\" cannot be moved to \"{}\"."
 msgstr ""
 "Der Knoten \"{}\" in Region \"{}\" kann nicht nach \"{}\" verschoben werden."
@@ -2898,27 +2877,22 @@ msgstr ""
 "vereinbart werden können."
 
 #: cms/models/contact/contact.py
-#, python-brace-format
 msgid "with area of responsibility: {}"
 msgstr "mit Zuständigkeitsbereich: {}"
 
 #: cms/models/contact/contact.py
-#, python-brace-format
 msgid "with name: {}"
 msgstr "mit Name: {}"
 
 #: cms/models/contact/contact.py
-#, python-brace-format
 msgid "with email: {}"
 msgstr "mit E-Mail-Adresse: {}"
 
 #: cms/models/contact/contact.py
-#, python-brace-format
 msgid "with phone number: {}"
 msgstr "mit Telefonnummer: {}"
 
 #: cms/models/contact/contact.py
-#, python-brace-format
 msgid "with website: {}"
 msgstr "mit Website: {}"
 
@@ -3121,7 +3095,6 @@ msgstr ""
 "Feld das Enddatum"
 
 #: cms/models/events/recurrence_rule.py
-#, python-brace-format
 msgid "Recurrence rule of \"{}\" ({})"
 msgstr "Wiederholungs-Regel von \"{}\" ({})"
 
@@ -3290,7 +3263,6 @@ msgid "search term"
 msgstr "Suchbegriff"
 
 #: cms/models/feedback/search_result_feedback.py
-#, python-brace-format
 msgid "Search results for {}"
 msgstr "Suchergebnisse für {}"
 
@@ -3526,7 +3498,6 @@ msgid "media directories"
 msgstr "Medien-Verzeichnisse"
 
 #: cms/models/media/media_file.py
-#, python-brace-format
 msgid "File too large. Size should not exceed {}."
 msgstr "Datei zu groß. Die Größe sollte {} nicht überschreiten."
 
@@ -4010,16 +3981,6 @@ msgid "channel"
 msgstr "Kanal"
 
 #: cms/models/push_notifications/push_notification.py
-msgid "draft"
-msgstr "Entwurf"
-
-#: cms/models/push_notifications/push_notification.py
-msgid "Whether or not the News is a draft (drafts cannot be sent)"
-msgstr ""
-"Ob die Nachricht ein Entwurf ist oder nicht (Entwürfe können nicht gesendet "
-"werden)"
-
-#: cms/models/push_notifications/push_notification.py
 msgid "The date and time when the News was sent."
 msgstr "Datum und Uhrzeit zu der die Nachricht gesendet wurde"
 
@@ -4040,18 +4001,6 @@ msgid "Sets behavior for dealing with not existing News translations"
 msgstr ""
 "Legt das Verhalten für den Umgang mit nicht vorhandenen Übersetzungen von "
 "Nachrichten fest"
-
-#: cms/models/push_notifications/push_notification.py
-msgid "News template"
-msgstr "Nachrichten-Vorlage"
-
-#: cms/models/push_notifications/push_notification.py
-msgid "News template name"
-msgstr "Name der Nachrichten-Vorlage"
-
-#: cms/models/push_notifications/push_notification.py
-msgid "Provide a distinct name for the template"
-msgstr "Bitte vergeben Sie einen eindeutigen Namen für die Vorlage"
 
 #: cms/models/push_notifications/push_notification.py
 msgid ""
@@ -4828,12 +4777,10 @@ msgid "Privacy policy"
 msgstr "Datenschutzerklärung"
 
 #: cms/templates/_content_edit_lock.html
-#, python-brace-format
 msgid "{} is already editing this content"
 msgstr "Dieser Inhalt wird bereits von {} bearbeitet"
 
 #: cms/templates/_content_edit_lock.html
-#, python-brace-format
 msgid "This content got locked by {}"
 msgstr "{} hat die Bearbeitung von diesem Inhalt übernommen"
 
@@ -5154,6 +5101,27 @@ msgstr "Automatisch den Titel des verlinkten Inhalts als Linktext verwenden"
 msgid "Media Library..."
 msgstr "Medienbibliothek..."
 
+#: cms/templates/ajax_poi_form/_base_poi_box.html
+msgid "Select a location"
+msgstr "Ort eingeben"
+
+#: cms/templates/ajax_poi_form/_base_poi_box.html
+msgid "Remove location"
+msgstr "Ort entfernen"
+
+#: cms/templates/ajax_poi_form/_base_poi_box.html
+msgid "This field cannot be empty. Please select a location."
+msgstr "Dieses Feld darf nicht leer sein. Bitte geben Sie einen Ort ein."
+
+#: cms/templates/ajax_poi_form/_base_poi_box.html
+msgid "The new location was successfully created."
+msgstr "Ein neuer Ort wurde erfolgreich erstellt."
+
+#: cms/templates/ajax_poi_form/_base_poi_box.html
+#: cms/templates/pois/poi_form_sidebar/related_contacts_box.html
+msgid "An error occurred."
+msgstr "Es ist ein Fehler aufgetreten."
+
 #: cms/templates/ajax_poi_form/_poi_address_container.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 msgid "Address"
@@ -5169,27 +5137,6 @@ msgstr "Auf Maps öffnen"
 #: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
 msgid "Publish"
 msgstr "Veröffentlichen"
-
-#: cms/templates/ajax_poi_form/poi_box.html
-msgid "Select a location"
-msgstr "Ort eingeben"
-
-#: cms/templates/ajax_poi_form/poi_box.html
-msgid "Remove location"
-msgstr "Ort entfernen"
-
-#: cms/templates/ajax_poi_form/poi_box.html
-msgid "This field cannot be empty. Please select a location."
-msgstr "Dieses Feld darf nicht leer sein. Bitte geben Sie einen Ort ein."
-
-#: cms/templates/ajax_poi_form/poi_box.html
-msgid "The new location was successfully created."
-msgstr "Ein neuer Ort wurde erfolgreich erstellt."
-
-#: cms/templates/ajax_poi_form/poi_box.html
-#: cms/templates/pois/poi_form_sidebar/related_contacts_box.html
-msgid "An error occurred."
-msgstr "Es ist ein Fehler aufgetreten."
 
 #: cms/templates/analytics/_page_hix_widget.html
 msgid "Overview of the text understandability of the pages"
@@ -5415,6 +5362,11 @@ msgstr "Zurück zur Anmeldung"
 #: cms/templates/authentication/login_webauthn.html
 msgid "Use Authenticator app"
 msgstr "Authenticator-App verwenden"
+
+#: cms/templates/authentication/password_reset_confirm.html
+#: cms/templates/authentication/password_reset_form.html
+msgid "Reset password"
+msgstr "Passwort zurücksetzen"
 
 #: cms/templates/authentication/password_reset_confirm.html
 msgid "Repeat password"
@@ -5663,6 +5615,44 @@ msgid "Create contact"
 msgstr "Kontakt erstellen"
 
 #: cms/templates/contacts/contact_list.html
+msgid "Name of related location"
+msgstr "Name des verlinkten Ortes"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Area of responsibility"
+msgstr "Zuständigkeitsbereich"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_form.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/poicategories/poicategory_list.html
+#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
+msgid "Name"
+msgstr "Name"
+
+#: cms/templates/contacts/contact_list.html
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Mobile phone number"
+msgstr "Mobiltelefonnummer"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/languages/language_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/roles/role_list.html
+msgid "Options"
+msgstr "Optionen"
+
+#: cms/templates/contacts/contact_list.html
 msgid "No archived contacts found with these filters."
 msgstr "Keine archivierten Kontakte mit diesen Filtern gefunden."
 
@@ -5691,7 +5681,6 @@ msgstr "Kontakte ausgewählt"
 #: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
@@ -5717,9 +5706,12 @@ msgstr "Kontakte löschen"
 #: cms/templates/pages/_page_xliff_export_overlay.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Execute"
 msgstr "Ausführen"
+
+#: cms/templates/contacts/contact_list_row.html
+msgid "Primary contact"
+msgstr "Primärkontakt"
 
 #: cms/templates/contacts/contact_list_row.html
 #: cms/templates/organizations/organization_list_row.html
@@ -6002,9 +5994,9 @@ msgid ""
 "The page <b>%(single_drafted_page)s</b> was saved as draft. User can't see "
 "your drafted pages. Please don't forget to publish the page once it's ready."
 msgstr ""
-"Die Seite <b>%(single_drafted_page)s</b> liegt nur im Entwurf vor. "
-"Nutzer:innen können die Inhalte nicht sehen. Bitte vergessen Sie nicht, die "
-"Seite zu veröffentlichen, sobald diese fertig ist."
+"Die Seite <b>%(single_drafted_page)s</b> liegt nur im Entwurf vor. Nutzer:"
+"innen können die Inhalte nicht sehen. Bitte vergessen Sie nicht, die Seite "
+"zu veröffentlichen, sobald diese fertig ist."
 
 #: cms/templates/dashboard/todo_dashboard_rows/_drafted_pages_row.html
 msgid "At the moment there is no drafted page. Good job!"
@@ -6294,7 +6286,6 @@ msgstr "Veranstaltung erstellen"
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
 #: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
-#: cms/templates/push_notifications/push_notification_form.html
 msgid "Save as draft"
 msgstr "Als Entwurf speichern"
 
@@ -6458,18 +6449,6 @@ msgid "External calendar"
 msgstr "Externer Kalender"
 
 #: cms/templates/events/event_list.html
-#: cms/templates/languages/language_list.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
-#: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
-#: cms/templates/roles/role_list.html cms/views/contacts/contact_list_view.py
-msgid "Options"
-msgstr "Optionen"
-
-#: cms/templates/events/event_list.html
 msgid "No events found with these filters."
 msgstr "Keine Veranstaltungen mit diesen Filtern gefunden."
 
@@ -6534,7 +6513,6 @@ msgstr "Veranstaltungen wiederherstellen"
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 #, python-format
 msgid "You are about to delete multiple selected %(content_type)s"
 msgstr "Sie sind dabei mehrere %(content_type)s zu löschen."
@@ -6543,7 +6521,6 @@ msgstr "Sie sind dabei mehrere %(content_type)s zu löschen."
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "This action cannot be undone"
 msgstr "Diese Handlung kann nicht rückgängig gemacht werden"
 
@@ -6551,7 +6528,6 @@ msgstr "Diese Handlung kann nicht rückgängig gemacht werden"
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Do you want to continue?"
 msgstr "Möchten Sie fortfahren?"
 
@@ -6559,7 +6535,6 @@ msgstr "Möchten Sie fortfahren?"
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 #, python-format
 msgid "Delete %(content_type)s"
 msgstr "%(content_type)s löschen"
@@ -6622,6 +6597,7 @@ msgstr "Aktualisieren & Importieren"
 #: cms/templates/linkcheck/link_list_row.html
 #: cms/templates/offertemplates/offertemplate_form.html
 #: cms/templates/poicategories/poicategory_form.html
+#: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
 #: cms/templates/translations/translations_management.html
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
@@ -6636,16 +6612,6 @@ msgstr "Neuer externer Kalender"
 #: cms/templates/events/external_calendar_list.html
 msgid "External calendars"
 msgstr "Externe Kalender"
-
-#: cms/templates/events/external_calendar_list.html
-#: cms/templates/languages/language_form.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/poicategories/poicategory_list.html
-#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
-#: cms/views/contacts/contact_list_view.py
-msgid "Name"
-msgstr "Name"
 
 #: cms/templates/events/external_calendar_list.html
 msgid "Imported events"
@@ -6666,7 +6632,6 @@ msgstr "Zuletzt geändert von"
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/pages/pages_page_tree.html
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 #: cms/templates/regions/region_list.html
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
@@ -7979,7 +7944,6 @@ msgid "Select files"
 msgstr "Dateien auswählen"
 
 #: cms/templates/pages/pages_page_tree.html
-#, python-brace-format
 msgid "and {} other files"
 msgstr "und {} weitere Dateien"
 
@@ -8350,18 +8314,8 @@ msgstr "Ort kopieren"
 
 #: cms/templates/push_notifications/push_notification_form.html
 #, python-format
-msgid "Edit Template \"%(push_notification_title)s\""
-msgstr "Nachrichten-Vorlage \"%(push_notification_title)s\" bearbeiten"
-
-#: cms/templates/push_notifications/push_notification_form.html
-#, python-format
 msgid "Edit News \"%(push_notification_title)s\""
 msgstr "Nachricht \"%(push_notification_title)s\" bearbeiten"
-
-#: cms/templates/push_notifications/push_notification_form.html
-#: cms/templates/push_notifications/push_notification_template_list.html
-msgid "Create News Template"
-msgstr "Neue Nachrichten-Vorlage erstellen"
 
 #: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/push_notifications/push_notification_list.html
@@ -8369,24 +8323,16 @@ msgid "Create News"
 msgstr "Nachricht erstellen"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "Update template"
-msgstr "Vorlage aktualisieren"
+msgid "Send"
+msgstr "Senden"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "Save template"
-msgstr "Vorlage speichern"
+msgid "Re-schedule"
+msgstr "Neu terminieren"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "Create news from template"
-msgstr "Neue Nachricht aus dieser Vorlage erstellen"
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "Save & Send"
-msgstr "Speichern & Senden"
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "Save & Schedule"
-msgstr "Speichern & Terminieren"
+msgid "Schedule"
+msgstr "Terminieren"
 
 #: cms/templates/push_notifications/push_notification_form.html
 #, python-format
@@ -8396,32 +8342,10 @@ msgstr "Nachrichten werden alle %(schedule_interval)s Minuten gesendet"
 #: cms/templates/push_notifications/push_notification_form.html
 msgid ""
 "Any manager with access to only some of the selected regions can view but "
-"not edit this news template."
-msgstr ""
-"Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
-"können diese Vorlage ansehen, aber nicht bearbeiten."
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid ""
-"Any manager with access to only some of the selected regions can view but "
 "not edit this news."
 msgstr ""
 "Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
 "können diese Nachricht ansehen, aber nicht bearbeiten."
-
-#: cms/templates/push_notifications/push_notification_form.html
-msgid "Sent draft"
-msgstr "Gesendeter Entwurf"
-
-#: cms/templates/push_notifications/push_notification_form.html
-#, python-format
-msgid ""
-"News was sent on %(sent_date)s, but is now in draft state, which means it is "
-"no longer shown in the news section of the app."
-msgstr ""
-"Die Nachricht wurde am %(sent_date)s gesendet, befindet sich jetzt aber im "
-"Entwurfsstatus, d.h. sie wird nicht mehr im Nachrichtenbereich der App "
-"angezeigt"
 
 #: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/push_notifications/push_notification_list.html
@@ -8433,18 +8357,16 @@ msgid "News sent on:"
 msgstr "Nachricht wurde gesendet am:"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "News is scheduled, but in draft and will not be sent automatically."
-msgstr ""
-"Die Nachricht ist terminiert, aber im Entwurf und wird nicht automatisch "
-"gesendet."
-
-#: cms/templates/push_notifications/push_notification_form.html
 msgid "Scheduled"
 msgstr "Terminiert"
 
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "News will be sent automatically on:"
 msgstr "Nachricht wird automatisch versendet am:"
+
+#: cms/templates/push_notifications/push_notification_form.html
+msgid "Not yet sent"
+msgstr "Noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "News not sent yet"
@@ -8459,8 +8381,12 @@ msgid "Back to news"
 msgstr "Zurück zu Nachrichten"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Open Templates"
-msgstr "Vorlagen öffnen"
+msgid "All News"
+msgstr "Alle Nachrichten"
+
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Not sent"
+msgstr "Nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "Channel"
@@ -8479,12 +8405,10 @@ msgid "No push notifications archived yet."
 msgstr "Noch keine Push-Benachrichtigungen vorhanden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "No push notifications found with these filters."
 msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "No push notifications available yet."
 msgstr "Noch keine Push-Benachrichtigungen vorhanden."
 
@@ -8501,7 +8425,6 @@ msgid "Archive push notifications"
 msgstr "Push-Benachrichtigungen archivieren"
 
 #: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Push notifications"
 msgstr "Push-Benachrichtigungen"
 
@@ -8545,32 +8468,9 @@ msgid "Please confirm that you really want to delete this push notification"
 msgstr ""
 "Bitte bestätigen Sie, dass diese Push-Benachrichtigung gelöscht werden soll"
 
-#: cms/templates/push_notifications/push_notification_template_list.html
-msgid "News Templates"
-msgstr "Nachrichten-Vorlagen"
-
-#: cms/templates/push_notifications/push_notification_template_list.html
-msgid "Open News"
-msgstr "Nachrichten öffnen"
-
-#: cms/templates/push_notifications/push_notification_template_list.html
-msgid "Template Name"
-msgstr "Name der Vorlage"
-
-#: cms/templates/push_notifications/push_notification_template_list_row.html
-msgid "Template name not available"
-msgstr "Name der Vorlage nicht verfügbar"
-
-#: cms/templates/push_notifications/push_notification_template_list_row.html
-msgid "Delete template"
-msgstr "Vorlage löschen"
-
-#: cms/templates/push_notifications/push_notification_template_list_row.html
-msgid ""
-"Please confirm that you really want to delete this push notification template"
-msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigungs-Vorlage gelöscht "
-"werden soll"
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Copy"
+msgstr "Kopieren"
 
 #: cms/templates/region_condition/region_condition.html
 msgid "Download region condition as CSV"
@@ -9451,6 +9351,10 @@ msgstr ""
 "verändern soll und keine Aktualisierung der Übersetzungen in anderen "
 "Sprachen erfordert."
 
+#: cms/utils/content_utils.py
+msgid "Oops! Error displaying contact data"
+msgstr "Ups! Fehler beim Anzeigen der Kontaktdaten"
+
 #: cms/utils/email_utils.py
 msgid "Malformed header data."
 msgstr "Fehlerhafte Header-Daten."
@@ -9476,19 +9380,16 @@ msgid "The data provided by the url of this external calendar is invalid"
 msgstr "Die Daten unter der URL des externen Kalenders sind fehlerhaft"
 
 #: cms/utils/external_calendar_utils.py
-#, python-brace-format
 msgid "Could not import event because it is missing a required field: {}"
 msgstr ""
 "Ein Event konnte nicht importiert werden, da ein erforderliches Feld fehlt: "
 "{}"
 
 #: cms/utils/external_calendar_utils.py
-#, python-brace-format
 msgid "Could not import '{}': {}"
 msgstr "'{}' konnte nicht importiert werden: {}"
 
 #: cms/utils/external_calendar_utils.py
-#, python-brace-format
 msgid "Could not import '{}': Unsupported recurrence rule"
 msgstr "'{}' konnte nicht importiert werden: Nicht unterstützte Wiederholung"
 
@@ -9572,8 +9473,11 @@ msgstr ""
 msgid "The PDF could not be successfully generated."
 msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 
+#: cms/utils/shortcodes/page.py
+msgid "MISSING LINK"
+msgstr "FEHLENDER LINK"
+
 #: cms/utils/slug_utils.py
-#, python-brace-format
 msgid "Cannot generate slug from {}."
 msgstr "Slug kann nicht aus dem {} abgeleitet werden."
 
@@ -9582,7 +9486,6 @@ msgid "and 1 other"
 msgstr "und 1 weitere"
 
 #: cms/utils/stringify_list.py
-#, python-brace-format
 msgid "and {} others"
 msgstr "und {} weitere"
 
@@ -9599,13 +9502,11 @@ msgid "welcome mail"
 msgstr "Willkommensmail"
 
 #: cms/utils/welcome_mail_utils.py
-#, python-brace-format
 msgid "{} was successfully sent to user {}."
 msgstr "{} wurde erfolgreich an {} gesendet."
 
 #: cms/utils/welcome_mail_utils.py
 #: cms/views/authentication/password_reset_view.py
-#, python-brace-format
 msgid "An error occurred! Could not send {}."
 msgstr "Es ist ein Fehler aufgetreten! Die {} konnte nicht versendet werden."
 
@@ -9694,7 +9595,6 @@ msgid "You need to log in first"
 msgstr "Sie müssen sich zunächst einloggen"
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid "Machine translations are disabled for language \"{}\""
 msgstr "Maschinelle Übersetzungen sind deaktiviert für die Sprache \"{}\""
 
@@ -9710,7 +9610,6 @@ msgid "All the selected translations are already up-to-date."
 msgstr "Alle ausgewählten Übersetzungen sind bereits aktuell."
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid "There already is an up-to-date translation for {}"
 msgid_plural "There already are up-to-date translations for {}"
 msgstr[0] "Es gibt bereits eine aktuelle Übersetzung für {}"
@@ -9803,7 +9702,6 @@ msgstr[0] "{model_name} {object_names} ist nicht archiviert."
 msgstr[1] "Die folgenden {model_name} sind nicht archiviert: {object_names}"
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid ""
 "Page {} could not be restored because it has at least one archived parent."
 msgid_plural ""
@@ -9930,7 +9828,6 @@ msgstr ""
 "werden."
 
 #: cms/views/contacts/contact_form_view.py cms/views/pois/poi_form_view.py
-#, python-brace-format
 msgid "Contact for \"{}\" was successfully created"
 msgstr "Kontakt für \"{}\" wurde erfolgreich erstellt"
 
@@ -9941,25 +9838,8 @@ msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
 #: cms/views/contacts/contact_form_view.py
-#, python-brace-format
 msgid "Contact for \"{}\" was successfully saved"
 msgstr "Kontakt für \"{}\" wurde erfolgreich gespeichert"
-
-#: cms/views/contacts/contact_list_view.py
-msgid "Name of related location"
-msgstr "Name des verlinkten Ortes"
-
-#: cms/views/contacts/contact_list_view.py
-msgid "Area of responsibility"
-msgstr "Zuständigkeitsbereich"
-
-#: cms/views/contacts/contact_list_view.py
-msgid "E-Mail"
-msgstr "E-Mail"
-
-#: cms/views/contacts/contact_list_view.py
-msgid "Mobile phone number"
-msgstr "Mobiltelefonnummer"
 
 #: cms/views/contacts/contact_list_view.py
 msgid "Please create at least one language node before creating contacts."
@@ -9985,12 +9865,10 @@ msgstr ""
 "Sie können Versionen dieser Seite nicht bearbeiten, weil sie archiviert ist."
 
 #: cms/views/content_version_view.py
-#, python-brace-format
 msgid "Link to the {}"
 msgstr "Link zum {}"
 
 #: cms/views/content_version_view.py
-#, python-brace-format
 msgid "The version {} does not exist."
 msgstr "Die Version {} existiert nicht."
 
@@ -10022,7 +9900,6 @@ msgid "The version was successfully restored"
 msgstr "Die Version wurde erfolgreich wiederhergestellt"
 
 #: cms/views/delete_views.py
-#, python-brace-format
 msgid "{} \"{}\" was successfully deleted"
 msgstr "{} \"{}\" wurde erfolgreich gelöscht"
 
@@ -10169,7 +10046,6 @@ msgstr ""
 "davon verwendet wird."
 
 #: cms/views/events/event_form_view.py
-#, python-brace-format
 msgid "Event \"{}\" was successfully created"
 msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 
@@ -10208,12 +10084,10 @@ msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
 #: cms/views/external_calendars/external_calendar_form_view.py
-#, python-brace-format
 msgid "External calendar \"{}\" was successfully created"
 msgstr "Externer Kalender \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/external_calendars/external_calendar_form_view.py
-#, python-brace-format
 msgid "External calendar \"{}\" was successfully saved"
 msgstr "Externer Kalender \"{}\" wurde erfolgreich gespeichert"
 
@@ -10273,12 +10147,10 @@ msgid "Feedback was successfully forwarded"
 msgstr "Feedback wurde erfolgreich weitergeleitet"
 
 #: cms/views/form_views.py cms/views/poi_categories/poi_category_form_view.py
-#, python-brace-format
 msgid "{} \"{}\" was successfully saved"
 msgstr "{} \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/form_views.py cms/views/poi_categories/poi_category_form_view.py
-#, python-brace-format
 msgid "{} \"{}\" was successfully created"
 msgstr "{} \"{}\" wurde erfolgreich erstellt"
 
@@ -10297,7 +10169,6 @@ msgid "This is not the most recent public revision of this translation."
 msgstr "Dies ist nicht die neueste öffentliche Revision dieser Übersetzung."
 
 #: cms/views/imprint/imprint_form_view.py
-#, python-brace-format
 msgid "Instead, <a>revision {}</a> is shown in the apps."
 msgstr "Stattdessen wird die <a>Revision {}</a> in den Apps angezeigt."
 
@@ -10338,7 +10209,6 @@ msgid "A region can only have one root language."
 msgstr "Eine Region kann nur eine Standard-Sprache besitzen."
 
 #: cms/views/language_tree/language_tree_actions.py
-#, python-brace-format
 msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
 
@@ -10429,7 +10299,6 @@ msgid "Links were successfully checked"
 msgstr "Links wurden erfolgreich geprüft"
 
 #: cms/views/media/media_actions.py
-#, python-brace-format
 msgid "File \"{}\" was uploaded successfully"
 msgstr "Datei \"{}\"wurde erfolgreich hochgeladen"
 
@@ -10438,44 +10307,36 @@ msgid "No changes detected"
 msgstr "Keine Änderungen vorgenommen"
 
 #: cms/views/media/media_actions.py
-#, python-brace-format
 msgid "File \"{}\" was saved successfully"
 msgstr "Datei \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/media/media_actions.py
-#, python-brace-format
 msgid "File \"{}\" cannot be deleted because it is used as an icon or content."
 msgstr ""
 "Datei \"{}\" kann nicht gelöscht werden, da sie als Icon oder Inhalt benutzt "
 "ist."
 
 #: cms/views/media/media_actions.py
-#, python-brace-format
 msgid "File \"{}\" was successfully deleted"
 msgstr "Datei \"{}\" wurde erfolgreich gelöscht"
 
 #: cms/views/media/media_actions.py
-#, python-brace-format
 msgid "Directory \"{}\" was created successfully"
 msgstr "Verzeichnis \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/media/media_actions.py
-#, python-brace-format
 msgid "Directory \"{}\" was saved successfully"
 msgstr "Verzeichnis \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/media/media_actions.py
-#, python-brace-format
 msgid "Directory \"{}\" cannot be deleted because it is not empty"
 msgstr "Verzeichnis \"{}\" kann nicht gelöscht werden, da es nicht leer ist"
 
 #: cms/views/media/media_actions.py
-#, python-brace-format
 msgid "Directory \"{}\" was successfully deleted"
 msgstr "Verzeichnis \"{}\" wurde erfolgreich gelöscht"
 
 #: cms/views/media/media_actions.py
-#, python-brace-format
 msgid "File \"{}\" was moved successfully into directory \"{}\""
 msgstr "Datei \"{}\" wurde erfolgreich in das Verzeichnis \"{}\" verschoben"
 
@@ -10665,7 +10526,6 @@ msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
 #: cms/views/mixins.py
-#, python-brace-format
 msgid "Please confirm that you really want to delete this {}"
 msgstr "Bitte bestätigen Sie, dass diese {} gelöscht werden soll"
 
@@ -10781,12 +10641,10 @@ msgstr ""
 "bearbeiten."
 
 #: cms/views/organizations/organization_form_view.py
-#, python-brace-format
 msgid "Organization \"{}\" was successfully created"
 msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/organizations/organization_form_view.py
-#, python-brace-format
 msgid "Organization \"{}\" was successfully saved"
 msgstr "Organisation \"{}\" wurde erfolgreich gespeichert"
 
@@ -10815,27 +10673,22 @@ msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
 #: cms/views/pages/page_actions.py
-#, python-brace-format
 msgid "Page \"{}\" does not have a translation for language \"{}\""
 msgstr "Die Seite \"{}\" hat keine Übersetzung für die Sprache \"{}\""
 
 #: cms/views/pages/page_actions.py
-#, python-brace-format
 msgid "Cancelled translation process for page \"{}\" and language \"{}\""
 msgstr "Übersetzungsprozess für Seite \"{}\" und Sprache \"{}\" abgebrochen"
 
 #: cms/views/pages/page_actions.py
-#, python-brace-format
 msgid "File \"{}\" is neither a ZIP archive nor an XLIFF file."
 msgstr "Die Datei \"{}\" ist weder ein ZIP-Archiv noch eine XLIFF-Datei."
 
 #: cms/views/pages/page_actions.py
-#, python-brace-format
 msgid "The ZIP archive \"{}\" does not contain XLIFF files."
 msgstr "Das ZIP-Archiv \"{}\" enthält keine XLIFF-Dateien"
 
 #: cms/views/pages/page_actions.py
-#, python-brace-format
 msgid "The ZIP archive \"{}\" contains the following invalid files: \"{}\""
 msgstr "Das ZIP-Archiv \"{}\" enthält die folgenden ungültigen Dateien: \"{}\""
 
@@ -10861,7 +10714,6 @@ msgid "Marked all translations of this page as up-to-date"
 msgstr "Alle Übersetzungen dieser Seite als aktuell markiert."
 
 #: cms/views/pages/page_bulk_actions.py
-#, python-brace-format
 msgid ""
 "XLIFF file with published pages only for translation to {} successfully "
 "created."
@@ -10870,7 +10722,6 @@ msgstr ""
 "wurde erfolgreich erstellt."
 
 #: cms/views/pages/page_bulk_actions.py
-#, python-brace-format
 msgid ""
 "XLIFF file with unpublished and published pages for translation to {} "
 "successfully created."
@@ -10966,6 +10817,14 @@ msgid "All translations of this page will also be deleted."
 msgstr "Alle Übersetzungen dieser Seite werden gelöscht."
 
 #: cms/views/pages/page_form_view.py
+msgid ""
+"The \"minor edit\" option was disabled because the first version can never "
+"be a minor edit."
+msgstr ""
+"Die \"geringfügige Änderung\"-Option wurde deaktiviert, da die erste Version "
+"niemals eine geringfügige Änderung sein kann."
+
+#: cms/views/pages/page_form_view.py
 msgid "You cannot edit this page because it is archived."
 msgstr "Sie können diese Seite nicht bearbeiten, weil sie archiviert ist."
 
@@ -10976,6 +10835,26 @@ msgid ""
 msgstr ""
 "Sie können diese Seite nicht bearbeiten, weil eine ihrer übergeordneten "
 "Seiten archiviert ist, und sie dadurch ebenfalls archiviert ist."
+
+#: cms/views/pages/page_form_view.py cms/views/pages/page_sbs_view.py
+msgid "You don't have the permission to edit this page."
+msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
+
+#: cms/views/pages/page_form_view.py
+msgid ""
+"You don't have the permission to publish this page, but you can propose "
+"changes and submit them for review instead."
+msgstr ""
+"Sie haben nicht die nötige Berechtigung, um diese Seite zu veröffentlichen, "
+"aber Sie können Änderungen vornehmen und diese zur Freigabe vorlegen."
+
+#: cms/views/pages/page_form_view.py
+msgid "The latest changes have only been saved as a draft."
+msgstr "Die letzten Änderungen wurden nur als Entwurf gespeichert."
+
+#: cms/views/pages/page_form_view.py
+msgid "Currently, <a>version {}</a> of this page is displayed in the app."
+msgstr "Aktuell wird <a>Version {}</a> dieser Seite in der App angezeigt."
 
 #: cms/views/pages/page_form_view.py
 msgid "The last changes were saved automatically."
@@ -10999,35 +10878,6 @@ msgid "You can {action} these changes in the <a>version overview</a>."
 msgstr "Sie können diese Änderungen in der <a>Versionsübersicht</a> {action}."
 
 #: cms/views/pages/page_form_view.py
-msgid "The latest changes have only been saved as a draft."
-msgstr "Die letzten Änderungen wurden nur als Entwurf gespeichert."
-
-#: cms/views/pages/page_form_view.py
-#, python-brace-format
-msgid "Currently, <a>version {}</a> of this page is displayed in the app."
-msgstr "Aktuell wird <a>Version {}</a> dieser Seite in der App angezeigt."
-
-#: cms/views/pages/page_form_view.py cms/views/pages/page_sbs_view.py
-msgid "You don't have the permission to edit this page."
-msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
-
-#: cms/views/pages/page_form_view.py
-msgid ""
-"You don't have the permission to publish this page, but you can propose "
-"changes and submit them for review instead."
-msgstr ""
-"Sie haben nicht die nötige Berechtigung, um diese Seite zu veröffentlichen, "
-"aber Sie können Änderungen vornehmen und diese zur Freigabe vorlegen."
-
-#: cms/views/pages/page_form_view.py
-msgid ""
-"The \"minor edit\" option was disabled because the first version can never "
-"be a minor edit."
-msgstr ""
-"Die \"geringfügige Änderung\"-Option wurde deaktiviert, da die erste Version "
-"niemals eine geringfügige Änderung sein kann."
-
-#: cms/views/pages/page_form_view.py
 #, python-brace-format
 msgid ""
 "The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' "
@@ -11046,7 +10896,6 @@ msgid "Page \"{}\" was successfully created and submitted for approval"
 msgstr "Seite \"{}\" wurde erfolgreich erstellt und zur Freigabe vorgelegt"
 
 #: cms/views/pages/page_form_view.py
-#, python-brace-format
 msgid "Page \"{}\" was successfully created"
 msgstr "Seite \"{}\" wurde erfolgreich erstellt"
 
@@ -11070,22 +10919,18 @@ msgstr ""
 "werden, die keine Seiten sehen dürfen (z.B. Terminplaner:innen)."
 
 #: cms/views/pages/page_permission_actions.py
-#, python-brace-format
 msgid "Information: The user \"{}\" has this permission already."
 msgstr "Information: \"{}\" hat diese Berechtigung bereits."
 
 #: cms/views/pages/page_permission_actions.py
-#, python-brace-format
 msgid "Success: The user \"{}\" can now edit this page."
 msgstr "Erfolg: \"{}\" kann diese Seite nun bearbeiten."
 
 #: cms/views/pages/page_permission_actions.py
-#, python-brace-format
 msgid "Success: The user \"{}\" cannot edit this page anymore."
 msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr bearbeiten."
 
 #: cms/views/pages/page_permission_actions.py
-#, python-brace-format
 msgid ""
 "Information: The user \"{}\" has been removed from the authors of this page, "
 "but has the implicit permission to edit this page anyway."
@@ -11095,17 +10940,14 @@ msgstr ""
 "bearbeiten."
 
 #: cms/views/pages/page_permission_actions.py
-#, python-brace-format
 msgid "Success: The user \"{}\" can now publish this page."
 msgstr "Erfolg: \"{}\" kann dieses Seite nun veröffentlichen."
 
 #: cms/views/pages/page_permission_actions.py
-#, python-brace-format
 msgid "Success: The user \"{}\" cannot publish this page anymore."
 msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr veröffentlichen."
 
 #: cms/views/pages/page_permission_actions.py
-#, python-brace-format
 msgid ""
 "Information: The user \"{}\" has been removed from the editors of this page, "
 "but has the implicit permission to publish this page anyway."
@@ -11215,12 +11057,10 @@ msgid "You don't have the permission to edit locations."
 msgstr "Sie haben nicht die nötige Berechtigung, um Orte zu bearbeiten."
 
 #: cms/views/pois/poi_form_view.py
-#, python-brace-format
 msgid "Location \"{}\" was successfully created"
 msgstr "Ort \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/pois/poi_form_view.py
-#, python-brace-format
 msgid ""
 "The distance between the manually entered coordinates and the coordinates of "
 "the address is {}km."
@@ -11262,6 +11102,11 @@ msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
 msgid "Push notification {0} was successfully deleted"
 msgstr "Push-Benachrichtigung {0} wurde erfolgreich gelöscht"
 
+#: cms/views/push_notifications/push_notification_actions.py
+#, python-brace-format
+msgid "Push notification {0} was successfully copied"
+msgstr "Push-Benachrichtigung {0} wurde erfolgreich kopiert"
+
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
 msgid "Push notifications are disabled."
@@ -11292,7 +11137,6 @@ msgid "You are not allowed to edit this news."
 msgstr "Sie dürfen diese Nachricht nicht bearbeiten."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "This news belongs to regions you don't have access to: {}."
 msgstr ""
 "Diese Nachricht gehört zu Regionen, auf die Sie keinen Zugriff haben: {}."
@@ -11313,17 +11157,10 @@ msgid "created"
 msgstr "erstellt"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
-msgid "Template \"{}\" was successfully {}"
-msgstr "Vorlage \"{}\" wurde erfolgreich {}"
-
-#: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "News \"{}\" was successfully {}"
 msgstr "Nachricht \"{}\" wurde erfolgreich {}"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "This news is also assigned to regions you don't have access to: {}."
 msgstr ""
 "Diese Nachricht ist auch Regionen zugewiesen, auf die Sie keinen Zugriff "
@@ -11342,56 +11179,35 @@ msgstr ""
 "ist oder kontaktieren Sie eine:n Administrator:in."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
-msgid "News \"{}\" is not a template"
-msgstr "Nachricht \"{}\" ist keine Vorlage."
-
-#: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
-msgid "News \"{}\" was successfully created from template \"{}\"."
-msgstr "Nachricht \"{}\" wurde erfolgreich aus der Vorlage \"{}\" erstellt."
-
-#: cms/views/push_notifications/push_notification_form_view.py
-msgid "In the next step, the news can now be sent."
-msgstr "Im nächsten Schritt kann diese Nachricht nun versendet werden."
-
-#: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "News \"{}\" cannot be sent, because it is archived"
 msgstr "Nachricht \"{}\" kann nicht gesendet werden, weil sie archiviert ist."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "News \"{}\" could not be sent due to a configuration error."
 msgstr ""
 "Nachricht \"{}\" konnte aufgrund eines Konfigurationsproblems nicht gesendet "
 "werden."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "News \"{}\" could not be sent due to a missing translation in {}."
 msgstr ""
 "Nachricht \"{}\" konnte aufgrund einer fehlenden Übersetzung in {} nicht "
 "gesendet werden."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "News \"{}\" cannot be sent because required texts are missing"
 msgstr ""
 "Nachricht \"{}\" kann nicht gesendet werden, da erforderliche Texte fehlen"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "News \"{}\" cannot be scheduled because the date is missing"
 msgstr "Nachricht \"{}\" kann nicht terminiert werden, da das Datum fehlt"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "News \"{}\" was successfully scheduled for {}"
 msgstr "Nachricht \"{}\" wurde erfolgreich terminiert auf den {}"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "News \"{}\" could not be sent."
 msgstr "Nachricht \"{}\" konnte nicht gesendet werden."
 
@@ -11401,7 +11217,6 @@ msgstr ""
 "Bitte versuchen Sie es erneut oder kontaktieren Sie eine:n Administrator:in."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-#, python-brace-format
 msgid "News \"{}\" was successfully sent"
 msgstr "Nachricht \"{}\" wurde erfolgreich gesendet"
 
@@ -11454,7 +11269,6 @@ msgid "is mirrored here:"
 msgstr "wird hier gespiegelt:"
 
 #: cms/views/regions/region_actions.py
-#, python-brace-format
 msgid "Region \"{}\" will be deleted"
 msgstr "Region \"{}\" wird gelöscht"
 
@@ -11480,12 +11294,10 @@ msgstr ""
 "Orte sind aktiviert, aber die Bounding-Box-Koordinaten sind unvollständig."
 
 #: cms/views/roles/role_form_view.py
-#, python-brace-format
 msgid "Role \"{}\" was successfully created"
 msgstr "Rolle \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/roles/role_form_view.py
-#, python-brace-format
 msgid "Role \"{}\" was successfully saved"
 msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
 
@@ -11557,7 +11369,6 @@ msgstr ""
 "registrierten Schlüssel vorliegen bevor Sie diesen Schlüssel entfernen."
 
 #: cms/views/settings/webauthn/delete_user_fido_key_view.py
-#, python-brace-format
 msgid "The 2-factor authentication key \"{}\" was successfully deleted"
 msgstr ""
 "Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich gelöscht."
@@ -11571,7 +11382,6 @@ msgid "You already registered this key"
 msgstr "Sie haben diesen Schlüssel bereits registriert"
 
 #: cms/views/settings/webauthn/register_user_fido_key_view.py
-#, python-brace-format
 msgid "The 2-factor authentication key \"{}\" was successfully registered."
 msgstr ""
 "Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich "
@@ -11599,12 +11409,10 @@ msgstr ""
 "Einstellungen für automatische Übersetzungen wurden erfolgreich gespeichert."
 
 #: cms/views/users/region_user_actions.py cms/views/users/user_actions.py
-#, python-brace-format
 msgid "Account \"{}\" was successfully deleted."
 msgstr "Das Konto von \"{}\" wurde erfolgreich gelöscht."
 
 #: cms/views/users/region_user_actions.py
-#, python-brace-format
 msgid "Account \"{}\" was successfully removed from this region."
 msgstr "Das Konto von \"{}\" wurde erfolgreich von dieser Region entfernt."
 
@@ -11613,12 +11421,10 @@ msgid "Pending account activation"
 msgstr "Aktivierung des Kontos noch ausstehend"
 
 #: cms/views/users/region_user_form_view.py cms/views/users/user_form_view.py
-#, python-brace-format
 msgid "Account \"{}\" was successfully created."
 msgstr "Das Konto für \"{}\" wurde erfolgreich erstellt."
 
 #: cms/views/users/region_user_form_view.py cms/views/users/user_form_view.py
-#, python-brace-format
 msgid "Account \"{}\" was successfully saved."
 msgstr "Das Konto von \"{}\" wurde erfolgreich gespeichert."
 
@@ -11953,7 +11759,6 @@ msgstr[1] ""
 "übersetzt werden: {object_names}"
 
 #: summ_ai_api/utils.py
-#, python-brace-format
 msgid "No German translation could be found for {} \"{}\"."
 msgstr "Es konnte keine Deutsche Übersetzung für {} \"{}\" gefunden werden."
 
@@ -11962,7 +11767,6 @@ msgid "TextLab API"
 msgstr "TextLab API"
 
 #: textlab_api/utils.py
-#, python-brace-format
 msgid ""
 "HIX score {:.2f} of \"{}\" is too low for machine translation (minimum "
 "required: {})"
@@ -11971,7 +11775,6 @@ msgstr ""
 "(erforderlicher Mindestwert: {})"
 
 #: textlab_api/utils.py
-#, python-brace-format
 msgid ""
 "Machine translations are disabled for \"{}\", because its HIX value is "
 "ignored"
@@ -11984,7 +11787,6 @@ msgid "XLIFF"
 msgstr "XLIFF"
 
 #: xliff/utils.py
-#, python-brace-format
 msgid ""
 "Page {} does not have a {}source translation in {} and therefore cannot be "
 "exported as XLIFF for translation to {}."
@@ -11997,25 +11799,21 @@ msgid "published"
 msgstr "veröffentliche"
 
 #: xliff/utils.py
-#, python-brace-format
 msgid "An unexpected error has occurred while exporting page {}."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Exportieren der Seite {} aufgetreten."
 
 #: xliff/utils.py
-#, python-brace-format
 msgid "The page referenced in XLIFF file \"{}\" could not be found."
 msgstr "Die Seite der XLIFF-Datei \"{}\" konnte nicht gefunden werden."
 
 #: xliff/utils.py
-#, python-brace-format
 msgid "An unexpected error has occurred while importing XLIFF file \"{}\"."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Importieren der XLIFF-Datei \"{}\" "
 "aufgetreten."
 
 #: xliff/utils.py
-#, python-brace-format
 msgid ""
 "Page <b>{}</b> from file <b>{}</b> was also translated in file <b>{}</b>."
 msgstr ""
@@ -12039,18 +11837,15 @@ msgstr ""
 "die zweite ignoriert."
 
 #: xliff/utils.py
-#, python-brace-format
 msgid "This page was also translated in file <b>{}</b>, which will be ignored."
 msgstr ""
 "Diese Seite wurde auch in der Datei <b>{}</b> übersetzt, die ignoriert wird."
 
 #: xliff/utils.py
-#, python-brace-format
 msgid "Page {} could not be imported successfully because of the errors:"
 msgstr "Seite {} konnte nicht importiert werden aufgrund der Fehler:"
 
 #: xliff/utils.py
-#, python-brace-format
 msgid "Page {} from the file <b>{}</b> could not be imported."
 msgstr "Die Seite {} aus der Datei <b>{}</b> konnte nicht importiert werden."
 
@@ -12067,14 +11862,12 @@ msgstr ""
 "Administrator."
 
 #: xliff/utils.py
-#, python-brace-format
 msgid "Page {} was imported successfully."
 msgid_plural "Pages {} were imported successfully."
 msgstr[0] "Seite {} wurde erfolgreich importiert."
 msgstr[1] "Seiten {} wurden erfolgreich importiert."
 
 #: xliff/utils.py
-#, python-brace-format
 msgid "Page {} was imported without changes."
 msgid_plural "Pages {} were imported without changes."
 msgstr[0] "Seite {} wurde ohne Änderungen importiert."
@@ -12086,11 +11879,111 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu importieren."
 
 #: xliff/utils.py
-#, python-brace-format
 msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid ""
+#~ "Any manager with access to only some of the selected regions can view but "
+#~ "not edit this news template."
+#~ msgstr ""
+#~ "Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff "
+#~ "haben, können diese Vorlage ansehen, aber nicht bearbeiten."
+
+#~ msgid "Edit Template \"%(push_notification_title)s\""
+#~ msgstr "Nachrichten-Vorlage \"%(push_notification_title)s\" bearbeiten"
+
+#~ msgid "Create News Template"
+#~ msgstr "Neue Nachrichten-Vorlage erstellen"
+
+#~ msgid "Please provide a name for your template"
+#~ msgstr "Bitte geben Sie der Vorlage einen Namen"
+
+#~ msgid "draft"
+#~ msgstr "Entwurf"
+
+#~ msgid "Whether or not the News is a draft (drafts cannot be sent)"
+#~ msgstr ""
+#~ "Ob die Nachricht ein Entwurf ist oder nicht (Entwürfe können nicht "
+#~ "gesendet werden)"
+
+#~ msgid "News template"
+#~ msgstr "Nachrichten-Vorlage"
+
+#~ msgid "News template name"
+#~ msgstr "Name der Nachrichten-Vorlage"
+
+#~ msgid "Provide a distinct name for the template"
+#~ msgstr "Bitte vergeben Sie einen eindeutigen Namen für die Vorlage"
+
+#~ msgid "News Templates"
+#~ msgstr "Nachrichten-Vorlagen"
+
+#~ msgid "Open News"
+#~ msgstr "Nachrichten öffnen"
+
+#~ msgid "Template Name"
+#~ msgstr "Name der Vorlage"
+
+#~ msgid "Template name not available"
+#~ msgstr "Name der Vorlage nicht verfügbar"
+
+#~ msgid "Delete template"
+#~ msgstr "Vorlage löschen"
+
+#~ msgid ""
+#~ "Please confirm that you really want to delete this push notification "
+#~ "template"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigungs-Vorlage gelöscht "
+#~ "werden soll"
+
+#~ msgid "News \"{}\" is not a template"
+#~ msgstr "Nachricht \"{}\" ist keine Vorlage."
+
+#~ msgid "News \"{}\" was successfully created from template \"{}\"."
+#~ msgstr "Nachricht \"{}\" wurde erfolgreich aus der Vorlage \"{}\" erstellt."
+
+#~ msgid "In the next step, the news can now be sent."
+#~ msgstr "Im nächsten Schritt kann diese Nachricht nun versendet werden."
+
+#~ msgid "Update template"
+#~ msgstr "Vorlage aktualisieren"
+
+#~ msgid "Save template"
+#~ msgstr "Vorlage speichern"
+
+#~ msgid "Create news from template"
+#~ msgstr "Neue Nachricht aus dieser Vorlage erstellen"
+
+#~ msgid "Save & Send"
+#~ msgstr "Speichern & Senden"
+
+#~ msgid "Save & Schedule"
+#~ msgstr "Speichern & Terminieren"
+
+#~ msgid "Sent draft"
+#~ msgstr "Gesendeter Entwurf"
+
+#~ msgid ""
+#~ "News was sent on %(sent_date)s, but is now in draft state, which means it "
+#~ "is no longer shown in the news section of the app."
+#~ msgstr ""
+#~ "Die Nachricht wurde am %(sent_date)s gesendet, befindet sich jetzt aber "
+#~ "im Entwurfsstatus, d.h. sie wird nicht mehr im Nachrichtenbereich der App "
+#~ "angezeigt"
+
+#~ msgid "News is scheduled, but in draft and will not be sent automatically."
+#~ msgstr ""
+#~ "Die Nachricht ist terminiert, aber im Entwurf und wird nicht automatisch "
+#~ "gesendet."
+
+#~ msgid "Template \"{}\" was successfully {}"
+#~ msgstr "Vorlage \"{}\" wurde erfolgreich {}"
+
+#~ msgid "Open Templates"
+#~ msgstr "Vorlagen öffnen"
 
 #~ msgid "The list below shows all detected errors related to links."
 #~ msgstr "Hier können Sie eine Übersicht über fehlerhafte Links sehen."
@@ -12369,9 +12262,6 @@ msgstr ""
 #~ "Einzelne Sprachen können durch Anklicken der Beschriftungen ausgeblendet "
 #~ "werden."
 
-#~ msgid "Copy"
-#~ msgstr "(Kopie)"
-
 #~ msgid "Number of online accesses"
 #~ msgstr "Anzahl der Online-Zugriffe"
 
@@ -12465,13 +12355,13 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>%"
-#~ "(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have <b>"
+#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>%"
-#~ "(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
+#~ "Ihre Inhalten haben aktuell <b>"
+#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
 #~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
 #~ "profitieren können, sollten Sie diese übersetzen (lassen)."
 
@@ -12485,8 +12375,8 @@ msgstr ""
 #~ "Cancelled translation process for page \"{page}\" and language "
 #~ "\"{page_translation.language}\""
 #~ msgstr ""
-#~ "Überestzungsprozess für Seite \"{page}\" und Sprache "
-#~ "\"{page_translation.language}\" abgebrochen"
+#~ "Überestzungsprozess für Seite \"{page}\" und Sprache \"{page_translation."
+#~ "language}\" abgebrochen"
 
 #~ msgid "You cannot translate into the default language"
 #~ msgstr "Sie können nicht in die Standard-Sprache übersetzen"
@@ -13110,9 +13000,9 @@ msgstr ""
 #~ msgstr "Der Name der Kategorie auf English."
 
 #~ msgid ""
-#~ "The latest changes have only been saved as a draft. Currently, <a href='%"
-#~ "(revision_url)s' class='underline hover:no-underline'>version %"
-#~ "(revision)s</a> of this page is displayed in the app."
+#~ "The latest changes have only been saved as a draft. Currently, <a "
+#~ "href='%(revision_url)s' class='underline hover:no-underline'>version "
+#~ "%(revision)s</a> of this page is displayed in the app."
 #~ msgstr ""
 #~ "Die letzten Änderungen wurden nur als Entwurf gespeichert. Aktuell wird "
 #~ "Version <a href='%(revision_url)s' class='underline hover:no-"
@@ -13838,9 +13728,6 @@ msgstr ""
 #~ "Sie können keinen Aktivierungslink an bereits aktive Benutzer:innen "
 #~ "versenden."
 
-#~ msgid "All news"
-#~ msgstr "Alle Nachrichten"
-
 #~ msgid "Create User"
 #~ msgstr "Konto erstellen"
 
@@ -14299,11 +14186,11 @@ msgstr ""
 #~ msgstr "Seite wurde erfolgreich gelöscht."
 
 #~ msgid ""
-#~ "This push notification has already been sent on the %"
-#~ "(push_notification_sent_date)s."
+#~ "This push notification has already been sent on the "
+#~ "%(push_notification_sent_date)s."
 #~ msgstr ""
-#~ "Diese Push-Benachrichtigung wurde bereits am %"
-#~ "(push_notification_sent_date)s gesendet."
+#~ "Diese Push-Benachrichtigung wurde bereits am "
+#~ "%(push_notification_sent_date)s gesendet."
 
 #~ msgid "Insert channel name here"
 #~ msgstr "Kanal-Name hier eingeben"
