@@ -280,10 +280,13 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     // Either insert a new link or update the existing one
                     const anchor = getAnchor();
                     if (!anchor) {
-                        let selectedNode = editor.selection.getNode().closest("span");
+                        const selectedNode = editor.selection.getNode().closest("span");
                         let selectedText;
                         if (!selectedNode) {
                             selectedText = editor.selection.getContent({ format: "html" });
+                            if (selectedText.length === 0) {
+                                selectedText = text;
+                            }
                         }
                         const link = editor.dom.create(
                             "a",
