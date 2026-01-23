@@ -12,7 +12,7 @@
                aria-label="Search"
                placeholder="{% translate "Search" %}"
                class="default-value rounded-r-none"
-               data-url="{% if region_slug and language_slug %}{% url 'search_content_ajax' region_slug language_slug %}{% elif region_slug %}{% url 'search_content_ajax' region_slug %}{% else %}{% url 'search_content_ajax' %}{% endif %}"
+               data-url="{% if region_slug and language_slug %}{% url 'search_suggest' region_slug language_slug %}{% elif region_slug %}{% url 'search_suggest' region_slug %}{% else %}{% url 'search_suggest' %}{% endif %}"
                data-object-type="{{ object_type }}"
                data-archived="{% if object_archived %}true{% else %}false{% endif %}" />
         <ul id="table-search-suggestions"

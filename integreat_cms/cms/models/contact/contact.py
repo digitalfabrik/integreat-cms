@@ -21,6 +21,7 @@ from linkcheck.models import Link
 from ..abstract_base_model import AbstractBaseModel
 from ..events.event_translation import EventTranslation
 from ..fields.truncating_char_field import TruncatingCharField
+from ..mixins import SearchSuggestMixin
 from ..pages.page_translation import PageTranslation
 from ..pois.poi import POI
 from ..pois.poi_translation import POITranslation
@@ -48,10 +49,18 @@ class ContactQuerySet(models.QuerySet):
         return self.filter(area_of_responsibility="").first()
 
 
-class Contact(AbstractBaseModel):
+class Contact(AbstractBaseModel, SearchSuggestMixin):
     """
     Data model representing a contact
     """
+
+    search_fields = {
+        "name": {"weight": 1},
+        "email": {"weight": 1},
+        "phone_number": {"weight": 1, "tokenize": False},
+        "website": {"weight": 1, "tokenize": False},
+        "area_of_responsibility": {"weight": 1},
+    }
 
     area_of_responsibility = TruncatingCharField(
         max_length=200,

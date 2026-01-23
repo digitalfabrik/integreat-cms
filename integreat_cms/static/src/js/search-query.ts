@@ -30,8 +30,9 @@ const queryObjects = async (url: string, type: string, queryString: string, arch
     suggestionList.classList.remove("hidden");
 
     if (data) {
+        console.log(data);
         // Set and display new data
-        data.data.forEach((value: any, index: number) => {
+        data.data.suggestions.forEach((value: any, index: number) => {
             const child = document.createElement("li");
             child.classList.add(
                 "inline-block",
@@ -50,7 +51,7 @@ const queryObjects = async (url: string, type: string, queryString: string, arch
             child.setAttribute("role", "option");
             child.setAttribute("id", `suggestion-${index}`);
             child.setAttribute("tabindex", "0");
-            child.innerText = value.title;
+            child.innerText = value.suggestion;
             suggestionList.appendChild(child);
         });
     }
@@ -90,6 +91,7 @@ export const setSearchQueryEventListeners = () => {
 
     tableSearchInput.addEventListener("keydown", (event) => {
         const suggestions = Array.from(suggestionList?.children || []) as HTMLElement[];
+        console.log(suggestions);
 
         if (suggestions.length === 0) {
             return;
