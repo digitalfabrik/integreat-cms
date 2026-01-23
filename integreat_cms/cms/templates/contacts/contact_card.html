@@ -28,75 +28,77 @@
                     {% endif %}
                 </h4>
             {% endif %}
-            {% if "address" in wanted %}
-                <p>
-                    <img src="{% get_svg_icon "pin" %}" alt="Address: " width="15" height="15" />
-                    <a href="{{ contact.location.map_url }}">{{ contact.location.short_address }}</a>
-                </p>
-            {% endif %}
-            {% if contact.email and "email" in wanted %}
-                <p>
-                    <img src="{% get_svg_icon "email" %}" alt="Email: " width="15" height="15" />
-                    <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
-                </p>
-            {% endif %}
-            {% if contact.phone_number and "phone_number" in wanted %}
-                <p>
-                    <img src="{% get_svg_icon "call" %}"
-                         alt="Phone Number: "
-                         width="15"
-                         height="15" />
-                    <a href="tel:{{ contact.phone_number|cut:" (0) " }}">{{ contact.phone_number }}</a>
-                </p>
-            {% endif %}
-            {% if contact.mobile_phone_number and "mobile_phone_number" in wanted %}
-                <p>
-                    <img src="{% get_svg_icon "call" %}"
-                         alt="Mobile Phone Number: "
-                         width="15"
-                         height="15" />
-                    <a href="tel:{{ contact.mobile_phone_number|cut:" (0) " }}">{{ contact.mobile_phone_number }}</a>
-                </p>
-            {% endif %}
-            {% if contact.website and "website" in wanted %}
-                <p>
-                    <img src="{% get_svg_icon "www" %}" alt="Website: " width="15" height="15" />
-                    <a href="{{ contact.website }}">{{ contact.website }}</a>
-                </p>
-            {% endif %}
-            {% if contact.opening_hours and "opening_hours" in wanted %}
-                <p>
-                    <img src="{% get_svg_icon "clock" %}"
-                         alt="Office hours: "
-                         width="15"
-                         height="15" />
-                    <b>{% translate "Office hours" %}</b>
-                    <details>
-                        <summary>
-                            {% translate "Show office hours" %}
-                        </summary>
-                        <p>
-                            {% for day, item in contact.opening_hours|as_weekday_iterator %}
-                                <b>{{ day }}:</b>
-                                {% if item.allDay %}
-                                    {% translate "All day" %}
-                                    <br>
-                                {% endif %}
-                                {% if item.closed %}
-                                    {% translate "Closed" %}
-                                    <br>
-                                {% endif %}
-                                {% if item.timeSlots %}
-                                    {% for slot in item.timeSlots %}
-                                        {{ slot.start }} - {{ slot.end }}
-                                    {% endfor %}
-                                    <br>
-                                {% endif %}
-                            {% endfor %}
-                        </p>
-                    </details>
-                </p>
-            {% endif %}
+            <ul class="details">
+                {% if "address" in wanted %}
+                    <li>
+                        <img src="{% get_svg_icon "pin" %}" alt="Address: " width="15" height="15" />
+                        <a href="{{ contact.location.map_url }}">{{ contact.location.short_address }}</a>
+                    </li>
+                {% endif %}
+                {% if contact.email and "email" in wanted %}
+                    <li>
+                        <img src="{% get_svg_icon "email" %}" alt="Email: " width="15" height="15" />
+                        <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+                    </li>
+                {% endif %}
+                {% if contact.phone_number and "phone_number" in wanted %}
+                    <li>
+                        <img src="{% get_svg_icon "call" %}"
+                             alt="Phone Number: "
+                             width="15"
+                             height="15" />
+                        <a href="tel:{{ contact.phone_number|cut:" (0) " }}">{{ contact.phone_number }}</a>
+                    </li>
+                {% endif %}
+                {% if contact.mobile_phone_number and "mobile_phone_number" in wanted %}
+                    <li>
+                        <img src="{% get_svg_icon "call" %}"
+                             alt="Mobile Phone Number: "
+                             width="15"
+                             height="15" />
+                        <a href="tel:{{ contact.mobile_phone_number|cut:" (0) " }}">{{ contact.mobile_phone_number }}</a>
+                    </li>
+                {% endif %}
+                {% if contact.website and "website" in wanted %}
+                    <li>
+                        <img src="{% get_svg_icon "www" %}" alt="Website: " width="15" height="15" />
+                        <a href="{{ contact.website }}">{{ contact.website }}</a>
+                    </li>
+                {% endif %}
+                {% if contact.opening_hours and "opening_hours" in wanted %}
+                    <li>
+                        <img src="{% get_svg_icon "clock" %}"
+                             alt="Office hours: "
+                             width="15"
+                             height="15" />
+                        <b>{% translate "Office hours" %}</b>
+                        <details>
+                            <summary>
+                                {% translate "Show office hours" %}
+                            </summary>
+                            <p>
+                                {% for day, item in contact.opening_hours|as_weekday_iterator %}
+                                    <b>{{ day }}:</b>
+                                    {% if item.allDay %}
+                                        {% translate "All day" %}
+                                        <br>
+                                    {% endif %}
+                                    {% if item.closed %}
+                                        {% translate "Closed" %}
+                                        <br>
+                                    {% endif %}
+                                    {% if item.timeSlots %}
+                                        {% for slot in item.timeSlots %}
+                                            {{ slot.start }} - {{ slot.end }}
+                                        {% endfor %}
+                                        <br>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </details>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 {% endspaceless %}

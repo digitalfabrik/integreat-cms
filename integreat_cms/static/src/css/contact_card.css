@@ -1,6 +1,7 @@
 .contact-card {
     display: inline-block;
     box-sizing: border-box;
+    margin-bottom: 1rem;
     padding: 1rem;
     border-radius: 0.25rem;
     background-repeat: no-repeat;
@@ -18,15 +19,31 @@
     white-space: initial;
 
     p {
-        margin: 4px 0 0 0;
+        margin: 0.2em 0;
     }
 
     h4 {
-        margin: 0 0 12px 0;
+        margin: 0 0 0.75em 0;
     }
 
-    img {
-        margin: 0 8px 0 0;
-        display: inline;
+    ul.details {
+        padding-inline-start: 1.5em;
+        margin: 0;
+
+        li {
+            position: relative;
+
+            &:has(img:first-child) {
+                list-style: none;
+            }
+
+            img:first-child {
+                position: absolute;
+                left: -1.5em;
+                top: 1px;
+                width: 1em;
+                height: 1em;
+            }
+        }
     }
 }
