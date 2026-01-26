@@ -244,10 +244,9 @@ class POIFormView(
                 if new_poi_and_new_related_contact:
                     # Flush opening_hours which is meant for the location
                     # The contact can also have opening hours itself, but here we want it to always mirror those of the location
-                    success = self.create_related_contact(
+                    success, contact_form = self.create_related_contact(
                         data=data,
                         request=request,
-                        contact_form=contact_form,
                         poi=poi,
                     )
 
@@ -380,8 +379,7 @@ class POIFormView(
         data: dict[str, str | list[str]],
         request: HttpRequest,
         poi: POI,
-        contact_form: ContactForm,
-    ) -> bool:
+    ) -> tuple[bool, ContactForm]:
         data.update({"location": poi.id, "opening_hours": ""})
         contact_form = ContactForm(
             request=request,
@@ -403,7 +401,7 @@ class POIFormView(
         else:
             contact_form.add_error_messages(request)
 
-        return success
+        return success, contact_form
 
     def set_success_messages(
         self,
