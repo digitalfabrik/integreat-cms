@@ -32,11 +32,15 @@ const SearchResultLibrary = (props: LibraryProps) => {
                 query: searchQuery,
             });
             console.debug(`Loading search result for query "${searchQuery}"...`);
-            // Load the search result
-            await ajaxRequest(getSearchResult, urlParams, setMediaLibraryContent);
-            // Close the file sidebar
-            setFileIndex(null);
-            setLoading(false);
+
+            try {
+                // Load the search result
+                await ajaxRequest(getSearchResult, urlParams, setMediaLibraryContent);
+                // Close the file sidebar
+                setFileIndex(null);
+            } finally {
+                setLoading(false);
+            }
         };
         applySearch();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */

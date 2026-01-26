@@ -27,18 +27,21 @@ const FilterResultLibrary = (props: LibraryProps) => {
 
     useEffect(() => {
         const applyFilter = async () => {
-            setLoading(true);
             if (mediaFilter === "unused") {
+                setLoading(true);
                 console.debug("Loading unused media files...");
                 const urlParams = new URLSearchParams({});
-                // Load the filtered result
-                await ajaxRequest(filterUnusedMediaFiles, urlParams, setMediaLibraryContent);
-                // Close the file sidebar
-                setFileIndex(null);
+                try {
+                    // Load the filtered result
+                    await ajaxRequest(filterUnusedMediaFiles, urlParams, setMediaLibraryContent);
+                    // Close the file sidebar
+                    setFileIndex(null);
+                } finally {
+                    setLoading(false);
+                }
             } else {
                 console.error("Unsupported filter: ", mediaFilter);
             }
-            setLoading(false);
         };
         applyFilter();
     }, [refresh]); /* eslint-disable-line react-hooks/exhaustive-deps */
