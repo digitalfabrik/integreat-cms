@@ -168,7 +168,7 @@ def celery_translate_and_answer_question(
             )
             zammad_chat.save_automatic_answers(answer["automatic_answers"])
             zammad_chat.save_message(
-                message="Used Sources\n<ul>"
+                message=f"Search term: '{answer['rag_message']}'. Used sources:\n<ul>"
                 + "\n".join(
                     [
                         f"<li><a href='{source['source']}'>{source['source'].split('/')[-2]}</a>: {source['reason_inclusion']}</li>"
