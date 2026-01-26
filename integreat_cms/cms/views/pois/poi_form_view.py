@@ -4,12 +4,14 @@ A view representing an instance of a point of interest. POIs can be created or u
 
 from __future__ import annotations
 
+import json
 import logging
 from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
+from django.db import transaction
 from django.db.models.signals import post_save
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
@@ -72,6 +74,7 @@ class POIFormView(
             poi=poi,
             language=language,
         ).first()
+        is_edit = poi is not None
 
         if poi and poi.archived:
             disabled = True
@@ -124,6 +127,8 @@ class POIFormView(
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
                 "contact_form": contact_form,
+                "show_contact_form_widget": False,
+                "is_edit": is_edit,
             },
         )
 
@@ -147,6 +152,8 @@ class POIFormView(
             poi=poi_instance,
             language=language,
         ).first()
+
+        is_edit = poi_instance is not None
 
         if poi_instance and poi_instance.archived:
             return redirect(
@@ -184,6 +191,21 @@ class POIFormView(
         email = poi_form.data.get("primary_email")
         website = poi_form.data.get("primary_website")
 
+        contact_form = None
+        data = request.POST.dict()
+        new_poi_and_new_related_contact = (
+            not is_edit and self.related_contact_data_added(data)
+        )
+
+        contact_form = ContactForm(
+            request=request,
+            data=data,
+            instance=None,
+            additional_instance_attributes={
+                "region": request.region,
+            },
+        )
+
         if not poi_form.is_valid() or not poi_translation_form.is_valid():
             # Add error messages
             poi_form.add_error_messages(request)
@@ -195,147 +217,128 @@ class POIFormView(
         ):
             messages.info(request, _("No changes detected, autosave skipped"))
         else:
-            # Save forms
-            poi = poi_form.save()
-            poi_translation_form.instance.poi = poi
-            poi_translation_instance = poi_translation_form.save(
-                foreign_form_changed=poi_form.has_changed(),
-            )
+            success = True
 
-            # Send the post save signal of contact model to trigger contact card update
-            if "address" in poi_form.changed_data and (
-                related_contacts := poi.contacts.all()
-            ):
-                for contact in related_contacts:
-                    post_save.send(
-                        sender=Contact,
-                        instance=contact,
-                        created=False,
-                        using=contact_save_handler,
+            with transaction.atomic():
+                sid = transaction.savepoint()
+                # Save forms
+                poi = poi_form.save()
+                poi_translation_form.instance.poi = poi
+                poi_translation_instance = poi_translation_form.save(
+                    foreign_form_changed=poi_form.has_changed(),
+                )
+
+                # Send the post save signal of contact model to trigger contact card update
+                if "address" in poi_form.changed_data and (
+                    related_contacts := poi.contacts.all()
+                ):
+                    for contact in related_contacts:
+                        post_save.send(
+                            sender=Contact,
+                            instance=contact,
+                            created=False,
+                            using=contact_save_handler,
+                        )
+
+                # only attempt to create a related contact if we are in creation mode and relevant fields have been added
+                if new_poi_and_new_related_contact:
+                    # Flush opening_hours which is meant for the location
+                    # The contact can also have opening hours itself, but here we want it to always mirror those of the location
+                    success, contact_form = self.create_related_contact(
+                        data=data,
+                        request=request,
+                        poi=poi,
                     )
 
-            data = request.POST.dict()
-            # Flush opening_hours which is meant for the location
-            # The contact can also have opening hours itself, but here we want it to always mirror those of the location
-            data.update({"location": poi.id, "opening_hours": ""})
-            contact_form = ContactForm(
-                request=request,
-                data=data,
-                instance=None,
-                additional_instance_attributes={
-                    "region": request.region,
-                },
-            )
+                # Look explicitly for the primary contact, not any first one,
+                # as we do not delete non-primary contacts when deactivating contact in a region.
+                # "get()" is not used as it raises an exception if there is no primary contact.
+                contact = poi.contacts.get_primary_contact()
 
-            if contact_form.is_valid():
-                contact = contact_form.save()
-                messages.success(
-                    request,
-                    _('Contact for "{}" was successfully created').format(
-                        contact,
-                    ),
-                )
+                if website != "" or phone_number != "" or email != "":
+                    if not contact:
+                        contact = Contact(location=poi)
 
-            # Look explicitly for the primary contact, not any first one,
-            # as we do not delete non-primary contacts when deactivating contact in a region.
-            # "get()" is not used as it raises an exception if there is no primary contact.
-            contact = poi.contacts.get_primary_contact()
+                    if phone_number:
+                        phone_number = format_phone_number(phone_number)
 
-            if website != "" or phone_number != "" or email != "":
-                if not contact:
-                    contact = Contact(location=poi)
+                    contact.website = website
+                    contact.phone_number = phone_number
+                    contact.email = email
+                    if not contact.name and language == region.default_language:
+                        contact.name = poi_translation_form.instance.title
+                    contact.save()
+                elif contact is not None:
+                    contact.delete()
 
-                if phone_number:
-                    phone_number = format_phone_number(phone_number)
+                invalidate_model(Contact)
 
-                contact.website = website
-                contact.phone_number = phone_number
-                contact.email = email
-                if not contact.name and language == region.default_language:
-                    contact.name = poi_translation_form.instance.title
-                contact.save()
-            elif contact is not None:
-                contact.delete()
+                # If any source translation changes to draft, set all depending translations/versions to draft
+                if poi_translation_form.instance.status == status.DRAFT:
+                    language_tree_node = region.language_node_by_slug.get(language.slug)
+                    languages = [language] + [
+                        node.language for node in language_tree_node.get_descendants()
+                    ]
+                    poi_translation_form.instance.poi.translations.filter(
+                        language__in=languages,
+                    ).update(status=status.DRAFT)
+                elif (
+                    poi_translation_form.instance.status == status.PUBLIC
+                    and poi_translation_form.instance.minor_edit
+                ):
+                    poi_translation_form.instance.poi.translations.filter(
+                        language=language,
+                    ).update(status=status.PUBLIC)
 
-            invalidate_model(Contact)
+                # Show a message that the slug was changed if it was not unique
+                if user_slug and user_slug != poi_translation_form.cleaned_data["slug"]:
+                    other_translation = POITranslation.objects.filter(
+                        poi__region=region,
+                        slug=user_slug,
+                        language=language,
+                    ).first()
+                    other_translation_link = other_translation.backend_edit_link
+                    message = _(
+                        "The slug was changed from '{user_slug}' to '{slug}', "
+                        "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
+                    ).format(
+                        user_slug=user_slug,
+                        slug=poi_translation_form.cleaned_data["slug"],
+                        translation=other_translation,
+                    )
+                    messages.warning(
+                        request,
+                        translate_link(
+                            message,
+                            attributes={
+                                "href": other_translation_link,
+                                "class": "underline hover:no-underline",
+                            },
+                        ),
+                    )
 
-            # If any source translation changes to draft, set all depending translations/versions to draft
-            if poi_translation_form.instance.status == status.DRAFT:
-                language_tree_node = region.language_node_by_slug.get(language.slug)
-                languages = [language] + [
-                    node.language for node in language_tree_node.get_descendants()
-                ]
-                poi_translation_form.instance.poi.translations.filter(
-                    language__in=languages,
-                ).update(status=status.DRAFT)
-            elif (
-                poi_translation_form.instance.status == status.PUBLIC
-                and poi_translation_form.instance.minor_edit
-            ):
-                poi_translation_form.instance.poi.translations.filter(
-                    language=language,
-                ).update(status=status.PUBLIC)
+                if success:
+                    # Add the success message and redirect to the edit page
+                    self.set_success_messages(
+                        is_edit=is_edit,
+                        request=request,
+                        poi_translation_form=poi_translation_form,
+                        poi_form=poi_form,
+                    )
 
-            # Show a message that the slug was changed if it was not unique
-            if user_slug and user_slug != poi_translation_form.cleaned_data["slug"]:
-                other_translation = POITranslation.objects.filter(
-                    poi__region=region,
-                    slug=user_slug,
-                    language=language,
-                ).first()
-                other_translation_link = other_translation.backend_edit_link
-                message = _(
-                    "The slug was changed from '{user_slug}' to '{slug}', "
-                    "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
-                ).format(
-                    user_slug=user_slug,
-                    slug=poi_translation_form.cleaned_data["slug"],
-                    translation=other_translation,
-                )
-                messages.warning(
-                    request,
-                    translate_link(
-                        message,
-                        attributes={
-                            "href": other_translation_link,
-                            "class": "underline hover:no-underline",
+                    return redirect(
+                        "edit_poi",
+                        **{
+                            "poi_id": poi_form.instance.id,
+                            "region_slug": region.slug,
+                            "language_slug": language.slug,
                         },
-                    ),
+                    )
+                transaction.savepoint_rollback(sid)
+                # reset opening_hours type to a JSON formatted string (after it is turned into a Python object during poi_form.save())
+                poi_form.data["opening_hours"] = json.dumps(
+                    poi_form.data["opening_hours"]
                 )
-
-            # Add the success message and redirect to the edit page
-            if not poi_instance:
-                messages.success(
-                    request,
-                    _('Location "{}" was successfully created').format(
-                        poi_translation_form.instance,
-                    ),
-                )
-            elif not poi_form.has_changed() and not poi_translation_form.has_changed():
-                messages.info(request, _("No changes detected, but date refreshed"))
-            else:
-                # Add the success message
-                poi_translation_form.add_success_message(request)
-            # Show warning if nominatim result is more than 10km away from manually entered coordinates
-            if poi_form.nominatim_distance_delta > 10:
-                messages.warning(
-                    request,
-                    __(
-                        _(
-                            "The distance between the manually entered coordinates and the coordinates of the address is {}km.",
-                        ).format(poi_form.nominatim_distance_delta),
-                        _("Please make sure the entered values are correct."),
-                    ),
-                )
-
-            return redirect(
-                "edit_poi",
-                **{
-                    "poi_id": poi_form.instance.id,
-                    "region_slug": region.slug,
-                    "language_slug": language.slug,
-                },
-            )
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{poi_translation_form.instance.url_infix}/"
         return render(
             request,
@@ -344,6 +347,7 @@ class POIFormView(
                 **self.get_context_data(**kwargs),
                 "poi_form": poi_form,
                 "poi_translation_form": poi_translation_form,
+                "contact_form": contact_form,
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if poi_instance else [language],
@@ -354,5 +358,78 @@ class POIFormView(
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
+                "show_contact_form_widget": new_poi_and_new_related_contact,
+                "is_edit": is_edit,
             },
         )
+
+    def related_contact_data_added(self, data: dict[str, str | list[str]]) -> bool:
+        keys_to_check = [
+            "area_of_responsibility",
+            "name",
+            "email",
+            "phone_number",
+            "mobile_phone_number",
+            "website",
+        ]
+        return any(data.get(k, "") != "" for k in keys_to_check)
+
+    def create_related_contact(
+        self,
+        data: dict[str, str | list[str]],
+        request: HttpRequest,
+        poi: POI,
+    ) -> tuple[bool, ContactForm]:
+        data.update({"location": poi.id, "opening_hours": ""})
+        contact_form = ContactForm(
+            request=request,
+            data=data,
+            instance=None,
+            additional_instance_attributes={
+                "region": request.region,
+            },
+        )
+
+        if success := contact_form.is_valid():
+            contact = contact_form.save()
+            messages.success(
+                request,
+                _('Contact for "{}" was successfully created').format(
+                    contact,
+                ),
+            )
+        else:
+            contact_form.add_error_messages(request)
+
+        return success, contact_form
+
+    def set_success_messages(
+        self,
+        is_edit: bool,
+        request: HttpRequest,
+        poi_translation_form: POITranslationForm,
+        poi_form: POIForm,
+    ) -> None:
+        if not is_edit:
+            messages.success(
+                request,
+                _('Location "{}" was successfully created').format(
+                    poi_translation_form.instance,
+                ),
+            )
+        elif not poi_form.has_changed() and not poi_translation_form.has_changed():
+            messages.info(request, _("No changes detected, but date refreshed"))
+        else:
+            # Add the success message
+            poi_translation_form.add_success_message(request)
+        # Show warning if nominatim result is more than 10km away from manually entered coordinates
+        if poi_form.nominatim_distance_delta > 10:
+            messages.warning(
+                request,
+                __(
+                    _(
+                        "The distance between the manually entered coordinates and the coordinates of the address is {}km.",
+                    ).format(poi_form.nominatim_distance_delta),
+                    _("Please make sure the entered values are correct."),
+                ),
+            )
