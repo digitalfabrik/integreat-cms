@@ -84,7 +84,8 @@ def search_suggest(
         if not issubclass(model_cls, SearchSuggestMixin):
             return JsonResponse({"results": []}, status=400)
 
-    # sort alphabetically by title
     suggestions = suggest_tokens_for_model(model_cls, query=query)
+    # sort by score
+    suggestions["suggestions"].sort(key=lambda item: item["score"], reverse=True)
 
     return JsonResponse({"data": suggestions})

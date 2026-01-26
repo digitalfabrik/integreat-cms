@@ -6,7 +6,7 @@ from .matchers import TrigramMatcher
 from .scorer import score_token
 from .tokenize import tokenize
 
-DEFAULT_MIN_SIMILARITY = 0.02
+DEFAULT_MIN_SIMILARITY = 0.2
 MAX_OBJECTS = 200
 MAX_RESULTS = 10
 
@@ -40,7 +40,7 @@ def normalize_search_fields(search_fields: dict) -> dict[str, dict]:
 
 def suggest_tokens_for_model(model_cls, query: str) -> dict[str, list[dict]]:
     if not query:
-        return []
+        return {}
 
     query = query.lower().strip()
     fields = normalize_search_fields(model_cls.search_fields)
@@ -49,23 +49,23 @@ def suggest_tokens_for_model(model_cls, query: str) -> dict[str, list[dict]]:
     scores = defaultdict(float)
 
     q_filter = Q()
-    for field in fields:
+    for field, _config in fields.items():
         q_filter |= Q(**{f"{field}__icontains": query})
 
     qs = model_cls.objects.filter(q_filter)
 
-    for field in fields:
+    for field, _config in fields.items():
         qs = matcher.annotate(qs, field, query)
 
     qs = qs[:MAX_OBJECTS]
 
     for obj in qs:
         for field, config in fields.items():
-            similarity = getattr(obj, f"{field}_sim", 0.0)
+            similarity = getattr(obj, matcher.sim_alias(field), 0.0)
             if similarity < DEFAULT_MIN_SIMILARITY:
                 continue
 
-            value = getattr(obj, field, "")
+            value = getattr(obj, matcher.value_alias(field), "") or ""
             if not value:
                 continue
 

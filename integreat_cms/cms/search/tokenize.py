@@ -10,4 +10,4 @@ def tokenize(value: str) -> set[str]:
     if not value:
         return set()
 
-    return {t.lower() for t in TOKEN_RE.findall(value)}
+    return {t for t in TOKEN_RE.findall(value)}

@@ -25,6 +25,7 @@ from ..mixins import SearchSuggestMixin
 from ..pages.page_translation import PageTranslation
 from ..pois.poi import POI
 from ..pois.poi_translation import POITranslation
+from ...search.search_fields import CONTACT_SEARCH_FIELDS
 
 if TYPE_CHECKING:
     from typing import Any
@@ -54,14 +55,7 @@ class Contact(AbstractBaseModel, SearchSuggestMixin):
     Data model representing a contact
     """
 
-    search_fields = {
-        "name": {"weight": 1},
-        "email": {"weight": 1},
-        "phone_number": {"weight": 1, "tokenize": False},
-        "website": {"weight": 1, "tokenize": False},
-        "area_of_responsibility": {"weight": 1},
-    }
-
+    search_fields = CONTACT_SEARCH_FIELDS
     area_of_responsibility = TruncatingCharField(
         max_length=200,
         blank=True,
