@@ -242,12 +242,16 @@ def exclude_current_object(
     content_models: list[str],
 ) -> QuerySet[T]:
     """
-    Excludes the current object from the given queryset to avoid false positives when checking for slug uniqueness
+    Excludes the current object from the given queryset to avoid false positives when checking for slug uniqueness.
+    When the foreign object doesn't exist in the DB yet (no ID), we skip exclusion since there's nothing to exclude.
     """
     if not object_instance:
         return qs
 
-    if foreign_model in content_models:
+    if (
+        foreign_model in content_models
+        and (foreign_object or object_instance.foreign_object).id
+    ):
         return qs.exclude(
             **{foreign_model: foreign_object or object_instance.foreign_object}
         )
