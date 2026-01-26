@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import logging
 from time import time
-from typing import Literal, TYPE_CHECKING
+from typing import Final, Literal, TYPE_CHECKING
 
 from celery import shared_task
 from django.apps import apps
@@ -15,7 +15,6 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-from typing import Final
 
 if TYPE_CHECKING:
     from typing import (
