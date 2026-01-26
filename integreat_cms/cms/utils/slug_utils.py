@@ -15,15 +15,11 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-
-SlugObject = Literal["page", "event", "poi"]
-DEFAULT_OBJECTS: Final[tuple[SlugObject, ...]] = ("event", "poi", "page")
-ALLOWED_OBJECTS = {"event", "poi", "page"}
+from typing import Final
 
 if TYPE_CHECKING:
     from typing import (
         Any,
-        Final,
         NotRequired,
         TypeAlias,
         TypedDict,
@@ -38,6 +34,9 @@ if TYPE_CHECKING:
     from ..models.abstract_base_model import AbstractBaseModel
     from ..models.abstract_content_model import AbstractContentModel
 
+SlugObject = Literal["page", "event", "poi"]
+DEFAULT_OBJECTS: Final[tuple[SlugObject, ...]] = ("event", "poi", "page")
+ALLOWED_OBJECTS = {"event", "poi", "page"}
 
 logger = logging.getLogger(__name__)
 
@@ -245,8 +244,8 @@ def make_all_slugs_unique(
         translation_model = apps.get_model(
             "cms", f"{model_name.capitalize()}Translation"
         )
-        latest_translations = translation_model.objects.all()
-        slug_counter += update_translations(latest_translations, model_name, dry_run)
+        translations = translation_model.objects.all()
+        slug_counter += update_translations(translations, model_name, dry_run)
 
     end_time = time() - start_time
     logger.info(
