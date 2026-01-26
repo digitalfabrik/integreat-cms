@@ -23,6 +23,8 @@ window.addEventListener("load", () => {
     /* slug field buffer for restoring input value */
     let currentSlug: string;
     /* slug field to be updated */
+    let titleField = document.querySelector("#id_title") as HTMLInputElement;
+    let oldTitle = titleField.value;
     const slugField = <HTMLInputElement>document.getElementById("id_slug");
     const linkContainer = document.getElementById("link-container");
 
@@ -42,20 +44,23 @@ window.addEventListener("load", () => {
 
     document.querySelectorAll("#id_title").forEach((item) => {
         item.addEventListener("focusout", ({ target }) => {
-            const submissionLock = new SubmissionPrevention(".no-premature-submission");
             const currentTitle = (target as HTMLInputElement).value;
-            const nodeList: NodeListOf<HTMLInputElement> = document.querySelectorAll(
-                '[for="id_title"],[for="id_slug"]'
-            );
-            for (const node of nodeList) {
-                const datasetItem = node.dataset;
-                slugify(datasetItem.slugifyUrl, { title: currentTitle, model_id: datasetItem.modelId })
-                    .then((response) => {
-                        /* on success write response to both slug field and permalink */
-                        slugField.value = response.unique_slug;
-                        updatePermalink(response.unique_slug);
-                    })
-                    .finally(() => submissionLock.release());
+            if (currentTitle != oldTitle) {
+                const submissionLock = new SubmissionPrevention(".no-premature-submission");
+                const nodeList: NodeListOf<HTMLInputElement> = document.querySelectorAll(
+                    '[for="id_title"],[for="id_slug"]'
+                );
+                for (const node of nodeList) {
+                    const datasetItem = node.dataset;
+                    slugify(datasetItem.slugifyUrl, { title: currentTitle, model_id: datasetItem.modelId })
+                        .then((response) => {
+                            /* on success write response to both slug field and permalink */
+                            slugField.value = response.unique_slug;
+                            updatePermalink(response.unique_slug);
+                            oldTitle = currentTitle;
+                        })
+                        .finally(() => submissionLock.release());
+                }
             }
         });
     });
