@@ -1,217 +1,124 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load widget_tweaks %}
+{% load content_filters %}
 {% load push_notification_filters %}
 {% block content %}
     <form method="post" data-unsaved-warning>
         {% csrf_token %}
-        <div class="flex flex-wrap">
-            <div class="w-full flex flex-wrap justify-between gap-4 mb-6">
-                <h1 class="heading overflow-hidden text-ellipsis">
-                    {% if push_notification_form.instance.id %}
-                        {% with push_notification_form.instance as push_notification_title %}
-                            {% blocktranslate trimmed %}
-                                Edit News "{{ push_notification_title }}"
-                            {% endblocktranslate %}
-                        {% endwith %}
-                    {% else %}
-                        {% translate "Create News" %}
-                    {% endif %}
-                </h1>
-                <div class="flex flex-wrap gap-4 ml-auto mr-0">
-                    {% if perms.cms.change_pushnotification and not not_accessible_regions_warning %}
-                        <a href="{% if not push_notification_form.instance.archived %}{% url 'push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% endif %}"
-                           class="btn btn-ghost">{% translate "Cancel" %}</a>
-                        {% if not push_notification_form.instance.archived %}
-                            <button name="submit_update" class="btn btn-ghost">
-                                {% if not push_notification_form.instance.sent_date %}
-                                    {% translate "Save" %}
-                                {% else %}
-                                    {% translate "Update" %}
-                                {% endif %}
-                            </button>
-                            {% if push_notification_form.instance.id and not push_notification_form.instance.sent_date and perms.cms.send_push_notification %}
-                                <div id="button_submit_send">
-                                    <button name="submit_send"
-                                            class="btn {% if push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
-                                        {% translate "Send" %}
-                                    </button>
-                                    <button name="submit_schedule"
-                                            class="btn {% if not push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
-                                        {% if push_notification_form.instance.scheduled_send_date %}
-                                            {% translate "Re-schedule" %}
-                                        {% else %}
-                                            {% translate "Schedule" %}
-                                        {% endif %}
-                                    </button>
-                                </div>
-                            {% endif %}
-                        {% endif %}
-                    {% endif %}
-                </div>
-            </div>
-            <div class="flex flex-wrap flex-col grow pr-4 tabbed">
-                <ul class="flex flex-wrap pl-4 text-black">
-                    {% for other_language in languages %}
-                        <li id="li-{{ other_language.id }}"
-                            class="language-tab-header mr-2 -mb-[2px] {% if other_language.id == language.id %} z-10 text-blue-500 bg-white cursor-default {% else %} bg-water-500 {% endif %} hover:text-blue-500 hover:bg-white border-l border-t border-r border-blue-500 font-bold rounded-t-lg cursor-pointer"
-                            data-switch-language="{{ other_language.id }}"
-                            data-text-direction="{{ other_language.text_direction }}">
-                            <div class="border-b-2 border-white">
-                                <div class="p-4">
-                                    {{ other_language.translated_name }}
-                                    <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
-                                    {% if other_language.secondary_country_code %}
-                                        <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <figure>
-                    {{ pnt_formset.management_form }}
-                    {% for push_notification_translation_form in pnt_formset %}
-                        <div id="tab-{{ push_notification_translation_form.language.value }}"
-                             class="language-tab-content w-full mb-4 rounded border border-blue-500 bg-white flex-auto {% if push_notification_translation_form.language.value|add:0 != language.id|add:0 %}hidden{% endif %}">
-                            <div class="w-full px-4 pb-4">
-                                <div class="flex justify-between mr-2">
-                                    <label for="{{ push_notification_translation_form.title.id_for_label }}">
-                                        {{ push_notification_translation_form.title.label }}
-                                    </label>
-                                    {% if push_notification_form.instance.sent_date and push_notification_translation_form.instance.id %}
-                                        <div class="text-right py-2">
-                                            <span class="text-lg font-bold">{% translate "Link" %}:</span>
-                                            <a href="{{ WEBAPP_URL }}{{ push_notification_translation_form.instance.get_absolute_url }}"
-                                               class="text-blue-500 hover:underline"
-                                               target="_blank"
-                                               rel="noopener noreferrer">
-                                                {{ WEBAPP_URL }}{{ push_notification_translation_form.instance.get_absolute_url }}
-                                            </a>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                {% render_field push_notification_translation_form.title|add_error_class:"border-red-500" %}
-                                <label for="{{ push_notification_translation_form.text.id_for_label }}">
-                                    {{ push_notification_translation_form.text.label }}
-                                </label>
-                                {% render_field push_notification_translation_form.text|add_error_class:"border-red-500" %}
-                                {% spaceless %}
-                                    <p>
-                                        <span class="input-length-counter"></span>
-                                        <span>/{{ push_notification_translation_form.fields.text.max_length }}</span>
-                                    </p>
-                                {% endspaceless %}
-                                <div class="hidden">
-                                    {% render_field push_notification_translation_form.id %}
-                                    {% render_field push_notification_translation_form.language %}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </figure>
-            </div>
-            <div class="w-[400px] flex flex-wrap flex-col gap-4">
-                <div class="rounded border border-blue-500 shadow-2xl bg-white">
-                    <div class="rounded p-4 bg-water-500">
-                        <h3 class="heading font-bold text-black">
-                            <i icon-name="settings" class="pb-1"></i>
-                            {% translate "Settings" %}
-                        </h3>
-                    </div>
-                    <div class="px-4 pb-4 rounded bg-white">
-                        <label for="{{ push_notification_form.channel.id_for_label }}">
-                            {{ push_notification_form.channel.label }}
-                        </label>
-                        {% render_field push_notification_form.channel|add_error_class:"border-red-500" %}
-                        <label for="{{ push_notification_form.mode.id_for_label }}">
-                            {{ push_notification_form.mode.label }}
-                        </label>
-                        {% render_field push_notification_form.mode|add_error_class:"border-red-500" %}
-                        <!-- Scheduled date and time -->
-                        {% if push_notification_form.instance.id %}
-                            <div class="{% if push_notification_form.instance.sent_date %}hidden{% endif %}">
-                                {% render_field push_notification_form.schedule_send|add_error_class:"border-red-500" %}
-                                <label for="{{ push_notification_form.schedule_send.id_for_label }}">
-                                    {{ push_notification_form.schedule_send.label }}
-                                </label>
-                            </div>
-                            <div id="push_notification_schedule" class="hidden">
-                                <label for="{{ push_notification_form.scheduled_send_date_day.id_for_label }}">
-                                    {{ push_notification_form.scheduled_send_date_day.label }}
-                                </label>
-                                {% render_field push_notification_form.scheduled_send_date_day|add_error_class:"border-red-500" %}
-                                <label for="{{ push_notification_form.scheduled_send_date_time.id_for_label }}">
-                                    {{ push_notification_form.scheduled_send_date_time.label }}
-                                </label>
-                                {% render_field push_notification_form.scheduled_send_date_time|add_class:"invalid:border-red-500"|add_error_class:"border-red-500" %}
-                                {% if schedule_interval > 1 %}
-                                    {% blocktranslate trimmed %}
-                                        News are sent every {{ schedule_interval }} minutes
-                                    {% endblocktranslate %}
-                                {% endif %}
-                            </div>
-                        {% endif %}
-                        <div {% if push_notification_form.regions|length == 1 %}class="hidden"{% endif %}>
-                            <label for="{{ push_notification_form.regions.id_for_label }}">
-                                {{ push_notification_form.regions.label }}
-                            </label>
-                            <p>
-                                {% if not_accessible_regions_warning %}
-                                    <i icon-name="x" class="text-red-500 align-text-top"></i>
-                                    {{ not_accessible_regions_warning }}
-                                {% else %}
-                                    {% translate "Any manager with access to only some of the selected regions can view but not edit this news." %}
-                                {% endif %}
-                            </p>
-                            <div class="max-h-52 overflow-y-auto">
-                                {% render_field push_notification_form.regions|add_error_class:"border-red-500" %}
-                            </div>
-                            {% if push_notification_form.regions|length == 1 and not_accessible_regions_warning %}
-                                <p class="pt-6">
-                                    <i icon-name="x" class="text-red-500 align-text-top"></i>
-                                    {{ not_accessible_regions_warning }}
-                                </p>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+        <div class="w-full flex flex-wrap justify-between gap-4 mb-6">
+            <h1 class="heading overflow-hidden text-ellipsis">
                 {% if push_notification_form.instance.id %}
-                    <div class="rounded border border-blue-500 shadow-2xl bg-white">
-                        <div class="rounded p-4 bg-water-500">
-                            <h3 class="heading font-bold text-black">
-                                <i icon-name="settings" class="pb-1"></i>
-                                {% translate "Status" %}
-                            </h3>
-                        </div>
-                        <div class="px-4 pb-4 rounded bg-white">
-                            {% if push_notification_form.instance.sent_date %}
-                                <label>
-                                    <i icon-name="check" class="text-green-500 align-text-top"></i>
-                                    {% translate "Sent" %}
-                                </label>
-                                {% translate "News sent on:" %}
-                                <br>
-                                {{ push_notification_form.instance.sent_date }}
-                                <br>
-                            {% elif push_notification_form.instance.scheduled_send_date %}
-                                <label>
-                                    <i icon-name="calendar-clock" class="text-blue-500 align-text-bottom"></i>
-                                    {% translate "Scheduled" %}
-                                </label>
-                                {% translate "News will be sent automatically on:" %}
-                                <br>
-                                {{ push_notification_form.instance.scheduled_send_date }}
-                            {% else %}
-                                <label>
-                                    <i icon-name="pencil-line" class="text-blue-500 align-text-bottom"></i>
-                                    {% translate "Not yet sent" %}
-                                </label>
-                                {% translate "News not sent yet" %}
-                            {% endif %}
-                        </div>
-                    </div>
+                    {% with push_notification_form.instance as push_notification_title %}
+                        {% blocktranslate trimmed %}
+                            Edit News "{{ push_notification_title }}"
+                        {% endblocktranslate %}
+                    {% endwith %}
+                {% else %}
+                    {% translate "Create News" %}
                 {% endif %}
+            </h1>
+            <div class="flex flex-wrap gap-4 ml-auto mr-0">
+                {% if perms.cms.change_pushnotification and not not_accessible_regions_warning %}
+                    <a href="{% if not push_notification_form.instance.archived %}{% url 'push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% endif %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                    {% if not push_notification_form.instance.archived %}
+                        <button name="submit_update" class="btn btn-ghost">
+                            {% if not push_notification_form.instance.sent_date %}
+                                {% translate "Save" %}
+                            {% else %}
+                                {% translate "Update" %}
+                            {% endif %}
+                        </button>
+                        {% if push_notification_form.instance.id and not push_notification_form.instance.sent_date and perms.cms.send_push_notification %}
+                            <div id="button_submit_send">
+                                <button name="submit_send"
+                                        class="btn {% if push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
+                                    {% translate "Send" %}
+                                </button>
+                                <button name="submit_schedule"
+                                        class="btn {% if not push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
+                                    {% if push_notification_form.instance.scheduled_send_date %}
+                                        {% translate "Re-schedule" %}
+                                    {% else %}
+                                        {% translate "Schedule" %}
+                                    {% endif %}
+                                </button>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="flex-col flex-wrap">
+            <ul id="tab-wrapper" class="flex flex-wrap items-end px-4">
+                {% for other_language in languages %}
+                    <li class="mr-2 -mb-[2px] {% if other_language == language %}z-10{% endif %}">
+                        <div class="font-bold bg-white">
+                            <div class="border-b-2 border-white">
+                                {% if other_language == language %}
+                                    <div class="py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t text-blue-500 cursor-default">
+                                    {% else %}
+                                        <a class="block py-[calc(0.75rem+2px)] px-4 bg-water-500 border-l border-t border-r border-blue-500 rounded-t text-black hover:bg-white hover:text-blue-500"
+                                           href="{% url 'edit_push_notification' region_slug=request.region.slug language_slug=other_language.slug push_notification_id=push_notification_form.instance.id %}">
+                                        {% endif %}
+                                        <span class="flex-grow language-name">{{ other_language.translated_name }}</span>
+                                        <span class="flex-end w-8 fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                        {% if other_language.secondary_country_code %}
+                                            <span class="fp ml-1 w-8 fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                        {% endif %}
+                                        {% if other_language != language %}
+                                        </a>
+                                    {% else %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                {% if languages|length > 4 %}
+                    <li class="z-10 ml-auto">
+                        <div id="language-switcher" class="relative flex flex-col text-black">
+                            <div id="language-switcher-current"
+                                 class="flex font-bold text-right bg-water-500 py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t cursor-default">
+                                <i id="language-switcher-globe" icon-name="globe" class="hidden"></i>
+                                <span id="language-switcher-text">{% translate "Other Languages" %}</span>
+                                <i icon-name="chevron-down"></i>
+                            </div>
+                            <ul id="language-switcher-list"
+                                class="absolute bottom-0 right-0 z-10 hidden h-0">
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+            <div class="flex flex-col flex-wrap gap-4">
+                <div class="flex flex-col flex-auto w-full bg-white border border-blue-500 rounded shadow-2xl">
+                    <div class="flex flex-col flex-auto w-full p-4">
+                        <div class="flex justify-between">
+                            <label for="{{ push_notification_translation_form.title.id_for_label }}"
+                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='poi' %}"
+                                   {% if push_notification_form.instance.id %}data-model-id="{{ push_notification_form.instance.id }}"{% endif %}>
+                                {{ push_notification_translation_form.title.label }}
+                            </label>
+                        </div>
+                        {% render_field push_notification_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
+                        <label for="{{ push_notification_translation_form.text.id_for_label }}">
+                            {{ push_notification_translation_form.text.label }}
+                        </label>
+                        {% render_field push_notification_translation_form.text class+="tinymce_textarea flex-auto" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="py-4 grid grid-cols-5 items-start flex flex-wrap gap-8">
+            <div class="flex flex-col flex-wrap col-span-3">
+                {% if push_notification_translation_form.mt_form_is_enabled %}
+                    {% include "./push_notification_translation_box.html" with box_id="push-notification-translation" %}
+                {% endif %}
+            </div>
+            <div class="flex flex-col flex-wrap col-span-2">
+                {% include "./push_notification_setting_box.html" with box_id="push-notification-setting" %}
             </div>
         </div>
     </form>

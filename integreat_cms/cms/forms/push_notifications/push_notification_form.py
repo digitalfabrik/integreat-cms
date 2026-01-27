@@ -165,6 +165,7 @@ class PushNotificationForm(CustomModelForm):
             "regions",
             "mode",
             "scheduled_send_date",
+            "do_not_translate_title",
         ]
         widgets = {
             "regions": CheckboxSelectMultiple(),
