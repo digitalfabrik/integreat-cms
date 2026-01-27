@@ -4,6 +4,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
 (() => {
     const tinymceConfig = document.getElementById("tinymce-config-options");
     const isContactsEnabled = tinymceConfig.getAttribute("data-contact-module-activated") !== "False";
+    const testBetaFeatures = !!tinymceConfig.getAttribute("data-test-beta-features");
 
     const completionUrl = tinymceConfig.getAttribute("data-contact-ajax-url");
     const noEmptyContactHint = tinymceConfig.getAttribute("data-no-empty-contact-hint");
@@ -163,8 +164,11 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     }
 
                     const availableDetails = tomSelectInstance.options[value].details;
+                    const detailsInBeta = ["opening_hours"];
 
                     for (const [key, value] of Object.entries(availableDetails)) {
+                        if (!testBetaFeatures && detailsInBeta.includes(key)) continue;
+
                         const wrapper = document.createElement("div");
 
                         const checkbox = document.createElement("input");
