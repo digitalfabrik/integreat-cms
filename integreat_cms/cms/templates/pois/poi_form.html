@@ -53,7 +53,7 @@
                             value="{{ PUBLIC }}"
                             class="btn no-premature-submission"
                             {% if language != request.region.default_language and not poi_form.instance.default_public_translation %} title="{% translate "The default translation is not yet published" %}" disabled {% endif %}>
-                        {% if poi_translation_form.instance.status == PUBLIC %}
+                        {% if is_edit and poi_translation_form.instance.status == PUBLIC %}
                             {% translate "Update" %}
                         {% else %}
                             {% translate "Publish" %}
@@ -168,7 +168,7 @@
                 <div id="left-sidebar-column"
                      class="flex flex-col flex-auto mt-4 md:mt-0 md:mr-4 3xl:mr-0 md:w-full 4xl:mr-4"
                      {% if request.user.distribute_sidebar_boxes %}data-enable-automatic-sidebar-distribution{% endif %}>
-                    {% if poi_form.instance.id and perms.cms.change_poi %}
+                    {% if is_edit and perms.cms.change_poi %}
                         {% include "./poi_form_sidebar/minor_edit_box.html" with box_id="poi-minor-edit" %}
                     {% endif %}
                     {% include "./poi_form_sidebar/position_box.html" with box_id="poi-position" %}
@@ -186,7 +186,7 @@
                         {% include "./poi_form_sidebar/organization_box.html" with box_id="poi-organization" %}
                     {% endif %}
                     {% include "./poi_form_sidebar/barrier_free_box.html" with box_id="poi-barrier-free" %}
-                    {% if poi_form.instance.id and perms.cms.change_poi %}
+                    {% if is_edit and perms.cms.change_poi %}
                         {% include "./poi_form_sidebar/action_box.html" with box_id="poi-action" %}
                     {% endif %}
                 </div>
