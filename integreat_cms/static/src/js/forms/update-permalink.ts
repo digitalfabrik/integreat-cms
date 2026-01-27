@@ -23,7 +23,7 @@ window.addEventListener("load", () => {
     /* slug field buffer for restoring input value */
     let currentSlug: string;
     /* slug field to be updated */
-    let titleField = document.querySelector("#id_title") as HTMLInputElement;
+    const titleField = document.querySelector("#id_title") as HTMLInputElement;
     let oldTitle = titleField.value;
     const slugField = <HTMLInputElement>document.getElementById("id_slug");
     const linkContainer = document.getElementById("link-container");
@@ -45,7 +45,7 @@ window.addEventListener("load", () => {
     document.querySelectorAll("#id_title").forEach((item) => {
         item.addEventListener("focusout", ({ target }) => {
             const currentTitle = (target as HTMLInputElement).value;
-            if (currentTitle != oldTitle) {
+            if (currentTitle !== oldTitle) {
                 const submissionLock = new SubmissionPrevention(".no-premature-submission");
                 const nodeList: NodeListOf<HTMLInputElement> = document.querySelectorAll(
                     '[for="id_title"],[for="id_slug"]'
