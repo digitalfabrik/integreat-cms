@@ -101,6 +101,17 @@
                                    {% if push_notification_form.instance.id %}data-model-id="{{ push_notification_form.instance.id }}"{% endif %}>
                                 {{ push_notification_translation_form.title.label }}
                             </label>
+                            {% if push_notification_form.instance.sent_date and push_notification_translation_form.instance.id %}
+                                <div class="text-right py-2">
+                                    <span class="text-lg font-bold">{% translate "Link" %}:</span>
+                                    <a href="{{ WEBAPP_URL }}{{ push_notification_translation_form.instance.get_absolute_url }}"
+                                       class="text-blue-500 hover:underline"
+                                       target="_blank"
+                                       rel="noopener noreferrer">
+                                        {{ WEBAPP_URL }}{{ push_notification_translation_form.instance.get_absolute_url }}
+                                    </a>
+                                </div>
+                            {% endif %}
                         </div>
                         {% render_field push_notification_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
                         <label for="{{ push_notification_translation_form.text.id_for_label }}">
