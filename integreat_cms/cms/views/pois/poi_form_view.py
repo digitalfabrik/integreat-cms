@@ -4,7 +4,6 @@ A view representing an instance of a point of interest. POIs can be created or u
 
 from __future__ import annotations
 
-import json
 import logging
 from typing import TYPE_CHECKING
 
@@ -147,11 +146,10 @@ class POIFormView(
         region = request.region
         language = Language.objects.get(slug=kwargs.get("language_slug"))
 
-        poi_instance = POI.objects.filter(id=kwargs.get("poi_id")).first()
-        poi_translation_instance = POITranslation.objects.filter(
-            poi=poi_instance,
-            language=language,
-        ).first()
+        poi_id = kwargs.get("poi_id")
+        poi_instance, poi_translation_instance = self.get_instances(
+            language=language, poi_id=poi_id
+        )
 
         is_edit = poi_instance is not None
 
@@ -165,33 +163,20 @@ class POIFormView(
                 },
             )
 
-        poi_form = POIForm(
-            data=request.POST,
-            files=request.FILES,
-            instance=poi_instance,
-            additional_instance_attributes={
-                "region": region,
-            },
-        )
-        poi_translation_form = POITranslationForm(
+        poi_form, poi_translation_form = self.instantiate_forms(
             request=request,
+            poi_instance=poi_instance,
+            poi_translation_instance=poi_translation_instance,
             language=language,
-            data=request.POST,
-            instance=poi_translation_instance,
-            additional_instance_attributes={
-                "creator": request.user,
-                "language": language,
-                "poi": poi_form.instance,
-            },
-            changed_by_user=request.user,
+            region=region,
         )
+
         user_slug = poi_translation_form.data.get("slug")
 
         phone_number = poi_form.data.get("primary_phone_number")
         email = poi_form.data.get("primary_email")
         website = poi_form.data.get("primary_website")
 
-        contact_form = None
         data = request.POST.dict()
         new_poi_and_new_related_contact = (
             not is_edit and self.related_contact_data_added(data)
@@ -335,9 +320,15 @@ class POIFormView(
                         },
                     )
                 transaction.savepoint_rollback(sid)
-                # reset opening_hours type to a JSON formatted string (after it is turned into a Python object during poi_form.save())
-                poi_form.data["opening_hours"] = json.dumps(
-                    poi_form.data["opening_hours"]
+                poi_instance, poi_translation_instance = self.get_instances(
+                    language=language, poi_id=poi_id
+                )
+                poi_form, poi_translation_form = self.instantiate_forms(
+                    request=request,
+                    poi_instance=poi_instance,
+                    poi_translation_instance=poi_translation_instance,
+                    language=language,
+                    region=region,
                 )
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{poi_translation_form.instance.url_infix}/"
         return render(
@@ -362,6 +353,47 @@ class POIFormView(
                 "is_edit": is_edit,
             },
         )
+
+    def get_instances(
+        self, language: Language, poi_id: Any
+    ) -> tuple[POI, POITranslation]:
+        poi_instance = POI.objects.filter(id=poi_id).first()
+        poi_translation_instance = POITranslation.objects.filter(
+            poi=poi_instance,
+            language=language,
+        ).first()
+        return poi_instance, poi_translation_instance
+
+    def instantiate_forms(
+        self,
+        request: HttpRequest,
+        poi_instance: POI,
+        poi_translation_instance: POITranslation,
+        language: Language,
+        region: Any,
+    ) -> tuple[POIForm, POITranslationForm]:
+        poi_form = POIForm(
+            data=request.POST,
+            files=request.FILES,
+            instance=poi_instance,
+            additional_instance_attributes={
+                "region": region,
+            },
+        )
+        poi_translation_form = POITranslationForm(
+            request=request,
+            language=language,
+            data=request.POST,
+            instance=poi_translation_instance,
+            additional_instance_attributes={
+                "creator": request.user,
+                "language": language,
+                "poi": poi_form.instance,
+            },
+            changed_by_user=request.user,
+        )
+
+        return poi_form, poi_translation_form
 
     def related_contact_data_added(self, data: dict[str, str | list[str]]) -> bool:
         keys_to_check = [
