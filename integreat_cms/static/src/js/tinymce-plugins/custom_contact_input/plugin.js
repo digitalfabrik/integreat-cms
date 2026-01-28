@@ -167,34 +167,34 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     const detailsInBeta = ["opening_hours"];
 
                     for (const [key, value] of Object.entries(availableDetails)) {
-                        if (!testBetaFeatures && detailsInBeta.includes(key)) continue;
+                        if (testBetaFeatures || !detailsInBeta.includes(key)) {
+                            const wrapper = document.createElement("div");
 
-                        const wrapper = document.createElement("div");
+                            const checkbox = document.createElement("input");
+                            checkbox.type = "checkbox";
+                            checkbox.classList = ["details-checkbox"];
+                            checkbox.checked = selectedDetails?.includes(key) || !selectedDetails;
+                            checkbox.value = key;
+                            checkbox.id = key;
+                            checkbox.style.border = "1px solid";
+                            checkbox.style.width = "1em";
+                            checkbox.style.height = "1em";
+                            checkbox.style.margin = "0 5px 0 5px";
+                            checkbox.style.verticalAlign = "middle";
 
-                        const checkbox = document.createElement("input");
-                        checkbox.type = "checkbox";
-                        checkbox.classList = ["details-checkbox"];
-                        checkbox.checked = selectedDetails?.includes(key) || !selectedDetails;
-                        checkbox.value = key;
-                        checkbox.id = key;
-                        checkbox.style.border = "1px solid";
-                        checkbox.style.width = "1em";
-                        checkbox.style.height = "1em";
-                        checkbox.style.margin = "0 5px 0 5px";
-                        checkbox.style.verticalAlign = "middle";
+                            const label = document.createElement("label");
+                            label.htmlFor = key;
+                            label.textContent = value;
+                            label.style.verticalAlign = "middle";
 
-                        const label = document.createElement("label");
-                        label.htmlFor = key;
-                        label.textContent = value;
-                        label.style.verticalAlign = "middle";
+                            wrapper.append(checkbox);
+                            wrapper.append(label);
+                            detailsArea.append(wrapper);
 
-                        wrapper.append(checkbox);
-                        wrapper.append(label);
-                        detailsArea.append(wrapper);
-
-                        checkbox.addEventListener("click", () => {
-                            setSubmitDisableStatus(true);
-                        });
+                            checkbox.addEventListener("click", () => {
+                                setSubmitDisableStatus(true);
+                            });
+                        }
                     }
                 };
 
