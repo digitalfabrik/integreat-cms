@@ -228,4 +228,8 @@ class FilterSortMixin:
             for f in self.request.GET.getlist("sort")
             if f.lstrip("-") in self.sort_fields
         ]
-        return queryset.order_by(*order_by)
+        if order_by:
+            # queryset.order_by([]) would override default ordering and result in an unordered queryset
+            # so we only use order_by if "sort" is not empty
+            return queryset.order_by(*order_by)
+        return queryset
