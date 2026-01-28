@@ -23,6 +23,6 @@ class TrigramMatcher(BaseMatcher):
         return queryset.annotate(
             **{
                 self.value_alias(field): F(field),
-                self.sim_alias(field): TrigramSimilarity(field, query)
+                self.sim_alias(field): TrigramSimilarity(field, query),
             }
         )

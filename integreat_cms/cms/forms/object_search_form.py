@@ -1,8 +1,8 @@
+from collections.abc import Iterable
+
 from django import forms
 from django.db.models import Q
 from django.db.models.query import QuerySet
-
-from typing import Iterable, Optional
 
 
 class ObjectSearchForm(forms.Form):
@@ -12,7 +12,7 @@ class ObjectSearchForm(forms.Form):
 
     query = forms.CharField(min_length=1, required=False)
 
-    search_fields: Optional[Iterable[str]] = None  # To be overridden in child classes
+    search_fields: Iterable[str] | None = None  # To be overridden in child classes
 
     def apply_filters(self, queryset: QuerySet) -> QuerySet:
         search_query = self.cleaned_data.get("query")

@@ -24,7 +24,7 @@ def normalize_search_fields(search_fields: dict) -> dict[str, dict]:
     normalized = {}
 
     for field, config in search_fields.items():
-        if isinstance(config, (int, float)):
+        if isinstance(config, int | float):
             normalized[field] = {
                 "weight": float(config),
                 "tokenize": True,
@@ -49,12 +49,12 @@ def suggest_tokens_for_model(model_cls, query: str) -> dict[str, list[dict]]:
     scores = defaultdict(float)
 
     q_filter = Q()
-    for field, _config in fields.items():
+    for field in fields:
         q_filter |= Q(**{f"{field}__icontains": query})
 
     qs = model_cls.objects.filter(q_filter)
 
-    for field, _config in fields.items():
+    for field in fields:
         qs = matcher.annotate(qs, field, query)
 
     qs = qs[:MAX_OBJECTS]
@@ -69,10 +69,7 @@ def suggest_tokens_for_model(model_cls, query: str) -> dict[str, list[dict]]:
             if not value:
                 continue
 
-            if config.get("tokenize", True):
-                tokens = tokenize(value)
-            else:
-                tokens = {value}
+            tokens = tokenize(value) if config.get("tokenize", True) else {value}
             for token in tokens:
                 scores[token] += score_token(
                     similarity=similarity,

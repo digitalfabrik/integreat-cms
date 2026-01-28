@@ -18,6 +18,7 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
+from ...search.search_fields import CONTACT_SEARCH_FIELDS
 from ..abstract_base_model import AbstractBaseModel
 from ..events.event_translation import EventTranslation
 from ..fields.truncating_char_field import TruncatingCharField
@@ -25,7 +26,6 @@ from ..mixins import SearchSuggestMixin
 from ..pages.page_translation import PageTranslation
 from ..pois.poi import POI
 from ..pois.poi_translation import POITranslation
-from ...search.search_fields import CONTACT_SEARCH_FIELDS
 
 if TYPE_CHECKING:
     from typing import Any
