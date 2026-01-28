@@ -98,5 +98,12 @@
                 <i icon-name="trash-2"></i>
             </button>
         {% endif %}
+        {% if perms.cms.change_pushnotification %}
+            <a href="{% url 'copy_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}"
+               title="{% translate "Copy" %}"
+               class="btn-icon">
+                <i icon-name="copy"></i>
+            </a>
+        {% endif %}
     </td>
 </tr>

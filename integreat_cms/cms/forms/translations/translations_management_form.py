@@ -87,6 +87,7 @@ class TranslationsManagementForm(CustomModelForm):
             "machine_translate_pages",
             "machine_translate_events",
             "machine_translate_pois",
+            "machine_translate_pushnotifications",
         ]
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:

@@ -24,3 +24,4 @@ DATABASES = {
         "PORT": "5433",
     },
 }
+FCM_ENABLED = True

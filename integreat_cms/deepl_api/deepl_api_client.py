@@ -76,11 +76,16 @@ class DeepLApiClient(MachineTranslationApiClient):
 
         for content_object in self.queryset:
             data = {
-                "status": content_object.source_translation.status,
                 "machine_translated": True,
-                "currently_in_translation": False,
                 "title": unescape(content_object.source_translation.title),
             }
+            if content_object._meta.model_name != "pushnotification":
+                data.update(
+                    {
+                        "status": content_object.source_translation.status,
+                        "currently_in_translation": False,
+                    }
+                )
 
             for attr, attr_val in content_object.translatable_attributes:
                 try:

@@ -441,6 +441,12 @@ class Region(AbstractBaseModel):
         verbose_name=_("Locations"),
     )
 
+    machine_translate_pushnotifications = models.PositiveIntegerField(
+        choices=machine_translation_permissions.CHOICES,
+        default=machine_translation_permissions.EVERYONE,
+        verbose_name=_("Push Notifications"),
+    )
+
     integreat_chat_enabled = models.BooleanField(
         default=False,
         verbose_name=_("Enable public chat"),
@@ -1066,14 +1072,14 @@ class Region(AbstractBaseModel):
         pages: list[Page],
         start_date: date,
         end_date: date,
-        languages: list[Language],
+        language_slugs: list[str],
     ) -> dict:
         """
         Get the sum of page accesses per page and language of this region during the specified time range
         :param pages: List of requested pages
         :param start_date: Earliest date
         :param end_date: Latest date
-        :param languages: List of requested languages
+        :param language_slugs: List of slugs for the requested languages
 
         :return: Sum of page accesses per page and language
         """
@@ -1082,7 +1088,7 @@ class Region(AbstractBaseModel):
                 page__region=self,
                 page__in=pages,
                 access_date__range=(start_date, end_date + timedelta(days=1)),
-                language__in=languages,
+                language__slug__in=language_slugs,
             )
             .values("page__id", "language__slug")
             .annotate(total_accesses=Sum("accesses"))

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "integreat-cms"
 description = "Content Management System for the Integreat App"
-version = "2025.11.1"
+version = "2025.12.0"
 authors = [{name = "Tür an Tür – Digitalfabrik gGmbH", email = "tech@integreat-app.de"}]
 readme = "README.md"
 requires-python = ">=3.11"
@@ -75,6 +75,7 @@ dependencies = [
     "qrcode",
     "requests",
     "rules",
+    "shortcodes",
     "six",
     "webauthn",
     "xhtml2pdf==0.2.8",
@@ -223,6 +224,7 @@ pinned = [
     "setuptools==59.6.0",
     "sgmllib3k==1.0.0",
     "six==1.16.0",
+    "shortcodes==5.4.0",
     "sqlparse==0.5.1",
     "stack-data==0.6.3",
     "svglib==1.5.1",
@@ -355,7 +357,7 @@ script-files = ["integreat_cms/integreat-cms-cli"]
 include = ["integreat_cms*"]
 
 [tool.bumpver]
-current_version = "2025.11.1"
+current_version = "2025.12.0"
 version_pattern = "YYYY.MM.INC0[-TAG]"
 commit_message = """
 Bump version to {new_version}

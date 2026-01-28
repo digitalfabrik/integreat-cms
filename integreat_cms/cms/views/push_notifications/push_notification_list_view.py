@@ -36,25 +36,13 @@ class PushNotificationListView(TemplateView):
     """
 
     #: If true, shows the template push notification list
-    templates = False
+    not_sent = False
     archived = False
-    #: The template to render if templates is False
+
     template = "push_notifications/push_notification_list.html"
-    #: The template to render if templates is True
-    template_templates = "push_notifications/push_notification_template_list.html"
 
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "push_notifications"}
-
-    @property
-    def template_name(self) -> str:
-        """
-        Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.templates` flag
-        (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-
-        :return: Path to HTML template
-        """
-        return self.template_templates if self.templates else self.template
 
     def count_archived_push_notifications(self, region: Region) -> int:
         """
@@ -118,9 +106,11 @@ class PushNotificationListView(TemplateView):
             )
 
         push_notifications = region.push_notifications.filter(
-            is_template=self.templates,
             archived=self.archived,
         )
+
+        if self.not_sent:
+            push_notifications = push_notifications.filter(sent_date__isnull=True)
         query = None
 
         search_data = kwargs.get("search_data")
@@ -144,7 +134,7 @@ class PushNotificationListView(TemplateView):
         push_notifications_chunk = paginator.get_page(chunk)
         return render(
             request,
-            self.template_name,
+            self.template,
             {
                 **self.get_context_data(**kwargs),
                 "push_notifications": push_notifications_chunk,
@@ -154,6 +144,7 @@ class PushNotificationListView(TemplateView):
                 "search_query": query,
                 "is_archived": self.archived,
                 "archived_count": archived_count,
+                "not_sent": self.not_sent,
             },
         )
 
