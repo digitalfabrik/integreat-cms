@@ -9,15 +9,13 @@ function updateLengthCounter(this: HTMLElement, textarea: HTMLFormElement) {
 
 window.addEventListener("load", () => {
     // Get all text areas for push notifications (select textarea nodes where the name attribute begins with "form-" and ends with "-text")
-    document.querySelectorAll("textarea[name^=translations-][name$=-text]").forEach((textarea: Element) => {
-        // Get input length counter which belongs to this textarea
-        const counter = textarea.parentElement.getElementsByClassName("input-length-counter")[0] as HTMLElement;
-        // Update the input length counter once initially
+    const counter = document.getElementById("input-length-counter");
+
+    if (counter) {
+        const textarea = document.getElementById("id_text");
         updateLengthCounter.bind(counter)(textarea as HTMLFormElement);
-        // Use both "onkeyup" and "input" events to handle keyboard inputs and copy/paste via the clipboard
         ["onkeyup", "input"].forEach((event: string) => {
-            // set event handler for updating the length of push notifications
             textarea.addEventListener(event, updateLengthCounter.bind(counter, textarea as HTMLFormElement));
         });
-    });
+    }
 });
