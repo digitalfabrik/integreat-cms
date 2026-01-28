@@ -1869,7 +1869,7 @@ msgstr ""
 "01234567."
 
 #: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
-#: cms/templates/contacts/contact_list.html
+#: cms/views/contacts/contact_list_view.py
 msgid "Phone number"
 msgstr "Telefonnummer"
 
@@ -2256,8 +2256,9 @@ msgstr "Übersetzung auf {}"
 msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
 
-#: cms/forms/pois/poi_form.py cms/templates/contacts/contact_list.html
+#: cms/forms/pois/poi_form.py
 #: cms/templates/organizations/organization_list.html
+#: cms/views/contacts/contact_list_view.py
 msgid "Website"
 msgstr "Webseite"
 
@@ -5627,44 +5628,6 @@ msgid "Create contact"
 msgstr "Kontakt erstellen"
 
 #: cms/templates/contacts/contact_list.html
-msgid "Name of related location"
-msgstr "Name des verlinkten Ortes"
-
-#: cms/templates/contacts/contact_list.html
-msgid "Area of responsibility"
-msgstr "Zuständigkeitsbereich"
-
-#: cms/templates/contacts/contact_list.html
-#: cms/templates/events/external_calendar_list.html
-#: cms/templates/languages/language_form.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/poicategories/poicategory_list.html
-#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
-msgid "Name"
-msgstr "Name"
-
-#: cms/templates/contacts/contact_list.html
-msgid "E-Mail"
-msgstr "E-Mail"
-
-#: cms/templates/contacts/contact_list.html
-msgid "Mobile phone number"
-msgstr "Mobiltelefonnummer"
-
-#: cms/templates/contacts/contact_list.html
-#: cms/templates/events/event_list.html
-#: cms/templates/languages/language_list.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
-#: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/roles/role_list.html
-msgid "Options"
-msgstr "Optionen"
-
-#: cms/templates/contacts/contact_list.html
 msgid "No archived contacts found with these filters."
 msgstr "Keine archivierten Kontakte mit diesen Filtern gefunden."
 
@@ -6462,6 +6425,17 @@ msgid "External calendar"
 msgstr "Externer Kalender"
 
 #: cms/templates/events/event_list.html
+#: cms/templates/languages/language_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/roles/role_list.html cms/views/contacts/contact_list_view.py
+msgid "Options"
+msgstr "Optionen"
+
+#: cms/templates/events/event_list.html
 msgid "No events found with these filters."
 msgstr "Keine Veranstaltungen mit diesen Filtern gefunden."
 
@@ -6625,6 +6599,16 @@ msgstr "Neuer externer Kalender"
 #: cms/templates/events/external_calendar_list.html
 msgid "External calendars"
 msgstr "Externe Kalender"
+
+#: cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_form.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/poicategories/poicategory_list.html
+#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
+#: cms/views/contacts/contact_list_view.py
+msgid "Name"
+msgstr "Name"
 
 #: cms/templates/events/external_calendar_list.html
 msgid "Imported events"
@@ -9855,6 +9839,22 @@ msgid "Contact for \"{}\" was successfully saved"
 msgstr "Kontakt für \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/contacts/contact_list_view.py
+msgid "Name of related location"
+msgstr "Name des verlinkten Ortes"
+
+#: cms/views/contacts/contact_list_view.py
+msgid "Area of responsibility"
+msgstr "Zuständigkeitsbereich"
+
+#: cms/views/contacts/contact_list_view.py
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: cms/views/contacts/contact_list_view.py
+msgid "Mobile phone number"
+msgstr "Mobiltelefonnummer"
+
+#: cms/views/contacts/contact_list_view.py
 msgid "Please create at least one language node before creating contacts."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten bevor Sie Kontakte "
@@ -12373,15 +12373,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
