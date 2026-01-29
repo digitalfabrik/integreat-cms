@@ -137,6 +137,8 @@ class PushNotificationFormView(TemplateView):
             request=request,
             language=language,
             instance=push_notification_translation,
+            disabled=details["disable_edit"]
+            or (push_notification and push_notification.archived),
         )
 
         return render(

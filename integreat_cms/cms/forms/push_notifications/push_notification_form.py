@@ -73,6 +73,8 @@ class PushNotificationForm(CustomModelForm):
             self.fields["schedule_send"].disabled = True
             self.fields["scheduled_send_date_day"].disabled = True
             self.fields["scheduled_send_date_time"].disabled = True
+        if disabled:
+            self.fields["do_not_translate_title"].disabled = True
 
         self.fields["scheduled_send_date_day"].widget.attrs["min"] = str(
             timezone.now().date(),
