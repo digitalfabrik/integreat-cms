@@ -384,7 +384,7 @@ class MachineTranslationApiClient(ABC):
         if not self.failed_translations:
             return
 
-        messages.success(
+        messages.error(
             self.request,
             ngettext_lazy(
                 "{model_name} {object_names} could not be translated automatically.",
