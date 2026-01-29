@@ -30,7 +30,6 @@ const queryObjects = async (url: string, type: string, queryString: string, arch
     suggestionList.classList.remove("hidden");
 
     if (data) {
-        console.log(data);
         // Set and display new data
         data.data.suggestions.forEach((value: any, index: number) => {
             const child = document.createElement("li");
@@ -91,7 +90,6 @@ export const setSearchQueryEventListeners = () => {
 
     tableSearchInput.addEventListener("keydown", (event) => {
         const suggestions = Array.from(suggestionList?.children || []) as HTMLElement[];
-        console.log(suggestions);
 
         if (suggestions.length === 0) {
             return;
