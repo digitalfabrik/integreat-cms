@@ -18,3 +18,7 @@ CONTACT_SEARCH_FIELDS = {
     "location__translations__title": {"weight": 2, "tokenize": False},
     "area_of_responsibility": {"weight": 1},
 }
+
+EVENT_SEARCH_FIELDS = {
+    "title": {"weight": 1, "tokenize": False},
+}
