@@ -26,3 +26,7 @@ EVENT_SEARCH_FIELDS = {
 LOCATION_SEARCH_FIELDS = {
     "title": {"weight": 1, "tokenize": False},
 }
+
+PAGE_SEARCH_FIELDS = {
+    "translations__title": {"weight": 1, "tokenize": False},
+}

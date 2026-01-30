@@ -19,6 +19,8 @@ from ..decorators import modify_fields
 from ..utils import format_object_translation
 from .abstract_base_page import AbstractBasePage
 from .page_translation import PageTranslation
+from ..mixins import SearchSuggestMixin
+from ...search.search_fields import PAGE_SEARCH_FIELDS
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
@@ -154,10 +156,12 @@ class PageManager(models.Manager):
 
 
 @modify_fields(parent={"verbose_name": _("parent page")})
-class Page(AbstractTreeNode, AbstractBasePage):
+class Page(AbstractTreeNode, AbstractBasePage, SearchSuggestMixin):
     """
     Data model representing a page.
     """
+
+    search_fields = PAGE_SEARCH_FIELDS
 
     icon = models.ForeignKey(
         "cms.MediaFile",
