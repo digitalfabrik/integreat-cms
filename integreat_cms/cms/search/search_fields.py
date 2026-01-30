@@ -22,3 +22,7 @@ CONTACT_SEARCH_FIELDS = {
 EVENT_SEARCH_FIELDS = {
     "title": {"weight": 1, "tokenize": False},
 }
+
+LOCATION_SEARCH_FIELDS = {
+    "title": {"weight": 1, "tokenize": False},
+}
