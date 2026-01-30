@@ -8,7 +8,6 @@ from .tokenize import tokenize
 
 DEFAULT_MIN_SIMILARITY = 0.2
 MAX_OBJECTS = 200
-MAX_RESULTS = 10
 
 
 def normalize_search_fields(search_fields: dict) -> dict[str, dict]:

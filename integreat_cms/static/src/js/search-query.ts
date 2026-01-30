@@ -13,7 +13,7 @@ const queryObjects = async (url: string, type: string, queryString: string, arch
         },
         body: JSON.stringify({
             query_string: queryString,
-            object_types: [type],
+            object_type: type,
             archived,
         }),
     });

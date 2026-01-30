@@ -4,11 +4,11 @@ import json
 import logging
 from typing import TYPE_CHECKING
 
-from django.apps import apps
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
+from .utils import get_model_cls_from_object_type
 from ...models.mixins import SearchSuggestMixin
 from ...search.suggest import suggest_tokens_for_model
 
@@ -19,18 +19,6 @@ logger = logging.getLogger(__name__)
 
 # The maximum number of suggestions returned by `search_suggest`
 MAX_RESULT_COUNT: int = 20
-
-
-CONTENT_TYPES = [
-    "contact",
-    "feedback",
-    "language",
-    "mediafile",
-    "organization",
-    "region",
-    "user",
-]
-TRANSLATION_CONTENT_TYPES = ["event", "page", "poi", "pushnotification"]
 
 
 @require_POST
@@ -55,33 +43,22 @@ def search_suggest(
 
     body = json.loads(request.body.decode("utf-8"))
     query = body["query_string"]
-    object_types = set(body.get("object_types", []))
+    object_type = body.get("object_type")
 
-    logger.debug("Ajax call: Live search for %r with query %r", object_types, query)
+    logger.debug(f"Ajax call: Search suggest for {object_type} with query {query}")
 
     user = request.user
 
-    for object_type in object_types:
-        if object_type not in CONTENT_TYPES + TRANSLATION_CONTENT_TYPES:
-            raise AttributeError(f"Unexpected object type(s): {object_types}")
+    if not user.has_perm(f"cms.view_{object_type}"):
+        raise PermissionDenied
 
-        if not user.has_perm(f"cms.view_{object_type}"):
-            raise PermissionDenied
+    model_cls = get_model_cls_from_object_type(object_type, language_slug)
 
-        if object_type in TRANSLATION_CONTENT_TYPES and not language_slug:
-            raise AttributeError("Language slug is not provided")
+    if model_cls is None:
+        return JsonResponse({"results": []})
 
-        if object_type in CONTENT_TYPES or object_type == "page":
-            model_cls = apps.get_model("cms", object_type)
-        else:
-            translation_object_type = f"{object_type}translation"
-            model_cls = apps.get_model("cms", translation_object_type)
-
-        if model_cls is None:
-            return JsonResponse({"results": []})
-
-        if not issubclass(model_cls, SearchSuggestMixin):
-            return JsonResponse({"results": []}, status=400)
+    if not issubclass(model_cls, SearchSuggestMixin):
+        return JsonResponse({"results": []}, status=400)
 
     # todo only search for tokens in specified region?
     suggestions = suggest_tokens_for_model(model_cls, query=query)
