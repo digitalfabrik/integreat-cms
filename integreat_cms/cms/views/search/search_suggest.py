@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-# The maximum number of results returned by `search_content_ajax`
+# The maximum number of suggestions returned by `search_suggest`
 MAX_RESULT_COUNT: int = 20
 
 
@@ -39,9 +39,8 @@ def search_suggest(
     region_slug: str | None = None,
     language_slug: str | None = None,
 ) -> JsonResponse:
-    """Searches all pois, events and pages for the current region and returns all that
-    match the search query. Results which match the query in the title or slug get ranked
-    higher than results which only match through their text content.
+    """
+    Provides a list of search term suggestions based on a search query.
 
     :param request: The current request
     :param language_slug: language slug
@@ -51,7 +50,7 @@ def search_suggest(
 
     :raises AttributeError: If the request contains an object type which is unknown or if the user has no permission for it
 
-    :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
+    :return: Json object containing a list of search suggestions as {"suggestions": {"suggestion": str, "score": float}}
     """
 
     body = json.loads(request.body.decode("utf-8"))
@@ -84,8 +83,14 @@ def search_suggest(
         if not issubclass(model_cls, SearchSuggestMixin):
             return JsonResponse({"results": []}, status=400)
 
+    # todo only search for tokens in specified region?
     suggestions = suggest_tokens_for_model(model_cls, query=query)
+
     # sort by score
-    suggestions["suggestions"].sort(key=lambda item: item["score"], reverse=True)
+    suggestions["suggestions"] = sorted(
+        suggestions["suggestions"],
+        key=lambda item: item["score"],
+        reverse=True
+    )[:MAX_RESULT_COUNT]
 
     return JsonResponse({"data": suggestions})
