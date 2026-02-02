@@ -3,6 +3,7 @@
 {% load widget_tweaks %}
 {% load content_filters %}
 {% load push_notification_filters %}
+{% load render_bundle from webpack_loader %}
 {% block content %}
     <form method="post" data-unsaved-warning>
         {% csrf_token %}
@@ -134,3 +135,6 @@
         </div>
     </form>
 {% endblock content %}
+{% block javascript %}
+    {% render_bundle 'push_notification_form' 'js' %}
+{% endblock javascript %}

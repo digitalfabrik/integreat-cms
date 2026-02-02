@@ -4,6 +4,10 @@ import tinymce from "tinymce";
 /**
  * This file contains the functionality to copy title and content from the source to the target translation
  * in the page side-by-side view.
+ *
+ * used in:
+ * imprint_sbs.html
+ * page_sbs.html
  */
 window.addEventListener("load", () => {
     const copyTranslation = document.getElementById("copy-translation-content");

@@ -1,7 +1,11 @@
-/*
+/**
  * This file contains the entrypoint for the opening hours preact component.
  *
  * Documentation of preact: https://preactjs.com/
+ *
+ * used in:
+ * contact_form.html
+ * opening_hours_box.html > poi_form.html
  *
  */
 import { render, h } from "preact";

@@ -4,6 +4,7 @@
 {% load static %}
 {% load humanize %}
 {% load widget_tweaks %}
+{% load render_bundle from webpack_loader %}
 {% block content %}
     <form enctype="multipart/form-data" method="post" data-unsaved-warning>
         {% csrf_token %}
@@ -244,3 +245,6 @@
         </div>
     </form>
 {% endblock content %}
+{% block javascript %}
+    {% render_bundle 'translations_management' 'js' %}
+{% endblock javascript %}

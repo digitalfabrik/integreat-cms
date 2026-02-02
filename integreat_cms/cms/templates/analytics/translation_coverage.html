@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 {% load static %}
 {% load i18n %}
+{% load render_bundle from webpack_loader %}
 {% block content %}
     <div class="row">
         <div class="col-sm-12">
@@ -117,3 +118,6 @@
     </div>
     {{ chart_data|json_script:"chart_data" }}
 {% endblock content %}
+{% block javascript %}
+    {% render_bundle 'translation_coverage' 'js' %}
+{% endblock javascript %}

@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 {% load widget_tweaks %}
 {% block content %}
     <div class="dashboard">
@@ -36,3 +37,6 @@
     </div>
     {% include "../generic_confirmation_dialog.html" %}
 {% endblock content %}
+{% block javascript %}
+    {% render_bundle 'dashboard' 'js' %}
+{% endblock javascript %}

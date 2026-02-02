@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 {% block content %}
     <div class="table-header flex justify-between">
         <h1 class="heading">
@@ -54,3 +55,6 @@
     {% include "pagination.html" with chunk=page_obj %}
     {% include "../generic_confirmation_dialog.html" %}
 {% endblock content %}
+{% block javascript %}
+    {% render_bundle 'poicategory_list' 'js' %}
+{% endblock javascript %}

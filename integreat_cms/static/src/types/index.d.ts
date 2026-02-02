@@ -10,6 +10,9 @@ declare module "htmldiff-js" {
     export default InputMask;
 }
 
+declare module "*.scss";
+declare module "*.css";
+
 type ReplaceElementOptions = {
     nameAttr: string;
     icons: { [key: string]: IconNode };

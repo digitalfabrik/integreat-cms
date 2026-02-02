@@ -3,6 +3,7 @@
 {% load base_filters %}
 {% load static %}
 {% load widget_tweaks %}
+{% load render_bundle from webpack_loader %}
 {% block content %}
     <form method="post" data-unsaved-warning>
         {% csrf_token %}
@@ -110,3 +111,6 @@
         </div>
     </form>
 {% endblock content %}
+{% block javascript %}
+    {% render_bundle 'languagetreenode_form' 'js' %}
+{% endblock javascript %}

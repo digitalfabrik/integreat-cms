@@ -1,5 +1,9 @@
-/*
+/**
  * This file contains the dynamic handling for user roles
+ *
+ * used in:
+ * user_form.html
+ * region_user_form.html
  */
 
 const updateRoleField = (staffCheckbox: HTMLInputElement) => {

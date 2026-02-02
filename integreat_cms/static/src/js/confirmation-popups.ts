@@ -1,5 +1,9 @@
 /**
  * This file contains all functions which are needed for toggling the confirmation popup
+ *
+ * used in:
+ * more than 20 templates
+ *
  */
 import { off, on } from "./utils/wrapped-events";
 

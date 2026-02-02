@@ -26,6 +26,19 @@
  *
  *     page_ids = request.POST.getlist("selected_ids[]")
  *
+ * used in:
+ * contact_list.html
+ * event_list.html
+ * admin_feedback_list.html
+ * region_feedback_list.html
+ * languagetreenode_list.html
+ * links_by_filter.html
+ * organization_list.html
+ * pages_page_tree.html
+ * poi_list.html
+ * push_notification_list.html
+ * push_notification_template_list.html
+ *
  */
 import { showConfirmationPopupWithData } from "./confirmation-popups";
 
@@ -73,7 +86,7 @@ export const toggleBulkActionButton = () => {
     }
 };
 
-/*
+/**
  * Execute the selected bulk action
  */
 export const bulkActionExecute = (event: Event) => {

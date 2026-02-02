@@ -1,3 +1,12 @@
+/**
+ *
+ * used in:
+ * position_box.html > poi_form.html
+ *  + contact_form.html
+ *  + opening_hours_box.html > poi_form.html
+ *  + _poi_form_widget.html
+ */
+
 import { getCsrfToken } from "../utils/csrf-token";
 
 export const updateField = (fieldName: string, value: string, replace: boolean = true) => {

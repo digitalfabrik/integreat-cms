@@ -15,7 +15,7 @@ import EditSidebar from "./component/edit-sidebar";
 import { Message } from "./component/message";
 import CreateDirectory from "./component/create-directory";
 import UploadFile from "./component/upload-file";
-import { setSearchQueryEventListeners } from "../search-query";
+import { setSearchQueryEventListeners } from "../feature/search-query";
 import { getCsrfToken } from "../utils/csrf-token";
 
 export type LibraryProps = {
@@ -174,14 +174,17 @@ const Library = ({
     }, [mediaLibraryContent]);
 
     // Set the search query event listeners after a refresh
-    useEffect(setSearchQueryEventListeners, [mediaLibraryContent]);
+    useEffect(() => {
+        const container = document.querySelector("[data-js-search-query]") as HTMLElement;
+        setSearchQueryEventListeners(container);
+    }, [mediaLibraryContent]);
 
     return (
         <div className="flex flex-col flex-grow h-full overflow-hidden">
             <h1 className="w-full heading p-2">{mediaTranslations.heading_media_library}</h1>
             <div className="flex flex-wrap justify-between gap-x-2 gap-y-4">
                 <div className="flex flex-wrap justify-start gap-2">
-                    <div id="table-search" class="flex">
+                    <div id="table-search" class="flex" data-js-search-query>
                         <form
                             id="media-move-form"
                             class="hidden"

@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 {% load content_filters %}
 {% load page_filters %}
 {% load rules %}
@@ -329,3 +330,6 @@
     {% include "pages/_page_xliff_export_overlay.html" %}
     {% include "_machine_translation_overlay.html" %}
 {% endblock content %}
+{% block javascript %}
+    {% render_bundle 'pages_page_tree' 'js' %}
+{% endblock javascript %}

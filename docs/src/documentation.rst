@@ -2,14 +2,17 @@
 Documentation (Sphinx)
 **********************
 
-To generate this documentation, we use the Python documentation generator Sphinx (see :doc:`sphinx:usage/index`).
+To generate this documentation, we use the Python documentation generator Sphinx (see :doc:`sphinx:usage/index`). 
+For the generation of the Frontend Modules we use Typedoc and then the `myst-parser` tool to integrate them into the sphinx documentation.
 
-The generation process is divided into two stages:
+The generation process is divided into four stages:
 
-1. :doc:`sphinx:man/sphinx-apidoc` is a tool which scans the whole source code of our application in the ``integreat_cms``
+1. `typedoc <https://typedoc.org/>` scans all ts files inside the /integreat_cms/static/src/ folder and generates .md files based on docstrings and exports
+2. `myst-parser <https://myst-parser.readthedocs.io/en/latest/>` generates .rst files based on the .md files
+3. :doc:`sphinx:man/sphinx-apidoc` is a tool which scans the whole source code of our application in the ``integreat_cms``
    directory and generates ``.rst`` files out of the Python docstrings. These files are then placed in the
    ``docs/src/ref-ext`` directory.
-2. :doc:`sphinx:man/sphinx-build` generates the html documentation out of the ``.rst`` files located in the sphinx directory.
+4. :doc:`sphinx:man/sphinx-build` generates the html documentation out of the ``.rst`` files located in the sphinx directory.
    It merges the static ``.rst`` files directly in the ``sphinx`` directory together with the files generated in step 1
    in ``docs/src/ref-ext`` and the simplified ``.rst`` files in ``docs/src/ref``.
 
@@ -20,7 +23,7 @@ Generate this documentation with :github-source:`tools/make_docs.sh`::
 
     ./tools/make_docs.sh [--clean]
 
-Apart from the two steps above, this tool also performs the additional tasks:
+Apart from the four steps above, this tool also performs the additional tasks:
 
 * :github-source:`Patch <docs/src/patches/footer.diff>` the footer template
   which allows custom URLs in the copyright notice.
