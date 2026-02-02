@@ -118,6 +118,12 @@
                             {{ push_notification_translation_form.text.label }}
                         </label>
                         {% render_field push_notification_translation_form.text class+="tinymce_textarea flex-auto" %}
+                        {% spaceless %}
+                            <p>
+                                <span id="input-length-counter" class="input-length-counter"></span>
+                                <span>/{{ push_notification_translation_form.fields.text.max_length }}</span>
+                            </p>
+                        {% endspaceless %}
                     </div>
                 </div>
             </div>
