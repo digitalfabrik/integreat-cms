@@ -18,6 +18,9 @@ DEFAULT_MIN_SIMILARITY: float = 0.2
 #: Maximum number of objects to process for suggestions
 MAX_OBJECTS: int = 200
 
+#: Minimum query length required to return suggestions
+MIN_QUERY_LENGTH: int = 2
+
 
 def normalize_search_fields(search_fields: dict) -> dict[str, dict[str, Any]]:
     """
@@ -57,13 +60,17 @@ def suggest_tokens_for_model(
     :param query: The search query string
     :return: Dict with "suggestions" key containing list of {suggestion, score} dicts
     """
-    if not query:
+    query = query.strip()
+
+    if not query or len(query) < MIN_QUERY_LENGTH:
         return {"suggestions": []}
 
-    query = query.lower().strip()
+    query = query.lower()
     fields = normalize_search_fields(model_cls.search_fields)
 
     matcher = TrigramMatcher()
+    # Scores are accumulated per token - duplicate suggestions from multiple
+    # fields or objects are automatically merged by summing their scores
     scores: defaultdict[str, float] = defaultdict(float)
 
     # Build filter for any field containing the query

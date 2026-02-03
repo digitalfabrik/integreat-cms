@@ -219,7 +219,7 @@ def test_search_suggest_suggestions_are_sorted_by_score(
         url,
         data=json.dumps(
             {
-                "query_string": "a",  # Broad query to get multiple results
+                "query_string": "au",  # Broad query to get multiple results
                 "object_type": "page",
             }
         ),
