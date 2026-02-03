@@ -12,7 +12,7 @@ from django.http import JsonResponse
 
 from ....core.utils.word_count import word_count
 from ....textlab_api.utils import check_hix_score
-from ...constants.machine_translatable_attributes import TRANSLATABLE_ATTRIBUTES
+from ...constants.machine_translatable_fields import TRANSLATABLE_FIELDS
 from ...models import Event, Page, POI
 
 if TYPE_CHECKING:
@@ -59,19 +59,16 @@ def build_json_for_machine_translation(
     non_translatable = {}
 
     source_language = request.region.get_source_language(language_slug)
+    target_language = request.region.get_language_or_404(language_slug)
 
     for content in selected_content:
         source_translation = content.get_translation(source_language.slug)
 
-        content.translatable_attributes = [
-            (attr, getattr(source_translation, attr))
-            for attr in TRANSLATABLE_ATTRIBUTES
-            if hasattr(source_translation, attr)
-            and getattr(source_translation, attr)
-            and not (content.do_not_translate_title and attr == "title")
-        ]
+        translatable_attributes = content.get_translatable_attributes(
+            TRANSLATABLE_FIELDS, source_language.slug, target_language.slug
+        )
         words = word_count(
-            content.translatable_attributes,
+            translatable_attributes,
         )
 
         if source_translation and check_hix_score(

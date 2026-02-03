@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 from django.apps import apps
@@ -15,7 +16,7 @@ from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext, ngettext_lazy
 
-from ...cms.constants.machine_translatable_attributes import TRANSLATABLE_ATTRIBUTES
+from ...cms.constants.machine_translatable_fields import TRANSLATABLE_FIELDS
 from ...cms.constants.machine_translation_budget import MINIMAL
 from ...cms.utils.stringify_list import iter_to_string
 from ...textlab_api.utils import check_hix_score
@@ -26,15 +27,23 @@ if TYPE_CHECKING:
     from django.http import HttpRequest
 
     from ...cms.models import (
-        Event,
         Language,
-        Page,
-        POI,
         Region,
     )
+    from ...cms.models.abstract_content_model import AbstractContentModel
+    from ...cms.models.abstract_content_translation import AbstractContentTranslation
 
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class TranslationContext:
+    instance: AbstractContentModel
+    source_translation: AbstractContentTranslation | None = None
+    existing_target_translation: AbstractContentTranslation | None = None
+    translatable_attributes: list[tuple[str, str]] = field(default_factory=list)
+    word_count: int = 0
 
 
 class MachineTranslationApiClient(ABC):
@@ -49,9 +58,11 @@ class MachineTranslationApiClient(ABC):
     #: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
     form_class: ModelFormMetaclass
     #: Successful translations
-    successful_translations: list[Event] | list[Page] | list[POI] = []
+    successful_translations: list[TranslationContext] = []
     #: Translations with an attached API failure
     failed_translations: list[str] = []
+    #: Content objects untranslatable since no actual changes were made
+    failed_because_no_changes_made: list[str] = []
     #: Content objects untranslatable due to missing source translations
     failed_because_no_source_translation: list[str] = []
     #: Content objects untranslatable due to too-low hix score
@@ -67,14 +78,14 @@ class MachineTranslationApiClient(ABC):
         """
         Constructor initializes the class variables
 
-        :param region: The current region
+        :param request: The current request
         :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
                            subclass of the current content type
         """
         self.request = request
         self.region = request.region
         self.form_class = form_class
-        self.translatable_attributes = TRANSLATABLE_ATTRIBUTES
+        self.translatable_fields = TRANSLATABLE_FIELDS
 
     def reset(self) -> None:
         """
@@ -88,15 +99,16 @@ class MachineTranslationApiClient(ABC):
         """
         self.successful_translations = []
         self.failed_translations = []
+        self.failed_because_no_changes_made = []
         self.failed_because_no_source_translation = []
         self.failed_because_insufficient_hix_score = []
         self.failed_because_exceeds_limit = []
         self.failed_because_too_long_text = []
 
     @abstractmethod
-    def invoke_translation_api(self) -> None:
+    def invoke_translation_api(self, context: list[TranslationContext]) -> None:
         """
-        Translate all content objects stored in self.queryset.
+        Translate all ctx.instance stored in context.
         Needs to be implemented by subclasses of MachineTranslationApiClient.
         """
 
@@ -111,7 +123,7 @@ class MachineTranslationApiClient(ABC):
         :return: target_language_key which is 2 characters long for all languages except English and Portuguese where the BCP tag is transmitted
         """
 
-    def translate_object(self, obj: Event | Page | POI, language_slug: str) -> None:
+    def translate_object(self, obj: AbstractContentModel, language_slug: str) -> None:
         """
         This function translates one content object
 
@@ -123,11 +135,14 @@ class MachineTranslationApiClient(ABC):
     @transaction.atomic
     def translate_queryset(
         self,
-        queryset: list[Event] | (list[Page] | list[POI]),
+        queryset: list[AbstractContentModel],
         language_slug: str,
     ) -> None:
         """
-        This function translates a content queryset via DeepL
+        This function translates a content queryset via the configured machine translation provider.
+
+        Content objects are wrapped into :class:`TranslationContext` instances, filtered
+        for translatability, and then passed to the provider-specific translation API.
 
         :param queryset: The content QuerySet
         :param language_slug: The target language slug
@@ -138,7 +153,7 @@ class MachineTranslationApiClient(ABC):
         self.reset()
 
         # Re-select the region from db to prevent simultaneous
-        # requests exceeding the DeepL usage limit
+        # requests exceeding the machine translation usage limit
         region = (
             apps.get_model("cms", "Region")
             .objects.select_for_update()
@@ -158,193 +173,260 @@ class MachineTranslationApiClient(ABC):
         self.model_name_plural = meta.verbose_name_plural
 
         # Filter out content objects which can not be translated
-        self.prepare_content_objects()
-        self.filter_no_source_translation()
-        self.filter_insufficient_hix_score()
-        self.filter_exceeds_limit()
+        context = self.prepare_content_objects()
+        context = self.filter_no_source_translation(context)
+        context = self.filter_unchanged_translations(context)
+        context = self.filter_insufficient_hix_score(context)
+        context = self.filter_exceeds_limit(context)
 
-        # Provider-API-spcific implementation
-        self.invoke_translation_api()
+        # Provider-API-specific implementation
+        self.invoke_translation_api(context)
 
         # Update remaining budget of the region
         region.mt_budget_used += sum(
-            content_object.word_count for content_object in self.successful_translations
+            ctx.word_count for ctx in self.successful_translations
         )
         region.save()
 
         # Show success/error messages to the user
         self.alert_successful_translations()
         self.alert_failed_translations()
+        self.alert_no_changes_made()
         self.alert_no_source_translation()
         self.alert_insufficient_hix_score()
         self.alert_exceeds_limit()
         self.alert_too_long_text()
 
-    def filter_no_source_translation(self) -> None:
+    def filter_unchanged_translations(
+        self, context: list[TranslationContext]
+    ) -> list[TranslationContext]:
         """
-        This method removes content objects from the main queryset
+        This method filters out entries from the context list
+        if there have been no changes made to the source_translation.
+
+        The removed entries are stored in order to show users
+        batched error messages after all objects have been handled.
+
+        :param context: The list of translation contexts to filter
+        :return: The filtered list of translation contexts
+        """
+        filtered_context = []
+
+        for ctx in context:
+            if ctx.word_count > 0:
+                filtered_context.append(ctx)
+            else:
+                self.failed_because_no_changes_made.append(
+                    ctx.instance.best_translation.title
+                )
+
+        return filtered_context
+
+    def filter_no_source_translation(
+        self, context: list[TranslationContext]
+    ) -> list[TranslationContext]:
+        """
+        This method filters out entries from the context list
         if they do not have the required source translation.
 
-        The removed elements are stored in order to show users
+        The removed entries are stored in order to show users
         batched error messages after all objects have been handled.
 
-        :param source_language: The source language slug
+        :param context: The list of translation contexts to filter
+        :return: The filtered list of translation contexts
         """
-        filtered_queryset = []
+        filtered_context = []
 
-        for content_object in self.queryset:
-            if content_object.source_translation:
-                filtered_queryset.append(content_object)
+        for ctx in context:
+            if ctx.source_translation:
+                filtered_context.append(ctx)
             else:
                 self.failed_because_no_source_translation.append(
-                    content_object.best_translation.title
+                    ctx.instance.best_translation.title
                 )
 
-        self.queryset[:] = filtered_queryset
+        return filtered_context
 
-    def filter_insufficient_hix_score(self) -> None:
+    def filter_insufficient_hix_score(
+        self, context: list[TranslationContext]
+    ) -> list[TranslationContext]:
         """
-        This method removes content objects from the main queryset
+        This method filters out entries from the context list
         if they do not have the required HIX score.
 
-        The removed elements are stored in order to show users
+        The removed entries are stored in order to show users
         batched error messages after all objects have been handled.
 
-        :param source_language: The source language slug
+        :param context: The list of translation contexts to filter
+        :return: The filtered list of translation contexts
         """
-        filtered_queryset = []
+        filtered_context = []
 
-        for content_object in self.queryset:
+        for ctx in context:
+            if not ctx.source_translation:
+                logger.debug(
+                    "No source translation available for %r. Will be automatically filtered out",
+                    ctx,
+                )
+                continue
             if check_hix_score(
                 self.request,
-                content_object.source_translation,
+                ctx.source_translation,
                 show_message=False,
             ):
-                filtered_queryset.append(content_object)
+                filtered_context.append(ctx)
             else:
                 self.failed_because_insufficient_hix_score.append(
-                    content_object.source_translation.title
+                    ctx.source_translation.title
                 )
 
-        self.queryset[:] = filtered_queryset
+        return filtered_context
 
-    def filter_exceeds_limit(self) -> None:
+    def filter_exceeds_limit(
+        self, context: list[TranslationContext]
+    ) -> list[TranslationContext]:
         """
-        This method removes content objects from the main queryset
+        This method filters out entries from the context list
         if translating them would exceed the translation budget.
 
-        The removed elements are stored in order to show users
+        The removed entries are stored in order to show users
         batched error messages after all objects have been handled.
 
-        :param source_language: The source language slug
+        :param context: The list of translation contexts to filter
+        :return: The filtered list of translation contexts
         """
         remaining_budget = self.region.mt_budget_remaining
-        filtered_queryset = []
+        filtered_context = []
 
-        for content_object in self.queryset:
+        for ctx in context:
+            if not ctx.source_translation:
+                logger.debug(
+                    "No source translation available for %r. Will be automatically filtered out",
+                    ctx,
+                )
+                continue
             if (
                 max(
                     1,
-                    content_object.word_count
-                    - settings.MT_SOFT_MARGIN_FRACTION * MINIMAL,
+                    ctx.word_count - settings.MT_SOFT_MARGIN_FRACTION * MINIMAL,
                 )
                 < remaining_budget
             ):
-                filtered_queryset.append(content_object)
-                remaining_budget -= content_object.word_count
+                filtered_context.append(ctx)
+                remaining_budget -= ctx.word_count
             else:
-                self.failed_because_exceeds_limit.append(
-                    content_object.source_translation.title
-                )
+                self.failed_because_exceeds_limit.append(ctx.source_translation.title)
 
-        self.queryset[:] = filtered_queryset
+        return filtered_context
 
-    def prepare_content_objects(self) -> None:
+    def prepare_content_objects(self) -> list[TranslationContext]:
         """
-        Prepare the content objects to be translated by annotating
-        them with information which otherwise would need to be
-        recalculated multiple times.
+        Wrap each content object in a :class:`TranslationContext` and
+        populate it with pre-computed translation metadata (source/target
+        translations, translatable attributes, word count).
+
+        :return: A list of :class:`TranslationContext` instances ready for filtering
         """
+        context = []
         for content_object in self.queryset:
-            content_object.source_translation = content_object.get_translation(
+            ctx = TranslationContext(instance=content_object)
+            ctx.source_translation = content_object.get_translation(
                 self.source_language.slug,
             )
-            content_object.existing_target_translation = content_object.get_translation(
+            ctx.existing_target_translation = content_object.get_translation(
                 self.target_language.slug,
             )
-            content_object.translatable_attributes = [
-                (attr, getattr(content_object.source_translation, attr))
-                for attr in self.translatable_attributes
-                if hasattr(content_object.source_translation, attr)
-                and getattr(content_object.source_translation, attr)
-                and not (content_object.do_not_translate_title and attr == "title")
-            ]
-            content_object.word_count = word_count(
-                content_object.translatable_attributes,
-            )
+            try:
+                ctx.translatable_attributes = (
+                    content_object.get_translatable_attributes(
+                        self.translatable_fields,
+                        self.source_language.slug,
+                        self.target_language.slug,
+                    )
+                )
 
-    def mark_successful(self, content_object: Event | Page | POI) -> None:
+                ctx.word_count = word_count(
+                    ctx.translatable_attributes,
+                )
+            except ValueError:
+                pass  # will be caught by .filter_no_source_translation() later
+
+            context.append(ctx)
+        return context
+
+    def mark_successful(self, ctx: TranslationContext) -> None:
         """
         Mark a content object as having been translated successfully
         """
         logger.debug(
             "Successfully translated for: %r",
-            content_object.existing_target_translation,
+            ctx.existing_target_translation,
         )
-        self.successful_translations.append(content_object)
+        self.successful_translations.append(ctx)
 
-    def mark_unsuccessful(
-        self, content_object: Event | Page | POI, errors: bool
-    ) -> None:
+    def mark_unsuccessful(self, ctx: TranslationContext, errors: bool) -> None:
         """
-        Mark a translation as unuccessfull (usually due to API errors)
+        Mark a translation as unsuccessful (usually due to API errors)
         """
+        if not ctx.source_translation:
+            logger.debug(
+                "No source translation available for %r. Cannot be marked as unsuccessful",
+                ctx,
+            )
+            return
         logger.error(
             "Automatic translation for %r could not be created because of %r",
-            content_object,
+            ctx,
             errors,
         )
-        self.failed_translations.append(content_object.source_translation.title)
+        self.failed_translations.append(ctx.source_translation.title)
 
-    def mark_too_long(self, content_object: Event | Page | POI, errors: bool) -> None:
+    def mark_too_long(self, ctx: TranslationContext, errors: bool) -> None:
         """
         Mark a translation as too long
         """
+        if not ctx.source_translation:
+            logger.debug(
+                "No source translation available for %r. Cannot be marked as too long",
+                ctx,
+            )
+            return
         logger.error(
             "Automatic translation for %r could not be created because of %r",
-            content_object,
+            ctx,
             errors,
         )
-        self.failed_because_too_long_text.append(
-            content_object.source_translation.title
-        )
+        self.failed_because_too_long_text.append(ctx.source_translation.title)
 
-    def save_translation(
-        self, content_object: Event | Page | POI, translation_data: dict
-    ) -> None:
+    def save_translation(self, ctx: TranslationContext, translation_data: dict) -> None:
         """
         Create a translation form based on the extracted content object data,
         save it, and validate the translation.
         """
+        if not ctx.source_translation:
+            logger.debug(
+                "No source translation available for %r. Cannot be translated", ctx
+            )
+            return
         attributes = {
             "language": self.target_language,
         }
-        if content_object._meta.model_name != "pushnotification":
+        if ctx.instance._meta.model_name != "pushnotification":
             attributes.update(
                 {
                     "creator": self.request.user,
-                    content_object.source_translation.foreign_field(): content_object,
+                    ctx.source_translation.foreign_field(): ctx.instance,
                 }
             )
         else:
             attributes.update(
                 {
-                    "push_notification": content_object,
+                    "push_notification": ctx.instance,
                 }
             )
         content_translation_form = self.form_class(
             data=translation_data,
-            instance=content_object.existing_target_translation,
+            instance=ctx.existing_target_translation,
             additional_instance_attributes=attributes,
         )
 
@@ -353,26 +435,26 @@ class MachineTranslationApiClient(ABC):
             content_translation_form.save()
             # Revert "currently in translation" value of all versions
             if (
-                content_object._meta.model_name != "pushnotification"
-                and content_object.existing_target_translation
+                ctx.instance._meta.model_name != "pushnotification"
+                and ctx.existing_target_translation
             ):
                 if settings.REDIS_CACHE:
-                    content_object.existing_target_translation.all_versions.invalidated_update(
+                    ctx.existing_target_translation.all_versions.invalidated_update(
                         currently_in_translation=False,
                     )
                 else:
-                    content_object.existing_target_translation.all_versions.update(
+                    ctx.existing_target_translation.all_versions.update(
                         currently_in_translation=False,
                     )
 
-            self.mark_successful(content_object)
+            self.mark_successful(ctx)
         elif content_translation_form.has_error("text", code="max_length"):
             self.max_text_length = content_translation_form.instance._meta.get_field(
                 "text"
             ).max_length
-            self.mark_too_long(content_object, content_translation_form.errors)
+            self.mark_too_long(ctx, content_translation_form.errors)
         else:
-            self.mark_unsuccessful(content_object, content_translation_form.errors)
+            self.mark_unsuccessful(ctx, content_translation_form.errors)
 
     def alert_successful_translations(self) -> None:
         """
@@ -396,8 +478,9 @@ class MachineTranslationApiClient(ABC):
                 source_language=self.source_language,
                 target_language=self.target_language,
                 object_names=iter_to_string(
-                    content_object.source_translation.title
-                    for content_object in self.successful_translations
+                    ctx.source_translation.title
+                    for ctx in self.successful_translations
+                    if ctx.source_translation is not None
                 ),
             ),
         )
@@ -412,8 +495,8 @@ class MachineTranslationApiClient(ABC):
         messages.error(
             self.request,
             ngettext_lazy(
-                "{model_name} {object_names} could not be translated automatically.",
-                "The following {model_name} could not translated automatically: {object_names}",
+                "{model_name} {object_names} could not be translated automatically into '{target_language}'",
+                "The following {model_name} could not be translated automatically into '{target_language}': {object_names}",
                 len(self.failed_translations),
             ).format(
                 model_name=ngettext(
@@ -421,7 +504,35 @@ class MachineTranslationApiClient(ABC):
                     self.model_name_plural,
                     len(self.failed_translations),
                 ),
+                target_language=self.target_language,
                 object_names=iter_to_string(self.failed_translations),
+            ),
+        )
+
+    def alert_no_changes_made(self) -> None:
+        """
+        Add messages alerting the user that machine translation failed
+        due to missing source translations
+        """
+        if not self.failed_because_no_changes_made:
+            return
+
+        messages.error(
+            self.request,
+            ngettext_lazy(
+                "{model_name} {object_names} was not translated into '{target_language}', because there were no changes to the source translation.",
+                "The following {model_name} were not translated into '{target_language}', because there were no changes to the source translation: {object_names}",
+                len(self.failed_because_no_changes_made),
+            ).format(
+                model_name=ngettext(
+                    self.model_name,
+                    self.model_name_plural,
+                    len(self.failed_because_no_changes_made),
+                ),
+                target_language=self.target_language,
+                object_names=iter_to_string(
+                    self.failed_because_no_changes_made,
+                ),
             ),
         )
 
