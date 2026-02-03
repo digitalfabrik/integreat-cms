@@ -102,6 +102,7 @@ def suggest_tokens_for_model(
                 scores[token] += score_token(
                     similarity=similarity,
                     weight=config["weight"],
+                    prefix_match=token.lower().startswith(query),
                 )
 
     return {

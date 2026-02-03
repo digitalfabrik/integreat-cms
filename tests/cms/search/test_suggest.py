@@ -8,6 +8,7 @@ import pytest
 
 from integreat_cms.cms.models import Contact, Page
 from integreat_cms.cms.search.matchers import TrigramMatcher
+from integreat_cms.cms.search.scorer import score_token
 from integreat_cms.cms.search.suggest import (
     normalize_search_fields,
     suggest_tokens_for_model,
@@ -152,3 +153,28 @@ class TestTrigramMatcher:
 
         assert matcher.sim_alias("name") == "name_sim"
         assert matcher.sim_alias("location__title") == "location_title_sim"
+
+
+class TestScorer:
+    """Tests for the score_token function"""
+
+    def test_basic_scoring(self) -> None:
+        """Test that score is similarity * weight"""
+        score = score_token(similarity=0.8, weight=2.0)
+        assert score == 1.6
+
+    def test_prefix_match_boosts_score(self) -> None:
+        """Test that prefix matches get a boosted score"""
+        base_score = score_token(similarity=0.8, weight=2.0, prefix_match=False)
+        boosted_score = score_token(similarity=0.8, weight=2.0, prefix_match=True)
+
+        assert boosted_score > base_score
+
+    def test_prefix_boost_multiplier(self) -> None:
+        """Test that prefix boost applies the correct multiplier"""
+        from integreat_cms.cms.search.scorer import PREFIX_BOOST
+
+        base_score = score_token(similarity=0.8, weight=2.0, prefix_match=False)
+        boosted_score = score_token(similarity=0.8, weight=2.0, prefix_match=True)
+
+        assert boosted_score == base_score * PREFIX_BOOST
