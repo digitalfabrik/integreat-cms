@@ -561,7 +561,7 @@ urlpatterns: list[URLPattern] = [
                 ),
                 path(
                     "search/",
-                    utils.search_content_ajax,
+                    search.search_content_ajax,
                     name="search_content_ajax",
                 ),
                 path(
@@ -790,7 +790,7 @@ urlpatterns: list[URLPattern] = [
                             ),
                             path(
                                 "search/",
-                                utils.search_content_ajax,
+                                search.search_content_ajax,
                                 name="search_content_ajax",
                             ),
                             path(
