@@ -77,6 +77,7 @@ class TestSuggestTokensForModel:
             assert "suggestion" in suggestion
             assert "score" in suggestion
             assert isinstance(suggestion["score"], float)
+        assert "Testkontakt" in [s["suggestion"] for s in suggestions]
 
     @pytest.mark.django_db
     def test_returns_matching_suggestions_for_page(self, load_test_data: None) -> None:
@@ -85,6 +86,7 @@ class TestSuggestTokensForModel:
         suggestions = result.get("suggestions", [])
 
         assert isinstance(suggestions, list)
+        assert "Willkommen in Augsburg" in [s["suggestion"] for s in suggestions]
 
     @pytest.mark.django_db
     def test_no_matches_returns_empty_suggestions(self, load_test_data: None) -> None:
