@@ -50,8 +50,8 @@ def suggest_tokens_for_model(
     """
     Generate search term suggestions for a model based on a query.
 
-    Uses trigram similarity to find matching field values, then scores and
-    aggregates tokens from those values.
+    Filters objects using substring matching (icontains), then uses
+    trigram similarity to score and rank the matching tokens.
 
     :param model_cls: The Django model class to search
     :param query: The search query string
