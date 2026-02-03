@@ -4,11 +4,10 @@ import json
 import logging
 from typing import TYPE_CHECKING
 
+from django.apps import apps
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-
-from .utils import get_model_cls_from_object_type
 
 if TYPE_CHECKING:
     from typing import Any
@@ -19,6 +18,18 @@ logger = logging.getLogger(__name__)
 
 # The maximum number of results returned by `search_content_ajax`
 MAX_RESULT_COUNT: int = 20
+
+
+CONTENT_TYPES = [
+    "contact",
+    "feedback",
+    "language",
+    "mediafile",
+    "organization",
+    "region",
+    "user",
+]
+TRANSLATION_CONTENT_TYPES = ["event", "page", "poi", "pushnotification"]
 
 
 @require_POST
@@ -71,10 +82,22 @@ def search_content_ajax(
     }
 
     for object_type in object_types:
+        if object_type not in CONTENT_TYPES + TRANSLATION_CONTENT_TYPES:
+            raise AttributeError(f"Unexpected object type(s): {object_types}")
+
         if not user.has_perm(f"cms.view_{object_type}"):
             raise PermissionDenied
-        model_cls = get_model_cls_from_object_type(object_type, language_slug)
-        results.extend(model_cls.suggest(**kwargs))
+
+        if object_type in TRANSLATION_CONTENT_TYPES and not language_slug:
+            raise AttributeError("Language slug is not provided")
+
+        if object_type in CONTENT_TYPES or object_type == "page":
+            results.extend(apps.get_model("cms", object_type).suggest(**kwargs))
+        else:
+            translation_object_type = f"{object_type}translation"
+            results.extend(
+                apps.get_model("cms", translation_object_type).suggest(**kwargs)
+            )
 
     # sort alphabetically by title
     results.sort(key=lambda k: k["title"])

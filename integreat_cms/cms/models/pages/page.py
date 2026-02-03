@@ -12,15 +12,15 @@ from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 from treebeard.ns_tree import NS_NodeQuerySet
 
+from ...search.search_fields import PAGE_SEARCH_FIELDS
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_model import ContentQuerySet
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
+from ..mixins import SearchSuggestMixin
 from ..utils import format_object_translation
 from .abstract_base_page import AbstractBasePage
 from .page_translation import PageTranslation
-from ..mixins import SearchSuggestMixin
-from ...search.search_fields import PAGE_SEARCH_FIELDS
 
 if TYPE_CHECKING:
     from collections.abc import Iterator

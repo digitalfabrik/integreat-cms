@@ -1,26 +1,32 @@
+from __future__ import annotations
+
 from collections import defaultdict
+from typing import Any, TYPE_CHECKING
 
 from django.db.models import Q
 
 from .matchers import TrigramMatcher
 from .scorer import score_token
-from .tokenize import tokenize
+from .tokenizer import tokenize
 
-DEFAULT_MIN_SIMILARITY = 0.2
-MAX_OBJECTS = 200
+if TYPE_CHECKING:
+    from django.db.models import Model
+
+#: Minimum trigram similarity threshold for including a match
+DEFAULT_MIN_SIMILARITY: float = 0.2
+
+#: Maximum number of objects to process for suggestions
+MAX_OBJECTS: int = 200
 
 
-def normalize_search_fields(search_fields: dict) -> dict[str, dict]:
+def normalize_search_fields(search_fields: dict) -> dict[str, dict[str, Any]]:
     """
-    Normalize search_fields into a uniform structure:
-    {
-        field_name: {
-            "weight": float,
-            "tokenize": bool,
-        }
-    }
+    Normalize search_fields into a uniform structure with weight and tokenize keys.
+
+    :param search_fields: Raw search field configuration from model
+    :return: Normalized configuration with explicit weight and tokenize values
     """
-    normalized = {}
+    normalized: dict[str, dict[str, Any]] = {}
 
     for field, config in search_fields.items():
         if isinstance(config, int | float):
@@ -37,42 +43,58 @@ def normalize_search_fields(search_fields: dict) -> dict[str, dict]:
     return normalized
 
 
-def suggest_tokens_for_model(model_cls, query: str) -> dict[str, list[dict]]:
+def suggest_tokens_for_model(
+    model_cls: type[Model],
+    query: str,
+) -> dict[str, list[dict[str, Any]]]:
+    """
+    Generate search term suggestions for a model based on a query.
+
+    Uses trigram similarity to find matching field values, then scores and
+    aggregates tokens from those values.
+
+    :param model_cls: The Django model class to search
+    :param query: The search query string
+    :return: Dict with "suggestions" key containing list of {suggestion, score} dicts
+    """
     if not query:
-        return {}
+        return {"suggestions": []}
 
     query = query.lower().strip()
     fields = normalize_search_fields(model_cls.search_fields)
 
     matcher = TrigramMatcher()
-    scores = defaultdict(float)
+    scores: defaultdict[str, float] = defaultdict(float)
 
+    # Build filter for any field containing the query
     q_filter = Q()
     for field in fields:
         q_filter |= Q(**{f"{field}__icontains": query})
 
-    qs = model_cls.objects.filter(q_filter)
+    qs: Any = model_cls.objects.filter(q_filter)
 
+    # Annotate with similarity scores for each field
     for field in fields:
         qs = matcher.annotate(qs, field, query)
 
     qs = qs[:MAX_OBJECTS]
 
+    # Score tokens from matching objects
     for obj in qs:
         for field, config in fields.items():
-            similarity = getattr(obj, matcher.sim_alias(field), 0.0)
+            similarity: float = getattr(obj, matcher.sim_alias(field), 0.0) or 0.0
             if similarity < DEFAULT_MIN_SIMILARITY:
                 continue
 
-            value = getattr(obj, matcher.value_alias(field), "") or ""
+            value: str = getattr(obj, matcher.value_alias(field), "") or ""
             if not value:
                 continue
 
-            tokens = tokenize(value) if config.get("tokenize", True) else {value}
+            tokens = tokenize(value) if config["tokenize"] else {value}
             for token in tokens:
                 scores[token] += score_token(
                     similarity=similarity,
-                    weight=config.get("weight", 1.0),
+                    weight=config["weight"],
                 )
 
     return {

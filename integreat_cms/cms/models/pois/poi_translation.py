@@ -23,12 +23,12 @@ if TYPE_CHECKING:
     from .. import POI, Region
 
 from ...constants import status
+from ...search.search_fields import LOCATION_SEARCH_FIELDS
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
 from ..mixins import SearchSuggestMixin
 from ..utils import format_object_translation
-from ...search.search_fields import LOCATION_SEARCH_FIELDS
 
 
 @modify_fields(
