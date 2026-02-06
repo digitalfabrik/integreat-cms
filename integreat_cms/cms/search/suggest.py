@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any, TYPE_CHECKING
 
-from django.db.models import Q
+from django.db.models import Q, QuerySet
 
 from .matchers import TrigramMatcher
 from .scorer import score_token
@@ -78,7 +78,8 @@ def suggest_tokens_for_model(
     for field in fields:
         q_filter |= Q(**{f"{field}__icontains": query})
 
-    qs: Any = model_cls.objects.filter(q_filter)
+    # QuerySet type uses Any for the model since we receive model_cls dynamically
+    qs: QuerySet[Any] = model_cls.objects.filter(q_filter)
 
     # Annotate with similarity scores for each field
     for field in fields:

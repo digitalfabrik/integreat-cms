@@ -37,7 +37,10 @@ def search_suggest(
     :raises AttributeError: If the request contains an unknown object type or missing required parameters
     :return: JSON response containing ranked search suggestions
     """
-    body = json.loads(request.body.decode("utf-8"))
+    try:
+        body = json.loads(request.body.decode("utf-8"))
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return JsonResponse({"error": "Invalid JSON body"}, status=400)
     query: str = body.get("query_string", "")
     object_type: str | None = body.get("object_type")
 
