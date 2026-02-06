@@ -18,15 +18,19 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import countries, language_color, text_directions
+from ...search.search_fields import LANGUAGE_SEARCH_FIELDS
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel
+from ..mixins import SearchSuggestMixin
 from ..regions.region import Region
 
 
-class Language(AbstractBaseModel):
+class Language(AbstractBaseModel, SearchSuggestMixin):
     """
     Data model representing a content language.
     """
+
+    search_fields = LANGUAGE_SEARCH_FIELDS
 
     slug = models.SlugField(
         max_length=8,

@@ -54,3 +54,8 @@ FEEDBACK_SEARCH_FIELDS: dict = {
 PUSH_NOTIFICATION_SEARCH_FIELDS: dict = {
     "title": {"weight": 1, "tokenize": False},
 }
+
+LANGUAGE_SEARCH_FIELDS: dict = {
+    "native_name": {"weight": 1, "tokenize": False},
+    "english_name": {"weight": 1, "tokenize": False},
+}
