@@ -572,132 +572,146 @@ class ShortcodeHandle {
                     primary: true,
                 },
             ],
-            initialData: {
-                ...Object.fromEntries(initialPargs.map((parg: string, i: number) => [`parg${i}`, parg])),
-                ...Object.fromEntries(initialKWargs.reduce((acc, [keyword, value], i) => {
-                    if (this.acceptingArbitraryKWargs) {
-                        return acc.concat([
-                            [`kwarg${i}-name`, keyword],
-                            [`kwarg${i}-value`, value],
-                        ]);
-                    } else {
-                        return acc.concat([
-                            [`kw-${keyword}`, value],
-                        ]);
-                    }
-                }, [])),
-            },
-            onSubmit: (api: DialogInstanceApi<DialogData>) => {
-                const [pargs, kwargs, orderedKWargs] = this.reconstructArgsFromDialog(api);
-                this.lastUnsavedPargs = pargs;
-                this.lastUnsavedKWargs = orderedKWargs;
-
-                // Don't close the dialog if the arguments are not valid
-                if (!this.validate(pargs, kwargs))
-                    return;
-
-                api.close();
-                this.lastUnsavedPargs = null;
-                this.lastUnsavedKWargs = null;
-
-                // Either insert a new shortcode or update the existing one
-                const node = this.getNode();
-                if (!node) {
-                    this.editor.insertContent(this.renderShortcode(pargs, new Map(Object.entries(kwargs))));
-                } else {
-                    node.remove();
-                    this.editor.insertContent(this.renderShortcode(pargs, new Map(Object.entries(kwargs))));
-                }
-            },
-            onChange: (api: DialogInstanceApi<DialogData>) => {
-                const [pargs, kwargs, orderedKWargs] = this.reconstructArgsFromDialog(api);
-                this.lastUnsavedPargs = pargs;
-                this.lastUnsavedKWargs = orderedKWargs;
-            },
+            initialData: this.defaultInitialData(initialPargs, initialKWargs),
+            onSubmit: this.defaultOnSubmit.bind(this),
+            onChange: this.defaultOnChange.bind(this),
         };
         console.log(`[${this.keyword}]`, this, dialogConfig);
 
-        setTimeout(() => {
-            const dialog = document.querySelector('.tox-dialog');
-            const pargRemove = dialog.querySelector('#parg-remove');
-            const pargAdd    = dialog.querySelector('#parg-add');
-            if (pargRemove) {
-                pargRemove.addEventListener("click", (() => {
-                    if (this.lastUnsavedPargs === null || this.lastUnsavedPargs.length <= this.minPargs)
-                        return;
-                    this.lastUnsavedPargs.pop();
-                    this.editor.windowManager.close();
-                    this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
-                }).bind(this));
-            }
-            if (pargAdd) {
-                pargAdd.addEventListener("click", (() => {
-                    if (this.lastUnsavedPargs === null || this.lastUnsavedPargs.length >= this.maxPargs)
-                        return;
-                    this.lastUnsavedPargs.push("");
-                    this.editor.windowManager.close();
-                    this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
-                }).bind(this));
-            }
-            const kwargRemove = dialog.querySelector('#kwarg-remove');
-            const kwargAdd    = dialog.querySelector('#kwarg-add');
-            if (kwargRemove) {
-                kwargRemove.addEventListener("click", (() => {
-                    if (this.lastUnsavedKWargs === null)
-                        return;
-                    const requiredKWargs = this.requiredKWargs;
-                    // Throw away the last keyword that is not required
-                    for (let i = this.lastUnsavedKWargs.length-1; i >= 0; i--) {
-                        if (requiredKWargs.has(this.lastUnsavedKWargs[i][0]))
-                            continue;
-                        const beforeThis = this.lastUnsavedKWargs.slice(0, i);
-                        const afterThis = this.lastUnsavedKWargs.slice(i+1, this.lastUnsavedKWargs.length);
-                        this.lastUnsavedKWargs = beforeThis.concat(afterThis);
-                        break;
-                    };
-                    this.editor.windowManager.close();
-                    this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
-                }).bind(this));
-            }
-            if (kwargAdd) {
-                kwargAdd.addEventListener("click", (() => {
-                    if (this.lastUnsavedKWargs === null)
-                        return;
-                    // A flat list of known keywords in canonical order
-                    const order = this.kwargsOrder;
-                    function index(x: string): number {
-                        // Determine the canonical position of the keyword
-                        const i = order.indexOf(x);
-                        if (i == -1) return Infinity; // If the keyword is unknown, sort it last
-                        return i;
-                    }
-                    const requiredKWargs = this.requiredKWargs;
-                    const keys = new Set(this.lastUnsavedKWargs.map(([key, value]) => key));
-                    const missingRequired = requiredKWargs.difference(keys);
-                    let key;
-                    if (missingRequired.size > 0) {
-                        // Somehow, required keywords are missing. Add the first one by canonical order
-                        key = Array.from(missingRequired).sort((a, b) => index(a) - index(b))[0];
-                    } else {
-                        const optionalKWargs = this.optionalKWargs;
-                        const missingOptional = optionalKWargs.difference(keys);
-                        if (missingOptional.size > 0) {
-                            // Add the first known optional argument by canonical order. If we don't know any and we accept arbitrary arguments, leave the key empty
-                            key = Array.from(missingOptional).sort((a, b) => index(a) - index(b))[0] || "";
-                        } else if (this.acceptingArbitraryKWargs) {
-                            key = "";
-                        } else
-                            return; // There are no arguments left to add, immediately stop without doing anything
-                    }
-                    // Finally, actually append the key value pair and retrigger the dialog
-                    this.lastUnsavedKWargs.push([key, ""]);
-                    this.editor.windowManager.close();
-                    this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
-                }).bind(this));
-            }
-        }, 0);
+        setTimeout(this.defaultEditDialogRefinement, 0);
 
         return this.editor.windowManager.open(dialogConfig);
+    }
+
+    defaultInitialData(initialPargs: string[], initialKWargs: [string, string][]) {
+        return {
+            ...Object.fromEntries(initialPargs.map((parg: string, i: number) => [`parg${i}`, parg])),
+            ...Object.fromEntries(initialKWargs.reduce((acc, [keyword, value], i) => {
+                if (this.acceptingArbitraryKWargs) {
+                    return acc.concat([
+                        [`kwarg${i}-name`, keyword],
+                        [`kwarg${i}-value`, value],
+                    ]);
+                } else {
+                    return acc.concat([
+                        [`kw-${keyword}`, value],
+                    ]);
+                }
+            }, [])),
+        };
+    }
+
+    defaultOnSubmit(api: DialogInstanceApi<DialogData>) {
+        // The default submit handler for the edit dialog
+        const [pargs, kwargs, orderedKWargs] = this.reconstructArgsFromDialog(api);
+        this.lastUnsavedPargs = pargs;
+        this.lastUnsavedKWargs = orderedKWargs;
+
+        // Don't close the dialog if the arguments are not valid
+        if (!this.validate(pargs, kwargs))
+            return console.error(`invalid arguments:`, pargs, kwargs);
+
+        api.close();
+        this.lastUnsavedPargs = null;
+        this.lastUnsavedKWargs = null;
+
+        // Either insert a new shortcode or update the existing one
+        const node = this.getNode();
+        if (!node) {
+            this.editor.insertContent(this.renderShortcode(pargs, new Map(Object.entries(kwargs))));
+        } else {
+            node.remove();
+            this.editor.insertContent(this.renderShortcode(pargs, new Map(Object.entries(kwargs))));
+        }
+    }
+
+    defaultOnChange(api: DialogInstanceApi<DialogData>) {
+        // The default change handler for the edit dialog
+        const [pargs, kwargs, orderedKWargs] = this.reconstructArgsFromDialog(api);
+        this.lastUnsavedPargs = pargs;
+        this.lastUnsavedKWargs = orderedKWargs;
+    }
+
+    defaultEditDialogRefinement() {
+        // The default function invoked after rendering the edit dialog,
+        // e.g. to manipulate its HTML in a way TinyMCEs DialogSpec doesn't support
+        const dialog = document.querySelector('.tox-dialog');
+        const pargRemove = dialog.querySelector('#parg-remove');
+        const pargAdd    = dialog.querySelector('#parg-add');
+        if (pargRemove) {
+            pargRemove.addEventListener("click", (() => {
+                if (this.lastUnsavedPargs === null || this.lastUnsavedPargs.length <= this.minPargs)
+                    return;
+                this.lastUnsavedPargs.pop();
+                this.editor.windowManager.close();
+                this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
+            }).bind(this));
+        }
+        if (pargAdd) {
+            pargAdd.addEventListener("click", (() => {
+                if (this.lastUnsavedPargs === null || this.lastUnsavedPargs.length >= this.maxPargs)
+                    return;
+                this.lastUnsavedPargs.push("");
+                this.editor.windowManager.close();
+                this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
+            }).bind(this));
+        }
+        const kwargRemove = dialog.querySelector('#kwarg-remove');
+        const kwargAdd    = dialog.querySelector('#kwarg-add');
+        if (kwargRemove) {
+            kwargRemove.addEventListener("click", (() => {
+                if (this.lastUnsavedKWargs === null)
+                    return;
+                const requiredKWargs = this.requiredKWargs;
+                // Throw away the last keyword that is not required
+                for (let i = this.lastUnsavedKWargs.length-1; i >= 0; i--) {
+                    if (requiredKWargs.has(this.lastUnsavedKWargs[i][0]))
+                        continue;
+                    const beforeThis = this.lastUnsavedKWargs.slice(0, i);
+                    const afterThis = this.lastUnsavedKWargs.slice(i+1, this.lastUnsavedKWargs.length);
+                    this.lastUnsavedKWargs = beforeThis.concat(afterThis);
+                    break;
+                };
+                this.editor.windowManager.close();
+                this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
+            }).bind(this));
+        }
+        if (kwargAdd) {
+            kwargAdd.addEventListener("click", (() => {
+                if (this.lastUnsavedKWargs === null)
+                    return;
+                // A flat list of known keywords in canonical order
+                const order = this.kwargsOrder;
+                function index(x: string): number {
+                    // Determine the canonical position of the keyword
+                    const i = order.indexOf(x);
+                    if (i == -1) return Infinity; // If the keyword is unknown, sort it last
+                    return i;
+                }
+                const requiredKWargs = this.requiredKWargs;
+                const keys = new Set(this.lastUnsavedKWargs.map(([key, value]) => key));
+                const missingRequired = requiredKWargs.difference(keys);
+                let key;
+                if (missingRequired.size > 0) {
+                    // Somehow, required keywords are missing. Add the first one by canonical order
+                    key = Array.from(missingRequired).sort((a, b) => index(a) - index(b))[0];
+                } else {
+                    const optionalKWargs = this.optionalKWargs;
+                    const missingOptional = optionalKWargs.difference(keys);
+                    if (missingOptional.size > 0) {
+                        // Add the first known optional argument by canonical order. If we don't know any and we accept arbitrary arguments, leave the key empty
+                        key = Array.from(missingOptional).sort((a, b) => index(a) - index(b))[0] || "";
+                    } else if (this.acceptingArbitraryKWargs) {
+                        key = "";
+                    } else
+                        return; // There are no arguments left to add, immediately stop without doing anything
+                }
+                // Finally, actually append the key value pair and retrigger the dialog
+                this.lastUnsavedKWargs.push([key, ""]);
+                this.editor.windowManager.close();
+                this.displayEditDialog(this.lastUnsavedPargs, this.lastUnsavedKWargs);
+            }).bind(this));
+        }
     }
 
     setup(editor: Editor) {
