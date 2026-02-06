@@ -11,9 +11,11 @@ from polymorphic.managers import PolymorphicManager, PolymorphicQuerySet
 from polymorphic.models import PolymorphicModel
 
 from ...constants import feedback_ratings
+from ...search.search_fields import FEEDBACK_SEARCH_FIELDS
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel
 from ..languages.language import Language
+from ..mixins import SearchSuggestMixin
 from ..regions.region import Region
 
 if TYPE_CHECKING:
@@ -52,11 +54,13 @@ class CascadeDeletePolymorphicManager(PolymorphicManager):
     queryset_class = CascadeDeletePolymorphicQuerySet
 
 
-class Feedback(PolymorphicModel, AbstractBaseModel):
+class Feedback(PolymorphicModel, AbstractBaseModel, SearchSuggestMixin):
     """
     Database model representing feedback from app-users.
     Do not directly create instances of this base model, but of the submodels (e.g. PageFeedback) instead.
     """
+
+    search_fields = FEEDBACK_SEARCH_FIELDS
 
     objects = CascadeDeletePolymorphicManager()
 

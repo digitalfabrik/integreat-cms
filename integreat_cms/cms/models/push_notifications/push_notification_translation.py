@@ -8,8 +8,10 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import push_notifications as pnt_const
+from ...search.search_fields import PUSH_NOTIFICATION_SEARCH_FIELDS
 from ..abstract_base_model import AbstractBaseModel
 from ..languages.language import Language
+from ..mixins import SearchSuggestMixin
 from .push_notification import PushNotification
 
 if TYPE_CHECKING:
@@ -20,10 +22,12 @@ if TYPE_CHECKING:
     from ..regions.region import Region
 
 
-class PushNotificationTranslation(AbstractBaseModel):
+class PushNotificationTranslation(AbstractBaseModel, SearchSuggestMixin):
     """
     Data model representing a push notification translation
     """
+
+    search_fields = PUSH_NOTIFICATION_SEARCH_FIELDS
 
     title = models.CharField(max_length=250, blank=True, verbose_name=_("title"))
     text = models.TextField(
