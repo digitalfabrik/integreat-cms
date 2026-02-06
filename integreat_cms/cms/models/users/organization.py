@@ -11,9 +11,11 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
+from ...search.search_fields import ORGANIZATION_SEARCH_FIELDS
 from ...utils.link_utils import fix_content_link_encoding
 from ..abstract_base_model import AbstractBaseModel
 from ..media.media_file import MediaFile
+from ..mixins import SearchSuggestMixin
 from ..regions.region import Region
 
 logger = logging.getLogger(__name__)
@@ -26,10 +28,12 @@ if TYPE_CHECKING:
     from ..users.user import User
 
 
-class Organization(AbstractBaseModel):
+class Organization(AbstractBaseModel, SearchSuggestMixin):
     """
     Data model representing an organization
     """
+
+    search_fields = ORGANIZATION_SEARCH_FIELDS
 
     name = models.CharField(max_length=200, verbose_name=_("name"))
     slug = models.SlugField(

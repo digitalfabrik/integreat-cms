@@ -34,3 +34,11 @@ LOCATION_SEARCH_FIELDS: dict = {
 PAGE_SEARCH_FIELDS: dict = {
     "translations__title": {"weight": 1, "tokenize": False},
 }
+
+ORGANIZATION_SEARCH_FIELDS: dict = {
+    "name": {"weight": 1, "tokenize": False},
+}
+
+USER_SEARCH_FIELDS: dict = {
+    "username": {"weight": 2, "tokenize": False},
+}
