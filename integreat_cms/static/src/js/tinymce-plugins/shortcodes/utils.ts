@@ -723,7 +723,7 @@ class ShortcodeHandle {
         this.tinymceConfig = document.getElementById("tinymce-config-options");
 
         const closeContextToolbar = () => {
-            editor.fire("contexttoolbar-hide", {
+            editor.dispatch("contexttoolbar-hide", {
                 toolbarKey: `shortcode_${this.keyword}_context_form`,
             });
         };

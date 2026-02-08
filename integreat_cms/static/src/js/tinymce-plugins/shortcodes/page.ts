@@ -3,8 +3,6 @@ import type { ToolbarButtonInstanceApi, ContextFormInstanceApi, ContextFormButto
 import { Editor } from "tinymce";
 import { getCsrfToken } from "../../utils/csrf-token";
 
-type TranslationMetadata = {id: number, parent: number, regionSlug: string, translations: Map<string, {id: number, languageSlug: string, title: string, slug: string}>};
-
 function stripProtocol(url: string) {
 	return url.replace(/^[^:/]*:\/\//, "");
 }
@@ -54,7 +52,7 @@ class PageHandle extends ShortcodeHandle {
 		)
 	`.replace(/\s+/g, "")));
 
-	pageCache = new PageCache();
+	pageCache: PageCache = null;
 
 	predicate(node: Element): boolean {
 		// We also consider old links that look like they point to pages as instances of the page shortcode.
@@ -74,8 +72,8 @@ class PageHandle extends ShortcodeHandle {
 			const [fullURL, path, regionSlug, languageSlug, infix, pageSlug] = node.getAttribute("href").match(this.internalPageURLRegex());
 			let text = node.textContent !== node.getAttribute("href") ? node.textContent : "";
 			// Get page id for slug
-			const translation = this.pageCache.bySlug.get(languageSlug).get(path);
-			const id = translation.id;
+			const translation = this.pageCache.byPath.get(path);
+			const id = translation.page.id;
 			return [[`${id}`, text], new Map()];
 		}
 		return super.argsFromNode(node);
@@ -83,7 +81,7 @@ class PageHandle extends ShortcodeHandle {
 
 	renderPreviewNode(pargs: string[], kwargs: Map<string, string | undefined>): string {
 		// The html string representation of the shortcode in the TinyMCE editor
-		this.prefetchPageById(parseInt(pargs[0]));
+		this.pageCache.requestId(parseInt(pargs[0]), true).then();
 		return super.renderPreviewNode(pargs, kwargs)
 	}
 
@@ -128,9 +126,9 @@ class PageHandle extends ShortcodeHandle {
 			value: "",
 		};
 		const languageSlug = this.tinymceConfig.getAttribute("data-language-slug");
-		const cachedPageData = this.pageCache.byId.get(parseInt(initialPargs[0])).get(languageSlug);
+		const cachedPageData = this.pageCache.byId.get(parseInt(initialPargs[0])).translations.get(languageSlug);
 		const initialCompletionItem = {
-			text: cachedPageData.path,
+			text: cachedPageData.titlePath,
 			title: cachedPageData.title,
 			value: `${initialPargs[0]}`,
 		};
@@ -181,7 +179,7 @@ class PageHandle extends ShortcodeHandle {
 							text: completion.path,
 							title: completion.html_title,
 							value: `${completion.foreign_object_id}`,
-							//value: `${that.pageCache.bySlug.get(languageSlug).get(path).pageId}`,
+							//value: `${that.pageCache.bySlug.get(languageSlug).get(path).page.id}`,
 						});
 					}
 
@@ -272,36 +270,6 @@ class PageHandle extends ShortcodeHandle {
 		return this.editor.windowManager.open(dialogConfig);
 	}
 
-	prefetchPageById(id: number) {
-		if (!id) return;
-
-		// todo: prevent duplicates
-
-		const baseUrl = this.tinymceConfig.getAttribute("data-base-url");
-		const regionSlug = this.tinymceConfig.getAttribute("data-region-slug");
-		const languageSlug = this.tinymceConfig.getAttribute("data-language-slug");
-		const url = `${baseUrl}/api/v3/${regionSlug}/${languageSlug}/page/?id=${id}`;
-
-		fetch(url, {
-			method: "GET",
-			headers: {
-				"X-CSRFToken": getCsrfToken(),
-			},
-		}).then((response): any => {
-			const HTTP_STATUS_OK = 200;
-			if (response.status !== HTTP_STATUS_OK) {
-				return {};
-			}
-			return response.json();
-		}).then(translation => {
-			this.pageCache.cacheTranslationMetadata(languageSlug, translation, translation.page_id);
-			Object.entries(translation.available_languages).forEach(([lang, tr]) => {
-				this.pageCache.cacheTranslationMetadata(lang, tr, translation.page_id);
-			});
-			console.log(this.pageCache);
-		});
-	}
-
 	populatePageCache() {
 		const baseUrl = this.tinymceConfig.getAttribute("data-base-url");
 		const regionSlug = this.tinymceConfig.getAttribute("data-region-slug");
@@ -321,9 +289,9 @@ class PageHandle extends ShortcodeHandle {
 			return response.json();
 		}).then(data => {
 			data.forEach((translation: any) => {
-				this.pageCache.cacheTranslationMetadata(languageSlug, translation, translation.page_id);
+				this.pageCache.cacheTranslationMetadata(translation);
 				Object.entries(translation.available_languages).forEach(([lang, tr]) => {
-					this.pageCache.cacheTranslationMetadata(lang, tr, translation.page_id);
+					this.pageCache.cacheTranslationMetadata(tr);
 				});
 			});
 		});
@@ -334,15 +302,20 @@ class PageHandle extends ShortcodeHandle {
 		//this.populatePageCache();
 
 		this.editText = this.tinymceConfig.getAttribute("data-link-dialog-title-text");
+
+		const baseUrl = this.tinymceConfig.getAttribute("data-base-url");
+		const regionSlug = this.tinymceConfig.getAttribute("data-region-slug");
+		const languageSlug = this.tinymceConfig.getAttribute("data-language-slug");
+		this.pageCache = new PageCache(baseUrl, regionSlug, languageSlug);
 	}
 }
 
 
 class PageCache {
-	bySlug = new Map<string, TranslationMetadata>();
-	byId = new Map<number, TranslationMetadata>();
+	byId = new Map<number, PageMetadata>();
+	byPath = new Map<string, TranslationMetadata>();
 
-	pending = new Map<number, Promise>();
+	pending = new Map<number, Promise<PageMetadata>>();
 
 	baseUrl: string;
 	regionSlug: string;
@@ -359,7 +332,7 @@ class PageCache {
 			/
 		)?
 		([^/?#]+)
-	`.replace(/\s+/g, "")));
+	`.replace(/\s+/g, ""));
 
 	constructor(baseUrl: string, regionSlug: string, defaultLanguageSlug: string) {
 		this.baseUrl = baseUrl;
@@ -368,55 +341,81 @@ class PageCache {
 	}
 
 	cacheTranslationMetadata(translation: any) {
-		pageId = pageId || translation.page_id;
-		const [regionSlug, languageSlug, infix, _, slug] = translation.path.match(that._pathRegex);
+		const [fullURL, regionSlug, languageSlug, infix, _, slug] = translation.path.match(this._pathRegex);
 
-		const metadata = this.byId.get(pageId) || {
-			id: pageId,
-			parent: translation.parent.id,
+		const pageMetadata = this.byId.get(translation.page_id) || new PageMetadata({
+			id: translation.page_id,
+			parentId: translation.parent?.id,
 			regionSlug: regionSlug,
-			translations: new Map<string, {id: number, languageSlug: string, title: string, slug: string, path: string},
-		};
-		if (!this.byId.has(pageId)) {
-			this.byId.set(pageId, metadata);
+		}, this);
+		if (!this.byId.has(translation.page_id)) {
+			this.byId.set(translation.page_id, pageMetadata);
 		}
 
-		if (!this.bySlug.has(languageSlug)) {
-			this.bySlug.set(languageSlug, new Map());
-		}
-		this.bySlug.get(languageSlug).set(translation.path, metadata);
-
-		metadata.translations.set(languageSlug, {
+		const translationMetadata = new TranslationMetadata({
 			id: translation.id,
 			languageSlug: languageSlug,
 			title: translation.title,
 			slug: slug,
 			path: translation.path,
-		});
+			page: pageMetadata,
+		}, this);
+		pageMetadata.translations.set(languageSlug, translationMetadata);
 
-		return metadata;
+		this.byPath.set(translation.path, translationMetadata);
+
+		/*
+		if (!this.bySlug.has(languageSlug)) {
+			this.bySlug.set(languageSlug, new Map());
+		}
+		this.bySlug.get(languageSlug).set(translation.path, pageMetadata);
+		*/
+
+		return pageMetadata;
 	}
 
-	requestId(id: number): Promise {
-		async function inner(id: number) {
-			const url = `${this.baseUrl}/api/v3/${this.regionSlug}/${this.defaultLanguageSlug}/page/?id=${id}`;
+	async _getPage(id: number, languageSlug: string = undefined) {
+		languageSlug = languageSlug || this.defaultLanguageSlug;
 
-			const response = await fetch(url, {
-				method: "GET",
-				headers: {
-					"X-CSRFToken": getCsrfToken(),
-				},
-			})
-			const HTTP_STATUS_OK = 200;
-			if (response.status !== HTTP_STATUS_OK) {
-				return {};
-			}
-			const translation = await response.json();
-			const metadata = this.cacheTranslationMetadata(languageSlug, translation, translation.page_id);
+		const url = `${this.baseUrl}/api/v3/${this.regionSlug}/${this.defaultLanguageSlug}/page/?id=${id}`;
+
+		const response = await fetch(url, {
+			method: "GET",
+			headers: {
+				"X-CSRFToken": getCsrfToken(),
+			},
+		})
+		const HTTP_STATUS_OK = 200;
+		if (response.status !== HTTP_STATUS_OK) {
+			return {};
+		}
+		const translation = await response.json();
+		return {
+			id: id,
+			languageSlug: languageSlug,
+			translation: translation,
+		};
+	}
+
+	requestId(id: number, ancestors: boolean = false): Promise<PageMetadata> {
+		const that = this;
+		async function inner(id: number) {
+			const {languageSlug, translation} = await that._getPage(id);
+			const pageMetadata = that.cacheTranslationMetadata(translation);
+
+			// Pre-fill with languages
 			Object.entries(translation.available_languages).forEach(([lang, tr]) => {
-				this.cacheTranslationMetadata(lang, tr, translation.page_id);
+				that.cacheTranslationMetadata(tr);
 			});
-			return metadata;
+			// Request detailed data
+			for (const [lang, tr] of Object.entries(translation.available_languages)) {
+				const {translation} = await that._getPage(id, lang);
+				that.cacheTranslationMetadata(translation);
+			}
+			if (ancestors && pageMetadata.parentId) {
+				await that.requestId(pageMetadata.parentId, ancestors);
+			}
+			return pageMetadata;
 		}
 
 		if (this.byId.has(id)) {
@@ -424,10 +423,68 @@ class PageCache {
 			return new Promise((res, rej) => res(this.byId.get(id)));
 		} else if (!this.pending.has(id)) {
 			// Start a new query
-			this.pending.set(id, inner(id, languageSlug));
+			this.pending.set(id, inner(id));
 		}
 		// Return the Promise of the ongoing query
 		return this.pending.get(id);
+	}
+}
+class PageMetadata {
+	_cache: PageCache;
+
+	id: number;
+	parentId: number;
+	regionSlug: string;
+	translations = new Map<string, TranslationMetadata>();
+
+	get parent() {
+		return this._cache?.byId.get(this.parentId);
+	}
+
+	constructor(data: {id: number, parentId: number, regionSlug: string}, cache: PageCache = null) {
+		this._cache = cache;
+		this.id = data.id;
+		this.parentId = data.parentId;
+		this.regionSlug = data.regionSlug;
+	}
+}
+
+class TranslationMetadata {
+	_cache: PageCache;
+
+	id: number;
+	languageSlug: string;
+	title: string;
+	slug: string;
+	path: string;
+	page: PageMetadata;
+
+	get parent() {
+		return this.page.parent?.translations.get(this.languageSlug);
+	}
+	get titlePath() {
+		const reverseTitles = [this.title];
+		let translation: TranslationMetadata = this;
+		while (translation.page.parentId) {
+			translation = translation.parent;
+			if (translation) {
+				reverseTitles.push(translation.title);
+			} else {
+				reverseTitles.push("[?]");
+				break;
+			}
+		}
+		return reverseTitles.reverse().join(" → ");
+	}
+
+	constructor(data: {id: number, languageSlug: string, title: string, slug: string, path: string, page: PageMetadata}, cache: PageCache = null) {
+		this._cache = cache;
+		this.id = data.id;
+		this.languageSlug = data.languageSlug;
+		this.title = data.title;
+		this.slug = data.slug;
+		this.path = data.path;
+		this.page = data.page;
 	}
 }
 
