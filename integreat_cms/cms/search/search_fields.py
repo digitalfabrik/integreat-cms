@@ -5,7 +5,6 @@ Search fields should be defined as a dict mapping field names to configuration:
 
     {
         "field_name": {"weight": int, "tokenize": bool},
-        ...
     }
 
 Configuration options:
