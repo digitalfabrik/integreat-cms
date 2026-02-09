@@ -247,8 +247,18 @@ def make_all_slugs_unique(
         slug_counter += update_translations(translations, model_name, dry_run)
 
     end_time = time() - start_time
-    logger.info(
-        "Finished slug update after: %.3fs with %d updated slugs",
-        end_time,
-        slug_counter,
-    )
+    if not dry_run:
+        logger.info(
+            "Finished >make_all_slugs_unique< after: %.3fs with %d updated slugs",
+            end_time,
+            slug_counter,
+        )
+    if dry_run:
+        logger.info(
+            "Finished dry run for >make_all_slugs_unique< after: %.3fs. "
+            "In total %d non-unique slugs were identified. "
+            "Keep in mind that during a real run, "
+            "only a subset of the non-unique slugs will be actually changed in order to make them all unique.",
+            end_time,
+            slug_counter,
+        )
