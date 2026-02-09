@@ -365,6 +365,8 @@ class ShortcodeHandle {
 
     renderPreviewNode(pargs: string[], kwargs: Map<string, string | undefined>): string {
         // The html string representation of the shortcode in the TinyMCE editor
+        // By default this is a span marked with mceNonEditable and the shortcode keyword and parameters
+        // and defers the visual presented to the user to be rendered to renderPreview()
         const ppairs = pargs.map((arg, i) => `data-parg${i}=${ShortcodeHandle.escape(arg)}`);
         const kwpairs = this.sortKWargs(kwargs.entries()).map(([key, value]) => `data-kw-${key}=${ShortcodeHandle.escape(value)}`);
         const parts = [`class="mceNonEditable"`, `data-shortcode="${this.keyword}"`, ...ppairs, ...kwpairs];

@@ -5,6 +5,14 @@
 @import "../fonts/noto-sans-georgian/noto-sans-georgian.css";
 @import "./contact_card.css";
 
+/* Enforce expected standard link color,
+   so setting a different color on specific links to communicate changes
+   doesn't backfire in some edge case on some device where the defaults are changed */
+:link { color: #0000EE; }
+:visited { color: #551A8B; }
+:link:active, :visited:active { color: #FF0000; }
+
+
 [translate="no"]:not(.contact-card) {
     background-color: rgb(239, 68, 68);
     direction: ltr;
@@ -18,4 +26,25 @@
     cursor: default !important;
     font-family: "Open Sans" !important;
     font-size: 1rem !important;
+}
+
+/* Colored border version
+[data-shortcode="page"] {
+    border: .15em solid rgba(0,0,255, 0.5);
+    border-radius: .2em;
+}
+[data-shortcode="page"]:has(.error) {
+    border-color: rgba(255,63,0, 0.5);
+}
+*/
+
+/* Text color version */
+[data-shortcode="page"], [data-shortcode="page"] a {  /* mention the link specifically so it binds stronger than :visited on the initialization */
+    color: #008866;
+}
+[data-shortcode="page"]:has(.error) {
+    color: #CC6600;
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: #CC6600;
 }

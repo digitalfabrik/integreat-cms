@@ -79,8 +79,38 @@ class PageHandle extends ShortcodeHandle {
 
 	renderPreviewNode(pargs: string[], kwargs: Map<string, string | undefined>): string {
 		// The html string representation of the shortcode in the TinyMCE editor
+		// By default this is a span marked with mceNonEditable and the shortcode keyword and parameters
+		// and defers the visual presented to the user to be rendered to renderPreview()
+
+		// Ensure the data for this is loaded in the cache,
+		// including ancestors, so the edit dialog can render the title path
 		this.pageCache.requestId(parseInt(pargs[0]), true).then();
 		return super.renderPreviewNode(pargs, kwargs)
+	}
+
+	renderPreview(pargs: string[], kwargs: Map<string, string | undefined>): string {
+		// The html string representation of the shortcode preview in the TinyMCE editor
+		// By default this is just the canonical text representation. This function will be overwritten by most subclasses.
+		const id = parseInt(pargs[0]);
+		const languageSlug = this.tinymceConfig.getAttribute("data-language-slug");
+		const page = this.pageCache.byId.get(id);
+		// TODO: If page not in cache, re-render after request resolved
+		const translation = page?.translations.get(languageSlug);
+		const text = pargs[1] || translation?.title;
+
+		const TEXT_MISSING = "MISSING LINK"; // TODO: translations (#4044)
+		let element;
+		if (!translation) {
+			element = document.createElement("i");
+			element.classList.add("error");
+			element.innerText = `[${text || TEXT_MISSING}]`;
+		} else {
+			element = document.createElement("a");
+			element.innerText = text;
+			// No href, the link is non-interactible anyway
+			element.href = "#"
+		}
+		return element.outerHTML;
 	}
 
 	async getCompletions(query: string, id: number) {
@@ -148,7 +178,7 @@ class PageHandle extends ShortcodeHandle {
 						(completion) => completion.value === data[ID_ARG]
 					);
 					// Don't set the completion text to `- no results -`
-					if (currentCompletion.value !== "") {
+					if (currentCompletion && currentCompletion.value !== "") {
 						currentCompletionText = currentCompletion.title;
 					} else {
 						currentCompletionText = "";
@@ -361,13 +391,6 @@ class PageCache {
 		pageMetadata.translations.set(languageSlug, translationMetadata);
 
 		this.byPath.set(translation.path, translationMetadata);
-
-		/*
-		if (!this.bySlug.has(languageSlug)) {
-			this.bySlug.set(languageSlug, new Map());
-		}
-		this.bySlug.get(languageSlug).set(translation.path, pageMetadata);
-		*/
 
 		return pageMetadata;
 	}
