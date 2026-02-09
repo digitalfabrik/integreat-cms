@@ -11,6 +11,7 @@ const FilterResultLibrary = (props: LibraryProps) => {
         mediaLibraryContentState,
         fileIndexState,
         refreshState,
+        loadingState,
         ajaxRequest,
         apiEndpoints: { filterUnusedMediaFiles },
     } = props;
@@ -21,18 +22,28 @@ const FilterResultLibrary = (props: LibraryProps) => {
     const [_fileIndex, setFileIndex] = fileIndexState;
     // This state is used to refresh the media library after changes were made
     const [refresh, _setRefresh] = refreshState;
+    // This callback is used to set the Loading State when doing ajax requests
+    const [_isLoading, setLoading] = loadingState;
 
     useEffect(() => {
-        if (mediaFilter === "unused") {
-            console.debug("Loading unused media files...");
-            const urlParams = new URLSearchParams({});
-            // Load the filtered result
-            ajaxRequest(filterUnusedMediaFiles, urlParams, setMediaLibraryContent);
-            // Close the file sidebar
-            setFileIndex(null);
-        } else {
-            console.error("Unsupported filter: ", mediaFilter);
-        }
+        const applyFilter = async () => {
+            if (mediaFilter === "unused") {
+                setLoading(true);
+                console.debug("Loading unused media files...");
+                const urlParams = new URLSearchParams({});
+                try {
+                    // Load the filtered result
+                    await ajaxRequest(filterUnusedMediaFiles, urlParams, setMediaLibraryContent);
+                    // Close the file sidebar
+                    setFileIndex(null);
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                console.error("Unsupported filter: ", mediaFilter);
+            }
+        };
+        applyFilter();
     }, [refresh]); /* eslint-disable-line react-hooks/exhaustive-deps */
 
     return <Library {...props} />;

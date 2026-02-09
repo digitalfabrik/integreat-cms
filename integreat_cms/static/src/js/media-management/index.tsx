@@ -114,10 +114,8 @@ const MediaManagement = (props: Props) => {
     const ajaxRequest = async (
         url: string,
         urlParams: URLSearchParams,
-        successCallback: (data: any) => void,
-        loadingSetter = setLoading
-    ) => {
-        loadingSetter(true);
+        successCallback: (data: any) => void
+    ): Promise<void> => {
         try {
             const response = await fetch(`${url}?${urlParams}`);
             const HTTP_STATUS_OK = 200;
@@ -138,7 +136,6 @@ const MediaManagement = (props: Props) => {
                 text: textNetworkError,
             });
         }
-        loadingSetter(false);
     };
 
     return (

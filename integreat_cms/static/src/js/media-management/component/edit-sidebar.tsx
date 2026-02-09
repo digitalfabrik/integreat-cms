@@ -53,7 +53,7 @@ type Props = {
         urlParams: URLSearchParams,
         successCallback: (data: any) => void,
         loadingSetter?: Dispatch<StateUpdater<boolean>>
-    ) => void;
+    ) => Promise<void>;
     isLoading: boolean;
     canDeleteFile: boolean;
     canReplaceFile: boolean;
@@ -95,7 +95,7 @@ const EditSidebar = ({
     // Replace file input reference
     const replaceFileInputRef = useRef<HTMLInputElement>(null);
 
-    const toggleFileUsages = () => {
+    const toggleFileUsages = async () => {
         if (isFileUsagesLoading) {
             return;
         }
@@ -107,7 +107,9 @@ const EditSidebar = ({
             });
             console.debug(`Loading usages for file "${file.id}"...`);
             // Load the search result
-            ajaxRequest(getFileUsages, urlParams, setFileUsages, setFileUsagesLoading);
+            setFileUsagesLoading(true);
+            await ajaxRequest(getFileUsages, urlParams, setFileUsages);
+            setFileUsagesLoading(false);
         }
     };
 

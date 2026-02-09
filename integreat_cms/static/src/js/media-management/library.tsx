@@ -44,7 +44,7 @@ export type LibraryProps = {
         urlParams: URLSearchParams,
         successCallback: (data: any) => void,
         loadingSetter?: Dispatch<StateUpdater<boolean>>
-    ) => void;
+    ) => Promise<void>;
     canDeleteFile: boolean;
     canReplaceFile: boolean;
     canDeleteDirectory: boolean;
