@@ -2,10 +2,7 @@ import { ShortcodeHandle, AcceptArbitraryArguments, PargsDescriptor, KWargsDescr
 import type { ToolbarButtonInstanceApi, ContextFormInstanceApi, ContextFormButtonInstanceApi, ContextFormToggleButtonInstanceApi, DialogInstanceApi, DialogData, MenuItemInstanceApi, DialogSpec, BodyComponentSpec } from "../tinymce.d.ts";
 import { Editor } from "tinymce";
 import { getCsrfToken } from "../../utils/csrf-token";
-
-function stripProtocol(url: string) {
-	return url.replace(/^[^:/]*:\/\//, "");
-}
+import { stripProtocol } from "../../utils/url-tools";
 
 function evaluateOnceDecorator<T>(fn: ()=>T): ()=>T {
 	let value: T | null = null;
