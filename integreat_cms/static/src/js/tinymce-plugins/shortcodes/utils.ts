@@ -49,12 +49,12 @@ class ShortcodeHandle {
     readonly endword: string | null = null;
     editor: Editor;
     tinymceConfig: HTMLElement;
-    readonly addText: TextDescriptor = (self: ShortcodeHandle) => `Insert ${self.keyword}`;
-    readonly addIcon: string = "link";
-    readonly editText: TextDescriptor = (self: ShortcodeHandle) => `Edit ${self.keyword}`;
-    readonly editIcon: string = "link";
-    readonly removeText: TextDescriptor = (self: ShortcodeHandle) => `Remove ${self.keyword}`;
-    readonly removeIcon: string = "unlink";
+    addText: TextDescriptor = (self: ShortcodeHandle) => `Insert ${self.keyword}`;
+    addIcon: string = "link";
+    editText: TextDescriptor = (self: ShortcodeHandle) => `Edit ${self.keyword}`;
+    editIcon: string = "link";
+    removeText: TextDescriptor = (self: ShortcodeHandle) => `Remove ${self.keyword}`;
+    removeIcon: string = "unlink";
 
     static escape(str: string | undefined): string {
         if (!str)  return '""';

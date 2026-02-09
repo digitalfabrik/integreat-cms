@@ -30,8 +30,6 @@ class PageHandle extends ShortcodeHandle {
 	];
 	kwargs: KWargsDescriptor = [];
 
-	editText = "";
-	
 	domainAndPrefix: () => string = evaluateOnceDecorator(() => stripProtocol(this.tinymceConfig.getAttribute("data-webapp-url")));
 	// Regular expression to check íf a link could be a page
 	// Capture groups: Path, Region slug, language slug, page infix, page slug
@@ -297,6 +295,7 @@ class PageHandle extends ShortcodeHandle {
 	setup(editor: Editor) {
 		super.setup(editor);
 
+		this.addText = this.tinymceConfig.getAttribute("data-link-dialog-title-text");
 		this.editText = this.tinymceConfig.getAttribute("data-link-dialog-title-text");
 
 		const baseUrl = this.tinymceConfig.getAttribute("data-base-url");
