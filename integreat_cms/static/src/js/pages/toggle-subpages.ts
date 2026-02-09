@@ -1,6 +1,7 @@
 /*
  * The functionality to toggle subpages
  */
+import { updatePageAccesses } from "../analytics/statistics-page-accesses";
 import { createIconsAt } from "../utils/create-icons";
 import { restorePageTreeLayout, storeExpandedState } from "./persistent_page_tree";
 
@@ -125,6 +126,9 @@ const expandAllPages = async () => {
 export const toggleSubpages = (event: Event) => {
     event.preventDefault();
     toggleSubpagesForElement((event.target as HTMLElement).closest("span"));
+    if (document.getElementById("statistics-page-access")) {
+        updatePageAccesses();
+    }
 };
 
 /**
