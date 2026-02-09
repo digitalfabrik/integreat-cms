@@ -631,6 +631,11 @@ urlpatterns: list[URLPattern] = [
                                             ),
                                         ),
                                         path(
+                                            "search/",
+                                            search.search_content_ajax,
+                                            name="search_content_ajax",
+                                        ),
+                                        path(
                                             "search/suggest/",
                                             search.search_suggest,
                                             name="search_suggest",
