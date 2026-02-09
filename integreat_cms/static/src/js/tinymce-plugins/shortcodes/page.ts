@@ -287,19 +287,15 @@ class PageHandle extends ShortcodeHandle {
 				return [];
 			}
 			return response.json();
-		}).then(data => {
-			data.forEach((translation: any) => {
-				this.pageCache.cacheTranslationMetadata(translation);
-				Object.entries(translation.available_languages).forEach(([lang, tr]) => {
-					this.pageCache.cacheTranslationMetadata(tr);
-				});
-			});
+		}).then(async (data) => {
+			for (let mainTranslation of data) {
+				await this.pageCache.requestId(mainTranslation.page_id);
+			};
 		});
 	}
 
 	setup(editor: Editor) {
 		super.setup(editor);
-		//this.populatePageCache();
 
 		this.editText = this.tinymceConfig.getAttribute("data-link-dialog-title-text");
 
@@ -307,6 +303,8 @@ class PageHandle extends ShortcodeHandle {
 		const regionSlug = this.tinymceConfig.getAttribute("data-region-slug");
 		const languageSlug = this.tinymceConfig.getAttribute("data-language-slug");
 		this.pageCache = new PageCache(baseUrl, regionSlug, languageSlug);
+
+		//this.populatePageCache();
 	}
 }
 
@@ -342,6 +340,7 @@ class PageCache {
 
 	cacheTranslationMetadata(translation: any) {
 		const [fullURL, regionSlug, languageSlug, infix, _, slug] = translation.path.match(this._pathRegex);
+		console.assert(translation.page_id, `translation without page id:`, translation);
 
 		const pageMetadata = this.byId.get(translation.page_id) || new PageMetadata({
 			id: translation.page_id,
@@ -352,7 +351,7 @@ class PageCache {
 			this.byId.set(translation.page_id, pageMetadata);
 		}
 
-		const translationMetadata = new TranslationMetadata({
+		const translationMetadata = pageMetadata.translations.get(languageSlug) || new TranslationMetadata({
 			id: translation.id,
 			languageSlug: languageSlug,
 			title: translation.title,
@@ -377,7 +376,7 @@ class PageCache {
 	async _getPage(id: number, languageSlug: string = undefined) {
 		languageSlug = languageSlug || this.defaultLanguageSlug;
 
-		const url = `${this.baseUrl}/api/v3/${this.regionSlug}/${this.defaultLanguageSlug}/page/?id=${id}`;
+		const url = `${this.baseUrl}/api/v3/${this.regionSlug}/${languageSlug}/page/?id=${id}`;
 
 		const response = await fetch(url, {
 			method: "GET",
@@ -385,11 +384,7 @@ class PageCache {
 				"X-CSRFToken": getCsrfToken(),
 			},
 		})
-		const HTTP_STATUS_OK = 200;
-		if (response.status !== HTTP_STATUS_OK) {
-			return {};
-		}
-		const translation = await response.json();
+		const translation = response.status === 200 ? await response.json() : null;
 		return {
 			id: id,
 			languageSlug: languageSlug,
@@ -401,16 +396,14 @@ class PageCache {
 		const that = this;
 		async function inner(id: number) {
 			const {languageSlug, translation} = await that._getPage(id);
+			if (!translation) return null;
 			const pageMetadata = that.cacheTranslationMetadata(translation);
 
-			// Pre-fill with languages
-			Object.entries(translation.available_languages).forEach(([lang, tr]) => {
-				that.cacheTranslationMetadata(tr);
-			});
-			// Request detailed data
 			for (const [lang, tr] of Object.entries(translation.available_languages)) {
 				const {translation} = await that._getPage(id, lang);
-				that.cacheTranslationMetadata(translation);
+				if (translation) {
+					that.cacheTranslationMetadata(translation);
+				}
 			}
 			if (ancestors && pageMetadata.parentId) {
 				await that.requestId(pageMetadata.parentId, ancestors);
