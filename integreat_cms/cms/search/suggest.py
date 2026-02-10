@@ -49,6 +49,8 @@ def normalize_search_fields(search_fields: dict) -> dict[str, dict[str, Any]]:
 def suggest_tokens_for_model(
     model_cls: type[Model],
     query: str,
+    region: Any = None,
+    region_filter_field: str | None = None,
 ) -> dict[str, list[dict[str, Any]]]:
     """
     Generate search term suggestions for a model based on a query.
@@ -58,6 +60,8 @@ def suggest_tokens_for_model(
 
     :param model_cls: The Django model class to search
     :param query: The search query string
+    :param region: The region to filter by (optional)
+    :param region_filter_field: The field path to filter by region (e.g., "region", "event__region")
     :return: Dict with "suggestions" key containing list of {suggestion, score} dicts
     """
     query = query.strip()
@@ -80,6 +84,10 @@ def suggest_tokens_for_model(
 
     # QuerySet type uses Any for the model since we receive model_cls dynamically
     qs: QuerySet[Any] = model_cls.objects.filter(q_filter)
+
+    # Apply region filter if provided
+    if region and region_filter_field:
+        qs = qs.filter(**{region_filter_field: region})
 
     # Annotate with similarity scores for each field
     for field in fields:

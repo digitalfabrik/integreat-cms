@@ -21,6 +21,22 @@ CONTENT_TYPES: list[str] = [
 #: Content types that have language-specific translations
 TRANSLATION_CONTENT_TYPES: list[str] = ["event", "page", "poi", "pushnotification"]
 
+#: Mapping of object types to their region filter field
+#: None means no region filtering (global content)
+REGION_FILTER_FIELDS: dict[str, str | None] = {
+    "contact": "location__region",
+    "event": "event__region",
+    "feedback": "region",
+    "language": None,
+    "mediafile": "region",
+    "organization": "region",
+    "page": "region",
+    "poi": "poi__region",
+    "pushnotification": "push_notification__regions",
+    "region": None,
+    "user": "regions",
+}
+
 
 def get_model_cls_from_object_type(
     object_type: str,

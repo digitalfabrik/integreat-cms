@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 import pytest
 from django.urls import reverse
 
-from integreat_cms.cms.constants.roles import EVENT_MANAGER, OBSERVER
+from integreat_cms.cms.constants.roles import CMS_TEAM, EVENT_MANAGER, OBSERVER
 from tests.conftest import ANONYMOUS
 
 # Roles that have view_page permission (all except EVENT_MANAGER)
@@ -234,3 +234,79 @@ def test_search_suggest_suggestions_are_sorted_by_score(
         assert scores == sorted(scores, reverse=True), (
             "Suggestions should be sorted by score descending"
         )
+
+
+@pytest.mark.django_db
+def test_search_suggest_filters_by_region(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
+) -> None:
+    """
+    Test that search suggestions only return results from the current region.
+    Nurnberg has a page titled "Willkommen in Nürnberg!" which should not
+    appear in Augsburg search results when searching for "Nürnberg".
+    """
+    client, role = login_role_user
+    settings.LANGUAGE_CODE = "en"
+
+    if role != CMS_TEAM:
+        return  # use CMS_TEAM to have access to multiple regions
+
+    # Search for "Nürnberg" in Augsburg - should return no results
+    # because Augsburg doesn't have pages with "Nürnberg" in the title,
+    # but Nurnberg does (and we want to verify it doesn't leak across regions)
+    url = reverse(
+        "search_suggest",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": LANGUAGE_SLUG,
+        },
+    )
+
+    response = client.post(
+        url,
+        data=json.dumps(
+            {
+                "query_string": "Nürnberg",
+                "object_type": "page",
+            }
+        ),
+        content_type="application/json",
+    )
+    assert response.status_code == 200
+    data = response.json()
+    suggestions = [s["suggestion"] for s in data["data"]["suggestions"]]
+
+    # Augsburg should not have any suggestions containing "Nürnberg"
+    # (Nurnberg region has "Willkommen in Nürnberg!" but it should not appear here)
+    assert not any("Nürnberg" in s for s in suggestions), (
+        f"Region filtering failed: found 'Nürnberg' in Augsburg suggestions: {suggestions}"
+    )
+
+    url = reverse(
+        "search_suggest",
+        kwargs={
+            "region_slug": "nurnberg",
+            "language_slug": LANGUAGE_SLUG,
+        },
+    )
+
+    response = client.post(
+        url,
+        data=json.dumps(
+            {
+                "query_string": "Nürnberg",
+                "object_type": "page",
+            }
+        ),
+        content_type="application/json",
+    )
+    assert response.status_code == 200
+    data = response.json()
+    suggestions = [s["suggestion"] for s in data["data"]["suggestions"]]
+
+    # Nürnberg should have suggestions containing Nürnberg
+    assert any("Nürnberg" in s for s in suggestions), (
+        f"Search suggest failed: Expected Nürnberg in search suggestions, got {suggestions}"
+    )
