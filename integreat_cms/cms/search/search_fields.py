@@ -1,10 +1,11 @@
 """
 Configuration for search suggestions in list views.
 
-Search fields should be defined as a dict mapping field names to configuration:
+Search fields should be defined as a dict mapping field names to configuration::
 
     {
         "field_name": {"weight": int, "tokenize": bool},
+        ...
     }
 
 Configuration options:

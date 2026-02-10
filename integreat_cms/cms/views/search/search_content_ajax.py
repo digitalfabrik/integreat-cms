@@ -52,15 +52,15 @@ def search_content_ajax(
 
     user = request.user
 
-    # This function is used for the search window in a content list view and to suggest
-    # targets for internal links in the "Insert link" menu in the editor.
-    # For the former we only care about the plain text representation and don't want any
-    # duplicates (e.g. if we have two events titled "Community kitchen" we only want one
-    # suggestion to search for this string – both events will still show in the list view
-    # as soon as the user submits his actual search).
-    # For the latter we need the information uniquely identifying each object (such as the url).
-    # `link_suggestion_flag` is set to True if we want all unique objects, even if there
-    # are multiple with the same title.
+    # This function is used to suggest targets for internal links in the "Insert link"
+    # menu in the editor. Previously, it had also been used for suggestions
+    # of search terms in list views. The 'link_suggestion_flag' was used to
+    # differentiate between these two use-cases.
+    # This function is subject to an ongoing refactoring. The first part moved the
+    # search term completion to a different endpoint '/search/suggest'.
+    # The second part will unify the existing search() and suggest() model methods
+    # without breaking existing endpoints. Until then, the existing methods
+    # and the 'search_suggestion_flag' will remain in use.
     kwargs = {
         "region": region,
         "query": query,
