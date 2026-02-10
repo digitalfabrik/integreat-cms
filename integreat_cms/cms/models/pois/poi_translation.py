@@ -23,9 +23,11 @@ if TYPE_CHECKING:
     from .. import POI, Region
 
 from ...constants import status
+from ...search.search_fields import LOCATION_SEARCH_FIELDS
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
+from ..mixins import SearchSuggestMixin
 from ..utils import format_object_translation
 
 
@@ -34,10 +36,12 @@ from ..utils import format_object_translation
     title={"verbose_name": _("name of the location")},
     content={"verbose_name": _("description")},
 )
-class POITranslation(AbstractContentTranslation):
+class POITranslation(AbstractContentTranslation, SearchSuggestMixin):
     """
     Data model representing a POI translation
     """
+
+    search_fields = LOCATION_SEARCH_FIELDS
 
     poi = models.ForeignKey(
         "cms.POI",

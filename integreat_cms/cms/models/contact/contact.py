@@ -18,9 +18,11 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
+from ...search.search_fields import CONTACT_SEARCH_FIELDS
 from ..abstract_base_model import AbstractBaseModel
 from ..events.event_translation import EventTranslation
 from ..fields.truncating_char_field import TruncatingCharField
+from ..mixins import SearchSuggestMixin
 from ..pages.page_translation import PageTranslation
 from ..pois.poi import POI
 from ..pois.poi_translation import POITranslation
@@ -48,11 +50,12 @@ class ContactQuerySet(models.QuerySet):
         return self.filter(area_of_responsibility="").first()
 
 
-class Contact(AbstractBaseModel):
+class Contact(AbstractBaseModel, SearchSuggestMixin):
     """
     Data model representing a contact
     """
 
+    search_fields = CONTACT_SEARCH_FIELDS
     area_of_responsibility = TruncatingCharField(
         max_length=200,
         blank=True,

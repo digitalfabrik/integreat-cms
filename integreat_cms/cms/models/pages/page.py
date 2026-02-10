@@ -12,10 +12,12 @@ from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 from treebeard.ns_tree import NS_NodeQuerySet
 
+from ...search.search_fields import PAGE_SEARCH_FIELDS
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_model import ContentQuerySet
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
+from ..mixins import SearchSuggestMixin
 from ..utils import format_object_translation
 from .abstract_base_page import AbstractBasePage
 from .page_translation import PageTranslation
@@ -154,10 +156,12 @@ class PageManager(models.Manager):
 
 
 @modify_fields(parent={"verbose_name": _("parent page")})
-class Page(AbstractTreeNode, AbstractBasePage):
+class Page(AbstractTreeNode, AbstractBasePage, SearchSuggestMixin):
     """
     Data model representing a page.
     """
+
+    search_fields = PAGE_SEARCH_FIELDS
 
     icon = models.ForeignKey(
         "cms.MediaFile",

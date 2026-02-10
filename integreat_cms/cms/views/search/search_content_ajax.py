@@ -4,10 +4,11 @@ import json
 import logging
 from typing import TYPE_CHECKING
 
-from django.apps import apps
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+
+from .utils import get_model_cls_from_object_type
 
 if TYPE_CHECKING:
     from typing import Any
@@ -16,20 +17,8 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-# The maximum number of results returned by `search_content_ajax`
+#: The maximum number of results returned by :func:`search_content_ajax`
 MAX_RESULT_COUNT: int = 20
-
-
-CONTENT_TYPES = [
-    "contact",
-    "feedback",
-    "language",
-    "mediafile",
-    "organization",
-    "region",
-    "user",
-]
-TRANSLATION_CONTENT_TYPES = ["event", "page", "poi", "pushnotification"]
 
 
 @require_POST
@@ -43,16 +32,12 @@ def search_content_ajax(
     higher than results which only match through their text content.
 
     :param request: The current request
-    :param language_slug: language slug
-    :type language_slug: str
-
+    :param region_slug: The slug of the current region
+    :param language_slug: The slug of the current language
     :raises ~django.core.exceptions.PermissionDenied: If the user has no permission to the object type
-
-    :raises AttributeError: If the request contains an object type which is unknown or if the user has no permission for it
-
+    :raises AttributeError: If the request contains an object type which is unknown
     :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
     """
-
     region = request.region
     body = json.loads(request.body.decode("utf-8"))
     query = body["query_string"]
@@ -67,12 +52,15 @@ def search_content_ajax(
 
     user = request.user
 
-    # This function is used for the search window in a content list view and to suggest targets for internal links in the "Insert link" menu in the editor.
-    # For the former we only care about the plain text representation and don't want any duplicates
-    # (e.g. if we have two events titled "Community kitchen" we only want one suggestion to search for this string –
-    # both events will still show in the list view as soon as the user submits his actual search).
-    # For the latter we need the information uniquely identifying each object (such as the url).
-    # `link_suggestion_flag` is set to True if we want all unique objects, even if there are multiple with the same title.
+    # This function is used to suggest targets for internal links in the "Insert link"
+    # menu in the editor. Previously, it had also been used for suggestions
+    # of search terms in list views. The 'link_suggestion_flag' was used to
+    # differentiate between these two use-cases.
+    # This function is subject to an ongoing refactoring. The first part moved the
+    # search term completion to a different endpoint '/search/suggest'.
+    # The second part will unify the existing search() and suggest() model methods
+    # without breaking existing endpoints. Until then, the existing methods
+    # and the 'search_suggestion_flag' will remain in use.
     kwargs = {
         "region": region,
         "query": query,
@@ -82,22 +70,10 @@ def search_content_ajax(
     }
 
     for object_type in object_types:
-        if object_type not in CONTENT_TYPES + TRANSLATION_CONTENT_TYPES:
-            raise AttributeError(f"Unexpected object type(s): {object_types}")
-
         if not user.has_perm(f"cms.view_{object_type}"):
             raise PermissionDenied
-
-        if object_type in TRANSLATION_CONTENT_TYPES and not language_slug:
-            raise AttributeError("Language slug is not provided")
-
-        if object_type in CONTENT_TYPES or object_type == "page":
-            results.extend(apps.get_model("cms", object_type).suggest(**kwargs))
-        else:
-            translation_object_type = f"{object_type}translation"
-            results.extend(
-                apps.get_model("cms", translation_object_type).suggest(**kwargs)
-            )
+        model_cls = get_model_cls_from_object_type(object_type, language_slug)
+        results.extend(model_cls.suggest(**kwargs))
 
     # sort alphabetically by title
     results.sort(key=lambda k: k["title"])

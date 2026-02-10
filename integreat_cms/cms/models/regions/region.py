@@ -49,8 +49,10 @@ from ...constants import (
     region_status,
     status,
 )
+from ...search.search_fields import REGION_SEARCH_FIELDS
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel
+from ..mixins import SearchSuggestMixin
 from ..offers.offer_template import OfferTemplate
 
 logger = logging.getLogger(__name__)
@@ -101,10 +103,12 @@ class RegionManager(models.Manager):
         )
 
 
-class Region(AbstractBaseModel):
+class Region(AbstractBaseModel, SearchSuggestMixin):
     """
     Data model representing region.
     """
+
+    search_fields = REGION_SEARCH_FIELDS
 
     name = models.CharField(max_length=200, verbose_name=_("name"))
     #: See `community identification number <https://en.wikipedia.org/wiki/Community_Identification_Number>`__

@@ -24,11 +24,13 @@ if TYPE_CHECKING:
     from .role import Role
 
 
+from ...search.search_fields import USER_SEARCH_FIELDS
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.user_utils import search_users
 from ..abstract_base_model import AbstractBaseModel
 from ..chat.chat_message import ChatMessage
 from ..decorators import modify_fields
+from ..mixins import SearchSuggestMixin
 from ..pages.page import Page
 from ..regions.region import Region
 from .organization import Organization
@@ -72,10 +74,12 @@ class CustomUserManager(UserManager):
         ),
     },
 )
-class User(AbstractUser, AbstractBaseModel):
+class User(AbstractUser, AbstractBaseModel, SearchSuggestMixin):
     """
     A custom User model that replaces the default Django User model
     """
+
+    search_fields = USER_SEARCH_FIELDS
 
     regions = models.ManyToManyField(
         Region,

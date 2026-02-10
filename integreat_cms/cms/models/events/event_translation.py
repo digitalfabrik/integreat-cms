@@ -22,8 +22,10 @@ if TYPE_CHECKING:
     from ...models import Event, Region
 
 from ...constants import status
+from ...search.search_fields import EVENT_SEARCH_FIELDS
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
+from ..mixins import SearchSuggestMixin
 from ..utils import format_object_translation
 
 
@@ -32,10 +34,12 @@ from ..utils import format_object_translation
     title={"verbose_name": _("title of the event")},
     content={"verbose_name": _("description")},
 )
-class EventTranslation(AbstractContentTranslation):
+class EventTranslation(AbstractContentTranslation, SearchSuggestMixin):
     """
     Data model representing an event translation
     """
+
+    search_fields = EVENT_SEARCH_FIELDS
 
     event = models.ForeignKey(
         "cms.Event",
