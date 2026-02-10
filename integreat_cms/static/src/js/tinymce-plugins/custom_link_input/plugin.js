@@ -280,20 +280,21 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     // Either insert a new link or update the existing one
                     const anchor = getAnchor();
                     if (!anchor) {
-                        const selectedNode = editor.selection.getNode().closest("span");
-                        let selectedText;
-                        if (!selectedNode) {
-                            selectedText = editor.selection.getContent({ format: "html" });
-                            if (selectedText.length === 0) {
-                                selectedText = text;
-                            }
+                        const selectedNode = editor.selection.getNode();
+                        const selectedNodeText = selectedNode.textContent;
+
+                        let selectedHTML = editor.selection.getContent({ format: "html" });
+                        if (selectedHTML.length === 0) {
+                            selectedHTML = text;
                         }
+
                         const link = editor.dom.create(
                             "a",
                             {
                                 href: `${realUrl}${autoupdate ? ' data-integreat-auto-update="true"' : ""}`,
                             },
-                            selectedNode ?? selectedText
+                            selectedNodeText == text ? selectedNode : selectedHTML
+                        );
                         );
 
                         editor.selection.setNode(link);
