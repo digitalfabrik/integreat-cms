@@ -250,6 +250,7 @@ class POIFormView(
                     contact.website = website
                     contact.phone_number = phone_number
                     contact.email = email
+                    contact.appointment_url = poi.appointment_url
                     if not contact.name and language == region.default_language:
                         contact.name = poi_translation_form.instance.title
                     contact.save()
