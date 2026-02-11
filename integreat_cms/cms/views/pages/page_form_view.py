@@ -8,11 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Tuple
 
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -198,100 +199,115 @@ class PageFormView(
             kwargs.get("language_slug"),
             only_active=True,
         )
+        page_id = kwargs.get("page_id")
 
-        page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
+        page_instance, page_translation_instance = self.get_instances(
+            region, language, page_id
+        )
 
         if not request.user.has_perm("cms.change_page_object", page_instance):
             raise PermissionDenied(
                 f"{request.user!r} does not have the permission to edit {page_instance!r}",
             )
 
-        page_translation_instance = PageTranslation.objects.filter(
-            page=page_instance,
-            language=language,
-        ).first()
-
-        page_form = PageForm(
-            data=request.POST,
-            files=request.FILES,
-            instance=page_instance,
-            additional_instance_attributes={
-                "region": region,
-            },
+        page_form, page_translation_form = self.instantiate_forms(
+            request, page_instance, page_translation_instance, language, region,
         )
-        # Pass language to mirrored page widget to render the preview urls
-        page_form.fields["mirrored_page"].widget.language_slug = language.slug
 
-        if not request.user.expert_mode:
-            del page_form.fields["api_token"]
-
-        page_translation_form = PageTranslationForm(
-            request=request,
-            language=language,
-            data=request.POST,
-            instance=page_translation_instance,
-            additional_instance_attributes={
-                "creator": request.user,
-                "language": language,
-                "page": page_form.instance,
-            },
-            changed_by_user=request.user,
-        )
-        user_slug = page_translation_form.data.get("slug")
-
-        if self.pre_validate_page_update(request, page_form, page_translation_form):
-            # Only save page form if page does not yet exist or if translation is no auto save
-            if (
-                not page_instance
-                or page_translation_form.instance.status != status.AUTO_SAVE
-            ):
-                page_translation_form.instance.page = page_form.save()
-
-            page_translation_instance = page_translation_form.save(
-                foreign_form_changed=page_form.has_changed(),
+        if not request.user.has_perm(
+            "cms.publish_page_object",
+            page_form.instance,
+        ) and page_translation_form.instance.status in [
+            status.DRAFT,
+            status.PUBLIC,
+        ]:
+            raise PermissionDenied(
+                f"{request.user!r} does not have the permission to publish {page_form.instance!r}"
             )
 
-            if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:
-                self.report_conflicting_slug(
-                    request, page_translation_form, region, user_slug, language
+        if (
+            page_translation_form.instance.status == status.AUTO_SAVE
+            and not page_form.has_changed()
+            and not page_translation_form.has_changed()
+        ):
+            messages.info(request, _("No changes detected, autosave skipped"))
+        else:
+            success = True
+            sid = transaction.savepoint()
+
+            if not page_form.is_valid():
+                page_form.add_error_messages(request)
+                success = False
+            else:
+                page = page_form.save()
+
+            if not page_translation_form.is_valid():
+                page_translation_form.add_error_messages(request)
+                success = False
+            elif success:
+                
+                if (
+                    not page_instance
+                    or page_translation_form.instance.status != status.AUTO_SAVE
+                ):
+                    page_translation_form.instance.page = page
+
+                page_translation_instance = page_translation_form.save(
+                    foreign_form_changed=page_form.has_changed(),
                 )
 
-            if page_translation_form.instance.status == status.DRAFT:
-                self.set_translations_to_draft(
-                    page_translation_form.instance.page, region, language
+            if success:
+                user_slug = page_translation_form.data.get("slug")
+                if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:
+                    self.report_conflicting_slug(
+                        request, page_translation_form, region, user_slug, language
+                    )
+
+                if page_translation_form.instance.status == status.DRAFT:
+                    self.set_translations_to_draft(
+                        page_translation_form.instance.page, region, language
+                    )
+
+                # If this is the first version and the minor edit checkbox is checked, remove it
+                if (
+                    page_translation_form.instance.version == 1
+                    and page_translation_form.instance.minor_edit
+                ):
+                    page_translation_form.instance.minor_edit = False
+                    page_translation_form.instance.save()
+                    messages.info(
+                        request,
+                        _(
+                            'The "minor edit" option was disabled because the first version can never be a minor edit.',
+                        ),
+                    )
+
+                if page_translation_form.instance.status != status.AUTO_SAVE:
+                    page_translation_form.instance.cleanup_autosaves()
+
+                self.handle_messages(
+                    request, page_instance, page_form, page_translation_form
                 )
 
-            # If this is the first version and the minor edit checkbox is checked, remove it
-            if (
-                page_translation_form.instance.version == 1
-                and page_translation_form.instance.minor_edit
-            ):
-                page_translation_form.instance.minor_edit = False
-                page_translation_form.instance.save()
-                messages.info(
-                    request,
-                    _(
-                        'The "minor edit" option was disabled because the first version can never be a minor edit.',
-                    ),
+                return redirect(
+                    "edit_page",
+                    **{
+                        "page_id": page_form.instance.id,
+                        "region_slug": region.slug,
+                        "language_slug": language.slug,
+                    },
                 )
 
-            if page_translation_form.instance.status != status.AUTO_SAVE:
-                page_translation_form.instance.cleanup_autosaves()
-
-            self.handle_messages(
-                request, page_instance, page_form, page_translation_form
+            # Failure: rollback and re-instantiate for clean re-render
+            transaction.savepoint_rollback(sid)
+            page_instance, page_translation_instance = self.get_instances(
+                region, language, page_id
+            )
+            page_form, page_translation_form = self.instantiate_forms(
+                request, page_instance, page_translation_instance, language, region,
             )
 
-            return redirect(
-                "edit_page",
-                **{
-                    "page_id": page_form.instance.id,
-                    "region_slug": region.slug,
-                    "language_slug": language.slug,
-                },
-            )
-
-        # Pass siblings to template to enable rendering of page order table
+        # Render form with errors
         if page_translation_form.instance.id:
             siblings = page_translation_form.instance.page.region_siblings
         elif page_form.instance.id:
@@ -312,7 +328,6 @@ class PageFormView(
                 "page": page_instance,
                 "siblings": siblings,
                 "language": language,
-                # Languages for tab view
                 "languages": region.active_languages if page_instance else [language],
                 "side_by_side_language_options": self.get_side_by_side_language_options(
                     region,
@@ -594,41 +609,6 @@ class PageFormView(
             status=status.PUBLIC,
         ).update(status=status.DRAFT)
 
-    def pre_validate_page_update(
-        self,
-        request: HttpRequest,
-        page_form: PageForm,
-        page_translation_form: PageTranslationForm,
-    ) -> bool:
-        """
-        Pre-validates whether the page and page translation forms can be saved.
-        """
-        if not page_form.is_valid() or not page_translation_form.is_valid():
-            page_form.add_error_messages(request)
-            page_translation_form.add_error_messages(request)
-            return False
-
-        if not request.user.has_perm(
-            "cms.publish_page_object",
-            page_form.instance,
-        ) and page_translation_form.cleaned_data.get("status") in [
-            status.DRAFT,
-            status.PUBLIC,
-        ]:
-            raise PermissionDenied(
-                f"{request.user!r} does not have the permission to publish {page_form.instance!r}"
-            )
-
-        if (
-            page_translation_form.instance.status == status.AUTO_SAVE
-            and not page_form.has_changed()
-            and not page_translation_form.has_changed()
-        ):
-            messages.info(request, _("No changes detected, autosave skipped"))
-            return False
-
-        return True
-
     def handle_messages(
         self,
         request: HttpRequest,
@@ -658,3 +638,30 @@ class PageFormView(
             messages.info(request, _("No changes detected, but date refreshed"))
         else:
             page_translation_form.add_success_message(request)
+    
+    def get_instances(self, region: Region, language: Language, page_id: str) -> Tuple[Page, PageTranslation]:
+        page_instance = region.pages.filter(id=page_id).first()
+        page_translation_instance = PageTranslation.objects.filter(
+            page=page_instance, language=language,
+        ).first()
+        return page_instance, page_translation_instance
+    
+    def instantiate_forms(self, request:HttpRequest, page_instance:Page, page_translation_instance:PageTranslation, language:Language, region:Region) -> Tuple[PageForm, PageTranslationForm]:
+        page_form = PageForm(
+            data=request.POST, files=request.FILES, instance=page_instance,
+            additional_instance_attributes={"region": region},
+        )
+        page_form.fields["mirrored_page"].widget.language_slug = language.slug
+        if not request.user.expert_mode:
+            del page_form.fields["api_token"]
+
+        page_translation_form = PageTranslationForm(
+            request=request, language=language, data=request.POST,
+            instance=page_translation_instance,
+            additional_instance_attributes={
+                "creator": request.user, "language": language,
+                "page": page_form.instance,
+            },
+            changed_by_user=request.user,
+        )
+        return page_form, page_translation_form
