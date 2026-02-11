@@ -50,17 +50,24 @@ window.addEventListener("load", () => {
                 const nodeList: NodeListOf<HTMLInputElement> = document.querySelectorAll(
                     '[for="id_title"],[for="id_slug"]'
                 );
+                const requests: Promise<void>[] = [];
                 for (const node of nodeList) {
                     const datasetItem = node.dataset;
-                    slugify(datasetItem.slugifyUrl, { title: currentTitle, model_id: datasetItem.modelId })
-                        .then((response) => {
-                            /* on success write response to both slug field and permalink */
-                            slugField.value = response.unique_slug;
-                            updatePermalink(response.unique_slug);
-                            oldTitle = currentTitle;
-                        })
-                        .finally(() => submissionLock.release());
+                    const request = slugify(datasetItem.slugifyUrl, {
+                        title: currentTitle,
+                        model_id: datasetItem.modelId,
+                    }).then((response) => {
+                        /* on success write response to both slug field and permalink */
+                        slugField.value = response.unique_slug;
+                        updatePermalink(response.unique_slug);
+                    });
+                    requests.push(request);
                 }
+                Promise.all(requests)
+                    .then(() => {
+                        oldTitle = currentTitle;
+                    })
+                    .finally(() => submissionLock.release());
             }
         });
     });
