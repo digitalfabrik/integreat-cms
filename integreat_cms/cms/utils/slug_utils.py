@@ -5,17 +5,27 @@ This module contains helpers regarding unique string identifiers without special
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from time import time
+from typing import Final, Literal, TYPE_CHECKING
 
+from celery import shared_task
+from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.db import transaction
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from typing import Any, Literal, NotRequired, TypeAlias, TypedDict, Unpack
+    from typing import (
+        Any,
+        NotRequired,
+        TypeAlias,
+        TypedDict,
+        Unpack,
+    )
 
-    from django.db.models import Manager
+    from django.db.models import Manager, QuerySet
     from django.forms import ModelForm
     from django.http.request import QueryDict
 
@@ -23,6 +33,9 @@ if TYPE_CHECKING:
     from ..models.abstract_base_model import AbstractBaseModel
     from ..models.abstract_content_model import AbstractContentModel
 
+SlugObject = Literal["page", "event", "poi"]
+DEFAULT_OBJECTS: Final[tuple[SlugObject, ...]] = ("event", "poi", "page")
+ALLOWED_OBJECTS = {"event", "poi", "page"}
 
 logger = logging.getLogger(__name__)
 
@@ -182,3 +195,70 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
 
     logger.debug("unique slug: %r", unique_slug)
     return unique_slug
+
+
+def update_translations(
+    translations: QuerySet, foreign_attr: Literal["page", "event", "poi"], dry_run: bool
+) -> int:
+    logger.info("Updating slugs in %sTranslations", foreign_attr.capitalize())
+    counter = 0
+    with transaction.atomic():
+        for translation in translations:
+            foreign_obj: AbstractContentModel | None = getattr(
+                translation, foreign_attr, None
+            )
+            if foreign_obj is None:
+                continue
+            region = getattr(foreign_obj, "region", None)
+            if not region:
+                continue
+            old_slug = translation.slug
+            translation.slug = generate_unique_slug(
+                slug=translation.slug,
+                manager=type(translation).objects,
+                object_instance=translation,
+                foreign_model=foreign_attr,
+                foreign_object=foreign_obj,
+                region=region,
+                language=translation.language,
+            )
+            if old_slug != translation.slug:
+                counter += 1
+                if not dry_run:
+                    translation.save()
+    return counter
+
+
+@shared_task()
+def make_all_slugs_unique(
+    objects: tuple[SlugObject, ...] = DEFAULT_OBJECTS,
+    dry_run: bool = False,
+) -> None:
+    logger.info("Starting to make all slugs unique ...")
+    start_time = time()
+
+    slug_counter = 0
+
+    for model_name in objects:
+        translation_model = apps.get_model(
+            "cms", f"{model_name.capitalize()}Translation"
+        )
+        translations = translation_model.objects.all()
+        slug_counter += update_translations(translations, model_name, dry_run)
+
+    end_time = time() - start_time
+    if not dry_run:
+        logger.info(
+            "Finished >make_all_slugs_unique< after: %.3fs with %d updated slugs",
+            end_time,
+            slug_counter,
+        )
+    if dry_run:
+        logger.info(
+            "Finished dry run for >make_all_slugs_unique< after: %.3fs. "
+            "In total %d non-unique slugs were identified. "
+            "Keep in mind that during a real run, "
+            "only a subset of the non-unique slugs will be actually changed in order to make them all unique.",
+            end_time,
+            slug_counter,
+        )
