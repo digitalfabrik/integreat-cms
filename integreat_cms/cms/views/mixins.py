@@ -191,7 +191,7 @@ class FilterSortMixin:
     Filtering logic is handled by the SearchForm. To add filtering to a view,
     set a ``filter_form_class` attribute (the ``filter_form_class`` should be a child of
     :class:`~integreat_cms.cms.forms.object_search_form.ObjectSearchForm`).
-    To allow sorting, add a ``sort_fields`` list attribute to your view.
+    To allow sorting, extend the ``table_fields`` list attribute in your view.
     Note that this mixin is intended for extending Django's View class (or child classes),
     and expects a ``self.request`` attribute. Django's generic View defines the request attribute
     in the dispatch phase.
@@ -199,12 +199,24 @@ class FilterSortMixin:
 
     request: Any
     filter_form_class: type[ObjectSearchForm] | None = None
-    sort_fields: list[str] = []
+    table_fields: list[tuple[str | None, str]] = []
+
+    @property
+    def sort_fields(self) -> list[str]:
+        """
+        Extract only sortable field names from table_fields.
+        A field is sortable if its first element is not None.
+        """
+        return [
+            field
+            for field, label in getattr(self, "table_fields", [])
+            if field is not None
+        ]
 
     def get_filter_form(self) -> ObjectSearchForm | None:
         if self.filter_form_class is None:
             return None
-        return self.filter_form_class(self.request.POST or None)
+        return self.filter_form_class(self.request.GET or None)
 
     def get_filtered_sorted_queryset(self, queryset: QuerySet) -> QuerySet:
         form = self.get_filter_form()
@@ -213,7 +225,11 @@ class FilterSortMixin:
 
         order_by = [
             f
-            for f in self.request.POST.get("sort", "").split(",")
+            for f in self.request.GET.getlist("sort")
             if f.lstrip("-") in self.sort_fields
         ]
-        return queryset.order_by(*order_by)
+        if order_by:
+            # queryset.order_by([]) would override default ordering and result in an unordered queryset
+            # so we only use order_by if "sort" is not empty
+            return queryset.order_by(*order_by)
+        return queryset
