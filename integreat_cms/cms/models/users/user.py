@@ -107,12 +107,10 @@ class User(AbstractUser, AbstractBaseModel):
             "Enable this option to display additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions and status information for broken links",
         ),
     )
-    page_tree_tutorial_seen = models.BooleanField(
+    has_seen_page_tree_tutorial = models.BooleanField(
         default=False,
         verbose_name=_("Page tree tutorial seen"),
-        help_text=_(
-            "Will be set to true once the user dismissed the page tree tutorial",
-        ),
+        help_text=_("Has seen tutorial for page tree"),
     )
     distribute_sidebar_boxes = models.BooleanField(
         default=False,
