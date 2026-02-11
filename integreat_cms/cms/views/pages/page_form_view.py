@@ -423,7 +423,6 @@ class PageFormView(
                     "but you can propose changes and submit them for review instead."
                 ),
             )
-            return True
         return False
 
     def check_is_disabled(self, request: HttpRequest, page: Page) -> bool:
