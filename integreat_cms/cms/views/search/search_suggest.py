@@ -8,8 +8,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from ...search.suggest import suggest_tokens_for_model
-from .utils import get_model_cls_from_object_type, REGION_FILTER_FIELDS
+from .utils import get_model_cls_from_object_type
 
 if TYPE_CHECKING:
     from django.http import HttpRequest
@@ -67,14 +66,9 @@ def search_suggest(
             status=400,
         )
 
-    # Get region filter field for this object type
-    region_filter_field = REGION_FILTER_FIELDS.get(object_type)
-
-    suggestions = suggest_tokens_for_model(
-        model_cls,
+    suggestions = model_cls.suggest_tokens(
         query=query,
         region=request.region,
-        region_filter_field=region_filter_field,
     )
 
     # Sort by score descending and limit results

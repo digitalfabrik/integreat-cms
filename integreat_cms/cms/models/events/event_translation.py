@@ -40,6 +40,7 @@ class EventTranslation(AbstractContentTranslation, SearchSuggestMixin):
     """
 
     search_fields = EVENT_SEARCH_FIELDS
+    region_filter_field = "event__region"
 
     event = models.ForeignKey(
         "cms.Event",

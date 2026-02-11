@@ -56,6 +56,8 @@ class Contact(AbstractBaseModel, SearchSuggestMixin):
     """
 
     search_fields = CONTACT_SEARCH_FIELDS
+    region_filter_field = "location__region"
+
     area_of_responsibility = TruncatingCharField(
         max_length=200,
         blank=True,

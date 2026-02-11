@@ -61,6 +61,7 @@ class Feedback(PolymorphicModel, AbstractBaseModel, SearchSuggestMixin):
     """
 
     search_fields = FEEDBACK_SEARCH_FIELDS
+    region_filter_field = "region"
 
     objects = CascadeDeletePolymorphicManager()
 

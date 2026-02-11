@@ -31,6 +31,7 @@ class Language(AbstractBaseModel, SearchSuggestMixin):
     """
 
     search_fields = LANGUAGE_SEARCH_FIELDS
+    region_filter_field = None  # Languages are global, no region filtering
 
     slug = models.SlugField(
         max_length=8,

@@ -80,6 +80,7 @@ class User(AbstractUser, AbstractBaseModel, SearchSuggestMixin):
     """
 
     search_fields = USER_SEARCH_FIELDS
+    region_filter_field = "regions"
 
     regions = models.ManyToManyField(
         Region,

@@ -7,12 +7,9 @@ from __future__ import annotations
 import pytest
 
 from integreat_cms.cms.models import Contact, Page
+from integreat_cms.cms.models.mixins import normalize_search_fields
 from integreat_cms.cms.search.matchers import TrigramMatcher
 from integreat_cms.cms.search.scorer import score_token
-from integreat_cms.cms.search.suggest import (
-    normalize_search_fields,
-    suggest_tokens_for_model,
-)
 
 
 class TestNormalizeSearchFields:
@@ -45,13 +42,13 @@ class TestNormalizeSearchFields:
         assert result == {}
 
 
-class TestSuggestTokensForModel:
-    """Tests for the suggest_tokens_for_model function"""
+class TestSuggestTokens:
+    """Tests for the suggest_tokens method on models with SearchSuggestMixin"""
 
     @pytest.mark.django_db
     def test_empty_query_returns_empty_suggestions(self, load_test_data: None) -> None:
         """Test that empty query returns empty suggestions"""
-        result = suggest_tokens_for_model(Contact, query="")
+        result = Contact.suggest_tokens(query="")
 
         assert result == {"suggestions": []}
 
@@ -60,14 +57,14 @@ class TestSuggestTokensForModel:
         self, load_test_data: None
     ) -> None:
         """Test that whitespace-only query returns empty suggestions"""
-        result = suggest_tokens_for_model(Contact, query="   ")
+        result = Contact.suggest_tokens(query="   ")
 
         assert result == {"suggestions": []}
 
     @pytest.mark.django_db
     def test_short_query_returns_empty_suggestions(self, load_test_data: None) -> None:
         """Test that queries shorter than MIN_QUERY_LENGTH return empty suggestions"""
-        result = suggest_tokens_for_model(Contact, query="a")
+        result = Contact.suggest_tokens(query="a")
 
         assert result == {"suggestions": []}
 
@@ -77,7 +74,7 @@ class TestSuggestTokensForModel:
     ) -> None:
         """Test that matching contact names are returned as suggestions"""
         # Query for a term that should match contacts in test data
-        result = suggest_tokens_for_model(Contact, query="test")
+        result = Contact.suggest_tokens(query="test")
         suggestions = result.get("suggestions", [])
 
         assert isinstance(suggestions, list)
@@ -91,7 +88,7 @@ class TestSuggestTokensForModel:
     @pytest.mark.django_db
     def test_returns_matching_suggestions_for_page(self, load_test_data: None) -> None:
         """Test that matching page titles are returned as suggestions"""
-        result = suggest_tokens_for_model(Page, query="willkommen")
+        result = Page.suggest_tokens(query="willkommen")
         suggestions = result.get("suggestions", [])
 
         assert isinstance(suggestions, list)
@@ -100,7 +97,7 @@ class TestSuggestTokensForModel:
     @pytest.mark.django_db
     def test_no_matches_returns_empty_suggestions(self, load_test_data: None) -> None:
         """Test that non-matching query returns empty suggestions"""
-        result = suggest_tokens_for_model(Contact, query="xyznonexistentquery123")
+        result = Contact.suggest_tokens(query="xyznonexistentquery123")
         suggestions = result.get("suggestions", [])
 
         assert suggestions == []
@@ -108,8 +105,8 @@ class TestSuggestTokensForModel:
     @pytest.mark.django_db
     def test_query_is_case_insensitive(self, load_test_data: None) -> None:
         """Test that query matching is case insensitive"""
-        result_lower = suggest_tokens_for_model(Contact, query="test")
-        result_upper = suggest_tokens_for_model(Contact, query="TEST")
+        result_lower = Contact.suggest_tokens(query="test")
+        result_upper = Contact.suggest_tokens(query="TEST")
 
         # Both should return the same suggestions
         assert len(result_lower.get("suggestions", [])) == len(
@@ -119,7 +116,7 @@ class TestSuggestTokensForModel:
     @pytest.mark.django_db
     def test_suggestions_have_positive_scores(self, load_test_data: None) -> None:
         """Test that all returned suggestions have positive scores"""
-        result = suggest_tokens_for_model(Contact, query="test")
+        result = Contact.suggest_tokens(query="test")
         suggestions = result.get("suggestions", [])
 
         for suggestion in suggestions:
@@ -128,7 +125,7 @@ class TestSuggestTokensForModel:
     @pytest.mark.django_db
     def test_duplicate_tokens_are_merged(self, load_test_data: None) -> None:
         """Test that duplicate tokens from multiple fields are merged"""
-        result = suggest_tokens_for_model(Contact, query="test")
+        result = Contact.suggest_tokens(query="test")
         suggestions = result.get("suggestions", [])
 
         # Each suggestion text should appear only once

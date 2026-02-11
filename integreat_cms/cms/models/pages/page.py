@@ -162,6 +162,7 @@ class Page(AbstractTreeNode, AbstractBasePage, SearchSuggestMixin):
     """
 
     search_fields = PAGE_SEARCH_FIELDS
+    region_filter_field = "region"
 
     icon = models.ForeignKey(
         "cms.MediaFile",

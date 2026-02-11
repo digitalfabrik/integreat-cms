@@ -109,6 +109,7 @@ class Region(AbstractBaseModel, SearchSuggestMixin):
     """
 
     search_fields = REGION_SEARCH_FIELDS
+    region_filter_field = None  # Regions are global, no region filtering
 
     name = models.CharField(max_length=200, verbose_name=_("name"))
     #: See `community identification number <https://en.wikipedia.org/wiki/Community_Identification_Number>`__
