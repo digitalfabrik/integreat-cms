@@ -163,7 +163,7 @@ class PaginationMixin:
 
     request: Any
     default_page_size: int = settings.PER_PAGE or 10
-    max_page_size: int = 100
+    max_page_size: int = 500
 
     def paginate_queryset(self, queryset: QuerySet) -> Page:
         page = self.request.GET.get("page", 1)
