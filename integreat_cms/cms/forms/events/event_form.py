@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import logging
 import zoneinfo
-from datetime import datetime, time
+from datetime import date, datetime, time
 from typing import TYPE_CHECKING
 
 from django import forms
+from django.core.validators import MinValueValidator
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -17,6 +18,9 @@ from ..icon_widget import IconWidget
 
 if TYPE_CHECKING:
     from typing import Any
+
+#: Minimum date for ISO 8601 compliance (start of Gregorian calendar)
+MIN_DATE = date(1583, 1, 1)
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +50,7 @@ class EventForm(CustomModelForm):
     start_date = forms.DateField(
         label=_("start date"),
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+        validators=[MinValueValidator(MIN_DATE)],
     )
     end_date = forms.DateField(
         required=False,
