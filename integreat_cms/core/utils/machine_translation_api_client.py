@@ -94,7 +94,7 @@ class MachineTranslationApiClient(ABC):
         self.failed_because_too_long_text = []
 
     @abstractmethod
-    def invoke_translation_api(self) -> None:
+    def invoke_translation_api(self, translate_asyn: bool = False) -> None:
         """
         Translate all content objects stored in self.queryset.
         Needs to be implemented by subclasses of MachineTranslationApiClient.
@@ -125,12 +125,14 @@ class MachineTranslationApiClient(ABC):
         self,
         queryset: list[Event] | (list[Page] | list[POI]),
         language_slug: str,
+        translate_async: bool = False,
     ) -> None:
         """
         This function translates a content queryset via DeepL
 
         :param queryset: The content QuerySet
         :param language_slug: The target language slug
+        :param translate_async: Whether to use asynchronous translations
         """
         if not queryset:
             return
@@ -164,7 +166,7 @@ class MachineTranslationApiClient(ABC):
         self.filter_exceeds_limit()
 
         # Provider-API-spcific implementation
-        self.invoke_translation_api()
+        self.invoke_translation_api(translate_async)
 
         # Update remaining budget of the region
         region.mt_budget_used += sum(
