@@ -295,7 +295,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
                             },
                             selectedNodeText == text ? selectedNode : selectedHTML
                         );
-                        );
 
                         editor.selection.setNode(link);
                     } else {
