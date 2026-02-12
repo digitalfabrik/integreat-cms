@@ -134,22 +134,16 @@ class TestSendPushNotification:
 
         push_notification = PushNotification.objects.create(
             channel="default",
-            draft=False,
             sent_date=None,
             scheduled_send_date=datetime.now(),
             mode="ONLY_AVAILABLE",
-            is_template=False,
-            template_name=None,
         )
 
         overdue_push_notification = PushNotification.objects.create(
             channel="default",
-            draft=False,
             sent_date=None,
             scheduled_send_date=datetime.now() - timedelta(days=2),
             mode="ONLY_AVAILABLE",
-            is_template=False,
-            template_name=None,
         )
 
         PushNotificationTranslation.objects.create(
@@ -202,24 +196,40 @@ class TestSendPushNotification:
 
         LanguageTreeNode.add_root(language=german_language, region=region)
 
-        push_notification = PushNotification.objects.create(
+        immediate_push_notification = PushNotification.objects.create(
             channel="default",
-            draft=False,
             sent_date=None,
             mode="ONLY_AVAILABLE",
-            is_template=False,
-            template_name=None,
         )
 
         PushNotificationTranslation.objects.create(
             title="Test Push Notification",
             text="Test Push Notification",
-            push_notification=push_notification,
+            push_notification=immediate_push_notification,
             language=german_language,
         )
 
-        push_notification.regions.add(region)
-        push_notification.save()
+        immediate_push_notification.regions.add(region)
+        immediate_push_notification.save()
+
+        scheduled_push_notification = PushNotification.objects.create(
+            channel="default",
+            sent_date=None,
+            scheduled_send_date=datetime.now() - timedelta(hours=1),
+            mode="ONLY_AVAILABLE",
+        )
+
+        PushNotificationTranslation.objects.create(
+            title="Test Push Notification",
+            text="Test Push Notification",
+            push_notification=scheduled_push_notification,
+            language=german_language,
+        )
+
+        scheduled_push_notification.regions.add(region)
+        scheduled_push_notification.save()
+
+        assert region.push_notifications.count() == 2
 
         call_command("send_push_notifications")
 

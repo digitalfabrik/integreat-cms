@@ -41,10 +41,6 @@
             </div>
             {% if perms.cms.change_pushnotification and not is_archived %}
                 <div class="flex flex-wrap gap-4">
-                    <a href="{% url 'push_notifications_templates' region_slug=request.region.slug language_slug=language.slug %}"
-                       class="btn btn-outline">
-                        {% translate "Open Templates" %}
-                    </a>
                     <a href="{% url 'new_push_notification' region_slug=request.region.slug language_slug=language.slug %}"
                        class="btn">
                         {% translate "Create News" %}
@@ -53,11 +49,23 @@
             {% endif %}
         </div>
     </div>
-    <div class="table-listing">
+    <div class="mt-4 table-listing">
         <form id="bulk-action-form" method="post">
             {% csrf_token %}
         </form>
-        <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <div class="px-2 pl-2">
+            <a href="{% if not is_archived %}{% url 'push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% endif %}">
+                <span class="pr-4 {% if not not_sent %}font-bold{% endif %}">
+                    {% trans "All News" %}
+                </span>
+            </a>
+            <a href="{% if not is_archived %}{% url 'push_notifications_not_sent' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications_not_sent' region_slug=request.region.slug language_slug=language.slug %}{% endif %}">
+                <span class="px-4 border-l-2 border-gray-500 {% if not_sent %}font-bold{% endif %}">
+                    {% trans "Not sent" %}
+                </span>
+            </a>
+        </div>
+        <table class="w-full rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
                     <th class="py-3 pl-4 min">

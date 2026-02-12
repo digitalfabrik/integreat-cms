@@ -19,6 +19,8 @@ from django.utils.text import slugify
 from django.views.decorators.csrf import csrf_exempt
 
 from ...cms.forms import PageTranslationForm
+from ...cms.models import Page
+from ...cms.utils.shortcodes import expand_shortcodes
 from ..decorators import json_response, matomo_tracking
 from .offers import transform_offer
 
@@ -32,7 +34,9 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-def transform_page(page_translation: PageTranslation) -> dict[str, Any]:
+def transform_page(
+    page_translation: PageTranslation, context: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """
     Function to create a dict from a single page_translation Object.
 
@@ -82,8 +86,10 @@ def transform_page(page_translation: PageTranslation) -> dict[str, Any]:
         "title": page_translation.title,
         "modified_gmt": page_translation.combined_last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(page_translation.combined_last_updated),
-        "excerpt": strip_tags(page_translation.combined_text),
-        "content": page_translation.combined_text,
+        "excerpt": strip_tags(
+            expand_shortcodes(page_translation.combined_text, context=context)
+        ),
+        "content": expand_shortcodes(page_translation.combined_text, context=context),
         "parent": parent,
         "order": order,
         "available_languages": page_translation.available_languages_dict,
@@ -138,7 +144,17 @@ def pages(
         .cache_tree(archived=False, language_slug=language_slug)
     ):
         if page_translation := page.get_public_translation(language_slug):
-            result.append(transform_page(page_translation))
+            result.append(
+                transform_page(
+                    page_translation,
+                    context={
+                        "region_slug": region_slug,
+                        "language_slug": language_slug,
+                        "content_object": page_translation,
+                        "request": request,
+                    },
+                )
+            )
     return JsonResponse(
         result,
         safe=False,
@@ -227,7 +243,18 @@ def single_page(
     except RuntimeError as e:
         return JsonResponse({"error": str(e)}, status=400)
     if page_translation := page.get_public_translation(language_slug):
-        return JsonResponse(transform_page(page_translation), safe=False)
+        return JsonResponse(
+            transform_page(
+                page_translation,
+                context={
+                    "region_slug": region_slug,
+                    "language_slug": language_slug,
+                    "content_object": page_translation,
+                    "request": request,
+                },
+            ),
+            safe=False,
+        )
 
     raise Http404("No Page matches the given url or id.")
 
@@ -292,9 +319,20 @@ def children(
         )
     )
     result = [
-        transform_page(page.get_public_translation(language_slug))
+        transform_page(
+            page_translation,
+            context={
+                "region_slug": region_slug,
+                "language_slug": language_slug,
+                "content_object": page_translation,
+                "request": request,
+            },
+        )
         for page in pages.values()
         if root_page is None or page.id != root_page.parent_id
+        for page_translation in [
+            page.get_public_translation(language_slug)
+        ]  # just assign the variable instead of calculating it twice
     ]
     return JsonResponse(result, safe=False)
 
@@ -346,7 +384,15 @@ def get_public_ancestor_translations(
         public_translation = ancestor.get_public_translation(language_slug)
         if not public_translation or ancestor.explicitly_archived:
             raise Http404("No Page matches the given url or id.")
-        result.append(transform_page(public_translation))
+        result.append(
+            transform_page(
+                public_translation,
+                context={
+                    "language_slug": language_slug,
+                    "content_object": public_translation,
+                },
+            )
+        )
     return result
 
 

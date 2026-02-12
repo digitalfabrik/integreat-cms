@@ -1,10 +1,12 @@
 import logging
+from collections.abc import Iterable
 from html import unescape
 from urllib.parse import unquote, urlparse
 
 from django.conf import settings
 from django.db.models import Q
 from django.template import loader
+from django.utils.translation import gettext_lazy as _
 from lxml.etree import LxmlError
 from lxml.html import Element, fromstring, HtmlElement, tostring
 
@@ -142,9 +144,14 @@ def update_internal_links(link: HtmlElement, language_slug: str) -> None:
                 link.append(new_html)
 
 
-def render_contact_card(contact_id: int, wanted_details: list[str]) -> HtmlElement:
+def render_contact_card(
+    contact_id: int | str | None, wanted_details: Iterable[str]
+) -> HtmlElement:
     """
     Produces a rendered html element for the contact.
+
+    Any validation of ``contact_id`` is left to djangos :meth:`~django.db.models.Model.objects.get` method,
+    meaning that an input of ``None`` or ``"not a number"`` is just treated as a contact that cannot be found.
 
     :param contact_id: The id of the contact to render the card for
     :param wanted_details: list of details to be shown in the rendered card
@@ -155,11 +162,22 @@ def render_contact_card(contact_id: int, wanted_details: list[str]) -> HtmlEleme
             "contact": Contact.objects.get(pk=contact_id),
             "wanted": wanted_details,
         }
-        raw_element = template.render(context)
-        return fromstring(raw_element)
     except Contact.DoesNotExist:
-        logger.warning("Contact with id=%i does not exist!", contact_id)
-        return fromstring("<div><p></p></div>")
+        logger.warning("Contact with id=%r does not exist!", contact_id)
+        # Provide a "dummy contact"
+        # This is super hacky and barely renders a card,
+        # but makes it obvious to the user that there should be a contact here, but there was an error
+        context = {
+            "contact": {
+                "name": _("Oops! Error displaying contact data"),
+                "absolute_url": f"/{None}/contact/{contact_id}/",
+            },
+            "wanted": ["name"],
+        }
+
+    raw_element = template.render(context)
+    try:
+        return fromstring(raw_element)
     except LxmlError as e:
         logger.debug(
             "Failed to parse rendered HTML for contact card: %r\n→ %s\nEOF",

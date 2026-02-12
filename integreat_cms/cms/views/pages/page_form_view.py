@@ -80,7 +80,6 @@ class PageFormView(
             only_active=True,
         )
 
-        # Get page and translation objects if they exist
         page = (
             region.pages.filter(id=kwargs.get("page_id"))
             .prefetch_translations()
@@ -89,102 +88,24 @@ class PageFormView(
         )
         page_translation = page.get_translation(language.slug) if page else None
 
-        disabled = False
-        if page:
-            # Make form disabled if page is archived
-            if page.explicitly_archived:
-                disabled = True
-                messages.warning(
-                    request,
-                    _("You cannot edit this page because it is archived."),
-                )
-            elif page.implicitly_archived:
-                disabled = True
-                messages.warning(
-                    request,
-                    _(
-                        "You cannot edit this page, because one of its parent pages is archived and therefore, this page is archived as well.",
-                    ),
-                )
-            # If the page is not public, check whether we need additional messages to prevent confusion
-            if page_translation and page_translation.status != status.PUBLIC:
-                # Indicate autosaves and changes pending review
-                if page_translation.status in [status.AUTO_SAVE, status.REVIEW]:
-                    revision_url = reverse(
-                        "page_versions",
-                        kwargs={
-                            "region_slug": region.slug,
-                            "language_slug": language.slug,
-                            "page_id": page.id,
-                        },
-                    )
-                    if page_translation.status == status.AUTO_SAVE:
-                        status_message = _("The last changes were saved automatically.")
-                        action = _("discard")
-                    else:
-                        status_message = _("The latest changes are pending approval.")
-                        action = _("reject")
-                    # If the user has the permission to reject/discard, show another message
-                    if request.user.has_perm("cms.publish_page_object", page):
-                        message = __(
-                            status_message,
-                            _(
-                                "You can {action} these changes in the <a>version overview</a>.",
-                            ).format(action=action),
-                        )
-                        status_message = translate_link(
-                            message,
-                            attributes={
-                                "href": revision_url,
-                                "class": "underline hover:no-underline",
-                            },
-                        )
-                    messages.warning(request, status_message)
-                # Show information if a public translation exists even if the latest version is not public
-                if public_translation := page.get_public_translation(language.slug):
-                    if page_translation.status == status.DRAFT:
-                        messages.warning(
-                            request,
-                            _("The latest changes have only been saved as a draft."),
-                        )
-                    revision_url = reverse(
-                        "page_versions",
-                        kwargs={
-                            "region_slug": region.slug,
-                            "language_slug": language.slug,
-                            "page_id": page.id,
-                            "selected_version": public_translation.version,
-                        },
-                    )
-                    message = _(
-                        "Currently, <a>version {}</a> of this page is displayed in the app.",
-                    ).format(public_translation.version)
-                    messages.info(
-                        request,
-                        translate_link(
-                            message,
-                            attributes={
-                                "href": revision_url,
-                                "class": "underline hover:no-underline",
-                            },
-                        ),
-                    )
+        if page and page_translation and page_translation.status != status.PUBLIC:
+            self.check_autosave_or_pending_review(
+                request,
+                page=page,
+                page_translation=page_translation,
+                region=region,
+                language=language,
+            )
 
-        # Make form disabled if user has no permission to edit the page
-        if not request.user.has_perm("cms.change_page_object", page):
-            disabled = True
-            messages.warning(
+            # Show information if a public translation exists even if the latest version is not public
+            self.handle_public_version_not_latest(
                 request,
-                _("You don't have the permission to edit this page."),
+                page=page,
+                page_translation=page_translation,
+                language=language,
             )
-        # Show warning if user has no permission to publish the page
-        elif not request.user.has_perm("cms.publish_page_object", page):
-            messages.warning(
-                request,
-                _(
-                    "You don't have the permission to publish this page, but you can propose changes and submit them for review instead.",
-                ),
-            )
+
+        disabled = self.check_is_disabled(request, page)
 
         page_form = PageForm(
             instance=page,
@@ -456,6 +377,149 @@ class PageFormView(
             and not page_instance.archived
         )
         return context
+
+    def is_initially_disabled(self, request: HttpRequest, page: Page) -> bool:
+        """
+        Disable forms and show a warning message if the page is archived.
+
+        :param self: Description
+        :param request: Description
+        :type request: HttpRequest
+        :param page: Description
+        :type page: Page
+        """
+        if page and page.explicitly_archived:
+            messages.warning(
+                request,
+                _("You cannot edit this page because it is archived."),
+            )
+            return True
+        if page and page.implicitly_archived:
+            messages.warning(
+                request,
+                _(
+                    "You cannot edit this page, because one of its parent pages is archived and therefore, this page is archived as well.",
+                ),
+            )
+            return True
+        return False
+
+    def has_insufficient_permissions(self, request: HttpRequest, page: Page) -> bool:
+        """
+        Handle permission warnings and determine whether forms should be disabled.
+        """
+        if not request.user.has_perm("cms.change_page_object", page):
+            messages.warning(
+                request,
+                _("You don't have the permission to edit this page."),
+            )
+            return True
+
+        if not request.user.has_perm("cms.publish_page_object", page):
+            messages.warning(
+                request,
+                _(
+                    "You don't have the permission to publish this page, "
+                    "but you can propose changes and submit them for review instead."
+                ),
+            )
+        return False
+
+    def check_is_disabled(self, request: HttpRequest, page: Page) -> bool:
+        """
+        Checks whether the forms should be disabled and shows appropriate warning messages.
+        """
+        return self.is_initially_disabled(
+            request, page
+        ) or self.has_insufficient_permissions(request, page)
+
+    def handle_public_version_not_latest(
+        self,
+        request: HttpRequest,
+        *,
+        page: Page,
+        page_translation: PageTranslation,
+        language: Language,
+    ) -> None:
+        """
+        This informs the user that the currently published version is not the latest version.
+        """
+        public_translation = page.get_public_translation(language.slug)
+
+        if public_translation is None:
+            return
+
+        if page_translation.status == status.DRAFT:
+            messages.warning(
+                request,
+                _("The latest changes have only been saved as a draft."),
+            )
+        revision_url = reverse(
+            "page_versions",
+            kwargs={
+                "region_slug": page.region.slug,
+                "language_slug": language.slug,
+                "page_id": page.id,
+                "selected_version": public_translation.version,
+            },
+        )
+        message = _(
+            "Currently, <a>version {}</a> of this page is displayed in the app.",
+        ).format(public_translation.version)
+        messages.info(
+            request,
+            translate_link(
+                message,
+                attributes={
+                    "href": revision_url,
+                    "class": "underline hover:no-underline",
+                },
+            ),
+        )
+
+    def check_autosave_or_pending_review(
+        self,
+        request: HttpRequest,
+        *,
+        page: Page,
+        page_translation: PageTranslation,
+        region: Region,
+        language: Language,
+    ) -> None:
+        """
+        This informs the user that there is an autosaved version or a version pending review.
+        """
+        if page_translation.status in [status.AUTO_SAVE, status.REVIEW]:
+            revision_url = reverse(
+                "page_versions",
+                kwargs={
+                    "region_slug": region.slug,
+                    "language_slug": language.slug,
+                    "page_id": page.id,
+                },
+            )
+            if page_translation.status == status.AUTO_SAVE:
+                status_message = _("The last changes were saved automatically.")
+                action = _("discard")
+            else:
+                status_message = _("The latest changes are pending approval.")
+                action = _("reject")
+            # If the user has the permission to reject/discard, show another message
+            if request.user.has_perm("cms.publish_page_object", page):
+                message = __(
+                    status_message,
+                    _(
+                        "You can {action} these changes in the <a>version overview</a>.",
+                    ).format(action=action),
+                )
+                status_message = translate_link(
+                    message,
+                    attributes={
+                        "href": revision_url,
+                        "class": "underline hover:no-underline",
+                    },
+                )
+            messages.warning(request, status_message)
 
     def report_conflicting_slug(
         self,

@@ -132,14 +132,25 @@ def celery_translate_and_answer_question(
         return
     zammad_chat.processing_answer = True  # type: ignore[assignment]
     messages = zammad_chat.get_messages(before=message_timestamp, only_user=True)
-    translation, answer = asyncio.run(
-        async_process_user_message(
-            zammad_chat.language.slug,
-            region_slug,
-            region.default_language.slug,
-            messages,
-        ),
-    )
+    try:
+        translation, answer = asyncio.run(
+            async_process_user_message(
+                zammad_chat.language.slug,
+                region_slug,
+                region.default_language.slug,
+                messages,
+            ),
+        )
+    except (
+        aiohttp.client_exceptions.ContentTypeError,
+        aiohttp.client_exceptions.ServerDisconnectedError,
+        aiohttp.client_exceptions.ClientConnectionError,
+    ):
+        logger.exception(
+            "Failed to get response from chat back end due to connection error."
+        )
+        zammad_chat.processing_answer = False
+        return
     zammad_chat.refresh_from_db()
     if translation and translation["translation"] != messages[-1]["content"]:
         zammad_chat.save_message(
@@ -157,7 +168,7 @@ def celery_translate_and_answer_question(
             )
             zammad_chat.save_automatic_answers(answer["automatic_answers"])
             zammad_chat.save_message(
-                message="Used Sources\n<ul>"
+                message=f"Search term: '{answer['rag_message']}'. Used sources:\n<ul>"
                 + "\n".join(
                     [
                         f"<li><a href='{source['source']}'>{source['source'].split('/')[-2]}</a>: {source['reason_inclusion']}</li>"

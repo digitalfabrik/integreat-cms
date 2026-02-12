@@ -55,7 +55,6 @@ class PushNotificationForm(CustomModelForm):
         regions: QuerySet | None = None,
         selected_regions: list[Region] | None = None,
         disabled: bool = False,
-        template: bool = False,
         **kwargs: Any,
     ) -> None:
         r"""
@@ -74,6 +73,8 @@ class PushNotificationForm(CustomModelForm):
             self.fields["schedule_send"].disabled = True
             self.fields["scheduled_send_date_day"].disabled = True
             self.fields["scheduled_send_date_time"].disabled = True
+        if disabled:
+            self.fields["do_not_translate_title"].disabled = True
 
         self.fields["scheduled_send_date_day"].widget.attrs["min"] = str(
             timezone.now().date(),
@@ -97,7 +98,6 @@ class PushNotificationForm(CustomModelForm):
             if obj.status == region_status.ACTIVE or obj in selected_regions
         ]
         self.fields["regions"].initial = selected_regions
-        self.fields["is_template"].initial = template
 
     def clean(self) -> dict[str, Any]:
         """
@@ -126,13 +126,6 @@ class PushNotificationForm(CustomModelForm):
                         localize(localtime(self.instance.sent_date)),
                     ),
                 ),
-            )
-
-        # Check if a template name is set when the message should be used as a template
-        if cleaned_data.get("is_template") and not cleaned_data.get("template_name"):
-            self.add_error(
-                "template_name",
-                forms.ValidationError(_("Please provide a name for your template")),
             )
 
         # Combine the scheduled send day and time into one timezone aware field
@@ -174,8 +167,7 @@ class PushNotificationForm(CustomModelForm):
             "regions",
             "mode",
             "scheduled_send_date",
-            "is_template",
-            "template_name",
+            "do_not_translate_title",
         ]
         widgets = {
             "regions": CheckboxSelectMultiple(),

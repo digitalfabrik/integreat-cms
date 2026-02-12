@@ -1,5 +1,3 @@
-import { Chart } from "chart.js";
-
 type AccessesPerLanguage = {
     [lang: string]: number;
 };
@@ -8,11 +6,10 @@ type AjaxResponse = {
     [id: string]: AccessesPerLanguage;
 };
 
-let chart: Chart | null = null;
-
 let statisticsForm: HTMLFormElement;
 let pageAccessesURL: string;
 let pageAccessesForm: HTMLFormElement;
+let ajaxRequestID: number;
 
 const setAccessBarPerLanguage = (
     accessField: Element,
@@ -45,6 +42,17 @@ const resetTotalAccessesField = (accessFields: HTMLCollectionOf<Element>, isEmpt
     }
 };
 
+const updateAllAccessesField = (accessesField: Element, allAccesses: number) => {
+    const allAccessesField = accessesField;
+    if (allAccesses === 0) {
+        allAccessesField.textContent = `${allAccessesField.getAttribute("data-translation-no-accesses")}`;
+    } else if (allAccesses === 1) {
+        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-singular")}`;
+    } else {
+        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-plural")}`;
+    }
+};
+
 const toggleElementCollection = (elements: HTMLCollectionOf<Element>, show: boolean) => {
     Array.from(elements).forEach((el) => el.classList.toggle("hidden", !show));
 };
@@ -56,84 +64,99 @@ const setDates = () => {
     document.getElementById("date-range-end").innerHTML = new Date(unformattedEndDate).toLocaleDateString();
 };
 
-const getData = async (): Promise<AjaxResponse> => {
+const getVisiblePageIDs = (): string[] => {
+    const pageNodes = document.querySelectorAll(`.page-row`);
+    const visiblePageIDs: string[] = [];
+    pageNodes.forEach((page) => {
+        if (!page.classList.contains("hidden")) {
+            const pageId: string = page.id.split("-")[1];
+            visiblePageIDs.push(pageId);
+        }
+    });
+    return visiblePageIDs;
+};
+
+const getData = async (visibleDatasetSlugs: string[], requestID: number): Promise<[AjaxResponse, number]> => {
     if (!statisticsForm) {
-        return {} as AjaxResponse;
+        return [{} as AjaxResponse, requestID];
     }
+
+    const visiblePageIDs = getVisiblePageIDs();
+
+    const formData = new FormData(statisticsForm);
+    visibleDatasetSlugs.forEach((slug) => formData.append("language_slugs", slug));
+    visiblePageIDs.forEach((pageID) => formData.append("page_ids", pageID));
 
     const parameters: RequestInit = {
         method: "POST",
-        body: new FormData(statisticsForm),
+        body: formData,
     };
 
     const response = await fetch(pageAccessesURL, parameters);
     if (!response.ok) {
         console.error(`Fetch failed with status ${response.status}`);
-        return {} as AjaxResponse;
+        return [{} as AjaxResponse, requestID];
     }
 
     const data: AjaxResponse = await response.json();
-    return data;
+    return [data, requestID];
 };
 
-const getAllSlugsFromData = (data: AjaxResponse): Set<string> => {
-    const languageSlugs: Set<string> = new Set();
+const getCheckedSlugs = (): string[] => {
+    const visibleDatasetSlugs: string[] = [];
+    const languageCheckboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll("[data-language-slug]");
 
-    Object.keys(data).forEach((pageId) => {
-        Object.keys(data[pageId]).forEach((languageSlug) => {
-            languageSlugs.add(languageSlug);
-        });
+    languageCheckboxes.forEach((checkbox: HTMLInputElement) => {
+        if (checkbox.checked) {
+            const slug = checkbox.getAttribute("data-language-slug");
+            visibleDatasetSlugs.push(slug);
+        }
     });
-    return languageSlugs;
+    return visibleDatasetSlugs;
 };
-
-const createLanguageDatasetLookup = (chart: Chart, slugSet: Set<string>): Map<number, string> => {
-    const indexToSlug = new Map<number, string>();
-
-    slugSet.forEach((languageSlug) => {
-        const fullLabel = document
-            .querySelector(`#chart-legend [data-language-slug="${languageSlug}"]`)
-            .getAttribute("data-chart-item");
-        const datasetIndex = chart.data.datasets.findIndex((dataset) => dataset.label === fullLabel);
-        indexToSlug.set(datasetIndex, languageSlug);
-    });
-
-    return indexToSlug;
-};
-
-const getVisibleSlugs = (chart: Chart, indexToSlug: Map<number, string>) =>
-    chart.data.datasets
-        .map((dataset, index) => index)
-        .filter((index) => chart.isDatasetVisible(index))
-        .map((index) => indexToSlug.get(index))
-        .filter((slug) => slug);
 
 const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
-    Object.entries(data).forEach((values) => {
-        const pageId: string = values[0];
-        const accesses: AccessesPerLanguage = values[1];
-        const parentField = document.getElementById(`page-${pageId}`);
+    const pageNodes = document.querySelectorAll(`.page-row`);
+    pageNodes.forEach((parentField) => {
+        const pageId: string = parentField.id.split("-")[1];
+        const accesses: AccessesPerLanguage = data[pageId];
         const accessField = parentField.querySelector(".accesses");
         const allAccessesField = parentField.querySelector(".total-accesses");
+        const accessFieldChildElements = accessField.querySelectorAll(`.accesses span`);
+        const collapseSpan: HTMLSpanElement = parentField.querySelector(".toggle-subpages");
+        let expanded: boolean = false;
 
-        let allAccesses: number = 0;
-        visibleDatasetSlugs.forEach((languageSlug) => {
-            if (accesses[languageSlug]) {
-                allAccesses += accesses[languageSlug];
-            }
-        });
-        if (allAccesses === 0) {
-            allAccessesField.textContent = `${allAccessesField.getAttribute("data-translation-no-accesses")}`;
-        } else if (allAccesses === 1) {
-            allAccessesField.textContent = `${String(allAccesses)} ${allAccessesField.getAttribute("data-translation-singular")}`;
-        } else {
-            allAccessesField.textContent = `${String(allAccesses)} ${allAccessesField.getAttribute("data-translation-plural")}`;
+        if (collapseSpan) {
+            const icon = collapseSpan.querySelector("svg");
+            expanded = icon.classList.contains("lucide-chevron-down");
         }
-        Object.entries(accesses).forEach((accessesForLanguage) => {
-            const languageSlug = accessesForLanguage[0];
-            const accessesOverTime = visibleDatasetSlugs.includes(languageSlug) ? accessesForLanguage[1] : 0;
+
+        let allAccesses: number = accesses ? accesses.total_accesses : 0;
+
+        if (expanded) {
+            const childrenIds: number[] = JSON.parse(collapseSpan.getAttribute("data-page-children"));
+            childrenIds.forEach((childId) => {
+                const childAllAccesses = data[childId] ? data[childId].total_accesses : 0;
+                allAccesses -= childAllAccesses;
+
+                visibleDatasetSlugs.forEach((slug) => {
+                    if (accesses && accesses[slug]) {
+                        const childAccesses = data[childId] && data[childId][slug] ? data[childId][slug] : 0;
+                        accesses[slug] -= childAccesses;
+                    }
+                });
+            });
+        }
+        accessFieldChildElements.forEach((accessFieldSpan) => {
+            const languageSlug = accessFieldSpan.getAttribute("data-language-slug");
+            const accessesOverTime =
+                visibleDatasetSlugs.includes(languageSlug) && accesses && accesses[languageSlug]
+                    ? accesses[languageSlug]
+                    : 0;
             setAccessBarPerLanguage(accessField, languageSlug, accessesOverTime, allAccesses);
         });
+
+        updateAllAccessesField(allAccessesField, allAccesses);
     });
 };
 
@@ -141,8 +164,11 @@ const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
 export const updatePageAccesses = async (): Promise<void> => {
     const pageAccessesLoading = document.getElementById("page-accesses-loading");
     pageAccessesLoading.classList.remove("hidden");
+    setDates();
+    const visibleDatasetSlugs = getCheckedSlugs();
 
-    const data = await getData();
+    ajaxRequestID += 1;
+    const [data, requestID] = await getData(visibleDatasetSlugs, ajaxRequestID);
 
     const isEmpty = Object.keys(data).length === 0;
     const accessFields = document.getElementsByClassName("accesses");
@@ -150,25 +176,18 @@ export const updatePageAccesses = async (): Promise<void> => {
     toggleElementCollection(accessFields, !isEmpty);
     resetTotalAccessesField(accessFields, isEmpty);
 
-    if (!isEmpty) {
-        const accessedSlugs = getAllSlugsFromData(data);
-
-        const indexToAccessedSlugs = createLanguageDatasetLookup(chart, accessedSlugs);
-
-        const visibleDatasetSlugs: string[] = getVisibleSlugs(chart, indexToAccessedSlugs);
-
+    if (!isEmpty && requestID === ajaxRequestID) {
         updateDOM(data, visibleDatasetSlugs);
     }
     pageAccessesLoading.classList.add("hidden");
-    setDates();
 };
 
 export const setPageAccessesEventListeners = () => {
+    ajaxRequestID = 0;
     statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
     pageAccessesForm = document.getElementById("statistics-page-access") as HTMLFormElement;
     if (pageAccessesForm && statisticsForm) {
         pageAccessesURL = pageAccessesForm.getAttribute("data-page-accesses-url");
-        chart = Chart.getChart("statistics");
         updatePageAccesses();
         statisticsForm.addEventListener("submit", async (event: Event) => {
             // Prevent form submit

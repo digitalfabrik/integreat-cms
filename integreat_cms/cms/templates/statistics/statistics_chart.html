@@ -9,7 +9,7 @@
     {% translate "Total accesses" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 bg-white">
+    <div class="flex-wrap lg:col-span-2 2xl:row-span-2 2xl:col-span-3 bg-white">
         <div class="p-5 bg-white text-center">
             <div id="chart-network-error" class="text-red-500 px-4 hidden">
                 <i icon-name="alert-triangle"></i> {% translate "A network error has occurred." %} {% translate "Please try again later." %}
@@ -23,7 +23,7 @@
             <div id="chart-loading" class="px-4 hidden">
                 <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
             </div>
-            <div class="chart-container w-[52vw] h-[60vh]">
+            <div class="chart-container flex-wrap w-full h-[60vh]">
                 <canvas id="statistics"
                         data-statistics-url="{% url 'statistics_visits_per_language' region_slug=request.region.slug %}"></canvas>
             </div>

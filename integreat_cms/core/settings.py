@@ -794,7 +794,7 @@ LOGGING: dict[str, Any] = {
         },
         "celery": {
             "handlers": ["console-service", "logfile"],
-            "level": "INFO" if DEPS_LOG_LEVEL == "DEBUG" else DEPS_LOG_LEVEL,
+            "level": "INFO" if DEPS_LOG_LEVEL == "WARN" else DEPS_LOG_LEVEL,
         },
         "deepl": {
             "handlers": ["console", "logfile"],

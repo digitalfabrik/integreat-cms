@@ -25,12 +25,9 @@ def create_a_pushnotification(region_slug: str) -> tuple[int, int]:
     default_language = Language.objects.get(slug=region.default_language.slug)
     pushnotification = PushNotification.objects.create(
         channel="news",
-        draft=False,
         sent_date=datetime.now() - relativedelta(days=1),
         created_date=datetime.now() - relativedelta(days=1),
         scheduled_send_date=None,
-        is_template=False,
-        template_name=None,
     )
     pushnotification.regions.add(region)
     pushnotification.save()

@@ -1,0 +1,55 @@
+{% extends "../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    feather
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% minor_edit_label request.region language %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div>
+        {% render_field push_notification_translation_form.automatic_translation class+="mutually-exclusive-checkbox" %}
+        <label for="{{ push_notification_translation_form.automatic_translation.id_for_label }}"
+               class="secondary">
+            {{ push_notification_translation_form.automatic_translation.label }}
+        </label>
+        <div class="help-text">
+            {{ push_notification_translation_form.automatic_translation.help_text }}
+        </div>
+        <div id="language-options" class="pl-2 hidden">
+            {% if push_notification_translation_form.mt_translations_to_update.field.queryset.exists %}
+                <label for="{{ push_notification_translation_form.mt_translations_to_update.id_for_label }}"
+                       class="secondary">
+                    {{ push_notification_translation_form.mt_translations_to_update.label }}
+                </label>
+                {% render_field push_notification_translation_form.mt_translations_to_update %}
+            {% endif %}
+            {% if push_notification_translation_form.mt_translations_to_create.field.queryset.exists %}
+                <label for="{{ push_notification_translation_form.mt_translations_to_create.id_for_label }}"
+                       class="secondary">
+                    {{ push_notification_translation_form.mt_translations_to_create.label }}
+                </label>
+                {% render_field push_notification_translation_form.mt_translations_to_create %}
+                <div class="mt-4 font-bold">
+                    <input id="select-all-languages" type="checkbox" />
+                    <label for="select-all-languages">
+                        {% translate "Select all languages" %}
+                    </label>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div>
+        {% render_field push_notification_form.do_not_translate_title %}
+        <label for="{{ push_notification_form.do_not_translate_title.id_for_label }}"
+               class="secondary">
+            {{ push_notification_form.do_not_translate_title.label }}
+        </label>
+        <div class="help-text">
+            {{ push_notification_form.do_not_translate_title.help_text }}
+        </div>
+    </div>
+{% endblock collapsible_box_content %}
