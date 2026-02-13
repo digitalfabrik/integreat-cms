@@ -234,7 +234,7 @@ def auto_complete_address(
     )
 
     if not result:
-        raise Http404(_("Address could not be found"))
+        raise Http404(_("Coordinates could not be found"))
 
     address = result.raw.get("address", {})
     return JsonResponse(
@@ -278,7 +278,7 @@ def get_address_from_coordinates(
     )
 
     if not result:
-        raise Http404(_("Address could not be found"))
+        raise Http404(_("Coordinates could not be found"))
 
     address = result.raw.get("address", {})
 
