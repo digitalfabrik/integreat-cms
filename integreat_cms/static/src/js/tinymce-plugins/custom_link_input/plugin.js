@@ -280,9 +280,23 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     // Either insert a new link or update the existing one
                     const anchor = getAnchor();
                     if (!anchor) {
-                        editor.insertContent(
-                            `<a href=${realUrl}${autoupdate ? ' data-integreat-auto-update="true"' : ""}>${text}</a>`
+                        const selectedNode = editor.selection.getNode();
+                        const selectedNodeText = selectedNode.textContent;
+
+                        let selectedHTML = editor.selection.getContent({ format: "html" });
+                        if (selectedHTML.length === 0) {
+                            selectedHTML = text;
+                        }
+
+                        const link = editor.dom.create(
+                            "a",
+                            {
+                                href: `${realUrl}${autoupdate ? ' data-integreat-auto-update="true"' : ""}`,
+                            },
+                            selectedNodeText == text ? selectedNode : selectedHTML
                         );
+
+                        editor.selection.setNode(link);
                     } else {
                         updateLink(editor, anchor, text, {
                             "href": realUrl,
