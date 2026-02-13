@@ -26,6 +26,7 @@ from linkcheck.models import Link, Url
 from integreat_cms.cms.constants import region_status
 from integreat_cms.cms.models import (
     Contact,
+    Event,
     EventTranslation,
     ImprintPageTranslation,
     Organization,
@@ -213,7 +214,9 @@ def get_link_query(regions: QuerySet[Region]) -> QuerySet:
         .values_list("pk", flat=True),
     )
     latest_eventtranslation_versions = Subquery(
-        EventTranslation.objects.filter(event__region__in=regions)
+        EventTranslation.objects.filter(
+            event__region__in=regions, event__in=Event.objects.filter_upcoming()
+        )
         .distinct("event__id", "language__id")
         .values_list("pk", flat=True),
     )
