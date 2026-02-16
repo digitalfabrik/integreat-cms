@@ -580,7 +580,7 @@ class ShortcodeHandle {
         };
         console.log(`[${this.keyword}]`, this, dialogConfig);
 
-        setTimeout(this.defaultEditDialogRefinement, 0);
+        setTimeout(this.defaultEditDialogRefinement.bind(this), 0);
 
         return this.editor.windowManager.open(dialogConfig);
     }
@@ -716,7 +716,10 @@ class ShortcodeHandle {
         }
     }
 
-    setup(editor: Editor) {
+    setup(editor: Editor): boolean {
+        /* Method to initialize the instance for an editor.
+         * Only if setup() returns true, the shortcode will be enabled.
+         */
         /* default behavior:
          * - menu item to insert shortcode → open dialog
          * - context toolbar with edit and delete
@@ -766,6 +769,8 @@ class ShortcodeHandle {
             scope: "node",
             items: `edit_shortcode_${this.keyword} remove_shortcode_${this.keyword}`,
         });
+
+        return true;
     }
 }
 
@@ -821,8 +826,9 @@ class Registry {
 
     public static setupAll(editor: Editor, parser: Parser) {
         Registry.instance.handles.forEach((value: ShortcodeHandle, key: string) => {
-            value.setup(editor);
-            parser.register(value.renderPreviewNode.bind(value), key, value.endword);
+            if (value.setup(editor)) {
+                parser.register(value.renderPreviewNode.bind(value), key, value.endword);
+            }
         });
         if (this.instance.unknownHandleFactory !== null) {
             parser.setUnknownHandlerFactory((keyword: string) => {

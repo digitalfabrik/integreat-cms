@@ -1,6 +1,8 @@
 /*******************************************
  * JS version of pythons shortcode package *
- * which is licensed under MIT             *
+ * which is licensed under MIT.            *
+ * This ensures that editor and backend    *
+ * behave exactly the same.                *
  *******************************************/
 
 

@@ -3,19 +3,7 @@ import type { ToolbarButtonInstanceApi, ContextFormInstanceApi, ContextFormButto
 import { Editor } from "tinymce";
 import { getCsrfToken } from "../../utils/csrf-token";
 import { stripProtocol } from "../../utils/url-tools";
-
-function evaluateOnceDecorator<T>(fn: ()=>T): ()=>T {
-	let value: T | null = null;
-	// Save whether we computed the value as a separate boolean, in case we ever literally compute null
-	let computed = false;
-	return (): T => {
-		if (!computed) {
-			value = fn();
-			computed = true;
-		}
-		return value;
-	};
-};
+import { evaluateOnceDecorator } from "../../utils/caching-functions";
 
 
 class PageHandle extends ShortcodeHandle {
@@ -324,6 +312,7 @@ class PageHandle extends ShortcodeHandle {
 
 		this.addText = this.tinymceConfig.getAttribute("data-link-dialog-title-text");
 		this.editText = this.tinymceConfig.getAttribute("data-link-dialog-title-text");
+		this.removeText = this.tinymceConfig.getAttribute("data-link-remove-text");
 
 		const baseUrl = this.tinymceConfig.getAttribute("data-base-url");
 		const regionSlug = this.tinymceConfig.getAttribute("data-region-slug");
@@ -331,6 +320,7 @@ class PageHandle extends ShortcodeHandle {
 		this.pageCache = new PageCache(baseUrl, regionSlug, languageSlug);
 
 		//this.populatePageCache();
+		return true;
 	}
 }
 
