@@ -71,6 +71,7 @@ def slugify_ajax(
         "foreign_model": model_type,
         "region": request.region,
         "language": language,
+        "fallback": object_instance.title,  # function is already restricted to handle only objects with title
     }
     unique_slug = generate_unique_slug(**kwargs)
     return JsonResponse({"unique_slug": unique_slug})
