@@ -227,6 +227,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#poi-filters">POI Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#sort-tags">Sort Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#svg-tags">Svg Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#tagifnotempty">Tagifnotempty</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
@@ -828,6 +829,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.sort_tags">Sort Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.svg_tags">Svg Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tagifnotempty">Tagifnotempty</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
@@ -8913,6 +8915,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.PaginationMixin.default_page_size">(integreat_cms.cms.views.mixins.PaginationMixin attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.default_page_size">(integreat_cms.cms.views.pois.poi_list_view.POIListView attribute)</a>
+</li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_PHONE_NUMBER_COUNTRY_CODE">DEFAULT_PHONE_NUMBER_COUNTRY_CODE (in module integreat_cms.core.settings)</a>
 </li>
@@ -11147,6 +11151,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.FilterSortMixin.filter_form_class">(integreat_cms.cms.views.mixins.FilterSortMixin attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.filter_form_class">(integreat_cms.cms.views.pois.poi_list_view.POIListView attribute)</a>
+</li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.filter_insufficient_hix_score">filter_insufficient_hix_score() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
 
@@ -13361,11 +13367,15 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.FilterSortMixin.get_filter_form">(integreat_cms.cms.views.mixins.FilterSortMixin method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.get_filter_form">(integreat_cms.cms.views.pois.poi_list_view.POIListView method)</a>
+</li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.get_filtered_sorted_queryset">get_filtered_sorted_queryset() (integreat_cms.cms.views.contacts.contact_list_view.ContactListView method)</a>
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.FilterSortMixin.get_filtered_sorted_queryset">(integreat_cms.cms.views.mixins.FilterSortMixin method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.get_filtered_sorted_queryset">(integreat_cms.cms.views.pois.poi_list_view.POIListView method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_first_child">get_first_child() (integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
@@ -19909,6 +19919,13 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.cms.templatetags.sort_tags
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.sort_tags">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.cms.templatetags.svg_tags
 
       <ul>
@@ -23612,6 +23629,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.PaginationMixin.max_page_size">(integreat_cms.cms.views.mixins.PaginationMixin attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.max_page_size">(integreat_cms.cms.views.pois.poi_list_view.POIListView attribute)</a>
+</li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.max_retries">max_retries (integreat_cms.summ_ai_api.utils.PatientTaskQueue attribute)</a>
 </li>
@@ -24482,6 +24501,8 @@
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.push_notification_filters">integreat_cms.cms.templatetags.push_notification_filters</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">integreat_cms.cms.templatetags.settings_tags</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.sort_tags">integreat_cms.cms.templatetags.sort_tags</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.svg_tags">integreat_cms.cms.templatetags.svg_tags</a>
 </li>
@@ -27032,6 +27053,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkArchiveView.paginate_queryset">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkArchiveView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkRestoreView.paginate_queryset">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.paginate_queryset">(integreat_cms.cms.views.pois.poi_list_view.POIListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_bulk_actions.ArchivePushNotificationsBulkAction.paginate_queryset">(integreat_cms.cms.views.push_notifications.push_notification_bulk_actions.ArchivePushNotificationsBulkAction method)</a>
 </li>
@@ -30320,6 +30343,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.social_media_headers.render_social_media_headers">render_social_media_headers() (in module integreat_cms.api.v3.social_media_headers)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.sort_tags.render_table_header">render_table_header() (in module integreat_cms.cms.templatetags.sort_tags)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#integreat_cms.cms.views.analytics.app_size_view.AppSizeView.render_to_response">render_to_response() (integreat_cms.cms.views.analytics.app_size_view.AppSizeView method)</a>
 
       <ul>
@@ -30518,6 +30543,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.FilterSortMixin.request">(integreat_cms.cms.views.mixins.FilterSortMixin attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.PaginationMixin.request">(integreat_cms.cms.views.mixins.PaginationMixin attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.request">(integreat_cms.cms.views.pois.poi_list_view.POIListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.request">(integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient attribute)</a>
 </li>
@@ -32420,12 +32447,16 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SOCIAL_PREVIEW_IMAGE">SOCIAL_PREVIEW_IMAGE (in module integreat_cms.core.settings)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.sort_fields">sort_fields (integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.sort_fields">sort_fields (integreat_cms.cms.views.contacts.contact_list_view.ContactListView property)</a>
 
       <ul>
-        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.FilterSortMixin.sort_fields">(integreat_cms.cms.views.mixins.FilterSortMixin attribute)</a>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.FilterSortMixin.sort_fields">(integreat_cms.cms.views.mixins.FilterSortMixin property)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.sort_fields">(integreat_cms.cms.views.pois.poi_list_view.POIListView property)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.sort_tags.sort_link">sort_link() (in module integreat_cms.cms.templatetags.sort_tags)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.content_filters.sort_translation_states">sort_translation_states() (in module integreat_cms.cms.templatetags.content_filters)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.source_language">source_language (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
@@ -32964,6 +32995,14 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.table_fields">table_fields (integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.FilterSortMixin.table_fields">(integreat_cms.cms.views.mixins.FilterSortMixin attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.table_fields">(integreat_cms.cms.views.pois.poi_list_view.POIListView attribute)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.table_of_contents">table_of_contents (integreat_cms.cms.models.languages.language.Language attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.tagifnotempty.tagifnotempty">tagifnotempty() (in module integreat_cms.cms.templatetags.tagifnotempty)</a>
@@ -34022,10 +34061,10 @@
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting_trusted_ip_header">test_api_chat_ratelimiting_trusted_ip_header() (in module tests.api.test_api_chat)</a>
 </li>
-      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_send_message">test_api_chat_send_message() (in module tests.api.test_api_chat)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_send_message">test_api_chat_send_message() (in module tests.api.test_api_chat)</a>
+</li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_set_evaluation_consent">test_api_chat_set_evaluation_consent() (in module tests.api.test_api_chat)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_feedback.test_api_feedback_errors">test_api_feedback_errors() (in module tests.api.test_api_feedback)</a>

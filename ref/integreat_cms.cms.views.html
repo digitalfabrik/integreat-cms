@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-02-16T07:41:45+00:00" />
+    <meta property="article:modified_time" content="2026-02-16T11:49:33+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Views &mdash; integreat-cms 2026.2.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -231,6 +231,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#poi-filters">POI Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#sort-tags">Sort Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#svg-tags">Svg Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#tagifnotempty">Tagifnotempty</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
@@ -832,6 +833,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.sort_tags">Sort Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.svg_tags">Svg Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tagifnotempty">Tagifnotempty</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
@@ -3391,10 +3393,17 @@ This either returns the current <code class="docutils literal notranslate"><span
 Filtering logic is handled by the SearchForm. To add filtering to a view,
 set a <code class="docutils literal notranslate"><span class="pre">filter_form_class`</span> <span class="pre">attribute</span> <span class="pre">(the</span> <span class="pre">``filter_form_class</span></code> should be a child of
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.object_search_form.ObjectSearchForm" title="integreat_cms.cms.forms.object_search_form.ObjectSearchForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectSearchForm</span></code></a>).
-To allow sorting, add a <code class="docutils literal notranslate"><span class="pre">sort_fields</span></code> list attribute to your view.
+To allow sorting, extend the <code class="docutils literal notranslate"><span class="pre">table_fields</span></code> list attribute in your view.
 Note that this mixin is intended for extending Django’s View class (or child classes),
 and expects a <code class="docutils literal notranslate"><span class="pre">self.request</span></code> attribute. Django’s generic View defines the request attribute
 in the dispatch phase.</p>
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/mixins.py#L188"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Extract only sortable field names from table_fields.
+A field is sortable if its first element is not None.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
