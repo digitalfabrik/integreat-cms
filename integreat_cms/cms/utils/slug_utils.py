@@ -27,7 +27,6 @@ if TYPE_CHECKING:
     )
 
     from django.db.models import Manager, QuerySet
-    from django.db.models.query import QuerySet
     from django.forms import ModelForm
     from django.http.request import QueryDict
 
@@ -40,7 +39,6 @@ if TYPE_CHECKING:
 SlugObject = Literal["page", "event", "poi"]
 DEFAULT_OBJECTS: Final[tuple[SlugObject, ...]] = ("event", "poi", "page")
 ALLOWED_OBJECTS = {"event", "poi", "page"}
-    
 
 
 logger = logging.getLogger(__name__)
@@ -178,71 +176,6 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     return unique_slug
 
 
-def update_translations(
-    translations: QuerySet, foreign_attr: Literal["page", "event", "poi"], dry_run: bool
-) -> int:
-    logger.info("Updating slugs in %sTranslations", foreign_attr.capitalize())
-    counter = 0
-    with transaction.atomic():
-        for translation in translations:
-            foreign_obj: AbstractContentModel | None = getattr(
-                translation, foreign_attr, None
-            )
-            if foreign_obj is None:
-                continue
-            region = getattr(foreign_obj, "region", None)
-            if not region:
-                continue
-            old_slug = translation.slug
-            translation.slug = generate_unique_slug(
-                slug=translation.slug,
-                manager=type(translation).objects,
-                object_instance=translation,
-                foreign_model=foreign_attr,
-                foreign_object=foreign_obj,
-                region=region,
-                language=translation.language,
-            )
-            if old_slug != translation.slug:
-                counter += 1
-                if not dry_run:
-                    translation.save()
-    return counter
-
-
-@shared_task()
-def make_all_slugs_unique(
-    objects: tuple[SlugObject, ...] = DEFAULT_OBJECTS,
-    dry_run: bool = False,
-) -> None:
-    logger.info("Starting to make all slugs unique ...")
-    start_time = time()
-
-    slug_counter = 0
-
-    for model_name in objects:
-        translation_model = apps.get_model(
-            "cms", f"{model_name.capitalize()}Translation"
-        )
-        translations = translation_model.objects.all()
-        slug_counter += update_translations(translations, model_name, dry_run)
-
-    end_time = time() - start_time
-    if not dry_run:
-        logger.info(
-            "Finished >make_all_slugs_unique< after: %.3fs with %d updated slugs",
-            end_time,
-            slug_counter,
-        )
-    if dry_run:
-        logger.info(
-            "Finished dry run for >make_all_slugs_unique< after: %.3fs. "
-            "In total %d non-unique slugs were identified. "
-            "Keep in mind that during a real run, "
-            "only a subset of the non-unique slugs will be actually changed in order to make them all unique.",
-            end_time,
-            slug_counter,
-        )
 def handle_logging(
     content_models: list[str],
     foreign_model: str | None,
@@ -341,3 +274,70 @@ def exclude_current_object(
         return qs.exclude(id=object_instance.id)
 
     return qs
+
+
+def update_translations(
+    translations: QuerySet, foreign_attr: Literal["page", "event", "poi"], dry_run: bool
+) -> int:
+    logger.info("Updating slugs in %sTranslations", foreign_attr.capitalize())
+    counter = 0
+    with transaction.atomic():
+        for translation in translations:
+            foreign_obj: AbstractContentModel | None = getattr(
+                translation, foreign_attr, None
+            )
+            if foreign_obj is None:
+                continue
+            region = getattr(foreign_obj, "region", None)
+            if not region:
+                continue
+            old_slug = translation.slug
+            translation.slug = generate_unique_slug(
+                slug=translation.slug,
+                manager=type(translation).objects,
+                object_instance=translation,
+                foreign_model=foreign_attr,
+                foreign_object=foreign_obj,
+                region=region,
+                language=translation.language,
+            )
+            if old_slug != translation.slug:
+                counter += 1
+                if not dry_run:
+                    translation.save()
+    return counter
+
+
+@shared_task()
+def make_all_slugs_unique(
+    objects: tuple[SlugObject, ...] = DEFAULT_OBJECTS,
+    dry_run: bool = False,
+) -> None:
+    logger.info("Starting to make all slugs unique ...")
+    start_time = time()
+
+    slug_counter = 0
+
+    for model_name in objects:
+        translation_model = apps.get_model(
+            "cms", f"{model_name.capitalize()}Translation"
+        )
+        translations = translation_model.objects.all()
+        slug_counter += update_translations(translations, model_name, dry_run)
+
+    end_time = time() - start_time
+    if not dry_run:
+        logger.info(
+            "Finished >make_all_slugs_unique< after: %.3fs with %d updated slugs",
+            end_time,
+            slug_counter,
+        )
+    if dry_run:
+        logger.info(
+            "Finished dry run for >make_all_slugs_unique< after: %.3fs. "
+            "In total %d non-unique slugs were identified. "
+            "Keep in mind that during a real run, "
+            "only a subset of the non-unique slugs will be actually changed in order to make them all unique.",
+            end_time,
+            slug_counter,
+        )
