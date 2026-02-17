@@ -4,6 +4,7 @@ import logging
 from copy import deepcopy
 from html import escape
 from typing import TYPE_CHECKING
+from urllib.parse import unquote
 
 from django.conf import settings
 from django.db import models, transaction
@@ -617,9 +618,22 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         new_translation = self.create_new_version_copy(user)
         logger.debug("Replacing links of %r: %r", new_translation, urls_to_replace)
+
+        # Build a normalized lookup: map decoded URLs to their replacements too
+        # so that percent-encoded URLs in HTML match against decoded dict keys
+        normalized: dict[str, str] = {}
+        for old_url, new_url in urls_to_replace.items():
+            normalized[old_url] = new_url
+            normalized[unquote(old_url)] = new_url
+
+        def resolve_url(content_url: str) -> str:
+            return normalized.get(
+                content_url, normalized.get(unquote(content_url), content_url)
+            )
+
         new_translation.content = rewrite_links(
             new_translation.content,
-            lambda content_url: urls_to_replace.get(content_url, content_url),
+            resolve_url,
         )
         new_translation.content = fix_content_link_encoding(new_translation.content)
         if new_translation.content != self.content and commit:
