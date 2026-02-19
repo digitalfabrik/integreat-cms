@@ -28,6 +28,8 @@ class Language(AbstractBaseModel):
     Data model representing a content language.
     """
 
+    search_fields = ["native_name", "english_name"]
+
     slug = models.SlugField(
         max_length=8,
         unique=True,

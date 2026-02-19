@@ -77,6 +77,8 @@ class User(AbstractUser, AbstractBaseModel):
     A custom User model that replaces the default Django User model
     """
 
+    search_fields = ["username", "first_name", "last_name", "email"]
+
     regions = models.ManyToManyField(
         Region,
         blank=True,

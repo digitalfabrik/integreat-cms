@@ -31,6 +31,8 @@ class Organization(AbstractBaseModel):
     Data model representing an organization
     """
 
+    search_fields = ["name"]
+
     name = models.CharField(max_length=200, verbose_name=_("name"))
     slug = models.SlugField(
         max_length=200,
