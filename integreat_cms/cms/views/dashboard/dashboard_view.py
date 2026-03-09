@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
-from django.db.models import Sum
+from django.db.models import Count, Sum
 from django.http import JsonResponse
 from django.urls import reverse
 from django.utils import translation
@@ -169,6 +169,12 @@ class DashboardView(TemplateView, ChatContextMixin):
             region=self.request.region,
             last_message_timestamp__lte=now - timedelta(days=30),
             last_message_timestamp__gt=now - timedelta(days=60),
+        )
+        chats_by_language = (
+            UserChat.objects.filter(region=self.request.region)
+            .values("language__translated_name")
+            .annotate(count=Count("id"))
+            .order_by("-count")
         )
 
         return {
