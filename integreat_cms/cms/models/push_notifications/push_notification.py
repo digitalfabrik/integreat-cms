@@ -30,6 +30,8 @@ class PushNotification(AbstractBaseModel):
     Data model representing a push notification
     """
 
+    search_fields = ["translations__title"]
+
     regions = models.ManyToManyField(
         Region,
         related_name="push_notifications",

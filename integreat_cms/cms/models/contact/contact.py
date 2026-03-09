@@ -53,6 +53,8 @@ class Contact(AbstractBaseModel):
     Data model representing a contact
     """
 
+    search_fields = ["name", "location__translations__title", "area_of_responsibility"]
+
     area_of_responsibility = TruncatingCharField(
         max_length=200,
         blank=True,

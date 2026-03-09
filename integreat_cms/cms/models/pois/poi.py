@@ -32,6 +32,8 @@ class POI(AbstractContentModel):
     coordinates.
     """
 
+    search_fields = ["translations__title", "translations__slug"]
+
     address = models.CharField(
         max_length=250,
         verbose_name=_("street and house number"),

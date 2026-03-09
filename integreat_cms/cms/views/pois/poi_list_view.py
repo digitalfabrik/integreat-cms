@@ -10,8 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
-from ...forms import ObjectSearchForm
-from ...models import POITranslation
+from ...models import POI, POITranslation
 from ..mixins import FilterSortMixin, MachineTranslationContextMixin, PaginationMixin
 from .poi_context_mixin import POIContextMixin
 
@@ -41,7 +40,7 @@ class POIListView(
     archived = False
     #: The translation model of this list view (used to determine whether machine translations are permitted)
     translation_model = POITranslation
-    filter_form_class = ObjectSearchForm
+    model = POI
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
@@ -88,21 +87,9 @@ class POIListView(
             )
 
         pois = region.pois.filter(archived=self.archived)
-        query = None
+        search_query = request.GET.get("search_query") or None
 
         pois = self.get_filtered_sorted_queryset(pois)
-        search_form = self.filter_form_class(request.GET)
-        if search_form.is_valid():
-            # we have to include additional search results here
-            # because we search the POITranslation model
-            # this currently can't be handled by the FilterSortMixin
-            query = search_form.cleaned_data.get("query")
-            poi_keys = self.translation_model.search(
-                region, language_slug, query
-            ).values("poi__pk")
-            qs = region.pois.filter(pk__in=poi_keys)
-            pois = pois.union(qs)
-
         poi_chunk = self.paginate_queryset(pois)
 
         return render(
@@ -114,20 +101,9 @@ class POIListView(
                 "archived_count": region.pois.filter(archived=True).count(),
                 "language": language,
                 "languages": region.active_languages,
-                "search_query": query,
+                "search_query": search_query,
                 "source_language": region.get_source_language(language.slug),
                 "content_type": "locations",
                 "is_archive": self.archived,
             },
         )
-
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        r"""
-        Apply the query and filter the rendered pois
-
-        :param request: The current request
-        :param \*args: The supplied arguments
-        :param \**kwargs: The supplied keyword arguments
-        :return: The rendered template response
-        """
-        return self.get(request, *args, **kwargs, search_data=request.POST)

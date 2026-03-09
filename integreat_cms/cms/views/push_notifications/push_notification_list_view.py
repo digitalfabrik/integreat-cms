@@ -5,19 +5,14 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
-from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from integreat_cms.cms.models.push_notifications.push_notification import (
-    PushNotification,
-)
-
 from ...decorators import permission_required
-from ...forms import ObjectSearchForm
-from ...models import PushNotificationTranslation
+from ...models import PushNotification
+from ..mixins import FilterSortMixin, PaginationMixin
 
 if TYPE_CHECKING:
     from typing import Any
@@ -30,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_pushnotification"), name="dispatch")
-class PushNotificationListView(TemplateView):
+class PushNotificationListView(TemplateView, FilterSortMixin, PaginationMixin):
     """
     Class that handles HTTP GET requests for listing push notifications
     """
@@ -43,6 +38,7 @@ class PushNotificationListView(TemplateView):
 
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "push_notifications"}
+    model = PushNotification
 
     def count_archived_push_notifications(self, region: Region) -> int:
         """
@@ -111,27 +107,12 @@ class PushNotificationListView(TemplateView):
 
         if self.not_sent:
             push_notifications = push_notifications.filter(sent_date__isnull=True)
-        query = None
+        search_query = request.GET.get("search_query") or None
 
-        search_data = kwargs.get("search_data")
-        search_form = ObjectSearchForm(search_data)
-        if search_form.is_valid():
-            query = search_form.cleaned_data["query"]
-            push_notification_keys = PushNotificationTranslation.search(
-                region,
-                language_slug,
-                query,
-            ).values("push_notification__pk")
-            push_notifications = push_notifications.filter(
-                pk__in=push_notification_keys,
-            )
+        push_notifications = self.get_filtered_sorted_queryset(push_notifications)
+        push_notifications_chunk = self.paginate_queryset(push_notifications)
 
         archived_count = self.count_archived_push_notifications(region)
-        chunk_size = int(request.GET.get("size", settings.PER_PAGE))
-        # for consistent pagination querysets should be ordered
-        paginator = Paginator(push_notifications, chunk_size)
-        chunk = request.GET.get("page")
-        push_notifications_chunk = paginator.get_page(chunk)
         return render(
             request,
             self.template,
@@ -141,20 +122,9 @@ class PushNotificationListView(TemplateView):
                 "language": language,
                 "languages": region.active_languages,
                 "region_slug": region.slug,
-                "search_query": query,
+                "search_query": search_query,
                 "is_archived": self.archived,
                 "archived_count": archived_count,
                 "not_sent": self.not_sent,
             },
         )
-
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        r"""
-        Apply the query and filter the rendered push notifications
-
-        :param request: The current request
-        :param \*args: The supplied arguments
-        :param \**kwargs: The supplied keyword arguments
-        :return: The rendered template response
-        """
-        return self.get(request, *args, **kwargs, search_data=request.POST)

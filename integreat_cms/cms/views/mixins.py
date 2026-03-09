@@ -14,14 +14,13 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 
 from ...core.utils.machine_translation_provider import MachineTranslationProvider
+from ..forms import ObjectSearchForm
 
 if TYPE_CHECKING:
     from typing import Any
 
     from django.core.paginator import Page
     from django.db.models.query import QuerySet
-
-    from ..forms import ObjectSearchForm
 
 
 class RegionPermissionRequiredMixing(UserPassesTestMixin):
@@ -187,10 +186,14 @@ class PaginationMixin:
 
 class FilterSortMixin:
     """
-    Mixin to add filtering and sorting to a view.
+    Mixin to add filtering (by a search query) and sorting to a view.
     Filtering logic is handled by the SearchForm. To add filtering to a view,
-    set a ``filter_form_class` attribute (the ``filter_form_class`` should be a child of
-    :class:`~integreat_cms.cms.forms.object_search_form.ObjectSearchForm`).
+    set a ``model`` attribute (the database model that will be searched) on the view.
+    The model needs to be a searchable model, i.e. there needs to be a
+    ``search_fields`` attribute defined on the model.
+    The filtering logic can be overridden by defining a custom form class
+    (child of ObjectSearchForm) and setting it as ``filter_form_class`` attribute
+    on the view.
     To allow sorting, extend the ``table_fields`` list attribute in your view.
     Note that this mixin is intended for extending Django's View class (or child classes),
     and expects a ``self.request`` attribute. Django's generic View defines the request attribute
@@ -214,9 +217,12 @@ class FilterSortMixin:
         ]
 
     def get_filter_form(self) -> ObjectSearchForm | None:
-        if self.filter_form_class is None:
+        model = getattr(self, "model", None)
+        search_fields = getattr(model, "search_fields", None) if model else None
+        if not search_fields:
             return None
-        return self.filter_form_class(self.request.GET or None)
+        form_class = self.filter_form_class or ObjectSearchForm
+        return form_class(self.request.GET or None, search_fields=search_fields)
 
     def get_filtered_sorted_queryset(self, queryset: QuerySet) -> QuerySet:
         form = self.get_filter_form()
