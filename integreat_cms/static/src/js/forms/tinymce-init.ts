@@ -83,6 +83,7 @@ window.addEventListener("load", () => {
             license_key: "gpl",
             promotion: false,
             deprecation_warnings: false,
+            browser_spellcheck: true,
             menubar: "edit view insert format icon",
             menu: {
                 edit: {
