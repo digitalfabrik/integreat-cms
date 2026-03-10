@@ -94,7 +94,7 @@ def generate_unique_slug_helper(
         "foreign_model": foreign_model,
         "fallback": "name",
     }
-    if foreign_model in ["page", "event", "poi"]:
+    if foreign_model in ALLOWED_OBJECTS:
         kwargs.update(
             {
                 "region": form_object.instance.foreign_object.region,
@@ -125,7 +125,6 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
 
     :return: An unique slug identifier
     """
-    content_models: list[str] = ["page", "event", "poi"]
     slug: str = kwargs.get("slug", "")
     foreign_model: str | None = kwargs.get("foreign_model")
     foreign_object: AbstractContentModel | None = kwargs.get("foreign_object")
@@ -136,13 +135,15 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     language: Language | None = kwargs.get("language")
     manager: Any = kwargs["manager"]
 
-    handle_logging(content_models, foreign_model, region, language, slug)
+    logger.debug("foreign_model: %r", foreign_model)
+    if foreign_model in ALLOWED_OBJECTS:
+        logger.debug("%r, %r", region, language)
+    logger.debug("slug: %r", slug)
 
     base_slug = generate_base_slug(
         slug, fallback, cleaned_data, object_instance, foreign_model
     )
     pre_filtered_objects = get_prefiltered_queryset(
-        content_models,
         manager,
         foreign_model,
         region,
@@ -161,7 +162,6 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
                 object_instance,
                 foreign_model,
                 foreign_object,
-                content_models,
             )
 
         if not other_objects.exists() and not is_reserved_slug(
@@ -174,22 +174,6 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
 
     logger.debug("unique slug: %r", unique_slug)
     return unique_slug
-
-
-def handle_logging(
-    content_models: list[str],
-    foreign_model: str | None,
-    region: Region | None,
-    language: Language | None,
-    slug: str,
-) -> None:
-    """
-    This method handles logging for the slug generation process.
-    """
-    logger.debug("foreign_model: %r", foreign_model)
-    if foreign_model in content_models:
-        logger.debug("%r, %r", region, language)
-    logger.debug("slug: %r", slug)
 
 
 def generate_base_slug(
@@ -218,7 +202,6 @@ def generate_base_slug(
 
 
 def get_prefiltered_queryset(
-    content_models: list[str],
     manager: Any,
     foreign_model: str | None,
     region: Region | None,
@@ -227,7 +210,7 @@ def get_prefiltered_queryset(
     """
     Returns a prefiltered queryset depending on the foreign model, region and language.
     """
-    if foreign_model in content_models:
+    if foreign_model in ALLOWED_OBJECTS:
         return manager.filter(
             **{
                 foreign_model + "__region": region,
@@ -253,7 +236,6 @@ def exclude_current_object(
     object_instance: AbstractBaseModel,
     foreign_model: str | None,
     foreign_object: AbstractContentModel | None,
-    content_models: list[str],
 ) -> QuerySet[T]:
     """
     Excludes the current object from the given queryset to avoid false positives when checking for slug uniqueness.
@@ -263,7 +245,7 @@ def exclude_current_object(
         return qs
 
     if (
-        foreign_model in content_models
+        foreign_model in ALLOWED_OBJECTS
         and (foreign_object or object_instance.foreign_object).id
     ):
         return qs.exclude(
