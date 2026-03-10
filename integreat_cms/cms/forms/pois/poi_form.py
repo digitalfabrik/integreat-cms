@@ -51,6 +51,30 @@ class POIForm(CustomModelForm):
         label=_("Phone number"),
     )
 
+    area_of_responsibility = forms.CharField(
+        max_length=200,
+        label=_("Area of responsibility"),
+        required=False,
+    )
+
+    name = forms.CharField(max_length=200, label=_("Name"), required=False)
+
+    email = forms.EmailField(
+        label=_("Email address"),
+        required=False,
+    )
+    phone_number = forms.CharField(
+        max_length=250,
+        required=False,
+        label=_("Phone number"),
+    )
+    mobile_phone_number = forms.CharField(
+        max_length=250,
+        required=False,
+        label=_("Mobile phone number"),
+    )
+    website = forms.URLField(max_length=250, required=False, label=_("Website"))
+
     class Meta:
         """
         This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
@@ -249,6 +273,23 @@ class POIForm(CustomModelForm):
                         code="required",
                     ),
                 )
+
+        if not cleaned_data.get("area_of_responsibility") and (
+            cleaned_data.get("name")
+            or cleaned_data.get("email")
+            or cleaned_data.get("phone_number")
+            or cleaned_data.get("mobile_phone_number")
+            or cleaned_data.get("website")
+        ):
+            self.add_error(
+                "area_of_responsibility",
+                forms.ValidationError(
+                    _(
+                        "To create a contact, area of responsibility is mandatory.",
+                    ),
+                    code="required",
+                ),
+            )
 
         return cleaned_data
 
