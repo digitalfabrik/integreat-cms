@@ -1,9 +1,5 @@
 /**
  * The functionality to fetch subpages
- *
- * used in:
- * pages_page_tree.html
- * statistics_viewed_pages.html > statistics_overview.html
  */
 
 import { createIconsAt } from "../utils/create-icons";

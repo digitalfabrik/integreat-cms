@@ -1,8 +1,3 @@
-/**
- * used in:
- * offertemplate_form.html (first evenlistener)
- * region_form.html (second event listener)
- */
 window.addEventListener("load", () => {
     const zammadCheckbox = document.querySelector("#id_is_zammad_form") as HTMLInputElement;
     const urlField = document.querySelector("#id_url") as HTMLInputElement;

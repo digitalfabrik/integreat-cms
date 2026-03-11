@@ -1,9 +1,3 @@
-/**
- *
- * used in:
- * _base.html
- */
-
 document.addEventListener("DOMContentLoaded", () => {
     const mobile = document.querySelector("#mobile-menu");
     const sidebar = document.querySelector("#primary-navigation");

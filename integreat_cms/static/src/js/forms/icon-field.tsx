@@ -1,8 +1,5 @@
-/**
+/*
  * This file contains all functions used for the icon field
- *
- * used in:
- * icon_widget.html
  */
 import { render } from "preact";
 import SelectMedia from "../media-management/select-media";

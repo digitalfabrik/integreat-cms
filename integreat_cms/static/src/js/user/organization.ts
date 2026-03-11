@@ -1,9 +1,5 @@
-/**
+/*
  * This file contains the dynamic handling for user organizations
- *
- * used in:
- * user_form.html
- * region_user_form.html
  */
 
 /**

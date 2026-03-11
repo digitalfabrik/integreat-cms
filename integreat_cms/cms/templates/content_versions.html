@@ -1,6 +1,5 @@
 {% extends "_base.html" %}
 {% load i18n %}
-{% load render_bundle from webpack_loader %}
 {% block content %}
     {% load static %}
     {% load widget_tweaks %}
@@ -185,6 +184,3 @@
         </div>
     </form>
 {% endblock content %}
-{% block javascript %}
-    {% render_bundle 'content_versions' 'js' %}
-{% endblock javascript %}

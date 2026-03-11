@@ -1,9 +1,3 @@
-/**
- * used in:
- * admin_feedback_list.html
- * region_feedback_list.html
- * */
-
 window.addEventListener("load", () => {
     document.querySelectorAll("[data-enable-row-checkbox-toggle] tr").forEach((row) =>
         row.addEventListener("click", ({ target }) => {

@@ -1,8 +1,3 @@
-/**
- *
- * used in: ??
- */
-
 const setZammadUrlDisabledState = (zammadWrapper: HTMLElement, zammadUrl: HTMLInputElement) => {
     const checkboxes = zammadWrapper.querySelectorAll('input[type="checkbox"].fake-disable-region');
     if (checkboxes.length) {

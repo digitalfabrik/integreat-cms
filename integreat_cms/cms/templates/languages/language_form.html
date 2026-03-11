@@ -1,7 +1,6 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load content_filters %}
-{% load render_bundle from webpack_loader %}
 {% block content %}
     {% load static %}
     {% load widget_tweaks %}
@@ -239,6 +238,3 @@
     </form>
     {% include "../generic_confirmation_dialog.html" %}
 {% endblock content %}
-{% block javascript %}
-    {% render_bundle 'language_form' 'js' %}
-{% endblock javascript %}

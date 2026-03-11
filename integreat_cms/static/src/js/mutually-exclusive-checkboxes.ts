@@ -1,11 +1,3 @@
-/**
- *
- * used in:
- * minor_edit_box.html (events/pages/pois)  > event_form.html
- *                                          > page_form.html
- *                                          > poi_form.html
- */
-
 const enforceMutualExclusion = (clickedCheckbox: HTMLInputElement) => {
     // ignore disabled checkboxes and allow un-checking of all boxes
     if (clickedCheckbox.disabled || !clickedCheckbox.checked) {

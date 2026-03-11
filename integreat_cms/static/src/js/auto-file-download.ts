@@ -1,7 +1,3 @@
-/**
- *
- * used in: ???
- */
 window.addEventListener("load", () => {
     document.querySelectorAll("[data-auto-download]").forEach((node) => {
         const timeoutDuration = 500;

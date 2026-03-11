@@ -1,18 +1,20 @@
 /**
+ * Provides live search suggestions for list view tables.
  *
- * Module to provide DOM Manipulation functionality for the search input field used in several template's with lists
- * entries (like pages, pois, ...). Especially on the "keyup" event the search suggestions are fetched from the backend.
+ * Attached to the root element via `data-js-search-query`.
+ * Expects the following elements within root:
+ *   - `#table-search-input`      — the text input, with `data-url`, `data-object-type`, and `data-archived` attributes
+ *   - `#table-search-suggestions` — the dropdown list for suggestions
+ *   - `#search-submit-btn`        — the submit button
+ *   - `#search-reset-btn`         — the reset button (optional)
+ *
+ * On each keystroke (debounced 300 ms) a POST request is sent to `data-url`
+ * with the current query. Arrow keys and Enter navigate and select suggestions;
+ * Escape closes the dropdown.
  *
  * @module search-query
- *
  */
-
 import { getCsrfToken } from "../utils/csrf-token";
-
-/**
- * The moduleName used to construct the module's attribute
- */
-export const moduleName = "search-query";
 
 const queryObjects = async (url: string, type: string, queryString: string, archived: boolean, root: HTMLElement) => {
     if (queryString.trim().length === 0) {
@@ -177,7 +179,7 @@ export const setSearchQueryEventListeners = (root: HTMLElement) => {
     });
 };
 
-const init = (root: HTMLElement) => {
+const init: FeatureModuleInit = (root) => {
     setSearchQueryEventListeners(root);
 };
 

@@ -3,10 +3,6 @@ import { refreshAjaxConfirmationHandlers } from "../confirmation-popups";
 import { deleteChatMessage } from "./delete-chat-message";
 /**
  * This file contains the sending function for the author chat
- *
- * used in:
- * _chat_widget.html > admin_dashboard.html
- *                   > dashboard.html
  */
 
 // Function to be executed when chat form is submitted

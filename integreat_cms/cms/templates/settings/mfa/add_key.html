@@ -1,7 +1,6 @@
 {% extends "authentication/_base.html" %}
 {% load i18n %}
 {% load static %}
-{% load render_bundle from webpack_loader %}
 {% load widget_tweaks %}
 {% block heading %}
     {% translate "Add FIDO key" %}
@@ -42,6 +41,3 @@
         </p>
     </div>
 {% endblock content %}
-{% block javascript %}
-    {% render_bundle 'add_key' 'js' %}
-{% endblock javascript %}

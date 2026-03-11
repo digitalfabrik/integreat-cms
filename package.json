@@ -2,10 +2,9 @@
   "private": true,
   "scripts": {
     "docs:frontend": "typedoc && ts-node tools/npm/markOrphan.ts",
-    "generate:registry": "ts-node tools/npm/generateRegistry.ts",
-    "dev": "npm run generate:registry && NODE_ENV=development webpack watch --mode development --color --stats=errors-warnings",
-    "prod": "npm run generate:registry && NODE_ENV=production webpack --mode production",
-    "build": "npm run generate:registry && webpack build",
+    "dev": "NODE_ENV=development webpack watch --mode development --color --stats=errors-warnings",
+    "prod": "NODE_ENV=production webpack --mode production",
+    "build": "webpack build",
     "test": "vitest run",
     "test:watch": "vitest watch"
   },
@@ -15,6 +14,7 @@
     "@babel/plugin-transform-react-jsx": "^7.27.1",
     "@babel/plugin-transform-runtime": "^7.28.3",
     "@babel/preset-env": "^7.28.3",
+    "@types/webpack-env": "^1.18.5",
     "@tailwindcss/forms": "^0.5.7",
     "@types/dropzone": "^5.7.8",
     "@types/tinymce": "^4.6.9",

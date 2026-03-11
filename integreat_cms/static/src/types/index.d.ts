@@ -1,3 +1,5 @@
+type FeatureModuleInit = (root: HTMLElement) => void | Promise<void>;
+
 declare module "*.svg" {
     const content: any;
     export default content;

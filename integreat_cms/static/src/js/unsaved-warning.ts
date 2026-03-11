@@ -1,9 +1,6 @@
 /**
  * This file contains a function to warn the user when they leave a content without saving
- *
- * used in:
- * more than 20 templates
- * */
+ */
 
 let dirty = false;
 

@@ -1,14 +1,6 @@
-/**
- * this file updates the permalink of the current page form
- * when the user edited the page translations title
- * or when the user clicks the permalinks edit button
- *
- * used in:
- * event_form.html
- * imprint_form.html
- * page_form.html
- * poi_form.html
- * */
+/* this file updates the permalink of the current page form
+when the user edited the page translations title
+or when the user clicks the permalinks edit button */
 
 import { getCsrfToken } from "../utils/csrf-token";
 import { copyToClipboard } from "../copy-clipboard";
@@ -32,7 +24,7 @@ window.addEventListener("load", () => {
     let currentSlug: string;
     /* slug field to be updated */
     const titleField = document.querySelector("#id_title") as HTMLInputElement;
-    let oldTitle = titleField.value;
+    let oldTitle = titleField ? titleField.value : "";
     const slugField = <HTMLInputElement>document.getElementById("id_slug");
     const linkContainer = document.getElementById("link-container");
 
