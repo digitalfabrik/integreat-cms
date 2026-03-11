@@ -84,7 +84,7 @@ class EventFilterForm(CustomFilterForm):
 
     poi_id = forms.IntegerField(widget=forms.HiddenInput, initial=-1, required=False)
 
-    query = forms.CharField(required=False)
+    search_query = forms.CharField(required=False)
 
     status = forms.ChoiceField(
         label=_("Publication status"),
@@ -218,7 +218,7 @@ class EventFilterForm(CustomFilterForm):
         :param events: The unsearched events
         :return events: The searched events
         """
-        if query := self.cleaned_data["query"]:
+        if query := self.cleaned_data["search_query"]:
             event_ids = EventTranslation.search(
                 self.region, self.language_slug, query
             ).values(
