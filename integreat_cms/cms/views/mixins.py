@@ -237,5 +237,7 @@ class FilterSortMixin:
         if order_by:
             # queryset.order_by([]) would override default ordering and result in an unordered queryset
             # so we only use order_by if "sort" is not empty
-            return queryset.order_by(*order_by)
+            queryset = queryset.order_by(*order_by)
+            if any("__" in f.lstrip("-") for f in order_by):
+                queryset = queryset.distinct()
         return queryset
