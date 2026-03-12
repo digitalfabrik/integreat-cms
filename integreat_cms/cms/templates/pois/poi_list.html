@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load rules %}
 {% load static %}
+{% load sort_tags %}
 {% load content_filters %}
 {% block content %}
     {% get_current_language as LANGUAGE_CODE %}
@@ -62,14 +63,19 @@
         </form>
         <table class="w-full mt-4 rounded border border-gray-200 shadow bg-white">
             <thead>
+                {% translate "Street" as street_label %}
+                {% translate "Postal Code" as postcode_label %}
+                {% translate "City" as city_label %}
+                {% translate "Country" as country_label %}
+                {% translate "Category" as category_label %}
                 <tr class="border-b border-gray-200">
                     <th class="py-3 pl-4 pr-2 min">
                         {% if perms.cms.change_poi %}
                             <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
                         {% endif %}
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Title in" %} {{ language.translated_name }}
+                    <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
+                        {% sort_link title_label "translations__title" %}
                     </th>
                     {% if backend_language and backend_language != language %}
                         <th class="text-sm text-left uppercase py-3 pr-2">
@@ -93,20 +99,20 @@
                     <th class="text-sm text-left uppercase py-3 pr-2">
                         {% translate "Publication status" %}
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Street" %}
+                    <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
+                        {% sort_link street_label "address" %}
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Postal Code" %}
+                    <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
+                        {% sort_link postcode_label "postcode" %}
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "City" %}
+                    <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
+                        {% sort_link city_label "city" %}
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Country" %}
+                    <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
+                        {% sort_link country_label "country" %}
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Category" %}
+                    <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
+                        {% sort_link category_label "category" %}
                     </th>
                     <th class="text-sm text-right uppercase py-3 pr-4 min">
                         {% translate "Options" %}
