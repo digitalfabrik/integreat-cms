@@ -115,6 +115,20 @@ module.exports = {
     },
     overrides: [
         {
+            files: ["**/js/feature/**/*.ts"],
+            rules: {
+                "no-restricted-syntax": [
+                    "error",
+                    {
+                        selector:
+                            "CallExpression[callee.object.name='document'][callee.property.name=/^(querySelector|querySelectorAll|getElementById|getElementsByClassName|getElementsByTagName)$/]",
+                        message:
+                            "Feature modules must not query the document directly. Use the root element passed to your init function instead.",
+                    },
+                ],
+            },
+        },
+        {
             files: ["*.js"],
             parser: "espree",
             parserOptions: {
