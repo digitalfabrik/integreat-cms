@@ -5,24 +5,24 @@ This module contains views of the social media headers API endpoint.
 from __future__ import annotations
 
 import logging
-import re
 from functools import wraps
-from html import unescape
 from typing import TYPE_CHECKING
 from urllib.parse import unquote
 
 from django.conf import settings
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
-from django.utils.html import strip_tags
 
 from ...cms.models.languages.language import Language
-from ...cms.models.push_notifications.push_notification_translation import (
-    PushNotificationTranslation,
-)
 from ...cms.utils.internal_link_utils import (
     get_public_translation_for_webapp_link_parts,
 )
+from ...cms.utils.social_media_utils import (
+    get_excerpt,
+    get_region_title,
+    render_social_media_headers,
+)
+from ...news_managers import registry
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -35,43 +35,7 @@ if TYPE_CHECKING:
         JsonResponse,
     )
 
-    from ...cms.models.regions.region import Region
-
 logger = logging.getLogger(__name__)
-
-
-def get_excerpt(content: str) -> str:
-    """
-    Correctly escapes, truncates and normalizes the content of the page to display in a search result.
-
-    :param content: The content of the page
-
-    :return: A page excerpt containing the first 100 characters of "raw" content
-    """
-    stripped_content = re.sub(
-        r"\s+",
-        " ",
-        unescape(
-            strip_tags(
-                content.replace("\n", " ").replace("\r", "").replace("<br>", " ")
-            )
-        ),
-    ).strip()
-    if len(stripped_content) <= 100:
-        return stripped_content
-    return stripped_content[:100].rsplit(" ", 1)[0] + " …"
-
-
-def get_region_title(region: Region, page_title: str) -> str:
-    """
-    Constructs in a unified format the page title of a page in a region.
-
-    :param region: The region where the page resides in
-    :param page_title: The title of the page
-
-    :return: The constructed page title
-    """
-    return f"{page_title} - {region.name} | {settings.BRANDING_TITLE}"
 
 
 def site_url(request: HttpRequest) -> str:
@@ -123,37 +87,6 @@ def partial_html_response(function: Callable) -> Callable:
             )
 
     return wrap
-
-
-def render_social_media_headers(
-    request: HttpRequest,
-    title: str,
-    language_code: str,
-    excerpt: str | None,
-    url: str,
-) -> HttpResponse:
-    """
-    Renders the social media headers with the specified arguments
-
-    :param request: The current request
-    :param title: The title of the page in the social media headers
-    :param language_code: The language of the requested resource
-    :param excerpt: An optional excerpt describing the content of the page. If omitted google, will automatically crawl an excerpt
-    :param url: The url the headers belong to
-
-    :return: HTML social meta headers required by social media platforms
-    """
-    return render(
-        request,
-        "social_media_headers.html",
-        {
-            "title": title,
-            "excerpt": excerpt,
-            "url": url,
-            "image": f"{settings.BASE_URL}/{settings.SOCIAL_PREVIEW_IMAGE}",
-            "language_code": language_code,
-        },
-    )
 
 
 def render_error_headers(request: HttpRequest, error: str) -> HttpResponse:
@@ -315,35 +248,29 @@ def news_social_media_headers(
     region_slug: str,
     language_slug: str,
     slug: str,
+    news_type: str,
 ) -> HttpResponse:
     """
     Tries rendering the social media headers for a news page in a specified region and language.
 
     :param request: The current request
-    :param language_slug: The language slug of the language, which the push notification belongs to
-    :param slug: The news specific slug of the news route e.g. /local/<slug>
+    :param language_slug: The language slug of the language, which the news item belongs to
+    :param slug: The news-source-specific identifier of the news item (e.g. /news/<news_type>/<slug>/)
+    :param news_type: The :attr:`~integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.name` of the news source the slug refers to (e.g. ``"local"``, ``"tuNews"``)
 
     :return: HTML social meta headers required by social media platforms if the news page exists
     """
     region = request.region
     language = region.get_language_or_404(language_slug, only_active=True)
 
-    if not (
-        pn_translation := PushNotificationTranslation.objects.filter(
-            language__slug=language.slug,
-            push_notification__id=slug,
-            push_notification__regions=region,
-        ).first()
-    ):
-        raise Http404("Push Notification not found in this region with this language.")
-
-    return render_social_media_headers(
-        request=request,
-        title=get_region_title(region, pn_translation.get_title()),
-        language_code=language.bcp47_tag,
-        excerpt=get_excerpt(pn_translation.get_text()),
-        url=f"{settings.WEBAPP_URL}{pn_translation.get_absolute_url()}",
+    news_manager = next(
+        (manager for manager in registry.CHOICES if manager.name == news_type), None
     )
+
+    if not news_manager:
+        raise Http404("Invalid news type is given.")
+
+    return news_manager.social_media_headers(request, region, language, slug)
 
 
 @partial_html_response
