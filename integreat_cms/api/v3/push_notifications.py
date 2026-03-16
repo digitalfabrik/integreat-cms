@@ -4,6 +4,7 @@ This module includes functions related to the push notification that are sent vi
 
 from __future__ import annotations
 
+import json
 from typing import TYPE_CHECKING
 
 from django.conf import settings
@@ -141,6 +142,10 @@ def transform_tue_news(news: NewsItem) -> dict[str, Any]:
     :param pnt: A push notification translation
     :return: data necessary for API
     """
+    available_languages_dict = {
+        language_slug: {"id": post_id}
+        for language_slug, post_id in json.loads(str(news.translations)).items()
+    }
     return {
         "id": news.pk,
         "title": news.title,
@@ -149,5 +154,5 @@ def transform_tue_news(news: NewsItem) -> dict[str, Any]:
         "last_updated": news.pub_date,
         "display_date": news.pub_date,
         "channel": news.newscategory.name,
-        "available_languages": {news.language.code: {"id": news.pk}},
+        "available_languages": available_languages_dict,
     }

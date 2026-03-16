@@ -129,6 +129,14 @@ class Migration(migrations.Migration):
                         verbose_name="WP Post ID",
                     ),
                 ),
+                (
+                    "translations",
+                    models.JSONField(
+                        blank=True,
+                        null=True,
+                        verbose_name="Übersetzungen",
+                    ),
+                ),
             ],
             options={
                 "verbose_name": "Nachricht",

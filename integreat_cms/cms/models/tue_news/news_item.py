@@ -16,6 +16,7 @@ class NewsItem(models.Model):
     newscategory = models.ManyToManyField(NewsCategory)
     language = models.ForeignKey(NewsLanguage, on_delete=models.CASCADE)
     wppostid = models.IntegerField("WP Post ID", null=True, unique=True)
+    translations = models.JSONField("Übersetzungen", null=True, blank=True)
 
     class Meta:
         verbose_name = "Nachricht"

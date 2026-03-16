@@ -1,3 +1,4 @@
+import json
 import logging
 from typing import Any
 
@@ -48,6 +49,7 @@ class Command(BaseCommand):
                     pub_date=post["date"] + "+00:00",
                     language=language,
                     wppostid=post["id"],
+                    translations=json.dumps(post["translations"]),
                 )
                 newsitem.save()
                 logger.info("Saving %s", newsitem)
