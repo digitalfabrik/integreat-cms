@@ -11,13 +11,17 @@ const addOrphan = (file: fs.PathOrFileDescriptor) => {
     }
 };
 
-const walkFiles = (dir: string) => {
-    for (const fileName of fs.readdirSync(dir)) {
-        const fullPath = path.join(dir, fileName);
-        if (fs.statSync(fullPath).isDirectory()) {
-            walkFiles(fullPath);
-        } else if (fullPath.endsWith(".md") && fullPath !== path.join(docsDir, mainFile)) {
-            addOrphan(fullPath);
+const mainPath = path.join(docsDir, mainFile);
+
+const isOrphanCandidate = (fullPath: string) =>
+    fs.statSync(fullPath).isFile() && fullPath.endsWith(".md") && fullPath !== mainPath;
+
+const walkFiles = (fullPath: string) => {
+    if (isOrphanCandidate(fullPath)) {
+        addOrphan(fullPath);
+    } else if (fs.statSync(fullPath).isDirectory()) {
+        for (const fileName of fs.readdirSync(fullPath)) {
+            walkFiles(path.join(fullPath, fileName));
         }
     }
 };

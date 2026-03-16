@@ -171,8 +171,8 @@ export const bootstrapModules = async (root: ParentNode = document) => {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
+    bootstrapModules();
     createIconsAt(document.documentElement);
     const event = new Event("icon-load");
     window.dispatchEvent(event);
-    bootstrapModules();
 });
