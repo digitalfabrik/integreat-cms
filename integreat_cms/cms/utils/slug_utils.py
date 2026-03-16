@@ -13,6 +13,7 @@ from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.db.models import Exists, OuterRef
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
@@ -304,8 +305,21 @@ def make_all_slugs_unique(
         translation_model = apps.get_model(
             "cms", f"{model_name.capitalize()}Translation"
         )
-        translations = translation_model.objects.all()
-        slug_counter += update_translations(translations, model_name, dry_run)
+
+        other_with_same_slug = translation_model.objects.filter(
+            slug=OuterRef("slug"),
+            language=OuterRef("language"),
+            **{f"{model_name}__region": OuterRef(f"{model_name}__region")},
+        ).exclude(**{f"{model_name}": OuterRef(model_name)})
+        not_unique = translation_model.objects.filter(
+            Exists(other_with_same_slug)
+        ).select_related(model_name, f"{model_name}__region", "language")
+
+        slug_counter += update_translations(
+            not_unique,
+            model_name,
+            dry_run,
+        )
 
     end_time = time() - start_time
     if not dry_run:
