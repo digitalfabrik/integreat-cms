@@ -32,7 +32,9 @@ def sort_link(context: RequestContext, label: str, field: str) -> str:
 
     url = f"?{urlencode(params, doseq=True)}"
 
-    return mark_safe(f'<a href="{url}" class="hover:underline">{escape(label)}{arrow}</a>')
+    return mark_safe(
+        f'<a href="{url}" class="hover:underline">{escape(label)}{arrow}</a>'
+    )
 
 
 @register.inclusion_tag("_sortable_table_header.html", takes_context=True)
