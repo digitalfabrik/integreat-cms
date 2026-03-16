@@ -37,7 +37,7 @@ from .v3.pages import (
     single_page,
 )
 from .v3.pdf_export import pdf_export
-from .v3.push_notifications import sent_push_notifications
+from .v3.push_notifications import all_news, sent_push_notifications
 from .v3.regions import region_by_slug, regions
 from .v3.social_media_headers import (
     event_social_media_headers,
@@ -70,6 +70,11 @@ content_api_urlpatterns: list[URLPattern] = [
         "fcm/",
         sent_push_notifications,
         name="sent_push_notifications",
+    ),
+    path(
+        "all-news/",
+        all_news,
+        name="all_news",
     ),
     path("imprint/", imprint, name="imprint"),
     path("disclaimer/", imprint, name="imprint"),
