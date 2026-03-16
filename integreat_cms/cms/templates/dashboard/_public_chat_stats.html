@@ -23,6 +23,20 @@
         <li>
             {% translate "Total chats" %}: {{ chats_total }}, {% translate "Total used budget" %}: {{ chats_total_budget }}
         </li>
+        <li>
+            {% translate "Total chats by language" %}:
+            <ul>
+                {% for entry in chats_by_language %}
+                    <li>
+                        {{ entry.language__translated_name }}: {{ entry.count }}
+                    </li>
+                {% empty %}
+                    <li>
+                        {% translate "No data available" %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
     </ul>
     <p>
         <strong>{% translate "Note:" %}</strong> {% blocktranslate %}1 word = {{ budget_weight }} budget points.{% endblocktranslate %}
