@@ -42,6 +42,17 @@ const resetTotalAccessesField = (accessFields: HTMLCollectionOf<Element>, isEmpt
     }
 };
 
+const updateAllAccessesField = (accessesField: Element, allAccesses: number) => {
+    const allAccessesField = accessesField;
+    if (allAccesses === 0) {
+        allAccessesField.textContent = `${allAccessesField.getAttribute("data-translation-no-accesses")}`;
+    } else if (allAccesses === 1) {
+        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-singular")}`;
+    } else {
+        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-plural")}`;
+    }
+};
+
 const toggleElementCollection = (elements: HTMLCollectionOf<Element>, show: boolean) => {
     Array.from(elements).forEach((el) => el.classList.toggle("hidden", !show));
 };
@@ -53,13 +64,28 @@ const setDates = () => {
     document.getElementById("date-range-end").innerHTML = new Date(unformattedEndDate).toLocaleDateString();
 };
 
+const getVisiblePageIDs = (): string[] => {
+    const pageNodes = document.querySelectorAll(`.page-row`);
+    const visiblePageIDs: string[] = [];
+    pageNodes.forEach((page) => {
+        if (!page.classList.contains("hidden")) {
+            const pageId: string = page.id.split("-")[1];
+            visiblePageIDs.push(pageId);
+        }
+    });
+    return visiblePageIDs;
+};
+
 const getData = async (visibleDatasetSlugs: string[], requestID: number): Promise<[AjaxResponse, number]> => {
     if (!statisticsForm) {
         return [{} as AjaxResponse, requestID];
     }
 
+    const visiblePageIDs = getVisiblePageIDs();
+
     const formData = new FormData(statisticsForm);
     visibleDatasetSlugs.forEach((slug) => formData.append("language_slugs", slug));
+    visiblePageIDs.forEach((pageID) => formData.append("page_ids", pageID));
 
     const parameters: RequestInit = {
         method: "POST",
@@ -97,28 +123,40 @@ const updateDOM = (data: AjaxResponse, visibleDatasetSlugs: string[]) => {
         const accessField = parentField.querySelector(".accesses");
         const allAccessesField = parentField.querySelector(".total-accesses");
         const accessFieldChildElements = accessField.querySelectorAll(`.accesses span`);
+        const collapseSpan: HTMLSpanElement = parentField.querySelector(".toggle-subpages");
+        let expanded: boolean = false;
 
-        let allAccesses: number = 0;
-        visibleDatasetSlugs?.forEach((languageSlug) => {
-            if (accesses && accesses[languageSlug]) {
-                allAccesses += accesses[languageSlug];
-            }
-        });
-        if (allAccesses === 0) {
-            allAccessesField.textContent = `${allAccessesField.getAttribute("data-translation-no-accesses")}`;
-        } else if (allAccesses === 1) {
-            allAccessesField.textContent = `${String(allAccesses)} ${allAccessesField.getAttribute("data-translation-singular")}`;
-        } else {
-            allAccessesField.textContent = `${String(allAccesses)} ${allAccessesField.getAttribute("data-translation-plural")}`;
+        if (collapseSpan) {
+            const icon = collapseSpan.querySelector("svg");
+            expanded = icon.classList.contains("lucide-chevron-down");
         }
-        accessFieldChildElements.forEach((child) => {
-            const languageSlug = child.getAttribute("data-language-slug");
+
+        let allAccesses: number = accesses ? accesses.total_accesses : 0;
+
+        if (expanded) {
+            const childrenIds: number[] = JSON.parse(collapseSpan.getAttribute("data-page-children"));
+            childrenIds.forEach((childId) => {
+                const childAllAccesses = data[childId] ? data[childId].total_accesses : 0;
+                allAccesses -= childAllAccesses;
+
+                visibleDatasetSlugs.forEach((slug) => {
+                    if (accesses && accesses[slug]) {
+                        const childAccesses = data[childId] && data[childId][slug] ? data[childId][slug] : 0;
+                        accesses[slug] -= childAccesses;
+                    }
+                });
+            });
+        }
+        accessFieldChildElements.forEach((accessFieldSpan) => {
+            const languageSlug = accessFieldSpan.getAttribute("data-language-slug");
             const accessesOverTime =
                 visibleDatasetSlugs.includes(languageSlug) && accesses && accesses[languageSlug]
                     ? accesses[languageSlug]
                     : 0;
             setAccessBarPerLanguage(accessField, languageSlug, accessesOverTime, allAccesses);
         });
+
+        updateAllAccessesField(allAccessesField, allAccesses);
     });
 };
 

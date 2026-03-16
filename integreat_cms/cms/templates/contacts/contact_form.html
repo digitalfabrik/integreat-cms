@@ -93,11 +93,13 @@
                                         <label for="{{ contact_form.opening_hours.id_for_label }}">
                                             {{ contact_form.opening_hours.label }}
                                         </label>
-                                        {% render_field contact_form.use_location_opening_hours %}
-                                        <label class="font-medium text-base"
-                                               for="{{ contact_form.use_location_opening_hours.id_for_label }}">
-                                            {{ contact_form.use_location_opening_hours.label }}
-                                        </label>
+                                        <div class="flex">
+                                            {% render_field contact_form.use_location_opening_hours class+=" mt-1" %}
+                                            <label class="font-medium text-base my-0"
+                                                   for="{{ contact_form.use_location_opening_hours.id_for_label }}">
+                                                {{ contact_form.use_location_opening_hours.label }}
+                                            </label>
+                                        </div>
                                     </p>
                                     <opening-hours-widget></opening-hours-widget>
                                     {{ opening_hour_config_data|json_script:"openingHourConfigData" }}

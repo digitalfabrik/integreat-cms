@@ -12,7 +12,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from integreat_cms.cms.constants import language_color
+from integreat_cms.cms.constants import language_color, status
 
 from ...decorators import permission_required
 from ...forms import StatisticsFilterForm
@@ -66,9 +66,12 @@ class AnalyticsView(TemplateView):
 
         # Cache tree structure to reduce database queries
         pages = (
-            page_queryset.prefetch_major_translations()
+            page_queryset.prefetch_translations(
+                to_attr="prefetched_not_draft_translations",
+                status__in=[status.PUBLIC],
+            )
             .prefetch_related("mirroring_pages")
-            .cache_tree(archived=False)
+            .cache_tree(archived=False, language_slug=default_language.slug)
         )
 
         show_page_based_statistics = (

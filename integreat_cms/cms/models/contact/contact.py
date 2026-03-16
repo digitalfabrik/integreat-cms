@@ -93,7 +93,7 @@ class Contact(AbstractBaseModel, SearchSuggestMixin):
     opening_hours = models.JSONField(
         null=True,
         blank=True,
-        verbose_name=_("opening hours"),
+        verbose_name=_("office hours"),
     )
     last_updated = models.DateTimeField(
         auto_now=True,
@@ -422,6 +422,9 @@ class Contact(AbstractBaseModel, SearchSuggestMixin):
 
         if self.website:
             details["website"] = _("show website")
+
+        if self.opening_hours:
+            details["opening_hours"] = _("show office hours")
 
         return details
 

@@ -1869,7 +1869,7 @@ msgstr ""
 "01234567."
 
 #: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
-#: cms/templates/contacts/contact_list.html
+#: cms/views/contacts/contact_list_view.py
 msgid "Phone number"
 msgstr "Telefonnummer"
 
@@ -1878,8 +1878,8 @@ msgid "Mobile Phone number"
 msgstr "Mobiltelefonnummer"
 
 #: cms/forms/contacts/contact_form.py
-msgid "Adopt opening hours from linked location"
-msgstr "Öffnungszeiten aus dem hinterlegten Ort übernehmen"
+msgid "Adopt opening hours from linked location as office hours"
+msgstr "Öffnungszeiten aus dem hinterlegten Ort als Sprechzeiten übernehmen"
 
 #: cms/forms/contacts/contact_form.py
 msgid "Location cannot be empty."
@@ -1889,9 +1889,9 @@ msgstr "Ort darf nicht leer sein."
 msgid "An archived location cannot be used for contacts."
 msgstr "Ein archivierter Ort kann nicht für Kontakte verwendet werden."
 
-#: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
-msgid "An error occurred while saving the opening hours."
-msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
+#: cms/forms/contacts/contact_form.py
+msgid "An error occurred while saving the office hours."
+msgstr "Beim Speichern der Sprechzeiten ist ein Fehler aufgetreten."
 
 #: cms/forms/contacts/contact_form.py cms/forms/pois/poi_form.py
 msgid "Please contact an administrator."
@@ -1978,11 +1978,11 @@ msgstr "Start-Datum"
 msgid "end date"
 msgstr "End-Datum"
 
-#: cms/forms/events/event_form.py
+#: cms/forms/events/event_form.py cms/views/utils/opening_hour.py
 msgid "start time"
 msgstr "Start-Uhrzeit"
 
-#: cms/forms/events/event_form.py
+#: cms/forms/events/event_form.py cms/views/utils/opening_hour.py
 msgid "end time"
 msgstr "End-Uhrzeit"
 
@@ -2256,14 +2256,37 @@ msgstr "Übersetzung auf {}"
 msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
 
-#: cms/forms/pois/poi_form.py cms/templates/contacts/contact_list.html
+#: cms/forms/pois/poi_form.py
 #: cms/templates/organizations/organization_list.html
+#: cms/views/contacts/contact_list_view.py
 msgid "Website"
 msgstr "Webseite"
 
 #: cms/forms/pois/poi_form.py
 msgid "Email address"
 msgstr "E-Mail-Adresse"
+
+#: cms/forms/pois/poi_form.py cms/views/contacts/contact_list_view.py
+msgid "Area of responsibility"
+msgstr "Zuständigkeitsbereich"
+
+#: cms/forms/pois/poi_form.py cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_form.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/poicategories/poicategory_list.html
+#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
+#: cms/views/contacts/contact_list_view.py
+msgid "Name"
+msgstr "Name"
+
+#: cms/forms/pois/poi_form.py cms/views/contacts/contact_list_view.py
+msgid "Mobile phone number"
+msgstr "Mobiltelefonnummer"
+
+#: cms/forms/pois/poi_form.py
+msgid "An error occurred while saving the opening hours."
+msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
 
 #: cms/forms/pois/poi_form.py
 msgid ""
@@ -2273,6 +2296,10 @@ msgstr ""
 "Die Koordinaten konnten nicht aus der Adresse abgeleitet werden, bitte "
 "füllen Sie das Feld manuell aus, wenn der Ort auf der Karte angezeigt werden "
 "soll."
+
+#: cms/forms/pois/poi_form.py
+msgid "To create a contact, area of responsibility is mandatory."
+msgstr "Zuständigkeitsbereich ist benötigt um ein Kontakt zu erstellen."
 
 #: cms/forms/push_notifications/push_notification_form.py
 msgid "Schedule sending"
@@ -2289,11 +2316,6 @@ msgstr "Geplante Zeit zum Senden"
 #: cms/forms/push_notifications/push_notification_form.py
 msgid "Cannot be unspecified"
 msgstr "Kann nicht leer gelassen werden"
-
-#: cms/forms/push_notifications/push_notification_form.py
-#: cms/views/push_notifications/push_notification_form_view.py
-msgid "News \"{}\" was already sent on {}"
-msgstr "Nachricht \"{}\" wurde bereits gesendet am {}"
 
 #: cms/forms/push_notifications/push_notification_form.py
 msgid "The scheduled send date cannot be in the past"
@@ -2868,9 +2890,9 @@ msgstr "archiviert"
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
-#: cms/models/contact/contact.py cms/models/pois/poi.py
-msgid "opening hours"
-msgstr "Öffnungszeiten"
+#: cms/models/contact/contact.py
+msgid "office hours"
+msgstr "Sprechzeiten"
 
 #: cms/models/contact/contact.py cms/models/pois/poi.py
 msgid "appointment link"
@@ -2935,6 +2957,10 @@ msgstr "Mobiltelefonnummer anzeigen"
 #: cms/models/contact/contact.py
 msgid "show website"
 msgstr "Webseite anzeigen"
+
+#: cms/models/contact/contact.py
+msgid "show office hours"
+msgstr "Sprechzeiten anzeigen"
 
 #: cms/models/contact/contact.py
 msgid "(Copy)"
@@ -3925,6 +3951,10 @@ msgstr ""
 "Link zu einer externen Seite über welche Termine für diesen Ort vereinbart "
 "werden können."
 
+#: cms/models/pois/poi.py
+msgid "opening hours"
+msgstr "Öffnungszeiten"
+
 #: cms/models/pois/poi.py cms/models/users/organization.py
 #: cms/models/users/user.py
 msgid "organization"
@@ -4555,10 +4585,9 @@ msgid "Page tree tutorial seen"
 msgstr "Seitenbaum-Tutorial angesehen"
 
 #: cms/models/users/user.py
-msgid "Will be set to true once the user dismissed the page tree tutorial"
-msgstr ""
-"Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum Seitenbaum "
-"angesehen hat"
+msgid "Has seen tutorial for page tree"
+msgstr "Hat ein Tutorial für den Seitenbaum angesehen."
+
 
 #: cms/models/users/user.py
 msgid "automatically distribute sidebar boxes"
@@ -5443,6 +5472,22 @@ msgstr "Ein Serverfehler ist aufgetreten."
 msgid "Please contact the administrator."
 msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 
+#: cms/templates/contacts/contact_card.html
+msgid "Office hours"
+msgstr "Sprechzeiten"
+
+#: cms/templates/contacts/contact_card.html
+msgid "Show office hours"
+msgstr "Sprechzeiten anzeigen"
+
+#: cms/templates/contacts/contact_card.html
+msgid "All day"
+msgstr "Ganztägig"
+
+#: cms/templates/contacts/contact_card.html cms/views/utils/opening_hour.py
+msgid "Closed"
+msgstr "Geschlossen"
+
 #: cms/templates/contacts/contact_form.html
 #: cms/templates/contacts/contact_list_row.html
 msgid "Edit contact"
@@ -5626,44 +5671,6 @@ msgstr "Archivierte Kontakte"
 #: cms/templates/contacts/contact_list.html
 msgid "Create contact"
 msgstr "Kontakt erstellen"
-
-#: cms/templates/contacts/contact_list.html
-msgid "Name of related location"
-msgstr "Name des verlinkten Ortes"
-
-#: cms/templates/contacts/contact_list.html
-msgid "Area of responsibility"
-msgstr "Zuständigkeitsbereich"
-
-#: cms/templates/contacts/contact_list.html
-#: cms/templates/events/external_calendar_list.html
-#: cms/templates/languages/language_form.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/poicategories/poicategory_list.html
-#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
-msgid "Name"
-msgstr "Name"
-
-#: cms/templates/contacts/contact_list.html
-msgid "E-Mail"
-msgstr "E-Mail"
-
-#: cms/templates/contacts/contact_list.html
-msgid "Mobile phone number"
-msgstr "Mobiltelefonnummer"
-
-#: cms/templates/contacts/contact_list.html
-#: cms/templates/events/event_list.html
-#: cms/templates/languages/language_list.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
-#: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/roles/role_list.html
-msgid "Options"
-msgstr "Optionen"
 
 #: cms/templates/contacts/contact_list.html
 msgid "No archived contacts found with these filters."
@@ -6461,6 +6468,17 @@ msgstr "Wiederholung"
 #: cms/templates/events/event_list.html
 msgid "External calendar"
 msgstr "Externer Kalender"
+
+#: cms/templates/events/event_list.html
+#: cms/templates/languages/language_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_list.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/roles/role_list.html cms/views/contacts/contact_list_view.py
+msgid "Options"
+msgstr "Optionen"
 
 #: cms/templates/events/event_list.html
 msgid "No events found with these filters."
@@ -9856,6 +9874,14 @@ msgid "Contact for \"{}\" was successfully saved"
 msgstr "Kontakt für \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/contacts/contact_list_view.py
+msgid "Name of related location"
+msgstr "Name des verlinkten Ortes"
+
+#: cms/views/contacts/contact_list_view.py
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: cms/views/contacts/contact_list_view.py
 msgid "Please create at least one language node before creating contacts."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten bevor Sie Kontakte "
@@ -11016,8 +11042,8 @@ msgid "Location service is disabled"
 msgstr "Ortung ist deaktiviert"
 
 #: cms/views/pois/poi_actions.py
-msgid "Address could not be found"
-msgstr "Adresse konnte nicht gefunden werden"
+msgid "Coordinates could not be found"
+msgstr "Koordinaten wurden nicht gefunden."
 
 #: cms/views/pois/poi_context_mixin.py
 msgid "Please confirm that you really want to archive this location"
@@ -11195,6 +11221,10 @@ msgstr ""
 #: cms/views/push_notifications/push_notification_form_view.py
 msgid "News \"{}\" cannot be sent, because it is archived"
 msgstr "Nachricht \"{}\" kann nicht gesendet werden, weil sie archiviert ist."
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" was already sent on {}"
+msgstr "Nachricht \"{}\" wurde bereits gesendet am {}"
 
 #: cms/views/push_notifications/push_notification_form_view.py
 msgid "News \"{}\" requires a translation in \"{}\" for \"{}\""
@@ -11467,6 +11497,14 @@ msgstr ""
 "Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
 
 #: cms/views/utils/opening_hour.py
+msgid "Edit office hours for this weekday"
+msgstr "Sprechzeiten für diesen Wochentag bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit all office hours"
+msgstr "Alle Sprechzeiten bearbeiten"
+
+#: cms/views/utils/opening_hour.py
 msgid "Edit opening hours for this weekday"
 msgstr "Öffnungszeiten für diesen Wochentag bearbeiten"
 
@@ -11475,24 +11513,20 @@ msgid "Edit all opening hours"
 msgstr "Alle Öffnungszeiten bearbeiten"
 
 #: cms/views/utils/opening_hour.py
-msgid "Edit \"Mo - Fr\""
-msgstr "\"Mo - Fr\" bearbeiten"
-
-#: cms/views/utils/opening_hour.py
-msgid "Edit \"Sa & Su\""
-msgstr "\"Sa & So\" bearbeiten"
-
-#: cms/views/utils/opening_hour.py
-msgid "Closed"
-msgstr "Geschlossen"
-
-#: cms/views/utils/opening_hour.py
 msgid "Opening time"
 msgstr "Öffnungszeit"
 
 #: cms/views/utils/opening_hour.py
 msgid "Closing time"
 msgstr "Schließzeit"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit \"Mo - Fr\""
+msgstr "\"Mo - Fr\" bearbeiten"
+
+#: cms/views/utils/opening_hour.py
+msgid "Edit \"Sa & Su\""
+msgstr "\"Sa & So\" bearbeiten"
 
 #: cms/views/utils/opening_hour.py
 msgid "Open around the clock"
@@ -11697,6 +11731,17 @@ msgstr[1] ""
 "Die folgenden {model_name} konnten nicht übersetzt werden, da die "
 "Übersetzung das verbleibende Übersetzungsbudget von {remaining_budget} "
 "Wörtern übersteigen würde: {object_names}"
+
+#: core/utils/machine_translation_api_client.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} could not be translated because the generated "
+"translation ({source_language} ➜ {target_language}) exceeded the "
+"{max_text_length} character limit."
+msgstr ""
+"{model_name} {object_names} konnte nicht übersetzt werden, da die generierte "
+"Übersetzung die Zeichenbegrenzung von {max_text_length} Zeichen "
+"überschritten hat ({source_language} ➜ {target_language})."
 
 #: deepl_api/apps.py
 msgid "DeepL API"
@@ -12003,6 +12048,14 @@ msgstr ""
 
 #~ msgid "Open Templates"
 #~ msgstr "Vorlagen öffnen"
+
+#~ msgid "Show opening hours"
+#~ msgstr "Öffnungszeiten anzeigen"
+
+#~ msgid "Will be set to true once the user dismissed the page tree tutorial"
+#~ msgstr ""
+#~ "Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum "
+#~ "Seitenbaum angesehen hat"
 
 #~ msgid "The list below shows all detected errors related to links."
 #~ msgstr "Hier können Sie eine Übersicht über fehlerhafte Links sehen."

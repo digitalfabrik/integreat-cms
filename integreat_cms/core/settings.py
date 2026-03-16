@@ -982,10 +982,6 @@ MT_SOFT_MARGIN_FRACTION: Final[float] = float(
     os.environ.get("INTEGREAT_CMS_MT_SOFT_MARGIN", 0.01),
 )
 
-MT_BUDGET_BUFFER: Final[float] = float(
-    os.environ.get("INTEGREAT_CMS_MT_SOFT_MARGIN", 0.05),
-)
-
 
 #################################
 # DeepL - AUTOMATIC TRANSLATION #

@@ -424,6 +424,75 @@ def test_no_orpahned_recurrence_rule(
         assert response.status_code == 403
 
 
+# ISO 8601 date range validation test parameters for start_date
+# (<start_date>, <end_date>, <should_succeed>, <error_field>)
+date_range_validation_parameters = [
+    ("1583-01-01", "2583-01-01", True, None),  # Minimum valid date
+    ("2030-01-01", "2030-12-31", True, None),  # Normal valid dates
+    ("1582-12-31", "2030-01-01", False, "start_date"),  # Below minimum start date
+]
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("parameter", date_range_validation_parameters)
+def test_event_start_date_range_validation(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
+    caplog: LogCaptureFixture,
+    parameter: tuple[str, str, bool, str | None],
+) -> None:
+    """
+    Test that event start dates are validated to be within ISO 8601 range (>= 1583)
+    """
+    client, role = login_role_user
+    start_date, end_date, should_succeed, error_field = parameter
+    settings.LANGUAGE_CODE = "en"
+
+    new_event = reverse(
+        "new_event",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": "de",
+        },
+    )
+    data = {
+        "title": "Date Range Test Event",
+        "content": "Lorem ipsum...",
+        "start_date": start_date,
+        "end_date": end_date,
+        "is_all_day": True,
+        "is_long_term": True,
+        "status": status.PUBLIC,
+        "has_not_location": True,
+    }
+    response = client.post(
+        new_event,
+        data=data,
+    )
+
+    if role in PRIV_STAFF_ROLES + WRITE_ROLES:
+        if should_succeed:
+            assert response.status_code == 302
+            assert_message_in_log(
+                'SUCCESS  Event "Date Range Test Event" was successfully created',
+                caplog,
+            )
+        else:
+            assert response.status_code == 200
+            # Check that validation error was shown
+            content = response.content.decode("utf-8")
+            assert "Ensure this value is greater than or equal to 1583-01-01" in content
+
+    elif role == ANONYMOUS:
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location") == f"{settings.LOGIN_URL}?next={new_event}"
+        )
+    else:
+        assert response.status_code == 403
+
+
 end_date_change_parameters = [True, False]
 
 

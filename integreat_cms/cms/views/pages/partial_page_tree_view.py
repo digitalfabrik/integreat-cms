@@ -9,6 +9,8 @@ from django.template.loader import render_to_string
 from django.utils.translation import get_language
 from django.views.decorators.http import require_POST
 
+from integreat_cms.cms.constants import status
+
 from ...decorators import permission_required
 from ...models.languages.language import Language
 from ..pages.page_context_mixin import PageContextMixin
@@ -51,12 +53,23 @@ def render_partial_page_tree_views(
 
     backend_language = Language.objects.filter(slug=get_language()).first()
 
-    all_pages = (
-        region.pages.filter(tree_id__in=requested_tree_ids)
-        .prefetch_major_translations()
-        .prefetch_related("mirroring_pages")
-        .cache_tree(archived=is_archive)
-    )
+    if is_statistics:
+        all_pages = (
+            region.pages.filter(tree_id__in=requested_tree_ids)
+            .prefetch_translations(
+                to_attr="prefetched_not_draft_translations",
+                status__in=[status.PUBLIC],
+            )
+            .prefetch_related("mirroring_pages")
+            .cache_tree(archived=is_archive, language_slug=language_slug)
+        )
+    else:
+        all_pages = (
+            region.pages.filter(tree_id__in=requested_tree_ids)
+            .prefetch_major_translations()
+            .prefetch_related("mirroring_pages")
+            .cache_tree(archived=is_archive)
+        )
 
     pages_by_id = defaultdict(list)
     for page in all_pages:

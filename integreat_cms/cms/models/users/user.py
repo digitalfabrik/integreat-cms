@@ -24,13 +24,11 @@ if TYPE_CHECKING:
     from .role import Role
 
 
-from ...search.search_fields import USER_SEARCH_FIELDS
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.user_utils import search_users
 from ..abstract_base_model import AbstractBaseModel
 from ..chat.chat_message import ChatMessage
 from ..decorators import modify_fields
-from ..mixins import SearchSuggestMixin
 from ..pages.page import Page
 from ..regions.region import Region
 from .organization import Organization
@@ -74,13 +72,12 @@ class CustomUserManager(UserManager):
         ),
     },
 )
-class User(AbstractUser, AbstractBaseModel, SearchSuggestMixin):
+class User(AbstractUser, AbstractBaseModel):
     """
     A custom User model that replaces the default Django User model
     """
 
-    search_fields = USER_SEARCH_FIELDS
-    region_filter_field = "regions"
+    search_fields = ["username", "first_name", "last_name", "email"]
 
     regions = models.ManyToManyField(
         Region,
@@ -112,12 +109,10 @@ class User(AbstractUser, AbstractBaseModel, SearchSuggestMixin):
             "Enable this option to display additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions and status information for broken links",
         ),
     )
-    page_tree_tutorial_seen = models.BooleanField(
+    has_seen_page_tree_tutorial = models.BooleanField(
         default=False,
         verbose_name=_("Page tree tutorial seen"),
-        help_text=_(
-            "Will be set to true once the user dismissed the page tree tutorial",
-        ),
+        help_text=_("Has seen tutorial for page tree"),
     )
     distribute_sidebar_boxes = models.BooleanField(
         default=False,

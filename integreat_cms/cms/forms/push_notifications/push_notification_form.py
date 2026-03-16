@@ -8,8 +8,6 @@ from django import forms
 from django.conf import settings
 from django.forms import CheckboxSelectMultiple
 from django.utils import timezone
-from django.utils.formats import localize
-from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import region_status
@@ -117,19 +115,13 @@ class PushNotificationForm(CustomModelForm):
                 ),
             )
 
-        if cleaned_data.get("schedule_send") and self.instance.sent_date:
-            self.add_error(
-                "schedule_send",
-                forms.ValidationError(
-                    _('News "{}" was already sent on {}').format(
-                        self.instance,
-                        localize(localtime(self.instance.sent_date)),
-                    ),
-                ),
-            )
-
         # Combine the scheduled send day and time into one timezone aware field
-        if not self.errors and cleaned_data.get("schedule_send"):
+        # Skip when notification was already sent
+        if (
+            not self.errors
+            and cleaned_data.get("schedule_send")
+            and not self.instance.sent_date
+        ):
             tzinfo = zoneinfo.ZoneInfo(str(timezone.get_current_timezone()))
             time = cleaned_data["scheduled_send_date_time"] or datetime.time()
 

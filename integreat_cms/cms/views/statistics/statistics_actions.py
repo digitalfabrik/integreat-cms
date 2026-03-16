@@ -141,6 +141,7 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
     region = request.region
     data = request.POST
     language_slugs = data.getlist("language_slugs")
+    page_ids = data.getlist("page_ids")
 
     if not region.statistics_enabled:
         logger.error("Statistics are not enabled for this region.")
@@ -157,7 +158,7 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
             status=400,
         )
 
-    region_pages = Page.objects.filter(region=region)
+    region_pages = Page.objects.filter(region=region, id__in=page_ids)
 
     page_access_sums = region.get_page_access_count_by_language(
         pages=region_pages,
@@ -171,6 +172,8 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
         page_id = str(access_sum["page__id"])
         language_slug = str(access_sum["language__slug"])
         page_accesses_dict[page_id][language_slug] = access_sum["total_accesses"]
+        page_accesses_dict[page_id].setdefault("total_accesses", 0)
+        page_accesses_dict[page_id]["total_accesses"] += access_sum["total_accesses"]
 
     return JsonResponse(page_accesses_dict, safe=False)
 

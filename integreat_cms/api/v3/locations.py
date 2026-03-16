@@ -87,6 +87,21 @@ def transform_poi(poi: POI | None) -> dict[str, Any]:
     }
 
 
+def transform_opening_hours(
+    region_tz: ZoneInfo, opening_hours: list
+) -> list[dict[str, Any]]:
+    tz_key = getattr(region_tz, "key", str(region_tz))
+    return [
+        day
+        | {
+            "timeSlots": [
+                (slot | {"timezone": tz_key}) for slot in day.get("timeSlots", [])
+            ]
+        }
+        for day in (opening_hours or [])
+    ]
+
+
 def transform_poi_translation(
     poi_translation: POITranslation,
     *,
@@ -112,6 +127,13 @@ def transform_poi_translation(
 
     contact_data = []
     for contact in contacts:
+        contact_opening_hours = (
+            transform_opening_hours(
+                region_tz=region_tz, opening_hours=contact.opening_hours
+            )
+            if contact.opening_hours != get_default_opening_hours()
+            else None
+        )
         contact_data.append(
             {
                 "area_of_responsibility": contact.area_of_responsibility
@@ -122,23 +144,17 @@ def transform_poi_translation(
                 "phone_number": contact.phone_number,
                 "mobile_number": contact.mobile_phone_number,
                 "website": contact.website,
-                "opening_hours": contact.opening_hours,
+                "opening_hours": contact_opening_hours,
                 "appointment_url": contact.appointment_url or None,
             }
         )
-    # Only return opening hours if they differ from the default value and the location is not temporarily closed
-    opening_hours = None
-    if not poi.temporarily_closed and poi.opening_hours != get_default_opening_hours():
-        tz_key = getattr(region_tz, "key", str(region_tz))
-        opening_hours = [
-            day
-            | {
-                "timeSlots": [
-                    (slot | {"timezone": tz_key}) for slot in day.get("timeSlots", [])
-                ]
-            }
-            for day in (poi.opening_hours or [])
-        ]
+    poi_opening_hours = (
+        transform_opening_hours(region_tz=region_tz, opening_hours=poi.opening_hours)
+        if not poi.temporarily_closed
+        and poi.opening_hours != get_default_opening_hours()
+        else None
+    )
+
     return {
         "id": poi_translation.id,
         "url": settings.BASE_URL + poi_translation.get_absolute_url(),
@@ -162,7 +178,7 @@ def transform_poi_translation(
         ),
         "temporarily_closed": poi.temporarily_closed,
         # Only return opening hours if not temporarily closed and they differ from the default value
-        "opening_hours": opening_hours,
+        "opening_hours": poi_opening_hours,
         "appointment_url": poi.appointment_url or None,
         "location": transform_poi(poi),
         "hash": None,
