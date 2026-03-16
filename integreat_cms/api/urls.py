@@ -195,6 +195,11 @@ social_media_api_urlpatterns = [
                     region_social_media_headers,
                     name="social_region_reserved_tunews",
                 ),
+                path(
+                    "news/all-news/",
+                    region_social_media_headers,
+                    name="social_region_reserved_local_news",
+                ),
                 *(
                     path(
                         f"{reserved}/",
@@ -209,7 +214,7 @@ social_media_api_urlpatterns = [
                     name="social_region_event_page",
                 ),
                 path(
-                    "news/local/<slug:slug>/",
+                    "news/<slug:news_type>/<slug:slug>/",
                     news_social_media_headers,
                     name="social_region_local_news_page",
                 ),

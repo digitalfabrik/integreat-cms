@@ -25,3 +25,11 @@ class NewsItem(models.Model):
 
     def __str__(self) -> str:
         return self.language.language + ": " + self.title + " - " + self.enewsno
+
+    def get_absolute_url(self) -> str:
+        """
+        Generates the absolute url to a news object in the app
+
+        :return: The link to the news
+        """
+        return f"/{self.language.slug}/tuenews/{self.id}"

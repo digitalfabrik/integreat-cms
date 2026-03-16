@@ -20,6 +20,7 @@ from ...cms.models.languages.language import Language
 from ...cms.models.push_notifications.push_notification_translation import (
     PushNotificationTranslation,
 )
+from ...cms.models.tue_news.news_item import NewsItem
 from ...cms.utils.internal_link_utils import (
     get_public_translation_for_webapp_link_parts,
 )
@@ -315,6 +316,7 @@ def news_social_media_headers(
     region_slug: str,
     language_slug: str,
     slug: str,
+    news_type: str | None = None,
 ) -> HttpResponse:
     """
     Tries rendering the social media headers for a news page in a specified region and language.
@@ -322,28 +324,47 @@ def news_social_media_headers(
     :param request: The current request
     :param language_slug: The language slug of the language, which the push notification belongs to
     :param slug: The news specific slug of the news route e.g. /local/<slug>
+    :param news_type:
 
     :return: HTML social meta headers required by social media platforms if the news page exists
     """
     region = request.region
     language = region.get_language_or_404(language_slug, only_active=True)
 
-    if not (
-        pn_translation := PushNotificationTranslation.objects.filter(
-            language__slug=language.slug,
-            push_notification__id=slug,
-            push_notification__regions=region,
-        ).first()
-    ):
-        raise Http404("Push Notification not found in this region with this language.")
+    if news_type == "local":
+        if not (
+            pn_translation := PushNotificationTranslation.objects.filter(
+                language__slug=language.slug,
+                push_notification__id=slug,
+                push_notification__regions=region,
+            ).first()
+        ):
+            raise Http404(
+                "Push Notification not found in this region with this language."
+            )
 
-    return render_social_media_headers(
-        request=request,
-        title=get_region_title(region, pn_translation.get_title()),
-        language_code=language.bcp47_tag,
-        excerpt=get_excerpt(pn_translation.get_text()),
-        url=f"{settings.WEBAPP_URL}{pn_translation.get_absolute_url()}",
-    )
+        return render_social_media_headers(
+            request=request,
+            title=get_region_title(region, pn_translation.get_title()),
+            language_code=language.bcp47_tag,
+            excerpt=get_excerpt(pn_translation.get_text()),
+            url=f"{settings.WEBAPP_URL}{pn_translation.get_absolute_url()}",
+        )
+    if news_type == "tuenews":
+        if not region.external_news_enabled:
+            raise Http404("Tü News is not enabled in this region.")
+        if not (tuenews := NewsItem.objects.filter(id=slug)):
+            raise Http404(
+                "Push Notification not found in this region with this news ID."
+            )
+        return render_social_media_headers(
+            request=request,
+            title=get_region_title(region, tuenews.title),
+            language_code=language.bcp47_tag,
+            excerpt=get_excerpt(tuenews.content),
+            url=f"{settings.WEBAPP_URL}{tuenews.get_absolute_url()}",
+        )
+    raise Http404("Invalid news type is given.")
 
 
 @partial_html_response
