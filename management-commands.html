@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-11-27T17:53:46+00:00" />
+    <meta property="article:modified_time" content="2026-03-16T09:37:33+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Management Commands &mdash; integreat-cms 2026.2.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1958,6 +1958,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bulk-replace-page-icons"><code class="docutils literal notranslate"><span class="pre">bulk_replace_page_icons</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bulk-media-upload"><code class="docutils literal notranslate"><span class="pre">bulk_media_upload</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#make-slugs-unique"><code class="docutils literal notranslate"><span class="pre">make_slugs_unique</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#create-new-commands">Create new commands</a><ul>
@@ -2482,6 +2483,22 @@ That full URL can also be specified so and will be stripped out automatically.</
 <li><p><code class="docutils literal notranslate"><span class="pre">--global</span></code>: Upload the files to the global library</p></li>
 </ul>
 </section>
+<section id="make-slugs-unique">
+<h4><code class="docutils literal notranslate"><span class="pre">make_slugs_unique</span></code><a class="headerlink" href="#make-slugs-unique" title="Link to this heading"></a></h4>
+<p>Iterates over all translations of pages, events and pois(locations) in the database and if it finds a duplicate slug somewhere,
+it changes it so that in the end all slugs are unique per language and region. This command is needed because we currently do not
+guarantee slug uniqueness on the database level, and therefore duplicate slugs are possible.
+Once the database constraint will have been implemented, this command should be executed
+once and should not be needed afterwards in the future:</p>
+<blockquote>
+<div><p>integreat-cms-cli make_slugs_unique [–dryrun] [–objects OBJECT_NAMES]</p>
+</div></blockquote>
+<p><strong>Input options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--dry-run</span></code>: Runs the Iteration without commiting the changes to the DB</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--objects</span> <span class="pre">OBJECT_NAMES</span></code>: A list of names of content models this should be applied to e.g. <cite>–objects page poi</cite></p></li>
+</ul>
+</section>
 </section>
 <section id="create-new-commands">
 <h3>Create new commands<a class="headerlink" href="#create-new-commands" title="Link to this heading"></a></h3>
@@ -2513,7 +2530,7 @@ That full URL can also be specified so and will be stripped out automatically.</
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 27, 2025.
+      <span class="lastupdated">Last updated on Mar 16, 2026.
       </span></p>
   </div>
 
