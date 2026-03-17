@@ -22,6 +22,8 @@ from tests.utils import assert_message_in_log
 REGION_SLUG = "augsburg"
 # Use the location with id=6, as it is used by the contacts of Augsburg and has already a primary contact.
 POI_ID = 6
+# The default value handed as POI ID if no POI is selected
+DUMMY_POI_ID = -1
 
 
 @pytest.mark.django_db
@@ -171,6 +173,7 @@ def test_no_contact_without_poi(
     response = client.post(
         new_contact,
         data={
+            "location": DUMMY_POI_ID,
             "area_of_responsibility": "Title",
             "name": "Name",
             "email": "mail@mail.integreat",
@@ -181,10 +184,10 @@ def test_no_contact_without_poi(
 
     if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
-            "ERROR    Location: This field is required.",
+            "ERROR    Location: Location cannot be empty.",
             caplog,
         )
-        assert "Location: This field is required." in response.content.decode("utf-8")
+        assert "Location: Location cannot be empty." in response.content.decode("utf-8")
 
     elif role == ANONYMOUS:
         assert response.status_code == 302
