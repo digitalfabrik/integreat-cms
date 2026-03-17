@@ -53,8 +53,7 @@ def normalize_search_fields(search_fields: dict) -> dict[str, dict[str, Any]]:
 
 class SearchSuggestMixin(models.Model):
     """
-    Mixin providing default search(), suggest(), and suggest_tokens() implementations
-    based on the model's search_fields attribute.
+    Mixin providing suggest_tokens() based on the model's search_fields attribute.
 
     Models using this mixin should define:
         - search_fields: dict mapping field names to weights or config dicts
@@ -69,6 +68,11 @@ class SearchSuggestMixin(models.Model):
                 "email": {"weight": 1.0, "tokenize": False},  # Don't tokenize
             }
             region_filter_field = "region"
+
+    A future addition could be to provide search() and suggest() methods
+    that also use the search_fields attribute.
+    Currently, search() and suggest() are defined on each model separately
+    with different signatures.
     """
 
     #: Fields to search with their weights. Override in subclass.
@@ -79,53 +83,6 @@ class SearchSuggestMixin(models.Model):
 
     class Meta:
         abstract = True
-
-    @classmethod
-    def search(
-        cls,
-        query: str,
-        region: Region | None = None,
-        **kwargs: Any,
-    ) -> QuerySet[Any]:
-        """
-        Filter queryset using search_fields with case-insensitive contains matching.
-
-        :param query: The search query string
-        :param region: The region to filter by (optional)
-        :param kwargs: Additional filter arguments
-        :return: Filtered QuerySet
-        """
-        if not query or not cls.search_fields:
-            return cls.objects.none()
-
-        # Build OR filter across all search fields
-        q_filter = Q()
-        for field in cls.search_fields:
-            q_filter |= Q(**{f"{field}__icontains": query})
-
-        qs = cls.objects.filter(q_filter)
-
-        # Apply region filter if applicable
-        if region and cls.region_filter_field:
-            qs = qs.filter(**{cls.region_filter_field: region})
-
-        return qs
-
-    @classmethod
-    def suggest(cls, **kwargs: Any) -> list[dict[str, Any]]:
-        r"""
-        Return suggestions for search_content_ajax in format [{title, url, type}].
-
-        This is a placeholder that should be overridden by models that need
-        custom suggest behavior (e.g., Page with tree traversal).
-
-        :param \**kwargs: The supplied kwargs (region, query, archived_flag, etc.)
-        :return: List of suggestion dicts with title, url, type keys
-        """
-        raise NotImplementedError(
-            f"{cls.__name__} must implement suggest() or use the default from "
-            "a more specific mixin."
-        )
 
     @classmethod
     def suggest_tokens(
