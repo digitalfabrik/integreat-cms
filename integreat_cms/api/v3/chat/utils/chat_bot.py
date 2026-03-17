@@ -12,6 +12,8 @@ import aiohttp
 from celery import shared_task
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.translation import gettext
+from django.utils.translation import override as translation_override
 
 from integreat_cms.cms.models import Region, UserChat
 
@@ -108,6 +110,25 @@ async def async_process_user_message(
         return translation, answer
 
 
+def fallback_message(zammad_chat: UserChat) -> None:
+    """
+    Provide an error message to the front end user if the back end failed
+    to generate a response.
+
+    :param zammad_chat: The chat which is currently being processed.
+    """
+    zammad_chat.refresh_from_db()
+    with translation_override(zammad_chat.language.slug):
+        fallback_message = gettext(
+            "Sorry, an error occurred. We were not able to provide an answer. Please try again later."
+        )
+    zammad_chat.save_message(
+        message=fallback_message,
+        internal=False,
+        automatic_message=True,
+    )
+
+
 @shared_task
 def celery_translate_and_answer_question(
     message_timestamp: datetime,
@@ -149,6 +170,7 @@ def celery_translate_and_answer_question(
         logger.exception(
             "Failed to get response from chat back end due to connection error."
         )
+        fallback_message(zammad_chat)
         zammad_chat.processing_answer = False
         return
     zammad_chat.refresh_from_db()
@@ -159,6 +181,7 @@ def celery_translate_and_answer_question(
     if answer:
         if answer["status"] == "error":
             logger.error("Integreat Chat: %s", answer["message"])
+            fallback_message(zammad_chat)
         else:
             zammad_chat.save_message(
                 message=answer["answer"],
