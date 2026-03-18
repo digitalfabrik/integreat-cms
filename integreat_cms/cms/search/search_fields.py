@@ -41,6 +41,9 @@ ORGANIZATION_SEARCH_FIELDS: dict = {
 
 USER_SEARCH_FIELDS: dict = {
     "username": {"weight": 2, "tokenize": False},
+    "first_name": {"weight": 1, "tokenize": False},
+    "last_name": {"weight": 1, "tokenize": False},
+    "email": {"weight": 1, "tokenize": False},
 }
 
 REGION_SEARCH_FIELDS: dict = {
