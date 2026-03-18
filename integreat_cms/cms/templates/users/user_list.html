@@ -7,7 +7,7 @@
             {% translate "Account Management" %}
         </h1>
         <div class="flex justify-between gap-4">
-            {% include "_search_input.html" with object_type="user" related_form="user-filter-form" search_query=filter_form.cleaned_data.query %}
+            {% include "_search_input.html" with object_type="user" related_form="user-filter-form" search_query=filter_form.cleaned_data.search_query %}
             <div class="flex flex-wrap gap-4">
                 <button id="filter-toggle" class="btn btn-ghost">
                     <span class="filter-toggle-text {% if filter_form.filters_visible %}hidden{% endif %}">{% translate "Show filters" %}</span>

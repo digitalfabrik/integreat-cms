@@ -38,7 +38,7 @@
                         {% include "_search_input.html" with object_type="page" object_archived=True related_form="page-filter-form" %}
                     {% else %}
                         {% include "generic_language_switcher.html" with target="pages" %}
-                        {% include "_search_input.html" with object_type="page" related_form="page-filter-form" search_query=filter_form.cleaned_data.query %}
+                        {% include "_search_input.html" with object_type="page" related_form="page-filter-form" search_query=filter_form.cleaned_data.search_query %}
                     {% endif %}
                 </div>
                 <div class="flex flex-wrap gap-4">

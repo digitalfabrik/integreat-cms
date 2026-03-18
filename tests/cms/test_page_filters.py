@@ -32,7 +32,7 @@ def test_page_filters(load_test_data: None, admin_client: Client) -> None:
     assert "Trivia about Augsburg" not in response.content.decode("utf-8")
     assert "About the Integreat App Augsburg" not in response.content.decode("utf-8")
     # Searching for a page should return all results, independently of their level
-    filter_params: dict[str, str | list[str]] = {"query": "Augsburg"}
+    filter_params: dict[str, str | list[str]] = {"search_query": "Augsburg"}
     response = admin_client.get(f"{page_tree}?{urlencode(filter_params)}")
     print(response.headers)
     assert response.status_code == 200
@@ -53,7 +53,10 @@ def test_page_filters(load_test_data: None, admin_client: Client) -> None:
     assert "Trivia about Augsburg" in response.content.decode("utf-8")
     assert "About the Integreat App Augsburg" in response.content.decode("utf-8")
     # Test filtering for the translation status and searching at the same time
-    filter_params = {"query": "Trivia", "translation_status": ["OUTDATED", "MISSING"]}
+    filter_params = {
+        "search_query": "Trivia",
+        "translation_status": ["OUTDATED", "MISSING"],
+    }
     response = admin_client.get(f"{page_tree}?{urlencode(filter_params, True)}")
     print(response.headers)
     assert response.status_code == 200
@@ -64,7 +67,10 @@ def test_page_filters(load_test_data: None, admin_client: Client) -> None:
     # Missing and outdated pages without "Trivia" should not be in the result
     assert "About the Integreat App Augsburg" not in response.content.decode("utf-8")
     # Test filtering for the translation status and searching at the same time
-    filter_params = {"query": "Welco", "translation_status": ["OUTDATED", "MISSING"]}
+    filter_params = {
+        "search_query": "Welco",
+        "translation_status": ["OUTDATED", "MISSING"],
+    }
     response = admin_client.get(f"{page_tree}?{urlencode(filter_params, True)}")
     print(response.headers)
     assert response.status_code == 200
