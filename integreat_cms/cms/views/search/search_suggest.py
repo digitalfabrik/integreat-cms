@@ -66,9 +66,12 @@ def search_suggest(
             status=400,
         )
 
+    archived = body.get("archived", False)
+
     suggestions = model_cls.suggest_tokens(
         query=query,
         region=request.region,
+        archived=archived,
     )
 
     # Sort by score descending and limit results

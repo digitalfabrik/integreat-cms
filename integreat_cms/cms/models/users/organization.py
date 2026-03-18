@@ -35,6 +35,7 @@ class Organization(AbstractBaseModel, SearchSuggestMixin):
 
     search_fields = ORGANIZATION_SEARCH_FIELDS
     region_filter_field = "region"
+    archived_filter_field = "archived"
 
     name = models.CharField(max_length=200, verbose_name=_("name"))
     slug = models.SlugField(

@@ -43,6 +43,7 @@ class POITranslation(AbstractContentTranslation, SearchSuggestMixin):
 
     search_fields = LOCATION_SEARCH_FIELDS
     region_filter_field = "poi__region"
+    archived_filter_field = "poi__archived"
 
     poi = models.ForeignKey(
         "cms.POI",
