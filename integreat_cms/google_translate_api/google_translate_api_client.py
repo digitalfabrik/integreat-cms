@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from django.apps import apps
 from django.conf import settings
@@ -13,12 +13,16 @@ from google.cloud import (  # type: ignore[attr-defined]
 )
 from google.oauth2 import service_account
 
-from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
+from ..core.utils.machine_translation_api_client import (
+    MachineTranslationApiClient,
+    TranslationContext,
+)
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
 
 if TYPE_CHECKING:
     from django.forms.models import ModelFormMetaclass
     from django.http import HttpRequest
+    from google.cloud.translate_v3.types import translation_service
 
     from integreat_cms.cms.models.languages.language import Language
 
@@ -34,7 +38,7 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
         """
         Initialize the Google Translate client
 
-        :param region: The current region
+        :param request: The current request
         :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
                            subclass of the current content type
         """
@@ -79,23 +83,34 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                 return code
         return ""
 
-    def invoke_translation_api(self) -> None:
+    def invoke_translation_api(self, context: list[TranslationContext]) -> None:
         """
-        Translate all content objects stored in self.queryset using DeepL.
+        Translate all content objects (wrapped by TranslationContext) stored in context using Google Translate.
         """
-        for content_object in self.queryset:
-            data = {
+        for ctx in context:
+            if not ctx.source_translation:
+                continue
+            data: dict[
+                str, bool | str | translation_service.TranslateTextResponse | Any
+            ] = {
                 "machine_translated": True,
-                "title": content_object.source_translation.title,
             }
-            if content_object._meta.model_name != "pushnotification":
+
+            for attr in self.translatable_fields:
+                if getattr(ctx.existing_target_translation, attr, None):
+                    data[attr] = getattr(ctx.existing_target_translation, attr)
+
+            if ctx.instance.do_not_translate_title:
+                data["title"] = ctx.source_translation.title
+
+            if ctx.instance._meta.model_name != "pushnotification":
                 data.update(
                     {
-                        "status": content_object.source_translation.status,
+                        "status": ctx.source_translation.status,
                         "currently_in_translation": False,
                     }
                 )
-            for attr, attr_val in content_object.translatable_attributes:
+            for attr, attr_val in ctx.translatable_attributes:
                 try:
                     # data has to be unescaped to recognize Umlaute
                     if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
@@ -131,4 +146,4 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                     logger.exception("")
                     return
 
-            self.save_translation(content_object, data)
+            self.save_translation(ctx, data)
