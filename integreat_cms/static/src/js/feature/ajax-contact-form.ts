@@ -1,5 +1,6 @@
-import { getCsrfToken } from "./utils/csrf-token";
-import { createIconsAt } from "./utils/create-icons";
+import { getCsrfToken } from "../utils/csrf-token";
+import { createIconsAt } from "../utils/create-icons";
+import { defineFeature } from "../utils/define-feature";
 
 const hideContactFormWidget = () => {
     const widget = document.getElementById("contact-form-widget") as HTMLElement;
@@ -41,18 +42,18 @@ const showMessage = (data: any) => {
     }
 };
 
-const clearPreviousMessages = () => {
-    const successMessageField = document.getElementById("contact-ajax-success-message");
+const clearPreviousMessages = (root: HTMLElement) => {
+    const successMessageField = root.querySelector("#contact-ajax-success-message");
     successMessageField.classList.add("hidden");
 
-    const errorMessageField = document.getElementById("contact-ajax-error-message");
+    const errorMessageField = root.querySelector("#contact-ajax-error-message");
     errorMessageField.replaceChildren();
 
-    const unexpectedErrorMessageField = document.getElementById("contact-ajax-unexpected-error-message");
+    const unexpectedErrorMessageField = root.querySelector("#contact-ajax-unexpected-error-message");
     unexpectedErrorMessageField.classList.add("hidden");
 };
 
-const createContact = async (event: Event) => {
+const createContact = async (event: Event, root: HTMLElement) => {
     event.preventDefault();
     const btn = event.target as HTMLInputElement;
     const form = btn.form as HTMLFormElement;
@@ -62,7 +63,7 @@ const createContact = async (event: Event) => {
         return;
     }
 
-    clearPreviousMessages();
+    clearPreviousMessages(root);
 
     const response = await fetch(btn.getAttribute("data-url"), {
         method: "POST",
@@ -76,52 +77,32 @@ const createContact = async (event: Event) => {
     showMessage(data);
 };
 
-const renderContactForm = async () => {
-    document.getElementById("contact-form-widget").classList.remove("hidden");
-    const relatedContactBlock = document.getElementById("related-contact");
+const renderContactForm = async (root: HTMLElement) => {
+    const showContactFormButton = root.querySelector("#show-contact-form-button");
+    const submitContactFormButton = root.querySelector("#submit-contact-form-button");
+    const contactFormWidget = root.querySelector("#contact-form-widget");
+    contactFormWidget.classList.remove("hidden");
+    const relatedContactBlock = root.querySelector("#related-contact");
     if (relatedContactBlock) {
-        const response = await fetch(document.getElementById("show-contact-form-button").getAttribute("data-url"));
-        document.getElementById("contact-form-widget").innerHTML = await response.text();
+        const response = await fetch(showContactFormButton.getAttribute("data-url"));
+        contactFormWidget.innerHTML = await response.text();
 
-        document.getElementById("submit-contact-form-button").addEventListener("click", (event) => {
+        submitContactFormButton.addEventListener("click", (event) => {
             event.preventDefault();
-            createContact(event);
+            createContact(event, root);
         });
     }
-    document.getElementById("show-contact-form-button").classList.add("hidden");
+    showContactFormButton.classList.add("hidden");
 };
 
-window.addEventListener("load", () => {
-    document.getElementById("show-contact-form-button")?.addEventListener("click", (event) => {
+export default defineFeature((root) => {
+    root.querySelector("#show-contact-form-button")?.addEventListener("click", (event) => {
         event.preventDefault();
-        clearPreviousMessages();
-        renderContactForm();
+        clearPreviousMessages(root);
+        renderContactForm(root);
     });
-
-    document.querySelectorAll("[contact-poi-box]").forEach((el) => {
-        el.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            const btn = event.target as HTMLInputElement;
-            const form = btn.form as HTMLFormElement;
-            const formData: FormData = new FormData(form);
-            formData.append(btn.name, btn.value);
-            if (!form.reportValidity()) {
-                return;
-            }
-            const response = await fetch(btn.getAttribute("data-url"), {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": getCsrfToken(),
-                },
-                body: formData,
-            });
-            const messages = await response.json();
-            showMessage(messages);
-        });
-    });
-
-    if (document.getElementById("id_area_of_responsibility")?.classList.contains("border-red-500")) {
-        document.getElementById("contact-form-widget").classList.remove("hidden");
-        document.getElementById("show-contact-form-button").classList.add("hidden");
+    if (root.querySelector("#id_area_of_responsibility")?.classList.contains("border-red-500")) {
+        root.querySelector("contact-form-widget").classList.remove("hidden");
+        root.querySelector("show-contact-form-button").classList.add("hidden");
     }
 });

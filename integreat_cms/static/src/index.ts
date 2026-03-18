@@ -1,8 +1,14 @@
 /// <reference types="webpack-env" />
 /**
- * Enable Preact debugging during development
+ * Main entry point for the CMS frontend bundle.
  *
- * Install the Preact Devtools browser extension to make use of it:
+ * Imports all legacy modules (directly executed on load) and bootstraps all
+ * feature modules — self-contained components scoped to a root DOM element.
+ * Feature modules live in `js/feature/` and are discovered automatically via
+ * `require.context`. Any element with a `data-js-<module-name>` attribute is
+ * used as the root for the corresponding module.
+ *
+ * To enable Preact debugging, install the Preact Devtools browser extension:
  *
  *     https://preactjs.github.io/preact-devtools/
  *
@@ -105,8 +111,6 @@ import "./js/poi-categories/poicategory-colors-icons";
 import "./js/dashboard/broken-links";
 import "./js/dashboard/translation-coverage";
 
-import "./js/ajax-contact-form";
-
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-require-imports */
 require("element-closest").default(window);
@@ -122,17 +126,6 @@ const markInited = (el: HTMLElement, key: string) => {
 
 const hasInited = (el: HTMLElement, key: string) => initedModules.get(el)?.has(key) ?? false;
 
-/**
- *
- * @function bootstrap
- *
- * A function that initializes all registered modules from registry.ts to the element(s) they are attached to in the DOM
- * with the attribute "data-js-<moduleName>".
- * -
- * - it imports the module for the element
- *
- * @param root
- */
 const featureContext = require.context("./js/feature", true, /\.ts$/);
 
 const keyToModuleName = (key: string): string => {
@@ -140,7 +133,7 @@ const keyToModuleName = (key: string): string => {
     return withoutExt.replace(/^\.\//, "").replace(/\//g, "-");
 };
 
-export const bootstrapModules = async (root: ParentNode = document) => {
+const bootstrapModules = async (root: ParentNode = document) => {
     const initPromises: Promise<void>[] = [];
     for (const key of featureContext.keys()) {
         const moduleName = keyToModuleName(key);

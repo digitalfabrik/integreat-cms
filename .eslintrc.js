@@ -114,6 +114,7 @@ module.exports = {
         "no-console": ["error", { allow: ["debug", "warn", "error"] }],
     },
     overrides: [
+        // an override for the feature module files inside the feature folder
         {
             files: ["**/js/feature/**/*.ts"],
             rules: {
@@ -121,9 +122,13 @@ module.exports = {
                     "error",
                     {
                         selector:
-                            "CallExpression[callee.object.name='document'][callee.property.name=/^(querySelector|querySelectorAll|getElementById|getElementsByClassName|getElementsByTagName)$/]",
+                            "CallExpression[callee.object.name='document'][callee.property.name=/^(querySelector|querySelectorAll|getElementById|getElementsByClassName|getElementsByTagName|getElementsByName)$/]",
                         message:
                             "Feature modules must not query the document directly. Use the root element passed to your init function instead.",
+                    },
+                    {
+                        selector: "ExportDefaultDeclaration:not(:has(CallExpression[callee.name='defineFeature']))",
+                        message: "Feature module default exports must use defineFeature().",
                     },
                 ],
             },

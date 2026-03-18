@@ -15,6 +15,7 @@
  * @module search-query
  */
 import { getCsrfToken } from "../utils/csrf-token";
+import { defineFeature } from "../utils/define-feature";
 
 const queryObjects = async (url: string, type: string, queryString: string, archived: boolean, root: HTMLElement) => {
     if (queryString.trim().length === 0) {
@@ -179,8 +180,6 @@ export const setSearchQueryEventListeners = (root: HTMLElement) => {
     });
 };
 
-const init: FeatureModuleInit = (root) => {
+export default defineFeature((root) => {
     setSearchQueryEventListeners(root);
-};
-
-export default init;
+});
