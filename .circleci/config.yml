@@ -683,6 +683,10 @@ workflows:
             - pip-install
       - build-package:
           name: build-rc-package
+          filters:
+            branches:
+              only:
+                - /rc\/\d{4}\.\d{1,2}\.\d{1,2}.*/
           requires:
             - webpack
             - compile-translations
