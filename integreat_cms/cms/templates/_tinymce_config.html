@@ -81,5 +81,6 @@
      data-content-style="{{ content_style }}"
      data-media-button-translation='{% translate "Media Library" %}'
      data-media-item-translation='{% translate "Media Library..." %}'
-     {% if readonly %}data-readonly="1"{% endif %}>
+     {% if readonly %}data-readonly="1"{% endif %}
+     {% if perms.cms.test_beta_features %}data-test-beta-features="1"{% endif %}>
 </div>

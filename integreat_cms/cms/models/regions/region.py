@@ -106,6 +106,8 @@ class Region(AbstractBaseModel):
     Data model representing region.
     """
 
+    search_fields = ["name"]
+
     name = models.CharField(max_length=200, verbose_name=_("name"))
     #: See `community identification number <https://en.wikipedia.org/wiki/Community_Identification_Number>`__
     #: and `Gemeindeschlüssel (German) <https://de.wikipedia.org/wiki/Amtlicher_Gemeindeschl%C3%BCssel>`__

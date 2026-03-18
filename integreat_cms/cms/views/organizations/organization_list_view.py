@@ -3,15 +3,13 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from django.conf import settings
-from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
-from ...forms import ObjectSearchForm
 from ...models import Organization
+from ..mixins import FilterSortMixin, PaginationMixin
 from .organization_content_mixin import OrganizationContextMixin
 
 if TYPE_CHECKING:
@@ -23,7 +21,9 @@ logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_organization"), name="dispatch")
-class OrganizationListView(TemplateView, OrganizationContextMixin):
+class OrganizationListView(
+    TemplateView, OrganizationContextMixin, FilterSortMixin, PaginationMixin
+):
     """
     View for listing organizations (either non-archived or archived organizations depending on
     :attr:`~integreat_cms.cms.views.organizations.organization_list_view.OrganizationListView.archived`)
@@ -33,6 +33,7 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
     template_name = "organizations/organization_list.html"
     #: Whether or not to show archived organizations
     archived = False
+    model = Organization
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
@@ -44,7 +45,7 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
         :return: The rendered template response
         """
         region = request.region
-        query = None
+        search_query = request.GET.get("search_query") or None
 
         organizations = Organization.objects.filter(
             region=region,
@@ -56,20 +57,8 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
             archived=True,
         ).count()
 
-        search_data = kwargs.get("search_data")
-        search_form = ObjectSearchForm(search_data)
-        if search_form.is_valid():
-            query = search_form.cleaned_data["query"]
-            organization_keys = Organization.search(region, query).values("pk")
-            organizations = organizations.filter(pk__in=organization_keys)
-
-        chunk_size = int(request.GET.get("size", settings.PER_PAGE))
-        paginator = Paginator(
-            organizations,
-            chunk_size,
-        )
-        chunk = request.GET.get("page")
-        organization_chunk = paginator.get_page(chunk)
+        organizations = self.get_filtered_sorted_queryset(organizations)
+        organization_chunk = self.paginate_queryset(organizations)
 
         return render(
             request,
@@ -81,17 +70,6 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
                 "organizations": organization_chunk,
                 "archived_count": archived_count,
                 "current_menu_item": "organizations",
-                "search_query": query,
+                "search_query": search_query,
             },
         )
-
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        r"""
-        Apply the query and filter the rendered organizations
-
-        :param request: The current request
-        :param \*args: The supplied arguments
-        :param \**kwargs: The supplied keyword arguments
-        :return: The rendered template response
-        """
-        return self.get(request, *args, **kwargs, search_data=request.POST)

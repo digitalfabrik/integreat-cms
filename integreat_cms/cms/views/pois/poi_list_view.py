@@ -3,18 +3,15 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from django.conf import settings
 from django.contrib import messages
-from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
-from ...forms import ObjectSearchForm
-from ...models import POITranslation
-from ..mixins import MachineTranslationContextMixin
+from ...models import POI, POITranslation
+from ..mixins import FilterSortMixin, MachineTranslationContextMixin, PaginationMixin
 from .poi_context_mixin import POIContextMixin
 
 if TYPE_CHECKING:
@@ -26,7 +23,13 @@ logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_poi"), name="dispatch")
-class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin):
+class POIListView(
+    TemplateView,
+    POIContextMixin,
+    MachineTranslationContextMixin,
+    FilterSortMixin,
+    PaginationMixin,
+):
     """
     View for listing POIs (points of interests)
     """
@@ -37,6 +40,7 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
     archived = False
     #: The translation model of this list view (used to determine whether machine translations are permitted)
     translation_model = POITranslation
+    model = POI
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
@@ -83,25 +87,10 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
             )
 
         pois = region.pois.filter(archived=self.archived)
-        query = None
+        search_query = request.GET.get("search_query") or None
 
-        search_data = kwargs.get("search_data")
-        search_form = ObjectSearchForm(search_data)
-        if search_form.is_valid():
-            query = search_form.cleaned_data["query"]
-            poi_keys = POITranslation.search(region, language_slug, query).values(
-                "poi__pk",
-            )
-            pois = pois.filter(pk__in=poi_keys)
-
-        chunk_size = int(request.GET.get("size", settings.PER_PAGE))
-        # for consistent pagination querysets should be ordered
-        paginator = Paginator(
-            pois.prefetch_translations().order_by("region__slug"),
-            chunk_size,
-        )
-        chunk = request.GET.get("page")
-        poi_chunk = paginator.get_page(chunk)
+        pois = self.get_filtered_sorted_queryset(pois)
+        poi_chunk = self.paginate_queryset(pois)
 
         return render(
             request,
@@ -112,20 +101,9 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
                 "archived_count": region.pois.filter(archived=True).count(),
                 "language": language,
                 "languages": region.active_languages,
-                "search_query": query,
+                "search_query": search_query,
                 "source_language": region.get_source_language(language.slug),
                 "content_type": "locations",
                 "is_archive": self.archived,
             },
         )
-
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        r"""
-        Apply the query and filter the rendered pois
-
-        :param request: The current request
-        :param \*args: The supplied arguments
-        :param \**kwargs: The supplied keyword arguments
-        :return: The rendered template response
-        """
-        return self.get(request, *args, **kwargs, search_data=request.POST)

@@ -9,7 +9,6 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
-from ...forms.contacts.contact_search_form import ContactSearchForm
 from ...models import Contact
 from ..mixins import FilterSortMixin, PaginationMixin
 from .contact_context_mixin import ContactContextMixin
@@ -30,7 +29,17 @@ class ContactListView(
 
     template_name = "contacts/contact_list.html"
     archived = False
-    filter_form_class = ContactSearchForm
+    model = Contact
+    table_fields = [
+        (None, _("Name of related location")),
+        ("area_of_responsibility", _("Area of responsibility")),
+        ("name", _("Name")),
+        ("email", _("E-Mail")),
+        ("phone_number", _("Phone number")),
+        ("mobile_phone_number", _("Mobile phone number")),
+        ("website", _("Website")),
+        (None, _("Options")),
+    ]
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
@@ -42,7 +51,7 @@ class ContactListView(
         :return: The rendered template response
         """
         region = request.region
-        query = None
+        search_query = request.GET.get("search_query") or None
 
         if not region.contacts_enabled:
             return self.redirect_to_dashboard(request)
@@ -80,19 +89,9 @@ class ContactListView(
                 "contacts": contact_chunk,
                 "archived_count": archived_count,
                 "current_menu_item": "contacts",
-                "search_query": query,
+                "search_query": search_query,
             },
         )
-
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        r"""
-        Apply the query and filter the rendered contacts
-        :param request: The current request
-        :param \*args: The supplied arguments
-        :param \**kwargs: The supplied keyword arguments
-        :return: The rendered template response
-        """
-        return self.get(request, *args, **kwargs, search_data=request.POST)
 
     def redirect_to_language_tree(self, request: HttpRequest) -> None:
         """
