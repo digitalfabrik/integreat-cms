@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import logging
 import operator
-from collections.abc import Callable
 from functools import reduce
 from typing import Any, TYPE_CHECKING
 
@@ -19,6 +18,8 @@ from .content_utils import clean_content
 from .internal_link_utils import get_public_translation_for_link
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from ..models import User
     from ..models.abstract_content_translation import AbstractContentTranslation
 
