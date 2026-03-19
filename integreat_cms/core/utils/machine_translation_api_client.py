@@ -424,15 +424,6 @@ class MachineTranslationApiClient(ABC):
                     "push_notification": ctx.instance,
                 }
             )
-        # Preserve the existing slug when re-translating, so that
-        # machine translation does not generate a new slug from the
-        # (potentially non-deterministic) translated title each time
-        if (
-            "slug" not in translation_data
-            and content_object.existing_target_translation
-        ):
-            translation_data["slug"] = content_object.existing_target_translation.slug
-
         content_translation_form = self.form_class(
             data=translation_data,
             instance=ctx.existing_target_translation,
