@@ -11,6 +11,7 @@ from django.utils.translation import ngettext, ngettext_lazy
 
 from ...constants import status
 from ...models import Language
+from ...utils.content_translation_utils import save_new_version_with_retry
 from ...utils.stringify_list import iter_to_string
 
 if TYPE_CHECKING:
@@ -51,7 +52,7 @@ def change_publication_status(
                         translation.all_versions.filter(status=status.PUBLIC).update(
                             status=status.DRAFT,
                         )
-                    translation.save()
+                    save_new_version_with_retry(translation, translation.save)
                     successful.append(translation.title)
             else:
                 failed.append(content.best_translation.title)
