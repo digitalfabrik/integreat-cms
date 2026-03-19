@@ -8,12 +8,8 @@ if TYPE_CHECKING:
     from django.db.models.base import ModelBase
 
 from integreat_cms.cms.models import (
-    EventTranslation,
     Language,
-    PageTranslation,
-    POITranslation,
 )
-from integreat_cms.core.utils.word_count import word_count
 
 
 def get_content_translations(
@@ -36,22 +32,6 @@ def get_content_translations(
         }
         for content_entry in content_model.objects.filter(id__in=ids)
     ]
-
-
-def get_word_count(
-    translations: list[EventTranslation]
-    | (list[PageTranslation] | list[POITranslation]),
-) -> int:
-    """
-    Count the total number of words in the title, content and meta-description of translations
-
-    :param translations: List of translations (Pages, Events or POIs)
-    :return: Word count
-    """
-    words = 0
-    for translation in translations:
-        words += word_count([("", translation.title), ("", translation.content)])
-    return words
 
 
 def get_english_name(slug: str) -> str:

@@ -59,7 +59,7 @@ class PageFilterForm(CustomFilterForm):
         required=False,
     )
 
-    query = forms.CharField(required=False)
+    search_query = forms.CharField(required=False)
 
     def __init__(self, **kwargs: Any) -> None:
         r"""
@@ -81,7 +81,7 @@ class PageFilterForm(CustomFilterForm):
         """
         if self.is_enabled:
             logger.debug("Page tree filtered with changed data %r", self.changed_data)
-            if "query" in self.changed_data:
+            if "search_query" in self.changed_data:
                 pages = self.filter_by_query(pages, language_slug)
             if "translation_status" in self.changed_data:
                 pages = self.filter_by_translation_status(pages, language_slug)
@@ -103,7 +103,7 @@ class PageFilterForm(CustomFilterForm):
         :param language_slug: The slug of the current language
         :return: The filtered page list
         """
-        query = self.cleaned_data["query"].lower()
+        query = self.cleaned_data["search_query"].lower()
         # Buffer variable because the pages list should not be modified during iteration
         filtered_pages = []
         for page in pages:

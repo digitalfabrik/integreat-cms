@@ -2268,6 +2268,24 @@ msgstr "Webseite"
 msgid "Email address"
 msgstr "E-Mail-Adresse"
 
+#: cms/forms/pois/poi_form.py cms/views/contacts/contact_list_view.py
+msgid "Area of responsibility"
+msgstr "Zuständigkeitsbereich"
+
+#: cms/forms/pois/poi_form.py cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_form.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/poicategories/poicategory_list.html
+#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
+#: cms/views/contacts/contact_list_view.py
+msgid "Name"
+msgstr "Name"
+
+#: cms/forms/pois/poi_form.py cms/views/contacts/contact_list_view.py
+msgid "Mobile phone number"
+msgstr "Mobiltelefonnummer"
+
 #: cms/forms/pois/poi_form.py
 msgid "An error occurred while saving the opening hours."
 msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
@@ -2280,6 +2298,10 @@ msgstr ""
 "Die Koordinaten konnten nicht aus der Adresse abgeleitet werden, bitte "
 "füllen Sie das Feld manuell aus, wenn der Ort auf der Karte angezeigt werden "
 "soll."
+
+#: cms/forms/pois/poi_form.py
+msgid "To create a contact, area of responsibility is mandatory."
+msgstr "Zuständigkeitsbereich ist benötigt um ein Kontakt zu erstellen."
 
 #: cms/forms/push_notifications/push_notification_form.py
 msgid "Schedule sending"
@@ -4565,10 +4587,8 @@ msgid "Page tree tutorial seen"
 msgstr "Seitenbaum-Tutorial angesehen"
 
 #: cms/models/users/user.py
-msgid "Will be set to true once the user dismissed the page tree tutorial"
-msgstr ""
-"Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum Seitenbaum "
-"angesehen hat"
+msgid "Has seen tutorial for page tree"
+msgstr "Hat ein Tutorial für den Seitenbaum angesehen."
 
 #: cms/models/users/user.py
 msgid "automatically distribute sidebar boxes"
@@ -6625,16 +6645,6 @@ msgstr "Neuer externer Kalender"
 #: cms/templates/events/external_calendar_list.html
 msgid "External calendars"
 msgstr "Externe Kalender"
-
-#: cms/templates/events/external_calendar_list.html
-#: cms/templates/languages/language_form.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/poicategories/poicategory_list.html
-#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
-#: cms/views/contacts/contact_list_view.py
-msgid "Name"
-msgstr "Name"
 
 #: cms/templates/events/external_calendar_list.html
 msgid "Imported events"
@@ -9870,16 +9880,8 @@ msgid "Name of related location"
 msgstr "Name des verlinkten Ortes"
 
 #: cms/views/contacts/contact_list_view.py
-msgid "Area of responsibility"
-msgstr "Zuständigkeitsbereich"
-
-#: cms/views/contacts/contact_list_view.py
 msgid "E-Mail"
 msgstr "E-Mail"
-
-#: cms/views/contacts/contact_list_view.py
-msgid "Mobile phone number"
-msgstr "Mobiltelefonnummer"
 
 #: cms/views/contacts/contact_list_view.py
 msgid "Please create at least one language node before creating contacts."
@@ -11042,8 +11044,8 @@ msgid "Location service is disabled"
 msgstr "Ortung ist deaktiviert"
 
 #: cms/views/pois/poi_actions.py
-msgid "Address could not be found"
-msgstr "Adresse konnte nicht gefunden werden"
+msgid "Coordinates could not be found"
+msgstr "Koordinaten wurden nicht gefunden."
 
 #: cms/views/pois/poi_context_mixin.py
 msgid "Please confirm that you really want to archive this location"
@@ -11673,14 +11675,32 @@ msgstr[1] ""
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
-msgid "{model_name} {object_names} could not be translated automatically."
+msgid ""
+"{model_name} {object_names} could not be translated automatically into "
+"'{target_language}'"
 msgid_plural ""
-"The following {model_name} could not translated automatically: {object_names}"
+"The following {model_name} could not be translated automatically into "
+"'{target_language}': {object_names}"
 msgstr[0] ""
-"{model_name} {object_names} konnte nicht automatisch übersetzt werden."
+"{model_name} {object_names} konnte nicht automatisch nach '{target_language}' übersetzt werden."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht automatisch übersetzt werden: "
+"Die folgenden {model_name} konnten nicht automatisch nach '{target_language}' übersetzt werden: "
 "{object_names}"
+
+#: core/utils/machine_translation_api_client.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} was not translated into '{target_language}', "
+"because there were no changes to the source translation."
+msgid_plural ""
+"The following {model_name} were not translated into '{target_language}', "
+"because there were no changes to the source translation: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} konnte nicht nach '{target_language}' übersetzt werden, weil die Quell-"
+"Übersetzung sich nicht geändert hat."
+msgstr[1] ""
+"Die folgenden {model_name} konnten nicht nach '{target_language}' übersetzt werden, weil ihre Quell-"
+"Übersetzungen sich nicht geändert haben: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
@@ -11695,7 +11715,7 @@ msgstr[0] ""
 "Übersetzung fehlt."
 msgstr[1] ""
 "Die folgenden {model_name} konnten nicht übersetzt werden, da ihre Quell-"
-"Übersetzung fehlen: {object_names}"
+"Übersetzungen fehlen: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
@@ -12051,6 +12071,11 @@ msgstr ""
 
 #~ msgid "Show opening hours"
 #~ msgstr "Öffnungszeiten anzeigen"
+
+#~ msgid "Will be set to true once the user dismissed the page tree tutorial"
+#~ msgstr ""
+#~ "Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum "
+#~ "Seitenbaum angesehen hat"
 
 #~ msgid "The list below shows all detected errors related to links."
 #~ msgstr "Hier können Sie eine Übersicht über fehlerhafte Links sehen."

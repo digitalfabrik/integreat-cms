@@ -37,6 +37,7 @@ class ContactFormAjaxView(TemplateView, ContactContextMixin):
         contact_form = ContactForm(
             additional_instance_attributes={"region": request.region}
         )
+        contact_form.fields["area_of_responsibility"].required = True
 
         return render(
             request,

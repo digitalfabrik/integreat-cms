@@ -438,6 +438,57 @@ jobs:
             - pyproject.toml
             - integreat_cms/__init__.py
             - integreat_cms/_manifest
+  bump-rc-version:
+    docker:
+      - image: cimg/python:3.11.7
+    resource_class: large
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
+          name: Bump version
+          command: |
+            # Install recent version of pip
+            echo "Upgrade pip to make sure 'pip index' is available"
+            pip install --upgrade pip
+            # Check which versions of integreat-cms are available on the PyPI repository
+            AVAILABLE_VERSIONS=$(pip index versions integreat-cms --pre)
+            echo "Current available versions on PyPI: ${AVAILABLE_VERSIONS}"
+            CURRENT_RC_VERSION=$(echo "${AVAILABLE_VERSIONS}" | head -n 1)
+            echo "Most recent version on PyPI: ${CURRENT_RC_VERSION}"
+            # First isolate the version as pypi reports it, then switch the rc around if it exists at all
+            CURRENT_RC_VERSION=$(echo "${CURRENT_RC_VERSION}" | sed "s/integreat-cms (\([^()]*\))/\1/ ; s/\(.*\)rc0/\1-rc/")
+            echo "Version converted to alternative format: ${CURRENT_RC_VERSION}"
+            # Get current prod version
+            CURRENT_VERSION=$(python -c "import integreat_cms; print(integreat_cms.__version__)")
+            echo "Current production version: ${CURRENT_VERSION}"
+            # Bump version to current release candidate version if it is newer
+            # Attention: exit(True) in Python means exit(1) which is False in Bash :)
+            if python -c "from bumpver.version import parse_version; exit(parse_version('${CURRENT_VERSION}') > parse_version('${CURRENT_RC_VERSION}'))"; then
+              echo "Bump to the currently existing version"
+              bumpver update -n --set-version="${CURRENT_RC_VERSION}" --no-commit
+            fi
+            # Bump version to next release candidate version
+            echo "Bump to the next version"
+            bumpver update -n -t rc --no-commit
+      - run:
+          name: Generate SBOM
+          command: |
+            curl -sSfL https://get.anchore.io/syft | sudo sh -s -- -b /usr/local/bin
+            export SYFT_SOURCE_VERSION=$(python -c "import integreat_cms; print(integreat_cms.__version__)")
+            export SYFT_SOURCE_NAME="integreat-cms"
+            export SYFT_FORMAT_SPDX_JSON_PRETTY=true
+            syft scan . -o spdx-json=integreat_cms/_manifest/spdx_2.2/manifest.spdx.json
+      - persist_to_workspace:
+          root: .
+          paths:
+            - pyproject.toml
+            - integreat_cms/__init__.py
+            - integreat_cms/_manifest
   bump-version:
     docker:
       - image: cimg/python:3.11.7
@@ -623,12 +674,34 @@ workflows:
                 - /.*-publish-dev-package/
           requires:
             - pip-install
+      - bump-rc-version:
+          filters:
+            branches:
+              only:
+                - /rc\/\d{4}\.\d{1,2}\.\d{1,2}.*/
+          requires:
+            - pip-install
+      - build-package:
+          name: build-rc-package
+          requires:
+            - webpack
+            - compile-translations
+            - bump-rc-version
       - build-package:
           name: build-dev-package
           requires:
             - webpack
             - compile-translations
             - bump-dev-version
+      - publish-package:
+          name: publish-rc-package
+          context: pypi
+          filters:
+            branches:
+              only:
+                - /rc\/\d{4}\.\d{1,2}\.\d{1,2}.*/
+          requires:
+            - build-rc-package
       - publish-package:
           name: publish-dev-package
           context: pypi-test

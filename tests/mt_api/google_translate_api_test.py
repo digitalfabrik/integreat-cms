@@ -13,6 +13,8 @@ import pytest
 from django.apps import apps
 from django.urls import reverse
 
+from integreat_cms.cms.constants.machine_translatable_fields import TRANSLATABLE_FIELDS
+
 from ..conftest import AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from ..utils import assert_message_in_log
 
@@ -59,6 +61,31 @@ class FakeClient:
         return [{"translatedText": "This is your translation from Google Translate"}]
 
 
+class FakeTranslation:
+    """
+    Fake translation result for translate_v3 API
+    """
+
+    translated_text = "This is your translation from Google Translate"
+
+
+class FakeTranslateResponse:
+    """
+    Fake response for translate_v3.TranslationServiceClient.translate_text
+    """
+
+    translations = [FakeTranslation()]
+
+
+class FakeClientV3:
+    """
+    Fake client to replace translate_v3.TranslationServiceClient
+    """
+
+    def translate_text(self, request: object) -> FakeTranslateResponse:
+        return FakeTranslateResponse()
+
+
 def setup_fake_google_translate_api(  # type: ignore[no-untyped-def]
     self,
     request: HttpRequest,
@@ -75,9 +102,10 @@ def setup_fake_google_translate_api(  # type: ignore[no-untyped-def]
     self.request = request
     self.region = request.region
     self.form_class = form_class
-    self.translatable_attributes = ["title", "content", "meta_description"]
+    self.translatable_fields = TRANSLATABLE_FIELDS
 
     self.translator_v2 = FakeClient()
+    self.translator_v3 = FakeClientV3()
 
 
 @pytest.mark.django_db
