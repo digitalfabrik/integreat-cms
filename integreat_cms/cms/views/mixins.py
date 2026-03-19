@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 from django.conf import settings
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Min
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
@@ -237,7 +238,22 @@ class FilterSortMixin:
         if order_by:
             # queryset.order_by([]) would override default ordering and result in an unordered queryset
             # so we only use order_by if "sort" is not empty
-            queryset = queryset.order_by(*order_by)
-            if any("__" in f.lstrip("-") for f in order_by):
-                queryset = queryset.distinct()
+            annotations = {}
+            final_order = []
+            for f in order_by:
+                bare = f.lstrip("-")
+                descending = f.startswith("-")
+                if "__" in bare:
+                    # Sorting by a relational field via JOIN produces duplicate rows.
+                    # Use Min annotation instead, which collapses via GROUP BY.
+                    annotation_name = f"_sort_{bare.replace('__', '_')}"
+                    annotations[annotation_name] = Min(bare)
+                    final_order.append(
+                        f"-{annotation_name}" if descending else annotation_name
+                    )
+                else:
+                    final_order.append(f)
+            if annotations:
+                queryset = queryset.annotate(**annotations)
+            queryset = queryset.order_by(*final_order)
         return queryset
