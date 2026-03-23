@@ -4,6 +4,7 @@ This module contains shared fixtures for pytest
 
 from __future__ import annotations
 
+import os
 from typing import Any, TYPE_CHECKING
 from unittest.mock import patch
 
@@ -56,6 +57,10 @@ HIGH_PRIV_STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM]
 ROLES: Final = REGION_ROLES + STAFF_ROLES
 #: All region and staff roles and anonymous users
 ALL_ROLES: Final = [*ROLES, ANONYMOUS]
+#: Representative subset covering all permission boundaries (for faster local runs)
+QUICK_ROLE_SET: Final = [ROOT, MANAGEMENT, AUTHOR, ANONYMOUS]
+#: The roles used for parametrized tests — set QUICK_ROLES=1 to use the subset
+TEST_ROLES: Final = QUICK_ROLE_SET if os.environ.get("QUICK_ROLES") else ALL_ROLES
 
 
 @pytest.fixture(scope="session")
@@ -106,7 +111,7 @@ def load_test_data_transactional(
         call_command("loaddata", "integreat_cms/cms/fixtures/test_data.json")
 
 
-@pytest.fixture(scope="session", params=ALL_ROLES)
+@pytest.fixture(scope="session", params=TEST_ROLES)
 def login_role_user(
     request: SubRequest,
     load_test_data: None,
@@ -127,6 +132,31 @@ def login_role_user(
             user = get_user_model().objects.get(username=request.param.lower())
             client.force_login(user)
     return client, request.param
+
+
+@pytest.fixture(scope="session", params=TEST_ROLES)
+def login_role_user_async(
+    request: SubRequest,
+    load_test_data: None,
+    django_db_blocker: _DatabaseBlocker,
+) -> tuple[AsyncClient, str]:
+    """
+    Get the test user of the current role and force a login. Gets executed only once per user.
+    Identical to :meth:`~tests.conftest.login_role_user` with the difference that it returns
+    an :class:`django.test.client.AsyncClient` instead of :class:`django.test.client.Client`.
+
+    :param request: The request object providing the parametrized role variable through ``request.param``
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param django_db_blocker: The fixture providing the database blocker
+    :return: The http client and the current role
+    """
+    async_client = AsyncClient()
+    # Only log in user if the role is not anonymous
+    if request.param != ANONYMOUS:
+        with django_db_blocker.unblock():
+            user = get_user_model().objects.get(username=request.param.lower())
+            async_client.force_login(user)
+    return async_client, request.param
 
 
 @pytest.fixture(scope="function")
