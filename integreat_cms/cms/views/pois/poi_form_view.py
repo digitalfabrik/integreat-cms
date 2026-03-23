@@ -131,9 +131,7 @@ class POIFormView(
             },
         )
 
-    def post(  # noqa: PLR0915
-        self, request: HttpRequest, *args: Any, **kwargs: Any
-    ) -> HttpResponse:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Submit :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and
         :class:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm` and save :class:`~integreat_cms.cms.models.pois.poi.POI` and
@@ -215,17 +213,7 @@ class POIFormView(
                     foreign_form_changed=poi_form.has_changed(),
                 )
 
-                # Send the post save signal of contact model to trigger contact card update
-                if "address" in poi_form.changed_data and (
-                    related_contacts := poi.contacts.all()
-                ):
-                    for contact in related_contacts:
-                        post_save.send(
-                            sender=Contact,
-                            instance=contact,
-                            created=False,
-                            using=contact_save_handler,
-                        )
+                self.update_contact_cards(poi_form, poi)
 
                 # only attempt to create a related contact if we are in creation mode and relevant fields have been added
                 if new_poi_and_new_related_contact:
@@ -237,31 +225,15 @@ class POIFormView(
                         poi=poi,
                     )
 
-                # Look explicitly for the primary contact, not any first one,
-                # as we do not delete non-primary contacts when deactivating contact in a region.
-                # "get()" is not used as it raises an exception if there is no primary contact.
-                contact = poi.contacts.get_primary_contact()
-
-                if website != "" or phone_number != "" or email != "":
-                    if not contact:
-                        contact = Contact(location=poi)
-
-                    if phone_number:
-                        phone_number = format_phone_number(phone_number)
-
-                    contact.website = website
-                    contact.phone_number = phone_number
-                    contact.email = email
-                    # opening hours is None means the contact adopts the location's opening hours
-                    if contact.opening_hours is None:
-                        contact.appointment_url = poi.appointment_url
-                    if not contact.name and language == region.default_language:
-                        contact.name = poi_translation_form.instance.title
-                    contact.save()
-                elif contact is not None:
-                    contact.delete()
-
-                invalidate_model(Contact)
+                self.update_primary_contact(
+                    poi,
+                    poi_translation_form,
+                    language,
+                    region,
+                    website,
+                    phone_number,
+                    email,
+                )
 
                 # If any source translation changes to draft, set all depending translations/versions to draft
                 if poi_translation_form.instance.status == status.DRAFT:
@@ -280,32 +252,9 @@ class POIFormView(
                         language=language,
                     ).update(status=status.PUBLIC)
 
-                # Show a message that the slug was changed if it was not unique
-                if user_slug and user_slug != poi_translation_form.cleaned_data["slug"]:
-                    other_translation = POITranslation.objects.filter(
-                        poi__region=region,
-                        slug=user_slug,
-                        language=language,
-                    ).first()
-                    other_translation_link = other_translation.backend_edit_link
-                    message = _(
-                        "The slug was changed from '{user_slug}' to '{slug}', "
-                        "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
-                    ).format(
-                        user_slug=user_slug,
-                        slug=poi_translation_form.cleaned_data["slug"],
-                        translation=other_translation,
-                    )
-                    messages.warning(
-                        request,
-                        translate_link(
-                            message,
-                            attributes={
-                                "href": other_translation_link,
-                                "class": "underline hover:no-underline",
-                            },
-                        ),
-                    )
+                self.show_slug_changed_message(
+                    request, language, region, user_slug, poi_translation_form
+                )
 
                 if success:
                     # Add the success message and redirect to the edit page
@@ -358,6 +307,94 @@ class POIFormView(
                 "is_edit": is_edit,
             },
         )
+
+    def update_primary_contact(
+        self,
+        poi: POI,
+        poi_translation_form: POITranslationForm,
+        language: Language,
+        region: Any,
+        website: str,
+        phone_number: str,
+        email: str,
+    ) -> None:
+        """
+        Update, create or delete the primary contact of the POI depend of the box "Contact details"
+        """
+        contact = poi.contacts.get_primary_contact()
+
+        if website != "" or phone_number != "" or email != "":
+            if not contact:
+                contact = Contact(location=poi)
+
+            if phone_number:
+                phone_number = format_phone_number(phone_number)
+
+            contact.website = website
+            contact.phone_number = phone_number
+            contact.email = email
+            # opening hours is None means the contact adopts the location's opening hours
+            if contact.opening_hours is None:
+                contact.appointment_url = poi.appointment_url
+            if not contact.name and language == region.default_language:
+                contact.name = poi_translation_form.instance.title
+            contact.save()
+        elif contact is not None:
+            contact.delete()
+
+        invalidate_model(Contact)
+
+    def update_contact_cards(self, poi_form: POIForm, poi: POI) -> None:
+        """
+        Send the post save signal of contact model to trigger contact card update
+        """
+        if "address" in poi_form.changed_data and (
+            related_contacts := poi.contacts.all()
+        ):
+            for contact in related_contacts:
+                post_save.send(
+                    sender=Contact,
+                    instance=contact,
+                    created=False,
+                    using=contact_save_handler,
+                )
+
+    def show_slug_changed_message(
+        self,
+        request: HttpRequest,
+        language: Language,
+        region: Any,
+        user_slug: str,
+        poi_translation_form: POITranslationForm,
+    ) -> None:
+        """
+        Show a message that the slug was changed if it was not unique
+        """
+        if user_slug and user_slug != poi_translation_form.cleaned_data["slug"]:
+            other_translation = POITranslation.objects.filter(
+                poi__region=region,
+                slug=user_slug,
+                language=language,
+            ).first()
+            other_translation_link = other_translation.backend_edit_link
+            message = _(
+                "The slug was changed from '{user_slug}' to '{slug}', "
+                "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
+            ).format(
+                user_slug=user_slug,
+                slug=poi_translation_form.cleaned_data["slug"],
+                translation=other_translation,
+            )
+            messages.warning(
+                request,
+                translate_link(
+                    message,
+                    attributes={
+                        "href": other_translation_link,
+                        "class": "underline hover:no-underline",
+                    },
+                ),
+            )
 
     def get_instances(
         self, language: Language, poi_id: Any
