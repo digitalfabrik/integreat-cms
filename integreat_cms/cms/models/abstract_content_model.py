@@ -518,6 +518,64 @@ class AbstractContentModel(AbstractBaseModel):
             if node.active
         }
 
+    def get_translatable_attributes(
+        self, attrs: list[str], source_language_slug: str, target_language_slug: str
+    ) -> list[tuple[str, str]]:
+        """
+        Returns a list of (attr, value) pairs to translate, based on
+        - whether the attr exists and has a value
+        - for the 'title' field whether the .do_not_translate_title field is set
+        - whether actual changes occured for the attr since the last translation was created
+
+        :param attrs: a list of field names that are to be considered for translation
+        :param source_language_slug: the slug of the source language of the translation
+        :param target_language_slug: the slug of the target language of the translation
+        :return: A list of tuple (attr, value) of translatable_attributes
+        """
+        source_translation = self.get_translation(source_language_slug)
+        if not source_translation:
+            raise ValueError(
+                f"No source translation found for language '{source_language_slug}'"
+            )
+        old_source_translation = self._old_source_translation(
+            source_language_slug, target_language_slug
+        )
+        result = []
+
+        for attr in attrs:
+            value = getattr(source_translation, attr, None)
+            if not value:
+                continue
+            if self.do_not_translate_title and attr == "title":
+                continue
+            if old_source_translation and not source_translation.attr_differs_from(
+                attr, old_source_translation
+            ):
+                continue
+
+            result.append((attr, value))
+
+        return result
+
+    def _old_source_translation(
+        self, source_language_slug: str, target_language_slug: str
+    ) -> AbstractContentTranslation | None:
+        """
+        Private helper: returns the old source translation for the existing translation
+        """
+        target_translation = self.get_translation(target_language_slug)
+        if not target_translation:
+            return None
+
+        return (
+            self.translations.filter(
+                language__slug=source_language_slug,
+                last_updated__lte=target_translation.last_updated,
+            )
+            .order_by("-version")
+            .first()
+        )
+
     @property
     def edit_lock_key(self) -> tuple[str | int | None, str]:
         """

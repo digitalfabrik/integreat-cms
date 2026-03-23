@@ -45,7 +45,7 @@ class UserFilterForm(CustomFilterForm):
         queryset=Region.objects.all(),
         required=False,
     )
-    query = forms.CharField(required=False)
+    search_query = forms.CharField(required=False)
 
     def apply(self, users: QuerySet[User]) -> QuerySet[User]:
         """
@@ -56,7 +56,7 @@ class UserFilterForm(CustomFilterForm):
         """
         if self.is_enabled:
             logger.debug("User list filtered with changed data %r", self.changed_data)
-            if "query" in self.changed_data:
+            if "search_query" in self.changed_data:
                 users = self.filter_by_query(users)
             if "role" in self.changed_data:
                 users = users.filter(groups__name=self.cleaned_data["role"])
@@ -73,6 +73,6 @@ class UserFilterForm(CustomFilterForm):
         :param users: The list of users
         :return: The filtered page list
         """
-        query = self.cleaned_data["query"].lower()
+        query = self.cleaned_data["search_query"].lower()
         user_keys = search_users(region=None, query=query).values("pk")
         return users.filter(pk__in=user_keys)

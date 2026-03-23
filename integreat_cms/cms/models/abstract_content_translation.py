@@ -208,6 +208,17 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         return self.url_prefix + self.slug + "/"
 
+    def attr_differs_from(
+        self, attr: str, other_translation: AbstractContentTranslation
+    ) -> bool:
+        """
+        Compares the value of the same attribute on two different translations
+        :param attr: name of the attribute
+        :param other_translation: the translation `self` should be compared against
+        :return: True if the value of the attr is different
+        """
+        return getattr(self, attr, None) != getattr(other_translation, attr, None)
+
     @cached_property
     def full_url(self) -> str:
         """
