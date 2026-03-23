@@ -1,16 +1,5 @@
 """
 Test repair tree util
-
-Test execution order:
-Since there seem to be some weird side effects happening
-for unrelated tests when testing database consistency, we first run those,
-then the tests that make sure the :func:`~integreat_cms.cms.utils.repair_tree.repair_tree` is effective,
-and last the effectiveness of :func:`~integreat_cms.cms.utils.tree_mutex.tree_mutex` itself.
-This ordering is facilitated using pytest_order
-to specify the tests to run ``"last"`` (eqivalent to ``-1``, absolute ordering)
-and after certain other tests (relative ordering).
-
-See https://pytest-order.readthedocs.io/en/stable/usage.html#order-relative-to-other-tests
 """
 
 import pytest
@@ -18,14 +7,8 @@ import pytest
 from integreat_cms.cms.models import Page, Region
 from integreat_cms.cms.utils.repair_tree import repair_tree
 
-after_tests = (
-    "tests/core/management/commands/test_replace_links.py::test_replace_links_commit",
-    "tests/core/management/commands/test_fix_internal_links.py::test_fix_internal_links_commit",
-)
 
-
-@pytest.mark.order("last", after=after_tests)
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_repair_tree(load_test_data_transactional: None) -> None:
     """
     Create a broken tree of 3 nodes and assert that :func:`~integreat_cms.cms.utils.repair_tree.repair_tree` correctly fixes it.
@@ -94,8 +77,7 @@ def test_repair_tree(load_test_data_transactional: None) -> None:
 @pytest.mark.xfail(
     reason="Constraints on the model prohibit the broken state used as basis for this test",
 )
-@pytest.mark.order("last", after=after_tests)
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_repair_tree_complex(  # noqa: PLR0915
     load_test_data_transactional: None,
 ) -> None:

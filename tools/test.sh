@@ -16,23 +16,9 @@ ensure_webpack_bundle_exists
 
 require_database
 
-# Set dummy key to enable SUMM.AI during testing
-export INTEGREAT_CMS_SUMM_AI_API_KEY="dummy"
-
-# Set dummy key to enable DeepL during testing
-export INTEGREAT_CMS_DEEPL_AUTH_KEY="dummy"
-
-# Set dummy key to enable Textlab during testing
-export INTEGREAT_CMS_TEXTLAB_API_KEY="dummy"
-# Set Google credentials and project ID to enable Google Translate during testing
-export INTEGREAT_CMS_GOOGLE_CREDENTIALS="dummy.json"
-export INTEGREAT_CMS_GOOGLE_PROJECT_ID="dummy"
-
-# Disable linkcheck listeners during testing
-export INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS=1
-
-# Disable background tasks during testing
-export INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED=0
+# Test-specific settings (dummy API keys, disabled listeners, etc.) are
+# configured in integreat_cms/core/test_settings.py which is set as the
+# DJANGO_SETTINGS_MODULE in pyproject.toml [tool.pytest.ini_options].
 
 TESTS=()
 

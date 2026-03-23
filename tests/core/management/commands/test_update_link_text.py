@@ -85,8 +85,7 @@ NEW_LINK = f'<a href="{USED_URL}">{NEW_LINK_TEXT}</a>'
 
 
 @pytest.mark.skip(reason="flaky test having strange side effects")
-@pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_command_succeeds(load_test_data_transactional: Any | None) -> None:
     """
     Tests that the command runs successfully when supplied with an occurring URL
