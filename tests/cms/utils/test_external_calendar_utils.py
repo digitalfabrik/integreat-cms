@@ -5,6 +5,8 @@ import pytest
 
 from integreat_cms.cms.utils.external_calendar_utils import IcalEventData
 
+pytestmark = pytest.mark.unit
+
 logger = logging.getLogger(__name__)
 
 # A list of invalid calendars.

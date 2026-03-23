@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from collections.abc import Callable
 
 
+@pytest.mark.slow
 @pytest.mark.django_db(transaction=True)
 def test_tree_mutex(load_test_data_transactional: None) -> None:
     """
@@ -27,6 +28,7 @@ def test_tree_mutex(load_test_data_transactional: None) -> None:
     run_mutex_test(use_mutex=True)
 
 
+@pytest.mark.slow
 @pytest.mark.xfail(
     strict=False,
     reason="Nondeterministic race condition test - collision may not always occur",

@@ -10,7 +10,7 @@ raw_hix_expected_rounding = [
 ]
 
 
-@pytest.mark.django_db
+@pytest.mark.unit
 @pytest.mark.parametrize("raw_hix_expected_rounding", raw_hix_expected_rounding)
 def test_rounded_hix_value(raw_hix_expected_rounding: tuple[float, float]) -> None:
     """

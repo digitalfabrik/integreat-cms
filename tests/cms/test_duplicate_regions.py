@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from django.test.client import Client
 
 
+@pytest.mark.slow
 @pytest.mark.django_db(transaction=True)
 def test_duplicate_regions(
     load_test_data_transactional: None,
@@ -156,6 +157,7 @@ def test_duplicate_regions(
         assert len(tree_ids) == len(set(tree_ids))
 
 
+@pytest.mark.slow
 @pytest.mark.django_db(transaction=True)
 def test_duplicate_regions_no_translations(
     load_test_data_transactional: None,
