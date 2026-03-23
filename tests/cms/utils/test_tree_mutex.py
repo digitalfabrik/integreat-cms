@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from collections.abc import Callable
 
 
+@pytest.mark.slow
 @pytest.mark.django_db(transaction=True)
 def test_tree_mutex(load_test_data_transactional: None) -> None:
     """

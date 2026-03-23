@@ -1,6 +1,14 @@
 #!/bin/bash
 
 # This script executes the tests and starts the database docker container if necessary.
+#
+# Usage examples:
+#   ./tools/test.sh                          Run the full test suite
+#   ./tools/test.sh -m unit                  Run only unit tests (no database, fast)
+#   ./tools/test.sh -m "not slow"            Skip slow parametrized view tests
+#   ./tools/test.sh -m "not slow and not unit"  Integration tests only
+#   ./tools/test.sh -v -k test_tree_mutex    Run a specific test with verbose output
+#   QUICK_ROLES=1 ./tools/test.sh            Test only 4 representative roles (faster)
 
 # Import utility functions
 # shellcheck source=./tools/_functions.sh
