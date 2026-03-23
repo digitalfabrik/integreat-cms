@@ -4,7 +4,7 @@ Frontend Bundling (Webpack)
 
 Webpack is being used to generate frontend bundles based on TypeScript code that is compiled to JavaScript as well as SCSS code which is being transpiled to CSS. The following bundles are defined:
 
-1. :github-source:`integreat_cms/static/src/index.ts` (``main.<hash>.js``/``main.<hash>.css``): All main assets (including :ref:`Feature modules`) available on all pages
+1. :github-source:`integreat_cms/static/src/index.ts` (``main.<hash>.js``/``main.<hash>.css``): All main assets (including :ref:`Feature modules <feature-modules>`) available on all pages
 2. :github-source:`integreat_cms/static/src/editor.ts` (``editor.<hash>.js``): Contains TinyMCE and related assets. It was decided to bundle TinyMCE in a separate file because it is the largest of all bundled assets
 3. :github-source:`integreat_cms/static/src/editor_content.ts` (``editor_content.<hash>.js``/``editor_content.<hash>.css``): Contains assets for the TinyMCE content iframe which cannot be passed via the global context
 4. :github-source:`integreat_cms/static/src/pdf.ts` (``pdf.<hash>.js``/``pdf.css``): Contains assets for the PDF rendering
@@ -17,6 +17,7 @@ When running :github-source:`tools/run.sh`, ``webpack-dev-server`` is being used
 For a production build one should run ``npm run prod``.
 This will generate minified js and css files in the same target directory.
 
+.. _feature-modules:
 
 Feature modules
 ===============
