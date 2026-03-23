@@ -207,6 +207,7 @@ class AbstractContentModel(AbstractBaseModel):
                 "foreign_model": self._meta.model_name,
                 "region": self.region,
                 "language": translation.language,
+                "fallback": self.created_date.isoformat(),
             }
             translation.slug = generate_unique_slug(**kwargs)
             translation.currently_in_translation = False
