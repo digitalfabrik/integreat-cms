@@ -8,7 +8,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Tuple
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -211,7 +211,11 @@ class PageFormView(
             )
 
         page_form, page_translation_form = self.instantiate_forms(
-            request, page_instance, page_translation_instance, language, region,
+            request,
+            page_instance,
+            page_translation_instance,
+            language,
+            region,
         )
 
         if not request.user.has_perm(
@@ -245,7 +249,6 @@ class PageFormView(
                 page_translation_form.add_error_messages(request)
                 success = False
             elif success:
-                
                 if (
                     not page_instance
                     or page_translation_form.instance.status != status.AUTO_SAVE
@@ -258,7 +261,10 @@ class PageFormView(
 
             if success:
                 user_slug = page_translation_form.data.get("slug")
-                if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:
+                if (
+                    user_slug
+                    and user_slug != page_translation_form.cleaned_data["slug"]
+                ):
                     self.report_conflicting_slug(
                         request, page_translation_form, region, user_slug, language
                     )
@@ -304,7 +310,11 @@ class PageFormView(
                 region, language, page_id
             )
             page_form, page_translation_form = self.instantiate_forms(
-                request, page_instance, page_translation_instance, language, region,
+                request,
+                page_instance,
+                page_translation_instance,
+                language,
+                region,
             )
 
         # Render form with errors
@@ -638,17 +648,29 @@ class PageFormView(
             messages.info(request, _("No changes detected, but date refreshed"))
         else:
             page_translation_form.add_success_message(request)
-    
-    def get_instances(self, region: Region, language: Language, page_id: str) -> Tuple[Page, PageTranslation]:
+
+    def get_instances(
+        self, region: Region, language: Language, page_id: Any
+    ) -> tuple[Page, PageTranslation]:
         page_instance = region.pages.filter(id=page_id).first()
         page_translation_instance = PageTranslation.objects.filter(
-            page=page_instance, language=language,
+            page=page_instance,
+            language=language,
         ).first()
         return page_instance, page_translation_instance
-    
-    def instantiate_forms(self, request:HttpRequest, page_instance:Page, page_translation_instance:PageTranslation, language:Language, region:Region) -> Tuple[PageForm, PageTranslationForm]:
+
+    def instantiate_forms(
+        self,
+        request: HttpRequest,
+        page_instance: Page,
+        page_translation_instance: PageTranslation,
+        language: Language,
+        region: Region,
+    ) -> tuple[PageForm, PageTranslationForm]:
         page_form = PageForm(
-            data=request.POST, files=request.FILES, instance=page_instance,
+            data=request.POST,
+            files=request.FILES,
+            instance=page_instance,
             additional_instance_attributes={"region": region},
         )
         page_form.fields["mirrored_page"].widget.language_slug = language.slug
@@ -656,10 +678,13 @@ class PageFormView(
             del page_form.fields["api_token"]
 
         page_translation_form = PageTranslationForm(
-            request=request, language=language, data=request.POST,
+            request=request,
+            language=language,
+            data=request.POST,
             instance=page_translation_instance,
             additional_instance_attributes={
-                "creator": request.user, "language": language,
+                "creator": request.user,
+                "language": language,
                 "page": page_form.instance,
             },
             changed_by_user=request.user,

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Tuple
+from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model
 from django.conf import settings
@@ -12,8 +12,6 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
-
-from integreat_cms.cms.models.regions.region import Region
 
 from ...constants import status, text_directions, translation_status
 from ...decorators import permission_required
@@ -28,6 +26,8 @@ if TYPE_CHECKING:
     from typing import Any
 
     from django.http import HttpRequest, HttpResponse
+
+    from integreat_cms.cms.models.regions.region import Region
 
 logger = logging.getLogger(__name__)
 
@@ -166,18 +166,20 @@ class EventFormView(
         poi = POI.objects.filter(id=request.POST.get("location")).first()
 
         event_id = kwargs.get("event_id")
-        event_instance, event_translation_instance, recurrence_rule_instance = self.get_instances(
-            language=language, event_id=event_id
+        event_instance, event_translation_instance, recurrence_rule_instance = (
+            self.get_instances(language=language, event_id=event_id)
         )
 
-        event_form, event_translation_form, recurrence_rule_form = self.instantiate_forms(
-            request=request,
-            event_instance=event_instance,
-            recurrence_rule_instance=recurrence_rule_instance,
-            event_translation_instance=event_translation_instance,
-            poi=poi,
-            language=language,
-            region=region,
+        event_form, event_translation_form, recurrence_rule_form = (
+            self.instantiate_forms(
+                request=request,
+                event_instance=event_instance,
+                recurrence_rule_instance=recurrence_rule_instance,
+                event_translation_instance=event_translation_instance,
+                poi=poi,
+                language=language,
+                region=region,
+            )
         )
 
         # Check publish permissions
@@ -188,7 +190,7 @@ class EventFormView(
             raise PermissionDenied(
                 f"{request.user!r} does not have the permission 'cms.publish_event'",
             )
-        
+
         if (
             event_translation_form.instance.status == status.AUTO_SAVE
             and not event_form.has_changed()
@@ -196,7 +198,7 @@ class EventFormView(
             and not recurrence_rule_form.has_changed()
         ):
             messages.info(request, _("No changes detected, autosave skipped"))
-        else: 
+        else:
             success = True
             with transaction.atomic():
                 sid = transaction.savepoint()
@@ -214,35 +216,39 @@ class EventFormView(
                     event_translation_form.instance.event = event
                     event_translation_instance = event_translation_form.save(
                         foreign_form_changed=(
-                            event_form.has_changed() or recurrence_rule_form.has_changed()
+                            event_form.has_changed()
+                            or recurrence_rule_form.has_changed()
                         ),
                     )
-                    
+
                 if success:
                     if (
                         event_form.cleaned_data.get("is_recurring")
                         and not recurrence_rule_form.is_valid()
                     ):
-                    
                         recurrence_rule_form.add_error_messages(request)
                         success = False
-                    else: 
-                        if event_form.cleaned_data.get("is_recurring"):
-                            # If event is recurring, save recurrence rule
-                            event_form.instance.recurrence_rule = recurrence_rule_form.save()
-                            event_form.instance.save(update_fields=["recurrence_rule"])
-                        elif event_form.instance.recurrence_rule:
-                            # If the event is not recurring but it was before, delete the associated recurrence rule
-                            event_form.instance.recurrence_rule.delete()
-                            event_form.instance.recurrence_rule = None
-                            event_form.instance.save(update_fields=["recurrence_rule"])
+                    elif event_form.cleaned_data.get("is_recurring"):
+                        # If event is recurring, save recurrence rule
+                        event_form.instance.recurrence_rule = (
+                            recurrence_rule_form.save()
+                        )
+                        event_form.instance.save(update_fields=["recurrence_rule"])
+                    elif event_form.instance.recurrence_rule:
+                        # If the event is not recurring but it was before, delete the associated recurrence rule
+                        event_form.instance.recurrence_rule.delete()
+                        event_form.instance.recurrence_rule = None
+                        event_form.instance.save(update_fields=["recurrence_rule"])
 
                 if success:
                     # If any source translation changes to draft, set all depending translations/versions to draft
                     if event_translation_form.instance.status == status.DRAFT:
-                        language_tree_node = region.language_node_by_slug.get(language.slug)
+                        language_tree_node = region.language_node_by_slug.get(
+                            language.slug
+                        )
                         languages = [language] + [
-                            node.language for node in language_tree_node.get_descendants()
+                            node.language
+                            for node in language_tree_node.get_descendants()
                         ]
                         event_translation_form.instance.event.translations.filter(
                             language__in=languages,
@@ -258,7 +264,10 @@ class EventFormView(
 
                     # Show a message that the slug was changed if it was not unique
                     user_slug = event_translation_form.data.get("slug")
-                    if user_slug and user_slug != event_translation_form.cleaned_data["slug"]:
+                    if (
+                        user_slug
+                        and user_slug != event_translation_form.cleaned_data["slug"]
+                    ):
                         other_translation = EventTranslation.objects.filter(
                             event__region=region,
                             slug=user_slug,
@@ -297,7 +306,9 @@ class EventFormView(
                         and not event_translation_form.has_changed()
                         and not recurrence_rule_form.has_changed()
                     ):
-                        messages.info(request, _("No changes detected, but date refreshed"))
+                        messages.info(
+                            request, _("No changes detected, but date refreshed")
+                        )
                     else:
                         # Add the success message
                         event_translation_form.add_success_message(request)
@@ -313,20 +324,22 @@ class EventFormView(
                             "language_slug": language.slug,
                         },
                     )
-                
+
                 # Failure: rollback and re-instantiate for clean re-render
                 transaction.savepoint_rollback(sid)
-                event_instance, event_translation_instance, recurrence_rule_instance = self.get_instances(
-                    language=language, event_id=event_id
+                event_instance, event_translation_instance, recurrence_rule_instance = (
+                    self.get_instances(language=language, event_id=event_id)
                 )
-                event_form, event_translation_form, recurrence_rule_form = self.instantiate_forms(
-                    request=request,
-                    event_instance=event_instance,
-                    recurrence_rule_instance=recurrence_rule_instance,
-                    event_translation_instance=event_translation_instance,
-                    poi=poi,
-                    language=language,
-                    region=region,
+                event_form, event_translation_form, recurrence_rule_form = (
+                    self.instantiate_forms(
+                        request=request,
+                        event_instance=event_instance,
+                        recurrence_rule_instance=recurrence_rule_instance,
+                        event_translation_instance=event_translation_instance,
+                        poi=poi,
+                        language=language,
+                        region=region,
+                    )
                 )
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{event_translation_form.instance.url_infix}/"
         return render(
@@ -349,8 +362,17 @@ class EventFormView(
                 ),
             },
         )
-    
-    def instantiate_forms(self, request: HttpRequest, event_instance:Event, recurrence_rule_instance: RecurrenceRule, event_translation_instance: EventTranslation, poi: POI, region: Region, language:Language) -> Tuple[EventForm, EventTranslationForm, RecurrenceRuleForm]:
+
+    def instantiate_forms(
+        self,
+        request: HttpRequest,
+        event_instance: Event,
+        recurrence_rule_instance: RecurrenceRule,
+        event_translation_instance: EventTranslation,
+        poi: POI,
+        region: Region,
+        language: Language,
+    ) -> tuple[EventForm, EventTranslationForm, RecurrenceRuleForm]:
         event_form = EventForm(
             data=request.POST,
             files=request.FILES,
@@ -358,7 +380,7 @@ class EventFormView(
             additional_instance_attributes={"region": region, "location": poi},
         )
 
-        event_form.is_valid() # populate cleaned_data
+        event_form.is_valid()  # populate cleaned_data
 
         recurrence_rule_form = RecurrenceRuleForm(
             data=request.POST,
@@ -378,8 +400,10 @@ class EventFormView(
             changed_by_user=request.user,
         )
         return event_form, event_translation_form, recurrence_rule_form
-    
-    def get_instances(self, language: Language, event_id:str) -> Tuple[Event, EventTranslation, RecurrenceRule]:
+
+    def get_instances(
+        self, language: Language, event_id: Any
+    ) -> tuple[Event, EventTranslation, RecurrenceRule]:
         event_instance = Event.objects.filter(id=event_id).first()
         recurrence_rule_instance = RecurrenceRule.objects.filter(
             event=event_instance,

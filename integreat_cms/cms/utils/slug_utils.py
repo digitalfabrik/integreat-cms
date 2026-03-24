@@ -146,7 +146,6 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
         other_objects = pre_filtered_objects.filter(slug=unique_slug)
 
         if object_instance:
-
             other_objects = exclude_current_object(
                 other_objects,
                 object_instance,

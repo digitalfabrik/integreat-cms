@@ -4,7 +4,6 @@ A view representing an instance of a point of interest. POIs can be created or u
 
 from __future__ import annotations
 
-import json
 import logging
 from typing import TYPE_CHECKING
 
@@ -252,9 +251,12 @@ class POIFormView(
 
                     # If any source translation changes to draft, set all depending translations/versions to draft
                     if poi_translation_form.instance.status == status.DRAFT:
-                        language_tree_node = region.language_node_by_slug.get(language.slug)
+                        language_tree_node = region.language_node_by_slug.get(
+                            language.slug
+                        )
                         languages = [language] + [
-                            node.language for node in language_tree_node.get_descendants()
+                            node.language
+                            for node in language_tree_node.get_descendants()
                         ]
                         poi_translation_form.instance.poi.translations.filter(
                             language__in=languages,
@@ -269,7 +271,10 @@ class POIFormView(
 
                     # Show a message that the slug was changed if it was not unique
                     user_slug = poi_translation_form.data.get("slug")
-                    if user_slug and user_slug != poi_translation_form.cleaned_data["slug"]:
+                    if (
+                        user_slug
+                        and user_slug != poi_translation_form.cleaned_data["slug"]
+                    ):
                         other_translation = POITranslation.objects.filter(
                             poi__region=region,
                             slug=user_slug,
@@ -295,7 +300,6 @@ class POIFormView(
                             ),
                         )
 
-                
                     # Add the success message and redirect to the edit page
                     self.set_success_messages(
                         is_edit=is_edit,
@@ -326,7 +330,7 @@ class POIFormView(
                             "language_slug": language.slug,
                         },
                     )
-                
+
                 # Failure: rollback and re-instantiate for clean re-render
                 transaction.savepoint_rollback(sid)
                 poi_instance, poi_translation_instance = self.get_instances(
