@@ -13,8 +13,8 @@ type: 'Task'
 <!-- Things to be done within this task -->
 
 
-### Screenshot
-<!-- Screenshot of the part which needs be changed -->
+### Screenshot or Video
+<!-- Screenshot or a video (even better) of the part which needs be changed -->
 
 
 ### Additional Context

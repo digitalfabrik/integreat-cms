@@ -1,20 +1,23 @@
 ---
 name: "Research request \U0001F4A1"
-about: Ask for investigation
+about: Ask for a time-boxed investigation to gather information and reduce uncertainty
 type: 'Research'
 
 ---
 
-### Background and current state
-<!-- Describe the basis of the investigation -->
+### Context and Background
+<!-- Why is this research needed? What problem or decision prompted it?
+     Describe the broader context and what led to this research need -->
 
 
-### Target of investigation
-<!-- Describe what is expected as outcome. e.g. possible solution, recommendation, knowledge, judgement -->
+### Research Question
+<!-- What specific question(s) are we trying to answer (best to have a question that cannot be answered with yes/no)?
+     1. What is the best approach to...?
+     2. What are the trade-offs between...? -->
 
 
-### Screenshot
-<!-- Screenshot of the part which needs be changed -->
+### Screenshot or Video
+<!-- Screenshot or a video (even better) of the part which needs be changed -->
 
 
 ### Additional Context

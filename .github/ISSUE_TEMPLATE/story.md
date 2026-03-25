@@ -13,8 +13,8 @@ type: 'Story'
 <!-- A clear and concise description of the feature you would like to add, and how it solves the motivating problem. -->
 
 
-### Screenshot
-<!-- Screenshot of the part which needs be changed -->
+### Screenshot or Video
+<!-- Screenshot or a video (even better) of the part which needs be changed -->
 
 
 ### Alternatives

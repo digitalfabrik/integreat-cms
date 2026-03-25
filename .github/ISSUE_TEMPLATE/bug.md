@@ -24,8 +24,8 @@ type: 'Bug'
 <!-- A clear and concise description of what actually happened. -->
 
 
-### Screenshot
-<!-- Screenshots immediately before (if applicable) and after the bug occurs. -->
+### Screenshot or Video
+<!-- Screenshots or a video (even better) immediately before (if applicable) and after the bug occurs. -->
 
 
 ### Additional Information
