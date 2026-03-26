@@ -13,8 +13,8 @@ import pytest
 from django.urls import reverse
 
 from integreat_cms.cms.models import Language, LanguageTreeNode, Region
+from tests.constants import ANONYMOUS, HIGH_PRIV_STAFF_ROLES, MANAGEMENT
 
-from ..conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES, MANAGEMENT
 from .deepl_api_test import setup_deepl_supported_languages
 from .google_translate_api_test import setup_google_translate_supported_languages
 

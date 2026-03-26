@@ -11,7 +11,7 @@ import pytest
 from django.urls import reverse
 
 from integreat_cms.cms.models import Organization
-from tests.conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES, MANAGEMENT
+from tests.constants import ANONYMOUS, HIGH_PRIV_STAFF_ROLES, MANAGEMENT
 from tests.utils import assert_message_in_log
 
 REGION_SLUG = "augsburg"
