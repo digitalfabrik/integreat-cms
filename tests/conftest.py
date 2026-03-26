@@ -8,24 +8,31 @@ import os
 from typing import Any, TYPE_CHECKING
 from unittest.mock import patch
 
-import pytest
+import pytest  # isort: skip — must precede local imports for fixture registration
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.management import call_command
 from django.test.client import Client
 
-from integreat_cms.cms.constants.roles import (
+from integreat_cms.cms.models import Language, Page, Region
+from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
+from tests.constants import (  # noqa: F401 — re-exported for backward compatibility
+    ALL_ROLES,
+    ANONYMOUS,
     AUTHOR,
     CMS_TEAM,
     EDITOR,
-    EVENT_MANAGER,
+    HIGH_PRIV_STAFF_ROLES,
     MANAGEMENT,
-    MARKETING_TEAM,
     OBSERVER,
+    PRIV_STAFF_ROLES,
+    REGION_ROLES,
+    ROLES,
+    ROOT,
     SERVICE_TEAM,
+    STAFF_ROLES,
+    WRITE_ROLES,
 )
-from integreat_cms.cms.models import Language, Page, Region
-from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 from tests.mock import MockServer
 
 if TYPE_CHECKING:
@@ -38,25 +45,22 @@ if TYPE_CHECKING:
     from pytest_httpserver.httpserver import HTTPServer
 
 
-#: A role identifier for superusers
-ROOT: Final = "ROOT"
-#: A role identifier for anonymous users
-ANONYMOUS: Final = "ANONYMOUS"
+def pytest_addoption(parser: pytest.Parser) -> None:
+    """Register custom CLI options."""
+    parser.addoption(
+        "--update-snapshots",
+        action="store_true",
+        default=False,
+        help="Update API expected-output snapshot files instead of asserting against them.",
+    )
 
-#: All roles with editing permissions
-WRITE_ROLES: Final = [MANAGEMENT, EDITOR, AUTHOR, EVENT_MANAGER]
-#: All roles of region users
-REGION_ROLES: Final = [*WRITE_ROLES, OBSERVER]
-#: All roles of staff users
-STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM, MARKETING_TEAM]
-#: All roles of staff users that don't just have read-only permissions
-PRIV_STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM]
-#: All roles of staff users that don't just have read-only permissions
-HIGH_PRIV_STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM]
-#: All region and staff roles
-ROLES: Final = REGION_ROLES + STAFF_ROLES
-#: All region and staff roles and anonymous users
-ALL_ROLES: Final = [*ROLES, ANONYMOUS]
+
+@pytest.fixture(scope="session")
+def update_snapshots(request: pytest.FixtureRequest) -> bool:
+    """Whether ``--update-snapshots`` was passed on the CLI."""
+    return bool(request.config.getoption("--update-snapshots"))
+
+
 #: Representative subset covering all permission boundaries (for faster local runs)
 QUICK_ROLE_SET: Final = [ROOT, MANAGEMENT, AUTHOR, ANONYMOUS]
 #: The roles used for parametrized tests — set QUICK_ROLES=1 to use the subset
@@ -64,32 +68,15 @@ TEST_ROLES: Final = QUICK_ROLE_SET if os.environ.get("QUICK_ROLES") else ALL_ROL
 
 
 @pytest.fixture(scope="session")
-def django_db_setup(django_db_setup: None, django_db_blocker: _DatabaseBlocker) -> None:
+def load_test_data(django_db_setup: None, django_db_blocker: _DatabaseBlocker) -> None:
     """
-    Override pytest-django's ``django_db_setup`` to load test data as part of
-    the initial database setup. This ensures non-transactional tests always
-    have data available via their session-scoped database connection.
+    Load the test data initially for all test cases.
 
-    pytest-django automatically runs transactional tests AFTER non-transactional
-    ones within each worker, so there is no risk of a transactional test flushing
-    the database before a non-transactional test needs it. This eliminates the
-    need for ``@pytest.mark.order`` hacks.
-
-    :param django_db_setup: The original pytest-django fixture that creates the test database
+    :param django_db_setup: The fixture providing the database availability
     :param django_db_blocker: The fixture providing the database blocker
     """
     with django_db_blocker.unblock():
         call_command("loaddata", "integreat_cms/cms/fixtures/test_data.json")
-
-
-@pytest.fixture(scope="session")
-def load_test_data(django_db_setup: None) -> None:
-    """
-    Backward-compatible fixture for tests that request ``load_test_data``.
-    Test data is now loaded as part of ``django_db_setup``, so this is a no-op.
-
-    :param django_db_setup: The fixture providing the database with test data
-    """
 
 
 @pytest.fixture(scope="function")
@@ -159,6 +146,21 @@ def configure_celery_for_tests(settings: SettingsWrapper) -> None:
     # so we set celery to run synchronously and propagate errors to the test runner
     settings.CELERY_TASK_ALWAYS_EAGER = True
     settings.CELERY_TASK_EAGER_PROPAGATES = True
+
+
+@pytest.fixture(autouse=True)
+def clear_cache() -> None:
+    """
+    Reset the cache before every test so cache state cannot leak between tests.
+
+    The cache backend used in tests (:class:`~django.core.cache.backends.locmem.LocMemCache`)
+    lives for the lifetime of the worker process, and Django only rolls back the
+    database between tests — not the cache. Without this, process-level cache
+    state (most notably the API rate-limit counters in
+    :func:`~integreat_cms.api.decorators.rate_limited`) accumulates across tests
+    and makes assertions depend on test execution order.
+    """
+    cache.clear()
 
 
 @pytest.fixture()

@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 import pytest
 from django.urls import reverse
 
-from tests.conftest import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
+from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
 
 # We use Augsburg (region with German as default language) and Berlin (region with English as default language)
 # to test every language is required which is the default language of at least one region of the push notification

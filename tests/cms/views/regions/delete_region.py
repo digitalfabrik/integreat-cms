@@ -14,7 +14,12 @@ from integreat_cms.cms.models.push_notifications.push_notification import (
     PushNotification,
 )
 from integreat_cms.cms.models.regions.region import Region
-from tests.conftest import ANONYMOUS, CMS_TEAM, ROOT, SERVICE_TEAM
+from tests.constants import (
+    ANONYMOUS,
+    CMS_TEAM,
+    ROOT,
+    SERVICE_TEAM,
+)
 
 CLONED_PAGE = 30
 NESTED_MEDIA_OBJECT_ID = 1

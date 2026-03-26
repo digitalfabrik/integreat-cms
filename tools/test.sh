@@ -24,15 +24,26 @@ ensure_webpack_bundle_exists
 
 require_database
 
+# When require_database falls back to the dockerized postgres, it exposes the
+# container on INTEGREAT_CMS_DOCKER_LISTEN_PORT. docker_settings hardcodes that
+# port, but test_settings (below) inherits from base settings and reads the
+# port from the env, so propagate it explicitly.
+if [[ "${DJANGO_SETTINGS_MODULE}" == "integreat_cms.core.docker_settings" ]]; then
+    export INTEGREAT_CMS_DB_PORT="${INTEGREAT_CMS_DOCKER_LISTEN_PORT}"
+fi
+
 # Test-specific settings (dummy API keys, disabled listeners, etc.) are
-# configured in integreat_cms/core/test_settings.py which is set as the
-# DJANGO_SETTINGS_MODULE in pyproject.toml [tool.pytest.ini_options].
+# configured in integreat_cms/core/test_settings.py.
+# Override the DJANGO_SETTINGS_MODULE that require_database sets to the base
+# settings, so pytest uses the test settings even when invoked via this script.
+export DJANGO_SETTINGS_MODULE="integreat_cms.core.test_settings"
 
 # Disable re-importing of external news posts on demand
 export INTEGREAT_CMS_EXTERNALNEWS_DISABLE_AUTO_REIMPORT=1
 
 
 TESTS=()
+PYTEST_PASSTHROUGH=()
 
 # Parse given command line arguments
 while [[ $# -gt 0 ]]; do
@@ -45,6 +56,8 @@ while [[ $# -gt 0 ]]; do
         -k) shift;KW_EXPR="$1";shift;;
         # Select tests by marker
         -m) shift;MARKER="$1";shift;;
+        # Forward any other long flags (e.g. --update-snapshots) directly to pytest
+        --*) PYTEST_PASSTHROUGH+=("$1");shift;;
         # If only particular tests should be run, test path can be passed as CLI argument
         *) TESTS+=("$1");shift;;
     esac
@@ -76,8 +89,14 @@ if [[ -n "${CHANGED}" ]]; then
         PYTEST_ARGS+=("--testmon-noselect")
     fi
 else
-    # Run all tests, but update list of tests
-    PYTEST_ARGS+=("--testmon-noselect")
+    # Disable testmon when running in parallel — testmon conflicts with xdist
+    # and causes sporadic User.DoesNotExist errors during fixture setup.
+    if [[ -z "${VERBOSITY}" ]]; then
+        PYTEST_ARGS+=("-p" "no:testmon")
+    else
+        # Serial mode (verbose): safe to use testmon
+        PYTEST_ARGS+=("--testmon-noselect")
+    fi
 fi
 
 # Determine whether coverage data should be collected
@@ -113,6 +132,8 @@ if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]] || (( ${#TESTS[@]} )); then
 fi
 
 "$(dirname "${BASH_SOURCE[0]}")/prune_pdf_cache.sh"
+
+PYTEST_ARGS+=("${PYTEST_PASSTHROUGH[@]}")
 
 echo -e "Running all tests${TEST_MESSAGE}${CHANGED_MESSAGE}..." | print_info
 deescalate_privileges pytest "${PYTEST_ARGS[@]}"

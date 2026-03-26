@@ -5,7 +5,14 @@ from typing import TYPE_CHECKING
 import pytest
 from django.urls import reverse
 
-from tests.conftest import ANONYMOUS, AUTHOR, EDITOR, MANAGEMENT, OBSERVER, STAFF_ROLES
+from tests.constants import (
+    ANONYMOUS,
+    AUTHOR,
+    EDITOR,
+    MANAGEMENT,
+    OBSERVER,
+    STAFF_ROLES,
+)
 
 if TYPE_CHECKING:
     from django.test.client import Client
