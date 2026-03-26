@@ -1,0 +1,194 @@
+name: 🔬 Research
+description: A time-boxed investigation to gather information and reduce uncertainty
+type: research
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Research 
+        Use this template for time-boxed investigations aimed at reducing uncertainty, evaluating options, 
+        or gathering knowledge needed for future work.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context & Background
+      description: Why is this research needed? What problem or decision prompted it?
+      placeholder: Describe the broader context and what led to this research need...
+    validations:
+      required: true
+
+  - type: textarea
+    id: research-question
+    attributes:
+      label: Research Question(s)
+      description: What specific question(s) are we trying to answer?
+      placeholder: |
+        1. What is the best approach to...?
+        2. Is it feasible to...?
+        3. What are the trade-offs between...?
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-outcome
+    attributes:
+      label: Expected Outcome / Deliverables
+      description: What artifacts or decisions should result from this research?
+      placeholder: |
+        - [ ] A written summary of findings
+        - [ ] A recommendation with pros/cons
+        - [ ] A proof of concept / prototype
+        - [ ] An ADR (Architecture Decision Record)
+        - [ ] Follow-up tickets created
+    validations:
+      required: true
+
+  - type: dropdown
+    id: timebox
+    attributes:
+      label: Time Box
+      description: Maximum time to spend on this research
+      options:
+        - 2 hours
+        - 4 hours (half day)
+        - 1 day
+        - 2 days
+        - 3 days
+        - 1 week
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope & Boundaries
+      description: What is explicitly in and out of scope for this research?
+      placeholder: |
+        **In Scope:**
+        - ...
+
+        **Out of Scope:**
+        - ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: prior-art
+    attributes:
+      label: Prior Art & Known Resources
+      description: Any existing research, documentation, links, or leads to start from?
+      placeholder: |
+        - [Link to relevant doc]
+        - Previous discussion in #issue-number
+        - Library/tool to evaluate: ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Definition of Done
+      description: How do we know this research is complete?
+      placeholder: |
+        - [ ] Research question(s) answered or explicitly marked as unanswerable within time box
+        - [ ] Findings documented in this issue / linked document
+        - [ ] Recommendation made (if applicable)
+        - [ ] Follow-up action items identified and tickets created
+        - [ ] Team has been informed of results
+    validations:
+      required: true
+
+  - type: dropdown
+    id: uncertainty-level
+    attributes:
+      label: Current Uncertainty Level
+      description: How much do we currently know about this topic?
+      options:
+        - 🔴 High — We know almost nothing
+        - 🟡 Medium — We have some leads but significant unknowns
+        - 🟢 Low — Mostly confirmation / comparison needed
+    validations:
+      required: true
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks & Open Questions
+      description: What could block this research or make it inconclusive?
+      placeholder: |
+        - Risk of not finding a viable solution within the time box
+        - Dependency on access to...
+        - May require input from...
+    validations:
+      required: false
+
+
+    - type: markdown
+    attributes:
+      value: |
+        ---
+        ## 📝 Findings
+        ⚠️ Leave these fields blank when creating the issue.
+        To be filled in by the researcher(s) during and after the investigation.
+
+  - type: textarea
+    id: findings-summary
+    attributes:
+      label: "Findings: Summary"
+      description: >
+        High-level summary of what was discovered.
+        Filled during/after research.
+      placeholder: |
+        <!-- To be filled during research -->
+    validations:
+      required: false
+
+  - type: textarea
+    id: findings-discoveries
+    attributes:
+      label: "Findings: Key Discoveries"
+      description: >
+        Important facts, insights, or data points uncovered.
+        Filled during/after research.
+      placeholder: |
+        <!-- To be filled during research -->
+        - 
+        - 
+        - 
+    validations:
+      required: false
+
+  - type: textarea
+    id: findings-recommendation
+    attributes:
+      label: "Findings: Recommendation"
+      description: >
+        What course of action is recommended based on the findings?
+        Filled after research, reviewed by team.
+      placeholder: |
+        <!-- To be filled after research -->
+
+        ### Recommended Approach
+
+
+        ### Alternatives Considered
+        | Option | Pros | Cons | Verdict |
+        |--------|------|------|---------|
+        |        |      |      |         |
+    validations:
+      required: false
+
+  - type: textarea
+    id: findings-follow-up
+    attributes:
+      label: "Findings: Follow-up Actions"
+      description: >
+        What needs to happen next? Link to created issues.
+        Filled after research.
+      placeholder: |
+        <!-- To be filled after research -->
+        - [ ] #issue — Description
+        - [ ] #issue — Description
+    validations:
+      required: false
