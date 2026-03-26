@@ -578,13 +578,11 @@ class MatomoApiClient:
         :param pages: List with prefetch pages of the region
         :param prefetched_translations: List with prefetched page translations
         """
-        total_query = {
-            "method": "API.getBulkRequest",
-        }
         query_params = {
-            "method": "VisitsSummary.getActions",
+            "method": "Actions.getPageUrls",
             "date": f"{start_date},{end_date}",
             "expanded": "1",
+            "flat": "1",
             "filter_limit": "-1",
             "format_metrics": "1",
             "idSite": self.matomo_id,
@@ -592,45 +590,57 @@ class MatomoApiClient:
         }
         logger.debug("Fetching visits for %rlanguages.", languages)
         translation_slugs = get_translation_slug(
-            region_slug=region_slug, prefetched_translations=prefetched_translations
+            prefetched_translations=prefetched_translations
         )
 
-        # retrieve and save accesses per page and language with the corresponding url slugs
-        page_map = {page.id: page for page in pages}
-        language_map = {lang.slug: lang for lang in languages}
-        accesses_objects = []
-        for page_id, langs in translation_slugs.items():
-            page = page_map.get(page_id)
-            if not page:
-                continue
-            page_params = total_query
-            page_query = query_params
-            i = 0
-            for lang_slug, full_slug in langs.items():
-                language = language_map.get(lang_slug)
-                if not language:
-                    continue
-                page_query.update(
-                    {"segment": f"pageUrl=@/children/?depth=2&url={full_slug}"}
-                )
-                url_param = {f"urls[{i}]": urlencode(page_query)}
-                i += 1
-                page_params.update(url_param)
-            result = self.fetch(**page_params)
-            for lang_slug, accesses_list in zip(langs, result, strict=False):
-                language = language_map.get(lang_slug)
-                if not language:
-                    continue
-                for accesses_date, accesses in accesses_list.items():  # type: ignore [attr-defined]
-                    if accesses == 0:
+        # retrieve and save page accesses per language with the corresponding page translation slugs
+        accesses_objects: list[PageAccesses] = []
+        for language in languages:
+            lang_slug = language.slug
+            matomo_query_params = query_params
+            matomo_query_params.update(
+                {
+                    "segment": f"pageUrl=@/children/?depth=2&url=/{region_slug}/{lang_slug}",
+                }
+            )
+            result = self.fetch(**matomo_query_params)
+            for accesses_date in list(result.keys()):
+                all_page_accesses = result[accesses_date]
+                for page in pages:
+                    page_accesses_object_already_exists = False
+
+                    page_translation_slugs = translation_slugs.get(page.id)
+                    if not page_translation_slugs:
                         continue
-                    access = PageAccesses(
-                        access_date=datetime.strptime(accesses_date, "%Y-%m-%d").date(),
-                        language=language,
-                        page=page,
-                        accesses=accesses,
+
+                    page_language_translation_slugs = page_translation_slugs.get(
+                        lang_slug
                     )
-                    accesses_objects.append(access)
+                    if not page_language_translation_slugs:
+                        continue
+
+                    for page_accesses in all_page_accesses:
+                        page_accesses_slug = page_accesses["label"].split("/")[-1]
+                        if (
+                            page_accesses_slug
+                            in page_language_translation_slugs.values()
+                        ):
+                            accesses = page_accesses["nb_visits"]
+                            if accesses == 0:
+                                continue
+                            if page_accesses_object_already_exists:
+                                accesses_objects[-1].accesses += accesses
+                            else:
+                                access_object = PageAccesses(
+                                    access_date=datetime.strptime(
+                                        accesses_date, "%Y-%m-%d"
+                                    ).date(),
+                                    language=language,
+                                    page=page,
+                                    accesses=accesses,
+                                )
+                                accesses_objects.append(access_object)
+                                page_accesses_object_already_exists = True
         PageAccesses.objects.bulk_create(
             accesses_objects,
             update_conflicts=True,
