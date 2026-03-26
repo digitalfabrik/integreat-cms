@@ -112,13 +112,16 @@ Some tests need real transactions (e.g., testing signals, tree operations,
 or management commands that call ``TRUNCATE``). These use
 ``transaction=True`` which **flushes the database** after each test.
 
-- Mark with ``@pytest.mark.django_db(transaction=True)``
+- Mark with ``@pytest.mark.order("last")`` **and**
+  ``@pytest.mark.django_db(transaction=True)``
 - Request ``load_test_data_transactional`` instead of ``load_test_data``
   (it reloads fixtures per test function)
-- These tests automatically run **after** all non-transactional tests within
-  each worker, so they cannot corrupt the session-scoped test data
+- The ``order("last")`` marker is required because the
+  ``--circleci-parallelize`` plugin reorders tests by module, which can
+  place transactional tests before non-transactional ones
 - Example::
 
+      @pytest.mark.order("last")
       @pytest.mark.django_db(transaction=True)
       def test_management_command(load_test_data_transactional):
           call_command("my_command")
@@ -252,8 +255,12 @@ If the command modifies the database destructively, use a transactional test::
 Common Pitfalls
 ===============
 
-1. **Don't use** ``@pytest.mark.order`` — pytest-django already ensures
-   transactional tests run after non-transactional ones.
+1. **Always add** ``@pytest.mark.order("last")`` **to transactional tests** —
+   while pytest-django sorts transactional tests after non-transactional ones,
+   the ``--circleci-parallelize`` plugin reorders tests by module afterwards,
+   which can place a transactional test before non-transactional ones.
+   ``@pytest.mark.order("last")`` from pytest-order re-enforces the correct
+   ordering after all collection hooks have run.
 
 2. **Don't use** ``serialized_rollback=True`` — it has FK ordering issues
    with PostgreSQL. Use ``load_test_data_transactional`` instead.

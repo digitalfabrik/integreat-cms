@@ -61,6 +61,7 @@ new_urls = [
 ]
 
 
+@pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True)
 def test_fix_internal_links_dry_run(
     load_test_data_transactional: Any | None,
@@ -107,6 +108,7 @@ def test_fix_internal_links_dry_run(
         ).exists(), "New link should not be created during dry run"
 
 
+@pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True)
 def test_fix_internal_links_commit(load_test_data_transactional: Any | None) -> None:
     """

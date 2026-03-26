@@ -40,6 +40,7 @@ parameters = tuple(
 )
 
 
+@pytest.mark.order("last")
 @pytest.mark.parametrize(
     "parameters", parameters, ids=[" ".join(x) for x in parameters]
 )

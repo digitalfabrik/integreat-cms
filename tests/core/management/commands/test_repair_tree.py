@@ -11,6 +11,7 @@ from integreat_cms.cms.models import Page, Region
 from ..utils import get_command_output
 
 
+@pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True)
 def test_check_clean_tree_fields(load_test_data_transactional: None) -> None:
     """
@@ -29,6 +30,7 @@ def test_check_clean_tree_fields(load_test_data_transactional: None) -> None:
             assert not err
 
 
+@pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True)
 def test_fix_clean_tree_fields(load_test_data_transactional: None) -> None:
     """
@@ -44,6 +46,7 @@ def test_fix_clean_tree_fields(load_test_data_transactional: None) -> None:
             assert not err
 
 
+@pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True)
 def test_check_broken_tree_fields(load_test_data_transactional: None) -> None:
     """
@@ -63,6 +66,7 @@ def test_check_broken_tree_fields(load_test_data_transactional: None) -> None:
     assert "rgt: 12 → 10" in err
 
 
+@pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True)
 def test_fix_broken_tree_fields(load_test_data_transactional: None) -> None:
     """

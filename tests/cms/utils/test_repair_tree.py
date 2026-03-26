@@ -8,6 +8,7 @@ from integreat_cms.cms.models import Page, Region
 from integreat_cms.cms.utils.repair_tree import repair_tree
 
 
+@pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True)
 def test_repair_tree(load_test_data_transactional: None) -> None:
     """
@@ -74,6 +75,7 @@ def test_repair_tree(load_test_data_transactional: None) -> None:
     root_page.delete()
 
 
+@pytest.mark.order("last")
 @pytest.mark.xfail(
     reason="Constraints on the model prohibit the broken state used as basis for this test",
 )
