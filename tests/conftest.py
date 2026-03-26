@@ -8,6 +8,7 @@ import os
 from typing import Any, TYPE_CHECKING
 from unittest.mock import patch
 
+import pytest  # isort: skip — must precede local imports for fixture registration
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test.client import AsyncClient, Client
@@ -42,8 +43,6 @@ if TYPE_CHECKING:
     from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]
     from pytest_httpserver.httpserver import HTTPServer
 
-import pytest
-
 
 def pytest_addoption(parser: pytest.Parser) -> None:
     """Register custom CLI options."""
@@ -71,32 +70,15 @@ pytest_plugins: Final = "aiohttp.pytest_plugin"
 
 
 @pytest.fixture(scope="session")
-def django_db_setup(django_db_setup: None, django_db_blocker: _DatabaseBlocker) -> None:
+def load_test_data(django_db_setup: None, django_db_blocker: _DatabaseBlocker) -> None:
     """
-    Override pytest-django's ``django_db_setup`` to load test data as part of
-    the initial database setup. This ensures non-transactional tests always
-    have data available via their session-scoped database connection.
+    Load the test data initially for all test cases.
 
-    pytest-django automatically runs transactional tests AFTER non-transactional
-    ones within each worker, so there is no risk of a transactional test flushing
-    the database before a non-transactional test needs it. This eliminates the
-    need for ``@pytest.mark.order`` hacks.
-
-    :param django_db_setup: The original pytest-django fixture that creates the test database
+    :param django_db_setup: The fixture providing the database availability
     :param django_db_blocker: The fixture providing the database blocker
     """
     with django_db_blocker.unblock():
         call_command("loaddata", "integreat_cms/cms/fixtures/test_data.json")
-
-
-@pytest.fixture(scope="session")
-def load_test_data(django_db_setup: None) -> None:
-    """
-    Backward-compatible fixture for tests that request ``load_test_data``.
-    Test data is now loaded as part of ``django_db_setup``, so this is a no-op.
-
-    :param django_db_setup: The fixture providing the database with test data
-    """
 
 
 @pytest.fixture(scope="function")
