@@ -70,7 +70,7 @@ def test_poicategories_list_shows_all_items(
 
 
 @pytest.mark.django_db
-def test_correct_number_of_poicategories_in_database() -> None:
+def test_correct_number_of_poicategories_in_database(load_test_data: None) -> None:
     expected_number_of_poicategories = 3
     actual_number_of_poicategories_in_database = POICategory.objects.count()
     assert (
