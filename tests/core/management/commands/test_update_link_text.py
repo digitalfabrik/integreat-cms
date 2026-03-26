@@ -84,6 +84,7 @@ NEW_LINK_TEXT = "New Link Text"
 NEW_LINK = f'<a href="{USED_URL}">{NEW_LINK_TEXT}</a>'
 
 
+@pytest.mark.order("last")
 @pytest.mark.skip(reason="flaky test having strange side effects")
 @pytest.mark.django_db(transaction=True)
 def test_command_succeeds(load_test_data_transactional: Any | None) -> None:
