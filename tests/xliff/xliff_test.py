@@ -13,8 +13,7 @@ from lxml.html import fromstring
 
 from integreat_cms.cms.constants import translation_status
 from integreat_cms.cms.models import Page
-
-from ..conftest import (
+from tests.constants import (
     ANONYMOUS,
     AUTHOR,
     EDITOR,
@@ -23,6 +22,7 @@ from ..conftest import (
     PRIV_STAFF_ROLES,
     STAFF_ROLES,
 )
+
 from .utils import upload_files, validate_xliff_import_response
 from .xliff_config import XLIFF_IMPORTS
 

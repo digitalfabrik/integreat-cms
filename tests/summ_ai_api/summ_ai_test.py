@@ -24,8 +24,7 @@ from integreat_cms.summ_ai_api.utils import (
     TextField,
     worker,
 )
-
-from ..conftest import (
+from tests.constants import (
     ANONYMOUS,
     APP_TEAM,
     CMS_TEAM,
@@ -33,6 +32,7 @@ from ..conftest import (
     ROOT,
     SERVICE_TEAM,
 )
+
 from ..utils import assert_message_in_log
 from .utils import (
     enable_summ_api,

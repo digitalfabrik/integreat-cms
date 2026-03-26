@@ -3,9 +3,7 @@ from django.conf import settings
 from django.test.client import Client
 from django.urls import reverse
 
-from tests.conftest import (
-    ANONYMOUS,
-)
+from tests.constants import ANONYMOUS
 
 data = [
     ("Wöchentlich wiederholende Veranstaltung", "?recurring=1"),

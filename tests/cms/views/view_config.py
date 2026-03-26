@@ -13,8 +13,7 @@ from django.urls import reverse
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models.pois.poi import get_default_opening_hours
-
-from ...conftest import (
+from tests.constants import (
     ALL_ROLES,
     AUTHOR,
     CMS_TEAM,

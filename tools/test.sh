@@ -25,8 +25,10 @@ ensure_webpack_bundle_exists
 require_database
 
 # Test-specific settings (dummy API keys, disabled listeners, etc.) are
-# configured in integreat_cms/core/test_settings.py which is set as the
-# DJANGO_SETTINGS_MODULE in pyproject.toml [tool.pytest.ini_options].
+# configured in integreat_cms/core/test_settings.py.
+# Override the DJANGO_SETTINGS_MODULE that require_database sets to the base
+# settings, so pytest uses the test settings even when invoked via this script.
+export DJANGO_SETTINGS_MODULE="integreat_cms.core.test_settings"
 
 TESTS=()
 
@@ -72,8 +74,14 @@ if [[ -n "${CHANGED}" ]]; then
         PYTEST_ARGS+=("--testmon-noselect")
     fi
 else
-    # Run all tests, but update list of tests
-    PYTEST_ARGS+=("--testmon-noselect")
+    # Disable testmon when running in parallel — testmon conflicts with xdist
+    # and causes sporadic User.DoesNotExist errors during fixture setup.
+    if [[ -z "${VERBOSITY}" ]]; then
+        PYTEST_ARGS+=("-p" "no:testmon")
+    else
+        # Serial mode (verbose): safe to use testmon
+        PYTEST_ARGS+=("--testmon-noselect")
+    fi
 fi
 
 # Determine whether coverage data should be collected

@@ -12,7 +12,13 @@ from django.urls import reverse
 
 from integreat_cms.cms.constants import translation_status
 from integreat_cms.cms.models import Page
-from tests.conftest import ANONYMOUS, AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
+from tests.constants import (
+    ANONYMOUS,
+    AUTHOR,
+    EDITOR,
+    MANAGEMENT,
+    PRIV_STAFF_ROLES,
+)
 from tests.utils import assert_message_in_log
 
 IDS_PAGES_NOT_IN_TRANSLATION_PROCESS = [1, 2]

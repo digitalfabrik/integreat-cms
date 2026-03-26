@@ -11,7 +11,7 @@ import pytest
 from django.urls import reverse
 
 from integreat_cms.cms.models import Contact
-from tests.conftest import (
+from tests.constants import (
     ANONYMOUS,
     AUTHOR,
     EDITOR,

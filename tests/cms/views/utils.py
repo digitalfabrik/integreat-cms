@@ -5,7 +5,8 @@ from typing import TYPE_CHECKING
 from django.conf import settings
 from django.urls import reverse
 
-from ...conftest import ANONYMOUS
+from tests.constants import ANONYMOUS
+
 from ...utils import assert_no_error_messages
 
 if TYPE_CHECKING:
