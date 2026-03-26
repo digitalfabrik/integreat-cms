@@ -27,16 +27,6 @@ def get_translation_slug(
         page_id = page_translation.page.id
         language_slug = page_translation.language.slug
         absolute_url = page_translation.slug
-        translations_lookup = {
-            (t.page.id, t.language.slug): t for t in prefetched_translations
-        }
-        absolute_url = build_infix_recursively(
-            absolute_url=absolute_url,
-            language_slug=language_slug,
-            current_page_translation=page_translation,
-            translations_lookup=translations_lookup,
-        )
-        absolute_url = "/" + region_slug + "/" + language_slug + "/" + absolute_url
         translation_slugs[page_id][language_slug] = absolute_url
 
     return dict(translation_slugs)

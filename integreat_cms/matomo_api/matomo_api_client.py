@@ -5,7 +5,7 @@ import logging
 import re
 from datetime import date, datetime
 from typing import TYPE_CHECKING
-from urllib.parse import urlencode
+from urllib.parse import quote_plus, urlencode
 
 import aiohttp
 import requests
@@ -610,18 +610,26 @@ class MatomoApiClient:
                 language = language_map.get(lang_slug)
                 if not language:
                     continue
-                page_query.update(
-                    {"segment": f"pageUrl=@/children/?depth=2&url={full_slug}"}
-                )
+                enc_slug = quote_plus(full_slug)
+                page_query.update({
+                    "segment": f"pageUrl=${enc_slug};pageUrl=@/children/?depth=2&url=/{region_slug}/{lang_slug}"
+                })
                 url_param = {f"urls[{i}]": urlencode(page_query)}
                 i += 1
                 page_params.update(url_param)
+                if (
+                    full_slug
+                    == "augsburg-und-sein-besonderes-wasser-ein-unesco-weltkulturerbe"
+                ):
+                    print(url_param)
             result = self.fetch(**page_params)
             for lang_slug, accesses_list in zip(langs, result, strict=False):
                 language = language_map.get(lang_slug)
                 if not language:
                     continue
                 for accesses_date, accesses in accesses_list.items():  # type: ignore [attr-defined]
+                    if page_id == 50774:
+                        print(accesses)
                     if accesses == 0:
                         continue
                     access = PageAccesses(
