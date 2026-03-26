@@ -8,25 +8,6 @@ import os
 from typing import Any, TYPE_CHECKING
 from unittest.mock import patch
 
-import pytest
-
-
-def pytest_addoption(parser: pytest.Parser) -> None:
-    """Register custom CLI options."""
-    parser.addoption(
-        "--update-snapshots",
-        action="store_true",
-        default=False,
-        help="Update API expected-output snapshot files instead of asserting against them.",
-    )
-
-
-@pytest.fixture(scope="session")
-def update_snapshots(request: pytest.FixtureRequest) -> bool:
-    """Whether ``--update-snapshots`` was passed on the CLI."""
-    return bool(request.config.getoption("--update-snapshots"))
-
-
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test.client import AsyncClient, Client
@@ -60,6 +41,24 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
     from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]
     from pytest_httpserver.httpserver import HTTPServer
+
+import pytest
+
+
+def pytest_addoption(parser: pytest.Parser) -> None:
+    """Register custom CLI options."""
+    parser.addoption(
+        "--update-snapshots",
+        action="store_true",
+        default=False,
+        help="Update API expected-output snapshot files instead of asserting against them.",
+    )
+
+
+@pytest.fixture(scope="session")
+def update_snapshots(request: pytest.FixtureRequest) -> bool:
+    """Whether ``--update-snapshots`` was passed on the CLI."""
+    return bool(request.config.getoption("--update-snapshots"))
 
 
 #: Representative subset covering all permission boundaries (for faster local runs)
