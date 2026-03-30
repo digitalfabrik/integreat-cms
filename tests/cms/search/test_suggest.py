@@ -109,9 +109,11 @@ class TestSuggestTokens:
         result_upper = Contact.suggest_tokens(query="TEST")
 
         # Both should return the same suggestions
-        assert len(result_lower.get("suggestions", [])) == len(
-            result_upper.get("suggestions", [])
-        )
+        lower_suggestions = result_lower.get("suggestions", [])
+        upper_suggestions = result_upper.get("suggestions", [])
+        assert lower_suggestions
+        assert upper_suggestions
+        assert len(lower_suggestions) == len(upper_suggestions)
 
     @pytest.mark.django_db
     def test_suggestions_have_positive_scores(self, load_test_data: None) -> None:
