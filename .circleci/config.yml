@@ -525,9 +525,9 @@ jobs:
           command: |
             # Move "unreleased" entries to new version directory
             OLD_DIR="integreat_cms/release_notes/current/unreleased"
-            NEW_DIR="integreat_cms/release_notes/$(echo "${CURRENT_VERSION}" | cut -c1-4)"
+            NEW_DIR="integreat_cms/release_notes/$(echo "${CURRENT_VERSION}" | cut -c1-4)/${CURRENT_VERSION}"
             mkdir -p "${NEW_DIR}"
-            git mv "${OLD_DIR}" "${NEW_DIR}/${CURRENT_VERSION}"
+            git mv "${OLD_DIR}"/* "${NEW_DIR}"/
             git commit --amend --no-edit
       - run:
           name: Generate SBOM
@@ -683,6 +683,10 @@ workflows:
             - pip-install
       - build-package:
           name: build-rc-package
+          filters:
+            branches:
+              only:
+                - /rc\/\d{4}\.\d{1,2}\.\d{1,2}.*/
           requires:
             - webpack
             - compile-translations

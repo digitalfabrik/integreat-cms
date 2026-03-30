@@ -9,9 +9,11 @@
         {% for year, versions in release_notes.items %}
             {% for version, notes in versions.items %}
                 {% if version == "unreleased" %}
-                    <h2 class="text-xl mb-2">
-                        <span class="italic">{% translate "Unreleased" %}</span>
-                    </h2>
+                    {% if notes %}
+                        <h2 class="text-xl mb-2">
+                            <span class="italic">{% translate "Unreleased" %}</span>
+                        </h2>
+                    {% endif %}
                 {% else %}
                     <h2 class="text-2xl mb-2">
                         <a href="https://github.com/digitalfabrik/integreat-cms/releases/tag/{{ version }}"
