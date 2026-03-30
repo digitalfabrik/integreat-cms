@@ -25,6 +25,8 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
+MAX_RETRY = 3  # number of retry attempts when hitting the translation version number race condition
+
 
 def save_new_version_with_retry(
     translation: AbstractContentTranslation,
@@ -48,7 +50,7 @@ def save_new_version_with_retry(
     foreign_field = translation.foreign_field()
     foreign_id = getattr(translation, f"{foreign_field}_id")
 
-    for attempt in range(3):
+    for attempt in range(MAX_RETRY):
         try:
             with transaction.atomic():
                 return save_fn()
