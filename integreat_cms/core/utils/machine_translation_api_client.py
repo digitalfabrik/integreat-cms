@@ -355,7 +355,7 @@ class MachineTranslationApiClient(ABC):
                         for attr in self.translatable_fields
                         if ctx.source_translation
                         and getattr(ctx.source_translation, attr, None)
-                        and (attr == "title" and skip_title)
+                        and not (attr == "title" and skip_title)
                     ]
 
                 ctx.word_count = word_count(
