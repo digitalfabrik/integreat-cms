@@ -219,7 +219,7 @@ def test_search_suggest_suggestions_are_sorted_by_score(
         url,
         data=json.dumps(
             {
-                "query_string": "au",  # Broad query to get multiple results
+                "query_string": "augsburg",
                 "object_type": "page",
             }
         ),
@@ -229,11 +229,13 @@ def test_search_suggest_suggestions_are_sorted_by_score(
     assert response.status_code == 200
     data = response.json()
     suggestions = data["data"]["suggestions"]
-    if len(suggestions) > 1:
-        scores = [s["score"] for s in suggestions]
-        assert scores == sorted(scores, reverse=True), (
-            "Suggestions should be sorted by score descending"
-        )
+    assert suggestions, (
+        'Expected suggestions for search query "augsburg" and content type "page"'
+    )
+    scores = [s["score"] for s in suggestions]
+    assert scores == sorted(scores, reverse=True), (
+        "Suggestions should be sorted by score descending"
+    )
 
 
 @pytest.mark.django_db
