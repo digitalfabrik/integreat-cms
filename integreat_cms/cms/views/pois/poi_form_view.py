@@ -7,7 +7,6 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
@@ -22,11 +21,11 @@ from ...constants import status, text_directions
 from ...decorators import permission_required
 from ...forms import ContactForm, POIForm, POITranslationForm
 from ...models import Contact, Language, POI, POITranslation
-from ...utils.link_utils import format_phone_number
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
+from ..utils.contact_utils import generate_primary_contact_from_poi
 from .poi_context_mixin import POIContextMixin
 
 if TYPE_CHECKING:
@@ -131,9 +130,7 @@ class POIFormView(
             },
         )
 
-    def post(  # noqa: PLR0915
-        self, request: HttpRequest, *args: Any, **kwargs: Any
-    ) -> HttpResponse:
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Submit :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and
         :class:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm` and save :class:`~integreat_cms.cms.models.pois.poi.POI` and
@@ -237,31 +234,15 @@ class POIFormView(
                         poi=poi,
                     )
 
-                # Look explicitly for the primary contact, not any first one,
-                # as we do not delete non-primary contacts when deactivating contact in a region.
-                # "get()" is not used as it raises an exception if there is no primary contact.
-                contact = poi.contacts.get_primary_contact()
-
-                if website != "" or phone_number != "" or email != "":
-                    if not contact:
-                        contact = Contact(location=poi)
-
-                    if phone_number:
-                        phone_number = format_phone_number(phone_number)
-
-                    contact.website = website
-                    contact.phone_number = phone_number
-                    contact.email = email
-                    # opening hours is None means the contact adopts the location's opening hours
-                    if contact.opening_hours is None:
-                        contact.appointment_url = poi.appointment_url
-                    if not contact.name and language == region.default_language:
-                        contact.name = poi_translation_form.instance.title
-                    contact.save()
-                elif contact is not None:
-                    contact.delete()
-
-                invalidate_model(Contact)
+                generate_primary_contact_from_poi(
+                    website,
+                    phone_number,
+                    email,
+                    poi,
+                    language,
+                    region,
+                    poi_translation_form.instance.title,
+                )
 
                 # If any source translation changes to draft, set all depending translations/versions to draft
                 if poi_translation_form.instance.status == status.DRAFT:
