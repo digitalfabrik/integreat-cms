@@ -15,8 +15,8 @@ from typing import TYPE_CHECKING
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Exists, OuterRef, Q, Value
-from django.db.models.functions import Concat
+from django.db.models import CharField, Exists, OuterRef, Q, Value
+from django.db.models.functions import Cast, Concat
 from django.template.defaultfilters import filesizeformat
 from django.utils import timezone
 from django.utils.formats import localize
@@ -117,7 +117,8 @@ class MediaFileQuerySet(models.QuerySet):
             url=Concat(
                 Value(settings.BASE_URL),
                 Value(settings.MEDIA_URL),
-                OuterRef("file"),
+                Cast(OuterRef("file"), CharField()),
+                output_field=CharField(),
             ),
         )
         return self.annotate(is_embedded=Exists(urls)).filter(
