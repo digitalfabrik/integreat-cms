@@ -12,6 +12,7 @@ from typing import TYPE_CHECKING
 from urllib.parse import unquote
 
 from django.conf import settings
+from django.core.cache import cache
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from django.utils.html import strip_tags
@@ -20,7 +21,6 @@ from ...cms.models.languages.language import Language
 from ...cms.models.push_notifications.push_notification_translation import (
     PushNotificationTranslation,
 )
-from ...cms.models.tue_news.news_item import NewsItem
 from ...cms.utils.internal_link_utils import (
     get_public_translation_for_webapp_link_parts,
 )
@@ -353,16 +353,17 @@ def news_social_media_headers(
     if news_type == "tuenews":
         if not region.external_news_enabled:
             raise Http404("Tü News is not enabled in this region.")
-        if not (tuenews := NewsItem.objects.filter(id=slug)):
-            raise Http404(
-                "Push Notification not found in this region with this news ID."
-            )
+        posts = cache.get(f"tuenews:{language_slug}", [])
+        post = next((post for post in posts if post["id"] == slug), None)
+        if not post:
+            raise Http404("Tü news post not found in this region with this news ID.")
+
         return render_social_media_headers(
             request=request,
-            title=get_region_title(region, tuenews.title),
+            title=post["title"],
             language_code=language.bcp47_tag,
-            excerpt=get_excerpt(tuenews.content),
-            url=f"{settings.WEBAPP_URL}{tuenews.get_absolute_url()}",
+            excerpt=post["content"],
+            url=post["link"],
         )
     raise Http404("Invalid news type is given.")
 

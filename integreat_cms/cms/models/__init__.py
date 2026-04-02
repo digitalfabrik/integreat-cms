@@ -44,9 +44,6 @@ from .push_notifications.push_notification_translation import (
 )
 from .regions.region import Region
 from .statistics.page_accesses import PageAccesses
-from .tue_news.news_category import NewsCategory
-from .tue_news.news_item import NewsItem
-from .tue_news.news_language import NewsLanguage
 from .users.organization import Organization
 from .users.role import Role
 from .users.user import User

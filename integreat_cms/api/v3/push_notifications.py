@@ -4,16 +4,16 @@ This module includes functions related to the push notification that are sent vi
 
 from __future__ import annotations
 
-import json
 from typing import TYPE_CHECKING
 
 from django.conf import settings
+from django.core.cache import cache
 from django.db.models import F
 from django.db.models.functions import Greatest
 from django.http import JsonResponse
 from django.utils import timezone
 
-from ...cms.models import NewsItem, PushNotificationTranslation, Region
+from ...cms.models import PushNotificationTranslation, Region
 from ..decorators import json_response
 
 if TYPE_CHECKING:
@@ -49,19 +49,6 @@ def collect_sent_push_notifications(
     return query_result
 
 
-def collect_tue_news(region_slug: str, language_slug: str) -> QuerySet:
-    """
-    Function to collect all sent push notifications related to a region
-    """
-    if not Region.objects.get(slug=region_slug).external_news_enabled:
-        return ()
-
-    return NewsItem.objects.filter(
-        pub_date__gte=timezone.now()
-        - timezone.timedelta(days=settings.FCM_HISTORY_DAYS)
-    ).filter(language__code=language_slug)
-
-
 @json_response
 def sent_push_notifications(
     request: HttpRequest,
@@ -81,6 +68,23 @@ def sent_push_notifications(
 
     result = list(map(transform_notification, query_result))
     return JsonResponse(result, safe=False)
+
+
+def tue_news(
+    region_slug: str,
+    language_slug: str,
+) -> list[dict]:
+    """
+    Function to collect Tü News posts
+
+    :param region_slug: slug of a region
+    :param language_slug: language slug
+    :return: list of Tü news posts
+    """
+    if not Region.objects.get(slug=region_slug).external_news_enabled:
+        return []
+
+    return cache.get(f"tuenews:{language_slug}", [])
 
 
 @json_response
@@ -103,10 +107,8 @@ def all_news(
         region_slug, language_slug, channel
     )
 
-    tu_news = collect_tue_news(region_slug, language_slug)
-
-    result = list(map(transform_notification, sent_push_notifications)) + list(
-        map(transform_tue_news, tu_news)
+    result = list(map(transform_notification, sent_push_notifications)) + tue_news(
+        region_slug, language_slug
     )
 
     return JsonResponse(result, safe=False)
@@ -132,27 +134,5 @@ def transform_notification(pnt: PushNotificationTranslation) -> dict[str, Any]:
         "display_date": pnt.display_date,
         "channel": pnt.push_notification.channel,
         "available_languages": available_languages_dict,
-    }
-
-
-def transform_tue_news(news: NewsItem) -> dict[str, Any]:
-    """
-    Function to create a JSON from a single Tü News item tObject.
-
-    :param pnt: A push notification translation
-    :return: data necessary for API
-    """
-    available_languages_dict = {
-        language_slug: {"id": post_id}
-        for language_slug, post_id in json.loads(str(news.translations)).items()
-    }
-    return {
-        "id": news.pk,
-        "title": news.title,
-        "message": news.content,
-        "timestamp": news.pub_date,  # deprecated field in the future
-        "last_updated": news.pub_date,
-        "display_date": news.pub_date,
-        "channel": news.newscategory.name,
-        "available_languages": available_languages_dict,
+        "source": "pushnotification",
     }
