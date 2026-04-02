@@ -10,6 +10,7 @@ from django.views.generic import TemplateView
 from ...forms import POIForm, POITranslationForm
 from ...models import Language
 from ...models.pois.poi import get_default_opening_hours
+from ..utils.contact_utils import generate_primary_contact_from_poi
 from .poi_context_mixin import POIContextMixin
 
 if TYPE_CHECKING:
@@ -86,6 +87,10 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
             changed_by_user=request.user,
         )
 
+        phone_number = poi_form.data.get("primary_phone_number")
+        email = poi_form.data.get("primary_email")
+        website = poi_form.data.get("primary_website")
+
         if not poi_form.is_valid() or not poi_translation_form.is_valid():
             return JsonResponse(
                 data={
@@ -93,16 +98,27 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
                 },
             )
 
-        poi_translation_form.instance.poi = poi_form.save()
-        poi_translation_form.save()
+        poi = poi_form.save()
+        poi_translation_form.instance.poi = poi
+        poi_translation_form = poi_translation_form.save()
+
+        generate_primary_contact_from_poi(
+            website,
+            phone_number,
+            email,
+            poi,
+            language,
+            region,
+            poi_translation_form.title,
+        )
 
         return JsonResponse(
             data={
                 "success": True,
                 "poi_address_container": render_to_string(
                     "ajax_poi_form/_poi_address_container.html",
-                    {"poi": poi_translation_form.instance.poi},
+                    {"poi": poi},
                 ),
-                "poi_id": poi_translation_form.instance.poi.id,
+                "poi_id": poi.id,
             }
         )
