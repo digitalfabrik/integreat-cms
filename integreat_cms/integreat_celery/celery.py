@@ -84,6 +84,14 @@ def wrapper_fetch_page_accesses() -> None:
     )
 
 
+@app.task
+def wrapper_import_tuenews() -> None:
+    """
+    Periodic task to import news from Tü News
+    """
+    call_command("import_tuenews")
+
+
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender: Any, **kwargs: Any) -> None:
     """
@@ -99,4 +107,10 @@ def setup_periodic_tasks(sender: Any, **kwargs: Any) -> None:
         crontab(hour=0, minute=30),
         wrapper_fetch_page_accesses.s(),
         name="wrapper_fetch_page_accesses",
+    )
+
+    sender.add_periodic_task(
+        crontab(hour=0, minute=40),
+        wrapper_import_tuenews.s(),
+        name="wrapper_import_tuenews",
     )

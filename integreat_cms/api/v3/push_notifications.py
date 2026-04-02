@@ -7,35 +7,28 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django.conf import settings
+from django.core.cache import cache
 from django.db.models import F
 from django.db.models.functions import Greatest
 from django.http import JsonResponse
 from django.utils import timezone
 
-from ...cms.models import PushNotificationTranslation
+from ...cms.models import PushNotificationTranslation, Region
 from ..decorators import json_response
 
 if TYPE_CHECKING:
     from typing import Any
 
+    from django.db.models.query import QuerySet
     from django.http import HttpRequest
 
 
-@json_response
-def sent_push_notifications(
-    request: HttpRequest,
-    region_slug: str,
-    language_slug: str,
-) -> JsonResponse:
+def collect_sent_push_notifications(
+    region_slug: str, language_slug: str, channel: str
+) -> QuerySet:
     """
-    Function to iterate through all sent push notifications related to a region and adds them to a JSON.
-
-    :param request: Django request
-    :param region_slug: slug of a region
-    :param language_slug: language slug
-    :return: JSON object according to APIv3 push notifications definition
+    Function to collect all sent push notifications related to a region
     """
-    channel = request.GET.get("channel", "all")
     query_result = (
         PushNotificationTranslation.objects.filter(push_notification__archived=False)
         .filter(
@@ -53,7 +46,71 @@ def sent_push_notifications(
     )
     if channel != "all":
         query_result = query_result.filter(push_notification__channel=channel)
+    return query_result
+
+
+@json_response
+def sent_push_notifications(
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
+) -> JsonResponse:
+    """
+    Function to iterate through all sent push notifications related to a region and adds them to a JSON.
+
+    :param request: Django request
+    :param region_slug: slug of a region
+    :param language_slug: language slug
+    :return: JSON object according to APIv3 push notifications definition
+    """
+    channel = request.GET.get("channel", "all")
+    query_result = collect_sent_push_notifications(region_slug, language_slug, channel)
+
     result = list(map(transform_notification, query_result))
+    return JsonResponse(result, safe=False)
+
+
+def tue_news(
+    region_slug: str,
+    language_slug: str,
+) -> list[dict]:
+    """
+    Function to collect Tü News posts
+
+    :param region_slug: slug of a region
+    :param language_slug: language slug
+    :return: list of Tü news posts
+    """
+    if not Region.objects.get(slug=region_slug).external_news_enabled:
+        return []
+
+    return cache.get(f"tuenews:{language_slug}", [])
+
+
+@json_response
+def all_news(
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
+) -> JsonResponse:
+    """
+    Function to iterate through all sent push notifications related to a region and news from Tü News, and adds them to a JSON.
+
+    :param request: Django request
+    :param region_slug: slug of a region
+    :param language_slug: language slug
+    :return: JSON object according to APIv3 push notifications definition
+    """
+    channel = request.GET.get("channel", "all")
+
+    sent_push_notifications = collect_sent_push_notifications(
+        region_slug, language_slug, channel
+    )
+
+    result = list(map(transform_notification, sent_push_notifications)) + tue_news(
+        region_slug, language_slug
+    )
+
     return JsonResponse(result, safe=False)
 
 
@@ -77,4 +134,5 @@ def transform_notification(pnt: PushNotificationTranslation) -> dict[str, Any]:
         "display_date": pnt.display_date,
         "channel": pnt.push_notification.channel,
         "available_languages": available_languages_dict,
+        "source": "pushnotification",
     }
