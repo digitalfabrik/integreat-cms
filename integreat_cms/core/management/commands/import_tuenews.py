@@ -81,17 +81,9 @@ class Command(BaseCommand):
                 if not post["acf"]["integreat"]:
                     continue
 
-                """
-                if NewsItem.objects.filter(wppostid=post["id"]):
-                    logger.info(
-                        "News %s already exists.",
-                        post["id"],
-                    )
-                    continue
-                """
-
                 news.append(self.transform_post(post))
 
+            cache.delete(f"tuenews:{language.slug}")
             cache.set(f"tuenews:{language.slug}", news, timeout=60 * 60 * 24)
 
             logger.info("Saving %s news in %s", len(news), language)
