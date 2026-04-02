@@ -41,6 +41,15 @@ class POIListView(
     #: The translation model of this list view (used to determine whether machine translations are permitted)
     translation_model = POITranslation
     model = POI
+    table_fields = [
+        ("translations__title", _("Title")),
+        (None, _("Publication status")),
+        ("address", _("Street")),
+        ("postcode", _("Postal Code")),
+        ("city", _("City")),
+        ("country", _("Country")),
+        ("category", _("Category")),
+    ]
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
@@ -105,5 +114,6 @@ class POIListView(
                 "source_language": region.get_source_language(language.slug),
                 "content_type": "locations",
                 "is_archive": self.archived,
+                "title_label": "{} {}".format(_("Title in"), language.translated_name),
             },
         )
