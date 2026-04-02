@@ -56,6 +56,7 @@ from ..views import (
     regions,
     release_notes,
     roles,
+    search,
     settings,
     statistics,
     translations,
@@ -560,8 +561,13 @@ urlpatterns: list[URLPattern] = [
                 ),
                 path(
                     "search/",
-                    utils.search_content_ajax,
+                    search.search_content_ajax,
                     name="search_content_ajax",
+                ),
+                path(
+                    "search/suggest/",
+                    search.search_suggest,
+                    name="search_suggest",
                 ),
             ],
         ),
@@ -626,8 +632,13 @@ urlpatterns: list[URLPattern] = [
                                         ),
                                         path(
                                             "search/",
-                                            utils.search_content_ajax,
+                                            search.search_content_ajax,
                                             name="search_content_ajax",
+                                        ),
+                                        path(
+                                            "search/suggest/",
+                                            search.search_suggest,
+                                            name="search_suggest",
                                         ),
                                         path(
                                             "<model_type>/slugify/",
@@ -784,8 +795,13 @@ urlpatterns: list[URLPattern] = [
                             ),
                             path(
                                 "search/",
-                                utils.search_content_ajax,
+                                search.search_content_ajax,
                                 name="search_content_ajax",
+                            ),
+                            path(
+                                "search/suggest/",
+                                search.search_suggest,
+                                name="search_suggest",
                             ),
                             path(
                                 "search/contact/",

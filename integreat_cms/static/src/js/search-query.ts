@@ -13,7 +13,7 @@ const queryObjects = async (url: string, type: string, queryString: string, arch
         },
         body: JSON.stringify({
             query_string: queryString,
-            object_types: [type],
+            object_type: type,
             archived,
         }),
     });
@@ -31,7 +31,7 @@ const queryObjects = async (url: string, type: string, queryString: string, arch
 
     if (data) {
         // Set and display new data
-        data.data.forEach((value: any, index: number) => {
+        data.data.suggestions.forEach((value: any, index: number) => {
             const child = document.createElement("li");
             child.classList.add(
                 "inline-block",
@@ -50,7 +50,7 @@ const queryObjects = async (url: string, type: string, queryString: string, arch
             child.setAttribute("role", "option");
             child.setAttribute("id", `suggestion-${index}`);
             child.setAttribute("tabindex", "0");
-            child.innerText = value.title;
+            child.innerText = value.suggestion;
             suggestionList.appendChild(child);
         });
     }
