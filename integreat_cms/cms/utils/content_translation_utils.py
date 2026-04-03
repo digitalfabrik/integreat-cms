@@ -7,20 +7,74 @@ from __future__ import annotations
 import logging
 import operator
 from functools import reduce
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from django.conf import settings
-from django.db.models import Q
+from django.db import IntegrityError, transaction
+from django.db.models import Max, Q
 from linkcheck.models import Url
 
 from .content_utils import clean_content
 from .internal_link_utils import get_public_translation_for_link
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from ..models import User
     from ..models.abstract_content_translation import AbstractContentTranslation
 
 logger = logging.getLogger(__name__)
+
+MAX_RETRY = 3  # number of retry attempts when hitting the translation version number race condition
+
+
+def save_new_version_with_retry(
+    translation: AbstractContentTranslation,
+    save_fn: Callable[[], Any],
+) -> Any:
+    """
+    Call *save_fn* inside a savepoint, retrying with a recomputed version
+    number when a :class:`~django.db.IntegrityError` on the
+    ``unique_version`` constraint is raised (up to 3 attempts).
+
+    This handles race conditions where concurrent requests both try to
+    insert a new version with the same ``(foreign_object, language, version)``
+    tuple.
+
+    :param translation: The content translation whose ``version`` field will
+        be corrected on conflict
+    :param save_fn: A zero-argument callable that persists *translation*
+        (e.g. ``lambda: form.save(commit=True)`` or ``translation.save``)
+    :return: Whatever *save_fn* returns
+    """
+    foreign_field = translation.foreign_field()
+    foreign_id = getattr(translation, f"{foreign_field}_id")
+
+    for attempt in range(MAX_RETRY):
+        try:
+            with transaction.atomic():
+                return save_fn()
+        except IntegrityError as e:
+            if "unique_version" not in str(e) or attempt >= 2:
+                raise
+            # Recompute the next version from the database
+            max_version = (
+                (
+                    type(translation)
+                    .objects.filter(
+                        **{foreign_field: foreign_id, "language": translation.language}
+                    )
+                    .aggregate(max_v=Max("version"))["max_v"]
+                )
+                or 0
+            )
+            translation.version = max_version + 1
+            logger.info(
+                "Version conflict on %r, retrying with version %d",
+                translation,
+                translation.version,
+            )
+    return None  # unreachable, but satisfies type checkers
 
 
 def update_links_to(
