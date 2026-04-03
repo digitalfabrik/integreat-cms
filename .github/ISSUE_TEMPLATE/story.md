@@ -1,7 +1,7 @@
 ---
-name: "Feature request \U0001F4A1"
+name: "Story suggestion \U0001F4A1"
 about: Suggest an idea for this project
-labels: 'feature'
+type: 'Story'
 
 ---
 
@@ -13,8 +13,8 @@ labels: 'feature'
 <!-- A clear and concise description of the feature you would like to add, and how it solves the motivating problem. -->
 
 
-### Screenshot
-<!-- Screenshot of the part which needs be changed -->
+### Screenshot or Video
+<!-- Screenshot or a video (even better) of the part which needs be changed -->
 
 
 ### Alternatives

@@ -1,7 +1,7 @@
 ---
 name: "Bug report \U0001F41B"
-about: Create a report to help us improve
-labels: 'bug'
+about: Report an unexpected behaviour
+type: 'Bug'
 
 ---
 
@@ -24,8 +24,8 @@ labels: 'bug'
 <!-- A clear and concise description of what actually happened. -->
 
 
-### Screenshot
-<!-- Screenshots immediately before (if applicable) and after the bug occurs. -->
+### Screenshot or Video
+<!-- Screenshots or a video (even better) immediately before (if applicable) and after the bug occurs. -->
 
 
 ### Additional Information
