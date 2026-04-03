@@ -90,9 +90,7 @@ def test_url_replace(
         )
 
         assert Link.objects.filter(url__url=OLD_URL).count() == after
-        """
         assert Link.objects.filter(url__url=NEW_URL).count() == before - after
-        """
 
     elif role == ANONYMOUS:
         assert response.status_code == 302
@@ -184,12 +182,10 @@ def test_search_and_replace_links(
         )
 
         assert Link.objects.filter(url__url=SEARCH_REPLACE_TARGET_URL).count() == after
-        """
         assert (
-           Link.objects.filter(url__url=TARGET_URL_AFTER_REPLACE).count()
-           == before - after
+            Link.objects.filter(url__url=TARGET_URL_AFTER_REPLACE).count()
+            == before - after
         )
-        """
 
     elif role == ANONYMOUS:
         assert response.status_code == 302
