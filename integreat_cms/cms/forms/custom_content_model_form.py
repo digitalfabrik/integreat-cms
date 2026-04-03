@@ -149,6 +149,9 @@ class CustomContentModelForm(CustomModelForm):
             and self.instance.status == status.PUBLIC
             and not {"title", "slug", "status"}.isdisjoint(self.changed_data)
         ):
+            # Invalidate cached translations so that update_links_to() sees
+            # the newly saved version instead of a stale @cached_property
+            self.instance.foreign_object.invalidate_cached_translations()
             update_links_to(self.instance, self.instance.creator)
 
         return result
