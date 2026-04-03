@@ -26,7 +26,7 @@ from integreat_cms.cms.models import (
     Region,
 )
 from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
-from tests.conftest import ANONYMOUS, PRIV_STAFF_ROLES, WRITE_ROLES
+from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, WRITE_ROLES
 from tests.utils import assert_message_in_log
 
 REGION_SLUG = "augsburg"

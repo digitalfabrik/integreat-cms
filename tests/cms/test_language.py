@@ -7,7 +7,7 @@ from django.conf import settings
 from django.urls import reverse
 
 from integreat_cms.cms.models import Language, LanguageTreeNode, Region
-from tests.conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES
+from tests.constants import ANONYMOUS, HIGH_PRIV_STAFF_ROLES
 from tests.mt_api.deepl_api_test import setup_deepl_supported_languages
 from tests.mt_api.google_translate_api_test import (
     setup_google_translate_supported_languages,

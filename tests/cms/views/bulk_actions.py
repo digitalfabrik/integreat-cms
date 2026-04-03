@@ -7,10 +7,7 @@ from django.test.client import Client
 from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.utils.stringify_list import iter_to_string
-from tests.conftest import (
-    ANONYMOUS,
-    HIGH_PRIV_STAFF_ROLES,
-)
+from tests.constants import ANONYMOUS, HIGH_PRIV_STAFF_ROLES
 from tests.utils import assert_message_in_log
 
 

@@ -8,7 +8,12 @@ from lxml.html import fromstring, tostring
 from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.utils.content_utils import update_contacts
-from tests.conftest import AUTHOR, EDITOR, MANAGEMENT, STAFF_ROLES
+from tests.constants import (
+    AUTHOR,
+    EDITOR,
+    MANAGEMENT,
+    STAFF_ROLES,
+)
 
 REGION_SLUG = "augsburg"
 CONTACT1 = {

@@ -4,7 +4,12 @@ from django.test.client import Client
 from django.urls import resolve, reverse
 
 from integreat_cms.cms.models import ExternalCalendar
-from tests.conftest import ANONYMOUS, CMS_TEAM, ROOT, SERVICE_TEAM
+from tests.constants import (
+    ANONYMOUS,
+    CMS_TEAM,
+    ROOT,
+    SERVICE_TEAM,
+)
 
 
 @pytest.mark.django_db

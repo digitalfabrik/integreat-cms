@@ -25,7 +25,7 @@ from integreat_cms.cms.models import (
     Region,
 )
 from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
-from tests.conftest import (
+from tests.constants import (
     ANONYMOUS,
     AUTHOR,
     EDITOR,

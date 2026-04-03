@@ -1,6 +1,14 @@
 #!/bin/bash
 
 # This script executes the tests and starts the database docker container if necessary.
+#
+# Usage examples:
+#   ./tools/test.sh                          Run the full test suite
+#   ./tools/test.sh -m unit                  Run only unit tests (no database, fast)
+#   ./tools/test.sh -m "not slow"            Skip slow parametrized view tests
+#   ./tools/test.sh -m "not slow and not unit"  Integration tests only
+#   ./tools/test.sh -v -k test_tree_mutex    Run a specific test with verbose output
+#   QUICK_ROLES=1 ./tools/test.sh            Test only 4 representative roles (faster)
 
 # Import utility functions
 # shellcheck source=./tools/_functions.sh
@@ -16,23 +24,11 @@ ensure_webpack_bundle_exists
 
 require_database
 
-# Set dummy key to enable SUMM.AI during testing
-export INTEGREAT_CMS_SUMM_AI_API_KEY="dummy"
-
-# Set dummy key to enable DeepL during testing
-export INTEGREAT_CMS_DEEPL_AUTH_KEY="dummy"
-
-# Set dummy key to enable Textlab during testing
-export INTEGREAT_CMS_TEXTLAB_API_KEY="dummy"
-# Set Google credentials and project ID to enable Google Translate during testing
-export INTEGREAT_CMS_GOOGLE_CREDENTIALS="dummy.json"
-export INTEGREAT_CMS_GOOGLE_PROJECT_ID="dummy"
-
-# Disable linkcheck listeners during testing
-export INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS=1
-
-# Disable background tasks during testing
-export INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED=0
+# Test-specific settings (dummy API keys, disabled listeners, etc.) are
+# configured in integreat_cms/core/test_settings.py.
+# Override the DJANGO_SETTINGS_MODULE that require_database sets to the base
+# settings, so pytest uses the test settings even when invoked via this script.
+export DJANGO_SETTINGS_MODULE="integreat_cms.core.test_settings"
 
 TESTS=()
 
@@ -78,8 +74,14 @@ if [[ -n "${CHANGED}" ]]; then
         PYTEST_ARGS+=("--testmon-noselect")
     fi
 else
-    # Run all tests, but update list of tests
-    PYTEST_ARGS+=("--testmon-noselect")
+    # Disable testmon when running in parallel — testmon conflicts with xdist
+    # and causes sporadic User.DoesNotExist errors during fixture setup.
+    if [[ -z "${VERBOSITY}" ]]; then
+        PYTEST_ARGS+=("-p" "no:testmon")
+    else
+        # Serial mode (verbose): safe to use testmon
+        PYTEST_ARGS+=("--testmon-noselect")
+    fi
 fi
 
 # Determine whether coverage data should be collected

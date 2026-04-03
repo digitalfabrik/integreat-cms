@@ -2,7 +2,7 @@ import pytest
 from django.test.client import Client
 
 from integreat_cms.cms.utils.content_utils import clean_content
-from tests.conftest import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
+from tests.constants import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 
 
 @pytest.mark.parametrize(

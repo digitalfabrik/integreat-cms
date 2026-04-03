@@ -19,6 +19,7 @@ from .api_config import API_ENDPOINTS
 )
 def test_api_result(
     load_test_data: None,
+    update_snapshots: bool,
     django_assert_num_queries: Callable,
     endpoint: str,
     wp_endpoint: str,
@@ -32,6 +33,7 @@ def test_api_result(
     provided in the corresponding json file.
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param update_snapshots: Whether to update snapshot files instead of comparing
     :param django_assert_num_queries: The fixture providing the query assertion
     :param endpoint: The url of the new Django pattern
     :param wp_endpoint: The legacy url of the wordpress endpoint pattern
@@ -48,7 +50,12 @@ def test_api_result(
         response_wp = client.get(wp_endpoint, format="json")
     print(response_wp.headers)
     assert response_wp.status_code == expected_code
-    with open(expected_result, encoding="utf-8") as f:
-        result = json.load(f)
-        assert result == response.json()
-        assert result == response_wp.json()
+    if update_snapshots:
+        with open(expected_result, "w", encoding="utf-8") as f:
+            json.dump(response.json(), f, ensure_ascii=False, indent=4)
+            f.write("\n")
+    else:
+        with open(expected_result, encoding="utf-8") as f:
+            result = json.load(f)
+            assert result == response.json()
+            assert result == response_wp.json()

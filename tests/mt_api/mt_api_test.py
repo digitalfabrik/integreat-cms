@@ -26,8 +26,7 @@ from integreat_cms.core.utils.word_count import word_count
 from integreat_cms.google_translate_api.google_translate_api_client import (
     GoogleTranslateApiClient,
 )
-
-from ..conftest import (
+from tests.constants import (
     ANONYMOUS,
     AUTHOR,
     EDITOR,
@@ -35,6 +34,7 @@ from ..conftest import (
     PRIV_STAFF_ROLES,
     WRITE_ROLES,
 )
+
 from ..utils import assert_message_in_log
 from .deepl_api_test import setup_deepl_supported_languages, setup_fake_deepl_api_server
 from .google_translate_api_test import (

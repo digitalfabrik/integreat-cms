@@ -16,7 +16,8 @@ if TYPE_CHECKING:
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.slow
+@pytest.mark.django_db(transaction=True)
 def test_duplicate_regions(
     load_test_data_transactional: None,
     admin_client: Client,
@@ -158,7 +159,8 @@ def test_duplicate_regions(
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.slow
+@pytest.mark.django_db(transaction=True)
 def test_duplicate_regions_no_translations(
     load_test_data_transactional: None,
     admin_client: Client,

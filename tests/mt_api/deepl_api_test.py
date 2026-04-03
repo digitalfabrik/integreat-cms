@@ -16,8 +16,13 @@ from django.apps import apps
 from django.urls import reverse
 
 from integreat_cms.cms.models import Page
+from tests.constants import (
+    AUTHOR,
+    EDITOR,
+    MANAGEMENT,
+    PRIV_STAFF_ROLES,
+)
 
-from ..conftest import AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from ..utils import assert_message_in_log
 from .utils import get_content_translations
 

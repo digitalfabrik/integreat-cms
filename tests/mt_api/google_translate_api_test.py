@@ -14,8 +14,13 @@ from django.apps import apps
 from django.urls import reverse
 
 from integreat_cms.cms.constants.machine_translatable_fields import TRANSLATABLE_FIELDS
+from tests.constants import (
+    AUTHOR,
+    EDITOR,
+    MANAGEMENT,
+    PRIV_STAFF_ROLES,
+)
 
-from ..conftest import AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from ..utils import assert_message_in_log
 
 if TYPE_CHECKING:

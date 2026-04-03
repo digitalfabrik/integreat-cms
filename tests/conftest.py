@@ -4,27 +4,34 @@ This module contains shared fixtures for pytest
 
 from __future__ import annotations
 
+import os
 from typing import Any, TYPE_CHECKING
 from unittest.mock import patch
 
-import pytest
+import pytest  # isort: skip — must precede local imports for fixture registration
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test.client import AsyncClient, Client
 
-from integreat_cms.cms.constants.roles import (
-    APP_TEAM,
+from integreat_cms.cms.models import Language, Page, Region
+from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
+from tests.constants import (  # noqa: F401 — re-exported for backward compatibility
+    ALL_ROLES,
+    ANONYMOUS,
     AUTHOR,
     CMS_TEAM,
     EDITOR,
-    EVENT_MANAGER,
+    HIGH_PRIV_STAFF_ROLES,
     MANAGEMENT,
-    MARKETING_TEAM,
     OBSERVER,
+    PRIV_STAFF_ROLES,
+    REGION_ROLES,
+    ROLES,
+    ROOT,
     SERVICE_TEAM,
+    STAFF_ROLES,
+    WRITE_ROLES,
 )
-from integreat_cms.cms.models import Language, Page, Region
-from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 from tests.mock import MockServer
 
 if TYPE_CHECKING:
@@ -37,25 +44,26 @@ if TYPE_CHECKING:
     from pytest_httpserver.httpserver import HTTPServer
 
 
-#: A role identifier for superusers
-ROOT: Final = "ROOT"
-#: A role identifier for anonymous users
-ANONYMOUS: Final = "ANONYMOUS"
+def pytest_addoption(parser: pytest.Parser) -> None:
+    """Register custom CLI options."""
+    parser.addoption(
+        "--update-snapshots",
+        action="store_true",
+        default=False,
+        help="Update API expected-output snapshot files instead of asserting against them.",
+    )
 
-#: All roles with editing permissions
-WRITE_ROLES: Final = [MANAGEMENT, EDITOR, AUTHOR, EVENT_MANAGER]
-#: All roles of region users
-REGION_ROLES: Final = [*WRITE_ROLES, OBSERVER]
-#: All roles of staff users
-STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM, APP_TEAM, MARKETING_TEAM]
-#: All roles of staff users that don't just have read-only permissions
-PRIV_STAFF_ROLES: Final = [ROOT, APP_TEAM, SERVICE_TEAM, CMS_TEAM]
-#: All roles of staff users that don't just have read-only permissions
-HIGH_PRIV_STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM]
-#: All region and staff roles
-ROLES: Final = REGION_ROLES + STAFF_ROLES
-#: All region and staff roles and anonymous users
-ALL_ROLES: Final = [*ROLES, ANONYMOUS]
+
+@pytest.fixture(scope="session")
+def update_snapshots(request: pytest.FixtureRequest) -> bool:
+    """Whether ``--update-snapshots`` was passed on the CLI."""
+    return bool(request.config.getoption("--update-snapshots"))
+
+
+#: Representative subset covering all permission boundaries (for faster local runs)
+QUICK_ROLE_SET: Final = [ROOT, MANAGEMENT, AUTHOR, ANONYMOUS]
+#: The roles used for parametrized tests — set QUICK_ROLES=1 to use the subset
+TEST_ROLES: Final = QUICK_ROLE_SET if os.environ.get("QUICK_ROLES") else ALL_ROLES
 
 #: Enable the aiohttp pytest plugin to make use of the test server
 pytest_plugins: Final = "aiohttp.pytest_plugin"
@@ -64,7 +72,7 @@ pytest_plugins: Final = "aiohttp.pytest_plugin"
 @pytest.fixture(scope="session")
 def load_test_data(django_db_setup: None, django_db_blocker: _DatabaseBlocker) -> None:
     """
-    Load the test data initially for all test cases
+    Load the test data initially for all test cases.
 
     :param django_db_setup: The fixture providing the database availability
     :param django_db_blocker: The fixture providing the database blocker
@@ -79,7 +87,10 @@ def load_test_data_transactional(
     django_db_blocker: _DatabaseBlocker,
 ) -> None:
     """
-    Load the test data initially for all transactional test cases
+    Load test data for transactional test cases.
+    Transactional tests flush the database after each test, so fixtures must be
+    reloaded per function. pytest-django ensures these run after all
+    non-transactional tests within the same worker.
 
     :param transactional_db: The fixture providing transaction support for the database
     :param django_db_blocker: The fixture providing the database blocker
@@ -89,7 +100,7 @@ def load_test_data_transactional(
         call_command("loaddata", "integreat_cms/cms/fixtures/test_data.json")
 
 
-@pytest.fixture(scope="session", params=ALL_ROLES)
+@pytest.fixture(scope="session", params=TEST_ROLES)
 def login_role_user(
     request: SubRequest,
     load_test_data: None,
@@ -112,7 +123,7 @@ def login_role_user(
     return client, request.param
 
 
-@pytest.fixture(scope="session", params=ALL_ROLES)
+@pytest.fixture(scope="session", params=TEST_ROLES)
 def login_role_user_async(
     request: SubRequest,
     load_test_data: None,

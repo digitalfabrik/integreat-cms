@@ -13,7 +13,12 @@ from linkcheck.listeners import enable_listeners
 from linkcheck.models import Link, Url
 
 from integreat_cms.cms.utils.linkcheck_utils import filter_urls
-from tests.conftest import ANONYMOUS, EDITOR, MANAGEMENT, STAFF_ROLES
+from tests.constants import (
+    ANONYMOUS,
+    EDITOR,
+    MANAGEMENT,
+    STAFF_ROLES,
+)
 from tests.utils import assert_message_in_log
 
 # ----------- Test for url replace -----------#

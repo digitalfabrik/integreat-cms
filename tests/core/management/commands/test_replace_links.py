@@ -74,7 +74,7 @@ def test_replace_links_non_existing_username(load_test_data: None) -> None:
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_replace_links_dry_run(load_test_data_transactional: Any | None) -> None:
     """
     Ensure that dry run works as expected
@@ -119,11 +119,11 @@ def test_replace_links_dry_run(load_test_data_transactional: Any | None) -> None
     ).exists(), "Replaced link should not be created during dry run"
 
 
+@pytest.mark.order("last")
 @pytest.mark.skip(
     reason="This test will be skipped until tests work reliably with celery, and for now this test never completes."
 )
-@pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_replace_links_commit(load_test_data_transactional: Any | None) -> None:
     """
     Ensure that committing changes to the database works as expected

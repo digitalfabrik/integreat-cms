@@ -382,7 +382,15 @@ push = false
     'release = "{version}"',
 ]
 
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "integreat_cms.core.test_settings"
+markers = [
+    "unit: Pure logic tests with no database or external service dependencies",
+    "slow: Tests that take a long time or run many parametrized variants",
+]
+
 [tool.coverage.report]
+fail_under = 50
 exclude_also = [
     "def __repr__",
     "if TYPE_CHECKING:",
