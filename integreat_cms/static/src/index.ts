@@ -1,9 +1,18 @@
-/*
- * Enable Preact debugging during development
+/// <reference types="webpack-env" />
+/**
+ * Main entry point for the CMS frontend bundle.
  *
- * Install the Preact Devtools browser extension to make use of it:
+ * Imports all legacy modules (directly executed on load) and bootstraps all
+ * feature modules — self-contained components scoped to a root DOM element.
+ * Feature modules live in `js/feature/` and are discovered automatically via
+ * `require.context`. Any element with a `data-js-<module-name>` attribute is
+ * used as the root for the corresponding module.
+ *
+ * To enable Preact debugging, install the Preact Devtools browser extension:
  *
  *     https://preactjs.github.io/preact-devtools/
+ *
+ * @module index
  */
 /* eslint-disable import/first */
 if (process.env.NODE_ENV !== "production") {
@@ -30,7 +39,6 @@ import "./js/confirmation-popups";
 import "./js/language-tabs";
 import "./js/machine-translation-overlay";
 import "./js/revisions";
-import "./js/search-query";
 import "./js/event-duration";
 
 import "./js/forms/slug-error";
@@ -75,10 +83,6 @@ import "./js/offers/zammad";
 
 import "./js/analytics/statistics-charts";
 import "./js/analytics/statistics-page-accesses";
-import "./js/analytics/translation_coverage";
-import "./js/analytics/hix-list";
-
-import "./js/translations/budget-graph";
 
 import "./js/user/user-creation-workflow";
 import "./js/user/user-roles";
@@ -107,12 +111,60 @@ import "./js/poi-categories/poicategory-colors-icons";
 import "./js/dashboard/broken-links";
 import "./js/dashboard/translation-coverage";
 
-import "./js/ajax-contact-form";
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-require-imports */
 require("element-closest").default(window);
 
+const initedModules = new WeakMap<HTMLElement, Set<string>>();
+
+const markInited = (el: HTMLElement, key: string) => {
+    if (!initedModules.has(el)) {
+        initedModules.set(el, new Set());
+    }
+    initedModules.get(el)!.add(key);
+};
+
+const hasInited = (el: HTMLElement, key: string) => initedModules.get(el)?.has(key) ?? false;
+
+const featureContext = require.context("./js/feature", true, /\.ts$/);
+
+const keyToModuleName = (key: string): string => {
+    const withoutExt = key.replace(/\.ts$/, "").replace(/\/index$/, "");
+    return withoutExt.replace(/^\.\//, "").replace(/\//g, "-");
+};
+
+const bootstrapModules = async (root: ParentNode = document) => {
+    const initPromises: Promise<void>[] = [];
+    for (const key of featureContext.keys()) {
+        const moduleName = keyToModuleName(key);
+        const elements = Array.from(root.querySelectorAll<HTMLElement>(`[data-js-${moduleName}]`)).filter(
+            (el) => !hasInited(el, moduleName)
+        );
+        for (const element of elements) {
+            initPromises.push(
+                (async () => {
+                    try {
+                        const mod = await featureContext(key);
+                        if (typeof mod.default !== "function") {
+                            throw new Error(`${key} does not have a default export function`);
+                        }
+                        if (mod.default.length < 1) {
+                            throw new Error(`${key} default export does not accept a root element`);
+                        }
+                        await (mod.default as FeatureModuleInit)(element);
+                        markInited(element, moduleName);
+                    } catch (error) {
+                        console.error(`[bootstrapModules] Failed to init ${moduleName}`, error, element);
+                    }
+                })()
+            );
+        }
+    }
+    await Promise.all(initPromises);
+};
+
 window.addEventListener("DOMContentLoaded", () => {
+    bootstrapModules();
     createIconsAt(document.documentElement);
     const event = new Event("icon-load");
     window.dispatchEvent(event);

@@ -71,6 +71,7 @@ extensions: Final[list[str]] = [
     "sphinxcontrib_django",
     "sphinx_rtd_theme",
     "sphinx_last_updated_by_git",
+    "myst_parser",
 ]
 #: Enable cross-references to other documentations
 intersphinx_mapping: Final[dict[str, tuple[str, str | None]]] = {

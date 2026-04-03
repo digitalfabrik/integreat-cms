@@ -1,5 +1,6 @@
 /*
  * Generate and (un)set the API token.
+ *
  */
 
 import { copyToClipboard } from "../copy-clipboard";

@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "docs:frontend": "typedoc && ts-node tools/npm/markOrphan.ts",
     "dev": "NODE_ENV=development webpack watch --mode development --color --stats=errors-warnings",
     "prod": "NODE_ENV=production webpack --mode production",
     "build": "webpack build",
@@ -13,6 +14,7 @@
     "@babel/plugin-transform-react-jsx": "^7.27.1",
     "@babel/plugin-transform-runtime": "^7.28.3",
     "@babel/preset-env": "^7.28.3",
+    "@types/webpack-env": "^1.18.5",
     "@tailwindcss/forms": "^0.5.7",
     "@types/dropzone": "^5.7.8",
     "@types/tinymce": "^4.6.9",
@@ -70,6 +72,9 @@
     "tinymce-i18n": "^24.6.3",
     "tom-select": "^2.4.3",
     "ts-loader": "^9.5.4",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.28.13",
+    "typedoc-plugin-markdown": "^4.9.0",
     "typescript": "^5.9.2",
     "url-loader": "^4.1.1",
     "vitest": "^1.6.0",

@@ -24,7 +24,7 @@ window.addEventListener("load", () => {
     let currentSlug: string;
     /* slug field to be updated */
     const titleField = document.querySelector("#id_title") as HTMLInputElement;
-    let oldTitle = titleField.value;
+    let oldTitle = titleField ? titleField.value : "";
     const slugField = <HTMLInputElement>document.getElementById("id_slug");
     const linkContainer = document.getElementById("link-container");
 
