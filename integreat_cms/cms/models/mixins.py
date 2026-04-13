@@ -18,7 +18,7 @@ if TYPE_CHECKING:
     from ..models.regions.region import Region
 
 #: Minimum trigram similarity threshold for including a match
-DEFAULT_MIN_SIMILARITY: float = 0.2
+DEFAULT_MIN_SIMILARITY: float = 0.1
 
 #: Maximum number of objects to process for suggestions
 MAX_OBJECTS: int = 200
