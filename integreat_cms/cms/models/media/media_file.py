@@ -25,7 +25,9 @@ from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link, Url
 
 from ...constants import allowed_media
+from ...search.search_fields import MEDIA_FILE_SEARCH_FIELDS
 from ..abstract_base_model import AbstractBaseModel
+from ..mixins import SearchSuggestMixin
 from ..regions.region import Region
 from .directory import Directory
 
@@ -130,12 +132,34 @@ class MediaFileQuerySet(models.QuerySet):
         )
 
 
-class MediaFile(AbstractBaseModel):
+class MediaFile(AbstractBaseModel, SearchSuggestMixin):
     """
     The MediaFile model is used to store basic information about files which are uploaded to the CMS. This is only a
     virtual document and does not necessarily exist on the actual file system. Each document is tied to a region via its
     directory.
     """
+
+    search_fields = MEDIA_FILE_SEARCH_FIELDS
+    region_filter_field = "region"
+    archived_filter_field = None
+
+    @classmethod
+    def get_suggest_queryset(
+        cls,
+        region: Region | None = None,
+        archived: bool = False,  # noqa: ARG003
+    ) -> QuerySet[Any]:
+        """
+        Include both regional and global (non-hidden) media files,
+        matching the behavior of :meth:`MediaFile.search`.
+
+        :param region: The region to filter by (optional)
+        :param archived: Whether to include archived records (unused for media files)
+        :return: A filtered queryset
+        """
+        return cls.objects.filter(
+            Q(region=region) | Q(region__isnull=True, is_hidden=False)
+        )
 
     file = models.FileField(
         upload_to=upload_path,

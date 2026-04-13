@@ -88,6 +88,27 @@ class SearchSuggestMixin(models.Model):
         abstract = True
 
     @classmethod
+    def get_suggest_queryset(
+        cls,
+        region: Region | None = None,
+        archived: bool = False,
+    ) -> QuerySet[Any]:
+        """
+        Return the base queryset for suggest_tokens. Override in subclasses
+        to customize filtering (e.g., to include global/shared records).
+
+        :param region: The region to filter by (optional)
+        :param archived: Whether to include archived records (default: False)
+        :return: A filtered queryset
+        """
+        qs = cls.objects.all()
+        if region and cls.region_filter_field:
+            qs = qs.filter(**{cls.region_filter_field: region})
+        if not archived and cls.archived_filter_field:
+            qs = qs.filter(**{cls.archived_filter_field: False})
+        return qs
+
+    @classmethod
     def suggest_tokens(
         cls,
         query: str,
@@ -128,15 +149,7 @@ class SearchSuggestMixin(models.Model):
         for field in fields:
             q_filter |= Q(**{f"{field}__icontains": query})
 
-        qs: QuerySet[Any] = cls.objects.filter(q_filter)
-
-        # Apply region filter if provided
-        if region and cls.region_filter_field:
-            qs = qs.filter(**{cls.region_filter_field: region})
-
-        # Exclude archived records unless explicitly requested
-        if not archived and cls.archived_filter_field:
-            qs = qs.filter(**{cls.archived_filter_field: False})
+        qs = cls.get_suggest_queryset(region=region, archived=archived).filter(q_filter)
 
         # Annotate with similarity scores for each field
         for field in fields:

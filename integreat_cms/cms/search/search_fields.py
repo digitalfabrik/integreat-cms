@@ -62,3 +62,8 @@ LANGUAGE_SEARCH_FIELDS: dict = {
     "native_name": {"weight": 1, "tokenize": False},
     "english_name": {"weight": 1, "tokenize": False},
 }
+
+MEDIA_FILE_SEARCH_FIELDS: dict = {
+    "name": {"weight": 2, "tokenize": False},
+    "alt_text": {"weight": 1, "tokenize": False},
+}
