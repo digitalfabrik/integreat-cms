@@ -28,11 +28,11 @@ if TYPE_CHECKING:
 
     from ..cms.models import (
         Language,
-        Page,
         PageTranslation,
     )
     from ..cms.models.abstract_content_model import AbstractContentModel
     from ..cms.models.abstract_content_translation import AbstractContentTranslation
+    from ..core.utils.machine_translation_api_client import TranslationContext
 
 from ..cms.constants import status
 
@@ -216,9 +216,10 @@ class TranslationHelper:
 
     :param request: The current request
     :param form_class: The subclass of the current content type
-    :param object_instance: The current object instance to be translated
+    :param ctx: The :class:`~integreat_cms.core.utils.machine_translation_api_client.TranslationContext`
+                containing the content instance and pre-computed translation metadata
     :param german_translation: The German source translation of the object instance
-    :param valid: Wether or not the translation was successful
+    :param valid: Whether or not the translation was successful
     :param text_fields: The text fields of this helper
     :param html_fields: The HTML fields of this helper
     """
@@ -230,29 +231,30 @@ class TranslationHelper:
         self,
         request: HttpRequest,
         form_class: ModelFormMetaclass,
-        object_instance: Page,
+        ctx: TranslationContext,
     ) -> None:
         """
         Constructor initializes the class variables
 
-        :param request: current request
+        :param request: The current request
         :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
                            subclass of the current content type
-        :param object_instance: The current object instance
+        :param ctx: The :class:`~integreat_cms.core.utils.machine_translation_api_client.TranslationContext`
+                    containing the content instance and pre-computed translation metadata
         """
         self.request: HttpRequest = request
         self.form_class: ModelFormMetaclass = form_class
-        self.object_instance: AbstractContentModel = object_instance
+        self.object_instance: AbstractContentModel = ctx.instance
         self.german_translation: AbstractContentTranslation | None = (
-            object_instance.get_translation(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
+            ctx.instance.get_translation(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
         )
-        self.word_count = object_instance.word_count
+        self.word_count = ctx.word_count
         if not self.german_translation:
             messages.error(
                 self.request,
                 _('No German translation could be found for {} "{}".').format(
-                    type(object_instance)._meta.verbose_name.title(),
-                    object_instance.best_translation.title,
+                    type(ctx.instance)._meta.verbose_name.title(),
+                    ctx.instance.best_translation.title,
                 ),
             )
             self.valid = False

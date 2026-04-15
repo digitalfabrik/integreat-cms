@@ -2029,12 +2029,33 @@ msgid "No weekdays for weekly recurrence selected"
 msgstr "Keine Wochentage für die wöchentliche Wiederholung eingegeben"
 
 #: cms/forms/events/recurrence_rule_form.py
+msgid ""
+"The start date of the event does not match the selected weekdays for weekly "
+"recurrence"
+msgstr ""
+"Das Startdatum der Veranstaltung stimmt nicht mit den ausgewählten Wochentagen für die wöchentliche Wiederholung überein"
+
+#: cms/forms/events/recurrence_rule_form.py
 msgid "No weekday for monthly recurrence selected"
 msgstr "Kein Wochentag für die monatliche Wiederholung eingegeben"
 
 #: cms/forms/events/recurrence_rule_form.py
+msgid ""
+"The start date of the event does not match the selected weekday for monthly "
+"recurrence"
+msgstr ""
+"Das Startdatum der Veranstaltung stimmt nicht mit dem ausgewählten Wochentag für die monatliche Wiederholung überein"
+
+#: cms/forms/events/recurrence_rule_form.py
 msgid "No week for monthly recurrence selected"
 msgstr "Keine Woche für die monatliche Wiederholung eingegeben"
+
+#: cms/forms/events/recurrence_rule_form.py
+msgid ""
+"The start date of the event does not match the selected week for monthly "
+"recurrence"
+msgstr ""
+"Das Startdatum der Veranstaltung stimmt nicht mit der ausgewählten Woche für die monatliche Wiederholung überein"
 
 #: cms/forms/events/recurrence_rule_form.py
 msgid "The recurrence end date has to be after the event's start date"
@@ -2266,6 +2287,24 @@ msgstr "Webseite"
 msgid "Email address"
 msgstr "E-Mail-Adresse"
 
+#: cms/forms/pois/poi_form.py cms/views/contacts/contact_list_view.py
+msgid "Area of responsibility"
+msgstr "Zuständigkeitsbereich"
+
+#: cms/forms/pois/poi_form.py cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_form.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/poicategories/poicategory_list.html
+#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
+#: cms/views/contacts/contact_list_view.py
+msgid "Name"
+msgstr "Name"
+
+#: cms/forms/pois/poi_form.py cms/views/contacts/contact_list_view.py
+msgid "Mobile phone number"
+msgstr "Mobiltelefonnummer"
+
 #: cms/forms/pois/poi_form.py
 msgid "An error occurred while saving the opening hours."
 msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
@@ -2278,6 +2317,10 @@ msgstr ""
 "Die Koordinaten konnten nicht aus der Adresse abgeleitet werden, bitte "
 "füllen Sie das Feld manuell aus, wenn der Ort auf der Karte angezeigt werden "
 "soll."
+
+#: cms/forms/pois/poi_form.py
+msgid "To create a contact, area of responsibility is mandatory."
+msgstr "Zuständigkeitsbereich ist benötigt um ein Kontakt zu erstellen."
 
 #: cms/forms/push_notifications/push_notification_form.py
 msgid "Schedule sending"
@@ -4563,10 +4606,8 @@ msgid "Page tree tutorial seen"
 msgstr "Seitenbaum-Tutorial angesehen"
 
 #: cms/models/users/user.py
-msgid "Will be set to true once the user dismissed the page tree tutorial"
-msgstr ""
-"Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum Seitenbaum "
-"angesehen hat"
+msgid "Has seen tutorial for page tree"
+msgstr "Hat ein Tutorial für den Seitenbaum angesehen."
 
 #: cms/models/users/user.py
 msgid "automatically distribute sidebar boxes"
@@ -6623,16 +6664,6 @@ msgstr "Neuer externer Kalender"
 #: cms/templates/events/external_calendar_list.html
 msgid "External calendars"
 msgstr "Externe Kalender"
-
-#: cms/templates/events/external_calendar_list.html
-#: cms/templates/languages/language_form.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/poicategories/poicategory_list.html
-#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
-#: cms/views/contacts/contact_list_view.py
-msgid "Name"
-msgstr "Name"
 
 #: cms/templates/events/external_calendar_list.html
 msgid "Imported events"
@@ -9498,10 +9529,6 @@ msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 msgid "MISSING LINK"
 msgstr "FEHLENDER LINK"
 
-#: cms/utils/slug_utils.py
-msgid "Cannot generate slug from {}."
-msgstr "Slug kann nicht aus dem {} abgeleitet werden."
-
 #: cms/utils/stringify_list.py
 msgid "and 1 other"
 msgstr "und 1 weitere"
@@ -9867,16 +9894,8 @@ msgid "Name of related location"
 msgstr "Name des verlinkten Ortes"
 
 #: cms/views/contacts/contact_list_view.py
-msgid "Area of responsibility"
-msgstr "Zuständigkeitsbereich"
-
-#: cms/views/contacts/contact_list_view.py
 msgid "E-Mail"
 msgstr "E-Mail"
-
-#: cms/views/contacts/contact_list_view.py
-msgid "Mobile phone number"
-msgstr "Mobiltelefonnummer"
 
 #: cms/views/contacts/contact_list_view.py
 msgid "Please create at least one language node before creating contacts."
@@ -11670,14 +11689,32 @@ msgstr[1] ""
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
-msgid "{model_name} {object_names} could not be translated automatically."
+msgid ""
+"{model_name} {object_names} could not be translated automatically into "
+"'{target_language}'"
 msgid_plural ""
-"The following {model_name} could not translated automatically: {object_names}"
+"The following {model_name} could not be translated automatically into "
+"'{target_language}': {object_names}"
 msgstr[0] ""
-"{model_name} {object_names} konnte nicht automatisch übersetzt werden."
+"{model_name} {object_names} konnte nicht automatisch nach '{target_language}' übersetzt werden."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht automatisch übersetzt werden: "
+"Die folgenden {model_name} konnten nicht automatisch nach '{target_language}' übersetzt werden: "
 "{object_names}"
+
+#: core/utils/machine_translation_api_client.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} was not translated into '{target_language}', "
+"because there were no changes to the source translation."
+msgid_plural ""
+"The following {model_name} were not translated into '{target_language}', "
+"because there were no changes to the source translation: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} konnte nicht nach '{target_language}' übersetzt werden, weil die Quell-"
+"Übersetzung sich nicht geändert hat."
+msgstr[1] ""
+"Die folgenden {model_name} konnten nicht nach '{target_language}' übersetzt werden, weil ihre Quell-"
+"Übersetzungen sich nicht geändert haben: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
@@ -11692,7 +11729,7 @@ msgstr[0] ""
 "Übersetzung fehlt."
 msgstr[1] ""
 "Die folgenden {model_name} konnten nicht übersetzt werden, da ihre Quell-"
-"Übersetzung fehlen: {object_names}"
+"Übersetzungen fehlen: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
@@ -11945,6 +11982,9 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Cannot generate slug from fallback."
+#~ msgstr "Slug kann nicht aus dem Fallback abgeleitet werden."
+
 #~ msgid ""
 #~ "Any manager with access to only some of the selected regions can view but "
 #~ "not edit this news template."
@@ -12048,6 +12088,11 @@ msgstr ""
 
 #~ msgid "Show opening hours"
 #~ msgstr "Öffnungszeiten anzeigen"
+
+#~ msgid "Will be set to true once the user dismissed the page tree tutorial"
+#~ msgstr ""
+#~ "Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum "
+#~ "Seitenbaum angesehen hat"
 
 #~ msgid "The list below shows all detected errors related to links."
 #~ msgstr "Hier können Sie eine Übersicht über fehlerhafte Links sehen."
@@ -12419,15 +12464,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"

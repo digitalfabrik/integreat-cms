@@ -298,6 +298,23 @@ Source path                                                                     
 * ``--region REGION``: The region slug whose media library to upload the files to
 * ``--global``: Upload the files to the global library
 
+``make_slugs_unique``
+~~~~~~~~~~~~~~~~~~~~~~
+
+Iterates over all translations of pages, events and pois(locations) in the database and if it finds a duplicate slug somewhere, 
+it changes it so that in the end all slugs are unique per language and region. This command is needed because we currently do not 
+guarantee slug uniqueness on the database level, and therefore duplicate slugs are possible. 
+Once the database constraint will have been implemented, this command should be executed 
+once and should not be needed afterwards in the future:
+
+    integreat-cms-cli make_slugs_unique [--dryrun] [--objects OBJECT_NAMES]
+
+**Input options:**
+
+* ``--dry-run``: Runs the Iteration without commiting the changes to the DB
+* ``--objects OBJECT_NAMES``: A list of names of content models this should be applied to e.g. `--objects page poi`
+
+
 Create new commands
 -------------------
 

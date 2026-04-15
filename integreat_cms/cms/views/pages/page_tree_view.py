@@ -153,6 +153,6 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                 ).count()
                 > 0,
                 "is_archive": self.archived,
-                "tutorial_seen": request.user.page_tree_tutorial_seen,
+                "tutorial_seen": request.user.has_seen_page_tree_tutorial,
             },
         )

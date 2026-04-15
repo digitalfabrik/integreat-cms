@@ -1,55 +1,31 @@
 {% load i18n %}
 {% load widget_tweaks %}
 <div>
-    <label for="{{ contact_form.title.id_for_label }}">
-        {{ contact_form.area_of_responsibility.label }}
-    </label>
     {% if poi_id %}
+        <label for="{{ contact_form.title.id_for_label }}">
+            {{ contact_form.area_of_responsibility.label }}
+        </label>
         {% render_field contact_form.area_of_responsibility|append_attr:"form:ajax_contact_form" %}
-    {% else %}
-        {% render_field contact_form.area_of_responsibility %}
-    {% endif %}
-    <label for="{{ contact_form.name.id_for_label }}">
-        {{ contact_form.name.label }}
-    </label>
-    {% if poi_id %}
+        <label for="{{ contact_form.name.id_for_label }}">
+            {{ contact_form.name.label }}
+        </label>
         {% render_field contact_form.name|append_attr:"form:ajax_contact_form" %}
-    {% else %}
-        {% render_field contact_form.name %}
-    {% endif %}
-    <label for="{{ contact_form.email.id_for_label }}">
-        {{ contact_form.email.label }}
-    </label>
-    {% if poi_id %}
+        <label for="{{ contact_form.email.id_for_label }}">
+            {{ contact_form.email.label }}
+        </label>
         {% render_field contact_form.email|append_attr:"form:ajax_contact_form" %}
-    {% else %}
-        {% render_field contact_form.email %}
-    {% endif %}
-    <label for="{{ contact_form.phone_number.id_for_label }}">
-        {{ contact_form.phone_number.label }}
-    </label>
-    {% if poi_id %}
+        <label for="{{ contact_form.phone_number.id_for_label }}">
+            {{ contact_form.phone_number.label }}
+        </label>
         {% render_field contact_form.phone_number|append_attr:"form:ajax_contact_form" %}
-    {% else %}
-        {% render_field contact_form.phone_number %}
-    {% endif %}
-    <label for="{{ contact_form.mobile_phone_number.id_for_label }}">
-        {{ contact_form.mobile_phone_number.label }}
-    </label>
-    {% if poi_id %}
+        <label for="{{ contact_form.mobile_phone_number.id_for_label }}">
+            {{ contact_form.mobile_phone_number.label }}
+        </label>
         {% render_field contact_form.mobile_phone_number|append_attr:"form:ajax_contact_form" %}
-    {% else %}
-        {% render_field contact_form.mobile_phone_number %}
-    {% endif %}
-    <label for="{{ contact_form.website.id_for_label }}">
-        {{ contact_form.website.label }}
-    </label>
-    {% if poi_id %}
+        <label for="{{ contact_form.website.id_for_label }}">
+            {{ contact_form.website.label }}
+        </label>
         {% render_field contact_form.website|append_attr:"form:ajax_contact_form" %}
-    {% else %}
-        {% render_field contact_form.website %}
-    {% endif %}
-    {% if poi_id %}
         <button id="submit-contact-form-button"
                 name="location"
                 value="{{ poi_id }}"
@@ -59,5 +35,30 @@
                 data-url="{% url 'create_contact_ajax' region_slug=request.region.slug %}">
             {% translate "Submit" %}
         </button>
+    {% else %}
+        <label for="{{ poi_form.title.id_for_label }}">
+            {{ poi_form.area_of_responsibility.label }}
+        </label>
+        {% render_field poi_form.area_of_responsibility|add_error_class:"border-red-500" %}
+        <label for="{{ poi_form.name.id_for_label }}">
+            {{ poi_form.name.label }}
+        </label>
+        {% render_field poi_form.name|add_error_class:"border-red-500" %}
+        <label for="{{ poi_form.email.id_for_label }}">
+            {{ poi_form.email.label }}
+        </label>
+        {% render_field poi_form.email|add_error_class:"border-red-500" %}
+        <label for="{{ poi_form.phone_number.id_for_label }}">
+            {{ poi_form.phone_number.label }}
+        </label>
+        {% render_field poi_form.phone_number|add_error_class:"border-red-500" %}
+        <label for="{{ poi_form.mobile_phone_number.id_for_label }}">
+            {{ poi_form.mobile_phone_number.label }}
+        </label>
+        {% render_field poi_form.mobile_phone_number|add_error_class:"border-red-500" %}
+        <label for="{{ poi_form.website.id_for_label }}">
+            {{ poi_form.website.label }}
+        </label>
+        {% render_field poi_form.website|add_error_class:"border-red-500" %}
     {% endif %}
 </div>

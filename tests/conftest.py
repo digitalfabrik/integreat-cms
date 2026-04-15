@@ -4,7 +4,7 @@ This module contains shared fixtures for pytest
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 from unittest.mock import patch
 
 import pytest
@@ -23,11 +23,12 @@ from integreat_cms.cms.constants.roles import (
     OBSERVER,
     SERVICE_TEAM,
 )
+from integreat_cms.cms.models import Language, Page, Region
 from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 from tests.mock import MockServer
 
 if TYPE_CHECKING:
-    from collections.abc import Generator
+    from collections.abc import Callable, Generator
     from typing import Final
 
     from _pytest.fixtures import SubRequest
@@ -161,3 +162,27 @@ def configure_celery_for_tests(settings: SettingsWrapper) -> None:
     # so we set celery to run synchronously and propagate errors to the test runner
     settings.CELERY_TASK_ALWAYS_EAGER = True
     settings.CELERY_TASK_EAGER_PROPAGATES = True
+
+
+@pytest.fixture()
+def create_page() -> Callable[..., Page]:
+    def _create_page(
+        region: Region | None,
+        name_add: str = "",
+        parent: Page | None = None,
+    ) -> Page:
+        return (
+            parent.add_child(region=parent.region)
+            if parent
+            else Page.add_root(region=region)
+        )
+
+    return _create_page
+
+
+@pytest.fixture()
+def create_language() -> Callable[..., Language]:
+    def _create_language(**kwargs: Any) -> Language:
+        return Language.objects.create(**kwargs)
+
+    return _create_language

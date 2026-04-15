@@ -500,7 +500,8 @@ def import_event(
     recurrence_rule_form = RecurrenceRuleForm(
         data=recurrence_rule_form_data,
         instance=previously_imported_recurrence_rule,
-        event_start_date=event_form.cleaned_data.get("start_date"),
+        # Don't validate start date for imports: RFC 5545 allows DTSTART to not
+        # fall on one of the RRULE days.
     )
     if recurrence_rule_form_data and not recurrence_rule_form.is_valid():
         logger.error(

@@ -167,7 +167,7 @@ class EventTranslation(AbstractContentTranslation):
                 "foreign_model": "event",
                 "region": self.event.region,
                 "language": self.language,
-                "fallback": "title",
+                "fallback": self.title,
             }
             self.slug = generate_unique_slug(**kwargs)
 

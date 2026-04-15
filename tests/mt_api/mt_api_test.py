@@ -22,6 +22,7 @@ from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import Event, Language, Page, PageTranslation, POI, Region
 from integreat_cms.cms.models.pois.poi import get_default_opening_hours
 from integreat_cms.cms.utils.stringify_list import iter_to_string
+from integreat_cms.core.utils.word_count import word_count
 from integreat_cms.google_translate_api.google_translate_api_client import (
     GoogleTranslateApiClient,
 )
@@ -40,7 +41,7 @@ from .google_translate_api_test import (
     setup_fake_google_translate_api,
     setup_google_translate_supported_languages,
 )
-from .utils import get_content_translations, get_english_name, get_word_count
+from .utils import get_content_translations, get_english_name
 
 # Slugs we want to use for testing
 REGION_SLUG: Final[str] = "augsburg"
@@ -136,6 +137,16 @@ def test_bulk_mt(
 
     # Log the user in
     client, role = login_role_user
+
+    expected_word_count = 0
+    for content_obj in content_type.objects.filter(id__in=ids):
+        attrs = content_obj.get_translatable_attributes(
+            ["title", "content", "meta_description"],
+            source_language_slug,
+            target_language_slug,
+        )
+        expected_word_count += word_count(attrs)
+
     # Translate the pois
     machine_translation = reverse(
         "machine_translation_" + content_type._meta.default_related_name,
@@ -197,13 +208,9 @@ def test_bulk_mt(
                         == f"This is your translation from {provider}"
                     )
 
-            # Check that used MT budget value in the region has been increased to the number of translated words
-            translated_word_count = get_word_count(
-                [translation[source_language_slug] for translation in translations],
-            )
             assert (
                 Region.objects.get(slug=REGION_SLUG).mt_budget_used
-                == translated_word_count
+                == expected_word_count
             )
 
         elif role == ANONYMOUS:
@@ -562,6 +569,17 @@ def test_automatic_translation(
     # Log the user in
     client, role = login_role_user
 
+    # Compute expected word count from the form data that will be submitted.
+    # We can't use get_translatable_attributes here because the form POST
+    # changes the source translation before MT runs.
+    expected_word_count = word_count(
+        [
+            (attr, data[attr])
+            for attr in ["title", "content", "meta_description"]
+            if data.get(attr)
+        ]
+    )
+
     # Get "page" from PAGE, "poi" from POI and "event" from EVENT
     content_name = content_type._meta.verbose_name if content_type is not POI else "poi"
 
@@ -635,11 +653,9 @@ def test_automatic_translation(
                 target_translation.content
                 == f"<p>This is your translation from {provider}</p>"
             )
-            # Check that used MT budget value in the region has been increased to the number of translated words
-            translated_word_count = get_word_count([source_translation])
             assert (
                 Region.objects.get(slug=REGION_SLUG).mt_budget_used
-                == translated_word_count
+                == expected_word_count
             )
         elif role == ANONYMOUS:
             # For anonymous users, we want to redirect to the login form instead of showing an error

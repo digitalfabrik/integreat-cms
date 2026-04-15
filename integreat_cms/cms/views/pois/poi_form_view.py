@@ -131,7 +131,9 @@ class POIFormView(
             },
         )
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def post(  # noqa: PLR0915
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponse:
         r"""
         Submit :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and
         :class:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm` and save :class:`~integreat_cms.cms.models.pois.poi.POI` and
@@ -250,6 +252,9 @@ class POIFormView(
                     contact.website = website
                     contact.phone_number = phone_number
                     contact.email = email
+                    # opening hours is None means the contact adopts the location's opening hours
+                    if contact.opening_hours is None:
+                        contact.appointment_url = poi.appointment_url
                     if not contact.name and language == region.default_language:
                         contact.name = poi_translation_form.instance.title
                     contact.save()

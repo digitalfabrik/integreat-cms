@@ -1,3 +1,12 @@
+"""
+If test-data.json has changed and the PDF Files need changing: Go to the pages list view in the CMS,
+- inside the right region and with the right language selected -
+and select the ids of the pages needed, based on the parametrization here and then chose the bulk action
+to export the published pages as a PDF File.
+Save that file under its hash named folder, e.g. if the file is returned under `/pdf/990a572a06/Integreat%20-%20Deutsch%20-%20Augsburg.pdf`,
+you save it in the folder "990a572a06" inside /tests/pdf/files/ (and delete the old file)
+"""
+
 from __future__ import annotations
 
 import io

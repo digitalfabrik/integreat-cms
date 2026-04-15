@@ -11,7 +11,10 @@ from django.conf import settings
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
-from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
+from ..core.utils.machine_translation_api_client import (
+    MachineTranslationApiClient,
+    TranslationContext,
+)
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
 
 if TYPE_CHECKING:
@@ -34,7 +37,7 @@ class DeepLApiClient(MachineTranslationApiClient):
         """
         Initialize the DeepL client
 
-        :param region: The current region
+        :param request: The current request
         :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
                            subclass of the current content type
         """
@@ -68,26 +71,37 @@ class DeepLApiClient(MachineTranslationApiClient):
                 return code
         return ""
 
-    def invoke_translation_api(self) -> None:
+    def invoke_translation_api(self, context: list[TranslationContext]) -> None:
         """
-        Translate all content objects stored in self.queryset using DeepL.
+        Translate all content objects (wrapped by TranslationContext) stored in context using DeepL.
         """
         deepl_config: DeepLApiClientConfig = apps.get_app_config("deepl_api")
 
-        for content_object in self.queryset:
-            data = {
+        for ctx in context:
+            if not ctx.source_translation:
+                continue
+            data: dict[str, bool | str | deepl.TextResult | list[deepl.TextResult]] = {
                 "machine_translated": True,
-                "title": unescape(content_object.source_translation.title),
             }
-            if content_object._meta.model_name != "pushnotification":
+
+            for attr in self.translatable_fields:
+                if getattr(ctx.existing_target_translation, attr, None):
+                    data[attr] = unescape(
+                        getattr(ctx.existing_target_translation, attr)
+                    )
+
+            if ctx.instance.do_not_translate_title:
+                data["title"] = unescape(ctx.source_translation.title)
+
+            if ctx.instance._meta.model_name != "pushnotification":
                 data.update(
                     {
-                        "status": content_object.source_translation.status,
+                        "status": ctx.source_translation.status,
                         "currently_in_translation": False,
                     }
                 )
 
-            for attr, attr_val in content_object.translatable_attributes:
+            for attr, attr_val in ctx.translatable_attributes:
                 try:
                     # data has to be unescaped for DeepL to recognize Umlaute
                     glossary = deepl_config.get_glossary(
@@ -112,4 +126,4 @@ class DeepLApiClient(MachineTranslationApiClient):
                     logger.exception("")
                     return
 
-            self.save_translation(content_object, data)
+            self.save_translation(ctx, data)
