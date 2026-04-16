@@ -175,8 +175,13 @@ const Library = ({
 
     // Set the search query event listeners after a refresh
     useEffect(() => {
-        const container = document.querySelector("[data-js-search-query]") as HTMLElement;
-        setSearchQueryEventListeners(container);
+        const container = document.querySelector<HTMLElement>("[data-js-search-query]");
+        if (!container) {
+            return undefined;
+        }
+        const controller = new AbortController();
+        setSearchQueryEventListeners(container, controller.signal);
+        return () => controller.abort();
     }, [mediaLibraryContent]);
 
     return (

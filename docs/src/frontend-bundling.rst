@@ -48,6 +48,10 @@ The file must have a default export with the following signature:
         // do not use document directly
     });
 
+.. note::
+
+    Because feature modules are loaded once and cached, **module-level variables are shared across all instances** of the same module on a page.
+    Any state that belongs to a single instance (e.g. counters, timer IDs, DOM references) must be declared inside the default export function, not at module level.
 
 Compatible Browsers
 ===================

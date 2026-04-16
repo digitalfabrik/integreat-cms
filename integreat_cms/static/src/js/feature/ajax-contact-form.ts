@@ -101,13 +101,13 @@ const createContact = async (event: Event, root: HTMLElement) => {
 
 const renderContactForm = async (root: HTMLElement) => {
     const showContactFormButton = root.querySelector("#show-contact-form-button");
-    const submitContactFormButton = root.querySelector("#submit-contact-form-button");
     const contactFormWidget = root.querySelector("#contact-form-widget");
     contactFormWidget.classList.remove("hidden");
     const relatedContactBlock = root.querySelector("#related-contact");
     if (relatedContactBlock) {
         const response = await fetch(showContactFormButton.getAttribute("data-url"));
         contactFormWidget.innerHTML = await response.text();
+        const submitContactFormButton = root.querySelector("#submit-contact-form-button");
 
         submitContactFormButton.addEventListener("click", (event) => {
             event.preventDefault();
@@ -124,7 +124,7 @@ export default defineFeature((root) => {
         renderContactForm(root);
     });
     if (root.querySelector("#id_area_of_responsibility")?.classList.contains("border-red-500")) {
-        root.querySelector("contact-form-widget").classList.remove("hidden");
-        root.querySelector("show-contact-form-button").classList.add("hidden");
+        root.querySelector("#contact-form-widget").classList.remove("hidden");
+        root.querySelector("#show-contact-form-button").classList.add("hidden");
     }
 });

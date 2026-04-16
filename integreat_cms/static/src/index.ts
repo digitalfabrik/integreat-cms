@@ -140,24 +140,28 @@ const bootstrapModules = async (root: ParentNode = document) => {
         const elements = Array.from(root.querySelectorAll<HTMLElement>(`[data-js-${moduleName}]`)).filter(
             (el) => !hasInited(el, moduleName)
         );
-        for (const element of elements) {
-            initPromises.push(
-                (async () => {
-                    try {
-                        const mod = await featureContext(key);
-                        if (typeof mod.default !== "function") {
-                            throw new Error(`${key} does not have a default export function`);
-                        }
-                        if (mod.default.length < 1) {
-                            throw new Error(`${key} default export does not accept a root element`);
-                        }
-                        await (mod.default as FeatureModuleInit)(element);
-                        markInited(element, moduleName);
-                    } catch (error) {
-                        console.error(`[bootstrapModules] Failed to init ${moduleName}`, error, element);
-                    }
-                })()
-            );
+        if (elements.length > 0) {
+            try {
+                const mod = featureContext(key);
+                if (typeof mod.default !== "function") {
+                    throw new Error(`${key} does not have a default export function`);
+                }
+                if (mod.default.length < 1) {
+                    throw new Error(`${key} default export does not accept a root element`);
+                }
+                for (const element of elements) {
+                    initPromises.push(
+                        (async () => {
+                            await (mod.default as FeatureModuleInit)(element);
+                            markInited(element, moduleName);
+                        })().catch((error) => {
+                            console.error(`[bootstrapModules] Failed to init ${moduleName} for ${element}`, error);
+                        })
+                    );
+                }
+            } catch (error) {
+                console.error(`[bootstrapModules] Failed to init ${moduleName}`, error);
+            }
         }
     }
     await Promise.all(initPromises);
