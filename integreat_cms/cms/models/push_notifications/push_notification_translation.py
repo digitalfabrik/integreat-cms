@@ -25,7 +25,7 @@ class PushNotificationTranslation(AbstractBaseModel):
     Data model representing a push notification translation
     """
 
-    title = models.CharField(max_length=250, blank=True, verbose_name=_("title"))
+    title = models.CharField(max_length=250, verbose_name=_("title"))
     text = models.TextField(
         max_length=500,
         blank=True,
