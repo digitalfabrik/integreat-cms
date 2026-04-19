@@ -97,14 +97,14 @@ function format_release_notes_version {
             fi
         fi
     fi
-    find "$1"/* -maxdepth 0 -type f | sort --version-sort | while read -r ENTRY; do
+    find "$1/" -maxdepth 1 -type f -name '*.yml' | sort --version-sort | while read -r ENTRY; do
         format_release_notes_entry "${ENTRY}"
     done
     echo -e "\n"
 }
 
 function format_release_notes_year {
-    find "$1"/* -maxdepth 0 -type d | sort --version-sort --reverse | while read -r VERSION; do
+    find "$1/" -maxdepth 1 -type d | sort --version-sort --reverse | while read -r VERSION; do
         format_release_notes_version "${VERSION}"
     done
 }
@@ -130,12 +130,24 @@ if [[ -n ${ONLY_VERSION} ]]; then
     format_release_notes_version "${RELEASE_NOTES_DIR}/${ONLY_VERSION_PATH}/${ONLY_VERSION}" | sed '$ d' | sed '$ d' >> "${OUTPUT}"
 elif [[ -n ${ALL} ]]; then
     # Append each year's entries
-    find "${RELEASE_NOTES_DIR}"/* -maxdepth 0 -type d | sort --reverse | while read -r YEAR; do
+    find "${RELEASE_NOTES_DIR}/" -maxdepth 1 -type d | sort --reverse | while read -r YEAR; do
         format_release_notes_year "${YEAR}" >> "${OUTPUT}"
     done
 else
+    mapfile -t note_dirs < <(find "${RELEASE_NOTES_DIR}/" -mindepth 2 -maxdepth 2 -type d)
+    # If there are no release notes in unreleased, pretend it's not there
+    empty=true
+    shopt -s nullglob
+    for _ in "${RELEASE_NOTES_DIR}/current/unreleased"/*.yml; do
+        empty=false
+        break
+    done
+    shopt -u nullglob
+    # Filter out /current/unreleased
+    $empty && note_dirs=("${note_dirs[@]/${RELEASE_NOTES_DIR}'/current/unreleased'}")
     # Only return the latest version by default
-    format_release_notes_version "$(find "${RELEASE_NOTES_DIR}"/* -mindepth 1 -maxdepth 1 -type d | sort --version-sort | tail -n1)" | sed '$ d' | sed '$ d' >> "${OUTPUT}"
+    latest_version_dir="$(printf '%s\n' "${note_dirs[@]}" | sort --version-sort | tail -n1)"
+    format_release_notes_version "$latest_version_dir" | sed '$ d' | sed '$ d' >> "${OUTPUT}"
 fi
 
 if [[ "${OUTPUT}" != "/dev/stdout" ]]; then
