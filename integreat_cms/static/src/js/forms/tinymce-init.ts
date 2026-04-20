@@ -48,11 +48,15 @@ const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string, alt: 
 /* This function toggles the no-translate attribute of a selected text */
 const toggleNoTranslate = (editor: Editor) => {
     editor.focus();
-    const val = tinymce.activeEditor.dom.getAttrib(tinymce.activeEditor.selection.getNode(), "translate", "yes");
-    if (val === "no") {
-        tinymce.activeEditor.dom.setAttrib(tinymce.activeEditor.selection.getNode(), "translate", null);
-        tinymce.activeEditor.dom.removeClass(tinymce.activeEditor.selection.getNode(), "notranslate");
-        tinymce.activeEditor.dom.setAttrib(tinymce.activeEditor.selection.getNode(), "dir", null);
+    const noTranslateNode = tinymce.activeEditor.dom.getParent(
+        tinymce.activeEditor.selection.getNode(),
+        '[translate="no"]'
+    );
+
+    if (noTranslateNode) {
+        tinymce.activeEditor.dom.setAttrib(noTranslateNode, "translate", null);
+        tinymce.activeEditor.dom.removeClass(noTranslateNode, "notranslate");
+        tinymce.activeEditor.dom.setAttrib(noTranslateNode, "dir", null);
     } else if (editor.selection.getContent().length > 0) {
         const selectedText = editor.selection.getContent({ format: "html" });
         const span = editor.dom.create(

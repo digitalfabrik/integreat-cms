@@ -280,23 +280,38 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     // Either insert a new link or update the existing one
                     const anchor = getAnchor();
                     if (!anchor) {
+                        // The HTML of the selected text only, e.g. selecting "two" in <span>one two</span>
+                        // gives "two", not the surrounding span. Falls back to the dialog text if nothing
+                        // was selected (cursor only).
+                        const selectedHTML = editor.selection.getContent({ format: "html" }) || text;
+
+                        // The innermost element containing the selection, e.g. selecting "two" in
+                        // <span>one two</span> gives the `<span>one two</span>` element itself.
                         const selectedNode = editor.selection.getNode();
-                        const selectedNodeText = selectedNode.textContent;
 
-                        let selectedHTML = editor.selection.getContent({ format: "html" });
-                        if (selectedHTML.length === 0) {
-                            selectedHTML = text;
+                        // If the entire content of an inline container (e.g. <span>, <strong>, <em>,..)
+                        // was selected, e.g. "one two" in <span>one two</span>, use the full outer HTML
+                        // <span>one two</span> to preserve the container's attributes inside the link
+                        // AND expand the selection to cover the entire node selectedNode.
+                        // Otherwise just use the selected HTML directly.
+                        const isFullInlineSelection =
+                            selectedNode.textContent === text && !editor.dom.isBlock(selectedNode);
+
+                        if (isFullInlineSelection) {
+                            editor.selection.select(selectedNode);
                         }
+                        const innerContent = isFullInlineSelection ? selectedNode.outerHTML : selectedHTML;
 
-                        const link = editor.dom.create(
+                        const linkHTML = editor.dom.createHTML(
                             "a",
                             {
-                                href: `${realUrl}${autoupdate ? ' data-integreat-auto-update="true"' : ""}`,
+                                "href": realUrl,
+                                "data-integreat-auto-update": autoupdate ? true : null,
                             },
-                            selectedNodeText === text ? selectedNode : selectedHTML
+                            innerContent
                         );
 
-                        editor.selection.setNode(link);
+                        editor.selection.setContent(linkHTML);
                     } else {
                         updateLink(editor, anchor, text, {
                             "href": realUrl,
