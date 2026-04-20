@@ -104,7 +104,7 @@ function format_release_notes_version {
 }
 
 function format_release_notes_year {
-    find "$1/" -maxdepth 1 -type d | sort --version-sort --reverse | while read -r VERSION; do
+    find "$1/" -mindepth 1 -maxdepth 1 -type d | sort --version-sort --reverse | while read -r VERSION; do
         format_release_notes_version "${VERSION}"
     done
 }
@@ -130,7 +130,7 @@ if [[ -n ${ONLY_VERSION} ]]; then
     format_release_notes_version "${RELEASE_NOTES_DIR}/${ONLY_VERSION_PATH}/${ONLY_VERSION}" | sed '$ d' | sed '$ d' >> "${OUTPUT}"
 elif [[ -n ${ALL} ]]; then
     # Append each year's entries
-    find "${RELEASE_NOTES_DIR}/" -maxdepth 1 -type d | sort --reverse | while read -r YEAR; do
+    find "${RELEASE_NOTES_DIR}/" -mindepth 1 -maxdepth 1 -type d | sort --reverse | while read -r YEAR; do
         format_release_notes_year "${YEAR}" >> "${OUTPUT}"
     done
 else
@@ -147,6 +147,10 @@ else
     $empty && note_dirs=("${note_dirs[@]/${RELEASE_NOTES_DIR}'/current/unreleased'}")
     # Only return the latest version by default
     latest_version_dir="$(printf '%s\n' "${note_dirs[@]}" | sort --version-sort | tail -n1)"
+    if [[ -z "${latest_version_dir}" ]]; then
+        echo "No release notes found" > /dev/stderr
+        exit 1
+    fi
     format_release_notes_version "$latest_version_dir" | sed '$ d' | sed '$ d' >> "${OUTPUT}"
 fi
 
