@@ -148,6 +148,24 @@ class MachineTranslationContextMixin(ContextMixin):
         return context
 
 
+def get_safe_page(paginator: Paginator, page: int | str) -> Page:
+    """
+    Resolve a page number against a paginator, falling back gracefully on errors.
+    Returns the first page if the page number is not an integer,
+    or the last page if the page number exceeds the total number of pages.
+
+    :param paginator: The paginator instance
+    :param page: The requested page number
+    :return: The resolved page
+    """
+    try:
+        return paginator.page(page)
+    except PageNotAnInteger:
+        return paginator.page(1)
+    except EmptyPage:
+        return paginator.page(paginator.num_pages)
+
+
 class PaginationMixin:
     """
     Mixin to add pagination to a view.
@@ -174,14 +192,7 @@ class PaginationMixin:
             size = self.default_page_size
 
         paginator = Paginator(queryset, size)
-        try:
-            page_obj = paginator.page(page)
-        except PageNotAnInteger:
-            page_obj = paginator.page(1)
-        except EmptyPage:
-            page_obj = paginator.page(paginator.num_pages)
-
-        return page_obj
+        return get_safe_page(paginator, page)
 
 
 class FilterSortMixin:
