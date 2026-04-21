@@ -4,16 +4,20 @@ import json
 import logging
 from typing import TYPE_CHECKING
 
+from cacheops import invalidate_model
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_POST
 
 from ...decorators import permission_required
-from ...models import Contact
+from ...models import Contact, POI
+from ...utils.link_utils import format_phone_number
 
 if TYPE_CHECKING:
     from django.http import HttpRequest
+
+    from ....cms.models import Language, Region
 
 
 logger = logging.getLogger(__name__)
@@ -108,3 +112,37 @@ def get_contact_raw(
             }
         }
     )
+
+
+def generate_primary_contact_from_poi(
+    website: str,
+    phone_number: str,
+    email: str,
+    poi: POI,
+    language: Language,
+    region: Region,
+    title: str,
+) -> None:
+    # Look explicitly for the primary contact, not any first one,
+    # as we do not delete non-primary contacts when deactivating contact in a region.
+    # "get()" is not used as it raises an exception if there is no primary contact.
+    contact = poi.contacts.get_primary_contact()
+
+    if website != "" or phone_number != "" or email != "":
+        if not contact:
+            contact = Contact(location=poi)
+        if phone_number:
+            phone_number = format_phone_number(phone_number)
+        contact.website = website
+        contact.phone_number = phone_number
+        contact.email = email
+        # opening hours is None means the contact adopts the location's opening hours
+        if contact.opening_hours is None:
+            contact.appointment_url = poi.appointment_url
+        if not contact.name and language == region.default_language:
+            contact.name = title
+        contact.save()
+    elif contact is not None:
+        contact.delete()
+
+    invalidate_model(Contact)
