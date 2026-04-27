@@ -626,6 +626,8 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         Function to replace links that are in the translation and match the given keyword `search`
         """
+        from ..utils.content_translation_utils import save_new_version_with_retry
+
         new_translation = self.create_new_version_copy(user)
         logger.debug("Replacing links of %r: %r", new_translation, urls_to_replace)
         new_translation.content = rewrite_links(
@@ -634,8 +636,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         )
         new_translation.content = fix_content_link_encoding(new_translation.content)
         if new_translation.content != self.content and commit:
-            self.links.all().delete()
-            new_translation.save()
+            with transaction.atomic():
+                self.links.all().delete()
+                save_new_version_with_retry(new_translation, new_translation.save)
 
     def __str__(self) -> str:
         """

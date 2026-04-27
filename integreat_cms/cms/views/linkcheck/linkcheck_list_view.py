@@ -8,6 +8,7 @@ from urllib.parse import urlencode
 from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
+from django.db import IntegrityError
 from django.http import Http404
 from django.shortcuts import redirect, reverse
 from django.utils.decorators import method_decorator
@@ -166,11 +167,26 @@ class LinkcheckListView(ListView):
                 )
                 contents = {link.content_object for link in links}
                 # Replace the old urls with the new urls in the content
+                failed_replacements = []
                 for content in contents:
-                    content.replace_urls(
-                        {self.instance.url: new_url},
-                        request.user,
-                        True,
+                    try:
+                        content.replace_urls(
+                            {self.instance.url: new_url},
+                            request.user,
+                            True,
+                        )
+                    except IntegrityError:
+                        logger.exception(
+                            "Could not replace URL in %r — skipping this translation",
+                            content,
+                        )
+                        failed_replacements.append(content)
+                if failed_replacements:
+                    messages.warning(
+                        request,
+                        _(
+                            "{} translation(s) could not be updated due to a database conflict. Please try again."
+                        ).format(len(failed_replacements)),
                     )
 
                 if new_url.startswith("mailto:"):

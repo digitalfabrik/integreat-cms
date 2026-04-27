@@ -107,8 +107,19 @@ def update_links_to(
             outdated_content_translation.create_new_version_copy(user)
         )
         fixed_content_translation.content = new_content
-        outdated_content_translation.links.all().delete()
-        fixed_content_translation.save()
+        try:
+            with transaction.atomic():
+                outdated_content_translation.links.all().delete()
+                save_new_version_with_retry(
+                    fixed_content_translation, fixed_content_translation.save
+                )
+        except IntegrityError:
+            logger.exception(
+                "Could not update links in %r referencing %r",
+                outdated_content_translation,
+                content_translation,
+            )
+            continue
 
         logger.debug(
             "Updated links to %s in %r",
