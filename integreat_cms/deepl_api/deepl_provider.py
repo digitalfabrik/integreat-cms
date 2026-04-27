@@ -24,7 +24,6 @@ class DeepLProvider(MachineTranslationProvider):
     #: Whether the provider is globally enabled
     enabled = settings.DEEPL_ENABLED
 
-    @classmethod
     @classproperty
     def supported_source_languages(cls) -> list[str]:
         """
@@ -34,7 +33,6 @@ class DeepLProvider(MachineTranslationProvider):
         """
         return apps.get_app_config("deepl_api").supported_source_languages
 
-    @classmethod
     @classproperty
     def supported_target_languages(cls) -> list[str]:
         """

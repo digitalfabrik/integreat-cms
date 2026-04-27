@@ -77,30 +77,37 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
             },
         )
 
-        poi_translation_form = POITranslationForm(
-            data=request.POST,
-            instance=None,
-            additional_instance_attributes={
-                "creator": request.user,
-                "language": language,
-                "poi": poi_form.instance,
-            },
-            changed_by_user=request.user,
-        )
+        with transaction.atomic():
+            if not poi_form.is_valid():
+                return JsonResponse(
+                    data={
+                        "success": False,
+                    },
+                )
+            poi = poi_form.save()
 
-        phone_number = poi_form.data.get("primary_phone_number")
-        email = poi_form.data.get("primary_email")
-        website = poi_form.data.get("primary_website")
-
-        if not poi_form.is_valid() or not poi_translation_form.is_valid():
-            return JsonResponse(
-                data={
-                    "success": False,
+            poi_translation_form = POITranslationForm(
+                data=request.POST,
+                instance=None,
+                additional_instance_attributes={
+                    "creator": request.user,
+                    "language": language,
+                    "poi": poi,
                 },
+                changed_by_user=request.user,
             )
 
-        with transaction.atomic():
-            poi = poi_form.save()
+            if not poi_translation_form.is_valid():
+                return JsonResponse(
+                    data={
+                        "success": False,
+                    },
+                )
+
+            phone_number = poi_form.data.get("primary_phone_number")
+            email = poi_form.data.get("primary_email")
+            website = poi_form.data.get("primary_website")
+
             poi_translation_form.instance.poi = poi
             poi_translation = poi_translation_form.save(
                 foreign_form_changed=poi_form.has_changed(),
@@ -121,8 +128,8 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
                 "success": True,
                 "poi_address_container": render_to_string(
                     "ajax_poi_form/_poi_address_container.html",
-                    {"poi": poi},
+                    {"poi": poi_translation_form.instance.poi},
                 ),
-                "poi_id": poi.id,
+                "poi_id": poi_translation_form.instance.poi.id,
             }
         )
