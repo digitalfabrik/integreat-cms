@@ -55,7 +55,7 @@ def save_new_version_with_retry(
             with transaction.atomic():
                 return save_fn()
         except IntegrityError as e:
-            if "unique_version" not in str(e) or attempt >= 2:
+            if "unique_version" not in str(e) or attempt >= MAX_RETRY - 1:
                 raise
             # Recompute the next version from the database
             max_version = (
