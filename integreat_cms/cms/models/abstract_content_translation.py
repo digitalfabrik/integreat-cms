@@ -680,11 +680,15 @@ class AbstractContentTranslation(AbstractBaseModel):
         class_name = type(self).__name__
         if not self.pk:
             return f"<{class_name} (unsaved instance)>"
+        # Read FK values from the *_id columns so repr() never triggers a DB
+        # fetch; otherwise repr() called after a test's DB blocker re-engages
+        # raises and produces noisy logging-emit failures.
+        foreign_id = getattr(self, f"{self.foreign_field()}_id")
         return (
-            f"<{type(self).__name__} ("
+            f"<{class_name} ("
             f"id: {self.id}, "
-            f"{self.foreign_field()}_id: {self.foreign_object.id}, "
-            f"language: {self.language.slug}, "
+            f"{self.foreign_field()}_id: {foreign_id}, "
+            f"language_id: {self.language_id}, "
             f"slug: {self.slug})>"
         )
 
