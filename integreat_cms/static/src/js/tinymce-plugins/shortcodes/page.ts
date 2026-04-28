@@ -15,7 +15,10 @@ class PageHandle extends ShortcodeHandle {
 		[["id", "The ID of the page to link to"]],
 		[["text", "The text to display (if not specified, show page title)"]],
 	];
-	kwargs: KWargsDescriptor = [];
+	kwargs: KWargsDescriptor = [
+		// TODO: implement lang kwarg
+		// [["lang", false, "The language to which to link (instead of preferring the language of the document containing this link)", "Language"]],
+	];
 
 	domainAndPrefix: () => string = evaluateOnceDecorator(() => stripProtocol(this.tinymceConfig.getAttribute("data-webapp-url")));
 	// Regular expression to check íf a link could be a page
