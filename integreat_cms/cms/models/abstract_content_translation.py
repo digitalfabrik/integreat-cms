@@ -653,11 +653,15 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         :return: The canonical string representation of the content translation
         """
+        # Read FK values from the *_id columns so repr() never triggers a DB
+        # fetch; otherwise repr() called after a test's DB blocker re-engages
+        # raises and produces noisy logging-emit failures.
+        foreign_id = getattr(self, f"{self.foreign_field()}_id")
         return (
             f"<{type(self).__name__} ("
             f"id: {self.id}, "
-            f"{self.foreign_field()}_id: {self.foreign_object.id}, "
-            f"language: {self.language.slug}, "
+            f"{self.foreign_field()}_id: {foreign_id}, "
+            f"language_id: {self.language_id}, "
             f"slug: {self.slug})>"
         )
 
