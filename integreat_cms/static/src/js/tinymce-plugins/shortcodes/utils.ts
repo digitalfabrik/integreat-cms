@@ -373,10 +373,30 @@ class ShortcodeHandle {
         return `<span ${parts.join(" ")}>${this.renderPreview(pargs, kwargs)}</span>`;
     }
 
+    findNodes(): NodeListOf<HTMLElement> {
+        return this.editor.contentDocument.querySelectorAll(`[data-shortcode="${this.keyword}"]`);
+    }
+
     renderPreview(pargs: string[], kwargs: Map<string, string | undefined>): string {
         // The html string representation of the shortcode preview in the TinyMCE editor
         // By default this is just the canonical text representation. This function will be overwritten by most subclasses.
         return this.renderShortcode(pargs, kwargs);
+    }
+
+    refreshPreview(predicate: ((pargs: string[], kwargs: Map<string, string | undefined>) => boolean) | undefined) {
+        const previousSelection = this.editor.selection.getBookmark();
+
+        this.findNodes().forEach(((node: HTMLElement) => {
+            const [pargs, kwargs] = this.argsFromNode(node);
+            if (predicate && !predicate(pargs, kwargs)) return;
+
+            this.editor.selection.select(node);
+            node.remove();
+            this.editor.insertContent(this.renderShortcode(pargs, new Map(Object.entries(kwargs))));
+        }).bind(this));
+
+        // Restore selection
+        this.editor.selection.moveToBookmark(previousSelection);
     }
 
     reconstructArgsFromDialog(api: DialogInstanceApi<DialogData>): [string[], {[key: string]: string}, [string, string][]] {

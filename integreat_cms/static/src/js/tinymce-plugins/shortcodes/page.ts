@@ -5,6 +5,8 @@ import { getCsrfToken } from "../../utils/csrf-token";
 import { stripProtocol } from "../../utils/url-tools";
 import { evaluateOnceDecorator } from "../../utils/caching-functions";
 
+import { debounce } from "../../utils/debounce";
+
 
 class PageHandle extends ShortcodeHandle {
 	keyword = "page";
@@ -139,10 +141,10 @@ class PageHandle extends ShortcodeHandle {
 			value: "",
 		};
 		const languageSlug = this.tinymceConfig.getAttribute("data-language-slug");
-		const cachedPageData = this.pageCache.byId.get(parseInt(initialPargs[0])).translations.get(languageSlug);
+		const cachedPageData = this.pageCache.byId.get(parseInt(initialPargs[0]))?.translations.get(languageSlug);
 		const initialCompletionItem = {
-			text: cachedPageData.titlePath,
-			title: cachedPageData.title,
+			text: cachedPageData?.titlePath || "",
+			title: cachedPageData?.title || "",
 			value: `${initialPargs[0]}`,
 		};
 		const completionItems = cachedPageData ? [initialCompletionItem] : [defaultCompletionItem];
@@ -317,7 +319,11 @@ class PageHandle extends ShortcodeHandle {
 		const baseUrl = this.tinymceConfig.getAttribute("data-base-url");
 		const regionSlug = this.tinymceConfig.getAttribute("data-region-slug");
 		const languageSlug = this.tinymceConfig.getAttribute("data-language-slug");
-		this.pageCache = new PageCache(baseUrl, regionSlug, languageSlug);
+
+		const debouncedRefreshPreview = debounce((pageMetadata: PageMetadata) => {
+			this.refreshPreview((pargs, kwargs) => parseInt(pargs[0]) == pageMetadata.id);
+		}, 100);
+		this.pageCache = new PageCache(baseUrl, regionSlug, languageSlug, debouncedRefreshPreview);
 
 		//this.populatePageCache();
 		return true;
@@ -330,6 +336,8 @@ class PageCache {
 	byPath = new Map<string, TranslationMetadata>();
 
 	pending = new Map<number, Promise<PageMetadata>>();
+
+	afterFetch: ((metadata: PageMetadata) => void) | null = null;
 
 	baseUrl: string;
 	regionSlug: string;
@@ -348,10 +356,11 @@ class PageCache {
 		([^/?#]+)
 	`.replace(/\s+/g, ""));
 
-	constructor(baseUrl: string, regionSlug: string, defaultLanguageSlug: string) {
+	constructor(baseUrl: string, regionSlug: string, defaultLanguageSlug: string, afterFetch: ((metadata: PageMetadata) => void) | null = null) {
 		this.baseUrl = baseUrl;
 		this.regionSlug = regionSlug;
 		this.defaultLanguageSlug = defaultLanguageSlug;
+		this.afterFetch = afterFetch;
 	}
 
 	cacheTranslationMetadata(translation: any) {
@@ -379,6 +388,7 @@ class PageCache {
 
 		this.byPath.set(translation.path, translationMetadata);
 
+		if (this.afterFetch) this.afterFetch(pageMetadata);
 		return pageMetadata;
 	}
 
