@@ -29,7 +29,6 @@ from linkcheck import update_lock
 from ..cms.constants import text_directions
 from ..cms.forms import PageTranslationForm
 from ..cms.models import Page, PageTranslation
-from ..cms.utils.content_translation_utils import save_new_version_with_retry
 from ..cms.utils.file_utils import create_zip_archive
 from ..cms.utils.stringify_list import iter_to_string
 from ..cms.utils.translation_utils import gettext_many_lazy as __
@@ -448,19 +447,16 @@ def xliff_import_confirm(
 
                     success = False
                 else:
-                    existing_translation = page_translation.latest_version
+                    # Check if previous version already exists
+                    if existing_translation := page_translation.latest_version:
+                        # Delete link objects of existing translation
+                        existing_translation.links.all().delete()
                     page_translation.machine_translated = machine_translated
                     # Confirm import and write changes to the database
                     try:
-                        # Use encapsulated transaction to allow rollback in case of IntegrityError.
-                        # Link deletion lives inside this block so it rolls back together with the
-                        # save if all retries are exhausted.
+                        # Use encapsulated transaction to allow rollback in case of IntegrityError
                         with transaction.atomic():
-                            if existing_translation:
-                                existing_translation.links.all().delete()
-                            save_new_version_with_retry(
-                                page_translation, page_translation.save
-                            )
+                            page_translation.save()
                     except IntegrityError as e:
                         logger.exception(
                             "%s when importing new version for %r from %r by %r",
