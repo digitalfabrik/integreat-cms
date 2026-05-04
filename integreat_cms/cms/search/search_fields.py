@@ -32,7 +32,9 @@ LOCATION_SEARCH_FIELDS: dict = {
 }
 
 PAGE_SEARCH_FIELDS: dict = {
-    "translations__title": {"weight": 1, "tokenize": False},
+    # Resolved against the ``latest_translations`` FilteredRelation set up in
+    # ``Page.get_suggest_queryset`` so suggestions only consider current revisions.
+    "latest_translations__title": {"weight": 1, "tokenize": False},
 }
 
 ORGANIZATION_SEARCH_FIELDS: dict = {
