@@ -498,6 +498,28 @@ class AbstractContentTranslation(AbstractBaseModel):
         return translation_status.UP_TO_DATE
 
     @classmethod
+    def get_suggest_queryset(
+        cls,
+        region: Region | None = None,
+        archived: bool = False,
+    ) -> QuerySet:
+        """
+        Restrict suggestion sources to the latest translation per (object, language)
+        so that token suggestions reflect what list views actually display, instead
+        of mixing in tokens from outdated revisions.
+        """
+        qs = super().get_suggest_queryset(region=region, archived=archived)
+        foreign_id = f"{cls.foreign_field()}_id"
+        latest_ids = (
+            qs.order_by(foreign_id, "language_id", "-version")
+            .distinct(foreign_id, "language_id")
+            .values("id")
+        )
+        # Wrap in id__in so the icontains filter applied later in suggest_tokens
+        # runs against latest rows only — not all versions.
+        return cls.objects.filter(id__in=latest_ids)
+
+    @classmethod
     def search(cls, region: Region, language_slug: str, query: str) -> QuerySet:
         """
         Searches for all content translations which match the given `query` in their title or slug.
