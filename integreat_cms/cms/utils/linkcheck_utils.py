@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 from urllib.parse import quote
 
 from django.conf import settings
+from django.db import IntegrityError
 from django.db.models import (
     CharField,
     Count,
@@ -382,7 +383,13 @@ def replace_links(
 
     with update_lock:
         for content, urls_to_replace in content_objects.items():
-            content.replace_urls(urls_to_replace, user, commit)
+            try:
+                content.replace_urls(urls_to_replace, user, commit)
+            except IntegrityError:
+                logger.exception(
+                    "Could not replace URLs in %r — skipping this translation",
+                    content,
+                )
 
     # Wait until all post-save signals have been processed
     logger.debug("Waiting for linkcheck listeners to update link database...")
