@@ -171,6 +171,9 @@ class POIFormView(
             region=region,
         )
 
+        # Save the user selected slug before is_valid() is called and it is changed for uniqueness
+        user_slug = poi_translation_form.data.get("slug")
+
         phone_number = poi_form.data.get("primary_phone_number")
         email = poi_form.data.get("primary_email")
         website = poi_form.data.get("primary_website")
@@ -254,36 +257,9 @@ class POIFormView(
                             language=language,
                         ).update(status=status.PUBLIC)
 
-                    # Show a message that the slug was changed if it was not unique
-                    user_slug = poi_translation_form.data.get("slug")
-                    if (
-                        user_slug
-                        and user_slug != poi_translation_form.cleaned_data["slug"]
-                    ):
-                        other_translation = POITranslation.objects.filter(
-                            poi__region=region,
-                            slug=user_slug,
-                            language=language,
-                        ).first()
-                        other_translation_link = other_translation.backend_edit_link
-                        message = _(
-                            "The slug was changed from '{user_slug}' to '{slug}', "
-                            "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
-                        ).format(
-                            user_slug=user_slug,
-                            slug=poi_translation_form.cleaned_data["slug"],
-                            translation=other_translation,
-                        )
-                        messages.warning(
-                            request,
-                            translate_link(
-                                message,
-                                attributes={
-                                    "href": other_translation_link,
-                                    "class": "underline hover:no-underline",
-                                },
-                            ),
-                        )
+                    self.show_slug_changed_message(
+                        request, language, region, user_slug, poi_translation_form
+                    )
 
                     # Add the success message and redirect to the edit page
                     self.set_success_messages(
@@ -293,17 +269,7 @@ class POIFormView(
                         poi_form=poi_form,
                     )
 
-                    # Send the post save signal of contact model to trigger contact card update
-                    if "address" in poi_form.changed_data and (
-                        related_contacts := poi.contacts.all()
-                    ):
-                        for contact in related_contacts:
-                            post_save.send(
-                                sender=Contact,
-                                instance=contact,
-                                created=False,
-                                using=contact_save_handler,
-                            )
+                    self.update_contact_cards(poi_form, poi)
 
                     invalidate_model(Contact)
 
@@ -351,6 +317,58 @@ class POIFormView(
                 "is_edit": is_edit,
             },
         )
+
+    def update_contact_cards(self, poi_form: POIForm, poi: POI) -> None:
+        """
+        Send the post save signal of contact model to trigger contact card update
+        """
+        if "address" in poi_form.changed_data and (
+            related_contacts := poi.contacts.all()
+        ):
+            for contact in related_contacts:
+                post_save.send(
+                    sender=Contact,
+                    instance=contact,
+                    created=False,
+                    using=contact_save_handler,
+                )
+
+    def show_slug_changed_message(
+        self,
+        request: HttpRequest,
+        language: Language,
+        region: Any,
+        user_slug: str,
+        poi_translation_form: POITranslationForm,
+    ) -> None:
+        """
+        Show a message that the slug was changed if it was not unique
+        """
+        if user_slug and user_slug != poi_translation_form.cleaned_data["slug"]:
+            other_translation = POITranslation.objects.filter(
+                poi__region=region,
+                slug=user_slug,
+                language=language,
+            ).first()
+            other_translation_link = other_translation.backend_edit_link
+            message = _(
+                "The slug was changed from '{user_slug}' to '{slug}', "
+                "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
+            ).format(
+                user_slug=user_slug,
+                slug=poi_translation_form.cleaned_data["slug"],
+                translation=other_translation,
+            )
+            messages.warning(
+                request,
+                translate_link(
+                    message,
+                    attributes={
+                        "href": other_translation_link,
+                        "class": "underline hover:no-underline",
+                    },
+                ),
+            )
 
     def get_instances(
         self, language: Language, poi_id: Any
