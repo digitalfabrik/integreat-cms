@@ -13,7 +13,6 @@ from django.core.management import call_command
 from django.test.client import AsyncClient, Client
 
 from integreat_cms.cms.constants.roles import (
-    APP_TEAM,
     AUTHOR,
     CMS_TEAM,
     EDITOR,
@@ -47,9 +46,9 @@ WRITE_ROLES: Final = [MANAGEMENT, EDITOR, AUTHOR, EVENT_MANAGER]
 #: All roles of region users
 REGION_ROLES: Final = [*WRITE_ROLES, OBSERVER]
 #: All roles of staff users
-STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM, APP_TEAM, MARKETING_TEAM]
+STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM, MARKETING_TEAM]
 #: All roles of staff users that don't just have read-only permissions
-PRIV_STAFF_ROLES: Final = [ROOT, APP_TEAM, SERVICE_TEAM, CMS_TEAM]
+PRIV_STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM]
 #: All roles of staff users that don't just have read-only permissions
 HIGH_PRIV_STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM]
 #: All region and staff roles
