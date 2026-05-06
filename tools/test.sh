@@ -24,6 +24,14 @@ ensure_webpack_bundle_exists
 
 require_database
 
+# When require_database falls back to the dockerized postgres, it exposes the
+# container on INTEGREAT_CMS_DOCKER_LISTEN_PORT. docker_settings hardcodes that
+# port, but test_settings (below) inherits from base settings and reads the
+# port from the env, so propagate it explicitly.
+if [[ "${DJANGO_SETTINGS_MODULE}" == "integreat_cms.core.docker_settings" ]]; then
+    export INTEGREAT_CMS_DB_PORT="${INTEGREAT_CMS_DOCKER_LISTEN_PORT}"
+fi
+
 # Test-specific settings (dummy API keys, disabled listeners, etc.) are
 # configured in integreat_cms/core/test_settings.py.
 # Override the DJANGO_SETTINGS_MODULE that require_database sets to the base
