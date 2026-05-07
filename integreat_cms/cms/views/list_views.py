@@ -11,7 +11,11 @@ from django.conf import settings
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.list import ListView
 
-from .mixins import ModelConfirmationContextMixin, ModelTemplateResponseMixin
+from .mixins import (
+    get_safe_page,
+    ModelConfirmationContextMixin,
+    ModelTemplateResponseMixin,
+)
 
 if TYPE_CHECKING:
     from typing import Any
@@ -89,6 +93,19 @@ class ModelListView(
         :return: The permissions that are required for views inheriting from this Mixin
         """
         return (f"cms.view_{self.model._meta.model_name}",)
+
+    def paginate_queryset(self, queryset: QuerySet, page_size: int) -> tuple:
+        """
+        Gracefully handle out-of-range page numbers instead of returning a 404.
+        This prevents errors when changing the page size from a page that doesn't
+        exist with the new size.
+        """
+        paginator = self.get_paginator(queryset, page_size)
+        page = self.kwargs.get(self.page_kwarg) or self.request.GET.get(
+            self.page_kwarg, 1
+        )
+        page_obj = get_safe_page(paginator, page)
+        return paginator, page_obj, page_obj.object_list, page_obj.has_other_pages()
 
     def get_queryset(self) -> QuerySet:
         """

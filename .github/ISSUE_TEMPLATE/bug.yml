@@ -1,0 +1,210 @@
+name: 🐛 Bug Report
+description: Report a defect in existing functionality that is not working as expected
+type: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Bug Report
+        Something is not working as expected. Please provide enough detail
+        to reproduce and diagnose the issue.
+
+        > ℹ️ If this is a **feature request** or **missing functionality**, 
+        > please use the **User Story** template instead.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Bug Summary
+      description: A clear and concise description of the bug
+      placeholder: |
+        Brief description of what is broken...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen?
+      placeholder: |
+        Describe what the correct behavior should be...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What happens instead?
+      placeholder: |
+        Describe what actually happens...
+
+        > 💡 Include error messages, incorrect values, visual glitches, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: >
+        Provide a step-by-step sequence to reliably reproduce the bug.
+        The more precise, the faster we can fix it.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Enter '...' in the field
+        4. Scroll down to '...'
+        5. Observe error
+    validations:
+      required: true
+
+  - type: dropdown
+    id: reproducibility
+    attributes:
+      label: Reproducibility
+      description: How consistently can you reproduce this bug?
+      options:
+        - Always (100%)
+        - Frequently (>50%)
+        - Sometimes (<50%)
+        - Rarely
+        - Unable to reproduce reliably
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Where was this bug observed?
+      placeholder: |
+        - **Environment:** Production / Staging / Development / Local
+        - **URL (if applicable):** 
+        - **App version / commit:** 
+        - **Browser:** Chrome 120 / Firefox 121 / Safari 17 / Edge 120
+        - **OS:** Windows 11 / macOS Sonoma / Ubuntu 22.04 / iOS 17 / Android 14
+        - **Device:** Desktop / Mobile / Tablet (model if relevant)
+        - **Screen resolution (if UI bug):** 
+        - **User role / permissions:** 
+        - **Account / tenant (if applicable):**
+    validations:
+      required: true
+
+  - type: textarea
+    id: visual-evidence
+    attributes:
+      label: Screenshots / Videos / Logs
+      description: >
+        Attach any visual evidence that helps illustrate the bug.
+        Include console errors, network responses, or log output if available.
+      placeholder: |
+        ### Screenshots / Videos
+        > 💡 Drag and drop images or videos directly into this field
+
+        ### Console / Log Output
+        ```
+        Paste relevant logs here...
+        ```
+
+        ### Network Responses (if applicable)
+        ```json
+
+        ```
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is the impact of this bug?
+      options:
+        - 🔴 Critical — System down, data loss, security vulnerability, no workaround
+        - 🟠 Major — Core functionality broken, workaround exists but is painful
+        - 🟡 Minor — Non-core functionality affected, acceptable workaround exists
+        - 🟢 Cosmetic — Visual or text issue, no functional impact
+
+        ### Workaround
+        - Is there a workaround? Describe it...
+    validations:
+      required: false
+
+  - type: textarea
+    id: regression-info
+    attributes:
+      label: Regression Information
+      description: Did this work before? If so, when did it stop working?
+      placeholder: |
+        - **Is this a regression?** Yes / No / Unknown
+        - **Last known working version / date:** 
+        - **Suspected cause:** (deploy, config change, dependency update, etc.)
+        - **Related recent changes:** #PR-number, #commit-hash
+    validations:
+      required: false
+
+  - type: textarea
+    id: technical-context
+    attributes:
+      label: Technical Context
+      description: >
+        Any technical details that may help diagnose the issue.
+        To be filled by the reporter if known, or by developers during triage.
+      placeholder: |
+        ### Affected Components / Services
+        - 
+
+        ### Relevant Endpoints
+        - 
+
+        ### Suspected Root Cause
+        - 
+
+        ### Relevant Code / Config
+        ```
+
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria for Fix
+      description: >
+        What must be true for this bug to be considered resolved?
+        May be refined during triage.
+      placeholder: |
+        - [ ] [Expected behavior] works correctly under [conditions]
+        - [ ] No regression in related functionality
+        - [ ] Edge case [X] is handled
+        - [ ] Error state is handled gracefully
+    validations:
+      required: false
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification / Testing
+      description: How should the fix be verified?
+      placeholder: |
+        - [ ] Reproduce original bug → confirm it no longer occurs
+        - [ ] Regression tests pass
+        - [ ] Test on affected browsers / devices
+        - [ ] Test edge cases: ...
+        - [ ] Verify in environment: ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: related-issues
+    attributes:
+      label: Related Issues
+      description: Are there issues related to this bug?
+      placeholder: |
+        - **integreat-cms issues
+        - **integreat-app issues
+        - **others
+    validations:
+      required: false
