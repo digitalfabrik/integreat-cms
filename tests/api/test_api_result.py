@@ -52,7 +52,7 @@ def test_api_result(
     assert response_wp.status_code == expected_code
     if update_snapshots:
         with open(expected_result, "w", encoding="utf-8") as f:
-            json.dump(response.json(), f, ensure_ascii=False, indent=4)
+            json.dump(response.json(), f, ensure_ascii=False, indent=2)
             f.write("\n")
     else:
         with open(expected_result, encoding="utf-8") as f:
