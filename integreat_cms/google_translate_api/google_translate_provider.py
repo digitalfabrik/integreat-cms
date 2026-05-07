@@ -24,7 +24,6 @@ class GoogleTranslateProvider(MachineTranslationProvider):
     #: Whether the provider is globally enabled
     enabled = settings.GOOGLE_TRANSLATE_ENABLED
 
-    @classmethod
     @classproperty
     def supported_source_languages(cls) -> list[str]:
         """
@@ -34,7 +33,6 @@ class GoogleTranslateProvider(MachineTranslationProvider):
         """
         return apps.get_app_config("google_translate_api").supported_source_languages
 
-    @classmethod
     @classproperty
     def supported_target_languages(cls) -> list[str]:
         """

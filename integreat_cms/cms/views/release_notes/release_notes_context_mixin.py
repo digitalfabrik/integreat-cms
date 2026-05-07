@@ -77,4 +77,5 @@ class ReleaseNotesContextMixin(ContextMixin):
                     stack.enter_context(open(note, encoding="UTF-8")),
                 )[get_language_from_request(self.request)]
                 for note in natsorted(version.iterdir())
+                if note.suffix in (".yml", ".yaml")
             }

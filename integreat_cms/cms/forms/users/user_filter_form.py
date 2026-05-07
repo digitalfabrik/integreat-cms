@@ -36,7 +36,7 @@ class UserFilterForm(CustomFilterForm):
         choices=[
             *BLANK_CHOICE_DASH,
             ("is_superuser", _("Administrator")),
-            ("is_staff", _("Integreat team member")),
+            ("is_staff", _("Access to network area")),
         ],
         required=False,
     )

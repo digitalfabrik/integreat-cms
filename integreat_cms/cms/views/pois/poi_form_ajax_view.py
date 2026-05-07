@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
@@ -10,6 +11,7 @@ from django.views.generic import TemplateView
 from ...forms import POIForm, POITranslationForm
 from ...models import Language
 from ...models.pois.poi import get_default_opening_hours
+from ..utils.contact_utils import generate_primary_contact_from_poi
 from .poi_context_mixin import POIContextMixin
 
 if TYPE_CHECKING:
@@ -75,26 +77,51 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
             },
         )
 
-        poi_translation_form = POITranslationForm(
-            data=request.POST,
-            instance=None,
-            additional_instance_attributes={
-                "creator": request.user,
-                "language": language,
-                "poi": poi_form.instance,
-            },
-            changed_by_user=request.user,
-        )
+        with transaction.atomic():
+            if not poi_form.is_valid():
+                return JsonResponse(
+                    data={
+                        "success": False,
+                    },
+                )
+            poi = poi_form.save()
 
-        if not poi_form.is_valid() or not poi_translation_form.is_valid():
-            return JsonResponse(
-                data={
-                    "success": False,
+            poi_translation_form = POITranslationForm(
+                data=request.POST,
+                instance=None,
+                additional_instance_attributes={
+                    "creator": request.user,
+                    "language": language,
+                    "poi": poi,
                 },
+                changed_by_user=request.user,
             )
 
-        poi_translation_form.instance.poi = poi_form.save()
-        poi_translation_form.save()
+            if not poi_translation_form.is_valid():
+                return JsonResponse(
+                    data={
+                        "success": False,
+                    },
+                )
+
+            phone_number = poi_form.data.get("primary_phone_number")
+            email = poi_form.data.get("primary_email")
+            website = poi_form.data.get("primary_website")
+
+            poi_translation_form.instance.poi = poi
+            poi_translation = poi_translation_form.save(
+                foreign_form_changed=poi_form.has_changed(),
+            )
+
+            generate_primary_contact_from_poi(
+                website,
+                phone_number,
+                email,
+                poi,
+                language,
+                region,
+                poi_translation.title,
+            )
 
         return JsonResponse(
             data={

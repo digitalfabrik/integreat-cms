@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from django.test.client import Client
 
 # Network-level users in test data:
-# "root", "service_team", "cms_team", "app_team", "marketing_team"
+# "root", "service_team", "cms_team", "marketing_team"
 
 
 @pytest.mark.django_db

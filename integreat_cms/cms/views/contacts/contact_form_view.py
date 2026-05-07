@@ -161,6 +161,12 @@ class ContactFormView(TemplateView, ContactContextMixin):
             additional_instance_attributes={"region": region},
         )
 
+        selected_poi_id = int(request.POST.get("location"))
+        # request.POST.get("location") == -1 if no POI is selected
+        selected_poi = (
+            POI.objects.get(id=selected_poi_id) if selected_poi_id > 0 else None
+        )
+
         if not contact_form.is_valid():
             contact_form.add_error_messages(request)
         else:
@@ -210,7 +216,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
             {
                 **self.get_context_data(**kwargs),
                 "contact_form": contact_form,
-                "poi": contact_instance.location if contact_instance else None,
+                "poi": contact_instance.location if contact_instance else selected_poi,
                 "referring_pages": None,
                 "referring_locations": None,
                 "referring_events": None,

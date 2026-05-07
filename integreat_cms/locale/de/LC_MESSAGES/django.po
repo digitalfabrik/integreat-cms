@@ -27,6 +27,7 @@ msgid "CMS"
 msgstr "CMS"
 
 #: cms/constants/administrative_division.py cms/templates/pois/poi_list.html
+#: cms/views/pois/poi_list_view.py
 msgid "City"
 msgstr "Stadt"
 
@@ -1738,10 +1739,6 @@ msgid "CMS team"
 msgstr "CMS-Team"
 
 #: cms/constants/roles.py
-msgid "App team"
-msgstr "App-Team"
-
-#: cms/constants/roles.py
 msgid "Marketing team"
 msgstr "Marketing-Team"
 
@@ -1941,7 +1938,7 @@ msgstr "{} hier eingeben"
 #: cms/templates/content_versions.html cms/templates/events/event_form.html
 #: cms/templates/events/event_list.html cms/templates/pages/page_form.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_form.html
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/views/pois/poi_list_view.py
 msgid "Publication status"
 msgstr "Veröffentlichungsstatus"
 
@@ -2092,6 +2089,7 @@ msgstr "Alle Kategorien"
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/pois/poi_list.html cms/views/feedback/feedback_resource.py
+#: cms/views/pois/poi_list_view.py
 msgid "Category"
 msgstr "Kategorie"
 
@@ -2186,7 +2184,7 @@ msgstr ""
 
 #: cms/forms/media/create_directory_form.py
 msgid "A directory with the name \"{}\" already exists."
-msgstr "Ein Ordner mit diesem Namen existiert bereits"
+msgstr "Ein Ordner mit dem Namen \"{}\" existiert bereits."
 
 #: cms/forms/media/media_move_form.py
 msgid "The file cannot be moved to a directory of another region."
@@ -2591,8 +2589,9 @@ msgid "Administrator"
 msgstr "Administrator:in"
 
 #: cms/forms/users/user_filter_form.py cms/forms/users/user_form.py
-msgid "Integreat team member"
-msgstr "Integreat-Teammitglied"
+#: cms/templates/users/user_list.html
+msgid "Access to network area"
+msgstr "Zugang zum Netzwerkbereich"
 
 #: cms/forms/users/user_form.py
 msgid "This grants the user all permissions of the selected role"
@@ -3685,7 +3684,7 @@ msgstr "Ob die Seite explizit archiviert ist oder nicht"
 #: cms/templates/events/event_form.html cms/templates/events/event_list.html
 #: cms/templates/pages/_generic_page_tree_header.html
 #: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/views/pois/poi_list_view.py
 msgid "Title in"
 msgstr "Titel auf"
 
@@ -7670,6 +7669,7 @@ msgstr "Keine Änderungen vorgenommen."
 
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/push_notifications/push_notification_list.html
+#: cms/views/pois/poi_list_view.py
 msgid "Title"
 msgstr "Titel"
 
@@ -8301,15 +8301,15 @@ msgid ""
 msgstr ""
 "Sie können Orte nur in der Standard-Sprache (%(default_language)s) anlegen."
 
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/views/pois/poi_list_view.py
 msgid "Street"
 msgstr "Straße"
 
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/views/pois/poi_list_view.py
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/views/pois/poi_list_view.py
 msgid "Country"
 msgstr "Land"
 
@@ -9368,10 +9368,6 @@ msgstr "Bevorzugte Regionen"
 msgid "The regions to which the account has quick access"
 msgstr "Die Regionen, zu denen das Konto Schnellzugriff hat"
 
-#: cms/templates/users/user_list.html
-msgid "Team member"
-msgstr "Teammitglied"
-
 #: cms/templates/users/user_list_row.html
 msgid "Staff member"
 msgstr "Teammitglied"
@@ -10329,6 +10325,14 @@ msgstr ""
 #: cms/views/linkcheck/link_replace_view.py
 msgid "Links were replaced successfully."
 msgstr "Links wurden erfolgreich ersetzt."
+
+#: cms/views/linkcheck/linkcheck_list_view.py
+msgid ""
+"{} translation(s) could not be updated due to a database conflict. Please "
+"try again."
+msgstr ""
+"{} Übersetzungen konnten aufgrund eines Datenbankfehlers nicht aktualisiert werden. "
+"Bitte erneut versuchen."
 
 #: cms/views/linkcheck/linkcheck_list_view.py
 msgid "Email link was successfully replaced"
@@ -11652,6 +11656,24 @@ msgstr[1] ""
 "\"{changed_status}\" geändert werden, weil es keine Übersetztung in "
 "{language} gibt: {object_names}."
 
+#: cms/views/utils/publication_status.py
+#, python-brace-format
+msgid ""
+"The publication status of {model_name} {object_names} could not be changed "
+"to \"{changed_status}\" due to a database conflict. Please try again."
+msgid_plural ""
+"The publication status of the following {model_name} could not be changed to "
+"\"{changed_status}\" due to database conflicts. Please try again: "
+"{object_names}"
+msgstr[0] ""
+"Der Veröffentlichungsstatus von {model_name} {object_names} konnte aufgrund "
+"eines Datenbankfehlers nicht zu \"{changed_status}\" geändert werden. Bitte "
+"erneut versuchen."
+msgstr[1] ""
+"Der Veröffentlichungsstatus der folgenden {model_name} konnte aufgrund eines "
+"Datenbankfehler nicht zu \"{changed_status}\" geändert werden: "
+"{object_names}. Bitte erneut versuchen."
+
 #: core/apps.py
 msgid "Core"
 msgstr "Core"
@@ -11696,10 +11718,11 @@ msgid_plural ""
 "The following {model_name} could not be translated automatically into "
 "'{target_language}': {object_names}"
 msgstr[0] ""
-"{model_name} {object_names} konnte nicht automatisch nach '{target_language}' übersetzt werden."
+"{model_name} {object_names} konnte nicht automatisch nach "
+"'{target_language}' übersetzt werden."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht automatisch nach '{target_language}' übersetzt werden: "
-"{object_names}"
+"Die folgenden {model_name} konnten nicht automatisch nach "
+"'{target_language}' übersetzt werden: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
@@ -11710,11 +11733,12 @@ msgid_plural ""
 "The following {model_name} were not translated into '{target_language}', "
 "because there were no changes to the source translation: {object_names}"
 msgstr[0] ""
-"{model_name} {object_names} konnte nicht nach '{target_language}' übersetzt werden, weil die Quell-"
-"Übersetzung sich nicht geändert hat."
+"{model_name} {object_names} konnte nicht nach '{target_language}' übersetzt "
+"werden, weil die Quell-Übersetzung sich nicht geändert hat."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht nach '{target_language}' übersetzt werden, weil ihre Quell-"
-"Übersetzungen sich nicht geändert haben: {object_names}"
+"Die folgenden {model_name} konnten nicht nach '{target_language}' übersetzt "
+"werden, weil ihre Quell-Übersetzungen sich nicht geändert haben: "
+"{object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
