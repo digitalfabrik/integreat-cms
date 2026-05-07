@@ -120,10 +120,6 @@ class ContactForm(CustomModelForm):
         :return: The valid opening hours
         """
 
-        # Remove when opening hours become available for all users
-        if not self.request.user.has_perm("cms.test_beta_features"):
-            return None
-
         if self.cleaned_data["use_location_opening_hours"]:
             return None
 
