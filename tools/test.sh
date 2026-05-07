@@ -39,6 +39,7 @@ fi
 export DJANGO_SETTINGS_MODULE="integreat_cms.core.test_settings"
 
 TESTS=()
+PYTEST_PASSTHROUGH=()
 
 # Parse given command line arguments
 while [[ $# -gt 0 ]]; do
@@ -51,6 +52,8 @@ while [[ $# -gt 0 ]]; do
         -k) shift;KW_EXPR="$1";shift;;
         # Select tests by marker
         -m) shift;MARKER="$1";shift;;
+        # Forward any other long flags (e.g. --update-snapshots) directly to pytest
+        --*) PYTEST_PASSTHROUGH+=("$1");shift;;
         # If only particular tests should be run, test path can be passed as CLI argument
         *) TESTS+=("$1");shift;;
     esac
@@ -125,6 +128,8 @@ if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]] || (( ${#TESTS[@]} )); then
 fi
 
 "$(dirname "${BASH_SOURCE[0]}")/prune_pdf_cache.sh"
+
+PYTEST_ARGS+=("${PYTEST_PASSTHROUGH[@]}")
 
 echo -e "Running all tests${TEST_MESSAGE}${CHANGED_MESSAGE}..." | print_info
 deescalate_privileges pytest "${PYTEST_ARGS[@]}"
