@@ -342,6 +342,15 @@ class Page(AbstractTreeNode, AbstractBasePage):
             return self._relative_depth
         return self.depth
 
+    @property
+    def has_public_translations(self) -> bool:
+        """
+        Checks whether this page has at least one public translation.
+
+        :return: Whether the page has at least one public translation
+        """
+        return bool(self.prefetched_public_translations_by_language_slug)
+
     def can_be_deleted(self) -> tuple[bool, str | None]:
         """
         Checks whether the page can be deleted

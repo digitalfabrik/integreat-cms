@@ -173,6 +173,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         self.fields["mirrored_page"].choices = [
             (page.id, str(page))
             for page in mirrored_page_queryset.cache_tree(archived=False)
+            if page.has_public_translations
         ]
 
         self.fields[
