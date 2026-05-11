@@ -225,10 +225,10 @@ class Command(LogCommand):
                         poi["category"],
                         region.default_language,
                     ).id,
-                    "website": poi["website"],
+                    "primary_website": poi["website"],
                     "appointment_url": poi["appointment_url"],
-                    "email": poi["email"],
-                    "phone_number": poi["phone_number"],
+                    "primary_email": poi["email"],
+                    "primary_phone_number": poi["phone_number"],
                     "barrier_free": strtobool(poi["barrier_free"]),
                 }
                 poi_form = POIForm(
