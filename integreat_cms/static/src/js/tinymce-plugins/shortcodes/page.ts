@@ -20,6 +20,10 @@ class PageHandle extends ShortcodeHandle {
 		// [["lang", false, "The language to which to link (instead of preferring the language of the document containing this link)", "Language"]],
 	];
 
+	addText = "Add Page Link"
+	editText = "Edit Page Link"
+	removeText = "Remove Page Link"
+
 	domainAndPrefix: () => string = evaluateOnceDecorator(() => stripProtocol(this.tinymceConfig.getAttribute("data-webapp-url")));
 	// Regular expression to check íf a link could be a page
 	// Capture groups: Path, Region slug, language slug, page infix, page slug
