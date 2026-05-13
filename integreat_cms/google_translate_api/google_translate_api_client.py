@@ -111,6 +111,9 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                     }
                 )
             for attr, attr_val in ctx.translatable_attributes:
+                if not attr_val:
+                    data[attr] = ""
+                    continue
                 try:
                     # data has to be unescaped to recognize Umlaute
                     if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
