@@ -67,4 +67,14 @@ class MirroredPageFieldWidget(forms.widgets.Select):
             },
         )
         option_dict["attrs"]["data-preview-url"] = preview_url
+
+        # Hide the option in the dropdown if it is the currently mirrored page but no longer has public translations
+        instance = self.form.instance if self.form else None
+        if (
+            instance
+            and str(instance.mirrored_page_id) == str(value)
+            and not instance.mirrored_page.has_public_translations
+        ):
+            option_dict["attrs"]["hidden"] = True
+
         return option_dict
