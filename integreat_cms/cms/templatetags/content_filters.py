@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING
 
 from django import template
 from django.urls import reverse
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from ..constants import translation_status, weekdays
@@ -218,6 +219,17 @@ def get_int_list(data: QueryDict, list_name: str) -> list[int]:
     :return: The int value list
     """
     return [int(item) for item in data.getlist(list_name)]
+
+
+@register.filter
+def translate_language_name(english_name: str) -> str:
+    """
+    This filter translates an English language name to the current backend language.
+
+    :param english_name: The English name of a language
+    :return: The translated name of the language
+    """
+    return gettext(english_name)
 
 
 @register.filter
