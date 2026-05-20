@@ -544,17 +544,20 @@ class AbstractContentModel(AbstractBaseModel):
         result = []
 
         for attr in attrs:
+            # When no old source translation exists, only include attributes with a value
             value = getattr(source_translation, attr, None)
-            if not value:
+            if not value and not old_source_translation:
                 continue
             if self.do_not_translate_title and attr == "title":
                 continue
+            # When an old source translation exists, only include changed attributes
             if old_source_translation and not source_translation.attr_differs_from(
                 attr, old_source_translation
             ):
                 continue
 
-            result.append((attr, value))
+            # Use an empty string if value was cleared
+            result.append((attr, value or ""))
 
         return result
 

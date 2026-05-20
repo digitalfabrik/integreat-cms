@@ -213,7 +213,7 @@ class MachineTranslationApiClient(ABC):
         filtered_context = []
 
         for ctx in context:
-            if ctx.word_count > 0:
+            if bool(ctx.translatable_attributes):
                 filtered_context.append(ctx)
             else:
                 self.failed_because_no_changes_made.append(
