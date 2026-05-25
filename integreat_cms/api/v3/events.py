@@ -48,7 +48,7 @@ def transform_event(event: Event, custom_date: date | None = None) -> dict[str, 
         )
 
     return {
-        "id": event.id if not custom_date else None,
+        "id": event.id,
         "start": start_local,
         "start_date": start_local.date(),  # deprecated field in the future
         "start_time": start_local.time(),  # deprecated field in the future
@@ -164,7 +164,6 @@ def transform_event_recurrences(
         return
 
     start_date = event.start_local.date()
-    event_translation.id = None
 
     # Calculate all recurrences of this event
     for recurrence_date in event.recurrence_rule.iter_after(start_date):
