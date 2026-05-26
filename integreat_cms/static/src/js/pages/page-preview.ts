@@ -69,3 +69,10 @@ export const addPreviewWindowListeners = (callback: (overlay: HTMLElement, btn: 
         });
     }
 };
+
+// Fallback for filtered views where fetch-subpages.ts never runs.
+window.addEventListener("load", () => {
+    if (!document.querySelector("[data-delay-event-handlers]")) {
+        addPreviewWindowListeners(openPreviewWindowInPageTree);
+    }
+});
