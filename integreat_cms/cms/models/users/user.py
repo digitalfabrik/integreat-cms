@@ -7,7 +7,6 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils import timezone
@@ -25,7 +24,7 @@ if TYPE_CHECKING:
 
 
 from ...utils.user_utils import search_users
-from ..abstract_base_model import AbstractBaseModel
+from ..abstract_base_model import AbstractBaseModel, get_sql_query_triggered_exception
 from ..chat.chat_message import ChatMessage
 from ..decorators import modify_fields
 from ..pages.page import Page
@@ -258,6 +257,8 @@ class User(AbstractUser, AbstractBaseModel):
 
         :return: The canonical string representation of the user
         """
+        sql_query_triggered = get_sql_query_triggered_exception()
+
         class_name = type(self).__name__
         if not self.pk:
             return f"<{class_name} (unsaved instance)>"
@@ -272,14 +273,14 @@ class User(AbstractUser, AbstractBaseModel):
                     role_str = f", role: {self.role.english_name}"
             else:
                 role_str = ""
-        except SQLQueryTriggered:
+        except sql_query_triggered:
             role_str = ""
         # Get region representation
         try:
             region_str = (
                 f", region: {self.distinct_region.slug}" if self.distinct_region else ""
             )
-        except SQLQueryTriggered:
+        except sql_query_triggered:
             region_str = ""
         # Get staff/superuser status representation
         if self.is_superuser:

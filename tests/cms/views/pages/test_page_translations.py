@@ -17,7 +17,7 @@ def test_cleanup_autosaves(
     load_test_data: None,
     login_role_user: tuple[Client, str],
 ) -> None:
-    client, role = login_role_user
+    client, _role = login_role_user
 
     new_page_url = reverse(
         "new_page",
@@ -35,8 +35,8 @@ def test_cleanup_autosaves(
             "title": "Autosave Page",
             "slug": "autosave-page",
             "icon": "",
-            "_ref_node_id": 28,
-            "_position": "left",
+            "treebeard_ref_node": 28,
+            "treebeard_position": "left",
             "parent": "",
             "mirrored_page_region": "",
             "mirrored_page_first": True,

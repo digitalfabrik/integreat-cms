@@ -97,7 +97,6 @@ class UploadMediaFileForm(CustomModelForm):
         if not (file := cleaned_data.get("file")):
             return
 
-        file = cleaned_data.get("file")
         # Check magic bytes for actual file type - the content_type of the file can easily be forged
         cleaned_data["type"] = magic.from_buffer(file.read(), mime=True)
         if cleaned_data.get("type") not in dict(allowed_media.UPLOAD_CHOICES):

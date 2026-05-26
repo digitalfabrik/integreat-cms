@@ -23,8 +23,8 @@
         <label for="{{ page_form.parent.id_for_label }}" class="secondary">
             {{ page_form.parent.label }}
         </label>
-        {% render_field page_form|get_private_member:"ref_node_id" %}
-        {% render_field page_form|get_private_member:"position" %}
+        {% render_field page_form.treebeard_ref_node %}
+        {% render_field page_form.treebeard_position %}
         {% render_field page_form.parent id="parent" %}
         <label>
             {% translate "Order" %}

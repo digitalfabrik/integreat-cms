@@ -143,7 +143,7 @@ def mock_server(httpserver: HTTPServer) -> MockServer:
 
 
 @pytest.fixture(scope="function")
-def mock_firebase_credentials() -> Generator[None, None, None]:
+def mock_firebase_credentials() -> Generator[None]:
     patch_obj = patch.object(
         FirebaseSecurityService,
         "_get_access_token",
@@ -189,7 +189,7 @@ def create_language() -> Callable[..., Language]:
 
 
 @pytest.fixture
-def clean_news_cache(load_test_data: None) -> Generator[None, None, None]:
+def clean_news_cache(load_test_data: None) -> Generator[None]:
     """
     Clear external news-source cache entries before and after a test.
 

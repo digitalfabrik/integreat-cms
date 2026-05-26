@@ -30,10 +30,16 @@ def clean_content(
     :param language_slug: Slug of the current language
     """
     try:
-        content = fromstring(content)
+        element = fromstring(content)
     except LxmlError:
         # The content is not guaranteed to be valid html, for example it may be empty
         return content
+
+    # Since lxml 6, plain text without any markup is wrapped in a <span> instead
+    # of a <p> - keep the previous block-level wrapping
+    if element.tag == "span" and not content.lstrip().lower().startswith("<span"):
+        element.tag = "p"
+    content = element
 
     content = _xss_cleaner.clean_html(content)
     convert_heading(content)

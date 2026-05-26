@@ -11,6 +11,14 @@ to specify the tests to run ``"last"`` (eqivalent to ``-1``, absolute ordering)
 and after certain other tests (relative ordering).
 
 See https://pytest-order.readthedocs.io/en/stable/usage.html#order-relative-to-other-tests
+
+.. note::
+
+    Up to django-treebeard 4, moving nodes bypassed Django's ORM with raw,
+    non-transactional SQL, so running :func:`run_mutex_test` without the mutex
+    reliably corrupted the tree (which was covered by a dedicated test).
+    django-treebeard 5 performs its tree operations through the ORM, so this
+    corruption can no longer be provoked and only the mutex path is tested.
 """
 
 from __future__ import annotations
@@ -19,8 +27,6 @@ from threading import Thread
 from typing import TYPE_CHECKING
 
 import pytest
-from django.db.utils import IntegrityError
-from treebeard.exceptions import InvalidMoveToDescendant
 
 from integreat_cms.cms.models import Page
 from integreat_cms.cms.utils.tree_mutex import tree_mutex
@@ -42,45 +48,13 @@ def test_tree_mutex(load_test_data_transactional: None) -> None:
     Check whether :func:`~integreat_cms.cms.utils.tree_mutex.tree_mutex` is actually preventing collisions.
     See :func:`run_mutex_test` for details.
     """
-    run_mutex_test(use_mutex=True)
+    run_mutex_test()
 
 
-@pytest.mark.order("last", after=(*after_tests, "test_tree_mutex"))
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_rule_out_false_positive(load_test_data_transactional: None) -> None:
-    """
-    Rule out that :func:`~integreat_cms.cms.utils.tree_mutex.tree_mutex` is just doing nothing and :func:`test_tree_mutex`
-    only succeeded because the system magically worked without it.
-    Provoke and expect a variety of possible exceptions using :func:`run_mutex_test`.
-
-    If this test fails with an exception not expected and you can prove that it is indicative of
-    treebeard shooting itself in the foot, please add the exception as expected!
-    """
-    with pytest.raises(
-        (
-            IntegrityError,
-            AttributeError,
-            IndexError,
-            Page.DoesNotExist,
-            InvalidMoveToDescendant,
-        )
-    ) as exc_info:
-        run_mutex_test(use_mutex=False)
-
-    if isinstance(exc_info.value, AttributeError):
-        assert (
-            exc_info.value.args[0]
-            == "'NoneType' object has no attribute 'is_descendant_of'"
-        )
-
-
-def run_mutex_test(use_mutex: bool) -> None:
+def run_mutex_test() -> None:
     """
     Start two :func:`five_ten_five` tests in parallel, in separate threads.
     These each constantly move their "contestant" page back and forth.
-    TreeBeard seems to quickly run into inconsistencies,
-    as their code bypasses Djangos Object-Relationional Mapper (ORM),
-    directly running raw SQL commands, without database transactions.
     """
     exception = None
 
@@ -92,7 +66,6 @@ def run_mutex_test(use_mutex: bool) -> None:
         target=five_ten_five,
         kwargs={
             "contestant_id": 21,
-            "use_mutex": use_mutex,
             "handle_exception": handle_exception,
         },
     )
@@ -100,7 +73,6 @@ def run_mutex_test(use_mutex: bool) -> None:
         target=five_ten_five,
         kwargs={
             "contestant_id": 19,
-            "use_mutex": use_mutex,
             "handle_exception": handle_exception,
         },
     )
@@ -120,38 +92,25 @@ def run_mutex_test(use_mutex: bool) -> None:
 
 def five_ten_five(
     contestant_id: int,
-    use_mutex: bool,
     handle_exception: Callable | None = None,
 ) -> None:
     """
     Move a "contestant" page back and forth repeatedly.
     Exceptions are caught and handed to ``handle_exception``,
     this is necessary to get them back out to the main thread.
-    ``use_mutex`` dictates whether to use :func:`mforth`/:func:`mback`
-    or :func:`forth`/:func:`back`.
     """
-    print(
-        f"running 5-10-5 on contestant #{contestant_id} {'with' if use_mutex else 'without'} tree_mutex"
-    )
+    print(f"running 5-10-5 on contestant #{contestant_id} with tree_mutex")
     try:
         for i in range(5):
             print(f"    [#{contestant_id}] {i}")
-            if use_mutex:
-                mforth(contestant_id)
-                mback(contestant_id)
-            else:
-                forth(contestant_id)
-                back(contestant_id)
+            mforth(contestant_id)
+            mback(contestant_id)
     except Exception as e:  # noqa: BLE001
         if handle_exception:
             handle_exception(e)
-        print(
-            f"failed 5-10-5 of contestant #{contestant_id} {'with' if use_mutex else 'without'} tree_mutex:\n  {e!r}"
-        )
+        print(f"failed 5-10-5 of contestant #{contestant_id} with tree_mutex:\n  {e!r}")
     else:
-        print(
-            f"finished 5-10-5 of contestant #{contestant_id} {'with' if use_mutex else 'without'} tree_mutex"
-        )
+        print(f"finished 5-10-5 of contestant #{contestant_id} with tree_mutex")
 
 
 @tree_mutex("page")

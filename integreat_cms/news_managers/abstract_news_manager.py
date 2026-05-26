@@ -40,9 +40,7 @@ def clean_html(html_string: str) -> str:
     """
     Remove unnecessary HTML elements from a Tü News post body.
     """
-    root = etree.parse(  # noqa: S320
-        StringIO("<main>" + html_string + "</main>"), etree.HTMLParser()
-    )
+    root = etree.parse(StringIO("<main>" + html_string + "</main>"), etree.HTMLParser())
     xpath_pvc = '//*[contains(@class, "pvc_")]'
 
     for pvc in root.xpath(xpath_pvc):

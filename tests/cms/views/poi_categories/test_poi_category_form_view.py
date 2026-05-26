@@ -107,7 +107,7 @@ def test_create_poi_category_with_missing_translation_was_not_successful(
     load_test_data: None,
     login_role_user: tuple[Client, str],
 ) -> None:
-    client, role = login_role_user
+    client, _role = login_role_user
 
     new_poicategory_url = reverse("new_poicategory")
 

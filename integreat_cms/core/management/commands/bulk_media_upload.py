@@ -159,7 +159,7 @@ class Command(LogCommand):
         root: str | None = None,
         created: io.TextIOBase | None = None,
         stats: dict[str, set] | None = None,
-        **options: dict[str, Any],
+        **options: Any,
     ) -> None:
         """
         Upload all files in a directory to the destination directory in the media library

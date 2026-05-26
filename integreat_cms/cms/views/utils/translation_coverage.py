@@ -27,8 +27,9 @@ def get_translation_and_word_count(
     # Ignore all pages which do not have a published translation in the default language
     pages = list(
         filter(
-            lambda page: page.get_translation_state(region.default_language.slug)
-            == UP_TO_DATE,
+            lambda page: (
+                page.get_translation_state(region.default_language.slug) == UP_TO_DATE
+            ),
             pages,
         )
     )
