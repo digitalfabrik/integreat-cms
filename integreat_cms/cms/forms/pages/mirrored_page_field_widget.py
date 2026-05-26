@@ -73,7 +73,7 @@ class MirroredPageFieldWidget(forms.widgets.Select):
         if (
             instance
             and str(instance.mirrored_page_id) == str(value)
-            and not instance.mirrored_page.has_public_translations
+            and not instance.mirrored_page.is_publicly_visible
         ):
             option_dict["attrs"]["hidden"] = True
 

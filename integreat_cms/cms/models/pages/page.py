@@ -343,13 +343,20 @@ class Page(AbstractTreeNode, AbstractBasePage):
         return self.depth
 
     @property
-    def has_public_translations(self) -> bool:
+    def is_publicly_visible(self) -> bool:
         """
-        Checks whether this page has at least one public translation.
+        Checks whether this page and all its ancestors have at least one public translation.
+        If the page itself has public translations but any of its ancestors don't - the page won't be visible.
 
-        :return: Whether the page has at least one public translation
+        :return: Whether the page and its ancestors have at least one public translation
         """
-        return bool(self.prefetched_public_translations_by_language_slug)
+        if not self.prefetched_public_translations_by_language_slug:
+            return False
+
+        return all(
+            bool(ancestor.prefetched_public_translations_by_language_slug)
+            for ancestor in self.get_cached_ancestors()
+        )
 
     def can_be_deleted(self) -> tuple[bool, str | None]:
         """
