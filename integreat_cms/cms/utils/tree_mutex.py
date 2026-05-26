@@ -21,13 +21,13 @@ INTERVAL = 0.1
 
 
 #: A dictionary holding separate locks for each classname to be guarded
-_LOCKS = {}
+_LOCKS: dict[str, threading.RLock] = {}
 
 
 @contextmanager
 def monkeypatch_cursor_func(
     using: str = DEFAULT_DB_ALIAS,
-) -> Generator[None, None, None]:
+) -> Generator[None]:
     """
     Get connection for upstream transaction and
     set alternative :meth:`treebeard.models.Node._get_database_cursor` that returns its cursor instead.

@@ -19,7 +19,6 @@ if TYPE_CHECKING:
     from typing import (
         Any,
         NotRequired,
-        TypeAlias,
         TypedDict,
         TypeVar,
         Unpack,
@@ -43,7 +42,7 @@ logger = logging.getLogger(__name__)
 
 
 if TYPE_CHECKING:
-    ForeignModelType: TypeAlias = Literal[
+    type ForeignModelType = Literal[
         "page",
         "event",
         "poi",
@@ -213,7 +212,7 @@ def is_reserved_slug(slug: str | None, foreign_model: str | None) -> bool:
     return False
 
 
-def exclude_current_object(
+def exclude_current_object[T](
     qs: QuerySet[T],
     object_instance: AbstractBaseModel,
     foreign_model: str | None,

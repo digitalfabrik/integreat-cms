@@ -8,7 +8,7 @@ description = "Content Management System for the Integreat App"
 version = "2026.5.1"
 authors = [{name = "Tür an Tür – Digitalfabrik gGmbH", email = "tech@integreat-app.de"}]
 readme = "README.md"
-requires-python = ">=3.11,<3.14"
+requires-python = ">=3.13,<3.14"
 keywords = [
     "integreat",
     "cms",
@@ -31,8 +31,6 @@ classifiers = [
     "Natural Language :: German",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: Content Management System",
     "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
@@ -413,10 +411,12 @@ disallow_untyped_defs = true
 ignore_missing_imports = true
 warn_redundant_casts = true
 strict_equality = true
+enable_incomplete_feature = ["NewGenericSyntax"]
+python_version = "3.13"
 
 [tool.ruff]
 line-length = 88
-target-version = "py311"
+target-version = "py313"
 
 # [tool.ruff.lint.pydocstyle]
 # waiting for: https://github.com/astral-sh/ruff/issues/6606

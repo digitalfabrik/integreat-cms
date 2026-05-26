@@ -142,7 +142,7 @@ def mock_server(httpserver: HTTPServer) -> MockServer:
 
 
 @pytest.fixture(scope="function")
-def mock_firebase_credentials() -> Generator[None, None, None]:
+def mock_firebase_credentials() -> Generator[None]:
     patch_obj = patch.object(
         FirebaseSecurityService,
         "_get_access_token",

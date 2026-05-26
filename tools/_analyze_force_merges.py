@@ -132,9 +132,7 @@ def get_merged_prs(session: requests.Session, since: date, until: date) -> list[
         for pr in batch:
             if not pr.get("merged_at"):
                 continue
-            merged_at = datetime.fromisoformat(
-                pr["merged_at"].replace("Z", "+00:00")
-            ).date()
+            merged_at = datetime.fromisoformat(pr["merged_at"]).date()
             if merged_at > until:
                 continue
             if merged_at < since:
