@@ -36,7 +36,13 @@ module.exports = {
         "vitest.config.ts",
     ],
 
-    extends: ["airbnb", "airbnb/hooks", "eslint-config-preact", "plugin:import/typescript"],
+    extends: [
+        "plugin:react/recommended",
+        "plugin:jsx-a11y/recommended",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
+        "eslint-config-preact",
+    ],
     parser: "@typescript-eslint/parser",
     parserOptions: {
         ecmaVersion: 6,
@@ -81,6 +87,7 @@ module.exports = {
         "import/extensions": "off",
         "import/no-extraneous-dependencies": "off",
         "import/prefer-default-export": "off",
+        "import/no-named-as-default": "off",
         "indent": "off",
         "lines-between-class-members": "off",
         "react/jsx-filename-extension": "off",
