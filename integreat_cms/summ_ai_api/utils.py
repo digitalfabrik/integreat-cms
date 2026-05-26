@@ -10,7 +10,7 @@ import logging
 import time
 from collections import deque
 from html import unescape
-from typing import Generic, TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
 from django.conf import settings
 from django.contrib import messages
@@ -385,7 +385,7 @@ class TranslationHelper:
 T = TypeVar("T")
 
 
-class PatientTaskQueue(deque, Generic[T]):
+class PatientTaskQueue[T](deque):
     """
     A 'patient' task queue which only hands out sleep tasks after a task was reported as failed.
 

@@ -626,7 +626,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         Function to replace links that are in the translation and match the given keyword `search`
         """
-        from ..utils.content_translation_utils import save_new_version_with_retry
+        from ..utils.content_translation_utils import (
+            save_new_version_with_retry,
+        )
 
         new_translation = self.create_new_version_copy(user)
         logger.debug("Replacing links of %r: %r", new_translation, urls_to_replace)
@@ -688,7 +690,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         and renumber all affected versions to be continuous.
         """
         # Moved here to avoid circular imports
-        from ...core.signals.hix_signals import disable_listeners as disable_hix
+        from ...core.signals.hix_signals import (
+            disable_listeners as disable_hix,
+        )
 
         logger.debug("Cleaning up old autosaves")
 

@@ -860,7 +860,7 @@ def test_do_not_translate_title(
     :param caplog: The :fixture:`caplog` fixture
     :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     """
-    client, role = login_role_user
+    client, _role = login_role_user
 
     region = Region.objects.get(slug=REGION_SLUG)
     test_page = Page.objects.create(
@@ -985,7 +985,7 @@ def test_mt_empty_content(
     - translations are marked as up to date
     - no MT API request is sent
     """
-    client, role = login_role_user
+    client, _role = login_role_user
 
     region = Region.objects.get(slug=REGION_SLUG)
     test_page = Page.objects.create(

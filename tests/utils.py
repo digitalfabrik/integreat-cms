@@ -74,7 +74,7 @@ def assert_message_in_log(message: str, caplog: LogCaptureFixture) -> None:
 
 
 @contextmanager
-def disable_hix_post_save_signal() -> Generator[None, None, None]:
+def disable_hix_post_save_signal() -> Generator[None]:
     pre_save.disconnect(receiver=page_translation_save_handler, sender=PageTranslation)
     try:
         yield None

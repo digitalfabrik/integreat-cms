@@ -3,14 +3,14 @@ This module contains utilities to repair or detect inconsistencies in a tree
 """
 
 from collections.abc import Iterable
-from typing import Any, Generic, TypeVar
+from typing import Any, TypeVar
 
 from django.db.models import Model
 
 T = TypeVar("T", bound=Model)
 
 
-class ShadowInstance(Generic[T]):
+class ShadowInstance[T]:
     """
     An object shadowing the attributes of the model instance passed to it on instantiation
     and withholding any attribute changes until explicitly applied,
@@ -84,12 +84,14 @@ class ShadowInstance(Generic[T]):
             for name, value in self._overrides.items()
         }
 
-    def save(self, *args: list, **kwargs: dict) -> None:
+    def save(self, *args: Any, **kwargs: Any) -> None:
         """
         Save the shadowed instance.
         Does nothing if no changes were applied yet (see :meth:`apply_changes`).
         """
-        self._instance.save(*args, **kwargs)
+        from typing import cast
+
+        cast("Model", self._instance).save(*args, **kwargs)
 
     def reload(self) -> None:
         """
@@ -98,7 +100,13 @@ class ShadowInstance(Generic[T]):
 
         This can be used to incorporate recent changes to the database object after a longer (i.e. user directed) staging period.
         """
-        self._instance = type(self._instance).objects.get(id=self._instance.pk)
+        from typing import cast
+
+        model_instance = cast("Model", self._instance)
+        self._instance = cast(
+            "T",
+            model_instance._meta.default_manager.get(pk=model_instance.pk),
+        )
 
     def __getattribute__(self, name: str) -> Any:
         """

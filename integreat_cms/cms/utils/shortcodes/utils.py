@@ -7,9 +7,9 @@ R = TypeVar("R")
 P = ParamSpec("P")
 
 
-def shortcode(
-    tag: Callable[P, R] | str | None, endtag: str | None = None
-) -> Callable[[Callable[P, R]], Callable[P, R]] | Callable[P, R]:
+def shortcode[P, R](
+    tag: Callable[..., R] | str | None, endtag: str | None = None
+) -> Callable[[Callable[..., R]], Callable[..., R]] | Callable[..., R]:
     """
     Decorator to register a function as a shortcode
 
@@ -41,7 +41,7 @@ def shortcode(
     This can then be used as ``[cat]some <b>feline content</b>[tac]``.
     """
 
-    def inner(func: Callable[P, R]) -> Callable[P, R]:
+    def inner(func: Callable[..., R]) -> Callable[..., R]:
         """Just register the shortcode once and return the original function"""
         nonlocal tag
         if not tag:

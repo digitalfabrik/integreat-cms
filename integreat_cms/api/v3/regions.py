@@ -45,9 +45,7 @@ def transform_region(region: Region) -> dict[str, Any]:
         "aliases": region.aliases,
         "tunews": region.external_news_enabled,
         "external_news": region.external_news_enabled,
-        "zammad_privacy_policy": region.zammad_privacy_policy
-        if region.zammad_privacy_policy
-        else None,
+        "zammad_privacy_policy": region.zammad_privacy_policy or None,
         "languages": list(map(transform_language, region.visible_languages)),
         "is_chat_enabled": bool(
             region.integreat_chat_enabled
