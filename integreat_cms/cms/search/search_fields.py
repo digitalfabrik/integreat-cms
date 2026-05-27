@@ -69,3 +69,7 @@ MEDIA_FILE_SEARCH_FIELDS: dict = {
     "name": {"weight": 2, "tokenize": False},
     "alt_text": {"weight": 1, "tokenize": False},
 }
+
+DIRECTORY_SEARCH_FIELDS: dict = {
+    "name": {"weight": 1, "tokenize": False},
+}

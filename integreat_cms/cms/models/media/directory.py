@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.translation import gettext_lazy as _
 
+from ...search.search_fields import DIRECTORY_SEARCH_FIELDS
 from ..abstract_base_model import AbstractBaseModel
 from ..mixins import SearchSuggestMixin
 from ..regions.region import Region
@@ -24,7 +25,7 @@ class Directory(AbstractBaseModel, SearchSuggestMixin):
     exist on the actual file system. Each directory is tied to a region.
     """
 
-    search_fields = {"name": {"weight": 1, "tokenize": False}}
+    search_fields = DIRECTORY_SEARCH_FIELDS
     region_filter_field = "region"
     archived_filter_field = None
 
