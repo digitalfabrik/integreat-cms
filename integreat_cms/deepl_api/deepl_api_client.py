@@ -102,6 +102,9 @@ class DeepLApiClient(MachineTranslationApiClient):
                 )
 
             for attr, attr_val in ctx.translatable_attributes:
+                if not attr_val:
+                    data[attr] = ""
+                    continue
                 try:
                     # data has to be unescaped for DeepL to recognize Umlaute
                     glossary = deepl_config.get_glossary(

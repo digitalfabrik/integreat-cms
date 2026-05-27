@@ -27,7 +27,6 @@ from integreat_cms.summ_ai_api.utils import (
 
 from ..conftest import (
     ANONYMOUS,
-    APP_TEAM,
     CMS_TEAM,
     PRIV_STAFF_ROLES,
     ROOT,
@@ -56,7 +55,6 @@ if TYPE_CHECKING:
 # to avoid simultaneous translation of the same content by different users
 role_pages_mapping: Final[dict[str, list[int]]] = {
     ROOT: [1, 2],
-    APP_TEAM: [3, 4],
     SERVICE_TEAM: [5],
     CMS_TEAM: [6],
 }
