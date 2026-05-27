@@ -143,57 +143,6 @@ class MediaFile(AbstractBaseModel, SearchSuggestMixin):
     region_filter_field = "region"
     archived_filter_field = None
 
-    @classmethod
-    def get_suggest_queryset(
-        cls,
-        region: Region | None = None,
-        archived: bool = False,  # noqa: ARG003
-    ) -> QuerySet[Any]:
-        """
-        Include both regional and global (non-hidden) media files,
-        matching the behavior of :meth:`MediaFile.search`.
-
-        :param region: The region to filter by (optional)
-        :param archived: Whether to include archived records (unused for media files)
-        :return: A filtered queryset
-        """
-        return cls.objects.filter(
-            Q(region=region) | Q(region__isnull=True, is_hidden=False)
-        )
-
-    @classmethod
-    def suggest_tokens(
-        cls,
-        query: str,
-        region: Region | None = None,
-        archived: bool = False,
-        **kwargs: Any,
-    ) -> dict[str, list[dict[str, Any]]]:
-        """
-        Generate search suggestions from both media files and directories.
-
-        :param query: The search query string
-        :param region: The region to filter by (optional)
-        :param archived: Whether to include archived records (default: False)
-        :param kwargs: Additional arguments (unused, for compatibility)
-        :return: Dict with "suggestions" key containing list of {suggestion, score} dicts
-        """
-        file_result = super().suggest_tokens(query, region=region, archived=archived)
-        dir_result = Directory.suggest_tokens(query, region=region, archived=archived)
-
-        # Merge suggestions, summing scores for duplicates
-        scores: dict[str, float] = {}
-        for item in file_result["suggestions"] + dir_result["suggestions"]:
-            scores[item["suggestion"]] = (
-                scores.get(item["suggestion"], 0) + item["score"]
-            )
-
-        return {
-            "suggestions": [
-                {"suggestion": token, "score": score} for token, score in scores.items()
-            ]
-        }
-
     file = models.FileField(
         upload_to=upload_path,
         validators=[file_size_limit],
@@ -477,6 +426,57 @@ class MediaFile(AbstractBaseModel, SearchSuggestMixin):
             .values_list("name", flat=True)
         )
         return results
+
+    @classmethod
+    def get_suggest_queryset(
+        cls,
+        region: Region | None = None,
+        archived: bool = False,  # noqa: ARG003
+    ) -> QuerySet[Any]:
+        """
+        Include both regional and global (non-hidden) media files,
+        matching the behavior of :meth:`MediaFile.search`.
+
+        :param region: The region to filter by (optional)
+        :param archived: Whether to include archived records (unused for media files)
+        :return: A filtered queryset
+        """
+        return cls.objects.filter(
+            Q(region=region) | Q(region__isnull=True, is_hidden=False)
+        )
+
+    @classmethod
+    def suggest_tokens(
+        cls,
+        query: str,
+        region: Region | None = None,
+        archived: bool = False,
+        **kwargs: Any,
+    ) -> dict[str, list[dict[str, Any]]]:
+        """
+        Generate search suggestions from both media files and directories.
+
+        :param query: The search query string
+        :param region: The region to filter by (optional)
+        :param archived: Whether to include archived records (default: False)
+        :param kwargs: Additional arguments (unused, for compatibility)
+        :return: Dict with "suggestions" key containing list of {suggestion, score} dicts
+        """
+        file_result = super().suggest_tokens(query, region=region, archived=archived)
+        dir_result = Directory.suggest_tokens(query, region=region, archived=archived)
+
+        # Merge suggestions, summing scores for duplicates
+        scores: dict[str, float] = {}
+        for item in file_result["suggestions"] + dir_result["suggestions"]:
+            scores[item["suggestion"]] = (
+                scores.get(item["suggestion"], 0) + item["score"]
+            )
+
+        return {
+            "suggestions": [
+                {"suggestion": token, "score": score} for token, score in scores.items()
+            ]
+        }
 
     def __str__(self) -> str:
         """
