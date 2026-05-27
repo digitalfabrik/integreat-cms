@@ -8,9 +8,11 @@ import json
 from typing import TYPE_CHECKING
 
 import pytest
+from django.db.models import Q, QuerySet
 from django.urls import reverse
 
 from integreat_cms.cms.constants.roles import CMS_TEAM, EVENT_MANAGER, OBSERVER
+from integreat_cms.cms.models import Page, Region
 from tests.conftest import ANONYMOUS
 
 # Roles that have view_page permission (all except EVENT_MANAGER)
@@ -311,4 +313,36 @@ def test_search_suggest_filters_by_region(
     # Nürnberg should have suggestions containing Nürnberg
     assert any("Nürnberg" in s for s in suggestions), (
         f"Search suggest failed: Expected Nürnberg in search suggestions, got {suggestions}"
+    )
+
+
+def _condition_contains_queryset(condition: Q) -> bool:
+    """Recursively check whether a ``Q`` condition embeds a ``QuerySet`` value."""
+    for child in condition.children:
+        if isinstance(child, Q):
+            if _condition_contains_queryset(child):
+                return True
+        else:
+            _lookup, value = child
+            if isinstance(value, QuerySet):
+                return True
+    return False
+
+
+@pytest.mark.django_db
+def test_page_suggest_queryset_has_no_queryset_in_filtered_relation(
+    load_test_data: None,
+) -> None:
+    """
+    Regression test: ``Page.get_suggest_queryset`` must not embed a ``QuerySet``
+    inside its ``FilteredRelation`` condition. Newer Django versions reject this
+    with ``ValueError: Passing a QuerySet within a FilteredRelation is not
+    supported.``, which crashed the page ``search_suggest`` endpoint with a 500.
+    """
+    region = Region.objects.get(slug=REGION_SLUG)
+    queryset = Page.get_suggest_queryset(region=region)
+
+    filtered_relation = queryset.query._filtered_relations["latest_translations"]
+    assert not _condition_contains_queryset(filtered_relation.condition), (
+        "FilteredRelation condition must use a materialized list of ids, not a QuerySet"
     )
