@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-05-07T08:51:38+00:00" />
+    <meta property="article:modified_time" content="2026-05-27T14:19:02+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API &mdash; integreat-cms 2026.5.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -112,10 +112,10 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#languages">Languages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#location-categories">Location Categories</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#locations">Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#news">News</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#offers">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#pages">Pages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#pdf-export">PDF Export</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#push-notifications">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#social-media-headers">Social Media Headers</a></li>
 </ul>
@@ -265,6 +265,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#round-hix-score">Round Hix Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#shadow-instance">Shadow Instance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#social-media-utils">Social Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#stringify-list">Stringify List</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#tinymce-icon-utils">Tinymce Icon Utils</a></li>
@@ -408,6 +409,13 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.matomo_api.html#utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.news_managers.html">News Managers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#abstract-news-manager">Abstract News Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#pushnews-manager">Pushnews Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#registry">Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#tunews-manager">Tunews Manager</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.nominatim_api.html">Nominatim API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#nominatim-api-client">Nominatim API Client</a></li>
@@ -454,6 +462,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#test-api-push-page">Test API Push Page</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#test-api-result">Test API Result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#test-api-social">Test API Social</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-news-endpoint">Test News Endpoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#test-pushnotification-api">Test Pushnotification API</a></li>
 </ul>
 </li>
@@ -507,6 +516,10 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#mt-provider-assignment-test">Mt Provider Assignment Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#test-mt-button-visibility">Test Mt Button Visibility</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.news_managers.html">News Managers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.news_managers.html#test-tunews-manager">Test Tunews Manager</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.pdf.html">PDF</a><ul>
@@ -699,10 +712,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.languages">Languages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.location_categories">Location Categories</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.locations">Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.news">News</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.offers">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pages">Pages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pdf_export">PDF Export</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.push_notifications">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.social_media_headers">Social Media Headers</a></li>
 </ul>
@@ -868,6 +881,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.round_hix_score">Round Hix Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.shadow_instance">Shadow Instance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.social_media_utils">Social Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.stringify_list">Stringify List</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.tinymce_icon_utils">Tinymce Icon Utils</a></li>
@@ -1342,6 +1356,24 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html">News Managers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#module-integreat_cms.news_managers.abstract_news_manager">Abstract News Manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.NewsItem"><code class="docutils literal notranslate"><span class="pre">NewsItem</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#module-integreat_cms.news_managers.pushnews_manager">Pushnews Manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager"><code class="docutils literal notranslate"><span class="pre">PushnewsManager</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#module-integreat_cms.news_managers.registry">Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#module-integreat_cms.news_managers.tunews_manager">Tunews Manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.TunewsManager"><code class="docutils literal notranslate"><span class="pre">TunewsManager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.clean_html"><code class="docutils literal notranslate"><span class="pre">clean_html()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html">Nominatim API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#module-integreat_cms.nominatim_api.apps">Apps</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.apps.NominatimApiConfig"><code class="docutils literal notranslate"><span class="pre">NominatimApiConfig</span></code></a></li>
@@ -1510,6 +1542,12 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_social.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_news_endpoint">Test News Endpoint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_news_endpoint.test_news_endpoint"><code class="docutils literal notranslate"><span class="pre">test_news_endpoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_news_endpoint.test_news_endpoint_pagination"><code class="docutils literal notranslate"><span class="pre">test_news_endpoint_pagination()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_news_endpoint.test_news_endpoint_source_filter"><code class="docutils literal notranslate"><span class="pre">test_news_endpoint_source_filter()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_pushnotification_api">Test Pushnotification API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_pushnotification_api.create_a_pushnotification"><code class="docutils literal notranslate"><span class="pre">create_a_pushnotification()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_pushnotification_api.test_no_archived_pushnotification"><code class="docutils literal notranslate"><span class="pre">test_no_archived_pushnotification()</span></code></a></li>
@@ -1648,6 +1686,16 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.news_managers.html">News Managers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.news_managers.html#module-tests.news_managers.test_tunews_manager">Test Tunews Manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_keeps_plain_text"><code class="docutils literal notranslate"><span class="pre">test_clean_html_keeps_plain_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_preserves_unrelated_classes"><code class="docutils literal notranslate"><span class="pre">test_clean_html_preserves_unrelated_classes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_strips_pvc_elements"><code class="docutils literal notranslate"><span class="pre">test_clean_html_strips_pvc_elements()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_import_news_item"><code class="docutils literal notranslate"><span class="pre">test_import_news_item()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.pdf.html">PDF</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.pdf.dummy_django_app.html">Dummy Django App</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.pdf.dummy_django_app.html#module-tests.pdf.dummy_django_app.static_urls">Static Urls</a></li>
@@ -1738,6 +1786,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.ROOT"><code class="docutils literal notranslate"><span class="pre">ROOT</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.STAFF_ROLES"><code class="docutils literal notranslate"><span class="pre">STAFF_ROLES</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.WRITE_ROLES"><code class="docutils literal notranslate"><span class="pre">WRITE_ROLES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.clean_news_cache"><code class="docutils literal notranslate"><span class="pre">clean_news_cache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.configure_celery_for_tests"><code class="docutils literal notranslate"><span class="pre">configure_celery_for_tests()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.create_language"><code class="docutils literal notranslate"><span class="pre">create_language()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.create_page"><code class="docutils literal notranslate"><span class="pre">create_page()</span></code></a></li>
@@ -3036,6 +3085,66 @@ provided in the corresponding json file.</p>
 </dd></dl>
 
 </section>
+<section id="test-news-endpoint">
+<h2>Test News Endpoint<a class="headerlink" href="#test-news-endpoint" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_news_endpoint.</span></span><span class="sig-name descname"><span class="pre">test_news_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_news_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_news_endpoint.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The combined endpoint merges items from every news source and sorts them
+by <code class="docutils literal notranslate"><span class="pre">display_date</span></code>, newest first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>clean_news_cache</strong> (<em>None</em>) – Fixture that wipes external news-source cache entries</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_news_endpoint.</span></span><span class="sig-name descname"><span class="pre">test_news_endpoint_pagination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_news_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_news_endpoint.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The combined endpoint returns only one page of results at a time.
+Page 1 contains the most recent items; page 2 contains the next batch.
+Non-integer and out-of-range page numbers fall back gracefully via
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.get_safe_page" title="integreat_cms.cms.views.mixins.get_safe_page"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_safe_page()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>clean_news_cache</strong> (<em>None</em>) – Fixture that wipes external news-source cache entries</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_news_endpoint.</span></span><span class="sig-name descname"><span class="pre">test_news_endpoint_source_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_news_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_news_endpoint.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The combined endpoint supports filtering by source.
+Filtering by <code class="docutils literal notranslate"><span class="pre">local</span></code> returns only push notifications;
+filtering by <code class="docutils literal notranslate"><span class="pre">tunews</span></code> returns only tüNews items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>clean_news_cache</strong> (<em>None</em>) – Fixture that wipes external news-source cache entries</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="test-pushnotification-api">
 <h2>Test Pushnotification API<a class="headerlink" href="#test-pushnotification-api" title="Link to this heading"></a></h2>
 <dl class="py function">
@@ -3084,7 +3193,7 @@ provided in the corresponding json file.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 07, 2026.
+      <span class="lastupdated">Last updated on May 27, 2026.
       </span></p>
   </div>
 
