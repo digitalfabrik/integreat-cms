@@ -530,14 +530,18 @@ jobs:
             # If there are no release notes in unreleased, there is nothing to move
             empty=true
             shopt -s nullglob
-            for _ in "${RELEASE_NOTES_DIR}/current/unreleased"/*.yml; do
+            for _ in "${OLD_DIR}"/*.yml; do
                 empty=false
                 break
             done
             shopt -u nullglob
             # Don't try to move if empty, the pipeline step will fail
             # because the first argument for git mv expands to nothing
-            $empty || git mv "${OLD_DIR}"/* "${NEW_DIR}"/
+            if $empty; then
+              touch "${NEW_DIR}"/.gitkeep
+            else
+              git mv "${OLD_DIR}"/* "${NEW_DIR}"/
+            fi
             git commit --amend --no-edit
       - run:
           name: Generate SBOM
