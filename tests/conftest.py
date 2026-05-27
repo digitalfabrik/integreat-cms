@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 import pytest
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.core.management import call_command
 from django.test.client import AsyncClient, Client
 
@@ -185,3 +186,21 @@ def create_language() -> Callable[..., Language]:
         return Language.objects.create(**kwargs)
 
     return _create_language
+
+
+@pytest.fixture
+def clean_news_cache(load_test_data: None) -> Generator[None, None, None]:
+    """
+    Clear external news-source cache entries before and after a test.
+
+    Language slugs are read from the DB so adding or removing a language is
+    automatically reflected.
+    """
+    keys = [
+        f"tunews:{slug}" for slug in Language.objects.values_list("slug", flat=True)
+    ]
+    for key in keys:
+        cache.delete(key)
+    yield
+    for key in keys:
+        cache.delete(key)

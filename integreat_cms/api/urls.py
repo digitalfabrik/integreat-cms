@@ -28,6 +28,7 @@ from .v3.imprint import imprint
 from .v3.languages import languages
 from .v3.location_categories import location_categories
 from .v3.locations import locations
+from .v3.news import news, sent_push_notifications
 from .v3.offers import offers
 from .v3.pages import (
     children,
@@ -37,7 +38,6 @@ from .v3.pages import (
     single_page,
 )
 from .v3.pdf_export import pdf_export
-from .v3.push_notifications import sent_push_notifications
 from .v3.regions import region_by_slug, regions
 from .v3.social_media_headers import (
     event_social_media_headers,
@@ -70,6 +70,11 @@ content_api_urlpatterns: list[URLPattern] = [
         "fcm/",
         sent_push_notifications,
         name="sent_push_notifications",
+    ),
+    path(
+        "news/",
+        news,
+        name="news",
     ),
     path("imprint/", imprint, name="imprint"),
     path("disclaimer/", imprint, name="imprint"),
@@ -185,8 +190,8 @@ social_media_api_urlpatterns = [
                     region_social_media_headers,
                     name="social_region_reserved_local_news",
                 ),
-                re_path(
-                    r"^news/tunews/[\w-]+/$",
+                path(
+                    "news/tuNews/",
                     region_social_media_headers,
                     name="social_region_reserved_tunews",
                 ),
@@ -204,7 +209,7 @@ social_media_api_urlpatterns = [
                     name="social_region_event_page",
                 ),
                 path(
-                    "news/local/<slug:slug>/",
+                    "news/<slug:news_type>/<slug:slug>/",
                     news_social_media_headers,
                     name="social_region_local_news_page",
                 ),
