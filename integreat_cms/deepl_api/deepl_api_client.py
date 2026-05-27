@@ -126,7 +126,12 @@ class DeepLApiClient(MachineTranslationApiClient):
                             "A problem with DeepL API has occurred. Please contact an administrator.",
                         ),
                     )
-                    logger.exception("")
+                    logger.exception(
+                        "Could not translate %r from %r to %r",
+                        ctx.instance,
+                        self.source_language.slug,
+                        self.target_language_key,
+                    )
                     return
 
             self.save_translation(ctx, data)
