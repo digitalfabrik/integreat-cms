@@ -4,18 +4,23 @@ This file contains the helper function to change the publication status of trans
 
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 from django.contrib import messages
+from django.db import IntegrityError, transaction
 from django.utils.translation import ngettext, ngettext_lazy
 
 from ...constants import status
 from ...models import Language
+from ...utils.content_translation_utils import save_new_version_with_retry
 from ...utils.stringify_list import iter_to_string
 
 if TYPE_CHECKING:
     from django.db.models.query import QuerySet
     from django.http import HttpRequest
+
+logger = logging.getLogger(__name__)
 
 
 def change_publication_status(
@@ -36,6 +41,7 @@ def change_publication_status(
     successful = []
     unchanged = []
     failed = []
+    failed_to_save = []
 
     if request.user.is_superuser or request.user.is_staff:
         for content in selected_content:
@@ -43,16 +49,23 @@ def change_publication_status(
                 if translation.status == desired_status:
                     unchanged.append(translation.title)
                 else:
-                    translation.links.all().delete()
-                    translation.status = desired_status
-                    translation.pk = None
-                    translation.version += 1
-                    if desired_status == status.DRAFT:
-                        translation.all_versions.filter(status=status.PUBLIC).update(
-                            status=status.DRAFT,
+                    try:
+                        with transaction.atomic():
+                            translation.links.all().delete()
+                            translation.status = desired_status
+                            translation.pk = None
+                            translation.version += 1
+                            if desired_status == status.DRAFT:
+                                translation.all_versions.filter(
+                                    status=status.PUBLIC,
+                                ).update(status=status.DRAFT)
+                            save_new_version_with_retry(translation, translation.save)
+                        successful.append(translation.title)
+                    except IntegrityError:
+                        logger.exception(
+                            "Could not save new version for %r", translation
                         )
-                    translation.save()
-                    successful.append(translation.title)
+                        failed_to_save.append(translation.title)
             else:
                 failed.append(content.best_translation.title)
 
@@ -117,5 +130,23 @@ def change_publication_status(
                 changed_status=changed_status,
                 language=Language.objects.filter(slug=language_slug).first(),
                 object_names=iter_to_string(failed),
+            ),
+        )
+
+    if failed_to_save:
+        messages.error(
+            request,
+            ngettext_lazy(
+                'The publication status of {model_name} {object_names} could not be changed to "{changed_status}" due to a database conflict. Please try again.',
+                'The publication status of the following {model_name} could not be changed to "{changed_status}" due to database conflicts. Please try again: {object_names}',
+                len(failed_to_save),
+            ).format(
+                model_name=ngettext(
+                    model_name,
+                    model_name_plural,
+                    len(failed_to_save),
+                ),
+                changed_status=changed_status,
+                object_names=iter_to_string(failed_to_save),
             ),
         )

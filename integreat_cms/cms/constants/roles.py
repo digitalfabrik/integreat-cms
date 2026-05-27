@@ -38,8 +38,6 @@ ROLES: Final[list[tuple[str, Promise]]] = [
 SERVICE_TEAM: Final = "SERVICE_TEAM"
 #: CMS team
 CMS_TEAM: Final = "CMS_TEAM"
-#: App team
-APP_TEAM: Final = "APP_TEAM"
 #: Promo team
 MARKETING_TEAM: Final = "MARKETING_TEAM"
 
@@ -47,7 +45,6 @@ MARKETING_TEAM: Final = "MARKETING_TEAM"
 STAFF_ROLES: Final[list[tuple[str, Promise]]] = [
     (SERVICE_TEAM, _("Service team")),
     (CMS_TEAM, _("CMS team")),
-    (APP_TEAM, _("App team")),
     (MARKETING_TEAM, _("Marketing team")),
 ]
 
@@ -151,8 +148,8 @@ MARKETING_TEAM_PERMISSIONS: Final[list[str]] = [
     "view_contact",
 ]
 
-#: The permissions of the app team
-APP_TEAM_PERMISSIONS: Final[list[str]] = [
+#: The permissions of the service team
+SERVICE_TEAM_PERMISSIONS: Final[list[str]] = [
     *MARKETING_TEAM_PERMISSIONS,
     "add_directory",
     "change_directory",
@@ -171,11 +168,6 @@ APP_TEAM_PERMISSIONS: Final[list[str]] = [
     "send_push_notification",
     "upload_mediafile",
     "change_contact",
-]
-
-#: The permissions of the service team
-SERVICE_TEAM_PERMISSIONS: Final[list[str]] = [
-    *APP_TEAM_PERMISSIONS,
     "archive_pushnotification",
     "change_externalcalendar",
     "change_language",
@@ -218,7 +210,6 @@ PERMISSIONS: Final[dict[str, list[str]]] = {
     EDITOR: EDITOR_PERMISSIONS,
     MANAGEMENT: MANAGEMENT_PERMISSIONS,
     MARKETING_TEAM: MARKETING_TEAM_PERMISSIONS,
-    APP_TEAM: APP_TEAM_PERMISSIONS,
     SERVICE_TEAM: SERVICE_TEAM_PERMISSIONS,
     CMS_TEAM: CMS_TEAM_PERMISSIONS,
 }

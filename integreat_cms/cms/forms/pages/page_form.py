@@ -144,9 +144,10 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             # to render the options for the mirrored page
             if self.instance.mirrored_page:
                 mirrored_page_queryset = self.instance.mirrored_page.region.pages.all()
-            # Update the querysets otherwise
-            self.fields["authors"].queryset = self.get_author_queryset()
-            self.fields["editors"].queryset = self.get_editor_queryset()
+            if self.instance.pk:
+                # Update the querysets otherwise
+                self.fields["authors"].queryset = self.get_author_queryset()
+                self.fields["editors"].queryset = self.get_editor_queryset()
 
         # Check if instance of this form already exists
         if self.instance.id:

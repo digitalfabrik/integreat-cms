@@ -1,5 +1,6 @@
 from django import template
 from django.template.context import RequestContext
+from django.utils.html import escape
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 
@@ -21,17 +22,17 @@ def sort_link(context: RequestContext, label: str, field: str) -> str:
 
     if field == current:
         params["sort"] = f"-{field}"
-        arrow = " ▼"
+        arrow = "<span style='color: #9E9E9E;'>↑</span>↓︎"
     elif f"-{field}" == current:
         params.pop("sort", None)
-        arrow = " ▲"
+        arrow = "↑<span style='color: #9E9E9E;'>↓︎</span>"
     else:
         params["sort"] = field
-        arrow = ""
+        arrow = "<span style='color: #9E9E9E;'>↑↓︎</span>"
 
     url = f"?{urlencode(params, doseq=True)}"
 
-    return mark_safe(f'<a href="{url}" class="hover:underline">{label}{arrow}</a>')
+    return mark_safe(f'<a href="{url}">{escape(label)}{arrow}</a>')
 
 
 @register.inclusion_tag("_sortable_table_header.html", takes_context=True)

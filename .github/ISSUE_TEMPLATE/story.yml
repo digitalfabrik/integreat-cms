@@ -1,0 +1,184 @@
+name: 📖 User Story
+description: A user-facing feature or enhancement described from the user's perspective
+title: "[Story]: "
+type: story
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📖 User Story
+        Describe a feature from the user's perspective. Focus on the value delivered
+        and the criteria that must be met for acceptance.
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User Story
+      description: Who is this for, what do they want, and why?
+      placeholder: |
+        **As a** [type of user],
+        **I want** [goal/desire],
+        **So that** [benefit/value].
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-description
+    attributes:
+      label: Problem Description
+      description: >
+        What is the current problem, pain point, or gap this story addresses?
+        Include context about the current state and why it's insufficient.
+      placeholder: |
+        ### Current State
+        Describe what happens today...
+
+        ### Pain Point
+        Explain why this is a problem...
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: >
+        Specific, testable conditions that must be met for this story to be
+        considered complete. Use Given/When/Then or checkbox format.
+      placeholder: |
+        ### Functional Criteria
+        - [ ] **Given** [precondition], **When** [action], **Then** [expected result]
+        - [ ] **Given** [precondition], **When** [action], **Then** [expected result]
+
+        ### UI/UX Criteria
+        - [ ] All specified UI elements are present and match the design
+        - [ ] UI is responsive across specified breakpoints
+        - [ ] Loading/empty/error states are handled
+        - [ ] Interactions (hover, focus, click) behave as specified
+
+        ### Edge Cases
+        - [ ] Behavior when [edge case]...
+
+        ### Accessibility Criteria
+        - [ ] Keyboard navigable (Tab, Enter, Escape)
+        - [ ] Screen reader compatible (ARIA labels, roles)
+        - [ ] Color contrast meets WCAG AA (4.5:1 text, 3:1 UI)
+        - [ ] Focus indicators visible
+
+        ### Performance Criteria
+        - [ ] Page/component loads within X seconds
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-states
+    attributes:
+      label: Error & Edge Case Handling
+      description: How should the system behave in failure or edge-case scenarios?
+      placeholder: |
+        | Scenario | Expected Behavior | UI Feedback |
+        |----------|-------------------|-------------|
+        | Network failure | Retry with backoff | Toast: "Connection lost. Retrying..." |
+        | Validation error | Prevent submission | Inline error message on field |
+        | Empty state | Show placeholder | Illustration + CTA |
+        | Timeout | Cancel request | Toast: "Request timed out" |
+    validations:
+      required: false
+
+  - type: textarea
+    id: user-flow
+    attributes:
+      label: User Flow
+      description: Step-by-step walkthrough of the user interaction
+      placeholder: |
+        1. User navigates to...
+        2. User sees...
+        3. User clicks/enters...
+        4. System responds with...
+        5. User is redirected to / sees confirmation...
+
+        > 💡 You can also link a flowchart or diagram here
+    validations:
+      required: false
+
+  - type: textarea
+    id: technical-notes
+    attributes:
+      label: Technical Notes
+      description: >
+        Any implementation hints, API contracts, data models,
+        or architectural considerations for the developer.
+      placeholder: |
+        ### API Endpoints
+        - `POST /api/v1/resource` — Create new resource
+        - `GET /api/v1/resource/:id` — Fetch resource
+
+        ### Data Model Changes
+        - New field `xyz` on `TableName`
+
+        ### Libraries / Tools
+        - Consider using...
+
+        ### Browser / Device Support
+        - Chrome, Firefox, Safari, Edge (latest 2 versions)
+        - iOS Safari, Android Chrome
+    validations:
+      required: false
+
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of Scope
+      description: What is explicitly NOT part of this story?
+      placeholder: |
+        - Feature X will be handled in a separate story
+        - Admin-facing changes are not included
+        - ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: test-guidance
+    attributes:
+      label: Testing Guidance
+      description: Suggestions for QA or testing considerations
+      placeholder: |
+        - **Unit tests:** ...
+        - **Integration tests:** ...
+        - **Manual QA scenarios:** ...
+        - **Devices to test on:** ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information, links, or references
+      placeholder: |
+        - Relevant docs: [link]
+        - Mattermost discussion: [link]
+    validations:
+      required: false
+
+  - type: textarea
+    id: related-issues
+    attributes:
+      label: Related Issues
+      description: Are there issues related to this bug?
+      placeholder: |
+        - **integreat-cms issues
+        - **integreat-app issues
+        - **others
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: definition-of-ready
+    attributes:
+      label: Definition of Ready
+      description: Confirm this story is ready to be picked up
+      options:
+        - label: Acceptance criteria are clear and testable
+        - label: UI design / mockups are available (if applicable)
+        - label: Dependencies are identified and unblocked
+        - label: Story has been refined / estimated by the team
+        - label: Edge cases and error states have been considered

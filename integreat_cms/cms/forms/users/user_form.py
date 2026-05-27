@@ -116,7 +116,7 @@ class UserForm(CustomModelForm):
         # fix labels
         self.fields["password"].label = _("Password")
         if "is_staff" in self.fields:
-            self.fields["is_staff"].label = _("Integreat team member")
+            self.fields["is_staff"].label = _("Access to network area")
         self.fields["email"].required = True
 
         # Check if passwordless authentication is possible for the user

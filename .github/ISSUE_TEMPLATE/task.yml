@@ -1,0 +1,186 @@
+name: ⚙️ Task
+description: A specific piece of engineering, operational, or organisational work that supports implementation, maintenance, or operations
+title: "[Task]: "
+type: task
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚙️ Task
+        A specific piece of work required to support implementation, maintenance, or operations.
+        Tasks are typically engineering, operational, or organisational work that does not independently deliver product value.
+
+        > ℹ️ If this work delivers value directly to a user, consider using the **Story** template instead.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Task Description
+      description: What needs to be done and why?
+      placeholder: |
+        ### What
+        Clearly describe the work to be performed...
+
+        ### Why
+        What is the motivation? What story, initiative, or operational need does this support?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: task-type
+    attributes:
+      label: Task Category
+      description: What type of work is this?
+      options:
+        - 🏗️ Implementation — Sub-task of a story or feature
+        - 🔧 Maintenance — Refactoring, cleanup, dependency updates
+        - ⚙️ DevOps / Infrastructure — CI/CD, environments, tooling
+        - 📦 Migration — Data, schema, or platform migration
+        - 📄 Documentation — Technical docs, runbooks, READMEs
+        - 🔒 Security — Patching, hardening, compliance
+        - 📊 Monitoring / Observability — Logging, alerts, dashboards
+        - 🔬 Testing — Test infrastructure, coverage, test data
+        - ♻️ Tech Debt — Addressing accumulated shortcuts
+        - 👥 Coordination — Cross-team alignment, onboarding, access management
+        - 📋 Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps / Implementation Plan
+      description: Break down the work into concrete steps
+      placeholder: |
+        - [ ] Step 1: ...
+        - [ ] Step 2: ...
+        - [ ] Step 3: ...
+        - [ ] Step 4: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What conditions must be met for this task to be considered done?
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-details
+    attributes:
+      label: Technical Details
+      description: >
+        Relevant technical context — affected systems, files, services,
+        configurations, APIs, etc.
+      placeholder: |
+        ### Affected Systems / Services
+        - 
+
+        ### Files / Modules
+        - 
+
+        ### Configuration Changes
+        - 
+
+        ### Commands / Scripts
+        ```bash
+
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks & Impact
+      description: What could go wrong? What systems or teams could be affected?
+      placeholder: |
+        ### Risks
+        - 
+
+        ### Blast Radius
+        - **Services affected:** 
+        - **Teams affected:** 
+        - **User-facing impact:** None / Minimal / Significant
+
+        ### Rollback Plan
+        - 
+
+        ### Coordination Required
+        - **Team/person to coordinate with: ...**
+    validations:
+      required: false
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Target Environment
+      description: Where does this work apply?
+      multiple: true
+      options:
+        - Local / Development
+        - Staging / QA
+        - Production
+        - CI/CD Pipeline
+        - All environments
+        - Organisational (Wiki, Nextcloud Files)
+    validations:
+      required: false
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification / Testing
+      description: How can we verify this task was completed successfully?
+      placeholder: |
+        - [ ] Unit/integration tests pass
+        - [ ] Manual verification steps: ...
+        - [ ] Monitoring/dashboard confirms: ...
+        - [ ] Peer review completed
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information, references, or notes
+      placeholder: |
+        - Relevant docs: [link]
+        - Related discussion: [link]
+        - Notes: ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: parent-context
+    attributes:
+      label: Parent / Related issue and Work
+      description: What story, epic, or initiative does this task support?
+      placeholder: |
+        - **Parent story/epic:** #issue-number
+        - **integreat-cms issues
+        - **integreat-app issues
+        - **Initiative:** [name or link]
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: definition-of-done
+    attributes:
+      label: Definition of Done
+      description: Confirm completion criteria
+      options:
+        - label: Work is complete and meets acceptance criteria
+        - label: Code reviewed / peer reviewed (if applicable)
+        - label: Tests added or updated (if applicable)
+        - label: Documentation updated (if applicable)
+        - label: Changes deployed to target environment
+        - label: Verified in target environment
+        - label: Parent issue / stakeholders notified

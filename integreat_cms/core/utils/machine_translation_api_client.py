@@ -213,7 +213,7 @@ class MachineTranslationApiClient(ABC):
         filtered_context = []
 
         for ctx in context:
-            if ctx.word_count > 0:
+            if bool(ctx.translatable_attributes):
                 filtered_context.append(ctx)
             else:
                 self.failed_because_no_changes_made.append(
@@ -337,13 +337,26 @@ class MachineTranslationApiClient(ABC):
                 self.target_language.slug,
             )
             try:
-                ctx.translatable_attributes = (
-                    content_object.get_translatable_attributes(
-                        self.translatable_fields,
-                        self.source_language.slug,
-                        self.target_language.slug,
+                if hasattr(content_object, "get_translatable_attributes"):
+                    ctx.translatable_attributes = (
+                        content_object.get_translatable_attributes(
+                            self.translatable_fields,
+                            self.source_language.slug,
+                            self.target_language.slug,
+                        )
                     )
-                )
+                else:
+                    # push_notifications do not have the get_translatable_attributes logic, so we need to provide a fallback
+                    skip_title = getattr(
+                        content_object, "do_not_translate_title", False
+                    )
+                    ctx.translatable_attributes = [
+                        (attr, getattr(ctx.source_translation, attr))
+                        for attr in self.translatable_fields
+                        if ctx.source_translation
+                        and getattr(ctx.source_translation, attr, None)
+                        and not (attr == "title" and skip_title)
+                    ]
 
                 ctx.word_count = word_count(
                     ctx.translatable_attributes,

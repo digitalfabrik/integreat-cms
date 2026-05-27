@@ -31,7 +31,7 @@ class PushNotificationTranslation(AbstractBaseModel, SearchSuggestMixin):
     region_filter_field = "push_notification__regions"
     archived_filter_field = "push_notification__archived"
 
-    title = models.CharField(max_length=250, blank=True, verbose_name=_("title"))
+    title = models.CharField(max_length=250, verbose_name=_("title"))
     text = models.TextField(
         max_length=500,
         blank=True,

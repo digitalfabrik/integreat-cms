@@ -11,11 +11,9 @@ from typing import Final, Literal, TYPE_CHECKING
 from celery import shared_task
 from django.apps import apps
 from django.conf import settings
-from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Exists, OuterRef
 from django.utils.text import slugify
-from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     from typing import (
@@ -29,7 +27,6 @@ if TYPE_CHECKING:
 
     from django.db.models import Manager, QuerySet
     from django.forms import ModelForm
-    from django.http.request import QueryDict
 
     from ..models import Language, Region
     from ..models.abstract_base_model import AbstractBaseModel
@@ -60,8 +57,7 @@ if TYPE_CHECKING:
         A custom type for keyword arguments to :func:`generate_unique_slug`
         """
 
-        cleaned_data: NotRequired[QueryDict]
-        fallback: NotRequired[Literal["name", "title"]]
+        fallback: NotRequired[str]
         foreign_model: ForeignModelType
         foreign_object: NotRequired[AbstractContentModel]
         language: NotRequired[Language]
@@ -82,25 +78,22 @@ def generate_unique_slug_helper(
     :param form_object: The form which contains the slug field
     :param foreign_model: If the form instance has a foreign key to another model (e.g. because it is a translation of
                           a content-object), this parameter contains the model of the foreign related object.
-    :raises ~django.core.exceptions.ValidationError: When no slug is given and there is also no field which can be used
-                                                     as fallback (either ``title`` or ``name``).
 
     :return: An unique slug identifier
     """
     kwargs: SlugKwargs = {
         "slug": form_object.cleaned_data["slug"],
-        "cleaned_data": form_object.cleaned_data,
         "manager": form_object.Meta.model.objects,
         "object_instance": form_object.instance,
         "foreign_model": foreign_model,
-        "fallback": "name",
+        "fallback": form_object.cleaned_data.get("name"),
     }
     if foreign_model in ALLOWED_OBJECTS:
         kwargs.update(
             {
                 "region": form_object.instance.foreign_object.region,
                 "language": form_object.instance.language,
-                "fallback": "title",
+                "fallback": form_object.cleaned_data.get("title"),
             },
         )
     return generate_unique_slug(**kwargs)
@@ -110,7 +103,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     r"""
     This function can be used in :mod:`~integreat_cms.cms.forms` to clean slug fields. It will make sure the slug field contains a
     unique identifier per region and language. It can also be used for region slugs (``foreign_model`` is ``None`` in
-    this case). If the slug field is empty, it creates a fallback value from either the ``title`` or the ``name`` field.
+    this case). If the slug field is empty, it assumes the fallback value, if given.
     In case the slug exists already, it appends a counter which is increased until the slug is unique.
 
     Example usages:
@@ -121,8 +114,6 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     * :func:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm.clean_slug`
 
     :param \**kwargs: The supplied keyword arguments
-    :raises ~django.core.exceptions.ValidationError: When no slug is given and there is also no field which can be used
-                                                     as fallback (either ``title`` or ``name``).
 
     :return: An unique slug identifier
     """
@@ -130,8 +121,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     foreign_model: str | None = kwargs.get("foreign_model")
     foreign_object: AbstractContentModel | None = kwargs.get("foreign_object")
     object_instance: AbstractBaseModel = kwargs["object_instance"]
-    fallback: Literal["name", "title", ""] = kwargs.get("fallback", "")
-    cleaned_data: dict[str, Any] = kwargs.get("cleaned_data", {})
+    fallback: str = kwargs.get("fallback", "")
     region: Region | None = kwargs.get("region")
     language: Language | None = kwargs.get("language")
     manager: Any = kwargs["manager"]
@@ -141,9 +131,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
         logger.debug("%r, %r", region, language)
     logger.debug("slug: %r", slug)
 
-    base_slug = generate_base_slug(
-        slug, fallback, cleaned_data, object_instance, foreign_model
-    )
+    base_slug = generate_base_slug(slug, fallback, object_instance, foreign_model)
     pre_filtered_objects = get_prefiltered_queryset(
         manager,
         foreign_model,
@@ -180,24 +168,17 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
 def generate_base_slug(
     slug: str,
     fallback: str,
-    cleaned_data: dict[str, Any],
     object_instance: AbstractBaseModel,
     foreign_model: str | None,
 ) -> str:
     """
-    Generates the base slug either from the given slug or from the fallback field.
+    Generates the base slug from the given slug or fallback.
     """
     if slug:
         return slug
 
-    if fallback not in cleaned_data:
-        raise ValidationError(
-            _("Cannot generate slug from {}.").format(_(fallback)),
-            code="invalid",
-        )
-
     allow_unicode = object_instance._meta.get_field("slug").allow_unicode
-    slug = slugify(cleaned_data[fallback], allow_unicode=allow_unicode)
+    slug = slugify(fallback, allow_unicode=allow_unicode)
 
     return slug or foreign_model or ""
 
@@ -283,6 +264,7 @@ def update_translations(
                 foreign_object=foreign_obj,
                 region=region,
                 language=translation.language,
+                fallback=translation.title,  # function is already restricted to handle only objects with title
             )
             if old_slug != translation.slug:
                 counter += 1

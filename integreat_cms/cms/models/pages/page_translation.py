@@ -4,6 +4,7 @@ import logging
 from html import escape
 from typing import TYPE_CHECKING
 
+import pgtrigger
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
@@ -423,7 +424,7 @@ class PageTranslation(AbstractBasePageTranslation):
                 "foreign_model": "page",
                 "region": self.page.region,
                 "language": self.language,
-                "fallback": "title",
+                "fallback": self.title,
             }
             self.slug = generate_unique_slug(**kwargs)
 
@@ -450,5 +451,42 @@ class PageTranslation(AbstractBasePageTranslation):
             models.UniqueConstraint(
                 fields=["page", "language", "version"],
                 name="%(class)s_unique_version",
+            ),
+        ]
+
+        triggers = [
+            # Trigger for INSERT and UPDATE
+            pgtrigger.Trigger(
+                name="enforce_slug_uniqueness",
+                when=pgtrigger.Before,
+                operation=pgtrigger.Insert | pgtrigger.Update,
+                func="""
+                DECLARE
+                    new_region_id INTEGER;
+                BEGIN
+                    -- Look up the region for the new/updated page
+                    SELECT region_id INTO new_region_id
+                    FROM cms_page
+                    WHERE id = NEW.page_id;
+
+                    -- Set advisory lock (Postgresql specific)
+                    PERFORM pg_advisory_xact_lock(hashtextextended(NEW.language_id || ':' || new_region_id || ':' || NEW.slug, 0));
+
+                    -- Check if there's a conflict (same slug/language/region but different page)
+                    IF EXISTS (
+                        SELECT 1
+                        FROM cms_pagetranslation t
+                        JOIN cms_page p ON t.page_id = p.id
+                        WHERE t.slug = NEW.slug
+                        AND t.language_id = NEW.language_id
+                        AND p.region_id = new_region_id
+                        AND t.page_id <> NEW.page_id
+                    ) THEN
+                        RAISE EXCEPTION 'Slug must be unique per language and region across different pages.' USING ERRCODE = 'unique_violation'; -- SQLSTATE 23505
+                    END IF;
+
+                    RETURN NEW;
+                END;
+                """,
             ),
         ]

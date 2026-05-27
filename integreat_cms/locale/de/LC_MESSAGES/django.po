@@ -22,11 +22,20 @@ msgstr ""
 msgid "API"
 msgstr "API"
 
+#: api/v3/chat/utils/chat_bot.py
+msgid ""
+"Sorry, an error occurred. We were not able to provide an answer. Please try "
+"again later."
+msgstr ""
+"Entschuldigung, es ist ein Fehler aufgetreten. Bitte probiere es später "
+"erneut."
+
 #: cms/apps.py
 msgid "CMS"
 msgstr "CMS"
 
 #: cms/constants/administrative_division.py cms/templates/pois/poi_list.html
+#: cms/views/pois/poi_list_view.py
 msgid "City"
 msgstr "Stadt"
 
@@ -1738,10 +1747,6 @@ msgid "CMS team"
 msgstr "CMS-Team"
 
 #: cms/constants/roles.py
-msgid "App team"
-msgstr "App-Team"
-
-#: cms/constants/roles.py
 msgid "Marketing team"
 msgstr "Marketing-Team"
 
@@ -1941,7 +1946,7 @@ msgstr "{} hier eingeben"
 #: cms/templates/content_versions.html cms/templates/events/event_form.html
 #: cms/templates/events/event_list.html cms/templates/pages/page_form.html
 #: cms/templates/pages/pages_page_tree.html cms/templates/pois/poi_form.html
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/views/pois/poi_list_view.py
 msgid "Publication status"
 msgstr "Veröffentlichungsstatus"
 
@@ -2029,12 +2034,36 @@ msgid "No weekdays for weekly recurrence selected"
 msgstr "Keine Wochentage für die wöchentliche Wiederholung eingegeben"
 
 #: cms/forms/events/recurrence_rule_form.py
+msgid ""
+"The start date of the event does not match the selected weekdays for weekly "
+"recurrence"
+msgstr ""
+"Das Startdatum der Veranstaltung stimmt nicht mit den ausgewählten "
+"Wochentagen für die wöchentliche Wiederholung überein"
+
+#: cms/forms/events/recurrence_rule_form.py
 msgid "No weekday for monthly recurrence selected"
 msgstr "Kein Wochentag für die monatliche Wiederholung eingegeben"
 
 #: cms/forms/events/recurrence_rule_form.py
+msgid ""
+"The start date of the event does not match the selected weekday for monthly "
+"recurrence"
+msgstr ""
+"Das Startdatum der Veranstaltung stimmt nicht mit dem ausgewählten Wochentag "
+"für die monatliche Wiederholung überein"
+
+#: cms/forms/events/recurrence_rule_form.py
 msgid "No week for monthly recurrence selected"
 msgstr "Keine Woche für die monatliche Wiederholung eingegeben"
+
+#: cms/forms/events/recurrence_rule_form.py
+msgid ""
+"The start date of the event does not match the selected week for monthly "
+"recurrence"
+msgstr ""
+"Das Startdatum der Veranstaltung stimmt nicht mit der ausgewählten Woche für "
+"die monatliche Wiederholung überein"
 
 #: cms/forms/events/recurrence_rule_form.py
 msgid "The recurrence end date has to be after the event's start date"
@@ -2071,6 +2100,7 @@ msgstr "Alle Kategorien"
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/pois/poi_list.html cms/views/feedback/feedback_resource.py
+#: cms/views/pois/poi_list_view.py
 msgid "Category"
 msgstr "Kategorie"
 
@@ -2165,7 +2195,7 @@ msgstr ""
 
 #: cms/forms/media/create_directory_form.py
 msgid "A directory with the name \"{}\" already exists."
-msgstr "Ein Ordner mit diesem Namen existiert bereits"
+msgstr "Ein Ordner mit dem Namen \"{}\" existiert bereits."
 
 #: cms/forms/media/media_move_form.py
 msgid "The file cannot be moved to a directory of another region."
@@ -2570,8 +2600,9 @@ msgid "Administrator"
 msgstr "Administrator:in"
 
 #: cms/forms/users/user_filter_form.py cms/forms/users/user_form.py
-msgid "Integreat team member"
-msgstr "Integreat-Teammitglied"
+#: cms/templates/users/user_list.html
+msgid "Access to network area"
+msgstr "Zugang zum Netzwerkbereich"
 
 #: cms/forms/users/user_form.py
 msgid "This grants the user all permissions of the selected role"
@@ -3664,7 +3695,7 @@ msgstr "Ob die Seite explizit archiviert ist oder nicht"
 #: cms/templates/events/event_form.html cms/templates/events/event_list.html
 #: cms/templates/pages/_generic_page_tree_header.html
 #: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/views/pois/poi_list_view.py
 msgid "Title in"
 msgstr "Titel auf"
 
@@ -5894,32 +5925,28 @@ msgid "Chats in last 6 hours"
 msgstr "Unterhaltungen in Letzten 6 Stunden"
 
 #: cms/templates/dashboard/_public_chat_stats.html
-msgid "Open Chat Support System (Zammad)"
-msgstr "Chat-Support-System (Zammad) öffnen"
+msgid "Budget:"
+msgstr "Budget:"
 
 #: cms/templates/dashboard/_public_chat_stats.html
-msgid "Chats in last 30 days"
-msgstr "Unterhaltungen in den letzten 30 Tagen"
+msgid "Last 30 days"
+msgstr "Letzte 30 Tage"
 
 #: cms/templates/dashboard/_public_chat_stats.html
-msgid "Used budget in last 30 days"
-msgstr "Genutztes Budget in den letzten 30 Tagen"
-
-#: cms/templates/dashboard/_public_chat_stats.html
-msgid "Chats in previous 30 days"
-msgstr "Unterhaltungen in den vorherigen 30 Tagen"
-
-#: cms/templates/dashboard/_public_chat_stats.html
-msgid "Used budget in previous 30 days"
-msgstr "Genutztes Budget in den vorherigen 30 Tagen"
+msgid "Previous 30 days"
+msgstr "Vorherige 30 Tage"
 
 #: cms/templates/dashboard/_public_chat_stats.html
 msgid "Total chats"
 msgstr "Gesamtzahl Unterhaltungen"
 
 #: cms/templates/dashboard/_public_chat_stats.html
-msgid "Total used budget"
-msgstr "Insgesamt verbrauchtes Budget"
+msgid "Chats by language:"
+msgstr "Chats nach Sprache:"
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "No data available"
+msgstr "Keine Daten vorhanden"
 
 #: cms/templates/dashboard/_public_chat_stats.html
 msgid "Note:"
@@ -5929,6 +5956,10 @@ msgstr "Hinweis:"
 #, python-format
 msgid "1 word = %(budget_weight)s budget points."
 msgstr "1 Wort = %(budget_weight)s Budgetpunkte."
+
+#: cms/templates/dashboard/_public_chat_stats.html
+msgid "Open Chat Support System (Zammad)"
+msgstr "Chat-Support-System (Zammad) öffnen"
 
 #: cms/templates/dashboard/_todo_dashboard_row.html
 msgid "in total"
@@ -7649,6 +7680,7 @@ msgstr "Keine Änderungen vorgenommen."
 
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/push_notifications/push_notification_list.html
+#: cms/views/pois/poi_list_view.py
 msgid "Title"
 msgstr "Titel"
 
@@ -8280,15 +8312,15 @@ msgid ""
 msgstr ""
 "Sie können Orte nur in der Standard-Sprache (%(default_language)s) anlegen."
 
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/views/pois/poi_list_view.py
 msgid "Street"
 msgstr "Straße"
 
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/views/pois/poi_list_view.py
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/views/pois/poi_list_view.py
 msgid "Country"
 msgstr "Land"
 
@@ -8822,7 +8854,7 @@ msgstr "Meine Sprachauswahl"
 
 #: cms/templates/settings/user_settings.html
 msgid "Choose language:"
-msgstr "Sprache auswählen"
+msgstr "Sprache auswählen:"
 
 #: cms/templates/settings/user_settings.html
 msgid "This setting only affects this device."
@@ -9347,10 +9379,6 @@ msgstr "Bevorzugte Regionen"
 msgid "The regions to which the account has quick access"
 msgstr "Die Regionen, zu denen das Konto Schnellzugriff hat"
 
-#: cms/templates/users/user_list.html
-msgid "Team member"
-msgstr "Teammitglied"
-
 #: cms/templates/users/user_list_row.html
 msgid "Staff member"
 msgstr "Teammitglied"
@@ -9507,10 +9535,6 @@ msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 #: cms/utils/shortcodes/page.py
 msgid "MISSING LINK"
 msgstr "FEHLENDER LINK"
-
-#: cms/utils/slug_utils.py
-msgid "Cannot generate slug from {}."
-msgstr "Slug kann nicht aus dem {} abgeleitet werden."
 
 #: cms/utils/stringify_list.py
 msgid "and 1 other"
@@ -10312,6 +10336,14 @@ msgstr ""
 #: cms/views/linkcheck/link_replace_view.py
 msgid "Links were replaced successfully."
 msgstr "Links wurden erfolgreich ersetzt."
+
+#: cms/views/linkcheck/linkcheck_list_view.py
+msgid ""
+"{} translation(s) could not be updated due to a database conflict. Please "
+"try again."
+msgstr ""
+"{} Übersetzungen konnten aufgrund eines Datenbankfehlers nicht aktualisiert "
+"werden. Bitte erneut versuchen."
 
 #: cms/views/linkcheck/linkcheck_list_view.py
 msgid "Email link was successfully replaced"
@@ -11635,6 +11667,24 @@ msgstr[1] ""
 "\"{changed_status}\" geändert werden, weil es keine Übersetztung in "
 "{language} gibt: {object_names}."
 
+#: cms/views/utils/publication_status.py
+#, python-brace-format
+msgid ""
+"The publication status of {model_name} {object_names} could not be changed "
+"to \"{changed_status}\" due to a database conflict. Please try again."
+msgid_plural ""
+"The publication status of the following {model_name} could not be changed to "
+"\"{changed_status}\" due to database conflicts. Please try again: "
+"{object_names}"
+msgstr[0] ""
+"Der Veröffentlichungsstatus von {model_name} {object_names} konnte aufgrund "
+"eines Datenbankfehlers nicht zu \"{changed_status}\" geändert werden. Bitte "
+"erneut versuchen."
+msgstr[1] ""
+"Der Veröffentlichungsstatus der folgenden {model_name} konnte aufgrund eines "
+"Datenbankfehler nicht zu \"{changed_status}\" geändert werden: "
+"{object_names}. Bitte erneut versuchen."
+
 #: core/apps.py
 msgid "Core"
 msgstr "Core"
@@ -11679,10 +11729,11 @@ msgid_plural ""
 "The following {model_name} could not be translated automatically into "
 "'{target_language}': {object_names}"
 msgstr[0] ""
-"{model_name} {object_names} konnte nicht automatisch nach '{target_language}' übersetzt werden."
+"{model_name} {object_names} konnte nicht automatisch nach "
+"'{target_language}' übersetzt werden."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht automatisch nach '{target_language}' übersetzt werden: "
-"{object_names}"
+"Die folgenden {model_name} konnten nicht automatisch nach "
+"'{target_language}' übersetzt werden: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
@@ -11693,11 +11744,12 @@ msgid_plural ""
 "The following {model_name} were not translated into '{target_language}', "
 "because there were no changes to the source translation: {object_names}"
 msgstr[0] ""
-"{model_name} {object_names} konnte nicht nach '{target_language}' übersetzt werden, weil die Quell-"
-"Übersetzung sich nicht geändert hat."
+"{model_name} {object_names} konnte nicht nach '{target_language}' übersetzt "
+"werden, weil die Quell-Übersetzung sich nicht geändert hat."
 msgstr[1] ""
-"Die folgenden {model_name} konnten nicht nach '{target_language}' übersetzt werden, weil ihre Quell-"
-"Übersetzungen sich nicht geändert haben: {object_names}"
+"Die folgenden {model_name} konnten nicht nach '{target_language}' übersetzt "
+"werden, weil ihre Quell-Übersetzungen sich nicht geändert haben: "
+"{object_names}"
 
 #: core/utils/machine_translation_api_client.py
 #, python-brace-format
@@ -11964,6 +12016,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Cannot generate slug from fallback."
+#~ msgstr "Slug kann nicht aus dem Fallback abgeleitet werden."
 
 #~ msgid ""
 #~ "Any manager with access to only some of the selected regions can view but "

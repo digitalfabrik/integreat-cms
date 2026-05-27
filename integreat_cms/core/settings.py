@@ -429,6 +429,7 @@ INSTALLED_APPS: Final[list[str]] = [
     "treebeard",
     "webpack_loader",
     "widget_tweaks",
+    "pgtrigger",
 ]
 
 #: Check whether redis is activated
