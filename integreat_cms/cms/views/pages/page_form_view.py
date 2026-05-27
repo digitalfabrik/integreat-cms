@@ -522,52 +522,64 @@ class PageFormView(
         """
         Shows a message to the user if the slug they provided was not unique and therefore changed.
         """
-        if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:
-            other_translation = PageTranslation.objects.filter(
-                page__region=region,
-                slug=user_slug,
-                language=language,
-            ).first()
-            if other_translation:
-                other_translation_link = reverse(
-                    "page_versions",
-                    kwargs={
-                        "page_id": other_translation.page.id,
-                        "language_slug": language.slug,
-                        "region_slug": region.slug,
-                        "selected_version": other_translation.version,
-                    },
-                )
+        cleaned_slug = page_translation_form.cleaned_data["slug"]
+        if user_slug and user_slug != cleaned_slug:
+            if user_slug.lower() == cleaned_slug:
                 message = _(
-                    "The slug was changed from '{user_slug}' to '{slug}', "
-                    "because '{user_slug}' is already used by <a>{translation}</a>.",
+                    "The slug was changed from '{user_slug}' to '{slug}', because uppercase letters are not allowed."
                 ).format(
                     user_slug=user_slug,
-                    slug=page_translation_form.cleaned_data["slug"],
-                    translation=other_translation,
+                    slug=cleaned_slug,
                 )
-                messages.warning(
-                    request,
-                    translate_link(
-                        message,
-                        attributes={
-                            "href": other_translation_link,
-                            "class": "underline hover:no-underline",
-                        },
-                    ),
-                )
+                messages.warning(request, message)
             else:
-                logger.warning(
-                    "Slug was changed from the one the user provided, but we can't find the translation that already used it: %s (cleaned to %s)",
-                    user_slug,
-                    page_translation_form.cleaned_data["slug"],
-                )
-                messages.warning(
-                    _("The slug was changed from '{user_slug}' to '{slug}'.").format(
+                other_translation = PageTranslation.objects.filter(
+                    page__region=region,
+                    slug=user_slug,
+                    language=language,
+                ).first()
+                if other_translation:
+                    other_translation_link = reverse(
+                        "page_versions",
+                        kwargs={
+                            "page_id": other_translation.page.id,
+                            "language_slug": language.slug,
+                            "region_slug": region.slug,
+                            "selected_version": other_translation.version,
+                        },
+                    )
+                    message = _(
+                        "The slug was changed from '{user_slug}' to '{slug}', "
+                        "because '{user_slug}' is already used by <a>{translation}</a>.",
+                    ).format(
                         user_slug=user_slug,
                         slug=page_translation_form.cleaned_data["slug"],
+                        translation=other_translation,
                     )
-                )
+                    messages.warning(
+                        request,
+                        translate_link(
+                            message,
+                            attributes={
+                                "href": other_translation_link,
+                                "class": "underline hover:no-underline",
+                            },
+                        ),
+                    )
+                else:
+                    logger.warning(
+                        "Slug was changed from the one the user provided, but we can't find the translation that already used it: %s (cleaned to %s)",
+                        user_slug,
+                        page_translation_form.cleaned_data["slug"],
+                    )
+                    messages.warning(
+                        _(
+                            "The slug was changed from '{user_slug}' to '{slug}'."
+                        ).format(
+                            user_slug=user_slug,
+                            slug=page_translation_form.cleaned_data["slug"],
+                        )
+                    )
 
     def set_dependent_translations_to_draft(
         self, page: Page, region: Region, language: Language

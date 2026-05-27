@@ -12,7 +12,8 @@ from celery import shared_task
 from django.apps import apps
 from django.conf import settings
 from django.db import transaction
-from django.db.models import Exists, OuterRef
+from django.db.models import Exists, OuterRef, Q
+from django.db.models.functions import Lower
 from django.utils.text import slugify
 
 if TYPE_CHECKING:
@@ -175,12 +176,12 @@ def generate_base_slug(
     Generates the base slug from the given slug or fallback.
     """
     if slug:
-        return slug
+        return slug.lower()
 
     allow_unicode = object_instance._meta.get_field("slug").allow_unicode
     slug = slugify(fallback, allow_unicode=allow_unicode)
 
-    return slug or foreign_model or ""
+    return slug.lower() or (foreign_model or "").lower()
 
 
 def get_prefiltered_queryset(
@@ -319,3 +320,31 @@ def make_all_slugs_unique(
             end_time,
             slug_counter,
         )
+
+
+def make_all_slug_lowercase(objects: tuple[SlugObject, ...] = DEFAULT_OBJECTS) -> None:
+    logger.info("Starting to make all slugs lowercase ...")
+    start_time = time()
+
+    slug_counter = 0
+
+    for model_name in objects:
+        translation_model = apps.get_model(
+            "cms", f"{model_name.capitalize()}Translation"
+        )
+
+        with_upper_case_slug = translation_model.objects.filter(~Q(slug=Lower("slug")))
+
+        slug_counter += update_translations(
+            with_upper_case_slug,
+            model_name,
+            dry_run=False,
+        )
+
+    end_time = time() - start_time
+
+    logger.info(
+        "Finished >make_all_slugs_lowercase< after: %.3fs with %d updated slugs",
+        end_time,
+        slug_counter,
+    )
