@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import pgtrigger
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q
@@ -167,7 +168,7 @@ class EventTranslation(AbstractContentTranslation):
                 "foreign_model": "event",
                 "region": self.event.region,
                 "language": self.language,
-                "fallback": "title",
+                "fallback": self.title,
             }
             self.slug = generate_unique_slug(**kwargs)
 
@@ -194,5 +195,41 @@ class EventTranslation(AbstractContentTranslation):
             models.UniqueConstraint(
                 fields=["event", "language", "version"],
                 name="%(class)s_unique_version",
+            ),
+        ]
+        triggers = [
+            # Trigger for INSERT and UPDATE
+            pgtrigger.Trigger(
+                name="enforce_slug_uniqueness",
+                when=pgtrigger.Before,
+                operation=pgtrigger.Insert | pgtrigger.Update,
+                func="""
+                DECLARE
+                    new_region_id INTEGER;
+                BEGIN
+                    -- Look up the region for the new/updated event
+                    SELECT region_id INTO new_region_id
+                    FROM cms_event
+                    WHERE id = NEW.event_id;
+
+                    -- Set advisory lock (Postgresql specific)
+                    PERFORM pg_advisory_xact_lock(hashtextextended(NEW.language_id || ':' || new_region_id || ':' || NEW.slug, 0));
+
+                    -- Check if there's a conflict (same slug/language/region but different event)
+                    IF EXISTS (
+                        SELECT 1
+                        FROM cms_eventtranslation t
+                        JOIN cms_event p ON t.event_id = p.id
+                        WHERE t.slug = NEW.slug
+                        AND t.language_id = NEW.language_id
+                        AND p.region_id = new_region_id
+                        AND t.event_id <> NEW.event_id
+                    ) THEN
+                        RAISE EXCEPTION 'Slug must be unique per language and region across different event.' USING ERRCODE = 'unique_violation'; -- SQLSTATE 23505
+                    END IF;
+
+                    RETURN NEW;
+                END;
+                """,
             ),
         ]

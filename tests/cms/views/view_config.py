@@ -31,38 +31,38 @@ from ...conftest import (
 )
 
 if TYPE_CHECKING:
-    from typing import Any, Final, TypeAlias
+    from typing import Any, Final
 
-    ViewNameStr: TypeAlias = str
-    ViewNameGetparams: TypeAlias = str
-    ViewName: TypeAlias = ViewNameStr | tuple[ViewNameStr, ViewNameGetparams]
-    Roles: TypeAlias = list[str]
-    PostDataDict: TypeAlias = dict[str, Any]
-    PostDataJSON: TypeAlias = str
-    PostData: TypeAlias = PostDataDict | PostDataJSON
-    View: TypeAlias = tuple[ViewName, Roles] | tuple[ViewName, Roles, PostData]
-    ViewKwargs: TypeAlias = dict[str, str | int]
-    ViewGroup: TypeAlias = tuple[list[View], ViewKwargs]
-    ViewConfig: TypeAlias = list[ViewGroup]
+    type ViewNameStr = str
+    type ViewNameGetparams = str
+    type ViewName = ViewNameStr | tuple[ViewNameStr, ViewNameGetparams]
+    type Roles = list[str]
+    type PostDataDict = dict[str, Any]
+    type PostDataJSON = str
+    type PostData = PostDataDict | PostDataJSON
+    type View = tuple[ViewName, Roles] | tuple[ViewName, Roles, PostData]
+    type ViewKwargs = dict[str, str | int]
+    type ViewGroup = tuple[list[View], ViewKwargs]
+    type ViewConfig = list[ViewGroup]
 
-    ParametrizedView: TypeAlias = tuple[ViewName, ViewKwargs, PostData, Roles]
-    ParametrizedViewConfig: TypeAlias = list[ParametrizedView]
+    type ParametrizedView = tuple[ViewName, ViewKwargs, PostData, Roles]
+    type ParametrizedViewConfig = list[ParametrizedView]
 
-    RedirectTarget: TypeAlias = str
-    RedirectView: TypeAlias = tuple[ViewNameStr, Roles, RedirectTarget]
-    RedirectViewGroup: TypeAlias = tuple[list[RedirectView], ViewKwargs]
-    RedirectViewConfig: TypeAlias = list[RedirectViewGroup]
+    type RedirectTarget = str
+    type RedirectView = tuple[ViewNameStr, Roles, RedirectTarget]
+    type RedirectViewGroup = tuple[list[RedirectView], ViewKwargs]
+    type RedirectViewConfig = list[RedirectViewGroup]
 
-    ParametrizedRedirectView: TypeAlias = tuple[
+    type ParametrizedRedirectView = tuple[
         ViewName,
         ViewKwargs,
         Roles,
         RedirectTarget,
     ]
-    ParametrizedRedirectViewConfig: TypeAlias = list[ParametrizedRedirectView]
+    type ParametrizedRedirectViewConfig = list[ParametrizedRedirectView]
 
     ParametrizedPublicView = tuple[ViewNameStr, PostDataDict]
-    ParametrizedPublicViewConfig: TypeAlias = list[ParametrizedPublicView]
+    type ParametrizedPublicViewConfig = list[ParametrizedPublicView]
 
 #: This list contains the config for all views
 #: Each element is a tuple which consists of two elements: A list of view configs and the keyword arguments that are
@@ -1549,18 +1549,8 @@ if settings.FCM_ENABLED:
                     "edit_push_notification",
                     [*PRIV_STAFF_ROLES, MANAGEMENT],
                     {
-                        "translations-TOTAL_FORMS": 2,
-                        "translations-INITIAL_FORMS": 2,
-                        "translations-MIN_NUM_FORMS": 2,
-                        "translations-MAX_NUM_FORMS": 9,
-                        "translations-0-id": 1,
-                        "translations-0-language": 1,
-                        "translations-0-title": "Test update a sent news",
-                        "translations-0-text": "New scheduled content",
-                        "translations-1-id": 2,
-                        "translations-1-language": 2,
-                        "translations-1-title": "Test EN",
-                        "translations-1-text": "Test EN content",
+                        "title": "Test EN",
+                        "text": "Test EN content",
                         "regions": [1],
                         "channel": "news",
                         "mode": "ONLY_AVAILABLE",
@@ -1589,14 +1579,8 @@ if settings.FCM_ENABLED:
                     "edit_push_notification",
                     PRIV_STAFF_ROLES,
                     {
-                        "translations-TOTAL_FORMS": 1,
-                        "translations-INITIAL_FORMS": 1,
-                        "translations-MIN_NUM_FORMS": 1,
-                        "translations-MAX_NUM_FORMS": 9,
-                        "translations-0-id": 7,
-                        "translations-0-language": 1,
-                        "translations-0-title": "Test editing push notification of other region",
-                        "translations-0-text": "New template content",
+                        "title": "Test editing push notification of other region",
+                        "text": "New template content",
                         "regions": [2],
                         "channel": "news",
                         "mode": "ONLY_AVAILABLE",

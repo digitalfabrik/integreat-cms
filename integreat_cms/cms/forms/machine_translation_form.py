@@ -148,7 +148,13 @@ class MachineTranslationForm(CustomContentModelForm):
         :param foreign_form_changed: Whether or not the foreign form of this translation form was changed
         :return: The saved content translation object
         """
-        self.instance = super().save(commit, foreign_form_changed)
+        # If no text content changed, mark the source translation as minor edit so that
+        # existing translations in other languages are not incorrectly flagged as outdated
+        if {"title", "content"}.isdisjoint(self.changed_data):
+            self.instance.minor_edit = True
+        self.instance: EventTranslation | PageTranslation | POITranslation = (
+            super().save(commit, foreign_form_changed)
+        )
 
         language_nodes = self.cleaned_data["mt_translations_to_create"].union(
             self.cleaned_data["mt_translations_to_update"],

@@ -153,7 +153,7 @@ def test_number_of_outdated_pages_is_correct(
     load_test_data: None,
     login_role_user: tuple[Client, str],
 ) -> None:
-    client, role = login_role_user
+    client, _role = login_role_user
     expected_number_of_pages = 13
 
     pages = reverse(
@@ -190,7 +190,7 @@ def test_most_outdated_page_is_correct(
     load_test_data: None,
     login_role_user: tuple[Client, str],
 ) -> None:
-    client, role = login_role_user
+    client, _role = login_role_user
     days_since_page_is_outdated = 1602
 
     dashboard = reverse(
@@ -257,7 +257,7 @@ def test_number_of_drafted_pages_is_correct(
     load_test_data: None,
     login_role_user: tuple[Client, str],
 ) -> None:
-    client, role = login_role_user
+    client, _role = login_role_user
     expected_number_of_pages = 1
 
     pages = reverse(
@@ -293,7 +293,7 @@ def test_single_drafted_page_is_correct(
     load_test_data: None,
     login_role_user: tuple[Client, str],
 ) -> None:
-    client, role = login_role_user
+    client, _role = login_role_user
 
     dashboard = reverse(
         "dashboard",

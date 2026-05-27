@@ -13,7 +13,7 @@ from django.views.generic import TemplateView
 
 from integreat_cms.core.utils.word_count import word_count
 
-from ...constants.machine_translatable_attributes import TRANSLATABLE_ATTRIBUTES
+from ...constants.machine_translatable_fields import TRANSLATABLE_FIELDS
 from ...constants.status import CHOICES
 from ...decorators import permission_required
 from ...forms import TranslationsManagementForm
@@ -72,7 +72,7 @@ class TranslationsManagementView(TemplateView):
                 ):
                     attributes_to_translate = [
                         (attr, getattr(latest_version, attr))
-                        for attr in TRANSLATABLE_ATTRIBUTES
+                        for attr in TRANSLATABLE_FIELDS
                         if hasattr(latest_version, attr)
                         and getattr(latest_version, attr)
                     ]

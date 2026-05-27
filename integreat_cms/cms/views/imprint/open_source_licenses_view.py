@@ -39,9 +39,7 @@ class OpenSourceLicensesView(TemplateView):
         packages = data["packages"]
 
         for package in packages:
-            package["versionInfo"] = (
-                package["versionInfo"] if package["versionInfo"] else "N/A"
-            )
+            package["versionInfo"] = package["versionInfo"] or "N/A"
             package["url"] = None
             if "externalRefs" in package:
                 package_managers = [

@@ -49,4 +49,4 @@ class CustomFilterForm(forms.Form):
 
         :return: Whether any filters (other than search) were changed
         """
-        return self.is_enabled and self.changed_data != ["query"]
+        return self.is_enabled and self.changed_data != ["search_query"]

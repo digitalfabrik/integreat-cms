@@ -4,7 +4,7 @@ This module contains shared fixtures for pytest
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 from unittest.mock import patch
 
 import pytest
@@ -13,7 +13,6 @@ from django.core.management import call_command
 from django.test.client import AsyncClient, Client
 
 from integreat_cms.cms.constants.roles import (
-    APP_TEAM,
     AUTHOR,
     CMS_TEAM,
     EDITOR,
@@ -23,11 +22,12 @@ from integreat_cms.cms.constants.roles import (
     OBSERVER,
     SERVICE_TEAM,
 )
+from integreat_cms.cms.models import Language, Page, Region
 from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 from tests.mock import MockServer
 
 if TYPE_CHECKING:
-    from collections.abc import Generator
+    from collections.abc import Callable, Generator
     from typing import Final
 
     from _pytest.fixtures import SubRequest
@@ -46,9 +46,9 @@ WRITE_ROLES: Final = [MANAGEMENT, EDITOR, AUTHOR, EVENT_MANAGER]
 #: All roles of region users
 REGION_ROLES: Final = [*WRITE_ROLES, OBSERVER]
 #: All roles of staff users
-STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM, APP_TEAM, MARKETING_TEAM]
+STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM, MARKETING_TEAM]
 #: All roles of staff users that don't just have read-only permissions
-PRIV_STAFF_ROLES: Final = [ROOT, APP_TEAM, SERVICE_TEAM, CMS_TEAM]
+PRIV_STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM]
 #: All roles of staff users that don't just have read-only permissions
 HIGH_PRIV_STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM]
 #: All region and staff roles
@@ -142,7 +142,7 @@ def mock_server(httpserver: HTTPServer) -> MockServer:
 
 
 @pytest.fixture(scope="function")
-def mock_firebase_credentials() -> Generator[None, None, None]:
+def mock_firebase_credentials() -> Generator[None]:
     patch_obj = patch.object(
         FirebaseSecurityService,
         "_get_access_token",
@@ -161,3 +161,27 @@ def configure_celery_for_tests(settings: SettingsWrapper) -> None:
     # so we set celery to run synchronously and propagate errors to the test runner
     settings.CELERY_TASK_ALWAYS_EAGER = True
     settings.CELERY_TASK_EAGER_PROPAGATES = True
+
+
+@pytest.fixture()
+def create_page() -> Callable[..., Page]:
+    def _create_page(
+        region: Region | None,
+        name_add: str = "",
+        parent: Page | None = None,
+    ) -> Page:
+        return (
+            parent.add_child(region=parent.region)
+            if parent
+            else Page.add_root(region=region)
+        )
+
+    return _create_page
+
+
+@pytest.fixture()
+def create_language() -> Callable[..., Language]:
+    def _create_language(**kwargs: Any) -> Language:
+        return Language.objects.create(**kwargs)
+
+    return _create_language

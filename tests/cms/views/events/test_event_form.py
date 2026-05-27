@@ -446,7 +446,7 @@ def test_event_start_date_range_validation(
     Test that event start dates are validated to be within ISO 8601 range (>= 1583)
     """
     client, role = login_role_user
-    start_date, end_date, should_succeed, error_field = parameter
+    start_date, end_date, should_succeed, _error_field = parameter
     settings.LANGUAGE_CODE = "en"
 
     new_event = reverse(

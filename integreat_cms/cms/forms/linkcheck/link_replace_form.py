@@ -39,7 +39,7 @@ class LinkReplaceForm(forms.Form):
         """
         Initialize link replace form
 
-        :param \**kwargs: The supplied keyword arguments
+        :param **kwargs: The supplied keyword arguments
         """
         self.region = kwargs.pop("region")
         super().__init__(**kwargs)

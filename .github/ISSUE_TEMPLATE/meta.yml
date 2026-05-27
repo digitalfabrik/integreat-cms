@@ -1,0 +1,175 @@
+name: 🗂️ Meta Issue
+description: A tracking issue that groups and coordinates related issues toward a common goal
+type: meta
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🗂️ Meta Issue
+        A high-level tracking issue that groups related stories, tasks, bugs, and research
+        toward a common goal. Meta issues do not contain implementation work themselves.
+
+        > ℹ️ This is a coordination and tracking tool, not a place for implementation details.
+        > All work should be captured in linked child issues. Once the meta issue is implemented in the first iteration, this issue is closed. All other issues relating to the same topic will be marked with labels.
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What is the overarching goal or objective this meta issue tracks?
+      placeholder: |
+        A clear, concise statement of what we are trying to achieve...
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: Background & Motivation
+      description: Why are we doing this? What is the business or technical driver?
+      placeholder: |
+        ### Context
+        What led to this initiative...
+
+        ### Problem
+        What problem are we solving at a high level...
+
+        ### Expected Impact
+        What will be different when this is done...
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope & Boundaries
+      description: What is and isn't part of this initiative?
+      placeholder: |
+        ### In Scope
+        - 
+
+        ### Out of Scope
+        - 
+
+        ### Assumptions
+        -
+    validations:
+      required: true
+
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Success Criteria
+      description: How do we know this initiative is successful?
+      placeholder: |
+        - [ ] Criterion 1...
+        - [ ] Criterion 2...
+        - [ ] Criterion 3...
+    validations:
+      required: true
+
+  - type: textarea
+    id: phases
+    attributes:
+      label: Phases / Milestones
+      description: >
+        Break the initiative into phases or milestones if applicable.
+        Link to GitHub milestones where relevant.
+      placeholder: |
+        ### Phase 1 — Research & Design
+        - **Target:** YYYY-MM-DD
+        - **Status:** 🟢 Complete / 🟡 In Progress / 🔴 Not Started
+        - Issues: #issue, #issue
+
+        ### Phase 2 — Implementation
+        - **Target:** YYYY-MM-DD
+        - **Status:** 🟢 Complete / 🟡 In Progress / 🔴 Not Started
+        - Issues: #issue, #issue
+
+        ### Phase 3 — Rollout & Verification
+        - **Target:** YYYY-MM-DD
+        - **Status:** 🟢 Complete / 🟡 In Progress / 🔴 Not Started
+        - Issues: #issue, #issue
+    validations:
+      required: false
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies & Risks
+      description: Cross-team dependencies, external blockers, and risks
+      placeholder: |
+        ### Dependencies
+        | Dependency | Owner / Team | Status | Notes |
+        |------------|-------------|--------|-------|
+        |            |             |        |       |
+
+        ### Risks
+        | Risk | Likelihood | Impact | Mitigation |
+        |------|-----------|--------|------------|
+        |      |           |        |            |
+
+        ### Open Questions
+        - [ ] Question 1...
+        - [ ] Question 2...
+    validations:
+      required: false
+
+  - type: textarea
+    id: stakeholders
+    attributes:
+      label: Stakeholders & Ownership
+      description: Who is involved and responsible?
+      placeholder: |
+        | Role | Person | Responsibility |
+        |------|--------|---------------|
+        | Owner | @username | Overall accountability |
+        | Tech Lead | @username | Technical direction |
+        | Product | @username | Requirements & prioritization |
+        | Design | @username | UI/UX design |
+        | QA | @username | Test strategy |
+    validations:
+      required: true
+
+  - type: textarea
+    id: decisions
+    attributes:
+      label: Key Decisions Log
+      description: >
+        Track important decisions made during this initiative.
+        Link to ADRs where applicable.
+      placeholder: |
+        | Date | Decision | Rationale | Decided by | ADR |
+        |------|----------|-----------|-----------|-----|
+        |      |          |           |           |     |
+    validations:
+      required: false
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Links & Resources
+      description: Relevant documentation, designs, discussions, and references
+      placeholder: |
+        - **PRD / RFC:** [link]
+        - **Design:** [Figma link]
+        - **Technical docs:** [link]
+        - **Mattermost channel:** [link]
+        - **Meeting notes:** [link]
+        - **Dashboard / Metrics:** [link]
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes & Updates
+      description: >
+        Running log of important updates. Add new entries at the top.
+      placeholder: |
+        ### YYYY-MM-DD
+        - Update summary...
+
+        ### YYYY-MM-DD
+        - Update summary...
+    validations:
+      required: false

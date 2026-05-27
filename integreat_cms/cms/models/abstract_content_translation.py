@@ -208,6 +208,17 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         return self.url_prefix + self.slug + "/"
 
+    def attr_differs_from(
+        self, attr: str, other_translation: AbstractContentTranslation
+    ) -> bool:
+        """
+        Compares the value of the same attribute on two different translations
+        :param attr: name of the attribute
+        :param other_translation: the translation `self` should be compared against
+        :return: True if the value of the attr is different
+        """
+        return getattr(self, attr, None) != getattr(other_translation, attr, None)
+
     @cached_property
     def full_url(self) -> str:
         """
@@ -615,6 +626,10 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         Function to replace links that are in the translation and match the given keyword `search`
         """
+        from ..utils.content_translation_utils import (
+            save_new_version_with_retry,
+        )
+
         new_translation = self.create_new_version_copy(user)
         logger.debug("Replacing links of %r: %r", new_translation, urls_to_replace)
         new_translation.content = rewrite_links(
@@ -623,8 +638,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         )
         new_translation.content = fix_content_link_encoding(new_translation.content)
         if new_translation.content != self.content and commit:
-            self.links.all().delete()
-            new_translation.save()
+            with transaction.atomic():
+                self.links.all().delete()
+                save_new_version_with_retry(new_translation, new_translation.save)
 
     def __str__(self) -> str:
         """
@@ -674,7 +690,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         and renumber all affected versions to be continuous.
         """
         # Moved here to avoid circular imports
-        from ...core.signals.hix_signals import disable_listeners as disable_hix
+        from ...core.signals.hix_signals import (
+            disable_listeners as disable_hix,
+        )
 
         logger.debug("Cleaning up old autosaves")
 

@@ -789,8 +789,7 @@ class RegionForm(CustomModelForm):
         """
         return (
             self.cleaned_data["zammad_access_token"]
-            if self.cleaned_data["zammad_access_token"]
-            else self.instance.zammad_access_token
+            or self.instance.zammad_access_token
         )
 
     @staticmethod

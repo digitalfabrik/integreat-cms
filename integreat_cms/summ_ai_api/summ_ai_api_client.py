@@ -18,7 +18,10 @@ from django.db import transaction
 from django.utils.translation import ngettext, ngettext_lazy
 
 from ..cms.utils.stringify_list import iter_to_string
-from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
+from ..core.utils.machine_translation_api_client import (
+    MachineTranslationApiClient,
+    TranslationContext,
+)
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
 from .utils import (
     HTMLSegment,
@@ -41,7 +44,8 @@ if TYPE_CHECKING:
     from django.http import HttpRequest
 
     from ..cms.models import Language
-    from ..cms.models.pages.page import Page
+    from ..cms.models.abstract_content_model import AbstractContentModel
+
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +59,7 @@ class SummAiApiClient(MachineTranslationApiClient):
         """
         Constructor initializes the class variables
 
-        :param region: The current region
+        :param request: The current request
         :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
                            subclass of the current content type
         """
@@ -205,7 +209,9 @@ class SummAiApiClient(MachineTranslationApiClient):
             return chain(worker_results)
 
     @transaction.atomic
-    def translate_queryset(self, queryset: list[Page], language_slug: str) -> None:
+    def translate_queryset(
+        self, queryset: list[AbstractContentModel], language_slug: str
+    ) -> None:
         """
         Translate a queryset of content objects from German into Easy German.
         To increase the speed of the translations, all operations are parallelized.
@@ -234,10 +240,10 @@ class SummAiApiClient(MachineTranslationApiClient):
         self.region = region
 
         # Filter out content objects which can not be translated
-        self.prepare_content_objects()
-        self.filter_no_source_translation()
-        self.filter_insufficient_hix_score()
-        self.filter_exceeds_limit()
+        context = self.prepare_content_objects()
+        context = self.filter_no_source_translation(context)
+        context = self.filter_insufficient_hix_score(context)
+        context = self.filter_exceeds_limit(context)
 
         # Make sure both languages exist
         region.get_language_or_404(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
@@ -247,8 +253,7 @@ class SummAiApiClient(MachineTranslationApiClient):
 
         # Initialize translation helpers for each object instance
         translation_helpers = [
-            TranslationHelper(self.request, self.form_class, object_instance)
-            for object_instance in self.queryset
+            TranslationHelper(self.request, self.form_class, ctx) for ctx in context
         ]
 
         # Aggregate all strings that need to be translated
@@ -322,32 +327,32 @@ class SummAiApiClient(MachineTranslationApiClient):
                 ),
             )
 
-    def filter_exceeds_limit(self) -> None:
+    def filter_exceeds_limit(
+        self, context: list[TranslationContext]
+    ) -> list[TranslationContext]:
         """
-        This method removes content objects from the main queryset
-        if translating them would exceed the translation budget.
+        This method filters out entries from the context list
+        if translating them would exceed the SUMM.AI translation budget.
 
-        The removed elements are stored in order to show users
+        The removed entries are stored in order to show users
         batched error messages after all objects have been handled.
 
-        :param source_language: The source language slug
+        :param context: The list of translation contexts to filter
+        :return: The filtered list of translation contexts
         """
         remaining_budget = self.region.summ_ai_budget_remaining
-        filtered_queryset = []
+        filtered_context = []
 
-        for content_object in self.queryset:
-            if (
-                max(1, content_object.word_count - settings.SUMM_AI_SOFT_MARGIN)
-                < remaining_budget
-            ):
-                filtered_queryset.append(content_object)
-                remaining_budget -= content_object.word_count
+        for ctx in context:
+            if not ctx.source_translation:
+                continue
+            if max(1, ctx.word_count - settings.SUMM_AI_SOFT_MARGIN) < remaining_budget:
+                filtered_context.append(ctx)
+                remaining_budget -= ctx.word_count
             else:
-                self.failed_because_exceeds_limit.append(
-                    content_object.source_translation.title
-                )
+                self.failed_because_exceeds_limit.append(ctx.source_translation.title)
 
-        self.queryset[:] = filtered_queryset
+        return filtered_context
 
     @classmethod
     def validate_response(cls, response_data: dict, response_status: int) -> bool:
@@ -414,7 +419,7 @@ class SummAiApiClient(MachineTranslationApiClient):
         """
         return ""
 
-    def invoke_translation_api(self) -> None:
+    def invoke_translation_api(self, context: list[TranslationContext]) -> None:
         """
         Dummy placeholder for the (unused) abstract method from MachineTranslationApiClient
         """

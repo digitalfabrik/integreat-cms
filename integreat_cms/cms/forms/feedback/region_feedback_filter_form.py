@@ -65,7 +65,7 @@ class RegionFeedbackFilterForm(CustomFilterForm):
         ),
         required=False,
     )
-    query = forms.CharField(required=False)
+    search_query = forms.CharField(required=False)
 
     def apply(
         self,
@@ -80,7 +80,7 @@ class RegionFeedbackFilterForm(CustomFilterForm):
         if not self.is_enabled:
             return feedback, None
 
-        if query := self.cleaned_data["query"]:
+        if query := self.cleaned_data["search_query"]:
             feedback = feedback.filter(comment__icontains=query)
 
         # Filter feedback for region

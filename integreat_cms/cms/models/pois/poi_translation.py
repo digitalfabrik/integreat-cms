@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import pgtrigger
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
@@ -188,7 +189,7 @@ class POITranslation(AbstractContentTranslation):
                 "foreign_model": "poi",
                 "region": self.poi.region,
                 "language": self.language,
-                "fallback": "title",
+                "fallback": self.title,
             }
             self.slug = generate_unique_slug(**kwargs)
 
@@ -215,5 +216,41 @@ class POITranslation(AbstractContentTranslation):
             models.UniqueConstraint(
                 fields=["poi", "language", "version"],
                 name="%(class)s_unique_version",
+            ),
+        ]
+        triggers = [
+            # Trigger for INSERT and UPDATE
+            pgtrigger.Trigger(
+                name="enforce_slug_uniqueness",
+                when=pgtrigger.Before,
+                operation=pgtrigger.Insert | pgtrigger.Update,
+                func="""
+                DECLARE
+                    new_region_id INTEGER;
+                BEGIN
+                    -- Look up the region for the new/updated poi
+                    SELECT region_id INTO new_region_id
+                    FROM cms_poi
+                    WHERE id = NEW.poi_id;
+
+                    -- Set advisory lock (Postgresql specific)
+                    PERFORM pg_advisory_xact_lock(hashtextextended(NEW.language_id || ':' || new_region_id || ':' || NEW.slug, 0));
+
+                    -- Check if there's a conflict (same slug/language/region but different poi)
+                    IF EXISTS (
+                        SELECT 1
+                        FROM cms_poitranslation t
+                        JOIN cms_poi p ON t.poi_id = p.id
+                        WHERE t.slug = NEW.slug
+                        AND t.language_id = NEW.language_id
+                        AND p.region_id = new_region_id
+                        AND t.poi_id <> NEW.poi_id
+                    ) THEN
+                        RAISE EXCEPTION 'Slug must be unique per language and region across different pois.' USING ERRCODE = 'unique_violation'; -- SQLSTATE 23505
+                    END IF;
+
+                    RETURN NEW;
+                END;
+                """,
             ),
         ]

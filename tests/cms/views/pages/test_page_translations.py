@@ -17,7 +17,7 @@ def test_cleanup_autosaves(
     load_test_data: None,
     login_role_user: tuple[Client, str],
 ) -> None:
-    client, role = login_role_user
+    client, _role = login_role_user
 
     new_page_url = reverse(
         "new_page",

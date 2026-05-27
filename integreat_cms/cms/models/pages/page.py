@@ -111,6 +111,10 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
                     # Set the relative depth to the relative depth of the parent + 1
                     page._relative_depth = result[page.parent_id].relative_depth + 1
                 else:
+                    if page.parent_id:
+                        page._cached_ancestors = list(
+                            page.get_ancestors().prefetch_public_translations()
+                        )
                     # Set the relative depth to 1
                     page._relative_depth = 1
                 result[page.id] = page
@@ -420,6 +424,9 @@ class Page(AbstractTreeNode, AbstractBasePage):
 
         :return: The canonical string representation of the page
         """
+        if not self.pk:
+            return "<Page (unsaved instance)>"
+
         parent_str = f", parent: {self.parent_id}" if self.parent_id else ""
         region_str = f", region: {self.region.slug}" if self.region else ""
         slug_str = (

@@ -84,16 +84,29 @@ class RecurrenceRuleForm(CustomModelForm):
                     _('Recurrence "daily" is not allowed anymore'), code="invalid"
                 ),
             )
-        elif cleaned_data.get("frequency") == frequency.WEEKLY and not cleaned_data.get(
-            "weekdays_for_weekly",
-        ):
-            self.add_error(
-                "weekdays_for_weekly",
-                forms.ValidationError(
-                    _("No weekdays for weekly recurrence selected"),
-                    code="required",
-                ),
-            )
+        elif cleaned_data.get("frequency") == frequency.WEEKLY:
+            if not cleaned_data.get("weekdays_for_weekly"):
+                self.add_error(
+                    "weekdays_for_weekly",
+                    forms.ValidationError(
+                        _("No weekdays for weekly recurrence selected"),
+                        code="required",
+                    ),
+                )
+            elif (
+                self.event_start_date
+                and self.event_start_date.weekday()
+                not in cleaned_data["weekdays_for_weekly"]
+            ):
+                self.add_error(
+                    "weekdays_for_weekly",
+                    forms.ValidationError(
+                        _(
+                            "The start date of the event does not match the selected weekdays for weekly recurrence"
+                        ),
+                        code="invalid",
+                    ),
+                )
         elif cleaned_data.get("frequency") == frequency.MONTHLY:
             if cleaned_data.get("weekday_for_monthly") is None:
                 self.add_error(
@@ -101,6 +114,20 @@ class RecurrenceRuleForm(CustomModelForm):
                     forms.ValidationError(
                         _("No weekday for monthly recurrence selected"),
                         code="required",
+                    ),
+                )
+            elif (
+                self.event_start_date
+                and self.event_start_date.weekday()
+                != cleaned_data["weekday_for_monthly"]
+            ):
+                self.add_error(
+                    "weekday_for_monthly",
+                    forms.ValidationError(
+                        _(
+                            "The start date of the event does not match the selected weekday for monthly recurrence"
+                        ),
+                        code="invalid",
                     ),
                 )
             if not cleaned_data.get("week_for_monthly"):
@@ -111,6 +138,31 @@ class RecurrenceRuleForm(CustomModelForm):
                         code="required",
                     ),
                 )
+            elif (
+                self.event_start_date
+                and "weekday_for_monthly" not in self.errors
+                and cleaned_data.get("weekday_for_monthly") is not None
+            ):
+                temp_rule = RecurrenceRule(
+                    frequency=frequency.MONTHLY,
+                    interval=cleaned_data.get("interval", 1),
+                    weekdays_for_weekly=[],
+                    weekday_for_monthly=cleaned_data["weekday_for_monthly"],
+                    week_for_monthly=cleaned_data["week_for_monthly"],
+                )
+                first_occurrence = next(
+                    iter(temp_rule.iter_after(self.event_start_date)), None
+                )
+                if first_occurrence != self.event_start_date:
+                    self.add_error(
+                        "week_for_monthly",
+                        forms.ValidationError(
+                            _(
+                                "The start date of the event does not match the selected week for monthly recurrence"
+                            ),
+                            code="invalid",
+                        ),
+                    )
 
         if (
             cleaned_data.get("recurrence_end_date")

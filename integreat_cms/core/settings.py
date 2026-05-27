@@ -134,7 +134,7 @@ API_EVENTS_MAX_TIME_SPAN_DAYS: Final[int] = 31
 
 #: The maximum duration of an event
 MAX_EVENT_DURATION: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_MAX_EVENT_DURATION", 28),
+    os.environ.get("INTEGREAT_CMS_MAX_EVENT_DURATION", "28"),
 )
 
 #: The company operating this CMS
@@ -196,7 +196,7 @@ DEFAULT_BOUNDING_BOX: Final[BoundingBox] = BoundingBox(
 
 #: The default timeout in seconds for retrieving external APIs etc.
 DEFAULT_REQUEST_TIMEOUT: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_DEFAULT_REQUEST_TIMEOUT", 10),
+    os.environ.get("INTEGREAT_CMS_DEFAULT_REQUEST_TIMEOUT", "10"),
 )
 
 #: Where release notes are stored
@@ -261,14 +261,14 @@ FCM_HISTORY_DAYS: Final[int] = 28
 #: The interval at which scheduled push notifications are sent out
 #: Must be <= 60 and a divisor of 60
 FCM_SCHEDULE_INTERVAL_MINUTES: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_FCM_SCHEDULE_INTERVAL_MINUTES", 60),
+    os.environ.get("INTEGREAT_CMS_FCM_SCHEDULE_INTERVAL_MINUTES", "60"),
 )
 if 60 % FCM_SCHEDULE_INTERVAL_MINUTES:
     raise ValueError("Interval must be <= 60 and a divisor of 60")
 
 #: Duration (in hours) that we retain pending push notifications for retry attempts before discarding them
 FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_NOTIFICATION_RETAIN_TIME_IN_HOURS", 24),
+    os.environ.get("INTEGREAT_CMS_NOTIFICATION_RETAIN_TIME_IN_HOURS", "24"),
 )
 
 ###########
@@ -338,22 +338,22 @@ TEXTLAB_API_CONTENT_TYPES: Final[list[str]] = ["pagetranslation"]
 
 #: How many seconds we should wait between the requests in the bulk management command
 TEXTLAB_API_BULK_WAITING_TIME: Final[float] = float(
-    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_WAITING_TIME", 0.5),
+    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_WAITING_TIME", "0.5"),
 )
 
 #: How many seconds we should wait after finishing a region in the bulk management command
 TEXTLAB_API_BULK_COOL_DOWN_PERIOD: Final[float] = float(
-    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_COOL_DOWN_PERIOD", 60),
+    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_COOL_DOWN_PERIOD", "60"),
 )
 
 #: Which text type / benchmark id to default to
 TEXTLAB_API_DEFAULT_BENCHMARK_ID: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_DEFAULT_BENCHMARK_ID", 420),
+    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_DEFAULT_BENCHMARK_ID", "420"),
 )
 
 #: The minimum HIX score required for machine translation
 HIX_REQUIRED_FOR_MT: Final[float] = float(
-    os.environ.get("INTEGREAT_CMS_HIX_REQUIRED_FOR_MT", 15.0),
+    os.environ.get("INTEGREAT_CMS_HIX_REQUIRED_FOR_MT", "15.0"),
 )
 
 
@@ -429,6 +429,7 @@ INSTALLED_APPS: Final[list[str]] = [
     "treebeard",
     "webpack_loader",
     "widget_tweaks",
+    "pgtrigger",
 ]
 
 #: Check whether redis is activated
@@ -883,7 +884,7 @@ EMAIL_HOST_USER: Final[str] = os.environ.get(
 
 #: Port to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`
 #: (see :setting:`django:EMAIL_PORT`)
-EMAIL_PORT: Final[int] = int(os.environ.get("INTEGREAT_CMS_EMAIL_PORT", 587))
+EMAIL_PORT: Final[int] = int(os.environ.get("INTEGREAT_CMS_EMAIL_PORT", "587"))
 
 #: Whether to use a TLS (secure) connection when talking to the SMTP server.
 #: This is used for explicit TLS connections, generally on port 587.
@@ -979,7 +980,7 @@ DEFAULT_PHONE_NUMBER_COUNTRY_CODE: Final[str] = os.environ.get(
 
 #: A floating point that specifies the percentage of MT budget used as a soft margin
 MT_SOFT_MARGIN_FRACTION: Final[float] = float(
-    os.environ.get("INTEGREAT_CMS_MT_SOFT_MARGIN", 0.01),
+    os.environ.get("INTEGREAT_CMS_MT_SOFT_MARGIN", "0.01"),
 )
 
 
@@ -1057,7 +1058,7 @@ SUMM_AI_API_KEY: str | None = os.environ.get("INTEGREAT_CMS_SUMM_AI_API_KEY")
 SUMM_AI_ENABLED: bool = bool(SUMM_AI_API_KEY)
 
 #: An integer specifying the number of translation credits for simplified translations that can be bought as an add-on
-SUMM_AI_CREDITS: Final[int] = int(os.environ.get("SUMM_AI_CREDITS", 10_000))
+SUMM_AI_CREDITS: Final[int] = int(os.environ.get("SUMM_AI_CREDITS", "10_000"))
 
 #: Whether requests to the SUMM.AI are done with the ``is_test`` flag
 SUMM_AI_TEST_MODE: Final[bool] = strtobool(
@@ -1069,17 +1070,17 @@ SUMM_AI_TIMEOUT: Final[int] = 10
 
 #: The limit for "Too many requests".
 SUMM_AI_MAX_CONCURRENT_REQUESTS = int(
-    os.environ.get("INTEGREAT_CMS_SUMM_AI_MAX_CONCURRENT_REQUESTS", 20),
+    os.environ.get("INTEGREAT_CMS_SUMM_AI_MAX_CONCURRENT_REQUESTS", "20"),
 )
 
 #: Waiting time after "Too many requests" response was sent
 SUMM_AI_RATE_LIMIT_COOLDOWN = float(
-    os.environ.get("INTEGREAT_CMS_SUMM_AI_RATE_LIMIT_COOLDOWN", 30),
+    os.environ.get("INTEGREAT_CMS_SUMM_AI_RATE_LIMIT_COOLDOWN", "30"),
 )
 
 #: Maximum amount of retries before giving up
 #: Retries are reset if translation requests are successful after completing the cooldown
-SUMM_AI_MAX_RETRIES = int(os.environ.get("INTEGREAT_CMS_SUMM_AI_MAX_RETRIES", 5))
+SUMM_AI_MAX_RETRIES = int(os.environ.get("INTEGREAT_CMS_SUMM_AI_MAX_RETRIES", "5"))
 
 #: The language slugs for German
 SUMM_AI_GERMAN_LANGUAGE_SLUG: Final[str] = os.environ.get(
@@ -1189,7 +1190,7 @@ LEGACY_FILE_UPLOAD: Final[bool] = bool(
 
 #: The maximum size of media files in bytes
 MEDIA_MAX_UPLOAD_SIZE: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_MEDIA_MAX_UPLOAD_SIZE", 3 * 1024 * 1024),
+    os.environ.get("INTEGREAT_CMS_MEDIA_MAX_UPLOAD_SIZE", str(3 * 1024 * 1024)),
 )
 
 
@@ -1360,7 +1361,7 @@ PDF_URL: Final[str] = "/pdf/"
 #: Slugs of languages for which PDF export should be deactivated
 PDF_DEACTIVATED_LANGUAGES: Final[str | list[str]] = os.environ.get(
     "INTEGREAT_CMS_PDF_DEACTIVATED_LANGUAGES",
-    [],
+    "[]",
 )
 
 
@@ -1448,7 +1449,7 @@ INTEGREAT_CHAT_BACK_END_DOMAIN = os.environ.get(
 #: Integreat Chat (app) backend timeout
 INTEGREAT_CHAT_BACK_END_TIMEOUT = os.environ.get(
     "INTEGREAT_CMS_INTEGREAT_CHAT_BACK_END_TIMEOUT",
-    300,
+    "300",
 )
 
 #: The e-mail address of the user that the Integreat
@@ -1504,5 +1505,5 @@ CELERY_RESULT_BACKEND = os.environ.get(
 # Slugs of regions participating in the pilot phase of page based statistics
 PILOT_REGIONS_PAGE_BASED_STATISTICS = os.environ.get(
     "INTEGREAT_CMS_PILOT_REGIONS_PAGE_BASED_STATISTICS",
-    [""],
+    '[""]',
 )

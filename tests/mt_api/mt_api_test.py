@@ -22,6 +22,7 @@ from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import Event, Language, Page, PageTranslation, POI, Region
 from integreat_cms.cms.models.pois.poi import get_default_opening_hours
 from integreat_cms.cms.utils.stringify_list import iter_to_string
+from integreat_cms.core.utils.word_count import word_count
 from integreat_cms.google_translate_api.google_translate_api_client import (
     GoogleTranslateApiClient,
 )
@@ -40,7 +41,7 @@ from .google_translate_api_test import (
     setup_fake_google_translate_api,
     setup_google_translate_supported_languages,
 )
-from .utils import get_content_translations, get_english_name, get_word_count
+from .utils import get_content_translations, get_english_name
 
 # Slugs we want to use for testing
 REGION_SLUG: Final[str] = "augsburg"
@@ -136,6 +137,16 @@ def test_bulk_mt(
 
     # Log the user in
     client, role = login_role_user
+
+    expected_word_count = 0
+    for content_obj in content_type.objects.filter(id__in=ids):
+        attrs = content_obj.get_translatable_attributes(
+            ["title", "content", "meta_description"],
+            source_language_slug,
+            target_language_slug,
+        )
+        expected_word_count += word_count(attrs)
+
     # Translate the pois
     machine_translation = reverse(
         "machine_translation_" + content_type._meta.default_related_name,
@@ -197,13 +208,9 @@ def test_bulk_mt(
                         == f"This is your translation from {provider}"
                     )
 
-            # Check that used MT budget value in the region has been increased to the number of translated words
-            translated_word_count = get_word_count(
-                [translation[source_language_slug] for translation in translations],
-            )
             assert (
                 Region.objects.get(slug=REGION_SLUG).mt_budget_used
-                == translated_word_count
+                == expected_word_count
             )
 
         elif role == ANONYMOUS:
@@ -562,6 +569,17 @@ def test_automatic_translation(
     # Log the user in
     client, role = login_role_user
 
+    # Compute expected word count from the form data that will be submitted.
+    # We can't use get_translatable_attributes here because the form POST
+    # changes the source translation before MT runs.
+    expected_word_count = word_count(
+        [
+            (attr, data[attr])
+            for attr in ["title", "content", "meta_description"]
+            if data.get(attr)
+        ]
+    )
+
     # Get "page" from PAGE, "poi" from POI and "event" from EVENT
     content_name = content_type._meta.verbose_name if content_type is not POI else "poi"
 
@@ -635,11 +653,9 @@ def test_automatic_translation(
                 target_translation.content
                 == f"<p>This is your translation from {provider}</p>"
             )
-            # Check that used MT budget value in the region has been increased to the number of translated words
-            translated_word_count = get_word_count([source_translation])
             assert (
                 Region.objects.get(slug=REGION_SLUG).mt_budget_used
-                == translated_word_count
+                == expected_word_count
             )
         elif role == ANONYMOUS:
             # For anonymous users, we want to redirect to the login form instead of showing an error
@@ -822,12 +838,16 @@ do_not_translate_title = [True, False]
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("do_not_translate_title", do_not_translate_title)
+@pytest.mark.parametrize(
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
+    indirect=True,
+)
 def test_do_not_translate_title(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     do_not_translate_title: bool,
     settings: SettingsWrapper,
-    caplog: LogCaptureFixture,
     mock_server: MockServer,
 ) -> None:
     """
@@ -840,106 +860,234 @@ def test_do_not_translate_title(
     :param caplog: The :fixture:`caplog` fixture
     :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     """
-    client, role = login_role_user
+    client, _role = login_role_user
 
-    if role in [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR]:
-        region = Region.objects.get(slug=REGION_SLUG)
-        test_page = Page.objects.create(
-            region=region,
-            do_not_translate_title=do_not_translate_title,
-            lft=1,
-            rgt=2,
-            tree_id=14,
-            depth=1,
+    region = Region.objects.get(slug=REGION_SLUG)
+    test_page = Page.objects.create(
+        region=region,
+        do_not_translate_title=do_not_translate_title,
+        lft=1,
+        rgt=2,
+        tree_id=14,
+        depth=1,
+    )
+    PageTranslation.objects.create(
+        page=test_page,
+        title="xxxx",
+        slug="xxxx",
+        language=Language.objects.get(slug="de"),
+        content="",
+    )
+
+    mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
+
+    with patch.object(
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
+    ):
+        edit_page_de = reverse(
+            "edit_page",
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "language_slug": "de",
+                "page_id": test_page.id,
+            },
         )
-        de_translation = PageTranslation.objects.create(
-            page=test_page,
-            title="xxxx",
-            slug="xxxx",
-            language=Language.objects.get(slug="de"),
-            content="",
+        client.post(
+            edit_page_de,
+            data={
+                "title": "Neuer Titel",
+                "content": "Neuer Inhalt",
+                "mirrored_page_region": "",
+                "automatic_translation": "on",
+                "mt_translations_to_create": region.language_tree_nodes.get(
+                    language__slug="en"
+                ).id,
+                "status": status.PUBLIC,
+                "_position": "right",
+                "do_not_translate_title": do_not_translate_title,
+            },
         )
 
-        mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
+        de_translation = PageTranslation.objects.filter(
+            page=test_page, language__slug="de"
+        ).first()
+        en_translation = PageTranslation.objects.filter(
+            page=test_page, language__slug="en"
+        ).first()
 
-        with patch.object(
-            GoogleTranslateApiClient,
-            "__init__",
-            setup_fake_google_translate_api,
-        ):
-            edit_page_de = reverse(
-                "edit_page",
-                kwargs={
-                    "region_slug": REGION_SLUG,
-                    "language_slug": "de",
-                    "page_id": test_page.id,
-                },
-            )
-            client.post(
-                edit_page_de,
-                data={
-                    "title": "Neuer Titel",
-                    "content": "Neuer Inhalt",
-                    "mirrored_page_region": "",
-                    "automatic_translation": "on",
-                    "mt_translations_to_create": Language.objects.get(slug="en").id,
-                    "status": status.PUBLIC,
-                    "_position": "right",
-                    "do_not_translate_title": do_not_translate_title,
-                },
-            )
+        assert de_translation
+        assert en_translation
 
-            de_translation = PageTranslation.objects.filter(
-                page=test_page, language__slug="de"
-            ).first()
-            en_translation = PageTranslation.objects.filter(
-                page=test_page, language__slug="en"
-            ).first()
+        if do_not_translate_title:
+            assert en_translation.title == de_translation.title
+        else:
+            assert en_translation.title == "This is your translation from DeepL"
 
-            assert de_translation
-            assert en_translation
+        edit_page_en = reverse(
+            "edit_page",
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "language_slug": "en",
+                "page_id": test_page.id,
+            },
+        )
+        client.post(
+            edit_page_en,
+            data={
+                "title": "Titel in English",
+                "content": "New content",
+                "mirrored_page_region": "",
+                "automatic_translation": "on",
+                "mt_translations_to_create": region.language_tree_nodes.get(
+                    language__slug="ar"
+                ).id,
+                "status": status.PUBLIC,
+                "_position": "right",
+                "do_not_translate_title": do_not_translate_title,
+            },
+        )
 
-            if do_not_translate_title:
-                assert en_translation.title == de_translation.title
-            else:
-                assert en_translation.title == "This is your translation from DeepL"
+        en_translation = PageTranslation.objects.filter(
+            page=test_page, language__slug="en"
+        ).first()
+        ar_translation = PageTranslation.objects.filter(
+            page=test_page, language__slug="ar"
+        ).first()
 
-            edit_page_en = reverse(
-                "edit_page",
-                kwargs={
-                    "region_slug": REGION_SLUG,
-                    "language_slug": "en",
-                    "page_id": test_page.id,
-                },
-            )
-            client.post(
-                edit_page_en,
-                data={
-                    "title": "Titel in English",
-                    "content": "New content",
-                    "mirrored_page_region": "",
-                    "automatic_translation": "on",
-                    "mt_translations_to_create": Language.objects.get(slug="ar").id,
-                    "status": status.PUBLIC,
-                    "_position": "right",
-                    "do_not_translate_title": do_not_translate_title,
-                },
+        assert en_translation
+        assert ar_translation
+
+        if do_not_translate_title:
+            assert ar_translation.title == en_translation.title
+        else:
+            assert (
+                ar_translation.title == "This is your translation from Google Translate"
             )
 
-            en_translation = PageTranslation.objects.filter(
-                page=test_page, language__slug="en"
-            ).first()
-            ar_translation = PageTranslation.objects.filter(
-                page=test_page, language__slug="ar"
-            ).first()
 
-            assert en_translation
-            assert ar_translation
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
+    indirect=True,
+)
+def test_mt_empty_content(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
+    mock_server: MockServer,
+) -> None:
+    """
+    When a page is saved with empty content and MT update enabled:
+    - target translations are cleared
+    - translations are marked as up to date
+    - no MT API request is sent
+    """
+    client, _role = login_role_user
 
-            if do_not_translate_title:
-                assert ar_translation.title == en_translation.title
-            else:
-                assert (
-                    ar_translation.title
-                    == "This is your translation from Google Translate"
-                )
+    region = Region.objects.get(slug=REGION_SLUG)
+    test_page = Page.objects.create(
+        region=region,
+        lft=1,
+        rgt=2,
+        tree_id=14,
+        depth=1,
+    )
+    PageTranslation.objects.create(
+        page=test_page,
+        title="Titel",
+        slug="titel",
+        language=Language.objects.get(slug="de"),
+        content="Inhalt",
+    )
+    PageTranslation.objects.create(
+        page=test_page,
+        title="Titel",
+        slug="titel",
+        language=Language.objects.get(slug="en"),
+        content="Content",
+    )
+    PageTranslation.objects.create(
+        page=test_page,
+        title="العنوان",
+        slug="العنوان",
+        language=Language.objects.get(slug="ar"),
+        content="المحتوى",
+    )
+
+    mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
+
+    with patch.object(
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
+    ):
+        edit_page_de = reverse(
+            "edit_page",
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "language_slug": "de",
+                "page_id": test_page.id,
+            },
+        )
+        client.post(
+            edit_page_de,
+            data={
+                "title": "Titel",
+                "content": "",
+                "mirrored_page_region": "",
+                "automatic_translation": "on",
+                "mt_translations_to_update": region.language_tree_nodes.get(
+                    language__slug="en"
+                ).id,
+                "status": status.PUBLIC,
+                "_position": "right",
+            },
+        )
+
+        en_translation = PageTranslation.objects.filter(
+            page=test_page, language__slug="en"
+        ).first()
+
+        assert en_translation
+        assert en_translation.title == "Titel"
+        assert en_translation.content == ""
+        assert en_translation.machine_translated is True
+        assert en_translation.is_up_to_date is True
+        assert mock_server.requests_counter == 0
+
+        edit_page_en = reverse(
+            "edit_page",
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "language_slug": "en",
+                "page_id": test_page.id,
+            },
+        )
+        client.post(
+            edit_page_en,
+            data={
+                "title": "Titel",
+                "content": "",
+                "mirrored_page_region": "",
+                "automatic_translation": "on",
+                "mt_translations_to_update": region.language_tree_nodes.get(
+                    language__slug="ar"
+                ).id,
+                "status": status.PUBLIC,
+                "_position": "right",
+            },
+        )
+
+        ar_translation = PageTranslation.objects.filter(
+            page=test_page, language__slug="ar"
+        ).first()
+
+        assert ar_translation
+        assert ar_translation.title == "العنوان"
+        assert ar_translation.content == ""
+        assert ar_translation.machine_translated is True
+        assert ar_translation.is_up_to_date is True
+        assert mock_server.requests_counter == 0
