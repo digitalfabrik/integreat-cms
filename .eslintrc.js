@@ -87,7 +87,6 @@ module.exports = {
         "import/extensions": "off",
         "import/no-extraneous-dependencies": "off",
         "import/prefer-default-export": "off",
-        "import/no-named-as-default": "off",
         "indent": "off",
         "lines-between-class-members": "off",
         "react/jsx-filename-extension": "off",
@@ -119,6 +118,149 @@ module.exports = {
         "react-hooks/exhaustive-deps": "error",
         "vars-on-top": "error",
         "no-console": ["error", { allow: ["debug", "warn", "error"] }],
+
+        // re-enabled from airbnb
+        "import/first": ["error"],
+        "import/order": [
+            "error",
+            {
+                groups: [["builtin", "external", "internal"]],
+                distinctGroup: true,
+                sortTypesGroup: false,
+                named: false,
+                warnOnUnassignedImports: false,
+            },
+        ],
+        "import/newline-after-import": ["error"],
+        "camelcase": [
+            "error",
+            {
+                properties: "never",
+                ignoreDestructuring: false,
+                ignoreImports: false,
+                ignoreGlobals: false,
+            },
+        ],
+        "no-nested-ternary": ["error"],
+        "no-await-in-loop": ["error"],
+        "consistent-return": ["error"],
+        "dot-notation": [
+            "error",
+            {
+                allowKeywords: true,
+                allowPattern: "",
+            },
+        ],
+        "eqeqeq": [
+            "error",
+            "always",
+            {
+                null: "ignore",
+            },
+        ],
+        "guard-for-in": ["error"],
+        "no-alert": ["warn"],
+        "no-eval": ["error"],
+        "no-implied-eval": ["error"],
+        "no-loop-func": ["error"],
+        "no-new-func": ["error"],
+        "no-param-reassign": [
+            "error",
+            {
+                props: true,
+                ignorePropertyModificationsFor: [
+                    "acc",
+                    "accumulator",
+                    "e",
+                    "ctx",
+                    "context",
+                    "req",
+                    "request",
+                    "res",
+                    "response",
+                    "$scope",
+                    "staticContext",
+                ],
+            },
+        ],
+        "no-return-assign": ["error", "always"],
+        "no-self-compare": ["error"],
+        "no-sequences": ["error"],
+        "no-throw-literal": ["error"],
+
+        "no-underscore-dangle": [
+            "error",
+            {
+                allow: ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"],
+                allowAfterThis: false,
+                allowAfterSuper: false,
+                enforceInMethodNames: true,
+                allowAfterThisConstructor: false,
+                allowFunctionParams: true,
+                enforceInClassFields: false,
+                allowInArrayDestructuring: true,
+                allowInObjectDestructuring: true,
+            },
+        ],
+        "react/jsx-pascal-case": [
+            "error",
+            {
+                allowAllCaps: true,
+                ignore: [],
+            },
+        ],
+        "react/no-array-index-key": ["error"],
+        "react/button-has-type": [
+            "error",
+            {
+                button: true,
+                submit: true,
+                reset: false,
+            },
+        ],
+        "react/no-unstable-nested-components": ["error"],
+        "react/no-invalid-html-attribute": ["error"],
+        "import/no-named-as-default": ["error"],
+        "arrow-body-style": [
+            "error",
+            "as-needed",
+            {
+                requireReturnForObjectLiteral: false,
+            },
+        ],
+        "no-bitwise": ["error"],
+        "no-continue": ["error"],
+        "one-var": ["error", "never"],
+        "spaced-comment": [
+            "error",
+            "always",
+            {
+                line: {
+                    exceptions: ["-", "+"],
+                    markers: ["=", "!", "/"],
+                },
+                block: {
+                    exceptions: ["-", "+"],
+                    markers: ["=", "!", ":", "::"],
+                    balanced: true,
+                },
+            },
+        ],
+        "no-promise-executor-return": ["error"],
+        "no-template-curly-in-string": ["error"],
+        "no-unreachable-loop": [
+            "error",
+            {
+                ignore: [],
+            },
+        ],
+        "no-extend-native": ["error"],
+        "no-lone-blocks": ["error"],
+        "no-new": ["error"],
+        "no-script-url": ["error"],
+        "no-useless-return": ["error"],
+        "no-void": ["error"],
+        "yoda": ["error"],
     },
     overrides: [
         {
