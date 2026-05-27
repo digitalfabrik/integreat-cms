@@ -66,7 +66,7 @@
             python311Packages.platformdirs
 
             nodePackages.npm
-            nodejs_22
+            nodejs_20
 
             gettext
             netcat-gnu

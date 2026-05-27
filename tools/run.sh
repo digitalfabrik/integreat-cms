@@ -29,6 +29,11 @@ if [[ "$*" != *"--fast"* ]]; then
     deescalate_privileges bash "${DEV_TOOL_DIR}/translate.sh"
 fi
 
+# Remove any stale webpack-stats.json from a previous run so the gate
+# below cannot be fooled into proceeding while webpack is still building
+# (e.g. into reading a leftover "error" or "done" status from before).
+rm -f "${PACKAGE_DIR}/webpack-stats.json"
+
 # Check if compiled webpack output exists
 if [[ -z $(compgen -G "${PACKAGE_DIR}/static/dist/main.*.js") ]]; then
     echo -e "The compiled static files do not exist yet, therefore the start of the Django dev server will be delayed until the initial WebPack build is completed." | print_warning
@@ -38,8 +43,33 @@ fi
 echo -e "Starting WebPack dev server in background..." | print_info | print_prefix "webpack" 36
 deescalate_privileges npm run dev 2>&1 | print_prefix "webpack" 36 &
 
-# Waiting for initial WebPack dev build
-while [[ -z $(compgen -G "${PACKAGE_DIR}/static/dist/main.*.js") ]]; do
+# Wait for the initial WebPack dev build to finish writing webpack-stats.json.
+# We block on the actual ``status`` field rather than the presence of a dist
+# file, because webpack only ``clean``s the dist directory just before emit;
+# a leftover ``main.*.js`` from a prior good build would otherwise let Django
+# start while webpack is still compiling, racing into a 500.
+WEBPACK_STATS_FILE="${PACKAGE_DIR}/webpack-stats.json"
+WEBPACK_WAIT_DEADLINE=$(( SECONDS + 180 ))
+while :; do
+    WEBPACK_STATUS=$(python3 -c "
+import json, sys
+try:
+    with open('${WEBPACK_STATS_FILE}', encoding='utf-8') as f:
+        print(json.load(f).get('status', ''))
+except (OSError, ValueError):
+    pass
+" 2>/dev/null || true)
+    if [[ "${WEBPACK_STATUS}" == "done" ]]; then
+        break
+    fi
+    if [[ "${WEBPACK_STATUS}" == "error" ]]; then
+        echo -e "Initial WebPack build failed; see the [webpack] log above for details." | print_error
+        exit 1
+    fi
+    if (( SECONDS > WEBPACK_WAIT_DEADLINE )); then
+        echo -e "Initial WebPack build did not complete within 180s." | print_error
+        exit 1
+    fi
     sleep 1
 done
 
