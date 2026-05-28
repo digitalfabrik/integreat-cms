@@ -34,7 +34,7 @@ def test_when_creating_even_translations_to_automatically_create_unique_slugs() 
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True)
+@pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_db_trigger_enforce_slug_uniqueness_on_event_translations() -> None:
     region = Region.objects.create(slug="trigger-test-region")
     event1 = Event.objects.create(
@@ -63,7 +63,7 @@ def test_db_trigger_enforce_slug_uniqueness_on_event_translations() -> None:
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True)
+@pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_db_trigger_enforce_slug_uniqueness_on_bulk_creation() -> None:
     region = Region.objects.create(slug="trigger-test-region")
     event1 = Event.objects.create(
