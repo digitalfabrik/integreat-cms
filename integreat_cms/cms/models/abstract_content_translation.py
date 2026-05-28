@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 from copy import deepcopy
 from html import escape
-from typing import TYPE_CHECKING
+from typing import ClassVar, TYPE_CHECKING
 
 from django.conf import settings
 from django.db import models, transaction
@@ -42,6 +42,9 @@ class AbstractContentTranslation(AbstractBaseModel):
     """
     Data model representing a translation of some kind of content (e.g. pages or events)
     """
+
+    #: Field path for language filtering in search suggestions (see SearchSuggestMixin)
+    language_filter_field: ClassVar[str | None] = "language__slug"
 
     title = TruncatingCharField(max_length=1024, verbose_name=_("title"))
     slug = models.SlugField(
@@ -502,13 +505,20 @@ class AbstractContentTranslation(AbstractBaseModel):
         cls,
         region: Region | None = None,
         archived: bool = False,
+        language_slug: str | None = None,
     ) -> QuerySet:
         """
-        Restrict suggestion sources to the latest translation per (object, language)
-        so that token suggestions reflect what list views actually display, instead
-        of mixing in tokens from outdated revisions.
+        Restrict suggestion sources to the latest *published* translation per
+        (object, language) so that token suggestions reflect what list views
+        actually display, instead of mixing in tokens from outdated revisions or
+        unpublished drafts.
         """
-        qs = super().get_suggest_queryset(region=region, archived=archived)
+        qs = super().get_suggest_queryset(
+            region=region, archived=archived, language_slug=language_slug
+        )
+        # Only published translations are shown in list views, so suggestions
+        # must not leak titles of drafts / pending revisions.
+        qs = qs.filter(status=status.PUBLIC)
         foreign_id = f"{cls.foreign_field()}_id"
         latest_ids = (
             qs.order_by(foreign_id, "language_id", "-version")

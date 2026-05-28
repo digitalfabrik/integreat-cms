@@ -84,6 +84,9 @@ class SearchSuggestMixin(models.Model):
     #: Field path for archived filtering (e.g., "archived", "event__archived"). None if not applicable.
     archived_filter_field: ClassVar[str | None] = None
 
+    #: Field path for language filtering (e.g., "language__slug"). None if not language-specific.
+    language_filter_field: ClassVar[str | None] = None
+
     class Meta:
         abstract = True
 
@@ -92,20 +95,24 @@ class SearchSuggestMixin(models.Model):
         cls,
         region: Region | None = None,
         archived: bool = False,
+        language_slug: str | None = None,
     ) -> QuerySet[Any]:
         """
         Return the base queryset for suggest_tokens. Override in subclasses
         to customize filtering (e.g., to include global/shared records).
 
         :param region: The region to filter by (optional)
-        :param archived: Whether to include archived records (default: False)
+        :param archived: Whether to return archived (True) or active (False) records
+        :param language_slug: The language slug to filter by (optional)
         :return: A filtered queryset
         """
         qs = cls.objects.all()
         if region and cls.region_filter_field:
             qs = qs.filter(**{cls.region_filter_field: region})
-        if not archived and cls.archived_filter_field:
-            qs = qs.filter(**{cls.archived_filter_field: False})
+        if cls.archived_filter_field:
+            qs = qs.filter(**{cls.archived_filter_field: archived})
+        if language_slug and cls.language_filter_field:
+            qs = qs.filter(**{cls.language_filter_field: language_slug})
         return qs
 
     @classmethod
@@ -114,6 +121,7 @@ class SearchSuggestMixin(models.Model):
         query: str,
         region: Region | None = None,
         archived: bool = False,
+        language_slug: str | None = None,
         **kwargs: Any,
     ) -> dict[str, list[dict[str, Any]]]:
         """
@@ -124,7 +132,8 @@ class SearchSuggestMixin(models.Model):
 
         :param query: The search query string
         :param region: The region to filter by (optional)
-        :param archived: Whether to include archived records (default: False)
+        :param archived: Whether to return archived (True) or active (False) records
+        :param language_slug: The language slug to filter by (optional)
         :param kwargs: Additional arguments (unused, for compatibility)
         :return: Dict with "suggestions" key containing list of {suggestion, score} dicts
         """
@@ -149,7 +158,9 @@ class SearchSuggestMixin(models.Model):
         for field in fields:
             q_filter |= Q(**{f"{field}__icontains": query})
 
-        qs = cls.get_suggest_queryset(region=region, archived=archived).filter(q_filter)
+        qs = cls.get_suggest_queryset(
+            region=region, archived=archived, language_slug=language_slug
+        ).filter(q_filter)
 
         # Annotate with similarity scores for each field
         for field in fields:

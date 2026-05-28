@@ -72,6 +72,7 @@ def search_suggest(
         query=query,
         region=request.region,
         archived=archived,
+        language_slug=language_slug,
     )
 
     # Sort by score descending and limit results

@@ -34,6 +34,7 @@ class Directory(AbstractBaseModel, SearchSuggestMixin):
         cls,
         region: Region | None = None,
         archived: bool = False,  # noqa: ARG003
+        language_slug: str | None = None,
     ) -> QuerySet[Any]:
         """
         Include both regional and global (non-hidden) directories,
@@ -41,6 +42,7 @@ class Directory(AbstractBaseModel, SearchSuggestMixin):
 
         :param region: The region to filter by (optional)
         :param archived: Whether to include archived records (unused for directories)
+        :param language_slug: Unused; directories are not language-specific
         :return: A filtered queryset
         """
         return cls.objects.filter(

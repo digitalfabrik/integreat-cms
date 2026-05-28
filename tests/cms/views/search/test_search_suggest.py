@@ -346,3 +346,32 @@ def test_page_suggest_queryset_has_no_queryset_in_filtered_relation(
     assert not _condition_contains_queryset(filtered_relation.condition), (
         "FilteredRelation condition must use a materialized list of ids, not a QuerySet"
     )
+
+
+@pytest.mark.django_db
+def test_search_suggest_is_language_scoped(
+    load_test_data: None,
+    admin_client: Client,
+) -> None:
+    """
+    The endpoint must scope suggestions to the language in the URL. Event 1
+    (Augsburg) has the German title "Test-Veranstaltung mit neuem Titel" and the
+    English title "Test-Event"; the English title must not surface on the German
+    list. This also exercises that the view forwards ``language_slug`` at all.
+    """
+
+    def suggest(language_slug: str) -> list[str]:
+        url = reverse(
+            "search_suggest",
+            kwargs={"region_slug": REGION_SLUG, "language_slug": language_slug},
+        )
+        response = admin_client.post(
+            url,
+            data=json.dumps({"query_string": "Test-Event", "object_type": "event"}),
+            content_type="application/json",
+        )
+        assert response.status_code == 200
+        return [s["suggestion"] for s in response.json()["data"]["suggestions"]]
+
+    assert "Test-Event" in suggest("en")
+    assert "Test-Event" not in suggest("de")

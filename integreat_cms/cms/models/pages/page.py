@@ -268,6 +268,7 @@ class Page(AbstractTreeNode, AbstractBasePage, SearchSuggestMixin):
         cls,
         region: Region | None = None,
         archived: bool = False,
+        language_slug: str | None = None,
     ) -> QuerySet:
         """
         Restrict suggestion sources to the latest translation per (page, language)
@@ -281,13 +282,17 @@ class Page(AbstractTreeNode, AbstractBasePage, SearchSuggestMixin):
         this special case can be removed and the abstract override will cover pages too.
         """
         qs = super().get_suggest_queryset(region=region, archived=archived)
+        translations = PageTranslation.objects.filter(page__in=qs)
+        if language_slug:
+            # Scope to the requested language so suggestions on a single-language
+            # list view do not leak titles from the page's other translations.
+            translations = translations.filter(language__slug=language_slug)
         # The ids are materialized into a plain list: a ``FilteredRelation``
         # condition may not contain a ``QuerySet`` (Django raises "Passing a
         # QuerySet within a FilteredRelation is not supported."). The list is
         # scoped to the pages being searched so it stays bounded by the region.
         latest_translation_ids = list(
-            PageTranslation.objects.filter(page__in=qs)
-            .order_by("page_id", "language_id", "-version")
+            translations.order_by("page_id", "language_id", "-version")
             .distinct("page_id", "language_id")
             .values_list("id", flat=True)
         )

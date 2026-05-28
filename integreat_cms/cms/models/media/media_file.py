@@ -433,6 +433,7 @@ class MediaFile(AbstractBaseModel, SearchSuggestMixin):
         cls,
         region: Region | None = None,
         archived: bool = False,  # noqa: ARG003
+        language_slug: str | None = None,
     ) -> QuerySet[Any]:
         """
         Include both regional and global (non-hidden) media files,
@@ -440,6 +441,7 @@ class MediaFile(AbstractBaseModel, SearchSuggestMixin):
 
         :param region: The region to filter by (optional)
         :param archived: Whether to include archived records (unused for media files)
+        :param language_slug: Unused; media files are not language-specific
         :return: A filtered queryset
         """
         return cls.objects.filter(
@@ -452,6 +454,7 @@ class MediaFile(AbstractBaseModel, SearchSuggestMixin):
         query: str,
         region: Region | None = None,
         archived: bool = False,
+        language_slug: str | None = None,
         **kwargs: Any,
     ) -> dict[str, list[dict[str, Any]]]:
         """
@@ -460,11 +463,16 @@ class MediaFile(AbstractBaseModel, SearchSuggestMixin):
         :param query: The search query string
         :param region: The region to filter by (optional)
         :param archived: Whether to include archived records (default: False)
+        :param language_slug: Unused; media files are not language-specific
         :param kwargs: Additional arguments (unused, for compatibility)
         :return: Dict with "suggestions" key containing list of {suggestion, score} dicts
         """
-        file_result = super().suggest_tokens(query, region=region, archived=archived)
-        dir_result = Directory.suggest_tokens(query, region=region, archived=archived)
+        file_result = super().suggest_tokens(
+            query, region=region, archived=archived, language_slug=language_slug
+        )
+        dir_result = Directory.suggest_tokens(
+            query, region=region, archived=archived, language_slug=language_slug
+        )
 
         # Merge suggestions, summing scores for duplicates
         scores: dict[str, float] = {}

@@ -64,6 +64,23 @@ class Feedback(PolymorphicModel, AbstractBaseModel, SearchSuggestMixin):
     region_filter_field = "region"
     archived_filter_field = "archived"
 
+    @classmethod
+    def get_suggest_queryset(
+        cls,
+        region: Region | None = None,
+        archived: bool = False,
+        language_slug: str | None = None,
+    ) -> QuerySet:
+        """
+        Mirror :meth:`Feedback.search`: the admin (global) feedback list shows
+        only technical feedback, whereas a regional list shows only that region's
+        non-technical feedback. Suggestions must respect the same split.
+        """
+        qs = super().get_suggest_queryset(
+            region=region, archived=archived, language_slug=language_slug
+        )
+        return qs.filter(is_technical=region is None)
+
     objects = CascadeDeletePolymorphicManager()
 
     region = models.ForeignKey(
