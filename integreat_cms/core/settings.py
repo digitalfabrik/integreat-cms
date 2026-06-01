@@ -1507,3 +1507,13 @@ PILOT_REGIONS_PAGE_BASED_STATISTICS = os.environ.get(
     "INTEGREAT_CMS_PILOT_REGIONS_PAGE_BASED_STATISTICS",
     [""],
 )
+
+################
+# Live Content #
+################
+
+# Hidden Regions that should not be mirrored (archived regions are hidden by default)
+EXCLUDED_HIDDEN_MIRRORED_REGIONS = os.environ.get(
+    "INTEGREAT_CMS_EXCLUDED_HIDDEN_MIRRORED_REGIONS",
+    "",
+).split(",")
