@@ -12,10 +12,12 @@ from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 from treebeard.ns_tree import NS_NodeQuerySet
 
+from ...search.search_fields import PAGE_SEARCH_FIELDS
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_model import ContentQuerySet
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
+from ..mixins import SearchSuggestMixin
 from ..utils import format_object_translation
 from .abstract_base_page import AbstractBasePage
 from .page_translation import PageTranslation
@@ -28,6 +30,7 @@ if TYPE_CHECKING:
     from django.db.models.base import ModelBase
     from django.utils.safestring import SafeString
 
+    from integreat_cms.cms.models.regions.region import Region
     from integreat_cms.cms.models.users.user import User
 
 logger = logging.getLogger(__name__)
@@ -158,10 +161,14 @@ class PageManager(models.Manager):
 
 
 @modify_fields(parent={"verbose_name": _("parent page")})
-class Page(AbstractTreeNode, AbstractBasePage):
+class Page(AbstractTreeNode, AbstractBasePage, SearchSuggestMixin):
     """
     Data model representing a page.
     """
+
+    search_fields = PAGE_SEARCH_FIELDS
+    region_filter_field = "region"
+    archived_filter_field = "explicitly_archived"
 
     icon = models.ForeignKey(
         "cms.MediaFile",
@@ -255,6 +262,49 @@ class Page(AbstractTreeNode, AbstractBasePage):
         :return: The class of translations
         """
         return PageTranslation
+
+    @classmethod
+    def get_suggest_queryset(
+        cls,
+        region: Region | None = None,
+        archived: bool = False,
+        language_slug: str | None = None,
+    ) -> QuerySet:
+        """
+        Restrict suggestion sources to the latest translation per (page, language)
+        so that token suggestions reflect what list views actually display, instead
+        of mixing in tokens from outdated revisions.
+
+        Mirrors the override on ``AbstractContentTranslation``. A separate copy
+        lives here because ``search_suggest`` routes pages through ``Page``
+        directly (see ``cms/views/search/utils.py``) rather than ``PageTranslation``.
+        Once ``search_content_ajax`` is unified with the new suggest endpoint,
+        this special case can be removed and the abstract override will cover pages too.
+        """
+        qs = super().get_suggest_queryset(region=region, archived=archived)
+        translations = PageTranslation.objects.filter(page__in=qs)
+        if language_slug:
+            # Scope to the requested language so suggestions on a single-language
+            # list view do not leak titles from the page's other translations.
+            translations = translations.filter(language__slug=language_slug)
+        # The ids are materialized into a plain list: a ``FilteredRelation``
+        # condition may not contain a ``QuerySet`` (Django raises "Passing a
+        # QuerySet within a FilteredRelation is not supported."). The list is
+        # scoped to the pages being searched so it stays bounded by the region.
+        latest_translation_ids = list(
+            translations.order_by("page_id", "language_id", "-version")
+            .distinct("page_id", "language_id")
+            .values_list("id", flat=True)
+        )
+        # FilteredRelation creates a JOIN constrained to latest translations only,
+        # which the ``latest_translations__title`` lookups in PAGE_SEARCH_FIELDS
+        # then resolve against — keeping old revisions out of the trigram annotation.
+        return qs.annotate(
+            latest_translations=models.FilteredRelation(
+                "translations",
+                condition=models.Q(translations__id__in=latest_translation_ids),
+            ),
+        )
 
     @cached_property
     def explicitly_archived_ancestors(self) -> list[Page]:

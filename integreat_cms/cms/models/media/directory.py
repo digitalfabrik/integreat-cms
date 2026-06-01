@@ -8,7 +8,9 @@ from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.translation import gettext_lazy as _
 
+from ...search.search_fields import DIRECTORY_SEARCH_FIELDS
 from ..abstract_base_model import AbstractBaseModel
+from ..mixins import SearchSuggestMixin
 from ..regions.region import Region
 
 if TYPE_CHECKING:
@@ -17,11 +19,35 @@ if TYPE_CHECKING:
     from django.db.models.query import QuerySet
 
 
-class Directory(AbstractBaseModel):
+class Directory(AbstractBaseModel, SearchSuggestMixin):
     """
     Model representing a directory containing documents. This is only a virtual directory and does not necessarily
     exist on the actual file system. Each directory is tied to a region.
     """
+
+    search_fields = DIRECTORY_SEARCH_FIELDS
+    region_filter_field = "region"
+    archived_filter_field = None
+
+    @classmethod
+    def get_suggest_queryset(
+        cls,
+        region: Region | None = None,
+        archived: bool = False,  # noqa: ARG003
+        language_slug: str | None = None,
+    ) -> QuerySet[Any]:
+        """
+        Include both regional and global (non-hidden) directories,
+        matching the behavior of :meth:`Directory.search`.
+
+        :param region: The region to filter by (optional)
+        :param archived: Whether to include archived records (unused for directories)
+        :param language_slug: Unused; directories are not language-specific
+        :return: A filtered queryset
+        """
+        return cls.objects.filter(
+            Q(region=region) | Q(region__isnull=True, is_hidden=False)
+        )
 
     name = models.CharField(max_length=255, blank=False, verbose_name=_("name"))
     region = models.ForeignKey(

@@ -127,7 +127,7 @@ class MediaContextMixin(ContextMixin):
                 kwargs=kwargs,
             ),
             "getSearchSuggestions": reverse(
-                "search_content_ajax",
+                "search_suggest",
                 kwargs=kwargs,
             ),
             "getFileUsages": reverse(
