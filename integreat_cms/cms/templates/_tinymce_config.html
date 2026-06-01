@@ -19,8 +19,11 @@
 {% comment %} Styling for text diff taken from style.scss {% endcomment %}
 {% firstof font_style|add:"del { background-color: rgb(252 165 165); } ins { background-color: rgb(134 239 172); text-decoration-line: none; }" as content_style %}
 <div id="tinymce-config-options"
+     data-base-url="{% get_base_url %}"
      data-webapp-url="{% get_webapp_url %}"
      data-language="{{ LANGUAGE_CODE|slice:'0:2' }}"
+     data-region-slug="{{ request.region.slug }}"
+     data-language-slug="{{ language_slug }}"
      data-directionality="{% if right_to_left %}rtl{% else %}ltr{% endif %}"
      data-no-translate-tooltip='{% translate "Do not translate the selected text." %}'
      data-no-translate-text='{% translate "Do not translate" %}'
@@ -74,7 +77,7 @@
      data-link-dialog-title-text='{% translate "Add Link" %}'
      data-link-dialog-url-text='{% translate "URL" %}'
      data-link-dialog-text-text='{% translate "Text to display" %}'
-     data-link-dialog-internal_link-text='{% translate "Or link to existing content" %}'
+     data-link-dialog-internal_link-text='{% translate "Search for a page" %}'
      data-link-dialog-autoupdate-text='{% translate "Automatically use the title of the linked content for the link" %}'
      data-custom-plugins="{% get_base_url %}{{ editor_content_js_files.0.url }}"
      data-content-css="{% get_base_url %}{{ editor_content_css_files.0.url }}"

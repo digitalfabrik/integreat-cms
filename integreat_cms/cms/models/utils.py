@@ -50,6 +50,8 @@ def format_object_translation(
             + object_translation.link_title.tail
         )
     return {
+        "id": object_translation.id,
+        "foreign_object_id": object_translation.foreign_object.id,
         "path": object_translation.path(),
         "title": text_title,
         "html_title": html_title,

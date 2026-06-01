@@ -103,7 +103,7 @@ window.addEventListener("load", () => {
                 },
                 insert: {
                     title: "Insert",
-                    items: "openmediacenter add_link add_contact media | charmap hr",
+                    items: "add_shortcode_page | add_shortcode_contact | openmediacenter add_link add_contact media | charmap hr",
                 },
             },
             link_title: false,
@@ -114,6 +114,7 @@ window.addEventListener("load", () => {
                 mediacenter: tinymceConfig.getAttribute("data-custom-plugins"),
                 custom_link_input: tinymceConfig.getAttribute("data-custom-plugins"),
                 custom_contact_input: tinymceConfig.getAttribute("data-custom-plugins"),
+                shortcodes: tinymceConfig.getAttribute("data-custom-plugins"),
             },
             link_default_protocol: "https",
             link_target_list: false,

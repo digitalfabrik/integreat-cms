@@ -90,6 +90,7 @@ def transform_page(
             expand_shortcodes(page_translation.combined_text, context=context)
         ),
         "content": expand_shortcodes(page_translation.combined_text, context=context),
+        "page_id": page_translation.page.id,
         "parent": parent,
         "order": order,
         "available_languages": page_translation.available_languages_dict,

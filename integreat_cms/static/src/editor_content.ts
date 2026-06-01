@@ -8,6 +8,7 @@ import "./js/tinymce-plugins/autolink_tel/plugin.js";
 import "./js/tinymce-plugins/custom_link_input/plugin.js";
 import "./js/tinymce-plugins/custom_contact_input/plugin.js";
 import "./js/tinymce-plugins/mediacenter/plugin.js";
+import "./js/tinymce-plugins/shortcodes/plugin.js";
 
 /* Custom tinymce content css */
-import "./css/tinymce_custom.css";
+import "./css/tinymce_custom_content_styles.css";

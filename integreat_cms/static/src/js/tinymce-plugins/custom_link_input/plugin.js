@@ -1,4 +1,5 @@
 import { getCsrfToken } from "../../utils/csrf-token";
+import { stripProtocol } from "../../utils/url-tools";
 
 (() => {
     const tinymceConfig = document.getElementById("tinymce-config-options");
@@ -47,7 +48,24 @@ import { getCsrfToken } from "../../utils/csrf-token";
     };
 
     tinymce.PluginManager.add("custom_link_input", (editor, _url) => {
-        const isAnchor = (node) => node.nodeName.toLowerCase() === "a" && node.href && node.isContentEditable;
+        const internalPageURLRegex = new RegExp(String.raw`
+            ^[^:/]*://
+            ${stripProtocol(tinymceConfig.getAttribute("data-webapp-url")).replace(/\/$/, "")}
+            (
+                /
+                ([^/]+)
+                /
+                ([^/]{2,8})
+                /
+                (
+                    ([^?#]+)
+                    /
+                )?
+                ([^/?#]+)
+            )
+        `.replace(/\s+/g, ""));
+
+        const isAnchor = (node) => node.nodeName.toLowerCase() === "a" && node.href && node.isContentEditable && !internalPageURLRegex.exec(node.href);
         const getAnchor = () => {
             let node = editor.selection.getNode();
             while (node !== null) {
