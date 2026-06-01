@@ -11,7 +11,6 @@ from datetime import date, timedelta
 from typing import TYPE_CHECKING
 
 from celery import shared_task
-from django.db.models import OuterRef
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
@@ -129,6 +128,7 @@ def get_visits_per_language_ajax(
 
 
 @require_POST
+@permission_required("cms.view_statistics")
 # pylint: disable=unused-argument
 def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonResponse:
     """
@@ -141,7 +141,8 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
     region = request.region
     data = request.POST
     language_slugs = data.getlist("language_slugs")
-    page_ids = data.getlist("page_ids")
+
+    page_ids = list(map(int, data.getlist("page_ids")))
 
     if not region.statistics_enabled:
         logger.error("Statistics are not enabled for this region.")
@@ -158,7 +159,10 @@ def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonRespon
             status=400,
         )
 
-    region_pages = Page.objects.filter(region=region, id__in=page_ids)
+    if page_ids:
+        region_pages = Page.objects.filter(region=region, id__in=page_ids)
+    else:
+        region_pages = Page.objects.filter(region=region)
 
     page_access_sums = region.get_page_access_count_by_language(
         pages=region_pages,
@@ -195,15 +199,8 @@ def fetch_page_accesses(
     times_tried = times_tried + 1
 
     # Query PageTranslation and the related Page and Language objects directly from the database to avoid calling data from the cache, due to celery starting with an empty cache
-    subquery = (
-        PageTranslation.objects.filter(
-            page_id=OuterRef("page_id"), language=OuterRef("language")
-        )
-        .order_by("-version")
-        .values("pk")[:1]
-    )
     prefetched_translations = PageTranslation.objects.filter(
-        page__in=pages, pk__in=subquery
+        page__in=pages
     ).select_related("page", "language")
 
     try:
@@ -215,6 +212,7 @@ def fetch_page_accesses(
             pages=pages,
             prefetched_translations=prefetched_translations,
         )
+        logger.info("Finished fetching page accesses for %s", region)
     except MatomoException:
         if times_tried < MAX_ATTEMPTS:
             logger.exception(
