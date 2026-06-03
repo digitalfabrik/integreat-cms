@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import dataclasses
 import datetime
+import zoneinfo
 from typing import Any, Self, TYPE_CHECKING
 
 from django.utils.translation import gettext as _
@@ -56,7 +57,7 @@ class IcalEventData:
         cls,
         event: icalendar.cal.Component,
         language_slug: str,
-        external_calendar_id: int,
+        external_calendar: ExternalCalendar,
         logger: logging.Logger,
     ) -> Self:
         """
@@ -117,7 +118,13 @@ class IcalEventData:
             start_date, start_time = start, None
             end_date, end_time = end - datetime.timedelta(days=1), None
         else:
+            if hasattr(start, "tzinfo") and start.tzinfo:
+                tz = zoneinfo.ZoneInfo(external_calendar.region.timezone)
+                start = start.astimezone(tz)
             start_date, start_time = start.date(), start.time()
+            if hasattr(end, "tzinfo") and end.tzinfo:
+                tz = zoneinfo.ZoneInfo(external_calendar.region.timezone)
+                end = end.astimezone(tz)
             end_date, end_time = end.date(), end.time()
 
         recurrence_rule = None
@@ -140,7 +147,7 @@ class IcalEventData:
             end_date=end_date,
             end_time=end_time,
             is_all_day=is_all_day,
-            external_calendar_id=external_calendar_id,
+            external_calendar_id=external_calendar.id,
             categories=categories,
             recurrence_rule=recurrence_rule,
         )
@@ -433,7 +440,7 @@ def import_event(
         event_data = IcalEventData.from_ical_event(
             event,
             language.slug,
-            calendar.pk,
+            calendar,
             logger,
         )
     except ValueError as e:
