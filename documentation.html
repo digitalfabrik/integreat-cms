@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-06-01T09:58:57+00:00" />
+    <meta property="article:modified_time" content="2026-06-03T06:47:49+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Documentation (Sphinx) &mdash; integreat-cms 2026.5.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -693,6 +693,10 @@
 <li class="toctree-l3"><a class="reference internal" href="api-docs.html#id48">RESPONSE</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="frontend_md/README.html">Frontend Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="frontend_md/README.html#modules">Modules</a></li>
 </ul>
 </li>
 </ul>
@@ -1842,6 +1846,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="frontend-bundling.html">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="frontend-bundling.html#feature-modules">Feature modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frontend-bundling.html#compatible-browsers">Compatible Browsers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frontend-bundling.html#fonts">Fonts</a></li>
 </ul>
@@ -1852,8 +1857,10 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation (Sphinx)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#developer-tools">Developer Tools</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#developer-tools">Developer Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docstrings">Docstrings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sphinx">Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#typedoc">Typedoc</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#cross-referencing">Cross-referencing</a></li>
@@ -2193,8 +2200,12 @@
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#ruff">Ruff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#djlint">DjLint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#prettier">Prettier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="code-style.html#my-py">my[py]</a></li>
-<li class="toctree-l2"><a class="reference internal" href="code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#my-py">my[py]</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="code-style.html#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#sphinx">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#typedoc">Typedoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
@@ -2264,9 +2275,12 @@
              
   <section id="documentation-sphinx">
 <h1>Documentation (Sphinx)<a class="headerlink" href="#documentation-sphinx" title="Link to this heading"></a></h1>
-<p>To generate this documentation, we use the Python documentation generator Sphinx (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/index.html" title="(in Sphinx v9.1.0)"><span>Using Sphinx</span></a>).</p>
-<p>The generation process is divided into two stages:</p>
+<p>To generate this documentation, we use the Python documentation generator Sphinx (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/index.html" title="(in Sphinx v9.1.0)"><span>Using Sphinx</span></a>).
+For the generation of the Frontend Modules we use Typedoc and then the <cite>myst-parser</cite> tool to integrate them into the sphinx documentation.</p>
+<p>The generation process is divided into four stages:</p>
 <ol class="arabic simple">
+<li><p><cite>typedoc &lt;https://typedoc.org/&gt;</cite> scans all ts files inside the /integreat_cms/static/src/ folder and generates .md files based on docstrings and exports</p></li>
+<li><p><cite>myst-parser &lt;https://myst-parser.readthedocs.io/en/latest/&gt;</cite> generates .rst files based on the .md files</p></li>
 <li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html" title="(in Sphinx v9.1.0)"><span>sphinx-apidoc</span></a> is a tool which scans the whole source code of our application in the <code class="docutils literal notranslate"><span class="pre">integreat_cms</span></code>
 directory and generates <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files out of the Python docstrings. These files are then placed in the
 <code class="docutils literal notranslate"><span class="pre">docs/src/ref-ext</span></code> directory.</p></li>
@@ -2280,7 +2294,7 @@ in <code class="docutils literal notranslate"><span class="pre">docs/src/ref-ext
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">make_docs</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">clean</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Apart from the two steps above, this tool also performs the additional tasks:</p>
+<p>Apart from the four steps above, this tool also performs the additional tasks:</p>
 <ul class="simple">
 <li><p><a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/docs/src/patches/footer.diff">Patch</a> the footer template
 which allows custom URLs in the copyright notice.</p></li>
@@ -2297,9 +2311,12 @@ view to the extended view and vice versa</p></li>
 <p>If the <code class="docutils literal notranslate"><span class="pre">--clean</span></code> parameter is provided, the script will clean all temporary documentation files in the <code class="docutils literal notranslate"><span class="pre">docs/src/ref/</span></code>
 and <code class="docutils literal notranslate"><span class="pre">docs/src/ref-ext/</span></code> directories as well as the compiled html output in <code class="docutils literal notranslate"><span class="pre">docs/dist</span></code>. Existing outdated documentation
 files can cause the generation script to fail if e.g. source files were added or deleted.</p>
+</section>
 <section id="docstrings">
-<h3>Docstrings<a class="headerlink" href="#docstrings" title="Link to this heading"></a></h3>
-<p>Please add docstrings in the sphinx format (see <a class="reference external" href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html" title="(in Sphinx-RTD-Tutorial)"><span>Writing docstrings</span></a>):</p>
+<h2>Docstrings<a class="headerlink" href="#docstrings" title="Link to this heading"></a></h2>
+<section id="sphinx">
+<h3>Sphinx<a class="headerlink" href="#sphinx" title="Link to this heading"></a></h3>
+<p>In the python files please add docstrings in the sphinx format (see <a class="reference external" href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html" title="(in Sphinx-RTD-Tutorial)"><span>Writing docstrings</span></a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">[Summary]</span>
 
@@ -2325,6 +2342,26 @@ model field type.</p>
 </pre></div>
 </div>
 <p>See the configuration files <a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings" title="integreat_cms.core.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">settings</span></code></a> and <a class="reference internal" href="#module-conf" title="conf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">conf</span></code></a> or <a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants" title="integreat_cms.cms.constants"><code class="xref py py-mod docutils literal notranslate"><span class="pre">constants</span></code></a> for examples.</p>
+</section>
+<section id="typedoc">
+<h3>Typedoc<a class="headerlink" href="#typedoc" title="Link to this heading"></a></h3>
+<p>In the static TypeScript files, please add docstrings <strong>directly before the export</strong> you want to comment on.
+If you want to write a docstring for the module itself (not attached to a specific export), add the <code class="docutils literal notranslate"><span class="pre">&#64;module</span></code> tag inside the docstring.</p>
+<p>Example for an export:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * docs for example</span>
+<span class="cm"> */</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{}</span>
+</pre></div>
+</div>
+<p>Example for a module docstring:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * Some comment about the module</span>
+<span class="cm"> * @module name-of-module</span>
+<span class="cm"> */</span>
+</pre></div>
+</div>
+<p>For more information on how to use docstrings, please refer to the <a class="reference external" href="https://typedoc.org/modules.html">TypeDoc documentation</a>.</p>
 </section>
 </section>
 <section id="cross-referencing">
@@ -2442,7 +2479,7 @@ For a full list see the documentation: <a class="reference external" href="https
 
 <dl class="py data">
 <dt class="sig sig-object py" id="conf.extensions">
-<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">extensions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Final" title="(in Python v3.11)"><span class="pre">Final</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['sphinx.ext.autodoc',</span> <span class="pre">'sphinx.ext.extlinks',</span> <span class="pre">'sphinx.ext.githubpages',</span> <span class="pre">'sphinx.ext.intersphinx',</span> <span class="pre">'sphinx.ext.linkcode',</span> <span class="pre">'sphinxcontrib_django',</span> <span class="pre">'sphinx_rtd_theme',</span> <span class="pre">'sphinx_last_updated_by_git']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.extensions" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">extensions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Final" title="(in Python v3.11)"><span class="pre">Final</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['sphinx.ext.autodoc',</span> <span class="pre">'sphinx.ext.extlinks',</span> <span class="pre">'sphinx.ext.githubpages',</span> <span class="pre">'sphinx.ext.intersphinx',</span> <span class="pre">'sphinx.ext.linkcode',</span> <span class="pre">'sphinxcontrib_django',</span> <span class="pre">'sphinx_rtd_theme',</span> <span class="pre">'sphinx_last_updated_by_git',</span> <span class="pre">'myst_parser']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.extensions" title="Link to this definition"></a></dt>
 <dd><p>All enabled sphinx extensions (see <a class="reference internal" href="#sphinx-extensions"><span class="std std-ref">Extensions</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">    </span><span class="s1">&#39;sphinx.ext.autodoc&#39;</span><span class="p">,</span>
@@ -2453,6 +2490,7 @@ For a full list see the documentation: <a class="reference external" href="https
 <span class="w">    </span><span class="s1">&#39;sphinxcontrib_django&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="s1">&#39;sphinx_rtd_theme&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="s1">&#39;sphinx_last_updated_by_git&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;myst_parser&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -2627,7 +2665,7 @@ For a full list see the documentation: <a class="reference external" href="https
 
 <dl class="py function">
 <dt class="sig sig-object py" id="conf.linkcode_resolve">
-<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">linkcode_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/conf.py#L258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">linkcode_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/conf.py#L259"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Link to this definition"></a></dt>
 <dd><p>This function adds source code links to all modules (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v9.1.0)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a>).
 It links all classes and functions to their source files on GitHub including line numbers.</p>
 <dl class="field-list simple">
@@ -2764,7 +2802,7 @@ It links all classes and functions to their source files on GitHub including lin
 
 <dl class="py function">
 <dt class="sig sig-object py" id="conf.setup">
-<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sphinx</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/conf.py#L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.setup" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sphinx</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/conf.py#L292"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.setup" title="Link to this definition"></a></dt>
 <dd><p>Connect to the <code class="docutils literal notranslate"><span class="pre">django-configured</span></code> event of <a class="reference external" href="https://sphinxcontrib-django.readthedocs.io/en/latest/reference.html#module-sphinxcontrib_django" title="(in sphinxcontrib-django)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sphinxcontrib_django</span></code></a> to monkeypatch application.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2803,7 +2841,7 @@ It links all classes and functions to their source files on GitHub including lin
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 01, 2026.
+      <span class="lastupdated">Last updated on Jun 03, 2026.
       </span></p>
   </div>
 

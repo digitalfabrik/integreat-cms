@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-07-18T13:58:30+00:00" />
+    <meta property="article:modified_time" content="2026-06-03T06:47:49+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Frontend Bundling (Webpack) &mdash; integreat-cms 2026.5.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -693,6 +693,10 @@
 <li class="toctree-l3"><a class="reference internal" href="api-docs.html#id48">RESPONSE</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="frontend_md/README.html">Frontend Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="frontend_md/README.html#modules">Modules</a></li>
 </ul>
 </li>
 </ul>
@@ -1842,6 +1846,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#feature-modules">Feature modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#compatible-browsers">Compatible Browsers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fonts">Fonts</a></li>
 </ul>
@@ -1852,8 +1857,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation (Sphinx)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="documentation.html#developer-tools">Developer Tools</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="documentation.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#developer-tools">Developer Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#docstrings">Docstrings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#typedoc">Typedoc</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#cross-referencing">Cross-referencing</a></li>
@@ -2193,8 +2200,12 @@
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#ruff">Ruff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#djlint">DjLint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#prettier">Prettier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="code-style.html#my-py">my[py]</a></li>
-<li class="toctree-l2"><a class="reference internal" href="code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#my-py">my[py]</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="code-style.html#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#sphinx">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#typedoc">Typedoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
@@ -2266,10 +2277,11 @@
 <h1>Frontend Bundling (Webpack)<a class="headerlink" href="#frontend-bundling-webpack" title="Link to this heading"></a></h1>
 <p>Webpack is being used to generate frontend bundles based on TypeScript code that is compiled to JavaScript as well as SCSS code which is being transpiled to CSS. The following bundles are defined:</p>
 <ol class="arabic simple">
-<li><p><a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/index.ts">integreat_cms/static/src/index.ts</a> (<code class="docutils literal notranslate"><span class="pre">main.js</span></code>/<code class="docutils literal notranslate"><span class="pre">main.css</span></code>): All main assets which should be available on all pages</p></li>
-<li><p><a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/editor.ts">integreat_cms/static/src/editor.ts</a> (<code class="docutils literal notranslate"><span class="pre">editor.js</span></code>): Contains TinyMCE and related assets. It was decided to bundle TinyMCE in a separate file because it is the largest of all bundled assets</p></li>
-<li><p><a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/editor_content.ts">integreat_cms/static/src/editor_content.ts</a> (<code class="docutils literal notranslate"><span class="pre">editor_content.js</span></code>/<code class="docutils literal notranslate"><span class="pre">editor_content.css</span></code>): Contains assets for the TinyMCE content iframe which cannot be passed via the global context</p></li>
-<li><p><a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/pdf.ts">integreat_cms/static/src/pdf.ts</a> (<code class="docutils literal notranslate"><span class="pre">pdf.js</span></code>/<code class="docutils literal notranslate"><span class="pre">pdf.css</span></code>): Contains assets for the PDF rendering</p></li>
+<li><p><a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/index.ts">integreat_cms/static/src/index.ts</a> (<code class="docutils literal notranslate"><span class="pre">main.&lt;hash&gt;.js</span></code>/<code class="docutils literal notranslate"><span class="pre">main.&lt;hash&gt;.css</span></code>): All main assets (including <a class="reference internal" href="#feature-modules"><span class="std std-ref">Feature modules</span></a>) available on all pages</p></li>
+<li><p><a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/editor.ts">integreat_cms/static/src/editor.ts</a> (<code class="docutils literal notranslate"><span class="pre">editor.&lt;hash&gt;.js</span></code>): Contains TinyMCE and related assets. It was decided to bundle TinyMCE in a separate file because it is the largest of all bundled assets</p></li>
+<li><p><a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/editor_content.ts">integreat_cms/static/src/editor_content.ts</a> (<code class="docutils literal notranslate"><span class="pre">editor_content.&lt;hash&gt;.js</span></code>/<code class="docutils literal notranslate"><span class="pre">editor_content.&lt;hash&gt;.css</span></code>): Contains assets for the TinyMCE content iframe which cannot be passed via the global context</p></li>
+<li><p><a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/pdf.ts">integreat_cms/static/src/pdf.ts</a> (<code class="docutils literal notranslate"><span class="pre">pdf.&lt;hash&gt;.js</span></code>/<code class="docutils literal notranslate"><span class="pre">pdf.css</span></code>): Contains assets for the PDF rendering</p></li>
+<li><p><a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/map.ts">integreat_cms/static/src/map.ts</a> (<code class="docutils literal notranslate"><span class="pre">map.&lt;hash&gt;.js</span></code>): Contains maplibre-gl and related assets for the map used in the POI form</p></li>
 </ol>
 <p>To get started with adding new code go to <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src">integreat_cms/static/src</a> and open the bundle you want to edit.
 In this file you can import any TypeScript or JavaScript file or library that is needed for the application.
@@ -2277,6 +2289,33 @@ Generated assets will be stored in <code class="docutils literal notranslate"><s
 When running <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/run.sh">tools/run.sh</a>, <code class="docutils literal notranslate"><span class="pre">webpack-dev-server</span></code> is being used to generate JavaScript that includes CSS as well as SourceMaps to help debugging the output.
 For a production build one should run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">prod</span></code>.
 This will generate minified js and css files in the same target directory.</p>
+<section id="feature-modules">
+<span id="id1"></span><h2>Feature modules<a class="headerlink" href="#feature-modules" title="Link to this heading"></a></h2>
+<p>Feature modules are very simple components that are scoped to their root element in the DOM.
+They are not bound to a specific template and can be used many times.</p>
+<p>To mark an element as a root for a specific feature module, the attribute <code class="docutils literal notranslate"><span class="pre">data-js-&lt;name-of-feature-module&gt;</span></code> needs to be set.
+For example:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-js-search-query</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>This sets the div as the root element for the feature module <code class="docutils literal notranslate"><span class="pre">search-query</span></code>.</p>
+<p>To create a feature module, create a TypeScript file inside <code class="docutils literal notranslate"><span class="pre">/integreat_cms/static/src/js/feature/</span></code>.
+The file name determines the attribute name — <code class="docutils literal notranslate"><span class="pre">search-query.ts</span></code> is activated by <code class="docutils literal notranslate"><span class="pre">data-js-search-query</span></code>.</p>
+<p>The file must have a default export with the following signature:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineFeature</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;../utils/define-feature&quot;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">defineFeature</span><span class="p">((</span><span class="nx">root</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// attach event listeners to root or its children</span>
+<span class="w">    </span><span class="c1">// do not use document directly</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because feature modules are loaded once and cached, <strong>module-level variables are shared across all instances</strong> of the same module on a page.
+Any state that belongs to a single instance (e.g. counters, timer IDs, DOM references) must be declared inside the default export function, not at module level.</p>
+</div>
+</section>
 <section id="compatible-browsers">
 <h2>Compatible Browsers<a class="headerlink" href="#compatible-browsers" title="Link to this heading"></a></h2>
 <p>We use <code class="docutils literal notranslate"><span class="pre">babel-preset-env</span></code> as well als <code class="docutils literal notranslate"><span class="pre">postcss-preset-env</span></code> to transpile or polyfill css and js features for supported browsers. <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/.browserslistrc">.browserslistrc</a> contains a list of supported browsers (mostly selected by looking at their usage stats and support status).</p>
@@ -2315,7 +2354,7 @@ This will generate minified js and css files in the same target directory.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 18, 2024.
+      <span class="lastupdated">Last updated on Jun 03, 2026.
       </span></p>
   </div>
 

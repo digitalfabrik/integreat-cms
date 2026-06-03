@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-03-09T12:41:20+00:00" />
+    <meta property="article:modified_time" content="2026-06-03T06:47:49+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Code Style Guidelines &mdash; integreat-cms 2026.5.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -693,6 +693,10 @@
 <li class="toctree-l3"><a class="reference internal" href="api-docs.html#id48">RESPONSE</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="frontend_md/README.html">Frontend Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="frontend_md/README.html#modules">Modules</a></li>
 </ul>
 </li>
 </ul>
@@ -1842,6 +1846,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="frontend-bundling.html">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="frontend-bundling.html#feature-modules">Feature modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frontend-bundling.html#compatible-browsers">Compatible Browsers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="frontend-bundling.html#fonts">Fonts</a></li>
 </ul>
@@ -1852,8 +1857,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation (Sphinx)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="documentation.html#developer-tools">Developer Tools</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="documentation.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#developer-tools">Developer Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#docstrings">Docstrings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#typedoc">Typedoc</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#cross-referencing">Cross-referencing</a></li>
@@ -2193,8 +2200,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#ruff">Ruff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#djlint">DjLint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#prettier">Prettier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#my-py">my[py]</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#my-py">my[py]</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sphinx">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#typedoc">Typedoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
@@ -2318,10 +2329,13 @@ Just code how you feel comfortable and let the tool do the work for you (see <a 
 </pre></div>
 </div>
 </div>
-</section>
 <section id="docstrings">
-<h2>Docstrings<a class="headerlink" href="#docstrings" title="Link to this heading"></a></h2>
-<p>Please add docstrings in the sphinx format (see <a class="reference external" href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html" title="(in Sphinx-RTD-Tutorial)"><span>Writing docstrings</span></a>):</p>
+<h3>Docstrings<a class="headerlink" href="#docstrings" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="sphinx">
+<h2>Sphinx<a class="headerlink" href="#sphinx" title="Link to this heading"></a></h2>
+<p>In the python files please add docstrings in the sphinx format (see <a class="reference external" href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html" title="(in Sphinx-RTD-Tutorial)"><span>Writing docstrings</span></a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">[Summary]</span>
 
@@ -2347,6 +2361,26 @@ model field type.</p>
 </pre></div>
 </div>
 <p>See the configuration files <a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings" title="integreat_cms.core.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">settings</span></code></a> and <a class="reference internal" href="documentation.html#module-conf" title="conf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">conf</span></code></a> or <a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants" title="integreat_cms.cms.constants"><code class="xref py py-mod docutils literal notranslate"><span class="pre">constants</span></code></a> for examples.</p>
+</section>
+<section id="typedoc">
+<h2>Typedoc<a class="headerlink" href="#typedoc" title="Link to this heading"></a></h2>
+<p>In the static TypeScript files, please add docstrings <strong>directly before the export</strong> you want to comment on.
+If you want to write a docstring for the module itself (not attached to a specific export), add the <code class="docutils literal notranslate"><span class="pre">&#64;module</span></code> tag inside the docstring.</p>
+<p>Example for an export:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * docs for example</span>
+<span class="cm"> */</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{}</span>
+</pre></div>
+</div>
+<p>Example for a module docstring:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * Some comment about the module</span>
+<span class="cm"> * @module name-of-module</span>
+<span class="cm"> */</span>
+</pre></div>
+</div>
+<p>For more information on how to use docstrings, please refer to the <a class="reference external" href="https://typedoc.org/modules.html">TypeDoc documentation</a>.</p>
 </section>
 <section id="shellcheck">
 <span id="id8"></span><h2>Shellcheck<a class="headerlink" href="#shellcheck" title="Link to this heading"></a></h2>
@@ -2379,7 +2413,7 @@ Shellcheck is run both in the CI-pipeline of CircleCI (see <a class="reference i
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 09, 2025.
+      <span class="lastupdated">Last updated on Jun 03, 2026.
       </span></p>
   </div>
 

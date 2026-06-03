@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-06-01T09:58:57+00:00" />
+    <meta property="article:modified_time" content="2026-06-03T06:47:49+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forms &mdash; integreat-cms 2026.5.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -693,6 +693,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../api-docs.html#id48">RESPONSE</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend_md/README.html">Frontend Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../frontend_md/README.html#modules">Modules</a></li>
 </ul>
 </li>
 </ul>
@@ -1842,6 +1846,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../frontend-bundling.html">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#feature-modules">Feature modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#compatible-browsers">Compatible Browsers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#fonts">Fonts</a></li>
 </ul>
@@ -1852,8 +1857,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation (Sphinx)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#typedoc">Typedoc</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#cross-referencing">Cross-referencing</a></li>
@@ -2193,8 +2200,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#ruff">Ruff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#djlint">DjLint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#prettier">Prettier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#my-py">my[py]</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#my-py">my[py]</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#sphinx">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#typedoc">Typedoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
@@ -5584,7 +5595,7 @@ The opposite of the hidden_fields() method.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.custom_tree_node_form.CustomTreeNodeForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.custom_tree_node_form.</span></span><span class="sig-name descname"><span class="pre">CustomTreeNodeForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_tree_node_form.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_tree_node_form.CustomTreeNodeForm" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://django-treebeard.readthedocs.io/en/latest/forms.html#treebeard.forms.MoveNodeForm" title="(in django-treebeard v5.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MoveNodeForm</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://django-treebeard.readthedocs.io/en/latest/forms.html#treebeard.forms.MoveNodeForm" title="(in django-treebeard v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MoveNodeForm</span></code></a></p>
 <p>Form for creating and modifying tree node objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -6682,7 +6693,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 01, 2026.
+      <span class="lastupdated">Last updated on Jun 03, 2026.
       </span></p>
   </div>
 
