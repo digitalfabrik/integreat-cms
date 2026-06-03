@@ -84,6 +84,7 @@ window.addEventListener("load", () => {
     if (tinymceConfig) {
         tinymce.init({
             selector: ".tinymce_textarea",
+            browser_spellcheck: true,
             license_key: "gpl",
             promotion: false,
             deprecation_warnings: false,
