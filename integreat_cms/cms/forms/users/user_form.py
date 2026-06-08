@@ -3,8 +3,10 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+from cacheops import invalidate_model
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.contrib.auth.password_validation import (
     password_validators_help_texts,
     validate_password,
@@ -149,9 +151,11 @@ class UserForm(CustomModelForm):
             else self.cleaned_data["role"]
         )
 
+        groups_changed = False
         for removed_group in user.groups.exclude(id=role.id):
             # Remove unselected roles
             removed_group.user_set.remove(user)
+            groups_changed = True
             logger.info(
                 "%r was removed from %r",
                 removed_group.role,
@@ -160,7 +164,17 @@ class UserForm(CustomModelForm):
         if role.group not in user.groups.all():
             # Assign the selected role
             role.group.user_set.add(user)
+            groups_changed = True
             logger.info("%r was assigned to %r", role, user)
+
+        if groups_changed:
+            # cacheops does not invalidate the Django auth backend's
+            # group-permission lookup when the User.groups M2M changes via
+            # the auto-generated `cms_user_groups` through table, so the
+            # old permissions linger until CACHEOPS_DEFAULTS["timeout"]
+            # expires (see #4303). Invalidating the Permission model clears
+            # the relevant cached queries.
+            invalidate_model(Permission)
 
         return user
 
