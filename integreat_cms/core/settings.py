@@ -1190,7 +1190,7 @@ LEGACY_FILE_UPLOAD: Final[bool] = bool(
 
 #: The maximum size of media files in bytes
 MEDIA_MAX_UPLOAD_SIZE: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_MEDIA_MAX_UPLOAD_SIZE", 3 * 1024 * 1024),
+    os.environ.get("INTEGREAT_CMS_MEDIA_MAX_UPLOAD_SIZE", 4 * 1024 * 1024),
 )
 
 
