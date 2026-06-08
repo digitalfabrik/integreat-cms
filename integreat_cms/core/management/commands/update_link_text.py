@@ -12,6 +12,8 @@ from linkcheck.models import Url
 from lxml.etree import ParserError
 from lxml.html import fromstring, tostring
 
+from ....cms.utils.link_ignore_preservation import preserve_ignored_links
+
 if TYPE_CHECKING:
     from typing import Any
 
@@ -126,8 +128,9 @@ class Command(LogCommand):
                 )
 
                 if new_translation.content != target_content.content:
-                    target_content.links.all().delete()
-                    new_translation.save()
+                    with preserve_ignored_links(target_content):
+                        target_content.links.all().delete()
+                        new_translation.save()
         # Wait until all post-save signals have been processed
         time.sleep(0.1)
         # Wait until all background tasks of linkcheck indexing the new content objects have been processed
