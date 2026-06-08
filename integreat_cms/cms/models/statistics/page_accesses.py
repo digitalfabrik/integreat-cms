@@ -41,6 +41,9 @@ class PageAccesses(AbstractBaseModel):
 
         :return: The canonical string representation of the PageAccesses
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<PageAccesses (id: {self.id}, accesses: {self.accesses})>"
 
     class Meta:
