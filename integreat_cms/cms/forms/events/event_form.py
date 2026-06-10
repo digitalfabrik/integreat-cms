@@ -235,10 +235,10 @@ class EventForm(CustomModelForm):
                 )
             ):
                 self.add_error(
-                    "end_date",
+                    "start_date",
                     forms.ValidationError(
                         _(
-                            "The end of the event can't be in the past. Please choose today or a future date and time."
+                            "The event can't be in the past. Please choose today or a future date and time."
                         ),
                         code="invalid",
                     ),
