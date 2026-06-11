@@ -3,7 +3,7 @@
  */
 import cn from "classnames";
 import { Dispatch, StateUpdater } from "preact/hooks";
-import { OpeningHours } from "../index";
+import { OpeningHours } from "..";
 
 type Props = {
     openingHours: OpeningHours[];

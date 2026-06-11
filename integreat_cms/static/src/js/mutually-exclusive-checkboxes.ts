@@ -18,7 +18,6 @@ const enforceMutualExclusion = (clickedCheckbox: HTMLInputElement) => {
 window.addEventListener("load", () => {
     const checkboxes = <HTMLInputElement[]>(<any>document.querySelectorAll(".mutually-exclusive-checkbox"));
     checkboxes.forEach((checkbox) => {
-        // eslint-disable-next-line no-param-reassign
         checkbox.addEventListener("click", () => enforceMutualExclusion(checkbox));
     });
 });

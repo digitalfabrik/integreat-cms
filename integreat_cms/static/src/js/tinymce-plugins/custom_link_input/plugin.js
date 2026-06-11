@@ -184,7 +184,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         }
 
                         // It seems like there is no better way to update the completion list
-                        /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
                         api.redial(dialogConfig);
                         api.setData(data);
                         api.focus("search");
@@ -198,7 +197,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     // force an update so that the original user url can get restored
                     completionItems.length = 0;
                     completionItems.push(defaultCompletionItem);
-                    /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
                     api.redial(dialogConfig);
                     api.setData(data);
                     api.focus("search");

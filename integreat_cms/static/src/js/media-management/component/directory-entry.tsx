@@ -5,7 +5,7 @@ import { Folder, FolderOpen, Lock } from "lucide-preact";
 import { useState } from "preact/hooks";
 import cn from "classnames";
 
-import { Directory } from "../index";
+import { Directory } from "..";
 
 type Props = {
     directory: Directory;

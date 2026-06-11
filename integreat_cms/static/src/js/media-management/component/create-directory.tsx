@@ -4,7 +4,7 @@
 import { route } from "preact-router";
 import { FolderPlus } from "lucide-preact";
 import { Dispatch, StateUpdater } from "preact/hooks";
-import { MediaApiPaths } from "../index";
+import { MediaApiPaths } from "..";
 
 type Props = {
     parentDirectoryId: string;

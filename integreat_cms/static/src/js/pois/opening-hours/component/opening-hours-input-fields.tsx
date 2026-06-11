@@ -6,7 +6,7 @@ import cn from "classnames";
 import { XCircle, CalendarClock } from "lucide-preact";
 
 import { deepCopy } from "../../../utils/deep-copy";
-import { OpeningHours } from "../index";
+import { OpeningHours } from "..";
 
 type Props = {
     openingHoursState: [OpeningHours[], Dispatch<StateUpdater<OpeningHours[]>>];
