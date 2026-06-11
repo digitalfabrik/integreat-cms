@@ -9,6 +9,18 @@
                     {% translate "Statistics" %}
                 </h1>
             </div>
+            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 px-4 py-3 mb-4"
+                 role="note">
+                <p>
+                    {% blocktranslate trimmed %}
+                        Note: These numbers show only part of the impact of your content.
+                        More and more people find information through AI assistants like ChatGPT –
+                        <strong>there, your texts are used without a page visit being counted</strong>.
+                        This can considerably distort page views in the future.
+                        So use these numbers only for rough orientation.
+                    {% endblocktranslate %}
+                </p>
+            </div>
             <div class="pt-4 lg:pt-0 3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
                 <div class="flex flex-col flex-wrap col-span-1 3xl:col-span-1 min-w-0">
                     {% include "statistics/statistics_chart.html" with box_id="statistics_chart" %}
