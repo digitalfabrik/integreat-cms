@@ -28,11 +28,9 @@ window.addEventListener("load", () => {
                     // get plain javascript object of time input field
                     const timeInputField = node.querySelector("input");
                     // make field required
-                    /* eslint-disable-next-line no-param-reassign */
                     timeInputField.required = true;
                     if (!timeInputField.getAttribute("value")) {
                         // clear value
-                        /* eslint-disable-next-line no-param-reassign */
                         timeInputField.value = "";
                     }
                 });

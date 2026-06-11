@@ -9,7 +9,7 @@ import cn from "classnames";
 
 import { route } from "preact-router";
 import { showConfirmationPopupAjax } from "../../confirmation-popups";
-import { Directory, MediaApiPaths } from "../index";
+import { Directory, MediaApiPaths } from "..";
 
 type Props = {
     directory: Directory;

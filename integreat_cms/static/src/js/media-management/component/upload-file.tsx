@@ -6,7 +6,7 @@ import { FilePlus } from "lucide-preact";
 import Dropzone from "dropzone";
 import "dropzone/dist/dropzone.css";
 
-import { Directory, MediaApiPaths } from "../index";
+import { Directory, MediaApiPaths } from "..";
 import { getCsrfToken } from "../../utils/csrf-token";
 
 type Props = {
