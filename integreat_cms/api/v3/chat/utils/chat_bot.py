@@ -191,7 +191,12 @@ def celery_translate_and_answer_question(
             )
             zammad_chat.save_automatic_answers(answer["automatic_answers"])
             zammad_chat.save_message(
-                message=f"Search term: '{answer['rag_message']}'. Used sources:\n<ul>"
+                message=(
+                    f"Original Response: {answer['original_answer']}\n\n"
+                    if "original_answer" in answer
+                    else ""
+                )
+                + f"Search term: '{answer['rag_message']}'. Used sources:\n<ul>"
                 + "\n".join(
                     [
                         f"<li><a href='{source['source']}'>{source['source'].split('/')[-2]}</a>: {source['reason_inclusion']}</li>"
