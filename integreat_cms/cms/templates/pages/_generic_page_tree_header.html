@@ -5,7 +5,9 @@
 {% load rules %}
 {% block content %}
     <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">
-        <input type="checkbox" id="bulk-select-all" class="cursor-wait" />
+        <input type="checkbox"
+               id="bulk-select-all"
+               {% if not filter_form.is_enabled %} class="cursor-wait"{% endif %} />
         {% if not filter_form.is_enabled %}
             <span class="text-sm text-left uppercase py-3 pl-2 pr-2 min">
                 {% translate "Hierarchy" %}

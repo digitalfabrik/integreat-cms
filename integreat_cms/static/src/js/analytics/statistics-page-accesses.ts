@@ -1,5 +1,3 @@
-import { updateSelectionCount, setCheckboxRecursively } from "../bulk-actions";
-
 /* Category as returned by get_page_accesses_ajax in statistics_actions.py is either a language slug or "total_accesses" */
 type AccessesPerLanguageAndInTotal = {
     [category: string]: number;
@@ -15,6 +13,28 @@ let pageAccessesForm: HTMLFormElement;
 let ajaxRequestID: number;
 let exportTable: string[][] = [];
 let visibleDatasetSlugs: string[];
+
+/**
+ * Remove updateSelectionCount and setCheckboxRecursively (issue 4430)
+ * Import them from ../feature/bulk-actions instead
+ */
+const updateSelectionCount = () => {
+    const selectCount = document.querySelector("[data-list-selection-count]") as HTMLElement;
+    if (selectCount) {
+        selectCount.innerText = document.querySelectorAll(".bulk-select-item:checked").length.toString();
+    }
+};
+
+const setCheckboxRecursively = (pageId: number, checked: boolean) => {
+    const page = document.getElementById(`page-${pageId}`);
+    const checkbox = page.querySelector(".bulk-select-item") as HTMLInputElement;
+    checkbox.checked = checked;
+    const toggleButton = page.querySelector(".toggle-subpages");
+    if (toggleButton) {
+        const childrenIds: number[] = JSON.parse(toggleButton.getAttribute("data-page-children"));
+        childrenIds.forEach((childId) => setCheckboxRecursively(childId, checked));
+    }
+};
 
 const setSelectAllCheckboxEventListener = (selectAllCheckbox: HTMLInputElement, selectItems: HTMLInputElement[]) => {
     selectAllCheckbox.classList.remove("cursor-wait");
@@ -305,6 +325,10 @@ export const setPageAccessesEventListeners = () => {
     if (pageAccessesForm && statisticsForm) {
         const selectAllCheckbox = document.getElementById("bulk-select-all") as HTMLInputElement;
         const selectItems = <HTMLInputElement[]>Array.from(document.getElementsByClassName("bulk-select-item"));
+        // Remove cursor-wait from bulk checkboxes now that subpages have been loaded
+        document
+            .querySelectorAll<HTMLElement>(".bulk-select-item.cursor-wait, #bulk-select-all.cursor-wait")
+            .forEach((el) => el.classList.remove("cursor-wait"));
         pageAccessesURL = pageAccessesForm.getAttribute("data-page-accesses-url");
 
         setSelectAllCheckboxEventListener(selectAllCheckbox, selectItems);

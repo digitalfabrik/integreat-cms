@@ -4,7 +4,6 @@
 
 import { createIconsAt } from "../utils/create-icons";
 import { getCsrfToken } from "../utils/csrf-token";
-import { setBulkActionEventListeners } from "../bulk-actions";
 import { setToggleSubpagesEventListeners } from "./toggle-subpages";
 import { addDragAndDropListeners } from "../tree-drag-and-drop";
 import { addConfirmationDialogListeners } from "../utils/confirmation-popup";
@@ -90,12 +89,12 @@ window.addEventListener("load", async () => {
         restorePageTreeLayout();
 
         await fetchAllSubpages(url, closedPages);
+        document.dispatchEvent(new Event("subpages-loaded"));
 
         console.debug("Finished loading all subpages");
         // Set event handlers
         setPageAccessesEventListeners();
         setToggleSubpagesEventListeners();
-        setBulkActionEventListeners();
         addDragAndDropListeners();
         addConfirmationDialogListeners();
         addPreviewWindowListeners(openPreviewWindowInPageTree);
