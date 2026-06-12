@@ -88,7 +88,7 @@ def test_xliff_export(
         download_links = [
             link.attrib["href"]
             for link in parsed_content.iter("a")
-            if "data-auto-download" in link.attrib
+            if "data-js-auto-file-download" in link.attrib
         ]
         print(download_links)
         assert len(download_links) == 1
