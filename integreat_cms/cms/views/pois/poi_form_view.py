@@ -446,13 +446,6 @@ class POIFormView(
             poi_translation_form.instance.poi.translations.filter(
                 language__in=languages,
             ).update(status=status.DRAFT)
-        elif (
-            poi_translation_form.instance.status == status.PUBLIC
-            and poi_translation_form.instance.minor_edit
-        ):
-            poi_translation_form.instance.poi.translations.filter(
-                language=language,
-            ).update(status=status.PUBLIC)
 
     def warn_if_coordinates_too_far(
         self, request: HttpRequest, poi_form: POIForm
