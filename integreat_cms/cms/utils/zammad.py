@@ -2,6 +2,7 @@
 Zammad API helper functions
 """
 
+import base64
 from abc import abstractmethod
 from datetime import datetime
 from typing import TYPE_CHECKING
@@ -11,6 +12,8 @@ from django.conf import settings
 from django.core.cache import cache
 
 if TYPE_CHECKING:
+    from django.core.files.uploadedfile import UploadedFile
+
     from ..models import Region
 
 
@@ -137,6 +140,17 @@ class ZammadAPI:
         )
         message["user_is_author"] = message["role"] == "user"
         message["content"] = message["body"]
+        message["attachments"] = [
+            {
+                "id": attachment["id"],
+                "filename": attachment["filename"],
+                "size": int(attachment.get("size", 0) or 0),
+                "content_type": attachment.get("preferences", {}).get(
+                    "Content-Type", "application/octet-stream"
+                ),
+            }
+            for attachment in (message.get("attachments") or [])
+        ]
         keys_to_keep = [
             "status",
             "error",
@@ -146,6 +160,7 @@ class ZammadAPI:
             "role",
             "content",
             "created_at",
+            "attachments",
         ]
         return {key: message[key] for key in message if key in keys_to_keep}
 
@@ -182,6 +197,7 @@ class ZammadAPI:
         internal: bool,
         automatic_message: bool,
         words_generated: int = 0,
+        attachments: "list[UploadedFile] | None" = None,
     ) -> dict | None:
         """
         Save a new message (article) to a Zammad ticket.
@@ -190,35 +206,90 @@ class ZammadAPI:
         :param internal: true if message should not be visible to app user
         :param automatic_message: true if message does not originate from a human
         :param num_words: number of words in the generated message
+        :param attachments: optional list of uploaded files to attach to the article
         :return: Zammad ticket information
         """
         self.update_mt_budget(words_generated)
 
         cache.delete(f"{self.region.slug}_{self.device_id}")
+        payload: dict = {
+            "ticket_id": self.zammad_id,
+            "body": message,
+            "internal": internal,
+            "automatic_message": automatic_message,
+            "subject": (
+                "app user message"
+                if not automatic_message
+                else "automatically generated message"
+            ),
+            "content_type": "text/html",
+            "type": "web",
+            "sender": "Customer" if not automatic_message else "Agent",
+        }
+        if attachments:
+            payload["attachments"] = [
+                {
+                    "filename": attachment.name,
+                    "data": base64.b64encode(attachment.read()).decode("ascii"),
+                    "mime-type": attachment.content_type or "application/octet-stream",
+                }
+                for attachment in attachments
+            ]
         try:
             response = self.zammad_request(
                 "POST",
                 "/api/v1/ticket_articles",
-                {
-                    "ticket_id": self.zammad_id,
-                    "body": message,
-                    "internal": internal,
-                    "automatic_message": automatic_message,
-                    "subject": (
-                        "app user message"
-                        if not automatic_message
-                        else "automatically generated message"
-                    ),
-                    "content_type": "text/html",
-                    "type": "web",
-                    "sender": "Customer" if not automatic_message else "Agent",
-                },
+                payload,
             )
         except ValueError:
             return None
         if not response.ok:
             return None
         return response.json()
+
+    def get_attachment(
+        self, article_id: int, attachment_id: int
+    ) -> tuple[bytes, str, str] | None:
+        """
+        Fetch an attachment from a Zammad article that belongs to this ticket.
+
+        The article is first inspected to ensure it belongs to this ticket and is
+        not internal. Internal article attachments must never be exposed to app users.
+
+        :param article_id: ID of the Zammad article (message)
+        :param attachment_id: ID of the attachment within the article
+        :return: tuple of ``(content, content_type, filename)`` or ``None`` if
+            the attachment cannot be served
+        """
+        try:
+            article = self.zammad_request(
+                "GET", f"/api/v1/ticket_articles/{article_id}"
+            ).json()
+        except ValueError:
+            return None
+        if article.get("ticket_id") != self.zammad_id or article.get("internal"):
+            return None
+        attachment_meta = next(
+            (
+                a
+                for a in (article.get("attachments") or [])
+                if a["id"] == attachment_id
+            ),
+            None,
+        )
+        if attachment_meta is None:
+            return None
+        try:
+            response = self.zammad_request(
+                "GET",
+                f"/api/v1/ticket_attachment/{self.zammad_id}/{article_id}/{attachment_id}",
+            )
+        except ValueError:
+            return None
+        content_type = attachment_meta.get("preferences", {}).get(
+            "Content-Type", "application/octet-stream"
+        )
+        return response.content, content_type, attachment_meta["filename"]
 
     @property
     def evaluation_consent(self) -> bool:

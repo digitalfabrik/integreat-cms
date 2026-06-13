@@ -1410,7 +1410,25 @@ INTEGREAT_CHAT_CMS_USER_MAIL = os.environ.get(
 #: the ``device_id`` attribute is set on Zammad tickets so that incoming webhooks
 #: can be mapped to the correct chat regardless of the region.
 MULTI_REGION_ZAMMAD: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_MULTI_REGION_ZAMMAD", "False")),
+    strtobool(os.environ.get("INTEGREAT_CMS_MULTI_REGION_ZAMMAD", "False"))
+)
+
+#: Maximum size (bytes) of a single chat attachment uploaded by an Integreat app user
+INTEGREAT_CHAT_ATTACHMENT_MAX_SIZE: Final[int] = int(
+    os.environ.get(
+        "INTEGREAT_CMS_INTEGREAT_CHAT_ATTACHMENT_MAX_SIZE",
+        10 * 1024 * 1024,
+    )
+)
+
+#: Allowed MIME types for chat attachments uploaded by Integreat app users
+INTEGREAT_CHAT_ATTACHMENT_ALLOWED_MIME_TYPES: Final[tuple[str, ...]] = (
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/webp",
+    "application/pdf",
+    "text/plain",
 )
 
 ##########
