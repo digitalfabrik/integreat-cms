@@ -303,7 +303,7 @@ NOMINATIM_API_ENABLED: Final[bool] = bool(
 #: This is used to automatically derive coordinates from addresses.
 NOMINATIM_API_URL: Final[str] = os.environ.get(
     "INTEGREAT_CMS_NOMINATIM_API_URL",
-    "http://nominatim.maps.tuerantuer.org/nominatim/",
+    "https://nominatim.maps.tuerantuer.org/nominatim/",
 )
 
 
