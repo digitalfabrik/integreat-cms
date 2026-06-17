@@ -1,5 +1,5 @@
 import { createIconsAt } from "../utils/create-icons";
-import { refreshAjaxConfirmationHandlers } from "../confirmation-popups";
+import { refreshAjaxConfirmationHandlers } from "../utils/confirmation-popup";
 import { deleteChatMessage } from "./delete-chat-message";
 /**
  * This file contains the sending function for the author chat

@@ -3,7 +3,7 @@
  * server to acquire and keep the content editing look.
  * This file also registers an unload handler to quickly release the lock when not required anymore.
  */
-import { showConfirmationPopupWithData } from "./confirmation-popups";
+import { showConfirmationPopupWithData } from "./utils/confirmation-popup";
 import { storeDraft } from "./forms/tinymce-init";
 import { getCsrfToken } from "./utils/csrf-token";
 
