@@ -26,7 +26,6 @@ import "whatwg-fetch"; // IE11: Element.closest
 
 import "./css/style.scss";
 
-import "./js/auto-file-download";
 import "./js/tree-drag-and-drop";
 import "./js/rss-feed";
 import "./js/collapsible-boxes";
