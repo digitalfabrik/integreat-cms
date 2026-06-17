@@ -6,7 +6,7 @@ import { ChevronRight, Folder, FolderOpen } from "lucide-preact";
 import { Link } from "preact-router";
 import { useState } from "preact/hooks";
 
-import { Directory } from "../index";
+import { Directory } from "..";
 
 type Props = {
     breadCrumbs: Directory[];

@@ -67,7 +67,6 @@
         let countryCode = "+49";
 
         /* eslint-disable no-magic-numbers */
-        /* eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check */
         switch (true) {
             case phoneNumber.startsWith("00"):
                 phoneNumberCallable = `+${phoneNumberCleaned.substring(2)}`;
@@ -209,7 +208,6 @@
         const NODE_TYPE_TEXT = 3;
 
         let autoUrlDetectState;
-        /* eslint-disable-next-line consistent-return */
         editor.on("keydown", (e) => {
             if (e.keyCode === KEY_CODE_SPACE) {
                 const rng = editor.selection.getRng();
