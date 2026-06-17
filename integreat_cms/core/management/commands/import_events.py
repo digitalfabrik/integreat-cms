@@ -30,7 +30,7 @@ class Command(LogCommand):
         :param \**options: The supplied keyword options
         """
         self.set_logging_stream()
-        calendars = ExternalCalendar.objects.all()
+        calendars = ExternalCalendar.objects.select_related("region").all()
         for calendar in calendars:
             import_events(calendar, logger)
 
