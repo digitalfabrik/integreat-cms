@@ -15,6 +15,7 @@ services:
     # Same PostgreSQL version as the CircleCI test job (cimg/postgres:14.1),
     # so query-count assertions and version-specific behaviour match CI.
     image: cimg/postgres:14.1
+    platform: linux/amd64
     environment:
       POSTGRES_USER: integreat
       POSTGRES_DB: integreat
@@ -32,6 +33,8 @@ services:
       context: .
       dockerfile: tools/docker/Dockerfile.test
     image: integreat-cms-test:local
+    # Match CI's architecture (see db service).
+    platform: linux/amd64
     depends_on:
       db:
         condition: service_healthy
@@ -47,13 +50,11 @@ services:
     volumes:
       # Bind-mount the working tree so tests run against the current code.
       - .:/home/circleci/project
-      # Cache the virtualenv and pip downloads across runs for speed.
+      # Cache the virtualenv across runs so dependencies are installed only once.
       - test-venv:/home/circleci/venv
-      - test-pip-cache:/home/circleci/.cache/pip
     working_dir: /home/circleci/project
     entrypoint: ["bash", "tools/docker/test_entrypoint.sh"]
 
 volumes:
   test-pg-data:
   test-venv:
-  test-pip-cache:

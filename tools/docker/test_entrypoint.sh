@@ -13,6 +13,12 @@ set -eo pipefail
 # Virtualenv lives on a named volume (see docker-compose.test.yml) so that
 # dependencies are installed once and reused across runs.
 VENV_DIR="/home/circleci/venv"
+# Named-volume mount points are created owned by root; make the venv directory
+# writable by the unprivileged container user before using it (cimg images grant
+# the `circleci` user passwordless sudo).
+if [[ ! -w "${VENV_DIR}" ]]; then
+    sudo chown "$(id -u):$(id -g)" "${VENV_DIR}"
+fi
 if [[ ! -x "${VENV_DIR}/bin/python" ]]; then
     echo "Creating virtualenv at ${VENV_DIR}..."
     python -m venv "${VENV_DIR}"
