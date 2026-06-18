@@ -37,3 +37,14 @@ def test_clean_content(
         not in cleaned_content
     )
     assert '<a href="http://localhost:8000/augsburg/pages/de/5"></a>' in cleaned_content
+
+
+def test_clean_content_strips_script_tag() -> None:
+    result = clean_content("<p>Hello <script>alert('XSS')</script> world</p>", "de")
+    assert "<script>" not in result
+    assert "alert(" not in result
+
+
+def test_clean_content_strips_event_handler() -> None:
+    result = clean_content("<p><a onclick='alert(1)'>click me</a></p>", "de")
+    assert "onclick" not in result
