@@ -59,6 +59,7 @@ class IcalEventData:
         language_slug: str,
         external_calendar: ExternalCalendar,
         logger: logging.Logger,
+        region_id: int | None = None,
     ) -> Self:
         """
         Reads an ical event and constructs an instance of this class from it
@@ -84,6 +85,7 @@ class IcalEventData:
         content = clean_content(
             content=raw_description.replace("\n", "<br>"),
             language_slug=language_slug,
+            region_id=region_id,
         )
         start = event.decoded("DTSTART")
         end = event.decoded(
@@ -438,10 +440,7 @@ def import_event(
 
     try:
         event_data = IcalEventData.from_ical_event(
-            event,
-            language.slug,
-            calendar,
-            logger,
+            event, language.slug, calendar, logger, calendar.region.id
         )
     except ValueError as e:
         logger.exception("Could not import event: %r due to error", event)

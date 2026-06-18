@@ -99,6 +99,7 @@ def update_links_to(
         new_content = clean_content(
             outdated_content_translation.content,
             outdated_content_translation.language.slug,
+            outdated_content_translation.foreign_object.region_id,
         )
         if new_content == outdated_content_translation.content:
             continue

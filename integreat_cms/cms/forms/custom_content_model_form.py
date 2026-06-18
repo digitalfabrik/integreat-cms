@@ -103,7 +103,15 @@ class CustomContentModelForm(CustomModelForm):
         :return: The valid content
         """
         content = self.cleaned_data["content"]
-        return clean_content(content, language_slug=self.instance.language.slug)
+        try:
+            region_id = self.instance.foreign_object.region_id
+        except ObjectDoesNotExist:
+            region_id = None
+        return clean_content(
+            content,
+            language_slug=self.instance.language.slug,
+            region_id=region_id,
+        )
 
     def clean_slug(self) -> str:
         """
