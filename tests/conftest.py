@@ -173,6 +173,21 @@ def configure_celery_for_tests(settings: SettingsWrapper) -> None:
     settings.CELERY_TASK_EAGER_PROPAGATES = True
 
 
+@pytest.fixture(autouse=True)
+def clear_cache() -> None:
+    """
+    Reset the cache before every test so cache state cannot leak between tests.
+
+    The cache backend used in tests (:class:`~django.core.cache.backends.locmem.LocMemCache`)
+    lives for the lifetime of the worker process, and Django only rolls back the
+    database between tests — not the cache. Without this, process-level cache
+    state (most notably the API rate-limit counters in
+    :func:`~integreat_cms.api.decorators.rate_limited`) accumulates across tests
+    and makes assertions depend on test execution order.
+    """
+    cache.clear()
+
+
 @pytest.fixture()
 def create_page() -> Callable[..., Page]:
     def _create_page(
