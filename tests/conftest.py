@@ -10,6 +10,7 @@ from unittest.mock import patch
 
 import pytest  # isort: skip — must precede local imports for fixture registration
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.core.management import call_command
 from django.test.client import AsyncClient, Client
 
@@ -173,6 +174,21 @@ def configure_celery_for_tests(settings: SettingsWrapper) -> None:
     # so we set celery to run synchronously and propagate errors to the test runner
     settings.CELERY_TASK_ALWAYS_EAGER = True
     settings.CELERY_TASK_EAGER_PROPAGATES = True
+
+
+@pytest.fixture(autouse=True)
+def clear_cache() -> None:
+    """
+    Reset the cache before every test so cache state cannot leak between tests.
+
+    The cache backend used in tests (:class:`~django.core.cache.backends.locmem.LocMemCache`)
+    lives for the lifetime of the worker process, and Django only rolls back the
+    database between tests — not the cache. Without this, process-level cache
+    state (most notably the API rate-limit counters in
+    :func:`~integreat_cms.api.decorators.rate_limited`) accumulates across tests
+    and makes assertions depend on test execution order.
+    """
+    cache.clear()
 
 
 @pytest.fixture()
