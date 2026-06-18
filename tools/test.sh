@@ -37,10 +37,14 @@ function run_tests_in_docker {
         echo "Install Docker, or re-run with --local to use your host environment instead." | print_info
         exit 1
     fi
+    # The project's .env is a bash-source file (it `source`s the venv), not a
+    # docker-compose env file, so prevent Compose from auto-loading it for
+    # variable substitution (this compose file uses no interpolation anyway).
+    local compose=(docker compose --env-file /dev/null -f "${compose_file}")
     echo "Building the CI-matching test image (first run only)..." | print_info
-    docker compose -f "${compose_file}" build
+    "${compose[@]}" build
     echo "Running tests inside Docker (cimg/python:3.11.7 + cimg/postgres:14.1, matching CI)..." | print_info
-    docker compose -f "${compose_file}" run --rm tests "$@"
+    "${compose[@]}" run --rm tests "$@"
 }
 
 # Prepares the host environment for a --local test run (database, settings, …).

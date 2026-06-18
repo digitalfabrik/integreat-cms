@@ -5,8 +5,10 @@
 # Run on the host (no docker) with `./tools/test.sh --local`.
 #
 # The service is normally driven through tools/test.sh, but can also be used
-# directly, e.g.:
-#   docker compose -f docker-compose.test.yml run --rm tests -m unit
+# directly. Pass `--env-file /dev/null` so Compose does not try to auto-load a
+# personal, bash-style .env (e.g. from autoenv/direnv) at the repo root as a
+# docker-compose env file:
+#   docker compose --env-file /dev/null -f docker-compose.test.yml run --rm tests -m unit
 
 services:
   db:
