@@ -1,0 +1,22 @@
+# Test runner image — mirrors the CircleCI `test` job environment as closely as
+# possible so that a local `./tools/test.sh` run matches CI by construction.
+#
+# Base image and system packages are kept in sync with .circleci/config.yml:
+#   - image:   cimg/python:3.11.7   (same Python + OS + font stack as CI)
+#   - apt:     libcairo2            (required by the PDF export tests)
+# In addition we install `gettext` so translations can be compiled inside the
+# container (the .mo files are not committed and several tests depend on them).
+#
+# Python dependencies are intentionally NOT installed here: the repository is
+# bind-mounted at runtime and dependencies are installed into a cached virtualenv
+# volume by tools/docker/test_entrypoint.sh, which keeps the image small and the
+# editable install pointing at the mounted source tree.
+FROM cimg/python:3.11.7
+
+USER root
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libcairo2 gettext \
+    && rm -rf /var/lib/apt/lists/*
+USER circleci
+
+WORKDIR /home/circleci/project
