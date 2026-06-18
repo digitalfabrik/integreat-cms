@@ -1,0 +1,64 @@
+# Dockerized test environment that mirrors the CircleCI `test` job.
+#
+# This is what `./tools/test.sh` uses by default so that local test runs match
+# CI by construction (same Python, OS, font stack and PostgreSQL version).
+# Run on the host (no docker) with `./tools/test.sh --local`.
+#
+# The service is normally driven through tools/test.sh, but can also be used
+# directly. Pass `--env-file /dev/null` so Compose does not try to auto-load a
+# personal, bash-style .env (e.g. from autoenv/direnv) at the repo root as a
+# docker-compose env file:
+#   docker compose --env-file /dev/null -f docker-compose.test.yml run --rm tests -m unit
+
+services:
+  db:
+    # Same PostgreSQL version as the CircleCI test job (cimg/postgres:14.1),
+    # so query-count assertions and version-specific behaviour match CI.
+    image: cimg/postgres:14.1
+    platform: linux/amd64
+    environment:
+      POSTGRES_USER: integreat
+      POSTGRES_DB: integreat
+      POSTGRES_PASSWORD: password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U integreat -d integreat"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    volumes:
+      - test-pg-data:/var/lib/postgresql/data
+
+  tests:
+    build:
+      context: .
+      dockerfile: tools/docker/Dockerfile.test
+    image: integreat-cms-test:local
+    # Match CI's architecture (see db service).
+    platform: linux/amd64
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Point the app at the db service instead of localhost.
+      INTEGREAT_CMS_DB_HOST: db
+      INTEGREAT_CMS_DB_PORT: "5432"
+      INTEGREAT_CMS_DB_NAME: integreat
+      INTEGREAT_CMS_DB_USER: integreat
+      INTEGREAT_CMS_DB_PASSWORD: password
+      # Use the same Django settings module as a host test run.
+      DJANGO_SETTINGS_MODULE: integreat_cms.core.test_settings
+      # Keep Python's bytecode cache off the bind-mounted source tree, so the
+      # container ignores the host's __pycache__ and concurrent xdist workers
+      # cannot corrupt .pyc files ("EOFError: marshal data too short").
+      PYTHONPYCACHEPREFIX: /tmp/pycache
+    volumes:
+      # Bind-mount the working tree so tests run against the current code.
+      - .:/home/circleci/project
+      # Cache the virtualenv across runs so dependencies are installed only once.
+      - test-venv:/home/circleci/venv
+    working_dir: /home/circleci/project
+    entrypoint: ["bash", "tools/docker/test_entrypoint.sh"]
+
+volumes:
+  test-pg-data:
+  test-venv:
