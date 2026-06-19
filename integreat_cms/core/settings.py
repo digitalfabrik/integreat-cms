@@ -72,7 +72,8 @@ TEST_REGION_SLUG: Final[str] = "testumgebung"
 
 #: Reserved region slugs, that are used in the webapp
 RESERVED_REGION_SLUGS: Final[list[str]] = [
-    "landing",
+    "landing",  # Legacy, now regions
+    "regions",
     "recommend",
     "licenses",
     "main-disclaimer",
@@ -86,7 +87,8 @@ RESERVED_REGION_PAGE_PATTERNS: Final[list[str]] = [
     IMPRINT_SLUG,
     "news",
     "events",
-    "locations",
+    "locations",  # Legacy, now places
+    "places",
     "offers",
     "search",
 ]
