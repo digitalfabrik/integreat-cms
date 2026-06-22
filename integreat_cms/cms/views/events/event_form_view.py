@@ -413,14 +413,6 @@ class EventFormView(
                 language__in=languages,
             ).update(status=status.DRAFT)
 
-        elif (
-            event_translation_form.instance.status == status.PUBLIC
-            and event_translation_form.instance.minor_edit
-        ):
-            event_translation_form.instance.event.translations.filter(
-                language=language,
-            ).update(status=status.PUBLIC)
-
     def is_qualified_for_save(
         self,
         request: HttpRequest,
