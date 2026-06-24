@@ -393,6 +393,15 @@ class AbstractContentTranslation(AbstractBaseModel):
         return self.foreign_object.get_translation(self.language.slug)
 
     @cached_property
+    def latest_public_or_draft_version(self) -> AbstractContentTranslation | None:
+        """
+        This property is a link to the most recent public or draft version of this translation.
+
+        :return: The latest public or draft revision of the translation
+        """
+        return self.foreign_object.get_public_or_draft_translation(self.language.slug)
+
+    @cached_property
     def public_version(self) -> AbstractContentTranslation | None:
         """
         This property is a link to the most recent public version of this translation.
@@ -488,7 +497,11 @@ class AbstractContentTranslation(AbstractBaseModel):
             # If the source translation is already outdated, this translation is as well
             or source_translation.translation_state == translation_status.OUTDATED
             # If the translation was edited before the last major change in the source language, it is outdated
-            or translation.last_updated <= source_translation.last_updated
+            or (
+                self.latest_public_or_draft_version
+                and self.latest_public_or_draft_version.last_updated
+                <= source_translation.last_updated
+            )
         ):
             return translation_status.OUTDATED
         if translation.machine_translated:
