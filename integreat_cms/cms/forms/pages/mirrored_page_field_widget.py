@@ -81,7 +81,7 @@ class MirroredPageFieldWidget(forms.widgets.Select):
         ):
             option_dict["attrs"]["disabled"] = True
             option_dict["attrs"]["title"] = _(
-                "This page cannot be mirrored because it has no public translation in the default language"
+                "The page currently selected as live content is not visible to users at this time because it is in draft status. Once the page is published, the content will be visible again."
             )
 
         return option_dict
