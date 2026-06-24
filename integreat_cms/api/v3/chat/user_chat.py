@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING
 
 import requests
 from django.conf import settings
+from django.core.cache import cache
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.dateparse import parse_datetime
@@ -102,9 +103,9 @@ def process_chat_payload(
         )
         user_chat.language = language
         user_chat.save()
-        user_chat.processing_answer = True  # type: ignore[assignment]
         if response is not None:
             if user_chat.automatic_answers:
+                user_chat.processing_answer = True  # type: ignore[assignment]
                 celery_translate_and_answer_question.apply_async(
                     args=[
                         parse_datetime(response["updated_at"]),
@@ -186,15 +187,37 @@ def is_app_user_message(webhook_message: dict) -> bool:
 @json_response
 def zammad_webhook(request: HttpRequest) -> JsonResponse:
     """
-    Receive webhooks from Zammad to update the latest article translation
+    Receive webhooks from Zammad to update the latest article translation.
+
+    Optional feature: if a Zammad has an object attribute "device_id" for tickets,
+    we can use this to directly fetch the corresponding chat from our database.
+    This allows multiple regions to use the same Zammad server. As not all Zammad
+    servers have this configured, we still need to support the old method were we
+    fetch the UserChat object identified by the region token and Zammad ticket id.
     """
-    region = get_object_or_404(
+    token_region = get_object_or_404(
         Region,
         zammad_webhook_token=request.GET.get("token", None),
     )
+    webhook_message = json.loads(request.body)
+
+    if (
+        "device_id" in webhook_message["ticket"]
+        and webhook_message["ticket"]["device_id"]
+    ):
+        zammad_chat = get_object_or_404(
+            UserChat, device_id=webhook_message["ticket"]["device_id"]
+        )
+    else:  # legacy support
+        zammad_chat = get_object_or_404(
+            UserChat, zammad_id=webhook_message["ticket"]["id"], region=token_region
+        )
+
+    region = zammad_chat.region
+
     if not region.integreat_chat_enabled:
         return JsonResponse({"status": "Integreat Chat disabled"})
-    webhook_message = json.loads(request.body)
+
     message_text = webhook_message["article"]["body"]
 
     actions = []
@@ -213,7 +236,8 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
     elif is_app_user_message(webhook_message):
         actions.append("question translation and answering already tasked")
     else:
-        actions.append("answer translation queued")
+        actions.append("human answer translation queued")
+        cache.delete(f"{zammad_chat.region.slug}_{zammad_chat.device_id}")
         celery_translate_answer.apply_async(
             args=[message_text, region.slug, webhook_message["ticket"]["id"]],
         )

@@ -1460,6 +1460,13 @@ INTEGREAT_CHAT_CMS_USER_MAIL = os.environ.get(
     "tech+integreat-cms@tuerantuer.org",
 )
 
+#: Whether a single Zammad instance is shared by multiple regions. If enabled,
+#: the ``device_id`` attribute is set on Zammad tickets so that incoming webhooks
+#: can be mapped to the correct chat regardless of the region.
+MULTI_REGION_ZAMMAD: Final[bool] = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_MULTI_REGION_ZAMMAD", "False")),
+)
+
 ##########
 # CELERY #
 ##########
