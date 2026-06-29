@@ -9,12 +9,15 @@ from django.template import loader
 from django.utils.translation import gettext_lazy as _
 from lxml.etree import LxmlError
 from lxml.html import Element, fromstring, HtmlElement, tostring
+from lxml.html.clean import Cleaner
 
 from ..models import Contact, MediaFile
 from ..utils import internal_link_utils
 from ..utils.link_utils import fix_content_link_encoding
 
 logger = logging.getLogger(__name__)
+
+_xss_cleaner = Cleaner(scripts=True, javascript=True, safe_attrs_only=False)
 
 
 def clean_content(content: str, language_slug: str) -> str:
@@ -30,6 +33,7 @@ def clean_content(content: str, language_slug: str) -> str:
         # The content is not guaranteed to be valid html, for example it may be empty
         return content
 
+    content = _xss_cleaner.clean_html(content)
     convert_heading(content)
     convert_monospaced_tags(content)
     update_links(content, language_slug)
