@@ -1442,6 +1442,13 @@ INTEGREAT_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"
 #: How much of the regions machine translation budget should be deducted per word generated in Frag Integreat
 INTEGREAT_CHAT_BUDGET_WEIGHT: Final[float] = 1
 
+#: Number of days a chat may be inactive before its Zammad ticket is assumed to be
+#: gone (Zammad's ticket retention is shorter than ours). After this period a new
+#: chat is started instead of attempting to reuse the (likely deleted) ticket.
+INTEGREAT_CHAT_TICKET_RETENTION_DAYS: Final[int] = int(
+    os.environ.get("INTEGREAT_CMS_INTEGREAT_CHAT_TICKET_RETENTION_DAYS", 30)
+)
+
 #: Integreat Chat (app) backend server domain
 INTEGREAT_CHAT_BACK_END_DOMAIN = os.environ.get(
     "INTEGREAT_CMS_INTEGREAT_CHAT_BACK_END_DOMAIN",
