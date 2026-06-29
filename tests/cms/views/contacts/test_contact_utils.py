@@ -2,6 +2,7 @@ import json
 import re
 
 import pytest
+from django.contrib.auth import get_user_model
 from django.test.client import Client
 from django.urls import reverse
 from lxml.html import fromstring, tostring
@@ -11,6 +12,8 @@ from integreat_cms.cms.utils.content_utils import update_contacts
 from tests.conftest import AUTHOR, EDITOR, MANAGEMENT, STAFF_ROLES
 
 REGION_SLUG = "augsburg"
+# A contact that belongs to a different region (berlin), used to test cross-region access
+CROSS_REGION_CONTACT_ID = 7
 CONTACT1 = {
     "id": 3,
     "json": {
@@ -198,6 +201,53 @@ def test_update_contact_card_single(
     assert strip(tostring(stub, encoding="unicode", with_tail=False)) == strip(
         tostring(card, encoding="unicode", with_tail=False)
     )
+
+
+@pytest.mark.django_db
+def test_get_contact_card_cross_region(
+    load_test_data: None,
+) -> None:
+    """
+    Test that requesting a contact card from a different region returns 404
+    """
+    client = Client()
+    client.force_login(get_user_model().objects.get(username=EDITOR.lower()))
+
+    response = client.get(
+        reverse(
+            "get_contact",
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "contact_id": CROSS_REGION_CONTACT_ID,
+            },
+        ),
+        {"details": "name,email"},
+    )
+
+    assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_get_contact_card_raw_cross_region(
+    load_test_data: None,
+) -> None:
+    """
+    Test that requesting a raw contact from a different region returns 404
+    """
+    client = Client()
+    client.force_login(get_user_model().objects.get(username=EDITOR.lower()))
+
+    response = client.get(
+        reverse(
+            "get_contact_raw",
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "contact_id": CROSS_REGION_CONTACT_ID,
+            },
+        ),
+    )
+
+    assert response.status_code == 404
 
 
 @pytest.mark.django_db

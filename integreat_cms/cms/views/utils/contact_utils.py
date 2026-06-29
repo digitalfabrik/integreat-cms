@@ -79,7 +79,7 @@ def get_contact(
     :param region_slug: The slug of the current region
     :return: HTML representation of the requested contact
     """
-    contact = get_object_or_404(Contact, pk=contact_id)
+    contact = get_object_or_404(Contact, pk=contact_id, location__region=request.region)
 
     wanted = request.GET.get("details", "").split(",")
     return render(
@@ -102,7 +102,7 @@ def get_contact_raw(
     :param region_slug: The slug of the current region
     :return: Short representation of the requested contact
     """
-    contact = get_object_or_404(Contact, pk=contact_id)
+    contact = get_object_or_404(Contact, pk=contact_id, location__region=request.region)
     return JsonResponse(
         {
             "data": {
