@@ -41,11 +41,14 @@
         <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
            class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
            title="{% if page_translation %} {{ page_translation.title }}{% endif %}">
-            {% if page_translation %}
-                {{ page_translation.title }}
-            {% else %}
-                <i>{% translate "Translation not available" %}</i>
-            {% endif %}
+            <div class="title-slug"
+                 data-title-slug="{% if page_translation %}{{ page_translation.slug }}{% endif %}">
+                {% if page_translation %}
+                    {{ page_translation.title }}
+                {% else %}
+                    <i>{% translate "Translation not available" %}</i>
+                {% endif %}
+            </div>
         </a>
     </td>
     {% if not backend_language %}
