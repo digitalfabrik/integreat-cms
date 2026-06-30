@@ -100,14 +100,6 @@ VIEWS: ViewConfig = [
                     "submit_form": "email_form",
                 },
             ),
-            (
-                "user_settings",
-                STAFF_ROLES,
-                {
-                    "distribute_sidebar_boxes": True,
-                    "submit_form": "preferences_form",
-                },
-            ),
             ("authenticate_modify_mfa", STAFF_ROLES),
             ("users", STAFF_ROLES),
         ],
@@ -174,14 +166,6 @@ VIEWS: ViewConfig = [
                 {
                     "email": "new@email.address",
                     "submit_form": "email_form",
-                },
-            ),
-            (
-                "user_settings",
-                ROLES,
-                {
-                    "distribute_sidebar_boxes": True,
-                    "submit_form": "preferences_form",
                 },
             ),
             ("authenticate_modify_mfa", ROLES),
