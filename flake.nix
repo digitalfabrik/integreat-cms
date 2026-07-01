@@ -4,8 +4,14 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, utils }:
-    utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      utils,
+    }:
+    utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs { inherit system; };
 
@@ -34,7 +40,11 @@
         };
         pg-reset = pkgs.writeShellApplication {
           name = "pg-reset";
-          runtimeInputs = [ pkgs.postgresql pg-start pg-stop ];
+          runtimeInputs = [
+            pkgs.postgresql
+            pg-start
+            pg-stop
+          ];
           text = ''
             pg-stop
 
@@ -54,35 +64,46 @@
           name = "redis";
           runtimeInputs = [ pkgs.redis ];
           text = ''
-            redis-server --daemonize yes --unixsocket "$INTEGREAT_CMS_REDIS_SOCKET_LOCATION" --port "$INTEGREAT_CMS_REDIS_PORT" > /dev/null
+            socket="$(pwd)/.redis.sock"
+            redis-server --daemonize yes --unixsocket "$socket" --port "$INTEGREAT_CMS_REDIS_PORT" > /dev/null
+            echo "$socket" > "$INTEGREAT_CMS_REDIS_SOCKET_LOCATION"
           '';
         };
       in
       {
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            python311Full
-            python311Packages.pip
-            python311Packages.platformdirs
+          packages =
+            with pkgs;
+            [
+              python313
+              python313Packages.pip
+              python313Packages.platformdirs
 
-            nodePackages.npm
-            nodejs_22
+              nodejs_22
 
-            gettext
-            netcat-gnu
-            pcre16
-            file
-            gnused
-            glibcLocales
-            stdenv.cc.cc.lib
-          ] ++ [
-            pg-start
-            pg-stop
-            pg-reset
-            redis
-          ];
+              gettext
+              netcat-gnu
+              pcre
+              file
+              gnused
+              glibcLocales
+              stdenv.cc.cc.lib
+            ]
+            ++ [
+              pg-start
+              pg-stop
+              pg-reset
+              redis
+            ];
 
-          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (with pkgs; [ stdenv.cc.cc.lib file cairo ]);
+          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (
+            with pkgs;
+            [
+              stdenv.cc.cc.lib
+              file
+              cairo
+            ]
+          );
 
           shellHook = /* bash */ ''
             set_if_unset() {
@@ -127,8 +148,9 @@
             if [ -d $VENV ]; then
               source ./$VENV/bin/activate
             fi
-            export PYTHONPATH=`pwd`/$VENV/${pkgs.python311Full.sitePackages}/:$PYTHONPATH
+            export PYTHONPATH=`pwd`/$VENV/${pkgs.python313.sitePackages}/:$PYTHONPATH
           '';
         };
-      });
+      }
+    );
 }
