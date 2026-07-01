@@ -51,14 +51,14 @@ API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
         "/augsburg/de/wp-json/extensions/v3/pages/",
         "tests/api/expected-outputs/augsburg_de_pages.json",
         200,
-        6,
+        7,
     ),
     (
         "/api/v3/augsburg/ar/pages/",
         "/augsburg/ar/wp-json/extensions/v3/pages/",
         "tests/api/expected-outputs/augsburg_ar_pages.json",
         200,
-        6,
+        7,
     ),
     (
         "/api/v3/augsburg/non-existing/pages/",
@@ -121,14 +121,14 @@ API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
         "/augsburg/de/wp-json/extensions/v3/children/",
         "tests/api/expected-outputs/augsburg_de_children.json",
         200,
-        5,
+        6,
     ),
     (
         "/api/v3/augsburg/de/children/?depth=3&url=/augsburg/de/behörden-und-beratung/behörden/",
         "/augsburg/de/wp-json/extensions/v3/children/?depth=3&url=/augsburg/de/behörden-und-beratung/behörden/",
         "tests/api/expected-outputs/augsburg_de_children_archived_descendants.json",
         200,
-        13,
+        15,
     ),
     (
         "/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/",
@@ -142,7 +142,7 @@ API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
         "/augsburg/de/wp-json/extensions/v3/children/?depth=2",
         "tests/api/expected-outputs/augsburg_de_children_depth_2.json",
         200,
-        5,
+        6,
     ),
     (
         "/api/v3/augsburg/de/events/",
@@ -184,7 +184,7 @@ API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
         "/augsburg/de/wp-json/extensions/v3/page/?id=1",
         "tests/api/expected-outputs/augsburg_de_page_1.json",
         200,
-        5,
+        6,
     ),
     (
         "/api/v3/augsburg/de/imprint/",
