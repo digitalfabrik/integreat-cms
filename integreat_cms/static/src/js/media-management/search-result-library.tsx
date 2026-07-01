@@ -28,6 +28,7 @@ const SearchResultLibrary = (props: LibraryProps) => {
     useEffect(() => {
         const applySearch = async () => {
             setLoading(true);
+            setFileIndex(null);
             const urlParams = new URLSearchParams({
                 query: searchQuery,
             });
@@ -36,8 +37,6 @@ const SearchResultLibrary = (props: LibraryProps) => {
             try {
                 // Load the search result
                 await ajaxRequest(getSearchResult, urlParams, setMediaLibraryContent);
-                // Close the file sidebar
-                setFileIndex(null);
             } finally {
                 setLoading(false);
             }
