@@ -9,7 +9,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 
 from integreat_cms.cms.views.mixins import get_safe_page
 
@@ -37,7 +37,9 @@ def sent_push_notifications(
     :return: JSON object according to APIv3 push notifications definition
     """
     channel = request.GET.get("channel", "all")
-    result = registry.PUSHNEWS.collect_news_items(region_slug, language_slug, channel)
+    result = registry.PUSHNEWS.collect_news_items_for_fcm(
+        region_slug, language_slug, channel
+    )
     return JsonResponse(result, safe=False)
 
 
@@ -82,3 +84,42 @@ def news(
     page = get_safe_page(paginator, page_num)
 
     return JsonResponse(list(page.object_list), safe=False)
+
+
+@json_response
+def single_news(
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
+    news_id: str,
+) -> JsonResponse:
+    """
+    Function to collect and return an news item which matched the given news id.
+
+    :param request: Django request
+    :param region_slug: slug of a region
+    :param language_slug: language slug
+    :param news_id: id of the requested news item
+    :return: JSON single NewsItem
+    """
+    region = request.region
+    language = region.get_language_or_404(language_slug, only_active=True)
+
+    parts = news_id.rsplit("-", 1)
+    if len(parts) != 2 or not parts[1].isdigit():
+        raise Http404("Invalid news id.")
+    news_type, raw_id = parts
+
+    news_manager = next(
+        (
+            news_manager
+            for news_manager in registry.CHOICES
+            if news_manager.name == news_type
+        ),
+        None,
+    )
+
+    if not news_manager:
+        raise Http404("No matching news source was found.")
+
+    return news_manager.get_single_news(request, region, language, raw_id)

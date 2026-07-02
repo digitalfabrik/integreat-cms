@@ -68,28 +68,31 @@ def test_news_endpoint(load_test_data: None, clean_news_cache: None) -> None:
     tunews_time = now + timedelta(hours=2)
     pn_low_time = now + timedelta(hours=1)
 
-    tunews_id = 42
+    tunews_id = "tuNews-42"
     cache.set(
         f"tunews:{language_slug}",
         [
             {
                 "id": tunews_id,
                 "title": "Tü News Post",
-                "message": "Tü News",
-                "timestamp": tunews_time,
+                "content": "Tü News",
                 "last_updated": tunews_time,
                 "display_date": tunews_time,
                 "channel": None,
                 "available_languages": None,
                 "source": "tuNews",
-                "link": "https://dummy.com",
+                "externalUrl": "https://dummy.com",
             }
         ],
         timeout=None,
     )
 
-    pn_high_id = _create_push_notification(region_slug, language_slug, pn_high_time)
-    pn_low_id = _create_push_notification(region_slug, language_slug, pn_low_time)
+    pn_high_id = (
+        f"local-{_create_push_notification(region_slug, language_slug, pn_high_time)}"
+    )
+    pn_low_id = (
+        f"local-{_create_push_notification(region_slug, language_slug, pn_low_time)}"
+    )
 
     result = client.get(url).json()
     top_ids = [item["id"] for item in result[:3]]
@@ -119,9 +122,7 @@ def test_news_endpoint_pagination(load_test_data: None, clean_news_cache: None) 
     now = datetime.now(tz=UTC)
     # Create 3 push notifications with descending timestamps
     ids = [
-        _create_push_notification(
-            region_slug, language_slug, now + timedelta(hours=3 - i)
-        )
+        f"local-{_create_push_notification(region_slug, language_slug, now + timedelta(hours=3 - i))}"
         for i in range(3)
     ]
 
@@ -168,26 +169,25 @@ def test_news_endpoint_source_filter(
     client = Client()
 
     now = datetime.now(tz=UTC)
-    tunews_id = 99
+    tunews_id = "tuNews-99"
     cache.set(
         f"tunews:{language_slug}",
         [
             {
                 "id": tunews_id,
                 "title": "Tü News Post",
-                "message": "Tü News",
-                "timestamp": now,
+                "content": "Tü News",
                 "last_updated": now,
                 "display_date": now,
                 "channel": None,
                 "available_languages": None,
                 "source": "tuNews",
-                "link": "https://dummy.com",
+                "externalUrl": "https://dummy.com",
             }
         ],
         timeout=None,
     )
-    pn_id = _create_push_notification(region_slug, language_slug, now)
+    pn_id = f"local-{_create_push_notification(region_slug, language_slug, now)}"
 
     # Filter by local — only push notifications
     local_result = client.get(url, {"source": "local"}).json()
@@ -206,3 +206,103 @@ def test_news_endpoint_source_filter(
     assert {item["source"] for item in both_result} == {"local", "tuNews"}
     assert any(item["id"] == pn_id for item in both_result)
     assert any(item["id"] == tunews_id for item in both_result)
+
+
+@pytest.mark.django_db
+def test_single_news_endpoint(load_test_data: None, clean_news_cache: None) -> None:
+    """
+    The single news endpoint returns one news that matches the given id.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param clean_news_cache: Fixture that wipes external news-source cache entries
+    """
+    region_slug = "augsburg"
+    language_slug = "de"
+
+    client = Client()
+
+    now = datetime.now(tz=UTC)
+
+    tunews_id_1 = "tuNews-1"
+    tunews_id_2 = "tuNews-2"
+    tunews_id_non_existing = "tuNews-42"
+    cache.set(
+        f"tunews:{language_slug}",
+        [
+            {
+                "id": tunews_id_1,
+                "title": "Tü News Post",
+                "content": "Tü News",
+                "last_updated": now,
+                "display_date": now,
+                "channel": None,
+                "available_languages": None,
+                "source": "tuNews",
+                "externalUrl": "https://dummy.com",
+            },
+            {
+                "id": tunews_id_2,
+                "title": "Tü News Post",
+                "content": "Tü News",
+                "last_updated": now,
+                "display_date": now,
+                "channel": None,
+                "available_languages": None,
+                "source": "tuNews",
+                "externalUrl": "https://dummy.com",
+            },
+        ],
+        timeout=None,
+    )
+
+    pn_id_1 = f"local-{_create_push_notification(region_slug, language_slug, now)}"
+    _create_push_notification(region_slug, language_slug, now)
+    pn_id_non_existing = "local-0"
+
+    url = reverse(
+        "api:single_news",
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": language_slug,
+            "news_id": tunews_id_1,
+        },
+    )
+    tunews_result = client.get(url).json()
+    assert tunews_result["id"] == tunews_id_1
+
+    url = reverse(
+        "api:single_news",
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": language_slug,
+            "news_id": pn_id_1,
+        },
+    )
+    local_result = client.get(url).json()
+    assert local_result["id"] == pn_id_1
+
+    url = reverse(
+        "api:single_news",
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": language_slug,
+            "news_id": tunews_id_non_existing,
+        },
+    )
+    tunews_result_non_existing = client.get(url).json()
+    assert tunews_result_non_existing == {
+        "error": "Tü news post not found in this region with this news ID."
+    }
+
+    url = reverse(
+        "api:single_news",
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": language_slug,
+            "news_id": pn_id_non_existing,
+        },
+    )
+    local_result_non_existing = client.get(url).json()
+    assert local_result_non_existing == {
+        "error": "Push Notification not found in this region with this language."
+    }

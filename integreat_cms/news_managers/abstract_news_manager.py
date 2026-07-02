@@ -6,22 +6,21 @@ from typing import TYPE_CHECKING, TypedDict
 if TYPE_CHECKING:
     from datetime import datetime
 
-    from django.http import HttpRequest, HttpResponse
+    from django.http import HttpRequest, HttpResponse, JsonResponse
 
     from ..cms.models import Language, Region
 
 
 class NewsItem(TypedDict):
-    id: int
+    id: str
     title: str
-    message: str
-    timestamp: datetime
+    content: str
     last_updated: datetime
     display_date: datetime
     channel: str | None
     available_languages: dict | None
     source: str
-    link: str | None
+    externalUrl: str
 
 
 class AbstractNewsManager(ABC):
@@ -53,10 +52,23 @@ class AbstractNewsManager(ABC):
         request: HttpRequest,
         region: Region,
         language: Language,
-        slug: str,
+        news_raw_id: str,
     ) -> HttpResponse:
         """
         Tries rendering the social media headers for a news page in a specified region and language
         To be implemented in the inheriting model
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_single_news(
+        self,
+        request: HttpRequest,
+        region: Region,
+        language: Language,
+        news_id: str,
+    ) -> JsonResponse:
+        """
+        Returns a news item that is imported from the source and matches the id
         """
         raise NotImplementedError

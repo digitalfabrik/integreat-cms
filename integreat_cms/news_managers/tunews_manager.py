@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, TypedDict
 
 import requests
 from django.core.cache import cache
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from lxml import etree
 
 from ..cms.models import Language, Region
@@ -57,25 +57,6 @@ def clean_html(html_string: str) -> str:
     return etree.tostring(main, pretty_print=True).decode("utf-8")
 
 
-def _transform_post(post: _TunewsPost) -> NewsItem:
-    """
-    Transforms a post of Tü News so it can be used by the news endpoint directly
-    """
-    date = datetime.fromisoformat(post["date"] + "+00:00")
-    return {
-        "id": post["id"],
-        "title": post["title"]["rendered"],
-        "message": clean_html(post["content"]["rendered"]),
-        "timestamp": date,  # deprecated field in the future
-        "last_updated": date,
-        "display_date": date,
-        "channel": None,
-        "available_languages": None,
-        "source": "tuNews",
-        "link": post["link"],
-    }
-
-
 class TunewsManager(AbstractNewsManager):
     name = "tuNews"
 
@@ -111,7 +92,7 @@ class TunewsManager(AbstractNewsManager):
                     try:
                         if not post["acf"]["integreat"]:
                             continue
-                        news.append(_transform_post(post))
+                        news.append(self.transform_post(post))
                     except (KeyError, TypeError, ValueError):
                         logger.exception(
                             "Malformed Tü News post (id=%s); skipped.",
@@ -147,22 +128,67 @@ class TunewsManager(AbstractNewsManager):
         request: HttpRequest,
         region: Region,
         language: Language,
-        slug: str,
+        news_raw_id: str,
     ) -> HttpResponse:
         """
         Tries rendering the social media headers for a news page in a specified region and language
         """
-        if not region.external_news_enabled:
-            raise Http404("External news are not enabled in this region.")
-        posts = cache.get(f"tunews:{language.slug}", [])
-        post = next((post for post in posts if str(post["id"]) == slug), None)
-        if not post:
-            raise Http404("Tü news post not found in this region with this news ID.")
+        post = self.find_post(region, language, news_raw_id)
 
         return render_social_media_headers(
             request=request,
             title=post["title"],
             language_code=language.bcp47_tag,
-            excerpt=post["message"],
-            url=post["link"],
+            excerpt=post["content"],
+            url=post["externalUrl"],
         )
+
+    def get_single_news(
+        self,
+        request: HttpRequest,
+        region: Region,
+        language: Language,
+        news_id: str,
+    ) -> JsonResponse:
+        """
+        Returns a Tü News post that matches the id
+        """
+        post = self.find_post(region, language, news_id)
+        return JsonResponse(post, safe=False)
+
+    def find_post(
+        self,
+        region: Region,
+        language: Language,
+        news_raw_id: str,
+    ) -> NewsItem:
+        """
+        Find and return a news item which matches the given ID
+        """
+        if not region.external_news_enabled:
+            raise Http404("External news are not enabled in this region.")
+        posts = cache.get(f"tunews:{language.slug}", [])
+        post = next(
+            (post for post in posts if post["id"] == f"{self.name}-{news_raw_id}"), None
+        )
+
+        if not post:
+            raise Http404("Tü news post not found in this region with this news ID.")
+        return post
+
+    def transform_post(self, post: _TunewsPost) -> NewsItem:
+        """
+        Transforms a post of Tü News so it can be used by the news endpoint directly
+        """
+        date = datetime.fromisoformat(post["date"] + "+00:00")
+        return {
+            "id": f"{self.name}-{post['id']!s}",
+            "title": post["title"]["rendered"],
+            "content": clean_html(post["content"]["rendered"]),
+            "last_updated": date,
+            "display_date": date,
+            "channel": None,
+            "available_languages": None,
+            "source": "tuNews",
+            "externalUrl": post["link"],
+        }

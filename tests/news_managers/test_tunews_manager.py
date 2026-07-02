@@ -47,16 +47,15 @@ valid_news = {
 }
 expected_result = [
     {
-        "id": 4,
+        "id": "tuNews-4",
         "title": "Gültige Nachricht",
-        "message": "<main>Eine interessante Tatsache</main>\n",
-        "timestamp": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "content": "<main>Eine interessante Tatsache</main>\n",
         "last_updated": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "display_date": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "channel": None,
         "available_languages": None,
         "source": "tuNews",
-        "link": "https://tuenews.de/news-post-4/",
+        "externalUrl": "https://tuenews.de/news-post-4/",
     }
 ]
 

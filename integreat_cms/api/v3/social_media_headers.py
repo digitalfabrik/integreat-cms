@@ -247,8 +247,8 @@ def news_social_media_headers(
     request: HttpRequest,
     region_slug: str,
     language_slug: str,
-    slug: str,
     news_type: str,
+    news_raw_id: str,
 ) -> HttpResponse:
     """
     Tries rendering the social media headers for a news page in a specified region and language.
@@ -270,7 +270,7 @@ def news_social_media_headers(
     if not news_manager:
         raise Http404("Invalid news type is given.")
 
-    return news_manager.social_media_headers(request, region, language, slug)
+    return news_manager.social_media_headers(request, region, language, news_raw_id)
 
 
 @partial_html_response
