@@ -4,8 +4,11 @@ import logging
 from typing import TYPE_CHECKING
 
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+
+from integreat_cms.cms.constants import region_status
 
 if TYPE_CHECKING:
     from typing import Any
@@ -45,8 +48,15 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         label=_("Editors"),
         help_text=_("These users can edit and publish this page."),
     )
+    region_qs = Region.objects.exclude(
+        Q(status=region_status.ARCHIVED)
+        | Q(
+            slug__in=settings.EXCLUDED_HIDDEN_MIRRORED_REGIONS,
+            status=region_status.HIDDEN,
+        )
+    )
     mirrored_page_region = forms.ModelChoiceField(
-        queryset=Region.objects.all(),
+        queryset=region_qs,
         required=False,
         label=_("Source region for live content"),
     )

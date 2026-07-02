@@ -1190,7 +1190,7 @@ LEGACY_FILE_UPLOAD: Final[bool] = bool(
 
 #: The maximum size of media files in bytes
 MEDIA_MAX_UPLOAD_SIZE: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_MEDIA_MAX_UPLOAD_SIZE", 3 * 1024 * 1024),
+    os.environ.get("INTEGREAT_CMS_MEDIA_MAX_UPLOAD_SIZE", 4 * 1024 * 1024),
 )
 
 
@@ -1507,3 +1507,13 @@ PILOT_REGIONS_PAGE_BASED_STATISTICS = os.environ.get(
     "INTEGREAT_CMS_PILOT_REGIONS_PAGE_BASED_STATISTICS",
     [""],
 )
+
+################
+# Live Content #
+################
+
+# Hidden Regions that should not be mirrored (archived regions are hidden by default)
+EXCLUDED_HIDDEN_MIRRORED_REGIONS = os.environ.get(
+    "INTEGREAT_CMS_EXCLUDED_HIDDEN_MIRRORED_REGIONS",
+    "",
+).split(",")

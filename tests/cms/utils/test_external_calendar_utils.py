@@ -1,4 +1,5 @@
 import logging
+from unittest.mock import MagicMock
 
 import icalendar
 import pytest
@@ -44,7 +45,35 @@ def test_import_fails(calendar_data: tuple[str, str]) -> None:
         file_contents = calendar_file.read()
     ical = icalendar.Calendar.from_ical(file_contents)
 
+    mock_calendar = MagicMock()
+    mock_calendar.region.timezone = "Europe/Berlin"
+
     for event in ical.walk("VEVENT"):
         with pytest.raises(ValueError, match=error_msg):
-            data = IcalEventData.from_ical_event(event, "de", 1, logger)
+            data = IcalEventData.from_ical_event(event, "de", mock_calendar, logger)
             print(data)
+
+
+def test_correct_handling_of_timezone_awareness() -> None:
+    """
+    Tests that a calendar with a different timezone's event's starting and ending time is correctly converted
+    :param calendar_data: A tuple of calendar path and expected error message
+    """
+    with open(
+        "tests/cms/utils/assets/calendars/event_with_timezone_offset.ics",
+        encoding="utf-8",
+    ) as calendar_file:
+        file_contents = calendar_file.read()
+    ical = icalendar.Calendar.from_ical(file_contents)
+
+    mock_calendar = MagicMock()
+    mock_calendar.region.timezone = "Europe/Berlin"
+
+    for event in ical.walk("VEVENT"):
+        data = IcalEventData.from_ical_event(event, "de", mock_calendar, logger)
+        assert data.start_time is not None
+        assert data.end_time is not None
+        assert data.start_time.hour == 9  # DTSTART:20260605T070000Z -> 9AM ETC
+        assert (
+            data.end_time.hour == 11
+        )  # DTEND;TZID=Europe/London:20260605T100000 -> 11AM ETC

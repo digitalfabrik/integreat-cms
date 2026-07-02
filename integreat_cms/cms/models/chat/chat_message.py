@@ -73,6 +73,9 @@ class ChatMessage(AbstractBaseModel):
 
         :return: The canonical string representation of the chat message
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return f"<ChatMessage (id: {self.id}, sender: {self.sender.username}, date: {self.sent_datetime.strftime('%Y-%m-%d %H:%M')})>"
 
     class Meta:

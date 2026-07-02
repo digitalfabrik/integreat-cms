@@ -22,6 +22,9 @@ class FirebaseStatistic(AbstractBaseModel):
 
         :return: The canonical string representation of the firebase statistic
         """
+        class_name = type(self).__name__
+        if not self.pk:
+            return f"<{class_name} (unsaved instance)>"
         return (
             f"<FirebaseStatistic ({self.date} - {self.region} - {self.language_slug})>"
         )

@@ -6,7 +6,7 @@
 <tr id="page-{{ page.id }}"
     data-drop-id="{{ page.id }}"
     data-drop-position="last-child"
-    class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %}hidden parent-page-{{ parent_id }}{% endif %}">
+    class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %}hidden parent-page-{{ parent_id }}{% else %}root-page{% endif %}">
     {% include "pages/_generic_page_tree_node.html" %}
     <td class="flex items-stretch accesses px-2"
         data-no-data="{% translate "This page has no accesses in the selected time span" %}">
