@@ -6,12 +6,17 @@ from unittest.mock import patch
 import pytest
 from django.core.cache import cache
 
-from integreat_cms.news_managers.tunews_manager import clean_html, TunewsManager
+from integreat_cms.news_managers.abstract_news_manager import clean_html
+from integreat_cms.news_managers.amalnews_manager import AmalnewsManager
+from integreat_cms.news_managers.tunews_manager import TunewsManager
+
+tu_short_name = "tunews"
+amal_short_name = "amalnews"
 
 not_integreat_news = {
     "id": 1,
     "date": "2026-04-29T16:58:38",
-    "link": "https://tuenews.de/news-post-1/",
+    "link": "https://externalnews.de/news-post-1/",
     "title": {"rendered": "Titel der Nachricht 1"},
     "content": {"rendered": "Eine interessante Tatsache", "protected": False},
     "acf": {
@@ -19,47 +24,91 @@ not_integreat_news = {
     },
 }
 
-malformed_news_1 = {
+news_without_acf = {
     "id": 2,
     "date": "2026-04-29T16:58:38",
-    "link": "https://tuenews.de/news-post-2/",
-    "title": {"rendered": "Kaputte Nachricht 1"},
+    "link": "https://externalnews.de/news-post-2/",
+    "title": {"rendered": "Nachricht 2"},
     "content": {"rendered": "Eine interessante Tatsache", "protected": False},
 }
-malformed_news_2 = {
+
+news_without_content = {
     "id": 3,
     "date": "2026-04-29T16:58:38",
-    "link": "https://tuenews.de/news-post-3/",
-    "title": {"rendered": "Kaputte Nachricht 2"},
+    "link": "https://externalnews.de/news-post-3/",
+    "title": {"rendered": "Nachricht 3"},
     "acf": {
         "integreat": True,
     },
 }
+
 valid_news = {
     "id": 4,
     "date": "2026-04-29T16:58:38",
-    "link": "https://tuenews.de/news-post-4/",
+    "link": "https://externalnews.de/news-post-4/",
     "title": {"rendered": "Gültige Nachricht"},
     "content": {"rendered": "Eine interessante Tatsache", "protected": False},
     "acf": {
         "integreat": True,
     },
 }
-expected_result = [
+
+expected_result_tunews = [
     {
-        "id": "tuNews-4",
+        "id": f"{tu_short_name}-4",
         "title": "Gültige Nachricht",
         "content": "<main>Eine interessante Tatsache</main>\n",
         "last_updated": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "display_date": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "channel": None,
         "available_languages": None,
-        "source": "tuNews",
-        "externalUrl": "https://tuenews.de/news-post-4/",
+        "source": tu_short_name,
+        "externalUrl": "https://externalnews.de/news-post-4/",
     }
 ]
 
-dummy_news_items = [not_integreat_news, malformed_news_1, malformed_news_2, valid_news]
+expected_result_amalnews = [
+    {
+        "id": f"{amal_short_name}-1",
+        "title": "Titel der Nachricht 1",
+        "content": "<main>Eine interessante Tatsache</main>\n",
+        "last_updated": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "display_date": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "channel": None,
+        "available_languages": None,
+        "source": amal_short_name,
+        "externalUrl": "https://externalnews.de/news-post-1/",
+    },
+    {
+        "id": f"{amal_short_name}-2",
+        "title": "Nachricht 2",
+        "content": "<main>Eine interessante Tatsache</main>\n",
+        "last_updated": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "display_date": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "channel": None,
+        "available_languages": None,
+        "source": amal_short_name,
+        "externalUrl": "https://externalnews.de/news-post-2/",
+    },
+    {
+        "id": f"{amal_short_name}-4",
+        "title": "Gültige Nachricht",
+        "content": "<main>Eine interessante Tatsache</main>\n",
+        "last_updated": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "display_date": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "channel": None,
+        "available_languages": None,
+        "source": amal_short_name,
+        "externalUrl": "https://externalnews.de/news-post-4/",
+    },
+]
+
+dummy_news_items = [
+    not_integreat_news,
+    news_without_acf,
+    news_without_content,
+    valid_news,
+]
 
 
 @pytest.mark.django_db
@@ -70,11 +119,17 @@ def test_import_news_item(load_test_data: None, clean_news_cache: None) -> None:
         fake_tunews_server.return_value.status_code = 200
         fake_tunews_server.return_value.json.return_value = dummy_news_items
 
-        assert not cache.get("tunews:de")
+        assert not cache.get(f"{tu_short_name}:de")
 
         TunewsManager().import_news_items()
 
-        assert cache.get("tunews:de") == expected_result
+        assert cache.get(f"{tu_short_name}:de") == expected_result_tunews
+
+        assert not cache.get(f"{amal_short_name}:de")
+
+        AmalnewsManager().import_news_items()
+
+        assert cache.get(f"{amal_short_name}:de") == expected_result_amalnews
 
 
 def test_clean_html_keeps_plain_text() -> None:
