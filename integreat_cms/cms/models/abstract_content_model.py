@@ -234,12 +234,14 @@ class AbstractContentModel(AbstractBaseModel):
     def get_prefetched_translations_by_language_slug(
         self,
         attr: str = "prefetched_translations",
+        defer_content: bool = False,
         **filters: Any,
     ) -> dict[str, AbstractContentTranslation]:
         r"""
         This method returns a mapping from language slugs to their latest translations of this object
 
         :param attr: Which attribute should be tried to get the prefetched translations [optional, defaults to ``"prefetched_translations"``]
+        :param defer_content: Whether the ``content`` field should be deferred in the fallback query [optional, defaults to ``False``]
         :param \**filters: Additional filters to be applied on the translations (e.g. by status)
         :return: The prefetched translations by language slug
         """
@@ -257,6 +259,8 @@ class AbstractContentModel(AbstractBaseModel):
                 .distinct("language__id")
                 .all()
             )
+            if defer_content:
+                prefetched_translations = prefetched_translations.defer("content")
         return {
             translation.language.slug: translation
             for translation in prefetched_translations
@@ -348,6 +352,9 @@ class AbstractContentModel(AbstractBaseModel):
         """
         return self.get_prefetched_translations_by_language_slug(
             attr="prefetched_public_or_draft_translations",
+            # Defer the content field because this mapping is queried for every
+            # content object when rendering translation states in list views
+            defer_content=True,
             status__in=[status.DRAFT, status.PUBLIC],
         )
 
