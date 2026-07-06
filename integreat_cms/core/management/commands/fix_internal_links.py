@@ -8,12 +8,20 @@ from typing import TYPE_CHECKING
 from urllib.parse import unquote
 
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import CommandError
+from django.db import IntegrityError, transaction
 from linkcheck.listeners import tasks_queue
 from linkcheck.models import Url
 from lxml.html import rewrite_links
 
-from ....cms.models import Region
+from ....cms.models import (
+    EventTranslation,
+    ImprintPageTranslation,
+    PageTranslation,
+    POITranslation,
+    Region,
+)
 from ....cms.utils import internal_link_utils
 from ....cms.utils.link_ignore_preservation import preserve_ignored_links
 from ....cms.utils.link_utils import fix_content_link_encoding
@@ -119,6 +127,17 @@ class Command(LogCommand):
             region_links = get_link_query([region])
             query = Url.objects.filter(links__in=region_links).distinct()
 
+        # Only links in content translations can be fixed - other linked models
+        # (e.g. organizations) have neither a language nor versioning
+        translation_content_types = list(
+            ContentType.objects.get_for_models(
+                EventTranslation,
+                ImprintPageTranslation,
+                PageTranslation,
+                POITranslation,
+            ).values(),
+        )
+
         for url in query:
             if not url.internal:
                 continue
@@ -128,7 +147,9 @@ class Command(LogCommand):
             if not source_translation:
                 continue
 
-            for link in url.links.all().prefetch_related("content_object__language"):
+            for link in url.links.filter(
+                content_type__in=translation_content_types,
+            ).prefetch_related("content_object__language"):
                 target_language_slug = link.content_object.language.slug
                 target_translation = source_translation
                 if target_language_slug != source_translation.language.slug:
@@ -137,6 +158,15 @@ class Command(LogCommand):
                             target_language_slug,
                         )
                     )
+
+                if target_translation is None:
+                    logger.debug(
+                        "Skipping link to %r in %r: the link target has no public translation in language %r",
+                        url.url,
+                        link.content_object,
+                        target_language_slug,
+                    )
+                    continue
 
                 target_url = target_translation.full_url
                 source_url = unquote(url.url)
@@ -189,9 +219,20 @@ def replace_links_of_translation(
         rules.keys(),
     )
     if commit:
-        with preserve_ignored_links(translation):
-            translation.links.all().delete()
-            new_translation.save()
+        try:
+            with transaction.atomic(), preserve_ignored_links(translation):
+                translation.links.all().delete()
+                new_translation.save()
+        except IntegrityError as e:
+            if "unique_version" not in str(e):
+                raise
+            # Do not retry with a recomputed version number, since that would
+            # overwrite the concurrently created (and thus newer) content with
+            # this stale copy. The links will be fixed again on the next run.
+            logger.warning(
+                "Skipping %r because a newer version exists - the content was probably edited concurrently",
+                new_translation,
+            )
 
 
 def replace_link_helper(rules: dict[str, str], link: str) -> str:
