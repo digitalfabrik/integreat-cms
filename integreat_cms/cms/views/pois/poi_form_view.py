@@ -193,9 +193,7 @@ class POIFormView(
                 )
             ):
                 poi_translation_form.instance.poi = poi_form.instance
-                poi_translation_instance = poi_translation_form.save(
-                    foreign_form_changed=poi_form.has_changed(),
-                )
+                poi_translation_form.save()
 
                 generate_primary_contact_from_poi(
                     website,
