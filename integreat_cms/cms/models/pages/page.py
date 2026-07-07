@@ -12,6 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 from treebeard.ns_tree import NS_NodeQuerySet
 
+from ...constants import status
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_model import ContentQuerySet
 from ..abstract_tree_node import AbstractTreeNode
@@ -67,6 +68,25 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
         queryset = self
         if should_prefetch_nonpublic_translations:
             queryset = queryset.prefetch_translations()
+
+        # Prefetch the translations backing latest_public_or_draft_version, which is
+        # evaluated via translation_state for every page in the tree — without this
+        # prefetch it falls back to one query per page, loading full translation
+        # contents. The content field is deferred because the state calculation only
+        # needs the translation metadata.
+        queryset = queryset.prefetch_related(
+            models.Prefetch(
+                "translations",
+                queryset=PageTranslation.objects.filter(
+                    status__in=[status.DRAFT, status.PUBLIC],
+                )
+                .order_by("page_id", "language_id", "-version")
+                .distinct("page_id", "language_id")
+                .select_related("language")
+                .defer("content"),
+                to_attr="prefetched_public_or_draft_translations",
+            ),
+        )
 
         for page in queryset.prefetch_public_translations().order_by("tree_id", "lft"):
             page._cached_ancestors = []
