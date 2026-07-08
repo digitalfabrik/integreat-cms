@@ -283,7 +283,8 @@ RESPONSE
                 "thumbnail": String,   // url of thumbnail
               },
                 ...
-        ],
+         ],
+         "slug_history": [ String ],  // list of current slug and previous slugs of the page translation
       },
       ...
    ]
