@@ -34,7 +34,7 @@ import {
 } from "lucide-preact";
 import cn from "classnames";
 
-import { showConfirmationPopupAjax } from "../../confirmation-popups";
+import { showConfirmationPopupAjax } from "../../utils/confirmation-popup";
 import { MediaApiPaths, File, MediaLibraryEntry, FileUsages } from "..";
 
 type Props = {
