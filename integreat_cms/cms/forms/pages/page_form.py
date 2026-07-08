@@ -180,10 +180,13 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
 
         # Set choices of mirrored_page field manually to make use of cache_tree()
         logger.debug("Set choices for mirrored page field:")
-        self.fields["mirrored_page"].choices = [
-            (page.id, str(page))
-            for page in mirrored_page_queryset.cache_tree(archived=False)
-        ]
+        if default_language := self.instance.region.default_language:
+            self.fields["mirrored_page"].choices = [
+                (page.id, str(page))
+                for page in mirrored_page_queryset.cache_tree(archived=False)
+                if page.get_public_translation(default_language.slug)
+                or page == self.instance.mirrored_page
+            ]
 
         self.fields[
             "organization"
