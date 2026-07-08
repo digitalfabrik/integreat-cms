@@ -18,7 +18,7 @@ def forwards(_apps: Apps, _schema_editor: BaseDatabaseSchemaEditor) -> None:
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0153_enforce_slug_uniqueness"),
+        ("cms", "0154_remove_user_distribute_sidebar_boxes"),
     ]
 
     operations = [
