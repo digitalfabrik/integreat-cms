@@ -227,9 +227,7 @@ class PageFormView(
             if self.validate_and_save_page(
                 request, page_form
             ) and self.validate_page_translation(request, page_translation_form):
-                page_translation_instance = page_translation_form.save(
-                    foreign_form_changed=page_form.has_changed(),
-                )
+                page_translation_form.save()
 
                 if page_translation_form.instance.status == status.DRAFT:
                     self.set_dependent_translations_to_draft(

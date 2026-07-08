@@ -119,13 +119,12 @@ class CustomContentModelForm(CustomModelForm):
         self.data["slug"] = unique_slug
         return unique_slug
 
-    def save(self, commit: bool = True, foreign_form_changed: bool = False) -> Any:
+    def save(self, commit: bool = True) -> Any:
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
         :param commit: Whether or not the changes should be written to the database
-        :param foreign_form_changed: Whether or not the foreign form of this translation form was changed
         :return: The saved content translation object
         """
 
@@ -133,8 +132,9 @@ class CustomContentModelForm(CustomModelForm):
             # Delete now outdated link objects
             self.instance.links.all().delete()
 
-        # If none of the text content fields were changed, but the foreign form was, treat as minor edit (even if checkbox isn't clicked)
-        if {"title", "content"}.isdisjoint(self.changed_data) and foreign_form_changed:
+        # If none of the text content fields were changed, treat as minor edit (even if checkbox isn't clicked)
+        # so that existing translations in other languages are not incorrectly flagged as outdated
+        if {"title", "content"}.isdisjoint(self.changed_data):
             self.logger.debug("Set 'minor_edit=True' since the content did not change")
             self.instance.minor_edit = True
 

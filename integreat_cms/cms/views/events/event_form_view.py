@@ -167,11 +167,7 @@ class EventFormView(
                     request, event_form, recurrence_rule_form
                 )
             ):
-                event_translation_instance = event_translation_form.save(
-                    foreign_form_changed=(
-                        event_form.has_changed() or recurrence_rule_form.has_changed()
-                    ),
-                )
+                event_translation_form.save()
 
                 self.update_recurrence_rule(event_form, recurrence_rule_form)
 
