@@ -304,31 +304,42 @@ class POIFormView(
         """
         Shows a message to the user if the slug they provided was not unique and therefore changed.
         """
-        if user_slug and user_slug != poi_translation_form.cleaned_data["slug"]:
-            other_translation = POITranslation.objects.filter(
-                poi__region=region,
-                slug=user_slug,
-                language=language,
-            ).first()
-            other_translation_link = other_translation.backend_edit_link
-            message = _(
-                "The slug was changed from '{user_slug}' to '{slug}', "
-                "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
-            ).format(
-                user_slug=user_slug,
-                slug=poi_translation_form.cleaned_data["slug"],
-                translation=other_translation,
-            )
-            messages.warning(
-                request,
-                translate_link(
-                    message,
-                    attributes={
-                        "href": other_translation_link,
-                        "class": "underline hover:no-underline",
-                    },
-                ),
-            )
+        if user_slug:
+            cleaned_slug = poi_translation_form.cleaned_data["slug"]
+            if user_slug != cleaned_slug:
+                if user_slug.lower() == cleaned_slug:
+                    message_uppercase = _(
+                        "The slug was changed from '{user_slug}' to '{slug}', because uppercase letters are not allowed."
+                    ).format(
+                        user_slug=user_slug,
+                        slug=cleaned_slug,
+                    )
+                    messages.warning(request, message_uppercase)
+                else:
+                    other_translation = POITranslation.objects.filter(
+                        poi__region=region,
+                        slug=user_slug,
+                        language=language,
+                    ).first()
+                    other_translation_link = other_translation.backend_edit_link
+                    message = _(
+                        "The slug was changed from '{user_slug}' to '{slug}', "
+                        "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
+                    ).format(
+                        user_slug=user_slug,
+                        slug=cleaned_slug,
+                        translation=other_translation,
+                    )
+                    messages.warning(
+                        request,
+                        translate_link(
+                            message,
+                            attributes={
+                                "href": other_translation_link,
+                                "class": "underline hover:no-underline",
+                            },
+                        ),
+                    )
 
     def get_instances(
         self, language: Language, poi_id: Any

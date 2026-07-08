@@ -21,6 +21,11 @@ def test_when_creating_even_translations_to_automatically_create_unique_slugs() 
         end=timezone.now() + timedelta(days=2),
         region=region,
     )
+    event3 = Event.objects.create(
+        start=timezone.now(),
+        end=timezone.now() + timedelta(days=2),
+        region=region,
+    )
     language = Language.objects.create(slug="da", primary_country_code="de")
 
     event_translation1 = EventTranslation.objects.create(
@@ -29,8 +34,31 @@ def test_when_creating_even_translations_to_automatically_create_unique_slugs() 
     event_translation2 = EventTranslation.objects.create(
         event=event2, language=language, slug="new-slug"
     )
+    event_translation3 = EventTranslation.objects.create(
+        event=event3, language=language, slug="New-slug"
+    )
 
-    assert event_translation1.slug != event_translation2.slug
+    assert event_translation1.slug != event_translation2.slug != event_translation3.slug
+
+
+@pytest.mark.django_db
+def test_when_creating_even_translations_to_automatically_create_lowercase_slug() -> (
+    None
+):
+    region = Region.objects.create(name="new-region")
+
+    event1 = Event.objects.create(
+        start=timezone.now(),
+        end=timezone.now() + timedelta(days=1),
+        region=region,
+    )
+    language = Language.objects.create(slug="da", primary_country_code="de")
+
+    event_translation1 = EventTranslation.objects.create(
+        event=event1, language=language, slug="New-slug"
+    )
+
+    assert event_translation1.slug == "new-slug"
 
 
 @pytest.mark.order("last")
