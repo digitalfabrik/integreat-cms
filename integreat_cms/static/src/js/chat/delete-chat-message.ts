@@ -2,7 +2,7 @@
  * This file contains the deletion function for the author chat
  */
 import { getCsrfToken } from "../utils/csrf-token";
-import { refreshAjaxConfirmationHandlers } from "../confirmation-popups";
+import { refreshAjaxConfirmationHandlers } from "../utils/confirmation-popup";
 
 // Function to delete a chat message
 export const deleteChatMessage = async (event: Event) => {

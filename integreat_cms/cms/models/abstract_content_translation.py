@@ -481,7 +481,8 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
         """
-        if not (translation := self.major_version):
+        translation = self.latest_public_or_draft_version or self.major_version
+        if not translation:
             # If the page does not have a major public version, it is considered "missing" (keep in mind that it might
             # have draft versions or public versions that are marked as "minor edit")
             return translation_status.MISSING
@@ -490,8 +491,6 @@ class AbstractContentTranslation(AbstractBaseModel):
         if not self.source_language:
             # If the language of this translation is the root of this region's language tree, it is always "up to date"
             return translation_status.UP_TO_DATE
-
-        latest_translation = self.latest_public_or_draft_version or translation
         if (
             # If the source language does not have a major public version, the translation is considered "outdated",
             # because the content is not in sync with its source translation
@@ -499,7 +498,7 @@ class AbstractContentTranslation(AbstractBaseModel):
             # If the source translation is already outdated, this translation is as well
             or source_translation.translation_state == translation_status.OUTDATED
             # If the translation was edited before the last major change in the source language, it is outdated
-            or latest_translation.last_updated <= source_translation.last_updated
+            or translation.last_updated <= source_translation.last_updated
         ):
             return translation_status.OUTDATED
         if translation.machine_translated:

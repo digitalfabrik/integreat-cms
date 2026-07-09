@@ -53,6 +53,12 @@ The file must have a default export with the following signature:
     Because feature modules are loaded once and cached, **module-level variables are shared across all instances** of the same module on a page.
     Any state that belongs to a single instance (e.g. counters, timer IDs, DOM references) must be declared inside the default export function, not at module level.
 
+.. note::
+
+    **Feature modules may only import from** ``js/utils/``.
+    They must not import from other feature modules, and no code outside ``js/feature/`` should import from a feature module.
+    Any logic that needs to be shared between a feature module and other code belongs in ``js/utils/`` instead.
+
 Compatible Browsers
 ===================
 

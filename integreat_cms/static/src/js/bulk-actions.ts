@@ -27,7 +27,7 @@
  *     page_ids = request.POST.getlist("selected_ids[]")
  *
  */
-import { showConfirmationPopupWithData } from "./confirmation-popups";
+import { showConfirmationPopupWithData } from "./utils/confirmation-popup";
 
 /*
  * Update the selection count after a checkbox has been toggled

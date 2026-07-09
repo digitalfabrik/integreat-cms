@@ -17,6 +17,7 @@ def test_when_creating_page_translations_to_automatically_create_unique_slugs(
 
     page1 = create_page(region=region)
     page2 = create_page(region=region)
+    page3 = create_page(region=region)
     language = Language.objects.create(slug="da", primary_country_code="de")
 
     page_translation1 = PageTranslation.objects.create(
@@ -25,8 +26,27 @@ def test_when_creating_page_translations_to_automatically_create_unique_slugs(
     page_translation2 = PageTranslation.objects.create(
         page=page2, language=language, slug="new-slug"
     )
+    page_translation3 = PageTranslation.objects.create(
+        page=page3, language=language, slug="New-slug"
+    )
 
-    assert page_translation1.slug != page_translation2.slug
+    assert page_translation1.slug != page_translation2.slug != page_translation3.slug
+
+
+@pytest.mark.django_db
+def test_when_creating_page_translations_to_automatically_create_lowercase_slugs(
+    create_page: Callable[..., Page],
+) -> None:
+    region = Region.objects.create(name="new-region")
+
+    page1 = create_page(region=region)
+    language = Language.objects.create(slug="da", primary_country_code="de")
+
+    page_translation1 = PageTranslation.objects.create(
+        page=page1, language=language, slug="New-slug"
+    )
+
+    assert page_translation1.slug == "new-slug"
 
 
 @pytest.mark.django_db

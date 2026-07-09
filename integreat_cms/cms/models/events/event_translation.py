@@ -6,6 +6,7 @@ import pgtrigger
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q
+from django.db.models.functions import Lower
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
@@ -195,6 +196,9 @@ class EventTranslation(AbstractContentTranslation):
             models.UniqueConstraint(
                 fields=["event", "language", "version"],
                 name="%(class)s_unique_version",
+            ),
+            models.CheckConstraint(
+                condition=Q(slug=Lower("slug")), name="%(class)s_slug_lowercase"
             ),
         ]
         triggers = [
