@@ -75,6 +75,10 @@ class AbstractBaseModel(models.Model):
 
         :return: The canonical string representation of the content object
         """
+        # Imported here because importing it at module level triggers the app registry
+        # since django-debug-toolbar 5.0
+        from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
+
         try:
             return self.get_repr()
         except Exception as e:
