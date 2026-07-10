@@ -39,7 +39,7 @@ function run_tests_in_docker {
     fi
     # The project's .env is a bash-source file (it `source`s the venv), not a
     # docker-compose env file, so prevent Compose from auto-loading it for
-    # variable substitution (this compose file uses no interpolation anyway).
+    # variable substitution (interpolation reads the process environment).
     local compose=(docker compose --env-file /dev/null -f "${compose_file}")
     echo "Building the CI-matching test image (first run only)..." | print_info
     "${compose[@]}" build

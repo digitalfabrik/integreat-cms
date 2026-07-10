@@ -15,6 +15,7 @@ from django.core.management import call_command
 from django.test.client import Client
 
 from integreat_cms.cms.models import Language, Page, Region
+from integreat_cms.core.utils.strtobool import strtobool
 from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 from tests.constants import (  # noqa: F401 — re-exported for backward compatibility
     ALL_ROLES,
@@ -64,7 +65,9 @@ def update_snapshots(request: pytest.FixtureRequest) -> bool:
 #: Representative subset covering all permission boundaries (for faster local runs)
 QUICK_ROLE_SET: Final = [ROOT, MANAGEMENT, AUTHOR, ANONYMOUS]
 #: The roles used for parametrized tests — set QUICK_ROLES=1 to use the subset
-TEST_ROLES: Final = QUICK_ROLE_SET if os.environ.get("QUICK_ROLES") else ALL_ROLES
+TEST_ROLES: Final = (
+    QUICK_ROLE_SET if strtobool(os.environ.get("QUICK_ROLES") or "False") else ALL_ROLES
+)
 
 
 @pytest.fixture(scope="session")
