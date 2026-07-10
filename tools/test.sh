@@ -132,6 +132,12 @@ fi
 # Determine whether coverage data should be collected
 if [[ -z "${CHANGED}" ]] && (( ${#TESTS[@]} == 0 )); then
     PYTEST_ARGS+=("--cov=integreat_cms" "--cov-report=html")
+    # The fail_under threshold in pyproject.toml is only meaningful for the
+    # full suite — a filtered run (-k/-m) always yields partial coverage, so
+    # don't fail it on the threshold.
+    if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]]; then
+        PYTEST_ARGS+=("--cov-fail-under=0")
+    fi
 fi
 
 if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]] || (( ${#TESTS[@]} )); then
