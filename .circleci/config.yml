@@ -251,7 +251,7 @@ jobs:
           POSTGRES_DB: integreat
           POSTGRES_PASSWORD: password
     resource_class: large
-    parallelism: 16
+    parallelism: 8
     steps:
       - checkout
       - attach_workspace:
@@ -267,10 +267,13 @@ jobs:
           command: integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
       - run:
           name: Run tests
+          # Each container additionally runs pytest-xdist with one worker per
+          # vCPU (resource_class large = 4), mirroring the local test setup;
+          # testmon is disabled for the same reason as in tools/test.sh.
           command: |
             circleci tests glob "tests/**/test_*.py" "tests/**/*_test.py" \
               | circleci tests split --split-by=timings --timings-type=filename \
-              | xargs pytest --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --cov-fail-under=0 --junitxml=test-results/junit.xml -o junit_family=xunit1 --ds=integreat_cms.core.circleci_settings
+              | xargs pytest --numprocesses=auto -p no:testmon --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --cov-fail-under=0 --junitxml=test-results/junit.xml -o junit_family=xunit1 --ds=integreat_cms.core.circleci_settings
       - store_test_results:
           path: test-results
       - store_artifacts:
