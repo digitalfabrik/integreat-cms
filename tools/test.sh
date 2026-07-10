@@ -37,6 +37,16 @@ function run_tests_in_docker {
         echo "Install Docker, or re-run with --local to use your host environment instead." | print_info
         exit 1
     fi
+    # The test image contains no Node.js — the webpack bundle must already
+    # exist on the host, because the source tree (including webpack-stats.json
+    # and static/dist) is bind-mounted into the container.
+    if command -v npm > /dev/null 2>&1; then
+        ensure_webpack_bundle_exists
+    elif [[ ! -f "${PACKAGE_DIR}/webpack-stats.json" ]]; then
+        echo "The webpack bundle is missing and npm is not available to build it." | print_error
+        echo "Run ./tools/install.sh once, or run the tests with --local." | print_info
+        exit 1
+    fi
     # The project's .env is a bash-source file (it `source`s the venv), not a
     # docker-compose env file, so prevent Compose from auto-loading it for
     # variable substitution (interpolation reads the process environment).
