@@ -194,7 +194,7 @@ Available constants:
 
 - Individual roles: ``ROOT``, ``ANONYMOUS``, ``MANAGEMENT``, ``EDITOR``,
   ``AUTHOR``, ``EVENT_MANAGER``, ``OBSERVER``, ``CMS_TEAM``,
-  ``SERVICE_TEAM``, ``APP_TEAM``, ``MARKETING_TEAM``
+  ``SERVICE_TEAM``, ``MARKETING_TEAM``
 - Role groups: ``WRITE_ROLES``, ``REGION_ROLES``, ``STAFF_ROLES``,
   ``PRIV_STAFF_ROLES``, ``HIGH_PRIV_STAFF_ROLES``, ``ROLES``, ``ALL_ROLES``
 
