@@ -47,6 +47,9 @@ services:
       INTEGREAT_CMS_DB_PASSWORD: password
       # Use the same Django settings module as a host test run.
       DJANGO_SETTINGS_MODULE: integreat_cms.core.test_settings
+      # Forward the host's QUICK_ROLES so `QUICK_ROLES=1 ./tools/test.sh`
+      # also works in the default Docker mode.
+      QUICK_ROLES: ${QUICK_ROLES:-}
       # Keep Python's bytecode cache off the bind-mounted source tree, so the
       # container ignores the host's __pycache__ and concurrent xdist workers
       # cannot corrupt .pyc files ("EOFError: marshal data too short").
