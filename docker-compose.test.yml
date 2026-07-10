@@ -12,9 +12,9 @@
 
 services:
   db:
-    # Same PostgreSQL version as the CircleCI test job (cimg/postgres:14.1),
+    # Same PostgreSQL version as the CircleCI test job (cimg/postgres:17.10),
     # so query-count assertions and version-specific behaviour match CI.
-    image: cimg/postgres:14.1
+    image: cimg/postgres:17.10
     platform: linux/amd64
     environment:
       POSTGRES_USER: integreat

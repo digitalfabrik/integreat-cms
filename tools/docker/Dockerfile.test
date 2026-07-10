@@ -2,7 +2,7 @@
 # possible so that a local `./tools/test.sh` run matches CI by construction.
 #
 # Base image and system packages are kept in sync with .circleci/config.yml:
-#   - image:   cimg/python:3.11.7   (same Python + OS + font stack as CI)
+#   - image:   cimg/python:3.13.11  (same Python + OS + font stack as CI)
 #   - apt:     libcairo2            (required by the PDF export tests)
 # In addition we install `gettext` so translations can be compiled inside the
 # container (the .mo files are not committed and several tests depend on them).
@@ -11,7 +11,7 @@
 # bind-mounted at runtime and dependencies are installed into a cached virtualenv
 # volume by tools/docker/test_entrypoint.sh, which keeps the image small and the
 # editable install pointing at the mounted source tree.
-FROM cimg/python:3.11.7
+FROM cimg/python:3.13.11
 
 USER root
 RUN apt-get update \

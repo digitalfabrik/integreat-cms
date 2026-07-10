@@ -43,7 +43,7 @@ function run_tests_in_docker {
     local compose=(docker compose --env-file /dev/null -f "${compose_file}")
     echo "Building the CI-matching test image (first run only)..." | print_info
     "${compose[@]}" build
-    echo "Running tests inside Docker (cimg/python:3.11.7 + cimg/postgres:14.1, matching CI)..." | print_info
+    echo "Running tests inside Docker (cimg/python:3.13.11 + cimg/postgres:17.10, matching CI)..." | print_info
     "${compose[@]}" run --rm tests "$@"
 }
 
