@@ -109,7 +109,12 @@ PYTEST_ARGS=("--disable-warnings" "--color=yes")
 if [[ -n "${VERBOSITY}" ]]; then
     PYTEST_ARGS+=("$VERBOSITY")
 else
-    PYTEST_ARGS+=("--quiet" "--numprocesses=auto")
+    PYTEST_ARGS+=("--quiet")
+    # testmon (required by --changed) conflicts with xdist, so only
+    # parallelize runs that don't use testmon.
+    if [[ -z "${CHANGED}" ]]; then
+        PYTEST_ARGS+=("--numprocesses=auto")
+    fi
 fi
 
 # Check if --changed flag was passed
