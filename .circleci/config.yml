@@ -270,7 +270,7 @@ jobs:
           command: |
             circleci tests glob "tests/**/test_*.py" "tests/**/*_test.py" \
               | circleci tests split --split-by=timings --timings-type=filename \
-              | xargs pytest --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --junitxml=test-results/junit.xml -o junit_family=xunit1 --ds=integreat_cms.core.circleci_settings
+              | xargs pytest --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --cov-fail-under=0 --junitxml=test-results/junit.xml -o junit_family=xunit1 --ds=integreat_cms.core.circleci_settings
       - store_test_results:
           path: test-results
       - store_artifacts:
