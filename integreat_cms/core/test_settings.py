@@ -33,6 +33,18 @@ GOOGLE_APPLICATION_CREDENTIALS = "dummy"
 GOOGLE_PROJECT_ID = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 GOOGLE_TRANSLATE_ENABLED = True
+#: Tests must never talk to a real Redis instance: the base settings enable
+#: django-redis and cacheops whenever ``INTEGREAT_CMS_REDIS_CACHE`` is set, but
+#: cacheops' query-result caching breaks ``django_assert_num_queries``
+#: assertions and the autouse ``clear_cache`` fixture would flush the
+#: developer's Redis. Force the local-memory backend and uninstall cacheops.
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    },
+}
+if "cacheops" in INSTALLED_APPS:
+    INSTALLED_APPS.remove("cacheops")
 #: Disable linkcheck listeners during testing
 LINKCHECK_DISABLE_LISTENERS = True
 #: Disable background tasks during testing
