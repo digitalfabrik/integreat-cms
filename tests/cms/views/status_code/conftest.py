@@ -19,5 +19,5 @@ def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
     """Add the ``slow`` marker to every test in this directory."""
     slow = pytest.mark.slow
     for item in items:
-        if Path(item.fspath).parent == _THIS_DIR:
+        if item.path.parent == _THIS_DIR:
             item.add_marker(slow)
