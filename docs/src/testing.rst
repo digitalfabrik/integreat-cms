@@ -20,9 +20,18 @@ For reference of our test framework and test cases, see :mod:`tests`.
 Running Tests
 =============
 
-Run the full test suite::
+By default ``./tools/test.sh`` runs the suite inside a Docker container that
+mirrors the CircleCI environment (same Python, OS and PostgreSQL versions,
+see ``docker-compose.test.yml``), so a local run matches CI by construction.
+Pass ``--local`` to run directly on the host instead.
+
+Run the full test suite (in Docker)::
 
     ./tools/test.sh
+
+Run the full test suite on the host::
+
+    ./tools/test.sh --local
 
 Run only **unit tests** (no database, completes in seconds)::
 
@@ -116,9 +125,9 @@ or management commands that call ``TRUNCATE``). These use
   ``@pytest.mark.django_db(transaction=True)``
 - Request ``load_test_data_transactional`` instead of ``load_test_data``
   (it reloads fixtures per test function)
-- The ``order("last")`` marker is required because the
-  ``--circleci-parallelize`` plugin reorders tests by module, which can
-  place transactional tests before non-transactional ones
+- The ``order("last")`` marker is required because transactional tests flush
+  the database — running them before non-transactional tests in the same
+  process would destroy the session-scoped test data
 - Example::
 
       @pytest.mark.order("last")
@@ -257,10 +266,10 @@ Common Pitfalls
 
 1. **Always add** ``@pytest.mark.order("last")`` **to transactional tests** —
    while pytest-django sorts transactional tests after non-transactional ones,
-   the ``--circleci-parallelize`` plugin reorders tests by module afterwards,
-   which can place a transactional test before non-transactional ones.
-   ``@pytest.mark.order("last")`` from pytest-order re-enforces the correct
-   ordering after all collection hooks have run.
+   other collection hooks can reorder tests afterwards and place a
+   transactional test (which flushes the database) before non-transactional
+   ones. ``@pytest.mark.order("last")`` from pytest-order re-enforces the
+   correct ordering after all collection hooks have run.
 
 2. **Don't use** ``serialized_rollback=True`` — it has FK ordering issues
    with PostgreSQL. Use ``load_test_data_transactional`` instead.
@@ -277,6 +286,12 @@ Common Pitfalls
 
 Coverage
 ========
+
+A full run of ``./tools/test.sh`` collects coverage and enforces the minimum
+total coverage configured in ``pyproject.toml`` (``fail_under``). Filtered
+runs (``-k``/``-m``) and the per-container runs in CI still collect coverage
+but do not enforce the threshold, because they only ever see a subset of the
+suite.
 
 After each run, the test coverage is uploaded to `CodeClimate <https://codeclimate.com/github/digitalfabrik/integreat-cms>`__ (see :ref:`circleci-upload-test-coverage`).
 
