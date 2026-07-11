@@ -77,7 +77,7 @@
             {% translate "Map" %}
         </label>
         <div id="map"
-             class="aspect-video overflow-hidden"
+             class="aspect-video overflow-hidden relative"
              data-url="{% url "get_address_from_coordinates" region_slug=request.region.slug %}"
              data-bounding-box="{{ request.region.bounding_box.api_representation }}"
              data-change-permission="{{ perms.cms.change_poi }}">
