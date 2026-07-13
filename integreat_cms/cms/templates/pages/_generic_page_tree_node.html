@@ -10,7 +10,7 @@
             <input type="checkbox"
                    name="selected_ids[]"
                    value="{{ page.id }}"
-                   class="bulk-select-item cursor-wait" />
+                   class="bulk-select-item{% if not filter_form.is_enabled and not page.is_leaf %} cursor-wait{% endif %}" />
         </span>
         {% if not filter_form.is_enabled %}
             {% has_perm 'cms.change_page_object' request.user as can_edit_pages %}

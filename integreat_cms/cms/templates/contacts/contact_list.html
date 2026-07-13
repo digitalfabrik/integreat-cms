@@ -4,7 +4,7 @@
 {% load sort_tags %}
 {% block content %}
     {% get_current_language as LANGUAGE_CODE %}
-    <div class="table-header">
+    <div class="table-header" data-js-bulk-actions>
         <div class="flex flex-wrap justify-between">
             <h1 class="heading">
                 {% if is_archive %}
@@ -83,40 +83,40 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    {% if contacts %}
-        <div class="pt-2 px-2">
-            <div class="inline">
-                <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Contacts selected" %}</span>
+        {% if contacts %}
+            <div class="pt-2 px-2">
+                <div class="inline">
+                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Contacts selected" %}</span>
+                </div>
             </div>
-        </div>
-    {% endif %}
-    {% if perms.cms.archive_contact %}
-        <div class="flex flex-wrap gap-2 mt-4">
-            <select id="bulk-action" class="w-auto max-w-full">
-                <option>
-                    {% translate "Select bulk action" %}
-                </option>
-                {% if is_archive %}
-                    <option data-bulk-action="{% url "bulk_restore_contacts" region_slug=request.region.slug %}">
-                        {% translate "Restore contacts" %}
+        {% endif %}
+        {% if perms.cms.archive_contact %}
+            <div class="flex flex-wrap gap-2 mt-4">
+                <select id="bulk-action" class="w-auto max-w-full">
+                    <option>
+                        {% translate "Select bulk action" %}
                     </option>
-                {% else %}
-                    <option data-bulk-action="{% url "bulk_archive_contacts" region_slug=request.region.slug %}">
-                        {% translate "Archive contacts" %}
-                    </option>
-                {% endif %}
-                {% if perms.cms.delete_contact %}
-                    <option data-bulk-action="{% url "bulk_delete_contacts" region_slug=request.region.slug %}">
-                        {% translate "Delete contacts" %}
-                    </option>
-                {% endif %}
-            </select>
-            <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
-                {% translate "Execute" %}
-            </button>
-        </div>
-    {% endif %}
+                    {% if is_archive %}
+                        <option data-bulk-action="{% url "bulk_restore_contacts" region_slug=request.region.slug %}">
+                            {% translate "Restore contacts" %}
+                        </option>
+                    {% else %}
+                        <option data-bulk-action="{% url "bulk_archive_contacts" region_slug=request.region.slug %}">
+                            {% translate "Archive contacts" %}
+                        </option>
+                    {% endif %}
+                    {% if perms.cms.delete_contact %}
+                        <option data-bulk-action="{% url "bulk_delete_contacts" region_slug=request.region.slug %}">
+                            {% translate "Delete contacts" %}
+                        </option>
+                    {% endif %}
+                </select>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
+                    {% translate "Execute" %}
+                </button>
+            </div>
+        {% endif %}
+    </div>
     {% include "../generic_confirmation_dialog.html" %}
     {% url "contacts" as url %}
     {% include "pagination.html" with chunk=contacts %}

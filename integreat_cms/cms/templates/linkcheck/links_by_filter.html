@@ -87,7 +87,8 @@
     <form action="{{ request.path }}{{ pagination_params }}"
           method="post"
           id="bulk-action-form"
-          class="table-listing">
+          class="table-listing"
+          data-js-bulk-actions>
         {% csrf_token %}
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>

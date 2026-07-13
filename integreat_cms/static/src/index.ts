@@ -32,7 +32,6 @@ import "./js/collapsible-boxes";
 import "./js/push-notifications";
 import "./js/filter-form";
 import "./js/copy-clipboard";
-import "./js/bulk-actions";
 import "./js/conditional-fields";
 import "./js/confirmation-popups";
 import "./js/language-tabs";
