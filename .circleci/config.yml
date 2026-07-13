@@ -263,13 +263,12 @@ jobs:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
-          name: Migrate database
-          command: integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
-      - run:
           name: Run tests
-          # Each container additionally runs pytest-xdist with one worker per
-          # vCPU (resource_class large = 4), mirroring the local test setup;
-          # testmon is disabled for the same reason as in tools/test.sh.
+          # pytest-django creates and migrates its own test database, so no
+          # migrate step is needed. Each container additionally runs
+          # pytest-xdist with one worker per vCPU (resource_class large = 4),
+          # mirroring the local test setup; testmon is disabled for the same
+          # reason as in tools/test.sh.
           command: |
             circleci tests glob "tests/**/test_*.py" "tests/**/*_test.py" \
               | circleci tests split --split-by=timings --timings-type=filename \
