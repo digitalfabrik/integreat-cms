@@ -134,7 +134,7 @@ def test_published_at_is_set_per_language_on_first_publication() -> None:
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_db_trigger_enforce_slug_uniqueness_on_event_translations() -> None:
     region = Region.objects.create(slug="trigger-test-region")
     event1 = Event.objects.create(
@@ -163,7 +163,7 @@ def test_db_trigger_enforce_slug_uniqueness_on_event_translations() -> None:
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_db_trigger_enforce_slug_uniqueness_on_bulk_creation() -> None:
     region = Region.objects.create(slug="trigger-test-region")
     event1 = Event.objects.create(
