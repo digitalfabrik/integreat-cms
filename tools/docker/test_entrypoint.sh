@@ -11,13 +11,15 @@
 set -eo pipefail
 
 # Virtualenv lives on a named volume (see docker-compose.test.yml) so that
-# dependencies are installed once and reused across runs.
+# dependencies are installed once and reused across runs. The mountpoint is
+# pre-created world-writable in the image because the container runs as the
+# invoking host user, whose uid is not known at build time.
 VENV_DIR="/home/circleci/venv"
-# Named-volume mount points are created owned by root; make the venv directory
-# writable by the unprivileged container user before using it (cimg images grant
-# the `circleci` user passwordless sudo).
 if [[ ! -w "${VENV_DIR}" ]]; then
-    sudo chown "$(id -u):$(id -g)" "${VENV_DIR}"
+    echo "The virtualenv volume at ${VENV_DIR} is not writable by uid $(id -u)." >&2
+    echo "It was probably created by an older image — remove it with:" >&2
+    echo "    docker compose --env-file /dev/null -f docker-compose.test.yml down --volumes" >&2
+    exit 1
 fi
 if [[ ! -x "${VENV_DIR}/bin/python" ]]; then
     echo "Creating virtualenv at ${VENV_DIR}..."

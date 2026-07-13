@@ -47,6 +47,18 @@ function run_tests_in_docker {
         echo "Run ./tools/install.sh once, or run the tests with --local." | print_info
         exit 1
     fi
+    # Run the container as the invoking host user so the bind-mounted tree
+    # stays writable and files created by the run belong to the developer.
+    # Under rootless docker the container's root is mapped to the host user,
+    # so uid 0 is the correct choice there; under rootful docker it is the
+    # real uid/gid.
+    if docker info --format '{{.SecurityOptions}}' 2> /dev/null | grep -q rootless; then
+        export TEST_UID=0 TEST_GID=0
+    else
+        TEST_UID="$(id -u)"
+        TEST_GID="$(id -g)"
+        export TEST_UID TEST_GID
+    fi
     # The project's .env is a bash-source file (it `source`s the venv), not a
     # docker-compose env file, so prevent Compose from auto-loading it for
     # variable substitution (interpolation reads the process environment).
