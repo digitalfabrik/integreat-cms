@@ -18,7 +18,7 @@ CONTACT1 = {
     "id": 3,
     "json": {
         "url": "/augsburg/contact/3/",
-        "name": "Integrationsberatung: Mariana Musterfrau (mariana-musterfrau@example.com, +49 (0) 123456789, https://integreat-app.de/)| Linked location: Draft location Viktoriastraße 1 86150 Augsburg",
+        "name": "Integrationsberatung: Mariana Musterfrau (mariana-musterfrau@example.com, +49 123456789, https://integreat-app.de/)| Linked location: Draft location Viktoriastraße 1 86150 Augsburg",
         "details": {
             "address": "show address",
             "area_of_responsibility": "show area of responsibility",
@@ -36,7 +36,7 @@ CONTACT1 = {
 CONTACT2 = {
     "json": {
         "url": "/augsburg/contact/4/",
-        "name": "(generalcontactinformation@example.com, +49 (0) 123456789, https://integreat-app.de/)| Linked location: Draft location Viktoriastraße 1 86150 Augsburg",
+        "name": "(generalcontactinformation@example.com, +49 123456789, https://integreat-app.de/)| Linked location: Draft location Viktoriastraße 1 86150 Augsburg",
         "details": {
             "address": "show address",
             "email": "show email",
@@ -44,7 +44,7 @@ CONTACT2 = {
             "website": "show website",
         },
     },
-    "card": '<div><div contenteditable="false" data-contact-id="4" data-contact-url="/augsburg/contact/4/?details=phone_number" class="contact-card notranslate" dir="ltr" translate="no"><a href="/augsburg/contact/4/?details=phone_number" style="display: none">Contact</a><ul class="details"><li><img src="http://localhost:8000/static/svg/call.svg" alt="Phone Number: " width="15" height="15"><a href="tel:+49123456789">+49 (0) 123456789</a></li></ul></div></div>',
+    "card": '<div><div contenteditable="false" data-contact-id="4" data-contact-url="/augsburg/contact/4/?details=phone_number" class="contact-card notranslate" dir="ltr" translate="no"><a href="/augsburg/contact/4/?details=phone_number" style="display: none">Contact</a><ul class="details"><li><img src="http://localhost:8000/static/svg/call.svg" alt="Phone Number: " width="15" height="15"><a href="tel:+49 123456789">+49 123456789</a></li></ul></div></div>',
     "stub": '<div><div data-contact-id="4" data-contact-url="/augsburg/contact/4/?details=phone_number"></div></div>',
 }
 
