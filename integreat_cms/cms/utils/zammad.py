@@ -262,15 +262,10 @@ class ZammadAPI:
 
         :return: generate automatic answers or not
         """
-        cache_key = f"chat_automatic_anwers_{self.device_id}"
-        response = cache.get(cache_key)
-        if response is None:
-            response = self.zammad_request(
-                "GET",
-                f"/api/v1/tickets/{self.zammad_id}",
-            ).json()["automatic_answers"]
-            cache.set(cache_key, response, 120)
-        return response
+        return self.zammad_request(
+            "GET",
+            f"/api/v1/tickets/{self.zammad_id}",
+        ).json()["automatic_answers"]
 
     def save_automatic_answers(self, value: bool) -> bool:
         """
@@ -279,7 +274,6 @@ class ZammadAPI:
         :param value: True if user agrees, false if not
         :return: success
         """
-        cache.delete(f"chat_automatic_anwers_{self.device_id}")
         try:
             response = self.zammad_request(
                 "PUT",
@@ -297,14 +291,17 @@ class ZammadAPI:
         :param title: Ticket title
         :return: Zammad ticket ID
         """
+        payload = {
+            "title": title,
+            "group": settings.INTEGREAT_CHAT_TICKET_GROUP,
+            "customer": self.get_zammad_user_mail(),
+        }
+        if settings.MULTI_REGION_ZAMMAD:
+            payload["device_id"] = self.device_id
         return self.zammad_request(
             "POST",
             "/api/v1/tickets",
-            {
-                "title": title,
-                "group": settings.INTEGREAT_CHAT_TICKET_GROUP,
-                "customer": self.get_zammad_user_mail(),
-            },
+            payload,
         ).json()["id"]
 
     @property
