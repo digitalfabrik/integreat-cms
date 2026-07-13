@@ -37,8 +37,12 @@ pip install -e ".[dev-pinned,pinned]"
 
 # The .mo translation files are not committed; compile them so translation-
 # dependent tests (e.g. the CSV feedback export) behave deterministically.
+# Run from inside the package directory (like the CI compile-translations job):
+# compilemessages walks every locale/ dir below the cwd, and the project root
+# may contain a bind-mounted host virtualenv whose third-party .po files
+# (e.g. sphinx) fail msgfmt with fatal errors.
 echo "Compiling translations..."
-integreat-cms-cli compilemessages
+(cd integreat_cms && integreat-cms-cli compilemessages)
 
 # Wait for the PostgreSQL service to accept connections. `depends_on` with a
 # health check already gates startup, but this makes the dependency explicit and
