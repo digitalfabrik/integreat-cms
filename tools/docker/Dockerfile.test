@@ -17,6 +17,11 @@ USER root
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libcairo2 gettext \
     && rm -rf /var/lib/apt/lists/*
+# Pre-create the venv volume mountpoint with open permissions: the container
+# runs as the invoking host user (see the `user:` key in docker-compose.test.yml),
+# whose uid is not known at build time, and named volumes copy the permissions
+# of the image path on first use.
+RUN mkdir -p /home/circleci/venv && chmod 0777 /home/circleci/venv
 USER circleci
 
 WORKDIR /home/circleci/project

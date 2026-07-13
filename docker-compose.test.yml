@@ -7,7 +7,11 @@
 # The service is normally driven through tools/test.sh, but can also be used
 # directly. Pass `--env-file /dev/null` so Compose does not try to auto-load a
 # personal, bash-style .env (e.g. from autoenv/direnv) at the repo root as a
-# docker-compose env file:
+# docker-compose env file, and export TEST_UID/TEST_GID (rootful docker: your
+# uid/gid so the bind-mounted tree stays writable and files created by the run
+# belong to you; rootless docker: 0, which maps back to your host user):
+#   export TEST_UID="$(id -u)" TEST_GID="$(id -g)"  # rootful
+#   export TEST_UID=0 TEST_GID=0                    # rootless
 #   docker compose --env-file /dev/null -f docker-compose.test.yml run --rm tests -m unit
 
 services:
@@ -35,6 +39,11 @@ services:
     image: integreat-cms-test:local
     # Match CI's architecture (see db service).
     platform: linux/amd64
+    # Run as the invoking host user so the bind-mounted tree stays writable
+    # (editable install writes egg-info) and files created by the test run
+    # (.mo files, htmlcov, snapshots) belong to the developer. tools/test.sh
+    # detects the right value per docker mode — see the header comment.
+    user: "${TEST_UID:?export TEST_UID/TEST_GID or run via tools/test.sh}:${TEST_GID:?export TEST_UID/TEST_GID or run via tools/test.sh}"
     depends_on:
       db:
         condition: service_healthy
@@ -54,6 +63,9 @@ services:
       # container ignores the host's __pycache__ and concurrent xdist workers
       # cannot corrupt .pyc files ("EOFError: marshal data too short").
       PYTHONPYCACHEPREFIX: /tmp/pycache
+      # The invoking host uid has no passwd entry in the image; give pip and
+      # friends a writable HOME for their caches.
+      HOME: /tmp
     volumes:
       # Bind-mount the working tree so tests run against the current code.
       - .:/home/circleci/project
