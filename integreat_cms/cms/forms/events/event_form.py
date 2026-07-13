@@ -227,22 +227,34 @@ class EventForm(CustomModelForm):
                     ),
                 )
             today = timezone.now()
-            if not cleaned_data.get("is_recurring") and (
-                end_date < today.date()
-                or (
+            if not cleaned_data.get("is_recurring"):
+                if end_date < today.date():
+                    self.add_error(
+                        (
+                            "end_date"
+                            if cleaned_data.get("is_long_term")
+                            else "start_date"
+                        ),
+                        forms.ValidationError(
+                            _(
+                                "The event can't be in the past. Please choose today or a future date and time."
+                            ),
+                            code="invalid",
+                        ),
+                    )
+                elif (
                     end_date == today.date()
                     and cleaned_data.get("end_time") < today.time()
-                )
-            ):
-                self.add_error(
-                    "end_date",
-                    forms.ValidationError(
-                        _(
-                            "The end of the event can't be in the past. Please choose today or a future date and time."
+                ):
+                    self.add_error(
+                        "end_time",
+                        forms.ValidationError(
+                            _(
+                                "The event can't be in the past. Please choose today or a future date and time."
+                            ),
+                            code="invalid",
                         ),
-                        code="invalid",
-                    ),
-                )
+                    )
 
         # If everything looks good until now, combine the dates and times into timezone-aware datetimes
         if not self.errors:
