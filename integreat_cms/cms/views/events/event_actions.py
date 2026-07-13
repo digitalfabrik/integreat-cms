@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.db.models import OuterRef, Subquery
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 
@@ -79,6 +79,13 @@ def copy(
     region = request.region
     event = get_object_or_404(region.events, id=event_id)
 
+    query_string = request.POST.get("query_string", "")
+    events_url = reverse(
+        "events", kwargs={"region_slug": region_slug, "language_slug": language_slug}
+    )
+    if query_string:
+        events_url = f"{events_url}?{query_string}"
+
     try:
         event.copy(request.user)
     except CouldNotBeCopied:
@@ -86,18 +93,12 @@ def copy(
             request,
             _("Event couldn't be copied because it's from an external calendar"),
         )
-        return redirect(
-            "events",
-            **{"region_slug": region_slug, "language_slug": language_slug},
-        )
+        return redirect(events_url)
 
     logger.debug("%r copied by %r", event, request.user)
     messages.success(request, _("Event was successfully copied"))
 
-    return redirect(
-        "events",
-        **{"region_slug": region_slug, "language_slug": language_slug},
-    )
+    return redirect(events_url)
 
 
 @require_POST
@@ -159,13 +160,13 @@ def delete(
     event.delete()
     messages.success(request, _("Event was successfully deleted"))
 
-    return redirect(
-        "events",
-        **{
-            "region_slug": region_slug,
-            "language_slug": language_slug,
-        },
+    query_string = request.POST.get("query_string", "")
+    events_url = reverse(
+        "events", kwargs={"region_slug": region_slug, "language_slug": language_slug}
     )
+    if query_string:
+        events_url = f"{events_url}?{query_string}"
+    return redirect(events_url)
 
 
 @require_POST

@@ -159,6 +159,7 @@
                     <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
                           method="post">
                         {% csrf_token %}
+                        <input type="hidden" name="query_string" value="{{ request.GET.urlencode }}">
                         <button class="btn-icon" title="{% translate "Copy event" %}">
                             <i icon-name="copy"></i>
                         </button>
