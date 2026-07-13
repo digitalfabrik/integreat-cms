@@ -143,6 +143,24 @@ def mock_firebase_credentials() -> Generator[None]:
     patch_obj.stop()
 
 
+@pytest.fixture
+def clean_news_cache(load_test_data: None) -> Generator[None]:
+    """
+    Clear external news-source cache entries before and after a test.
+
+    Language slugs are read from the DB so adding or removing a language is
+    automatically reflected.
+    """
+    keys = [
+        f"tunews:{slug}" for slug in Language.objects.values_list("slug", flat=True)
+    ] + [f"amalnews:{slug}" for slug in Language.objects.values_list("slug", flat=True)]
+    for key in keys:
+        cache.delete(key)
+    yield
+    for key in keys:
+        cache.delete(key)
+
+
 @pytest.fixture(autouse=True)
 def configure_celery_for_tests(settings: SettingsWrapper) -> None:
     # by default, no worker is running to consume tasks during tests,
