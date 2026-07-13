@@ -37,12 +37,6 @@ class ChatContextMixin(ContextMixin):
 
         :return: The chat context
         """
-        region = self.request.region
-
-        if region and not region.chat_enabled:
-            logger.debug("Chat in %r is disabled", region)
-            return {}
-
         return {
             "chat_form": ChatMessageForm(),
             "chat_messages": ChatMessage.history.all(),
