@@ -571,12 +571,13 @@ class PageFormView(
                         page_translation_form.cleaned_data["slug"],
                     )
                     messages.warning(
+                        request,
                         _(
                             "The slug was changed from '{user_slug}' to '{slug}'."
                         ).format(
                             user_slug=user_slug,
                             slug=page_translation_form.cleaned_data["slug"],
-                        )
+                        ),
                     )
 
     def set_dependent_translations_to_draft(

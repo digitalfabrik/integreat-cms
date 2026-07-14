@@ -359,25 +359,41 @@ class EventFormView(
                     slug=user_slug,
                     language=language,
                 ).first()
-                other_translation_link = other_translation.backend_edit_link
-                message = _(
-                    "The slug was changed from '{user_slug}' to '{slug}', "
-                    "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
-                ).format(
-                    user_slug=user_slug,
-                    slug=cleaned_slug,
-                    translation=other_translation,
-                )
-                messages.warning(
-                    request,
-                    translate_link(
-                        message,
-                        attributes={
-                            "href": other_translation_link,
-                            "class": "underline hover:no-underline",
-                        },
-                    ),
-                )
+                if other_translation:
+                    other_translation_link = other_translation.backend_edit_link
+                    message = _(
+                        "The slug was changed from '{user_slug}' to '{slug}', "
+                        "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
+                    ).format(
+                        user_slug=user_slug,
+                        slug=cleaned_slug,
+                        translation=other_translation,
+                    )
+                    messages.warning(
+                        request,
+                        translate_link(
+                            message,
+                            attributes={
+                                "href": other_translation_link,
+                                "class": "underline hover:no-underline",
+                            },
+                        ),
+                    )
+                else:
+                    logger.warning(
+                        "Slug was changed from the one the user provided, but we can't find the translation that already used it: %s (cleaned to %s)",
+                        user_slug,
+                        event_translation_form.cleaned_data["slug"],
+                    )
+                    messages.warning(
+                        request,
+                        _(
+                            "The slug was changed from '{user_slug}' to '{slug}'."
+                        ).format(
+                            user_slug=user_slug,
+                            slug=event_translation_form.cleaned_data["slug"],
+                        ),
+                    )
 
     def add_success_message(
         self,
