@@ -4,6 +4,11 @@ import copy
 import json
 from typing import TYPE_CHECKING
 
+from integreat_cms.cms.constants.translation_status import (
+    MACHINE_TRANSLATED,
+    UP_TO_DATE,
+)
+
 if TYPE_CHECKING:
     from typing import Any, Final
 
@@ -16,12 +21,11 @@ if TYPE_CHECKING:
 from unittest.mock import patch
 
 import pytest
-from django.urls import reverse
+from django.urls import resolve, reverse
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import Event, Language, Page, PageTranslation, POI, Region
 from integreat_cms.cms.models.pois.poi import get_default_opening_hours
-from integreat_cms.cms.utils.stringify_list import iter_to_string
 from integreat_cms.core.utils.word_count import word_count
 from integreat_cms.google_translate_api.google_translate_api_client import (
     GoogleTranslateApiClient,
@@ -83,401 +87,6 @@ def mt_setup(
         setup_fake_deepl_api_server(mock_server)
         # Redirect call aimed at the DeepL API to the fake server
         settings.DEEPL_API_URL = f"http://localhost:{mock_server.port}"
-
-
-# Fixture for MT bulk action test
-content_role_id_combination = [
-    (
-        Page,
-        [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
-        [28],
-    ),
-    (
-        POI,
-        PRIV_STAFF_ROLES + WRITE_ROLES,
-        [6],
-    ),
-    (
-        Event,
-        PRIV_STAFF_ROLES + WRITE_ROLES,
-        [1],
-    ),
-]
-
-
-@pytest.mark.django_db
-@pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-@pytest.mark.parametrize("content_role_id_combination", content_role_id_combination)
-def test_bulk_mt(
-    load_test_data: None,
-    login_role_user: tuple[Client, str],
-    provider_language_combination: tuple[str, str, str],
-    content_role_id_combination: tuple[Any, list, list[int]],
-    settings: SettingsWrapper,
-    mock_server: MockServer,
-    caplog: LogCaptureFixture,
-) -> None:
-    """
-    Check for bulk machine translation of pages/events/pois via the MT API
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :param provider_language_combination: The combination of MT provider and source/target language
-    :param content_role_id_combination: The combination of content type, user roles with permission and selected_ids used in the test
-    :param settings: The fixture providing the django settings
-    :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
-    :param caplog: The :fixture:`caplog` fixture
-    """
-
-    provider, source_language_slug, target_language_slug = provider_language_combination
-
-    content_type, entitled_roles, ids = content_role_id_combination
-
-    mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
-
-    # Log the user in
-    client, role = login_role_user
-
-    expected_word_count = 0
-    for content_obj in content_type.objects.filter(id__in=ids):
-        attrs = content_obj.get_translatable_attributes(
-            ["title", "content", "meta_description"],
-            source_language_slug,
-            target_language_slug,
-        )
-        expected_word_count += word_count(attrs)
-
-    # Translate the pois
-    machine_translation = reverse(
-        "machine_translation_" + content_type._meta.default_related_name,
-        kwargs={
-            "region_slug": REGION_SLUG,
-            "language_slug": target_language_slug,
-        },
-    )
-
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
-    ):
-        response = client.post(machine_translation, data={"selected_ids[]": ids})
-        print(response.headers)
-
-        if role in entitled_roles:
-            # If the role should be allowed to access the view, we expect a successful result
-            assert response.status_code == 302
-            tree = reverse(
-                content_type._meta.default_related_name,
-                kwargs={
-                    "region_slug": REGION_SLUG,
-                    "language_slug": target_language_slug,
-                },
-            )
-            assert response.headers.get("Location") == tree
-            response = client.get(tree)
-
-            translations = get_content_translations(
-                content_type,
-                ids,
-                source_language_slug,
-                target_language_slug,
-            )
-
-            for translation in translations:
-                assert_message_in_log(
-                    f'SUCCESS  {content_type._meta.verbose_name.capitalize()} "{translation[source_language_slug]}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
-                    caplog,
-                )
-                # Check that the page translation exists and really has the correct content
-                assert translation[target_language_slug].machine_translated is True
-                assert (
-                    translation[target_language_slug].title
-                    == f"This is your translation from {provider}"
-                )
-                assert (
-                    translation[target_language_slug].content
-                    == f"<p>This is your translation from {provider}</p>"
-                )
-                if (
-                    content_type == POI
-                    and translation[target_language_slug].meta_description
-                ):
-                    assert (
-                        translation[target_language_slug].meta_description
-                        == f"This is your translation from {provider}"
-                    )
-
-            assert (
-                Region.objects.get(slug=REGION_SLUG).mt_budget_used
-                == expected_word_count
-            )
-
-        elif role == ANONYMOUS:
-            # For anonymous users, we want to redirect to the login form instead of showing an error
-            assert response.status_code == 302
-            assert (
-                response.headers.get("location")
-                == f"{settings.LOGIN_URL}?next={machine_translation}"
-            )
-        else:
-            # For logged in users, we want to show an error if they get a permission denied
-            assert response.status_code == 403
-
-
-@pytest.mark.django_db
-@pytest.mark.parametrize(
-    "login_role_user",
-    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
-    indirect=True,
-)
-@pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_bulk_mt_exceeds_limit(
-    load_test_data: None,
-    login_role_user: tuple[Client, str],
-    provider_language_combination: tuple[str, str, str],
-    settings: SettingsWrapper,
-    caplog: LogCaptureFixture,
-) -> None:
-    """
-    Check for bulk machine translation error when the attempted translation would exceed the region's word limit
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :param provider_language_combination: The combination of MT provider and source/target language
-    :param settings: The fixture providing the django settings
-    :param caplog: The :fixture:`caplog` fixture
-    """
-
-    provider, source_language_slug, target_language_slug = provider_language_combination
-
-    mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, None)
-
-    # Setup available translation credits to 0
-    region = Region.objects.get(slug=REGION_SLUG)
-    region.mt_budget_used = region.mt_budget_booked
-    region.save()
-
-    # Log the user in
-    client, _role = login_role_user
-
-    # Translate the pages
-    selected_ids = [2, 3, 6] if provider == "DeepL" else [18, 19]
-    machine_translation = reverse(
-        "machine_translation_pages",
-        kwargs={
-            "region_slug": REGION_SLUG,
-            "language_slug": target_language_slug,
-        },
-    )
-
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
-    ):
-        response = client.post(
-            machine_translation,
-            data={"selected_ids[]": selected_ids},
-        )
-        print(response.headers)
-
-        assert response.status_code == 302
-        page_tree = reverse(
-            "pages",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": target_language_slug,
-            },
-        )
-        assert response.headers.get("Location") == page_tree
-        response = client.get(page_tree)
-
-        # Get the page objects including their translations from the database
-        page_translations = get_content_translations(
-            Page,
-            selected_ids,
-            source_language_slug,
-            target_language_slug,
-        )
-
-        # Check for a failure message
-        translations_str = iter_to_string(
-            [t[source_language_slug].title for t in page_translations],
-        )
-        assert_message_in_log(
-            f"ERROR    The following pages could not be translated because they would exceed the remaining budget of 0 words: {translations_str}",
-            caplog,
-        )
-        for page_translation in page_translations:
-            assert (
-                page_translation[target_language_slug] is None
-                or page_translation[target_language_slug].machine_translated is False
-            )
-
-
-@pytest.mark.django_db
-@pytest.mark.parametrize(
-    "login_role_user",
-    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
-    indirect=True,
-)
-@pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_bulk_mt_up_to_date(
-    load_test_data: None,
-    login_role_user: tuple[Client, str],
-    provider_language_combination: tuple[str, str, str],
-    settings: SettingsWrapper,
-    caplog: LogCaptureFixture,
-) -> None:
-    """
-    Check for bulk machine translation error when one of the target translations is up-to-date and the other is machine translated
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :param provider_language_combination: The combination of MT provider and source/target language
-    :param settings: The fixture providing the django settings
-    :param caplog: The :fixture:`caplog` fixture
-    """
-
-    _, _, target_language_slug = provider_language_combination
-
-    mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, None)
-
-    # Log the user in
-    client, _role = login_role_user
-
-    # Translate the pages
-    up_to_date_page_id = 1
-    machine_translated_page_id = 16
-
-    machine_translation = reverse(
-        "machine_translation_pages",
-        kwargs={
-            "region_slug": REGION_SLUG,
-            "language_slug": target_language_slug,
-        },
-    )
-
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
-    ):
-        response = client.post(
-            machine_translation,
-            data={"selected_ids[]": [up_to_date_page_id, machine_translated_page_id]},
-        )
-        print(response.headers)
-
-        assert response.status_code == 302
-        page_tree = reverse(
-            "pages",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": target_language_slug,
-            },
-        )
-        assert response.headers.get("Location") == page_tree
-        response = client.get(page_tree)
-
-        # Check for a failure message
-        assert_message_in_log(
-            "ERROR    All the selected translations are already up-to-date.",
-            caplog,
-        )
-
-
-@pytest.mark.django_db
-@pytest.mark.parametrize(
-    "login_role_user",
-    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
-    indirect=True,
-)
-@pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_bulk_mt_up_to_date_and_ready_for_mt(
-    load_test_data: None,
-    login_role_user: tuple[Client, str],
-    provider_language_combination: tuple[str, str, str],
-    settings: SettingsWrapper,
-    mock_server: MockServer,
-    caplog: LogCaptureFixture,
-) -> None:
-    """
-    Check for bulk machine translation when one of the target translations is up-to-date and the other is ready for MT
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :param provider_language_combination: The combination of MT provider and source/target language
-    :param settings: The fixture providing the django settings
-    :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
-    :param caplog: The :fixture:`caplog` fixture
-    """
-
-    _, source_language_slug, target_language_slug = provider_language_combination
-
-    mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
-
-    # Log the user in
-    client, _role = login_role_user
-
-    # Translate the pois
-    up_to_date_poi_id = 4
-    ready_for_mt_poi_id = 6
-
-    machine_translation = reverse(
-        "machine_translation_pois",
-        kwargs={
-            "region_slug": REGION_SLUG,
-            "language_slug": target_language_slug,
-        },
-    )
-
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
-    ):
-        response = client.post(
-            machine_translation,
-            data={"selected_ids[]": [up_to_date_poi_id, ready_for_mt_poi_id]},
-        )
-        print(response.headers)
-
-        assert response.status_code == 302
-        poi_tree = reverse(
-            "pois",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": target_language_slug,
-            },
-        )
-        assert response.headers.get("Location") == poi_tree
-        response = client.get(poi_tree)
-
-        poi_translations = get_content_translations(
-            POI,
-            [up_to_date_poi_id, ready_for_mt_poi_id],
-            source_language_slug,
-            target_language_slug,
-        )
-
-        for poi_translation in poi_translations:
-            # Check for a failure message if translation was already up-to-date
-            if poi_translation[source_language_slug].poi_id == up_to_date_poi_id:
-                assert_message_in_log(
-                    f'ERROR    There already is an up-to-date translation for "{poi_translation[settings.LANGUAGE_CODE].title}"',
-                    caplog,
-                )
-                assert poi_translation[target_language_slug].machine_translated is False
-
-            # Check for a successful message if translation was ready for mt
-            if poi_translation[source_language_slug].poi_id == ready_for_mt_poi_id:
-                assert_message_in_log(
-                    f'SUCCESS  Location "{poi_translation[source_language_slug]}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
-                    caplog,
-                )
-                assert poi_translation[target_language_slug].machine_translated is True
 
 
 # Fixture for form translation test
@@ -669,170 +278,6 @@ def test_automatic_translation(
             assert response.status_code == 403
 
 
-@pytest.mark.django_db
-@pytest.mark.parametrize(
-    "login_role_user",
-    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
-    indirect=True,
-)
-@pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_bulk_mt_no_source_language(
-    load_test_data: None,
-    login_role_user: tuple[Client, str],
-    provider_language_combination: tuple[str, str, str],
-    settings: SettingsWrapper,
-    caplog: LogCaptureFixture,
-) -> None:
-    """
-    Check for bulk machine translation error when the source language is not available
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :param provider_language_combination: The combination of MT provider and source/target language
-    :param settings: The fixture providing the django settings
-    :param caplog: The :fixture:`caplog` fixture
-    """
-
-    _, _, target_language_slug = provider_language_combination
-
-    mt_setup(["ar"], ["en-gb", "en-us"], ["fa"], ["ar"], settings, None)
-
-    # Log the user in
-    client, _role = login_role_user
-
-    # Translate the pages
-    selected_ids = [1, 2, 3]
-    machine_translation = reverse(
-        "machine_translation_pages",
-        kwargs={
-            "region_slug": REGION_SLUG,
-            "language_slug": target_language_slug,
-        },
-    )
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
-    ):
-        response = client.post(
-            machine_translation,
-            data={"selected_ids[]": selected_ids},
-        )
-        print(response.headers)
-
-        assert response.status_code == 302
-        page_tree = reverse(
-            "pages",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": target_language_slug,
-            },
-        )
-        assert response.headers.get("Location") == page_tree
-        response = client.get(page_tree)
-
-        # Get the page objects including their translations from the database
-        page_translations = get_content_translations(
-            Page,
-            selected_ids,
-            target_language_slug,
-        )
-
-        # Check for a failure message
-        assert_message_in_log(
-            f'ERROR    Machine translations are disabled for language "{get_english_name(target_language_slug)}"',
-            caplog,
-        )
-        for page_translation in page_translations:
-            # Check that the page was not machine translated
-            assert (
-                page_translation[target_language_slug] is None
-                or page_translation[target_language_slug].machine_translated is False
-            )
-
-
-@pytest.mark.django_db
-@pytest.mark.parametrize(
-    "login_role_user",
-    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
-    indirect=True,
-)
-@pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_deepl_bulk_mt_no_target_language(
-    load_test_data: None,
-    login_role_user: tuple[Client, str],
-    provider_language_combination: tuple[str, str, str],
-    settings: SettingsWrapper,
-    caplog: LogCaptureFixture,
-) -> None:
-    """
-    Check for bulk machine translation error when the target language is not available
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :param provider_language_combination: The combination of MT provider and source/target language
-    :param settings: The fixture providing the django settings
-    :param caplog: The :fixture:`caplog` fixture
-    """
-
-    _, _, target_language_slug = provider_language_combination
-
-    mt_setup(["de"], ["ar"], ["en"], ["fa"], settings, None)
-
-    # Log the user in
-    client, _role = login_role_user
-
-    # Translate the pages
-    selected_ids = [1, 2, 3]
-    machine_translation = reverse(
-        "machine_translation_pages",
-        kwargs={
-            "region_slug": REGION_SLUG,
-            "language_slug": target_language_slug,
-        },
-    )
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
-    ):
-        response = client.post(
-            machine_translation,
-            data={"selected_ids[]": selected_ids},
-        )
-        print(response.headers)
-
-        assert response.status_code == 302
-        page_tree = reverse(
-            "pages",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": target_language_slug,
-            },
-        )
-        assert response.headers.get("Location") == page_tree
-        response = client.get(page_tree)
-
-        # Get the page objects including their translations from the database
-        page_translations = get_content_translations(
-            Page,
-            selected_ids,
-            target_language_slug,
-        )
-
-        # Check for a failure message
-        assert_message_in_log(
-            f'ERROR    Machine translations are disabled for language "{get_english_name(target_language_slug)}"',
-            caplog,
-        )
-        for page_translation in page_translations:
-            # Check that the page was not machine translated
-            assert (
-                page_translation[target_language_slug] is None
-                or page_translation[target_language_slug].machine_translated is False
-            )
-
-
 do_not_translate_title = [True, False]
 
 
@@ -863,21 +308,8 @@ def test_do_not_translate_title(
     client, role = login_role_user
 
     region = Region.objects.get(slug=REGION_SLUG)
-    test_page = Page.objects.create(
-        region=region,
-        do_not_translate_title=do_not_translate_title,
-        lft=1,
-        rgt=2,
-        tree_id=14,
-        depth=1,
-    )
-    PageTranslation.objects.create(
-        page=test_page,
-        title="xxxx",
-        slug="xxxx",
-        language=Language.objects.get(slug="de"),
-        content="",
-    )
+
+    page_id = _create_page(client, REGION_SLUG, "xxxx", "xxxx", "")
 
     mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
 
@@ -886,78 +318,54 @@ def test_do_not_translate_title(
         "__init__",
         setup_fake_google_translate_api,
     ):
-        edit_page_de = reverse(
-            "edit_page",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": "de",
-                "page_id": test_page.id,
-            },
-        )
-        client.post(
-            edit_page_de,
-            data={
-                "title": "Neuer Titel",
-                "content": "Neuer Inhalt",
-                "mirrored_page_region": "",
-                "automatic_translation": "on",
-                "mt_translations_to_create": region.language_tree_nodes.get(
-                    language__slug="en"
-                ).id,
-                "status": status.PUBLIC,
-                "_position": "right",
-                "do_not_translate_title": do_not_translate_title,
-            },
+        _edit_translation(
+            client,
+            page_id,
+            "de",
+            "Neuer Titel",
+            "Neuer Inhalt",
+            region=region,
+            mt_translations_to_create="en",
+            do_not_translate_title=do_not_translate_title,
         )
 
         de_translation = PageTranslation.objects.filter(
-            page=test_page, language__slug="de"
+            page__id=page_id, language__slug="de"
         ).first()
         en_translation = PageTranslation.objects.filter(
-            page=test_page, language__slug="en"
+            page__id=page_id, language__slug="en"
         ).first()
 
         assert de_translation
         assert en_translation
+        assert en_translation.translation_state == MACHINE_TRANSLATED
 
         if do_not_translate_title:
             assert en_translation.title == de_translation.title
         else:
             assert en_translation.title == "This is your translation from DeepL"
 
-        edit_page_en = reverse(
-            "edit_page",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": "en",
-                "page_id": test_page.id,
-            },
-        )
-        client.post(
-            edit_page_en,
-            data={
-                "title": "Titel in English",
-                "content": "New content",
-                "mirrored_page_region": "",
-                "automatic_translation": "on",
-                "mt_translations_to_create": region.language_tree_nodes.get(
-                    language__slug="ar"
-                ).id,
-                "status": status.PUBLIC,
-                "_position": "right",
-                "do_not_translate_title": do_not_translate_title,
-            },
+        _edit_translation(
+            client,
+            page_id,
+            "en",
+            "Title in English",
+            "New content",
+            region=region,
+            mt_translations_to_create="ar",
+            do_not_translate_title=do_not_translate_title,
         )
 
         en_translation = PageTranslation.objects.filter(
-            page=test_page, language__slug="en"
+            page__id=page_id, language__slug="en"
         ).first()
         ar_translation = PageTranslation.objects.filter(
-            page=test_page, language__slug="ar"
+            page__id=page_id, language__slug="ar"
         ).first()
 
         assert en_translation
         assert ar_translation
+        assert ar_translation.translation_state == MACHINE_TRANSLATED
 
         if do_not_translate_title:
             assert ar_translation.title == en_translation.title
@@ -968,126 +376,278 @@ def test_do_not_translate_title(
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize(
-    "login_role_user",
-    [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
-    indirect=True,
-)
-def test_mt_empty_content(
+@pytest.mark.parametrize("login_role_user", [EDITOR], indirect=True)
+def test_mt_update_to_empty_content(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     mock_server: MockServer,
 ) -> None:
     """
-    When a page is saved with empty content and MT update enabled:
-    - target translations are cleared
-    - translations are marked as up to date
-    - no MT API request is sent
+    When a page is updated with empty content and MT updates are enabled:
+    - target translation content is cleared without calling the MT API
+    - target translations are marked as machine translated
+    - the minor_edit flag is set to False
     """
+    mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
+
     client, role = login_role_user
 
     region = Region.objects.get(slug=REGION_SLUG)
-    test_page = Page.objects.create(
-        region=region,
-        lft=1,
-        rgt=2,
-        tree_id=14,
-        depth=1,
-    )
-    PageTranslation.objects.create(
-        page=test_page,
-        title="Titel",
-        slug="titel",
-        language=Language.objects.get(slug="de"),
-        content="Inhalt",
-    )
-    PageTranslation.objects.create(
-        page=test_page,
-        title="Titel",
-        slug="titel",
-        language=Language.objects.get(slug="en"),
-        content="Content",
-    )
-    PageTranslation.objects.create(
-        page=test_page,
-        title="العنوان",
-        slug="العنوان",
-        language=Language.objects.get(slug="ar"),
-        content="المحتوى",
-    )
 
-    mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
+    # Create initial translations
+    page_id = _create_page(client, REGION_SLUG, "Titel", "titel", "<p>Inhalt</p>")
+    _edit_translation(client, page_id, "en", "Title", "<p>Content</p>")
+    _edit_translation(client, page_id, "ar", "العنوان", "<p>العنوان</p>")
 
+    # Trigger automatic translations
     with patch.object(
         GoogleTranslateApiClient,
         "__init__",
         setup_fake_google_translate_api,
     ):
-        edit_page_de = reverse(
-            "edit_page",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": "de",
-                "page_id": test_page.id,
-            },
-        )
-        client.post(
-            edit_page_de,
-            data={
-                "title": "Titel",
-                "content": "",
-                "mirrored_page_region": "",
-                "automatic_translation": "on",
-                "mt_translations_to_update": region.language_tree_nodes.get(
-                    language__slug="en"
-                ).id,
-                "status": status.PUBLIC,
-                "_position": "right",
-            },
+        _edit_translation(
+            client,
+            page_id,
+            language_slug="de",
+            title="Titel",
+            content="",
+            region=region,
+            mt_translations_to_update="en",
         )
 
         en_translation = PageTranslation.objects.filter(
-            page=test_page, language__slug="en"
+            page__id=page_id, language__slug="en"
         ).first()
 
         assert en_translation
-        assert en_translation.title == "Titel"
+        assert en_translation.title == "Title"
         assert en_translation.content == ""
-        assert en_translation.machine_translated is True
-        assert en_translation.is_up_to_date is True
+        assert en_translation.translation_state == MACHINE_TRANSLATED
+        assert en_translation.minor_edit is False
         assert mock_server.requests_counter == 0
 
-        edit_page_en = reverse(
-            "edit_page",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": "en",
-                "page_id": test_page.id,
-            },
-        )
-        client.post(
-            edit_page_en,
-            data={
-                "title": "Titel",
-                "content": "",
-                "mirrored_page_region": "",
-                "automatic_translation": "on",
-                "mt_translations_to_update": region.language_tree_nodes.get(
-                    language__slug="ar"
-                ).id,
-                "status": status.PUBLIC,
-                "_position": "right",
-            },
+        _edit_translation(
+            client,
+            page_id,
+            language_slug="en",
+            title="Title",
+            content="",
+            region=region,
+            mt_translations_to_update="ar",
         )
 
         ar_translation = PageTranslation.objects.filter(
-            page=test_page, language__slug="ar"
+            page__id=page_id, language__slug="ar"
         ).first()
 
         assert ar_translation
         assert ar_translation.title == "العنوان"
         assert ar_translation.content == ""
-        assert ar_translation.machine_translated is True
-        assert ar_translation.is_up_to_date is True
+        assert ar_translation.translation_state == MACHINE_TRANSLATED
+        assert ar_translation.minor_edit is False
         assert mock_server.requests_counter == 0
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("login_role_user", [EDITOR], indirect=True)
+def test_mt_update_up_to_date_no_changes(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
+    mock_server: MockServer,
+    caplog: LogCaptureFixture,
+) -> None:
+    """
+    When a source translation is updated without changes and MT update is enabled but target translation is already up-to-date:
+    - target translation is not updated
+    - failure message is displayed
+    """
+    mt_setup(["de"], ["en-gb", "en-us"], [], [], settings, mock_server)
+
+    client, role = login_role_user
+
+    region = Region.objects.get(slug=REGION_SLUG)
+
+    # Create initial translations
+    page_id = _create_page(client, REGION_SLUG, "Titel", "titel", "<p>Inhalt</p>")
+    _edit_translation(client, page_id, "en", "Title", "<p>Content</p>")
+
+    en_translation = PageTranslation.objects.filter(
+        page__id=page_id, language__slug="en"
+    ).first()
+
+    assert en_translation
+    assert en_translation.translation_state == UP_TO_DATE
+
+    # Trigger automatic translations
+    _edit_translation(
+        client,
+        page_id,
+        language_slug="de",
+        title="Titel",
+        content="<p>Inhalt</p>",
+        region=region,
+        mt_translations_to_update="en",
+    )
+
+    # Check for a failure message
+    assert_message_in_log(
+        "ERROR    Page \"Title\" was not translated into 'English', because there were no changes to the source translation.",
+        caplog,
+    )
+    en_translation = PageTranslation.objects.filter(
+        page__id=page_id, language__slug="en"
+    ).first()
+
+    assert en_translation
+    assert en_translation.machine_translated is False
+    assert en_translation.translation_state == UP_TO_DATE
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("login_role_user", [EDITOR], indirect=True)
+def test_manual_update_mt_page(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
+    mock_server: MockServer,
+) -> None:
+    """
+    When a machine-translated page is manually updated without any changes:
+    - the translation status is set to up-to-date
+    - the minor_edit flag is set to True
+    """
+    mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
+
+    client, role = login_role_user
+
+    region = Region.objects.get(slug=REGION_SLUG)
+
+    # Create initial translations
+    page_id = _create_page(client, REGION_SLUG, "Titel", "titel", "<p>Inhalt</p>")
+
+    # Trigger automatic translations
+    with patch.object(
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
+    ):
+        _edit_translation(
+            client,
+            page_id,
+            language_slug="de",
+            title="Titel",
+            content="<p>Inhalt</p>",
+            region=region,
+            mt_translations_to_create="en",
+        )
+
+        en_translation = PageTranslation.objects.filter(
+            page__id=page_id, language__slug="en"
+        ).first()
+
+        assert en_translation
+        assert en_translation.translation_state == MACHINE_TRANSLATED
+        assert en_translation.minor_edit is False
+
+        # Manual update without content changes
+        _edit_translation(
+            client,
+            page_id,
+            language_slug="en",
+            title=en_translation.title,
+            content=en_translation.content,
+            region=region,
+        )
+
+        en_translation = PageTranslation.objects.filter(
+            page__id=page_id, language__slug="en"
+        ).first()
+
+        assert en_translation
+        assert en_translation.translation_state == UP_TO_DATE
+        assert en_translation.minor_edit is True
+
+
+def _create_page(
+    client: Client,
+    region_slug: str,
+    title: str,
+    slug: str,
+    content: str,
+) -> Page:
+    url = reverse(
+        "new_page",
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": "de",
+        },
+    )
+    data = {
+        "status": "PUBLIC",
+        "content": content,
+        "title": title,
+        "slug": slug,
+        "icon": "",
+        "_ref_node_id": 28,
+        "_position": "left",
+        "parent": "",
+        "mirrored_page_region": "",
+        "mirrored_page_first": True,
+        "api_token": "",
+        "authors": "",
+        "editors": "",
+        "organization": "",
+        "minor_edit": False,
+    }
+    response = client.post(url, data=data)
+    assert response.status_code == 302
+    edit_page_url = response.headers.get("location")
+
+    return resolve(edit_page_url).kwargs["page_id"]
+
+
+def _edit_translation(
+    client: Client,
+    page_id: str,
+    language_slug: str,
+    title: str,
+    content: str,
+    *,
+    region: Region | None = None,
+    mt_translations_to_create: str | None = None,
+    mt_translations_to_update: str | None = None,
+    do_not_translate_title: bool = False,
+) -> None:
+    url = reverse(
+        "edit_page",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": language_slug,
+            "page_id": page_id,
+        },
+    )
+    data = {
+        "title": title,
+        "content": content,
+        "minor_edit": False,
+        "do_not_translate_title": do_not_translate_title,
+        "mirrored_page_region": "",
+        "status": status.PUBLIC,
+        "_position": "right",
+    }
+
+    if mt_translations_to_create or mt_translations_to_update:
+        assert region is not None
+        data["automatic_translation"] = "on"
+        if mt_translations_to_create:
+            data["mt_translations_to_create"] = region.language_tree_nodes.get(
+                language__slug=mt_translations_to_create
+            ).id
+        if mt_translations_to_update:
+            data["mt_translations_to_update"] = region.language_tree_nodes.get(
+                language__slug=mt_translations_to_update
+            ).id
+
+    client.post(url, data=data)
