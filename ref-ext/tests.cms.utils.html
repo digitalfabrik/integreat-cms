@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-07-16T08:24:51+00:00" />
+    <meta property="article:modified_time" content="2026-07-16T11:14:54+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2026.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -256,6 +256,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#internal-link-checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#internal-link-utils">Internal Link Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#link-ignore-preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#link-utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#linkcheck-utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
@@ -886,6 +887,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_utils">Internal Link Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_ignore_preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
@@ -2535,6 +2537,58 @@
 <li><p><strong>link</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The URL to check</p></li>
 <li><p><strong>trailing_slash</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to ensure the trailing slash</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.utils.test_internal_link_checker.test_preserve_ignored_links_across_form_save_cycle">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">test_preserve_ignored_links_across_form_save_cycle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_internal_link_checker.py#L146"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.utils.test_internal_link_checker.test_preserve_ignored_links_across_form_save_cycle" title="Link to this definition"></a></dt>
+<dd><p>Mirrors what <code class="docutils literal notranslate"><span class="pre">CustomContentModelForm.save</span></code> does on every editor
+edit: delete the prior version’s Link rows, then save the new
+version. <code class="docutils literal notranslate"><span class="pre">preserve_ignored_links</span></code> must carry <code class="docutils literal notranslate"><span class="pre">ignore=True</span></code> from
+the old translation’s Link onto the new translation’s freshly
+reconciled Link of the same URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.utils.test_internal_link_checker.test_preserve_ignored_links_across_internal_url_rewrite">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">test_preserve_ignored_links_across_internal_url_rewrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_internal_link_checker.py#L215"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.utils.test_internal_link_checker.test_preserve_ignored_links_across_internal_url_rewrite" title="Link to this definition"></a></dt>
+<dd><p>When <code class="docutils literal notranslate"><span class="pre">clean_content</span></code> rewrites an internal href (e.g. an ancestor
+slug changed), reconciliation creates a <code class="docutils literal notranslate"><span class="pre">Url</span></code> row at the new path
+distinct from the pre-rewrite row. The whitelist must follow the
+link’s <em>target</em>, not its URL string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.utils.test_internal_link_checker.test_preserve_ignored_links_across_update_links_to">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">test_preserve_ignored_links_across_update_links_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_internal_link_checker.py#L294"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.utils.test_internal_link_checker.test_preserve_ignored_links_across_update_links_to" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">update_links_to</span></code> bumps the version of every translation whose
+content links to the given translation, deleting and re-creating its
+Link rows in the process. <code class="docutils literal notranslate"><span class="pre">ignore=True</span></code> on the referencing
+translation’s links must survive this cycle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-07-16T08:24:51+00:00" />
+    <meta property="article:modified_time" content="2026-07-16T11:14:54+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events &mdash; integreat-cms 2026.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -256,6 +256,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#internal-link-checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#internal-link-utils">Internal Link Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#link-ignore-preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#link-utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#linkcheck-utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
@@ -886,6 +887,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_utils">Internal Link Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_ignore_preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
@@ -3136,7 +3138,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.add_success_message">
-<span class="sig-name descname"><span class="pre">add_success_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.add_success_message" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_success_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.add_success_message" title="Link to this definition"></a></dt>
 <dd><p>This adds a success message for a translation form.
 Requires the attributes “title”, “status” and “foreign_object” on the form instance.</p>
 <dl class="field-list simple">
@@ -3199,7 +3201,7 @@ Requires the attributes “title”, “status” and “foreign_object” on th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.clean_content">
-<span class="sig-name descname"><span class="pre">clean_content</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.clean_content" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean_content</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.clean_content" title="Link to this definition"></a></dt>
 <dd><p>Validate the content field (see <a class="reference external" href="https://docs.djangoproject.com/en/5.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v5.2)"><span>Overriding the clean() method</span></a>) and applies changes
 to any element to match the guidelines.</p>
 <dl class="field-list simple">
@@ -3217,7 +3219,7 @@ to any element to match the guidelines.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.clean_slug">
-<span class="sig-name descname"><span class="pre">clean_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.clean_slug" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.clean_slug" title="Link to this definition"></a></dt>
 <dd><p>Validate the slug field (see <a class="reference external" href="https://docs.djangoproject.com/en/5.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v5.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>

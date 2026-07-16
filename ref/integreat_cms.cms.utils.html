@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-07-16T08:24:51+00:00" />
+    <meta property="article:modified_time" content="2026-07-16T11:14:54+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2026.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -256,6 +256,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#file-utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#internal-link-checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#internal-link-utils">Internal Link Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#link-ignore-preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#link-utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#linkcheck-utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#media-utils">Media Utils</a></li>
@@ -886,6 +887,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_utils">Internal Link Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_ignore_preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
@@ -2433,7 +2435,7 @@ If it is not locked by the passed user, nothing will happen.</p>
 <p>This file contains utility functions for content translations.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_translation_utils.</span></span><span class="sig-name descname"><span class="pre">get_referencing_translations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content_translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#set" title="(in Python v3.11)"><span class="pre">set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_translation_utils.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_translation_utils.</span></span><span class="sig-name descname"><span class="pre">get_referencing_translations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content_translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#set" title="(in Python v3.11)"><span class="pre">set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_translation_utils.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns a list of content translations that link to the given translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2450,7 +2452,7 @@ If it is not locked by the passed user, nothing will happen.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_translation_utils.</span></span><span class="sig-name descname"><span class="pre">save_new_version_with_retry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_translation_utils.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_translation_utils.</span></span><span class="sig-name descname"><span class="pre">save_new_version_with_retry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_translation_utils.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Call <em>save_fn</em> inside a savepoint, retrying with a recomputed version
 number when a <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/exceptions/#django.db.IntegrityError" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegrityError</span></code></a> on the
 <code class="docutils literal notranslate"><span class="pre">unique_version</span></code> constraint is raised (up to 3 attempts).</p>
@@ -2477,7 +2479,7 @@ be corrected on conflict</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_translation_utils.</span></span><span class="sig-name descname"><span class="pre">update_links_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content_translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><span class="pre">User</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_translation_utils.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_translation_utils.</span></span><span class="sig-name descname"><span class="pre">update_links_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content_translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><span class="pre">User</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_translation_utils.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Updates all content translations with links that point to the given translation.
 This fixes potentially outdated links.</p>
 <dl class="field-list simple">
@@ -3323,6 +3325,54 @@ Note that the resulting link might refer to a fallback language and not the actu
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, Element | <a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>] | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="link-ignore-preservation">
+<h2>Link Ignore Preservation<a class="headerlink" href="#link-ignore-preservation" title="Link to this heading"></a></h2>
+<p>Carry editor-set <code class="docutils literal notranslate"><span class="pre">Link.ignore</span></code> flags across the delete-and-recreate
+cycle that runs on every translation save.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.link_ignore_preservation.</span></span><span class="sig-name descname"><span class="pre">preserve_ignored_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/link_ignore_preservation.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Snapshot target-keys of ignored Links on <code class="docutils literal notranslate"><span class="pre">translation</span></code> so the next
+<code class="docutils literal notranslate"><span class="pre">do_check_instance_links</span></code> for the same (foreign_object, language)
+can restore the flag on the freshly reconciled Links.</p>
+<p>Wrap the delete-and-save sequence:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>with preserve_ignored_links(self):</dt><dd><p>self.links.all().delete()
+new_translation.save()</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>The follow-up reconciliation may run synchronously or via Celery on
+transaction commit; the stash is shared via the Django cache so both
+paths see it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>translation</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><em>AbstractContentTranslation</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Iterator[None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.link_ignore_preservation.</span></span><span class="sig-name descname"><span class="pre">target_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><span class="pre">object</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/link_ignore_preservation.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Stable identity for a URL’s target. Internal URLs that resolve to a
+content object share a key across slug rewrites; everything else
+falls back to the URL string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url_string</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)">object</a>]</p>
 </dd>
 </dl>
 </dd></dl>
