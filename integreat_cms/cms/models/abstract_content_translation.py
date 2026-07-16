@@ -646,7 +646,11 @@ class AbstractContentTranslation(AbstractBaseModel):
         )
         new_translation.content = fix_content_link_encoding(new_translation.content)
         if new_translation.content != self.content and commit:
-            with transaction.atomic():
+            # Local import: preserve_ignored_links pulls in internal_link_utils,
+            # which imports from cms.models, which loads this very module.
+            from ..utils.link_ignore_preservation import preserve_ignored_links
+
+            with transaction.atomic(), preserve_ignored_links(self):
                 self.links.all().delete()
                 save_new_version_with_retry(new_translation, new_translation.save)
 

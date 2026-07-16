@@ -15,6 +15,7 @@ from lxml.html import rewrite_links
 
 from ....cms.models import Region
 from ....cms.utils import internal_link_utils
+from ....cms.utils.link_ignore_preservation import preserve_ignored_links
 from ....cms.utils.link_utils import fix_content_link_encoding
 from ....cms.utils.linkcheck_utils import get_link_query
 from ..log_command import LogCommand
@@ -188,8 +189,9 @@ def replace_links_of_translation(
         rules.keys(),
     )
     if commit:
-        translation.links.all().delete()
-        new_translation.save()
+        with preserve_ignored_links(translation):
+            translation.links.all().delete()
+            new_translation.save()
 
 
 def replace_link_helper(rules: dict[str, str], link: str) -> str:
