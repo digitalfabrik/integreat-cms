@@ -50,7 +50,7 @@ def test_import_fails(calendar_data: tuple[str, str]) -> None:
 
     for event in ical.walk("VEVENT"):
         with pytest.raises(ValueError, match=error_msg):
-            data = IcalEventData.from_ical_event(event, "de", mock_calendar, logger)
+            data = IcalEventData.from_ical_event(event, "de", mock_calendar, logger, 1)
             print(data)
 
 
