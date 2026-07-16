@@ -281,6 +281,24 @@ FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS: Final[int] = env_int(
     24,
 )
 
+#################
+# External News #
+#################
+
+#: How many days back news posts should be fetched from Tü News
+#: Default to FCM_HISTORY_DAYS
+TUNEWS_HISTORY_DAYS: Final[int] = env_int(
+    "INTEGREAT_CMS_TUNEWS_HISTORY_DAYS",
+    FCM_HISTORY_DAYS,
+)
+
+#: Disable re-importing of external news posts on demand e.g. in test context
+EXTERNALNEWS_DISABLE_AUTO_REIMPORT: bool = bool(
+    strtobool(
+        os.environ.get("INTEGREAT_CMS_EXTERNALNEWS_DISABLE_AUTO_REIMPORT", "False")
+    ),
+)
+
 ###########
 # GVZ API #
 ###########

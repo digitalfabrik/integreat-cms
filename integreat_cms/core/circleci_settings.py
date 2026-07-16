@@ -40,6 +40,8 @@ CACHEOPS_ENABLED = False
 LINKCHECK_DISABLE_LISTENERS = True
 # Disable background tasks during testing
 BACKGROUND_TASKS_ENABLED = False
+# Disable auto re-import of external news on demand
+EXTERNALNEWS_DISABLE_AUTO_REIMPORT = True
 #: Enable logging of all entries from the messages framework
 MESSAGE_LOGGING_ENABLED = True
 #: Use debug logging on CircleCI

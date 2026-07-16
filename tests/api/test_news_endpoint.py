@@ -44,7 +44,9 @@ def _create_push_notification(
 
 
 @pytest.mark.django_db
-def test_news_endpoint(load_test_data: None, clean_news_cache: None) -> None:
+def test_news_endpoint(
+    load_test_data: None, clean_news_cache: None, disable_auto_news_reimport: None
+) -> None:
     """
     The combined endpoint merges items from every news source and sorts them
     by ``display_date``, newest first.
@@ -121,7 +123,9 @@ def test_news_endpoint(load_test_data: None, clean_news_cache: None) -> None:
 
 
 @pytest.mark.django_db
-def test_news_endpoint_pagination(load_test_data: None, clean_news_cache: None) -> None:
+def test_news_endpoint_pagination(
+    load_test_data: None, clean_news_cache: None, disable_auto_news_reimport: None
+) -> None:
     """
     The combined endpoint returns only one page of results at a time.
     Page 1 contains the most recent items; page 2 contains the next batch.
@@ -170,7 +174,7 @@ def test_news_endpoint_pagination(load_test_data: None, clean_news_cache: None) 
 
 @pytest.mark.django_db
 def test_news_endpoint_source_filter(
-    load_test_data: None, clean_news_cache: None
+    load_test_data: None, clean_news_cache: None, disable_auto_news_reimport: None
 ) -> None:
     """
     The combined endpoint supports filtering by source.
@@ -260,7 +264,9 @@ def test_news_endpoint_source_filter(
 
 
 @pytest.mark.django_db
-def test_single_news_endpoint(load_test_data: None, clean_news_cache: None) -> None:
+def test_single_news_endpoint(
+    load_test_data: None, clean_news_cache: None, disable_auto_news_reimport: None
+) -> None:
     """
     The single news endpoint returns one news that matches the given id.
 

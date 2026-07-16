@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 from io import StringIO
 from typing import TYPE_CHECKING, TypedDict
 
+from django.conf import settings
 from django.core.cache import cache
 from django.http import Http404, JsonResponse
 from lxml import etree
@@ -75,9 +76,14 @@ class AbstractNewsManager(ABC):
         cache_key = f"{self.short_name}:{language_slug}"
         posts = cache.get(cache_key, _CACHE_MISS)
         if posts is _CACHE_MISS:
-            logger.info("Cache miss for %s; importing news items on demand.", cache_key)
-            self.import_news_items()
-            posts = cache.get(cache_key, [])
+            if not settings.EXTERNALNEWS_DISABLE_AUTO_REIMPORT:
+                logger.info(
+                    "Cache miss for %s; importing news items on demand.", cache_key
+                )
+                self.import_news_items()
+                posts = cache.get(cache_key, [])
+            else:
+                return []
         return posts
 
     def collect_news_items(

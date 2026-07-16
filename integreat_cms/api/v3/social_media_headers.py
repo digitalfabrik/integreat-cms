@@ -112,7 +112,7 @@ def render_error_headers(request: HttpRequest, error: str) -> HttpResponse:
 @partial_html_response
 def root_social_media_headers(
     request: HttpRequest,
-    language_slug: str = settings.LANGUAGE_CODE,
+    language_slug: str | None = None,
 ) -> HttpResponse:
     """
     Renders the social media headers for a root page
@@ -122,7 +122,10 @@ def root_social_media_headers(
 
     :return: HTML social meta headers required by social media platforms
     """
-    language = get_object_or_404(Language, slug=language_slug)
+    language = get_object_or_404(
+        Language,
+        slug=language_slug or settings.LANGUAGE_CODE,
+    )
     title = language.social_media_webapp_title or settings.BRANDING_TITLE
     url = site_url(request)
 
