@@ -64,11 +64,31 @@ def test_news_endpoint(load_test_data: None, clean_news_cache: None) -> None:
     # state — we can assert their relative positions without needing to know
     # what already exists.
     now = datetime.now(tz=UTC)
-    pn_high_time = now + timedelta(hours=3)
+    pn_high_time = now + timedelta(hours=4)
+    amalnews_time = now + timedelta(hours=3)
     tunews_time = now + timedelta(hours=2)
     pn_low_time = now + timedelta(hours=1)
 
-    tunews_id = "tuNews-42"
+    amalnews_id = "amalnews-42"
+    cache.set(
+        f"amalnews:{language_slug}",
+        [
+            {
+                "id": amalnews_id,
+                "title": "Amal News Post",
+                "content": "Amal News",
+                "last_updated": amalnews_time,
+                "display_date": amalnews_time,
+                "channel": None,
+                "available_languages": None,
+                "source": "amalnews",
+                "externalUrl": "https://dummydummy.com",
+            }
+        ],
+        timeout=None,
+    )
+
+    tunews_id = "tunews-42"
     cache.set(
         f"tunews:{language_slug}",
         [
@@ -80,7 +100,7 @@ def test_news_endpoint(load_test_data: None, clean_news_cache: None) -> None:
                 "display_date": tunews_time,
                 "channel": None,
                 "available_languages": None,
-                "source": "tuNews",
+                "source": "tunews",
                 "externalUrl": "https://dummy.com",
             }
         ],
@@ -95,9 +115,9 @@ def test_news_endpoint(load_test_data: None, clean_news_cache: None) -> None:
     )
 
     result = client.get(url).json()
-    top_ids = [item["id"] for item in result[:3]]
+    top_ids = [item["id"] for item in result[:4]]
 
-    assert top_ids == [pn_high_id, tunews_id, pn_low_id]
+    assert top_ids == [pn_high_id, amalnews_id, tunews_id, pn_low_id]
 
 
 @pytest.mark.django_db
@@ -169,7 +189,8 @@ def test_news_endpoint_source_filter(
     client = Client()
 
     now = datetime.now(tz=UTC)
-    tunews_id = "tuNews-99"
+
+    tunews_id = "tunews-99"
     cache.set(
         f"tunews:{language_slug}",
         [
@@ -181,12 +202,32 @@ def test_news_endpoint_source_filter(
                 "display_date": now,
                 "channel": None,
                 "available_languages": None,
-                "source": "tuNews",
+                "source": "tunews",
                 "externalUrl": "https://dummy.com",
             }
         ],
         timeout=None,
     )
+
+    amalnews_id = "amalnews-99"
+    cache.set(
+        f"amalnews:{language_slug}",
+        [
+            {
+                "id": amalnews_id,
+                "title": "Amal News Post",
+                "content": "Amal News",
+                "last_updated": now,
+                "display_date": now,
+                "channel": None,
+                "available_languages": None,
+                "source": "amalnews",
+                "externalUrl": "https://dummydummy.com",
+            }
+        ],
+        timeout=None,
+    )
+
     pn_id = f"local-{_create_push_notification(region_slug, language_slug, now)}"
 
     # Filter by local — only push notifications
@@ -194,18 +235,28 @@ def test_news_endpoint_source_filter(
     assert all(item["source"] == "local" for item in local_result)
     assert any(item["id"] == pn_id for item in local_result)
     assert not any(item["id"] == tunews_id for item in local_result)
+    assert not any(item["id"] == amalnews_id for item in local_result)
 
     # Filter by tunews — only tüNews items
-    tunews_result = client.get(url, {"source": "tuNews"}).json()
-    assert all(item["source"] == "tuNews" for item in tunews_result)
+    tunews_result = client.get(url, {"source": "tunews"}).json()
+    assert all(item["source"] == "tunews" for item in tunews_result)
     assert any(item["id"] == tunews_id for item in tunews_result)
     assert not any(item["id"] == pn_id for item in tunews_result)
+    assert not any(item["id"] == amalnews_id for item in tunews_result)
 
-    # Multi-valued filter — both sources together (?source=local&source=tuNews)
-    both_result = client.get(url, {"source": ["local", "tuNews"]}).json()
-    assert {item["source"] for item in both_result} == {"local", "tuNews"}
-    assert any(item["id"] == pn_id for item in both_result)
-    assert any(item["id"] == tunews_id for item in both_result)
+    # Filter by amalnews — only amalnews items
+    amalnews_result = client.get(url, {"source": "amalnews"}).json()
+    assert all(item["source"] == "amalnews" for item in amalnews_result)
+    assert any(item["id"] == amalnews_id for item in amalnews_result)
+    assert not any(item["id"] == pn_id for item in amalnews_result)
+    assert not any(item["id"] == tunews_id for item in amalnews_result)
+
+    # Multi-valued filter — both sources together (?source=local&source=tunews)
+    multi_source_result = client.get(url, {"source": ["local", "tunews"]}).json()
+    assert {item["source"] for item in multi_source_result} == {"local", "tunews"}
+    assert any(item["id"] == pn_id for item in multi_source_result)
+    assert any(item["id"] == tunews_id for item in multi_source_result)
+    assert not any(item["id"] == amalnews_id for item in multi_source_result)
 
 
 @pytest.mark.django_db
@@ -223,9 +274,9 @@ def test_single_news_endpoint(load_test_data: None, clean_news_cache: None) -> N
 
     now = datetime.now(tz=UTC)
 
-    tunews_id_1 = "tuNews-1"
-    tunews_id_2 = "tuNews-2"
-    tunews_id_non_existing = "tuNews-42"
+    tunews_id_1 = "tunews-1"
+    tunews_id_2 = "tunews-2"
+    tunews_id_non_existing = "tunews-42"
     cache.set(
         f"tunews:{language_slug}",
         [
@@ -237,7 +288,7 @@ def test_single_news_endpoint(load_test_data: None, clean_news_cache: None) -> N
                 "display_date": now,
                 "channel": None,
                 "available_languages": None,
-                "source": "tuNews",
+                "source": "tunews",
                 "externalUrl": "https://dummy.com",
             },
             {
@@ -248,7 +299,7 @@ def test_single_news_endpoint(load_test_data: None, clean_news_cache: None) -> N
                 "display_date": now,
                 "channel": None,
                 "available_languages": None,
-                "source": "tuNews",
+                "source": "tunews",
                 "externalUrl": "https://dummy.com",
             },
         ],
@@ -258,6 +309,38 @@ def test_single_news_endpoint(load_test_data: None, clean_news_cache: None) -> N
     pn_id_1 = f"local-{_create_push_notification(region_slug, language_slug, now)}"
     _create_push_notification(region_slug, language_slug, now)
     pn_id_non_existing = "local-0"
+
+    amalnews_id_1 = "amalnews-1"
+    amalnews_id_2 = "amalnews-2"
+    amalnews_id_non_existing = "amalnews-42"
+    cache.set(
+        f"amalnews:{language_slug}",
+        [
+            {
+                "id": amalnews_id_1,
+                "title": "Amal News Post",
+                "content": "Amal News",
+                "last_updated": now,
+                "display_date": now,
+                "channel": None,
+                "available_languages": None,
+                "source": "amalnews",
+                "externalUrl": "https://dummydummy.com",
+            },
+            {
+                "id": amalnews_id_2,
+                "title": "Amal News Post",
+                "content": "Amal News",
+                "last_updated": now,
+                "display_date": now,
+                "channel": None,
+                "available_languages": None,
+                "source": "amalnews",
+                "externalUrl": "https://dummydummy.com",
+            },
+        ],
+        timeout=None,
+    )
 
     url = reverse(
         "api:single_news",
@@ -286,12 +369,23 @@ def test_single_news_endpoint(load_test_data: None, clean_news_cache: None) -> N
         kwargs={
             "region_slug": region_slug,
             "language_slug": language_slug,
+            "news_id": amalnews_id_1,
+        },
+    )
+    amalnews_result = client.get(url).json()
+    assert amalnews_result["id"] == amalnews_id_1
+
+    url = reverse(
+        "api:single_news",
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": language_slug,
             "news_id": tunews_id_non_existing,
         },
     )
     tunews_result_non_existing = client.get(url).json()
     assert tunews_result_non_existing == {
-        "error": "Tü news post not found in this region with this news ID."
+        "error": "Tü News post not found in this region with this news ID."
     }
 
     url = reverse(
@@ -305,4 +399,17 @@ def test_single_news_endpoint(load_test_data: None, clean_news_cache: None) -> N
     local_result_non_existing = client.get(url).json()
     assert local_result_non_existing == {
         "error": "Push Notification not found in this region with this language."
+    }
+
+    url = reverse(
+        "api:single_news",
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": language_slug,
+            "news_id": amalnews_id_non_existing,
+        },
+    )
+    amalnews_result_non_existing = client.get(url).json()
+    assert amalnews_result_non_existing == {
+        "error": "Amal News post not found in this region with this news ID."
     }

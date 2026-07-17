@@ -256,7 +256,7 @@ def news_social_media_headers(
     :param request: The current request
     :param language_slug: The language slug of the language, which the news item belongs to
     :param slug: The news-source-specific identifier of the news item (e.g. /news/<news_type>/<slug>/)
-    :param news_type: The :attr:`~integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.name` of the news source the slug refers to (e.g. ``"local"``, ``"tuNews"``)
+    :param news_type: The :attr:`~integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.short_name` of the news source the slug refers to (e.g. ``"local"``, ``"tunews"``, ``"amalnews"``)
 
     :return: HTML social meta headers required by social media platforms if the news page exists
     """
@@ -264,7 +264,8 @@ def news_social_media_headers(
     language = region.get_language_or_404(language_slug, only_active=True)
 
     news_manager = next(
-        (manager for manager in registry.CHOICES if manager.name == news_type), None
+        (manager for manager in registry.CHOICES if manager.short_name == news_type),
+        None,
     )
 
     if not news_manager:

@@ -13,42 +13,40 @@ from .abstract_news_manager import AbstractNewsManager, clean_html, NewsItem
 logger = logging.getLogger(__name__)
 
 
-class _TunewsRenderedField(TypedDict):
+class _AmalnewsRenderedField(TypedDict):
     rendered: str
 
 
-class _TunewsACF(TypedDict):
-    integreat: bool
-
-
-class _TunewsPost(TypedDict):
+class _AmalnewsPost(TypedDict):
     """
-    The subset of fields we rely on from the upstream Tü News WordPress API.
+    The subset of fields we rely on from the upstream Amal News WordPress API.
     """
 
     id: int
     date: str
     link: str
-    title: _TunewsRenderedField
-    content: _TunewsRenderedField
-    acf: _TunewsACF
+    title: _AmalnewsRenderedField
+    content: _AmalnewsRenderedField
 
 
-class TunewsManager(AbstractNewsManager):
-    short_name = "tunews"
-    name = "Tü News"
+class AmalnewsManager(AbstractNewsManager):
+    short_name = "amalnews"
+    name = "Amal News"
 
     def import_news_items(self) -> None:
         """
-        Imports Tü News posts and save them as cache
+        Imports Amal News posts and save them as cache
         """
         for language in Language.objects.all():
+            # Amal News uses a non-standard slug for Ukrainian
+            language_slug = language.slug if language.slug != "uk" else "ua"
             try:
+                headers = {"User-Agent": ""}
                 response = requests.get(
-                    f"https://tuenews.de/wp-json/wp/v2/posts/?lang={language.slug}",
+                    f"https://amalnews.de/wp-json/wp/v2/news?lang={language_slug}",
+                    headers=headers,
                     timeout=10,
                 )
-
                 if response.status_code != 200:
                     logger.error(
                         "Could not find posts in %s.",
@@ -68,8 +66,6 @@ class TunewsManager(AbstractNewsManager):
 
                 for post in posts:
                     try:
-                        if not post["acf"]["integreat"]:
-                            continue
                         news.append(self.transform_post(post))
                     except (KeyError, TypeError, ValueError):
                         logger.exception(
@@ -85,9 +81,9 @@ class TunewsManager(AbstractNewsManager):
             except requests.exceptions.RequestException:
                 logger.exception("Failed to fetch posts in %s.", language)
 
-    def transform_post(self, post: _TunewsPost) -> NewsItem:
+    def transform_post(self, post: _AmalnewsPost) -> NewsItem:
         """
-        Transforms a post of Tü News so it can be used by the news endpoint directly
+        Transforms a post of Amal News so it can be used by the news endpoint directly
         """
         date = datetime.fromisoformat(post["date"] + "+00:00")
         return {

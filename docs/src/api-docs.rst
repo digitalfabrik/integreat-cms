@@ -737,7 +737,7 @@ Response
                },
                ...
             ],
-         "source": String,                      // The source of the news ('local', 'tuNews' or 'amalNews')
+         "source": String,                      // The source of the news ('local', 'tunews' or 'amalnews')
          "externalUrl": String,                 // The link to the news
       }
    ]
@@ -773,7 +773,7 @@ Response
             },
             ...
          ],
-      "source": String,                      // The source of the news ('local', 'tuNews' or 'amalNews')
+      "source": String,                      // The source of the news ('local', 'tunews' or 'amalnews')
       "externalUrl": String,                 // The link to the news
    }
 

@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from .amalnews_manager import AmalnewsManager
 from .pushnews_manager import PushnewsManager
 from .tunews_manager import TunewsManager
 
@@ -16,5 +17,6 @@ if TYPE_CHECKING:
 
 PUSHNEWS: Final[PushnewsManager] = PushnewsManager()
 TUNEWS: Final[TunewsManager] = TunewsManager()
+AMALNEWS: Final[AmalnewsManager] = AmalnewsManager()
 
-CHOICES: Final[list[AbstractNewsManager]] = [PUSHNEWS, TUNEWS]
+CHOICES: Final[list[AbstractNewsManager]] = [PUSHNEWS, TUNEWS, AMALNEWS]

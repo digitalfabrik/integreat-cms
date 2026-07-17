@@ -192,9 +192,14 @@ social_media_api_urlpatterns = [
                     name="social_region_reserved_local_news",
                 ),
                 path(
-                    "news/tuNews/",
+                    "news/tunews/",
                     region_social_media_headers,
                     name="social_region_reserved_tunews",
+                ),
+                path(
+                    "news/amalnews/",
+                    region_social_media_headers,
+                    name="social_region_reserved_amalnews",
                 ),
                 *(
                     path(

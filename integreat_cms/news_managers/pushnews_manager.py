@@ -51,7 +51,8 @@ def _query_sent_translations(
 
 
 class PushnewsManager(AbstractNewsManager):
-    name = "local"
+    short_name = "local"
+    name = "Local News"
 
     def import_news_items(self) -> None:
         """
@@ -148,18 +149,18 @@ class PushnewsManager(AbstractNewsManager):
         :return: data necessary for API
         """
         available_languages_dict = {
-            translation.language.slug: {"id": f"{self.name}-{translation.id}"}
+            translation.language.slug: {"id": f"{self.short_name}-{translation.id}"}
             for translation in pnt.push_notification.translations.all()
         }
         return {
-            "id": f"{self.name}-{pnt.pk!s}",
+            "id": f"{self.short_name}-{pnt.pk!s}",
             "title": pnt.get_title(),
             "content": pnt.get_text(),
             "last_updated": timezone.localtime(pnt.last_updated),
             "display_date": pnt.display_date,
             "channel": pnt.push_notification.channel,
             "available_languages": available_languages_dict,
-            "source": "local",
+            "source": self.short_name,
             "externalUrl": f"{settings.WEBAPP_URL}{pnt.get_absolute_url()}",
         }
 
