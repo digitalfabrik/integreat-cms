@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-07-13T13:10:45+00:00" />
+    <meta property="article:modified_time" content="2026-07-17T06:28:08+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>V3 &mdash; integreat-cms 2026.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -412,6 +412,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.news_managers.html">News Managers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#abstract-news-manager">Abstract News Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#amalnews-manager">Amalnews Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#pushnews-manager">Pushnews Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#registry">Registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#tunews-manager">Tunews Manager</a></li>
@@ -1376,6 +1377,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#module-integreat_cms.news_managers.abstract_news_manager">Abstract News Manager</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.NewsItem"><code class="docutils literal notranslate"><span class="pre">NewsItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.clean_html"><code class="docutils literal notranslate"><span class="pre">clean_html()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#module-integreat_cms.news_managers.amalnews_manager">Amalnews Manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#module-integreat_cms.news_managers.pushnews_manager">Pushnews Manager</a><ul>
@@ -1385,7 +1391,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#module-integreat_cms.news_managers.registry">Registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#module-integreat_cms.news_managers.tunews_manager">Tunews Manager</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.TunewsManager"><code class="docutils literal notranslate"><span class="pre">TunewsManager</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.clean_html"><code class="docutils literal notranslate"><span class="pre">clean_html()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3121,7 +3126,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/inte
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.social_media_headers.</span></span><span class="sig-name descname"><span class="pre">location_social_media_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/social_media_headers.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.social_media_headers.</span></span><span class="sig-name descname"><span class="pre">location_social_media_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/social_media_headers.py#L277"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Tries rendering the social media headers for a location page in a specified region and language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3151,7 +3156,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/inte
 <li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The language slug of the language, which the news item belongs to</p></li>
 <li><p><strong>slug</strong> – The news-source-specific identifier of the news item (e.g. /news/&lt;news_type&gt;/&lt;slug&gt;/)</p></li>
-<li><p><strong>news_type</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The <a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.name" title="integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code></a> of the news source the slug refers to (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;tuNews&quot;</span></code>)</p></li>
+<li><p><strong>news_type</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The <a class="reference internal" href="../ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.short_name" title="integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.short_name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">short_name</span></code></a> of the news source the slug refers to (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;tunews&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;amalnews&quot;</span></code>)</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
 <li><p><strong>news_raw_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
 </ul>
@@ -3302,7 +3307,7 @@ This is also used as a fallback for any routes in a region, where no content can
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 13, 2026.
+      <span class="lastupdated">Last updated on Jul 17, 2026.
       </span></p>
   </div>
 

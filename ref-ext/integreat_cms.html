@@ -412,6 +412,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.news_managers.html">News Managers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.news_managers.html#abstract-news-manager">Abstract News Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.news_managers.html#amalnews-manager">Amalnews Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.news_managers.html#pushnews-manager">Pushnews Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.news_managers.html#registry">Registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.news_managers.html#tunews-manager">Tunews Manager</a></li>
@@ -1376,6 +1377,11 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.abstract_news_manager">Abstract News Manager</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.NewsItem"><code class="docutils literal notranslate"><span class="pre">NewsItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.clean_html"><code class="docutils literal notranslate"><span class="pre">clean_html()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.amalnews_manager">Amalnews Manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.pushnews_manager">Pushnews Manager</a><ul>
@@ -1385,7 +1391,6 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.registry">Registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.tunews_manager">Tunews Manager</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.TunewsManager"><code class="docutils literal notranslate"><span class="pre">TunewsManager</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.clean_html"><code class="docutils literal notranslate"><span class="pre">clean_html()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -4456,9 +4461,11 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.__init__"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.collect_news_items"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager.collect_news_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.find_post"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager.find_post()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.get_single_news"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager.get_single_news()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.import_news_items"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager.import_news_items()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.name"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.short_name"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager.short_name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager.social_media_headers"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager.social_media_headers()</span></code></a></li>
 </ul>
 </li>
@@ -4486,6 +4493,22 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.NewsItem.values"><code class="docutils literal notranslate"><span class="pre">NewsItem.values()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.clean_html"><code class="docutils literal notranslate"><span class="pre">clean_html()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.amalnews_manager">Amalnews Manager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager.__init__"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager.collect_news_items"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager.collect_news_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager.find_post"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager.find_post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager.get_single_news"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager.get_single_news()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager.import_news_items"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager.import_news_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager.name"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager.short_name"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager.short_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager.social_media_headers"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager.social_media_headers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager.transform_post"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager.transform_post()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.pushnews_manager">Pushnews Manager</a><ul>
@@ -4493,9 +4516,11 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.__init__"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.collect_news_items"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.collect_news_items()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.collect_news_items_for_fcm"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.collect_news_items_for_fcm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.find_post"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.find_post()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.get_single_news"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.get_single_news()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.import_news_items"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.import_news_items()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.name"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.short_name"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.short_name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.social_media_headers"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.social_media_headers()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.transform_notification"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.transform_notification()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.pushnews_manager.PushnewsManager.transform_notification_for_fcm"><code class="docutils literal notranslate"><span class="pre">PushnewsManager.transform_notification_for_fcm()</span></code></a></li>
@@ -4512,11 +4537,11 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.TunewsManager.get_single_news"><code class="docutils literal notranslate"><span class="pre">TunewsManager.get_single_news()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.TunewsManager.import_news_items"><code class="docutils literal notranslate"><span class="pre">TunewsManager.import_news_items()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.TunewsManager.name"><code class="docutils literal notranslate"><span class="pre">TunewsManager.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.TunewsManager.short_name"><code class="docutils literal notranslate"><span class="pre">TunewsManager.short_name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.TunewsManager.social_media_headers"><code class="docutils literal notranslate"><span class="pre">TunewsManager.social_media_headers()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.TunewsManager.transform_post"><code class="docutils literal notranslate"><span class="pre">TunewsManager.transform_post()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.clean_html"><code class="docutils literal notranslate"><span class="pre">clean_html()</span></code></a></li>
 </ul>
 </li>
 </ul>

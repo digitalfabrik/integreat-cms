@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-07-13T13:10:45+00:00" />
+    <meta property="article:modified_time" content="2026-07-17T06:28:08+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>News Managers &mdash; integreat-cms 2026.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -412,6 +412,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.news_managers.html">News Managers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.news_managers.html#abstract-news-manager">Abstract News Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.news_managers.html#amalnews-manager">Amalnews Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.news_managers.html#pushnews-manager">Pushnews Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.news_managers.html#registry">Registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.news_managers.html#tunews-manager">Tunews Manager</a></li>
@@ -1376,6 +1377,11 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.abstract_news_manager">Abstract News Manager</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.AbstractNewsManager"><code class="docutils literal notranslate"><span class="pre">AbstractNewsManager</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.NewsItem"><code class="docutils literal notranslate"><span class="pre">NewsItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.clean_html"><code class="docutils literal notranslate"><span class="pre">clean_html()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.amalnews_manager">Amalnews Manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.amalnews_manager.AmalnewsManager"><code class="docutils literal notranslate"><span class="pre">AmalnewsManager</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.pushnews_manager">Pushnews Manager</a><ul>
@@ -1385,7 +1391,6 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.registry">Registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.news_managers.html#module-integreat_cms.news_managers.tunews_manager">Tunews Manager</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.TunewsManager"><code class="docutils literal notranslate"><span class="pre">TunewsManager</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.news_managers.html#integreat_cms.news_managers.tunews_manager.clean_html"><code class="docutils literal notranslate"><span class="pre">clean_html()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2296,7 +2301,7 @@
 <span id="test-tunews-manager"></span><h2>Test Tunews Manager<a class="headerlink" href="#module-tests.news_managers.test_tunews_manager" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.news_managers.test_tunews_manager.test_clean_html_keeps_plain_text">
-<span class="sig-prename descclassname"><span class="pre">tests.news_managers.test_tunews_manager.</span></span><span class="sig-name descname"><span class="pre">test_clean_html_keeps_plain_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/news_managers/test_tunews_manager.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.news_managers.test_tunews_manager.test_clean_html_keeps_plain_text" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.news_managers.test_tunews_manager.</span></span><span class="sig-name descname"><span class="pre">test_clean_html_keeps_plain_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/news_managers/test_tunews_manager.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.news_managers.test_tunews_manager.test_clean_html_keeps_plain_text" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -2306,7 +2311,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.news_managers.test_tunews_manager.test_clean_html_preserves_unrelated_classes">
-<span class="sig-prename descclassname"><span class="pre">tests.news_managers.test_tunews_manager.</span></span><span class="sig-name descname"><span class="pre">test_clean_html_preserves_unrelated_classes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/news_managers/test_tunews_manager.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.news_managers.test_tunews_manager.test_clean_html_preserves_unrelated_classes" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.news_managers.test_tunews_manager.</span></span><span class="sig-name descname"><span class="pre">test_clean_html_preserves_unrelated_classes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/news_managers/test_tunews_manager.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.news_managers.test_tunews_manager.test_clean_html_preserves_unrelated_classes" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -2316,7 +2321,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.news_managers.test_tunews_manager.test_clean_html_strips_pvc_elements">
-<span class="sig-prename descclassname"><span class="pre">tests.news_managers.test_tunews_manager.</span></span><span class="sig-name descname"><span class="pre">test_clean_html_strips_pvc_elements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/news_managers/test_tunews_manager.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.news_managers.test_tunews_manager.test_clean_html_strips_pvc_elements" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.news_managers.test_tunews_manager.</span></span><span class="sig-name descname"><span class="pre">test_clean_html_strips_pvc_elements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/news_managers/test_tunews_manager.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.news_managers.test_tunews_manager.test_clean_html_strips_pvc_elements" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -2326,7 +2331,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.news_managers.test_tunews_manager.test_import_news_item">
-<span class="sig-prename descclassname"><span class="pre">tests.news_managers.test_tunews_manager.</span></span><span class="sig-name descname"><span class="pre">test_import_news_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_news_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/news_managers/test_tunews_manager.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.news_managers.test_tunews_manager.test_import_news_item" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.news_managers.test_tunews_manager.</span></span><span class="sig-name descname"><span class="pre">test_import_news_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_news_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/news_managers/test_tunews_manager.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.news_managers.test_tunews_manager.test_import_news_item" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2358,7 +2363,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 13, 2026.
+      <span class="lastupdated">Last updated on Jul 17, 2026.
       </span></p>
   </div>
 
