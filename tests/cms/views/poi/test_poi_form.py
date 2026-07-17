@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from datetime import timedelta
 from typing import TYPE_CHECKING
 
@@ -24,6 +25,7 @@ from integreat_cms.cms.models import (
     POITranslation,
     Region,
 )
+from integreat_cms.cms.models.pois.poi import get_default_opening_hours
 from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
 from tests.conftest import (
     ANONYMOUS,
@@ -489,3 +491,78 @@ def test_bulk_delete_pois(
     assert_bulk_delete(
         POI, instance_ids, url, (client, role), caplog, settings, [fail_reason]
     )
+
+
+@pytest.mark.django_db
+def test_case_insensitive_unique_slug(
+    client: Client,
+    load_test_data: None,
+    settings: SettingsWrapper,
+) -> None:
+    """
+    Test that an appropriate message is shown to users and the view does not crash when slug is updated for uniqueness
+    """
+    settings.LANGUAGE_CODE = "en"
+
+    region = Region.objects.get(slug="augsburg")
+    language = Language.objects.get(slug="de")
+
+    poi_category = POICategory.objects.first()
+    poi = POI.objects.create(
+        region=region,
+        address="Test Street 1",
+        postcode="00000",
+        city="Augsburg",
+        country="Deutschland",
+        latitude="48.3780446",
+        longitude="10.8879783",
+        category=poi_category,
+    )
+    POITranslation.objects.create(poi=poi, language=language, slug="slug")
+
+    assert POITranslation.objects.filter(slug="slug").count() == 1
+    assert POITranslation.objects.filter(slug="slug-2").count() == 0
+
+    user = get_user_model().objects.get(username="service_team")
+    client.force_login(user)
+
+    new_event_url = reverse(
+        "new_poi",
+        kwargs={
+            "region_slug": region.slug,
+            "language_slug": language.slug,
+        },
+    )
+
+    response = client.post(
+        new_event_url,
+        data={
+            "content": "",
+            "title": "Slug",
+            "slug": "Slug",
+            "address": "Viktoriastraße 1",
+            "postcode": "86150",
+            "city": "Augsburg",
+            "country": "Deutschland",
+            "latitude": 48.36599805,
+            "longitude": 10.886110466584793,
+            "status": status.DRAFT,
+            "category": poi_category.id,
+            "opening_hours": json.dumps(get_default_opening_hours()),
+            "primary_email": "",
+            "primary_website": "",
+            "primary_phone_number": "",
+        },
+    )
+
+    assert response.status_code == 302
+
+    redirect_url = response.headers.get("location")
+
+    assert (
+        "The slug was changed from &#x27;Slug&#x27; to &#x27;slug-2&#x27;."
+        in client.get(redirect_url).content.decode("utf-8")
+    )
+
+    assert POITranslation.objects.filter(slug="slug").count() == 1
+    assert POITranslation.objects.filter(slug="slug-2").count() == 1

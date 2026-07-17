@@ -622,3 +622,66 @@ def test_bulk_delete_events(
     assert_bulk_delete(
         Event, instance_ids, url, (client, role), caplog, settings, [fail_reason]
     )
+
+
+@pytest.mark.django_db
+def test_case_insensitive_unique_slug(
+    client: Client,
+    load_test_data: None,
+    settings: SettingsWrapper,
+) -> None:
+    """
+    Test that an appropriate message is shown to users and the view does not crash when slug is updated for uniqueness
+    """
+    settings.LANGUAGE_CODE = "en"
+
+    region = Region.objects.get(slug="augsburg")
+    language = Language.objects.get(slug="de")
+
+    event = Event.objects.create(
+        start=timezone.now(),
+        end=timezone.now() + timedelta(days=1),
+        region=region,
+    )
+    EventTranslation.objects.create(event=event, language=language, slug="slug")
+
+    assert EventTranslation.objects.filter(slug="slug").count() == 1
+    assert EventTranslation.objects.filter(slug="slug-2").count() == 0
+
+    user = get_user_model().objects.get(username="service_team")
+    client.force_login(user)
+
+    new_event_url = reverse(
+        "new_event",
+        kwargs={
+            "region_slug": region.slug,
+            "language_slug": language.slug,
+        },
+    )
+
+    response = client.post(
+        new_event_url,
+        data={
+            "content": "",
+            "title": "Slug",
+            "slug": "Slug",
+            "start_date": "2030-01-01",
+            "end_date": "2030-01-02",
+            "is_all_day": True,
+            "is_long_term": True,
+            "status": status.PUBLIC,
+            "has_not_location": True,
+        },
+    )
+
+    assert response.status_code == 302
+
+    redirect_url = response.headers.get("location")
+
+    assert (
+        "The slug was changed from &#x27;Slug&#x27; to &#x27;slug-2&#x27;."
+        in client.get(redirect_url).content.decode("utf-8")
+    )
+
+    assert EventTranslation.objects.filter(slug="slug").count() == 1
+    assert EventTranslation.objects.filter(slug="slug-2").count() == 1
