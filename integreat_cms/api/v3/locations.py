@@ -162,6 +162,9 @@ def transform_poi_translation(
         "title": poi_translation.title,
         "modified_gmt": poi_translation.last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(poi_translation.last_updated),
+        "published_at": timezone.localtime(
+            poi.first_published_at or poi_translation.last_updated,
+        ),
         "meta_description": poi_translation.meta_description,
         "excerpt": strip_tags(poi_translation.content),
         "content": poi_translation.content,

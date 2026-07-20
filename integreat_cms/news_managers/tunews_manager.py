@@ -95,6 +95,7 @@ class TunewsManager(AbstractNewsManager):
             "title": post["title"]["rendered"],
             "content": clean_html(post["content"]["rendered"]),
             "last_updated": date,
+            "published_at": date,
             "display_date": date,
             "channel": None,
             "available_languages": None,

@@ -27,6 +27,7 @@ class NewsItem(TypedDict):
     title: str
     content: str
     last_updated: datetime
+    published_at: datetime
     display_date: datetime
     channel: str | None
     available_languages: dict | None

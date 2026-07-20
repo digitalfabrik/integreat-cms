@@ -59,6 +59,7 @@ expected_result_tunews = [
         "title": "Gültige Nachricht",
         "content": "<main>Eine interessante Tatsache</main>\n",
         "last_updated": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "published_at": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "display_date": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "channel": None,
         "available_languages": None,

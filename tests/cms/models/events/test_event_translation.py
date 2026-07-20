@@ -4,7 +4,14 @@ import pytest
 from django.db import IntegrityError, transaction
 from django.utils import timezone
 
-from integreat_cms.cms.models import Event, EventTranslation, Language, Region
+from integreat_cms.cms.constants import status
+from integreat_cms.cms.models import (
+    Event,
+    EventTranslation,
+    Language,
+    LanguageTreeNode,
+    Region,
+)
 
 
 @pytest.mark.django_db
@@ -59,6 +66,70 @@ def test_when_creating_even_translations_to_automatically_create_lowercase_slug(
     )
 
     assert event_translation1.slug == "new-slug"
+
+
+@pytest.mark.django_db
+def test_first_published_at_set_with_first_publication_in_default_language() -> None:
+    region = Region.objects.create(name="new-region")
+    default_language = Language.objects.create(
+        slug="da",
+        bcp47_tag="da",
+        primary_country_code="de",
+    )
+    other_language = Language.objects.create(
+        slug="xy",
+        bcp47_tag="xy",
+        primary_country_code="de",
+    )
+    LanguageTreeNode.add_root(language=default_language, region=region)
+
+    event = Event.objects.create(
+        start=timezone.now(),
+        end=timezone.now() + timedelta(days=1),
+        region=region,
+    )
+
+    # Creating a draft translation does not set the first publication date
+    EventTranslation.objects.create(
+        event=event,
+        language=default_language,
+        slug="new-event",
+        status=status.DRAFT,
+    )
+    event.refresh_from_db()
+    assert event.first_published_at is None
+
+    # Publishing a translation in another language than the default language does not set it either
+    EventTranslation.objects.create(
+        event=event,
+        language=other_language,
+        slug="new-event",
+        status=status.PUBLIC,
+    )
+    event.refresh_from_db()
+    assert event.first_published_at is None
+
+    # Publishing the translation in the default language sets the first publication date
+    public_translation = EventTranslation.objects.create(
+        event=event,
+        language=default_language,
+        slug="new-event",
+        status=status.PUBLIC,
+        version=1,
+    )
+    event.refresh_from_db()
+    assert event.first_published_at == public_translation.last_updated
+
+    # Publishing another version later on does not change the first publication date
+    EventTranslation.objects.create(
+        event=event,
+        language=default_language,
+        slug="new-event",
+        status=status.PUBLIC,
+        version=2,
+    )
+    event.refresh_from_db()
+    assert event.first_published_at == public_translation.last_updated
 
 
 @pytest.mark.order("last")
