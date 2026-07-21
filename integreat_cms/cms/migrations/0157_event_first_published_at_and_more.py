@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0155_enforce_case_insensitive_slug_uniqueness"),
+        ("cms", "0156_remove_region_chat_enabled"),
     ]
 
     operations = [

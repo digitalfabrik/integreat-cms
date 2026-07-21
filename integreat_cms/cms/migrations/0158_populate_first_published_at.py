@@ -43,7 +43,7 @@ def populate_first_published_at(
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0156_event_first_published_at_and_more"),
+        ("cms", "0157_event_first_published_at_and_more"),
     ]
 
     operations = [
