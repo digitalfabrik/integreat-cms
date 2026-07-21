@@ -81,6 +81,13 @@ class TunewsManager(AbstractNewsManager):
                 if news:
                     cache.set(f"{self.short_name}:{language.slug}", news, timeout=None)
                     logger.info("Saving %s news in %s", len(news), language)
+                    logger.info(
+                        "Saved %s news in %s",
+                        len(cache.get(f"{self.short_name}:{language.slug}")),
+                        language,
+                    )
+                    for post in cache.get(f"{self.short_name}:{language.slug}"):
+                        logger.info(post.get("title"))
 
             except requests.exceptions.RequestException:
                 logger.exception("Failed to fetch posts in %s.", language)
