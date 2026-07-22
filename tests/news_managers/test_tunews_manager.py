@@ -191,3 +191,13 @@ def test_clean_html_preserves_unrelated_classes() -> None:
     assert 'class="intro"' in result
     assert "Hallo" in result
     assert "Weg" not in result
+
+
+def test_clean_html_strips_active_content() -> None:
+    html = (
+        '<p>Wichtig</p><script>alert(1)</script><a href="javascript:alert(2)">Link</a>'
+    )
+    result = clean_html(html)
+    assert "Wichtig" in result
+    assert "alert(1)" not in result
+    assert "javascript:" not in result

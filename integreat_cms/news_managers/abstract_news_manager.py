@@ -2,15 +2,17 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-from io import StringIO
 from typing import TYPE_CHECKING, TypedDict
 
 from django.conf import settings
 from django.core.cache import cache
 from django.http import Http404, JsonResponse
+from django.shortcuts import render
 from lxml import etree
+from lxml.html import fromstring
 
 from ..cms.models import Region
+from ..cms.utils.content_utils import sanitize_html, sanitize_html_element
 from ..cms.utils.social_media_utils import render_social_media_headers
 
 if TYPE_CHECKING:
@@ -42,12 +44,14 @@ def clean_html(html_string: str) -> str:
     """
     Remove unnecessary HTML elements from a Tü News post body.
     """
-    root = etree.parse(StringIO("<main>" + html_string + "</main>"), etree.HTMLParser())
+    main = fromstring("<main>" + html_string + "</main>")
     xpath_pvc = '//*[contains(@class, "pvc_")]'
 
-    for pvc in root.xpath(xpath_pvc):
+    for pvc in main.xpath(xpath_pvc):
         pvc.getparent().remove(pvc)
-    main = root.xpath("body/main")[0]
+
+    # External news are not created in our own editor, so they are not sanitized on save
+    sanitize_html_element(main)
 
     return etree.tostring(main, pretty_print=True).decode("utf-8")
 
@@ -119,6 +123,29 @@ class AbstractNewsManager(ABC):
             language_code=language.bcp47_tag,
             excerpt=post["content"],
             url=post["externalUrl"],
+        )
+
+    def raw_content(
+        self,
+        request: HttpRequest,
+        region: Region,
+        language: Language,
+        news_raw_id: str,
+    ) -> HttpResponse:
+        """
+        Tries rendering the raw HTML content for a news page in a specified region and language
+        """
+        post = self.find_post(region, language, news_raw_id)
+
+        return render(
+            request,
+            "raw_content.html",
+            {
+                "title": post["title"],
+                # Posts which were cached before they were sanitized on import are not necessarily safe
+                "content": sanitize_html(post["content"]),
+                "language_code": language.bcp47_tag,
+            },
         )
 
     def get_single_news(

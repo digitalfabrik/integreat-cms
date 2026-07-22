@@ -6,6 +6,7 @@ from django.conf import settings
 from django.db.models import F
 from django.db.models.functions import Greatest
 from django.http import Http404, JsonResponse
+from django.shortcuts import render
 from django.utils import timezone
 
 from ..cms.models import PushNotificationTranslation
@@ -50,6 +51,31 @@ def _query_sent_translations(
     return query_result
 
 
+def _get_public_translation(
+    region: Region, language: Language, translation_id: str
+) -> PushNotificationTranslation | None:
+    """
+    Return the push notification translation with ``translation_id`` if it is publicly available in ``region`` and
+    ``language``, i.e. if it is not archived and has been sent within the FCM history window.
+    """
+    if not translation_id.isdigit():
+        return None
+    return (
+        PushNotificationTranslation.objects.filter(
+            language__slug=language.slug,
+            id=translation_id,
+            push_notification__regions=region,
+            push_notification__archived=False,
+            push_notification__sent_date__gte=timezone.now()
+            - timezone.timedelta(days=settings.FCM_HISTORY_DAYS),
+        )
+        .annotate(
+            display_date=Greatest(F("last_updated"), F("push_notification__sent_date"))
+        )
+        .first()
+    )
+
+
 class PushnewsManager(AbstractNewsManager):
     short_name = "local"
     name = "Local News"
@@ -80,11 +106,7 @@ class PushnewsManager(AbstractNewsManager):
         Tries rendering the social media headers for a news page in a specified region and language
         """
         if not (
-            pn_translation := PushNotificationTranslation.objects.filter(
-                language__slug=language.slug,
-                push_notification__id=news_raw_id,
-                push_notification__regions=region,
-            ).first()
+            pn_translation := _get_public_translation(region, language, news_raw_id)
         ):
             raise Http404(
                 "Push Notification not found in this region with this language."
@@ -98,6 +120,35 @@ class PushnewsManager(AbstractNewsManager):
             url=f"{settings.WEBAPP_URL}{pn_translation.get_absolute_url()}",
         )
 
+    def raw_content(
+        self,
+        request: HttpRequest,
+        region: Region,
+        language: Language,
+        news_raw_id: str,
+    ) -> HttpResponse:
+        """
+        Tries rendering the raw HTML content for a local news page in a specified region and language
+        """
+        if not (
+            pn_translation := _get_public_translation(region, language, news_raw_id)
+        ):
+            raise Http404(
+                "Push Notification not found in this region with this language."
+            )
+
+        return render(
+            request,
+            "raw_content.html",
+            {
+                "title": get_region_title(region, pn_translation.get_title()),
+                "content": pn_translation.get_text(),
+                # The text of a push notification is plain text, not HTML
+                "plain_text": True,
+                "language_code": language.bcp47_tag,
+            },
+        )
+
     def get_single_news(
         self,
         request: HttpRequest,
@@ -108,24 +159,7 @@ class PushnewsManager(AbstractNewsManager):
         """
         Returns a push notification that matches the id
         """
-        if not (
-            pn_translation := PushNotificationTranslation.objects.filter(
-                language__slug=language.slug,
-                id=news_id,
-                push_notification__regions=region,
-            )
-            .filter(push_notification__archived=False)
-            .filter(
-                push_notification__sent_date__gte=timezone.now()
-                - timezone.timedelta(days=settings.FCM_HISTORY_DAYS),
-            )
-            .annotate(
-                display_date=Greatest(
-                    F("last_updated"), F("push_notification__sent_date")
-                )
-            )
-            .first()
-        ):
+        if not (pn_translation := _get_public_translation(region, language, news_id)):
             raise Http404(
                 "Push Notification not found in this region with this language."
             )
