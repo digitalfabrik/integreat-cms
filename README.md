@@ -56,7 +56,7 @@ To configure your development container, please follow these steps carefully.
 
 1. Make sure you have Docker and VSCode (not VSCodium) installed on your machine.
 2. Open the project in VSCode.
-3. If you're opening VSCode for the first time, you'll be prompted to install the ["Dev Containers" extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Click "Install" to proceed.
+3. If you're opening VSCode for the first time, you'll be prompted to install the ["Dev Containers" extension](http://web.archive.org/web/20260708185955/https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Click "Install" to proceed.
 4. Open the command palette (Ctrl + Shift + P or Cmd + Shift + P on macOS) and search for "> Remote-Containers: Open Folder in Container".
 5. VSCode will open the project in a new container, install all further required tools and load the testdata.
 
