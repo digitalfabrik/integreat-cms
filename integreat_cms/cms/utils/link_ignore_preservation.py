@@ -5,18 +5,37 @@ cycle that runs on every translation save.
 
 from __future__ import annotations
 
+import operator
 from contextlib import contextmanager
+from functools import reduce
 from typing import TYPE_CHECKING
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
+from django.db.models import Model, Q
+from linkcheck.models import Link
 
 from . import internal_link_utils
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
 
+    from django.db.models import QuerySet
+
     from ..models.abstract_content_translation import AbstractContentTranslation
+    from ..models.regions.region import Region
+
+
+#: Maps the ``related_query_name`` of every linkchecked model's ``links``
+#: relation to the lookup that reaches its :class:`~integreat_cms.cms.models.regions.region.Region`.
+#: Used to restrict ignore-flag inheritance to links of the same region.
+_REGION_LOOKUP_BY_RELATION = {
+    "page_translation": "page_translation__page__region",
+    "imprint_translation": "imprint_translation__page__region",
+    "event_translation": "event_translation__event__region",
+    "poi_translation": "poi_translation__poi__region",
+    "organization": "organization__region",
+}
 
 
 _CACHE_TTL = 600
@@ -67,3 +86,80 @@ def preserve_ignored_links(
     if keys:
         cache.set(cache_key_for(translation), keys, timeout=_CACHE_TTL)
     yield
+
+
+def region_of(instance: Model) -> Region | None:
+    """
+    The region an instance's links belong to, or ``None`` if it cannot be
+    determined. Content translations derive it from their foreign object;
+    organizations carry it directly.
+    """
+    # Local import to avoid a circular import at module load time.
+    from ..models.abstract_content_translation import AbstractContentTranslation
+
+    if isinstance(instance, AbstractContentTranslation):
+        return instance.foreign_object.region
+    return getattr(instance, "region", None)
+
+
+def inherit_ignore_within_region(
+    instance: Model,
+    content_type: ContentType,
+    region: Region | None,
+) -> None:
+    """
+    Carry the ``Link.ignore`` flag onto freshly reconciled links of
+    *instance* whose URL is already marked ignored on another current link
+    of the *same region*.
+
+    This complements :func:`preserve_ignored_links`: the context manager
+    only restores the flag across the delete-and-recreate cycle of a single
+    content object, whereas this keeps a URL an editor already marked as
+    verified from re-surfacing as unverified when the very same URL appears
+    in a *different* (or newly created) content object of the region.
+
+    Inheritance is deliberately region-scoped: a URL verified in one region
+    must not silently suppress the same URL in another region whose editors
+    never vetted it.
+    """
+    if region is None:
+        return
+
+    # URLs that this instance links to but which are not (yet) ignored here
+    pending_url_ids = set(
+        Link.objects.filter(
+            content_type=content_type,
+            object_id=instance.pk,
+            ignore=False,
+        ).values_list("url_id", flat=True)
+    )
+    if not pending_url_ids:
+        return
+
+    already_ignored_url_ids = set(
+        _region_links(region)
+        .filter(url_id__in=pending_url_ids, ignore=True)
+        .exclude(content_type=content_type, object_id=instance.pk)
+        .values_list("url_id", flat=True)
+    )
+    if not already_ignored_url_ids:
+        return
+
+    Link.objects.filter(
+        content_type=content_type,
+        object_id=instance.pk,
+        ignore=False,
+        url_id__in=already_ignored_url_ids,
+    ).update(ignore=True)
+
+
+def _region_links(region: Region) -> QuerySet[Link]:
+    """
+    All links whose content object belongs to the given region, across every
+    linkchecked model.
+    """
+    region_filter = reduce(
+        operator.or_,
+        (Q(**{lookup: region}) for lookup in _REGION_LOOKUP_BY_RELATION.values()),
+    )
+    return Link.objects.filter(region_filter)
