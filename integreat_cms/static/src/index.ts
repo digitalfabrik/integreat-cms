@@ -52,8 +52,6 @@ import "./js/regions/fake-disabled-checkboxes";
 
 import "./js/feedback/toggle-feedback-entries";
 
-import "./js/grids/toggle-grid-checkbox";
-
 import "./js/chat/send-chat-message";
 import "./js/chat/delete-chat-message";
 
