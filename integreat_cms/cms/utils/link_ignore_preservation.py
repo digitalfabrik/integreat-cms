@@ -26,18 +26,6 @@ if TYPE_CHECKING:
     from ..models.regions.region import Region
 
 
-#: Maps the ``related_query_name`` of every linkchecked model's ``links``
-#: relation to the lookup that reaches its :class:`~integreat_cms.cms.models.regions.region.Region`.
-#: Used to restrict ignore-flag inheritance to links of the same region.
-_REGION_LOOKUP_BY_RELATION = {
-    "page_translation": "page_translation__page__region",
-    "imprint_translation": "imprint_translation__page__region",
-    "event_translation": "event_translation__event__region",
-    "poi_translation": "poi_translation__poi__region",
-    "organization": "organization__region",
-}
-
-
 _CACHE_TTL = 600
 _CACHE_PREFIX = "linkcheck_pending_ignore"
 
@@ -156,10 +144,28 @@ def inherit_ignore_within_region(
 def _region_links(region: Region) -> QuerySet[Link]:
     """
     All links whose content object belongs to the given region, across every
-    linkchecked model.
+    linkchecked model, excluding archived content.
+
+    Archived pages/events/POIs/organizations are hidden from the broken-links
+    dashboard, so a URL that is only verified there must not suppress the same
+    URL on live content. Archiving works differently per model:
+
+    * pages are archived via the tree (``Region.non_archived_pages`` accounts
+      for both explicitly archived pages and descendants of archived ones);
+    * events, POIs and organizations carry a plain ``archived`` flag;
+    * imprint pages have no archived state.
     """
-    region_filter = reduce(
-        operator.or_,
-        (Q(**{lookup: region}) for lookup in _REGION_LOOKUP_BY_RELATION.values()),
-    )
-    return Link.objects.filter(region_filter)
+    branches = [
+        Q(page_translation__page__in=region.non_archived_pages.values("pk")),
+        Q(imprint_translation__page__region=region),
+        Q(
+            event_translation__event__region=region,
+            event_translation__event__archived=False,
+        ),
+        Q(
+            poi_translation__poi__region=region,
+            poi_translation__poi__archived=False,
+        ),
+        Q(organization__region=region, organization__archived=False),
+    ]
+    return Link.objects.filter(reduce(operator.or_, branches))

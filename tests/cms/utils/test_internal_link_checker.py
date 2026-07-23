@@ -492,3 +492,70 @@ def test_ignore_not_inherited_across_regions(load_test_data: None) -> None:
         url__url=broken_url,
     )
     assert nurnberg_link.ignore is False, "ignore=True must not leak across regions"
+
+
+@pytest.mark.django_db
+def test_ignore_not_inherited_from_archived_page(load_test_data: None) -> None:
+    """
+    Archived pages are excluded from the broken-links dashboard, so a URL
+    that is only verified on an archived page must not silently suppress
+    the same URL when it later appears on a live page.
+    """
+    from django.contrib.contenttypes.models import ContentType
+    from linkcheck.models import Link
+    from linkcheck.worker_tasks import do_check_instance_links
+
+    from integreat_cms.cms.models import Page, PageTranslation, Region
+
+    broken_url = "https://this-link-is-not-working.de"
+    content_type = ContentType.objects.get_for_model(PageTranslation)
+
+    # Verify the URL on a page, then archive that page
+    archived_page = Page.objects.filter(region__slug="augsburg").first()
+    archived_translation = (
+        PageTranslation.objects.filter(page=archived_page, language__slug="de")
+        .order_by("-version")
+        .first()
+    )
+    PageTranslation.objects.filter(pk=archived_translation.pk).update(
+        content=f'<a href="{broken_url}">verified on archived page</a>',
+    )
+    archived_translation.refresh_from_db()
+    do_check_instance_links(
+        PageTranslation, archived_translation, PageTranslation._linklist
+    )
+    Link.objects.filter(
+        content_type=content_type,
+        object_id=archived_translation.pk,
+        url__url=broken_url,
+    ).update(ignore=True)
+    Page.objects.filter(pk=archived_page.pk).update(explicitly_archived=True)
+
+    # A genuinely live page (not archived, not a descendant of the archived
+    # one) gains the same URL
+    region = Region.objects.get(slug="augsburg")
+    live_translation = (
+        PageTranslation.objects.filter(
+            page__in=region.non_archived_pages,
+            language__slug="de",
+        )
+        .exclude(page=archived_page)
+        .order_by("-version")
+        .first()
+    )
+    PageTranslation.objects.filter(pk=live_translation.pk).update(
+        content=f'<a href="{broken_url}">same link on a live page</a>',
+    )
+    live_translation.refresh_from_db()
+    do_check_instance_links(
+        PageTranslation, live_translation, PageTranslation._linklist
+    )
+
+    new_link = Link.objects.get(
+        content_type=content_type,
+        object_id=live_translation.pk,
+        url__url=broken_url,
+    )
+    assert new_link.ignore is False, (
+        "ignore=True must not be inherited from an archived page"
+    )
