@@ -17,11 +17,18 @@ USER root
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libcairo2 gettext \
     && rm -rf /var/lib/apt/lists/*
-# Pre-create the venv volume mountpoint with open permissions: the container
-# runs as the invoking host user (see the `user:` key in docker-compose.test.yml),
-# whose uid is not known at build time, and named volumes copy the permissions
-# of the image path on first use.
-RUN mkdir -p /home/circleci/venv && chmod 0777 /home/circleci/venv
+# The container runs as the invoking host user (see the `user:` key in
+# docker-compose.test.yml), whose uid is not known at build time and is neither
+# `circleci` nor a member of its group. cimg (Ubuntu-based) creates the home
+# directory mode 0750, so that uid would land in the "other" class with no
+# search bit and could not traverse into the bind-mounted project or the venv
+# volume (every absolute path below /home/circleci -> "Permission denied").
+# Open the home directory for traversal, and pre-create the venv mountpoint
+# world-writable so the same uid can populate the cached virtualenv (a fresh
+# named volume inherits the mountpoint's permissions).
+RUN chmod 0755 /home/circleci \
+    && mkdir -p /home/circleci/venv \
+    && chmod 0777 /home/circleci/venv
 USER circleci
 
 WORKDIR /home/circleci/project
