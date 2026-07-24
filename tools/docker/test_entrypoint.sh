@@ -11,13 +11,16 @@
 set -eo pipefail
 
 # Virtualenv lives on a named volume (see docker-compose.test.yml) so that
-# dependencies are installed once and reused across runs. The mountpoint is
-# pre-created world-writable in the image because the container runs as the
-# invoking host user, whose uid is not known at build time.
+# dependencies are installed once and reused across runs. The container runs as
+# the invoking host user; the image opens /home/circleci for traversal and
+# pre-creates this mountpoint world-writable so that uid can reach and populate
+# the volume regardless of its value (see tools/docker/Dockerfile.test).
 VENV_DIR="/home/circleci/venv"
 if [[ ! -w "${VENV_DIR}" ]]; then
     echo "The virtualenv volume at ${VENV_DIR} is not writable by uid $(id -u)." >&2
-    echo "It was probably created by an older image — remove it with:" >&2
+    echo "This usually means the test image predates the permission fix; rebuild" >&2
+    echo "it and reset the cached volume:" >&2
+    echo "    docker compose --env-file /dev/null -f docker-compose.test.yml build" >&2
     echo "    docker compose --env-file /dev/null -f docker-compose.test.yml down --volumes" >&2
     exit 1
 fi
