@@ -74,9 +74,8 @@ class AmalnewsManager(AbstractNewsManager):
                             post.get("id"),
                         )
 
-                if news:
-                    cache.set(f"{self.short_name}:{language.slug}", news, timeout=None)
-                    logger.info("Saving %s news in %s", len(news), language)
+                cache.set(f"{self.short_name}:{language.slug}", news, timeout=None)
+                logger.info("Saving %s news in %s", len(news), language)
 
             except requests.exceptions.RequestException:
                 logger.exception("Failed to fetch posts in %s.", language)
