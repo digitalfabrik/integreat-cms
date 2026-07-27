@@ -656,6 +656,17 @@ class RegionForm(CustomModelForm):
         # Convert None to an empty dict
         return cleaned_aliases or {}
 
+    def clean_mt_budget_adjustment(self) -> int:
+        """
+        Treat an empty budget adjustment as no adjustment
+
+        The field is optional in the form, but the column is not nullable, so an empty input has
+        to be converted into the neutral value.
+
+        :return: The budget adjustment
+        """
+        return self.cleaned_data.get("mt_budget_adjustment") or 0
+
     def clean_hix_enabled(self) -> bool:
         """
         Validate the hix_enabled field (see :ref:`overriding-modelform-clean-method`).

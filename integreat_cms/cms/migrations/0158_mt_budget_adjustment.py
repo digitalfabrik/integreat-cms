@@ -61,6 +61,7 @@ class Migration(migrations.Migration):
             model_name="region",
             name="mt_budget_adjustment",
             field=models.IntegerField(
+                blank=True,
                 default=0,
                 help_text="Cumulative manual adjustment for the current budget year, added on top of the booked budget. Negative values reduce the budget.",
                 verbose_name="Machine translation budget adjustment",

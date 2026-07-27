@@ -365,6 +365,7 @@ class Region(AbstractBaseModel):
 
     mt_budget_adjustment = models.IntegerField(
         default=0,
+        blank=True,
         verbose_name=_("Machine translation budget adjustment"),
         help_text=_(
             "Cumulative manual adjustment for the current budget year, added on top of the "
