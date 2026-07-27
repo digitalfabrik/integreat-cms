@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import logging
+from datetime import timedelta
 from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from ...utils.zammad import ZammadAPI
@@ -144,6 +146,20 @@ class UserChat(AbstractBaseModel, ZammadAPI):
         if not self.pk:
             return f"<{class_name} (unsaved instance)>"
         return f"<UserChat (id: {self.pk}, device_id: {self.device_id}, zammad_id: {self.zammad_id})>"
+
+    @property
+    def is_expired(self) -> bool:
+        """
+        Whether the chat has been inactive long enough that its Zammad ticket is
+        assumed to be gone (Zammad's ticket retention is shorter than ours).
+
+        Using the timestamp avoids an extra request to the Zammad API on every
+        chat request just to check whether the ticket still exists.
+
+        :return: True if the chat is considered expired, False otherwise
+        """
+        retention = timedelta(days=settings.INTEGREAT_CHAT_TICKET_RETENTION_DAYS)
+        return timezone.now() - self.last_message_timestamp > retention
 
     def as_dict(self) -> dict[str, Any]:
         """
