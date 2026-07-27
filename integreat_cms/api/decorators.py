@@ -21,7 +21,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from ..cms.constants import feedback_ratings
-from ..cms.models import Language, Region, UserApiToken
+from ..cms.models import ApiToken, Language, Region
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -138,6 +138,11 @@ def api_token_required(permission: str | None = None) -> Callable:
     The request is executed on behalf of the token's user, so the endpoint inherits exactly the
     permissions of that user instead of bypassing the RBAC structure.
 
+    Note that this only checks the global permission — it does **not** verify that the user is a
+    member of the region in the URL. Region-scoped endpoints have to check ``request.region``
+    against the user's regions themselves, analogous to
+    :func:`~integreat_cms.cms.decorators.region_permission_required`.
+
     :param permission: The permission the token's user must hold, e.g. ``cms.change_region``
     :return: The decorator for the API view function
     """
@@ -167,7 +172,7 @@ def api_token_required(permission: str | None = None) -> Callable:
                     {"error": "Authentication required."},
                     status=403,
                 )
-            if not (token := UserApiToken.get_by_token(plaintext.strip())):
+            if not (token := ApiToken.get_by_token(plaintext.strip())):
                 return JsonResponse({"error": "Invalid token."}, status=403)
             if not token.user.is_active:
                 return JsonResponse({"error": "Invalid token."}, status=403)

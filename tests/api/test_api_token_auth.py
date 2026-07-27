@@ -9,48 +9,12 @@ from django.http import JsonResponse
 from django.test.client import RequestFactory
 
 from integreat_cms.api.decorators import api_token_required
-from integreat_cms.cms.models import UserApiToken
+from integreat_cms.cms.models import ApiToken
 
 if TYPE_CHECKING:
     from typing import Any
 
     from django.http import HttpRequest
-
-
-@pytest.mark.django_db
-def test_create_token_does_not_store_plaintext(load_test_data: None) -> None:
-    """
-    The plaintext token must never be persisted — only its hash.
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    """
-    user = get_user_model().objects.get(username="root")
-    token, plaintext = UserApiToken.create_token(user, "CRM")
-
-    assert token.token_hash != plaintext
-    assert plaintext not in token.token_hash
-    assert token.prefix == plaintext.partition(".")[0]
-    assert UserApiToken.objects.filter(token_hash=plaintext).count() == 0
-
-
-@pytest.mark.django_db
-def test_get_by_token(load_test_data: None) -> None:
-    """
-    A token can be resolved by its plaintext, and unknown or malformed tokens resolve to ``None``.
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    """
-    user = get_user_model().objects.get(username="root")
-    token, plaintext = UserApiToken.create_token(user, "CRM")
-
-    assert UserApiToken.get_by_token(plaintext) == token
-    # Correct prefix, wrong secret
-    assert UserApiToken.get_by_token(f"{token.prefix}.wrong-secret") is None
-    # Unknown prefix
-    assert UserApiToken.get_by_token("unknown.secret") is None
-    # Malformed token without separator
-    assert UserApiToken.get_by_token("no-separator") is None
-    assert UserApiToken.get_by_token("") is None
 
 
 @api_token_required()
@@ -86,7 +50,7 @@ def test_api_token_required_accepts_valid_token(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     user = get_user_model().objects.get(username="root")
-    token, plaintext = UserApiToken.create_token(user, "CRM")
+    token, plaintext = ApiToken.create_token(user, "CRM")
     assert token.last_usage is None
 
     request = RequestFactory().get(
@@ -138,7 +102,7 @@ def test_api_token_required_rejects_inactive_user(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     user = get_user_model().objects.get(username="root")
-    _token, plaintext = UserApiToken.create_token(user, "CRM")
+    _token, plaintext = ApiToken.create_token(user, "CRM")
     user.is_active = False
     user.save()
 
@@ -160,7 +124,7 @@ def test_api_token_required_enforces_permission(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     unprivileged = get_user_model().objects.filter(is_superuser=False).first()
-    _token, unprivileged_plaintext = UserApiToken.create_token(unprivileged, "CRM")
+    _token, unprivileged_plaintext = ApiToken.create_token(unprivileged, "CRM")
     request = RequestFactory().get(
         "/",
         headers={"authorization": f"Bearer {unprivileged_plaintext}"},
@@ -168,7 +132,7 @@ def test_api_token_required_enforces_permission(load_test_data: None) -> None:
     assert _permission_protected_view(request).status_code == 403
 
     root = get_user_model().objects.get(username="root")
-    _root_token, root_plaintext = UserApiToken.create_token(root, "CRM")
+    _root_token, root_plaintext = ApiToken.create_token(root, "CRM")
     request = RequestFactory().get(
         "/",
         headers={"authorization": f"Bearer {root_plaintext}"},

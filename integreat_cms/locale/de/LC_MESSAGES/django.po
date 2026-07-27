@@ -2546,6 +2546,10 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
+#: cms/forms/users/api_token_form.py
+msgid "You already have a token with this name."
+msgstr "Sie haben bereits ein Token mit diesem Namen."
+
 #: cms/forms/users/authentication_form.py cms/forms/users/user_form.py
 #: cms/templates/authentication/password_reset_confirm.html
 msgid "Password"
@@ -2579,10 +2583,6 @@ msgid ""
 msgstr ""
 "Um die passwortlose Authentifizierung zu verwenden, müssen Sie mindestens "
 "eine Methode der 2-Faktor-Authentifizierung aktiviert haben."
-
-#: cms/forms/users/user_api_token_form.py
-msgid "You already have a token with this name."
-msgstr "Sie haben bereits ein Token mit diesem Namen."
 
 #: cms/forms/users/user_filter_form.py cms/forms/users/user_form.py
 #: cms/templates/organizations/organization_form.html
@@ -2716,8 +2716,8 @@ msgstr "Region"
 #: cms/models/languages/language_tree_node.py cms/models/media/directory.py
 #: cms/models/offers/offer_template.py
 #: cms/models/push_notifications/push_notification.py
-#: cms/models/regions/region.py cms/models/users/organization.py
-#: cms/models/users/user_api_token.py cms/models/users/user_fido_key.py
+#: cms/models/regions/region.py cms/models/users/api_token.py
+#: cms/models/users/organization.py cms/models/users/user_fido_key.py
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
@@ -4495,6 +4495,43 @@ msgstr ""
 msgid "page accesses"
 msgstr "Seitenzugriffe"
 
+#: cms/models/users/api_token.py cms/models/users/user.py
+#: cms/models/users/user_fido_key.py
+msgid "user"
+msgstr "Benutzer:in"
+
+#: cms/models/users/api_token.py
+msgid "token name"
+msgstr "Token-Name"
+
+#: cms/models/users/api_token.py
+msgid "token prefix"
+msgstr "Token-Präfix"
+
+#: cms/models/users/api_token.py
+msgid "The public part of the token which is used to identify it."
+msgstr "Der öffentliche Teil des Tokens, über den es identifiziert wird."
+
+#: cms/models/users/api_token.py
+msgid "token hash"
+msgstr "Token-Hash"
+
+#: cms/models/users/api_token.py
+msgid "The hash of the full token."
+msgstr "Der Hash des vollständigen Tokens."
+
+#: cms/models/users/api_token.py cms/models/users/user_fido_key.py
+msgid "last date of use"
+msgstr "Letztes Datum der Verwendung"
+
+#: cms/models/users/api_token.py
+msgid "API token"
+msgstr "API-Token"
+
+#: cms/models/users/api_token.py
+msgid "API tokens"
+msgstr "API-Token"
+
 #: cms/models/users/organization.py
 msgid "organizations"
 msgstr "Organisationen"
@@ -4602,46 +4639,9 @@ msgstr ""
 "Aktiveren Sie diese Option, um den passwortlosen Login für dieses Konto "
 "freizuschalten"
 
-#: cms/models/users/user.py cms/models/users/user_api_token.py
-#: cms/models/users/user_fido_key.py
-msgid "user"
-msgstr "Benutzer:in"
-
 #: cms/models/users/user.py
 msgid "users"
 msgstr "Benutzer:innen"
-
-#: cms/models/users/user_api_token.py
-msgid "token name"
-msgstr "Token-Name"
-
-#: cms/models/users/user_api_token.py
-msgid "token prefix"
-msgstr "Token-Präfix"
-
-#: cms/models/users/user_api_token.py
-msgid "The public part of the token which is used to identify it."
-msgstr "Der öffentliche Teil des Tokens, über den es identifiziert wird."
-
-#: cms/models/users/user_api_token.py
-msgid "token hash"
-msgstr "Token-Hash"
-
-#: cms/models/users/user_api_token.py
-msgid "The hashed secret of the token."
-msgstr "Das gehashte Geheimnis des Tokens."
-
-#: cms/models/users/user_api_token.py cms/models/users/user_fido_key.py
-msgid "last date of use"
-msgstr "Letztes Datum der Verwendung"
-
-#: cms/models/users/user_api_token.py
-msgid "API token"
-msgstr "API-Token"
-
-#: cms/models/users/user_api_token.py
-msgid "API tokens"
-msgstr "API-Token"
 
 #: cms/models/users/user_fido_key.py
 msgid "key name"
@@ -8884,7 +8884,8 @@ msgstr "Meine API-Token"
 
 #: cms/templates/settings/user_settings.html
 msgid "API tokens allow external systems to access the API on your behalf."
-msgstr "Mit API-Token können externe Systeme in Ihrem Namen auf die API zugreifen."
+msgstr ""
+"Mit API-Token können externe Systeme in Ihrem Namen auf die API zugreifen."
 
 #: cms/templates/settings/user_settings.html
 msgid "A token has exactly the same permissions as your own account."
@@ -8900,7 +8901,13 @@ msgstr ""
 
 #: cms/templates/settings/user_settings.html
 msgid "Treat it like a password and delete tokens you no longer need."
-msgstr "Behandeln Sie es wie ein Passwort und löschen Sie Token, die Sie nicht mehr benötigen."
+msgstr ""
+"Behandeln Sie es wie ein Passwort und löschen Sie Token, die Sie nicht mehr "
+"benötigen."
+
+#: cms/templates/settings/user_settings.html
+msgid "Copy your new API token now — it will not be shown again."
+msgstr "Kopieren Sie Ihr neues API-Token jetzt – es wird nicht erneut angezeigt."
 
 #: cms/templates/settings/user_settings.html
 msgid "Token name"
@@ -11511,6 +11518,10 @@ msgstr "Rolle \"{}\" wurde erfolgreich erstellt"
 msgid "Role \"{}\" was successfully saved"
 msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
 
+#: cms/views/settings/api_token_delete_view.py
+msgid "API token was successfully deleted"
+msgstr "API-Token wurde erfolgreich gelöscht"
+
 #: cms/views/settings/totp_delete_view.py
 msgid ""
 "You have successfully disconnected your account from your authenticator app."
@@ -11534,10 +11545,6 @@ msgstr ""
 "Verbindung fehlgeschlagen. Bitte überprüfen Sie den erzeugten Code und "
 "versuchen Sie es erneut."
 
-#: cms/views/settings/user_api_token_delete_view.py
-msgid "API token was successfully deleted"
-msgstr "API-Token wurde erfolgreich gelöscht"
-
 #: cms/views/settings/user_settings_view.py
 msgid "E-mail-address was successfully saved"
 msgstr "E-Mail-Adresse wurde erfolgreich geändert"
@@ -11553,14 +11560,6 @@ msgstr "Name wurde erfolgreich aktualisiert"
 #: cms/views/settings/user_settings_view.py
 msgid "API token was successfully created"
 msgstr "API-Token wurde erfolgreich erstellt"
-
-#: cms/views/settings/user_settings_view.py
-msgid "Your new API token is: {}"
-msgstr "Ihr neues API-Token lautet: {}"
-
-#: cms/views/settings/user_settings_view.py
-msgid "Copy it now — it will not be shown again."
-msgstr "Kopieren Sie es jetzt – es wird nicht erneut angezeigt."
 
 #: cms/views/settings/webauthn/authenticate_modify_mfa_view.py
 msgid "The provided password is not correct"
@@ -12220,6 +12219,8 @@ msgstr ""
 #~ "Sie können keinen Ort archivieren, der von einer zukünftigen "
 #~ "Veranstaltung oder einem Kontakt verwendet wird. \n"
 #~ "Dies betrifft auch archivierte Veranstaltungen und Kontakte"
+#~ msgid "Your new API token is: {}"
+#~ msgstr "Ihr neues API-Token lautet: {}"
 
 #~ msgid "Total Access Statistics"
 #~ msgstr "Statistiken für Gesamtzugriffe"

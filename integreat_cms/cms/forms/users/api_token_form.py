@@ -1,16 +1,20 @@
 from __future__ import annotations
 
 import logging
+from typing import TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
-from ...models import UserApiToken
+from ...models import ApiToken
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class UserApiTokenForm(CustomModelForm):
+class ApiTokenForm(CustomModelForm):
     """
     Form for creating a personal API token
     """
@@ -22,20 +26,19 @@ class UserApiTokenForm(CustomModelForm):
         """
 
         #: The model of this :class:`django.forms.ModelForm`
-        model = UserApiToken
+        model = ApiToken
         #: The fields of the model which should be handled by this form
         fields = ["name"]
 
-    def __init__(self, *args: object, **kwargs: object) -> None:
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Store the user the token is created for so the name can be validated against their
         existing tokens.
 
-        :param \*args: The supplied arguments
         :param \**kwargs: The supplied keyword arguments
         """
         self.user = kwargs.pop("user", None)
-        super().__init__(*args, **kwargs)
+        super().__init__(**kwargs)
 
     def clean_name(self) -> str:
         """
@@ -47,7 +50,7 @@ class UserApiTokenForm(CustomModelForm):
         if (
             name
             and self.user
-            and UserApiToken.objects.filter(user=self.user, name=name).exists()
+            and ApiToken.objects.filter(user=self.user, name=name).exists()
         ):
             self.add_error("name", _("You already have a token with this name."))
         return name

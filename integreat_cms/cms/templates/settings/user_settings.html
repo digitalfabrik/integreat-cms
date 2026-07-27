@@ -138,6 +138,14 @@
                 {% translate "The token is only displayed once directly after its creation and cannot be recovered afterwards." %}
                 {% translate "Treat it like a password and delete tokens you no longer need." %}
             </div>
+            {% if new_api_token %}
+                <div class="mx-4 mb-4 p-4 rounded border border-solid border-blue-500 bg-blue-100">
+                    <p class="font-bold">
+                        <i icon-name="alert-triangle" class="mr-2"></i> {% translate "Copy your new API token now — it will not be shown again." %}
+                    </p>
+                    <code class="block mt-2 p-2 rounded bg-white break-all">{{ new_api_token }}</code>
+                </div>
+            {% endif %}
             <div class="w-full p-4 table-listing">
                 <table class="w-full rounded border border-solid border-gray-200 shadow bg-white mb-4">
                     <thead>

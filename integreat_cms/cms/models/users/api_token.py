@@ -36,7 +36,7 @@ def hash_token(token: str) -> str:
     return hashlib.sha256(token.encode()).hexdigest()
 
 
-class UserApiToken(AbstractBaseModel):
+class ApiToken(AbstractBaseModel):
     """
     Data model representing a personal API token of a user
 
@@ -62,7 +62,7 @@ class UserApiToken(AbstractBaseModel):
     token_hash = models.CharField(
         max_length=64,
         verbose_name=_("token hash"),
-        help_text=_("The hashed secret of the token."),
+        help_text=_("The hash of the full token."),
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -99,8 +99,9 @@ class UserApiToken(AbstractBaseModel):
         """
         Look up a token object by its plaintext representation
 
-        The prefix is used to find the candidate row so that no hash has to be computed for every
-        stored token, and the actual comparison is done in constant time.
+        The candidate row is looked up by its public prefix rather than by the hash itself, so that
+        the database never runs an equality comparison on the secret value. The single comparison
+        of the hash is then done in constant time.
 
         :param plaintext: The plaintext token as sent by the client
         :return: The matching token object, or ``None`` if the token is unknown
@@ -117,7 +118,7 @@ class UserApiToken(AbstractBaseModel):
     def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which
-        would return ``UserApiToken object (id)``. It is used in the Django admin backend and as
+        would return ``ApiToken object (id)``. It is used in the Django admin backend and as
         label for ModelChoiceFields.
 
         :return: A readable string representation of the API token
@@ -127,7 +128,7 @@ class UserApiToken(AbstractBaseModel):
     def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return
-        ``<UserApiToken: UserApiToken object (id)>``. It is used for logging.
+        ``<ApiToken: ApiToken object (id)>``. It is used for logging.
 
         :return: The canonical string representation of the API token
         """

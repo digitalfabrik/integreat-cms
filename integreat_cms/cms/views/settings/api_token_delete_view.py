@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-class UserApiTokenDeleteView(View):
+class ApiTokenDeleteView(View):
     """
     View to delete a personal API token
     """

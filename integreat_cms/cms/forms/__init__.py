@@ -46,10 +46,10 @@ from .roles.group_form import GroupForm
 from .roles.role_form import RoleForm
 from .statistics.statistics_filter_form import StatisticsFilterForm
 from .translations.translations_management_form import TranslationsManagementForm
+from .users.api_token_form import ApiTokenForm
 from .users.authentication_form import AuthenticationForm
 from .users.password_reset_form import CustomPasswordResetForm
 from .users.region_user_form import RegionUserForm
-from .users.user_api_token_form import UserApiTokenForm
 from .users.user_email_form import UserEmailForm
 from .users.user_filter_form import UserFilterForm
 from .users.user_form import UserForm
