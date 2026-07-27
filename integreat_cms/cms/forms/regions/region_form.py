@@ -229,20 +229,23 @@ class RegionForm(CustomModelForm):
         self.fields["longitude"].required = False
         if not settings.TEXTLAB_API_ENABLED and not self.instance.hix_enabled:
             self.fields["hix_enabled"].disabled = True
-        # The model no longer restricts the budget to the predefined package sizes, because the
-        # API may push arbitrary values. Regions maintained in the CMS should still get the
-        # dropdown with the known sizes, so the choices are defined on the form instead.
-        self.fields["mt_budget_booked"] = forms.TypedChoiceField(
-            choices=machine_translation_budget.CHOICES,
-            coerce=int,
-            label=self.fields["mt_budget_booked"].label,
-            initial=machine_translation_budget.MINIMAL,
-        )
-        # Settings which are pushed through the API must not be edited here — the next sync would
-        # overwrite them anyway
         if self.instance.id and self.instance.is_api_managed:
+            # Settings which are pushed through the API must not be edited here — the next sync
+            # would overwrite them anyway. API-managed regions also keep the plain integer budget
+            # field: their budget may be any value, and a dropdown without a matching option would
+            # silently display the wrong one.
             for field_name in region_api_settings.WRITABLE_FIELDS:
                 self.fields[field_name].disabled = True
+        else:
+            # The model no longer restricts the budget to the predefined package sizes, because the
+            # API may push arbitrary values. Regions maintained in the CMS should still get the
+            # dropdown with the known sizes, so the choices are defined on the form instead.
+            self.fields["mt_budget_booked"] = forms.TypedChoiceField(
+                choices=machine_translation_budget.CHOICES,
+                coerce=int,
+                label=self.fields["mt_budget_booked"].label,
+                initial=machine_translation_budget.MINIMAL,
+            )
 
         self.disabled_offer_options = (
             OfferTemplate.objects.filter(pages__region=self.instance)

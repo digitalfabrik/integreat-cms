@@ -6,6 +6,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.test.client import Client
 from django.urls import reverse
+from django.utils import timezone
 
 from integreat_cms.cms.models import ApiToken, Region
 
@@ -225,3 +226,26 @@ def test_unknown_region_returns_404(load_test_data: None) -> None:
     )
 
     assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_api_managed_region_form_shows_the_real_budget(load_test_data: None) -> None:
+    """
+    An API-managed region may have a budget outside the predefined package sizes, so the form
+    must not fall back to a dropdown which would display a wrong value.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    from integreat_cms.cms.forms import RegionForm
+
+    region = Region.objects.get(slug="augsburg")
+    region.mt_budget_booked = 77777
+    region.api_settings_synced_at = timezone.now()
+    region.save()
+
+    form = RegionForm(instance=region)
+
+    assert form["mt_budget_booked"].value() == 77777
+    assert form.fields["mt_budget_booked"].disabled
+    # A choice field would silently render the first option instead of the actual value
+    assert not hasattr(form.fields["mt_budget_booked"], "choices")
