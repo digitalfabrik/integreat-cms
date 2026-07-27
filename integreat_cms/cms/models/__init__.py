@@ -47,4 +47,5 @@ from .statistics.page_accesses import PageAccesses
 from .users.organization import Organization
 from .users.role import Role
 from .users.user import User
+from .users.user_api_token import UserApiToken
 from .users.user_fido_key import FidoKey

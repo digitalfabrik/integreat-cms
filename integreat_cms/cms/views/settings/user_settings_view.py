@@ -9,7 +9,14 @@ from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from ...forms import UserEmailForm, UserNameForm, UserPasswordForm
+from ...forms import (
+    UserApiTokenForm,
+    UserEmailForm,
+    UserNameForm,
+    UserPasswordForm,
+)
+from ...models import UserApiToken
+from ...utils.translation_utils import gettext_many_lazy as __
 
 if TYPE_CHECKING:
     from typing import Any
@@ -39,9 +46,11 @@ class UserSettingsView(TemplateView):
         context.update(
             {
                 "keys": self.request.user.fido_keys.all(),
+                "api_tokens": self.request.user.api_tokens.all(),
                 "user_email_form": UserEmailForm(instance=self.request.user),
                 "user_password_form": UserPasswordForm(instance=self.request.user),
                 "user_name_form": UserNameForm(instance=self.request.user),
+                "user_api_token_form": UserApiTokenForm(user=self.request.user),
             },
         )
         return context
@@ -121,6 +130,33 @@ class UserSettingsView(TemplateView):
             else:
                 user_name_form.save()
                 messages.success(request, _("Name was successfully updated"))
+
+        elif request.POST.get("submit_form") == "api_token_form":
+            user_api_token_form = UserApiTokenForm(data=request.POST, user=user)
+            if not user_api_token_form.is_valid():
+                user_api_token_form.add_error_messages(request)
+                return render(
+                    request,
+                    self.template_name,
+                    {
+                        **self.get_context_data(**kwargs),
+                        "user_api_token_form": user_api_token_form,
+                    },
+                )
+            _token, plaintext = UserApiToken.create_token(
+                user,
+                user_api_token_form.cleaned_data["name"],
+            )
+            messages.success(request, _("API token was successfully created"))
+            # The plaintext token is only available at this point — it is stored as a hash and
+            # can never be displayed again, so the user has to copy it now.
+            messages.warning(
+                request,
+                __(
+                    _("Your new API token is: {}").format(plaintext),
+                    _("Copy it now — it will not be shown again."),
+                ),
+            )
 
         kwargs = {"region_slug": region.slug} if region else {}
         return redirect("user_settings", **kwargs)

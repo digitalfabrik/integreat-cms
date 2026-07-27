@@ -2580,6 +2580,10 @@ msgstr ""
 "Um die passwortlose Authentifizierung zu verwenden, müssen Sie mindestens "
 "eine Methode der 2-Faktor-Authentifizierung aktiviert haben."
 
+#: cms/forms/users/user_api_token_form.py
+msgid "You already have a token with this name."
+msgstr "Sie haben bereits ein Token mit diesem Namen."
+
 #: cms/forms/users/user_filter_form.py cms/forms/users/user_form.py
 #: cms/templates/organizations/organization_form.html
 #: cms/templates/users/_pages_with_observer_access.html
@@ -2713,7 +2717,7 @@ msgstr "Region"
 #: cms/models/offers/offer_template.py
 #: cms/models/push_notifications/push_notification.py
 #: cms/models/regions/region.py cms/models/users/organization.py
-#: cms/models/users/user_fido_key.py
+#: cms/models/users/user_api_token.py cms/models/users/user_fido_key.py
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
@@ -4598,13 +4602,46 @@ msgstr ""
 "Aktiveren Sie diese Option, um den passwortlosen Login für dieses Konto "
 "freizuschalten"
 
-#: cms/models/users/user.py cms/models/users/user_fido_key.py
+#: cms/models/users/user.py cms/models/users/user_api_token.py
+#: cms/models/users/user_fido_key.py
 msgid "user"
 msgstr "Benutzer:in"
 
 #: cms/models/users/user.py
 msgid "users"
 msgstr "Benutzer:innen"
+
+#: cms/models/users/user_api_token.py
+msgid "token name"
+msgstr "Token-Name"
+
+#: cms/models/users/user_api_token.py
+msgid "token prefix"
+msgstr "Token-Präfix"
+
+#: cms/models/users/user_api_token.py
+msgid "The public part of the token which is used to identify it."
+msgstr "Der öffentliche Teil des Tokens, über den es identifiziert wird."
+
+#: cms/models/users/user_api_token.py
+msgid "token hash"
+msgstr "Token-Hash"
+
+#: cms/models/users/user_api_token.py
+msgid "The hashed secret of the token."
+msgstr "Das gehashte Geheimnis des Tokens."
+
+#: cms/models/users/user_api_token.py cms/models/users/user_fido_key.py
+msgid "last date of use"
+msgstr "Letztes Datum der Verwendung"
+
+#: cms/models/users/user_api_token.py
+msgid "API token"
+msgstr "API-Token"
+
+#: cms/models/users/user_api_token.py
+msgid "API tokens"
+msgstr "API-Token"
 
 #: cms/models/users/user_fido_key.py
 msgid "key name"
@@ -4625,10 +4662,6 @@ msgstr "Anzahl an Signierungs-Vorgängen"
 #: cms/models/users/user_fido_key.py
 msgid "Token to prevent replay attacks."
 msgstr "Token zur Verhinderung von Replay-Attacken."
-
-#: cms/models/users/user_fido_key.py
-msgid "last date of use"
-msgstr "Letztes Datum der Verwendung"
 
 #: cms/models/users/user_fido_key.py
 msgid "multi-factor authentication key"
@@ -8846,6 +8879,50 @@ msgid "Change password"
 msgstr "Passwort ändern"
 
 #: cms/templates/settings/user_settings.html
+msgid "My API tokens"
+msgstr "Meine API-Token"
+
+#: cms/templates/settings/user_settings.html
+msgid "API tokens allow external systems to access the API on your behalf."
+msgstr "Mit API-Token können externe Systeme in Ihrem Namen auf die API zugreifen."
+
+#: cms/templates/settings/user_settings.html
+msgid "A token has exactly the same permissions as your own account."
+msgstr "Ein Token hat genau dieselben Berechtigungen wie Ihr eigenes Konto."
+
+#: cms/templates/settings/user_settings.html
+msgid ""
+"The token is only displayed once directly after its creation and cannot be "
+"recovered afterwards."
+msgstr ""
+"Das Token wird nur einmal direkt nach dem Erstellen angezeigt und kann "
+"danach nicht wiederhergestellt werden."
+
+#: cms/templates/settings/user_settings.html
+msgid "Treat it like a password and delete tokens you no longer need."
+msgstr "Behandeln Sie es wie ein Passwort und löschen Sie Token, die Sie nicht mehr benötigen."
+
+#: cms/templates/settings/user_settings.html
+msgid "Token name"
+msgstr "Token-Name"
+
+#: cms/templates/settings/user_settings.html
+msgid "Last usage"
+msgstr "Letzte Verwendung"
+
+#: cms/templates/settings/user_settings.html
+msgid "Date added"
+msgstr "Hinzugefügt am"
+
+#: cms/templates/settings/user_settings.html
+msgid "No API tokens have been created yet."
+msgstr "Es wurden noch keine API-Token erstellt."
+
+#: cms/templates/settings/user_settings.html
+msgid "Create a new API token"
+msgstr "Neues API-Token erstellen"
+
+#: cms/templates/settings/user_settings.html
 msgid "My 2-Factor-Authentication methods"
 msgstr "Meine 2-Faktor-Authentifizierungs-Methoden"
 
@@ -8907,14 +8984,6 @@ msgstr "Schlüssel sollten Sie an einem sicheren Ort aufbewahren."
 #: cms/templates/settings/user_settings.html
 msgid "Key name"
 msgstr "Schlüsselname"
-
-#: cms/templates/settings/user_settings.html
-msgid "Last usage"
-msgstr "Letzte Verwendung"
-
-#: cms/templates/settings/user_settings.html
-msgid "Date added"
-msgstr "Hinzugefügt am"
 
 #: cms/templates/settings/user_settings.html
 msgid "No FIDO2 keys have been added yet."
@@ -11465,6 +11534,10 @@ msgstr ""
 "Verbindung fehlgeschlagen. Bitte überprüfen Sie den erzeugten Code und "
 "versuchen Sie es erneut."
 
+#: cms/views/settings/user_api_token_delete_view.py
+msgid "API token was successfully deleted"
+msgstr "API-Token wurde erfolgreich gelöscht"
+
 #: cms/views/settings/user_settings_view.py
 msgid "E-mail-address was successfully saved"
 msgstr "E-Mail-Adresse wurde erfolgreich geändert"
@@ -11476,6 +11549,18 @@ msgstr "Passwort wurde erfolgreich geändert"
 #: cms/views/settings/user_settings_view.py
 msgid "Name was successfully updated"
 msgstr "Name wurde erfolgreich aktualisiert"
+
+#: cms/views/settings/user_settings_view.py
+msgid "API token was successfully created"
+msgstr "API-Token wurde erfolgreich erstellt"
+
+#: cms/views/settings/user_settings_view.py
+msgid "Your new API token is: {}"
+msgstr "Ihr neues API-Token lautet: {}"
+
+#: cms/views/settings/user_settings_view.py
+msgid "Copy it now — it will not be shown again."
+msgstr "Kopieren Sie es jetzt – es wird nicht erneut angezeigt."
 
 #: cms/views/settings/webauthn/authenticate_modify_mfa_view.py
 msgid "The provided password is not correct"
@@ -13753,9 +13838,6 @@ msgstr ""
 #~ msgid "Page was successfully created and published"
 #~ msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
 
-#~ msgid "Page was successfully created"
-#~ msgstr "Seite wurde erfolgreich erstellt"
-
 #~ msgid "All language tree nodes"
 #~ msgstr "Alle Sprach-Knoten"
 
@@ -14510,9 +14592,6 @@ msgstr ""
 
 #~ msgid "Create new POI translation"
 #~ msgstr "Neue POI Übersetzung erstellen"
-
-#~ msgid "Create new POI"
-#~ msgstr "POI erstellen"
 
 #~ msgid "Restore this POI"
 #~ msgstr "Diesen POI wiederherstellen"
