@@ -12,12 +12,12 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-def populate_first_published_at(
+def populate_published_at(
     apps: Apps,
     _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
-    Populate the new ``first_published_at`` field of existing content objects with the
+    Populate the new ``published_at`` field of existing content objects with the
     ``last_updated`` timestamp of their earliest public translation version
 
     :param apps: The configuration of installed applications
@@ -38,7 +38,9 @@ def populate_first_published_at(
             .order_by("last_updated")
             .values("last_updated")[:1]
         )
-        model.objects.update(first_published_at=Subquery(first_publication))
+        model.objects.filter(published_at__isnull=True).update(
+            published_at=Subquery(first_publication)
+        )
 
 
 class Migration(migrations.Migration):
@@ -49,31 +51,31 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name="event",
-            name="first_published_at",
+            name="published_at",
             field=models.DateTimeField(
                 blank=True, null=True, verbose_name="publication date"
             ),
         ),
         migrations.AddField(
             model_name="imprintpage",
-            name="first_published_at",
+            name="published_at",
             field=models.DateTimeField(
                 blank=True, null=True, verbose_name="publication date"
             ),
         ),
         migrations.AddField(
             model_name="page",
-            name="first_published_at",
+            name="published_at",
             field=models.DateTimeField(
                 blank=True, null=True, verbose_name="publication date"
             ),
         ),
         migrations.AddField(
             model_name="poi",
-            name="first_published_at",
+            name="published_at",
             field=models.DateTimeField(
                 blank=True, null=True, verbose_name="publication date"
             ),
         ),
-        migrations.RunPython(populate_first_published_at, migrations.RunPython.noop),
+        migrations.RunPython(populate_published_at, migrations.RunPython.noop),
     ]

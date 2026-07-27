@@ -133,7 +133,8 @@ class AbstractContentModel(AbstractBaseModel):
         default=timezone.now,
         verbose_name=_("creation date"),
     )
-    first_published_at = models.DateTimeField(
+    #: Set once when the content is published for the first time and never updated afterwards
+    published_at = models.DateTimeField(
         null=True,
         blank=True,
         verbose_name=_("publication date"),
@@ -195,7 +196,7 @@ class AbstractContentModel(AbstractBaseModel):
         """
         translations = list(self.translations.all())
         self.pk = None
-        self.first_published_at = None
+        self.published_at = None
         self.save()
 
         if add_suffix:

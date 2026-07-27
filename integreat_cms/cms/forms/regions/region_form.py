@@ -1037,6 +1037,8 @@ def duplicate_pages(
         target_page.pk = None
         # Set push API token to blank for duplicated page
         target_page.api_token = ""
+        # Reset the publication date because the duplicate has not been published yet
+        target_page.published_at = None
         # Check if the page is valid
         target_page.full_clean()
         # Save duplicated page
@@ -1141,6 +1143,8 @@ def duplicate_imprint(
     target_imprint.region = target_region
     # Delete the primary key to duplicate the object instance instead of updating it
     target_imprint.pk = None
+    # Reset the publication date because the duplicate has not been published yet
+    target_imprint.published_at = None
     # Check if the new imprint object is valid
     target_imprint.full_clean()
 

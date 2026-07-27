@@ -90,7 +90,7 @@ def transform_event_translation(
         "modified_gmt": event_translation.last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(event_translation.last_updated),
         "published_at": timezone.localtime(
-            event.first_published_at or event_translation.last_updated,
+            event.published_at or event_translation.last_updated,
         ),
         "excerpt": strip_tags(event_translation.content),
         "content": event_translation.content,

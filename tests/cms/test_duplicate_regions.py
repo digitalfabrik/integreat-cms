@@ -86,6 +86,7 @@ def test_duplicate_regions(
                 "api_token",
                 "authors",
                 "editors",
+                "published_at",
             ],
         )
         target_page_dict = model_to_dict(
@@ -98,9 +99,11 @@ def test_duplicate_regions(
                 "api_token",
                 "authors",
                 "editors",
+                "published_at",
             ],
         )
         assert source_page_dict == target_page_dict
+        assert target_page.published_at is None
 
         # Check if all cloned page translations exist and are identical
         source_page_translations = source_page.translations.all()
@@ -221,6 +224,7 @@ def test_duplicate_regions_no_translations(
                 "api_token",
                 "authors",
                 "editors",
+                "published_at",
             ],
         )
         target_page_dict = model_to_dict(
@@ -233,9 +237,11 @@ def test_duplicate_regions_no_translations(
                 "api_token",
                 "authors",
                 "editors",
+                "published_at",
             ],
         )
         assert source_page_dict == target_page_dict
+        assert target_page.published_at is None
 
         source_page_translations_filtered = source_page.translations.filter(
             language=source_language_root,

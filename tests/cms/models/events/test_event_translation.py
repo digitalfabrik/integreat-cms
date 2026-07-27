@@ -69,7 +69,7 @@ def test_when_creating_even_translations_to_automatically_create_lowercase_slug(
 
 
 @pytest.mark.django_db
-def test_first_published_at_set_on_first_publication() -> None:
+def test_published_at_set_on_first_publication() -> None:
     region = Region.objects.create(name="new-region")
     language = Language.objects.create(
         slug="da",
@@ -97,7 +97,7 @@ def test_first_published_at_set_on_first_publication() -> None:
         status=status.DRAFT,
     )
     event.refresh_from_db()
-    assert event.first_published_at is None
+    assert event.published_at is None
 
     # Publishing a translation sets the first publication date
     public_translation = EventTranslation.objects.create(
@@ -108,7 +108,7 @@ def test_first_published_at_set_on_first_publication() -> None:
         version=1,
     )
     event.refresh_from_db()
-    assert event.first_published_at == public_translation.last_updated
+    assert event.published_at == public_translation.last_updated
 
     # Publishing another version later on does not change the first publication date
     EventTranslation.objects.create(
@@ -119,7 +119,7 @@ def test_first_published_at_set_on_first_publication() -> None:
         version=2,
     )
     event.refresh_from_db()
-    assert event.first_published_at == public_translation.last_updated
+    assert event.published_at == public_translation.last_updated
 
     # Publishing a translation in another language does not change it either
     EventTranslation.objects.create(
@@ -129,7 +129,7 @@ def test_first_published_at_set_on_first_publication() -> None:
         status=status.PUBLIC,
     )
     event.refresh_from_db()
-    assert event.first_published_at == public_translation.last_updated
+    assert event.published_at == public_translation.last_updated
 
 
 @pytest.mark.order("last")

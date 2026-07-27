@@ -697,9 +697,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         if kwargs.pop("update_timestamp", True):
             self.last_updated = timezone.now()
         super().save(*args, **kwargs)
-        if self.status == status.PUBLIC and not self.foreign_object.first_published_at:
-            self.foreign_object.first_published_at = self.last_updated
-            self.foreign_object.save(update_fields=["first_published_at"])
+        if self.status == status.PUBLIC and not self.foreign_object.published_at:
+            self.foreign_object.published_at = self.last_updated
+            self.foreign_object.save(update_fields=["published_at"])
 
     @transaction.atomic
     def cleanup_autosaves(self) -> None:
