@@ -49,130 +49,132 @@
             {% endif %}
         </div>
     </div>
-    <div class="mt-4 table-listing">
-        <form id="bulk-action-form" method="post">
-            {% csrf_token %}
-        </form>
-        <div class="px-2 pl-2">
-            <a href="{% if not is_archived %}{% url 'push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% endif %}">
-                <span class="pr-4 {% if not not_sent %}font-bold{% endif %}">
-                    {% trans "All News" %}
-                </span>
-            </a>
-            <a href="{% if not is_archived %}{% url 'push_notifications_not_sent' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications_not_sent' region_slug=request.region.slug language_slug=language.slug %}{% endif %}">
-                <span class="px-4 border-l-2 border-gray-500 {% if not_sent %}font-bold{% endif %}">
-                    {% trans "Not sent" %}
-                </span>
-            </a>
-        </div>
-        <table class="w-full rounded border border-solid border-gray-200 shadow bg-white">
-            <thead>
-                <tr class="border-b border-solid border-gray-200">
-                    <th class="py-3 pl-4 min">
-                        <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
-                        {% translate "Title" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 px-2">
-                        {% translate "Channel" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 px-2">
-                        <div class="lang-grid flags whitespace-nowrap">
-                            {% spaceless %}
-                                {% for lang in languages %}
-                                    {% if lang != request.region.default_language %}
-                                        <a href="{% url 'push_notifications' region_slug=request.region.slug language_slug=lang.slug %}">
-                                            <span class="fp fp-rounded fp-{{ lang.primary_country_code }}"
-                                                  title="{{ lang.translated_name }}"></span>
-                                        </a>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endspaceless %}
-                        </div>
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Last updated" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Planned send date" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 px-2 min">
-                        {% translate "Sent" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 px-2 min">
-                        {% translate "Options" %}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for push_notification in push_notifications %}
-                    {% get_translation push_notification language.slug as push_notification_translation %}
-                    {% include "push_notifications/push_notification_list_row.html" %}
-                {% empty %}
-                    <tr>
-                        <td colspan="4" class="px-4 py-3">
-                            {% if is_archived %}
-                                {% if search_query %}
-                                    {% translate "No archived push notifications found with these filters." %}
-                                {% else %}
-                                    {% translate "No push notifications archived yet." %}
-                                {% endif %}
-                            {% else %}
-                                {% if search_query %}
-                                    {% translate "No push notifications found with these filters." %}
-                                {% else %}
-                                    {% translate "No push notifications available yet." %}
-                                {% endif %}
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% if push_notifications %}
-        <div class="pt-2 px-2">
-            <div class="inline">
-                <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Push notifications selected" %}</span>
+    <div data-js-bulk-actions>
+        <div class="mt-4 table-listing">
+            <form id="bulk-action-form" method="post">
+                {% csrf_token %}
+            </form>
+            <div class="px-2 pl-2">
+                <a href="{% if not is_archived %}{% url 'push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% endif %}">
+                    <span class="pr-4 {% if not not_sent %}font-bold{% endif %}">
+                        {% trans "All News" %}
+                    </span>
+                </a>
+                <a href="{% if not is_archived %}{% url 'push_notifications_not_sent' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications_not_sent' region_slug=request.region.slug language_slug=language.slug %}{% endif %}">
+                    <span class="px-4 border-l-2 border-gray-500 {% if not_sent %}font-bold{% endif %}">
+                        {% trans "Not sent" %}
+                    </span>
+                </a>
             </div>
+            <table class="w-full rounded border border-solid border-gray-200 shadow bg-white">
+                <thead>
+                    <tr class="border-b border-solid border-gray-200">
+                        <th class="py-3 pl-4 min">
+                            <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                            {% translate "Title" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "Channel" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            <div class="lang-grid flags whitespace-nowrap">
+                                {% spaceless %}
+                                    {% for lang in languages %}
+                                        {% if lang != request.region.default_language %}
+                                            <a href="{% url 'push_notifications' region_slug=request.region.slug language_slug=lang.slug %}">
+                                                <span class="fp fp-rounded fp-{{ lang.primary_country_code }}"
+                                                      title="{{ lang.translated_name }}"></span>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endspaceless %}
+                            </div>
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Last updated" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Planned send date" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2 min">
+                            {% translate "Sent" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2 min">
+                            {% translate "Options" %}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for push_notification in push_notifications %}
+                        {% get_translation push_notification language.slug as push_notification_translation %}
+                        {% include "push_notifications/push_notification_list_row.html" %}
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="px-4 py-3">
+                                {% if is_archived %}
+                                    {% if search_query %}
+                                        {% translate "No archived push notifications found with these filters." %}
+                                    {% else %}
+                                        {% translate "No push notifications archived yet." %}
+                                    {% endif %}
+                                {% else %}
+                                    {% if search_query %}
+                                        {% translate "No push notifications found with these filters." %}
+                                    {% else %}
+                                        {% translate "No push notifications available yet." %}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    {% endif %}
-    {% if perms.cms.archive_pushnotification or perms.cms.delete_pushnotification %}
-        <div class="flex flex-wrap gap-2 mt-4">
-            <select id="bulk-action" class="w-auto max-w-full">
-                <option>
-                    {% translate "Select bulk action" %}
-                </option>
-                {% if perms.cms.archive_pushnotification %}
-                    {% if is_archived %}
-                        <option data-bulk-action="{% url "bulk_restore_push_notifications" region_slug=request.region.slug language_slug=language.slug %}">
-                            {% translate "Restore push notifications" %}
-                        </option>
-                    {% else %}
-                        <option data-bulk-action="{% url "bulk_archive_push_notifications" region_slug=request.region.slug language_slug=language.slug %}">
-                            {% translate "Archive push notifications" %}
+        {% if push_notifications %}
+            <div class="pt-2 px-2">
+                <div class="inline">
+                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Push notifications selected" %}</span>
+                </div>
+            </div>
+        {% endif %}
+        {% if perms.cms.archive_pushnotification or perms.cms.delete_pushnotification %}
+            <div class="flex flex-wrap gap-2 mt-4">
+                <select id="bulk-action" class="w-auto max-w-full">
+                    <option>
+                        {% translate "Select bulk action" %}
+                    </option>
+                    {% if perms.cms.archive_pushnotification %}
+                        {% if is_archived %}
+                            <option data-bulk-action="{% url "bulk_restore_push_notifications" region_slug=request.region.slug language_slug=language.slug %}">
+                                {% translate "Restore push notifications" %}
+                            </option>
+                        {% else %}
+                            <option data-bulk-action="{% url "bulk_archive_push_notifications" region_slug=request.region.slug language_slug=language.slug %}">
+                                {% translate "Archive push notifications" %}
+                            </option>
+                        {% endif %}
+                    {% endif %}
+                    {% translate "Push notifications" as content_type %}
+                    {% if perms.cms.delete_pushnotification %}
+                        <option class="bulk-confirmation-dialog"
+                                data-bulk-action="{% url 'bulk_delete_push_notifications' region_slug=request.region.slug language_slug=language.slug %}"
+                                data-popup-title="{% blocktranslate %}You are about to delete multiple selected {{content_type}}{% endblocktranslate %}"
+                                data-popup-subject="{% blocktranslate %}This action cannot be undone{% endblocktranslate %}"
+                                data-popup-text="{% blocktranslate %}Do you want to continue?{% endblocktranslate %}">
+                            {% blocktranslate trimmed %}
+                                Delete {{ content_type }}
+                            {% endblocktranslate %}
                         </option>
                     {% endif %}
-                {% endif %}
-                {% translate "Push notifications" as content_type %}
-                {% if perms.cms.delete_pushnotification %}
-                    <option class="bulk-confirmation-dialog"
-                            data-bulk-action="{% url 'bulk_delete_push_notifications' region_slug=request.region.slug language_slug=language.slug %}"
-                            data-popup-title="{% blocktranslate %}You are about to delete multiple selected {{content_type}}{% endblocktranslate %}"
-                            data-popup-subject="{% blocktranslate %}This action cannot be undone{% endblocktranslate %}"
-                            data-popup-text="{% blocktranslate %}Do you want to continue?{% endblocktranslate %}">
-                        {% blocktranslate trimmed %}
-                            Delete {{ content_type }}
-                        {% endblocktranslate %}
-                    </option>
-                {% endif %}
-            </select>
-            <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
-                {% translate "Execute" %}
-            </button>
-        </div>
-    {% endif %}
+                </select>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
+                    {% translate "Execute" %}
+                </button>
+            </div>
+        {% endif %}
+    </div>
     {% include "../generic_confirmation_dialog.html" %}
     {% url "push_notifications" as url %}
     {% include "pagination.html" with chunk=push_notifications %}

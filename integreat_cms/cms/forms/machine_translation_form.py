@@ -139,22 +139,14 @@ class MachineTranslationForm(CustomContentModelForm):
     def save(
         self,
         commit: bool = True,
-        foreign_form_changed: bool = False,
     ) -> EventTranslation | (PageTranslation | POITranslation):
         """
         Create machine translations and save them to the database
 
         :param commit: Whether or not the changes should be written to the database
-        :param foreign_form_changed: Whether or not the foreign form of this translation form was changed
         :return: The saved content translation object
         """
-        # If no text content changed, mark the source translation as minor edit so that
-        # existing translations in other languages are not incorrectly flagged as outdated
-        if {"title", "content"}.isdisjoint(self.changed_data):
-            self.instance.minor_edit = True
-        self.instance: EventTranslation | PageTranslation | POITranslation = (
-            super().save(commit, foreign_form_changed)
-        )
+        self.instance = super().save(commit)
 
         language_nodes = self.cleaned_data["mt_translations_to_create"].union(
             self.cleaned_data["mt_translations_to_update"],

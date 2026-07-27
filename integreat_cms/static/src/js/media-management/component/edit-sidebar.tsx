@@ -34,8 +34,8 @@ import {
 } from "lucide-preact";
 import cn from "classnames";
 
-import { showConfirmationPopupAjax } from "../../confirmation-popups";
-import { MediaApiPaths, File, MediaLibraryEntry, FileUsages } from "../index";
+import { showConfirmationPopupAjax } from "../../utils/confirmation-popup";
+import { MediaApiPaths, File, MediaLibraryEntry, FileUsages } from "..";
 
 type Props = {
     fileIndexState: [number | null, Dispatch<StateUpdater<number | null>>];

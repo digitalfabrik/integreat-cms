@@ -8,6 +8,8 @@ import pgtrigger
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.db.models import Q
+from django.db.models.functions import Lower
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -451,6 +453,9 @@ class PageTranslation(AbstractBasePageTranslation):
             models.UniqueConstraint(
                 fields=["page", "language", "version"],
                 name="%(class)s_unique_version",
+            ),
+            models.CheckConstraint(
+                condition=Q(slug=Lower("slug")), name="%(class)s_slug_lowercase"
             ),
         ]
 

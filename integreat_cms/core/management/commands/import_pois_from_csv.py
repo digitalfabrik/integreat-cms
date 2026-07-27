@@ -266,6 +266,6 @@ class Command(LogCommand):
                         )
                 # Save forms
                 poi_translation_form.instance.poi = poi_form.save()
-                poi_translation_form.save(foreign_form_changed=poi_form.has_changed())
+                poi_translation_form.save()
                 logger.success("Imported %r", poi_form.instance)  # type: ignore[attr-defined]
         logger.success("✔ Imported CSV file %s", csv_filename)  # type: ignore[attr-defined]

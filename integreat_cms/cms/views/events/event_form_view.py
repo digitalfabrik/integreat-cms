@@ -167,11 +167,7 @@ class EventFormView(
                     request, event_form, recurrence_rule_form
                 )
             ):
-                event_translation_instance = event_translation_form.save(
-                    foreign_form_changed=(
-                        event_form.has_changed() or recurrence_rule_form.has_changed()
-                    ),
-                )
+                event_translation_form.save()
 
                 self.update_recurrence_rule(event_form, recurrence_rule_form)
 
@@ -347,31 +343,57 @@ class EventFormView(
         """
         Shows a message to the user if the slug they provided was not unique and therefore changed.
         """
-        if user_slug and user_slug != event_translation_form.cleaned_data["slug"]:
-            other_translation = EventTranslation.objects.filter(
-                event__region=region,
-                slug=user_slug,
-                language=language,
-            ).first()
-            other_translation_link = other_translation.backend_edit_link
-            message = _(
-                "The slug was changed from '{user_slug}' to '{slug}', "
-                "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
-            ).format(
-                user_slug=user_slug,
-                slug=event_translation_form.cleaned_data["slug"],
-                translation=other_translation,
-            )
-            messages.warning(
-                request,
-                translate_link(
-                    message,
-                    attributes={
-                        "href": other_translation_link,
-                        "class": "underline hover:no-underline",
-                    },
-                ),
-            )
+        cleaned_slug = event_translation_form.cleaned_data["slug"]
+        if user_slug and user_slug != cleaned_slug:
+            if user_slug.lower() == cleaned_slug:
+                message = _(
+                    "The slug was changed from '{user_slug}' to '{slug}', because uppercase letters are not allowed."
+                ).format(
+                    user_slug=user_slug,
+                    slug=cleaned_slug,
+                )
+                messages.warning(request, message)
+            else:
+                other_translation = EventTranslation.objects.filter(
+                    event__region=region,
+                    slug=user_slug,
+                    language=language,
+                ).first()
+                if other_translation:
+                    other_translation_link = other_translation.backend_edit_link
+                    message = _(
+                        "The slug was changed from '{user_slug}' to '{slug}', "
+                        "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
+                    ).format(
+                        user_slug=user_slug,
+                        slug=cleaned_slug,
+                        translation=other_translation,
+                    )
+                    messages.warning(
+                        request,
+                        translate_link(
+                            message,
+                            attributes={
+                                "href": other_translation_link,
+                                "class": "underline hover:no-underline",
+                            },
+                        ),
+                    )
+                else:
+                    logger.warning(
+                        "Slug was changed from the one the user provided, but we can't find the translation that already used it: %s (cleaned to %s)",
+                        user_slug,
+                        event_translation_form.cleaned_data["slug"],
+                    )
+                    messages.warning(
+                        request,
+                        _(
+                            "The slug was changed from '{user_slug}' to '{slug}'."
+                        ).format(
+                            user_slug=user_slug,
+                            slug=event_translation_form.cleaned_data["slug"],
+                        ),
+                    )
 
     def add_success_message(
         self,
@@ -412,14 +434,6 @@ class EventFormView(
             event_translation_form.instance.event.translations.filter(
                 language__in=languages,
             ).update(status=status.DRAFT)
-
-        elif (
-            event_translation_form.instance.status == status.PUBLIC
-            and event_translation_form.instance.minor_edit
-        ):
-            event_translation_form.instance.event.translations.filter(
-                language=language,
-            ).update(status=status.PUBLIC)
 
     def is_qualified_for_save(
         self,

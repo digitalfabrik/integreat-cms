@@ -24,7 +24,6 @@ if TYPE_CHECKING:
     from .role import Role
 
 
-from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.user_utils import search_users
 from ..abstract_base_model import AbstractBaseModel
 from ..chat.chat_message import ChatMessage
@@ -113,18 +112,6 @@ class User(AbstractUser, AbstractBaseModel):
         default=False,
         verbose_name=_("Page tree tutorial seen"),
         help_text=_("Has seen tutorial for page tree"),
-    )
-    distribute_sidebar_boxes = models.BooleanField(
-        default=False,
-        verbose_name=_("automatically distribute sidebar boxes"),
-        help_text=__(
-            _(
-                "Enable this option to automatically distribute the boxes in the sidebar of forms to make the best use of screen space.",
-            ),
-            _(
-                "This only affects screen resolutions where the boxes are displayed in two columns.",
-            ),
-        ),
     )
     totp_key = models.CharField(
         default=None,

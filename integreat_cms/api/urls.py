@@ -28,7 +28,7 @@ from .v3.imprint import imprint
 from .v3.languages import languages
 from .v3.location_categories import location_categories
 from .v3.locations import locations
-from .v3.news import news, sent_push_notifications
+from .v3.news import news, sent_push_notifications, single_news
 from .v3.offers import offers
 from .v3.pages import (
     children,
@@ -76,6 +76,7 @@ content_api_urlpatterns: list[URLPattern] = [
         news,
         name="news",
     ),
+    path("news/<slug:news_id>/", single_news, name="single_news"),
     path("imprint/", imprint, name="imprint"),
     path("disclaimer/", imprint, name="imprint"),
     path("offers/", offers, name="offers"),
@@ -191,9 +192,14 @@ social_media_api_urlpatterns = [
                     name="social_region_reserved_local_news",
                 ),
                 path(
-                    "news/tuNews/",
+                    "news/tunews/",
                     region_social_media_headers,
                     name="social_region_reserved_tunews",
+                ),
+                path(
+                    "news/amalnews/",
+                    region_social_media_headers,
+                    name="social_region_reserved_amalnews",
                 ),
                 *(
                     path(
@@ -209,7 +215,7 @@ social_media_api_urlpatterns = [
                     name="social_region_event_page",
                 ),
                 path(
-                    "news/<slug:news_type>/<slug:slug>/",
+                    "news/<slug:news_type>/<slug:news_raw_id>/",
                     news_social_media_headers,
                     name="social_region_local_news_page",
                 ),

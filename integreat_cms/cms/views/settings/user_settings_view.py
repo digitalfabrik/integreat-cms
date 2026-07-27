@@ -9,7 +9,7 @@ from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from ...forms import UserEmailForm, UserNameForm, UserPasswordForm, UserPreferencesForm
+from ...forms import UserEmailForm, UserNameForm, UserPasswordForm
 
 if TYPE_CHECKING:
     from typing import Any
@@ -41,9 +41,6 @@ class UserSettingsView(TemplateView):
                 "keys": self.request.user.fido_keys.all(),
                 "user_email_form": UserEmailForm(instance=self.request.user),
                 "user_password_form": UserPasswordForm(instance=self.request.user),
-                "user_preferences_form": UserPreferencesForm(
-                    instance=self.request.user,
-                ),
                 "user_name_form": UserNameForm(instance=self.request.user),
             },
         )
@@ -106,27 +103,6 @@ class UserSettingsView(TemplateView):
                 # Prevent user from being logged out after password has changed
                 update_session_auth_hash(request, user)
                 messages.success(request, _("Password was successfully saved"))
-
-        elif request.POST.get("submit_form") == "preferences_form":
-            user_preferences_form = UserPreferencesForm(
-                data=request.POST,
-                instance=user,
-            )
-            if not user_preferences_form.is_valid():
-                user_preferences_form.add_error_messages(request)
-                return render(
-                    request,
-                    self.template_name,
-                    {
-                        **self.get_context_data(**kwargs),
-                        "user_preferences_form": user_preferences_form,
-                    },
-                )
-            if not user_preferences_form.has_changed():
-                messages.info(request, _("No changes made"))
-            else:
-                user_preferences_form.save()
-                messages.success(request, _("Preferences were successfully saved"))
 
         elif request.POST.get("submit_form") == "name_form":
             user_name_form = UserNameForm(data=request.POST, instance=user)

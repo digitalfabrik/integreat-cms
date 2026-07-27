@@ -303,14 +303,6 @@ class Region(AbstractBaseModel):
         null=True,
     )
 
-    chat_enabled = models.BooleanField(
-        default=True,
-        verbose_name=_("activate author chat"),
-        help_text=_(
-            "This gives all users of this region access to the cross-regional author chat.",
-        ),
-    )
-
     administrative_division_included = models.BooleanField(
         default=False,
         verbose_name=_("include administrative division into name"),

@@ -283,7 +283,8 @@ RESPONSE
                 "thumbnail": String,   // url of thumbnail
               },
                 ...
-        ],
+         ],
+         "slug_history": [ String ],  // list of current slug and previous slugs of the page translation
       },
       ...
    ]
@@ -702,6 +703,78 @@ RESPONSE
             },
             ...
          ]
+   }
+
+
+News
+====
+
+Get all news posts from all available sources
+
+REQUEST
+~~~~~~~
+
+.. code:: http
+
+   GET /api/v3/{region_slug}/{language_slug}/news/ HTTP/2
+
+Response
+~~~~~~~~
+
+.. code:: javascript
+
+   [
+      {
+         "id": String,                          // The id of the news
+         "title": String,                       // The title of the news
+         "content": String,                     // The content of the news
+         "last_updated": String,                // Date of last update
+         "display_date": String,                // Date of publication or last update, of which later
+         "channel": String | null,              // The channel of the push notification, null for external news
+         "available_languages": [               // The available languages of the push notification
+               "<language_slug>": {
+                  "id": String | null,          // The id of the translation
+               },
+               ...
+            ],
+         "source": String,                      // The source of the news ('local', 'tunews' or 'amalnews')
+         "externalUrl": String,                 // The link to the news
+      }
+   ]
+
+
+Single News
+===========
+
+Get a single news
+
+REQUEST
+~~~~~~~
+
+.. code:: http
+
+   GET /api/v3/{region_slug}/{language_slug}/news/{news_id}/ HTTP/2
+
+Response
+~~~~~~~~
+
+.. code:: javascript
+
+   {
+      "id": String,                          // The id of the news
+      "title": String,                       // The title of the news
+      "content": String,                     // The content of the news
+      "last_updated": String,                // Date of last update
+      "display_date": String,                // Date of publication or last update, of which later
+      "channel": String | null,              // The channel of the push notification, null for external news
+      "available_languages": [           // The available languages of the push notification
+            "<language_slug>": {
+               "id": String | null,           // The id of the translation
+            },
+            ...
+         ],
+      "source": String,                      // The source of the news ('local', 'tunews' or 'amalnews')
+      "externalUrl": String,                 // The link to the news
    }
 
 

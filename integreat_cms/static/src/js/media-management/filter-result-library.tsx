@@ -29,13 +29,12 @@ const FilterResultLibrary = (props: LibraryProps) => {
         const applyFilter = async () => {
             if (mediaFilter === "unused") {
                 setLoading(true);
+                setFileIndex(null);
                 console.debug("Loading unused media files...");
                 const urlParams = new URLSearchParams({});
                 try {
                     // Load the filtered result
                     await ajaxRequest(filterUnusedMediaFiles, urlParams, setMediaLibraryContent);
-                    // Close the file sidebar
-                    setFileIndex(null);
                 } finally {
                     setLoading(false);
                 }

@@ -33,6 +33,7 @@ const DirectoryContentLibrary = (props: LibraryProps) => {
     useEffect(() => {
         const loadDirectory = async () => {
             setLoading(true);
+            setFileIndex(null);
             const urlParams = new URLSearchParams({});
             if (directoryId) {
                 console.debug(`Loading directory with id ${directoryId}...`);
@@ -48,9 +49,6 @@ const DirectoryContentLibrary = (props: LibraryProps) => {
             } finally {
                 setLoading(false);
             }
-
-            // Close the file sidebar
-            setFileIndex(null);
         };
         loadDirectory();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */

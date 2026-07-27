@@ -72,7 +72,8 @@ TEST_REGION_SLUG: Final[str] = "testumgebung"
 
 #: Reserved region slugs, that are used in the webapp
 RESERVED_REGION_SLUGS: Final[list[str]] = [
-    "landing",
+    "landing",  # Legacy, now regions
+    "regions",
     "recommend",
     "licenses",
     "main-disclaimer",
@@ -86,7 +87,8 @@ RESERVED_REGION_PAGE_PATTERNS: Final[list[str]] = [
     IMPRINT_SLUG,
     "news",
     "events",
-    "locations",
+    "locations",  # Legacy, now places
+    "places",
     "offers",
     "search",
 ]
@@ -303,7 +305,7 @@ NOMINATIM_API_ENABLED: Final[bool] = bool(
 #: This is used to automatically derive coordinates from addresses.
 NOMINATIM_API_URL: Final[str] = os.environ.get(
     "INTEGREAT_CMS_NOMINATIM_API_URL",
-    "http://nominatim.maps.tuerantuer.org/nominatim/",
+    "https://nominatim.maps.tuerantuer.org/nominatim/",
 )
 
 
@@ -1456,6 +1458,13 @@ INTEGREAT_CHAT_BACK_END_TIMEOUT = os.environ.get(
 INTEGREAT_CHAT_CMS_USER_MAIL = os.environ.get(
     "INTEGREAT_CMS_INTEGREAT_CHAT_CMS_USER_MAIL",
     "tech+integreat-cms@tuerantuer.org",
+)
+
+#: Whether a single Zammad instance is shared by multiple regions. If enabled,
+#: the ``device_id`` attribute is set on Zammad tickets so that incoming webhooks
+#: can be mapped to the correct chat regardless of the region.
+MULTI_REGION_ZAMMAD: Final[bool] = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_MULTI_REGION_ZAMMAD", "False")),
 )
 
 ##########

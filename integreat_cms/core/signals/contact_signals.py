@@ -33,5 +33,7 @@ def contact_save_handler(instance: Contact, **kwargs: Any) -> None:
         if getattr(referrer.foreign_object, "archived", False):
             continue
         logger.debug("Updating %r, since it references %r.", referrer, instance)
-        referrer.content = clean_content(referrer.content, referrer.language.slug)
+        referrer.content = clean_content(
+            referrer.content, referrer.language.slug, referrer.foreign_object.region_id
+        )
         referrer.save(update_fields=["content"])

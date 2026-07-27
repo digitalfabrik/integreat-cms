@@ -71,7 +71,10 @@
             {% include "pages/_page_filter_form.html" %}
         </div>
     {% endwith %}
-    <form method="post" id="bulk-action-form" class="table-listing">
+    <form method="post"
+          id="bulk-action-form"
+          class="table-listing"
+          data-js-bulk-actions>
         {% csrf_token %}
         <div class="overflow-x-auto">
             <table {% if not filter_form.is_enabled %} data-delay-event-handlers data-activate-tree-drag-drop data-descendants-url={% url 'get_page_tree_ajax' region_slug=request.region.slug language_slug=language.slug is_archive=is_archive is_statistics=False %}{% else %}id="page_filter_activated"{% endif %}

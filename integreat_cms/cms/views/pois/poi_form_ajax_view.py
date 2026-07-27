@@ -109,9 +109,7 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
             website = poi_form.data.get("primary_website")
 
             poi_translation_form.instance.poi = poi
-            poi_translation = poi_translation_form.save(
-                foreign_form_changed=poi_form.has_changed(),
-            )
+            poi_translation = poi_translation_form.save()
 
             generate_primary_contact_from_poi(
                 website,

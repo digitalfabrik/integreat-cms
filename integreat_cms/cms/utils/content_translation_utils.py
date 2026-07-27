@@ -16,6 +16,7 @@ from linkcheck.models import Url
 
 from .content_utils import clean_content
 from .internal_link_utils import get_public_translation_for_link
+from .link_ignore_preservation import preserve_ignored_links
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -99,6 +100,7 @@ def update_links_to(
         new_content = clean_content(
             outdated_content_translation.content,
             outdated_content_translation.language.slug,
+            outdated_content_translation.foreign_object.region_id,
         )
         if new_content == outdated_content_translation.content:
             continue
@@ -108,7 +110,10 @@ def update_links_to(
         )
         fixed_content_translation.content = new_content
         try:
-            with transaction.atomic():
+            with (
+                transaction.atomic(),
+                preserve_ignored_links(outdated_content_translation),
+            ):
                 outdated_content_translation.links.all().delete()
                 save_new_version_with_retry(
                     fixed_content_translation, fixed_content_translation.save

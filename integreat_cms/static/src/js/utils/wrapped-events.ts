@@ -7,7 +7,6 @@ type CustomEventMap = {
     "action-confirmed": Event;
 } & HTMLElementEventMap;
 
-/* eslint-disable-next-line func-call-spacing, no-spaced-func */
 const eventMap = new Map<Element, Map<keyof CustomEventMap, ((event: Event) => void)[]>>();
 
 /**

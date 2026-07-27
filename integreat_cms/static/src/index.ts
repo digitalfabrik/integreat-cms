@@ -14,9 +14,9 @@
  *
  * @module index
  */
-/* eslint-disable import/first */
+/* eslint-disable import-x/first */
 if (process.env.NODE_ENV !== "production") {
-    /* eslint-disable-next-line @typescript-eslint/no-require-imports, global-require */
+    /* eslint-disable-next-line @typescript-eslint/no-require-imports */
     require("preact/debug");
 }
 /* Babel requirements & polyfills */
@@ -26,14 +26,12 @@ import "whatwg-fetch"; // IE11: Element.closest
 
 import "./css/style.scss";
 
-import "./js/auto-file-download";
 import "./js/tree-drag-and-drop";
 import "./js/rss-feed";
 import "./js/collapsible-boxes";
 import "./js/push-notifications";
 import "./js/filter-form";
 import "./js/copy-clipboard";
-import "./js/bulk-actions";
 import "./js/conditional-fields";
 import "./js/confirmation-popups";
 import "./js/language-tabs";
@@ -97,7 +95,7 @@ import { createIconsAt } from "./js/utils/create-icons";
 
 import "./js/charCounter";
 
-import "./js/media-management/index";
+import "./js/media-management";
 import "./js/media-management/select-media";
 import "./js/forms/icon-field";
 
@@ -108,7 +106,7 @@ import "./js/tutorial-overlay";
 import "./js/unsaved-warning";
 
 import "./js/pois/poi-actions";
-import "./js/pois/opening-hours/index";
+import "./js/pois/opening-hours";
 
 import "./js/menu";
 

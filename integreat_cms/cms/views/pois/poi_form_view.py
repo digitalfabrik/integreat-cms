@@ -193,9 +193,7 @@ class POIFormView(
                 )
             ):
                 poi_translation_form.instance.poi = poi_form.instance
-                poi_translation_instance = poi_translation_form.save(
-                    foreign_form_changed=poi_form.has_changed(),
-                )
+                poi_translation_form.save()
 
                 generate_primary_contact_from_poi(
                     website,
@@ -304,31 +302,57 @@ class POIFormView(
         """
         Shows a message to the user if the slug they provided was not unique and therefore changed.
         """
-        if user_slug and user_slug != poi_translation_form.cleaned_data["slug"]:
-            other_translation = POITranslation.objects.filter(
-                poi__region=region,
-                slug=user_slug,
-                language=language,
-            ).first()
-            other_translation_link = other_translation.backend_edit_link
-            message = _(
-                "The slug was changed from '{user_slug}' to '{slug}', "
-                "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
-            ).format(
-                user_slug=user_slug,
-                slug=poi_translation_form.cleaned_data["slug"],
-                translation=other_translation,
-            )
-            messages.warning(
-                request,
-                translate_link(
-                    message,
-                    attributes={
-                        "href": other_translation_link,
-                        "class": "underline hover:no-underline",
-                    },
-                ),
-            )
+        cleaned_slug = poi_translation_form.cleaned_data["slug"]
+        if user_slug and user_slug != cleaned_slug:
+            if user_slug.lower() == cleaned_slug:
+                message_uppercase = _(
+                    "The slug was changed from '{user_slug}' to '{slug}', because uppercase letters are not allowed."
+                ).format(
+                    user_slug=user_slug,
+                    slug=cleaned_slug,
+                )
+                messages.warning(request, message_uppercase)
+            else:
+                other_translation = POITranslation.objects.filter(
+                    poi__region=region,
+                    slug=user_slug,
+                    language=language,
+                ).first()
+                if other_translation:
+                    other_translation_link = other_translation.backend_edit_link
+                    message = _(
+                        "The slug was changed from '{user_slug}' to '{slug}', "
+                        "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
+                    ).format(
+                        user_slug=user_slug,
+                        slug=cleaned_slug,
+                        translation=other_translation,
+                    )
+                    messages.warning(
+                        request,
+                        translate_link(
+                            message,
+                            attributes={
+                                "href": other_translation_link,
+                                "class": "underline hover:no-underline",
+                            },
+                        ),
+                    )
+                else:
+                    logger.warning(
+                        "Slug was changed from the one the user provided, but we can't find the translation that already used it: %s (cleaned to %s)",
+                        user_slug,
+                        poi_translation_form.cleaned_data["slug"],
+                    )
+                    messages.warning(
+                        request,
+                        _(
+                            "The slug was changed from '{user_slug}' to '{slug}'."
+                        ).format(
+                            user_slug=user_slug,
+                            slug=poi_translation_form.cleaned_data["slug"],
+                        ),
+                    )
 
     def get_instances(
         self, language: Language, poi_id: Any
@@ -446,13 +470,6 @@ class POIFormView(
             poi_translation_form.instance.poi.translations.filter(
                 language__in=languages,
             ).update(status=status.DRAFT)
-        elif (
-            poi_translation_form.instance.status == status.PUBLIC
-            and poi_translation_form.instance.minor_edit
-        ):
-            poi_translation_form.instance.poi.translations.filter(
-                language=language,
-            ).update(status=status.PUBLIC)
 
     def warn_if_coordinates_too_far(
         self, request: HttpRequest, poi_form: POIForm

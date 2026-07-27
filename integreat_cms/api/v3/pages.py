@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import json
 import logging
+from collections import defaultdict
 from typing import TYPE_CHECKING
 
 from django.conf import settings
@@ -19,7 +20,7 @@ from django.utils.text import slugify
 from django.views.decorators.csrf import csrf_exempt
 
 from ...cms.forms import PageTranslationForm
-from ...cms.models import Page
+from ...cms.models import Page, PageTranslation
 from ...cms.utils.shortcodes import expand_shortcodes
 from ..decorators import json_response, matomo_tracking
 from .offers import transform_offer
@@ -29,13 +30,16 @@ if TYPE_CHECKING:
 
     from django.http import HttpRequest
 
-    from ...cms.models import Page, PageTranslation
+    from ...cms.models.pages.page import PageQuerySet
 
 logger = logging.getLogger(__name__)
 
 
 def transform_page(
-    page_translation: PageTranslation, context: dict[str, Any] | None = None
+    page_translation: PageTranslation,
+    page: Page | None = None,
+    context: dict[str, Any] | None = None,
+    slug_history: list[str] | None = None,
 ) -> dict[str, Any]:
     """
     Function to create a dict from a single page_translation Object.
@@ -51,10 +55,13 @@ def transform_page(
         "path": None,
     }
 
-    parent_page = page_translation.page.cached_parent
+    if page is None:
+        page = page_translation.page
+    parent_page = page.cached_parent
+    language = page_translation.language
     if parent_page and not parent_page.explicitly_archived:
         if parent_public_translation := parent_page.get_public_translation(
-            page_translation.language.slug,
+            language.slug,
         ):
             parent_absolute_url = parent_public_translation.get_absolute_url()
             parent = {
@@ -63,21 +70,21 @@ def transform_page(
                 "path": parent_absolute_url,
             }
             # use left edge indicator of mptt model for ordering of child pages
-            order = page_translation.page.lft
+            order = page.lft
         else:
             logger.info(
                 "The parent %r of %r does not have a public translation in %r",
                 parent_page,
-                page_translation.page,
-                page_translation.language,
+                page,
+                language,
             )
             raise Http404("No Page matches the given url or id.")
     else:
         parent = fallback_parent
         # use tree id of mptt model for ordering of root pages
-        order = page_translation.page.tree_id
+        order = page.tree_id
 
-    organization = page_translation.page.organization
+    organization = page.organization
     absolute_url = page_translation.get_absolute_url()
     return {
         "id": page_translation.id,
@@ -93,9 +100,7 @@ def transform_page(
         "parent": parent,
         "order": order,
         "available_languages": page_translation.available_languages_dict,
-        "thumbnail": (
-            page_translation.page.icon.url if page_translation.page.icon else None
-        ),
+        "thumbnail": (page.icon.url if page.icon else None),
         "organization": (
             {
                 "id": organization.id,
@@ -109,9 +114,17 @@ def transform_page(
         ),
         "hash": None,
         "embedded_offers": [
-            transform_offer(offer, page_translation.page.region)
-            for offer in page_translation.page.embedded_offers.all()
+            transform_offer(offer, page.region) for offer in page.embedded_offers.all()
         ],
+        "slug_history": list(slug_history)
+        if slug_history is not None
+        else list(
+            dict.fromkeys(
+                page_translation.all_versions.order_by("version").values_list(
+                    "slug", flat=True
+                )
+            )
+        ),
     }
 
 
@@ -135,24 +148,30 @@ def pages(
     result = []
     # The preliminary filter for explicitly_archived=False is not strictly required, but reduces the number of entries
     # requested from the database
-    for page in (
+    pages = (
         region.pages.select_related("organization__icon")
         .prefetch_related(
             "embedded_offers",
         )
         .filter(explicitly_archived=False)
         .cache_tree(archived=False, language_slug=language_slug)
-    ):
+    )
+
+    slug_history: defaultdict[int, list[str]] = get_slug_history(pages, language_slug)
+
+    for page in pages:
         if page_translation := page.get_public_translation(language_slug):
             result.append(
                 transform_page(
                     page_translation,
+                    page,
                     context={
                         "region_slug": region_slug,
                         "language_slug": language_slug,
                         "content_object": page_translation,
                         "request": request,
                     },
+                    slug_history=slug_history.get(page.id, []),
                 )
             )
     return JsonResponse(
@@ -246,12 +265,20 @@ def single_page(
         return JsonResponse(
             transform_page(
                 page_translation,
+                page,
                 context={
                     "region_slug": region_slug,
                     "language_slug": language_slug,
                     "content_object": page_translation,
                     "request": request,
                 },
+                slug_history=list(
+                    dict.fromkeys(
+                        page_translation.all_versions.order_by("version").values_list(
+                            "slug", flat=True
+                        )
+                    )
+                ),
             ),
             safe=False,
         )
@@ -318,15 +345,20 @@ def children(
             should_prefetch_nonpublic_translations=False,
         )
     )
+
+    slug_history: defaultdict[int, list[str]] = get_slug_history(pages, language_slug)
+
     result = [
         transform_page(
             page_translation,
+            page,
             context={
                 "region_slug": region_slug,
                 "language_slug": language_slug,
                 "content_object": page_translation,
                 "request": request,
             },
+            slug_history=slug_history.get(page.id, []),
         )
         for page in pages.values()
         if root_page is None or page.id != root_page.parent_id
@@ -380,6 +412,11 @@ def get_public_ancestor_translations(
     result = []
     cached_ancestors = current_page.get_cached_ancestors()
     prefetch_related_objects(cached_ancestors, "organization")
+
+    slug_history: defaultdict[int, list[str]] = get_slug_history(
+        cached_ancestors, language_slug
+    )
+
     for ancestor in cached_ancestors:
         public_translation = ancestor.get_public_translation(language_slug)
         if not public_translation or ancestor.explicitly_archived:
@@ -387,10 +424,12 @@ def get_public_ancestor_translations(
         result.append(
             transform_page(
                 public_translation,
+                ancestor,
                 context={
                     "language_slug": language_slug,
                     "content_object": public_translation,
                 },
+                slug_history=slug_history.get(ancestor.id, []),
             )
         )
     return result
@@ -447,3 +486,27 @@ def push_page_translation_content(
         return JsonResponse({"status": "success"})
     logger.error("Push Content: failed to validate page translation.")
     return JsonResponse({"status": "error"}, status=405)
+
+
+def get_slug_history(
+    pages: PageQuerySet | list[Page], language_slug: str
+) -> defaultdict[int, list[str]]:
+    """
+    :param page: ID of requested page
+    :param language_slug: Code to identify the desired language
+
+    :return: dict with page id and slugs of all versions of the page translation
+    """
+    page_translations = (
+        PageTranslation.objects.filter(page_id__in=pages, language__slug=language_slug)
+        .order_by("version")
+        .values("page_id", "slug")
+    )
+
+    slug_history: defaultdict[int, list[str]] = defaultdict(list)
+    for row in page_translations:
+        slug = row["slug"]
+        if slug not in slug_history[row["page_id"]]:
+            slug_history[row["page_id"]].append(slug)
+
+    return slug_history

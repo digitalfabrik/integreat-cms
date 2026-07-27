@@ -2015,11 +2015,11 @@ msgstr "Das Ende der Veranstaltung kann nicht vor ihrem Beginn sein"
 
 #: cms/forms/events/event_form.py
 msgid ""
-"The end of the event can't be in the past. Please choose today or a future "
-"date and time."
+"The event can't be in the past. Please choose today or a future date and "
+"time."
 msgstr ""
-"Das Ende der Veranstaltung darf nicht in der Vergangenheit liegen. Bitte "
-"wählen Sie heute oder ein zukünftiges Datum und Uhrzeit."
+"Die Veranstaltung darf nicht in der Vergangenheit liegen. Bitte wählen Sie "
+"heute oder ein zukünftiges Datum und Uhrzeit."
 
 #: cms/forms/events/recurrence_rule_form.py
 msgid "No recurrence frequency selected"
@@ -2241,6 +2241,16 @@ msgstr ""
 "Eine Organisation mit diesem Namen existiert bereits in dieser Region. Bitte "
 "wählen Sie einen anderen Namen."
 
+#: cms/forms/pages/mirrored_page_field_widget.py
+msgid ""
+"The page currently selected as live content is not visible to users at this "
+"time because it is in draft status. Once the page is published, the content "
+"will be visible again."
+msgstr ""
+"Die aktuell als Live-Inhalt ausgewählte Seite ist für Nutzende zur Zeit "
+"nicht sichtbar, da sie sich im Entwurfs-Status befindet. Sobald die Seite "
+"veröffentlicht wird, werden die Inhalte wieder sichtbar."
+
 #: cms/forms/pages/page_filter_form.py
 msgid "Translation status"
 msgstr "Übersetzungsstatus"
@@ -2313,6 +2323,16 @@ msgstr "Name"
 #: cms/forms/pois/poi_form.py cms/views/contacts/contact_list_view.py
 msgid "Mobile phone number"
 msgstr "Mobiltelefonnummer"
+
+#: cms/forms/pois/poi_form.py cms/models/pois/poi.py
+#: cms/models/regions/region.py
+msgid "latitude"
+msgstr "Geographische Breite"
+
+#: cms/forms/pois/poi_form.py cms/models/pois/poi.py
+#: cms/models/regions/region.py
+msgid "longitude"
+msgstr "Geographische Länge"
 
 #: cms/forms/pois/poi_form.py
 msgid "An error occurred while saving the opening hours."
@@ -3933,17 +3953,9 @@ msgstr "Stadt"
 msgid "country"
 msgstr "Land"
 
-#: cms/models/pois/poi.py cms/models/regions/region.py
-msgid "latitude"
-msgstr "Geographische Breite"
-
 #: cms/models/pois/poi.py
 msgid "The latitude coordinate"
 msgstr "Die Breitengrad-Koordinate"
-
-#: cms/models/pois/poi.py cms/models/regions/region.py
-msgid "longitude"
-msgstr "Geographische Länge"
 
 #: cms/models/pois/poi.py
 msgid "The longitude coordinate"
@@ -4297,17 +4309,6 @@ msgid "logo"
 msgstr "Logo"
 
 #: cms/models/regions/region.py
-msgid "activate author chat"
-msgstr "Autor:innen-Chat aktivieren"
-
-#: cms/models/regions/region.py
-msgid ""
-"This gives all users of this region access to the cross-regional author chat."
-msgstr ""
-"Dies gewährt allen Benutzer:innen dieser Region Zugang zum überregionalen "
-"Autor:innen-Chat."
-
-#: cms/models/regions/region.py
 msgid "include administrative division into name"
 msgstr "Verwaltungseinheit dem Namen hinzufügen"
 
@@ -4618,26 +4619,6 @@ msgstr "Seitenbaum-Tutorial angesehen"
 #: cms/models/users/user.py
 msgid "Has seen tutorial for page tree"
 msgstr "Hat ein Tutorial für den Seitenbaum angesehen."
-
-#: cms/models/users/user.py
-msgid "automatically distribute sidebar boxes"
-msgstr "Sidebar-Boxen automatisch verteilen"
-
-#: cms/models/users/user.py
-msgid ""
-"Enable this option to automatically distribute the boxes in the sidebar of "
-"forms to make the best use of screen space."
-msgstr ""
-"Aktivieren Sie diese Option, um die Boxen in der Seitenleiste von Formularen "
-"automatisch zu verteilen, um den Platz auf dem Bildschirm optimal zu nutzen."
-
-#: cms/models/users/user.py
-msgid ""
-"This only affects screen resolutions where the boxes are displayed in two "
-"columns."
-msgstr ""
-"Dies betrifft nur Bildschirmauflösungen, bei denen die Boxen in zwei Spalten "
-"angezeigt werden."
 
 #: cms/models/users/user.py
 msgid "TOTP key"
@@ -5493,12 +5474,14 @@ msgstr "Bitte versuchen Sie es später erneut."
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "A server error has occurred."
 msgstr "Ein Serverfehler ist aufgetreten."
 
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_chart.html xliff/utils.py
+#: cms/templates/statistics/statistics_chart.html
+#: cms/templates/statistics/statistics_viewed_pages.html xliff/utils.py
 msgid "Please contact the administrator."
 msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 
@@ -7943,14 +7926,17 @@ msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
 #: cms/templates/pages/pages_page_tree.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "Expand all"
 msgstr "Alle ausklappen"
 
 #: cms/templates/pages/pages_page_tree.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "Collapse all"
 msgstr "Alle einklappen"
 
 #: cms/templates/pages/pages_page_tree.html
+#: cms/templates/statistics/statistics_viewed_pages.html
 msgid "Pages selected"
 msgstr "Seiten ausgewählt"
 
@@ -8865,14 +8851,6 @@ msgid "Change language"
 msgstr "Sprache ändern"
 
 #: cms/templates/settings/user_settings.html
-msgid "Display preferences"
-msgstr "Anzeigeeinstellungen"
-
-#: cms/templates/settings/user_settings.html
-msgid "Save preferences"
-msgstr "Einstellungen speichern"
-
-#: cms/templates/settings/user_settings.html
 msgid "My Username and Name"
 msgstr "Mein Benutzername und Name"
 
@@ -9029,6 +9007,20 @@ msgstr "Der Statistik-Server hat aktuell eine hohe Auslastung."
 msgid "Total accesses"
 msgstr "Gesamtzugriffe"
 
+#: cms/templates/statistics/statistics_overview.html
+msgid ""
+"Note: These numbers show only part of the impact of your content. More and "
+"more people find information through AI assistants like ChatGPT – "
+"<strong>there, your texts are used without a page visit being counted</"
+"strong>. This can considerably distort page views in the future. So use "
+"these numbers only for rough orientation."
+msgstr ""
+"Hinweis: Diese Zahlen zeigen nur einen Teil der Wirkung Ihrer Inhalte. Immer "
+"mehr Menschen finden Informationen über KI-Assistenten wie ChatGPT – "
+"<strong>dort werden Ihre Texte genutzt, ohne dass ein Seitenbesuch gezählt "
+"wird</strong>. Das kann die Seitenaufrufe in Zukunft stark verzerren. Nutzen "
+"Sie die Zahlen also nur zur groben Orientierung."
+
 #: cms/templates/statistics/statistics_sidebar.html
 msgid "Adjust shown data"
 msgstr "Angezeigte Daten anpassen"
@@ -9046,20 +9038,36 @@ msgid "Export"
 msgstr "Exportieren"
 
 #: cms/templates/statistics/statistics_sidebar.html
-msgid "Choose format"
-msgstr "Format auswählen"
+msgid "Please select at least one page."
+msgstr "Bitte wählen Sie mindestens eine Seite aus."
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Please select at least one language."
+msgstr "Bitte wählen Sie mindestens eine Sprache aus."
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Please select at least one page and one language."
+msgstr "Bitte wählen Sie mindestens eine Seite und eine Sprache aus."
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Choose statistics to export"
+msgstr "Wähle Statistiken zum Exportieren aus"
 
 #: cms/templates/statistics/statistics_sidebar.html
 msgid "please select"
 msgstr "bitte auswählen"
 
 #: cms/templates/statistics/statistics_sidebar.html
-msgid "Image/PNG"
-msgstr "Bild/PNG"
+msgid "Image/PNG - Total Accesses"
+msgstr "Bild/PNG - Gesamtzugriffe"
 
 #: cms/templates/statistics/statistics_sidebar.html
-msgid "Table Document/CSV"
-msgstr "Tabellendokument/CSV"
+msgid "Table Document/CSV - Total Accesses"
+msgstr "Tabellendokument/CSV - Gesamtzugriffe"
+
+#: cms/templates/statistics/statistics_sidebar.html
+msgid "Table Document/CSV - Page Accesses"
+msgstr "Tabellendokument/CSV - Seitenzugriffe"
 
 #: cms/templates/statistics/statistics_viewed_pages.html
 msgid "Page views"
@@ -9409,6 +9417,13 @@ msgstr ""
 "Kreuzen Sie an, wenn diese Änderung den Status dieser Übersetzung nicht "
 "verändern soll und keine Aktualisierung der Übersetzungen in anderen "
 "Sprachen erfordert."
+
+#: cms/utils/content_utils.py
+msgid ""
+"This contact belongs to a different region and cannot be displayed."
+msgstr ""
+"Dieser Kontakt gehört zu einer anderen Region und kann nicht angezeigt werden. "
+
 
 #: cms/utils/content_utils.py
 msgid "Oops! Error displaying contact data"
@@ -10093,6 +10108,16 @@ msgstr ""
 "veröffentlichen, aber Sie können Änderungen vornehmen und diese zur Freigabe "
 "vorlegen."
 
+#: cms/views/events/event_form_view.py cms/views/pages/page_form_view.py
+#: cms/views/pois/poi_form_view.py
+#, python-brace-format
+msgid ""
+"The slug was changed from '{user_slug}' to '{slug}', because uppercase "
+"letters are not allowed."
+msgstr ""
+"Der URL-Parameter wurde von '{user_slug}' zu '{slug}' geändert, da "
+"Großbuchstaben nicht erlaubt sind."
+
 #: cms/views/events/event_form_view.py cms/views/pois/poi_form_view.py
 #, python-brace-format
 msgid ""
@@ -10102,6 +10127,12 @@ msgstr ""
 "Der URL-Parameter wurde von '{user_slug}' zu '{slug}' geändert, da "
 "'{user_slug}' bereits von <a>{translation}</a> oder einer vorherigen Version "
 "davon verwendet wird."
+
+#: cms/views/events/event_form_view.py cms/views/pages/page_form_view.py
+#: cms/views/pois/poi_form_view.py
+#, python-brace-format
+msgid "The slug was changed from '{user_slug}' to '{slug}'."
+msgstr "Der URL-Parameter wurde von '{user_slug}' zu '{slug}' geändert."
 
 #: cms/views/events/event_form_view.py
 msgid "Event \"{}\" was successfully created"
@@ -10958,11 +10989,6 @@ msgstr ""
 "'{user_slug}' bereits von <a>{translation}</a> verwendet wird."
 
 #: cms/views/pages/page_form_view.py
-#, python-brace-format
-msgid "The slug was changed from '{user_slug}' to '{slug}'."
-msgstr "Der URL-Parameter wurde von '{user_slug}' zu '{slug}' geändert."
-
-#: cms/views/pages/page_form_view.py
 msgid "Page \"{}\" was successfully created and submitted for approval"
 msgstr "Seite \"{}\" wurde erfolgreich erstellt und zur Freigabe vorgelegt"
 
@@ -11415,10 +11441,6 @@ msgstr "E-Mail-Adresse wurde erfolgreich geändert"
 #: cms/views/settings/user_settings_view.py
 msgid "Password was successfully saved"
 msgstr "Passwort wurde erfolgreich geändert"
-
-#: cms/views/settings/user_settings_view.py
-msgid "Preferences were successfully saved"
-msgstr "Einstellungen wurden erfolgreich gespeichert"
 
 #: cms/views/settings/user_settings_view.py
 msgid "Name was successfully updated"
@@ -12020,6 +12042,55 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Total Access Statistics"
+#~ msgstr "Statistiken für Gesamtzugriffe"
+
+#~ msgid "Page Access Statistics"
+#~ msgstr "Statistiken für Seitenzugriffe"
+
+#~ msgid "Choose format"
+#~ msgstr "Format auswählen"
+
+#~ msgid "Image/PNG"
+#~ msgstr "Bild/PNG"
+
+#~ msgid "automatically distribute sidebar boxes"
+#~ msgstr "Sidebar-Boxen automatisch verteilen"
+
+#~ msgid ""
+#~ "Enable this option to automatically distribute the boxes in the sidebar "
+#~ "of forms to make the best use of screen space."
+#~ msgstr ""
+#~ "Aktivieren Sie diese Option, um die Boxen in der Seitenleiste von "
+#~ "Formularen automatisch zu verteilen, um den Platz auf dem Bildschirm "
+#~ "optimal zu nutzen."
+
+#~ msgid ""
+#~ "This only affects screen resolutions where the boxes are displayed in two "
+#~ "columns."
+#~ msgstr ""
+#~ "Dies betrifft nur Bildschirmauflösungen, bei denen die Boxen in zwei "
+#~ "Spalten angezeigt werden."
+
+#~ msgid "Display preferences"
+#~ msgstr "Anzeigeeinstellungen"
+
+#~ msgid "Save preferences"
+#~ msgstr "Einstellungen speichern"
+
+#~ msgid "Preferences were successfully saved"
+#~ msgstr "Einstellungen wurden erfolgreich gespeichert"
+
+#~ msgid "activate author chat"
+#~ msgstr "Autor:innen-Chat aktivieren"
+
+#~ msgid ""
+#~ "This gives all users of this region access to the cross-regional author "
+#~ "chat."
+#~ msgstr ""
+#~ "Dies gewährt allen Benutzer:innen dieser Region Zugang zum überregionalen "
+#~ "Autor:innen-Chat."
 
 #~ msgid "Cannot generate slug from fallback."
 #~ msgstr "Slug kann nicht aus dem Fallback abgeleitet werden."
@@ -14405,11 +14476,6 @@ msgstr ""
 
 #~ msgid "POI was successfully deleted."
 #~ msgstr "POI wurde erfolgreich gelöscht."
-
-#~ msgid "Please create at least one language node before creating POIs."
-#~ msgstr ""
-#~ "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie POIs "
-#~ "verwalten."
 
 #~ msgid "You cannot edit this POI because it is archived."
 #~ msgstr "Sie können diesen POI nicht bearbeiten, weil er archiviert ist."

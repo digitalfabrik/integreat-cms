@@ -149,7 +149,7 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
                     attributes={
                         "href": xliff_file_url,
                         "class": "font-bold underline hover:no-underline",
-                        "data-auto-download": "",
+                        "data-js-auto-file-download": "",
                         "download": "",
                     },
                 ),
@@ -206,7 +206,7 @@ class ExportMultiLanguageXliffView(PageBulkActionMixin, BulkActionView):
                     attributes={
                         "href": xliff_file_url,
                         "class": "font-bold underline hover:no-underline",
-                        "data-auto-download": "",
+                        "data-js-auto-file-download": "",
                         "download": "",
                     },
                 ),

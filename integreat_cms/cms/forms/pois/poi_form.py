@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from django import forms
 from django.conf import settings
-from django.core.validators import RegexValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.utils.translation import gettext_lazy as _
 from geopy.distance import distance
 from jsonschema import validate
@@ -74,6 +74,17 @@ class POIForm(CustomModelForm):
         label=_("Mobile phone number"),
     )
     website = forms.URLField(max_length=250, required=False, label=_("Website"))
+
+    latitude = forms.FloatField(
+        required=False,
+        validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)],
+        label=_("latitude"),
+    )
+    longitude = forms.FloatField(
+        required=False,
+        validators=[MinValueValidator(-180.0), MaxValueValidator(180.0)],
+        label=_("longitude"),
+    )
 
     class Meta:
         """

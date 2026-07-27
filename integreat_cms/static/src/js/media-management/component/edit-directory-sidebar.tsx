@@ -8,8 +8,8 @@ import { useEffect, useState } from "preact/hooks";
 import cn from "classnames";
 
 import { route } from "preact-router";
-import { showConfirmationPopupAjax } from "../../confirmation-popups";
-import { Directory, MediaApiPaths } from "../index";
+import { showConfirmationPopupAjax } from "../../utils/confirmation-popup";
+import { Directory, MediaApiPaths } from "..";
 
 type Props = {
     directory: Directory;

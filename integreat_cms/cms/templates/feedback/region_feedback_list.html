@@ -50,84 +50,84 @@
             {% include "feedback/_region_feedback_filter_form.html" %}
         </div>
     {% endwith %}
-    <div class="table-listing">
-        <form id="bulk-action-form" method="post">
-            {% csrf_token %}
-        </form>
-        <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white"
-               data-enable-row-checkbox-toggle>
-            <thead>
-                <tr class="border-b border-solid border-gray-200">
-                    <th class="py-3 pl-4 pr-2 min">
-                        <input form="bulk-action-form"
-                               type="checkbox"
-                               id="bulk-select-all"
-                               title="{% translate "Select all" %}" />
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Category" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Feedback on" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Language" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Comment" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Rating" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Rating" %} ({% translate "overall" %})
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Marked as read by" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Date" %}
-                    </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Automatically send" %}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if region_feedback %}
-                    {% for feedback in region_feedback %}
-                        {% include "feedback/region_feedback_list_row.html" with region_feedback=region_feedback %}
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="9" class="px-2 py-3 text-center">
-                            {% if filter_form.has_changed %}
-                                {% if not is_archive %}
-                                    {% translate "No feedback found with these filters." %}
-                                {% else %}
-                                    {% translate "No archived feedback found with these filters." %}
-                                {% endif %}
-                            {% else %}
-                                {% if not is_archive %}
-                                    {% translate "No feedback available yet." %}
-                                {% else %}
-                                    {% translate "No archived feedback available yet." %}
-                                {% endif %}
-                            {% endif %}
-                        </td>
+    <div data-js-bulk-actions>
+        <div class="table-listing">
+            <form id="bulk-action-form" method="post">
+                {% csrf_token %}
+            </form>
+            <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white"
+                   data-enable-row-checkbox-toggle>
+                <thead>
+                    <tr class="border-b border-solid border-gray-200">
+                        <th class="py-3 pl-4 pr-2 min">
+                            <input form="bulk-action-form"
+                                   type="checkbox"
+                                   id="bulk-select-all"
+                                   title="{% translate "Select all" %}" />
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Category" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Feedback on" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Language" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Comment" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Rating" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Rating" %} ({% translate "overall" %})
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Marked as read by" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Date" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Automatically send" %}
+                        </th>
                     </tr>
-                {% endif %}
-            </tbody>
-        </table>
-    </div>
-    {% if region_feedback %}
-        <div class="pt-2 px-2">
-            <div class="inline">
-                <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Feedback entries selected" %}</span>
-            </div>
+                </thead>
+                <tbody>
+                    {% if region_feedback %}
+                        {% for feedback in region_feedback %}
+                            {% include "feedback/region_feedback_list_row.html" with region_feedback=region_feedback %}
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="9" class="px-2 py-3 text-center">
+                                {% if filter_form.has_changed %}
+                                    {% if not is_archive %}
+                                        {% translate "No feedback found with these filters." %}
+                                    {% else %}
+                                        {% translate "No archived feedback found with these filters." %}
+                                    {% endif %}
+                                {% else %}
+                                    {% if not is_archive %}
+                                        {% translate "No feedback available yet." %}
+                                    {% else %}
+                                        {% translate "No archived feedback available yet." %}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
         </div>
-    {% endif %}
-    <div class="flex flex-col">
+        {% if region_feedback %}
+            <div class="pt-2 px-2">
+                <div class="inline">
+                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Feedback entries selected" %}</span>
+                </div>
+            </div>
+        {% endif %}
         {% if perms.cms.change_feedback %}
             <div class="flex self-start gap-2 mt-2">
                 <select id="bulk-action">
@@ -166,6 +166,6 @@
                 </button>
             </div>
         {% endif %}
-        {% include "pagination.html" with chunk=region_feedback %}
     </div>
+    {% include "pagination.html" with chunk=region_feedback %}
 {% endblock content %}

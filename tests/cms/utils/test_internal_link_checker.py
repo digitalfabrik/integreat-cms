@@ -141,3 +141,227 @@ def test_check_internal_skipped(
     """
     url = prepage_url(link, trailing_slash)
     assert check_internal(url) is None, f"URL '{link}' is not skipped"
+
+
+@pytest.mark.django_db
+def test_preserve_ignored_links_across_form_save_cycle(load_test_data: None) -> None:
+    """
+    Mirrors what ``CustomContentModelForm.save`` does on every editor
+    edit: delete the prior version's Link rows, then save the new
+    version. ``preserve_ignored_links`` must carry ``ignore=True`` from
+    the old translation's Link onto the new translation's freshly
+    reconciled Link of the same URL.
+    """
+    from django.contrib.contenttypes.models import ContentType
+    from linkcheck.models import Link
+    from linkcheck.worker_tasks import do_check_instance_links
+
+    from integreat_cms.cms.models import PageTranslation
+    from integreat_cms.cms.utils.link_ignore_preservation import (
+        preserve_ignored_links,
+    )
+
+    embedded_url = "https://this-link-is-not-working.de"
+    translation = (
+        PageTranslation.objects.filter(
+            page__region__slug="augsburg",
+            language__slug="de",
+        )
+        .order_by("-version")
+        .first()
+    )
+    PageTranslation.objects.filter(pk=translation.pk).update(
+        content=f'<a href="{embedded_url}">First text</a>',
+    )
+    translation.refresh_from_db()
+
+    content_type = ContentType.objects.get_for_model(PageTranslation)
+    do_check_instance_links(
+        PageTranslation,
+        translation,
+        PageTranslation._linklist,
+    )
+    Link.objects.filter(
+        content_type=content_type,
+        object_id=translation.pk,
+        url__url=embedded_url,
+    ).update(ignore=True)
+
+    # Production-equivalent form save: snapshot via context manager,
+    # delete the prior version's Links, save a new version with
+    # different link text, then reconcile.
+    new_translation = translation.create_new_version_copy(user=None)
+    new_translation.is_validated = True
+    new_translation.content = f'<a href="{embedded_url}">Second text</a>'
+    with preserve_ignored_links(translation):
+        translation.links.all().delete()
+        new_translation.save()
+        do_check_instance_links(
+            PageTranslation,
+            new_translation,
+            PageTranslation._linklist,
+        )
+
+    surviving_link = Link.objects.get(
+        content_type=content_type,
+        object_id=new_translation.pk,
+        url__url=embedded_url,
+    )
+    assert surviving_link.ignore is True, (
+        "ignore=True should survive the form's delete+save cycle"
+    )
+
+
+@pytest.mark.django_db
+def test_preserve_ignored_links_across_internal_url_rewrite(
+    load_test_data: None,
+) -> None:
+    """
+    When ``clean_content`` rewrites an internal href (e.g. an ancestor
+    slug changed), reconciliation creates a ``Url`` row at the new path
+    distinct from the pre-rewrite row. The whitelist must follow the
+    link's *target*, not its URL string.
+    """
+    from django.contrib.contenttypes.models import ContentType
+    from linkcheck.models import Link
+    from linkcheck.worker_tasks import do_check_instance_links
+
+    from integreat_cms.cms.models import PageTranslation
+    from integreat_cms.cms.utils import internal_link_utils
+    from integreat_cms.cms.utils.link_ignore_preservation import (
+        preserve_ignored_links,
+    )
+
+    old_url = (
+        "https://integreat.app/augsburg/de/legacy-prefix/"
+        "uber-die-app-integreat-augsburg/"
+    )
+    new_url = (
+        "https://integreat.app/augsburg/de/willkommen/uber-die-app-integreat-augsburg/"
+    )
+    target_old = internal_link_utils.get_public_translation_for_link(old_url)
+    target_new = internal_link_utils.get_public_translation_for_link(new_url)
+    assert target_old is not None and target_new is not None
+    assert target_old.foreign_object.pk == target_new.foreign_object.pk
+
+    translation = (
+        PageTranslation.objects.filter(
+            page__region__slug="augsburg",
+            language__slug="de",
+        )
+        .order_by("-version")
+        .first()
+    )
+    PageTranslation.objects.filter(pk=translation.pk).update(
+        content=f'<a href="{old_url}">link</a>',
+    )
+    translation.refresh_from_db()
+
+    content_type = ContentType.objects.get_for_model(PageTranslation)
+    do_check_instance_links(
+        PageTranslation,
+        translation,
+        PageTranslation._linklist,
+    )
+    Link.objects.filter(
+        content_type=content_type,
+        object_id=translation.pk,
+        url__url=old_url,
+    ).update(ignore=True)
+
+    new_translation = translation.create_new_version_copy(user=None)
+    new_translation.is_validated = True
+    new_translation.content = f'<a href="{new_url}">link</a>'
+    with preserve_ignored_links(translation):
+        translation.links.all().delete()
+        new_translation.save()
+        do_check_instance_links(
+            PageTranslation,
+            new_translation,
+            PageTranslation._linklist,
+        )
+
+    surviving_link = Link.objects.get(
+        content_type=content_type,
+        object_id=new_translation.pk,
+        url__url=new_url,
+    )
+    assert surviving_link.ignore is True, (
+        "ignore=True should follow the link's target across a URL rewrite"
+    )
+
+
+@pytest.mark.django_db
+def test_preserve_ignored_links_across_update_links_to(load_test_data: None) -> None:
+    """
+    ``update_links_to`` bumps the version of every translation whose
+    content links to the given translation, deleting and re-creating its
+    Link rows in the process. ``ignore=True`` on the referencing
+    translation's links must survive this cycle.
+    """
+    from django.contrib.contenttypes.models import ContentType
+    from linkcheck.models import Link
+    from linkcheck.worker_tasks import do_check_instance_links
+
+    from integreat_cms.cms.models import PageTranslation
+    from integreat_cms.cms.utils import internal_link_utils
+    from integreat_cms.cms.utils.content_translation_utils import update_links_to
+
+    # An href whose path is outdated but still resolves to the target page,
+    # so that ``clean_content`` rewrites it and ``update_links_to`` saves a
+    # new version of the referencing translation
+    outdated_url = (
+        "https://integreat.app/augsburg/de/legacy-prefix/"
+        "uber-die-app-integreat-augsburg/"
+    )
+    target = internal_link_utils.get_public_translation_for_link(outdated_url)
+    assert target is not None
+
+    referencing = (
+        PageTranslation.objects.filter(
+            page__region__slug="augsburg",
+            language__slug="de",
+            slug="willkommen",
+        )
+        .order_by("-version")
+        .first()
+    )
+    assert referencing.foreign_object != target.foreign_object
+    PageTranslation.objects.filter(pk=referencing.pk).update(
+        content=f'<a href="{outdated_url}">link text</a>',
+    )
+    referencing.refresh_from_db()
+
+    content_type = ContentType.objects.get_for_model(PageTranslation)
+    do_check_instance_links(
+        PageTranslation,
+        referencing,
+        PageTranslation._linklist,
+    )
+    Link.objects.filter(
+        content_type=content_type,
+        object_id=referencing.pk,
+        url__url=outdated_url,
+    ).update(ignore=True)
+
+    update_links_to(target, None)
+
+    new_referencing = referencing.latest_version
+    assert new_referencing.pk != referencing.pk, (
+        "update_links_to should have saved a new version"
+    )
+    assert target.full_url in new_referencing.content
+    do_check_instance_links(
+        PageTranslation,
+        new_referencing,
+        PageTranslation._linklist,
+    )
+
+    surviving_link = Link.objects.get(
+        content_type=content_type,
+        object_id=new_referencing.pk,
+        url__url=target.full_url,
+    )
+    assert surviving_link.ignore is True, (
+        "ignore=True should survive the update_links_to version bump"
+    )
