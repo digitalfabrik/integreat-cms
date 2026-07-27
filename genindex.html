@@ -1150,6 +1150,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_BUDGET_WEIGHT"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_BUDGET_WEIGHT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_CMS_USER_MAIL"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_CMS_USER_MAIL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_TICKET_GROUP"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_TICKET_GROUP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_TICKET_RETENTION_DAYS"><code class="docutils literal notranslate"><span class="pre">INTEGREAT_CHAT_TICKET_RETENTION_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_IPS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_IPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_URLS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LANGUAGES"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a></li>
@@ -1529,6 +1530,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_api_chat">Test API Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.mark_chat_active"><code class="docutils literal notranslate"><span class="pre">mark_chat_active()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.mark_chat_expired"><code class="docutils literal notranslate"><span class="pre">mark_chat_expired()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_first_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_first_chat()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_failure()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_success()</span></code></a></li>
@@ -1538,6 +1541,8 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting_trusted_ip_header"><code class="docutils literal notranslate"><span class="pre">test_api_chat_ratelimiting_trusted_ip_header()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_send_message"><code class="docutils literal notranslate"><span class="pre">test_api_chat_send_message()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_set_evaluation_consent"><code class="docutils literal notranslate"><span class="pre">test_api_chat_set_evaluation_consent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_stale_chat_get_returns_not_found"><code class="docutils literal notranslate"><span class="pre">test_api_chat_stale_chat_get_returns_not_found()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_stale_chat_starts_new_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_stale_chat_starts_new_chat()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_is_chat_enabled_for_user"><code class="docutils literal notranslate"><span class="pre">test_api_is_chat_enabled_for_user()</span></code></a></li>
 </ul>
 </li>
@@ -18776,6 +18781,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_TICKET_GROUP">INTEGREAT_CHAT_TICKET_GROUP (in module integreat_cms.core.settings)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTEGREAT_CHAT_TICKET_RETENTION_DAYS">INTEGREAT_CHAT_TICKET_RETENTION_DAYS (in module integreat_cms.core.settings)</a>
+</li>
       <li>
     integreat_cms
 
@@ -22739,6 +22746,8 @@
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_provider.SummAiProvider.is_enabled">(integreat_cms.summ_ai_api.summ_ai_provider.SummAiProvider class method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.is_expired">is_expired (integreat_cms.cms.models.chat.user_chat.UserChat property)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.icon_widget.IconWidget.is_hidden">is_hidden (integreat_cms.cms.forms.icon_widget.IconWidget property)</a>
 
       <ul>
@@ -24092,6 +24101,10 @@
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.admin_feedback_actions.mark_admin_feedback_as_read">mark_admin_feedback_as_read() (in module integreat_cms.cms.views.feedback.admin_feedback_actions)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.admin_feedback_actions.mark_admin_feedback_as_unread">mark_admin_feedback_as_unread() (in module integreat_cms.cms.views.feedback.admin_feedback_actions)</a>
+</li>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.mark_chat_active">mark_chat_active() (in module tests.api.test_api_chat)</a>
+</li>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.mark_chat_expired">mark_chat_expired() (in module tests.api.test_api_chat)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.content_utils.mark_external_links">mark_external_links() (in module integreat_cms.cms.utils.content_utils)</a>
 </li>
@@ -34740,6 +34753,10 @@
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_set_evaluation_consent">test_api_chat_set_evaluation_consent() (in module tests.api.test_api_chat)</a>
 </li>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_stale_chat_get_returns_not_found">test_api_chat_stale_chat_get_returns_not_found() (in module tests.api.test_api_chat)</a>
+</li>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_stale_chat_starts_new_chat">test_api_chat_stale_chat_starts_new_chat() (in module tests.api.test_api_chat)</a>
+</li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_feedback.test_api_feedback_errors">test_api_feedback_errors() (in module tests.api.test_api_feedback)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_feedback.test_api_feedback_invalid_method">test_api_feedback_invalid_method() (in module tests.api.test_api_feedback)</a>
@@ -34778,10 +34795,10 @@
 </li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_change_to_not_supporting_provider">test_change_to_not_supporting_provider() (in module tests.mt_api.mt_provider_assignment_test)</a>
 </li>
-      <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_change_to_supporting_provider">test_change_to_supporting_provider() (in module tests.mt_api.mt_provider_assignment_test)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_change_to_supporting_provider">test_change_to_supporting_provider() (in module tests.mt_api.mt_provider_assignment_test)</a>
+</li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_repair_tree.test_check_broken_tree_fields">test_check_broken_tree_fields() (in module tests.core.management.commands.test_repair_tree)</a>
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_repair_tree.test_check_clean_tree_fields">test_check_clean_tree_fields() (in module tests.core.management.commands.test_repair_tree)</a>
