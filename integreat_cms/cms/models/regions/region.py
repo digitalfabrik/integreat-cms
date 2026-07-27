@@ -348,9 +348,12 @@ class Region(AbstractBaseModel):
     )
 
     mt_budget_booked = models.PositiveIntegerField(
-        choices=machine_translation_budget.CHOICES,
         default=machine_translation_budget.MINIMAL,
         verbose_name=_("Machine translation budget"),
+        help_text=_(
+            "The booked budget in words. For regions managed via the API this can be any value, "
+            "so no choices are enforced on the model.",
+        ),
     )
 
     mt_renewal_month = models.PositiveIntegerField(
@@ -360,18 +363,29 @@ class Region(AbstractBaseModel):
         help_text=_("Budget usage will be reset on the 1st of the month"),
     )
 
-    mt_midyear_start_month = models.PositiveIntegerField(
-        default=None,
-        blank=True,
-        null=True,
-        choices=months.CHOICES,
-        verbose_name=_("Budget year start date for foreign language translation"),
-        help_text=_("Month from which the add-on package was booked"),
+    mt_budget_adjustment = models.IntegerField(
+        default=0,
+        verbose_name=_("Machine translation budget adjustment"),
+        help_text=_(
+            "Cumulative manual adjustment for the current budget year, added on top of the "
+            "booked budget. Negative values reduce the budget.",
+        ),
     )
 
     mt_budget_used = models.PositiveIntegerField(
         default=0,
         verbose_name=_("used budget"),
+    )
+
+    api_settings_synced_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_("last settings sync via API"),
+        help_text=_(
+            "Set when the region settings were last written through the API. Regions with a "
+            "value here are managed externally and their synced settings are read-only in "
+            "this form.",
+        ),
     )
 
     machine_translate_pages = models.PositiveIntegerField(
@@ -906,21 +920,27 @@ class Region(AbstractBaseModel):
         return self.imprints.first()
 
     @property
+    def is_api_managed(self) -> bool:
+        """
+        Whether the region settings are managed by an external system via the API
+
+        A region counts as API-managed once its settings have been written through the API at
+        least once. The synced settings are then read-only in the region form.
+
+        :return: Whether the settings of this region are managed externally
+        """
+        return self.api_settings_synced_at is not None
+
+    @property
     def mt_budget(self) -> int:
         """
         Calculate the maximum translation credit budget (number of words)
 
         :return: The region's total MT budget
         """
-        # Return the booked MT budget if the region does not have midyear start
-        if self.mt_midyear_start_month is None:
-            return self.mt_budget_booked
-        # All regions which booked the add-on in mid-year get a fraction of the add-on credits
-        # Calculate how many months lie between the renewal month and the start month of the add-on
-        months_difference = self.mt_renewal_month - self.mt_midyear_start_month
-        # Calculate the available fraction of the add-on
-        multiplier = (months_difference % 12) / 12
-        return int(multiplier * self.mt_budget_booked)
+        # The adjustment is a signed cumulative correction for the current budget year, so it can
+        # push the total below zero if more budget was subtracted than booked
+        return max(0, self.mt_budget_booked + self.mt_budget_adjustment)
 
     @property
     def mt_budget_remaining(self) -> int:

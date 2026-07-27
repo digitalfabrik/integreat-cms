@@ -2435,14 +2435,14 @@ msgid "Budget year start differs from the renewal date"
 msgstr "Unterjähriger Start des Abrechnungszeitraums"
 
 #: cms/forms/regions/region_form.py
-msgid ""
-"Enable to set an starting date of machine translation budget calculation "
-"differing from the renewal date. Budget will be set as a monthly fraction of "
-"the booked machine translation budget."
+msgid "Enable to set starting date differing from the renewal date."
 msgstr ""
-"Aktivieren, um ein Startdatum für die Rechnung des Budgets für maschinelle "
-"Übersetztung anzugeben, welches sich vom Zurücksetzungsdatum unterscheidet. "
-"Das Budget wird monatsanteilig vom gebuchten Budgets berechnet."
+"Aktivieren, um ein Startdatum anzugeben, welches sich vom "
+"Zurücksetzungsdatum unterscheidet."
+
+#: cms/forms/regions/region_form.py
+msgid "Budget will be set as a monthly fraction of {} credits"
+msgstr "Das Budget wird monatsanteilig von {} Credits berechnet."
 
 #: cms/forms/regions/region_form.py
 msgid "Zammad forms"
@@ -2468,11 +2468,11 @@ msgstr "Das eingegebene Zugangstoken ist ungültig."
 
 #: cms/forms/regions/region_form.py
 msgid ""
-"Please provide a valid budget year start date for foreign language "
+"Please provide a valid budget year start date for simplified language "
 "translation."
 msgstr ""
 "Bitte geben Sie ein gültiges Startdatum für den Abrechnungszeitraum der "
-"Fremdsprachenübersetzung an."
+"Übersetzung in Einfache Sprache an."
 
 #: cms/forms/regions/region_form.py
 msgid ""
@@ -2529,6 +2529,10 @@ msgstr ""
 #: cms/forms/regions/region_form.py
 msgid "Enter a valid JSON."
 msgstr "Bitte ein gültiges JSON-Objekt eingeben."
+
+#: cms/forms/regions/region_form.py cms/templates/regions/region_form.html
+msgid "Currently SUMM.AI is globally deactivated"
+msgstr "Derzeit ist SUMM.AI global deaktiviert"
 
 #: cms/forms/regions/region_form.py
 msgid "No Textlab API key is set on this system."
@@ -2818,10 +2822,6 @@ msgstr ""
 #: cms/models/regions/region.py cms/models/users/organization.py
 msgid "modification date"
 msgstr "Änderungsdatum"
-
-#: cms/models/abstract_content_translation.py
-msgid "publication date"
-msgstr "Veröffentlichungsdatum"
 
 #: cms/models/abstract_content_translation.py
 #: cms/models/external_calendars/external_calendar.py
@@ -4381,29 +4381,78 @@ msgstr ""
 "auf Textverständlichkeit zu untersuchen."
 
 #: cms/models/regions/region.py
-msgid "Machine translation budget"
-msgstr "Budget für Maschinelle Übersetzung"
+msgid "activate automatic translations via SUMM.AI"
+msgstr "Automatische Übersetzungen über SUMM.AI aktivieren"
 
 #: cms/models/regions/region.py
-msgid "Credits renewal date for foreign language translation"
-msgstr "Credits Zurücksetzungsdatum für Fremdsprachenübersetzung"
+msgid ""
+"Whether automatic translations into Easy German with SUMM.AI are enabled"
+msgstr ""
+"Ob automatische Übersetzungen in Leichte Sprache mit SUMM.AI aktiviert sind"
+
+#: cms/models/regions/region.py
+msgid "Budget year start date for simplified language translation"
+msgstr ""
+"Unterjähriger Start des Abrechnungszeitraums für Übersetzung in Einfache "
+"Sprache"
+
+#: cms/models/regions/region.py
+msgid "Month from which SUMM.AI was booked"
+msgstr "Monat ab welchem SUMM.AI gebucht wurde"
+
+#: cms/models/regions/region.py
+msgid "Credits renewal date for simplified language translation"
+msgstr "Zurücksetzungsdatum der Credits für Übersetzung in Einfache Sprache"
 
 #: cms/models/regions/region.py
 msgid "Budget usage will be reset on the 1st of the month"
 msgstr "Das Budget wird zum 1. des angegebenen Monats zurückgesetzt"
 
 #: cms/models/regions/region.py
-msgid "Budget year start date for foreign language translation"
-msgstr ""
-"Unterjähriger Start des Abrechnungszeitraums für Fremdsprachenübersetzung"
-
-#: cms/models/regions/region.py
-msgid "Month from which the add-on package was booked"
-msgstr "Monat ab welchem das Add-On Paket gebucht wurde"
-
-#: cms/models/regions/region.py
 msgid "used budget"
 msgstr "verbrauchtes Budget"
+
+#: cms/models/regions/region.py
+msgid "Machine translation budget"
+msgstr "Budget für Maschinelle Übersetzung"
+
+#: cms/models/regions/region.py
+msgid ""
+"The booked budget in words. For regions managed via the API this can be any "
+"value, so no choices are enforced on the model."
+msgstr ""
+"Das gebuchte Budget in Wörtern. Für Regionen, die über die API verwaltet "
+"werden, sind beliebige Werte möglich, daher gibt es keine feste Auswahl."
+
+#: cms/models/regions/region.py
+msgid "Credits renewal date for foreign language translation"
+msgstr "Credits Zurücksetzungsdatum für Fremdsprachenübersetzung"
+
+#: cms/models/regions/region.py
+msgid "Machine translation budget adjustment"
+msgstr "Anpassung des Budgets für Maschinelle Übersetzung"
+
+#: cms/models/regions/region.py
+msgid ""
+"Cumulative manual adjustment for the current budget year, added on top of "
+"the booked budget. Negative values reduce the budget."
+msgstr ""
+"Kumulierte manuelle Anpassung für das laufende Budgetjahr, die zum gebuchten "
+"Budget hinzugerechnet wird. Negative Werte verringern das Budget."
+
+#: cms/models/regions/region.py
+msgid "last settings sync via API"
+msgstr "Letzte Synchronisierung der Einstellungen über die API"
+
+#: cms/models/regions/region.py
+msgid ""
+"Set when the region settings were last written through the API. Regions with "
+"a value here are managed externally and their synced settings are read-only "
+"in this form."
+msgstr ""
+"Wird gesetzt, wenn die Regionseinstellungen zuletzt über die API geschrieben "
+"wurden. Regionen mit einem Wert werden extern verwaltet, ihre "
+"synchronisierten Einstellungen sind in diesem Formular schreibgeschützt."
 
 #: cms/models/regions/region.py cms/templates/_base.html
 #: cms/templates/contacts/contact_form.html
@@ -4512,24 +4561,16 @@ msgid "token prefix"
 msgstr "Token-Präfix"
 
 #: cms/models/users/api_token.py
-msgid ""
-"The public part of the token which is used to identify it. It is stored as "
-"raw bytes and hex encoded in the plaintext token."
-msgstr ""
-"Der öffentliche Teil des Tokens, über den es identifiziert wird. Er wird als "
-"Rohbytes gespeichert und im Klartext-Token hexadezimal kodiert."
+msgid "The public part of the token which is used to identify it."
+msgstr "Der öffentliche Teil des Tokens, über den es identifiziert wird."
 
 #: cms/models/users/api_token.py
 msgid "token hash"
 msgstr "Token-Hash"
 
 #: cms/models/users/api_token.py
-msgid ""
-"The raw SHA-256 digest of the full plaintext token, i.e. of the hex encoded "
-"prefix, the separator and the secret."
-msgstr ""
-"Der rohe SHA-256-Hash des vollständigen Klartext-Tokens, also des "
-"hexadezimal kodierten Präfixes, des Trennzeichens und des geheimen Teils."
+msgid "The hash of the full token."
+msgstr "Der Hash des vollständigen Tokens."
 
 #: cms/models/users/api_token.py cms/models/users/user_fido_key.py
 msgid "last date of use"
@@ -8142,42 +8183,29 @@ msgid "Archive location"
 msgstr "Ort archivieren"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
-msgid ""
-"You cannot archive a location which is referenced by a non-archived event."
+msgid "You cannot archive a location which is referenced by an event."
 msgstr ""
-"Der Ort kann nicht archiviert werden, da er von einer nicht-archivierten "
-"Veranstaltung verwendet wird."
+"Der Ort kann nicht archiviert werden, da er von einer Veranstaltung "
+"verwendet wird."
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
-msgid ""
-"To archive this location, you have to archive or delete this event first:"
-msgid_plural ""
-"To archive this location, you have to archive or delete these events first:"
-msgstr[0] ""
-"Archivieren oder löschen Sie zuerst diese Veranstaltung, um den Ort zu "
-"archivieren:"
+msgid "To archive this location, you have to delete this event first:"
+msgid_plural "To archive this location, you have to delete these events first:"
+msgstr[0] "Löschen Sie zuerst diese Veranstaltung, um den Ort zu archivieren:"
 msgstr[1] ""
-"Archivieren oder löschen Sie zuerst diese Veranstaltungen, um den Ort zu "
-"archivieren:"
+"Löschen Sie zuerst diese Veranstaltungen, um den Ort zu archivieren:"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
-msgid ""
-"You cannot archive a location which is referenced by a non-archived contact."
+msgid "You cannot archive a location which is referenced by a contact."
 msgstr ""
-"Der Ort kann nicht archiviert werden, da er von einem nicht-archivierten "
-"Kontakt verwendet wird."
+"Der Ort kann nicht archiviert werden, da er von einem Kontakt verwendet wird."
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
-msgid ""
-"To archive this location, you have to archive or delete this contact first:"
+msgid "To archive this location, you have to delete this contact first:"
 msgid_plural ""
-"To archive this location, you have to archive or delete these contacts first:"
-msgstr[0] ""
-"Archivieren oder löschen Sie zuerst diesen Kontakt, um den Ort zu "
-"archivieren:"
-msgstr[1] ""
-"Archivieren oder löschen Sie zuerst diese Kontakte, um den Ort zu "
-"archivieren:"
+"To archive this location, you have to delete these contacts first:"
+msgstr[0] "Löschen Sie zuerst diesen Kontakt, um den Ort zu archivieren:"
+msgstr[1] "Löschen Sie zuerst diese Kontakte, um den Ort zu archivieren:"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Archive this location"
@@ -8569,6 +8597,18 @@ msgid "Create new region"
 msgstr "Neue Region erstellen"
 
 #: cms/templates/regions/region_form.html
+#, python-format
+msgid ""
+"The booked features and the translation budget of this region are managed "
+"via the API and were last synced on %(last_sync)s. These settings are read-"
+"only here and have to be changed in the connected system."
+msgstr ""
+"Die gebuchten Funktionen und das Übersetzungsbudget dieser Region werden über "
+"die API verwaltet und wurden zuletzt am %(last_sync)s synchronisiert. Diese "
+"Einstellungen sind hier schreibgeschützt und müssen im angebundenen System "
+"geändert werden."
+
+#: cms/templates/regions/region_form.html
 msgid "Center of the region"
 msgstr "Mittelpunkt der Region"
 
@@ -8613,12 +8653,8 @@ msgstr ""
 "derzeit keine Auswirkung."
 
 #: cms/templates/regions/region_form.html
-msgid "Currently HIX is globally deactivated"
-msgstr "HIX is currently deactivated globally"
-
-#: cms/templates/regions/region_form.html
-msgid "Foreign language machine translation"
-msgstr "Maschinelle Übersetzungen für Fremdsprachen verwalten"
+msgid "Simplified language machine translation"
+msgstr "Maschinelle Übersetzungen für Einfache Sprache verwalten"
 
 #: cms/templates/regions/region_form.html
 msgid "Current total budget"
@@ -8631,6 +8667,14 @@ msgstr "Bereits verbraucht"
 #: cms/templates/regions/region_form.html
 msgid "Remaining words"
 msgstr "Verbleibende Wörter"
+
+#: cms/templates/regions/region_form.html
+msgid "Currently HIX is globally deactivated"
+msgstr "HIX is currently deactivated globally"
+
+#: cms/templates/regions/region_form.html
+msgid "Foreign language machine translation"
+msgstr "Maschinelle Übersetzungen für Fremdsprachen verwalten"
 
 #: cms/templates/regions/region_form.html
 msgid ""
@@ -8907,7 +8951,8 @@ msgstr ""
 
 #: cms/templates/settings/user_settings.html
 msgid "Copy your new API token now — it will not be shown again."
-msgstr "Kopieren Sie Ihr neues API-Token jetzt – es wird nicht erneut angezeigt."
+msgstr ""
+"Kopieren Sie Ihr neues API-Token jetzt – es wird nicht erneut angezeigt."
 
 #: cms/templates/settings/user_settings.html
 msgid "Token name"
@@ -9034,7 +9079,6 @@ msgstr "Angezeigte Sprachen"
 
 #: cms/templates/statistics/_statistics_legend.html
 #: cms/templates/statistics/statistics_viewed_pages.html
-#: cms/templates/statistics/statistics_viewed_pages_node.html
 msgid "Accesses"
 msgstr "Zugriffe"
 
@@ -9053,11 +9097,11 @@ msgstr "Gesamtzugriffe"
 
 #: cms/templates/statistics/statistics_overview.html
 msgid ""
-"The <strong>statistics show only part of the impact of your content.</"
-"strong> More and more people find information through AI assistants like "
-"ChatGPT. There, your texts are used without a page visit being counted. This "
-"can considerably distort page views. <strong>So use these numbers only for "
-"rough orientation.</strong>"
+"Note: These numbers show only part of the impact of your content. More and "
+"more people find information through AI assistants like ChatGPT – "
+"<strong>there, your texts are used without a page visit being counted</"
+"strong>. This can considerably distort page views in the future. So use "
+"these numbers only for rough orientation."
 msgstr ""
 "Die <strong>Statistiken zeigen nur einen Teil der Wirkung Ihrer Inhalte.</"
 "strong> Immer mehr Menschen finden Informationen über KI-Assistenten wie "
@@ -9170,27 +9214,21 @@ msgstr "Tabellendokument/CSV - Seitenzugriffe"
 msgid "Page views"
 msgstr "Seitenzugriffe"
 
-#: cms/templates/statistics/statistics_viewed_pages.html
-msgid "All pages with the status <strong>\"Published\"</strong> are listed."
-msgstr ""
-"Aufgelistet sind alle Seiten, die den Status <strong>\"Veröffentlicht\"</"
-"strong> haben."
-
 #: cms/templates/statistics/statistics_viewed_pages_node.html
 msgid "This page has no accesses in the selected time span"
 msgstr "Diese Seite hat keine Zugriffe für den ausgewählten Zeitraum"
 
 #: cms/templates/statistics/statistics_viewed_pages_node.html
-msgid "Access"
-msgstr "Zugriff"
+msgid "Accesses in total"
+msgstr "Zugriffe insgesamt"
+
+#: cms/templates/statistics/statistics_viewed_pages_node.html
+msgid "Access in total"
+msgstr "Zugriff insgesamt"
 
 #: cms/templates/statistics/statistics_viewed_pages_node.html
 msgid "No Accesses"
 msgstr "Keine Zugriffe"
-
-#: cms/templates/statistics/statistics_viewed_pages_node.html
-msgid " in total (incl. child pages)"
-msgstr " gesamt (inkl. Unterseiten)"
 
 #: cms/templates/translations/translations_management.html
 msgid "Manage machine translations"
@@ -9977,11 +10015,6 @@ msgstr "Bitte bestätigen Sie, dass dieser Kontakt archiviert werden soll."
 msgid "Please confirm that you really want to restore this contact"
 msgstr ""
 "Bitte bestätigen Sie, dass dieser Kontakt wiederhergestellt werden soll"
-
-#: cms/views/contacts/contact_context_mixin.py
-#: cms/views/events/event_context_mixin.py
-msgid "The following linked content will also be restored:"
-msgstr "Folgende verknüpfte Inhalte werden ebenfalls wiederhergestellt:"
 
 #: cms/views/contacts/contact_context_mixin.py
 msgid "Please confirm that you really want to delete this contact"
@@ -11183,12 +11216,10 @@ msgid "Location was successfully archived"
 msgstr "Ort wurde erfolgreich archiviert"
 
 #: cms/views/pois/poi_actions.py
-msgid ""
-"This location cannot be archived because it is referenced by an event or a "
-"contact that is not archived."
+msgid "This location cannot be archived because it is referenced by an event."
 msgstr ""
-"Dieser Ort kann nicht archiviert werden, da er von einer nicht-archivierten "
-"Veranstaltung oder einem nicht-archivierten Kontakt verwendet wird."
+"Dieser Ort kann nicht archiviert werden, da er von einer Veranstaltung oder "
+"einem Kontakt verwendet wird."
 
 #: cms/views/pois/poi_actions.py
 msgid "Location was successfully restored"
@@ -11242,10 +11273,12 @@ msgstr "Alle Übersetzungen dieses Ortes werden gelöscht."
 #: cms/views/pois/poi_context_mixin.py
 msgid ""
 "You cannot archive a location which is used by an upcoming event or a "
-"contact."
+"contact. \n"
+"This also involves archived events and contacts"
 msgstr ""
 "Sie können keinen Ort archivieren, der von einer zukünftigen Veranstaltung "
-"oder einem Kontakt verwendet wird."
+"oder einem Kontakt verwendet wird. \n"
+"Dies betrifft auch archivierte Veranstaltungen und Kontakte"
 
 #: cms/views/pois/poi_context_mixin.py
 msgid ""
@@ -12002,6 +12035,43 @@ msgstr "Nominatim API"
 msgid "Sitemap"
 msgstr "Sitemap"
 
+#: summ_ai_api/apps.py
+msgid "SUMM.AI API"
+msgstr "SUMM.AI API"
+
+#: summ_ai_api/summ_ai_api_client.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} has been successfully translated into Easy "
+"German."
+msgid_plural ""
+"The following {model_name} have been successfully translated into Easy "
+"German: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} wurde erfolgreich in Leichte Sprache übersetzt."
+msgstr[1] ""
+"Die folgenden {model_name} wurden erfolgreich in Leichte Sprache übersetzt: "
+"{object_names}"
+
+#: summ_ai_api/summ_ai_api_client.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} could not be automatically translated into Easy "
+"German."
+msgid_plural ""
+"The following {model_name} could not be automatically translated into Easy "
+"German: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} konnte nicht automatisch in Leichte Sprache "
+"übersetzt werden."
+msgstr[1] ""
+"Die folgenden {model_name} konnten nicht automatisch in Leichte Sprache "
+"übersetzt werden: {object_names}"
+
+#: summ_ai_api/utils.py
+msgid "No German translation could be found for {} \"{}\"."
+msgstr "Es konnte keine Deutsche Übersetzung für {} \"{}\" gefunden werden."
+
 #: textlab_api/apps.py
 msgid "TextLab API"
 msgstr "TextLab API"
@@ -12124,104 +12194,32 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
-#~ msgid "Enable to set starting date differing from the renewal date."
+#~ msgid ""
+#~ "Enable to set an starting date of machine translation budget calculation "
+#~ "differing from the renewal date. Budget will be set as a monthly fraction "
+#~ "of the booked machine translation budget."
 #~ msgstr ""
-#~ "Aktivieren, um ein Startdatum anzugeben, welches sich vom "
-#~ "Zurücksetzungsdatum unterscheidet."
-
-#~ msgid "Budget will be set as a monthly fraction of {} credits"
-#~ msgstr "Das Budget wird monatsanteilig von {} Credits berechnet."
+#~ "Aktivieren, um ein Startdatum für die Rechnung des Budgets für "
+#~ "maschinelle Übersetztung anzugeben, welches sich vom Zurücksetzungsdatum "
+#~ "unterscheidet. Das Budget wird monatsanteilig vom gebuchten Budgets "
+#~ "berechnet."
 
 #~ msgid ""
-#~ "Please provide a valid budget year start date for simplified language "
+#~ "Please provide a valid budget year start date for foreign language "
 #~ "translation."
 #~ msgstr ""
 #~ "Bitte geben Sie ein gültiges Startdatum für den Abrechnungszeitraum der "
-#~ "Übersetzung in Einfache Sprache an."
+#~ "Fremdsprachenübersetzung an."
 
-#~ msgid "Currently SUMM.AI is globally deactivated"
-#~ msgstr "Derzeit ist SUMM.AI global deaktiviert"
-
-#~ msgid "activate automatic translations via SUMM.AI"
-#~ msgstr "Automatische Übersetzungen über SUMM.AI aktivieren"
-
-#~ msgid ""
-#~ "Whether automatic translations into Easy German with SUMM.AI are enabled"
+#~ msgid "Budget year start date for foreign language translation"
 #~ msgstr ""
-#~ "Ob automatische Übersetzungen in Leichte Sprache mit SUMM.AI aktiviert "
-#~ "sind"
+#~ "Unterjähriger Start des Abrechnungszeitraums für Fremdsprachenübersetzung"
 
-#~ msgid "Budget year start date for simplified language translation"
-#~ msgstr ""
-#~ "Unterjähriger Start des Abrechnungszeitraums für Übersetzung in Einfache "
-#~ "Sprache"
+#~ msgid "Month from which the add-on package was booked"
+#~ msgstr "Monat ab welchem das Add-On Paket gebucht wurde"
 
-#~ msgid "Month from which SUMM.AI was booked"
-#~ msgstr "Monat ab welchem SUMM.AI gebucht wurde"
-
-#~ msgid "Credits renewal date for simplified language translation"
-#~ msgstr "Zurücksetzungsdatum der Credits für Übersetzung in Einfache Sprache"
-
-#~ msgid "Simplified language machine translation"
-#~ msgstr "Maschinelle Übersetzungen für Einfache Sprache verwalten"
-
-#~ msgid "SUMM.AI API"
-#~ msgstr "SUMM.AI API"
-
-#, python-brace-format
-#~ msgid ""
-#~ "{model_name} {object_names} has been successfully translated into Easy "
-#~ "German."
-#~ msgid_plural ""
-#~ "The following {model_name} have been successfully translated into Easy "
-#~ "German: {object_names}"
-#~ msgstr[0] ""
-#~ "{model_name} {object_names} wurde erfolgreich in Leichte Sprache "
-#~ "übersetzt."
-#~ msgstr[1] ""
-#~ "Die folgenden {model_name} wurden erfolgreich in Leichte Sprache "
-#~ "übersetzt: {object_names}"
-
-#, python-brace-format
-#~ msgid ""
-#~ "{model_name} {object_names} could not be automatically translated into "
-#~ "Easy German."
-#~ msgid_plural ""
-#~ "The following {model_name} could not be automatically translated into "
-#~ "Easy German: {object_names}"
-#~ msgstr[0] ""
-#~ "{model_name} {object_names} konnte nicht automatisch in Leichte Sprache "
-#~ "übersetzt werden."
-#~ msgstr[1] ""
-#~ "Die folgenden {model_name} konnten nicht automatisch in Leichte Sprache "
-#~ "übersetzt werden: {object_names}"
-
-#~ msgid "No German translation could be found for {} \"{}\"."
-#~ msgstr "Es konnte keine Deutsche Übersetzung für {} \"{}\" gefunden werden."
-
-#~ msgid "<strong>Page views</strong> specifically count "
-#~ msgstr "<strong>Seitenzugriffe</strong> zählen gezielt "
-
-#~ msgid "only "
-#~ msgstr "nur "
-
-#~ msgid "the visits to published subpages within the web app."
-#~ msgstr "die Aufrufe der veröffentlichten Unterseiten in der Web-App."
-
-#~ msgid "documentation"
-#~ msgstr "Dokumentation"
-
-#~ msgid "This is normal and to be expected"
-#~ msgstr "Das ist normal und zu erwarten"
-
-#~ msgid ""
-#~ "You cannot archive a location which is used by an upcoming event or a "
-#~ "contact. \n"
-#~ "This also involves archived events and contacts"
-#~ msgstr ""
-#~ "Sie können keinen Ort archivieren, der von einer zukünftigen "
-#~ "Veranstaltung oder einem Kontakt verwendet wird. \n"
-#~ "Dies betrifft auch archivierte Veranstaltungen und Kontakte"
+#~ msgid "Your new API token is: {}"
+#~ msgstr "Ihr neues API-Token lautet: {}"
 
 #~ msgid "push notification"
 #~ msgstr "Push-Benachrichtigung"
@@ -12822,6 +12820,11 @@ msgstr ""
 #~ msgid "Back to the location form"
 #~ msgstr "Zurück zum Orts-Formular"
 
+#~ msgid "You cannot archive a location which is used by an event."
+#~ msgstr ""
+#~ "Der Ort kann nicht archiviert werden, da er von einer Veranstaltung "
+#~ "verwendet wird."
+
 #~ msgid "\"{} {}\" was not in translation process."
 #~ msgid_plural "The following \"{}\" were not in translation process: \"{}\""
 #~ msgstr[0] "\"{} {}\" war nicht im Überestzungsprozess"
@@ -13185,6 +13188,9 @@ msgstr ""
 
 #~ msgid "Link to within the same page (not automatically checked)"
 #~ msgstr "Link innerhalb der gleichen Seite (nicht automatisch geprüft)"
+
+#~ msgid "Missing Document"
+#~ msgstr "Fehlende Datei"
 
 #~ msgid "Page OK but anchor can't be checked"
 #~ msgstr "Seite OK, aber Anker kann nicht überprüft werden"
