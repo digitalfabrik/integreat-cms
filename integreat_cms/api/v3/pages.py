@@ -86,6 +86,7 @@ def transform_page(
 
     organization = page.organization
     absolute_url = page_translation.get_absolute_url()
+    content = expand_shortcodes(page_translation.combined_text, context=context)
     return {
         "id": page_translation.id,
         "url": settings.BASE_URL + absolute_url,
@@ -96,10 +97,8 @@ def transform_page(
         "published_at": timezone.localtime(
             page_translation.published_at or page_translation.last_updated,
         ),
-        "excerpt": strip_tags(
-            expand_shortcodes(page_translation.combined_text, context=context)
-        ),
-        "content": expand_shortcodes(page_translation.combined_text, context=context),
+        "excerpt": strip_tags(content),
+        "content": content,
         "parent": parent,
         "order": order,
         "available_languages": page_translation.available_languages_dict,

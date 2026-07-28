@@ -540,6 +540,23 @@ class AbstractContentTranslation(AbstractBaseModel):
         return str(self)
 
     @cached_property
+    def content_with_expanded_links(self) -> str:
+        """
+        The content as it should be presented to users of the CMS, which means with all
+        shortcodes referencing internal content expanded into ordinary links.
+
+        Everything which is saved back through
+        :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
+        is collapsed into shortcodes again.
+
+        :return: The content with expanded links
+        """
+        # Imported here because the utils import the models
+        from ..utils.link_shortcode_utils import expand_link_shortcodes
+
+        return expand_link_shortcodes(self.content, self.language.slug)
+
+    @cached_property
     def hix_enabled(self) -> bool:
         """
         This function returns whether the HIX API is enabled for this instance

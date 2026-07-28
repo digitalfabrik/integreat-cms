@@ -55,6 +55,12 @@ class CustomContentModelForm(CustomModelForm):
             with suppress(ObjectDoesNotExist):
                 self.locked_by_user = self.instance.foreign_object.get_locking_user()
 
+        # References to internal content are stored as shortcodes, but editors should keep
+        # working with ordinary links, so expand them before they are put into the editor
+        if "content" in self.fields and self.instance.content:
+            with suppress(ObjectDoesNotExist):
+                self.initial["content"] = self.instance.content_with_expanded_links
+
     def clean(self) -> dict[str, Any]:
         """
         This method extends the ``clean()``-method to verify that a user can modify this content model

@@ -22,6 +22,7 @@ from ..models import (
     PageTranslation,
     POITranslation,
 )
+from ..utils.link_shortcode_utils import expand_link_shortcodes
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -162,6 +163,21 @@ def build_url(
     if content_field and content_id:
         kwargs[content_field] = content_id
     return reverse(target, kwargs=kwargs)
+
+
+@register.filter
+def expand_links(content: str, language_slug: str) -> str:
+    """
+    Expand the shortcodes which reference internal content into ordinary links.
+
+    This is needed wherever content is presented to users of the CMS instead of being
+    delivered through the API, for example in the PDF export.
+
+    :param content: The content as it is stored in the database
+    :param language_slug: The slug of the language the content should be presented in
+    :return: The content with expanded links
+    """
+    return expand_link_shortcodes(content, language_slug)
 
 
 @register.filter

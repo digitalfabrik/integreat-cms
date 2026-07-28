@@ -14,11 +14,14 @@ from ..constants import status
 from ..models import (
     EventTranslation,
     ImprintPageTranslation,
+    Page,
     PageTranslation,
     POITranslation,
 )
 
 if TYPE_CHECKING:
+    from typing import Final
+
     from lxml.html import Element
 
     from ..models.abstract_content_translation import AbstractContentTranslation
@@ -190,3 +193,86 @@ def get_public_translation_for_short_link(
         return None
 
     return instance.public_version
+
+
+#: The first path segment of urls which point to something else than a page
+NON_PAGE_URL_INFIXES: Final[frozenset[str]] = frozenset(
+    {"events", "locations", "disclaimer", "news", "offers", "search"},
+)
+
+
+def get_page_for_link(url: str) -> Page | None:
+    """
+    Get the page an internal url points to.
+
+    In contrast to :func:`~integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_link`,
+    this does not care about the publication status of the target, because links to pages which
+    are not public (yet) have to be recognized as internal references as well.
+
+    :param url: The url
+    :returns: The referenced page, or ``None`` if the url does not point to one
+    """
+    if not url:
+        return None
+    parsed_url = urlparse(url)
+    if parsed_url.netloc == WEBAPP_NETLOC:
+        return get_page_for_webapp_link(parsed_url.path)
+    if parsed_url.netloc == SHORT_LINKS_NETLOC:
+        return get_page_for_short_link(parsed_url.path)
+    return None
+
+
+def get_page_for_webapp_link(path: str) -> Page | None:
+    """
+    Get the page a webapp url path points to
+
+    :param path: The url path, for example ``/augsburg/de/willkommen/``
+    :returns: The referenced page, or ``None`` if the path does not point to one
+    """
+    parts: list[str] = unquote(path).strip("/").split("/")
+    if len(parts) < 3:
+        # Not a link to a specific piece of content
+        return None
+
+    region_slug, language_slug, *path_parts = parts
+    if path_parts[0] in NON_PAGE_URL_INFIXES:
+        return None
+
+    pages = Page.objects.filter(
+        region__slug=region_slug,
+        translations__language__slug=language_slug,
+        translations__slug=path_parts[-1],
+    ).distinct()
+
+    if len(pages) < 2:
+        return pages.first()
+
+    # The slug of a page is only unique among its siblings, so if the last path part is
+    # ambiguous, prefer the page whose current url matches the whole path. Outdated urls
+    # are still tolerated, because their slug is kept in the version history.
+    for page in pages:
+        if (
+            translation := page.get_translation(language_slug)
+        ) and translation.get_absolute_url().strip("/") == "/".join(parts):
+            return page
+    return pages.first()
+
+
+def get_page_for_short_link(path: str) -> Page | None:
+    """
+    Get the page a short url path points to
+
+    :param path: The url path, for example ``/s/p/124/``
+    :returns: The referenced page, or ``None`` if the path does not point to one
+    """
+    parts: list[str] = unquote(path).strip("/").split("/")
+    if len(parts) != 3 or parts[0] != "s" or parts[1] != "p":
+        # Short links to other content types do not have a page shortcode (yet)
+        return None
+
+    try:
+        translation_id = int(parts[2])
+    except ValueError:
+        return None
+
+    return Page.objects.filter(translations__id=translation_id).first()

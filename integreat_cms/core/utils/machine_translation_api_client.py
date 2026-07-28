@@ -358,6 +358,22 @@ class MachineTranslationApiClient(ABC):
                         and not (attr == "title" and skip_title)
                     ]
 
+                # Machine translation providers must never see shortcodes, because they
+                # would happily translate them into something we cannot resolve anymore.
+                # Whatever comes back is collapsed into shortcodes again on save.
+                # Imported here because this module is loaded before the models are ready
+                from ...cms.utils.link_shortcode_utils import expand_link_shortcodes
+
+                ctx.translatable_attributes = [
+                    (
+                        attr,
+                        expand_link_shortcodes(value, self.source_language.slug)
+                        if attr == "content"
+                        else value,
+                    )
+                    for attr, value in ctx.translatable_attributes
+                ]
+
                 ctx.word_count = word_count(
                     ctx.translatable_attributes,
                 )

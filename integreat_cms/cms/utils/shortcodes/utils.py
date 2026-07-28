@@ -1,10 +1,24 @@
 from collections.abc import Callable
+from typing import overload, ParamSpec, TypeVar
 
 import shortcodes
 
+R = TypeVar("R")
+P = ParamSpec("P")
 
-def shortcode[**P, R](
-    tag: Callable[P, R] | str | None, endtag: str | None = None
+
+@overload
+def shortcode(tag: Callable[P, R]) -> Callable[P, R]: ...
+
+
+@overload
+def shortcode(
+    tag: str | None = None, endtag: str | None = None
+) -> Callable[[Callable[P, R]], Callable[P, R]]: ...
+
+
+def shortcode(
+    tag: Callable[P, R] | str | None = None, endtag: str | None = None
 ) -> Callable[[Callable[P, R]], Callable[P, R]] | Callable[P, R]:
     """
     Decorator to register a function as a shortcode
