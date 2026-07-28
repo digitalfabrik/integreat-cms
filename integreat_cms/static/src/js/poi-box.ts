@@ -41,6 +41,8 @@ const setPoi = ({ target }: Event) => {
         option.getAttribute("data-poi-id")
     );
     document.getElementById("poi-address-container")?.classList.remove("hidden");
+    document.getElementById("poi-query-input")?.classList.add("placeholder-gray-800", "focus:placeholder-gray-800");
+    document.getElementById("poi-query-input")?.classList.remove("focus:placeholder-gray-600");
     console.debug("Rendered POI data");
     document.getElementById("info-location-mandatory")?.classList.add("hidden");
 };
@@ -176,12 +178,10 @@ const removePoi = () => {
     // Hide the address container
     document.getElementById("poi-address-container")?.classList.add("hidden");
     // Clear the search container
-    document
-        .getElementById("poi-query-input")
-        .setAttribute(
-            "placeholder",
-            document.getElementById("poi-query-input").getAttribute("data-default-placeholder")
-        );
+    const poiQueryInput = document.getElementById("poi-query-input");
+    poiQueryInput.setAttribute("placeholder", poiQueryInput.getAttribute("data-default-placeholder"));
+    poiQueryInput.classList.remove("placeholder-gray-800", "focus:placeholder-gray-800");
+    poiQueryInput.classList.add("focus:placeholder-gray-600");
     hideSearchResults();
     // Clear the poi form
     hidePoiFormWidget();
