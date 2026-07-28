@@ -559,3 +559,99 @@ def test_ignore_not_inherited_from_archived_page(load_test_data: None) -> None:
     assert new_link.ignore is False, (
         "ignore=True must not be inherited from an archived page"
     )
+
+
+@pytest.mark.django_db
+def test_ignore_not_inherited_from_past_event(load_test_data: None) -> None:
+    """
+    Only upcoming events appear in the broken-links dashboard, so a URL that
+    is only verified on an event which has meanwhile passed must not suppress
+    the same URL when it later appears on a live page.
+
+    This is the read/write asymmetry that makes such a link unreachable: both
+    the "ignore" and "unignore" actions operate on the dashboard's own scope,
+    so once an event is in the past no editor action can clear the flag on its
+    links -- yet the flag would keep being inherited forever.
+    """
+    from datetime import timedelta
+
+    from django.contrib.contenttypes.models import ContentType
+    from django.utils import timezone
+    from linkcheck.models import Link
+    from linkcheck.worker_tasks import do_check_instance_links
+
+    from integreat_cms.cms.models import (
+        Event,
+        EventTranslation,
+        PageTranslation,
+        Region,
+    )
+
+    broken_url = "https://this-link-is-not-working.de"
+    event_content_type = ContentType.objects.get_for_model(EventTranslation)
+    page_content_type = ContentType.objects.get_for_model(PageTranslation)
+
+    # Verify the URL on an event of the region while that event is still
+    # upcoming -- past events are not linkchecked at all, so the Link has to
+    # come into existence before the event slides into the past.
+    event = Event.objects.filter(
+        region__slug="augsburg",
+        archived=False,
+        recurrence_rule__isnull=True,
+    ).first()
+    event_translation = (
+        EventTranslation.objects.filter(event=event, language__slug="de")
+        .order_by("-version")
+        .first()
+    )
+    EventTranslation.objects.filter(pk=event_translation.pk).update(
+        content=f'<a href="{broken_url}">verified on an upcoming event</a>',
+    )
+    event_translation.refresh_from_db()
+    do_check_instance_links(
+        EventTranslation, event_translation, EventTranslation._linklist
+    )
+    assert (
+        Link.objects.filter(
+            content_type=event_content_type,
+            object_id=event_translation.pk,
+            url__url=broken_url,
+        ).update(ignore=True)
+        == 1
+    ), "the event link should exist while the event is upcoming"
+
+    # The event passes. Its links stay in the database until the next
+    # findlinks run, but they are no longer reachable from the dashboard.
+    now = timezone.now()
+    Event.objects.filter(pk=event.pk).update(
+        start=now - timedelta(days=8),
+        end=now - timedelta(days=7),
+    )
+    assert not Event.objects.filter_upcoming().filter(pk=event.pk).exists()
+
+    # A live page of the same region gains the same URL
+    region = Region.objects.get(slug="augsburg")
+    live_translation = (
+        PageTranslation.objects.filter(
+            page__in=region.non_archived_pages,
+            language__slug="de",
+        )
+        .order_by("-version")
+        .first()
+    )
+    PageTranslation.objects.filter(pk=live_translation.pk).update(
+        content=f'<a href="{broken_url}">same link on a live page</a>',
+    )
+    live_translation.refresh_from_db()
+    do_check_instance_links(
+        PageTranslation, live_translation, PageTranslation._linklist
+    )
+
+    new_link = Link.objects.get(
+        content_type=page_content_type,
+        object_id=live_translation.pk,
+        url__url=broken_url,
+    )
+    assert new_link.ignore is False, (
+        "ignore=True must not be inherited from an event that has passed"
+    )

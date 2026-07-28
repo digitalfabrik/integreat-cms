@@ -5,22 +5,19 @@ cycle that runs on every translation save.
 
 from __future__ import annotations
 
-import operator
 from contextlib import contextmanager
-from functools import reduce
 from typing import TYPE_CHECKING
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
-from django.db.models import Model, Q
+from django.db.models import Model
 from linkcheck.models import Link
 
 from . import internal_link_utils
+from .linkcheck_utils import get_link_query
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
-
-    from django.db.models import QuerySet
 
     from ..models.abstract_content_translation import AbstractContentTranslation
     from ..models.regions.region import Region
@@ -109,6 +106,16 @@ def inherit_ignore_within_region(
     Inheritance is deliberately region-scoped: a URL verified in one region
     must not silently suppress the same URL in another region whose editors
     never vetted it.
+
+    The set of links that may act as evidence is
+    :func:`~integreat_cms.cms.utils.linkcheck_utils.get_link_query` -- the
+    very same scope the broken-links dashboard reads and that its "ignore"
+    and "unignore" actions write to. Sharing one definition is deliberate:
+    any link that can make a URL count as verified here is by construction
+    a link an editor can also revoke the verification on. Deriving the scope
+    independently would let the two drift apart, and a link outside the
+    dashboard's scope -- an archived page, an event that has meanwhile
+    passed -- would keep a URL suppressed with no way to undo it.
     """
     if region is None:
         return
@@ -125,7 +132,7 @@ def inherit_ignore_within_region(
         return
 
     already_ignored_url_ids = set(
-        _region_links(region)
+        get_link_query([region])
         .filter(url_id__in=pending_url_ids, ignore=True)
         .exclude(content_type=content_type, object_id=instance.pk)
         .values_list("url_id", flat=True)
@@ -139,33 +146,3 @@ def inherit_ignore_within_region(
         ignore=False,
         url_id__in=already_ignored_url_ids,
     ).update(ignore=True)
-
-
-def _region_links(region: Region) -> QuerySet[Link]:
-    """
-    All links whose content object belongs to the given region, across every
-    linkchecked model, excluding archived content.
-
-    Archived pages/events/POIs/organizations are hidden from the broken-links
-    dashboard, so a URL that is only verified there must not suppress the same
-    URL on live content. Archiving works differently per model:
-
-    * pages are archived via the tree (``Region.non_archived_pages`` accounts
-      for both explicitly archived pages and descendants of archived ones);
-    * events, POIs and organizations carry a plain ``archived`` flag;
-    * imprint pages have no archived state.
-    """
-    branches = [
-        Q(page_translation__page__in=region.non_archived_pages.values("pk")),
-        Q(imprint_translation__page__region=region),
-        Q(
-            event_translation__event__region=region,
-            event_translation__event__archived=False,
-        ),
-        Q(
-            poi_translation__poi__region=region,
-            poi_translation__poi__archived=False,
-        ),
-        Q(organization__region=region, organization__archived=False),
-    ]
-    return Link.objects.filter(reduce(operator.or_, branches))
