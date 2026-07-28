@@ -21,6 +21,8 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
+_CACHE_MISS = object()
+
 
 class NewsItem(TypedDict):
     id: str
@@ -63,15 +65,28 @@ class AbstractNewsManager(ABC):
         """
         raise NotImplementedError
 
+    def get_cached_news_items(self, language_slug: str) -> list[NewsItem]:
+        """
+        Return the cached news items for the given language.
+
+        If the cache key does not exist yet (i.e. the cache has not been warmed
+        up), the news items are imported from the source on demand and the cache
+        is populated before returning.
+        """
+        cache_key = f"{self.short_name}:{language_slug}"
+        posts = cache.get(cache_key, _CACHE_MISS)
+        if posts is _CACHE_MISS:
+            logger.info("Cache miss for %s; importing news items on demand.", cache_key)
+            self.import_news_items()
+            posts = cache.get(cache_key, [])
+        return posts
+
     def collect_news_items(
         self, region_slug: str, language_slug: str, _channel: str
     ) -> list[NewsItem]:
         """
         Returns news items imported from the source
         """
-        posts = cache.get(f"{self.short_name}:{language_slug}", [])
-        if not posts:
-            return []
         try:
             if not Region.objects.get(slug=region_slug).external_news_enabled:
                 logger.exception("External news not enabled: %s", region_slug)
@@ -79,7 +94,7 @@ class AbstractNewsManager(ABC):
         except Region.DoesNotExist:
             logger.exception("Region not found: %s", region_slug)
             return []
-        return posts
+        return self.get_cached_news_items(language_slug)
 
     def social_media_headers(
         self,
@@ -125,7 +140,7 @@ class AbstractNewsManager(ABC):
         """
         if not region.external_news_enabled:
             raise Http404("External news are not enabled in this region.")
-        posts = cache.get(f"{self.short_name}:{language.slug}", [])
+        posts = self.get_cached_news_items(language.slug)
         post = next(
             (
                 post
