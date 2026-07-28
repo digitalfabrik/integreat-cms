@@ -10,7 +10,6 @@ from typing import TYPE_CHECKING
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
-from django.db.models import Model
 from linkcheck.models import Link
 
 from . import internal_link_utils
@@ -18,6 +17,8 @@ from .linkcheck_utils import get_link_query
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
+
+    from django.db.models import Model
 
     from ..models.abstract_content_translation import AbstractContentTranslation
     from ..models.regions.region import Region
