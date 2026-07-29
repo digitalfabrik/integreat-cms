@@ -163,12 +163,12 @@ def exclude_links_in_contacts(
             ),
             transformed_phone=Concat(
                 Value("tel:"),
-                Replace(F("phone_number"), Value(" (0) "), Value("")),
+                Replace(F("phone_number"), Value(" "), Value("%20")),
                 output_field=CharField(),
             ),
             transformed_mobile_phone=Concat(
                 Value("tel:"),
-                Replace(F("mobile_phone_number"), Value(" (0) "), Value("")),
+                Replace(F("mobile_phone_number"), Value(" "), Value("%20")),
                 output_field=CharField(),
             ),
         ).values_list(
