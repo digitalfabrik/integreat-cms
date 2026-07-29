@@ -3,6 +3,7 @@ from datetime import timedelta
 import pytest
 from django.db import IntegrityError, transaction
 from django.utils import timezone
+from freezegun import freeze_time
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import (
@@ -69,7 +70,7 @@ def test_when_creating_even_translations_to_automatically_create_lowercase_slug(
 
 
 @pytest.mark.django_db
-def test_published_at_set_on_first_publication() -> None:
+def test_published_at_is_set_per_language_on_first_publication() -> None:
     region = Region.objects.create(name="new-region")
     language = Language.objects.create(
         slug="da",
@@ -89,47 +90,47 @@ def test_published_at_set_on_first_publication() -> None:
         region=region,
     )
 
-    # Creating a draft translation does not set the first publication date
-    EventTranslation.objects.create(
+    # Creating a draft translation does not set the publication date
+    draft_translation = EventTranslation.objects.create(
         event=event,
         language=language,
         slug="new-event",
         status=status.DRAFT,
     )
-    event.refresh_from_db()
-    assert event.published_at is None
+    assert draft_translation.published_at is None
 
-    # Publishing a translation sets the first publication date
-    public_translation = EventTranslation.objects.create(
-        event=event,
-        language=language,
-        slug="new-event",
-        status=status.PUBLIC,
-        version=1,
-    )
-    event.refresh_from_db()
-    assert event.published_at == public_translation.last_updated
+    # Publishing a translation sets its own publication date
+    with freeze_time("2024-01-01 12:00:00"):
+        public_translation = EventTranslation.objects.create(
+            event=event,
+            language=language,
+            slug="new-event",
+            status=status.PUBLIC,
+            version=1,
+        )
+    published_at = public_translation.published_at
+    assert published_at == public_translation.last_updated
 
-    # Publishing another version later on does not change the first publication date
-    EventTranslation.objects.create(
-        event=event,
-        language=language,
-        slug="new-event",
-        status=status.PUBLIC,
-        version=2,
-    )
-    event.refresh_from_db()
-    assert event.published_at == public_translation.last_updated
+    # A new version of the same translation keeps the original publication date
+    with freeze_time("2024-01-02 12:00:00"):
+        new_version = public_translation.create_new_version_copy()
+        new_version.save()
+    assert new_version.published_at == published_at
+    assert new_version.last_updated != published_at
 
-    # Publishing a translation in another language does not change it either
-    EventTranslation.objects.create(
-        event=event,
-        language=other_language,
-        slug="new-event",
-        status=status.PUBLIC,
-    )
-    event.refresh_from_db()
-    assert event.published_at == public_translation.last_updated
+    # A translation in another language gets its own, independent publication date
+    with freeze_time("2024-01-03 12:00:00"):
+        other_translation = EventTranslation.objects.create(
+            event=event,
+            language=other_language,
+            slug="new-event",
+            status=status.PUBLIC,
+        )
+    assert other_translation.published_at == other_translation.last_updated
+    assert other_translation.published_at != published_at
+    # The first language keeps its original publication date
+    public_translation.refresh_from_db()
+    assert public_translation.published_at == published_at
 
 
 @pytest.mark.order("last")

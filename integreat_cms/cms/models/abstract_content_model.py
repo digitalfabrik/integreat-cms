@@ -133,12 +133,6 @@ class AbstractContentModel(AbstractBaseModel):
         default=timezone.now,
         verbose_name=_("creation date"),
     )
-    #: Set once when the content is published for the first time and never updated afterwards
-    published_at = models.DateTimeField(
-        null=True,
-        blank=True,
-        verbose_name=_("publication date"),
-    )
     do_not_translate_title = models.BooleanField(
         default=False,
         verbose_name=_("do not translate the title"),
@@ -196,7 +190,6 @@ class AbstractContentModel(AbstractBaseModel):
         """
         translations = list(self.translations.all())
         self.pk = None
-        self.published_at = None
         self.save()
 
         if add_suffix:
@@ -205,6 +198,7 @@ class AbstractContentModel(AbstractBaseModel):
             translation.pk = None
             setattr(translation, translation.foreign_field(), self)
             translation.status = status.DRAFT
+            translation.published_at = None
             if add_suffix:
                 translation.title = f"{translation.title} ({copy_translation})"
             kwargs: SlugKwargs = {

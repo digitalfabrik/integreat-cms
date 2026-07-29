@@ -91,6 +91,11 @@ class AbstractContentTranslation(AbstractBaseModel):
         default=timezone.now,
         verbose_name=_("modification date"),
     )
+    published_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_("publication date"),
+    )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
@@ -696,10 +701,9 @@ class AbstractContentTranslation(AbstractBaseModel):
             )
         if kwargs.pop("update_timestamp", True):
             self.last_updated = timezone.now()
+        if self.status == status.PUBLIC and not self.published_at:
+            self.published_at = self.last_updated
         super().save(*args, **kwargs)
-        if self.status == status.PUBLIC and not self.foreign_object.published_at:
-            self.foreign_object.published_at = self.last_updated
-            self.foreign_object.save(update_fields=["published_at"])
 
     @transaction.atomic
     def cleanup_autosaves(self) -> None:
