@@ -23,7 +23,7 @@ _CACHE_TTL = 600
 _CACHE_PREFIX = "linkcheck_pending_ignore"
 
 
-def target_key(url_string: str) -> tuple[str, object]:
+def target_key(url_string: str) -> tuple[str, str | int]:
     """
     Stable identity for a URL's target. Internal URLs that resolve to a
     content object share a key across slug rewrites; everything else

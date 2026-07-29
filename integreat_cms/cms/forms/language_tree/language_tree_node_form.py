@@ -53,7 +53,7 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         super().__init__(**kwargs)
 
         # Make position field optional because we're overriding that value anyway
-        self.fields["_position"].required = False
+        self.fields["treebeard_position"].required = False
 
         parent_queryset = self.instance.region.language_tree_nodes
 
@@ -79,7 +79,7 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
 
         # limit possible parents to nodes of current region
         self.fields["parent"].queryset = parent_queryset
-        self.fields["_ref_node_id"].choices = self.fields["parent"].choices
+        self.fields["treebeard_ref_node"].queryset = parent_queryset
 
     def clean(self) -> dict[str, Any]:
         """
@@ -94,8 +94,8 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
 
         # Ignore the value that is submitted as ref node and just use the parent field
         parent = cleaned_data.get("parent")
-        cleaned_data["_ref_node_id"] = str(parent.id) if parent else ""
-        cleaned_data["_position"] = position.FIRST_CHILD
+        cleaned_data["treebeard_ref_node"] = parent
+        cleaned_data["treebeard_position"] = position.FIRST_CHILD
 
         default_language = self.instance.region.default_language
         # There are two cases in which this error is thrown.
@@ -140,6 +140,14 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         :param commit: Whether or not the changes should be written to the database
         :return: The saved page translation object
         """
+        # Since the reference node is derived from the parent field in clean(),
+        # mark the treebeard fields as changed when the parent changed so that
+        # MoveNodeForm.save() actually moves the node
+        if "parent" in self.changed_data:
+            for name in ("treebeard_ref_node", "treebeard_position"):
+                if name not in self.changed_data:
+                    self.changed_data.append(name)
+
         # Save CustomModelForm and CustomTreeNodeForm
         result = super().save(commit=commit)
 

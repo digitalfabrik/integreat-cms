@@ -136,9 +136,7 @@ def transform_poi_translation(
         )
         contact_data.append(
             {
-                "area_of_responsibility": contact.area_of_responsibility
-                if contact.area_of_responsibility
-                else None,
+                "area_of_responsibility": contact.area_of_responsibility or None,
                 "name": contact.name,
                 "email": contact.email,
                 "phone_number": contact.phone_number,

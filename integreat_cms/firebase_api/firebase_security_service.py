@@ -1,4 +1,4 @@
-import google.auth
+import google.auth.transport.requests
 from django.conf import settings
 from google.oauth2 import service_account
 

@@ -77,7 +77,7 @@ def unregister_listeners() -> None:
 
 
 @contextmanager
-def enable_listeners() -> Generator[None, None, None]:
+def enable_listeners() -> Generator[None]:
     register_listeners()
     try:
         yield
@@ -86,7 +86,7 @@ def enable_listeners() -> Generator[None, None, None]:
 
 
 @contextmanager
-def disable_listeners() -> Generator[None, None, None]:
+def disable_listeners() -> Generator[None]:
     unregister_listeners()
     try:
         yield
