@@ -215,7 +215,7 @@ def check_translation_link(
 def check_object_link(
     content_type: str,
     manager: RelatedManager,
-    slug: str,
+    path_components: list[str] | str,
     url: Url,
     region: Region,
     language: Language,
@@ -226,24 +226,27 @@ def check_object_link(
     :param content_type: The content type (``Page``, ``Event`` or ``POI``)
     :param manager: The object manager
     :param url: The internal URL to check
-    :param slug: The slug of the translation
+    :param path_components: Split up path components including slug of the translation
     :param region: The region
     :param language: The language
     """
+    translation_slug = (
+        path_components[-1] if content_type == "Page" else path_components
+    )
     objects = manager.filter(
-        translations__slug=slugify(slug, allow_unicode=True),
+        translations__slug=slugify(translation_slug, allow_unicode=True),
         translations__language=language,
     ).distinct()
     if not objects and region.fallback_translations_enabled:
         objects = manager.filter(
-            translations__slug=slugify(slug, allow_unicode=True),
+            translations__slug=slugify(translation_slug, allow_unicode=True),
             translations__language=region.default_language,
         ).distinct()
     if not objects:
         logger.debug(
             "%s with slug %r does not exist in %r and %r",
             content_type,
-            slug,
+            translation_slug,
             region,
             language,
         )
@@ -252,12 +255,26 @@ def check_object_link(
             _("The link target does not exist in this region and language."),
         )
     elif len(objects) == 1:
+        if content_type == "Page":
+            ancestors = objects[0].get_cached_ancestors()
+            for ancestor in ancestors:
+                if not (
+                    ancestor.get_public_translation(language.slug)
+                    or ancestor.get_public_translation(region.default_language.slug)
+                ):
+                    logger.debug(
+                        "The page ancestor %r of the page %r is not public",
+                        ancestor,
+                        objects[0],
+                    )
+                    mark_invalid(url, _("One of the page ancestors is not public"))
+                    return url.status
         check_translation_link(objects[0], url, language)
     else:
         logger.warning(
             "%s slug %r is not unique in %r and %r (also returned %r)",
             content_type,
-            slug,
+            translation_slug,
             region,
             language,
             objects,
@@ -424,7 +441,7 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
     return check_object_link(
         "Page",
         region.pages,
-        path_components[-1],
+        path_components,
         url,
         region,
         language,
