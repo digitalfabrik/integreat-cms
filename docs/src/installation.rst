@@ -61,7 +61,7 @@ In the following, we provide the commands to install all these prerequisites on 
     # Add PPA repository for Python3.9 and above
     sudo add-apt-repository -y ppa:deadsnakes/ppa
     # Install basic requirements
-    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3.11 python3.11-venv libcairo2
+    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3.13 python3.13-venv libcairo2
     # Add PPA repository for NodeJS
     curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
     # Add PPA repository for Docker
@@ -131,5 +131,5 @@ And install it using our developer tool :github-source:`tools/install.sh`::
     - This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pip.
       If only one of both dependency-managers should be invoked, run ``npm ci`` or ``pip install -e .[dev-pinned,pinned]`` directly.
 
-    - If your system uses Python 3.12 as the default (e.g., Ubuntu 24.04 or similar), you need to install Python 3.11 alongside it, without changing the default python3 symlink.
-      Then, to ensure the CMS uses Python 3.11, run the installation script with the appropriate interpreter: ``./tools/install.sh --python python3.11``
+    - If your system uses Python 3.12 as the default (e.g., Ubuntu 24.04 or similar), you need to install Python 3.13 alongside it, without changing the default python3 symlink.
+      Then, to ensure the CMS uses Python 3.13, run the installation script with the appropriate interpreter: ``./tools/install.sh --python python3.13``
