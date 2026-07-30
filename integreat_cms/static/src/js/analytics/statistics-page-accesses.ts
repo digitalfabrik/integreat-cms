@@ -106,12 +106,22 @@ const resetTotalAccessesField = (accessFields: HTMLCollectionOf<Element>, isEmpt
 
 const updateAllAccessesField = (accessesField: Element, allAccesses: number) => {
     const allAccessesField = accessesField;
+    const collapsed = allAccessesField.parentElement
+        .querySelector(".toggle-subpages")
+        ?.querySelector("svg")
+        .classList.contains("lucide-chevron-right");
+    let childPageAccessIndicator = "";
+
+    if (collapsed) {
+        childPageAccessIndicator = allAccessesField.getAttribute("data-translation-incl-childpages");
+    }
+
     if (allAccesses === 0) {
         allAccessesField.textContent = allAccessesField.getAttribute("data-translation-no-accesses");
     } else if (allAccesses === 1) {
-        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-singular")}`;
+        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-singular")} ${childPageAccessIndicator}`;
     } else {
-        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-plural")}`;
+        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-plural")} ${childPageAccessIndicator}`;
     }
 };
 

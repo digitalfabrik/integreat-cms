@@ -120,6 +120,12 @@ WIKI_URL: Final[str] = os.environ.get(
     "https://wiki.integreat-app.de",
 )
 
+#: The URL to the statistics wiki page
+STATISTICS_WIKI_URL: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_STATISTICS_WIKI_URL",
+    WIKI_URL + "/statistics",
+)
+
 #: RSS feed URLs to the Integreat blog
 RSS_FEED_URLS: Final[dict[str, str]] = {
     "en": f"{WEBSITE_URL}/en/feed/",

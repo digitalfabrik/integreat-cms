@@ -9,21 +9,56 @@
                     {% translate "Statistics" %}
                 </h1>
             </div>
-            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 px-4 py-3 mb-4"
-                 role="note">
-                <p>
-                    {% blocktranslate trimmed %}
-                        Note: These numbers show only part of the impact of your content.
-                        More and more people find information through AI assistants like ChatGPT –
-                        <strong>there, your texts are used without a page visit being counted</strong>.
-                        This can considerably distort page views in the future.
-                        So use these numbers only for rough orientation.
-                    {% endblocktranslate %}
-                </p>
+            <div class="pt-4 lg:pt-0 3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
+                <div class="flex flex-col flex-wrap col-span-1 3xl:col-span-1 min-w-0">
+                    <div class="py-3 mb-4">
+                        <p>
+                            {% blocktranslate trimmed %}
+                                The <strong>statistics show only part of the impact of your content.</strong>
+                                More and more people find information through AI assistants like ChatGPT.
+                                There, your texts are used without a page visit being counted.
+                                This can considerably distort page views.
+                                <strong>So use these numbers only for rough orientation.</strong>
+                            {% endblocktranslate %}
+                        </p>
+                    </div>
+                </div>
+                <div class="sm:block md:flex sm:mt-4 mb-4 3xl:mt-0 3xl:block 4xl:flex">
+                    <div class="flex items-center justify-end">
+                        <a href="{{ wiki_url }}">
+                            <button class="btn btn-ghost">
+                                <i icon-name="square-arrow-out-up-right" class="mr-2"></i>{% translate "Statistics Documentation" %}
+                            </button>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="pt-4 lg:pt-0 3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
                 <div class="flex flex-col flex-wrap col-span-1 3xl:col-span-1 min-w-0">
                     {% include "statistics/statistics_chart.html" with box_id="statistics_chart" %}
+                    <div class="pt-4 pb-4">
+                        <div class="pb-4">
+                            <p>
+                                {% translate "Why does the <strong>total number of visits not match the sum of all page views?</strong>" %}
+                            </p>
+                            <p>
+                                ➔ {% blocktranslate %}<span class="underline">This is normal and to be expected</span>, because the two surveys measure different things.{% endblocktranslate %}
+                            </p>
+                        </div>
+                        <div class="pb-4">
+                            <p>
+                                {% translate "<strong>Total visits</strong> include, among other things, page views within the system (including the Integreat home page), AI requests, other technical requests, and visits to pages or languages that no longer exist." %}
+                            </p>
+                        </div>
+                        <div class="pb-4">
+                            <p>
+                                {% blocktranslate %}<strong>Page views</strong> specifically count <span class="underline">only</span> the visits to published subpages within the web app.{% endblocktranslate %}
+                            </p>
+                            <p>
+                                ➔ {% blocktranslate %}<strong>Therefore, differences exist and are to be expected.</strong> Further details can be found in the <a href="{{ wiki_url }}"><span class="text-blue-600">documentation <i icon-name="square-arrow-out-up-right"></i></span></a>{% endblocktranslate %}
+                            </p>
+                        </div>
+                    </div>
                     {% if show_page_based_statistics %}
                         {% include "statistics/statistics_viewed_pages.html" with box_id="statistics_viewed_pages" %}
                     {% endif %}
