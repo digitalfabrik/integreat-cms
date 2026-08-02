@@ -45,6 +45,7 @@ module.exports = {
                 [
                   "@babel/plugin-transform-react-jsx",
                   {
+                    runtime: "classic",
                     pragma: "h",
                     pragmaFrag: "Fragment",
                   },
@@ -67,6 +68,7 @@ module.exports = {
                 [
                   "@babel/plugin-transform-react-jsx",
                   {
+                    runtime: "classic",
                     pragma: "h",
                     pragmaFrag: "Fragment",
                   },
