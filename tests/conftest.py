@@ -170,6 +170,25 @@ def configure_celery_for_tests(settings: SettingsWrapper) -> None:
 
 
 @pytest.fixture(autouse=True)
+def clear_leaked_messages(request: SubRequest) -> Generator[None]:
+    """
+    Discard unread messages from the shared client after every test.
+
+    :meth:`~tests.conftest.login_role_user` is session-scoped, so one client —
+    and one cookie jar — is reused for the whole run, while
+    :setting:`django:MESSAGE_STORAGE` keeps messages in a cookie. A test that
+    triggers a view emitting a message without ever rendering the redirect
+    target leaves that message queued in the cookie, where an arbitrary later
+    test renders it into its own response and trips content assertions.
+    """
+    yield
+    for fixture_name in ("login_role_user", "login_role_user_async"):
+        if fixture_name in request.fixturenames:
+            client, _role = request.getfixturevalue(fixture_name)
+            client.cookies.pop("messages", None)
+
+
+@pytest.fixture(autouse=True)
 def clear_cache() -> None:
     """
     Reset the cache before every test so cache state cannot leak between tests.

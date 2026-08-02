@@ -153,7 +153,10 @@ Shared Fixtures (``tests/conftest.py``)
 ``login_role_user``
     Session-scoped, parametrized over all roles. Returns
     ``(Client, role_name)``. Tests using this fixture automatically run once
-    per role.
+    per role. Since the client is shared, any state Django keeps in cookies
+    outlives the test that created it — unread messages are dropped
+    automatically by the autouse ``clear_leaked_messages`` fixture, but tests
+    that set other cookies have to clean up after themselves.
 
 ``login_role_user_async``
     Like ``login_role_user`` but returns an ``AsyncClient``.
