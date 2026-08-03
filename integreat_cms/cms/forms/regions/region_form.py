@@ -1109,11 +1109,11 @@ def duplicate_page_translations(
         page_translation.page = target_page
         # Delete the primary key to duplicate the object instance instead of updating it
         page_translation.pk = None
+        # Reset the publication date because the duplicate has not been published yet
+        page_translation.published_at = None
         # Set the translation to draft if keep_status is false
         if keep_status is False:
             page_translation.status = status.DRAFT
-            # Reset the publication date because the duplicate has not been published yet
-            page_translation.published_at = None
         # Check if the page translation is valid
         page_translation.full_clean()
         # Save duplicated page translation
