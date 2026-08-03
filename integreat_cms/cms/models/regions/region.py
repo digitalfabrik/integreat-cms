@@ -14,10 +14,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Q, Subquery, Sum
 from django.http import Http404
-from django.template.defaultfilters import floatformat
 from django.urls import reverse
 from django.utils import timezone as django_timezone
-from django.utils.functional import cached_property, keep_lazy_text
+from django.utils.functional import cached_property
 from django.utils.translation import gettext, override
 from django.utils.translation import gettext_lazy as _
 
@@ -29,7 +28,6 @@ if TYPE_CHECKING:
     from typing import Any
 
     from django.db.models.query import QuerySet
-    from django.utils.functional import Promise
     from django.utils.safestring import SafeString
 
     from ..languages.language import Language
@@ -54,18 +52,6 @@ from ..abstract_base_model import AbstractBaseModel
 from ..offers.offer_template import OfferTemplate
 
 logger = logging.getLogger(__name__)
-
-
-@keep_lazy_text
-def format_summ_ai_help_text(help_text: Promise) -> str:
-    """
-    Helper function to lazily format help text with number separators
-    :param help_text: MT field help text to format
-    :return: formatted help text
-    """
-    return help_text.format(
-        floatformat(settings.SUMM_AI_CREDITS, "g"),
-    )
 
 
 class RegionManager(models.Manager):
@@ -359,35 +345,6 @@ class Region(AbstractBaseModel):
         help_text=_(
             "Allow users of this region to analyze understandability of text content via TextLab API.",
         ),
-    )
-
-    summ_ai_enabled = models.BooleanField(
-        default=False,
-        verbose_name=_("activate automatic translations via SUMM.AI"),
-        help_text=_(
-            "Whether automatic translations into Easy German with SUMM.AI are enabled",
-        ),
-    )
-
-    summ_ai_midyear_start_month = models.PositiveIntegerField(
-        default=None,
-        blank=True,
-        null=True,
-        choices=months.CHOICES,
-        verbose_name=_("Budget year start date for simplified language translation"),
-        help_text=_("Month from which SUMM.AI was booked"),
-    )
-
-    summ_ai_renewal_month = models.PositiveIntegerField(
-        choices=months.CHOICES,
-        default=months.JANUARY,
-        verbose_name=_("Credits renewal date for simplified language translation"),
-        help_text=_("Budget usage will be reset on the 1st of the month"),
-    )
-
-    summ_ai_budget_used = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("used budget"),
     )
 
     mt_budget_booked = models.PositiveIntegerField(
@@ -949,24 +906,6 @@ class Region(AbstractBaseModel):
         return self.imprints.first()
 
     @property
-    def summ_ai_budget(self) -> int:
-        """
-        Calculate the maximum translation credit budget (number of words) for simplified translations
-        :return: The region's total budget for simplified translations
-        """
-        # All regions which did book the add-on, but not mid-year, get the add-on credits
-        if not self.summ_ai_midyear_start_month:
-            return settings.SUMM_AI_CREDITS
-        # All regions which booked the add-on in mid-year get a fraction of the add-on credits
-        # Calculate how many months lie between the renewal month and the start month of the add-on
-        months_difference = (
-            self.summ_ai_renewal_month - self.summ_ai_midyear_start_month
-        )
-        # Calculate the available fraction of the add-on
-        multiplier = (months_difference % 12) / 12
-        return int(multiplier * settings.SUMM_AI_CREDITS)
-
-    @property
     def mt_budget(self) -> int:
         """
         Calculate the maximum translation credit budget (number of words)
@@ -991,14 +930,6 @@ class Region(AbstractBaseModel):
         :return: The region's remaining MT budget
         """
         return max(0, self.mt_budget - self.mt_budget_used)
-
-    @property
-    def summ_ai_budget_remaining(self) -> int:
-        """
-        Calculate the remaining translation credit budget (number of words) for simplified translations
-        :return: The region's remaining budget for simplified translations
-        """
-        return max(0, self.summ_ai_budget - self.summ_ai_budget_used)
 
     @cached_property
     def backend_edit_link(self) -> str:

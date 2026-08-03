@@ -17,10 +17,6 @@ SECRET_KEY = "dummy"  # noqa: S105
 FCM_CREDENTIALS = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 FCM_ENABLED = True
-#: Set dummy SUMM.AI API key to test translations into Easy German
-SUMM_AI_API_KEY = "dummy"
-#: Enable manually because existing setting derives from the unset env var
-SUMM_AI_ENABLED = True
 #: Set dummy DeepL key to test automatic translations via DeepL API
 DEEPL_AUTH_KEY = "dummy"
 #: Enable manually because existing setting derives from the unset env var

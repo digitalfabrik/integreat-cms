@@ -416,7 +416,6 @@ INSTALLED_APPS: Final[list[str]] = [
     "integreat_cms.gvz_api",
     "integreat_cms.matomo_api",
     "integreat_cms.nominatim_api",
-    "integreat_cms.summ_ai_api",
     "integreat_cms.textlab_api",
     "integreat_cms.integreat_celery",
     # Installed Django apps
@@ -1043,105 +1042,6 @@ GOOGLE_TRANSLATE_ENABLED: bool = bool(GOOGLE_APPLICATION_CREDENTIALS) and bool(
 GOOGLE_PARENT_PARAM: Final[str] = (
     f"projects/{GOOGLE_PROJECT_ID}/locations/{GOOGLE_TRANSLATE_LOCATION}"
 )
-
-
-#########################
-# SUMM.AI - EASY GERMAN #
-#########################
-
-#: The URL to our SUMM.AI API for automatic translations from German into Easy German
-SUMM_AI_API_URL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SUMM_AI_API_URL",
-    "https://backend.summ-ai.com/translate/v1/",
-)
-
-#: Authentication token for SUMM.AI,
-#: If not set, automatic translations to easy german are disabled
-SUMM_AI_API_KEY: str | None = os.environ.get("INTEGREAT_CMS_SUMM_AI_API_KEY")
-
-#: Whether SUMM.AI is enabled or not
-#: This is ``True`` if SUMM_AI_API_KEY is set, ``False`` otherwise.
-SUMM_AI_ENABLED: bool = bool(SUMM_AI_API_KEY)
-
-#: An integer specifying the number of translation credits for simplified translations that can be bought as an add-on
-SUMM_AI_CREDITS: Final[int] = env_int("SUMM_AI_CREDITS", 10000)
-
-#: Whether requests to the SUMM.AI are done with the ``is_test`` flag
-SUMM_AI_TEST_MODE: Final[bool] = strtobool(
-    os.environ.get("INTEGREAT_CMS_SUMM_AI_TEST_MODE", str(DEBUG)),
-)
-
-#: The timeout in minutes for requests to the SUMM.AI API
-SUMM_AI_TIMEOUT: Final[int] = 10
-
-#: The limit for "Too many requests".
-SUMM_AI_MAX_CONCURRENT_REQUESTS = env_int(
-    "INTEGREAT_CMS_SUMM_AI_MAX_CONCURRENT_REQUESTS",
-    20,
-)
-
-#: Waiting time after "Too many requests" response was sent
-SUMM_AI_RATE_LIMIT_COOLDOWN = env_float(
-    "INTEGREAT_CMS_SUMM_AI_RATE_LIMIT_COOLDOWN",
-    30,
-)
-
-#: Maximum amount of retries before giving up
-#: Retries are reset if translation requests are successful after completing the cooldown
-SUMM_AI_MAX_RETRIES = env_int("INTEGREAT_CMS_SUMM_AI_MAX_RETRIES", 5)
-
-#: The language slugs for German
-SUMM_AI_GERMAN_LANGUAGE_SLUG: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SUMM_AI_GERMAN_LANGUAGE_SLUG",
-    "de",
-)
-
-#: The language slug for Easy German
-SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG",
-    "de-si",
-)
-
-#: The separator which is used to split compound words, e.g. Bundes-Kanzler (hyphen) or Bundes·kanzler (interpunct)
-SUMM_AI_SEPARATOR: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SUMM_AI_SEPARATOR",
-    "hyphen",
-)
-
-#: All plain text fields of the content models which should be translated
-SUMM_AI_TEXT_FIELDS: Final[list[str]] = ["meta_description"]
-
-#: All HTML fields of the content models which should be translated
-SUMM_AI_HTML_FIELDS: Final[list[str]] = ["content"]
-
-#: All fields of the content models which should not be translated, but inherited from the source translation
-SUMM_AI_INHERITED_FIELDS: Final[list[str]] = ["title"]
-
-#: Translate all <p> and <li> tags
-SUMM_AI_HTML_TAGS: Final[list[str]] = ["p", "li"]
-
-#: Value of the ``is_initial`` flag
-SUMM_AI_IS_INITIAL: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_SUMM_AI_IS_INITIAL", "True")),
-)
-
-# Slugs of regions that prefer Plain German over Easy German in the management command
-SUMM_AI_PLAIN_GERMAN_REGIONS: Final[list[str]] = [
-    x.strip()
-    for x in os.environ.get(
-        "INTEGREAT_CMS_SUMM_AI_PLAIN_GERMAN_REGIONS",
-        "",
-    ).splitlines()
-]
-
-#: A floating point that specifies the percentage of SUMM_AI_CREDITS used as a soft margin
-SUMM_AI_SOFT_MARGIN_FRACTION: Final[float] = env_float(
-    "INTEGREAT_CMS_SUMM_AI_SOFT_MARGIN",
-    MT_SOFT_MARGIN_FRACTION,
-)
-
-#: The actual number of words which are used as soft margin
-SUMM_AI_SOFT_MARGIN: Final[int] = int(SUMM_AI_SOFT_MARGIN_FRACTION * SUMM_AI_CREDITS)
 
 
 ################

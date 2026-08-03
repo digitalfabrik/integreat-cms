@@ -16,9 +16,6 @@ ensure_webpack_bundle_exists
 
 require_database
 
-# Set dummy key to enable SUMM.AI during testing
-export INTEGREAT_CMS_SUMM_AI_API_KEY="dummy"
-
 # Set dummy key to enable DeepL during testing
 export INTEGREAT_CMS_DEEPL_AUTH_KEY="dummy"
 

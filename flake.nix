@@ -131,7 +131,6 @@
             set_if_unset INTEGREAT_CMS_FCM_CREDENTIALS "dummy"
             set_if_unset INTEGREAT_CMS_SECRET_KEY "dummy"
             set_if_unset INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED 0
-            set_if_unset INTEGREAT_CMS_SUMM_AI_API_KEY "dummy"
             set_if_unset INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS 0
 
             # Start redis and make it discoverable to the CMS

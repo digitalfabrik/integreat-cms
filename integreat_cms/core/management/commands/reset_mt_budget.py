@@ -74,15 +74,5 @@ class Command(LogCommand):
                 )
                 region.mt_budget_used = 0
                 region.mt_midyear_start_month = None
-
-                logger.info(
-                    "Reset SUMM.AI budget of %r (previously used: %r, previous midyear start month: %r).",
-                    region,
-                    region.summ_ai_budget_used,
-                    region.summ_ai_midyear_start_month,
-                )
-                region.summ_ai_budget_used = 0
-                region.summ_ai_midyear_start_month = None
-
                 region.save()
             logger.success("✔ MT budget has been reset.")  # type: ignore[attr-defined]

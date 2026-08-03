@@ -19,12 +19,10 @@ def deterministic_region_timestamps(load_test_data: None, db: None) -> None:
     """
     The PDF filename hash embeds ``region.last_updated`` (an ``auto_now`` field).
     Tests running earlier in the same process can bump it with writes that are
-    committed outside their test transaction — e.g. ``AsyncClient`` tests
-    exercising views that call ``region.save()``, like the SUMM.AI budget
-    bookkeeping — which breaks the hard-coded expected hashes depending on how
-    the test files are distributed across CI containers. Re-pin the fixture
-    timestamps inside this test's transaction; ``update()`` bypasses
-    ``auto_now`` and is rolled back together with the test.
+    committed outside their test transaction, which breaks the hard-coded
+    expected hashes depending on how the test files are distributed across CI
+    containers. Re-pin the fixture timestamps inside this test's transaction;
+    ``update()`` bypasses ``auto_now`` and is rolled back together with the test.
     """
     fixture_timestamps = {
         obj["pk"]: obj["fields"]["last_updated"]
