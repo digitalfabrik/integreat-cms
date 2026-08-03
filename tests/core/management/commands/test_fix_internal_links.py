@@ -207,7 +207,7 @@ def test_fix_internal_links_commit(load_test_data_transactional: Any | None) -> 
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_fix_internal_links_commit_skips_version_conflicts(
     load_test_data_transactional: Any | None,
 ) -> None:
@@ -257,6 +257,15 @@ def test_fix_internal_links_commit_skips_version_conflicts(
     assert stale_translation.links.count() == stale_link_count, (
         "The link records of the skipped translation should be preserved"
     )
+    # The command must not have written its stale copy on top of the concurrently
+    # created version. Asserted directly on the version rows, because the URL check
+    # below only observes the symptom and would also trip on link records that
+    # unrelated test pollution attached to another version of this translation.
+    assert not PageTranslation.objects.filter(
+        page=stale_translation.page,
+        language=stale_translation.language,
+        version__gt=newer_version.version,
+    ).exists(), "No version newer than the concurrently created one should exist"
     assert not Url.objects.filter(
         url=skipped_url,
     ).exists(), "The links of the conflicting translation should not be replaced"

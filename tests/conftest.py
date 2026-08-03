@@ -9,10 +9,12 @@ from typing import Any, TYPE_CHECKING
 from unittest.mock import patch
 
 import pytest  # isort: skip — must precede local imports for fixture registration
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.management import call_command
 from django.test.client import Client
+from linkcheck.listeners import unregister_listeners
 
 from integreat_cms.cms.models import Language, Page, Region
 from integreat_cms.core.utils.strtobool import strtobool
@@ -186,6 +188,30 @@ def clear_leaked_messages(request: SubRequest) -> Generator[None]:
         if fixture_name in request.fixturenames:
             client, _role = request.getfixturevalue(fixture_name)
             client.cookies.pop("messages", None)
+
+
+@pytest.fixture(autouse=True)
+def reset_linkcheck_listeners() -> Generator[None]:
+    """
+    Restore the configured linkcheck listener state around every test.
+
+    :func:`linkcheck.listeners.disable_listeners` re-registers the listeners
+    when its context manager exits instead of restoring whatever state was
+    active before, so production code paths that use it — the region form,
+    :mod:`~integreat_cms.cms.views.regions.region_actions` and
+    :mod:`~integreat_cms.cms.views.language_tree.language_tree_actions` —
+    leave the listeners connected for the remainder of the worker process,
+    even though :setting:`LINKCHECK_DISABLE_LISTENERS` is enabled in
+    :mod:`~integreat_cms.core.test_settings`. Any later test that saves
+    content then silently gets ``Url``/``Link`` rows it never asked for, which
+    makes linkcheck assertions depend on which tests happened to share the
+    worker.
+    """
+    if settings.LINKCHECK_DISABLE_LISTENERS:
+        unregister_listeners()
+    yield
+    if settings.LINKCHECK_DISABLE_LISTENERS:
+        unregister_listeners()
 
 
 @pytest.fixture(autouse=True)
