@@ -70,9 +70,9 @@
     <td>
         {% if is_archived %}
             {% if perms.cms.archive_pushnotification %}
-                <button title="{% translate "Restore push notification" %}"
+                <button title="{% translate "Restore news" %}"
                         class="confirmation-button btn-icon"
-                        data-confirmation-title="{% trans "Please confirm that you really want to restore this push notification" %}"
+                        data-confirmation-title="{% trans "Please confirm that you really want to restore this news" %}"
                         data-confirmation-subject="{{ push_notification.title }}"
                         data-action="{% url 'restore_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i icon-name="refresh-ccw"></i>
@@ -80,9 +80,9 @@
             {% endif %}
         {% else %}
             {% if perms.cms.archive_pushnotification %}
-                <button title="{% translate "Archive push notification" %}"
+                <button title="{% translate "Archive news" %}"
                         class="confirmation-button btn-icon"
-                        data-confirmation-title="{% trans "Please confirm that you really want to archive this push notification" %}"
+                        data-confirmation-title="{% trans "Please confirm that you really want to archive this news" %}"
                         data-confirmation-subject="{{ push_notification.title }}"
                         data-action="{% url 'archive_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i icon-name="archive"></i>
@@ -90,9 +90,9 @@
             {% endif %}
         {% endif %}
         {% if perms.cms.delete_pushnotification %}
-            <button title="{% translate "Delete push notification" %}"
+            <button title="{% translate "Delete news" %}"
                     class="confirmation-button btn-icon"
-                    data-confirmation-title="{% trans "Please confirm that you really want to delete this push notification" %}"
+                    data-confirmation-title="{% trans "Please confirm that you really want to delete this news" %}"
                     data-confirmation-subject="{{ push_notification.title }}"
                     data-action="{% url 'delete_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}">
                 <i icon-name="trash-2"></i>
@@ -100,7 +100,7 @@
         {% endif %}
         {% if perms.cms.change_pushnotification %}
             <a href="{% url 'copy_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}"
-               title="{% translate "Copy" %}"
+               title="{% translate "Copy news" %}"
                class="btn-icon">
                 <i icon-name="copy"></i>
             </a>

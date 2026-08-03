@@ -395,7 +395,7 @@ class Region(AbstractBaseModel):
     machine_translate_pushnotifications = models.PositiveIntegerField(
         choices=machine_translation_permissions.CHOICES,
         default=machine_translation_permissions.EVERYONE,
-        verbose_name=_("Push Notifications"),
+        verbose_name=_("News"),
     )
 
     integreat_chat_enabled = models.BooleanField(

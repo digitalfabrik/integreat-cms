@@ -4076,13 +4076,18 @@ msgstr ""
 "Ob die Nachricht schreibgeschützt und in der API verborgen ist oder nicht."
 
 #: cms/models/push_notifications/push_notification.py
+msgid "news"
+msgstr "Nachricht"
+
+#: cms/models/push_notifications/push_notification.py
+#: cms/templates/push_notifications/push_notification_list.html
+msgctxt "plural"
+msgid "news"
+msgstr "Nachrichten"
+
 #: cms/models/push_notifications/push_notification_translation.py
 msgid "push notification"
 msgstr "Push-Benachrichtigung"
-
-#: cms/models/push_notifications/push_notification.py
-msgid "push notifications"
-msgstr "Push-Benachrichtigungen"
 
 #: cms/models/push_notifications/push_notification_translation.py
 msgid "push notification translation"
@@ -4419,9 +4424,11 @@ msgstr "Seiten"
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: cms/models/regions/region.py
-msgid "Push Notifications"
-msgstr "Push-Benachrichtigungen"
+#: cms/models/regions/region.py cms/templates/_base.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: core/settings.py
+msgid "News"
+msgstr "Nachrichten"
 
 #: cms/models/regions/region.py
 msgid "Enable public chat"
@@ -4752,12 +4759,6 @@ msgstr "Medienbibliothek"
 #: cms/templates/_base.html cms/templates/contacts/contact_list.html
 msgid "Contacts"
 msgstr "Kontakte"
-
-#: cms/templates/_base.html
-#: cms/templates/push_notifications/push_notification_list.html
-#: core/settings.py
-msgid "News"
-msgstr "Nachrichten"
 
 #: cms/templates/_base.html
 #: cms/templates/push_notifications/push_notification_setting_box.html
@@ -8425,36 +8426,34 @@ msgid "Sent"
 msgstr "Gesendet"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No archived push notifications found with these filters."
-msgstr "Keine archivierten Push-Benachrichtigungen mit diesen Filter gefunden."
+msgid "No archived news found with these filters."
+msgstr "Keine archivierten Nachrichten mit diesen Filtern gefunden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No push notifications archived yet."
-msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+msgid "No news archived yet."
+msgstr "Noch keine Nachrichten archiviert."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No push notifications found with these filters."
-msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
+msgid "No news found with these filters."
+msgstr "Keine Nachrichten mit diesen Filtern gefunden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No push notifications available yet."
-msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+msgid "No news available yet."
+msgstr "Noch keine Nachrichten vorhanden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Push notifications selected"
-msgstr "Push-Benachrichtigungen ausgewählt"
+msgid "News selected"
+msgstr "Nachrichten ausgewählt"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Restore push notifications"
-msgstr "Push-Benachrichtigungen wiederherstellen"
+#, python-format
+msgid "Restore %(content_type)s"
+msgstr "%(content_type)s wiederherstellen"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Archive push notifications"
-msgstr "Push-Benachrichtigungen archivieren"
-
-#: cms/templates/push_notifications/push_notification_list.html
-msgid "Push notifications"
-msgstr "Push-Benachrichtigungen"
+#, python-format
+msgid "Archive %(content_type)s"
+msgstr "%(content_type)s archivieren"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Title not available"
@@ -8469,36 +8468,33 @@ msgid "Message not sent yet"
 msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Restore push notification"
-msgstr "Push-Benachrichtigung wiederherstellen"
+msgid "Restore news"
+msgstr "Nachricht wiederherstellen"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Please confirm that you really want to restore this push notification"
+msgid "Please confirm that you really want to restore this news"
 msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigung wiederhergestellt "
-"werden soll"
+"Bitte bestätigen Sie, dass diese Nachricht wiederhergestellt werden soll"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Archive push notification"
-msgstr "Push-Benachrichtigung archivieren"
+msgid "Archive news"
+msgstr "Nachricht archivieren"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Please confirm that you really want to archive this push notification"
-msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigung archiviert werden soll"
+msgid "Please confirm that you really want to archive this news"
+msgstr "Bitte bestätigen Sie, dass diese Nachricht archiviert werden soll"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Delete push notification"
-msgstr "Push-Benachrichtigung löschen"
+msgid "Delete news"
+msgstr "Nachricht löschen"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Please confirm that you really want to delete this push notification"
-msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigung gelöscht werden soll"
+msgid "Please confirm that you really want to delete this news"
+msgstr "Bitte bestätigen Sie, dass diese Nachricht gelöscht werden soll"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Copy"
-msgstr "Kopieren"
+msgid "Copy news"
+msgstr "Nachricht kopieren"
 
 #: cms/templates/push_notifications/push_notification_setting_box.html
 #, python-format
@@ -12232,6 +12228,66 @@ msgstr ""
 #~ "Veranstaltung oder einem Kontakt verwendet wird. \n"
 #~ "Dies betrifft auch archivierte Veranstaltungen und Kontakte"
 
+#~ msgid "push notifications"
+#~ msgstr "Push-Benachrichtigungen"
+
+#~ msgid "Push Notifications"
+#~ msgstr "Push-Benachrichtigungen"
+
+#~ msgid "No archived push notifications found with these filters."
+#~ msgstr ""
+#~ "Keine archivierten Push-Benachrichtigungen mit diesen Filter gefunden."
+
+#~ msgid "No push notifications archived yet."
+#~ msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+
+#~ msgid "No push notifications found with these filters."
+#~ msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
+
+#~ msgid "No push notifications available yet."
+#~ msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+
+#~ msgid "Push notifications selected"
+#~ msgstr "Push-Benachrichtigungen ausgewählt"
+
+#~ msgid "Restore push notifications"
+#~ msgstr "Push-Benachrichtigungen wiederherstellen"
+
+#~ msgid "Archive push notifications"
+#~ msgstr "Push-Benachrichtigungen archivieren"
+
+#~ msgid "Push notifications"
+#~ msgstr "Push-Benachrichtigungen"
+
+#~ msgid "Restore push notification"
+#~ msgstr "Push-Benachrichtigung wiederherstellen"
+
+#~ msgid ""
+#~ "Please confirm that you really want to restore this push notification"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigung wiederhergestellt "
+#~ "werden soll"
+
+#~ msgid "Archive push notification"
+#~ msgstr "Push-Benachrichtigung archivieren"
+
+#~ msgid ""
+#~ "Please confirm that you really want to archive this push notification"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigung archiviert werden "
+#~ "soll"
+
+#~ msgid "Delete push notification"
+#~ msgstr "Push-Benachrichtigung löschen"
+
+#~ msgid "Please confirm that you really want to delete this push notification"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigung gelöscht werden "
+#~ "soll"
+
+#~ msgid "Copy"
+#~ msgstr "Kopieren"
+
 #~ msgid "Total Access Statistics"
 #~ msgstr "Statistiken für Gesamtzugriffe"
 
@@ -12625,12 +12681,6 @@ msgstr ""
 
 #~ msgid "There has been a server error. Please try again later"
 #~ msgstr "Zu viele Anfragen. Bitte versuchen Sie es später erneut."
-
-#~ msgid "No archived pages found with these filters."
-#~ msgstr "Keine archivierten Seiten mit diesen Filtern gefunden."
-
-#~ msgid "No pages archived yet."
-#~ msgstr "Noch keine Seiten archiviert."
 
 #~ msgid "This also involves non-archived subpages."
 #~ msgstr "Dies betrifft auch nicht-archivierte Unterseiten."
@@ -14694,9 +14744,6 @@ msgstr ""
 
 #~ msgid "WebApp-URL"
 #~ msgstr "Web-App-URL"
-
-#~ msgid "Delete Pages"
-#~ msgstr "Seiten löschen"
 
 #~ msgid "Archive Pages"
 #~ msgstr "Seiten archivieren"

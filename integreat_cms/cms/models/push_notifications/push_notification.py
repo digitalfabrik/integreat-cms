@@ -11,7 +11,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.translation import get_language
+from django.utils.translation import get_language, pgettext_lazy
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
@@ -231,9 +231,9 @@ class PushNotification(AbstractBaseModel):
 
     class Meta:
         #: The verbose name of the model
-        verbose_name = _("push notification")
-        #: The plural verbose name of the model
-        verbose_name_plural = _("push notifications")
+        verbose_name = _("news")
+        #: The plural verbose name of the model (context needed since "news" is the same word in singular and plural)
+        verbose_name_plural = pgettext_lazy("plural", "news")
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view", "archive")
         #: The custom permissions for this model
