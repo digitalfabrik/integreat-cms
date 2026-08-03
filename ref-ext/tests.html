@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-07-29T13:53:54+00:00" />
+    <meta property="article:modified_time" content="2026-08-03T07:12:02+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tests &mdash; integreat-cms 2026.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -2307,7 +2307,7 @@
              
   <section id="module-tests">
 <span id="tests"></span><h1>Tests<a class="headerlink" href="#module-tests" title="Link to this heading"></a></h1>
-<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v9.2.0.dev133)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
+<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v9.2.0.dev147)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
 <p>In addition, we use the following plugins:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/index.html" title="(in pytest-cov v7.1.0)"><span class="xref std std-doc">pytest-cov</span></a>: This plugin produces coverage reports.</p></li>
@@ -2404,6 +2404,10 @@
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_check_internal_invalid"><code class="docutils literal notranslate"><span class="pre">test_check_internal_invalid()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_check_internal_skipped"><code class="docutils literal notranslate"><span class="pre">test_check_internal_skipped()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_check_internal_valid"><code class="docutils literal notranslate"><span class="pre">test_check_internal_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_ignore_inherited_by_new_content_object_same_region"><code class="docutils literal notranslate"><span class="pre">test_ignore_inherited_by_new_content_object_same_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_ignore_not_inherited_across_regions"><code class="docutils literal notranslate"><span class="pre">test_ignore_not_inherited_across_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_ignore_not_inherited_from_archived_page"><code class="docutils literal notranslate"><span class="pre">test_ignore_not_inherited_from_archived_page()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_ignore_not_inherited_from_past_event"><code class="docutils literal notranslate"><span class="pre">test_ignore_not_inherited_from_past_event()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_preserve_ignored_links_across_form_save_cycle"><code class="docutils literal notranslate"><span class="pre">test_preserve_ignored_links_across_form_save_cycle()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_preserve_ignored_links_across_internal_url_rewrite"><code class="docutils literal notranslate"><span class="pre">test_preserve_ignored_links_across_internal_url_rewrite()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_preserve_ignored_links_across_update_links_to"><code class="docutils literal notranslate"><span class="pre">test_preserve_ignored_links_across_update_links_to()</span></code></a></li>
@@ -3074,7 +3078,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The expected message</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev133)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev147)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -3092,7 +3096,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dd><p>Assert that no error messages were shown to the user</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev133)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev147)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/library/exceptions.html#AssertionError" title="(in Python v3.13)"><strong>AssertionError</strong></a> – When the the logs contains error messages</p>
@@ -3119,7 +3123,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dd><p>Get all errors from the messages framework</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev133)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev147)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of error messages that were shown to the user</p>
@@ -3136,7 +3140,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dd><p>Get all logs from the messages framework</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev133)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev147)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of messages that were shown to the user</p>
@@ -3165,7 +3169,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 29, 2026.
+      <span class="lastupdated">Last updated on Aug 03, 2026.
       </span></p>
   </div>
 

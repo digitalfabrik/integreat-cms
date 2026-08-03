@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-07-29T13:53:54+00:00" />
+    <meta property="article:modified_time" content="2026-08-03T07:12:02+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2026.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -2470,6 +2470,77 @@
 
 <dl class="py function">
 <dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">test_ignore_inherited_by_new_content_object_same_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_internal_link_checker.py#L370"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>When a URL has already been marked verified (<code class="docutils literal notranslate"><span class="pre">ignore=True</span></code>) on one
+content object, a <em>different</em> content object in the same region that
+later comes to contain the same URL must inherit <code class="docutils literal notranslate"><span class="pre">ignore=True</span></code> on
+its freshly created Link. Otherwise the URL re-surfaces in the
+dashboard as unverified, with its source column pointing at the old
+(already-verified) content object instead of the newly added one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">test_ignore_not_inherited_across_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_internal_link_checker.py#L436"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The verified (<code class="docutils literal notranslate"><span class="pre">ignore=True</span></code>) flag is region-scoped: a URL verified
+in one region must <em>not</em> silently suppress the same URL when it appears
+in a different region whose editors never vetted it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">test_ignore_not_inherited_from_archived_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_internal_link_checker.py#L497"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Archived pages are excluded from the broken-links dashboard, so a URL
+that is only verified on an archived page must not silently suppress
+the same URL when it later appears on a live page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">test_ignore_not_inherited_from_past_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_internal_link_checker.py#L564"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Only upcoming events appear in the broken-links dashboard, so a URL that
+is only verified on an event which has meanwhile passed must not suppress
+the same URL when it later appears on a live page.</p>
+<p>This is the read/write asymmetry that makes such a link unreachable: both
+the “ignore” and “unignore” actions operate on the dashboard’s own scope,
+so once an event is in the past no editor action can clear the flag on its
+links – yet the flag would keep being inherited forever.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">test_preserve_ignored_links_across_form_save_cycle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_internal_link_checker.py#L146"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Mirrors what <code class="docutils literal notranslate"><span class="pre">CustomContentModelForm.save</span></code> does on every editor
 edit: delete the prior version’s Link rows, then save the new
@@ -2790,7 +2861,7 @@ See <a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cm
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 29, 2026.
+      <span class="lastupdated">Last updated on Aug 03, 2026.
       </span></p>
   </div>
 
