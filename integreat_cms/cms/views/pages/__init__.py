@@ -31,7 +31,6 @@ from .page_permission_actions import (
     grant_page_permission_ajax,
     revoke_page_permission_ajax,
 )
-from .page_sbs_view import PageSideBySideView
 from .page_tree_view import PageTreeView
 from .page_version_view import PageVersionView
 from .page_xliff_import_view import PageXliffImportView
