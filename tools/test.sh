@@ -129,22 +129,36 @@ else
     fi
 fi
 
+# testmon records which tests depend on which code per environment. Docker and
+# host runs use different interpreters and installed packages, so keep their
+# data in separate namespaces of the same .testmondata file instead of letting
+# each mode invalidate the other's.
+if [[ "${LOCAL_MODE}" -eq 1 ]]; then
+    TESTMON_ENV="local"
+else
+    TESTMON_ENV="docker"
+fi
+
 # Check if --changed flag was passed
 if [[ -n "${CHANGED}" ]]; then
     # Check if .testmondata file exists
     if [[ -f ".testmondata" ]]; then
-        # Only run changed tests and don't update dependency database
-        PYTEST_ARGS+=("--testmon-nocollect")
+        # Run the tests affected by recent changes and record the new
+        # dependencies, so the next run starts from the current state. Without
+        # collecting, the database would keep describing the code as it was
+        # when it was first built and the same tests would be selected forever.
+        PYTEST_ARGS+=("--testmon")
         CHANGED_MESSAGE=" affected by recent changes"
     else
         # Inform that all tests will be run
-        echo -e "\nIt looks like you have not run pytest without the \"--changed\" flag before." | print_warning
-        echo -e "Pytest has to build a dependency database by running all tests without the flag once.\n" | print_warning
+        echo -e "\nIt looks like you have not run pytest with the \"--changed\" flag before." | print_warning
+        echo -e "Pytest has to build a dependency database by running all tests once.\n" | print_warning
         # Override test path argument
         unset TESTS
         # Tell testmon to run all tests and collect data
         PYTEST_ARGS+=("--testmon-noselect")
     fi
+    PYTEST_ARGS+=("--testmon-env" "${TESTMON_ENV}")
 else
     # Disable testmon when running in parallel — testmon conflicts with xdist
     # and causes sporadic User.DoesNotExist errors during fixture setup.
@@ -152,7 +166,7 @@ else
         PYTEST_ARGS+=("-p" "no:testmon")
     else
         # Serial mode (verbose): safe to use testmon
-        PYTEST_ARGS+=("--testmon-noselect")
+        PYTEST_ARGS+=("--testmon-noselect" "--testmon-env" "${TESTMON_ENV}")
     fi
 fi
 
