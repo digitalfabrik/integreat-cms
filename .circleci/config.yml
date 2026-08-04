@@ -222,6 +222,8 @@ jobs:
             - integreat_cms/webpack-stats.json
   check-migrations:
     docker:
+      # Keep these images in sync with docker-compose.test.yml and
+      # tools/docker/Dockerfile.test, which mirror this job locally
       - image: cimg/python:3.13.11
       - image: cimg/postgres:17.10
         environment:
@@ -244,6 +246,8 @@ jobs:
           command: integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
   test:
     docker:
+      # Keep these images in sync with docker-compose.test.yml and
+      # tools/docker/Dockerfile.test, which mirror this job locally
       - image: cimg/python:3.13.11
       - image: cimg/postgres:17.10
         environment:
