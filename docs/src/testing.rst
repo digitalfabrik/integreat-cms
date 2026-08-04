@@ -301,9 +301,10 @@ Coverage
 
 A full run of ``./tools/test.sh`` collects coverage and enforces the minimum
 total coverage configured in ``pyproject.toml`` (``fail_under``). Filtered
-runs (``-k``/``-m``) and the per-container runs in CI still collect coverage
-but do not enforce the threshold, because they only ever see a subset of the
-suite.
+runs (``-k``/``-m``/a test path) are not instrumented at all — they only ever
+see a subset of the suite, and skipping the coverage tracer keeps them fast.
+The per-container runs in CI do collect coverage but do not enforce the
+threshold, since each container runs only its share of the tests.
 
 After each run, the test coverage is uploaded to `CodeClimate <https://codeclimate.com/github/digitalfabrik/integreat-cms>`__ (see :ref:`circleci-upload-test-coverage`).
 
