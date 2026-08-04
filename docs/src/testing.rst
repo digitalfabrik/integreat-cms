@@ -161,18 +161,13 @@ Shared Fixtures (``tests/conftest.py``)
 ``login_role_user_async``
     Like ``login_role_user`` but returns an ``AsyncClient``.
 
-``create_page``
-    Function-scoped factory fixture for creating pages.
-
-``create_language``
-    Function-scoped factory fixture for creating languages.
-
 Factory Functions (``tests/factories.py``)
 ------------------------------------------
 
-For new tests, prefer the factory functions in ``tests/factories.py`` over
-raw ``objects.create()`` calls. Factories provide sensible defaults so you
-only specify the fields you care about::
+Prefer the factory functions in ``tests/factories.py`` over raw
+``objects.create()`` calls — they are plain functions, so they need no fixture
+registration. Factories provide sensible defaults so you only specify the
+fields you care about::
 
     from tests.factories import make_region, make_page, make_page_translation
 
