@@ -5,7 +5,7 @@ This module contains shared fixtures for pytest
 from __future__ import annotations
 
 import os
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING
 from unittest.mock import patch
 
 import pytest  # isort: skip — must precede local imports for fixture registration
@@ -16,7 +16,7 @@ from django.core.management import call_command
 from django.test.client import AsyncClient, Client
 from linkcheck.listeners import unregister_listeners
 
-from integreat_cms.cms.models import Language, Page, Region
+from integreat_cms.cms.models import Language
 from integreat_cms.core.utils.strtobool import strtobool
 from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 from tests.constants import (  # noqa: F401 — re-exported for backward compatibility
@@ -39,7 +39,7 @@ from tests.constants import (  # noqa: F401 — re-exported for backward compati
 from tests.mock import MockServer
 
 if TYPE_CHECKING:
-    from collections.abc import Callable, Generator
+    from collections.abc import Generator
     from typing import Final
 
     from _pytest.fixtures import SubRequest
@@ -234,30 +234,6 @@ def clear_cache() -> None:
     and makes assertions depend on test execution order.
     """
     cache.clear()
-
-
-@pytest.fixture()
-def create_page() -> Callable[..., Page]:
-    def _create_page(
-        region: Region | None,
-        name_add: str = "",
-        parent: Page | None = None,
-    ) -> Page:
-        return (
-            parent.add_child(region=parent.region)
-            if parent
-            else Page.add_root(region=region)
-        )
-
-    return _create_page
-
-
-@pytest.fixture()
-def create_language() -> Callable[..., Language]:
-    def _create_language(**kwargs: Any) -> Language:
-        return Language.objects.create(**kwargs)
-
-    return _create_language
 
 
 @pytest.fixture

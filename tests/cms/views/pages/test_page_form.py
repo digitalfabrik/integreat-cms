@@ -3,8 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from collections.abc import Callable
-
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
 
@@ -12,7 +10,8 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from integreat_cms.cms.models import Language, Page, PageTranslation, Region
+from integreat_cms.cms.models import Language, PageTranslation, Region
+from tests.factories import make_page
 
 
 @pytest.mark.django_db
@@ -20,7 +19,6 @@ def test_case_insensitive_unique_slug(
     client: Client,
     load_test_data: None,
     settings: SettingsWrapper,
-    create_page: Callable[..., Page],
 ) -> None:
     """
     Test that an appropriate message is shown to users and the view does not crash when slug is updated for uniqueness
@@ -30,7 +28,7 @@ def test_case_insensitive_unique_slug(
     region = Region.objects.get(slug="augsburg")
     language = Language.objects.get(slug="de")
 
-    page = create_page(region=region)
+    page = make_page(region=region)
     PageTranslation.objects.create(page=page, language=language, slug="slug")
 
     assert PageTranslation.objects.filter(slug="slug").count() == 1
