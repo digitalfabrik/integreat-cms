@@ -79,6 +79,13 @@ def lookup_hix_score_helper(text: str) -> TextlabResult:
             settings.TEXTLAB_API_USERNAME,
             settings.TEXTLAB_API_KEY,
         ).benchmark(normalized_text)
+    except TimeoutError as e:
+        logger.warning(
+            "HIX benchmark API call timed out after %s seconds: %r",
+            settings.TEXTLAB_API_TIMEOUT,
+            e,
+        )
+        raise CacheMeIfYouCan from e
     except (URLError, OSError) as e:
         logger.warning("HIX benchmark API call failed: %r", e)
         raise CacheMeIfYouCan from e
