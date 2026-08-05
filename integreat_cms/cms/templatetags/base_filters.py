@@ -9,8 +9,6 @@ if TYPE_CHECKING:
     from django.contrib.auth.context_processors import PermWrapper
     from django.utils.safestring import SafeString
 
-    from ..models.regions.region import Region
-
 register = template.Library()
 
 
@@ -27,16 +25,13 @@ def in_list(value: str | None, comma_separated_list: SafeString) -> bool:
 
 
 @register.simple_tag
-def get_mt_visibility(region: Region, perms: PermWrapper) -> bool:
+def get_mt_visibility(perms: PermWrapper) -> bool:
     """
-    This tag checks whether either DeepL or Google Translate or SUMM.AI is activated in the region and the user has permission to manage automatic translations.
+    This tag checks whether either DeepL or Google Translate is activated and the user has permission to manage automatic translations.
 
-    :param region: The rcurrent region
     :param perms: Permission of the user
     :return: Whether the MT section should be shown
     """
     return "cms.manage_translations" in perms and (
-        settings.DEEPL_ENABLED
-        or settings.GOOGLE_TRANSLATE_ENABLED
-        or (settings.SUMM_AI_ENABLED and region.summ_ai_enabled)
+        settings.DEEPL_ENABLED or settings.GOOGLE_TRANSLATE_ENABLED
     )

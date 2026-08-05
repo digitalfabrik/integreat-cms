@@ -104,8 +104,6 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
 
         :return: The QuerySet of the filtered links
         """
-        # This workaround is necessary to enable the async tests for the SUMM.AI client
-        logger.debug("request body: %s", self.request.body)
         queryset = (
             super()
             .get_queryset()
