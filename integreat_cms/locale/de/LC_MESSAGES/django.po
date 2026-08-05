@@ -8941,6 +8941,7 @@ msgstr "Angezeigte Sprachen"
 
 #: cms/templates/statistics/_statistics_legend.html
 #: cms/templates/statistics/statistics_viewed_pages.html
+#: cms/templates/statistics/statistics_viewed_pages_node.html
 msgid "Accesses"
 msgstr "Zugriffe"
 
@@ -8959,17 +8960,70 @@ msgstr "Gesamtzugriffe"
 
 #: cms/templates/statistics/statistics_overview.html
 msgid ""
-"Note: These numbers show only part of the impact of your content. More and "
-"more people find information through AI assistants like ChatGPT – "
-"<strong>there, your texts are used without a page visit being counted</"
-"strong>. This can considerably distort page views in the future. So use "
-"these numbers only for rough orientation."
+"The <strong>statistics show only part of the impact of your content.</"
+"strong> More and more people find information through AI assistants like "
+"ChatGPT. There, your texts are used without a page visit being counted. This "
+"can considerably distort page views. <strong>So use these numbers only for "
+"rough orientation.</strong>"
 msgstr ""
-"Hinweis: Diese Zahlen zeigen nur einen Teil der Wirkung Ihrer Inhalte. Immer "
-"mehr Menschen finden Informationen über KI-Assistenten wie ChatGPT – "
-"<strong>dort werden Ihre Texte genutzt, ohne dass ein Seitenbesuch gezählt "
-"wird</strong>. Das kann die Seitenaufrufe in Zukunft stark verzerren. Nutzen "
-"Sie die Zahlen also nur zur groben Orientierung."
+"Die <strong>Statistiken zeigen nur einen Teil der Wirkung Ihrer Inhalte.</"
+"strong> Immer mehr Menschen finden Informationen über KI-Assistenten wie "
+"ChatGPT. Dort werden Ihre Texte verwendet, ohne dass ein Seitenbesuch "
+"gezählt wird. Das kann die Seitenaufrufe stark verzerren. <strong>Nutzen Sie "
+"die Zahlen also nur zur groben Orientierung.</strong>"
+
+#: cms/templates/statistics/statistics_overview.html
+msgid "Statistics Documentation"
+msgstr "Statistiken-Dokumentation"
+
+#: cms/templates/statistics/statistics_overview.html
+msgid ""
+"Why does the <strong>total number of visits not match the sum of all page "
+"views?</strong>"
+msgstr ""
+"Warum stimmt die <strong>Zahl der Gesamtzugriffe nicht mit der Summe aller "
+"Seitenzugriffe überein?</strong>"
+
+#: cms/templates/statistics/statistics_overview.html
+msgid ""
+"<span class=\"underline\">This is normal and to be expected</span>, because "
+"the two surveys measure different things."
+msgstr ""
+"<span class=\"underline\">Das ist normal und zu erwarten</span>, denn: beide "
+"Erhebungen messen unterschiedliche Dinge."
+
+#: cms/templates/statistics/statistics_overview.html
+msgid ""
+"<strong>Total visits</strong> include, among other things, page views within "
+"the system (including the Integreat home page), AI requests, other technical "
+"requests, and visits to pages or languages that no longer exist."
+msgstr ""
+"<strong>Gesamtzugriffe</strong> zählen u.a. die Aufrufe von Seiten im System "
+"(inklusive der Integreat Startseite), KI-Aufrufe, andere technische Aufrufe "
+"und Zugriffe auf Seiten oder auch Sprachen, die nicht mehr existieren."
+
+#: cms/templates/statistics/statistics_overview.html
+msgid ""
+"<strong>Page views</strong> specifically count <span "
+"class=\"underline\">only</span> the visits to published subpages within the "
+"web app."
+msgstr ""
+"<strong>Seitenzugriffe</strong> zählen gezielt <span "
+"class=\"underline\">nur</span> die Aufrufe der veröffentlichten Unterseiten "
+"in der Web-App."
+
+#: cms/templates/statistics/statistics_overview.html
+#, python-format
+msgid ""
+"<strong>Therefore, differences exist and are to be expected.</strong> "
+"Further details can be found in the <a href=\"%(wiki_url)s\"><span "
+"class=\"text-blue-600\">documentation <i icon-name=\"square-arrow-out-up-"
+"right\"></i></span></a>"
+msgstr ""
+"<strong>deshalb sind Unterschiede gegeben und zu erwarten.</strong> Mehr "
+"Details dazu in der <a href=\"%(wiki_url)s\"><span class=\"text-"
+"blue-600\">Dokumentation <i icon-name=\"square-arrow-out-up-right\"></i></"
+"span></a>"
 
 #: cms/templates/statistics/statistics_sidebar.html
 msgid "Adjust shown data"
@@ -9023,21 +9077,27 @@ msgstr "Tabellendokument/CSV - Seitenzugriffe"
 msgid "Page views"
 msgstr "Seitenzugriffe"
 
+#: cms/templates/statistics/statistics_viewed_pages.html
+msgid "All pages with the status <strong>\"Published\"</strong> are listed."
+msgstr ""
+"Aufgelistet sind alle Seiten, die den Status <strong>\"Veröffentlicht\"</"
+"strong> haben."
+
 #: cms/templates/statistics/statistics_viewed_pages_node.html
 msgid "This page has no accesses in the selected time span"
 msgstr "Diese Seite hat keine Zugriffe für den ausgewählten Zeitraum"
 
 #: cms/templates/statistics/statistics_viewed_pages_node.html
-msgid "Accesses in total"
-msgstr "Zugriffe insgesamt"
-
-#: cms/templates/statistics/statistics_viewed_pages_node.html
-msgid "Access in total"
-msgstr "Zugriff insgesamt"
+msgid "Access"
+msgstr "Zugriff"
 
 #: cms/templates/statistics/statistics_viewed_pages_node.html
 msgid "No Accesses"
 msgstr "Keine Zugriffe"
+
+#: cms/templates/statistics/statistics_viewed_pages_node.html
+msgid " in total (incl. child pages)"
+msgstr " gesamt (inkl. Unterseiten)"
 
 #: cms/templates/translations/translations_management.html
 msgid "Manage machine translations"
@@ -12030,6 +12090,21 @@ msgstr ""
 #~ msgid "No German translation could be found for {} \"{}\"."
 #~ msgstr "Es konnte keine Deutsche Übersetzung für {} \"{}\" gefunden werden."
 
+#~ msgid "<strong>Page views</strong> specifically count "
+#~ msgstr "<strong>Seitenzugriffe</strong> zählen gezielt "
+
+#~ msgid "only "
+#~ msgstr "nur "
+
+#~ msgid "the visits to published subpages within the web app."
+#~ msgstr "die Aufrufe der veröffentlichten Unterseiten in der Web-App."
+
+#~ msgid "documentation"
+#~ msgstr "Dokumentation"
+
+#~ msgid "This is normal and to be expected"
+#~ msgstr "Das ist normal und zu erwarten"
+
 #~ msgid "Total Access Statistics"
 #~ msgstr "Statistiken für Gesamtzugriffe"
 
@@ -12902,9 +12977,6 @@ msgstr ""
 
 #~ msgid "Link to within the same page (not automatically checked)"
 #~ msgstr "Link innerhalb der gleichen Seite (nicht automatisch geprüft)"
-
-#~ msgid "Missing Document"
-#~ msgstr "Fehlende Datei"
 
 #~ msgid "Page OK but anchor can't be checked"
 #~ msgstr "Seite OK, aber Anker kann nicht überprüft werden"
