@@ -6,12 +6,15 @@ orbs:
 jobs:
   pip-install:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
+      - run:
+          name: Record interpreter identity for the cache key
+          command: python3 -VV > .python-build-id
       - restore_cache:
-          key: pip-{{ checksum "pyproject.toml" }}-v1
+          key: pip-{{ checksum ".python-build-id" }}-{{ checksum "pyproject.toml" }}-v1
       - run:
           name: Install pip dependencies
           command: |
@@ -24,7 +27,7 @@ jobs:
               pip install -e .[dev-pinned,pinned]
             fi
       - save_cache:
-          key: pip-{{ checksum "pyproject.toml" }}-v1
+          key: pip-{{ checksum ".python-build-id" }}-{{ checksum "pyproject.toml" }}-v1
           paths:
             - .venv
             - integreat_cms.egg-info
@@ -36,7 +39,7 @@ jobs:
             - integreat_cms.egg-info
   djlint:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
@@ -50,7 +53,7 @@ jobs:
           command: djlint --check --lint integreat_cms
   ruff:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
@@ -66,7 +69,7 @@ jobs:
             ruff format --check
   mypy:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
@@ -77,7 +80,7 @@ jobs:
           command: ./tools/mypy.sh
   check-release-notes:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
@@ -97,7 +100,7 @@ jobs:
           command: ./tools/make_release_notes.sh --format=raw --all
   check-translations:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
@@ -111,7 +114,7 @@ jobs:
           command: ./tools/check_translations.sh
   compile-translations:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
@@ -222,7 +225,7 @@ jobs:
             - integreat_cms/webpack-stats.json
   check-migrations:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
       - image: cimg/postgres:17.10
         environment:
           POSTGRES_USER: integreat
@@ -244,7 +247,7 @@ jobs:
           command: integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
   test:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
       - image: cimg/postgres:17.10
         environment:
           POSTGRES_USER: integreat
@@ -296,7 +299,7 @@ jobs:
           path: integreat-cms.log
   build-package:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
@@ -317,7 +320,7 @@ jobs:
             - dist
   publish-package:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
@@ -331,7 +334,7 @@ jobs:
           command: twine upload --non-interactive ./dist/integreat_cms-*.tar.gz
   build-documentation:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: large
     steps:
       - checkout
@@ -357,7 +360,7 @@ jobs:
             - docs/dist
   deploy-documentation:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     environment:
       BRANCH: gh-pages
@@ -401,7 +404,7 @@ jobs:
             git push origin $BRANCH
   bump-dev-version:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: large
     steps:
       - checkout
@@ -451,7 +454,7 @@ jobs:
             - integreat_cms/_manifest
   bump-rc-version:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: large
     steps:
       - checkout
@@ -502,7 +505,7 @@ jobs:
             - integreat_cms/_manifest
   bump-version:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: large
     steps:
       - checkout
@@ -582,7 +585,7 @@ jobs:
           command: git checkout develop && git merge main --commit --no-edit && git push
   create-release:
     docker:
-      - image: cimg/python:3.13.11
+      - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
