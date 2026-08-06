@@ -11,6 +11,7 @@ from integreat_cms.cms.models.utils import get_default_opening_hours
 
 if TYPE_CHECKING:
     from django.db.models.base import ModelBase
+    from django.db.models.query import QuerySet
 
 
 from django.utils.translation import gettext_lazy as _
@@ -146,7 +147,7 @@ class POI(AbstractContentModel):
         Archives the poi and removes all links of this poi from the linkchecker
         """
         was_successful = False
-        if not self.is_currently_used:
+        if self.can_be_archived:
             self.archived = True
             self.save()
             # Delete related link objects as they are no longer required
@@ -173,12 +174,21 @@ class POI(AbstractContentModel):
     @property
     def referring_contacts_exist(self) -> bool:
         """
-        return: whether there are contact objects referring the POI.
-        If the contact module is disabled in the region, it's always False
+        :return: whether there are contact objects referring the POI.
+            If the contact module is disabled in the region, it's always False
         """
         if not self.region.contacts_enabled:
             return False
         return self.contacts.exists()
+
+    @property
+    def non_archived_contacts(self) -> QuerySet:
+        """
+        :return: contacts that are not archived and referencing the POI
+        """
+        if not self.region.contacts_enabled:
+            return self.contacts.none()
+        return self.contacts.exclude(archived=True)
 
     @property
     def is_used(self) -> bool:
@@ -188,13 +198,14 @@ class POI(AbstractContentModel):
         return self.events.exists() or self.referring_contacts_exist
 
     @property
-    def is_currently_used(self) -> bool:
+    def can_be_archived(self) -> bool:
         """
-        :return: whether this poi is used by a contact or an upcoming event
+        :return: whether this poi can be archived
         """
-        upcoming_events = self.events.filter_upcoming()
-
-        return self.referring_contacts_exist or upcoming_events.exists()
+        return (
+            not self.non_archived_contacts.exists()
+            and not self.events.filter_upcoming_non_archived().exists()
+        )
 
     @cached_property
     def short_address(self) -> str:

@@ -8100,29 +8100,42 @@ msgid "Archive location"
 msgstr "Ort archivieren"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
-msgid "You cannot archive a location which is referenced by an event."
+msgid ""
+"You cannot archive a location which is referenced by a non-archived event."
 msgstr ""
-"Der Ort kann nicht archiviert werden, da er von einer Veranstaltung "
-"verwendet wird."
+"Der Ort kann nicht archiviert werden, da er von einer nicht-archivierten "
+"Veranstaltung verwendet wird."
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
-msgid "To archive this location, you have to delete this event first:"
-msgid_plural "To archive this location, you have to delete these events first:"
-msgstr[0] "Löschen Sie zuerst diese Veranstaltung, um den Ort zu archivieren:"
-msgstr[1] ""
-"Löschen Sie zuerst diese Veranstaltungen, um den Ort zu archivieren:"
-
-#: cms/templates/pois/poi_form_sidebar/action_box.html
-msgid "You cannot archive a location which is referenced by a contact."
-msgstr ""
-"Der Ort kann nicht archiviert werden, da er von einem Kontakt verwendet wird."
-
-#: cms/templates/pois/poi_form_sidebar/action_box.html
-msgid "To archive this location, you have to delete this contact first:"
+msgid ""
+"To archive this location, you have to archive or delete this event first:"
 msgid_plural ""
-"To archive this location, you have to delete these contacts first:"
-msgstr[0] "Löschen Sie zuerst diesen Kontakt, um den Ort zu archivieren:"
-msgstr[1] "Löschen Sie zuerst diese Kontakte, um den Ort zu archivieren:"
+"To archive this location, you have to archive or delete these events first:"
+msgstr[0] ""
+"Archivieren oder löschen Sie zuerst diese Veranstaltung, um den Ort zu "
+"archivieren:"
+msgstr[1] ""
+"Archivieren oder löschen Sie zuerst diese Veranstaltungen, um den Ort zu "
+"archivieren:"
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid ""
+"You cannot archive a location which is referenced by a non-archived contact."
+msgstr ""
+"Der Ort kann nicht archiviert werden, da er von einem nicht-archivierten "
+"Kontakt verwendet wird."
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid ""
+"To archive this location, you have to archive or delete this contact first:"
+msgid_plural ""
+"To archive this location, you have to archive or delete these contacts first:"
+msgstr[0] ""
+"Archivieren oder löschen Sie zuerst diesen Kontakt, um den Ort zu "
+"archivieren:"
+msgstr[1] ""
+"Archivieren oder löschen Sie zuerst diese Kontakte, um den Ort zu "
+"archivieren:"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Archive this location"
@@ -9882,6 +9895,11 @@ msgstr ""
 "Bitte bestätigen Sie, dass dieser Kontakt wiederhergestellt werden soll"
 
 #: cms/views/contacts/contact_context_mixin.py
+#: cms/views/events/event_context_mixin.py
+msgid "The following linked content will also be restored:"
+msgstr "Folgende verknüpfte Inhalte werden ebenfalls wiederhergestellt:"
+
+#: cms/views/contacts/contact_context_mixin.py
 msgid "Please confirm that you really want to delete this contact"
 msgstr "Bitte bestätigen Sie, dass dieser Kontakt gelöscht werden soll"
 
@@ -11081,10 +11099,12 @@ msgid "Location was successfully archived"
 msgstr "Ort wurde erfolgreich archiviert"
 
 #: cms/views/pois/poi_actions.py
-msgid "This location cannot be archived because it is referenced by an event."
+msgid ""
+"This location cannot be archived because it is referenced by an event or a "
+"contact that is not archived."
 msgstr ""
-"Dieser Ort kann nicht archiviert werden, da er von einer Veranstaltung oder "
-"einem Kontakt verwendet wird."
+"Dieser Ort kann nicht archiviert werden, da er von einer nicht-archivierten "
+"Veranstaltung oder einem nicht-archivierten Kontakt verwendet wird."
 
 #: cms/views/pois/poi_actions.py
 msgid "Location was successfully restored"
@@ -11138,12 +11158,10 @@ msgstr "Alle Übersetzungen dieses Ortes werden gelöscht."
 #: cms/views/pois/poi_context_mixin.py
 msgid ""
 "You cannot archive a location which is used by an upcoming event or a "
-"contact. \n"
-"This also involves archived events and contacts"
+"contact."
 msgstr ""
 "Sie können keinen Ort archivieren, der von einer zukünftigen Veranstaltung "
-"oder einem Kontakt verwendet wird. \n"
-"Dies betrifft auch archivierte Veranstaltungen und Kontakte"
+"oder einem Kontakt verwendet wird."
 
 #: cms/views/pois/poi_context_mixin.py
 msgid ""
@@ -12105,6 +12123,15 @@ msgstr ""
 #~ msgid "This is normal and to be expected"
 #~ msgstr "Das ist normal und zu erwarten"
 
+#~ msgid ""
+#~ "You cannot archive a location which is used by an upcoming event or a "
+#~ "contact. \n"
+#~ "This also involves archived events and contacts"
+#~ msgstr ""
+#~ "Sie können keinen Ort archivieren, der von einer zukünftigen "
+#~ "Veranstaltung oder einem Kontakt verwendet wird. \n"
+#~ "Dies betrifft auch archivierte Veranstaltungen und Kontakte"
+
 #~ msgid "Total Access Statistics"
 #~ msgstr "Statistiken für Gesamtzugriffe"
 
@@ -12605,11 +12632,6 @@ msgstr ""
 
 #~ msgid "Back to the location form"
 #~ msgstr "Zurück zum Orts-Formular"
-
-#~ msgid "You cannot archive a location which is used by an event."
-#~ msgstr ""
-#~ "Der Ort kann nicht archiviert werden, da er von einer Veranstaltung "
-#~ "verwendet wird."
 
 #~ msgid "\"{} {}\" was not in translation process."
 #~ msgid_plural "The following \"{}\" were not in translation process: \"{}\""

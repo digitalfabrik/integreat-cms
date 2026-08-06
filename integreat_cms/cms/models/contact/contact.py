@@ -445,6 +445,9 @@ class Contact(AbstractBaseModel):
         self.archived = False
         self.save()
 
+        if self.location.archived:
+            self.location.restore()
+
     def copy(self, add_suffix: bool = True) -> Contact:
         """
         Copies the contact
