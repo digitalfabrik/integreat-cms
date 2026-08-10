@@ -46,7 +46,7 @@ def populate_published_at(
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0156_remove_region_chat_enabled"),
+        ("cms", "0157_remove_summ_ai"),
     ]
 
     operations = [
