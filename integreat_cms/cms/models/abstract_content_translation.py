@@ -539,7 +539,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         return str(self)
 
-    @cached_property
+    @property
     def content_with_expanded_links(self) -> str:
         """
         The content as it should be presented to users of the CMS, which means with all
@@ -548,6 +548,12 @@ class AbstractContentTranslation(AbstractBaseModel):
         Everything which is saved back through
         :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
         is collapsed into shortcodes again.
+
+        This deliberately is not a :class:`~django.utils.functional.cached_property`:
+        :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
+        reads it while initializing the form and then assigns the submitted content to the
+        very same instance, so a cached value would be the *previous* content by the time
+        the instance is saved.
 
         :return: The content with expanded links
         """

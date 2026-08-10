@@ -1,23 +1,20 @@
 from collections.abc import Callable
-from typing import overload, ParamSpec, TypeVar
+from typing import overload
 
 import shortcodes
 
-R = TypeVar("R")
-P = ParamSpec("P")
+
+@overload
+def shortcode[**P, R](tag: Callable[P, R]) -> Callable[P, R]: ...
 
 
 @overload
-def shortcode(tag: Callable[P, R]) -> Callable[P, R]: ...
-
-
-@overload
-def shortcode(
+def shortcode[**P, R](
     tag: str | None = None, endtag: str | None = None
 ) -> Callable[[Callable[P, R]], Callable[P, R]]: ...
 
 
-def shortcode(
+def shortcode[**P, R](
     tag: Callable[P, R] | str | None = None, endtag: str | None = None
 ) -> Callable[[Callable[P, R]], Callable[P, R]] | Callable[P, R]:
     """

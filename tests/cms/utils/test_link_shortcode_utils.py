@@ -347,6 +347,51 @@ def test_content_form_collapses_links_on_save(load_test_data: None) -> None:
     assert "integreat.app" not in form.cleaned_data["content"]
 
 
+@pytest.mark.django_db
+def test_expanded_content_is_not_cached(load_test_data: None) -> None:
+    """
+    ``content_with_expanded_links`` must follow later changes of the content.
+
+    It must not be a cached property: the content form reads it while initializing and then
+    assigns the submitted content to the very same instance, so anything reading it during
+    ``pre_save`` (the HIX score calculation does) would otherwise see the previous content.
+    """
+    translation = get_latest_german_translation(page_id=2)
+    translation.content = '<p>[page 1 "hier"]</p>'
+    assert (
+        translation.content_with_expanded_links
+        == f'<p><a href="{WILLKOMMEN_URL}">hier</a></p>'
+    )
+
+    translation.content = "<p>Neuer Inhalt</p>"
+    assert translation.content_with_expanded_links == "<p>Neuer Inhalt</p>"
+
+
+@pytest.mark.django_db
+def test_content_form_does_not_freeze_expanded_content(load_test_data: None) -> None:
+    """
+    After the content form has been validated, the expanded content of its instance must
+    reflect what was submitted, not what was in the database when the form was built
+    """
+    from integreat_cms.cms.forms import PageTranslationForm
+
+    translation = get_latest_german_translation(page_id=2)
+    form = PageTranslationForm(
+        data={
+            "title": translation.title,
+            "slug": translation.slug,
+            "status": translation.status,
+            "content": "<p>Neuer Inhalt</p>",
+        },
+        instance=translation,
+    )
+    # Building the form reads the expanded content to populate the editor
+    assert form.initial["content"]
+    assert form.is_valid(), form.errors
+
+    assert form.instance.content_with_expanded_links == "<p>Neuer Inhalt</p>"
+
+
 def get_latest_german_translation(page_id: int) -> PageTranslation:
     """
     Get the latest German translation of the given page
