@@ -249,7 +249,7 @@ RESPONSE
          "title": String,              // The title of the page
          "modified_gmt": String,       // Deprecated field
          "last_updated": String,       // When the page translation was last updated, in ISO 8601
-         "published_at": String,       // Publication date of this page translation, in ISO 8601
+         "published_at": String,       // First publication date of this page translation, in ISO 8601
          "excerpt": String,            // An excerpt from the page translation content
          "content": String,            // The full content
          "parent": {                   // The parent of this page
@@ -324,7 +324,7 @@ RESPONSE
          "title": String,                // The title of this location
          "modified_gmt": String,         // Deprecated field
          "last_updated": String,         // When the location translation was last updated, in ISO 8601
-         "published_at": String,         // Publication date of this location translation, in ISO 8601
+         "published_at": String,         // First publication date of this location translation, in ISO 8601
          "meta_description": String,     // The meta description of this location
          "excerpt": String,              // An excerpt from the content of the location
          "content": String,              // The content of the location
@@ -486,7 +486,7 @@ RESPONSE
          "title": String,                   // The title of this event
          "modified_gmt": String,            // Deprecated field
          "last_updated": String,            // When the event translation was last updated, in ISO 8601
-         "published_at": String,            // Publication date of this event translation, in ISO 8601
+         "published_at": String,            // First publication date of this event translation, in ISO 8601
          "excerpt": String,                 // An excerpt from the content of the event
          "content": String,                 // The content of the event
          "available_languages": [           // The translations of this event
