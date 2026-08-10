@@ -157,6 +157,9 @@ class PushnewsManager(AbstractNewsManager):
             "title": pnt.get_title(),
             "content": pnt.get_text(),
             "last_updated": timezone.localtime(pnt.last_updated),
+            "published_at": timezone.localtime(
+                pnt.push_notification.sent_date or pnt.last_updated,
+            ),
             "display_date": pnt.display_date,
             "channel": pnt.push_notification.channel,
             "available_languages": available_languages_dict,
@@ -185,6 +188,9 @@ class PushnewsManager(AbstractNewsManager):
             "message": pnt.get_text(),
             "timestamp": pnt.last_updated,  # deprecated field in the future
             "last_updated": timezone.localtime(pnt.last_updated),
+            "published_at": timezone.localtime(
+                pnt.push_notification.sent_date or pnt.last_updated,
+            ),
             "display_date": pnt.display_date,
             "channel": pnt.push_notification.channel,
             "available_languages": available_languages_dict,

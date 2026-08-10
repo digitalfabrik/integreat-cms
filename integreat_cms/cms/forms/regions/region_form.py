@@ -1037,6 +1037,8 @@ def duplicate_page_translations(
         page_translation.page = target_page
         # Delete the primary key to duplicate the object instance instead of updating it
         page_translation.pk = None
+        # Reset the publication date because the duplicate has not been published yet
+        page_translation.published_at = None
         # Set the translation to draft if keep_status is false
         if keep_status is False:
             page_translation.status = status.DRAFT
@@ -1085,6 +1087,8 @@ def duplicate_imprint(
         imprint_translation.page = target_imprint
         # Delete the primary key to duplicate the object instance instead of updating it
         imprint_translation.pk = None
+        # Reset the publication date because the duplicate has not been published yet
+        imprint_translation.published_at = None
         # Set the translation to draft
         imprint_translation.status = status.DRAFT
         # Check if the imprint translation is valid
