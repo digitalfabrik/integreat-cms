@@ -3,7 +3,7 @@ This file contains utility functions to convert between links to internal conten
 shortcodes which represent them.
 
 Internal references are stored as shortcodes so that they are only resolved when the content
-is delivered (see :doc:`ADR 0001 <../../../ADR/0001-compose-referenced-objects-into-content-dynamically-shortcodes>`).
+is delivered (see ``ADR/0001-compose-referenced-objects-into-content-dynamically-shortcodes.md``).
 This means the link index kept by our ``linkcheck`` dependency never has to know about them.
 
 Editors should not have to care about that, so the shortcodes are expanded into ordinary
