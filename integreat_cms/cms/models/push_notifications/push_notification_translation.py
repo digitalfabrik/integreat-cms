@@ -54,6 +54,13 @@ class PushNotificationTranslation(AbstractBaseModel):
             "Tick if updating this content should automatically refresh or create its translations.",
         ),
     )
+    currently_in_machine_translation = models.BooleanField(
+        default=False,
+        verbose_name=_("currently in machine translation"),
+        help_text=_(
+            "Flag to indicate a translation is currently being processed by a machine translation Celery task",
+        ),
+    )
 
     @classmethod
     def search(
