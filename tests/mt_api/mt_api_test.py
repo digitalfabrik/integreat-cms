@@ -465,7 +465,7 @@ def test_mt_update_up_to_date_no_changes(
     """
     mt_setup(["de"], ["en-gb", "en-us"], [], [], settings, mock_server)
 
-    client, role = login_role_user
+    client, _role = login_role_user
 
     region = Region.objects.get(slug=REGION_SLUG)
 
@@ -520,7 +520,7 @@ def test_manual_update_mt_page(
     """
     mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
 
-    client, role = login_role_user
+    client, _role = login_role_user
 
     region = Region.objects.get(slug=REGION_SLUG)
 
@@ -590,8 +590,8 @@ def _create_page(
         "title": title,
         "slug": slug,
         "icon": "",
-        "_ref_node_id": 28,
-        "_position": "left",
+        "treebeard_ref_node": 28,
+        "treebeard_position": "left",
         "parent": "",
         "mirrored_page_region": "",
         "mirrored_page_first": True,
