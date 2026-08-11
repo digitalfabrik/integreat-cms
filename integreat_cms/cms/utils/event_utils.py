@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
-from urllib.parse import parse_qsl, urlencode
 
 from django.shortcuts import reverse
 
@@ -24,6 +23,6 @@ def get_filtered_events_url(
     event_url = reverse(
         "events", kwargs={"region_slug": region_slug, "language_slug": language_slug}
     )
-    if params := parse_qsl(request.POST.get("query_string", "")):
-        event_url = f"{event_url}?{urlencode(params)}"
+    if query_string := request.GET.urlencode():
+        event_url = f"{event_url}?{query_string}"
     return event_url

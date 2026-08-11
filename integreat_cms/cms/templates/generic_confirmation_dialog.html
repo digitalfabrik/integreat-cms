@@ -25,7 +25,6 @@
             </p>
             <form method="post" action="#">
                 {% csrf_token %}
-                <input type="hidden" name="query_string" value="{{ request.GET.urlencode }}">
                 <div class="flex justify-end gap-2">
                     <button id="close-confirmation-popup" class="btn btn-ghost">
                         {% translate "Cancel" %}

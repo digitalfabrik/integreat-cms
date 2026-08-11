@@ -80,7 +80,7 @@ export const showConfirmationPopup = (event: Event, onSubmit?: (event: Event) =>
     if (action) {
         const url = new URL(action, window.location.origin);
         if (url.origin === window.location.origin) {
-            confirmationPopup.querySelector("form").action = url.pathname;
+            confirmationPopup.querySelector("form").action = url.pathname + url.search;
         }
     }
 
