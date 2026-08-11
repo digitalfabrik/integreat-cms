@@ -53,7 +53,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0157_api_token"),
+        ("cms", "0159_api_token"),
     ]
 
     operations = [
@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
             name="mt_budget_booked",
             field=models.PositiveIntegerField(
                 default=50000,
-                help_text="The booked budget in words. For regions managed via the API this can be any value, so no choices are enforced on the model.",
+                help_text="The booked budget in number of words. For regions managed via the API this can be any value, so no choices are enforced on the model.",
                 verbose_name="Machine translation budget",
             ),
         ),

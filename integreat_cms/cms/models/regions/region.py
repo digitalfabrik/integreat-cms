@@ -351,8 +351,8 @@ class Region(AbstractBaseModel):
         default=machine_translation_budget.MINIMAL,
         verbose_name=_("Machine translation budget"),
         help_text=_(
-            "The booked budget in words. For regions managed via the API this can be any value, "
-            "so no choices are enforced on the model.",
+            "The booked budget in number of words. For regions managed via the API this can be "
+            "any value, so no choices are enforced on the model.",
         ),
     )
 

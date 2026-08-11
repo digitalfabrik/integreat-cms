@@ -8,6 +8,8 @@ from django.test.client import Client
 from django.urls import reverse
 from django.utils import timezone
 
+from integreat_cms.api.v3.region_settings import Settings
+from integreat_cms.cms.constants import region_api_settings
 from integreat_cms.cms.models import ApiToken, Region
 
 
@@ -38,18 +40,16 @@ def test_get_region_settings(load_test_data: None) -> None:
 
     assert response.status_code == 200
     data = response.json()
-    for field in (
-        "events_enabled",
-        "locations_enabled",
-        "contacts_enabled",
-        "external_news_enabled",
-        "integreat_chat_enabled",
-        "push_notifications_enabled",
-        "mt_budget_booked",
-        "mt_renewal_month",
-        "mt_budget_adjustment",
-    ):
-        assert field in data
+    # The response contains exactly the writable fields plus the derived values, and the keys of
+    # the typed dictionary describing it stay in sync with the allowlist
+    assert set(data) == {
+        *region_api_settings.WRITABLE_FIELDS,
+        "mt_budget",
+        "mt_budget_used",
+        "mt_budget_remaining",
+        "api_settings_synced_at",
+    }
+    assert set(data) == set(Settings.__annotations__)
     assert data["mt_budget"] == data["mt_budget_booked"] + data["mt_budget_adjustment"]
 
 
