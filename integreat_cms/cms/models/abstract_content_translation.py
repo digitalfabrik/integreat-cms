@@ -91,6 +91,11 @@ class AbstractContentTranslation(AbstractBaseModel):
         default=timezone.now,
         verbose_name=_("modification date"),
     )
+    published_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_("publication date"),
+    )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
@@ -636,7 +641,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         Function to replace links that are in the translation and match the given keyword `search`
         """
-        from ..utils.content_translation_utils import save_new_version_with_retry
+        from ..utils.content_translation_utils import (
+            save_new_version_with_retry,
+        )
 
         new_translation = self.create_new_version_copy(user)
         logger.debug("Replacing links of %r: %r", new_translation, urls_to_replace)
@@ -646,7 +653,11 @@ class AbstractContentTranslation(AbstractBaseModel):
         )
         new_translation.content = fix_content_link_encoding(new_translation.content)
         if new_translation.content != self.content and commit:
-            with transaction.atomic():
+            # Local import: preserve_ignored_links pulls in internal_link_utils,
+            # which imports from cms.models, which loads this very module.
+            from ..utils.link_ignore_preservation import preserve_ignored_links
+
+            with transaction.atomic(), preserve_ignored_links(self):
                 self.links.all().delete()
                 save_new_version_with_retry(new_translation, new_translation.save)
 
@@ -692,6 +703,8 @@ class AbstractContentTranslation(AbstractBaseModel):
             )
         if kwargs.pop("update_timestamp", True):
             self.last_updated = timezone.now()
+        if self.status == status.PUBLIC and not self.published_at:
+            self.published_at = self.last_updated
         super().save(*args, **kwargs)
 
     @transaction.atomic
@@ -701,7 +714,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         and renumber all affected versions to be continuous.
         """
         # Moved here to avoid circular imports
-        from ...core.signals.hix_signals import disable_listeners as disable_hix
+        from ...core.signals.hix_signals import (
+            disable_listeners as disable_hix,
+        )
 
         logger.debug("Cleaning up old autosaves")
 

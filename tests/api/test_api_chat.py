@@ -6,6 +6,7 @@ As we have no Zammad server in the test setup, we need to mock the responses.
 
 from __future__ import annotations
 
+from datetime import timedelta
 from unittest.mock import Mock, patch
 
 import pytest
@@ -15,6 +16,7 @@ from django.core.cache import cache
 from django.test import override_settings
 from django.test.client import Client
 from django.urls import reverse
+from django.utils import timezone
 
 from integreat_cms.cms.models import ABTester, UserChat
 
@@ -23,6 +25,34 @@ default_kwargs = {
     "language_slug": "de",
     "device_id": "exampleDeviceID",
 }
+
+
+def mark_chat_active(device_id: str) -> None:
+    """
+    Update the current chat's ``last_message_timestamp`` to now so it is not
+    considered expired. Uses a queryset update to bypass the ``auto_now`` behaviour.
+
+    :param device_id: device id whose current chat should be marked active
+    """
+    current = UserChat.objects.current_chat(device_id)
+    UserChat.objects.filter(pk=current.pk).update(last_message_timestamp=timezone.now())
+
+
+def mark_chat_expired(device_id: str) -> None:
+    """
+    Update the current chat's ``last_message_timestamp`` to be older than the
+    retention period so it is considered expired. Uses a queryset update to bypass
+    the ``auto_now`` behaviour.
+
+    :param device_id: device id whose current chat should be marked expired
+    """
+    current = UserChat.objects.current_chat(device_id)
+    expired_timestamp = timezone.now() - timedelta(
+        days=settings.INTEGREAT_CHAT_TICKET_RETENTION_DAYS + 1
+    )
+    UserChat.objects.filter(pk=current.pk).update(
+        last_message_timestamp=expired_timestamp
+    )
 
 
 @pytest.mark.django_db
@@ -55,6 +85,8 @@ def test_api_chat_missing_auth_error(
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
+    mark_chat_active(default_kwargs["device_id"])
+
     myerror = requests.exceptions.HTTPError()
     myerror.status_code = 403  # type: ignore[attr-defined]
     zammad_request.side_effect = myerror
@@ -86,6 +118,7 @@ def test_api_chat_incorrect_server_error(
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
+    mark_chat_active(default_kwargs["device_id"])
     cache.delete("api_rate_limit_127.0.0.1")
     client = Client()
     url = reverse(
@@ -195,10 +228,12 @@ def test_api_chat_set_evaluation_consent(
     load_test_data: None,
 ) -> None:
     """
-    Check that sending a message from a never seen-before device_id creates a new chat
+    Check that setting evaluation consent works for an existing (active) chat
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
+    mark_chat_active(default_kwargs["device_id"])
+
     client = Client()
     url = reverse("api:chat", kwargs=default_kwargs)
     response = client.post(
@@ -249,6 +284,7 @@ def test_api_chat_send_message(
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
+    mark_chat_active(default_kwargs["device_id"])
     previous_chat = UserChat.objects.current_chat(default_kwargs["device_id"]).zammad_id
 
     client = Client()
@@ -296,6 +332,8 @@ def test_api_chat_get_messages_success(
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
+    mark_chat_active(default_kwargs["device_id"])
+
     client = Client()
     url = reverse(
         "api:chat",
@@ -304,6 +342,97 @@ def test_api_chat_get_messages_success(
     response = client.get(url)
 
     assert response.status_code == 200
+
+
+@pytest.mark.django_db
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
+    return_value=True,
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
+    return_value="tech@tuerantuer.org",
+)
+@patch("integreat_cms.api.v3.chat.user_chat.UserChat.create_ticket", return_value=222)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_messages",
+    return_value=[{"body": "message1", "user_is_author": True}],
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.save_message",
+    return_value={"ticket_id": 222, "updated_at": "2025-11-13T21:49+01:00"},
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.evaluation_consent",
+    return_value=True,
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.celery_translate_and_answer_question",
+    return_value=True,
+)
+def test_api_chat_stale_chat_starts_new_chat(
+    celery_translate_and_answer_question: Mock,
+    evaluation_consent: Mock,
+    save_message: Mock,
+    messages: Mock,
+    create_ticket: Mock,
+    get_zammad_user_mail: Mock,
+    automatic_answers: Mock,
+    load_test_data: None,
+) -> None:
+    """
+    Check that a new chat is started when the existing chat has been inactive long
+    enough that its Zammad ticket is assumed to be gone (Zammad's retention policy).
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    previous_chat = UserChat.objects.current_chat(default_kwargs["device_id"]).zammad_id
+    # Mark the existing chat as inactive beyond the retention period
+    mark_chat_expired(default_kwargs["device_id"])
+
+    client = Client()
+    url = reverse(
+        "api:chat",
+        kwargs=default_kwargs,
+    )
+    response = client.post(url, data={"message": "test message"})
+
+    assert response.status_code == 200
+    # A new ticket should have been created for the same device id
+    create_ticket.assert_called_once()
+    current_chat = UserChat.objects.current_chat(default_kwargs["device_id"])
+    assert current_chat.zammad_id == 222
+    assert current_chat.zammad_id != previous_chat
+
+
+@pytest.mark.django_db
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
+    return_value="tech@tuerantuer.org",
+)
+def test_api_chat_stale_chat_get_returns_not_found(
+    get_zammad_user_mail: Mock,
+    load_test_data: None,
+) -> None:
+    """
+    Check that GET-ing messages for an expired chat returns a "not found" error
+    instead of creating a new chat.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    mark_chat_expired(default_kwargs["device_id"])
+
+    client = Client()
+    url = reverse(
+        "api:chat",
+        kwargs=default_kwargs,
+    )
+    response = client.get(url)
+
+    assert response.status_code == 404
+    assert response.json() == {
+        "error": "Chat not found.",
+    }
 
 
 @pytest.mark.django_db
@@ -361,6 +490,7 @@ def test_api_chat_ratelimiting(
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
+    mark_chat_active(default_kwargs["device_id"])
     cache.delete("api_rate_limit_127.0.0.1")
     client = Client()
     url = reverse(
@@ -423,6 +553,7 @@ def test_api_chat_ratelimiting_trusted_ip_header(
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
+    mark_chat_active(default_kwargs["device_id"])
     cache.delete("api_rate_limit_127.0.0.1")
     client = Client()
     url = reverse(

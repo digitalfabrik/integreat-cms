@@ -302,23 +302,23 @@ class POIFormView(
         """
         Shows a message to the user if the slug they provided was not unique and therefore changed.
         """
-        if user_slug:
-            cleaned_slug = poi_translation_form.cleaned_data["slug"]
-            if user_slug != cleaned_slug:
-                if user_slug.lower() == cleaned_slug:
-                    message_uppercase = _(
-                        "The slug was changed from '{user_slug}' to '{slug}', because uppercase letters are not allowed."
-                    ).format(
-                        user_slug=user_slug,
-                        slug=cleaned_slug,
-                    )
-                    messages.warning(request, message_uppercase)
-                else:
-                    other_translation = POITranslation.objects.filter(
-                        poi__region=region,
-                        slug=user_slug,
-                        language=language,
-                    ).first()
+        cleaned_slug = poi_translation_form.cleaned_data["slug"]
+        if user_slug and user_slug != cleaned_slug:
+            if user_slug.lower() == cleaned_slug:
+                message_uppercase = _(
+                    "The slug was changed from '{user_slug}' to '{slug}', because uppercase letters are not allowed."
+                ).format(
+                    user_slug=user_slug,
+                    slug=cleaned_slug,
+                )
+                messages.warning(request, message_uppercase)
+            else:
+                other_translation = POITranslation.objects.filter(
+                    poi__region=region,
+                    slug=user_slug,
+                    language=language,
+                ).first()
+                if other_translation:
                     other_translation_link = other_translation.backend_edit_link
                     message = _(
                         "The slug was changed from '{user_slug}' to '{slug}', "
@@ -336,6 +336,21 @@ class POIFormView(
                                 "href": other_translation_link,
                                 "class": "underline hover:no-underline",
                             },
+                        ),
+                    )
+                else:
+                    logger.warning(
+                        "Slug was changed from the one the user provided, but we can't find the translation that already used it: %s (cleaned to %s)",
+                        user_slug,
+                        poi_translation_form.cleaned_data["slug"],
+                    )
+                    messages.warning(
+                        request,
+                        _(
+                            "The slug was changed from '{user_slug}' to '{slug}'."
+                        ).format(
+                            user_slug=user_slug,
+                            slug=poi_translation_form.cleaned_data["slug"],
                         ),
                     )
 

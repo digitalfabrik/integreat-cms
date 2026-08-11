@@ -76,8 +76,8 @@ const drop = (event: Event) => {
         .forEach((node) => node.classList.toggle("drop-between") && node.classList.toggle("drop-between-deactivated"));
 
     // Passing the values to the hidden fields
-    document.getElementById("id__ref_node_id").setAttribute("value", target.getAttribute("data-drop-id"));
-    document.getElementById("id__position").setAttribute("value", target.getAttribute("data-drop-position"));
+    document.getElementById("id_treebeard_ref_node").setAttribute("value", target.getAttribute("data-drop-id"));
+    document.getElementById("id_treebeard_position").setAttribute("value", target.getAttribute("data-drop-position"));
     // Register new event handlers
     /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
     registerEventHandlers();
@@ -144,8 +144,8 @@ const getPageOrderTable = async ({ target }: Event) => {
         // Check if the page is part of the parent's children
         const pageContainedInSiblings = document.querySelector(".drag").getAttribute("data-contained-in-siblings");
         const lastSiblingId = escapeMeta(document.getElementById("last-sibling")?.getAttribute("data-drop-id"));
-        const refNodeField = document.getElementById("id__ref_node_id") as HTMLInputElement;
-        const positionField = document.getElementById("id__position") as HTMLInputElement;
+        const refNodeField = document.getElementById("id_treebeard_ref_node") as HTMLInputElement;
+        const positionField = document.getElementById("id_treebeard_position") as HTMLInputElement;
         // Save initial value for resetting the page order table later if initial parent is re-selected
         if (!refNodeField.hasAttribute("data-default-value")) {
             refNodeField.setAttribute("data-default-value", escapeMeta(refNodeField.value));

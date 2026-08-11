@@ -20,7 +20,7 @@ from ..form_views import CustomCreateView, CustomUpdateView
 if TYPE_CHECKING:
     from typing import Any
 
-    from django.http.response import HttpResponseRedirect
+    from django.http.response import HttpResponse, HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -59,13 +59,11 @@ class LanguageTreeNodeCreateView(CustomCreateView):
         return kwargs
 
     @tree_mutex("languagetreenode")
-    # type: ignore[no-untyped-def]
-    def get(self, *args, **kwargs):
+    def get(self, *args: Any, **kwargs: Any) -> HttpResponse:
         return super().post(*args, **kwargs)
 
     @tree_mutex("languagetreenode")
-    # type: ignore[no-untyped-def]
-    def post(self, *args, **kwargs):
+    def post(self, *args: Any, **kwargs: Any) -> HttpResponse:
         return super().post(*args, **kwargs)
 
 
@@ -95,11 +93,9 @@ class LanguageTreeNodeUpdateView(CustomUpdateView):
         return response
 
     @tree_mutex("languagetreenode")
-    # type: ignore[no-untyped-def]
-    def get(self, *args, **kwargs):
+    def get(self, *args: Any, **kwargs: Any) -> HttpResponse:
         return super().post(*args, **kwargs)
 
     @tree_mutex("languagetreenode")
-    # type: ignore[no-untyped-def]
-    def post(self, *args, **kwargs):
+    def post(self, *args: Any, **kwargs: Any) -> HttpResponse:
         return super().post(*args, **kwargs)

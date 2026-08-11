@@ -15,7 +15,7 @@ import inspect
 import os
 import sys
 from datetime import date
-from typing import Final, TYPE_CHECKING
+from typing import Any, Final, TYPE_CHECKING
 
 from django import VERSION as DJANGO_VERSION_TUPLE
 
@@ -57,7 +57,7 @@ django_github_url: Final[str] = (
 )
 
 #: The full version, including alpha/beta/rc tags
-release = "2026.7.0"
+release = "2026.7.1"
 
 # -- General configuration ---------------------------------------------------
 
@@ -289,12 +289,59 @@ def linkcode_resolve(domain: str, info: dict) -> str | None:
 # -- Custom patches for autodoc ----------------------------------------------
 
 
+def patch_improve_class_docstring() -> None:
+    """
+    Guard :func:`sphinxcontrib_django.docstrings.improve_class_docstring` against classes
+    without ``_meta``: Sphinx 9 also feeds PEP 695 type parameter bounds (like the plain
+    :class:`django.db.models.Model` bound of ``ShadowInstance[T: Model]``) into the
+    ``autodoc-process-docstring`` event, on which sphinxcontrib-django crashes.
+    """
+    from django.db import models
+    from sphinxcontrib_django import docstrings
+
+    improve_class_docstring = docstrings.improve_class_docstring
+
+    def improve_class_docstring_safe(app: Sphinx, cls: type, lines: list[str]) -> None:
+        if issubclass(cls, models.Model) and not hasattr(cls, "_meta"):
+            return
+        improve_class_docstring(app, cls, lines)
+
+    docstrings.improve_class_docstring = improve_class_docstring_safe
+
+
+def fix_treebeard_tree_model_docstring(
+    _app: Sphinx,
+    _what: str,
+    name: str,
+    _obj: Any,
+    _options: Any,
+    lines: list[str],
+) -> None:
+    """
+    Fix the malformed RST bullet lists in the docstring of
+    :meth:`treebeard.models.Node.tree_model` (django-treebeard 5 does not indent
+    the bullet continuation lines, causing docutils warnings in our strict build).
+    """
+    if name.rpartition(".")[2] != "tree_model":
+        return
+    in_bullet = False
+    for index, line in enumerate(lines):
+        if line.startswith("* "):
+            in_bullet = True
+        elif not line.strip():
+            in_bullet = False
+        elif in_bullet and not line.startswith(" "):
+            lines[index] = f"  {line}"
+
+
 def setup(app: Sphinx) -> None:
     """
-    Connect to the ``django-configured`` event of :mod:`sphinxcontrib_django` to monkeypatch application.
+    Apply custom patches and extensions to the Sphinx application.
 
     :param app: The Sphinx application object
     """
+    patch_improve_class_docstring()
+    app.connect("autodoc-process-docstring", fix_treebeard_tree_model_docstring)
     # Add crossref type for links to the pytest documentation
     app.add_crossref_type(
         directivename="fixture",

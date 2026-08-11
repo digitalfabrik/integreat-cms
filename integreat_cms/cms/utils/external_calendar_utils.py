@@ -10,7 +10,7 @@ import zoneinfo
 from typing import Any, Self, TYPE_CHECKING
 
 from django.utils.translation import gettext as _
-from icalendar.prop import vCategory, vDDDTypes, vFrequency, vInt, vRecur, vWeekday
+from icalendar.prop import vCategory, vDDDTypes, vFrequency, vRecur, vWeekday
 
 from integreat_cms.cms.constants import frequency, status
 from integreat_cms.cms.constants.weekdays import RRULE_WEEKDAY_TO_WEEKDAY
@@ -59,6 +59,7 @@ class IcalEventData:
         language_slug: str,
         external_calendar: ExternalCalendar,
         logger: logging.Logger,
+        region_id: int | None = None,
     ) -> Self:
         """
         Reads an ical event and constructs an instance of this class from it
@@ -69,21 +70,16 @@ class IcalEventData:
         :return: An instance of IcalEventData
         :raises ValueError: If the data are invalid
         """
-        event_id = event.decoded("UID").decode("utf-8")
-        title = event.decoded("SUMMARY").decode("utf-8")
-        raw_description = (
-            event.decoded("DESCRIPTION").decode("utf-8")
-            if "DESCRIPTION" in event
-            else ""
-        )
-        location = (
-            event.decoded("LOCATION").decode("utf-8") if "LOCATION" in event else ""
-        )
+        event_id = event.decoded("UID")
+        title = event.decoded("SUMMARY")
+        raw_description = event.decoded("DESCRIPTION") if "DESCRIPTION" in event else ""
+        location = event.decoded("LOCATION") if "LOCATION" in event else ""
         if location:
             raw_description += "\n\n" + location
         content = clean_content(
             content=raw_description.replace("\n", "<br>"),
             language_slug=language_slug,
+            region_id=region_id,
         )
         start = event.decoded("DTSTART")
         end = event.decoded(
@@ -195,7 +191,8 @@ class RecurrenceRuleData:
     """
 
     frequency: vFrequency
-    interval: vInt
+    # vInt is a subclass of int, but the default value if the rule contains no interval is a plain int
+    interval: int
     until: vDDDTypes | None
     by_day: list[vWeekday] | None
     by_set_pos: int | None
@@ -438,17 +435,14 @@ def import_event(
 
     try:
         event_data = IcalEventData.from_ical_event(
-            event,
-            language.slug,
-            calendar,
-            logger,
+            event, language.slug, calendar, logger, calendar.region.id
         )
     except ValueError as e:
         logger.exception("Could not import event: %r due to error", event)
         errors.append(_("Could not import '{}': {}").format(event.get("SUMMARY"), e))
         try:
-            return event.decoded("UID").decode("utf-8")
-        except (KeyError, UnicodeError):
+            return event.decoded("UID")
+        except KeyError:
             return None
 
     # Skip this event if it does not have the required tag
@@ -561,8 +555,8 @@ def import_event(
             "Imported event %r, %r, %r",
             event,
             event_translation,
-            event.recurrence_rule,
-        )  # type: ignore[attr-defined]
+            event.recurrence_rule,  # type: ignore[attr-defined]
+        )
     else:
         logger.info("Event %r has not changed", event_translation_form.instance)
 

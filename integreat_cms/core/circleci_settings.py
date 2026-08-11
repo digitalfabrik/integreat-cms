@@ -17,10 +17,6 @@ SECRET_KEY = "dummy"  # noqa: S105
 FCM_CREDENTIALS = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 FCM_ENABLED = True
-#: Set dummy SUMM.AI API key to test translations into Easy German
-SUMM_AI_API_KEY = "dummy"
-#: Enable manually because existing setting derives from the unset env var
-SUMM_AI_ENABLED = True
 #: Set dummy DeepL key to test automatic translations via DeepL API
 DEEPL_AUTH_KEY = "dummy"
 #: Enable manually because existing setting derives from the unset env var
@@ -35,6 +31,11 @@ GOOGLE_APPLICATION_CREDENTIALS = "dummy"
 GOOGLE_PROJECT_ID = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 GOOGLE_TRANSLATE_ENABLED = True
+#: The app code calls cacheops' ``invalidate_obj``/``invalidate_model`` directly,
+#: which contact Redis regardless of the app being installed — with no Redis
+#: reachable, redis-py's connection retries add minutes of backoff sleeps to
+#: every tree operation. This flag makes all cacheops entry points no-ops.
+CACHEOPS_ENABLED = False
 #: Disable linkcheck listeners on CircleCI
 LINKCHECK_DISABLE_LISTENERS = True
 # Disable background tasks during testing

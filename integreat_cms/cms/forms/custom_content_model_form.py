@@ -14,6 +14,7 @@ from ..utils.content_translation_utils import (
     update_links_to,
 )
 from ..utils.content_utils import clean_content
+from ..utils.link_ignore_preservation import preserve_ignored_links
 from ..utils.slug_utils import generate_unique_slug_helper
 from .custom_model_form import CustomModelForm
 
@@ -103,7 +104,15 @@ class CustomContentModelForm(CustomModelForm):
         :return: The valid content
         """
         content = self.cleaned_data["content"]
-        return clean_content(content, language_slug=self.instance.language.slug)
+        try:
+            region_id = self.instance.foreign_object.region_id
+        except ObjectDoesNotExist:
+            region_id = None
+        return clean_content(
+            content,
+            language_slug=self.instance.language.slug,
+            region_id=region_id,
+        )
 
     def clean_slug(self) -> str:
         """
@@ -128,26 +137,32 @@ class CustomContentModelForm(CustomModelForm):
         :return: The saved content translation object
         """
 
-        if commit:
-            # Delete now outdated link objects
-            self.instance.links.all().delete()
-
         # If none of the text content fields were changed, treat as minor edit (even if checkbox isn't clicked)
         # so that existing translations in other languages are not incorrectly flagged as outdated
         if {"title", "content"}.isdisjoint(self.changed_data):
             self.logger.debug("Set 'minor_edit=True' since the content did not change")
             self.instance.minor_edit = True
 
-        # Save new version
-        self.instance.version += 1
-        self.instance.pk = None
-
-        # Save CustomModelForm, retrying with a recomputed version on conflict
-        # to handle race conditions from concurrent saves (e.g. bulk MT)
         parent_save = super().save
-        result = save_new_version_with_retry(
-            self.instance, lambda: parent_save(commit=commit)
-        )
+
+        if commit:
+            with preserve_ignored_links(self.instance):
+                # Delete now outdated link objects
+                self.instance.links.all().delete()
+                # Save new version
+                self.instance.version += 1
+                self.instance.pk = None
+                # Save CustomModelForm, retrying with a recomputed version on conflict
+                # to handle race conditions from concurrent saves (e.g. bulk MT)
+                result = save_new_version_with_retry(
+                    self.instance, lambda: parent_save(commit=commit)
+                )
+        else:
+            self.instance.version += 1
+            self.instance.pk = None
+            result = save_new_version_with_retry(
+                self.instance, lambda: parent_save(commit=commit)
+            )
 
         # Update links to this content translation
         # Also update if the status got changed, since title or slug might have changed in a previous draft version

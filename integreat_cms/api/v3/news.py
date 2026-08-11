@@ -114,7 +114,7 @@ def single_news(
         (
             news_manager
             for news_manager in registry.CHOICES
-            if news_manager.name == news_type
+            if news_manager.short_name == news_type
         ),
         None,
     )

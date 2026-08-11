@@ -154,7 +154,7 @@
                         <i icon-name="copy"></i>
                     </button>
                 </form>
-                {% if poi.is_currently_used %}
+                {% if not poi.can_be_archived %}
                     <button title="{{ cannot_archive_title }}" class="btn-icon" disabled>
                         <i icon-name="archive"></i>
                     </button>

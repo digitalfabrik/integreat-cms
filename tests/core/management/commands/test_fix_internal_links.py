@@ -11,6 +11,9 @@ from django.core.management.base import CommandError
 from linkcheck.listeners import enable_listeners
 from linkcheck.models import Link, Url
 
+from integreat_cms.cms.constants import status
+from integreat_cms.cms.models import Organization, PageTranslation
+
 from ..utils import get_command_output
 
 
@@ -42,6 +45,58 @@ def test_fix_internal_links_non_existing_username(
             get_command_output("fix_internal_links", "--username=non-existing"),
         )
     assert str(exc_info.value) == 'User with username "non-existing" does not exist.'
+
+
+@pytest.mark.django_db
+def test_fix_internal_links_skips_links_without_public_target_translation(
+    load_test_data: None,
+) -> None:
+    """
+    Ensure that a link whose target has no public translation in the language of the
+    linking content is skipped instead of crashing the command
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    # The English translation of the "test-links" page links to the German page
+    # "willkommen". Unpublish the English translation of that page, so that no
+    # public link target exists in the language of the linking content.
+    PageTranslation.objects.filter(page__id=1, language__slug="en").update(
+        status=status.DRAFT,
+    )
+
+    with enable_listeners():
+        out, err = get_command_output("fix_internal_links")
+
+    assert "✔ Finished dry-run of fixing broken internal links." in out
+    assert not err
+
+
+@pytest.mark.django_db
+def test_fix_internal_links_skips_organization_links(load_test_data: None) -> None:
+    """
+    Ensure that links of organizations (which have no language and no versioning)
+    are skipped instead of crashing the command
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    internal_url = "https://integreat.app/augsburg/de/willkommen/"
+    organization = Organization.objects.get(id=1)
+    Organization.objects.filter(id=organization.id).update(website=internal_url)
+    Link.objects.create(
+        url=Url.objects.get(url=internal_url),
+        content_object=organization,
+        field="website",
+        text=organization.name,
+    )
+
+    with enable_listeners():
+        out, err = get_command_output("fix_internal_links")
+
+    assert "✔ Finished dry-run of fixing broken internal links." in out
+    assert not err
+    assert Link.objects.filter(
+        organization__id=organization.id,
+    ).exists(), "The organization link should not be modified"
 
 
 old_urls = [
@@ -148,4 +203,66 @@ def test_fix_internal_links_commit(load_test_data_transactional: Any | None) -> 
         ).exists(), "New URL should exist after replacement"
         assert Link.objects.filter(url__url=new_url).count() == 1, (
             "New link should exist after replacement"
+        )
+
+
+@pytest.mark.order("last")
+@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+def test_fix_internal_links_commit_skips_version_conflicts(
+    load_test_data_transactional: Any | None,
+) -> None:
+    """
+    Ensure that a version number conflict (e.g. because an editor saved a new version
+    while the command was running) only skips the affected translation instead of
+    aborting the whole command and losing its link records
+
+    :param load_test_data_transactional: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data_transactional`)
+    """
+    # Simulate a concurrent editor save: the latest version in the database is newer
+    # than the version the linkcheck data still points to. The English translation of
+    # the "test-links" page is the one whose links to the German page "willkommen",
+    # the event "test-veranstaltung" and the location "test-ort" would be fixed.
+    stale_translation = PageTranslation.objects.get(
+        page__id=27,
+        language__slug="en",
+        version=1,
+    )
+    newer_version = stale_translation.create_new_version_copy()
+    newer_version.save()
+
+    stale_link_count = stale_translation.links.count()
+    assert stale_link_count > 0
+
+    # The URL that only the conflicting translation would produce
+    skipped_url = "https://integreat.app/augsburg/en/welcome/"
+    # URLs that fixes of other translations produce
+    fixed_urls = [
+        "https://integreat.app/augsburg/de/deutsche-sprache/sonstige-sprachlernangebote/",
+        "https://integreat.app/augsburg/de/test-links/",
+    ]
+    for url in [skipped_url, *fixed_urls]:
+        assert not Url.objects.filter(
+            url=url,
+        ).exists(), "The fixed URL should not exist before the command is run"
+
+    with enable_listeners():
+        out, err = get_command_output("fix_internal_links", "--commit")
+
+    assert "✔ Successfully finished fixing broken internal links." in out
+    assert "newer version" in err, (
+        "The skipped version conflict should be reported as a warning"
+    )
+
+    # The conflicting translation must be skipped and keep its link records
+    assert stale_translation.links.count() == stale_link_count, (
+        "The link records of the skipped translation should be preserved"
+    )
+    assert not Url.objects.filter(
+        url=skipped_url,
+    ).exists(), "The links of the conflicting translation should not be replaced"
+
+    # All other translations must still be fixed
+    for url in fixed_urls:
+        assert Link.objects.filter(url__url=url).count() == 1, (
+            "Links in other translations should still be replaced"
         )

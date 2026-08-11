@@ -99,8 +99,8 @@ content_role_id_data_combination = [
             "title": "Neuer Titel",
             "content": "Neuer Inhalt",
             "mirrored_page_region": "",
-            "_ref_node_id": 3,
-            "_position": "right",
+            "treebeard_ref_node": 3,
+            "treebeard_position": "right",
             "automatic_translation": "on",
         },
     ),
@@ -305,7 +305,7 @@ def test_do_not_translate_title(
     :param caplog: The :fixture:`caplog` fixture
     :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     """
-    client, role = login_role_user
+    client, _role = login_role_user
 
     region = Region.objects.get(slug=REGION_SLUG)
 
@@ -391,7 +391,7 @@ def test_mt_update_to_empty_content(
     """
     mt_setup(["de"], ["en-gb", "en-us"], ["en"], ["ar"], settings, mock_server)
 
-    client, role = login_role_user
+    client, _role = login_role_user
 
     region = Region.objects.get(slug=REGION_SLUG)
 
@@ -635,7 +635,7 @@ def _edit_translation(
         "do_not_translate_title": do_not_translate_title,
         "mirrored_page_region": "",
         "status": status.PUBLIC,
-        "_position": "right",
+        "treebeard_position": "right",
     }
 
     if mt_translations_to_create or mt_translations_to_update:

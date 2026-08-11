@@ -109,13 +109,13 @@ class GvzApiWrapper:
             ad.CITY_STATE,
         ]:
             result = 10
-        elif division_type in [ad.GOVERNMENTAL_DISTRICT]:
+        elif division_type == ad.GOVERNMENTAL_DISTRICT:
             result = 20
-        elif division_type in [ad.REGION]:
+        elif division_type == ad.REGION:
             result = 30
         elif division_type in [ad.RURAL_DISTRICT, ad.DISTRICT, ad.CITY_AND_DISTRICT]:
             result = 40
-        elif division_type in [ad.COLLECTIVE_MUNICIPALITY]:
+        elif division_type == ad.COLLECTIVE_MUNICIPALITY:
             result = 50
         elif division_type in [
             ad.CITY,

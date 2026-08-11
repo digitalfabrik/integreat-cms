@@ -13,7 +13,7 @@ import io
 from typing import TYPE_CHECKING
 from urllib.parse import quote, urlencode
 
-import PyPDF3
+import pypdf
 import pytest
 from django.urls import reverse
 
@@ -129,23 +129,23 @@ def test_pdf_export(
         print(response.headers)
         assert response.headers.get("Content-Type") == "application/pdf"
         # Compare file content
-        result_pdf = PyPDF3.PdfFileReader(
+        result_pdf = pypdf.PdfReader(
             io.BytesIO(b"".join(response.streaming_content)),
         )
         with open(f"tests/pdf/files/{expected_filename}", "rb") as file:
-            expected_pdf = PyPDF3.PdfFileReader(file)
+            expected_pdf = pypdf.PdfReader(file)
             # Assert that both documents have same number of pages
-            assert result_pdf.numPages == expected_pdf.numPages
+            assert len(result_pdf.pages) == len(expected_pdf.pages)
             # Assert that the content is identical
-            for page_number in range(result_pdf.numPages):
-                result_page = result_pdf.getPage(page_number)
-                expected_page = expected_pdf.getPage(page_number)
-                assert result_page.artBox == expected_page.artBox
-                assert result_page.bleedBox == expected_page.bleedBox
-                assert result_page.cropBox == expected_page.cropBox
-                assert result_page.mediaBox == expected_page.mediaBox
-                assert result_page.extractText() == expected_page.extractText()
-                assert result_page.getContents() == expected_page.getContents()
+            for page_number in range(len(result_pdf.pages)):
+                result_page = result_pdf.pages[page_number]
+                expected_page = expected_pdf.pages[page_number]
+                assert result_page.artbox == expected_page.artbox
+                assert result_page.bleedbox == expected_page.bleedbox
+                assert result_page.cropbox == expected_page.cropbox
+                assert result_page.mediabox == expected_page.mediabox
+                assert result_page.extract_text() == expected_page.extract_text()
+                assert result_page.get_contents() == expected_page.get_contents()
 
 
 @pytest.mark.django_db

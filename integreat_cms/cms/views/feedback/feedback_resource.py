@@ -72,5 +72,15 @@ class FeedbackResource(resources.ModelResource):
         """
 
         model = Feedback
-        # if we don't define the empty fields all fields are created in the default way additionally to our custom way
-        fields = ()
+        # since django-import-export 4, declared fields must be listed here explicitly,
+        # otherwise they are ignored and the model fields are exported instead
+        fields = (
+            "category",
+            "referring_to",
+            "language_name",
+            "rating",
+            "read_by_username",
+            "comment",
+            "created_date",
+        )
+        export_order = fields

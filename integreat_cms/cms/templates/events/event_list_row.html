@@ -182,6 +182,7 @@
                         data-confirmation-title="{{ restore_dialog_title }}"
                         data-confirmation-text="{{ restore_dialog_text }}"
                         data-confirmation-subject="{{ event_translation.title }}"
+                        {% if event.location and event.location.archived %} data-confirmation-referenced-location-title="{{ referenced_location_title }}" data-confirmation-referenced-location-subject="{{ event.location|poi_translation_title:current_language }}" {% endif %}
                         data-action="{% url 'restore_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i icon-name="refresh-ccw"></i>
                 </button>

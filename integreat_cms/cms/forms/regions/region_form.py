@@ -21,7 +21,6 @@ from ....matomo_api.matomo_api_client import MatomoException
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...constants import duplicate_pbo_behaviors, region_status, status
 from ...models import LanguageTreeNode, OfferTemplate, Page, Region
-from ...models.regions.region import format_summ_ai_help_text
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
@@ -137,17 +136,6 @@ class RegionForm(CustomModelForm):
         required=False,
     )
 
-    summ_ai_midyear_start_enabled = forms.BooleanField(
-        required=False,
-        label=_("Budget year start differs from the renewal date"),
-        help_text=__(
-            _("Enable to set starting date differing from the renewal date."),
-            format_summ_ai_help_text(
-                _("Budget will be set as a monthly fraction of {} credits")
-            ),
-        ),
-    )
-
     mt_midyear_start_enabled = forms.BooleanField(
         required=False,
         label=_("Budget year start differs from the renewal date"),
@@ -208,10 +196,6 @@ class RegionForm(CustomModelForm):
             "external_news_enabled",
             "timezone",
             "fallback_translations_enabled",
-            "summ_ai_enabled",
-            "summ_ai_renewal_month",
-            "summ_ai_midyear_start_enabled",
-            "summ_ai_midyear_start_month",
             "hix_enabled",
             "mt_budget_booked",
             "mt_renewal_month",
@@ -246,14 +230,8 @@ class RegionForm(CustomModelForm):
         # Do not require coordinates because they might be automatically filled
         self.fields["latitude"].required = False
         self.fields["longitude"].required = False
-        # Disable SUMM.AI option if locally and globally disabled
-        if not settings.SUMM_AI_ENABLED and not self.instance.summ_ai_enabled:
-            self.fields["summ_ai_enabled"].disabled = True
         if not settings.TEXTLAB_API_ENABLED and not self.instance.hix_enabled:
             self.fields["hix_enabled"].disabled = True
-        self.fields["summ_ai_midyear_start_enabled"].initial = (
-            self.instance.summ_ai_midyear_start_month is not None
-        )
         self.fields["mt_midyear_start_enabled"].initial = (
             self.instance.mt_midyear_start_month is not None
         )
@@ -344,7 +322,6 @@ class RegionForm(CustomModelForm):
         cleaned_data = super().clean()
 
         cleaned_data.update(self.clean_statistics())
-        cleaned_data.update(self.clean_summ_ai())
         cleaned_data.update(self.clean_mt_budget())
         cleaned_data.update(self.clean_zammad())
         cleaned_data.update(self.clean_chat())
@@ -427,40 +404,6 @@ class RegionForm(CustomModelForm):
             or cleaned["mt_midyear_start_month"] == cleaned["mt_renewal_month"]
         ):
             cleaned["mt_midyear_start_month"] = None
-        return cleaned
-
-    def clean_summ_ai(self) -> dict[str, Any]:
-        """
-        If Summ AI budget year differs from the set renewal date, make sure a budget year start date is set.
-        This is not a typical django method cleaning only one, but a group of fields, and has to be called explicitly.
-        """
-        relevant_fields = [
-            "summ_ai_midyear_start_enabled",
-            "summ_ai_midyear_start_month",
-            "summ_ai_renewal_month",
-        ]
-        cleaned: dict[str, Any] = {
-            key: self.cleaned_data[key]
-            for key in relevant_fields
-            if key in self.cleaned_data
-        }
-
-        if (
-            cleaned["summ_ai_midyear_start_enabled"]
-            and cleaned["summ_ai_midyear_start_month"] is None
-        ):
-            self.add_error(
-                "summ_ai_midyear_start_month",
-                _(
-                    "Please provide a valid budget year start date for simplified language translation."
-                ),
-            )
-        elif (
-            not cleaned["summ_ai_midyear_start_enabled"]
-            or cleaned["summ_ai_midyear_start_month"]
-            == cleaned["summ_ai_renewal_month"]
-        ):
-            cleaned["summ_ai_midyear_start_month"] = None
         return cleaned
 
     def clean_zammad(self) -> dict[str, Any]:
@@ -738,20 +681,6 @@ class RegionForm(CustomModelForm):
         # Convert None to an empty dict
         return cleaned_aliases or {}
 
-    def clean_summ_ai_enabled(self) -> bool:
-        """
-        Validate the summ_ai_enabled field (see :ref:`overriding-modelform-clean-method`)
-
-        :return: The validated field whether SUMM.AI is enabled
-        """
-        if self.cleaned_data.get("summ_ai_enabled") and not settings.SUMM_AI_ENABLED:
-            self.add_error(
-                "summ_ai_enabled",
-                _("Currently SUMM.AI is globally deactivated"),
-            )
-            return False
-        return self.cleaned_data.get("summ_ai_enabled")
-
     def clean_hix_enabled(self) -> bool:
         """
         Validate the hix_enabled field (see :ref:`overriding-modelform-clean-method`).
@@ -788,8 +717,7 @@ class RegionForm(CustomModelForm):
         """
         return (
             self.cleaned_data["zammad_access_token"]
-            if self.cleaned_data["zammad_access_token"]
-            else self.instance.zammad_access_token
+            or self.instance.zammad_access_token
         )
 
     @staticmethod
@@ -1109,6 +1037,8 @@ def duplicate_page_translations(
         page_translation.page = target_page
         # Delete the primary key to duplicate the object instance instead of updating it
         page_translation.pk = None
+        # Reset the publication date because the duplicate has not been published yet
+        page_translation.published_at = None
         # Set the translation to draft if keep_status is false
         if keep_status is False:
             page_translation.status = status.DRAFT
@@ -1157,6 +1087,8 @@ def duplicate_imprint(
         imprint_translation.page = target_imprint
         # Delete the primary key to duplicate the object instance instead of updating it
         imprint_translation.pk = None
+        # Reset the publication date because the duplicate has not been published yet
+        imprint_translation.published_at = None
         # Set the translation to draft
         imprint_translation.status = status.DRAFT
         # Check if the imprint translation is valid

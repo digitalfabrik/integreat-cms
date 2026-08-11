@@ -136,9 +136,7 @@ def transform_poi_translation(
         )
         contact_data.append(
             {
-                "area_of_responsibility": contact.area_of_responsibility
-                if contact.area_of_responsibility
-                else None,
+                "area_of_responsibility": contact.area_of_responsibility or None,
                 "name": contact.name,
                 "email": contact.email,
                 "phone_number": contact.phone_number,
@@ -162,6 +160,9 @@ def transform_poi_translation(
         "title": poi_translation.title,
         "modified_gmt": poi_translation.last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(poi_translation.last_updated),
+        "published_at": timezone.localtime(
+            poi_translation.published_at or poi_translation.last_updated,
+        ),
         "meta_description": poi_translation.meta_description,
         "excerpt": strip_tags(poi_translation.content),
         "content": poi_translation.content,

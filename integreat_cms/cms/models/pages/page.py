@@ -10,7 +10,7 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
-from treebeard.ns_tree import NS_NodeQuerySet
+from treebeard.ns_tree import NS_NodeManager, NS_NodeQuerySet
 
 from ...constants import status
 from ...utils.translation_utils import gettext_many_lazy as __
@@ -163,7 +163,7 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
         return list(self.cache_tree_dict(archived, language_slug).values())
 
 
-class PageManager(models.Manager):
+class PageManager(NS_NodeManager):
     """
     Custom manager for pages to inherit methods from both managers for tree nodes and content objects
     """

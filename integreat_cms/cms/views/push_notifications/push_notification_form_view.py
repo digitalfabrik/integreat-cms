@@ -129,16 +129,20 @@ class PushNotificationFormView(TemplateView):
             regions=request.available_regions,
             selected_regions=[region],
             instance=push_notification,
-            disabled=details["disable_edit"]
-            or (push_notification and push_notification.archived),
+            disabled=bool(
+                details["disable_edit"]
+                or (push_notification and push_notification.archived),
+            ),
         )
 
         push_notification_translation_form = PushNotificationTranslationForm(
             request=request,
             language=language,
             instance=push_notification_translation,
-            disabled=details["disable_edit"]
-            or (push_notification and push_notification.archived),
+            disabled=bool(
+                details["disable_edit"]
+                or (push_notification and push_notification.archived),
+            ),
         )
 
         return render(
@@ -206,8 +210,10 @@ class PushNotificationFormView(TemplateView):
             },
             regions=request.available_regions,
             selected_regions=[region],
-            disabled=details["disable_edit"]
-            or (push_notification_instance and push_notification_instance.archived),
+            disabled=bool(
+                details["disable_edit"]
+                or (push_notification_instance and push_notification_instance.archived),
+            ),
         )
 
         pn_translation_form = PushNotificationTranslationForm(

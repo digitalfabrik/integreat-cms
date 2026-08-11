@@ -20,7 +20,9 @@ logger = logging.getLogger(__name__)
 _xss_cleaner = Cleaner(scripts=True, javascript=True, safe_attrs_only=False)
 
 
-def clean_content(content: str, language_slug: str) -> str:
+def clean_content(
+    content: str, language_slug: str, region_id: int | None = None
+) -> str:
     """
     This is the super function to clean content
 
@@ -28,10 +30,16 @@ def clean_content(content: str, language_slug: str) -> str:
     :param language_slug: Slug of the current language
     """
     try:
-        content = fromstring(content)
+        element = fromstring(content)
     except LxmlError:
         # The content is not guaranteed to be valid html, for example it may be empty
         return content
+
+    # Since lxml 6, plain text without any markup is wrapped in a <span> instead
+    # of a <p> - keep the previous block-level wrapping
+    if element.tag == "span" and not content.lstrip().lower().startswith("<span"):
+        element.tag = "p"
+    content = element
 
     content = _xss_cleaner.clean_html(content)
     convert_heading(content)
@@ -40,7 +48,7 @@ def clean_content(content: str, language_slug: str) -> str:
     fix_alt_texts(content)
     fix_notranslate(content)
     hide_anchor_tag_around_image(content)
-    update_contacts(content)
+    update_contacts(content, region_id)
 
     content_str = tostring(content, encoding="unicode", with_tail=False)
     return fix_content_link_encoding(content_str)
@@ -149,7 +157,9 @@ def update_internal_links(link: HtmlElement, language_slug: str) -> None:
 
 
 def render_contact_card(
-    contact_id: int | str | None, wanted_details: Iterable[str]
+    contact_id: int | str | None,
+    wanted_details: Iterable[str],
+    region_id: int | None = None,
 ) -> HtmlElement:
     """
     Produces a rendered html element for the contact.
@@ -162,19 +172,32 @@ def render_contact_card(
     """
     template = loader.get_template("contacts/contact_card.html")
     try:
+        if region_id is None:
+            contact = Contact.objects.get(pk=contact_id)
+        else:
+            contact = Contact.objects.get(pk=contact_id, location__region_id=region_id)
+
         context = {
-            "contact": Contact.objects.get(pk=contact_id),
+            "contact": contact,
             "wanted": wanted_details,
         }
     except Contact.DoesNotExist:
-        logger.warning("Contact with id=%r does not exist!", contact_id)
-        # Provide a "dummy contact"
-        # This is super hacky and barely renders a card,
-        # but makes it obvious to the user that there should be a contact here, but there was an error
+        if region_id is not None and Contact.objects.filter(pk=contact_id).exists():
+            message = _(
+                "This contact belongs to a different region and cannot be displayed."
+            )
+            logger.warning(
+                "Contact with id=%r belongs to a different region",
+                contact_id,
+            )
+        else:
+            message = _("Oops! Error displaying contact data")
+            logger.warning("Contact with id=%r does not exist!", contact_id)
         context = {
             "contact": {
-                "name": _("Oops! Error displaying contact data"),
+                "name": message,
                 "absolute_url": f"/{None}/contact/{contact_id}/",
+                "pk": contact_id,
             },
             "wanted": ["name"],
         }
@@ -191,7 +214,7 @@ def render_contact_card(
         return Element("pre", raw_element)
 
 
-def update_contacts(content: HtmlElement) -> None:
+def update_contacts(content: HtmlElement, region_id: int | None = None) -> None:
     """
     Inject rendered contact html for given ID
 
@@ -210,7 +233,7 @@ def update_contacts(content: HtmlElement) -> None:
             wanted_details = []
 
         contact_card_new = (
-            render_contact_card(contact_id, wanted_details)
+            render_contact_card(contact_id, wanted_details, region_id)
             if any(detail for detail in wanted_details)
             else fromstring("<div><p></p></div>")
         )

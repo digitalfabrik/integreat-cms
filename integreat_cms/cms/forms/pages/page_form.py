@@ -171,12 +171,12 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         else:
             # Set the default position to the right of the last root page
             if last_root_page := self.instance.region.get_root_pages().last():
-                self.fields["_ref_node_id"].initial = last_root_page.id
-                self.fields["_position"].initial = position.RIGHT
+                self.fields["treebeard_ref_node"].initial = last_root_page
+                self.fields["treebeard_position"].initial = position.RIGHT
             else:
-                # If no page exists, treebeard expects the value "" as reference node id
-                self.fields["_ref_node_id"].initial = ""
-                self.fields["_position"].initial = position.FIRST_CHILD
+                # If no page exists, treebeard expects no reference node
+                self.fields["treebeard_ref_node"].initial = None
+                self.fields["treebeard_position"].initial = position.FIRST_CHILD
 
         # Set choices of mirrored_page field manually to make use of cache_tree()
         logger.debug("Set choices for mirrored page field:")
@@ -192,7 +192,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             "organization"
         ].queryset = self.instance.region.organizations.filter(archived=False)
 
-        # Set choices of parent and _ref_node_id fields manually to make use of cache_tree()
+        # Set choices of parent field manually to make use of cache_tree()
         logger.debug("Set choices for parent field:")
         cached_parent_choices = [("", "---------")]
         cached_parent_choices.extend(
@@ -201,22 +201,9 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
                 for page in parent_queryset.cache_tree(archived=False)
             ],
         )
-        ref_node_choices = [("", "---------")]
-        ref_node_choices.extend(
-            [(page.id, str(page)) for page in parent_queryset.cache_tree()],
-        )
         self.fields["parent"].choices = cached_parent_choices
-        self.fields["_ref_node_id"].choices = ref_node_choices
-
-    def _clean_cleaned_data(self) -> tuple[str, int]:
-        """
-        Delete auxiliary fields not belonging to node model and include instance attributes in cleaned_data
-
-        :return: The initial data for _ref_node_id and _position fields
-        """
-        del self.cleaned_data["mirrored_page_region"]
-        del self.cleaned_data["enable_api_token"]
-        return super()._clean_cleaned_data()
+        # Limit the possible reference nodes to the pages of the current region
+        self.fields["treebeard_ref_node"].queryset = parent_queryset
 
     def get_author_queryset(self) -> QuerySet:
         """

@@ -1,13 +1,9 @@
 from collections.abc import Callable
-from typing import ParamSpec, TypeVar
 
 import shortcodes
 
-R = TypeVar("R")
-P = ParamSpec("P")
 
-
-def shortcode(
+def shortcode[**P, R](
     tag: Callable[P, R] | str | None, endtag: str | None = None
 ) -> Callable[[Callable[P, R]], Callable[P, R]] | Callable[P, R]:
     """

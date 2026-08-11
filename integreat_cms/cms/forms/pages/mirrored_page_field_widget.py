@@ -72,7 +72,7 @@ class MirroredPageFieldWidget(forms.widgets.Select):
         # Keep the currently selected mirrored page visible but disabled if it no longer
         # has a public translation in the default language
         instance = self.form.instance if self.form else None
-        default_language = instance.region.default_language
+        default_language = instance.region.default_language if instance else None
         if (
             instance
             and str(instance.mirrored_page_id) == str(value)

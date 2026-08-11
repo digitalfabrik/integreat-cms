@@ -144,8 +144,19 @@ class RegionConditionResource(resources.ModelResource):
         """
 
         model = Region
-        # if we don't define the empty fields all fields are created in the default way additionally to our custom way
-        fields = ()
+        # since django-import-export 4, declared fields must be listed here explicitly,
+        # otherwise they are ignored and the model fields are exported instead
+        fields = (
+            "name",
+            "num_broken_links",
+            "num_low_hix_pages",
+            "num_pages",
+            "num_pages_with_missing_or_outdated_translation",
+            "num_outdated_pages",
+            "translation_budget",
+            "num_languages_besides_root_language",
+        )
+        export_order = fields
 
 
 @require_POST
