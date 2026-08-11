@@ -64,12 +64,17 @@ def build_json_for_machine_translation(
     for content in selected_content:
         source_translation = content.get_translation(source_language.slug)
 
-        translatable_attributes = content.get_translatable_attributes(
-            TRANSLATABLE_FIELDS, source_language.slug, target_language.slug
-        )
-        words = word_count(
-            translatable_attributes,
-        )
+        if source_translation:
+            translatable_attributes = content.get_translatable_attributes(
+                TRANSLATABLE_FIELDS, source_language.slug, target_language.slug
+            )
+            words = word_count(
+                translatable_attributes,
+            )
+        else:
+            # Nothing to count or translate without a source translation -
+            # this is routed into `non_translatable` below.
+            words = 0
 
         if source_translation and check_hix_score(
             request,

@@ -1,0 +1,67 @@
+from __future__ import annotations
+
+import json
+from unittest.mock import MagicMock, patch
+
+import pytest
+from django.core.exceptions import PermissionDenied
+from django.test import RequestFactory
+
+from integreat_cms.cms.views.utils.machine_translation_progress import (
+    _get_result_details,
+    get_machine_translation_task_progress,
+)
+
+# --- _get_result_details ---
+
+
+def test_result_details_composes_failure_message() -> None:
+    result = MagicMock(state="FAILURE", info=ValueError("User not found"))
+
+    details = _get_result_details(result)
+
+    assert "User not found" in details["message"]
+    assert "message" in details
+    assert len(details) == 1
+
+
+def test_result_details_passes_through_non_failure_info_unchanged() -> None:
+    result = MagicMock(state="SUCCESS", info={"progress": 1.0, "pages": {}})
+
+    assert _get_result_details(result) == {"progress": 1.0, "pages": {}}
+
+
+# --- get_machine_translation_task_progress ---
+
+
+def test_get_machine_translation_task_progress_denies_without_permission() -> None:
+    request = RequestFactory().get("/")
+    request.user = MagicMock()
+    request.user.has_perm = MagicMock(return_value=False)
+
+    with pytest.raises(PermissionDenied):
+        get_machine_translation_task_progress(
+            request, "augsburg", "en", "page", "task-1"
+        )
+
+
+def test_get_machine_translation_task_progress_returns_status_and_details() -> None:
+    request = RequestFactory().get("/")
+    request.user = MagicMock()
+    request.user.has_perm = MagicMock(return_value=True)
+
+    fake_result = MagicMock(state="SUCCESS", info={"progress": 1.0, "pages": {}})
+
+    with patch(
+        "integreat_cms.cms.views.utils.machine_translation_progress.AsyncResult",
+        return_value=fake_result,
+    ):
+        response = get_machine_translation_task_progress(
+            request, "augsburg", "en", "page", "task-1"
+        )
+
+    assert response.status_code == 200
+    assert json.loads(response.content) == {
+        "status": "SUCCESS",
+        "details": {"progress": 1.0, "pages": {}},
+    }
