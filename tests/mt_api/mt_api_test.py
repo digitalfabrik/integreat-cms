@@ -156,7 +156,6 @@ def test_automatic_translation(
     content_role_id_data_combination: tuple[Any, list, int, dict],
     settings: SettingsWrapper,
     mock_server: MockServer,
-    caplog: LogCaptureFixture,
 ) -> None:
     """
     Check machine translation of the page/event/poi when automatic_translation checkbox in set on the form
@@ -167,7 +166,6 @@ def test_automatic_translation(
     :param content_role_id_data_combination: The combination of content type, user roles with permission and selected_ids used in the test
     :param settings: The fixture providing the django settings
     :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
-    :param caplog: The :fixture:`caplog` fixture
     """
 
     provider, source_language_slug, target_language_slug = provider_language_combination
@@ -245,14 +243,25 @@ def test_automatic_translation(
                 source_language_slug,
                 target_language_slug,
             )
-            source_translation = translations[0][source_language_slug]
             target_translation = translations[0][target_language_slug]
 
-            # Check that the success message is present
-            assert_message_in_log(
-                f'SUCCESS  {content_type._meta.verbose_name.capitalize()} "{source_translation.title}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
-                caplog,
+            # Translation now happens via a Celery task (eager in tests), so
+            # success surfaces through the queued report rather than a
+            # synchronous Django message.
+            report_url = reverse(
+                "machine_translation_report",
+                kwargs={
+                    "region_slug": REGION_SLUG,
+                    "language_slug": target_language_slug,
+                    "model_type": content_type._meta.model_name,
+                },
             )
+            report_response = client.get(report_url)
+            report_data = report_response.json()
+            assert report_data["reports"], (
+                "Expected a queued machine translation report"
+            )
+            assert report_data["reports"][-1]["outcome"] == "FULL_SUCCESS"
 
             # Check that the page translation exists and has the correct content
             assert target_translation.machine_translated is True

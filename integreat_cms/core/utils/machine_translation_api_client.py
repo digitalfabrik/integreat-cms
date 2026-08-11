@@ -13,8 +13,8 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
+from django.utils.translation import gettext, ngettext, ngettext_lazy
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ngettext, ngettext_lazy
 
 from ...cms.constants.machine_translatable_fields import TRANSLATABLE_FIELDS
 from ...cms.constants.machine_translation_budget import MINIMAL
@@ -26,6 +26,7 @@ from .word_count import word_count
 if TYPE_CHECKING:
     from django.forms.models import ModelFormMetaclass
     from django.http import HttpRequest
+    from django.utils.functional import Promise
 
     from ...cms.models import (
         Language,
@@ -174,30 +175,15 @@ class MachineTranslationApiClient(ABC):
         self.model_name = meta.verbose_name.title()
         self.model_name_plural = meta.verbose_name_plural
 
-        # Prepare all content objects
-        all_contexts = self.prepare_content_objects()
-
-        # Separate contexts into those with changes and those without
-        changed_contexts = []
-        unchanged_contexts = []
-
-        for ctx in all_contexts:
-            if bool(ctx.translatable_attributes):
-                changed_contexts.append(ctx)
-            else:
-                unchanged_contexts.append(ctx)
-
-        self.handle_unchanged_contexts(unchanged_contexts)
-
         # Filter out content objects which can not be translated
-        contexts_to_translate = self.filter_no_source_translation(changed_contexts)
-        contexts_to_translate = self.filter_insufficient_hix_score(
-            contexts_to_translate
-        )
-        contexts_to_translate = self.filter_exceeds_limit(contexts_to_translate)
+        context = self.prepare_content_objects()
+        context = self.filter_no_source_translation(context)
+        context = self.filter_unchanged_translations(context)
+        context = self.filter_insufficient_hix_score(context)
+        context = self.filter_exceeds_limit(context)
 
-        # Provider-API-specific implementation for changed contexts
-        self.invoke_translation_api(contexts_to_translate)
+        # Provider-API-specific implementation
+        self.invoke_translation_api(context)
 
         # Update remaining budget of the region
         region.mt_budget_used += sum(
@@ -205,32 +191,35 @@ class MachineTranslationApiClient(ABC):
         )
         region.save()
 
-        # Show success/error messages to the user
-        self.alert_successful_translations()
-        self.alert_refreshed_translations()
-        self.alert_failed_translations()
-        self.alert_no_changes_made()
-        self.alert_no_source_translation()
-        self.alert_insufficient_hix_score()
-        self.alert_exceeds_limit()
-        self.alert_too_long_text()
-
-    def handle_unchanged_contexts(
-        self, unchanged_contexts: list[TranslationContext]
-    ) -> None:
+    def filter_unchanged_translations(
+        self, context: list[TranslationContext]
+    ) -> list[TranslationContext]:
         """
-        Handle content objects without changes.
+        This method filters out entries from the context list if there have
+        been no changes made to the source_translation.
 
         If there are no changes but the target translation is outdated, a new
         translation version is created with ``minor_edit=True`` to refresh its
-        status without flagging it as a content change.
-        Otherwise, the translation is not updated because no changes were detected.
+        status without flagging it as a content change, instead of being
+        recorded as a plain "no changes made" failure.
 
-        Push notifications are excluded from this processing because they do not
-        use ``AbstractContentTranslation`` and therefore have no outdated status
-        to refresh.
+        Push notifications are excluded from the refresh case because they do
+        not use ``AbstractContentTranslation`` and therefore have no outdated
+        status to refresh.
+
+        The removed entries are stored in order to show users batched
+        messages after all objects have been handled.
+
+        :param context: The list of translation contexts to filter
+        :return: The filtered list of translation contexts
         """
-        for ctx in unchanged_contexts:
+        filtered_context = []
+
+        for ctx in context:
+            if bool(ctx.translatable_attributes):
+                filtered_context.append(ctx)
+                continue
+
             target_translation = ctx.existing_target_translation
             if (
                 isinstance(target_translation, AbstractContentTranslation)
@@ -242,6 +231,8 @@ class MachineTranslationApiClient(ABC):
                 self.failed_because_no_changes_made.append(
                     ctx.instance.best_translation.title
                 )
+
+        return filtered_context
 
     def filter_no_source_translation(
         self, context: list[TranslationContext]
@@ -398,7 +389,7 @@ class MachineTranslationApiClient(ABC):
         )
         self.successful_translations.append(ctx)
 
-    def mark_unsuccessful(self, ctx: TranslationContext, errors: bool) -> None:
+    def mark_unsuccessful(self, ctx: TranslationContext, errors: object) -> None:
         """
         Mark a translation as unsuccessful (usually due to API errors)
         """
@@ -415,7 +406,7 @@ class MachineTranslationApiClient(ABC):
         )
         self.failed_translations.append(ctx.source_translation.title)
 
-    def mark_too_long(self, ctx: TranslationContext, errors: bool) -> None:
+    def mark_too_long(self, ctx: TranslationContext, errors: object) -> None:
         """
         Mark a translation as too long
         """
@@ -490,211 +481,229 @@ class MachineTranslationApiClient(ABC):
         else:
             self.mark_unsuccessful(ctx, content_translation_form.errors)
 
-    def alert_refreshed_translations(self) -> None:
-        """
-        Add messages informing the user about refreshed translations
-        """
-        if self.refreshed_translations:
-            messages.info(
-                self.request,
-                ngettext_lazy(
-                    "{model_name} {object_names}: Translation into '{target_language}' was not necessary -> no changes detected. The translation date has been refreshed.",
-                    "{model_name} {object_names}: Translation into '{target_language}' was not necessary -> no changes detected. The translation dates have been refreshed.",
-                    len(self.refreshed_translations),
-                ).format(
-                    model_name=self.model_name,
-                    model_name_plural=self.model_name_plural,
-                    target_language=self.target_language,
-                    object_names=iter_to_string(
-                        ctx.source_translation.title
-                        for ctx in self.refreshed_translations
-                        if ctx.source_translation is not None
-                    ),
-                ),
-            )
+    def _format_message(
+        self,
+        message: str | Promise,
+        items: list,
+        **extra_kwargs: object,
+    ) -> str:
+        format_kwargs: dict[str, object] = {
+            "model_name": ngettext(self.model_name, self.model_name_plural, len(items)),
+            "object_names": iter_to_string(items),
+            **extra_kwargs,
+        }
+        return str(message).format(**format_kwargs)
 
-    def alert_successful_translations(self) -> None:
-        """
-        Add messages informing the user about successful translations
-        """
-        if not self.successful_translations:
-            return
+    def get_refreshed_translations_message(self) -> str:
+        items = [
+            ctx.source_translation.title
+            for ctx in self.refreshed_translations
+            if ctx.source_translation is not None
+        ]
+        if not items:
+            return ""
+        message = ngettext(
+            "{model_name} {object_names}: Translation into '{target_language}' was not necessary -> no changes detected. The translation date has been refreshed.",
+            "{model_name} {object_names}: Translation into '{target_language}' was not necessary -> no changes detected. The translation dates have been refreshed.",
+            len(items),
+        )
+        return self._format_message(
+            message, items, target_language=self.target_language
+        )
 
-        messages.success(
-            self.request,
-            ngettext_lazy(
+    def get_successful_translation_message(self, lazy: bool = True) -> str:
+        items = [
+            ctx.source_translation.title
+            for ctx in self.successful_translations
+            if ctx.source_translation is not None
+        ]
+        if not items:
+            return ""
+        if lazy:
+            message = ngettext_lazy(
                 "{model_name} {object_names} has successfully been translated ({source_language} ➜ {target_language}).",
                 "The following {model_name} have successfully been translated ({source_language} ➜ {target_language}): {object_names}",
-                len(self.successful_translations),
-            ).format(
-                model_name=ngettext(
-                    self.model_name,
-                    self.model_name_plural,
-                    len(self.successful_translations),
-                ),
-                source_language=self.source_language,
-                target_language=self.target_language,
-                object_names=iter_to_string(
-                    ctx.source_translation.title
-                    for ctx in self.successful_translations
-                    if ctx.source_translation is not None
-                ),
-            ),
+                len(items),
+            )
+        else:
+            message = ngettext(
+                "{model_name} {object_names} has successfully been translated ({source_language} ➜ {target_language}).",
+                "The following {model_name} have successfully been translated ({source_language} ➜ {target_language}): {object_names}",
+                len(items),
+            )
+        return self._format_message(
+            message,
+            items,
+            source_language=self.source_language,
+            target_language=self.target_language,
         )
 
-    def alert_failed_translations(self) -> None:
-        """
-        Add messages informing the user about failed translations
-        """
-        if not self.failed_translations:
-            return
-
-        messages.error(
-            self.request,
-            ngettext_lazy(
+    def get_failed_translation_message(self, lazy: bool = True) -> str:
+        items = self.failed_translations
+        if not items:
+            return ""
+        if lazy:
+            message = ngettext_lazy(
                 "{model_name} {object_names} could not be translated automatically into '{target_language}'",
                 "The following {model_name} could not be translated automatically into '{target_language}': {object_names}",
-                len(self.failed_translations),
-            ).format(
-                model_name=ngettext(
-                    self.model_name,
-                    self.model_name_plural,
-                    len(self.failed_translations),
-                ),
-                target_language=self.target_language,
-                object_names=iter_to_string(self.failed_translations),
-            ),
+                len(items),
+            )
+        else:
+            message = ngettext(
+                "{model_name} {object_names} could not be translated automatically into '{target_language}'",
+                "The following {model_name} could not be translated automatically into '{target_language}': {object_names}",
+                len(items),
+            )
+        return self._format_message(
+            message, items, target_language=self.target_language
         )
 
-    def alert_no_changes_made(self) -> None:
-        """
-        Add messages alerting the user that machine translation failed
-        due to missing source translations
-        """
-        if not self.failed_because_no_changes_made:
-            return
-
-        messages.error(
-            self.request,
-            ngettext_lazy(
+    def get_no_changes_made_message(self, lazy: bool = True) -> str:
+        items = self.failed_because_no_changes_made
+        if not items:
+            return ""
+        if lazy:
+            message = ngettext_lazy(
                 "{model_name} {object_names} was not translated into '{target_language}', because there were no changes to the source translation.",
                 "The following {model_name} were not translated into '{target_language}', because there were no changes to the source translation: {object_names}",
-                len(self.failed_because_no_changes_made),
-            ).format(
-                model_name=ngettext(
-                    self.model_name,
-                    self.model_name_plural,
-                    len(self.failed_because_no_changes_made),
-                ),
-                target_language=self.target_language,
-                object_names=iter_to_string(
-                    self.failed_because_no_changes_made,
-                ),
-            ),
+                len(items),
+            )
+        else:
+            message = ngettext(
+                "{model_name} {object_names} was not translated into '{target_language}', because there were no changes to the source translation.",
+                "The following {model_name} were not translated into '{target_language}', because there were no changes to the source translation: {object_names}",
+                len(items),
+            )
+        return self._format_message(
+            message, items, target_language=self.target_language
         )
 
-    def alert_no_source_translation(self) -> None:
-        """
-        Add messages alerting the user that machine translation failed
-        due to missing source translations
-        """
-        if not self.failed_because_no_source_translation:
-            return
-
-        messages.error(
-            self.request,
-            ngettext_lazy(
+    def get_no_source_translation_message(self, lazy: bool = True) -> str:
+        items = self.failed_because_no_source_translation
+        if not items:
+            return ""
+        if lazy:
+            message = ngettext_lazy(
                 "{model_name} {object_names} could not be translated because its source translation is missing.",
                 "The following {model_name} could not be translated because their source translations are missing: {object_names}",
-                len(self.failed_because_no_source_translation),
-            ).format(
-                model_name=ngettext(
-                    self.model_name,
-                    self.model_name_plural,
-                    len(self.failed_because_no_source_translation),
-                ),
-                object_names=iter_to_string(
-                    self.failed_because_no_source_translation,
-                ),
-            ),
-        )
+                len(items),
+            )
+        else:
+            message = ngettext(
+                "{model_name} {object_names} could not be translated because its source translation is missing.",
+                "The following {model_name} could not be translated because their source translations are missing: {object_names}",
+                len(items),
+            )
+        return self._format_message(message, items)
 
-    def alert_insufficient_hix_score(self) -> None:
-        """
-        Add messages alerting the user that machine translation failed
-        due to insufficient HIX scores
-        """
-        if not self.failed_because_insufficient_hix_score:
-            return
-
-        messages.error(
-            self.request,
-            ngettext_lazy(
+    def get_insufficient_hix_score_message(self, lazy: bool = True) -> str:
+        items = self.failed_because_insufficient_hix_score
+        if not items:
+            return ""
+        if lazy:
+            message = ngettext_lazy(
                 "{model_name} {object_names} could not be translated because its HIX score is too low for machine translation (minimum required: {min_required}).",
                 "The following {model_name} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
-                len(self.failed_because_insufficient_hix_score),
-            ).format(
-                model_name=ngettext(
-                    self.model_name,
-                    self.model_name_plural,
-                    len(self.failed_because_insufficient_hix_score),
-                ),
-                object_names=iter_to_string(
-                    self.failed_because_insufficient_hix_score,
-                ),
-                min_required=settings.HIX_REQUIRED_FOR_MT,
-            ),
+                len(items),
+            )
+        else:
+            message = ngettext(
+                "{model_name} {object_names} could not be translated because its HIX score is too low for machine translation (minimum required: {min_required}).",
+                "The following {model_name} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
+                len(items),
+            )
+        return self._format_message(
+            message, items, min_required=settings.HIX_REQUIRED_FOR_MT
         )
 
-    def alert_exceeds_limit(self) -> None:
-        """
-        Add messages alerting the user that machine translation failed
-        due to insufficient translation budget
-        """
-        if not self.failed_because_exceeds_limit:
-            return
-
-        messages.error(
-            self.request,
-            ngettext_lazy(
+    def get_exceeds_limit_message(self, lazy: bool = True) -> str:
+        items = self.failed_because_exceeds_limit
+        if not items:
+            return ""
+        if lazy:
+            message = ngettext_lazy(
                 "{model_name} {object_names} could not be translated because it would exceed the remaining budget of {remaining_budget} words.",
                 "The following {model_name} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
-                len(self.failed_because_exceeds_limit),
-            ).format(
-                model_name=ngettext(
-                    self.model_name,
-                    self.model_name_plural,
-                    len(self.failed_because_exceeds_limit),
-                ),
-                remaining_budget=self.region.mt_budget_remaining,
-                object_names=iter_to_string(
-                    self.failed_because_exceeds_limit,
-                ),
-            ),
+                len(items),
+            )
+        else:
+            message = ngettext(
+                "{model_name} {object_names} could not be translated because it would exceed the remaining budget of {remaining_budget} words.",
+                "The following {model_name} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
+                len(items),
+            )
+        return self._format_message(
+            message, items, remaining_budget=self.region.mt_budget_remaining
         )
+
+    def get_too_long_text_message(self, lazy: bool = True) -> str:
+        if not self.failed_because_too_long_text:
+            return ""
+        if lazy:
+            message = _(
+                "{model_name} {object_names} could not be translated because the generated translation ({source_language} ➜ {target_language}) exceeded the {max_text_length} character limit."
+            )
+        else:
+            message = gettext(
+                "{model_name} {object_names} could not be translated because the generated translation ({source_language} ➜ {target_language}) exceeded the {max_text_length} character limit."
+            )
+        return str(message).format(
+            model_name=self.model_name,
+            object_names=iter_to_string(self.failed_because_too_long_text),
+            source_language=self.source_language,
+            target_language=self.target_language,
+            max_text_length=self.max_text_length,
+        )
+
+    def alert_refreshed_translations(self) -> None:
+        if not self.refreshed_translations:
+            return
+        messages.info(self.request, self.get_refreshed_translations_message())
+
+    def alert_successful_translations(self) -> None:
+        if not self.successful_translations:
+            return
+        messages.success(self.request, self.get_successful_translation_message())
+
+    def alert_failed_translations(self) -> None:
+        if not self.failed_translations:
+            return
+        messages.error(self.request, self.get_failed_translation_message())
+
+    def alert_no_changes_made(self) -> None:
+        if not self.failed_because_no_changes_made:
+            return
+        messages.error(self.request, self.get_no_changes_made_message())
+
+    def alert_no_source_translation(self) -> None:
+        if not self.failed_because_no_source_translation:
+            return
+        messages.error(self.request, self.get_no_source_translation_message())
+
+    def alert_insufficient_hix_score(self) -> None:
+        if not self.failed_because_insufficient_hix_score:
+            return
+        messages.error(self.request, self.get_insufficient_hix_score_message())
+
+    def alert_exceeds_limit(self) -> None:
+        if not self.failed_because_exceeds_limit:
+            return
+        messages.error(self.request, self.get_exceeds_limit_message())
 
     def alert_too_long_text(self) -> None:
-        """
-        Add messages alerting the user that machine translation failed
-        because translation generated by MT was too long
-        """
         if not self.failed_because_too_long_text:
             return
+        messages.error(self.request, self.get_too_long_text_message())
 
-        messages.error(
-            self.request,
-            _(
-                "{model_name} {object_names} could not be translated because the generated translation ({source_language} ➜ {target_language}) exceeded the {max_text_length} character limit."
-            ).format(
-                model_name=self.model_name,
-                object_names=iter_to_string(
-                    self.failed_because_too_long_text,
-                ),
-                source_language=self.source_language,
-                target_language=self.target_language,
-                max_text_length=self.max_text_length,
-            ),
-        )
+    def alert_messages(self) -> None:
+        self.alert_successful_translations()
+        self.alert_refreshed_translations()
+        self.alert_failed_translations()
+        self.alert_no_changes_made()
+        self.alert_no_source_translation()
+        self.alert_insufficient_hix_score()
+        self.alert_exceeds_limit()
+        self.alert_too_long_text()
 
     def __str__(self) -> str:
         """

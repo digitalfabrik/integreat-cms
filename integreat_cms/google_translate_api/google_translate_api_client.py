@@ -5,8 +5,6 @@ from typing import Any, TYPE_CHECKING
 
 from django.apps import apps
 from django.conf import settings
-from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
 from google.cloud import (  # type: ignore[attr-defined]
     translate_v2,
     translate_v3,
@@ -139,13 +137,8 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                             source_language=self.source_language.slug,
                             format_=format_,
                         )[0]["translatedText"]
-                except Exception:
-                    messages.error(
-                        self.request,
-                        _(
-                            "A problem with Google Translate API has occurred. Please contact an administrator.",
-                        ),
-                    )
+                except Exception as e:
+                    self.mark_unsuccessful(ctx, e)
                     logger.exception(
                         "Could not translate %r from %r to %r",
                         ctx.instance,

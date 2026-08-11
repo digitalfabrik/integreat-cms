@@ -19,7 +19,6 @@ import pytest
 from django.urls import reverse
 
 from integreat_cms.cms.models import Event, Page, POI, Region
-from integreat_cms.cms.utils.stringify_list import iter_to_string
 from integreat_cms.core.utils.word_count import word_count
 from integreat_cms.google_translate_api.google_translate_api_client import (
     GoogleTranslateApiClient,
@@ -68,7 +67,6 @@ def test_bulk_mt(
     content_role_id_combination: tuple[Any, list, list[int]],
     settings: SettingsWrapper,
     mock_server: MockServer,
-    caplog: LogCaptureFixture,
 ) -> None:
     """
     Check for bulk machine translation of pages/events/pois via the MT API
@@ -79,7 +77,6 @@ def test_bulk_mt(
     :param content_role_id_combination: The combination of content type, user roles with permission and selected_ids used in the test
     :param settings: The fixture providing the django settings
     :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
-    :param caplog: The :fixture:`caplog` fixture
     """
 
     provider, source_language_slug, target_language_slug = provider_language_combination
@@ -137,11 +134,25 @@ def test_bulk_mt(
                 target_language_slug,
             )
 
+            # Translation now happens via a Celery task (eager in tests), so
+            # success surfaces through the queued report rather than a
+            # synchronous Django message.
+            report_url = reverse(
+                "machine_translation_report",
+                kwargs={
+                    "region_slug": REGION_SLUG,
+                    "language_slug": target_language_slug,
+                    "model_type": content_type._meta.model_name,
+                },
+            )
+            report_response = client.get(report_url)
+            report_data = report_response.json()
+            assert report_data["reports"], (
+                "Expected a queued machine translation report"
+            )
+            assert report_data["reports"][-1]["outcome"] == "FULL_SUCCESS"
+
             for translation in translations:
-                assert_message_in_log(
-                    f'SUCCESS  {content_type._meta.verbose_name.capitalize()} "{translation[source_language_slug]}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
-                    caplog,
-                )
                 # Check that the page translation exists and really has the correct content
                 assert translation[target_language_slug].machine_translated is True
                 assert (
@@ -190,7 +201,6 @@ def test_bulk_mt_exceeds_limit(
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     settings: SettingsWrapper,
-    caplog: LogCaptureFixture,
 ) -> None:
     """
     Check for bulk machine translation error when the attempted translation would exceed the region's word limit
@@ -199,7 +209,6 @@ def test_bulk_mt_exceeds_limit(
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param provider_language_combination: The combination of MT provider and source/target language
     :param settings: The fixture providing the django settings
-    :param caplog: The :fixture:`caplog` fixture
     """
 
     provider, source_language_slug, target_language_slug = provider_language_combination
@@ -254,14 +263,22 @@ def test_bulk_mt_exceeds_limit(
             target_language_slug,
         )
 
-        # Check for a failure message
-        translations_str = iter_to_string(
-            [t[source_language_slug].title for t in page_translations],
+        # Translation now happens via a Celery task (eager in tests), so the
+        # budget-exceeded failure surfaces through the queued report rather
+        # than a synchronous Django message.
+        report_url = reverse(
+            "machine_translation_report",
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "language_slug": target_language_slug,
+                "model_type": "page",
+            },
         )
-        assert_message_in_log(
-            f"ERROR    The following pages could not be translated because they would exceed the remaining budget of 0 words: {translations_str}",
-            caplog,
-        )
+        report_response = client.get(report_url)
+        report_data = report_response.json()
+        assert report_data["reports"], "Expected a queued machine translation report"
+        assert report_data["reports"][-1]["outcome"] == "PARTIAL_SUCCESS"
+
         for page_translation in page_translations:
             assert (
                 page_translation[target_language_slug] is None
@@ -415,6 +432,24 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
             target_language_slug,
         )
 
+        # The up-to-date poi is filtered out before queueing, so only the
+        # ready-for-mt one is ever actually translated - translation now
+        # happens via a Celery task (eager in tests), so its success
+        # surfaces through the queued report rather than a synchronous
+        # Django message.
+        report_url = reverse(
+            "machine_translation_report",
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "language_slug": target_language_slug,
+                "model_type": "poi",
+            },
+        )
+        report_response = client.get(report_url)
+        report_data = report_response.json()
+        assert report_data["reports"], "Expected a queued machine translation report"
+        assert report_data["reports"][-1]["outcome"] == "FULL_SUCCESS"
+
         for poi_translation in poi_translations:
             # Check for a failure message if translation was already up-to-date
             if poi_translation[source_language_slug].poi_id == up_to_date_poi_id:
@@ -424,12 +459,8 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
                 )
                 assert poi_translation[target_language_slug].machine_translated is False
 
-            # Check for a successful message if translation was ready for mt
+            # Check for a successful translation if the poi was ready for mt
             if poi_translation[source_language_slug].poi_id == ready_for_mt_poi_id:
-                assert_message_in_log(
-                    f'SUCCESS  Location "{poi_translation[source_language_slug]}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
-                    caplog,
-                )
                 assert poi_translation[target_language_slug].machine_translated is True
 
 

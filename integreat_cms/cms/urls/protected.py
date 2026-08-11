@@ -644,6 +644,16 @@ urlpatterns: list[URLPattern] = [
                                             utils.build_json_for_machine_translation,
                                             name="word_count",
                                         ),
+                                        path(
+                                            "<model_type>/translation-task-progress/<str:task_id>/",
+                                            utils.get_machine_translation_task_progress,
+                                            name="machine_translation_task_progress",
+                                        ),
+                                        path(
+                                            "<model_type>/translation-report/",
+                                            utils.get_machine_translation_report,
+                                            name="machine_translation_report",
+                                        ),
                                     ],
                                 ),
                             ),

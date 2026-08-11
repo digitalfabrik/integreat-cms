@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import override
 
+from ....core.utils.machine_translation_celery_task import queue_translations
 from ....core.utils.machine_translation_provider import MachineTranslationProvider
 from ...constants import push_notifications, text_directions
 from ...models import LanguageTreeNode, PushNotificationTranslation
@@ -196,21 +197,14 @@ class PushNotificationTranslationForm(CustomModelForm):
             self.cleaned_data["mt_translations_to_update"],
         )
         if commit and language_nodes:
-            for language_node in language_nodes:
-                logger.debug(
-                    "Machine translation via %r into %r for: %r",
-                    language_node.mt_provider,
-                    language_node.language,
-                    self.instance,
-                )
-                api_client = language_node.mt_provider.api_client(
-                    self.request,
-                    type(self),
-                )
-                api_client.translate_object(
-                    self.instance.foreign_object,
-                    language_node.slug,
-                )
+            queue_translations(
+                self.request,
+                self.request.user.id,
+                self.request.region.id,
+                self.instance.foreign_object._meta.model_name,
+                [self.instance.foreign_object.id],
+                [node.slug for node in language_nodes],
+            )
         return self.instance
 
     class Meta:

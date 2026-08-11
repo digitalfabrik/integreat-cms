@@ -2761,6 +2761,19 @@ msgid ""
 msgstr "Feld, das anzeigt, dass eine Übersetzung extern aktualisiert wird"
 
 #: cms/models/abstract_content_translation.py
+#: cms/models/push_notifications/push_notification_translation.py
+msgid "currently in machine translation"
+msgstr "wird derzeit maschinell übersetzt"
+
+#: cms/models/abstract_content_translation.py
+#: cms/models/push_notifications/push_notification_translation.py
+msgid ""
+"Flag to indicate a translation is currently being processed by a machine "
+"translation Celery task"
+msgstr "Feld, das anzeigt, dass eine Übersetzung aktuell innerhalb einer "
+"Celery Task zur maschinellen Übersetzung verarbeitet wird."
+
+#: cms/models/abstract_content_translation.py
 msgid "machine translated"
 msgstr "Maschinelle Übersetzung"
 
@@ -11547,6 +11560,31 @@ msgid "Only superusers can enable or disable passwordless authentication."
 msgstr ""
 "Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
 
+#: cms/views/utils/machine_translation_progress.py
+#, python-brace-format
+msgid ""
+"Machine translation of multiple pages was not successful. The process was "
+"aborted because of {reason}. Please try again."
+msgstr ""
+"Die maschinelle Übersetzung von mehreren Seiten war nicht erfolgreich. Der "
+"Vorgang wurde aus {reason} abgebrochen. Bitte versuchen Sie es erneut."
+
+#: cms/views/utils/machine_translation_report.py
+msgid ""
+"Machine translation of multiple pages has finished. Not all pages could be "
+"translated."
+msgstr ""
+"Die maschinelle Übersetzung von mehreren Seiten ist abgeschlossen. Es "
+"konnten nicht alle Seiten übersetzt werden."
+
+#: cms/views/utils/machine_translation_report.py
+msgid ""
+"Machine translation of multiple pages has finished. All pages were "
+"translated successfully."
+msgstr ""
+"Die maschinelle Übersetzung von mehreren Seiten ist abgeschlossen. Es wurden "
+"alle Seiten erfolgreich übersetzt."
+
 #: cms/views/utils/opening_hour.py
 msgid "Edit office hours for this weekday"
 msgstr "Sprechzeiten für diesen Wochentag bearbeiten"
@@ -11849,15 +11887,54 @@ msgstr ""
 "Übersetzung die Zeichenbegrenzung von {max_text_length} Zeichen "
 "überschritten hat ({source_language} ➜ {target_language})."
 
+#: core/utils/machine_translation_celery_task.py
+msgid "User not found"
+msgstr "Nutzer nicht gefunden"
+
+#: core/utils/machine_translation_celery_task.py
+msgid "Region not found"
+msgstr "Region nicht gefunden"
+
+#: core/utils/machine_translation_celery_task.py
+msgid "Content type not found"
+msgstr "Art des Inhalts nicht gefunden"
+
+#: core/utils/machine_translation_celery_task.py
+#, python-brace-format
+msgid ""
+"The translation into '{language_slug}' cannot be executed, because this "
+"language does not exist in this region."
+msgstr ""
+"Die Übersetzung nach '{language_slug}' kann nicht durchgeführt werden, da "
+"diese Sprache in dieser Region nicht existiert."
+
+#: core/utils/machine_translation_celery_task.py
+#, python-brace-format
+msgid ""
+"The translation into '{language_slug}' cannot be executed, because machine "
+"translation is disabled for this language."
+msgstr ""
+"Die Übersetzung nach '{language_slug}' kann nicht durchgeführt werden, da "
+"maschinelle Übersetzungen für diese Sprache deaktiviert sind."
+
+#: core/utils/machine_translation_celery_task.py
+msgid "Provider does not exist"
+msgstr "Provider existiert nicht."
+
+#: core/utils/machine_translation_celery_task.py
+#, python-brace-format
+msgid ""
+"The translation could not be started, because at least one of the requested "
+"{content_type} is already being translated into one of the requested "
+"languages."
+msgstr ""
+"Die Übersetzung konnte nicht durchgeführt werden, da wenigstens eine der "
+"angefragten {content_type} bereits nach einer der angefragten Sprachen "
+"übersetzt wird." 
+
 #: deepl_api/apps.py
 msgid "DeepL API"
 msgstr "DeepL API"
-
-#: deepl_api/deepl_api_client.py
-msgid "A problem with DeepL API has occurred. Please contact an administrator."
-msgstr ""
-"Ein Fehler mit DeepL API ist aufgetreten. Bitte kontaktieren Sie eine:n "
-"Administrator:in."
 
 #: firebase_api/apps.py
 msgid "Firebase API"
@@ -11866,14 +11943,6 @@ msgstr "Firebase API"
 #: google_translate_api/apps.py
 msgid "Google Translate API"
 msgstr "Google Translate API"
-
-#: google_translate_api/google_translate_api_client.py
-msgid ""
-"A problem with Google Translate API has occurred. Please contact an "
-"administrator."
-msgstr ""
-"Ein Fehler mit Google Translate API ist aufgetreten. Bitte kontaktieren Sie "
-"eine:n Administrator:in."
 
 #: gvz_api/apps.py
 msgid "GVZ API"
@@ -12016,6 +12085,19 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid ""
+#~ "A problem with DeepL API has occurred. Please contact an administrator."
+#~ msgstr ""
+#~ "Ein Fehler mit DeepL API ist aufgetreten. Bitte kontaktieren Sie eine:n "
+#~ "Administrator:in."
+
+#~ msgid ""
+#~ "A problem with Google Translate API has occurred. Please contact an "
+#~ "administrator."
+#~ msgstr ""
+#~ "Ein Fehler mit Google Translate API ist aufgetreten. Bitte kontaktieren "
+#~ "Sie eine:n Administrator:in."
 
 #~ msgid "Budget year start differs from the renewal date"
 #~ msgstr "Unterjähriger Start des Abrechnungszeitraums"
@@ -13173,9 +13255,6 @@ msgstr ""
 
 #~ msgid "Status message"
 #~ msgstr "Status-Nachricht"
-
-#~ msgid "Current machine translation"
-#~ msgstr "Die Übersetzung ist aktuell und wurde maschinell erzeugt"
 
 #~ msgid "Both"
 #~ msgstr "Beide"
