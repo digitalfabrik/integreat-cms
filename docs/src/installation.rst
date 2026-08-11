@@ -15,16 +15,11 @@ Following packages are required before installing the project (install them with
 * `git <https://git-scm.com/>`_
 * `npm <https://www.npmjs.com/>`_ version 7 or later
 * `nodejs <https://nodejs.org/>`_ version 22 or later
-* `python3 <https://www.python.org/>`_ version 3.9 to 3.11 (for above 3.11 see below)
+* `python3 <https://www.python.org/>`_ version 3.13
 * `python3-pip <https://packages.ubuntu.com/search?keywords=python3-pip>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__) / `python-pip <https://www.archlinux.de/packages/extra/x86_64/python-pip>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
 * `python3-venv <https://packages.ubuntu.com/search?keywords=python3+venv>`_ (Only `Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__)
 * Either `postgresql <https://www.postgresql.org/>`_ **or** `docker <https://www.docker.com/>`_ to run a local database server
 * `gettext <https://www.gnu.org/software/gettext/>`_ and `pcregrep <https://pcre.org/original/doc/html/pcregrep.html>`_ to use the translation features
-
-.. Note::
-
-    If your distro does not contain python3.9 or later, you first have to add a ppa repository, e.g. ``sudo add-apt-repository ppa:deadsnakes/ppa``.
-
 
 Prerequisites on common distributions
 -------------------------------------

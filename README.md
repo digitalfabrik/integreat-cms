@@ -40,7 +40,7 @@ To configure your development environment on your system, please follow these st
 1. Ensure that the following packages are installed alongside your preferred IDE:
    - `npm` version 7 or later
    - `nodejs` version 22 or later
-   - `python3` version 3.13 or later
+   - `python3` version 3.13
    - `python3-pip` (Debian-based distributions) / `python-pip` (Arch-based distributions)
    - `python3-venv` (only on Debian-based distributions)
    - `gettext` for translation features
@@ -58,7 +58,7 @@ To configure your development container, please follow these steps carefully.
 2. Open the project in VSCode.
 3. If you're opening VSCode for the first time, you'll be prompted to install the ["Dev Containers" extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Click "Install" to proceed.
 4. Open the command palette (Ctrl + Shift + P or Cmd + Shift + P on macOS) and search for "> Remote-Containers: Open Folder in Container".
-5. VSCode will open the project in a new container, install all further required tools and load the testdata.
+5. VSCode will open the project in a new container, install all further required tools.
 
 
 #### Known Limitations
