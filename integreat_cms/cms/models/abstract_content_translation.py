@@ -74,6 +74,13 @@ class AbstractContentTranslation(AbstractBaseModel):
             "Flag to indicate a translation is being updated by an external translator",
         ),
     )
+    currently_in_machine_translation = models.BooleanField(
+        default=False,
+        verbose_name=_("currently in machine translation"),
+        help_text=_(
+            "Flag to indicate a translation is currently being processed by a machine translation Celery task",
+        ),
+    )
     machine_translated = models.BooleanField(
         default=False,
         verbose_name=_("machine translated"),
@@ -491,6 +498,8 @@ class AbstractContentTranslation(AbstractBaseModel):
             # If the page does not have a major public version, it is considered "missing" (keep in mind that it might
             # have draft versions or public versions that are marked as "minor edit")
             return translation_status.MISSING
+        if translation.currently_in_machine_translation:
+            return translation_status.MACHINE_TRANSLATION_IN_PROGRESS
         if translation.currently_in_translation:
             return translation_status.IN_TRANSLATION
         if not self.source_language:
