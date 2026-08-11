@@ -21,19 +21,30 @@ TOKEN_SECRET_BYTES: int = 32
 #: Number of random bytes used for the prefix which identifies a token
 TOKEN_PREFIX_BYTES: int = 6
 
+#: The separator between the prefix and the secret part of a token
+TOKEN_SEPARATOR: str = "."  # noqa: S105
 
-def hash_token(token: str) -> str:
+#: Number of bytes of the token hash (determined by the hash algorithm, not by the token length)
+TOKEN_HASH_BYTES: int = hashlib.sha256().digest_size
+
+
+def _hash_token(prefix: bytes, secret: str) -> bytes:
     """
-    Hash a token for storage in the database
+    Hash a token for storage in and lookup from the database
+
+    The plaintext token is assembled from its two parts here instead of being passed in as a whole,
+    so that the same format is guaranteed for storage and lookup.
 
     Tokens are generated with enough entropy to make brute-forcing infeasible, so a plain
     SHA-256 digest is sufficient here — a slow password hash would only add latency to every
     single API request without adding practical security.
 
-    :param token: The plaintext token
-    :return: The hex digest of the token
+    :param prefix: The public prefix of the token
+    :param secret: The secret part of the token
+    :return: The raw digest of the full token
     """
-    return hashlib.sha256(token.encode()).hexdigest()
+    plaintext = f"{prefix.hex()}{TOKEN_SEPARATOR}{secret}"
+    return hashlib.sha256(plaintext.encode()).digest()
 
 
 class ApiToken(AbstractBaseModel):
@@ -53,16 +64,22 @@ class ApiToken(AbstractBaseModel):
         verbose_name=_("user"),
     )
     name = models.CharField(max_length=200, verbose_name=_("token name"))
-    prefix = models.CharField(
-        max_length=16,
+    prefix = models.BinaryField(
+        max_length=TOKEN_PREFIX_BYTES,
         unique=True,
         verbose_name=_("token prefix"),
-        help_text=_("The public part of the token which is used to identify it."),
+        help_text=_(
+            "The public part of the token which is used to identify it. It is stored as raw bytes "
+            "and hex encoded in the plaintext token."
+        ),
     )
-    token_hash = models.CharField(
-        max_length=64,
+    token_hash = models.BinaryField(
+        max_length=TOKEN_HASH_BYTES,
         verbose_name=_("token hash"),
-        help_text=_("The hash of the full token."),
+        help_text=_(
+            "The raw SHA-256 digest of the full plaintext token, i.e. of the hex encoded prefix, "
+            "the separator and the secret."
+        ),
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -83,16 +100,15 @@ class ApiToken(AbstractBaseModel):
         :param name: The name of the token
         :return: A tuple of the created token object and the plaintext token
         """
-        prefix = secrets.token_hex(TOKEN_PREFIX_BYTES)
+        prefix = secrets.token_bytes(TOKEN_PREFIX_BYTES)
         secret = secrets.token_urlsafe(TOKEN_SECRET_BYTES)
-        plaintext = f"{prefix}.{secret}"
         token = cls.objects.create(
             user=user,
             name=name,
             prefix=prefix,
-            token_hash=hash_token(plaintext),
+            token_hash=_hash_token(prefix, secret),
         )
-        return token, plaintext
+        return token, f"{prefix.hex()}{TOKEN_SEPARATOR}{secret}"
 
     @classmethod
     def get_by_token(cls, plaintext: str) -> Self | None:
@@ -106,12 +122,16 @@ class ApiToken(AbstractBaseModel):
         :param plaintext: The plaintext token as sent by the client
         :return: The matching token object, or ``None`` if the token is unknown
         """
-        prefix, separator, _secret = plaintext.partition(".")
-        if not separator:
+        prefix_hex, separator, secret = plaintext.partition(TOKEN_SEPARATOR)
+        if not separator or len(prefix_hex) != TOKEN_PREFIX_BYTES * 2:
+            return None
+        try:
+            prefix = bytes.fromhex(prefix_hex)
+        except ValueError:
             return None
         if not (token := cls.objects.filter(prefix=prefix).first()):
             return None
-        if not secrets.compare_digest(token.token_hash, hash_token(plaintext)):
+        if not secrets.compare_digest(token.token_hash, _hash_token(prefix, secret)):
             return None
         return token
 
