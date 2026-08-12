@@ -164,7 +164,7 @@ def link_callback(uri: str, _rel: str) -> str | None:
         )
         # make sure that file exists
         if not os.path.isfile(path):
-            logger.exception(
+            logger.error(
                 "The file %r was not found in the media directories.",
                 path[:1024],
             )
@@ -185,7 +185,7 @@ def link_callback(uri: str, _rel: str) -> str | None:
         )
         return uri
     if not (result := finders.find(uri)):
-        logger.exception(
+        logger.error(
             "The file %r was not found in the static directories %r.",
             uri[:1024],
             finders.searched_locations,

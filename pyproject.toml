@@ -496,6 +496,7 @@ ignore = [
   "N818",
   "N999",
   "PLC0415", # import not at top of file - imports inside functions are used deliberately to avoid circular imports and premature app registry access
+  "PLR0917", # too many positional arguments - signatures are dictated by Django (view/form/widget overrides), decorators and pytest fixtures
   "RUF001",
   "RUF002",
   "RUF003",
@@ -558,7 +559,6 @@ max-args = 8  # default is 5
 max-bool-expr = 5  # default is 5
 max-branches = 22  # default is 12
 max-locals = 15  # default is 15
-max-positional-args = 5  # default is 5
 max-returns = 12  # default is 6
 max-statements = 64  # default is 50
 
