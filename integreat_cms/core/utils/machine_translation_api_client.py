@@ -24,6 +24,8 @@ from ...textlab_api.utils import check_hix_score
 from .word_count import word_count
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.forms.models import ModelFormMetaclass
     from django.http import HttpRequest
     from django.utils.functional import Promise
@@ -389,7 +391,7 @@ class MachineTranslationApiClient(ABC):
         )
         self.successful_translations.append(ctx)
 
-    def mark_unsuccessful(self, ctx: TranslationContext, errors: object) -> None:
+    def mark_unsuccessful(self, ctx: TranslationContext, errors: Any) -> None:
         """
         Mark a translation as unsuccessful (usually due to API errors)
         """
@@ -406,7 +408,7 @@ class MachineTranslationApiClient(ABC):
         )
         self.failed_translations.append(ctx.source_translation.title)
 
-    def mark_too_long(self, ctx: TranslationContext, errors: object) -> None:
+    def mark_too_long(self, ctx: TranslationContext, errors: Any) -> None:
         """
         Mark a translation as too long
         """
@@ -485,7 +487,7 @@ class MachineTranslationApiClient(ABC):
         self,
         message: str | Promise,
         items: list,
-        **extra_kwargs: object,
+        **extra_kwargs: Any,
     ) -> str:
         format_kwargs: dict[str, object] = {
             "model_name": ngettext(self.model_name, self.model_name_plural, len(items)),
