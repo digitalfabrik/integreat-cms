@@ -176,3 +176,11 @@ def clean_news_cache(load_test_data: None) -> Generator[None]:
     yield
     for key in keys:
         cache.delete(key)
+
+
+@pytest.fixture()
+def disable_auto_news_reimport(settings: SettingsWrapper) -> None:
+    """
+    Disable re-import of external news on demand to avoid hitting the real APIs and getting real news posts
+    """
+    settings.EXTERNALNEWS_DISABLE_AUTO_REIMPORT = True

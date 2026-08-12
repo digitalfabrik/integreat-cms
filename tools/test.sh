@@ -31,6 +31,10 @@ export INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS=1
 # Disable background tasks during testing
 export INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED=0
 
+# Disable re-importing of external news posts on demand
+export INTEGREAT_CMS_EXTERNALNEWS_DISABLE_AUTO_REIMPORT=1
+
+
 TESTS=()
 
 # Parse given command line arguments

@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import TypedDict
 
 import requests
+from django.conf import settings
 from django.core.cache import cache
 
 from ..cms.models import Language
@@ -42,54 +43,76 @@ class TunewsManager(AbstractNewsManager):
         """
         Imports Tü News posts and save them as cache
         """
+        per_page = 100
+        oldest_date = (
+            datetime.now() - timedelta(days=settings.TUNEWS_HISTORY_DAYS)
+        ).isoformat()
+
         for language in Language.objects.all():
-            try:
-                response = requests.get(
-                    f"https://tuenews.de/wp-json/wp/v2/posts/?lang={language.slug}",
-                    timeout=10,
-                )
-
-                if response.status_code != 200:
-                    logger.error(
-                        "Could not find posts in %s.",
-                        language,
+            news = []
+            page_count = 1
+            import_failed = False
+            while True:
+                try:
+                    response = requests.get(
+                        f"https://tuenews.de/wp-json/wp/v2/posts/?lang={language.slug}&per_page={per_page}&page={page_count}&after={oldest_date}",
+                        timeout=10,
                     )
-                    continue
+                except requests.exceptions.RequestException:
+                    logger.exception(
+                        "Failed to fetch posts from TuNews in %s.", language
+                    )
+                    import_failed = True
+                    break
 
-                posts = response.json()
+                result = response.json()
+                if response.status_code != 200:
+                    code = result.get("code")
+                    if code == "rest_invalid_param" and "lang" in result.get(
+                        "data", {}
+                    ).get("params", {}):
+                        # Language genuinely not served by Tü News, not a failure:
+                        # cache the (empty) result to avoid retrying import at every request.
+                        logger.debug(
+                            "Tü News does not serve %s; caching empty result.", language
+                        )
+                    elif code == "rest_post_invalid_page_number":
+                        # No more pages, not a failure: keep the posts gathered so far.
+                        logger.debug("Reached end of pagination for %s.", language)
+                    else:
+                        logger.error(
+                            "Could not fetch page %s in %s.", page_count, language
+                        )
+                        import_failed = True
+                    break
 
                 logger.info(
-                    "Got %s posts in %s.",
-                    len(posts),
+                    "Got %s result in %s.",
+                    len(result),
                     language,
                 )
-
-                news = []
-
-                for post in posts:
+                for post in result:
                     try:
                         if not post["acf"]["integreat"]:
                             continue
                         news.append(self.transform_post(post))
                     except (KeyError, TypeError, ValueError):
                         logger.exception(
-                            "Malformed %s post (id=%s); skipped.",
-                            self.name,
+                            "Malformed Tü News post (id=%s); skipped.",
                             post.get("id"),
                         )
 
+                if len(result) < per_page:
+                    break
+                page_count += 1
+
+            if not import_failed:
                 cache.set(f"{self.short_name}:{language.slug}", news, timeout=None)
-                logger.info("Saving %s news in %s", len(news), language)
                 logger.info(
                     "Saved %s news in %s",
                     len(cache.get(f"{self.short_name}:{language.slug}")),
                     language,
                 )
-                for post in cache.get(f"{self.short_name}:{language.slug}"):
-                    logger.info(post.get("title"))
-
-            except requests.exceptions.RequestException:
-                logger.exception("Failed to fetch posts in %s.", language)
 
     def transform_post(self, post: _TunewsPost) -> NewsItem:
         """

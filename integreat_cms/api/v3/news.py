@@ -75,11 +75,14 @@ def news(
             result for result in sorted_result if result["source"] in sources
         ]
 
-    page_num = request.GET.get("page", 1)
     try:
         page_size = min(int(request.GET.get("size", 20)), 500)
     except (TypeError, ValueError):
         page_size = 20
+
+    if "page" not in request.GET and "size" not in request.GET:
+        return JsonResponse(list(sorted_result), safe=False)
+    page_num = request.GET.get("page", 1)
     paginator = Paginator(sorted_result, page_size)
     page = get_safe_page(paginator, page_num)
 
