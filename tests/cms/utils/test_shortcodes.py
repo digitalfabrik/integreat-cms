@@ -20,7 +20,7 @@ def test_page_shortcode_without_text(load_test_data: None) -> None:
     """
     assert (
         expand_shortcodes("<p>[page 1]</p>", DE)
-        == '<p><a href="/augsburg/de/willkommen/">Willkommen</a></p>'
+        == '<p><a href="https://integreat.app/augsburg/de/willkommen/">Willkommen</a></p>'
     )
 
 
@@ -31,7 +31,7 @@ def test_page_shortcode_with_text(load_test_data: None) -> None:
     """
     assert (
         expand_shortcodes('<p>[page 1 "hier"]</p>', DE)
-        == '<p><a href="/augsburg/de/willkommen/">hier</a></p>'
+        == '<p><a href="https://integreat.app/augsburg/de/willkommen/">hier</a></p>'
     )
 
 
@@ -57,7 +57,7 @@ def test_page_link_shortcode(load_test_data: None) -> None:
     """
     assert (
         expand_shortcodes("<p>[page_link 1]<b>hier</b> lang[/page_link]</p>", DE)
-        == '<p><a href="/augsburg/de/willkommen/"><b>hier</b> lang</a></p>'
+        == '<p><a href="https://integreat.app/augsburg/de/willkommen/"><b>hier</b> lang</a></p>'
     )
 
 
@@ -83,7 +83,7 @@ def test_page_link_shortcode_hides_linked_image_without_alt_text(
     assert expand_shortcodes(
         '<p>[page_link 1]<img src="/media/test.png" alt="">[/page_link]</p>', DE
     ) == (
-        '<p><a href="/augsburg/de/willkommen/" aria-hidden="true" tabindex="-1">'
+        '<p><a href="https://integreat.app/augsburg/de/willkommen/" aria-hidden="true" tabindex="-1">'
         '<img src="/media/test.png" alt=""></a></p>'
     )
 
@@ -121,7 +121,7 @@ def test_content_for_delivery_expands_shortcodes(load_test_data: None) -> None:
     translation.refresh_from_db()
 
     assert translation.content_for_delivery() == (
-        '<p><a href="/augsburg/de/willkommen/">hier</a></p>'
+        '<p><a href="https://integreat.app/augsburg/de/willkommen/">hier</a></p>'
     )
 
 
@@ -148,7 +148,7 @@ def test_content_for_delivery_includes_mirrored_content(load_test_data: None) ->
         .order_by("-version")
         .first()
     )
-    assert '<a href="/augsburg/de/willkommen/">gespiegelt</a>' in (
+    assert '<a href="https://integreat.app/augsburg/de/willkommen/">gespiegelt</a>' in (
         translation.content_for_delivery()
     )
 
@@ -172,5 +172,5 @@ def test_content_for_delivery_accepts_extra_context(load_test_data: None) -> Non
     translation.refresh_from_db()
 
     assert translation.content_for_delivery(language_slug="en") == (
-        '<p><a href="/augsburg/en/welcome/">Welcome</a></p>'
+        '<p><a href="https://integreat.app/augsburg/en/welcome/">Welcome</a></p>'
     )

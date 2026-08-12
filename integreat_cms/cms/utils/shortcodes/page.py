@@ -82,7 +82,9 @@ def _render_link(translation: PageTranslation, inner_html: str | None) -> Elemen
         except LxmlError:
             element = Element("a")
             element.text = inner_html
-    element.attrib["href"] = translation.get_absolute_url()
+    # Absolute, because that is what internal links looked like before they were stored as
+    # shortcodes: the content delivered to clients has always contained full webapp urls
+    element.attrib["href"] = translation.full_url
     hide_anchor_tag_around_single_image(element)
     return element
 
@@ -113,9 +115,9 @@ def page(
         :header-rows: 0
 
         * - ``[page 1]``
-          - ``<a href="/augsburg/de/willkommen/">Willkommen</a>``
+          - ``<a href="https://integreat.app/augsburg/de/willkommen/">Willkommen</a>``
         * - ``[page 1 "this page"]``
-          - ``<a href="/augsburg/de/willkommen/">this page</a>``
+          - ``<a href="https://integreat.app/augsburg/de/willkommen/">this page</a>``
         * - ``[page 999999]``
           - ``<i>[MISSING LINK]</i>``
     """
@@ -152,7 +154,7 @@ def page_link(
         :header-rows: 0
 
         * - ``[page_link 1]<b>hier</b>[/page_link]``
-          - ``<a href="/augsburg/de/willkommen/"><b>hier</b></a>``
+          - ``<a href="https://integreat.app/augsburg/de/willkommen/"><b>hier</b></a>``
         * - ``[page_link 999999]<b>hier</b>[/page_link]``
           - ``<i>[<b>hier</b>]</i>``
     """
