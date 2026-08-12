@@ -14,7 +14,7 @@ from integreat_cms.cms.models.regions.region import Region
 if TYPE_CHECKING:
     from django.http import HttpResponse
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
     from tests.mock import MockServer
 
@@ -78,7 +78,7 @@ def create_page(
 def test_hix_score_create(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -136,7 +136,7 @@ def test_hix_score_create(
 def test_hix_score_create_content_empty(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -174,7 +174,7 @@ def test_hix_score_create_content_empty(
 def test_ignore_hix_on_page_create(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -217,7 +217,7 @@ def test_ignore_hix_on_page_create(
 def test_hix_disabled_on_region_on_page_create(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -259,7 +259,7 @@ def test_hix_disabled_on_region_on_page_create(
 def test_hix_response_400_on_page_create(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -381,7 +381,7 @@ dummy_hix_result = {
 def test_hix_score_update(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -436,7 +436,7 @@ def test_hix_score_update(
 def test_hix_disable_on_region(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -479,7 +479,7 @@ def test_hix_disable_on_region(
 def test_ignore_hix_on_page_update(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -524,7 +524,7 @@ def test_ignore_hix_on_page_update(
 def test_hix_page_content_empty(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -568,7 +568,7 @@ def test_hix_page_content_empty(
 def test_hix_no_content_changes(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -623,7 +623,7 @@ def test_hix_no_content_changes(
 def test_hix_response_400_on_page_update(
     load_test_data: None,
     admin_client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """

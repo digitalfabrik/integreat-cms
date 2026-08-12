@@ -9,7 +9,7 @@ from django.utils.timezone import now
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 import pytest
 from django.contrib.auth import get_user_model
@@ -80,7 +80,7 @@ def create_event(region_slug: str, name_add: str = "") -> int:
 def test_create_event_location_check(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: tuple[int, bool, bool],
 ) -> None:
@@ -172,7 +172,7 @@ event_creation_test_parameters = [
 def test_create_event(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: tuple[str, str, bool],
 ) -> None:
@@ -266,7 +266,7 @@ def test_create_event(
 def test_no_daily_event_created(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -330,7 +330,7 @@ recurrence_rule_change_parameters = [None, "2030-12-31"]
 def test_no_orpahned_recurrence_rule(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: str | None,
 ) -> None:
@@ -438,7 +438,7 @@ date_range_validation_parameters = [
 def test_event_start_date_range_validation(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: tuple[str, str, bool, str | None],
 ) -> None:
@@ -501,7 +501,7 @@ end_date_change_parameters = [True, False]
 def test_end_date_changed(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: bool,
 ) -> None:
@@ -600,7 +600,7 @@ def test_bulk_delete_events(
     role: str,
     client: Client,
     load_test_data: None,
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     num_deletable: int,
     num_undeletable: int,
@@ -628,7 +628,7 @@ def test_bulk_delete_events(
 def test_case_insensitive_unique_slug(
     client: Client,
     load_test_data: None,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Test that an appropriate message is shown to users and the view does not crash when slug is updated for uniqueness

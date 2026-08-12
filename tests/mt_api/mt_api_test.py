@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
     from tests.mock import MockServer
 
@@ -62,7 +62,7 @@ def mt_setup(
     deepl_target: list[str],
     gt_source: list[str],
     gt_target: list[str],
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer | None,
 ) -> None:
     """
@@ -154,7 +154,7 @@ def test_automatic_translation(
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     content_role_id_data_combination: tuple[Any, list, int, dict],
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
@@ -293,7 +293,7 @@ def test_do_not_translate_title(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     do_not_translate_title: bool,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -381,7 +381,7 @@ def test_do_not_translate_title(
 def test_mt_update_to_empty_content(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -455,7 +455,7 @@ def test_mt_update_to_empty_content(
 def test_mt_update_up_to_date_no_changes(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
@@ -511,7 +511,7 @@ def test_mt_update_up_to_date_no_changes(
 def test_manual_update_mt_page(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """
@@ -576,7 +576,7 @@ def test_manual_update_mt_page(
 def test_mt_update_refreshes_outdated_translation_no_changes(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
