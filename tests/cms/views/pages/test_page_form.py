@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from collections.abc import Callable
 
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
     from integreat_cms.cms.models import Page
 
@@ -21,7 +21,7 @@ from integreat_cms.cms.models import Language, PageTranslation, Region
 def test_case_insensitive_unique_slug(
     client: Client,
     load_test_data: None,
-    settings: SettingsWrapper,
+    settings: Settings,
     create_page: Callable[..., Page],
 ) -> None:
     """

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 import pytest
 from django.urls import reverse
@@ -33,7 +33,7 @@ NEW_ORGANIZATION_NAME = "New Organization"
 def test_organization_form_shows_no_contents(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Test that no contents are shown in the organization form if it does not have any content assigned
@@ -76,7 +76,7 @@ def test_organization_form_shows_no_contents(
 def test_organization_form_shows_associated_contents(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Nicht archivierte Organisation in Augsburg has two pages and one location.
@@ -154,7 +154,7 @@ def test_organization_form_shows_associated_contents(
 def test_create_new_organization(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -210,7 +210,7 @@ def test_create_new_organization(
 def test_cannot_create_organization_with_duplicate_name(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -266,7 +266,7 @@ def test_cannot_create_organization_with_duplicate_name(
 def test_edit_organization(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """

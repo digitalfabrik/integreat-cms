@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 from io import StringIO
 
@@ -36,7 +36,7 @@ DUMMY_POI_ID = -1
 def test_create_a_new_contact(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -93,7 +93,7 @@ def test_create_a_new_contact(
 def test_edit_a_contact(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -159,7 +159,7 @@ def test_edit_a_contact(
 def test_no_contact_without_poi(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -209,7 +209,7 @@ def test_no_contact_without_poi(
 def test_at_least_one_field_filled(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -263,7 +263,7 @@ def test_at_least_one_field_filled(
 def test_one_primary_contact_per_poi(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """

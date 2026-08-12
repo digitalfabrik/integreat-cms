@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from typing import Any
 
     import requests
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
     from requests_mock.mocker import Mocker
 
 from integreat_cms.cms.models import (
@@ -80,7 +80,7 @@ class TestSendPushNotification:
         }
 
     @pytest.mark.django_db
-    def test_push_notifications_disabled(self, settings: SettingsWrapper) -> None:
+    def test_push_notifications_disabled(self, settings: Settings) -> None:
         """
         Ensure that disabled push notifications cause an error
         """
@@ -92,7 +92,7 @@ class TestSendPushNotification:
     @pytest.mark.django_db
     def test_push_notifications_nonexisting_testregion(
         self,
-        settings: SettingsWrapper,
+        settings: Settings,
     ) -> None:
         """
         Ensure that an error is caused when the system runs in debug mode but the test region does not exist
@@ -109,7 +109,7 @@ class TestSendPushNotification:
     @pytest.mark.django_db
     def test_ignore_overdue_notification(
         self,
-        settings: SettingsWrapper,
+        settings: Settings,
         requests_mock: Mocker,
     ) -> None:
         requests_mock.post(
@@ -173,7 +173,7 @@ class TestSendPushNotification:
     @pytest.mark.django_db
     def test_retry_failed_notification(
         self,
-        settings: SettingsWrapper,
+        settings: Settings,
         requests_mock: Mocker,
     ) -> None:
         requests_mock.post(

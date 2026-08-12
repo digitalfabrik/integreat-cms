@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 import pytest
 from django.contrib.auth import get_user_model
@@ -133,7 +133,7 @@ def test_bulk_delete_pages(
     role: str,
     client: Client,
     load_test_data: None,
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     num_deletable: int,
     num_undeletable_1: int,

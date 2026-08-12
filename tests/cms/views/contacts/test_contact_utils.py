@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.test.client import Client
 from django.urls import reverse
 from lxml.html import fromstring, tostring
-from pytest_django.fixtures import SettingsWrapper
+from pytest_django.fixtures import Settings
 
 from integreat_cms.cms.utils.content_utils import update_contacts
 from tests.constants import (
@@ -62,7 +62,7 @@ def strip(arg: str | object) -> str:
 def test_search_contact_single(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Test that querying for a specific contact returns that contact to authorized users
@@ -97,7 +97,7 @@ def test_search_contact_single(
 def test_search_contact_multiple(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Test that querying for a term returns relevant contacts to authorized users
@@ -134,7 +134,7 @@ def test_search_contact_multiple(
 def test_get_contact_card(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Test that requesting a contact card returns it to authorized users with only the selected details
@@ -165,7 +165,7 @@ def test_get_contact_card(
 def test_get_contact_card_raw(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Test that requesting a raw contact representation returns it to authorized users

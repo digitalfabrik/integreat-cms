@@ -10,7 +10,7 @@ from integreat_cms.cms.models import Page, PageTranslation
 from ..utils import get_command_output
 
 if TYPE_CHECKING:
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 
 def test_duplicate_pages_prod() -> None:
@@ -22,7 +22,7 @@ def test_duplicate_pages_prod() -> None:
     assert str(exc_info.value) == "This command can only be used in DEBUG mode."
 
 
-def test_duplicate_pages_missing_region_slug(settings: SettingsWrapper) -> None:
+def test_duplicate_pages_missing_region_slug(settings: Settings) -> None:
     """
     Ensure that a missing region slug throws an error
     """
@@ -36,7 +36,7 @@ def test_duplicate_pages_missing_region_slug(settings: SettingsWrapper) -> None:
 
 
 @pytest.mark.django_db
-def test_duplicate_pages_non_existing_region(settings: SettingsWrapper) -> None:
+def test_duplicate_pages_non_existing_region(settings: Settings) -> None:
     """
     Ensure that a non existing region slug throws an error
     """
@@ -47,7 +47,7 @@ def test_duplicate_pages_non_existing_region(settings: SettingsWrapper) -> None:
 
 
 @pytest.mark.django_db
-def test_duplicate_pages(settings: SettingsWrapper, load_test_data: None) -> None:
+def test_duplicate_pages(settings: Settings, load_test_data: None) -> None:
     """
     Ensure that pages are really duplicated
     """
