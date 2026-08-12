@@ -12,62 +12,34 @@
 {% block collapsible_box_content %}
     <div class="flex flex-wrap gap-4 mb-6">
         <div class="flex-1 min-w-[150px] flex flex-col">
-            <p class="text-xs text-gray-600">
-                {% translate "Chats in last 6 hours" %}
-            </p>
-            <p class="text-lg font-bold">
-                {{ chats_last_6h }}
-            </p>
-            <p class="text-lg">
-                {% translate "Budget:" %} {{ chats_last_6h_budget }}
-            </p>
+            <p class="text-xs text-gray-600">{% translate "Chats in last 6 hours" %}</p>
+            <p class="text-lg font-bold">{{ chats_last_6h }}</p>
+            <p class="text-lg">{% translate "Budget:" %} {{ chats_last_6h_budget }}</p>
         </div>
         <div class="flex-1 min-w-[150px]">
-            <p class="text-xs text-gray-600">
-                {% translate "Last 30 days" %}
-            </p>
-            <p class="text-lg font-bold">
-                {{ chats_last_30_days }}
-            </p>
-            <p class="text-xs text-gray-600">
-                {% translate "Budget:" %} {{ chats_last_30_days_budget }}
-            </p>
+            <p class="text-xs text-gray-600">{% translate "Last 30 days" %}</p>
+            <p class="text-lg font-bold">{{ chats_last_30_days }}</p>
+            <p class="text-xs text-gray-600">{% translate "Budget:" %} {{ chats_last_30_days_budget }}</p>
         </div>
         <div class="flex-1 min-w-[150px]">
-            <p class="text-xs text-gray-600">
-                {% translate "Previous 30 days" %}
-            </p>
-            <p class="text-lg font-bold">
-                {{ chats_previous_30_days }}
-            </p>
-            <p class="text-xs text-gray-600">
-                {% translate "Budget:" %} {{ chats_previous_30_days_budget }}
-            </p>
+            <p class="text-xs text-gray-600">{% translate "Previous 30 days" %}</p>
+            <p class="text-lg font-bold">{{ chats_previous_30_days }}</p>
+            <p class="text-xs text-gray-600">{% translate "Budget:" %} {{ chats_previous_30_days_budget }}</p>
         </div>
         <div class="flex-1 min-w-[150px]">
-            <p class="text-xs text-gray-600">
-                {% translate "Total chats" %}
-            </p>
-            <p class="text-lg font-bold">
-                {{ chats_total }}
-            </p>
-            <p class="text-xs text-gray-600">
-                {% translate "Budget:" %} {{ chats_total_budget }}
-            </p>
+            <p class="text-xs text-gray-600">{% translate "Total chats" %}</p>
+            <p class="text-lg font-bold">{{ chats_total }}</p>
+            <p class="text-xs text-gray-600">{% translate "Budget:" %} {{ chats_total_budget }}</p>
         </div>
     </div>
     <div class="flex flex-wrap gap-2 {% if chats_by_language %}mb-4{% endif %}">
-        <p class="w-full text-sm font-medium mb-1">
-            {% translate "Chats by language:" %}
-        </p>
+        <p class="w-full text-sm font-medium mb-1">{% translate "Chats by language:" %}</p>
         {% for entry in chats_by_language %}
             <span class="px-3 py-1 bg-gray-100 rounded text-sm">
                 {{ entry.language__english_name|translate_language_name }}: {{ entry.count }}
             </span>
         {% empty %}
-            <span class="px-3 py-1 text-gray-500">
-                {% translate "No data available" %}
-            </span>
+            <span class="px-3 py-1 text-gray-500">{% translate "No data available" %}</span>
         {% endfor %}
     </div>
     <p class="text-xs text-gray-600">

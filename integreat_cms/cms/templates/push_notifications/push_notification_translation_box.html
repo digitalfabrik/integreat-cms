@@ -16,9 +16,7 @@
                class="secondary">
             {{ push_notification_translation_form.automatic_translation.label }}
         </label>
-        <div class="help-text">
-            {{ push_notification_translation_form.automatic_translation.help_text }}
-        </div>
+        <div class="help-text">{{ push_notification_translation_form.automatic_translation.help_text }}</div>
         <div id="language-options" class="pl-2 hidden">
             {% if push_notification_translation_form.mt_translations_to_update.field.queryset.exists %}
                 <label for="{{ push_notification_translation_form.mt_translations_to_update.id_for_label }}"
@@ -35,9 +33,7 @@
                 {% render_field push_notification_translation_form.mt_translations_to_create %}
                 <div class="mt-4 font-bold">
                     <input id="select-all-languages" type="checkbox" />
-                    <label for="select-all-languages">
-                        {% translate "Select all languages" %}
-                    </label>
+                    <label for="select-all-languages">{% translate "Select all languages" %}</label>
                 </div>
             {% endif %}
         </div>
@@ -48,8 +44,6 @@
                class="secondary">
             {{ push_notification_form.do_not_translate_title.label }}
         </label>
-        <div class="help-text">
-            {{ push_notification_form.do_not_translate_title.help_text }}
-        </div>
+        <div class="help-text">{{ push_notification_form.do_not_translate_title.help_text }}</div>
     </div>
 {% endblock collapsible_box_content %}
