@@ -539,8 +539,21 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         return str(self)
 
+    @cached_property
+    def combined_text(self) -> str:
+        """
+        The content this translation delivers, including any content embedded from elsewhere.
+
+        Only :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` embeds
+        anything (the translation of its mirrored page), so for every other content type this
+        is just the content itself.
+
+        :return: The content to deliver, still containing shortcodes
+        """
+        return self.content
+
     @property
-    def content_with_expanded_links(self) -> str:
+    def content_for_cms(self) -> str:
         """
         The content as it should be presented to users of the CMS, which means with all
         shortcodes referencing internal content expanded into ordinary links.
@@ -561,6 +574,31 @@ class AbstractContentTranslation(AbstractBaseModel):
         from ..utils.link_shortcode_utils import expand_link_shortcodes
 
         return expand_link_shortcodes(self.content, self.language.slug)
+
+    def content_for_delivery(self, **extra_context: Any) -> str:
+        r"""
+        The content as it should be delivered by the API, which means with every shortcode
+        expanded into the representation of the object it references.
+
+        This is a method rather than a property because expanding a shortcode may need
+        context which cannot be derived from the translation, such as the current request.
+
+        :param \**extra_context: Additional context for the shortcodes, which takes
+                                 precedence over the context derived from this translation
+        :return: The expanded content
+        """
+        # Imported here because the utils import the models
+        from ..utils.shortcodes import expand_shortcodes
+
+        return expand_shortcodes(
+            self.combined_text,
+            context={
+                "region_slug": self.foreign_object.region.slug,
+                "language_slug": self.language.slug,
+                "content_object": self,
+                **extra_context,
+            },
+        )
 
     @cached_property
     def hix_enabled(self) -> bool:

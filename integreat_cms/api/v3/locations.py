@@ -15,7 +15,6 @@ from django.utils.html import strip_tags
 from ...cms.constants import status
 from ...cms.models import Contact, POICategoryTranslation
 from ...cms.models.pois.poi import get_default_opening_hours
-from ...cms.utils.shortcodes import expand_shortcodes_of
 from ...core.utils.strtobool import strtobool
 from ..decorators import json_response
 from .location_categories import transform_location_category
@@ -117,7 +116,7 @@ def transform_poi_translation(
     :return: Data for the APIv3 locations endpoint.
     """
     poi = poi_translation.poi
-    content = expand_shortcodes_of(poi_translation)
+    content = poi_translation.content_for_delivery()
 
     contacts = Contact.objects.filter(location=poi).all()
 

@@ -59,7 +59,7 @@ class CustomContentModelForm(CustomModelForm):
         # working with ordinary links, so expand them before they are put into the editor
         if "content" in self.fields and self.instance.content:
             with suppress(ObjectDoesNotExist):
-                self.initial["content"] = self.instance.content_with_expanded_links
+                self.initial["content"] = self.instance.content_for_cms
 
     def clean(self) -> dict[str, Any]:
         """

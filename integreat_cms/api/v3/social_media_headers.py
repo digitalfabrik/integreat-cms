@@ -18,7 +18,6 @@ from ...cms.models.languages.language import Language
 from ...cms.utils.internal_link_utils import (
     get_public_translation_for_webapp_link_parts,
 )
-from ...cms.utils.shortcodes import expand_shortcodes_of
 from ...cms.utils.social_media_utils import (
     get_excerpt,
     get_region_title,
@@ -229,7 +228,7 @@ def page_social_media_headers(
         request=request,
         title=get_region_title(region, page_translation.title),
         language_code=language.bcp47_tag,
-        excerpt=get_excerpt(expand_shortcodes_of(page_translation)),
+        excerpt=get_excerpt(page_translation.content_for_delivery()),
         url=page_translation.full_url,
     )
 
@@ -271,7 +270,7 @@ def event_social_media_headers(
         request=request,
         title=get_region_title(region, event_translation.title),
         language_code=language.bcp47_tag,
-        excerpt=get_excerpt(expand_shortcodes_of(event_translation)),
+        excerpt=get_excerpt(event_translation.content_for_delivery()),
         url=event_translation.full_url,
     )
 
@@ -343,6 +342,6 @@ def location_social_media_headers(
         request=request,
         title=get_region_title(region, location_translation.title),
         language_code=language.bcp47_tag,
-        excerpt=get_excerpt(expand_shortcodes_of(location_translation)),
+        excerpt=get_excerpt(location_translation.content_for_delivery()),
         url=location_translation.full_url,
     )

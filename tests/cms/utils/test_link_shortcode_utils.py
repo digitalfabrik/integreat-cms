@@ -350,7 +350,7 @@ def test_content_form_collapses_links_on_save(load_test_data: None) -> None:
 @pytest.mark.django_db
 def test_expanded_content_is_not_cached(load_test_data: None) -> None:
     """
-    ``content_with_expanded_links`` must follow later changes of the content.
+    ``content_for_cms`` must follow later changes of the content.
 
     It must not be a cached property: the content form reads it while initializing and then
     assigns the submitted content to the very same instance, so anything reading it during
@@ -358,13 +358,10 @@ def test_expanded_content_is_not_cached(load_test_data: None) -> None:
     """
     translation = get_latest_german_translation(page_id=2)
     translation.content = '<p>[page 1 "hier"]</p>'
-    assert (
-        translation.content_with_expanded_links
-        == f'<p><a href="{WILLKOMMEN_URL}">hier</a></p>'
-    )
+    assert translation.content_for_cms == f'<p><a href="{WILLKOMMEN_URL}">hier</a></p>'
 
     translation.content = "<p>Neuer Inhalt</p>"
-    assert translation.content_with_expanded_links == "<p>Neuer Inhalt</p>"
+    assert translation.content_for_cms == "<p>Neuer Inhalt</p>"
 
 
 @pytest.mark.django_db
@@ -389,7 +386,7 @@ def test_content_form_does_not_freeze_expanded_content(load_test_data: None) -> 
     assert form.initial["content"]
     assert form.is_valid(), form.errors
 
-    assert form.instance.content_with_expanded_links == "<p>Neuer Inhalt</p>"
+    assert form.instance.content_for_cms == "<p>Neuer Inhalt</p>"
 
 
 def get_latest_german_translation(page_id: int) -> PageTranslation:

@@ -19,7 +19,6 @@ if TYPE_CHECKING:
 
     from ...cms.models.pages.imprint_page_translation import ImprintPageTranslation
 
-from ...cms.utils.shortcodes import expand_shortcodes_of
 from ..decorators import json_response
 
 logger = logging.getLogger(__name__)
@@ -33,7 +32,7 @@ def transform_imprint(imprint_translation: ImprintPageTranslation) -> dict[str, 
     :return: data necessary for API
     """
     absolute_url = imprint_translation.get_absolute_url()
-    content = expand_shortcodes_of(imprint_translation)
+    content = imprint_translation.content_for_delivery()
     return {
         "id": imprint_translation.id,
         "url": settings.BASE_URL + absolute_url,

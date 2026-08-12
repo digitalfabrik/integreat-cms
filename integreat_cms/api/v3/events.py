@@ -12,7 +12,6 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.utils.html import strip_tags
 
-from ...cms.utils.shortcodes import expand_shortcodes_of
 from ..decorators import json_response
 from .locations import transform_poi
 
@@ -83,7 +82,7 @@ def transform_event_translation(
         else f"{event_translation.slug}${recurrence_date}"
     )
     absolute_url = event_translation.url_prefix + slug + "/"
-    content = expand_shortcodes_of(event_translation)
+    content = event_translation.content_for_delivery()
     return {
         "id": event_translation.id,
         "url": settings.BASE_URL + absolute_url,

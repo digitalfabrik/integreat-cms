@@ -59,7 +59,7 @@ def page_translation_save_handler(instance: PageTranslation, **kwargs: Any) -> N
         return
 
     # Shortcodes would be scored as unreadable gibberish, so use the expanded content
-    if data := lookup_hix_score(instance.content_with_expanded_links):
+    if data := lookup_hix_score(instance.content_for_cms):
         logger.debug("Storing hix score %s for %r", data["score"], instance)
         instance.hix_score = data["score"]
 
