@@ -30,7 +30,7 @@
       }
     }
   },
-  "postCreateCommand": "./tools/install.sh --python python3.11 && ./tools/migrate.sh && ./tools/loadtestdata.sh",
+  "postCreateCommand": "./tools/install.sh --python python3.13 && ./tools/migrate.sh",
   "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && redis-server --daemonize yes --unixsocket /workspace/redis-server.sock --unixsocketperm 770",
   "remoteEnv": {
     "DJANGO_SETTINGS_MODULE": "integreat_cms.core.settings",
@@ -39,6 +39,7 @@
     "INTEGREAT_CMS_FCM_KEY": "dummy",
     "INTEGREAT_CMS_SECRET_KEY": "dummy",
     "INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED": "0",
-    "INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS": "1"
+    "INTEGREAT_CMS_SUMM_AI_API_KEY": "dummy",
+    "INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS": "0"
   }
 }
