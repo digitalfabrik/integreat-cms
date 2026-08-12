@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-08-12T11:48:52+00:00" />
+    <meta property="article:modified_time" content="2026-08-12T13:28:33+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2026.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -1110,6 +1110,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_PORT"><code class="docutils literal notranslate"><span class="pre">EMAIL_PORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_USE_SSL"><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_SSL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_USE_TLS"><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EXTERNALNEWS_DISABLE_AUTO_REIMPORT"><code class="docutils literal notranslate"><span class="pre">EXTERNALNEWS_DISABLE_AUTO_REIMPORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EXTERNAL_CALENDAR_CATEGORY"><code class="docutils literal notranslate"><span class="pre">EXTERNAL_CALENDAR_CATEGORY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CHANNELS"><code class="docutils literal notranslate"><span class="pre">FCM_CHANNELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
@@ -1215,6 +1216,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_USERNAME"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_USERNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TIME_ZONE"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TRUSTED_IP_HEADER"><code class="docutils literal notranslate"><span class="pre">TRUSTED_IP_HEADER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TUNEWS_HISTORY_DAYS"><code class="docutils literal notranslate"><span class="pre">TUNEWS_HISTORY_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_I18N"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_L10N"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_TZ"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a></li>
@@ -1657,7 +1659,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_keeps_plain_text"><code class="docutils literal notranslate"><span class="pre">test_clean_html_keeps_plain_text()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_preserves_unrelated_classes"><code class="docutils literal notranslate"><span class="pre">test_clean_html_preserves_unrelated_classes()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_strips_pvc_elements"><code class="docutils literal notranslate"><span class="pre">test_clean_html_strips_pvc_elements()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_import_news_item"><code class="docutils literal notranslate"><span class="pre">test_import_news_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_import_amalnews_item"><code class="docutils literal notranslate"><span class="pre">test_import_amalnews_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_import_tunews_item"><code class="docutils literal notranslate"><span class="pre">test_import_tunews_item()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1726,6 +1729,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.configure_celery_for_tests"><code class="docutils literal notranslate"><span class="pre">configure_celery_for_tests()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.create_language"><code class="docutils literal notranslate"><span class="pre">create_language()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.create_page"><code class="docutils literal notranslate"><span class="pre">create_page()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.disable_auto_news_reimport"><code class="docutils literal notranslate"><span class="pre">disable_auto_news_reimport()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data"><code class="docutils literal notranslate"><span class="pre">load_test_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data_transactional"><code class="docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.login_role_user"><code class="docutils literal notranslate"><span class="pre">login_role_user()</span></code></a></li>
@@ -2465,7 +2469,7 @@ every tree operation. This flag makes all cacheops entry points no-ops.</p>
 <span class="w">    </span><span class="s1">&#39;filters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7cfdda6f00e0</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7b29b9824860</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="s1">&#39;formatters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
@@ -3213,6 +3217,12 @@ This is used for explicit TLS connections, generally on port 587.
 
 <dl class="py data">
 <dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">EXTERNALNEWS_DISABLE_AUTO_REIMPORT</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Disable re-importing of external news posts on demand e.g. in test context</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">EXTERNAL_CALENDAR_CATEGORY</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'integreat'</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The tag that events from external calendars need to get imported</p>
 </dd></dl>
@@ -3575,7 +3585,7 @@ to determine whether a link is internal.</p>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7cfde9c1e700</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7b29c49ee700</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_false&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugFalse&#39;</span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_true&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugTrue&#39;</span><span class="p">},</span>
@@ -4167,6 +4177,13 @@ This is <code class="docutils literal notranslate"><span class="pre">True</span>
 <dd><p>HTTP Header that contains the client IP. This can be used behind reverse proxies
 Important: Use Django Header notiation, example: HTTP_X_FORWARDED_FOR. Ensure that
 this header cannot be sent by clients.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">TUNEWS_HISTORY_DAYS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">28</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>How many days back news posts should be fetched from Tü News
+Default to FCM_HISTORY_DAYS</p>
 </dd></dl>
 
 <dl class="py data">
