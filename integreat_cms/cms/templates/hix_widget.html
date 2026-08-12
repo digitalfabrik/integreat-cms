@@ -18,18 +18,14 @@
         </div>
         <div id="hix-block"
              class="{% if page_form.instance.hix_ignore %}hidden{% endif %}">
-            <div class="help-text mt-2">
-                {% translate "Improve the understandability of the page here:" %}
-            </div>
+            <div class="help-text mt-2">{% translate "Improve the understandability of the page here:" %}</div>
             <div id="hix-container"
                  data-content-changed
                  data-initial-hix-score="{{ page_translation_form.instance.rounded_hix_score|safe }}"
                  data-initial-hix-feedback="{{ page_translation_form.instance.hix_feedback }}">
                 <div id="hix-bar">
                     <span id="hix-bar-fill">
-                        <div id="hix-value">
-                            HIX
-                        </div>
+                        <div id="hix-value">HIX</div>
                     </span>
                 </div>
             </div>
@@ -61,9 +57,7 @@
                 {% translate "Update" %}
             </button>
             <div id="hix-feedback" class="hidden">
-                <label class="secondary">
-                    {% translate "For review:" %}
-                </label>
+                <label class="secondary">{% translate "For review:" %}</label>
                 <div hix-feedback-category="nested-sentences"
                      class="help-text mt-2 hidden">
                     <i icon-name="bar-chart-big" class="size-6 pr-1"></i>
@@ -118,9 +112,7 @@
                     <span class="font-bold">{% translate "abbreviations" %}</span>
                 </div>
             </div>
-            <label class="secondary pt-2">
-                {% translate "HIX value unexpectedly bad?" %}
-            </label>
+            <label class="secondary pt-2">{% translate "HIX value unexpectedly bad?" %}</label>
             <div class="help-text mt-2">
                 {% translate "Editorial tips and possible reasons can be found " %}
                 <a href="{% translate "https://wiki.tuerantuer.org/write-texts" %}"
@@ -131,12 +123,8 @@
         </div>
         <div>
             {% render_field page_form.hix_ignore %}
-            <label for="{{ page_form.hix_ignore.id_for_label }}" class="secondary">
-                {{ page_form.hix_ignore.label }}
-            </label>
-            <div class="help-text">
-                {{ page_form.hix_ignore.help_text }}
-            </div>
+            <label for="{{ page_form.hix_ignore.id_for_label }}" class="secondary">{{ page_form.hix_ignore.label }}</label>
+            <div class="help-text">{{ page_form.hix_ignore.help_text }}</div>
         </div>
     </div>
 {% endblock collapsible_box_content %}

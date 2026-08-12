@@ -18,20 +18,12 @@
         {% get_translations_under_hix_threshold region as translations %}
         {{ translations|length }}
     </td>
-    <td class="text-center py-3 pr-2">
-        {{ region.get_pages.count }}
-    </td>
+    <td class="text-center py-3 pr-2">{{ region.get_pages.count }}</td>
     <td class="text-center py-3 pr-2">
         {% get_partially_translated_pages region as outdated_or_missing_translation %}
         {{ outdated_or_missing_translation }}
     </td>
-    <td class="text-center py-3 pr-2">
-        {{ region.outdated_pages.count }}
-    </td>
-    <td class="text-center py-3 pr-2">
-        {{ region.active_languages_without_default_language|length }}
-    </td>
-    <td class="text-center py-3 pr-2">
-        {{ region.mt_budget_booked|intcomma }}
-    </td>
+    <td class="text-center py-3 pr-2">{{ region.outdated_pages.count }}</td>
+    <td class="text-center py-3 pr-2">{{ region.active_languages_without_default_language|length }}</td>
+    <td class="text-center py-3 pr-2">{{ region.mt_budget_booked|intcomma }}</td>
 </tr>

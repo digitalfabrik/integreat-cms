@@ -4,12 +4,8 @@
         <a href="{% url 'edit_user' user_id=user.id %}"
            class="block py-3 pr-2 text-gray-800">{{ user.username }}</a>
     </td>
-    <td class="pr-2">
-        {{ user.first_name }}
-    </td>
-    <td class="pr-2">
-        {{ user.last_name }}
-    </td>
+    <td class="pr-2">{{ user.first_name }}</td>
+    <td class="pr-2">{{ user.last_name }}</td>
     <td>
         <span class="hover:underline text-blue-500 hover:text-blue-600 pr-2">{{ user.email|urlize }}</span>
     </td>
@@ -20,9 +16,7 @@
             <i icon-name="minus"></i>
         {% endif %}
     </td>
-    <td class="pr-2">
-        {{ user.role }}
-    </td>
+    <td class="pr-2">{{ user.role }}</td>
     <td class="pr-2 whitespace-nowrap">
         {% if user.last_login %}
             {{ user.last_login }}

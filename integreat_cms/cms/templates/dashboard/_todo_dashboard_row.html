@@ -1,18 +1,9 @@
 {% load i18n %}
 {% load tagifnotempty %}
-<div class="flex justify-between w-full p-4 border-t-2 border-zinc-600"
-     {% filter tagifnotempty:'data-url' %}
-     {% block todo_dashboard_ajax_url %}
-     {% endblock todo_dashboard_ajax_url %}
-     {% endfilter %}
-     {% filter tagifnotempty:'id' %}
-     {% block todo_dashboard_id %}
-     {% endblock todo_dashboard_id %}
-     {% endfilter %}>
+<div class="flex justify-between w-full p-4 border-t-2 border-zinc-600" {% filter tagifnotempty:'data-url' %} {% block todo_dashboard_ajax_url %} {% endblock todo_dashboard_ajax_url %} {% endfilter %} {% filter tagifnotempty:'id' %} {% block todo_dashboard_id %} {% endblock todo_dashboard_id %} {% endfilter %}>
     <div class="flex items-center basis-full">
         <div class="mr-6">
-            <i class="w-8 h-8"
-               icon-name="{% spaceless %}{% block todo_dashboard_icon %}{% endblock todo_dashboard_icon %}{% endspaceless %}"></i>
+            <i class="w-8 h-8" icon-name="{% spaceless %}{% block todo_dashboard_icon %}{% endblock todo_dashboard_icon %}{% endspaceless %}"></i>
         </div>
         <div>
             {# djlint:off #}<a href="{% spaceless %}{% block todo_dashboard_title_link %}{% endblock todo_dashboard_title_link %}{% endspaceless %}"

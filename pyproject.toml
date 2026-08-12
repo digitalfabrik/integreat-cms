@@ -395,7 +395,6 @@ profile="django"
 line_break_after_multiline_tag=true
 # exclude invalid html files until this is resolved https://github.com/djlint/djLint/issues/703
 exclude = "integreat_cms/api/v3/templates/"
-
 recursive = true
 ignore-paths = [
   ".venv",
@@ -405,6 +404,10 @@ ignore-paths = [
 fail-on = "I"
 extension-pkg-whitelist = ["lxml"]
 django-settings-module="integreat_cms.core.settings"
+ignore=[
+  "H005", # Html tag should have lang attribute. <html>
+]
+
 
 [tool.mypy]
 disallow_untyped_defs = true

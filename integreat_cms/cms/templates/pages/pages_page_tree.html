@@ -11,9 +11,7 @@
         <div class="table-header">
             <div class="flex flex-wrap justify-between gap-4">
                 {% if is_archive %}
-                    <h1 class="heading">
-                        {% translate "Archived Pages" %}
-                    </h1>
+                    <h1 class="heading">{% translate "Archived Pages" %}</h1>
                     <a href="{% url 'pages' region_slug=request.region.slug language_slug=language.slug %}"
                        class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
                         <span><i icon-name="layout" class="align-top h-5"></i> {% translate "Back to pages" %}</span>
@@ -57,9 +55,7 @@
                                 {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
                                     You can only create pages in the default language ({{ default_language }}).
                                 {% endblocktranslate %}
-                                <button title="{{ disabled_button_title }}" class="btn" disabled>
-                                    {% translate "Create page" %}
-                                </button>
+                                <button title="{{ disabled_button_title }}" class="btn" disabled>{% translate "Create page" %}</button>
                             {% endif %}
                         {% endif %}
                     {% endif %}
@@ -83,9 +79,7 @@
                     <tr class="border-b border-solid border-gray-200">
                         {% include "pages/_generic_page_tree_header.html" %}
                         {% if not is_archive %}
-                            <th class="text-sm text-center uppercase py-3 pr-6 min">
-                                {% translate "Tags" %}
-                            </th>
+                            <th class="text-sm text-center uppercase py-3 pr-6 min">{% translate "Tags" %}</th>
                         {% endif %}
                         <th class="text-sm text-left uppercase py-3 px-2">
                             <div class="lang-grid flags whitespace-nowrap">
@@ -101,15 +95,9 @@
                                 {% endspaceless %}
                             </div>
                         </th>
-                        <th class="text-sm text-left uppercase py-3 pl-2 pr-2">
-                            {% translate "Publication status" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pl-2">
-                            {% translate "Last updated" %}
-                        </th>
-                        <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">
-                            {% translate "Options" %}
-                        </th>
+                        <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% translate "Publication status" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pl-2">{% translate "Last updated" %}</th>
+                        <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">{% translate "Options" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -131,8 +119,7 @@
                         {% endif %}
                     {% empty %}
                         <tr>
-                            <td>
-                            </td>
+                            <td></td>
                             <td colspan="8" class="px-2 py-3">
                                 {% if filter_form.is_enabled %}
                                     {% translate "No pages found with these filters." %}
@@ -171,9 +158,7 @@
         {% endif %}
         <div class="flex flex-wrap gap-2 mt-2">
             <select id="bulk-action" class="w-auto max-w-full">
-                <option>
-                    {% translate "Select bulk action" %}
-                </option>
+                <option>{% translate "Select bulk action" %}</option>
                 {% if not is_archive %}
                     {% if can_publish_pages %}
                         <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
@@ -227,9 +212,7 @@
                             <option disabled title="{{ xliff_export_disabled }}">
                                 {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
                             </option>
-                            <option disabled title="{{ xliff_export_disabled }}">
-                                {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                            </option>
+                            <option disabled title="{{ xliff_export_disabled }}">{{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})</option>
                         {% else %}
                             <option data-bulk-action="{% url 'download_xliff_only_public' region_slug=request.region.slug language_slug=language.slug %}">
                                 {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
@@ -281,20 +264,14 @@
                     </option>
                 {% endif %}
             </select>
-            <button id="bulk-action-execute" class="btn" disabled>
-                {% translate "Execute" %}
-            </button>
+            <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
         </div>
     </form>
     {% if not is_archive %}
         {% if can_edit_pages %}
             <div class="flex-wrap relative w-auto mt-12">
-                <h3 class="font-bold text-xl">
-                    {% translate "Import XLIFF files" %}
-                </h3>
-                <div class="my-2 text-s text-gray-600">
-                    {% translate "Supported file extensions" %}: .zip, .xlf, .xliff
-                </div>
+                <h3 class="font-bold text-xl">{% translate "Import XLIFF files" %}</h3>
+                <div class="my-2 text-s text-gray-600">{% translate "Supported file extensions" %}: .zip, .xlf, .xliff</div>
                 <div id="xliff-error-message"
                      class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 hidden">
                     {% translate "You can upload only up to 100 files at once." %}
@@ -317,9 +294,7 @@
                            accept=".zip, .xlf, .xliff"
                            multiple />
                     {% csrf_token %}
-                    <button id="xliff_file_submit" class="btn" disabled>
-                        {% translate "Import" %}
-                    </button>
+                    <button id="xliff_file_submit" class="btn" disabled>{% translate "Import" %}</button>
                 </form>
             </div>
         {% endif %}

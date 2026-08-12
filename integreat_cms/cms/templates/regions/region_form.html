@@ -20,9 +20,7 @@
                 {% endif %}
             </h1>
             {% if perms.cms.change_region %}
-                <button class="btn ml-auto mr-0">
-                    {% translate "Save" %}
-                </button>
+                <button class="btn ml-auto mr-0">{% translate "Save" %}</button>
             {% endif %}
         </div>
         {% if form.instance.is_api_managed %}
@@ -49,9 +47,7 @@
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                     <div>
                         <!-- Options related to the region's administrative division -->
-                        <label for="{{ form.administrative_division.id_for_label }}">
-                            {{ form.administrative_division.label }}
-                        </label>
+                        <label for="{{ form.administrative_division.id_for_label }}">{{ form.administrative_division.label }}</label>
                         {% render_field form.administrative_division|add_error_class:"border-red-500" %}
                         <!-- Option for including/excluding administrative division from region name -->
                         {% render_field form.administrative_division_included %}
@@ -59,59 +55,39 @@
                                class="secondary">
                             {{ form.administrative_division_included.label }}
                         </label>
-                        <div class="help-text">
-                            {{ form.administrative_division_included.help_text }}
-                        </div>
+                        <div class="help-text">{{ form.administrative_division_included.help_text }}</div>
                     </div>
                     <div>
                         <!-- Option for including custom prefix before region name -->
-                        <label for="{{ form.custom_prefix.id_for_label }}">
-                            {{ form.custom_prefix.label }}
-                        </label>
+                        <label for="{{ form.custom_prefix.id_for_label }}">{{ form.custom_prefix.label }}</label>
                         {% render_field form.custom_prefix|add_error_class:"border-red-500" %}
-                        <div class="help-text">
-                            {{ form.custom_prefix.help_text }}
-                        </div>
+                        <div class="help-text">{{ form.custom_prefix.help_text }}</div>
                     </div>
                     <div>
                         <!-- General Options for region management -->
-                        <label for="{{ form.name.id_for_label }}">
-                            {{ form.name.label }}
-                        </label>
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                         {% render_field form.name|add_error_class:"border-red-500" %}
                     </div>
                     <div>
-                        <label for="{{ form.slug.id_for_label }}">
-                            {{ form.slug.label }}
-                        </label>
-                        <div class="help-text">
-                            {{ form.slug.help_text }}
-                        </div>
+                        <label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
+                        <div class="help-text">{{ form.slug.help_text }}</div>
                         <div class="slug-field">
-                            <label for="{{ form.slug.id_for_label }}">
-                                https://integreat.app/
-                            </label>
+                            <label for="{{ form.slug.id_for_label }}">https://integreat.app/</label>
                             {% render_field form.slug %}
                         </div>
                     </div>
                     <div>
                         <!-- Options related to coordinates for localization -->
-                        <label for="{{ form.postal_code.id_for_label }}">
-                            {{ form.postal_code.label }}
-                        </label>
+                        <label for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label>
                         {% render_field form.postal_code|add_error_class:"border-red-500" %}
                     </div>
                     <div>
-                        <label for="{{ form.admin_mail.id_for_label }}">
-                            {{ form.admin_mail.label }}
-                        </label>
+                        <label for="{{ form.admin_mail.id_for_label }}">{{ form.admin_mail.label }}</label>
                         {% render_field form.admin_mail|add_error_class:"border-red-500" %}
                     </div>
                     <div>
                         <!-- Options related to region status -->
-                        <label for="{{ form.status.id_for_label }}">
-                            {{ form.status.label }}
-                        </label>
+                        <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
                         {% render_field form.status|add_error_class:"border-red-500" %}
                     </div>
                 </div>
@@ -124,477 +100,309 @@
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
                     <div>
-                        <label for="{{ form.common_id.id_for_label }}">
-                            {{ form.common_id.label }}
-                        </label>
-                        <div class="help-text">
-                            {{ form.common_id.help_text }}
-                        </div>
+                        <label for="{{ form.common_id.id_for_label }}">{{ form.common_id.label }}</label>
+                        <div class="help-text">{{ form.common_id.help_text }}</div>
                         {% render_field form.common_id|add_error_class:"border-red-500" %}
                     </div>
                     <div>
                         <!-- Options related to Timezones -->
-                        <label for="{{ form.timezone_area.id_for_label }}">
-                            {{ form.timezone_area.label }}
-                        </label>
+                        <label for="{{ form.timezone_area.id_for_label }}">{{ form.timezone_area.label }}</label>
                         {% render_field form.timezone_area %}
-                        <div class="help-text">
-                            {{ form.timezone_area.help_text }}
-                        </div>
-                        <label for="{{ form.timezone.id_for_label }}">
-                            {{ form.timezone.label }}
-                        </label>
+                        <div class="help-text">{{ form.timezone_area.help_text }}</div>
+                        <label for="{{ form.timezone.id_for_label }}">{{ form.timezone.label }}</label>
                         {% render_field form.timezone %}
-                        <div class="help-text">
-                            {{ form.timezone.help_text }}
-                        </div>
+                        <div class="help-text">{{ form.timezone.help_text }}</div>
                     </div>
                     <div>
                         <div class="flex justify-between">
-                            <label>
-                                {% translate "Center of the region" %}
-                            </label>
+                            <label>{% translate "Center of the region" %}</label>
                             {% if form.instance.id %}
                                 {% localize off %}
-                                <label>
-                                    <a href="https://www.openstreetmap.org/?mlat={{ form.instance.latitude }}&mlon={{ form.instance.longitude }}"
-                                       class="text-blue-500 hover:underline"
-                                       target="_blank"
-                                       rel="noopener noreferrer">
-                                        <i icon-name="map" class="mr-2"></i>
-                                        {% translate "Preview on map" %}
-                                    </a>
-                                </label>
-                            {% endlocalize %}
-                        {% endif %}
-                    </div>
-                    <div class="help-text">
-                        {% translate "If you leave these fields blank, they are automatically derived from the name, administrative division and community identification number." %}
-                    </div>
-                    <label for="{{ form.latitude.id_for_label }}" class="secondary">
-                        {{ form.latitude.label }}
-                    </label>
-                    {% render_field form.latitude|add_error_class:"border-red-500" %}
-                    <div class="help-text">
-                        {{ form.latitude.help_text }}
-                    </div>
-                    <label for="{{ form.longitude.id_for_label }}" class="secondary">
-                        {{ form.longitude.label }}
-                    </label>
-                    {% render_field form.longitude|add_error_class:"border-red-500" %}
-                    <div class="help-text">
-                        {{ form.longitude.help_text }}
-                    </div>
-                </div>
-                <div>
-                    <div class="flex justify-between">
-                        <label>
-                            {% translate "Bounding box" %}
-                        </label>
-                        {% if form.instance.has_bounding_box %}
-                            {% localize off %}
-                            <label>
-                                <a href="https://www.openstreetmap.org/?minlon={{ form.instance.longitude_min }}&minlat={{ form.instance.latitude_min }}&maxlon={{ form.instance.longitude_max }}&maxlat={{ form.instance.latitude_max }}&box=yes"
-                                   class="text-blue-500 hover:underline"
-                                   target="_blank"
-                                   rel="noopener noreferrer">
-                                    <i icon-name="map" class="mr-2"></i>
-                                    {% translate "Preview on map" %}
-                                </a>
-                            </label>
-                        {% endlocalize %}
-                    {% endif %}
-                </div>
-                <div class="help-text">
-                    {% translate "The boundaries of the region." %}
-                    {% translate "If you leave these fields blank, they are automatically derived from the name and postal code." %}
-                </div>
-                <label for="{{ form.longitude_min.id_for_label }}" class="secondary">
-                    {{ form.longitude_min.label }}
-                </label>
-                {% render_field form.longitude_min|add_error_class:"border-red-500" %}
-                <div class="help-text">
-                    {{ form.longitude_min.help_text }}
-                </div>
-                <label for="{{ form.latitude_min.id_for_label }}" class="secondary">
-                    {{ form.latitude_min.label }}
-                </label>
-                {% render_field form.latitude_min|add_error_class:"border-red-500" %}
-                <div class="help-text">
-                    {{ form.latitude_min.help_text }}
-                </div>
-                <label for="{{ form.longitude_max.id_for_label }}" class="secondary">
-                    {{ form.longitude_max.label }}
-                </label>
-                {% render_field form.longitude_max|add_error_class:"border-red-500" %}
-                <div class="help-text">
-                    {{ form.longitude_max.help_text }}
-                </div>
-                <label for="{{ form.latitude_max.id_for_label }}" class="secondary">
-                    {{ form.latitude_max.label }}
-                </label>
-                {% render_field form.latitude_max|add_error_class:"border-red-500" %}
-                <div class="help-text">
-                    {{ form.latitude_max.help_text }}
-                </div>
-            </div>
-            <div>
-                <label for="{{ form.aliases.id_for_label }}">
-                    {{ form.aliases.label }}
-                </label>
-                <div class="help-text">
-                    {{ form.aliases.help_text }}
-                </div>
-                {% render_field form.aliases|add_error_class:"border-red-500" %}
-            </div>
-        </div>
-    </div>
-    <div class="grid gap-4">
-        <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
-            <div class="p-4 rounded bg-water-500">
-                <h3 class="heading font-bold text-black">
-                    <i icon-name="star" class="mr-2"></i> {% translate "Features" %}
-                </h3>
-            </div>
-            <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
-                <div>
-                    <!-- Options related to Events -->
-                    {% render_field form.events_enabled %}
-                    <label for="{{ form.events_enabled.id_for_label }}">
-                        {{ form.events_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.events_enabled.help_text }}
-                    </div>
-                </div>
-                <div>
-                    <!-- Options related to locations -->
-                    {% render_field form.locations_enabled %}
-                    <label for="{{ form.locations_enabled.id_for_label }}">
-                        {{ form.locations_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.locations_enabled.help_text }}
-                    </div>
-                </div>
-                <div>
-                    <!-- Options related to contacts -->
-                    {% render_field form.contacts_enabled %}
-                    <label for="{{ form.contacts_enabled.id_for_label }}">
-                        {{ form.contacts_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.contacts_enabled.help_text }}
-                    </div>
-                </div>
-                <div>
-                    <!-- Options related to term explanations -->
-                    {% render_field form.term_explanations_enabled %}
-                    <label for="{{ form.term_explanations_enabled.id_for_label }}">
-                        {{ form.term_explanations_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.term_explanations_enabled.help_text }}
-                    </div>
-                    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3 mb-5">
-                        <p>
-                            {% translate "Term explanations are not yet implemented. This checkbox currently does not bring any effect." %}
-                        </p>
-                    </div>
-                </div>
-                <div class="pt-2">
-                    <!-- Options related to Fallback language -->
-                    {% render_field form.fallback_translations_enabled class+="inline-block" %}
-                    <label for="{{ form.fallback_translations_enabled.id_for_label }}"
-                           class="!inline">
-                        {{ form.fallback_translations_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.fallback_translations_enabled.help_text }}
-                    </div>
-                </div>
-                <div>
-                    <!-- Options related to HIX text analysis -->
-                    {% render_field form.hix_enabled %}
-                    <label for="{{ form.hix_enabled.id_for_label }}">
-                        {{ form.hix_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.hix_enabled.help_text }}
-                    </div>
-                    {% if form.hix_enabled.field.disabled %}
-                        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-orange-700  px-4 py-3"
-                             role="alert">
-                            <p>
-                                {% translate "Currently HIX is globally deactivated" %}
-                            </p>
+                                    <label>
+                                        <a href="https://www.openstreetmap.org/?mlat={{ form.instance.latitude }}&mlon={{ form.instance.longitude }}"
+                                           class="text-blue-500 hover:underline"
+                                           target="_blank"
+                                           rel="noopener noreferrer">
+                                            <i icon-name="map" class="mr-2"></i>
+                                            {% translate "Preview on map" %}
+                                        </a>
+                                    </label>
+                                {% endlocalize %}
+                            {% endif %}
                         </div>
-                    {% endif %}
-                </div>
-                <div>
-                    <!-- Options related to foreign language machine translation -->
-                    <label>
-                        {% trans "Foreign language machine translation" %}
-                    </label>
+                        <div class="help-text">
+                            {% translate "If you leave these fields blank, they are automatically derived from the name, administrative division and community identification number." %}
+                        </div>
+                        <label for="{{ form.latitude.id_for_label }}" class="secondary">{{ form.latitude.label }}</label>
+                        {% render_field form.latitude|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ form.latitude.help_text }}</div>
+                        <label for="{{ form.longitude.id_for_label }}" class="secondary">{{ form.longitude.label }}</label>
+                        {% render_field form.longitude|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ form.longitude.help_text }}</div>
+                    </div>
                     <div>
-                        <label for="{{ form.mt_budget_booked.id_for_label }}" class="secondary">
-                            {{ form.mt_budget_booked.label }}
-                        </label>
-                        {% render_field form.mt_budget_booked %}
-                    </div>
-                    {% if form.instance.id %}
-                        <div class="max-w-xs">
-                            <div class="flex flex-wrap justify-between">
-                                <label class="secondary m-0">
-                                    {% trans "Current total budget" %}:
-                                </label>
-                                <p>
-                                    {{ form.instance.mt_budget|intcomma }}
-                                </p>
-                            </div>
-                            <div class="flex flex-wrap justify-between">
-                                <label class="secondary m-0">
-                                    {% trans "Already used" %}:
-                                </label>
-                                <p>
-                                    {{ form.instance.mt_budget_used|intcomma }}
-                                </p>
-                            </div>
-                            <div class="flex flex-wrap justify-between">
-                                <label class="secondary m-0">
-                                    {% trans "Remaining words" %}:
-                                </label>
-                                <p>
-                                    {{ form.instance.mt_budget_remaining|intcomma }}
-                                </p>
-                            </div>
+                        <div class="flex justify-between">
+                            <label>{% translate "Bounding box" %}</label>
+                            {% if form.instance.has_bounding_box %}
+                                {% localize off %}
+                                    <label>
+                                        <a href="https://www.openstreetmap.org/?minlon={{ form.instance.longitude_min }}&minlat={{ form.instance.latitude_min }}&maxlon={{ form.instance.longitude_max }}&maxlat={{ form.instance.latitude_max }}&box=yes"
+                                           class="text-blue-500 hover:underline"
+                                           target="_blank"
+                                           rel="noopener noreferrer">
+                                            <i icon-name="map" class="mr-2"></i>
+                                            {% translate "Preview on map" %}
+                                        </a>
+                                    </label>
+                                {% endlocalize %}
+                            {% endif %}
                         </div>
-                    {% endif %}
-                    <label for="{{ form.mt_renewal_month.id_for_label }}" class="secondary">
-                        {{ form.mt_renewal_month.label }}
-                    </label>
-                    {% render_field form.mt_renewal_month %}
-                    <div class="help-text">
-                        {{ form.mt_renewal_month.help_text }}
-                    </div>
-                    <label for="{{ form.mt_budget_adjustment.id_for_label }}" class="secondary">
-                        {{ form.mt_budget_adjustment.label }}
-                    </label>
-                    {% render_field form.mt_budget_adjustment %}
-                    <div class="help-text">
-                        {{ form.mt_budget_adjustment.help_text }}
-                    </div>
-                </div>
-                <div>
-                    <!-- Options related to external news provider -->
-                    {% render_field form.external_news_enabled %}
-                    <label for="{{ form.external_news_enabled.id_for_label }}">
-                        {{ form.external_news_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.external_news_enabled.help_text }}
-                    </div>
-                </div>
-                <div>
-                    <!-- Options related to Push Notifications -->
-                    {% render_field form.push_notifications_enabled %}
-                    <label for="{{ form.push_notifications_enabled.id_for_label }}">
-                        {{ form.push_notifications_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.push_notifications_enabled.help_text }}
-                    </div>
-                </div>
-                <div class="pt-2">
-                    <!-- Options related to page-instance-specific permissions -->
-                    {% render_field form.page_permissions_enabled class+="inline-block" %}
-                    <label for="{{ form.page_permissions_enabled.id_for_label }}"
-                           class="!inline">
-                        {{ form.page_permissions_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.page_permissions_enabled.help_text }}
-                    </div>
-                </div>
-                <div>
-                    <!-- Options related to URL conventions -->
-                    {% render_field form.short_urls_enabled %}
-                    <label for="{{ form.short_urls_enabled.id_for_label }}">
-                        {{ form.short_urls_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.short_urls_enabled.help_text }}
-                    </div>
-                </div>
-                <div>
-                    <!-- Options related to SEO section -->
-                    {% render_field form.seo_enabled %}
-                    <label for="{{ form.seo_enabled.id_for_label }}">
-                        {{ form.seo_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.seo_enabled.help_text }}
-                    </div>
-                </div>
-                <div>
-                    <!-- Options related to Tracking -->
-                    <label>
-                        {% translate "Statistics" %}
-                    </label>
-                    {% render_field form.statistics_enabled %}
-                    <label for="{{ form.statistics_enabled.id_for_label }}" class="secondary">
-                        {{ form.statistics_enabled.label }}
-                    </label>
-                    <div id="statistics-toggle-div"
-                         {% if not form.instance.statistics_enabled %}class="hidden"{% endif %}>
-                        <label for="{{ form.matomo_token.id_for_label }}" class="secondary">
-                            {{ form.matomo_token.label }}
-                        </label>
                         <div class="help-text">
-                            {{ form.matomo_token.help_text }}
+                            {% translate "The boundaries of the region." %}
+                            {% translate "If you leave these fields blank, they are automatically derived from the name and postal code." %}
                         </div>
-                        {% render_field form.matomo_token %}
-                        <label for="{{ form.matomo_id.id_for_label }}" class="secondary">
-                            {{ form.matomo_id.label }}
-                        </label>
-                        <div class="help-text">
-                            {{ form.matomo_id.help_text }}
-                        </div>
-                        {% render_field form.matomo_id disabled="disabled" %}
+                        <label for="{{ form.longitude_min.id_for_label }}" class="secondary">{{ form.longitude_min.label }}</label>
+                        {% render_field form.longitude_min|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ form.longitude_min.help_text }}</div>
+                        <label for="{{ form.latitude_min.id_for_label }}" class="secondary">{{ form.latitude_min.label }}</label>
+                        {% render_field form.latitude_min|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ form.latitude_min.help_text }}</div>
+                        <label for="{{ form.longitude_max.id_for_label }}" class="secondary">{{ form.longitude_max.label }}</label>
+                        {% render_field form.longitude_max|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ form.longitude_max.help_text }}</div>
+                        <label for="{{ form.latitude_max.id_for_label }}" class="secondary">{{ form.latitude_max.label }}</label>
+                        {% render_field form.latitude_max|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ form.latitude_max.help_text }}</div>
+                    </div>
+                    <div>
+                        <label for="{{ form.aliases.id_for_label }}">{{ form.aliases.label }}</label>
+                        <div class="help-text">{{ form.aliases.help_text }}</div>
+                        {% render_field form.aliases|add_error_class:"border-red-500" %}
                     </div>
                 </div>
-                <div>
-                    <!-- Options related to Zammad and the Chat API -->
-                    {% render_field form.integreat_chat_enabled %}
-                    <label for="{{ form.integreat_chat_enabled.id_for_label }}">
-                        {{ form.integreat_chat_enabled.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.integreat_chat_enabled.help_text }}
+            </div>
+            <div class="grid gap-4">
+                <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="p-4 rounded bg-water-500">
+                        <h3 class="heading font-bold text-black">
+                            <i icon-name="star" class="mr-2"></i> {% translate "Features" %}
+                        </h3>
                     </div>
-                    <label for="{{ form.zammad_url.id_for_label }}">
-                        {{ form.zammad_url.label }}
-                    </label>
-                    {% render_field form.zammad_url %}
-                    <div class="help-text">
-                        {{ form.zammad_url.help_text }}
-                    </div>
-                    <label for="{{ form.zammad_webhook_token.id_for_label }}">
-                        {{ form.zammad_webhook_token.label }}
-                    </label>
-                    {% render_field form.zammad_webhook_token %}
-                    <div class="help-text">
-                        {{ form.zammad_webhook_token.help_text }}
-                    </div>
-                    <label for="{{ form.zammad_access_token.id_for_label }}">
-                        {{ form.zammad_access_token.label }}
-                    </label>
-                    {% render_field form.zammad_access_token %}
-                    {% if region.zammad_access_token %}
-                        <span class="flex items-center my-2"><i icon-name="shield-alert" class="text-black"></i> {% translate "An access token for this region exists, but is not shown here for security reasons." %}</span>
-                    {% endif %}
-                    <div class="help-text">
-                        {{ form.zammad_access_token.help_text }} "{{ INTEGREAT_CHAT_TICKET_GROUP }}"
-                    </div>
-                    <label for="{{ form.zammad_privacy_policy.id_for_label }}">
-                        {{ form.zammad_privacy_policy.label }}
-                    </label>
-                    {% render_field form.zammad_privacy_policy %}
-                    <div class="help-text">
-                        {{ form.zammad_privacy_policy.help_text }} "{{ INTEGREAT_CHAT_TICKET_GROUP }}"
-                    </div>
-                    <label for="{{ form.chat_beta_tester_percentage.id_for_label }}">
-                        {{ form.chat_beta_tester_percentage.label }}
-                    </label>
-                    {% render_field form.chat_beta_tester_percentage %}
-                    <div class="help-text">
-                        {{ form.chat_beta_tester_percentage.help_text }}
-                    </div>
-                </div>
-                <div>
-                    {% if form.zammad_offers.field.choices %}
-                        <div id="zammad-offers-wrapper">
-                            <label for="{{ form.zammad_offers.id_for_zammad_offers }}">
-                                {{ form.zammad_offers.label }}
+                    <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                        <div>
+                            <!-- Options related to Events -->
+                            {% render_field form.events_enabled %}
+                            <label for="{{ form.events_enabled.id_for_label }}">{{ form.events_enabled.label }}</label>
+                            <div class="help-text">{{ form.events_enabled.help_text }}</div>
+                        </div>
+                        <div>
+                            <!-- Options related to locations -->
+                            {% render_field form.locations_enabled %}
+                            <label for="{{ form.locations_enabled.id_for_label }}">{{ form.locations_enabled.label }}</label>
+                            <div class="help-text">{{ form.locations_enabled.help_text }}</div>
+                        </div>
+                        <div>
+                            <!-- Options related to contacts -->
+                            {% render_field form.contacts_enabled %}
+                            <label for="{{ form.contacts_enabled.id_for_label }}">{{ form.contacts_enabled.label }}</label>
+                            <div class="help-text">{{ form.contacts_enabled.help_text }}</div>
+                        </div>
+                        <div>
+                            <!-- Options related to term explanations -->
+                            {% render_field form.term_explanations_enabled %}
+                            <label for="{{ form.term_explanations_enabled.id_for_label }}">{{ form.term_explanations_enabled.label }}</label>
+                            <div class="help-text">{{ form.term_explanations_enabled.help_text }}</div>
+                            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3 mb-5">
+                                <p>{% translate "Term explanations are not yet implemented. This checkbox currently does not bring any effect." %}</p>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <!-- Options related to Fallback language -->
+                            {% render_field form.fallback_translations_enabled class+="inline-block" %}
+                            <label for="{{ form.fallback_translations_enabled.id_for_label }}"
+                                   class="!inline">
+                                {{ form.fallback_translations_enabled.label }}
                             </label>
-                            {% render_field form.zammad_offers %}
-                            <div class="help-text">
-                                {{ form.zammad_offers.help_text }}
+                            <div class="help-text">{{ form.fallback_translations_enabled.help_text }}</div>
+                        </div>
+                        <div>
+                            <!-- Options related to HIX text analysis -->
+                            {% render_field form.hix_enabled %}
+                            <label for="{{ form.hix_enabled.id_for_label }}">{{ form.hix_enabled.label }}</label>
+                            <div class="help-text">{{ form.hix_enabled.help_text }}</div>
+                            {% if form.hix_enabled.field.disabled %}
+                                <div class="bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3"
+                                     role="alert">
+                                    <p>{% translate "Currently HIX is globally deactivated" %}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <!-- Options related to foreign language machine translation -->
+                            <label>{% trans "Foreign language machine translation" %}</label>
+                            <div>
+                                <label for="{{ form.mt_budget_booked.id_for_label }}" class="secondary">{{ form.mt_budget_booked.label }}</label>
+                                {% render_field form.mt_budget_booked %}
+                            </div>
+                            {% if form.instance.id %}
+                                <div class="max-w-xs">
+                                    <div class="flex flex-wrap justify-between">
+                                        <label class="secondary m-0">{% trans "Current total budget" %}:</label>
+                                        <p>{{ form.instance.mt_budget|intcomma }}</p>
+                                    </div>
+                                    <div class="flex flex-wrap justify-between">
+                                        <label class="secondary m-0">{% trans "Already used" %}:</label>
+                                        <p>{{ form.instance.mt_budget_used|intcomma }}</p>
+                                    </div>
+                                    <div class="flex flex-wrap justify-between">
+                                        <label class="secondary m-0">{% trans "Remaining words" %}:</label>
+                                        <p>{{ form.instance.mt_budget_remaining|intcomma }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <label for="{{ form.mt_renewal_month.id_for_label }}" class="secondary">{{ form.mt_renewal_month.label }}</label>
+                            {% render_field form.mt_renewal_month %}
+                            <div class="help-text">{{ form.mt_renewal_month.help_text }}</div>
+                            <label for="{{ form.mt_budget_adjustment.id_for_label }}" class="secondary">
+                                {{ form.mt_budget_adjustment.label }}
+                            </label>
+                            {% render_field form.mt_budget_adjustment %}
+                            <div class="help-text">{{ form.mt_budget_adjustment.help_text }}</div>
+                        </div>
+                        <div>
+                            <!-- Options related to external news provider -->
+                            {% render_field form.external_news_enabled %}
+                            <label for="{{ form.external_news_enabled.id_for_label }}">{{ form.external_news_enabled.label }}</label>
+                            <div class="help-text">{{ form.external_news_enabled.help_text }}</div>
+                        </div>
+                        <div>
+                            <!-- Options related to Push Notifications -->
+                            {% render_field form.push_notifications_enabled %}
+                            <label for="{{ form.push_notifications_enabled.id_for_label }}">{{ form.push_notifications_enabled.label }}</label>
+                            <div class="help-text">{{ form.push_notifications_enabled.help_text }}</div>
+                        </div>
+                        <div class="pt-2">
+                            <!-- Options related to page-instance-specific permissions -->
+                            {% render_field form.page_permissions_enabled class+="inline-block" %}
+                            <label for="{{ form.page_permissions_enabled.id_for_label }}"
+                                   class="!inline">
+                                {{ form.page_permissions_enabled.label }}
+                            </label>
+                            <div class="help-text">{{ form.page_permissions_enabled.help_text }}</div>
+                        </div>
+                        <div>
+                            <!-- Options related to URL conventions -->
+                            {% render_field form.short_urls_enabled %}
+                            <label for="{{ form.short_urls_enabled.id_for_label }}">{{ form.short_urls_enabled.label }}</label>
+                            <div class="help-text">{{ form.short_urls_enabled.help_text }}</div>
+                        </div>
+                        <div>
+                            <!-- Options related to SEO section -->
+                            {% render_field form.seo_enabled %}
+                            <label for="{{ form.seo_enabled.id_for_label }}">{{ form.seo_enabled.label }}</label>
+                            <div class="help-text">{{ form.seo_enabled.help_text }}</div>
+                        </div>
+                        <div>
+                            <!-- Options related to Tracking -->
+                            <label>{% translate "Statistics" %}</label>
+                            {% render_field form.statistics_enabled %}
+                            <label for="{{ form.statistics_enabled.id_for_label }}" class="secondary">{{ form.statistics_enabled.label }}</label>
+                            <div id="statistics-toggle-div"
+                                 {% if not form.instance.statistics_enabled %}class="hidden"{% endif %}>
+                                <label for="{{ form.matomo_token.id_for_label }}" class="secondary">{{ form.matomo_token.label }}</label>
+                                <div class="help-text">{{ form.matomo_token.help_text }}</div>
+                                {% render_field form.matomo_token %}
+                                <label for="{{ form.matomo_id.id_for_label }}" class="secondary">{{ form.matomo_id.label }}</label>
+                                <div class="help-text">{{ form.matomo_id.help_text }}</div>
+                                {% render_field form.matomo_id disabled="disabled" %}
                             </div>
                         </div>
-                    {% endif %}
-                    <label for="{{ form.offers.id_for_offers }}">
-                        {{ form.offers.label }}
-                    </label>
-                    {% render_field form.offers %}
-                    <div class="help-text">
-                        {{ form.offers.help_text }}
+                        <div>
+                            <!-- Options related to Zammad and the Chat API -->
+                            {% render_field form.integreat_chat_enabled %}
+                            <label for="{{ form.integreat_chat_enabled.id_for_label }}">{{ form.integreat_chat_enabled.label }}</label>
+                            <div class="help-text">{{ form.integreat_chat_enabled.help_text }}</div>
+                            <label for="{{ form.zammad_url.id_for_label }}">{{ form.zammad_url.label }}</label>
+                            {% render_field form.zammad_url %}
+                            <div class="help-text">{{ form.zammad_url.help_text }}</div>
+                            <label for="{{ form.zammad_webhook_token.id_for_label }}">{{ form.zammad_webhook_token.label }}</label>
+                            {% render_field form.zammad_webhook_token %}
+                            <div class="help-text">{{ form.zammad_webhook_token.help_text }}</div>
+                            <label for="{{ form.zammad_access_token.id_for_label }}">{{ form.zammad_access_token.label }}</label>
+                            {% render_field form.zammad_access_token %}
+                            {% if region.zammad_access_token %}
+                                <span class="flex items-center my-2"><i icon-name="shield-alert" class="text-black"></i> {% translate "An access token for this region exists, but is not shown here for security reasons." %}</span>
+                            {% endif %}
+                            <div class="help-text">{{ form.zammad_access_token.help_text }} "{{ INTEGREAT_CHAT_TICKET_GROUP }}"</div>
+                            <label for="{{ form.zammad_privacy_policy.id_for_label }}">{{ form.zammad_privacy_policy.label }}</label>
+                            {% render_field form.zammad_privacy_policy %}
+                            <div class="help-text">{{ form.zammad_privacy_policy.help_text }} "{{ INTEGREAT_CHAT_TICKET_GROUP }}"</div>
+                            <label for="{{ form.chat_beta_tester_percentage.id_for_label }}">{{ form.chat_beta_tester_percentage.label }}</label>
+                            {% render_field form.chat_beta_tester_percentage %}
+                            <div class="help-text">{{ form.chat_beta_tester_percentage.help_text }}</div>
+                        </div>
+                        <div>
+                            {% if form.zammad_offers.field.choices %}
+                                <div id="zammad-offers-wrapper">
+                                    <label for="{{ form.zammad_offers.id_for_zammad_offers }}">{{ form.zammad_offers.label }}</label>
+                                    {% render_field form.zammad_offers %}
+                                    <div class="help-text">{{ form.zammad_offers.help_text }}</div>
+                                </div>
+                            {% endif %}
+                            <label for="{{ form.offers.id_for_offers }}">{{ form.offers.label }}</label>
+                            {% render_field form.offers %}
+                            <div class="help-text">{{ form.offers.help_text }}</div>
+                        </div>
                     </div>
                 </div>
+                <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="p-4 rounded bg-water-500">
+                        <h3 class="heading font-bold text-black">
+                            <i icon-name="image" class="mr-2"></i> {{ form.icon.label }}
+                        </h3>
+                    </div>
+                    <div class="p-4">{% render_field form.icon label=form.icon.label %}</div>
+                </div>
+                {% if not form.instance.id %}
+                    <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                        <div class="p-4 rounded bg-water-500">
+                            <h3 class="heading font-bold text-black">
+                                <i icon-name="copy" class="mr-2"></i> {% translate "Duplicate content of another region" %}
+                            </h3>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <label for="{{ form.duplicated_region.id_for_label }}">{{ form.duplicated_region.label }}</label>
+                            {% render_field form.duplicated_region %}
+                            {% render_field form.duplication_keep_status %}
+                            <label for="{{ form.duplication_keep_status.id_for_label }}">{{ form.duplication_keep_status.label }}</label>
+                            <div class="help-text">{{ form.duplication_keep_status.help_text }}</div>
+                            {% render_field form.duplication_keep_translations %}
+                            <label for="{{ form.duplication_keep_translations.id_for_label }}">
+                                {{ form.duplication_keep_translations.label }}
+                            </label>
+                            <div class="help-text">{{ form.duplication_keep_translations.help_text }}</div>
+                            <label for="{{ form.duplication_pbo_behavior.id_for_label }}">{{ form.duplication_pbo_behavior.label }}</label>
+                            {% render_field form.duplication_pbo_behavior %}
+                            <div class="help-text">{{ form.duplication_pbo_behavior.help_text }}</div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
-        <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
-            <div class="p-4 rounded bg-water-500">
-                <h3 class="heading font-bold text-black">
-                    <i icon-name="image" class="mr-2"></i> {{ form.icon.label }}
-                </h3>
-            </div>
-            <div class="p-4">
-                {% render_field form.icon label=form.icon.label %}
-            </div>
-        </div>
-        {% if not form.instance.id %}
-            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
-                <div class="p-4 rounded bg-water-500">
-                    <h3 class="heading font-bold text-black">
-                        <i icon-name="copy" class="mr-2"></i> {% translate "Duplicate content of another region" %}
-                    </h3>
-                </div>
-                <div class="px-4 pb-4">
-                    <label for="{{ form.duplicated_region.id_for_label }}">
-                        {{ form.duplicated_region.label }}
-                    </label>
-                    {% render_field form.duplicated_region %}
-                    {% render_field form.duplication_keep_status %}
-                    <label for="{{ form.duplication_keep_status.id_for_label }}">
-                        {{ form.duplication_keep_status.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.duplication_keep_status.help_text }}
-                    </div>
-                    {% render_field form.duplication_keep_translations %}
-                    <label for="{{ form.duplication_keep_translations.id_for_label }}">
-                        {{ form.duplication_keep_translations.label }}
-                    </label>
-                    <div class="help-text">
-                        {{ form.duplication_keep_translations.help_text }}
-                    </div>
-                    <label for="{{ form.duplication_pbo_behavior.id_for_label }}">
-                        {{ form.duplication_pbo_behavior.label }}
-                    </label>
-                    {% render_field form.duplication_pbo_behavior %}
-                    <div class="help-text">
-                        {{ form.duplication_pbo_behavior.help_text }}
-                    </div>
-                </div>
+        {% if form.instance.id and perms.cms.delete_region %}
+            <div class="pt-2 pb-4">
+                <button title="{% translate "Delete region" %}"
+                        class="btn confirmation-button btn-red"
+                        data-confirmation-title="{% translate "Please confirm that you really want to delete this region." %}"
+                        data-confirmation-text="{% translate "This can not be reversed." %} {% translate "All pages, events and locations of this region will also be deleted." %} {% translate "Users, who only have access to this region, will be removed as well." %}"
+                        data-confirmation-subject="{{ form.name.value }}"
+                        data-action="{% url 'delete_region' slug=form.instance.slug %}">
+                    <i icon-name="trash-2"></i>
+                    {% translate "Delete this region" %}
+                </button>
             </div>
         {% endif %}
-    </div>
-</div>
-{% if form.instance.id and perms.cms.delete_region %}
-    <div class="pt-2 pb-4">
-        <button title="{% translate "Delete region" %}"
-                class="btn confirmation-button btn-red"
-                data-confirmation-title="{% translate "Please confirm that you really want to delete this region." %}"
-                data-confirmation-text="{% translate "This can not be reversed." %} {% translate "All pages, events and locations of this region will also be deleted." %} {% translate "Users, who only have access to this region, will be removed as well." %}"
-                data-confirmation-subject="{{ form.name.value }}"
-                data-action="{% url 'delete_region' slug=form.instance.slug %}">
-            <i icon-name="trash-2"></i>
-            {% translate "Delete this region" %}
-        </button>
-    </div>
-{% endif %}
-</form>
-{{ media_config_data|json_script:"media_config_data" }}
-{% include "../generic_confirmation_dialog.html" %}
+    </form>
+    {{ media_config_data|json_script:"media_config_data" }}
+    {% include "../generic_confirmation_dialog.html" %}
 {% endblock content %}

@@ -50,9 +50,7 @@
                     {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
                         You can only create locations in the default language ({{ default_language }}).
                     {% endblocktranslate %}
-                    <button title="{{ disabled_button_title }}" class="btn" disabled>
-                        {% translate "Create location" %}
-                    </button>
+                    <button title="{{ disabled_button_title }}" class="btn" disabled>{% translate "Create location" %}</button>
                 {% endif %}
             {% endif %}
         </div>
@@ -76,9 +74,7 @@
                                 <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
                             {% endif %}
                         </th>
-                        <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
-                            {% sort_link title_label "_sort_title" %}
-                        </th>
+                        <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">{% sort_link title_label "_sort_title" %}</th>
                         {% if backend_language and backend_language != language %}
                             <th class="text-sm text-left uppercase py-3 pr-2">
                                 {% translate "Title in" %} {{ backend_language.translated_name }}
@@ -101,24 +97,14 @@
                         <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
                             {% sort_link publication_status_label "_sort_status" %}
                         </th>
-                        <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
-                            {% sort_link street_label "address" %}
-                        </th>
-                        <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
-                            {% sort_link postcode_label "postcode" %}
-                        </th>
-                        <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
-                            {% sort_link city_label "city" %}
-                        </th>
-                        <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
-                            {% sort_link country_label "country" %}
-                        </th>
+                        <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">{% sort_link street_label "address" %}</th>
+                        <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">{% sort_link postcode_label "postcode" %}</th>
+                        <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">{% sort_link city_label "city" %}</th>
+                        <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">{% sort_link country_label "country" %}</th>
                         <th class="whitespace-nowrap text-sm text-left uppercase py-3 pr-2">
                             {% sort_link category_label "_sort_category_name" %}
                         </th>
-                        <th class="text-sm text-right uppercase py-3 pr-4 min">
-                            {% translate "Options" %}
-                        </th>
+                        <th class="text-sm text-right uppercase py-3 pr-4 min">{% translate "Options" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -157,9 +143,7 @@
         {% if perms.cms.change_poi %}
             <div class="flex flex-wrap gap-2 mt-4">
                 <select id="bulk-action" class="w-auto max-w-full">
-                    <option>
-                        {% translate "Select bulk action" %}
-                    </option>
+                    <option>{% translate "Select bulk action" %}</option>
                     {% translate "locations" as content_type %}
                     {% if not is_archive %}
                         <option data-bulk-action="{% url 'bulk_archive_pois' region_slug=request.region.slug language_slug=language.slug %}">
@@ -214,9 +198,7 @@
                         </option>
                     {% endif %}
                 </select>
-                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
-                    {% translate "Execute" %}
-                </button>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
             </div>
         {% endif %}
     </div>

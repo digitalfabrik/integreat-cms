@@ -64,33 +64,15 @@
                                    id="bulk-select-all"
                                    title="{% translate "Select all" %}" />
                         </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Category" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Feedback on" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Language" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Comment" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Rating" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Rating" %} ({% translate "overall" %})
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Marked as read by" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Date" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Automatically send" %}
-                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Category" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Feedback on" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Language" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Comment" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Rating" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Rating" %} ({% translate "overall" %})</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Marked as read by" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Date" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Automatically send" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -130,9 +112,7 @@
         {% if perms.cms.change_feedback %}
             <div class="flex self-start gap-2 mt-2">
                 <select id="bulk-action">
-                    <option>
-                        {% translate "Select bulk action" %}
-                    </option>
+                    <option>{% translate "Select bulk action" %}</option>
                     {% if not is_archive %}
                         <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=request.region.slug %}">
                             {% translate "Mark as read" %}
@@ -160,9 +140,7 @@
                         </option>
                     {% endif %}
                 </select>
-                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
-                    {% translate "Execute" %}
-                </button>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
             </div>
         {% endif %}
     </div>

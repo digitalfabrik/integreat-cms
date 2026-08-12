@@ -21,13 +21,11 @@
     {% endwith %}
 {% endblock todo_dashboard_number %}
 {% block todo_dashboard_description %}
-    <div class="hidden todo-message">
-        {# djlint:off #}
+    <div class="hidden todo-message">{# djlint:off #}
         {% blocktranslate trimmed %}
             The page <b></b> has a broken link. Please replace it by a functional link.
         {% endblocktranslate %}
-        {# djlint:on #}
-    </div>
+        {# djlint:on #}</div>
     <div class="hidden success-message">
         {% blocktranslate trimmed %}
             At the moment there are no broken links. Good job!
@@ -41,9 +39,7 @@
 {% endblock todo_dashboard_description %}
 {% block todo_dashboard_button_link %}
     <div class="hidden todo-button">
-        <a class="btn !rounded-full" href="">
-            {% translate "Go to link" %}
-        </a>
+        <a class="btn !rounded-full" href="">{% translate "Go to link" %}</a>
     </div>
     <div class="hidden success-icon">
         <i class="w-8 h-8 text-green-500" icon-name="check-circle-2"></i>

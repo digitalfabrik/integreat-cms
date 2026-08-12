@@ -51,9 +51,7 @@
                         <div class="p-4">
                             <div class="bg-blue-100 border-t-2 border-b-2 border-blue-500 text-blue-700 px-4 py-3 mb-5"
                                  role="alert">
-                                <div class="font-semibold">
-                                    {% translate "At least one field must be filled." %}
-                                </div>
+                                <div class="font-semibold">{% translate "At least one field must be filled." %}</div>
                                 <br>
                                 {% translate "Please note: there can only be one contact per location without area of responsibility" %}
                             </div>
@@ -67,31 +65,19 @@
                                 </div>
                             {% endif %}
                             {% render_field contact_form.area_of_responsibility|add_error_class:"border-red-500" %}
-                            <label for="{{ contact_form.name.id_for_label }}">
-                                {{ contact_form.name.label }}
-                            </label>
+                            <label for="{{ contact_form.name.id_for_label }}">{{ contact_form.name.label }}</label>
                             {% render_field contact_form.name|add_error_class:"border-red-500" %}
-                            <label for="{{ contact_form.email.id_for_label }}">
-                                {{ contact_form.email.label }}
-                            </label>
+                            <label for="{{ contact_form.email.id_for_label }}">{{ contact_form.email.label }}</label>
                             {% render_field contact_form.email|add_error_class:"border-red-500" %}
-                            <label for="{{ contact_form.phone_number.id_for_label }}">
-                                {{ contact_form.phone_number.label }}
-                            </label>
+                            <label for="{{ contact_form.phone_number.id_for_label }}">{{ contact_form.phone_number.label }}</label>
                             {% render_field contact_form.phone_number|add_error_class:"border-red-500" %}
-                            <label for="{{ contact_form.mobile_phone_number.id_for_label }}">
-                                {{ contact_form.mobile_phone_number.label }}
-                            </label>
+                            <label for="{{ contact_form.mobile_phone_number.id_for_label }}">{{ contact_form.mobile_phone_number.label }}</label>
                             {% render_field contact_form.mobile_phone_number|add_error_class:"border-red-500" %}
-                            <label for="{{ contact_form.website.id_for_label }}">
-                                {{ contact_form.website.label }}
-                            </label>
+                            <label for="{{ contact_form.website.id_for_label }}">{{ contact_form.website.label }}</label>
                             {% render_field contact_form.website|add_error_class:"border-red-500" %}
                             <div class="{% if not contact_form.instance.id %} hidden {% endif %}">
                                 <p>
-                                    <label for="{{ contact_form.opening_hours.id_for_label }}">
-                                        {{ contact_form.opening_hours.label }}
-                                    </label>
+                                    <label for="{{ contact_form.opening_hours.id_for_label }}">{{ contact_form.opening_hours.label }}</label>
                                     <div class="flex">
                                         {% render_field contact_form.use_location_opening_hours class+=" mt-1" %}
                                         <label class="font-medium text-base my-0"
@@ -106,19 +92,11 @@
                                 {{ contact_form.instance.location.opening_hours|json_script:"openingHourLocationData" }}
                                 <div class="py-2 px-4">
                                     {% render_field contact_form.temporarily_closed %}
-                                    <label for="{{ contact_form.temporarily_closed.id_for_label }}">
-                                        {{ contact_form.temporarily_closed.label }}
-                                    </label>
-                                    <div class="help-text">
-                                        {{ contact_form.temporarily_closed.help_text }}
-                                    </div>
-                                    <label for="{{ contact_form.appointment_url.id_for_label }}">
-                                        {{ contact_form.appointment_url.label }}
-                                    </label>
+                                    <label for="{{ contact_form.temporarily_closed.id_for_label }}">{{ contact_form.temporarily_closed.label }}</label>
+                                    <div class="help-text">{{ contact_form.temporarily_closed.help_text }}</div>
+                                    <label for="{{ contact_form.appointment_url.id_for_label }}">{{ contact_form.appointment_url.label }}</label>
                                     {% render_field contact_form.appointment_url %}
-                                    <div class="help-text">
-                                        {{ contact_form.appointment_url.help_text }}
-                                    </div>
+                                    <div class="help-text">{{ contact_form.appointment_url.help_text }}</div>
                                 </div>
                             </div>
                         </div>
@@ -132,9 +110,7 @@
                                 </h3>
                             </div>
                             <div class="p-4">
-                                <div class="help-text mt-4 font-bold">
-                                    {% trans "This contact is referred to in those contents." %}
-                                </div>
+                                <div class="help-text mt-4 font-bold">{% trans "This contact is referred to in those contents." %}</div>
                             </div>
                             {% include "../_related_contents_table.html" with contents=referring_pages table_title=_("Pages") no_content_message=_("This contact is not currently referred to on any page.") %}
                             {% include "../_related_contents_table.html" with contents=referring_locations table_title=_("Locations") no_content_message=_("This contact is not currently referred to in any location.") %}
