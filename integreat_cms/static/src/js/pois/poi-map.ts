@@ -1,6 +1,18 @@
-import { FullscreenControl, LngLat, LngLatBoundsLike, Map, MapOptions, MapMouseEvent, Marker } from "maplibre-gl";
+import {
+    FullscreenControl,
+    LngLat,
+    LngLatBoundsLike,
+    Map,
+    MapOptions,
+    MapMouseEvent,
+    Marker,
+    setWorkerUrl,
+} from "maplibre-gl";
 import { getCsrfToken } from "../utils/csrf-token";
 import { updateField } from "./poi-actions";
+
+// The worker file is copied to the static root by webpack (see CopyPlugin config)
+setWorkerUrl(`${__webpack_public_path__}maplibre-gl-worker.mjs`);
 
 // Get the coordinate input fields
 const getCoordinateInputFields = () => {
