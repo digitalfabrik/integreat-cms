@@ -189,7 +189,7 @@ def test_get_translatable_attributes_first_translation(
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True)
+@pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_db_trigger_prevents_duplicate_slug_on_page_translations(
     create_page: Callable[..., Page],
 ) -> None:
@@ -210,7 +210,7 @@ def test_db_trigger_prevents_duplicate_slug_on_page_translations(
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True)
+@pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_db_trigger_enforce_slug_uniqueness_on_bulk_creation(
     create_page: Callable[..., Page],
 ) -> None:

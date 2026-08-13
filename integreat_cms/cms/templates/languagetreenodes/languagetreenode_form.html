@@ -69,8 +69,8 @@
                     <label for="{{ form.parent.id_for_label }}">
                         {{ form.parent.label }}
                     </label>
-                    {% render_field form|get_private_member:"ref_node_id" %}
-                    {% render_field form|get_private_member:"position" %}
+                    {% render_field form.treebeard_ref_node %}
+                    {% render_field form.treebeard_position %}
                     {% render_field form.parent|add_error_class:"border-red-500" %}
                 </div>
                 <div>

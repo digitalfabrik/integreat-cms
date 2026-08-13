@@ -16,7 +16,9 @@ class DebugRequestFilter(logging.Filter):
         :return: True if the record should be logged, False otherwise
         """
         if settings.REQUEST_DEBUG_USERS:
-            from integreat_cms.core.middleware.debug_request import get_request
+            from integreat_cms.core.middleware.debug_request import (
+                get_request,
+            )
 
             request = get_request()
 

@@ -35,7 +35,7 @@ fi
 
 # Check if requirements are satisfied
 # Define the required python version
-required_python_version="3.11"
+required_python_version="3.13"
 if [[ ! -x "$(command -v python3)" ]]; then
     echo "Python3 is not installed. Please install Python ${required_python_version} or higher manually and run this script again."  | print_error
     exit 1
@@ -45,8 +45,8 @@ python_version=$(${PYTHON} --version | cut -d" " -f2)
 if [[ $(major "$python_version") -lt $(major "$required_python_version") ]] || \
    [[ $(major "$python_version") -eq $(major "$required_python_version") ]] && [[ $(minor "$python_version") -lt $(minor "$required_python_version") ]]; then
     echo "python version ${required_python_version} is required, but version ${python_version} is installed. Please install a recent version manually and run this script again."  | print_error
-    echo -e "If you installed higher python version manually which is not your default python3, please pass the alternative python interpreter (e.g. python3.11) to the script:\n" | print_info
-    echo -e "\t$(dirname "${BASH_SOURCE[0]}")/install.sh --python python3.11\n" | print_bold
+    echo -e "If you installed higher python version manually which is not your default python3, please pass the alternative python interpreter (e.g. python3.13) to the script:\n" | print_info
+    echo -e "\t$(dirname "${BASH_SOURCE[0]}")/install.sh --python python3.13\n" | print_bold
     exit 1
 fi
 # Check if pip is installed

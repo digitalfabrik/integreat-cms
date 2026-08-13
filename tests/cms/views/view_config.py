@@ -31,38 +31,38 @@ from ...conftest import (
 )
 
 if TYPE_CHECKING:
-    from typing import Any, Final, TypeAlias
+    from typing import Any, Final
 
-    ViewNameStr: TypeAlias = str
-    ViewNameGetparams: TypeAlias = str
-    ViewName: TypeAlias = ViewNameStr | tuple[ViewNameStr, ViewNameGetparams]
-    Roles: TypeAlias = list[str]
-    PostDataDict: TypeAlias = dict[str, Any]
-    PostDataJSON: TypeAlias = str
-    PostData: TypeAlias = PostDataDict | PostDataJSON
-    View: TypeAlias = tuple[ViewName, Roles] | tuple[ViewName, Roles, PostData]
-    ViewKwargs: TypeAlias = dict[str, str | int]
-    ViewGroup: TypeAlias = tuple[list[View], ViewKwargs]
-    ViewConfig: TypeAlias = list[ViewGroup]
+    type ViewNameStr = str
+    type ViewNameGetparams = str
+    type ViewName = ViewNameStr | tuple[ViewNameStr, ViewNameGetparams]
+    type Roles = list[str]
+    type PostDataDict = dict[str, Any]
+    type PostDataJSON = str
+    type PostData = PostDataDict | PostDataJSON
+    type View = tuple[ViewName, Roles] | tuple[ViewName, Roles, PostData]
+    type ViewKwargs = dict[str, str | int]
+    type ViewGroup = tuple[list[View], ViewKwargs]
+    type ViewConfig = list[ViewGroup]
 
-    ParametrizedView: TypeAlias = tuple[ViewName, ViewKwargs, PostData, Roles]
-    ParametrizedViewConfig: TypeAlias = list[ParametrizedView]
+    type ParametrizedView = tuple[ViewName, ViewKwargs, PostData, Roles]
+    type ParametrizedViewConfig = list[ParametrizedView]
 
-    RedirectTarget: TypeAlias = str
-    RedirectView: TypeAlias = tuple[ViewNameStr, Roles, RedirectTarget]
-    RedirectViewGroup: TypeAlias = tuple[list[RedirectView], ViewKwargs]
-    RedirectViewConfig: TypeAlias = list[RedirectViewGroup]
+    type RedirectTarget = str
+    type RedirectView = tuple[ViewNameStr, Roles, RedirectTarget]
+    type RedirectViewGroup = tuple[list[RedirectView], ViewKwargs]
+    type RedirectViewConfig = list[RedirectViewGroup]
 
-    ParametrizedRedirectView: TypeAlias = tuple[
+    type ParametrizedRedirectView = tuple[
         ViewName,
         ViewKwargs,
         Roles,
         RedirectTarget,
     ]
-    ParametrizedRedirectViewConfig: TypeAlias = list[ParametrizedRedirectView]
+    type ParametrizedRedirectViewConfig = list[ParametrizedRedirectView]
 
     ParametrizedPublicView = tuple[ViewNameStr, PostDataDict]
-    ParametrizedPublicViewConfig: TypeAlias = list[ParametrizedPublicView]
+    type ParametrizedPublicViewConfig = list[ParametrizedPublicView]
 
 #: This list contains the config for all views
 #: Each element is a tuple which consists of two elements: A list of view configs and the keyword arguments that are
@@ -121,8 +121,8 @@ VIEWS: ViewConfig = [
                 {
                     "language": 5,
                     "parent": 1,
-                    "_ref_node_id": 1,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 1,
+                    "treebeard_position": "first-child",
                     "visible": True,
                     "active": True,
                 },
@@ -242,8 +242,8 @@ VIEWS: ViewConfig = [
                 {
                     "language": 5,
                     "parent": 5,
-                    "_ref_node_id": 5,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 5,
+                    "treebeard_position": "first-child",
                     "visible": True,
                     "active": True,
                 },
@@ -393,8 +393,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 1,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 1,
+                    "treebeard_position": "first-child",
                     "status": status.DRAFT,
                 },
             ),
@@ -404,8 +404,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 1,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 1,
+                    "treebeard_position": "first-child",
                     "status": status.PUBLIC,
                 },
             ),
@@ -659,8 +659,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 1,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 1,
+                    "treebeard_position": "first-child",
                     "status": status.PUBLIC,
                 },
             ),
@@ -675,8 +675,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 1,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 1,
+                    "treebeard_position": "first-child",
                     "status": status.REVIEW,
                 },
             ),
@@ -691,8 +691,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 1,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 1,
+                    "treebeard_position": "first-child",
                     "status": status.PUBLIC,
                 },
             ),
@@ -731,8 +731,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 7,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 7,
+                    "treebeard_position": "first-child",
                     "status": status.DRAFT,
                 },
             ),
@@ -779,7 +779,6 @@ VIEWS: ViewConfig = [
                     "latitude": 1,
                     "timezone": "Europe/Berlin",
                     "mt_budget_booked": 50000,
-                    "summ_ai_renewal_month": 6,
                     "mt_renewal_month": 6,
                     "offers": [3],
                     "zammad_offers": [5],
@@ -799,7 +798,6 @@ VIEWS: ViewConfig = [
                     "latitude": 1,
                     "timezone": "Europe/Berlin",
                     "mt_budget_booked": 50000,
-                    "summ_ai_renewal_month": 6,
                     "mt_renewal_month": 6,
                     "offers": [3],
                     "zammad_offers": [5],
@@ -1230,8 +1228,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 21,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 21,
+                    "treebeard_position": "first-child",
                     "status": status.REVIEW,
                 },
             ),
@@ -1241,8 +1239,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 21,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 21,
+                    "treebeard_position": "first-child",
                     "status": status.DRAFT,
                 },
             ),
@@ -1252,8 +1250,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 24,  # Archived ref node
-                    "_position": "right",
+                    "treebeard_ref_node": 24,  # Archived ref node
+                    "treebeard_position": "right",
                     "status": status.DRAFT,
                 },
             ),
@@ -1263,8 +1261,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 21,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 21,
+                    "treebeard_position": "first-child",
                     "status": status.PUBLIC,
                 },
             ),
@@ -1294,8 +1292,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 3,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 3,
+                    "treebeard_position": "first-child",
                     "status": status.REVIEW,
                 },
             ),
@@ -1305,8 +1303,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 3,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 3,
+                    "treebeard_position": "first-child",
                     "status": status.DRAFT,
                 },
             ),
@@ -1316,8 +1314,8 @@ VIEWS: ViewConfig = [
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
-                    "_ref_node_id": 3,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 3,
+                    "treebeard_position": "first-child",
                     "status": status.PUBLIC,
                 },
             ),
@@ -1449,8 +1447,8 @@ VIEWS: ViewConfig = [
                 {
                     "language": 3,
                     "parent": 2,
-                    "_ref_node_id": 2,
-                    "_position": "first-child",
+                    "treebeard_ref_node": 2,
+                    "treebeard_position": "first-child",
                 },
             ),
         ],

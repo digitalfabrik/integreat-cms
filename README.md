@@ -129,7 +129,6 @@ Alternatively, you can generate it yourself using the `tools/make_docs.sh` scrip
 	- [GVZ API](integreat_cms/gvz_api): This app provides wrapper functions around our Gemeindeverzeichnis API to automatically import coordinates and region aliases.
 	- [Nominatim API](nominatim_api): This app provides wrapper functions around our Nominatim API to automatically import region bounding boxes.
 	- [Sitemap](integreat_cms/sitemap): This app dynamically generates a sitemap.xml for the webapp.
-	- [SUMM.AI API](integreat_cms/summ_ai_api): This app provides wrapper functions around the SUMM.AI API for automatic translations into Easy German.
 	- [XLIFF](integreat_cms/xliff): This app allows (de-)serialization of translations from/to XLIFF (XML Localization Interchange File Format) for standardised exchange with translation agencies.
 - [Tests](tests): This app contains all tests to verify integreat-cms works as intended
 

@@ -11,7 +11,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.management import call_command
-from django.test.client import AsyncClient, Client
+from django.test.client import Client
 
 from integreat_cms.cms.constants.roles import (
     AUTHOR,
@@ -56,9 +56,6 @@ HIGH_PRIV_STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM]
 ROLES: Final = REGION_ROLES + STAFF_ROLES
 #: All region and staff roles and anonymous users
 ALL_ROLES: Final = [*ROLES, ANONYMOUS]
-
-#: Enable the aiohttp pytest plugin to make use of the test server
-pytest_plugins: Final = "aiohttp.pytest_plugin"
 
 
 @pytest.fixture(scope="session")
@@ -112,38 +109,13 @@ def login_role_user(
     return client, request.param
 
 
-@pytest.fixture(scope="session", params=ALL_ROLES)
-def login_role_user_async(
-    request: SubRequest,
-    load_test_data: None,
-    django_db_blocker: _DatabaseBlocker,
-) -> tuple[AsyncClient, str]:
-    """
-    Get the test user of the current role and force a login. Gets executed only once per user.
-    Identical to :meth:`~tests.conftest.login_role_user` with the difference that it returns
-    an :class:`django.test.client.AsyncClient` instead of :class:`django.test.client.Client`.
-
-    :param request: The request object providing the parametrized role variable through ``request.param``
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :param django_db_blocker: The fixture providing the database blocker
-    :return: The http client and the current role
-    """
-    async_client = AsyncClient()
-    # Only log in user if the role is not anonymous
-    if request.param != ANONYMOUS:
-        with django_db_blocker.unblock():
-            user = get_user_model().objects.get(username=request.param.lower())
-            async_client.force_login(user)
-    return async_client, request.param
-
-
 @pytest.fixture(scope="function")
 def mock_server(httpserver: HTTPServer) -> MockServer:
     return MockServer(httpserver)
 
 
 @pytest.fixture(scope="function")
-def mock_firebase_credentials() -> Generator[None, None, None]:
+def mock_firebase_credentials() -> Generator[None]:
     patch_obj = patch.object(
         FirebaseSecurityService,
         "_get_access_token",
@@ -189,7 +161,7 @@ def create_language() -> Callable[..., Language]:
 
 
 @pytest.fixture
-def clean_news_cache(load_test_data: None) -> Generator[None, None, None]:
+def clean_news_cache(load_test_data: None) -> Generator[None]:
     """
     Clear external news-source cache entries before and after a test.
 

@@ -106,12 +106,22 @@ const resetTotalAccessesField = (accessFields: HTMLCollectionOf<Element>, isEmpt
 
 const updateAllAccessesField = (accessesField: Element, allAccesses: number) => {
     const allAccessesField = accessesField;
+    const collapsed = allAccessesField.parentElement
+        .querySelector(".toggle-subpages")
+        ?.querySelector("svg")
+        .classList.contains("lucide-chevron-right");
+    let childPageAccessIndicator = "";
+
+    if (collapsed) {
+        childPageAccessIndicator = allAccessesField.getAttribute("data-translation-incl-childpages");
+    }
+
     if (allAccesses === 0) {
         allAccessesField.textContent = allAccessesField.getAttribute("data-translation-no-accesses");
     } else if (allAccesses === 1) {
-        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-singular")}`;
+        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-singular")} ${childPageAccessIndicator}`;
     } else {
-        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-plural")}`;
+        allAccessesField.textContent = `${allAccesses} ${allAccessesField.getAttribute("data-translation-plural")} ${childPageAccessIndicator}`;
     }
 };
 
@@ -242,9 +252,12 @@ const updateExportTable = (data: AjaxResponse) => {
         const accesses = data[pageId];
         const pageElement = document.getElementById(`page-${pageId}`);
         const pageSlug = pageElement?.querySelector(".title-slug").getAttribute("data-title-slug");
-        if (pageElement && pageSlug) {
+        const pageTitle = pageElement?.querySelector(`a[href*='${pageId}/edit/']`).getAttribute("title");
+        if (pageElement && pageSlug && pageTitle) {
             // Page Title needs to be utf-8 encoded for btoa to work in exportPageAccessesData()
             const pageSlugEncoded = new TextEncoder().encode(pageSlug);
+            // Wrap page title with quot to avoid titles containing commas get separated in CSV
+            const pageTitleEncoded = new TextEncoder().encode(`"${pageTitle.replace(/"/g, `""`)}"`);
             let allAccesses: number = 0;
 
             visibleDatasetSlugs?.forEach((languageSlug, i) => {
@@ -257,6 +270,7 @@ const updateExportTable = (data: AjaxResponse) => {
             });
             exportTableEntry[visibleDatasetSlugs.length] = String(allAccesses);
             exportTableEntry.unshift(String.fromCharCode(...pageSlugEncoded));
+            exportTableEntry.unshift(String.fromCharCode(...pageTitleEncoded));
             exportTableEntry.unshift(pageId);
             exportTable.push(exportTableEntry);
         }
@@ -308,7 +322,7 @@ const exportPageAccessesData = (): void => {
         document.getElementById("no-language-selected-error")?.classList.remove("hidden");
     } else {
         const exportSelection = document.getElementById("export-statistics") as HTMLSelectElement;
-        const exportLabels: string[] = ["ID", "Slug", ...visibleDatasetSlugs, "Total Accesses"];
+        const exportLabels: string[] = ["ID", "Page Title", "Slug", ...visibleDatasetSlugs, "Total Accesses"];
         const filename = `Integreat ${exportSelection.getAttribute("data-filename-prefix")} - Page Based`;
         // Create matrix with labels in the first row and the hits per page and language in the subsequent rows
         const csvMatrix: string[][] = [exportLabels].concat(exportTable);

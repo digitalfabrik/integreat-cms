@@ -98,5 +98,6 @@ class AnalyticsView(TemplateView):
                 "access_legends": access_legends,
                 "is_statistics": True,
                 "show_page_based_statistics": show_page_based_statistics,
+                "wiki_url": settings.STATISTICS_WIKI_URL,
             },
         )

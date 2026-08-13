@@ -64,7 +64,6 @@ def test_duplicate_regions(
             "timezone": "Europe/Berlin",
             "mt_budget_booked": 50000,
             "mt_renewal_month": 6,
-            "summ_ai_renewal_month": 6,
         },
     )
     assert response.status_code == 302
@@ -194,7 +193,6 @@ def test_duplicate_regions_no_translations(
             "timezone": "Europe/Berlin",
             "mt_budget_booked": 50000,
             "mt_renewal_month": 6,
-            "summ_ai_renewal_month": 6,
         },
     )
     assert response.status_code == 302

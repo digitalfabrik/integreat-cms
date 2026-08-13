@@ -37,8 +37,8 @@ def update_page_content(
         "title": title,
         "content": content,
         "mirrored_page_region": "",
-        "_ref_node_id": 3,
-        "_position": "right",
+        "treebeard_ref_node": 3,
+        "treebeard_position": "right",
         "status": status.PUBLIC,
     }
     if hix_ignore:
@@ -64,8 +64,8 @@ def create_page(
         "title": title,
         "content": content,
         "mirrored_page_region": "",
-        "_ref_node_id": 4,
-        "_position": "right",
+        "treebeard_ref_node": 4,
+        "treebeard_position": "right",
         "status": status.PUBLIC,
     }
     if hix_ignore:

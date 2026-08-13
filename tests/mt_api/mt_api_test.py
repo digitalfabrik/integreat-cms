@@ -490,8 +490,8 @@ content_role_id_data_combination = [
             "title": "Neuer Titel",
             "content": "Neuer Inhalt",
             "mirrored_page_region": "",
-            "_ref_node_id": 3,
-            "_position": "right",
+            "treebeard_ref_node": 3,
+            "treebeard_position": "right",
             "automatic_translation": "on",
         },
     ),
@@ -860,7 +860,7 @@ def test_do_not_translate_title(
     :param caplog: The :fixture:`caplog` fixture
     :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     """
-    client, role = login_role_user
+    client, _role = login_role_user
 
     region = Region.objects.get(slug=REGION_SLUG)
     test_page = Page.objects.create(
@@ -905,7 +905,7 @@ def test_do_not_translate_title(
                     language__slug="en"
                 ).id,
                 "status": status.PUBLIC,
-                "_position": "right",
+                "treebeard_position": "right",
                 "do_not_translate_title": do_not_translate_title,
             },
         )
@@ -944,7 +944,7 @@ def test_do_not_translate_title(
                     language__slug="ar"
                 ).id,
                 "status": status.PUBLIC,
-                "_position": "right",
+                "treebeard_position": "right",
                 "do_not_translate_title": do_not_translate_title,
             },
         )
@@ -985,7 +985,7 @@ def test_mt_empty_content(
     - translations are marked as up to date
     - no MT API request is sent
     """
-    client, role = login_role_user
+    client, _role = login_role_user
 
     region = Region.objects.get(slug=REGION_SLUG)
     test_page = Page.objects.create(
@@ -1043,7 +1043,7 @@ def test_mt_empty_content(
                     language__slug="en"
                 ).id,
                 "status": status.PUBLIC,
-                "_position": "right",
+                "treebeard_position": "right",
             },
         )
 
@@ -1077,7 +1077,7 @@ def test_mt_empty_content(
                     language__slug="ar"
                 ).id,
                 "status": status.PUBLIC,
-                "_position": "right",
+                "treebeard_position": "right",
             },
         )
 

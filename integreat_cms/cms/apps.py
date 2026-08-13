@@ -39,7 +39,12 @@ class CmsConfig(AppConfig):
 
         from .models.abstract_content_translation import AbstractContentTranslation
         from .utils.internal_link_checker import check_internal
-        from .utils.link_ignore_preservation import cache_key_for, target_key
+        from .utils.link_ignore_preservation import (
+            cache_key_for,
+            inherit_ignore_within_region,
+            region_of,
+            target_key,
+        )
 
         Url.check_internal = check_internal
 
@@ -60,19 +65,26 @@ class CmsConfig(AppConfig):
             )
             stashed = cache.get(cache_key) if cache_key else None
             upstream(sender, instance, linklist_cls, wait=wait)
+            content_type = linklist_cls.content_type()
             if stashed:
                 ignored_keys = {tuple(k) for k in stashed}
                 cache.delete(cache_key)
                 to_re_ignore = [
                     link.pk
                     for link in Link.objects.filter(
-                        content_type=linklist_cls.content_type(),
+                        content_type=content_type,
                         object_id=instance.pk,
                     ).select_related("url")
                     if target_key(link.url.url) in ignored_keys
                 ]
                 if to_re_ignore:
                     Link.objects.filter(pk__in=to_re_ignore).update(ignore=True)
+
+            # Inherit ignore=True onto any remaining new link whose URL is
+            # already verified on another current link of the same region,
+            # so the same URL cannot re-surface as unverified merely because
+            # it now appears in a different or newly created content object.
+            inherit_ignore_within_region(instance, content_type, region_of(instance))
 
         # Patch all three references — listeners and celery imported the
         # name at module load.

@@ -9,7 +9,7 @@ from treebeard.forms import MoveNodeForm
 if TYPE_CHECKING:
     from typing import Any
 
-    from django.db.models.base import ModelBase
+    from django.forms.models import ModelFormOptions
 
     from ..models import LanguageTreeNode, Page
 
@@ -32,24 +32,13 @@ class CustomTreeNodeForm(MoveNodeForm):
         super().__init__(**kwargs)
 
         # Hide tree node inputs
-        self.fields["_ref_node_id"].widget = forms.HiddenInput()
-        self.fields["_position"].widget = forms.HiddenInput()
+        self.fields["treebeard_ref_node"].widget = forms.HiddenInput()
+        self.fields["treebeard_position"].widget = forms.HiddenInput()
 
-    def _clean_cleaned_data(self) -> tuple[str, int]:
-        """
-        Delete auxiliary fields not belonging to node model and include instance attributes in cleaned_data
-
-        :return: The initial data for _ref_node_id and _position fields
-        """
-        # This workaround is required because the MoveNodeForm does not take
-        # instance attribute into account which are not included in cleaned_data
-        self.cleaned_data["region"] = self.instance.region
-        return super()._clean_cleaned_data()
-
-    def _get_position_ref_node(
+    def _get_initial(
         self,
         instance: LanguageTreeNode | Page,
-    ) -> dict[str, str]:
+    ) -> dict[str, Any]:
         """
         Get the initial values for the referenced node and the position
 
@@ -72,30 +61,44 @@ class CustomTreeNodeForm(MoveNodeForm):
                     instance,
                     next_sibling,
                 )
-                return {"_ref_node_id": str(next_sibling.id), "_position": "left"}
+                return {
+                    "treebeard_ref_node": next_sibling,
+                    "treebeard_position": "left",
+                }
             # If the page is the only root page of this region, do not reference other nodes
             logger.debug(
                 "Node %r is the only root node of its region and now referenced to no other node",
                 instance,
             )
-            return {"_ref_node_id": "", "_position": "first-child"}
-        # Convert initial data to string to fix the change detection
-        initial_data = super()._get_position_ref_node(instance)
-        return {key: str(value) for key, value in initial_data.items()}
+            return {"treebeard_ref_node": None, "treebeard_position": "first-child"}
+        return super()._get_initial(instance)
 
-    @classmethod
-    def mk_dropdown_tree(
-        cls,
-        model: ModelBase,  # noqa: ARG003
-        for_node: None | (LanguageTreeNode | Page) = None,  # noqa: ARG003
-    ) -> list:
+    def _set_ref_model_queryset(
+        self,
+        opts: ModelFormOptions,
+        instance: LanguageTreeNode | Page | None,  # noqa: ARG002
+    ) -> None:
         """
-        Creates a tree-like list of choices. Overwrites the parent method because the field is hidden anyway and
-        additional queries to render the node titles should be avoided.
+        Set the queryset of the (hidden) reference node field. Overwrites the parent
+        method because it queries the whole cross-region tree; the subclasses limit
+        the queryset to the nodes of the current region instead.
 
-        :param model: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
-        :param for_node: The instance of this form
-        :return: A list of select options
+        :param opts: The model form options
+        :param instance: The instance of this form
         """
-        # No need to calculate anything here, because we set self.fields["_ref_node_id"].choices manually
-        return []
+        self.fields["treebeard_ref_node"].queryset = opts.model.objects.all()
+
+    def save(self, commit: bool = True) -> Any:
+        """
+        Save the form instance. Since django-treebeard 5, ``MoveNodeForm.save()`` skips
+        its tree logic if the treebeard fields are unchanged - but our forms pre-populate
+        them via field initials, so new nodes must still be created at the requested position.
+
+        :param commit: Whether or not the changes should be written to the database
+        :return: The saved node instance
+        """
+        if self.instance._state.adding:
+            for name in ("treebeard_ref_node", "treebeard_position"):
+                if name not in self.changed_data:
+                    self.changed_data.append(name)
+        return super().save(commit=commit)

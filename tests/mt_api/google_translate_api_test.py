@@ -7,6 +7,7 @@ if TYPE_CHECKING:
 
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
+    from google.cloud.translate_v3 import TranslateTextRequest
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
@@ -82,7 +83,7 @@ class FakeClientV3:
     Fake client to replace translate_v3.TranslationServiceClient
     """
 
-    def translate_text(self, request: object) -> FakeTranslateResponse:
+    def translate_text(self, request: TranslateTextRequest) -> FakeTranslateResponse:
         return FakeTranslateResponse()
 
 

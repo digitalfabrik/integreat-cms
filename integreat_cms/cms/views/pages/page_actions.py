@@ -377,8 +377,7 @@ def upload_xliff(
             # Copy uploaded file from its temporary location into the upload directory
             with open(os.path.join(upload_dir, upload_file.name), "wb+") as file_write:
                 # Using chunks() instead of read() ensures that large files don’t overwhelm your system’s memory
-                for chunk in upload_file.chunks():
-                    file_write.write(chunk)
+                file_write.writelines(upload_file.chunks())
 
             if upload_file.name.endswith(".zip"):
                 # Extract zip archive

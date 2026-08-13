@@ -185,23 +185,6 @@ Search & fix broken internal links in the content::
 * ``--commit``: Whether changes should be written to the database
 
 
-``summ_ai_bulk``
-~~~~~~~~~~~~~~~~
-
-Translate an entire region into Easy German via SUMM.AI::
-
-    integreat-cms-cli summ_ai_bulk REGION_SLUG USERNAME [--initial]
-
-**Arguments:**
-
-* ``REGION_SLUG``: Translate all pages of the region with slug ``REGION_SLUG``
-* ``USERNAME``: Associate any new created translations with ``USERNAME``
-
-**Options:**
-
-* ``--initial``: Whether existing translations should not be updated
-
-
 ``reset_mt_budget``
 ~~~~~~~~~~~~~~~~~~~~~~
 

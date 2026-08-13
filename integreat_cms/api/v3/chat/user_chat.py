@@ -68,11 +68,17 @@ def get_or_create_user_chat(
     """
     Get existing UserChat or create a new one if the HTTP method is POST.
 
+    If a chat exists but has been inactive long enough that its Zammad ticket is
+    assumed to be gone (Zammad's ticket retention is shorter than ours), a new chat
+    is started for the same device id on POST requests.
+
     :param request: Django request
     :param device_id: UUID of the app device
     :param language_slug: slug of language that is used by the app
     """
-    if user_chat := UserChat.objects.current_chat(device_id):
+    if (user_chat := UserChat.objects.current_chat(device_id)) and (
+        not user_chat.is_expired
+    ):
         return user_chat
     if request.method == "POST":
         return UserChat.objects.create(

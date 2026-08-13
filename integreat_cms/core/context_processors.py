@@ -40,7 +40,6 @@ def settings_processor(request: HttpRequest) -> dict[str, Any]:
         "BRANDING_TITLE": settings.BRANDING_TITLE,
         "WEBAPP_URL": settings.WEBAPP_URL,
         "DEEPL_ENABLED": settings.DEEPL_ENABLED,
-        "SUMM_AI_ENABLED": settings.SUMM_AI_ENABLED,
         "TEXTLAB_API_LANGUAGES": settings.TEXTLAB_API_LANGUAGES,
         "TEXTLAB_API_ENABLED": settings.TEXTLAB_API_ENABLED,
         "TEST": settings.TEST,
