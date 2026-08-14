@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-08-13T08:44:40+00:00" />
+    <meta property="article:modified_time" content="2026-08-14T07:19:08+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2026.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -247,6 +247,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#content-translation-utils">Content Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#content-utils">Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#email-utils">Email Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#event-utils">Event Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#external-calendar-utils">External Calendar Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#file-utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#internal-link-checker">Internal Link Checker</a></li>
@@ -869,6 +870,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_translation_utils">Content Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_utils">Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.event_utils">Event Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.external_calendar_utils">External Calendar Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_checker">Internal Link Checker</a></li>
@@ -2633,6 +2635,30 @@ version and also attach the branding logo.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="event-utils">
+<h2>Event Utils<a class="headerlink" href="#event-utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.event_utils.</span></span><span class="sig-name descname"><span class="pre">get_filtered_events_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/event_utils.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Build the events list URL, preserving any active filter query string from the request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current HTTP request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Slug of the region</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Current GUI language slug</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The events list URL with optional filter query string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -4820,7 +4846,7 @@ in the cache and does not require the object to be saved.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 13, 2026.
+      <span class="lastupdated">Last updated on Aug 14, 2026.
       </span></p>
   </div>
 
