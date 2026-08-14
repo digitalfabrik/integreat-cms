@@ -156,7 +156,7 @@
                     <i icon-name="pencil"></i>
                 </a>
                 {% if not event.external_calendar %}
-                    <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
+                    <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}?{{ request.GET.urlencode }}"
                           method="post">
                         {% csrf_token %}
                         <button class="btn-icon" title="{% translate "Copy event" %}">
@@ -194,7 +194,7 @@
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"
                     data-confirmation-subject="{{ event_translation.title }}"
-                    data-action="{% url 'delete_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
+                    data-action="{% url 'delete_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}?{{ request.GET.urlencode }}">
                 <i icon-name="trash-2"></i>
             </button>
         {% endif %}
