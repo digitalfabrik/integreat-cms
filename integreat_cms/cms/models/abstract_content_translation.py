@@ -632,6 +632,25 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         return new_translation
 
+    def save_new_version(
+        self,
+        user: User | None = None,
+    ) -> AbstractContentTranslation:
+        """
+        Create and save a new minor-edit version of this translation
+        """
+        from ..utils.content_translation_utils import save_new_version_with_retry
+        from ..utils.link_ignore_preservation import preserve_ignored_links
+
+        new_version = self.create_new_version_copy(user)
+
+        with transaction.atomic(), preserve_ignored_links(self):
+            self.links.all().delete()
+            return save_new_version_with_retry(
+                new_version,
+                new_version.save,
+            )
+
     def replace_urls(
         self,
         urls_to_replace: dict[str, str],

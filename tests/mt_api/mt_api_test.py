@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 from integreat_cms.cms.constants.translation_status import (
     MACHINE_TRANSLATED,
+    OUTDATED,
     UP_TO_DATE,
 )
 
@@ -568,6 +569,93 @@ def test_manual_update_mt_page(
         assert en_translation
         assert en_translation.translation_state == UP_TO_DATE
         assert en_translation.minor_edit is True
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("login_role_user", [EDITOR], indirect=True)
+def test_mt_update_refreshes_outdated_translation_no_changes(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
+    mock_server: MockServer,
+    caplog: LogCaptureFixture,
+) -> None:
+    """
+    When a source translation is changed and reverted with MT update enabled:
+    - target translation state is changed from OUTDATED to MACHINE_TRANSLATED
+    - the minor_edit flag for the new translation version is set to True
+    - no request is sent to the MT API
+    """
+    mt_setup(["de"], ["en-gb", "en-us"], [], [], settings, mock_server)
+
+    client, _role = login_role_user
+
+    region = Region.objects.get(slug=REGION_SLUG)
+
+    # Create a page with empty content
+    page_id = _create_page(client, REGION_SLUG, "Titel", "titel", "")
+
+    # Enable automatic translation and create a new English translation
+    _edit_translation(
+        client,
+        page_id,
+        language_slug="de",
+        title="Titel",
+        content="",
+        region=region,
+        mt_translations_to_create="en",
+    )
+
+    en_translation = PageTranslation.objects.filter(
+        page__id=page_id, language__slug="en"
+    ).first()
+
+    assert en_translation
+    assert en_translation.content == ""
+    assert en_translation.translation_state == MACHINE_TRANSLATED
+    assert mock_server.requests_counter == 1
+
+    # Change content of the German translation, without automatic translation
+    _edit_translation(
+        client,
+        page_id,
+        language_slug="de",
+        title="Titel",
+        content="<p>Inhalt</p>",
+    )
+
+    en_translation = PageTranslation.objects.filter(
+        page__id=page_id, language__slug="en"
+    ).first()
+
+    assert en_translation
+    assert en_translation.translation_state == OUTDATED
+
+    # Clear the German content again and update the English translation
+    _edit_translation(
+        client,
+        page_id,
+        language_slug="de",
+        title="Titel",
+        content="",
+        region=region,
+        mt_translations_to_update="en",
+    )
+
+    en_translation = PageTranslation.objects.filter(
+        page__id=page_id, language__slug="en"
+    ).first()
+
+    assert en_translation
+    assert en_translation.content == ""
+    assert en_translation.minor_edit is True
+    assert en_translation.translation_state == MACHINE_TRANSLATED
+    assert mock_server.requests_counter == 1  # No new MT request should have been made
+
+    assert_message_in_log(
+        "INFO     Page \"Titel\": Translation into 'English' was not necessary -> no changes detected. The translation date has been refreshed.",
+        caplog,
+    )
 
 
 def _create_page(
