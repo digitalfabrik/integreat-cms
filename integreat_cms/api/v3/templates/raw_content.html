@@ -1,0 +1,6 @@
+<h1>{{ title }}</h1>
+{% if content %}
+<div lang="{{ language_code }}">
+    {% if plain_text %}{{ content|linebreaks }}{% else %}{{ content|safe }}{% endif %}
+</div>
+{% endif %}

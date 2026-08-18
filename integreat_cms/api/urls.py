@@ -38,6 +38,14 @@ from .v3.pages import (
     single_page,
 )
 from .v3.pdf_export import pdf_export
+from .v3.raw_content import (
+    event_content,
+    location_content,
+    news_content,
+    page_content,
+    region_content,
+    root_content,
+)
 from .v3.regions import region_by_slug, regions
 from .v3.social_media_headers import (
     event_social_media_headers,
@@ -234,12 +242,93 @@ social_media_api_urlpatterns = [
     ),
 ]
 
+raw_content_api_urlpatterns = [
+    path("", root_content, name="raw_content_root"),
+    *(
+        path(
+            f"{reserved}/",
+            include(
+                [
+                    path(
+                        "",
+                        root_content,
+                        name=f"raw_content_root_reserved_{reserved}",
+                    ),
+                    path(
+                        "<slug:language_slug>/",
+                        root_content,
+                        name=f"raw_content_root_reserved_default_language_{reserved}",
+                    ),
+                ],
+            ),
+        )
+        for reserved in settings.RESERVED_REGION_SLUGS
+    ),
+    path(
+        "<slug:region_slug>/",
+        region_content,
+        name="raw_content_region_default_language",
+    ),
+    path(
+        "<slug:region_slug>/<slug:language_slug>/",
+        include(
+            [
+                path("", region_content, name="raw_content_region"),
+                path(
+                    "news/local/",
+                    region_content,
+                    name="raw_content_region_reserved_local_news",
+                ),
+                path(
+                    "news/tunews/",
+                    region_content,
+                    name="raw_content_region_reserved_tunews",
+                ),
+                path(
+                    "news/amalnews/",
+                    region_content,
+                    name="raw_content_region_reserved_amalnews",
+                ),
+                *(
+                    path(
+                        f"{reserved}/",
+                        region_content,
+                        name=f"raw_content_region_reserved_{reserved}",
+                    )
+                    for reserved in settings.RESERVED_REGION_PAGE_PATTERNS
+                ),
+                path(
+                    "events/<slug:slug>/",
+                    event_content,
+                    name="raw_content_region_event_page",
+                ),
+                path(
+                    "news/<slug:news_type>/<slug:news_raw_id>/",
+                    news_content,
+                    name="raw_content_region_news_page",
+                ),
+                path(
+                    "locations/<slug:slug>/",
+                    location_content,
+                    name="raw_content_region_location_page",
+                ),
+                path(
+                    "<path:path>/",
+                    page_content,
+                    name="raw_content_region_content",
+                ),
+            ],
+        ),
+    ),
+]
+
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns: list[URLPattern] = [
     path("api/v3/regions/", include(region_api_urlpatterns)),
     path("api/v3/webhook/zammad/", user_chat.zammad_webhook, name="zammad_webhook"),
     path("wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),
     path("api/v3/social/", include(social_media_api_urlpatterns)),
+    path("api/v3/raw-content/", include(raw_content_api_urlpatterns)),
     path(
         "api/v3/<slug:region_slug>/",
         include(
