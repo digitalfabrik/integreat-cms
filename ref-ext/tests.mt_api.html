@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-08-18T09:05:55+00:00" />
+    <meta property="article:modified_time" content="2026-08-18T09:56:25+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mt API &mdash; integreat-cms 2026.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -111,6 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#offers">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#pages">Pages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#pdf-export">PDF Export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#raw-content">Raw Content</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#social-media-headers">Social Media Headers</a></li>
 </ul>
@@ -452,6 +453,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-chat">Test API Chat</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-feedback">Test API Feedback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-push-page">Test API Push Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-raw-content">Test API Raw Content</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-result">Test API Result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-social">Test API Social</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-news-endpoint">Test News Endpoint</a></li>
@@ -719,6 +721,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.offers">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.pages">Pages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.pdf_export">PDF Export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.raw_content">Raw Content</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.social_media_headers">Social Media Headers</a></li>
 </ul>
@@ -1475,6 +1478,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.api_config">API Config</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.api_config.API_ENDPOINTS"><code class="docutils literal notranslate"><span class="pre">API_ENDPOINTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.api_config.API_FEEDBACK_VIEWS"><code class="docutils literal notranslate"><span class="pre">API_FEEDBACK_VIEWS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.api_config.API_RAW_CONTENT_ENDPOINTS"><code class="docutils literal notranslate"><span class="pre">API_RAW_CONTENT_ENDPOINTS</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_chat">Test API Chat</a><ul>
@@ -1502,6 +1506,15 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_push_page">Test API Push Page</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_push_page.test_api_push_page_content"><code class="docutils literal notranslate"><span class="pre">test_api_push_page_content()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_raw_content">Test API Raw Content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_raw_content.REGION_SLUG"><code class="docutils literal notranslate"><span class="pre">REGION_SLUG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_raw_content.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_raw_content.test_external_news_content_is_sanitized"><code class="docutils literal notranslate"><span class="pre">test_external_news_content_is_sanitized()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_raw_content.test_local_news_is_addressed_by_translation_id"><code class="docutils literal notranslate"><span class="pre">test_local_news_is_addressed_by_translation_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_raw_content.test_local_news_text_is_escaped"><code class="docutils literal notranslate"><span class="pre">test_local_news_text_is_escaped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_raw_content.test_local_news_which_is_not_public"><code class="docutils literal notranslate"><span class="pre">test_local_news_which_is_not_public()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_result">Test API Result</a><ul>
@@ -1666,6 +1679,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.news_managers.html#module-tests.news_managers.test_tunews_manager">Test Tunews Manager</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_keeps_plain_text"><code class="docutils literal notranslate"><span class="pre">test_clean_html_keeps_plain_text()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_preserves_unrelated_classes"><code class="docutils literal notranslate"><span class="pre">test_clean_html_preserves_unrelated_classes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_strips_active_content"><code class="docutils literal notranslate"><span class="pre">test_clean_html_strips_active_content()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_strips_pvc_elements"><code class="docutils literal notranslate"><span class="pre">test_clean_html_strips_pvc_elements()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_import_amalnews_item"><code class="docutils literal notranslate"><span class="pre">test_import_amalnews_item()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_import_tunews_item"><code class="docutils literal notranslate"><span class="pre">test_import_tunews_item()</span></code></a></li>
@@ -2240,7 +2254,7 @@
 <li><p><strong>content_role_id_combination</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Any</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em><em>]</em>) – The combination of content type, user roles with permission and selected_ids used in the test</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>mock_server</strong> (<a class="reference internal" href="tests.html#tests.mock.MockServer" title="tests.mock.MockServer"><em>MockServer</em></a>) – The fixture providing the mock http server used for faking the DeepL API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2260,7 +2274,7 @@
 <li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Client</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>provider_language_combination</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The combination of MT provider and source/target language</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2280,7 +2294,7 @@
 <li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Client</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>provider_language_combination</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The combination of MT provider and source/target language</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2300,7 +2314,7 @@
 <li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Client</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>provider_language_combination</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The combination of MT provider and source/target language</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2321,7 +2335,7 @@
 <li><p><strong>provider_language_combination</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The combination of MT provider and source/target language</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>mock_server</strong> (<a class="reference internal" href="tests.html#tests.mock.MockServer" title="tests.mock.MockServer"><em>MockServer</em></a>) – The fixture providing the mock http server used for faking the DeepL API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2341,7 +2355,7 @@
 <li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Client</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>provider_language_combination</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The combination of MT provider and source/target language</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2393,7 +2407,7 @@
 :param error: The error status to test
 :param settings: The fixture providing the django settings
 :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
-:param caplog: The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+:param caplog: The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2547,7 +2561,7 @@ subclass of the current content type</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Client</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2593,7 +2607,7 @@ subclass of the current content type</p></li>
 <li><p><strong>content_role_id_data_combination</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Any</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>]</em>) – The combination of content type, user roles with permission and selected_ids used in the test</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>mock_server</strong> (<a class="reference internal" href="tests.html#tests.mock.MockServer" title="tests.mock.MockServer"><em>MockServer</em></a>) – The fixture providing the mock http server used for faking the DeepL API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2613,7 +2627,7 @@ subclass of the current content type</p></li>
 <li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Client</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>do_not_translate_title</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – The value of <cite>do_not_translate_title</cite> flag</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
-<li><p><strong>caplog</strong> – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 <li><p><strong>mock_server</strong> (<a class="reference internal" href="tests.html#tests.mock.MockServer" title="tests.mock.MockServer"><em>MockServer</em></a>) – The fixture providing the mock http server used for faking the DeepL API server</p></li>
 </ul>
 </dd>
@@ -2717,7 +2731,7 @@ subclass of the current content type</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2736,7 +2750,7 @@ subclass of the current content type</p></li>
 <li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
 <li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Client</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2755,7 +2769,7 @@ subclass of the current content type</p></li>
 <li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
 <li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Client</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2772,7 +2786,7 @@ subclass of the current content type</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2789,7 +2803,7 @@ subclass of the current content type</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2806,7 +2820,7 @@ subclass of the current content type</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev197)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev199)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

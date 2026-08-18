@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-08-18T09:05:55+00:00" />
+    <meta property="article:modified_time" content="2026-08-18T09:56:25+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API &mdash; integreat-cms 2026.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -111,6 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#offers">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#pages">Pages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#pdf-export">PDF Export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#raw-content">Raw Content</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#social-media-headers">Social Media Headers</a></li>
 </ul>
@@ -452,6 +453,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-chat">Test API Chat</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-feedback">Test API Feedback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-push-page">Test API Push Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-raw-content">Test API Raw Content</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-result">Test API Result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-social">Test API Social</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-news-endpoint">Test News Endpoint</a></li>
@@ -719,6 +721,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.offers">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.pages">Pages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.pdf_export">PDF Export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.raw_content">Raw Content</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.social_media_headers">Social Media Headers</a></li>
 </ul>
@@ -1475,6 +1478,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-tests.api.api_config">API Config</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#tests.api.api_config.API_ENDPOINTS"><code class="docutils literal notranslate"><span class="pre">API_ENDPOINTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#tests.api.api_config.API_FEEDBACK_VIEWS"><code class="docutils literal notranslate"><span class="pre">API_FEEDBACK_VIEWS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.api_config.API_RAW_CONTENT_ENDPOINTS"><code class="docutils literal notranslate"><span class="pre">API_RAW_CONTENT_ENDPOINTS</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-tests.api.test_api_chat">Test API Chat</a><ul>
@@ -1502,6 +1506,15 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-tests.api.test_api_push_page">Test API Push Page</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#tests.api.test_api_push_page.test_api_push_page_content"><code class="docutils literal notranslate"><span class="pre">test_api_push_page_content()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.api.test_api_raw_content">Test API Raw Content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_api_raw_content.REGION_SLUG"><code class="docutils literal notranslate"><span class="pre">REGION_SLUG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_api_raw_content.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_api_raw_content.test_external_news_content_is_sanitized"><code class="docutils literal notranslate"><span class="pre">test_external_news_content_is_sanitized()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_api_raw_content.test_local_news_is_addressed_by_translation_id"><code class="docutils literal notranslate"><span class="pre">test_local_news_is_addressed_by_translation_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_api_raw_content.test_local_news_text_is_escaped"><code class="docutils literal notranslate"><span class="pre">test_local_news_text_is_escaped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_api_raw_content.test_local_news_which_is_not_public"><code class="docutils literal notranslate"><span class="pre">test_local_news_which_is_not_public()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-tests.api.test_api_result">Test API Result</a><ul>
@@ -1666,6 +1679,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.news_managers.html#module-tests.news_managers.test_tunews_manager">Test Tunews Manager</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_keeps_plain_text"><code class="docutils literal notranslate"><span class="pre">test_clean_html_keeps_plain_text()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_preserves_unrelated_classes"><code class="docutils literal notranslate"><span class="pre">test_clean_html_preserves_unrelated_classes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_strips_active_content"><code class="docutils literal notranslate"><span class="pre">test_clean_html_strips_active_content()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_strips_pvc_elements"><code class="docutils literal notranslate"><span class="pre">test_clean_html_strips_pvc_elements()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_import_amalnews_item"><code class="docutils literal notranslate"><span class="pre">test_import_amalnews_item()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.news_managers.html#tests.news_managers.test_tunews_manager.test_import_tunews_item"><code class="docutils literal notranslate"><span class="pre">test_import_tunews_item()</span></code></a></li>
@@ -2715,6 +2729,106 @@
 </div>
 </dd></dl>
 
+<dl class="py data">
+<dt class="sig sig-object py" id="tests.api.api_config.API_RAW_CONTENT_ENDPOINTS">
+<span class="sig-prename descclassname"><span class="pre">tests.api.api_config.</span></span><span class="sig-name descname"><span class="pre">API_RAW_CONTENT_ENDPOINTS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#tuple" title="(in Python v3.13)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('/api/v3/raw-content/',</span> <span class="pre">'tests/api/expected-outputs/raw_content.html',</span> <span class="pre">200,</span> <span class="pre">1),</span> <span class="pre">('/api/v3/raw-content/landing/de/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_landing_de.html',</span> <span class="pre">200,</span> <span class="pre">1),</span> <span class="pre">('/api/v3/raw-content/landing/non-existing/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_landing_non-existing.html',</span> <span class="pre">404,</span> <span class="pre">1),</span> <span class="pre">('/api/v3/raw-content/augsburg/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg.html',</span> <span class="pre">200,</span> <span class="pre">2),</span> <span class="pre">('/api/v3/raw-content/augsburg/de/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg_de.html',</span> <span class="pre">200,</span> <span class="pre">2),</span> <span class="pre">('/api/v3/raw-content/augsburg/non-existing/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg_non-existing.html',</span> <span class="pre">404,</span> <span class="pre">2),</span> <span class="pre">('/api/v3/raw-content/augsburg/de/willkommen/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg_de_page.html',</span> <span class="pre">200,</span> <span class="pre">3),</span> <span class="pre">('/api/v3/raw-content/augsburg/de/non-existing/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg_de_page_non-existing.html',</span> <span class="pre">404,</span> <span class="pre">3),</span> <span class="pre">('/api/v3/raw-content/augsburg/de/disclaimer/impressum/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg_de_imprint.html',</span> <span class="pre">200,</span> <span class="pre">3),</span> <span class="pre">('/api/v3/raw-content/augsburg/de/events/test-veranstaltung/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg_de_event.html',</span> <span class="pre">200,</span> <span class="pre">3),</span> <span class="pre">('/api/v3/raw-content/augsburg/de/events/non-existing/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg_de_event_non-existing.html',</span> <span class="pre">404,</span> <span class="pre">3),</span> <span class="pre">('/api/v3/raw-content/augsburg/de/locations/test-ort/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg_de_location.html',</span> <span class="pre">200,</span> <span class="pre">3),</span> <span class="pre">('/api/v3/raw-content/augsburg/de/locations/non-existing/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg_de_location_non-existing.html',</span> <span class="pre">404,</span> <span class="pre">3),</span> <span class="pre">('/api/v3/raw-content/augsburg/de/news/local/1/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_augsburg_de_pn_non-existing.html',</span> <span class="pre">404,</span> <span class="pre">3),</span> <span class="pre">('/api/v3/raw-content/birkenfeld/de/',</span> <span class="pre">'tests/api/expected-outputs/raw_content_birkenfeld_de_archived.html',</span> <span class="pre">404,</span> <span class="pre">2)]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/api_config.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.api_config.API_RAW_CONTENT_ENDPOINTS" title="Link to this definition"></a></dt>
+<dd><p>The raw content endpoints</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">200</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/landing/de/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_landing_de.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">200</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/landing/non-existing/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_landing_non-existing.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">404</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">200</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/de/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg_de.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">200</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/non-existing/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg_non-existing.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">404</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/de/willkommen/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg_de_page.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">200</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">3</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/de/non-existing/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg_de_page_non-existing.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">404</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">3</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/de/disclaimer/impressum/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg_de_imprint.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">200</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">3</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/de/events/test-veranstaltung/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg_de_event.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">200</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">3</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/de/events/non-existing/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg_de_event_non-existing.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">404</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">3</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/de/locations/test-ort/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg_de_location.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">200</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">3</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/de/locations/non-existing/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg_de_location_non-existing.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">404</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">3</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/augsburg/de/news/local/1/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_augsburg_de_pn_non-existing.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">404</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">3</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="s1">&#39;/api/v3/raw-content/birkenfeld/de/&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;tests/api/expected-outputs/raw_content_birkenfeld_de_archived.html&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">404</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">2</span><span class="p">,</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 <section id="module-tests.api.test_api_chat">
 <span id="test-api-chat"></span><h2>Test API Chat<a class="headerlink" href="#module-tests.api.test_api_chat" title="Link to this heading"></a></h2>
@@ -3053,6 +3167,104 @@ provided in the corresponding json file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-tests.api.test_api_raw_content">
+<span id="test-api-raw-content"></span><h2>Test API Raw Content<a class="headerlink" href="#module-tests.api.test_api_raw_content" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="tests.api.test_api_raw_content.REGION_SLUG">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_api_raw_content.</span></span><span class="sig-name descname"><span class="pre">REGION_SLUG</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'augsburg'</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_api_raw_content.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_api_raw_content.REGION_SLUG" title="Link to this definition"></a></dt>
+<dd><p>The region and language which are used for the tests which are not parametrized</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_api_raw_content.test_api_result">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_api_raw_content.</span></span><span class="sig-name descname"><span class="pre">test_api_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_assert_num_queries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_queries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_api_raw_content.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_api_raw_content.test_api_result" title="Link to this definition"></a></dt>
+<dd><p>This test class checks all endpoints defined in <a class="reference internal" href="#tests.api.api_config.API_RAW_CONTENT_ENDPOINTS" title="tests.api.api_config.API_RAW_CONTENT_ENDPOINTS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">API_RAW_CONTENT_ENDPOINTS</span></code></a>.
+It verifies that the content delivered by the endpoint is equivalent with the data
+provided in the corresponding html file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>django_assert_num_queries</strong> (<em>Callable</em>) – The fixture providing the query assertion</p></li>
+<li><p><strong>endpoint</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The url of the new Django pattern</p></li>
+<li><p><strong>expected_result</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The path to the html file that contains the expected result</p></li>
+<li><p><strong>expected_code</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The expected HTTP status code</p></li>
+<li><p><strong>expected_queries</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The expected number of SQL queries</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_api_raw_content.test_external_news_content_is_sanitized">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_api_raw_content.</span></span><span class="sig-name descname"><span class="pre">test_external_news_content_is_sanitized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean_news_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_api_raw_content.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_api_raw_content.test_external_news_content_is_sanitized" title="Link to this definition"></a></dt>
+<dd><p>External news are not created in our own editor, so their content must be sanitized before it is served.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>clean_news_cache</strong> (<em>None</em>) – Fixture that wipes external news-source cache entries</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_api_raw_content.test_local_news_is_addressed_by_translation_id">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_api_raw_content.</span></span><span class="sig-name descname"><span class="pre">test_local_news_is_addressed_by_translation_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_api_raw_content.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_api_raw_content.test_local_news_is_addressed_by_translation_id" title="Link to this definition"></a></dt>
+<dd><p>Local news are addressed by the id of their translation, just like in the web app and in the news API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>prefix</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The url prefix of the endpoint under test</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_api_raw_content.test_local_news_text_is_escaped">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_api_raw_content.</span></span><span class="sig-name descname"><span class="pre">test_local_news_text_is_escaped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_api_raw_content.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_api_raw_content.test_local_news_text_is_escaped" title="Link to this definition"></a></dt>
+<dd><p>The text of a push notification is plain text, so it must be escaped and its line breaks must be kept.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_api_raw_content.test_local_news_which_is_not_public">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_api_raw_content.</span></span><span class="sig-name descname"><span class="pre">test_local_news_which_is_not_public</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sent_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/datetime.html#datetime.datetime" title="(in Python v3.13)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_api_raw_content.py#L108"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_api_raw_content.test_local_news_which_is_not_public" title="Link to this definition"></a></dt>
+<dd><p>Local news which have not been sent yet or which are older than the FCM history window are not exposed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>prefix</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The url prefix of the endpoint under test</p></li>
+<li><p><strong>sent_date</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/datetime.html#datetime.datetime" title="(in Python v3.13)"><em>datetime</em></a><em> | </em><em>None</em>) – The date the push notification was sent, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if it has not been sent yet</p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
