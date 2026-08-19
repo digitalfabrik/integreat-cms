@@ -49,7 +49,7 @@ def render_error_template(context: dict[str, Any]) -> SafeString:
     return render_to_string("error_handler/http_error.html", context)
 
 
-def render_error_response(context: dict[str, Any]) -> HttpResponse:
+def _render_error_response(context: dict[str, Any]) -> HttpResponse:
     """
     Render the HTTP error response
 
@@ -78,7 +78,7 @@ def handler400(request: HttpRequest, exception: BadRequest) -> HttpResponse:
         "message": _("There was an error in your request."),
     }
     logger.debug(exception)
-    return render_error_response(context)
+    return _render_error_response(context)
 
 
 def handler403(
@@ -99,7 +99,7 @@ def handler403(
         "message": _("You don't have the permission to access this page."),
     }
     logger.debug(exception)
-    return render_error_response(context)
+    return _render_error_response(context)
 
 
 def handler404(request: HttpRequest, exception: Http404) -> HttpResponse:
@@ -117,7 +117,7 @@ def handler404(request: HttpRequest, exception: Http404) -> HttpResponse:
         "message": _("The page you requested could not be found."),
     }
     logger.debug(exception)
-    return render_error_response(context)
+    return _render_error_response(context)
 
 
 def handler500(request: HttpRequest) -> HttpResponse:
@@ -133,7 +133,7 @@ def handler500(request: HttpRequest) -> HttpResponse:
         "title": _("Internal Server Error"),
         "message": _("An unexpected error has occurred."),
     }
-    return render_error_response(context)
+    return _render_error_response(context)
 
 
 def csrf_failure(request: HttpRequest, reason: str) -> HttpResponse:
@@ -151,4 +151,4 @@ def csrf_failure(request: HttpRequest, reason: str) -> HttpResponse:
         "message": _("Please try to reload the page."),
     }
     logger.debug(reason)
-    return render_error_response(context)
+    return _render_error_response(context)
