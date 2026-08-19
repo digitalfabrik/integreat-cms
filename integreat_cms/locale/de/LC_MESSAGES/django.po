@@ -2555,6 +2555,12 @@ msgstr "Passwort"
 msgid "Email"
 msgstr "Email"
 
+#: cms/forms/users/password_reset_form.py
+#: cms/templates/authentication/password_reset_confirm.html
+#: cms/templates/authentication/password_reset_form.html
+msgid "Reset password"
+msgstr "Passwort zurücksetzen"
+
 #: cms/forms/users/passwordless_authentication_form.py
 msgid "The username or email address is incorrect."
 msgstr "Der Kontoname oder die E-Mail-Adresse ist falsch."
@@ -4694,9 +4700,9 @@ msgstr "Übersetzungsbericht"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: cms/templates/_base.html
-msgid "Broken Links"
-msgstr "Fehlerhafte Links"
+#: cms/templates/_base.html cms/templates/linkcheck/links_by_filter.html
+msgid "Links"
+msgstr "Verlinkungen"
 
 #: cms/templates/_base.html cms/templates/pages/_page_filter_form.html
 #: cms/templates/pages/_page_xliff_import_diff.html
@@ -5375,11 +5381,6 @@ msgid "Use Authenticator app"
 msgstr "Authenticator-App verwenden"
 
 #: cms/templates/authentication/password_reset_confirm.html
-#: cms/templates/authentication/password_reset_form.html
-msgid "Reset password"
-msgstr "Passwort zurücksetzen"
-
-#: cms/templates/authentication/password_reset_confirm.html
 msgid "Repeat password"
 msgstr "Passwort wiederholen"
 
@@ -5949,7 +5950,6 @@ msgid "Go to page"
 msgstr "Zur Seite"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_broken_links_row.html
-#: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/region_condition/region_condition.html
 msgid "Broken links"
 msgstr "Fehlerhafte Links"
@@ -5985,9 +5985,9 @@ msgid ""
 "The page <b>%(single_drafted_page)s</b> was saved as draft. User can't see "
 "your drafted pages. Please don't forget to publish the page once it's ready."
 msgstr ""
-"Die Seite <b>%(single_drafted_page)s</b> liegt nur im Entwurf vor. Nutzer:"
-"innen können die Inhalte nicht sehen. Bitte vergessen Sie nicht, die Seite "
-"zu veröffentlichen, sobald diese fertig ist."
+"Die Seite <b>%(single_drafted_page)s</b> liegt nur im Entwurf vor. "
+"Nutzer:innen können die Inhalte nicht sehen. Bitte vergessen Sie nicht, die "
+"Seite zu veröffentlichen, sobald diese fertig ist."
 
 #: cms/templates/dashboard/todo_dashboard_rows/_drafted_pages_row.html
 msgid "At the moment there is no drafted page. Good job!"
@@ -7215,6 +7215,10 @@ msgid "Redirects to"
 msgstr "Leitet weiter zu"
 
 #: cms/templates/linkcheck/link_list_row.html
+msgid "linked in Integreat"
+msgstr "in Integreat verlinkt"
+
+#: cms/templates/linkcheck/link_list_row.html
 msgid "Go to source"
 msgstr "Inhalt aufrufen"
 
@@ -7226,21 +7230,13 @@ msgstr "URL zentral in der aktuellen Region ersetzen"
 msgid "Replace URL globally in all the regions"
 msgstr "URL global in allen Regionen ersetzen"
 
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Valid links"
-msgstr "Gültige Links"
+#: cms/templates/linkcheck/link_list_row.html
+msgid "Change links on all pages"
+msgstr "Links auf allen Seiten anpassen"
 
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Unchecked links"
-msgstr "Nicht geprüfte Links"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Link verified"
-msgstr "Link überprüft"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "All links"
-msgstr "Alle Links"
+#: cms/templates/linkcheck/link_list_row.html
+msgid "Mark link as valid"
+msgstr "Link als gültig markieren"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Search & replace"
@@ -7255,44 +7251,25 @@ msgid "Unchecked"
 msgstr "Nicht geprüft"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid ""
-"SSL is the standard technology for securing Internet connections and "
-"protecting sensitive data transferred between two systems."
+msgid "Link verified"
+msgstr "Link überprüft"
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "The following links are reported by the system as potentially faulty."
 msgstr ""
-"SSL ist die Standardtechnologie für die Absicherung von Internetverbindungen "
-"und den Schutz sensibler Daten, die zwischen zwei Systemen übertragen werden."
+"Folgende Verlinkungen werden vom System als eventuell fehlerhaft gemeldet."
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid ""
-"When a website is secured by an SSL certificate, its URL starts with "
-"'https', insecure links with 'http' should no longer be used."
-msgstr ""
-"Wenn eine Website durch ein SSL-Zertifikat gesichert ist, beginnt ihre URL "
-"mit 'https', unsichere Links mit 'http' sollten nicht mehr verwendet werden."
+msgid "Click the links to check them and adjust them if necessary."
+msgstr "Klicken zum Überprüfen auf die Links und passe diese bei Bedarf an."
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "SSL"
-msgstr "SSL"
+msgid "Link-Check Help"
+msgstr "Link-Überprüfung Hilfe"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "An anchor denotes a link to a fragement within an HTML document"
-msgstr "Ein Anker bezeichnet eine Sprungmarke innerhalb eines HTML-Dokuments"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Anchor"
-msgstr "Anker"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid ""
-"HTTP response status codes indicate whether a specific HTTP request has been "
-"successfully completed."
-msgstr ""
-"HTTP-Antwortstatuscodes zeigen an, ob eine bestimmte HTTP-Anfrage "
-"erfolgreich abgeschlossen wurde."
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Code"
-msgstr "Code"
+msgid "Error message"
+msgstr "Fehlermeldung"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "The link text of the first usage"
@@ -7309,15 +7286,6 @@ msgstr "Die Quell-Übersetzung der ersten Verwendung"
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Source"
 msgstr "Quelle"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "The number of times this URL is used in the content"
-msgstr "Die Anzahl, wie oft diese URL im Inhalt verwendet wird"
-
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/views/media/media_context_mixin.py
-msgid "Usages"
-msgstr "Verwendungen"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "No valid links could be found."
@@ -9716,7 +9684,6 @@ msgstr[0] "Es gibt bereits eine aktuelle Übersetzung für {}"
 msgstr[1] "Es gibt bereits aktuelle Übersetzungen für {}"
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid ""
 "The selected {model_name} could not be {action}, because inactive language "
 "tree nodes cannot be visible."
@@ -9725,19 +9692,16 @@ msgstr ""
 "Sprachknoten nicht sichtbar sein dürfen."
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid "The selected {model_name} could not be {action}"
 msgstr "Die ausgewählten {model_name} konnten nicht {action} werden"
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid "The selected {model_name} were successfully {action}"
 msgstr "Die ausgewählten {model_name} wurden erfolgreich {action}"
 
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
 #: cms/views/push_notifications/push_notification_bulk_actions.py
-#, python-brace-format
 msgid "{model_name} {object_names} was successfully archived."
 msgid_plural ""
 "The following {model_name} were successfully archived: {object_names}"
@@ -9746,14 +9710,12 @@ msgstr[1] ""
 "Die folgenden {model_name} wurden erfolgreich archiviert: {object_names}"
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid "{model_name} {object_names} is already archived."
 msgid_plural "The following {model_name} are already archived: {object_names}"
 msgstr[0] "{model_name} {object_names} ist bereits archiviert."
 msgstr[1] "Die folgenden {model_name} sind bereits archiviert: {object_names}"
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid ""
 "Page {object_names} could not be archived because it is embedded as live "
 "content from other pages."
@@ -9768,7 +9730,6 @@ msgstr[1] ""
 "Seiten als Live-Inhalt eingebunden werden: \"{object_names}\""
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid ""
 "Location {object_names} could not be archived because it is referenced by an "
 "event or a contact."
@@ -9785,7 +9746,6 @@ msgstr[1] ""
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
 #: cms/views/push_notifications/push_notification_bulk_actions.py
-#, python-brace-format
 msgid "{model_name} {object_names} was successfully restored."
 msgid_plural ""
 "The following {model_name} were successfully restored: {object_names}"
@@ -9795,7 +9755,6 @@ msgstr[1] ""
 "{object_names}"
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid "{model_name} {object_names} is not archived."
 msgid_plural "The following {model_name} are not archived: {object_names}"
 msgstr[0] "{model_name} {object_names} ist nicht archiviert."
@@ -9816,7 +9775,6 @@ msgstr[1] ""
 
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
-#, python-brace-format
 msgid "{model_name} {object_names} was successfully deleted."
 msgid_plural ""
 "The following {model_name} were successfully deleted: {object_names}"
@@ -9825,7 +9783,6 @@ msgstr[1] ""
 "Die folgenden {model_name} wurden erfolgreich gelöscht: {object_names}"
 
 #: cms/views/bulk_action_views.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be deleted, because {failure_reason}"
 msgid_plural ""
@@ -9838,39 +9795,32 @@ msgstr[1] ""
 "{failure_reason}"
 
 #: cms/views/contacts/contact_actions.py
-#, python-brace-format
 msgid "Contact {0} was successfully archived"
 msgstr "Kontakt {0} wurde erfolgreich archiviert"
 
 #: cms/views/contacts/contact_actions.py
-#, python-brace-format
 msgid "Cannot archive contact \"{0}\" while content objects refer to it."
 msgstr ""
 "Kontakt {0} kann nicht archiviert werden solange Inhalte auf ihn verweisen."
 
 #: cms/views/contacts/contact_actions.py
-#, python-brace-format
 msgid "Contact {0} was successfully deleted"
 msgstr "Kontakt {0} wurde erfolgreich gelöscht."
 
 #: cms/views/contacts/contact_actions.py
-#, python-brace-format
 msgid "Cannot delete contact \"{0}\" while content objects refer to it."
 msgstr ""
 "Kontakt {0} kann nicht gelöscht werden solange Inhalte auf ihn verweisen."
 
 #: cms/views/contacts/contact_actions.py
-#, python-brace-format
 msgid "Contact {0} was successfully restored"
 msgstr "Kontakt {0} wurde erfolgreich wiederhergestellt"
 
 #: cms/views/contacts/contact_actions.py
-#, python-brace-format
 msgid "Contact {0} was successfully copied"
 msgstr "Kontakt {0} wurde erfolgreich kopiert"
 
 #: cms/views/contacts/contact_bulk_actions.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} cannot be archived while content objects refer "
 "to it."
@@ -9882,7 +9832,6 @@ msgstr[1] ""
 "Die folgenden {model_name} konnten nicht archiviert werden: {object_names}"
 
 #: cms/views/contacts/contact_bulk_actions.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} cannot be deleted while content objects refer to "
 "it."
@@ -10145,7 +10094,6 @@ msgstr ""
 
 #: cms/views/events/event_form_view.py cms/views/pages/page_form_view.py
 #: cms/views/pois/poi_form_view.py
-#, python-brace-format
 msgid ""
 "The slug was changed from '{user_slug}' to '{slug}', because uppercase "
 "letters are not allowed."
@@ -10154,7 +10102,6 @@ msgstr ""
 "Großbuchstaben nicht erlaubt sind."
 
 #: cms/views/events/event_form_view.py cms/views/pois/poi_form_view.py
-#, python-brace-format
 msgid ""
 "The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' "
 "is already used by <a>{translation}</a> or one of its previous versions."
@@ -10165,7 +10112,6 @@ msgstr ""
 
 #: cms/views/events/event_form_view.py cms/views/pages/page_form_view.py
 #: cms/views/pois/poi_form_view.py
-#, python-brace-format
 msgid "The slug was changed from '{user_slug}' to '{slug}'."
 msgstr "Der URL-Parameter wurde von '{user_slug}' zu '{slug}' geändert."
 
@@ -10311,12 +10257,10 @@ msgid "Imprint was successfully created"
 msgstr "Impressum wurde erfolgreich erstellt"
 
 #: cms/views/imprint/imprint_form_view.py cms/views/pages/page_form_view.py
-#, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
 
 #: cms/views/imprint/imprint_sbs_view.py cms/views/pages/page_sbs_view.py
-#, python-brace-format
 msgid ""
 "You cannot use the side-by-side-view for the region's default language (in "
 "this case {default_language})."
@@ -10325,7 +10269,6 @@ msgstr ""
 "diesem Fall {default_language}) verwenden."
 
 #: cms/views/imprint/imprint_sbs_view.py cms/views/pages/page_sbs_view.py
-#, python-brace-format
 msgid ""
 "You cannot use the side-by-side-view if the source translation (in this case "
 "{source_language}) does not exist."
@@ -10342,7 +10285,6 @@ msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
 
 #: cms/views/language_tree/language_tree_actions.py
-#, python-brace-format
 msgid ""
 "The language tree node \"{model_name}\" cannot be deleted because it is the "
 "source language of other language(s)."
@@ -10351,7 +10293,6 @@ msgstr ""
 "Quell-Sprache anderer Sprachen ist."
 
 #: cms/views/language_tree/language_tree_actions.py
-#, python-brace-format
 msgid ""
 "The language tree node \"{model_name}\" cannot be deleted because "
 "{failure_reason}"
@@ -10360,7 +10301,6 @@ msgstr ""
 "{failure_reason}"
 
 #: cms/views/language_tree/language_tree_actions.py
-#, python-brace-format
 msgid ""
 "The language tree node \"{model_name}\" and all corresponding translations "
 "were successfully deleted."
@@ -10422,6 +10362,12 @@ msgstr "Telefonnummern-Link wurde erfolgreich ersetzt"
 #: cms/views/linkcheck/linkcheck_list_view.py
 msgid "URL was successfully replaced"
 msgstr "URL wurde erfolgreich ersetzt"
+
+#: cms/views/linkcheck/linkcheck_list_view.py
+#, fuzzy
+#| msgid "Links were successfully marked as verified"
+msgid "Link was successfully marked as verified"
+msgstr "Links wurden erfolgreich als überprüft markiert"
 
 #: cms/views/linkcheck/linkcheck_list_view.py
 msgid "Links were successfully marked as verified"
@@ -10618,6 +10564,10 @@ msgid "Alternative text:"
 msgstr "Alternativer Text:"
 
 #: cms/views/media/media_context_mixin.py
+msgid "Usages"
+msgstr "Verwendungen"
+
+#: cms/views/media/media_context_mixin.py
 msgid "As icon"
 msgstr "Als Icon"
 
@@ -10691,7 +10641,6 @@ msgstr ""
 "Ort oder eines Users verwendet wird"
 
 #: cms/views/organizations/organization_bulk_actions.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} couldn't be archived as it's used by a page, poi "
 "or user."
@@ -10706,7 +10655,6 @@ msgstr[1] ""
 "Seite, einem Ort oder eines Users verwendet werden: {object_names}"
 
 #: cms/views/organizations/organization_bulk_actions.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} couldn't be deleted as it's used by a page, poi "
 "or user."
@@ -10801,7 +10749,6 @@ msgstr ""
 "archiviert ist."
 
 #: cms/views/pages/page_actions.py
-#, python-brace-format
 msgid "The page could not be deleted, because {failure_reason}"
 msgstr "Der Ort konnte nicht gelöscht werden, da {failure_reason}"
 
@@ -10842,7 +10789,6 @@ msgstr ""
 "andere Seite verschoben."
 
 #: cms/views/pages/page_actions.py
-#, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
@@ -10878,7 +10824,6 @@ msgstr ""
 "erfolgreich erstellt."
 
 #: cms/views/pages/page_bulk_actions.py
-#, python-brace-format
 msgid "{model_name} {object_names} was not in translation process."
 msgid_plural ""
 "The following {model_name} were not in translation process: {object_names}"
@@ -10887,7 +10832,6 @@ msgstr[1] ""
 "Die folgenden {model_name} waren nicht im Übersetzungsprozess: {object_names}"
 
 #: cms/views/pages/page_bulk_actions.py
-#, python-brace-format
 msgid ""
 "Translation process was successfully cancelled for {model_name} "
 "{object_names}."
@@ -10902,7 +10846,6 @@ msgstr[1] ""
 "abgebrochen: {object_names}."
 
 #: cms/views/pages/page_bulk_actions.py
-#, python-brace-format
 msgid ""
 "Translation process could not be successfully cancelled for {model_name} "
 "{object_names}."
@@ -11010,12 +10953,10 @@ msgid "reject"
 msgstr "ablehnen"
 
 #: cms/views/pages/page_form_view.py
-#, python-brace-format
 msgid "You can {action} these changes in the <a>version overview</a>."
 msgstr "Sie können diese Änderungen in der <a>Versionsübersicht</a> {action}."
 
 #: cms/views/pages/page_form_view.py
-#, python-brace-format
 msgid ""
 "The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' "
 "is already used by <a>{translation}</a>."
@@ -11123,7 +11064,6 @@ msgid "Location was successfully deleted"
 msgstr "Ort wurde erfolgreich gelöscht"
 
 #: cms/views/pois/poi_actions.py
-#, python-brace-format
 msgid "Location couldn't be deleted, because {failure_reason}"
 msgstr "Der Ort konnte nicht gelöscht werden, da {failure_reason}"
 
@@ -11224,22 +11164,18 @@ msgid "Back to the poi form"
 msgstr "Zurück zum Formular"
 
 #: cms/views/push_notifications/push_notification_actions.py
-#, python-brace-format
 msgid "Push notification {0} was successfully archived"
 msgstr "Push-Benachrichtigung {0} wurde erfolgreich archiviert"
 
 #: cms/views/push_notifications/push_notification_actions.py
-#, python-brace-format
 msgid "Push notification {0} was successfully restored"
 msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
 
 #: cms/views/push_notifications/push_notification_actions.py
-#, python-brace-format
 msgid "Push notification {0} was successfully deleted"
 msgstr "Push-Benachrichtigung {0} wurde erfolgreich gelöscht"
 
 #: cms/views/push_notifications/push_notification_actions.py
-#, python-brace-format
 msgid "Push notification {0} was successfully copied"
 msgstr "Push-Benachrichtigung {0} wurde erfolgreich kopiert"
 
@@ -11681,7 +11617,6 @@ msgstr ""
 "Zeitfensters"
 
 #: cms/views/utils/publication_status.py
-#, python-brace-format
 msgid ""
 "The publication status of {model_name} {object_names} was successfully "
 "changed to \"{changed_status}\"."
@@ -11696,7 +11631,6 @@ msgstr[1] ""
 "\"{changed_status}\" geändert: {object_names}"
 
 #: cms/views/utils/publication_status.py
-#, python-brace-format
 msgid ""
 "The publication status of {model_name} {object_names} is already "
 "\"{changed_status}\"."
@@ -11711,7 +11645,6 @@ msgstr[1] ""
 "\"{changed_status}\": {object_names}"
 
 #: cms/views/utils/publication_status.py
-#, python-brace-format
 msgid ""
 "The publication status of {model_name} {object_names} could not be changed "
 "to \"{changed_status}\", because it has no translation in {language}."
@@ -11729,7 +11662,6 @@ msgstr[1] ""
 "{language} gibt: {object_names}."
 
 #: cms/views/utils/publication_status.py
-#, python-brace-format
 msgid ""
 "The publication status of {model_name} {object_names} could not be changed "
 "to \"{changed_status}\" due to a database conflict. Please try again."
@@ -11767,7 +11699,6 @@ msgid "Dutch"
 msgstr "Niederländisch"
 
 #: core/utils/machine_translation_api_client.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} has successfully been translated "
 "({source_language} ➜ {target_language})."
@@ -11782,7 +11713,6 @@ msgstr[1] ""
 "{target_language}): {object_names}"
 
 #: core/utils/machine_translation_api_client.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be translated automatically into "
 "'{target_language}'"
@@ -11797,7 +11727,6 @@ msgstr[1] ""
 "'{target_language}' übersetzt werden: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} was not translated into '{target_language}', "
 "because there were no changes to the source translation."
@@ -11813,7 +11742,6 @@ msgstr[1] ""
 "{object_names}"
 
 #: core/utils/machine_translation_api_client.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be translated because its source "
 "translation is missing."
@@ -11828,7 +11756,6 @@ msgstr[1] ""
 "Übersetzungen fehlen: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be translated because its HIX score is "
 "too low for machine translation (minimum required: {min_required})."
@@ -11846,7 +11773,6 @@ msgstr[1] ""
 "{min_required}): {object_names}"
 
 #: core/utils/machine_translation_api_client.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be translated because it would exceed "
 "the remaining budget of {remaining_budget} words."
@@ -11863,7 +11789,6 @@ msgstr[1] ""
 "Wörtern übersteigen würde: {object_names}"
 
 #: core/utils/machine_translation_api_client.py
-#, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be translated because the generated "
 "translation ({source_language} ➜ {target_language}) exceeded the "
@@ -12041,6 +11966,57 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Broken Links"
+#~ msgstr "Fehlerhafte Links"
+
+#~ msgid "Valid links"
+#~ msgstr "Gültige Links"
+
+#~ msgid "Unchecked links"
+#~ msgstr "Nicht geprüfte Links"
+
+#~ msgid "All links"
+#~ msgstr "Alle Links"
+
+#~ msgid ""
+#~ "SSL is the standard technology for securing Internet connections and "
+#~ "protecting sensitive data transferred between two systems."
+#~ msgstr ""
+#~ "SSL ist die Standardtechnologie für die Absicherung von "
+#~ "Internetverbindungen und den Schutz sensibler Daten, die zwischen zwei "
+#~ "Systemen übertragen werden."
+
+#~ msgid ""
+#~ "When a website is secured by an SSL certificate, its URL starts with "
+#~ "'https', insecure links with 'http' should no longer be used."
+#~ msgstr ""
+#~ "Wenn eine Website durch ein SSL-Zertifikat gesichert ist, beginnt ihre "
+#~ "URL mit 'https', unsichere Links mit 'http' sollten nicht mehr verwendet "
+#~ "werden."
+
+#~ msgid "SSL"
+#~ msgstr "SSL"
+
+#~ msgid "An anchor denotes a link to a fragement within an HTML document"
+#~ msgstr ""
+#~ "Ein Anker bezeichnet eine Sprungmarke innerhalb eines HTML-Dokuments"
+
+#~ msgid "Anchor"
+#~ msgstr "Anker"
+
+#~ msgid ""
+#~ "HTTP response status codes indicate whether a specific HTTP request has "
+#~ "been successfully completed."
+#~ msgstr ""
+#~ "HTTP-Antwortstatuscodes zeigen an, ob eine bestimmte HTTP-Anfrage "
+#~ "erfolgreich abgeschlossen wurde."
+
+#~ msgid "Code"
+#~ msgstr "Code"
+
+#~ msgid "The number of times this URL is used in the content"
+#~ msgstr "Die Anzahl, wie oft diese URL im Inhalt verwendet wird"
+
 #~ msgid "Enable to set starting date differing from the renewal date."
 #~ msgstr ""
 #~ "Aktivieren, um ein Startdatum anzugeben, welches sich vom "
@@ -12085,7 +12061,6 @@ msgstr ""
 #~ msgid "SUMM.AI API"
 #~ msgstr "SUMM.AI API"
 
-#, python-brace-format
 #~ msgid ""
 #~ "{model_name} {object_names} has been successfully translated into Easy "
 #~ "German."
@@ -12099,7 +12074,6 @@ msgstr ""
 #~ "Die folgenden {model_name} wurden erfolgreich in Leichte Sprache "
 #~ "übersetzt: {object_names}"
 
-#, python-brace-format
 #~ msgid ""
 #~ "{model_name} {object_names} could not be automatically translated into "
 #~ "Easy German."
@@ -12666,15 +12640,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have "
-#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have <b>%"
+#~ "(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell "
-#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
-#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
-#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell <b>%"
+#~ "(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
+#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
+#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
@@ -12686,8 +12660,8 @@ msgstr ""
 #~ "Cancelled translation process for page \"{page}\" and language "
 #~ "\"{page_translation.language}\""
 #~ msgstr ""
-#~ "Überestzungsprozess für Seite \"{page}\" und Sprache \"{page_translation."
-#~ "language}\" abgebrochen"
+#~ "Überestzungsprozess für Seite \"{page}\" und Sprache "
+#~ "\"{page_translation.language}\" abgebrochen"
 
 #~ msgid "You cannot translate into the default language"
 #~ msgstr "Sie können nicht in die Standard-Sprache übersetzen"
@@ -13308,9 +13282,9 @@ msgstr ""
 #~ msgstr "Der Name der Kategorie auf English."
 
 #~ msgid ""
-#~ "The latest changes have only been saved as a draft. Currently, <a "
-#~ "href='%(revision_url)s' class='underline hover:no-underline'>version "
-#~ "%(revision)s</a> of this page is displayed in the app."
+#~ "The latest changes have only been saved as a draft. Currently, <a href='%"
+#~ "(revision_url)s' class='underline hover:no-underline'>version %"
+#~ "(revision)s</a> of this page is displayed in the app."
 #~ msgstr ""
 #~ "Die letzten Änderungen wurden nur als Entwurf gespeichert. Aktuell wird "
 #~ "Version <a href='%(revision_url)s' class='underline hover:no-"
@@ -14060,9 +14034,6 @@ msgstr ""
 #~ msgid "Points of Interest"
 #~ msgstr "Points of Interest"
 
-#~ msgid "Archived Points of Interest"
-#~ msgstr "Archivierte Points of Interest"
-
 #~ msgid "PDF Export"
 #~ msgstr "PDF Export"
 
@@ -14491,11 +14462,11 @@ msgstr ""
 #~ msgstr "Seite wurde erfolgreich gelöscht."
 
 #~ msgid ""
-#~ "This push notification has already been sent on the "
-#~ "%(push_notification_sent_date)s."
+#~ "This push notification has already been sent on the %"
+#~ "(push_notification_sent_date)s."
 #~ msgstr ""
-#~ "Diese Push-Benachrichtigung wurde bereits am "
-#~ "%(push_notification_sent_date)s gesendet."
+#~ "Diese Push-Benachrichtigung wurde bereits am %"
+#~ "(push_notification_sent_date)s gesendet."
 
 #~ msgid "Insert channel name here"
 #~ msgstr "Kanal-Name hier eingeben"
