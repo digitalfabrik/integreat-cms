@@ -55,7 +55,6 @@ const toggleBulkActionButton = (root: HTMLElement) => {
 const bulkActionExecute = (event: SubmitEvent, root: HTMLElement) => {
     const submitter = event.submitter as HTMLElement | null;
     if (submitter?.classList.contains("row-action-button")) {
-        // Row-level single-item actions submit natively via their own formaction/name/value
         return;
     }
     event.preventDefault();
