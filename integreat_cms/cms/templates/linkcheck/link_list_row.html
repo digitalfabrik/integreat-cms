@@ -90,6 +90,19 @@
                 {% translate "Change links on all pages" %}
                 <i icon-name="pen-square" class="shrink-0"></i>
             </a>
+            {% if view.kwargs.url_filter != 'ignored' %}
+                <button type="submit"
+                        form="bulk-action-form"
+                        formmethod="post"
+                        formaction="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
+                        formnovalidate
+                        name="url_id"
+                        value="{{ url.id }}"
+                        class="row-action-button flex items-center justify-end gap-1 text-blue-500 hover:underline whitespace-nowrap mt-1 w-full">
+                    {% translate "Mark link as valid" %}
+                    <i icon-name="circle-check" class="shrink-0"></i>
+                </button>
+            {% endif %}
         </td>
     </tr>
     {% if url.id == view.kwargs.url_id %}
