@@ -125,6 +125,88 @@
                 </div>
             </div>
         </div>
+        <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+            <div class="w-full p-4 rounded bg-water-500">
+                <h3 class="heading font-bold text-black">
+                    <i icon-name="key-round" class="mr-2"></i> {% translate "My API tokens" %}
+                </h3>
+            </div>
+            <div class="p-4">
+                {% translate "API tokens allow external systems to access the API on your behalf." %}
+                {% translate "A token has exactly the same permissions as your own account." %}
+                <br />
+                {% translate "The token is only displayed once directly after its creation and cannot be recovered afterwards." %}
+                {% translate "Treat it like a password and delete tokens you no longer need." %}
+            </div>
+            {% if new_api_token %}
+                <div class="mx-4 mb-4 p-4 rounded border border-solid border-blue-500 bg-blue-100">
+                    <p class="font-bold">
+                        <i icon-name="alert-triangle" class="mr-2"></i> {% translate "Copy your new API token now — it will not be shown again." %}
+                    </p>
+                    <code class="block mt-2 p-2 rounded bg-white break-all">{{ new_api_token }}</code>
+                </div>
+            {% endif %}
+            <div class="w-full p-4 table-listing">
+                <table class="w-full rounded border border-solid border-gray-200 shadow bg-white mb-4">
+                    <thead>
+                        <tr class="border-b border-solid border-gray-200">
+                            <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">
+                                {% translate "Token name" %}
+                            </th>
+                            <th class="text-sm text-left uppercase py-3 px-2 min">
+                                {% translate "Last usage" %}
+                            </th>
+                            <th class="text-sm text-left uppercase py-3 px-2 min">
+                                {% translate "Date added" %}
+                            </th>
+                            <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">
+                                {% translate "Actions" %}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for token in api_tokens %}
+                            <tr>
+                                <td class="pl-4">
+                                    {{ token.name }}
+                                </td>
+                                <td class="pl-2 whitespace-nowrap">
+                                    {{ token.last_usage|default_if_none:"-" }}
+                                </td>
+                                <td class="pl-2 whitespace-nowrap">
+                                    {{ token.created_at|date:"SHORT_DATE_FORMAT" }}
+                                </td>
+                                <td class="p-2 text-right">
+                                    <form method="post"
+                                          action="{% spaceless %} {% if request.region %} {% url 'delete_api_token' region_slug=request.region.slug token_id=token.id %} {% else %} {% url 'delete_api_token' token_id=token.id %} {% endif %} {% endspaceless %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-red">
+                                            <i icon-name="trash-2" class="text-white"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="px-4 py-3">
+                                    {% translate "No API tokens have been created yet." %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="{{ user_api_token_form.name.id_for_label }}">
+                        {{ user_api_token_form.name.label }}
+                    </label>
+                    {% render_field user_api_token_form.name|add_error_class:"border-red-500" %}
+                    <button name="submit_form" value="api_token_form" class="btn mt-4">
+                        {% translate "Create a new API token" %}
+                    </button>
+                </form>
+            </div>
+        </div>
         <div class="mb-4 rounded border border-solid border-blue-500 shadow-xl bg-white flex flex-wrap">
             <div class="w-full p-4 rounded bg-water-500">
                 <h3 class="heading font-bold text-black">

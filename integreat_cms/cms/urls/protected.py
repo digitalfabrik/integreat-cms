@@ -164,6 +164,11 @@ user_settings_urlpatterns: list[URLPattern] = [
             [
                 path("", settings.UserSettingsView.as_view(), name="user_settings"),
                 path(
+                    "api-tokens/<int:token_id>/delete/",
+                    settings.ApiTokenDeleteView.as_view(),
+                    name="delete_api_token",
+                ),
+                path(
                     "totp/",
                     include(
                         [
