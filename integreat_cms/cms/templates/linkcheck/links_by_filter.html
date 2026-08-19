@@ -3,23 +3,9 @@
 {% load static %}
 {% load url_tags %}
 {% block content %}
-    <div class="flex flex-wrap justify-between gap-4">
+    <div class="flex flex-wrap justify-between gap-4 my-2">
         <h1 class="heading">
-            {% if view.kwargs.url_filter == 'valid' %}
-                {% translate "Valid links" %}
-            {% elif view.kwargs.url_filter == 'invalid' %}
-                {% translate "Broken links" %}
-            {% elif view.kwargs.url_filter == 'unchecked' %}
-                {% translate "Unchecked links" %}
-            {% elif view.kwargs.url_filter == 'ignored' %}
-                {% translate "Link verified" %}
-            {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
-                {% translate "Email links" %}
-            {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
-                {% translate "Phone links" %}
-            {% else %}
-                {% translate "All links" %}
-            {% endif %}
+            {% translate "Links" %}
         </h1>
         {% if request.user.expert_mode %}
             <a href="{% url_for_current_region 'search_and_replace_link' request %}"
@@ -75,6 +61,15 @@
                 </span>
             </a>
         {% endif %}
+    {% endif %}
+    {% if view.kwargs.url_filter == 'invalid' %}
+        <div class="flex flex-wrap items-center justify-between gap-4 mt-4">
+            <p>
+                {% translate "The following links are reported by the system as potentially faulty." %}
+                <br />
+                {% translate "Click the links to check them and adjust them if necessary." %}
+            </p>
+        </div>
     {% endif %}
     {% if view.kwargs.url_id %}
         <form action="{{ request.path }}{{ pagination_params }}"
