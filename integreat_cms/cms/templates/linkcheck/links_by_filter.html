@@ -62,15 +62,21 @@
             </a>
         {% endif %}
     {% endif %}
-    {% if view.kwargs.url_filter == 'invalid' %}
-        <div class="flex flex-wrap items-center justify-between gap-4 mt-4">
-            <p>
+    <div class="flex flex-wrap items-center justify-between gap-4 mt-4">
+        <p>
+            {% if view.kwargs.url_filter == 'invalid' %}
                 {% translate "The following links are reported by the system as potentially faulty." %}
                 <br />
                 {% translate "Click the links to check them and adjust them if necessary." %}
-            </p>
-        </div>
-    {% endif %}
+            {% endif %}
+        </p>
+        <a href="{{ wiki_url }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="shrink-0 bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold rounded-lg px-4 py-2 whitespace-nowrap">
+            {% translate "Link-Check Help" %}
+        </a>
+    </div>
     {% if view.kwargs.url_id %}
         <form action="{{ request.path }}{{ pagination_params }}"
               method="post"

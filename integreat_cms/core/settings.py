@@ -126,6 +126,12 @@ STATISTICS_WIKI_URL: Final[str] = os.environ.get(
     WIKI_URL + "/statistics",
 )
 
+#: The URL to the linkcheck wiki page
+LINKCHECK_WIKI_URL: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_LINKCHECK_WIKI_URL",
+    WIKI_URL + "/linkchecker",
+)
+
 #: RSS feed URLs to the Integreat blog
 RSS_FEED_URLS: Final[dict[str, str]] = {
     "en": f"{WEBSITE_URL}/en/feed/",
