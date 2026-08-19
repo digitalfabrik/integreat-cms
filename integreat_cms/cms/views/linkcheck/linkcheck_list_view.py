@@ -45,6 +45,7 @@ class LinkcheckListView(ListView):
         "current_menu_item": "linkcheck",
         "LINKCHECK_EMAIL_ENABLED": settings.LINKCHECK_EMAIL_ENABLED,
         "LINKCHECK_PHONE_ENABLED": settings.LINKCHECK_PHONE_ENABLED,
+        "wiki_url": settings.LINKCHECK_WIKI_URL,
     }
     #: The currently edited instance
     instance: Url | None = None
