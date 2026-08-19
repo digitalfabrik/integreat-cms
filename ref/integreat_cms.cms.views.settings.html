@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-07-27T14:14:03+00:00" />
+    <meta property="article:modified_time" content="2026-08-19T10:55:22+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Settings &mdash; integreat-cms 2026.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -456,6 +456,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-raw-content">Test API Raw Content</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-result">Test API Result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-social">Test API Social</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-token-auth">Test API Token Auth</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-news-endpoint">Test News Endpoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-pushnotification-api">Test Pushnotification API</a></li>
 </ul>
@@ -731,6 +732,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.api_token_required"><code class="docutils literal notranslate"><span class="pre">api_token_required()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.feedback_handler"><code class="docutils literal notranslate"><span class="pre">feedback_handler()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.get_client_ip"><code class="docutils literal notranslate"><span class="pre">get_client_ip()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.json_response"><code class="docutils literal notranslate"><span class="pre">json_response()</span></code></a></li>
@@ -1525,6 +1527,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_social.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_token_auth">Test API Token Auth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_accepts_valid_token"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_accepts_valid_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_enforces_permission"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_enforces_permission()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_inactive_user"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_rejects_inactive_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_invalid_tokens"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_rejects_invalid_tokens()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_news_endpoint">Test News Endpoint</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_news_endpoint.test_news_endpoint"><code class="docutils literal notranslate"><span class="pre">test_news_endpoint()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_news_endpoint.test_news_endpoint_pagination"><code class="docutils literal notranslate"><span class="pre">test_news_endpoint_pagination()</span></code></a></li>
@@ -2253,6 +2262,39 @@
 </li>
 </ul>
 </div>
+<section id="api-token-delete-view">
+<h2>API Token Delete View<a class="headerlink" href="#api-token-delete-view" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.settings.api_token_delete_view.</span></span><span class="sig-name descname"><span class="pre">ApiTokenDeleteView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/api_token_delete_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a></p>
+<p>View to delete a personal API token</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/api_token_delete_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Delete the given API token of the current user</p>
+<p>The queryset is restricted to the tokens of the requesting user, so a user can never
+delete a token of somebody else.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirection to the user settings</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponseRedirect</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="dismiss-tutorial-view">
 <h2>Dismiss Tutorial View<a class="headerlink" href="#dismiss-tutorial-view" title="Link to this heading"></a></h2>
 <dl class="py class">
@@ -2406,12 +2448,12 @@ Since this changes the database, we want to have the csrf protection of post vie
 <h2>User Settings View<a class="headerlink" href="#user-settings-view" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.settings.user_settings_view.</span></span><span class="sig-name descname"><span class="pre">UserSettingsView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/user_settings_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.settings.user_settings_view.</span></span><span class="sig-name descname"><span class="pre">UserSettingsView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/user_settings_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a></p>
 <p>View for the individual account settings</p>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/user_settings_view.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/user_settings_view.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns a dictionary representing the template context
 (see <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin.get_context_data" title="(in Django v5.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_context_data()</span></code></a>).</p>
 <dl class="field-list simple">
@@ -2429,10 +2471,12 @@ Since this changes the database, we want to have the csrf protection of post vie
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/user_settings_view.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Submit <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.user_email_form.UserEmailForm" title="integreat_cms.cms.forms.users.user_email_form.UserEmailForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserEmailForm</span></code></a> and
-<a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.user_password_form.UserPasswordForm" title="integreat_cms.cms.forms.users.user_password_form.UserPasswordForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserPasswordForm</span></code></a> and save <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>
-object</p>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/user_settings_view.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Submit one of the account settings forms, depending on the <code class="docutils literal notranslate"><span class="pre">submit_form</span></code> parameter:
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.user_email_form.UserEmailForm" title="integreat_cms.cms.forms.users.user_email_form.UserEmailForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserEmailForm</span></code></a>,
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.user_password_form.UserPasswordForm" title="integreat_cms.cms.forms.users.user_password_form.UserPasswordForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserPasswordForm</span></code></a>,
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.user_name_form.UserNameForm" title="integreat_cms.cms.forms.users.user_name_form.UserNameForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserNameForm</span></code></a> or
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm" title="integreat_cms.cms.forms.users.api_token_form.ApiTokenForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApiTokenForm</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2442,7 +2486,7 @@ object</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The rendered template response</p>
+<dd class="field-even"><p>A redirection to the account settings, or the re-rendered form on validation errors</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>HttpResponseRedirect</p>
@@ -2452,7 +2496,7 @@ object</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template_name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'settings/user_settings.html'</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/user_settings_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'settings/user_settings.html'</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/user_settings_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -2476,7 +2520,7 @@ object</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 27, 2026.
+      <span class="lastupdated">Last updated on Aug 19, 2026.
       </span></p>
   </div>
 

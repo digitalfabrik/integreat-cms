@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-08-11T15:11:56+00:00" />
+    <meta property="article:modified_time" content="2026-08-19T10:55:22+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Urls &mdash; integreat-cms 2026.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -456,6 +456,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-raw-content">Test API Raw Content</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-result">Test API Result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-social">Test API Social</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-token-auth">Test API Token Auth</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-news-endpoint">Test News Endpoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-pushnotification-api">Test Pushnotification API</a></li>
 </ul>
@@ -731,6 +732,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.api_token_required"><code class="docutils literal notranslate"><span class="pre">api_token_required()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.feedback_handler"><code class="docutils literal notranslate"><span class="pre">feedback_handler()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.get_client_ip"><code class="docutils literal notranslate"><span class="pre">get_client_ip()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.json_response"><code class="docutils literal notranslate"><span class="pre">json_response()</span></code></a></li>
@@ -1523,6 +1525,13 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_social">Test API Social</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_social.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_token_auth">Test API Token Auth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_accepts_valid_token"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_accepts_valid_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_enforces_permission"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_enforces_permission()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_inactive_user"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_rejects_inactive_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_invalid_tokens"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_rejects_invalid_tokens()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_news_endpoint">Test News Endpoint</a><ul>
@@ -2386,7 +2395,7 @@ views, e.g.:</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 11, 2026.
+      <span class="lastupdated">Last updated on Aug 19, 2026.
       </span></p>
   </div>
 

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-08-18T09:56:25+00:00" />
+    <meta property="article:modified_time" content="2026-08-19T10:55:22+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API &mdash; integreat-cms 2026.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -456,6 +456,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-raw-content">Test API Raw Content</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-result">Test API Result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-social">Test API Social</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-token-auth">Test API Token Auth</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-news-endpoint">Test News Endpoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-pushnotification-api">Test Pushnotification API</a></li>
 </ul>
@@ -731,6 +732,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.api.decorators">Decorators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#integreat_cms.api.decorators.api_token_required"><code class="docutils literal notranslate"><span class="pre">api_token_required()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.api.decorators.feedback_handler"><code class="docutils literal notranslate"><span class="pre">feedback_handler()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.api.decorators.get_client_ip"><code class="docutils literal notranslate"><span class="pre">get_client_ip()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.api.decorators.json_response"><code class="docutils literal notranslate"><span class="pre">json_response()</span></code></a></li>
@@ -1523,6 +1525,13 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_social">Test API Social</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_social.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_token_auth">Test API Token Auth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_token_auth.test_api_token_required_accepts_valid_token"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_accepts_valid_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_token_auth.test_api_token_required_enforces_permission"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_enforces_permission()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_inactive_user"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_rejects_inactive_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_invalid_tokens"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_rejects_invalid_tokens()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_news_endpoint">Test News Endpoint</a><ul>
@@ -2486,8 +2495,32 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 <span id="decorators"></span><h2>Decorators<a class="headerlink" href="#module-integreat_cms.api.decorators" title="Link to this heading"></a></h2>
 <p>This module includes functions that are used as decorators in the API endpoints.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.api.decorators.api_token_required">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">api_token_required</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">permission</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.api_token_required" title="Link to this definition"></a></dt>
+<dd><p>This decorator can be used to restrict an API endpoint to requests which carry a valid personal
+API token of a CMS user (<code class="docutils literal notranslate"><span class="pre">Authorization:</span> <span class="pre">Bearer</span> <span class="pre">&lt;token&gt;</span></code>).</p>
+<p>The request is executed on behalf of the token’s user, so the endpoint inherits exactly the
+permissions of that user instead of bypassing the RBAC structure.</p>
+<p>Note that this only checks the global permission — it does <strong>not</strong> verify that the user is a
+member of the region in the URL. Region-scoped endpoints have to check <code class="docutils literal notranslate"><span class="pre">request.region</span></code>
+against the user’s regions themselves, analogous to
+<a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.decorators.region_permission_required" title="integreat_cms.cms.decorators.region_permission_required"><code class="xref py py-func docutils literal notranslate"><span class="pre">region_permission_required()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>permission</strong> (<a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>None</em>) – The permission the token’s user must hold, e.g. <code class="docutils literal notranslate"><span class="pre">cms.change_region</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The decorator for the API view function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.api.decorators.feedback_handler">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">feedback_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.feedback_handler" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">feedback_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.feedback_handler" title="Link to this definition"></a></dt>
 <dd><p>Decorator definition for feedback API functions and methods</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2504,7 +2537,7 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.api.decorators.get_client_ip">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">get_client_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.get_client_ip" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">get_client_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L264"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.get_client_ip" title="Link to this definition"></a></dt>
 <dd><p>Get remote IP address. If a trusted IP header is configured
 but not set, return None.</p>
 <dl class="field-list simple">
@@ -2522,7 +2555,7 @@ but not set, return None.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.api.decorators.json_response">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">json_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.json_response" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">json_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.json_response" title="Link to this definition"></a></dt>
 <dd><p>This decorator can be used to catch <a class="reference external" href="https://docs.djangoproject.com/en/5.2/topics/http/views/#django.http.Http404" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Http404</span></code></a> exceptions and convert them to a <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/request-response/#django.http.JsonResponse" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">JsonResponse</span></code></a>.
 Without this decorator, the exceptions would be converted to <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/request-response/#django.http.HttpResponse" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HttpResponse</span></code></a>.</p>
 <dl class="field-list simple">
@@ -2540,7 +2573,7 @@ Without this decorator, the exceptions would be converted to <a class="reference
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.api.decorators.matomo_tracking">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">matomo_tracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.matomo_tracking" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">matomo_tracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L194"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.matomo_tracking" title="Link to this definition"></a></dt>
 <dd><p>This decorator is supposed to be applied to API content endpoints. It will track
 the request in Matomo. The request to the Matomo API is executed asynchronously in its
 own thread to not block the Integreat CMS API request.</p>
@@ -2560,7 +2593,7 @@ own thread to not block the Integreat CMS API request.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.api.decorators.rate_limit">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">rate_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L243"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.rate_limit" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">rate_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L305"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.rate_limit" title="Link to this definition"></a></dt>
 <dd><p>Decorator to apply rate limiting on views.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2574,7 +2607,7 @@ own thread to not block the Integreat CMS API request.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.api.decorators.rate_limited">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">rate_limited</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.rate_limited" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.decorators.</span></span><span class="sig-name descname"><span class="pre">rate_limited</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/decorators.py#L283"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.decorators.rate_limited" title="Link to this definition"></a></dt>
 <dd><p>Check if IP is rate limited and record hit. If a trusted IP header
 is configured, deny access if the header is not set in the request.</p>
 <dl class="field-list simple">
@@ -2635,7 +2668,7 @@ is configured, deny access if the header is not set in the request.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 18, 2026.
+      <span class="lastupdated">Last updated on Aug 19, 2026.
       </span></p>
   </div>
 

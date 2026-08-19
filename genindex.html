@@ -452,6 +452,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-raw-content">Test API Raw Content</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-result">Test API Result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-social">Test API Social</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-token-auth">Test API Token Auth</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-news-endpoint">Test News Endpoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-pushnotification-api">Test Pushnotification API</a></li>
 </ul>
@@ -727,6 +728,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.api_token_required"><code class="docutils literal notranslate"><span class="pre">api_token_required()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.feedback_handler"><code class="docutils literal notranslate"><span class="pre">feedback_handler()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.get_client_ip"><code class="docutils literal notranslate"><span class="pre">get_client_ip()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.json_response"><code class="docutils literal notranslate"><span class="pre">json_response()</span></code></a></li>
@@ -1519,6 +1521,13 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_api_social">Test API Social</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_social.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_api_token_auth">Test API Token Auth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_accepts_valid_token"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_accepts_valid_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_enforces_permission"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_enforces_permission()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_inactive_user"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_rejects_inactive_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_invalid_tokens"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_rejects_invalid_tokens()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_news_endpoint">Test News Endpoint</a><ul>
@@ -2369,6 +2378,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.__init__">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.__init__">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.__init__">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.organization_field.OrganizationField.__init__">(integreat_cms.cms.forms.users.organization_field.OrganizationField method)</a>
@@ -2659,6 +2670,12 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.MultipleObjectsReturned.__init__">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses.MultipleObjectsReturned method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.__init__">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist.__init__">(integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.MultipleObjectsReturned.__init__">(integreat_cms.cms.models.users.api_token.ApiToken.MultipleObjectsReturned method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.__init__">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.DoesNotExist.__init__">(integreat_cms.cms.models.users.organization.Organization.DoesNotExist method)</a>
@@ -2946,6 +2963,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.release_notes.html#integreat_cms.cms.views.release_notes.release_notes_view.ReleaseNotesView.__init__">(integreat_cms.cms.views.release_notes.release_notes_view.ReleaseNotesView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.roles.html#integreat_cms.cms.views.roles.role_form_view.RoleFormView.__init__">(integreat_cms.cms.views.roles.role_form_view.RoleFormView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView.__init__">(integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.__init__">(integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial method)</a>
 </li>
@@ -3655,6 +3674,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.add_error">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.add_error">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.add_error">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.add_error">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm method)</a>
@@ -3738,6 +3759,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.roles.html#integreat_cms.cms.forms.roles.role_form.RoleForm.add_error_messages">(integreat_cms.cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.add_error_messages">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.add_error_messages">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.add_error_messages">(integreat_cms.cms.forms.users.region_user_form.RegionUserForm method)</a>
 </li>
@@ -3844,6 +3867,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.add_initial_prefix">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.add_initial_prefix">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.add_initial_prefix">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.add_initial_prefix">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -4013,6 +4038,10 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses.MultipleObjectsReturned method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist.add_note">(integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.users.api_token.ApiToken.MultipleObjectsReturned method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.DoesNotExist.add_note">(integreat_cms.cms.models.users.organization.Organization.DoesNotExist method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.users.organization.Organization.MultipleObjectsReturned method)</a>
@@ -4116,6 +4145,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.add_prefix">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.add_prefix">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.add_prefix">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.add_prefix">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -4268,6 +4299,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.adelete">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.adelete">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.adelete">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.adelete">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -4798,8 +4831,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.all_versions">(integreat_cms.cms.models.pois.poi_translation.POITranslation attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.allow_empty">allow_empty (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
@@ -4870,6 +4901,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_bulk_actions.RestorePushNotificationsBulkAction.allow_empty">(integreat_cms.cms.views.push_notifications.push_notification_bulk_actions.RestorePushNotificationsBulkAction attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.mirrored_page_field_widget.MirroredPageFieldWidget.allow_multiple_selected">allow_multiple_selected (integreat_cms.cms.forms.pages.mirrored_page_field_widget.MirroredPageFieldWidget attribute)</a>
 
       <ul>
@@ -4958,9 +4991,23 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.api_token">api_token (integreat_cms.cms.models.pages.page.Page attribute)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.api.html#integreat_cms.api.decorators.api_token_required">api_token_required() (in module integreat_cms.api.decorators)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.api_tokens">api_tokens (integreat_cms.cms.models.users.user.User attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzApiWrapper.api_url">api_url (integreat_cms.gvz_api.utils.GvzApiWrapper attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.api.html#integreat_cms.api.apps.ApiConfig">ApiConfig (class in integreat_cms.api.apps)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken">ApiToken (class in integreat_cms.cms.models.users.api_token)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist">ApiToken.DoesNotExist</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.MultipleObjectsReturned">ApiToken.MultipleObjectsReturned</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView">ApiTokenDeleteView (class in integreat_cms.cms.views.settings.api_token_delete_view)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm">ApiTokenForm (class in integreat_cms.cms.forms.users.api_token_form)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.api.html#integreat_cms.api.urls.app_name">app_name (in module integreat_cms.api.urls)</a>
 
@@ -5171,6 +5218,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.arefresh_from_db">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.arefresh_from_db">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.arefresh_from_db">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.arefresh_from_db">(integreat_cms.cms.models.users.role.Role method)</a>
@@ -5329,6 +5378,10 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.MultipleObjectsReturned.args">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses.MultipleObjectsReturned attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist.args">(integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.MultipleObjectsReturned.args">(integreat_cms.cms.models.users.api_token.ApiToken.MultipleObjectsReturned attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.DoesNotExist.args">(integreat_cms.cms.models.users.organization.Organization.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.MultipleObjectsReturned.args">(integreat_cms.cms.models.users.organization.Organization.MultipleObjectsReturned attribute)</a>
@@ -5438,6 +5491,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.as_div">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.as_div">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.as_div">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.as_div">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -5553,6 +5608,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.as_p">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.as_p">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.as_p">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.as_p">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm method)</a>
@@ -5655,6 +5712,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.as_table">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.as_table">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.as_table">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.as_table">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm method)</a>
@@ -5756,6 +5815,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.as_ul">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.as_ul">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.as_ul">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.as_ul">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -5969,6 +6030,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.roles.html#integreat_cms.cms.views.roles.role_form_view.RoleFormView.as_view">(integreat_cms.cms.views.roles.role_form_view.RoleFormView class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView.as_view">(integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.as_view">(integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView.as_view">(integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView class method)</a>
@@ -6088,6 +6151,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.asave">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.asave">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.asave">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.asave">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -6591,6 +6656,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.bound_field_class">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.bound_field_class">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.bound_field_class">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.organization_field.OrganizationField.bound_field_class">(integreat_cms.cms.forms.users.organization_field.OrganizationField attribute)</a>
@@ -6973,6 +7040,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.changed_data">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.changed_data">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.changed_data">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.changed_data">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm attribute)</a>
@@ -7134,6 +7203,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.RegionManager.check">(integreat_cms.cms.models.regions.region.RegionManager method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.check">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses class method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.check">(integreat_cms.cms.models.users.api_token.ApiToken class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.check">(integreat_cms.cms.models.users.organization.Organization class method)</a>
 </li>
@@ -7447,6 +7518,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.clean">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.clean">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.clean">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.organization_field.OrganizationField.clean">(integreat_cms.cms.forms.users.organization_field.OrganizationField method)</a>
@@ -7550,6 +7623,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.clean">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.clean">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.clean">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.clean">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -7677,6 +7752,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.clean_fields">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.clean_fields">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.clean_fields">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.clean_fields">(integreat_cms.cms.models.users.role.Role method)</a>
@@ -7703,7 +7780,11 @@
       <li><a href="ref-ext/integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_mt_budget">clean_mt_budget() (integreat_cms.cms.forms.regions.region_form.RegionForm method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.organizations.html#integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.clean_name">clean_name() (integreat_cms.cms.forms.organizations.organization_form.OrganizationForm method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.clean_name">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/tests.html#tests.conftest.clean_news_cache">clean_news_cache() (in module tests.conftest)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.pois.html#integreat_cms.cms.forms.pois.poi_form.POIForm.clean_opening_hours">clean_opening_hours() (integreat_cms.cms.forms.pois.poi_form.POIForm method)</a>
@@ -8529,14 +8610,20 @@
         <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.zammad.ZammadAPI.create_ticket">(integreat_cms.cms.utils.zammad.ZammadAPI method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.create_token">create_token() (integreat_cms.cms.models.users.api_token.ApiToken class method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.imprint.html#integreat_cms.cms.views.imprint.open_source_licenses_view.OpenSourceLicensesView.create_url_from_reference_locator">create_url_from_reference_locator() (integreat_cms.cms.views.imprint.open_source_licenses_view.OpenSourceLicensesView method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.create_user">create_user() (integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.file_utils.create_zip_archive">create_zip_archive() (in module integreat_cms.cms.utils.file_utils)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.created_at">created_at (integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.created_at">created_at (integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.created_at">(integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.created_by">created_by (integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.created_by_id">created_by_id (integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar attribute)</a>
@@ -8807,6 +8894,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.date_error_message">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.date_error_message">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.date_error_message">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.date_error_message">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -9166,6 +9255,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.default_renderer">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.default_renderer">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.default_renderer">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.default_renderer">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm attribute)</a>
@@ -9359,6 +9450,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.delete">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.delete">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.delete">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.delete">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -9772,6 +9865,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.roles.html#integreat_cms.cms.views.roles.role_form_view.RoleFormView.dispatch">(integreat_cms.cms.views.roles.role_form_view.RoleFormView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView.dispatch">(integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.dispatch">(integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView.dispatch">(integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView method)</a>
@@ -10165,6 +10260,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.errors">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.errors">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm property)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.errors">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.errors">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm property)</a>
 </li>
@@ -11148,6 +11245,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.field_order">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.field_order">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.field_order">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.field_order">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm attribute)</a>
@@ -11808,6 +11907,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.from_db">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.from_db">(integreat_cms.cms.models.users.api_token.ApiToken class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.from_db">(integreat_cms.cms.models.users.organization.Organization class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.from_db">(integreat_cms.cms.models.users.role.Role class method)</a>
@@ -11932,6 +12033,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.full_clean">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.full_clean">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.full_clean">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.full_clean">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm method)</a>
@@ -12033,6 +12136,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.full_clean">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.full_clean">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.full_clean">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.full_clean">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -12503,6 +12608,8 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.get_by_natural_key">get_by_natural_key() (integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_by_token">get_by_token() (integreat_cms.cms.models.users.api_token.ApiToken class method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.content_edit_lock.get_cache_key">get_cache_key() (in module integreat_cms.cms.utils.content_edit_lock)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_cached_ancestors">get_cached_ancestors() (integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
@@ -12710,6 +12817,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.get_constraints">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_constraints">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.get_constraints">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.get_constraints">(integreat_cms.cms.models.users.role.Role method)</a>
@@ -12819,6 +12928,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.CustomCheckboxSelectMultiple.get_context">(integreat_cms.cms.forms.translations.translations_management_form.CustomCheckboxSelectMultiple method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.get_context">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.get_context">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.get_context">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -13302,6 +13413,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.get_deferred_fields">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_deferred_fields">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.get_deferred_fields">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.get_deferred_fields">(integreat_cms.cms.models.users.role.Role method)</a>
@@ -13469,6 +13582,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.roles.html#integreat_cms.cms.forms.roles.role_form.RoleForm.get_error_messages">(integreat_cms.cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.get_error_messages">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.get_error_messages">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.get_error_messages">(integreat_cms.cms.forms.users.region_user_form.RegionUserForm method)</a>
 </li>
@@ -13958,6 +14073,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.get_initial_for_field">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.get_initial_for_field">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.get_initial_for_field">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.get_initial_for_field">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm method)</a>
@@ -14380,6 +14497,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.get_model_name_plural">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_model_name_plural">(integreat_cms.cms.models.users.api_token.ApiToken class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.get_model_name_plural">(integreat_cms.cms.models.users.organization.Organization class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.get_model_name_plural">(integreat_cms.cms.models.users.role.Role class method)</a>
@@ -14435,8 +14554,12 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_next_by_chat_last_visited">get_next_by_chat_last_visited() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.get_next_by_created_at">get_next_by_created_at() (integreat_cms.cms.models.users.user_fido_key.FidoKey method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_next_by_created_at">get_next_by_created_at() (integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.get_next_by_created_at">(integreat_cms.cms.models.users.user_fido_key.FidoKey method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_next_by_created_date">get_next_by_created_date() (integreat_cms.cms.models.abstract_content_model.AbstractContentModel method)</a>
 
       <ul>
@@ -15231,8 +15354,12 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_previous_by_chat_last_visited">get_previous_by_chat_last_visited() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.get_previous_by_created_at">get_previous_by_created_at() (integreat_cms.cms.models.users.user_fido_key.FidoKey method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_previous_by_created_at">get_previous_by_created_at() (integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.get_previous_by_created_at">(integreat_cms.cms.models.users.user_fido_key.FidoKey method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_previous_by_created_date">get_previous_by_created_date() (integreat_cms.cms.models.abstract_content_model.AbstractContentModel method)</a>
 
       <ul>
@@ -15927,6 +16054,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_repr">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.get_repr">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_repr">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.get_repr">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -16994,6 +17123,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.has_changed">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.has_changed">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.has_changed">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.organization_field.OrganizationField.has_changed">(integreat_cms.cms.forms.users.organization_field.OrganizationField method)</a>
@@ -17095,6 +17226,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.has_error">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.has_error">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.has_error">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.has_error">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -17452,6 +17585,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.hidden_fields">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.hidden_fields">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.hidden_fields">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.hidden_fields">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm method)</a>
@@ -17786,6 +17921,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.roles.html#integreat_cms.cms.views.roles.role_form_view.RoleFormView.http_method_names">(integreat_cms.cms.views.roles.role_form_view.RoleFormView attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView.http_method_names">(integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.http_method_names">(integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView.http_method_names">(integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView attribute)</a>
@@ -18012,6 +18149,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.roles.html#integreat_cms.cms.views.roles.role_form_view.RoleFormView.http_method_not_allowed">(integreat_cms.cms.views.roles.role_form_view.RoleFormView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView.http_method_not_allowed">(integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.http_method_not_allowed">(integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView.http_method_not_allowed">(integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView method)</a>
@@ -18171,6 +18310,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.id">(integreat_cms.cms.models.regions.region.Region attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.id">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.id">(integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.id">(integreat_cms.cms.models.users.organization.Organization attribute)</a>
 </li>
@@ -19538,6 +19679,13 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.cms.forms.users.api_token_form
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.api_token_form">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.cms.forms.users.authentication_form
 
       <ul>
@@ -20018,6 +20166,13 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#module-integreat_cms.cms.models.users">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.models.users.api_token
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#module-integreat_cms.cms.models.users.api_token">module</a>
 </li>
       </ul></li>
       <li>
@@ -21353,6 +21508,13 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.cms.views.settings.api_token_delete_view
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.api_token_delete_view">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.cms.views.settings.dismiss_tutorial_view
 
       <ul>
@@ -22638,6 +22800,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.is_multipart">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.is_multipart">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.is_multipart">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.is_multipart">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm method)</a>
@@ -22873,6 +23037,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.is_valid">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.is_valid">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.is_valid">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.is_valid">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -23295,8 +23461,12 @@
         <li><a href="ref-ext/integreat_cms.news_managers.html#integreat_cms.news_managers.abstract_news_manager.NewsItem.last_updated">(integreat_cms.news_managers.abstract_news_manager.NewsItem attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.last_usage">last_usage (integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.last_usage">last_usage (integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.last_usage">(integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.EventSitemap.lastmod">lastmod() (integreat_cms.sitemap.sitemaps.EventSitemap static method)</a>
 
       <ul>
@@ -24036,6 +24206,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.media">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm property)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.media">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm property)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.media">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.organization_field.OrganizationFieldWidget.media">(integreat_cms.cms.forms.users.organization_field.OrganizationFieldWidget property)</a>
@@ -24603,6 +24775,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users">integreat_cms.cms.forms.users</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.api_token_form">integreat_cms.cms.forms.users.api_token_form</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.authentication_form">integreat_cms.cms.forms.users.authentication_form</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.organization_field">integreat_cms.cms.forms.users.organization_field</a>
@@ -24740,6 +24914,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#module-integreat_cms.cms.models.statistics.page_accesses">integreat_cms.cms.models.statistics.page_accesses</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#module-integreat_cms.cms.models.users">integreat_cms.cms.models.users</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#module-integreat_cms.cms.models.users.api_token">integreat_cms.cms.models.users.api_token</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#module-integreat_cms.cms.models.users.organization">integreat_cms.cms.models.users.organization</a>
 </li>
@@ -25121,6 +25297,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings">integreat_cms.cms.views.settings</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.api_token_delete_view">integreat_cms.cms.views.settings.api_token_delete_view</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.dismiss_tutorial_view">integreat_cms.cms.views.settings.dismiss_tutorial_view</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.totp_delete_view">integreat_cms.cms.views.settings.totp_delete_view</a>
@@ -25429,6 +25607,8 @@
 </li>
         <li><a href="ref-ext/tests.api.html#module-tests.api.test_api_social">tests.api.test_api_social</a>
 </li>
+        <li><a href="ref-ext/tests.api.html#module-tests.api.test_api_token_auth">tests.api.test_api_token_auth</a>
+</li>
         <li><a href="ref-ext/tests.api.html#module-tests.api.test_news_endpoint">tests.api.test_news_endpoint</a>
 </li>
         <li><a href="ref-ext/tests.api.html#module-tests.api.test_pushnotification_api">tests.api.test_pushnotification_api</a>
@@ -25703,6 +25883,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.name">(integreat_cms.cms.models.regions.region.Region attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.name">(integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.name">(integreat_cms.cms.models.users.organization.Organization attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.name">(integreat_cms.cms.models.users.role.Role attribute)</a>
@@ -25906,6 +26088,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.non_field_errors">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.non_field_errors">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.non_field_errors">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.non_field_errors">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -26176,6 +26360,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.objects">(integreat_cms.cms.models.regions.region.Region attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.objects">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.objects">(integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.objects">(integreat_cms.cms.models.users.organization.Organization attribute)</a>
 </li>
@@ -26587,6 +26773,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.roles.html#integreat_cms.cms.views.roles.role_form_view.RoleFormView.options">(integreat_cms.cms.views.roles.role_form_view.RoleFormView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView.options">(integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.options">(integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView.options">(integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView method)</a>
@@ -26728,6 +26916,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.order_fields">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.order_fields">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.order_fields">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.order_fields">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -28041,6 +28231,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.pk">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses property)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.pk">(integreat_cms.cms.models.users.api_token.ApiToken property)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.pk">(integreat_cms.cms.models.users.organization.Organization property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.pk">(integreat_cms.cms.models.users.role.Role property)</a>
@@ -28497,6 +28689,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.roles.html#integreat_cms.cms.views.roles.role_form_view.RoleFormView.post">(integreat_cms.cms.views.roles.role_form_view.RoleFormView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView.post">(integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.post">(integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView.post">(integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView method)</a>
@@ -28915,6 +29109,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.prefix">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.prefix">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.prefix">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.prefix">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm attribute)</a>
@@ -28934,6 +29130,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.user_password_form.UserPasswordForm.prefix">(integreat_cms.cms.forms.users.user_password_form.UserPasswordForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.prefix">(integreat_cms.cms.models.regions.region.Region attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.prefix">(integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.prefix">(integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView attribute)</a>
 </li>
@@ -29068,6 +29266,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.prepare_database_save">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.prepare_database_save">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.prepare_database_save">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.prepare_database_save">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -30245,6 +30445,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.refresh_from_db">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.refresh_from_db">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.refresh_from_db">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.refresh_from_db">(integreat_cms.cms.models.users.role.Role method)</a>
@@ -30646,6 +30848,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.CustomCheckboxSelectMultiple.render">(integreat_cms.cms.forms.translations.translations_management_form.CustomCheckboxSelectMultiple method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.render">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.render">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.render">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -31593,6 +31797,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.save">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.save">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.save">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.save">(integreat_cms.cms.forms.users.region_user_form.RegionUserForm method)</a>
@@ -31688,6 +31894,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.save">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.save">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.save">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.save">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -31790,6 +31998,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.save_base">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.save_base">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.save_base">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.save_base">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -32179,6 +32389,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.serializable_value">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.serializable_value">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.serializable_value">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.serializable_value">(integreat_cms.cms.models.users.role.Role method)</a>
@@ -32483,6 +32695,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.roles.html#integreat_cms.cms.views.roles.role_form_view.RoleFormView.setup">(integreat_cms.cms.views.roles.role_form_view.RoleFormView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView.setup">(integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.setup">(integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView.setup">(integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView method)</a>
@@ -32656,6 +32870,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.regions.region.Region.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses.DoesNotExist attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.users.organization.Organization.DoesNotExist attribute)</a>
 </li>
@@ -33209,6 +33425,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.suggest">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.suggest">(integreat_cms.cms.models.users.api_token.ApiToken class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.suggest">(integreat_cms.cms.models.users.organization.Organization class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.suggest">(integreat_cms.cms.models.users.role.Role class method)</a>
@@ -33623,6 +33841,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.template_name">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm property)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm property)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.template_name">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.organization_field.OrganizationFieldWidget.template_name">(integreat_cms.cms.forms.users.organization_field.OrganizationFieldWidget attribute)</a>
@@ -33885,6 +34105,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.template_name_div">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name_div">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.template_name_div">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.template_name_div">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm attribute)</a>
@@ -33997,6 +34219,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.template_name_label">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name_label">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.template_name_label">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.template_name_label">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm attribute)</a>
@@ -34098,6 +34322,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.template_name_p">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.template_name_p">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name_p">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.template_name_p">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
@@ -34231,6 +34457,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.template_name_table">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name_table">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.template_name_table">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.template_name_table">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm attribute)</a>
@@ -34333,6 +34561,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.template_name_ul">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name_ul">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.template_name_ul">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.template_name_ul">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm attribute)</a>
@@ -34402,8 +34632,16 @@
         <li><a href="ref-ext/tests.api.html#tests.api.test_api_social.test_api_result">(in module tests.api.test_api_social)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_accepts_valid_token">test_api_token_required_accepts_valid_token() (in module tests.api.test_api_token_auth)</a>
+</li>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_enforces_permission">test_api_token_required_enforces_permission() (in module tests.api.test_api_token_auth)</a>
+</li>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_inactive_user">test_api_token_required_rejects_inactive_user() (in module tests.api.test_api_token_auth)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_invalid_tokens">test_api_token_required_rejects_invalid_tokens() (in module tests.api.test_api_token_auth)</a>
+</li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_automatic_translation">test_automatic_translation() (in module tests.mt_api.mt_api_test)</a>
 </li>
       <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient.test_avg_per_region">test_avg_per_region() (tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient method)</a>
@@ -34831,6 +35069,13 @@
 
       <ul>
         <li><a href="ref-ext/tests.api.html#module-tests.api.test_api_social">module</a>
+</li>
+      </ul></li>
+      <li>
+    tests.api.test_api_token_auth
+
+      <ul>
+        <li><a href="ref-ext/tests.api.html#module-tests.api.test_api_token_auth">module</a>
 </li>
       </ul></li>
       <li>
@@ -35571,6 +35816,16 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.token_generator">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.token_hash">token_hash (integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.TOKEN_HASH_BYTES">TOKEN_HASH_BYTES (in module integreat_cms.cms.models.users.api_token)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.TOKEN_PREFIX_BYTES">TOKEN_PREFIX_BYTES (in module integreat_cms.cms.models.users.api_token)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.TOKEN_SECRET_BYTES">TOKEN_SECRET_BYTES (in module integreat_cms.cms.models.users.api_token)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.TOKEN_SEPARATOR">TOKEN_SEPARATOR (in module integreat_cms.cms.models.users.api_token)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.forms.poi_categories.html#integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet.total_error_count">total_error_count() (integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.poi_categories.html#integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet.total_form_count">total_form_count() (integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet method)</a>
@@ -35919,6 +36174,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.unique_error_message">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.unique_error_message">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.unique_error_message">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.unique_error_message">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -36338,6 +36595,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.use_required_attribute">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.use_required_attribute">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.use_required_attribute">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm.use_required_attribute">(integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm attribute)</a>
@@ -36380,6 +36639,8 @@
       <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.passwordless_authentication_form.PasswordlessAuthenticationForm.user">user (integreat_cms.cms.forms.users.passwordless_authentication_form.PasswordlessAuthenticationForm attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.user">(integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.user">(integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView.user">(integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView attribute)</a>
@@ -36391,8 +36652,12 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm.user_has_publish_rights">user_has_publish_rights() (integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.user_id">user_id (integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.user_id">user_id (integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.user_id">(integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.core.signals.html#integreat_cms.core.signals.auth_signals.user_logged_in_callback">user_logged_in_callback() (in module integreat_cms.core.signals.auth_signals)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.signals.html#integreat_cms.core.signals.auth_signals.user_logged_out_callback">user_logged_out_callback() (in module integreat_cms.core.signals.auth_signals)</a>
@@ -36570,6 +36835,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.validate_constraints">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.validate_constraints">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.validate_constraints">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.validate_constraints">(integreat_cms.cms.models.users.role.Role method)</a>
@@ -36668,6 +36935,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.validate_unique">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.validate_unique">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.validate_unique">(integreat_cms.cms.forms.users.region_user_form.RegionUserForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.user_email_form.UserEmailForm.validate_unique">(integreat_cms.cms.forms.users.user_email_form.UserEmailForm method)</a>
@@ -36761,6 +37030,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.validate_unique">(integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.validate_unique">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.validate_unique">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.validate_unique">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
@@ -37124,6 +37395,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.roles.html#integreat_cms.cms.views.roles.role_form_view.RoleFormView.view_is_async">(integreat_cms.cms.views.roles.role_form_view.RoleFormView attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView.view_is_async">(integreat_cms.cms.views.settings.api_token_delete_view.ApiTokenDeleteView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.view_is_async">(integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView.view_is_async">(integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView attribute)</a>
@@ -37243,6 +37516,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.statistics.html#integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.visible_fields">(integreat_cms.cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm.visible_fields">(integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.visible_fields">(integreat_cms.cms.forms.users.api_token_form.ApiTokenForm method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.visible_fields">(integreat_cms.cms.forms.users.authentication_form.AuthenticationForm method)</a>
 </li>
@@ -37487,6 +37762,10 @@
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.DoesNotExist.with_traceback">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses.DoesNotExist method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.statistics.html#integreat_cms.cms.models.statistics.page_accesses.PageAccesses.MultipleObjectsReturned.with_traceback">(integreat_cms.cms.models.statistics.page_accesses.PageAccesses.MultipleObjectsReturned method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist.with_traceback">(integreat_cms.cms.models.users.api_token.ApiToken.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.MultipleObjectsReturned.with_traceback">(integreat_cms.cms.models.users.api_token.ApiToken.MultipleObjectsReturned method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.DoesNotExist.with_traceback">(integreat_cms.cms.models.users.organization.Organization.DoesNotExist method)</a>
 </li>

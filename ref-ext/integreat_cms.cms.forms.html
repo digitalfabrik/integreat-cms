@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-08-18T09:56:25+00:00" />
+    <meta property="article:modified_time" content="2026-08-19T10:55:22+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forms &mdash; integreat-cms 2026.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -456,6 +456,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-raw-content">Test API Raw Content</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-result">Test API Result</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-social">Test API Social</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-token-auth">Test API Token Auth</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-news-endpoint">Test News Endpoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-pushnotification-api">Test Pushnotification API</a></li>
 </ul>
@@ -731,6 +732,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.api_token_required"><code class="docutils literal notranslate"><span class="pre">api_token_required()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.feedback_handler"><code class="docutils literal notranslate"><span class="pre">feedback_handler()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.get_client_ip"><code class="docutils literal notranslate"><span class="pre">get_client_ip()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.html#integreat_cms.api.decorators.json_response"><code class="docutils literal notranslate"><span class="pre">json_response()</span></code></a></li>
@@ -1523,6 +1525,13 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_social">Test API Social</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_social.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_token_auth">Test API Token Auth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_token_auth.test_api_token_required_accepts_valid_token"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_accepts_valid_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_token_auth.test_api_token_required_enforces_permission"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_enforces_permission()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_inactive_user"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_rejects_inactive_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.api.html#tests.api.test_api_token_auth.test_api_token_required_rejects_invalid_tokens"><code class="docutils literal notranslate"><span class="pre">test_api_token_required_rejects_invalid_tokens()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_news_endpoint">Test News Endpoint</a><ul>
@@ -4095,6 +4104,52 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.forms.users.html">Users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.api_token_form">API Token Form</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.__init__"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.add_error"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.add_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.add_error_messages"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.add_error_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.add_initial_prefix"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.add_initial_prefix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.add_prefix"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.add_prefix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.as_div"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.as_div()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.as_p"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.as_p()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.as_table"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.as_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.as_ul"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.as_ul()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.bound_field_class"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.bound_field_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.changed_data"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.changed_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.clean"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.clean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.clean_name"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.clean_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.default_renderer"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.default_renderer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.errors"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.errors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.field_order"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.field_order</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.full_clean"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.full_clean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.get_context"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.get_context()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.get_error_messages"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.get_error_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.get_initial_for_field"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.get_initial_for_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.has_changed"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.has_changed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.has_error"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.has_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.hidden_fields"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.hidden_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.is_multipart"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.is_multipart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.is_valid"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.is_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.media"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.media</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.non_field_errors"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.non_field_errors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.order_fields"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.order_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.prefix"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.prefix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.render"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.save"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.template_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name_div"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.template_name_div</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name_label"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.template_name_label</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name_p"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.template_name_p</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name_table"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.template_name_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.template_name_ul"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.template_name_ul</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.use_required_attribute"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.use_required_attribute</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.validate_unique"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.validate_unique()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.api_token_form.ApiTokenForm.visible_fields"><code class="docutils literal notranslate"><span class="pre">ApiTokenForm.visible_fields()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.authentication_form">Authentication Form</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm"><code class="docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm.__init__"><code class="docutils literal notranslate"><span class="pre">AuthenticationForm.__init__()</span></code></a></li>
@@ -6568,7 +6623,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 18, 2026.
+      <span class="lastupdated">Last updated on Aug 19, 2026.
       </span></p>
   </div>
 
