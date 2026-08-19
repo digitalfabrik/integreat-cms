@@ -3,7 +3,6 @@
 {% load content_filters %}
 {% load model_tags %}
 {% load widget_tweaks %}
-{% load linkcheck_filters %}
 {% load url_tags %}
 {% object_translation_has_view_perm request.user content_object as show_source_link %}
 <tbody class="hover:bg-gray-100">
@@ -15,7 +14,7 @@
                    value="{{ url.id }}"
                    class="bulk-select-item" />
         </td>
-        <td class="pr-2 whitespace-nowrap max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px] overflow-hidden text-ellipsis">
+        <td class="py-3 pr-2 whitespace-nowrap max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px] overflow-hidden text-ellipsis">
             <a href="{{ url.url }}"
                target="_blank"
                rel="noopener noreferrer"
@@ -35,38 +34,13 @@
                     </a>
                 </span>
             {% endif %}
+            <div class="mt-2">
+                <span class="inline-block bg-gray-200 text-gray-800 rounded-full px-3 py-1 text-sm whitespace-nowrap">
+                    <strong>{{ url.regions_links|length }}x</strong> {% translate "linked in Integreat" %}
+                </span>
+            </div>
         </td>
-        <td class="pr-2 whitespace-nowrap" title="{{ url.ssl_message }}">
-            {% if url.ssl_message %}
-                {% url_ssl_icon url %}
-            {% else %}
-                <i icon-name="minus"></i>
-            {% endif %}
-        </td>
-        {% if request.user.expert_mode %}
-            <td class="whitespace-nowrap"
-                title="{{ url.anchor_message }}{% if url.anchor %}{% if url.last_checked %}:{% endif %} #{{ url.anchor }} {% endif %}">
-                {% if url.anchor_message %}
-                    {% url_anchor_icon url %}
-                {% else %}
-                    <i icon-name="minus"></i>
-                {% endif %}
-            </td>
-        {% endif %}
-        <td class="pr-2 whitespace-nowrap">
-            {% if url.redirect_status_code %}
-                <div title="{{ url.get_redirect_status_code_display }}">
-                    {{ url.redirect_status_code }}
-                </div>
-            {% elif url.status_code %}
-                <div title="{{ url.get_status_code_display }}">
-                    {{ url.status_code }}
-                </div>
-            {% else %}
-                <i icon-name="minus"></i>
-            {% endif %}
-        </td>
-        <td class="pr-2 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
+        <td class="py-3 pr-2 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
             title="{{ url.get_message }}">
             <div class="table-cell-truncate">
                 <span class="table-cell-content">{% translate url.get_message %}</span>
@@ -77,7 +51,7 @@
             </div>
         </td>
         {% with link_text=url.regions_links.0.text %}
-            <td class="pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
+            <td class="py-3 pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
                 title="{{ link_text }}">
                 <div class="table-cell-truncate">
                     <span class="table-cell-content">{{ link_text }}</span>
@@ -88,7 +62,7 @@
                 </div>
             </td>
         {% endwith %}
-        <td class="pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+        <td class="py-3 pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
             <div class="table-cell-truncate">
                 {% spaceless %}
                     <span class="table-cell-content">
@@ -109,20 +83,18 @@
                 </a>
             </div>
         </td>
-        <td class="text-right pr-2">
-            {{ url.regions_links|length }}
-        </td>
-        <td class="text-right pr-4">
+        <td class="py-3 pr-4">
             <a title="{% if request.region %}{% translate "Replace URL centrally in the current region" %}{% else %}{% translate "Replace URL globally in all the regions" %}{% endif %}"
                href="{% url_for_current_region 'edit_url' request url_id=url.id url_filter=view.kwargs.url_filter %}{{ pagination_params }}#replace-url"
-               class="btn-icon">
-                <i icon-name="pen-square"></i>
+               class="flex items-center justify-end gap-1 text-blue-500 hover:underline whitespace-nowrap">
+                {% translate "Change links on all pages" %}
+                <i icon-name="pen-square" class="shrink-0"></i>
             </a>
         </td>
     </tr>
     {% if url.id == view.kwargs.url_id %}
         <tr>
-            <td colspan="10">
+            <td colspan="6">
                 <div class="flex gap-2 p-2">
                     {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
                     <a href="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
