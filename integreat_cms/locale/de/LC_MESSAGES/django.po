@@ -4723,9 +4723,9 @@ msgstr "Übersetzungsbericht"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: cms/templates/_base.html
-msgid "Broken Links"
-msgstr "Fehlerhafte Links"
+#: cms/templates/_base.html cms/templates/linkcheck/links_by_filter.html
+msgid "Links"
+msgstr "Verlinkungen"
 
 #: cms/templates/_base.html cms/templates/pages/_page_filter_form.html
 #: cms/templates/pages/_page_xliff_import_diff.html
@@ -5962,7 +5962,6 @@ msgid "Go to page"
 msgstr "Zur Seite"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_broken_links_row.html
-#: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/region_condition/region_condition.html
 msgid "Broken links"
 msgstr "Fehlerhafte Links"
@@ -7151,6 +7150,10 @@ msgid "Redirects to"
 msgstr "Leitet weiter zu"
 
 #: cms/templates/linkcheck/link_list_row.html
+msgid "linked in Integreat"
+msgstr "in Integreat verlinkt"
+
+#: cms/templates/linkcheck/link_list_row.html
 msgid "Go to source"
 msgstr "Inhalt aufrufen"
 
@@ -7162,21 +7165,13 @@ msgstr "URL zentral in der aktuellen Region ersetzen"
 msgid "Replace URL globally in all the regions"
 msgstr "URL global in allen Regionen ersetzen"
 
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Valid links"
-msgstr "Gültige Links"
+#: cms/templates/linkcheck/link_list_row.html
+msgid "Change links on all pages"
+msgstr "Links auf allen Seiten anpassen"
 
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Unchecked links"
-msgstr "Nicht geprüfte Links"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Link verified"
-msgstr "Link überprüft"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "All links"
-msgstr "Alle Links"
+#: cms/templates/linkcheck/link_list_row.html
+msgid "Mark link as valid"
+msgstr "Link als gültig markieren"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Search & replace"
@@ -7191,44 +7186,25 @@ msgid "Unchecked"
 msgstr "Nicht geprüft"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid ""
-"SSL is the standard technology for securing Internet connections and "
-"protecting sensitive data transferred between two systems."
+msgid "Link verified"
+msgstr "Link überprüft"
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "The following links are reported by the system as potentially faulty."
 msgstr ""
-"SSL ist die Standardtechnologie für die Absicherung von Internetverbindungen "
-"und den Schutz sensibler Daten, die zwischen zwei Systemen übertragen werden."
+"Folgende Verlinkungen werden vom System als eventuell fehlerhaft gemeldet."
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid ""
-"When a website is secured by an SSL certificate, its URL starts with "
-"'https', insecure links with 'http' should no longer be used."
-msgstr ""
-"Wenn eine Website durch ein SSL-Zertifikat gesichert ist, beginnt ihre URL "
-"mit 'https', unsichere Links mit 'http' sollten nicht mehr verwendet werden."
+msgid "Click the links to check them and adjust them if necessary."
+msgstr "Klicken zum Überprüfen auf die Links und passe diese bei Bedarf an."
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "SSL"
-msgstr "SSL"
+msgid "Link-Check Help"
+msgstr "Link-Überprüfung Hilfe"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "An anchor denotes a link to a fragement within an HTML document"
-msgstr "Ein Anker bezeichnet eine Sprungmarke innerhalb eines HTML-Dokuments"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Anchor"
-msgstr "Anker"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid ""
-"HTTP response status codes indicate whether a specific HTTP request has been "
-"successfully completed."
-msgstr ""
-"HTTP-Antwortstatuscodes zeigen an, ob eine bestimmte HTTP-Anfrage "
-"erfolgreich abgeschlossen wurde."
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Code"
-msgstr "Code"
+msgid "Error message"
+msgstr "Fehlermeldung"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "The link text of the first usage"
@@ -7245,15 +7221,6 @@ msgstr "Die Quell-Übersetzung der ersten Verwendung"
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Source"
 msgstr "Quelle"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "The number of times this URL is used in the content"
-msgstr "Die Anzahl, wie oft diese URL im Inhalt verwendet wird"
-
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/views/media/media_context_mixin.py
-msgid "Usages"
-msgstr "Verwendungen"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "No valid links could be found."
@@ -9003,9 +8970,9 @@ msgid ""
 "right\"></i></span></a>"
 msgstr ""
 "<strong>deshalb sind Unterschiede gegeben und zu erwarten.</strong> Mehr "
-"Details dazu in der <a href=\"%(wiki_url)s\"><span class=\"text-blue-"
-"600\">Dokumentation <i icon-name=\"square-arrow-out-up-right\"></i></span></"
-"a>"
+"Details dazu in der <a href=\"%(wiki_url)s\"><span class=\"text-"
+"blue-600\">Dokumentation <i icon-name=\"square-arrow-out-up-right\"></i></"
+"span></a>"
 
 #: cms/templates/statistics/statistics_sidebar.html
 msgid "Adjust shown data"
@@ -10373,6 +10340,12 @@ msgid "URL was successfully replaced"
 msgstr "URL wurde erfolgreich ersetzt"
 
 #: cms/views/linkcheck/linkcheck_list_view.py
+#, fuzzy
+#| msgid "Links were successfully marked as verified"
+msgid "Link was successfully marked as verified"
+msgstr "Links wurden erfolgreich als überprüft markiert"
+
+#: cms/views/linkcheck/linkcheck_list_view.py
 msgid "Links were successfully marked as verified"
 msgstr "Links wurden erfolgreich als überprüft markiert"
 
@@ -10565,6 +10538,10 @@ msgstr "Diese Datei verbergen:"
 #: cms/views/media/media_context_mixin.py
 msgid "Alternative text:"
 msgstr "Alternativer Text:"
+
+#: cms/views/media/media_context_mixin.py
+msgid "Usages"
+msgstr "Verwendungen"
 
 #: cms/views/media/media_context_mixin.py
 msgid "As icon"
@@ -12018,6 +11995,39 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "{source_language} to {target_language}"
+#~ msgstr "{source_language} nach {target_language}"
+
+#~ msgid ""
+#~ "You cannot use the side-by-side-view for the region's default language "
+#~ "(in this case {default_language})."
+#~ msgstr ""
+#~ "Sie können die Side-by-Side-Ansicht nicht für die Standard-Sprache (in "
+#~ "diesem Fall {default_language}) verwenden."
+
+#~ msgid ""
+#~ "You cannot use the side-by-side-view if the source translation (in this "
+#~ "case {source_language}) does not exist."
+#~ msgstr ""
+#~ "Sie können die Side-by-Side-Ansicht nicht verwenden, wenn die Quell-"
+#~ "Übersetzung (in diesem Fall {source_language}) nicht existiert."
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully archived"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich archiviert"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully restored"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully deleted"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich gelöscht"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully copied"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich kopiert"
+
 #~ msgid "Staff member"
 #~ msgstr "Teammitglied"
 
@@ -12067,6 +12077,57 @@ msgstr ""
 #~ msgid "HIX value calculation is disabled for this page."
 #~ msgstr "Die Berechnung der HIX-Werte ist für diese Seite deaktiviert."
 
+#~ msgid "Broken Links"
+#~ msgstr "Fehlerhafte Links"
+
+#~ msgid "Valid links"
+#~ msgstr "Gültige Links"
+
+#~ msgid "Unchecked links"
+#~ msgstr "Nicht geprüfte Links"
+
+#~ msgid "All links"
+#~ msgstr "Alle Links"
+
+#~ msgid ""
+#~ "SSL is the standard technology for securing Internet connections and "
+#~ "protecting sensitive data transferred between two systems."
+#~ msgstr ""
+#~ "SSL ist die Standardtechnologie für die Absicherung von "
+#~ "Internetverbindungen und den Schutz sensibler Daten, die zwischen zwei "
+#~ "Systemen übertragen werden."
+
+#~ msgid ""
+#~ "When a website is secured by an SSL certificate, its URL starts with "
+#~ "'https', insecure links with 'http' should no longer be used."
+#~ msgstr ""
+#~ "Wenn eine Website durch ein SSL-Zertifikat gesichert ist, beginnt ihre "
+#~ "URL mit 'https', unsichere Links mit 'http' sollten nicht mehr verwendet "
+#~ "werden."
+
+#~ msgid "SSL"
+#~ msgstr "SSL"
+
+#~ msgid "An anchor denotes a link to a fragement within an HTML document"
+#~ msgstr ""
+#~ "Ein Anker bezeichnet eine Sprungmarke innerhalb eines HTML-Dokuments"
+
+#~ msgid "Anchor"
+#~ msgstr "Anker"
+
+#~ msgid ""
+#~ "HTTP response status codes indicate whether a specific HTTP request has "
+#~ "been successfully completed."
+#~ msgstr ""
+#~ "HTTP-Antwortstatuscodes zeigen an, ob eine bestimmte HTTP-Anfrage "
+#~ "erfolgreich abgeschlossen wurde."
+
+#~ msgid "Code"
+#~ msgstr "Code"
+
+#~ msgid "The number of times this URL is used in the content"
+#~ msgstr "Die Anzahl, wie oft diese URL im Inhalt verwendet wird"
+
 #~ msgid "Enable to set starting date differing from the renewal date."
 #~ msgstr ""
 #~ "Aktivieren, um ein Startdatum anzugeben, welches sich vom "
@@ -12111,7 +12172,6 @@ msgstr ""
 #~ msgid "SUMM.AI API"
 #~ msgstr "SUMM.AI API"
 
-#, python-brace-format
 #~ msgid ""
 #~ "{model_name} {object_names} has been successfully translated into Easy "
 #~ "German."
@@ -12125,7 +12185,6 @@ msgstr ""
 #~ "Die folgenden {model_name} wurden erfolgreich in Leichte Sprache "
 #~ "übersetzt: {object_names}"
 
-#, python-brace-format
 #~ msgid ""
 #~ "{model_name} {object_names} could not be automatically translated into "
 #~ "Easy German."
@@ -12180,22 +12239,6 @@ msgstr ""
 
 #~ msgid "Whether or not push notifications are enabled in the region"
 #~ msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
-
-#, python-brace-format
-#~ msgid "Push notification {0} was successfully archived"
-#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich archiviert"
-
-#, python-brace-format
-#~ msgid "Push notification {0} was successfully restored"
-#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
-
-#, python-brace-format
-#~ msgid "Push notification {0} was successfully deleted"
-#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich gelöscht"
-
-#, python-brace-format
-#~ msgid "Push notification {0} was successfully copied"
-#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich kopiert"
 
 #~ msgid "Push notifications are disabled."
 #~ msgstr "Push-Benachrichtigungen sind deaktiviert."
@@ -14174,9 +14217,6 @@ msgstr ""
 
 #~ msgid "Points of Interest"
 #~ msgstr "Points of Interest"
-
-#~ msgid "Archived Points of Interest"
-#~ msgstr "Archivierte Points of Interest"
 
 #~ msgid "PDF Export"
 #~ msgstr "PDF Export"
