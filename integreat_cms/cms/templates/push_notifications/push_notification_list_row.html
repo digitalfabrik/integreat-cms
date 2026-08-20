@@ -72,7 +72,7 @@
             {% if perms.cms.archive_pushnotification %}
                 <button title="{% translate "Restore news" %}"
                         class="confirmation-button btn-icon"
-                        data-confirmation-title="{% trans "Please confirm that you really want to restore this news" %}"
+                        data-confirmation-title="{% trans "Please confirm that you really want to restore this news item" %}"
                         data-confirmation-subject="{{ push_notification.title }}"
                         data-action="{% url 'restore_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i icon-name="refresh-ccw"></i>
@@ -82,7 +82,7 @@
             {% if perms.cms.archive_pushnotification %}
                 <button title="{% translate "Archive news" %}"
                         class="confirmation-button btn-icon"
-                        data-confirmation-title="{% trans "Please confirm that you really want to archive this news" %}"
+                        data-confirmation-title="{% trans "Please confirm that you really want to archive this news item" %}"
                         data-confirmation-subject="{{ push_notification.title }}"
                         data-action="{% url 'archive_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i icon-name="archive"></i>
@@ -92,7 +92,7 @@
         {% if perms.cms.delete_pushnotification %}
             <button title="{% translate "Delete news" %}"
                     class="confirmation-button btn-icon"
-                    data-confirmation-title="{% trans "Please confirm that you really want to delete this news" %}"
+                    data-confirmation-title="{% trans "Please confirm that you really want to delete this news item" %}"
                     data-confirmation-subject="{{ push_notification.title }}"
                     data-action="{% url 'delete_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}">
                 <i icon-name="trash-2"></i>

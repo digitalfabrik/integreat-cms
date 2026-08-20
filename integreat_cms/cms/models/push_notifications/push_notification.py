@@ -48,7 +48,7 @@ class PushNotification(AbstractBaseModel):
         null=True,
         blank=True,
         verbose_name=_("sent date"),
-        help_text=_("The date and time when the news was sent."),
+        help_text=_("The date and time when the news item was sent."),
     )
     created_date = models.DateTimeField(
         auto_now_add=True,
@@ -58,7 +58,7 @@ class PushNotification(AbstractBaseModel):
         null=True,
         blank=True,
         verbose_name=_("scheduled send date"),
-        help_text=_("The scheduled date for this news to be sent"),
+        help_text=_("The scheduled date for this news item to be sent"),
     )
     #: Manage choices in :mod:`~integreat_cms.cms.constants.push_notifications`
     mode = models.CharField(
@@ -70,7 +70,7 @@ class PushNotification(AbstractBaseModel):
     archived = models.BooleanField(
         default=False,
         verbose_name=_("archived"),
-        help_text=_("Whether or not the news is read-only and hidden in the API."),
+        help_text=_("Whether or not the news item is read-only and hidden in the API."),
     )
     do_not_translate_title = models.BooleanField(
         default=False,
