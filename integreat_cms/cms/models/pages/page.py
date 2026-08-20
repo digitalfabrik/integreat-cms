@@ -10,12 +10,15 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
-from treebeard.ns_tree import NS_NodeManager, NS_NodeQuerySet
 
 from ...constants import status
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_model import ContentQuerySet
-from ..abstract_tree_node import AbstractTreeNode
+from ..abstract_tree_node import (
+    AbstractTreeNode,
+    AbstractTreeNodeManager,
+    AbstractTreeNodeQuerySet,
+)
 from ..decorators import modify_fields
 from ..utils import format_object_translation
 from .abstract_base_page import AbstractBasePage
@@ -34,7 +37,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
+class PageQuerySet(AbstractTreeNodeQuerySet, ContentQuerySet):
     """
     Custom queryset for pages to inherit methods from both querysets for tree nodes and content objects
     """
@@ -163,7 +166,7 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
         return list(self.cache_tree_dict(archived, language_slug).values())
 
 
-class PageManager(NS_NodeManager):
+class PageManager(AbstractTreeNodeManager):
     """
     Custom manager for pages to inherit methods from both managers for tree nodes and content objects
     """
@@ -266,6 +269,16 @@ class Page(AbstractTreeNode, AbstractBasePage):
 
     #: Custom model manager to inherit methods from tree manager as well as the custom content queryset
     objects = PageManager()
+
+    @classmethod
+    def invalidate_tree_cache(cls) -> None:
+        """
+        Invalidate the cached pages as well as the cached page translations, because the latter
+        are related to :class:`~integreat_cms.cms.models.pages.page.Page` and therefore also
+        affected by changes to ``tree_id``, ``lft`` and ``rgt``.
+        """
+        super().invalidate_tree_cache()
+        invalidate_model(PageTranslation)
 
     @staticmethod
     def get_translation_model() -> ModelBase:
@@ -373,19 +386,6 @@ class Page(AbstractTreeNode, AbstractBasePage):
                 "you cannot delete a page that is embedded as live content by another page."
             )
         return True, None
-
-    def move(self, target: Page, pos: str | None = None) -> None:
-        """
-        Moving tree nodes potentially causes changes to the fields tree_id, lft and rgt in :class:`~treebeard.ns_tree.NS_Node`
-        so the cache of page translations has to be cleared, because of it's relation to :class:`~integreat_cms.cms.models.pages.page.Page`
-
-        :param target: The target node which determines the new position
-        :param pos: The new position of the page relative to the target
-                    (choices: :mod:`~integreat_cms.cms.constants.position`)
-        :raises ~treebeard.exceptions.InvalidPosition: If the node is moved to another region
-        """
-        super().move(target, pos)
-        invalidate_model(PageTranslation)
 
     def archive(self) -> None:
         """
