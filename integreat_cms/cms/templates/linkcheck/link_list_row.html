@@ -7,107 +7,107 @@
 {% object_translation_has_view_perm request.user content_object as show_source_link %}
 <tr class="text-gray-800 hover:bg-gray-100"
     {% if url.id == view.kwargs.url_id %}id="replace-url"{% endif %}>
-        <td class="py-3 pl-4 align-top border-t border-solid border-gray-200">
-            <input type="checkbox"
-                   name="selected_ids[]"
-                   value="{{ url.id }}"
-                   class="bulk-select-item" />
-        </td>
-        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 whitespace-nowrap max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px] overflow-hidden text-ellipsis">
-            <a href="{{ url.url }}"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="text-blue-500 hover:underline"
-               title="{{ url.url }}">
-                {{ url.url }}
-            </a>
-            {% if url.redirect_to %}
-                <br />
-                <span title="{% translate "Redirects to" %}: {{ url.redirect_to }}">
-                    <i icon-name="corner-down-right"></i>
-                    <a href="{{ url.redirect_to }}"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="text-blue-500 hover:underline">
-                        {{ url.redirect_to }}
-                    </a>
-                </span>
-            {% endif %}
-            <div class="mt-2">
-                <span class="inline-block bg-gray-200 text-gray-800 rounded-full px-3 py-1 text-sm whitespace-nowrap">
-                    <strong>{{ url.regions_links|length }}x</strong> {% translate "linked in Integreat" %}
-                </span>
-            </div>
-        </td>
-        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
-            {% translate url.get_message %}
-        </td>
-        {% with link_text=url.regions_links.0.text %}
-            <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
-                title="{{ link_text }}">
-                <div class="table-cell-truncate">
-                    <span class="table-cell-content">{{ link_text }}</span>
-                    <a class="toggle-table-cell">
-                        <i icon-name="chevron-down" class="more"></i>
-                        <i icon-name="chevron-up" class="less"></i>
-                    </a>
-                </div>
-            </td>
-        {% endwith %}
-        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+    <td class="py-3 pl-4 align-top border-t border-solid border-gray-200">
+        <input type="checkbox"
+               name="selected_ids[]"
+               value="{{ url.id }}"
+               class="bulk-select-item" />
+    </td>
+    <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 whitespace-nowrap max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px] overflow-hidden text-ellipsis">
+        <a href="{{ url.url }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="text-blue-500 hover:underline"
+           title="{{ url.url }}">
+            {{ url.url }}
+        </a>
+        {% if url.redirect_to %}
+            <br />
+            <span title="{% translate "Redirects to" %}: {{ url.redirect_to }}">
+                <i icon-name="corner-down-right"></i>
+                <a href="{{ url.redirect_to }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-blue-500 hover:underline">
+                    {{ url.redirect_to }}
+                </a>
+            </span>
+        {% endif %}
+        <div class="mt-2">
+            <span class="inline-block bg-gray-200 text-gray-800 rounded-full px-3 py-1 text-sm whitespace-nowrap">
+                <strong>{{ url.regions_links|length }}x</strong> {% translate "linked in Integreat" %}
+            </span>
+        </div>
+    </td>
+    <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+        {% translate url.get_message %}
+    </td>
+    {% with link_text=url.regions_links.0.text %}
+        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
+            title="{{ link_text }}">
             <div class="table-cell-truncate">
-                {% spaceless %}
-                    <span class="table-cell-content">
-                        {% if show_source_link %}
-                            <a href="{{ content_object.backend_edit_link }}"
-                               title="{% translate "Go to source" %}"
-                               class="hover:underline">
-                                <span>{{ content_object.title }}</span>
-                            </a>
-                        {% else %}
-                            <span>{{ content_object.title }}</span>
-                        {% endif %}
-                    </span>
-                {% endspaceless %}
+                <span class="table-cell-content">{{ link_text }}</span>
                 <a class="toggle-table-cell">
                     <i icon-name="chevron-down" class="more"></i>
                     <i icon-name="chevron-up" class="less"></i>
                 </a>
             </div>
         </td>
-        <td class="py-3 pr-4 align-top border-t border-solid border-gray-200">
-            <a title="{% if request.region %}{% translate "Replace URL centrally in the current region" %}{% else %}{% translate "Replace URL globally in all the regions" %}{% endif %}"
-               href="{% url_for_current_region 'edit_url' request url_id=url.id url_filter=view.kwargs.url_filter %}{{ pagination_params }}#replace-url"
-               class="flex items-center justify-end gap-1 text-blue-500 hover:underline whitespace-nowrap">
-                {% translate "Change links on all pages" %}
-                <i icon-name="pen-square" class="shrink-0"></i>
+    {% endwith %}
+    <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+        <div class="table-cell-truncate">
+            {% spaceless %}
+                <span class="table-cell-content">
+                    {% if show_source_link %}
+                        <a href="{{ content_object.backend_edit_link }}"
+                           title="{% translate "Go to source" %}"
+                           class="hover:underline">
+                            <span>{{ content_object.title }}</span>
+                        </a>
+                    {% else %}
+                        <span>{{ content_object.title }}</span>
+                    {% endif %}
+                </span>
+            {% endspaceless %}
+            <a class="toggle-table-cell">
+                <i icon-name="chevron-down" class="more"></i>
+                <i icon-name="chevron-up" class="less"></i>
             </a>
-            {% if view.kwargs.url_filter == 'invalid' %}
-                <button type="submit"
-                        form="bulk-action-form"
-                        formmethod="post"
-                        formaction="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
-                        formnovalidate
-                        name="url_id"
-                        value="{{ url.id }}"
-                        class="row-action-button flex items-center justify-end gap-1 text-blue-500 hover:underline whitespace-nowrap mt-1 w-full">
-                    {% translate "Mark link as valid" %}
-                    <i icon-name="circle-check" class="shrink-0"></i>
+        </div>
+    </td>
+    <td class="py-3 pr-4 align-top border-t border-solid border-gray-200">
+        <a title="{% if request.region %}{% translate "Replace URL centrally in the current region" %}{% else %}{% translate "Replace URL globally in all the regions" %}{% endif %}"
+           href="{% url_for_current_region 'edit_url' request url_id=url.id url_filter=view.kwargs.url_filter %}{{ pagination_params }}#replace-url"
+           class="flex items-center justify-end gap-1 text-blue-500 hover:underline whitespace-nowrap">
+            {% translate "Change links on all pages" %}
+            <i icon-name="pen-square" class="shrink-0"></i>
+        </a>
+        {% if view.kwargs.url_filter == 'invalid' %}
+            <button type="submit"
+                    form="bulk-action-form"
+                    formmethod="post"
+                    formaction="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
+                    formnovalidate
+                    name="url_id"
+                    value="{{ url.id }}"
+                    class="row-action-button flex items-center justify-end gap-1 text-blue-500 hover:underline whitespace-nowrap mt-1 w-full">
+                {% translate "Mark link as valid" %}
+                <i icon-name="circle-check" class="shrink-0"></i>
+            </button>
+        {% endif %}
+    </td>
+</tr>
+{% if url.id == view.kwargs.url_id %}
+    <tr>
+        <td colspan="6">
+            <div class="flex gap-2 p-2">
+                {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
+                <a href="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
+                   class="btn btn-ghost">{% translate "Cancel" %}</a>
+                <button type="submit" form="edit-url-form" class="btn">
+                    {% translate "Save" %}
                 </button>
-            {% endif %}
+            </div>
         </td>
     </tr>
-    {% if url.id == view.kwargs.url_id %}
-        <tr>
-            <td colspan="6">
-                <div class="flex gap-2 p-2">
-                    {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
-                    <a href="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
-                       class="btn btn-ghost">{% translate "Cancel" %}</a>
-                    <button type="submit" form="edit-url-form" class="btn">
-                        {% translate "Save" %}
-                    </button>
-                </div>
-            </td>
-        </tr>
-    {% endif %}
+{% endif %}
