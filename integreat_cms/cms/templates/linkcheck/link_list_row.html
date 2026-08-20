@@ -5,16 +5,15 @@
 {% load widget_tweaks %}
 {% load url_tags %}
 {% object_translation_has_view_perm request.user content_object as show_source_link %}
-<tbody class="hover:bg-gray-100">
-    <tr class="border-t border-gray-200 text-gray-800"
-        {% if url.id == view.kwargs.url_id %}id="replace-url"{% endif %}>
-        <td class="py-3 pl-4">
+<tr class="text-gray-800 hover:bg-gray-100"
+    {% if url.id == view.kwargs.url_id %}id="replace-url"{% endif %}>
+        <td class="py-3 pl-4 align-top border-t border-solid border-gray-200">
             <input type="checkbox"
                    name="selected_ids[]"
                    value="{{ url.id }}"
                    class="bulk-select-item" />
         </td>
-        <td class="py-3 pr-2 whitespace-nowrap max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px] overflow-hidden text-ellipsis">
+        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 whitespace-nowrap max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px] overflow-hidden text-ellipsis">
             <a href="{{ url.url }}"
                target="_blank"
                rel="noopener noreferrer"
@@ -40,11 +39,11 @@
                 </span>
             </div>
         </td>
-        <td class="py-3 pr-2 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
             {% translate url.get_message %}
         </td>
         {% with link_text=url.regions_links.0.text %}
-            <td class="py-3 pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
+            <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
                 title="{{ link_text }}">
                 <div class="table-cell-truncate">
                     <span class="table-cell-content">{{ link_text }}</span>
@@ -55,7 +54,7 @@
                 </div>
             </td>
         {% endwith %}
-        <td class="py-3 pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
             <div class="table-cell-truncate">
                 {% spaceless %}
                     <span class="table-cell-content">
@@ -76,7 +75,7 @@
                 </a>
             </div>
         </td>
-        <td class="py-3 pr-4">
+        <td class="py-3 pr-4 align-top border-t border-solid border-gray-200">
             <a title="{% if request.region %}{% translate "Replace URL centrally in the current region" %}{% else %}{% translate "Replace URL globally in all the regions" %}{% endif %}"
                href="{% url_for_current_region 'edit_url' request url_id=url.id url_filter=view.kwargs.url_filter %}{{ pagination_params }}#replace-url"
                class="flex items-center justify-end gap-1 text-blue-500 hover:underline whitespace-nowrap">
@@ -112,4 +111,3 @@
             </td>
         </tr>
     {% endif %}
-</tbody>
