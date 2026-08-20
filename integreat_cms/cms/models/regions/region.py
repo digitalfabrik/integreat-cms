@@ -169,8 +169,8 @@ class Region(AbstractBaseModel):
     )
     push_notifications_enabled = models.BooleanField(
         default=True,
-        verbose_name=_("activate push notifications"),
-        help_text=_("Whether or not push notifications are enabled in the region"),
+        verbose_name=_("activate news"),
+        help_text=_("Whether or not news is enabled in the region"),
     )
     term_explanations_enabled = models.BooleanField(
         default=True,
@@ -395,7 +395,7 @@ class Region(AbstractBaseModel):
     machine_translate_pushnotifications = models.PositiveIntegerField(
         choices=machine_translation_permissions.CHOICES,
         default=machine_translation_permissions.EVERYONE,
-        verbose_name=_("Push Notifications"),
+        verbose_name=_("News"),
     )
 
     integreat_chat_enabled = models.BooleanField(

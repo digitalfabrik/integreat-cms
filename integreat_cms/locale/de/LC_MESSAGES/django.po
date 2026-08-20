@@ -4048,7 +4048,7 @@ msgid "channel"
 msgstr "Kanal"
 
 #: cms/models/push_notifications/push_notification.py
-msgid "The date and time when the News was sent."
+msgid "The date and time when the news item was sent."
 msgstr "Datum und Uhrzeit zu der die Nachricht gesendet wurde"
 
 #: cms/models/push_notifications/push_notification.py
@@ -4056,7 +4056,7 @@ msgid "scheduled send date"
 msgstr "Geplanter Zeitpunkt zum Senden"
 
 #: cms/models/push_notifications/push_notification.py
-msgid "The scheduled date for this News to be sent"
+msgid "The scheduled date for this news item to be sent"
 msgstr "Datum und Uhrzeit, wann die Nachricht gesendet werden soll"
 
 #: cms/models/push_notifications/push_notification.py
@@ -4064,33 +4064,34 @@ msgid "mode"
 msgstr "Modus"
 
 #: cms/models/push_notifications/push_notification.py
-msgid "Sets behavior for dealing with not existing News translations"
+msgid "Sets behavior for dealing with not existing news translations"
 msgstr ""
 "Legt das Verhalten für den Umgang mit nicht vorhandenen Übersetzungen von "
 "Nachrichten fest"
 
 #: cms/models/push_notifications/push_notification.py
-msgid ""
-"Whether or not the push notification is read-only and hidden in the API."
+msgid "Whether or not the news item is read-only and hidden in the API."
 msgstr ""
 "Ob die Nachricht schreibgeschützt und in der API verborgen ist oder nicht."
 
 #: cms/models/push_notifications/push_notification.py
 #: cms/models/push_notifications/push_notification_translation.py
-msgid "push notification"
-msgstr "Push-Benachrichtigung"
+msgid "news"
+msgstr "Nachricht"
 
 #: cms/models/push_notifications/push_notification.py
-msgid "push notifications"
-msgstr "Push-Benachrichtigungen"
+#: cms/templates/push_notifications/push_notification_list.html
+msgctxt "plural"
+msgid "news"
+msgstr "Nachrichten"
 
 #: cms/models/push_notifications/push_notification_translation.py
-msgid "push notification translation"
-msgstr "Push-Benachrichtigungs-Übersetzung"
+msgid "news translation"
+msgstr "Nachrichten-Übersetzung"
 
 #: cms/models/push_notifications/push_notification_translation.py
-msgid "push notification translations"
-msgstr "Push-Benachrichtigungs-Übersetzungen"
+msgid "news translations"
+msgstr "Nachrichten-Übersetzungen"
 
 #: cms/models/regions/region.py
 msgid "community identification number"
@@ -4168,12 +4169,12 @@ msgid "Whether or not contacts are enabled in the region"
 msgstr "Ob Kontakte in der Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py
-msgid "activate push notifications"
-msgstr "Push-Benachrichtigungen aktivieren"
+msgid "activate news"
+msgstr "Nachrichten aktivieren"
 
 #: cms/models/regions/region.py
-msgid "Whether or not push notifications are enabled in the region"
-msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
+msgid "Whether or not news is enabled in the region"
+msgstr "Ob Nachrichten in der Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py
 msgid "activate term explanations"
@@ -4419,9 +4420,11 @@ msgstr "Seiten"
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: cms/models/regions/region.py
-msgid "Push Notifications"
-msgstr "Push-Benachrichtigungen"
+#: cms/models/regions/region.py cms/templates/_base.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: core/settings.py
+msgid "News"
+msgstr "Nachrichten"
 
 #: cms/models/regions/region.py
 msgid "Enable public chat"
@@ -4752,12 +4755,6 @@ msgstr "Medienbibliothek"
 #: cms/templates/_base.html cms/templates/contacts/contact_list.html
 msgid "Contacts"
 msgstr "Kontakte"
-
-#: cms/templates/_base.html
-#: cms/templates/push_notifications/push_notification_list.html
-#: core/settings.py
-msgid "News"
-msgstr "Nachrichten"
 
 #: cms/templates/_base.html
 #: cms/templates/push_notifications/push_notification_setting_box.html
@@ -8425,36 +8422,34 @@ msgid "Sent"
 msgstr "Gesendet"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No archived push notifications found with these filters."
-msgstr "Keine archivierten Push-Benachrichtigungen mit diesen Filter gefunden."
+msgid "No archived news found with these filters."
+msgstr "Keine archivierten Nachrichten mit diesen Filtern gefunden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No push notifications archived yet."
-msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+msgid "No news archived yet."
+msgstr "Noch keine Nachrichten archiviert."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No push notifications found with these filters."
-msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
+msgid "No news found with these filters."
+msgstr "Keine Nachrichten mit diesen Filtern gefunden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No push notifications available yet."
-msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+msgid "No news available yet."
+msgstr "Noch keine Nachrichten vorhanden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Push notifications selected"
-msgstr "Push-Benachrichtigungen ausgewählt"
+msgid "News selected"
+msgstr "Nachrichten ausgewählt"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Restore push notifications"
-msgstr "Push-Benachrichtigungen wiederherstellen"
+#, python-format
+msgid "Restore %(content_type)s"
+msgstr "%(content_type)s wiederherstellen"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Archive push notifications"
-msgstr "Push-Benachrichtigungen archivieren"
-
-#: cms/templates/push_notifications/push_notification_list.html
-msgid "Push notifications"
-msgstr "Push-Benachrichtigungen"
+#, python-format
+msgid "Archive %(content_type)s"
+msgstr "%(content_type)s archivieren"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Title not available"
@@ -8469,36 +8464,33 @@ msgid "Message not sent yet"
 msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Restore push notification"
-msgstr "Push-Benachrichtigung wiederherstellen"
+msgid "Restore news"
+msgstr "Nachricht wiederherstellen"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Please confirm that you really want to restore this push notification"
+msgid "Please confirm that you really want to restore this news item"
 msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigung wiederhergestellt "
-"werden soll"
+"Bitte bestätigen Sie, dass diese Nachricht wiederhergestellt werden soll"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Archive push notification"
-msgstr "Push-Benachrichtigung archivieren"
+msgid "Archive news"
+msgstr "Nachricht archivieren"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Please confirm that you really want to archive this push notification"
-msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigung archiviert werden soll"
+msgid "Please confirm that you really want to archive this news item"
+msgstr "Bitte bestätigen Sie, dass diese Nachricht archiviert werden soll"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Delete push notification"
-msgstr "Push-Benachrichtigung löschen"
+msgid "Delete news"
+msgstr "Nachricht löschen"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Please confirm that you really want to delete this push notification"
-msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigung gelöscht werden soll"
+msgid "Please confirm that you really want to delete this news item"
+msgstr "Bitte bestätigen Sie, dass diese Nachricht gelöscht werden soll"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Copy"
-msgstr "Kopieren"
+msgid "Copy news"
+msgstr "Nachricht kopieren"
 
 #: cms/templates/push_notifications/push_notification_setting_box.html
 #, python-format
@@ -9122,9 +9114,9 @@ msgid ""
 "right\"></i></span></a>"
 msgstr ""
 "<strong>deshalb sind Unterschiede gegeben und zu erwarten.</strong> Mehr "
-"Details dazu in der <a href=\"%(wiki_url)s\"><span class=\"text-"
-"blue-600\">Dokumentation <i icon-name=\"square-arrow-out-up-right\"></i></"
-"span></a>"
+"Details dazu in der <a href=\"%(wiki_url)s\"><span class=\"text-blue-"
+"600\">Dokumentation <i icon-name=\"square-arrow-out-up-right\"></i></span></"
+"a>"
 
 #: cms/templates/statistics/statistics_sidebar.html
 msgid "Adjust shown data"
@@ -10470,11 +10462,11 @@ msgstr "Bitte bestätigen Sie, dass dieser Sprachknoten gelöscht werden soll"
 
 #: cms/views/language_tree/language_tree_context_mixin.py
 msgid ""
-"All translations for pages, locations, events and push notifications of this "
-"language will also be deleted."
+"All translations for pages, locations, events and news of this language will "
+"also be deleted."
 msgstr ""
-"Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Push-"
-"Benachrichtigungen zu dieser Sprache werden ebenfalls gelöscht."
+"Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Nachrichten zu "
+"dieser Sprache werden ebenfalls gelöscht."
 
 #: cms/views/linkcheck/link_replace_view.py
 msgid ""
@@ -11309,33 +11301,33 @@ msgstr "Zurück zum Formular"
 
 #: cms/views/push_notifications/push_notification_actions.py
 #, python-brace-format
-msgid "Push notification {0} was successfully archived"
-msgstr "Push-Benachrichtigung {0} wurde erfolgreich archiviert"
+msgid "News {0} was successfully archived"
+msgstr "Nachricht {0} wurde erfolgreich archiviert"
 
 #: cms/views/push_notifications/push_notification_actions.py
 #, python-brace-format
-msgid "Push notification {0} was successfully restored"
-msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
+msgid "News {0} was successfully restored"
+msgstr "Nachricht {0} wurde erfolgreich wiederhergestellt"
 
 #: cms/views/push_notifications/push_notification_actions.py
 #, python-brace-format
-msgid "Push notification {0} was successfully deleted"
-msgstr "Push-Benachrichtigung {0} wurde erfolgreich gelöscht"
+msgid "News {0} was successfully deleted"
+msgstr "Nachricht {0} wurde erfolgreich gelöscht"
 
 #: cms/views/push_notifications/push_notification_actions.py
 #, python-brace-format
-msgid "Push notification {0} was successfully copied"
-msgstr "Push-Benachrichtigung {0} wurde erfolgreich kopiert"
+msgid "News {0} was successfully copied"
+msgstr "Nachricht {0} wurde erfolgreich kopiert"
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
-msgid "Push notifications are disabled."
-msgstr "Push-Benachrichtigungen sind deaktiviert."
+msgid "News are disabled."
+msgstr "Nachrichten sind deaktiviert."
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
-msgid "Push notifications are disabled in this region."
-msgstr "Push-Benachrichtigungen sind in dieser Region deaktiviert."
+msgid "News are disabled in this region."
+msgstr "Nachrichten sind in dieser Region deaktiviert."
 
 #: cms/views/push_notifications/push_notification_form_view.py
 msgid "This news has already been sent as push notification to mobile devices."
@@ -11450,11 +11442,10 @@ msgid "News \"{}\" was successfully sent"
 msgstr "Nachricht \"{}\" wurde erfolgreich gesendet"
 
 #: cms/views/push_notifications/push_notification_list_view.py
-msgid ""
-"Please create at least one language node before creating push notifications."
+msgid "Please create at least one language node before creating news."
 msgstr ""
-"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
-"Benachrichtigungen verwalten."
+"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Nachrichten "
+"erstellen."
 
 #: cms/views/region_condition/region_condition_actions.py
 msgid "Number of broken links"
@@ -12232,6 +12223,110 @@ msgstr ""
 #~ "Veranstaltung oder einem Kontakt verwendet wird. \n"
 #~ "Dies betrifft auch archivierte Veranstaltungen und Kontakte"
 
+#~ msgid "push notification"
+#~ msgstr "Push-Benachrichtigung"
+
+#~ msgid "push notification translation"
+#~ msgstr "Push-Benachrichtigungs-Übersetzung"
+
+#~ msgid "push notification translations"
+#~ msgstr "Push-Benachrichtigungs-Übersetzungen"
+
+#~ msgid "activate push notifications"
+#~ msgstr "Push-Benachrichtigungen aktivieren"
+
+#~ msgid "Whether or not push notifications are enabled in the region"
+#~ msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully archived"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich archiviert"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully restored"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully deleted"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich gelöscht"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully copied"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich kopiert"
+
+#~ msgid "Push notifications are disabled."
+#~ msgstr "Push-Benachrichtigungen sind deaktiviert."
+
+#~ msgid "Push notifications are disabled in this region."
+#~ msgstr "Push-Benachrichtigungen sind in dieser Region deaktiviert."
+
+#~ msgid ""
+#~ "Please create at least one language node before creating push "
+#~ "notifications."
+#~ msgstr ""
+#~ "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
+#~ "Benachrichtigungen verwalten."
+
+#~ msgid "push notifications"
+#~ msgstr "Push-Benachrichtigungen"
+
+#~ msgid "Push Notifications"
+#~ msgstr "Push-Benachrichtigungen"
+
+#~ msgid "No archived push notifications found with these filters."
+#~ msgstr ""
+#~ "Keine archivierten Push-Benachrichtigungen mit diesen Filter gefunden."
+
+#~ msgid "No push notifications archived yet."
+#~ msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+
+#~ msgid "No push notifications found with these filters."
+#~ msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
+
+#~ msgid "No push notifications available yet."
+#~ msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+
+#~ msgid "Push notifications selected"
+#~ msgstr "Push-Benachrichtigungen ausgewählt"
+
+#~ msgid "Restore push notifications"
+#~ msgstr "Push-Benachrichtigungen wiederherstellen"
+
+#~ msgid "Archive push notifications"
+#~ msgstr "Push-Benachrichtigungen archivieren"
+
+#~ msgid "Push notifications"
+#~ msgstr "Push-Benachrichtigungen"
+
+#~ msgid "Restore push notification"
+#~ msgstr "Push-Benachrichtigung wiederherstellen"
+
+#~ msgid ""
+#~ "Please confirm that you really want to restore this push notification"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigung wiederhergestellt "
+#~ "werden soll"
+
+#~ msgid "Archive push notification"
+#~ msgstr "Push-Benachrichtigung archivieren"
+
+#~ msgid ""
+#~ "Please confirm that you really want to archive this push notification"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigung archiviert werden "
+#~ "soll"
+
+#~ msgid "Delete push notification"
+#~ msgstr "Push-Benachrichtigung löschen"
+
+#~ msgid "Please confirm that you really want to delete this push notification"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigung gelöscht werden "
+#~ "soll"
+
+#~ msgid "Copy"
+#~ msgstr "Kopieren"
+
 #~ msgid "Total Access Statistics"
 #~ msgstr "Statistiken für Gesamtzugriffe"
 
@@ -12626,12 +12721,6 @@ msgstr ""
 #~ msgid "There has been a server error. Please try again later"
 #~ msgstr "Zu viele Anfragen. Bitte versuchen Sie es später erneut."
 
-#~ msgid "No archived pages found with these filters."
-#~ msgstr "Keine archivierten Seiten mit diesen Filtern gefunden."
-
-#~ msgid "No pages archived yet."
-#~ msgstr "Noch keine Seiten archiviert."
-
 #~ msgid "This also involves non-archived subpages."
 #~ msgstr "Dies betrifft auch nicht-archivierte Unterseiten."
 
@@ -12968,9 +13057,6 @@ msgstr ""
 
 #~ msgid "Template \"{}\" was successfully created"
 #~ msgstr "Vorlage \"{}\" wurde erfolgreich erstellt"
-
-#~ msgid "News \"{}\" was successfully created"
-#~ msgstr "Nachricht \"{}\" wurde erfolgreich erstellt"
 
 #~ msgid "Template \"{}\" was successfully updated"
 #~ msgstr "Vorlage \"{}\" wurde erfolgreich aktualisiert"
@@ -13685,9 +13771,6 @@ msgstr ""
 
 #~ msgid "content of the imprint"
 #~ msgstr "Inhalt des Impressums"
-
-#~ msgid "translation"
-#~ msgstr "Übersetzung"
 
 #~ msgid "All pages"
 #~ msgstr "Alle Seiten"
@@ -14694,9 +14777,6 @@ msgstr ""
 
 #~ msgid "WebApp-URL"
 #~ msgstr "Web-App-URL"
-
-#~ msgid "Delete Pages"
-#~ msgstr "Seiten löschen"
 
 #~ msgid "Archive Pages"
 #~ msgstr "Seiten archivieren"
