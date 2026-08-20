@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-08-11T15:11:56+00:00" />
+    <meta property="article:modified_time" content="2026-08-20T11:46:44+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Push Notifications &mdash; integreat-cms 2026.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -2917,15 +2917,15 @@ The bulk action form uses only POST as submission method.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v5.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
 <li><p><strong>channel</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><em>CharField</em></a>) – Channel</p></li>
-<li><p><strong>sent_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v5.2)"><em>DateTimeField</em></a>) – <p>Sent date. The date and time when the News was sent.</p>
+<li><p><strong>sent_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v5.2)"><em>DateTimeField</em></a>) – <p>Sent date. The date and time when the news item was sent.</p>
 <p><a class="reference external" href="https://docs.python.org/3.13/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if the push notification is not yet sent</p>
 </p></li>
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v5.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
-<li><p><strong>scheduled_send_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v5.2)"><em>DateTimeField</em></a>) – Scheduled send date. The scheduled date for this News to be sent</p></li>
-<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><em>CharField</em></a>) – <p>Mode. Sets behavior for dealing with not existing News translations</p>
+<li><p><strong>scheduled_send_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v5.2)"><em>DateTimeField</em></a>) – Scheduled send date. The scheduled date for this news item to be sent</p></li>
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.CharField" title="(in Django v5.2)"><em>CharField</em></a>) – <p>Mode. Sets behavior for dealing with not existing news translations</p>
 <p>Manage choices in <a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.push_notifications" title="integreat_cms.cms.constants.push_notifications"><code class="xref py py-mod docutils literal notranslate"><span class="pre">push_notifications</span></code></a></p>
 </p></li>
-<li><p><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v5.2)"><em>BooleanField</em></a>) – Archived. Whether or not the push notification is read-only and hidden in the API.</p></li>
+<li><p><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v5.2)"><em>BooleanField</em></a>) – Archived. Whether or not the news item is read-only and hidden in the API.</p></li>
 <li><p><strong>do_not_translate_title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v5.2)"><em>BooleanField</em></a>) – Do not translate the title. Tick if you do not want to translate the title by automatic translation.</p></li>
 </ul>
 </dd>
@@ -2939,7 +2939,7 @@ The bulk action form uses only POST as submission method.</p>
 <p>Reverse relationships:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationTranslation</span></code></a>) – All translations of this push notification (related name of <a class="reference internal" href="integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.push_notification" title="integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.push_notification"><code class="xref py py-attr docutils literal notranslate"><span class="pre">push_notification</span></code></a>)</p>
+<dd class="field-odd"><p><strong>translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationTranslation</span></code></a>) – All translations of this news (related name of <a class="reference internal" href="integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.push_notification" title="integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.push_notification"><code class="xref py py-attr docutils literal notranslate"><span class="pre">push_notification</span></code></a>)</p>
 </dd>
 </dl>
 <p>alias of <a class="reference internal" href="integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification.PushNotification" title="integreat_cms.cms.models.push_notifications.push_notification.PushNotification"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotification</span></code></a></p>
@@ -3903,7 +3903,7 @@ A field is sortable if its first element is not None.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 11, 2026.
+      <span class="lastupdated">Last updated on Aug 20, 2026.
       </span></p>
   </div>
 
