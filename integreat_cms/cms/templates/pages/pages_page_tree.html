@@ -213,34 +213,32 @@
                             {% translate "Export published pages as PDF" %}
                         </option>
                     {% endif %}
-                    {% if request.user.expert_mode %}
-                        {% with language_translated_name=language.translated_name %}
-                            {% blocktranslate trimmed asvar xliff_export_public %}
-                                Export published pages for {{ language_translated_name }} translation
+                    {% with language_translated_name=language.translated_name %}
+                        {% blocktranslate trimmed asvar xliff_export_public %}
+                            Export published pages for {{ language_translated_name }} translation
+                        {% endblocktranslate %}
+                        {% blocktranslate trimmed asvar xliff_export_all %}
+                            Export unpublished (⚠️) and published pages for {{ language_translated_name }} translation
+                        {% endblocktranslate %}
+                        {% if language == request.region.default_language %}
+                            {% blocktranslate trimmed asvar xliff_export_disabled %}
+                                You cannot export XLIFF files for the default language
                             {% endblocktranslate %}
-                            {% blocktranslate trimmed asvar xliff_export_all %}
-                                Export unpublished (⚠️) and published pages for {{ language_translated_name }} translation
-                            {% endblocktranslate %}
-                            {% if language == request.region.default_language %}
-                                {% blocktranslate trimmed asvar xliff_export_disabled %}
-                                    You cannot export XLIFF files for the default language
-                                {% endblocktranslate %}
-                                <option disabled title="{{ xliff_export_disabled }}">
-                                    {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                                </option>
-                                <option disabled title="{{ xliff_export_disabled }}">
-                                    {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                                </option>
-                            {% else %}
-                                <option data-bulk-action="{% url 'download_xliff_only_public' region_slug=request.region.slug language_slug=language.slug %}">
-                                    {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                                </option>
-                                <option data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}">
-                                    {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                                </option>
-                            {% endif %}
-                        {% endwith %}
-                    {% endif %}
+                            <option disabled title="{{ xliff_export_disabled }}">
+                                {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                            </option>
+                            <option disabled title="{{ xliff_export_disabled }}">
+                                {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                            </option>
+                        {% else %}
+                            <option data-bulk-action="{% url 'download_xliff_only_public' region_slug=request.region.slug language_slug=language.slug %}">
+                                {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                            </option>
+                            <option data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}">
+                                {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                            </option>
+                        {% endif %}
+                    {% endwith %}
                     {% if request.user.is_superuser or request.user.is_staff %}
                         <option id="xliff-multiple-languages-option"
                                 data-show-xliff-export-overlay
@@ -289,7 +287,7 @@
         </div>
     </form>
     {% if not is_archive %}
-        {% if request.user.expert_mode and can_edit_pages %}
+        {% if can_edit_pages %}
             <div class="flex-wrap relative w-auto mt-12">
                 <h3 class="font-bold text-xl">
                     {% translate "Import XLIFF files" %}

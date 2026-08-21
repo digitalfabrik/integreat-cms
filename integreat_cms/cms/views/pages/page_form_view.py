@@ -118,9 +118,6 @@ class PageFormView(
         # Pass language to mirrored page widget to render the preview urls
         page_form.fields["mirrored_page"].widget.language_slug = language.slug
 
-        if not request.user.expert_mode:
-            del page_form.fields["api_token"]
-
         page_translation_form = PageTranslationForm(
             request=request,
             language=language,
@@ -603,8 +600,6 @@ class PageFormView(
             additional_instance_attributes={"region": region},
         )
         page_form.fields["mirrored_page"].widget.language_slug = language.slug
-        if not request.user.expert_mode:
-            del page_form.fields["api_token"]
 
         page_translation_form = PageTranslationForm(
             request=request,

@@ -100,13 +100,6 @@ class User(AbstractUser, AbstractBaseModel):
         verbose_name=_("last chat visit date"),
         help_text=_("The date and time when the user did read the chat the last time"),
     )
-    expert_mode = models.BooleanField(
-        default=False,
-        verbose_name=_("experienced user"),
-        help_text=_(
-            "Enable this option to display additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions and status information for broken links",
-        ),
-    )
     has_seen_page_tree_tutorial = models.BooleanField(
         default=False,
         verbose_name=_("Page tree tutorial seen"),

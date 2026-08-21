@@ -206,7 +206,7 @@
             {% endif %}
             {# djlint:on #}
         {% endif %}
-        {% if not is_archive and request.region.short_urls_enabled and request.user.expert_mode %}
+        {% if not is_archive and request.region.short_urls_enabled %}
             {% if page_translation %}
                 <a href="#"
                    data-copy-to-clipboard="{{ page_translation.short_url }}"

@@ -81,7 +81,6 @@ type Props = {
     mediaTranslations: any;
     onlyImage?: boolean;
     globalEdit?: boolean;
-    expertMode?: boolean;
     mediaTypes: { allowedMediaTypes: string };
     selectionMode?: boolean;
     selectMedia?: (file: File) => any;

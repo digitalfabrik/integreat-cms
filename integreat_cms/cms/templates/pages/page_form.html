@@ -143,7 +143,7 @@
                         </div>
                         {% render_field page_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
                         {% if page_translation_form.instance.id %}
-                            {% if request.region.short_urls_enabled and request.user.expert_mode %}
+                            {% if request.region.short_urls_enabled %}
                                 <div class="flex items-center">
                                     <label class="inline-block mr-2">
                                         {% translate "Short URL" %}:

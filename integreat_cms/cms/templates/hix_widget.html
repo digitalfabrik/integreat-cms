@@ -16,11 +16,6 @@
                 <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
             </div>
         </div>
-        {% if not request.user.expert_mode and page_form.instance.hix_ignore %}
-            <div class="help-text">
-                {% translate "HIX value calculation is disabled for this page." %}
-            </div>
-        {% endif %}
         <div id="hix-block"
              class="{% if page_form.instance.hix_ignore %}hidden{% endif %}">
             <div class="help-text mt-2">
@@ -134,7 +129,7 @@
                    class="text-blue-500 underline">{% translate "here" %}</a>.
             </div>
         </div>
-        <div {% if not request.user.expert_mode %}class="hidden"{% endif %}>
+        <div>
             {% render_field page_form.hix_ignore %}
             <label for="{{ page_form.hix_ignore.id_for_label }}" class="secondary">
                 {{ page_form.hix_ignore.label }}
