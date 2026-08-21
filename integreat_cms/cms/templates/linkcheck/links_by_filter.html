@@ -97,7 +97,11 @@
                         <input type="checkbox" id="bulk-select-all" />
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "URL" %}
+                        {% if view.kwargs.url_filter == 'invalid' %}
+                            {% translate "Link to be checked" %}
+                        {% else %}
+                            {% translate "URL" %}
+                        {% endif %}
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">
                         {% if view.kwargs.url_filter == 'invalid' %}
