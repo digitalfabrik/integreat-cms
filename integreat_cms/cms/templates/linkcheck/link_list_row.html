@@ -35,11 +35,11 @@
         {% endif %}
         <div class="mt-2">
             <span class="inline-block bg-gray-200 text-gray-800 rounded-full px-3 py-1 text-sm whitespace-nowrap">
-                <strong>{{ url.regions_links|length }}x</strong> {% translate "linked in Integreat" %}
+                <strong>{{ url.regions_links|length }}x</strong> {% blocktranslate trimmed %}linked in {{ BRANDING_TITLE }}{% endblocktranslate %}
             </span>
         </div>
     </td>
-    <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+    <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 break-words {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
         {% translate url.get_message %}
     </td>
     {% with link_text=url.regions_links.0.text %}
