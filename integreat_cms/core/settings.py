@@ -382,6 +382,12 @@ TEXTLAB_API_DEFAULT_BENCHMARK_ID: Final[int] = env_int(
     420,
 )
 
+#: How many seconds to wait for the Textlab API to respond before giving up
+TEXTLAB_API_TIMEOUT: Final[float] = env_float(
+    "INTEGREAT_CMS_TEXTLAB_API_TIMEOUT",
+    30,
+)
+
 #: The minimum HIX score required for machine translation
 HIX_REQUIRED_FOR_MT: Final[float] = env_float(
     "INTEGREAT_CMS_HIX_REQUIRED_FOR_MT",
