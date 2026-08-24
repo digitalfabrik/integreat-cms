@@ -155,12 +155,12 @@ class MachineTranslationForm(CustomContentModelForm):
         )
         if commit and language_nodes and check_hix_score(self.request, self.instance):
             queue_translations(
-                self.request,
-                self.request.user.id,
-                self.request.region.id,
-                self.instance.foreign_object._meta.model_name,
-                [self.instance.foreign_object.id],
-                [node.slug for node in language_nodes],
+                request=self.request,
+                user_id=self.request.user.id,
+                region_id=self.request.region.id,
+                content_type=self.instance.foreign_object._meta.model_name,
+                object_ids=[self.instance.foreign_object.id],
+                language_slugs=[node.slug for node in language_nodes],
             )
 
         return self.instance

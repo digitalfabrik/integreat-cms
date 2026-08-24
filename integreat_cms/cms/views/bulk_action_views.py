@@ -223,12 +223,12 @@ class BulkMachineTranslationView(BulkActionView):
         )
 
         queue_translations(
-            request,
-            request.user.id,
-            request.region.id,
-            self.model._meta.model_name,
-            [obj.id for obj in to_translate],
-            [language_node.slug],
+            request=request,
+            user_id=request.user.id,
+            region_id=request.region.id,
+            content_type=self.model._meta.model_name,
+            object_ids=[obj.id for obj in to_translate],
+            language_slugs=[language_node.slug],
         )
 
         # Let the base view handle the redirect

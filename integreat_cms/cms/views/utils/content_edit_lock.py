@@ -18,9 +18,11 @@ from ...utils.content_edit_lock import get_locking_user, lock_content, unlock_co
 
 logger = logging.getLogger(__name__)
 
-#: `edit_lock_key` types this heartbeat also knows how to check machine
-#: translation progress for - currently pages only (see the model class name
-#: `edit_lock_key` uses, e.g. `type(self).__name__` for a `Page`).
+#: The heartbeat endpoint handles all content types, but MT progress checking
+#: is currently only supported for pages. This maps the content type string
+#: (``type(self).__name__`` from ``AbstractContentModel.edit_lock_key``) to
+#: its model class, acting as an allowlist — types not listed here skip the
+#: MT check entirely.
 MT_SUPPORTED_LOCK_TYPES = {"Page": Page}
 
 

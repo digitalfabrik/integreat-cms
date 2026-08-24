@@ -63,13 +63,12 @@ class DeepLApiClientConfig(AppConfig):
         return self.supported_glossaries.get(key)
 
     def ready(self) -> None:
-        """
-        Checking if API is available
-        """
-        # When running the dev server or under Apache, the process is already
-        # fully up, so the availability check can run right away. Under
-        # Celery, `ready()` fires while the worker is still being bootstrapped,
-        # so defer the check until the worker signals it's actually ready.
+        # Only check availability when actually serving requests (dev server or
+        # Apache/mod_wsgi web process) — not during management commands, migrations,
+        # or other non-server contexts where hitting the DeepL API is unnecessary.
+        # Under Celery, `ready()` fires while the worker is still being bootstrapped,
+        # so defer the check until the worker signals it's actually ready via
+        # `celeryd_after_setup` — Celery's own canonical hook for post-startup work.
         if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
             self.check_availability()
         else:
@@ -83,9 +82,6 @@ class DeepLApiClientConfig(AppConfig):
         self.check_availability()
 
     def check_availability(self) -> None:
-        """
-        Checking if API is available
-        """
         if settings.DEEPL_ENABLED:
             try:
                 deepl_translator = Translator(
