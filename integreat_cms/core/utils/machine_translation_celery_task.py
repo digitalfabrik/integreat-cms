@@ -79,6 +79,13 @@ def get_mt_task_ids(
     (object_id, language_slug) pair in one cache round trip, instead of
     checking each lock individually - for callers that need this for many
     objects at once (e.g. a whole list view render).
+
+    The returned dict is dense: it contains an entry for every requested pair,
+    whether or not a translation is active. A value of ``None`` means no MT
+    task is currently running for that pair; a string value is the Celery task
+    id. This allows callers to do a plain ``dict[pair]`` lookup and treat
+    ``None`` as "not in progress", without needing a separate ``key in dict``
+    check first.
     """
     lock_keys = {
         (object_id, language_slug): get_mt_redis_lock_key(
@@ -138,16 +145,14 @@ def get_language_report(
     client: MachineTranslationApiClient,
 ) -> dict[str, str | dict[str, str]]:
     return {
-        "succeeded": client.get_successful_translation_message(lazy=False),
+        "succeeded": client.get_successful_translation_message(),
         "failed": {
-            "too-long": client.get_too_long_text_message(lazy=False),
-            "exceeds-limit": client.get_exceeds_limit_message(lazy=False),
-            "insufficient-hix": client.get_insufficient_hix_score_message(lazy=False),
-            "no-source-translation": client.get_no_source_translation_message(
-                lazy=False
-            ),
-            "no-changes-made": client.get_no_changes_made_message(lazy=False),
-            "no-reason": client.get_failed_translation_message(lazy=False),
+            "too-long": client.get_too_long_text_message(),
+            "exceeds-limit": client.get_exceeds_limit_message(),
+            "insufficient-hix": client.get_insufficient_hix_score_message(),
+            "no-source-translation": client.get_no_source_translation_message(),
+            "no-changes-made": client.get_no_changes_made_message(),
+            "no-reason": client.get_failed_translation_message(),
         },
     }
 
@@ -356,6 +361,7 @@ def acquire_locks(
 
 
 def queue_translations(
+    *,
     request: HttpRequest,
     user_id: int,
     region_id: int,
