@@ -32,28 +32,9 @@ def convert_midyear_start_to_budget(
         region.save(update_fields=["mt_budget_booked"])
 
 
-def revert_midyear_conversion(
-    _apps: Apps,
-    _schema_editor: BaseDatabaseSchemaEditor,
-) -> None:
-    """
-    Do nothing when migrating backwards
-
-    The original booked budget cannot be restored from the pro-rated value alone, so reverting
-    only re-creates the column and leaves it empty.
-
-    :param _apps: The configuration of installed applications
-    :param _schema_editor: The database abstraction layer that creates actual SQL code
-    """
-
-
 class Migration(migrations.Migration):
-    """
-    Replace the midyear start mechanism with an explicit budget adjustment
-    """
-
     dependencies = [
-        ("cms", "0159_api_token"),
+        ("cms", "0160_news_wording"),
     ]
 
     operations = [
@@ -88,7 +69,7 @@ class Migration(migrations.Migration):
         ),
         migrations.RunPython(
             convert_midyear_start_to_budget,
-            revert_midyear_conversion,
+            migrations.RunPython.noop,
         ),
         migrations.RemoveField(
             model_name="region",
