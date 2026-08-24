@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0158_eventtranslation_published_at_and_more"),
+        ("cms", "0160_news_wording"),
     ]
 
     operations = [

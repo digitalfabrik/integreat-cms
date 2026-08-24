@@ -46,7 +46,7 @@ from .google_translate_api_test import (
     setup_fake_google_translate_api,
     setup_google_translate_supported_languages,
 )
-from .utils import get_content_translations, get_english_name
+from .utils import get_content_translations
 
 # Slugs we want to use for testing
 REGION_SLUG: Final[str] = "augsburg"
