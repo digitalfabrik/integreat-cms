@@ -4,9 +4,12 @@ This module contains shared fixtures for pytest
 
 from __future__ import annotations
 
+import datetime
+import itertools
 import os
 from typing import TYPE_CHECKING
 from unittest.mock import patch
+from zoneinfo import ZoneInfo
 
 import pytest  # isort: skip — must precede local imports for fixture registration
 from django.conf import settings
@@ -16,7 +19,20 @@ from django.core.management import call_command
 from django.test.client import Client
 from linkcheck.listeners import unregister_listeners
 
-from integreat_cms.cms.models import Language
+from integreat_cms.cms.constants.administrative_division import MUNICIPALITY
+from integreat_cms.cms.constants.region_status import ACTIVE
+from integreat_cms.cms.constants.status import PUBLIC
+from integreat_cms.cms.models import (
+    Event,
+    EventTranslation,
+    Language,
+    LanguageTreeNode,
+    Page,
+    PageTranslation,
+    RecurrenceRule,
+    Region,
+    User,
+)
 from integreat_cms.core.utils.strtobool import strtobool
 from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 from tests.constants import (  # noqa: F401 — re-exported for backward compatibility
@@ -39,8 +55,8 @@ from tests.constants import (  # noqa: F401 — re-exported for backward compati
 from tests.mock import MockServer
 
 if TYPE_CHECKING:
-    from collections.abc import Generator
-    from typing import Final
+    from collections.abc import Callable, Generator
+    from typing import Any, Final
 
     from _pytest.fixtures import SubRequest
     from pytest_django.fixtures import SettingsWrapper
@@ -184,10 +200,9 @@ def clear_leaked_messages(request: SubRequest) -> Generator[None]:
     test renders it into its own response and trips content assertions.
     """
     yield
-    for fixture_name in ("login_role_user", "login_role_user_async"):
-        if fixture_name in request.fixturenames:
-            client, _role = request.getfixturevalue(fixture_name)
-            client.cookies.pop("messages", None)
+    if "login_role_user" in request.fixturenames:
+        client, _role = request.getfixturevalue("login_role_user")
+        client.cookies.pop("messages", None)
 
 
 @pytest.fixture(autouse=True)
@@ -229,27 +244,235 @@ def clear_cache() -> None:
     cache.clear()
 
 
-@pytest.fixture
-def clean_news_cache(load_test_data: None) -> Generator[None]:
-    """
-    Clear external news-source cache entries before and after a test.
-
-    Language slugs are read from the DB so adding or removing a language is
-    automatically reflected.
-    """
-    keys = [
-        f"tunews:{slug}" for slug in Language.objects.values_list("slug", flat=True)
-    ] + [f"amalnews:{slug}" for slug in Language.objects.values_list("slug", flat=True)]
-    for key in keys:
-        cache.delete(key)
-    yield
-    for key in keys:
-        cache.delete(key)
-
-
 @pytest.fixture()
 def disable_auto_news_reimport(settings: SettingsWrapper) -> None:
     """
     Disable re-import of external news on demand to avoid hitting the real APIs and getting real news posts
     """
     settings.EXTERNALNEWS_DISABLE_AUTO_REIMPORT = True
+
+
+@pytest.fixture()
+def create_language() -> Callable[..., Language]:
+    """
+    Factory fixture to create a
+    :class:`~integreat_cms.cms.models.languages.language.Language` with sensible
+    defaults for all required fields, so tests only need to pass the values they
+    care about.
+
+    :return: A callable that creates a language
+    """
+    counter = itertools.count(1)
+
+    def _create_language(slug: str | None = None, **overrides: Any) -> Language:
+        n = next(counter)
+        defaults: dict[str, Any] = {
+            "slug": slug or f"tl{n}",
+            "bcp47_tag": f"tl-T{n}",
+            "native_name": f"Test Language {n}",
+            "english_name": f"Test Language {n}",
+            "primary_country_code": "de",
+            "table_of_contents": "Inhaltsverzeichnis",
+        }
+        defaults.update(overrides)
+        return Language.objects.create(**defaults)
+
+    return _create_language
+
+
+@pytest.fixture()
+def create_region(
+    create_language: Callable[..., Language],
+) -> Callable[..., Region]:
+    """
+    Factory fixture to create a
+    :class:`~integreat_cms.cms.models.regions.region.Region` with sensible
+    defaults for all required fields.
+    If no language tree exists for the region after creation, a default language
+    is created and attached automatically.
+
+    :return: A callable that creates a region
+    """
+    counter = itertools.count(1)
+
+    def _create_region(slug: str | None = None, **overrides: Any) -> Region:
+        n = next(counter)
+        defaults: dict[str, Any] = {
+            "name": f"Test Region {n}",
+            "slug": slug or f"test-region-{n}",
+            "status": ACTIVE,
+            "administrative_division": MUNICIPALITY,
+            "postal_code": "00000",
+            "admin_mail": f"admin{n}@example.com",
+        }
+        defaults.update(overrides)
+        region = Region.objects.create(**defaults)
+        # Ensure the region has at least one language so default_language works
+        if not LanguageTreeNode.get_root_nodes().filter(region=region).exists():
+            language = create_language()
+            LanguageTreeNode.add_root(language=language, region=region)
+        return region
+
+    return _create_region
+
+
+@pytest.fixture()
+def create_page() -> Callable[..., Page]:
+    """
+    Factory fixture to create a
+    :class:`~integreat_cms.cms.models.pages.page.Page` via treebeard's
+    ``add_root`` / ``add_child`` API.
+
+    :return: A callable that creates a page
+    """
+
+    def _create_page(
+        region: Region,
+        parent: Page | None = None,
+        **overrides: Any,
+    ) -> Page:
+        kwargs: dict[str, Any] = {"region": region}
+        kwargs.update(overrides)
+        if parent:
+            return parent.add_child(**kwargs)
+        return Page.add_root(**kwargs)
+
+    return _create_page
+
+
+@pytest.fixture()
+def create_page_translation() -> Callable[..., PageTranslation]:
+    """
+    Factory fixture to create a
+    :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation`
+    with sensible defaults for all required fields.
+
+    :return: A callable that creates a page translation
+    """
+    counter = itertools.count(1)
+
+    def _create_page_translation(
+        page: Page,
+        language: Language | None = None,
+        **overrides: Any,
+    ) -> PageTranslation:
+        n = next(counter)
+        if language is None:
+            language = page.region.default_language
+        defaults: dict[str, Any] = {
+            "page": page,
+            "language": language,
+            "title": f"Test Page {n}",
+            "slug": f"test-page-{n}",
+            "status": PUBLIC,
+        }
+        defaults.update(overrides)
+        return PageTranslation.objects.create(**defaults)
+
+    return _create_page_translation
+
+
+@pytest.fixture()
+def create_event() -> Callable[..., Event]:
+    """
+    Factory fixture to create an
+    :class:`~integreat_cms.cms.models.events.event.Event` with sensible defaults
+    for all required fields.
+
+    :return: A callable that creates an event
+    """
+
+    def _create_event(
+        region: Region,
+        start: datetime.datetime | None = None,
+        end: datetime.datetime | None = None,
+        **overrides: Any,
+    ) -> Event:
+        utc = ZoneInfo("UTC")
+        if start is None:
+            start = datetime.datetime(2030, 6, 1, 10, 0, tzinfo=utc)
+        if end is None:
+            end = start + datetime.timedelta(hours=1)
+        defaults: dict[str, Any] = {
+            "region": region,
+            "start": start,
+            "end": end,
+        }
+        defaults.update(overrides)
+        return Event.objects.create(**defaults)
+
+    return _create_event
+
+
+@pytest.fixture()
+def create_event_translation() -> Callable[..., EventTranslation]:
+    """
+    Factory fixture to create an
+    :class:`~integreat_cms.cms.models.events.event_translation.EventTranslation`
+    with sensible defaults for all required fields.
+
+    :return: A callable that creates an event translation
+    """
+    counter = itertools.count(1)
+
+    def _create_event_translation(
+        event: Event,
+        language: Language | None = None,
+        **overrides: Any,
+    ) -> EventTranslation:
+        n = next(counter)
+        if language is None:
+            language = event.region.default_language
+        defaults: dict[str, Any] = {
+            "event": event,
+            "language": language,
+            "title": f"Test Event {n}",
+            "slug": f"test-event-{n}",
+        }
+        defaults.update(overrides)
+        return EventTranslation.objects.create(**defaults)
+
+    return _create_event_translation
+
+
+@pytest.fixture()
+def create_recurrence_rule() -> Callable[..., RecurrenceRule]:
+    """
+    Factory fixture to create a
+    :class:`~integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule`.
+
+    :return: A callable that creates a recurrence rule
+    """
+
+    def _create_recurrence_rule(**overrides: Any) -> RecurrenceRule:
+        defaults: dict[str, Any] = {
+            "frequency": "WEEKLY",
+            "interval": 1,
+        }
+        defaults.update(overrides)
+        return RecurrenceRule.objects.create(**defaults)
+
+    return _create_recurrence_rule
+
+
+@pytest.fixture()
+def create_user() -> Callable[..., User]:
+    """
+    Factory fixture to create a
+    :class:`~integreat_cms.cms.models.users.user.User`.
+
+    :return: A callable that creates a user
+    """
+    counter = itertools.count(1)
+
+    def _create_user(username: str | None = None, **overrides: Any) -> User:
+        n = next(counter)
+        defaults: dict[str, Any] = {
+            "username": username or f"testuser{n}",
+            "email": f"testuser{n}@example.com",
+            "password": "test-password-1234!",
+        }
+        defaults.update(overrides)
+        return User.objects.create_user(**defaults)
+
+    return _create_user

@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from datetime import timedelta
 
 import pytest
@@ -5,16 +6,18 @@ from django.db import IntegrityError, transaction
 from django.utils import timezone
 
 from integreat_cms.cms.models import Language, PageTranslation, Region
-from tests.factories import make_language, make_page
+from integreat_cms.cms.models.pages.page import Page
 
 
 @pytest.mark.django_db
-def test_when_creating_page_translations_to_automatically_create_unique_slugs() -> None:
+def test_when_creating_page_translations_to_automatically_create_unique_slugs(
+    create_page: Callable[..., Page],
+) -> None:
     region = Region.objects.create(name="new-region")
 
-    page1 = make_page(region=region)
-    page2 = make_page(region=region)
-    page3 = make_page(region=region)
+    page1 = create_page(region=region)
+    page2 = create_page(region=region)
+    page3 = create_page(region=region)
     language = Language.objects.create(slug="da", primary_country_code="de")
 
     page_translation1 = PageTranslation.objects.create(
@@ -31,12 +34,12 @@ def test_when_creating_page_translations_to_automatically_create_unique_slugs() 
 
 
 @pytest.mark.django_db
-def test_when_creating_page_translations_to_automatically_create_lowercase_slugs() -> (
-    None
-):
+def test_when_creating_page_translations_to_automatically_create_lowercase_slugs(
+    create_page: Callable[..., Page],
+) -> None:
     region = Region.objects.create(name="new-region")
 
-    page1 = make_page(region=region)
+    page1 = create_page(region=region)
     language = Language.objects.create(slug="da", primary_country_code="de")
 
     page_translation1 = PageTranslation.objects.create(
@@ -47,12 +50,15 @@ def test_when_creating_page_translations_to_automatically_create_lowercase_slugs
 
 
 @pytest.mark.django_db
-def test_get_translatable_attributes_content_and_title_changed() -> None:
+def test_get_translatable_attributes_content_and_title_changed(
+    create_page: Callable[..., Page],
+    create_language: Callable[..., Language],
+) -> None:
     region = Region.objects.create(name="new-region")
 
-    page = make_page(region=region)
-    language1 = make_language(slug="aaa", bcp47_tag="aaa")
-    language2 = make_language(slug="bbb", bcp47_tag="bbb")
+    page = create_page(region=region)
+    language1 = create_language(slug="aaa", bcp47_tag="aaa")
+    language2 = create_language(slug="bbb", bcp47_tag="bbb")
 
     PageTranslation.objects.create(
         page=page,
@@ -95,12 +101,15 @@ def test_get_translatable_attributes_content_and_title_changed() -> None:
 
 
 @pytest.mark.django_db
-def test_get_translatable_attributes_content_only_changed() -> None:
+def test_get_translatable_attributes_content_only_changed(
+    create_page: Callable[..., Page],
+    create_language: Callable[..., Language],
+) -> None:
     region = Region.objects.create(name="new-region")
 
-    page = make_page(region=region)
-    language1 = make_language(slug="aaa", bcp47_tag="aaa")
-    language2 = make_language(slug="bbb", bcp47_tag="bbb")
+    page = create_page(region=region)
+    language1 = create_language(slug="aaa", bcp47_tag="aaa")
+    language2 = create_language(slug="bbb", bcp47_tag="bbb")
 
     PageTranslation.objects.create(
         page=page,
@@ -143,12 +152,15 @@ def test_get_translatable_attributes_content_only_changed() -> None:
 
 
 @pytest.mark.django_db
-def test_get_translatable_attributes_first_translation() -> None:
+def test_get_translatable_attributes_first_translation(
+    create_page: Callable[..., Page],
+    create_language: Callable[..., Language],
+) -> None:
     region = Region.objects.create(name="new-region")
 
-    page = make_page(region=region)
-    language1 = make_language(slug="aaa", bcp47_tag="aaa")
-    language2 = make_language(slug="bbb", bcp47_tag="bbb")
+    page = create_page(region=region)
+    language1 = create_language(slug="aaa", bcp47_tag="aaa")
+    language2 = create_language(slug="bbb", bcp47_tag="bbb")
 
     PageTranslation.objects.create(
         page=page,
@@ -181,10 +193,12 @@ def test_get_translatable_attributes_first_translation() -> None:
 
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True)
-def test_db_trigger_prevents_duplicate_slug_on_page_translations() -> None:
+def test_db_trigger_prevents_duplicate_slug_on_page_translations(
+    create_page: Callable[..., Page],
+) -> None:
     region = Region.objects.create(slug="trigger-test-region")
-    page1 = make_page(region=region)
-    page2 = make_page(region=region)
+    page1 = create_page(region=region)
+    page2 = create_page(region=region)
     language = Language.objects.create(slug="zz", primary_country_code="de")
 
     PageTranslation.objects.create(page=page1, language=language, slug="conflict-slug")
@@ -200,10 +214,12 @@ def test_db_trigger_prevents_duplicate_slug_on_page_translations() -> None:
 
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True)
-def test_db_trigger_enforce_slug_uniqueness_on_bulk_creation() -> None:
+def test_db_trigger_enforce_slug_uniqueness_on_bulk_creation(
+    create_page: Callable[..., Page],
+) -> None:
     region = Region.objects.create(slug="trigger-test-region")
-    page1 = make_page(region=region)
-    page2 = make_page(region=region)
+    page1 = create_page(region=region)
+    page2 = create_page(region=region)
     language = Language.objects.create(slug="zz", primary_country_code="de")
 
     with pytest.raises(IntegrityError), transaction.atomic():

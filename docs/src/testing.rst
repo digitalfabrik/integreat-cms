@@ -158,36 +158,31 @@ Shared Fixtures (``tests/conftest.py``)
     automatically by the autouse ``clear_leaked_messages`` fixture, but tests
     that set other cookies have to clean up after themselves.
 
-``login_role_user_async``
-    Like ``login_role_user`` but returns an ``AsyncClient``.
+Factory Fixtures (``tests/conftest.py``)
+----------------------------------------
 
-Factory Functions (``tests/factories.py``)
-------------------------------------------
-
-Prefer the factory functions in ``tests/factories.py`` over raw
-``objects.create()`` calls — they are plain functions, so they need no fixture
-registration. Factories provide sensible defaults so you only specify the
-fields you care about::
-
-    from tests.factories import make_region, make_page, make_page_translation
+The ``create_*`` fixtures are function-scoped factory fixtures: each returns a
+callable that creates the corresponding model instance with sensible defaults
+for all required fields, so tests only need to pass the values they care
+about. Prefer them over raw ``objects.create()`` calls::
 
     @pytest.mark.django_db
-    def test_page_creation():
-        region = make_region()
-        page = make_page(region)
-        translation = make_page_translation(page, title="My Page")
+    def test_page_creation(create_region, create_page, create_page_translation):
+        region = create_region()
+        page = create_page(region)
+        translation = create_page_translation(page, title="My Page")
         assert translation.title == "My Page"
 
-Available factories:
+Available factory fixtures:
 
-- ``make_language(slug=None, **overrides)``
-- ``make_region(slug=None, **overrides)`` — also creates a default language
-- ``make_page(region, parent=None, **overrides)``
-- ``make_page_translation(page, language=None, **overrides)``
-- ``make_event(region, start=None, end=None, **overrides)``
-- ``make_event_translation(event, language=None, **overrides)``
-- ``make_recurrence_rule(**overrides)``
-- ``make_user(username=None, **overrides)``
+- ``create_language(slug=None, **overrides)``
+- ``create_region(slug=None, **overrides)`` — also creates a default language
+- ``create_page(region, parent=None, **overrides)``
+- ``create_page_translation(page, language=None, **overrides)``
+- ``create_event(region, start=None, end=None, **overrides)``
+- ``create_event_translation(event, language=None, **overrides)``
+- ``create_recurrence_rule(**overrides)``
+- ``create_user(username=None, **overrides)``
 
 
 Role Constants (``tests/constants.py``)
