@@ -225,12 +225,12 @@ def test_flag_set_during_translation_and_cleared_after(
     # returns, the whole lock-acquire -> translate -> flag-clear cycle has
     # already happened.
     queue_translations(
-        RequestFactory().get("/"),
-        task_kwargs["user_id"],
-        task_kwargs["region_id"],
-        task_kwargs["content_type"],
-        task_kwargs["object_ids"],
-        task_kwargs["language_slugs"],
+        request=RequestFactory().get("/"),
+        user_id=task_kwargs["user_id"],
+        region_id=task_kwargs["region_id"],
+        content_type=task_kwargs["content_type"],
+        object_ids=task_kwargs["object_ids"],
+        language_slugs=task_kwargs["language_slugs"],
     )
 
     assert flag_during_call["value"] is True
