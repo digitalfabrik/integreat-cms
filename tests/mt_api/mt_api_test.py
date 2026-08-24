@@ -466,12 +466,11 @@ def test_mt_update_up_to_date_no_changes(
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     mock_server: MockServer,
-    caplog: LogCaptureFixture,
 ) -> None:
     """
     When a source translation is updated without changes and MT update is enabled but target translation is already up-to-date:
     - target translation is not updated
-    - failure message is displayed
+    - failure reported via the MT report endpoint
     """
     mt_setup(["de"], ["en-gb", "en-us"], [], [], settings, mock_server)
 
@@ -501,11 +500,22 @@ def test_mt_update_up_to_date_no_changes(
         mt_translations_to_update="en",
     )
 
-    # Check for a failure message
-    assert_message_in_log(
-        "ERROR    Page \"Title\" was not translated into 'English', because there were no changes to the source translation.",
-        caplog,
+    # Translation now happens via a Celery task (eager in tests), so the
+    # "no changes" failure surfaces through the queued report rather than
+    # a synchronous Django message.
+    report_url = reverse(
+        "machine_translation_report",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": "en",
+            "model_type": "page",
+        },
     )
+    report_response = client.get(report_url)
+    report_data = report_response.json()
+    assert report_data["reports"], "Expected a queued machine translation report"
+    assert report_data["reports"][-1]["outcome"] == "PARTIAL_SUCCESS"
+
     en_translation = PageTranslation.objects.filter(
         page__id=page_id, language__slug="en"
     ).first()
