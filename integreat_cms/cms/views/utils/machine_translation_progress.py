@@ -1,11 +1,11 @@
 """
-This module contains the AJAX call for polling the progress of an
+This module contains the API call handler for polling the progress of an
 asynchronous machine translation Celery task.
 """
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Literal, TYPE_CHECKING
 
 from celery.result import AsyncResult
 from django.core.exceptions import PermissionDenied
@@ -44,7 +44,7 @@ def get_machine_translation_task_progress(
     request: HttpRequest,
     region_slug: str,
     language_slug: str,
-    model_type: str,
+    model_type: Literal["page", "event", "poi", "pushnotification"],
     task_id: str,
 ) -> JsonResponse:
     """

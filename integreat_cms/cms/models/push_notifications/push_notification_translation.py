@@ -58,7 +58,7 @@ class PushNotificationTranslation(AbstractBaseModel):
         default=False,
         verbose_name=_("currently in machine translation"),
         help_text=_(
-            "Flag to indicate a translation is currently being processed by a machine translation Celery task",
+            "Flag to indicate a translation is currently being processed by a machine translation task",
         ),
     )
 

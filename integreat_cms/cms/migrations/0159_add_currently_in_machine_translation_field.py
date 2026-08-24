@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name="currently_in_machine_translation",
             field=models.BooleanField(
                 default=False,
-                help_text="Flag to indicate a translation is currently being processed by a machine translation Celery task",
+                help_text="Flag to indicate a translation is currently being processed by a machine translation task",
                 verbose_name="currently in machine translation",
             ),
         ),
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
             name="currently_in_machine_translation",
             field=models.BooleanField(
                 default=False,
-                help_text="Flag to indicate a translation is currently being processed by a machine translation Celery task",
+                help_text="Flag to indicate a translation is currently being processed by a machine translation task",
                 verbose_name="currently in machine translation",
             ),
         ),
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
             name="currently_in_machine_translation",
             field=models.BooleanField(
                 default=False,
-                help_text="Flag to indicate a translation is currently being processed by a machine translation Celery task",
+                help_text="Flag to indicate a translation is currently being processed by a machine translation task",
                 verbose_name="currently in machine translation",
             ),
         ),
@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
             name="currently_in_machine_translation",
             field=models.BooleanField(
                 default=False,
-                help_text="Flag to indicate a translation is currently being processed by a machine translation Celery task",
+                help_text="Flag to indicate a translation is currently being processed by a machine translation task",
                 verbose_name="currently in machine translation",
             ),
         ),
@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
             name="currently_in_machine_translation",
             field=models.BooleanField(
                 default=False,
-                help_text="Flag to indicate a translation is currently being processed by a machine translation Celery task",
+                help_text="Flag to indicate a translation is currently being processed by a machine translation task",
                 verbose_name="currently in machine translation",
             ),
         ),

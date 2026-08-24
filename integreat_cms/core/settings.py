@@ -1440,10 +1440,9 @@ CELERY_TASK_TIME_LIMIT = 60 * 60 * 3
 #: configured, instead of a hardcoded socket path that may not exist.
 if REDIS_CACHE:
     if unix_socket := os.environ.get("INTEGREAT_CMS_REDIS_UNIX_SOCKET"):
-        default_celery_redis_url = f"redis+socket://{unix_socket}"
+        CELERY_BROKER_URL = f"redis+socket://{unix_socket}"
     else:
-        default_celery_redis_url = "redis://127.0.0.1:6379/0"
-    CELERY_BROKER_URL = os.environ.get("CELERY_REDIS_URL", default_celery_redis_url)
+        CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
     CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 else:
     # No external service needed: `CELERY_TASK_ALWAYS_EAGER` (set for tests,

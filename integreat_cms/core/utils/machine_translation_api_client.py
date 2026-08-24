@@ -13,8 +13,7 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
-from django.utils.translation import gettext, ngettext, ngettext_lazy
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, ngettext
 
 from ...cms.constants.machine_translatable_fields import TRANSLATABLE_FIELDS
 from ...cms.constants.machine_translation_budget import MINIMAL
@@ -27,6 +26,7 @@ if TYPE_CHECKING:
     from typing import Any
 
     from django.forms.models import ModelFormMetaclass
+    from django.forms.utils import ErrorDict
     from django.http import HttpRequest
     from django.utils.functional import Promise
 
@@ -391,7 +391,9 @@ class MachineTranslationApiClient(ABC):
         )
         self.successful_translations.append(ctx)
 
-    def mark_unsuccessful(self, ctx: TranslationContext, errors: Any) -> None:
+    def mark_unsuccessful(
+        self, ctx: TranslationContext, errors: ErrorDict | Exception
+    ) -> None:
         """
         Mark a translation as unsuccessful (usually due to API errors)
         """
@@ -408,7 +410,9 @@ class MachineTranslationApiClient(ABC):
         )
         self.failed_translations.append(ctx.source_translation.title)
 
-    def mark_too_long(self, ctx: TranslationContext, errors: Any) -> None:
+    def mark_too_long(
+        self, ctx: TranslationContext, errors: ErrorDict | Exception
+    ) -> None:
         """
         Mark a translation as too long
         """
@@ -489,12 +493,11 @@ class MachineTranslationApiClient(ABC):
         items: list,
         **extra_kwargs: Any,
     ) -> str:
-        format_kwargs: dict[str, object] = {
-            "model_name": ngettext(self.model_name, self.model_name_plural, len(items)),
-            "object_names": iter_to_string(items),
+        return str(message).format(
+            model_name=ngettext(self.model_name, self.model_name_plural, len(items)),
+            object_names=iter_to_string(items),
             **extra_kwargs,
-        }
-        return str(message).format(**format_kwargs)
+        )
 
     def get_refreshed_translations_message(self) -> str:
         items = [
@@ -513,7 +516,7 @@ class MachineTranslationApiClient(ABC):
             message, items, target_language=self.target_language
         )
 
-    def get_successful_translation_message(self, lazy: bool = True) -> str:
+    def get_successful_translation_message(self) -> str:
         items = [
             ctx.source_translation.title
             for ctx in self.successful_translations
@@ -521,18 +524,11 @@ class MachineTranslationApiClient(ABC):
         ]
         if not items:
             return ""
-        if lazy:
-            message = ngettext_lazy(
-                "{model_name} {object_names} has successfully been translated ({source_language} ➜ {target_language}).",
-                "The following {model_name} have successfully been translated ({source_language} ➜ {target_language}): {object_names}",
-                len(items),
-            )
-        else:
-            message = ngettext(
-                "{model_name} {object_names} has successfully been translated ({source_language} ➜ {target_language}).",
-                "The following {model_name} have successfully been translated ({source_language} ➜ {target_language}): {object_names}",
-                len(items),
-            )
+        message = ngettext(
+            "{model_name} {object_names} has successfully been translated ({source_language} ➜ {target_language}).",
+            "The following {model_name} have successfully been translated ({source_language} ➜ {target_language}): {object_names}",
+            len(items),
+        )
         return self._format_message(
             message,
             items,
@@ -540,115 +536,75 @@ class MachineTranslationApiClient(ABC):
             target_language=self.target_language,
         )
 
-    def get_failed_translation_message(self, lazy: bool = True) -> str:
+    def get_failed_translation_message(self) -> str:
         items = self.failed_translations
         if not items:
             return ""
-        if lazy:
-            message = ngettext_lazy(
-                "{model_name} {object_names} could not be translated automatically into '{target_language}'",
-                "The following {model_name} could not be translated automatically into '{target_language}': {object_names}",
-                len(items),
-            )
-        else:
-            message = ngettext(
-                "{model_name} {object_names} could not be translated automatically into '{target_language}'",
-                "The following {model_name} could not be translated automatically into '{target_language}': {object_names}",
-                len(items),
-            )
+        message = ngettext(
+            "{model_name} {object_names} could not be translated automatically into '{target_language}'",
+            "The following {model_name} could not be translated automatically into '{target_language}': {object_names}",
+            len(items),
+        )
         return self._format_message(
             message, items, target_language=self.target_language
         )
 
-    def get_no_changes_made_message(self, lazy: bool = True) -> str:
+    def get_no_changes_made_message(self) -> str:
         items = self.failed_because_no_changes_made
         if not items:
             return ""
-        if lazy:
-            message = ngettext_lazy(
-                "{model_name} {object_names} was not translated into '{target_language}', because there were no changes to the source translation.",
-                "The following {model_name} were not translated into '{target_language}', because there were no changes to the source translation: {object_names}",
-                len(items),
-            )
-        else:
-            message = ngettext(
-                "{model_name} {object_names} was not translated into '{target_language}', because there were no changes to the source translation.",
-                "The following {model_name} were not translated into '{target_language}', because there were no changes to the source translation: {object_names}",
-                len(items),
-            )
+        message = ngettext(
+            "{model_name} {object_names} was not translated into '{target_language}', because there were no changes to the source translation.",
+            "The following {model_name} were not translated into '{target_language}', because there were no changes to the source translation: {object_names}",
+            len(items),
+        )
         return self._format_message(
             message, items, target_language=self.target_language
         )
 
-    def get_no_source_translation_message(self, lazy: bool = True) -> str:
+    def get_no_source_translation_message(self) -> str:
         items = self.failed_because_no_source_translation
         if not items:
             return ""
-        if lazy:
-            message = ngettext_lazy(
-                "{model_name} {object_names} could not be translated because its source translation is missing.",
-                "The following {model_name} could not be translated because their source translations are missing: {object_names}",
-                len(items),
-            )
-        else:
-            message = ngettext(
-                "{model_name} {object_names} could not be translated because its source translation is missing.",
-                "The following {model_name} could not be translated because their source translations are missing: {object_names}",
-                len(items),
-            )
+        message = ngettext(
+            "{model_name} {object_names} could not be translated because its source translation is missing.",
+            "The following {model_name} could not be translated because their source translations are missing: {object_names}",
+            len(items),
+        )
         return self._format_message(message, items)
 
-    def get_insufficient_hix_score_message(self, lazy: bool = True) -> str:
+    def get_insufficient_hix_score_message(self) -> str:
         items = self.failed_because_insufficient_hix_score
         if not items:
             return ""
-        if lazy:
-            message = ngettext_lazy(
-                "{model_name} {object_names} could not be translated because its HIX score is too low for machine translation (minimum required: {min_required}).",
-                "The following {model_name} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
-                len(items),
-            )
-        else:
-            message = ngettext(
-                "{model_name} {object_names} could not be translated because its HIX score is too low for machine translation (minimum required: {min_required}).",
-                "The following {model_name} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
-                len(items),
-            )
+        message = ngettext(
+            "{model_name} {object_names} could not be translated because its HIX score is too low for machine translation (minimum required: {min_required}).",
+            "The following {model_name} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
+            len(items),
+        )
         return self._format_message(
             message, items, min_required=settings.HIX_REQUIRED_FOR_MT
         )
 
-    def get_exceeds_limit_message(self, lazy: bool = True) -> str:
+    def get_exceeds_limit_message(self) -> str:
         items = self.failed_because_exceeds_limit
         if not items:
             return ""
-        if lazy:
-            message = ngettext_lazy(
-                "{model_name} {object_names} could not be translated because it would exceed the remaining budget of {remaining_budget} words.",
-                "The following {model_name} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
-                len(items),
-            )
-        else:
-            message = ngettext(
-                "{model_name} {object_names} could not be translated because it would exceed the remaining budget of {remaining_budget} words.",
-                "The following {model_name} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
-                len(items),
-            )
+        message = ngettext(
+            "{model_name} {object_names} could not be translated because it would exceed the remaining budget of {remaining_budget} words.",
+            "The following {model_name} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
+            len(items),
+        )
         return self._format_message(
             message, items, remaining_budget=self.region.mt_budget_remaining
         )
 
-    def get_too_long_text_message(self, lazy: bool = True) -> str:
+    def get_too_long_text_message(self) -> str:
         if not self.failed_because_too_long_text:
             return ""
-        if lazy:
-            message = _(
-                "{model_name} {object_names} could not be translated because the generated translation ({source_language} ➜ {target_language}) exceeded the {max_text_length} character limit."
-            )
-        else:
-            message = gettext(
-                "{model_name} {object_names} could not be translated because the generated translation ({source_language} ➜ {target_language}) exceeded the {max_text_length} character limit."
-            )
+        message = gettext(
+            "{model_name} {object_names} could not be translated because the generated translation ({source_language} ➜ {target_language}) exceeded the {max_text_length} character limit."
+        )
         return str(message).format(
             model_name=self.model_name,
             object_names=iter_to_string(self.failed_because_too_long_text),
