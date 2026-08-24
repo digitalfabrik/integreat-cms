@@ -4,6 +4,8 @@
 # It fetches the info from GitHub and suggests a prefix and slug
 # matching our branch naming conventions.
 
+# shellcheck disable=SC2154
+
 # Import utility functions
 # shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
@@ -11,11 +13,11 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 require_installed
 
 # ANSI color sequences
-RED=$'\e[1;31m'
+#RED=$'\e[1;31m'
 GREEN=$'\e[1;32m'
 YELLOW=$'\e[1;33m'
 BLUE=$'\e[1;34m'
-PURPLE=$'\e[1;35m'
+#PURPLE=$'\e[1;35m'
 COLRESET=$'\e[0;39m'
 
 BOLD=$'\e[1;1m'
@@ -26,9 +28,9 @@ echo "Getting info from GitHub..." | print_info
 source <(.venv/bin/python tools/github-info.py "$1" issue)
 
 # Show general info
-echo "  ${BOLD}#$number  $issueType${BOLDRESET}"
-echo "  $headline"
-echo "  ${YELLOW}$labels${COLRESET}"
+echo "  ${BOLD}#${number}  ${issueType}${BOLDRESET}"
+echo "  ${headline}"
+echo "  ${YELLOW}${labels}${COLRESET}"
 
 function slugify {
     # Convert the characters of the given argument into ASCII
@@ -53,7 +55,7 @@ function slugify {
     done
 
     # Return the slug
-    echo "$transliterated" | sed ${sed_args[@]}
+    echo "$transliterated" | sed "${sed_args[@]}"
 }
 
 prefix="chore"  # The default prefix if nothing else matches
@@ -72,18 +74,18 @@ if tty -s; then
     for c in "${choices[@]}"; do
         if [[ "$c" == "$prefix" ]]; then
             # This choice is the currect pre-selected one, highlight it
-            choice_str+="[${GREEN}$c${COLRESET}]"
+            choice_str+=("[${GREEN}${c}${COLRESET}]")
         else
             # This is an alternative choice, just pad it with spaces
             # so they don't shift around when the pre-selected one changes
-            choice_str+=" $c "
+            choice_str+=(" $c ")
         fi
     done
     # Now prompt the user for their choice
     # This is a while loop that runs again and again until the choice is valid
     while true; do
         # Display prompt, save any characters sent before enter into $ans
-        read -p "${BLUE}Set branch prefix (${COLRESET}${choice_str[@]}${BLUE}):${COLRESET} " ans
+        read -r -p "${BLUE}Set branch prefix (${COLRESET}${choice_str[*]}${BLUE}):${COLRESET} " ans
 
         # Some shell magic to match any choice in the $choices array
         # instead of listing them out individually
@@ -103,14 +105,14 @@ if tty -s; then
 
     # Give the option to adjust the branch name
     # Pre-fill it with $slug, save the result after pressing enter into $ans
-    read -e -p "${BLUE}Set branch name:${COLRESET} $prefix/" -i $slug ans
+    read -e -r -p "${BLUE}Set branch name:${COLRESET} ${prefix}/" -i "$slug" ans
     # Enforce a slugified result
     normalized=$(slugify "$ans")
     while [[ "$ans" != "$normalized" ]]; do
         # The slugified result differs from the raw result we got from the user,
         # meaning they didn't produce a valid one.
         # Prompt them again to make sure we capture their intention
-        read -e -p "${YELLOW}Normalized slug:${COLRESET} $prefix/" -i $normalized ans
+        read -e -r -p "${YELLOW}Normalized slug:${COLRESET} ${prefix}/" -i "$normalized" ans
         normalized=$(slugify "$ans")
     done
 
@@ -120,7 +122,7 @@ fi
 
 
 # Now we can assemble the branch name
-branchName="$prefix/$slug"
+branchName="${prefix}/${slug}"
 
 git switch -c "$branchName"
 

@@ -13,12 +13,10 @@ import json
 import re
 import shlex
 import sys
+from typing import Any
 
 import requests
 from lxml.html import fromstring
-
-from typing import Any
-
 
 #################################################################
 # ALL OUTPUT of this script is supposed to be machine readable. #
