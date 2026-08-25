@@ -22,7 +22,7 @@ from ..models import (
     PageTranslation,
     POITranslation,
 )
-from ..utils.link_shortcode_utils import expand_link_shortcodes
+from ..utils.shortcodes import expand_shortcodes_for_cms
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -177,7 +177,7 @@ def expand_links(content: str, language_slug: str) -> str:
     :param language_slug: The slug of the language the content should be presented in
     :return: The content with expanded links
     """
-    return expand_link_shortcodes(content, language_slug)
+    return expand_shortcodes_for_cms(content, language_slug)
 
 
 @register.filter

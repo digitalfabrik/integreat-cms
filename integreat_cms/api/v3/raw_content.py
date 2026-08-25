@@ -17,7 +17,6 @@ from ...cms.models.languages.language import Language
 from ...cms.utils.internal_link_utils import (
     get_public_translation_for_webapp_link_parts,
 )
-from ...cms.utils.shortcodes import expand_shortcodes
 from ...cms.utils.social_media_utils import (
     get_region_title,
 )
@@ -28,15 +27,12 @@ from .social_media_headers import (
 )
 
 if TYPE_CHECKING:
-    from typing import Any
-
     from django.http import (
         HttpRequest,
         HttpResponse,
     )
 
     from ...cms.models.abstract_content_translation import AbstractContentTranslation
-    from ...cms.models.regions.region import Region
 
 logger = logging.getLogger(__name__)
 
@@ -73,28 +69,17 @@ partial_content_response = partial(
 
 def get_content(
     request: HttpRequest,
-    region: Region,
-    language: Language,
     translation: AbstractContentTranslation,
 ) -> str:
     """
     Returns the content of a translation with all shortcodes expanded
 
     :param request: The current request
-    :param region: The region the translation belongs to
-    :param language: The language of the translation
     :param translation: The translation whose content should be rendered
 
     :return: The content of the translation
     """
-    content = getattr(translation, "combined_text", translation.content)
-    context: dict[str, Any] = {
-        "region_slug": region.slug,
-        "language_slug": language.slug,
-        "content_object": translation,
-        "request": request,
-    }
-    return expand_shortcodes(content, context=context)
+    return translation.content_for_delivery(request=request)
 
 
 @partial_content_response
@@ -198,7 +183,7 @@ def page_content(
         "raw_content.html",
         {
             "title": get_region_title(region, page_translation.title),
-            "content": get_content(request, region, language, page_translation),
+            "content": get_content(request, page_translation),
             "language_code": language.bcp47_tag,
         },
     )
@@ -240,7 +225,7 @@ def event_content(
         "raw_content.html",
         {
             "title": get_region_title(region, event_translation.title),
-            "content": get_content(request, region, language, event_translation),
+            "content": get_content(request, event_translation),
             "language_code": language.bcp47_tag,
         },
     )
@@ -314,7 +299,7 @@ def location_content(
         "raw_content.html",
         {
             "title": get_region_title(region, location_translation.title),
-            "content": get_content(request, region, language, location_translation),
+            "content": get_content(request, location_translation),
             "language_code": language.bcp47_tag,
         },
     )

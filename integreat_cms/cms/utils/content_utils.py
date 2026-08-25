@@ -14,8 +14,8 @@ from lxml.html.clean import Cleaner
 
 from ..models import Contact, MediaFile
 from ..utils import internal_link_utils
-from ..utils.link_shortcode_utils import collapse_link_to_shortcode
 from ..utils.link_utils import fix_content_link_encoding
+from ..utils.shortcodes import collapse_into_shortcodes
 
 logger = logging.getLogger(__name__)
 
@@ -54,6 +54,7 @@ def clean_content(
     content = _xss_cleaner.clean_html(content)
     convert_heading(content)
     convert_monospaced_tags(content)
+    collapse_into_shortcodes(content)
     update_links(content, language_slug)
     fix_alt_texts(content)
     fix_notranslate(content)
@@ -128,16 +129,14 @@ def update_links(content: HtmlElement, language_slug: str) -> None:
     """
     Super method that gathers all methods related to updating links
 
-    Links to internal pages are replaced by the shortcode representing them, so that they are
-    only resolved when the content is delivered and never reach the link index of ``linkcheck``.
+    Links which reference internal content are already gone at this point, because
+    :func:`~integreat_cms.cms.utils.shortcodes.collapse_into_shortcodes` replaced them by the
+    shortcode representing them.
 
     :param content: The content whose links should be updated
     :param language_slug: Slug of the current language
     """
     for link in list(content.iter("a")):
-        if collapse_link_to_shortcode(link):
-            # The link does not exist anymore, so there is nothing left to update
-            continue
         mark_external_links(link)
         remove_target_attribute(link)
         update_internal_links(link, language_slug)

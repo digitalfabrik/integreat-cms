@@ -571,9 +571,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: The content with expanded links
         """
         # Imported here because the utils import the models
-        from ..utils.link_shortcode_utils import expand_link_shortcodes
+        from ..utils.shortcodes import expand_shortcodes_for_cms
 
-        return expand_link_shortcodes(self.content, self.language.slug)
+        return expand_shortcodes_for_cms(self.content, self.language.slug)
 
     def content_for_delivery(self, **extra_context: Any) -> str:
         r"""
@@ -588,9 +588,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: The expanded content
         """
         # Imported here because the utils import the models
-        from ..utils.shortcodes import expand_shortcodes
+        from ..utils.shortcodes import expand_shortcodes_for_delivery
 
-        return expand_shortcodes(
+        return expand_shortcodes_for_delivery(
             self.combined_text,
             context={
                 "region_slug": self.foreign_object.region.slug,

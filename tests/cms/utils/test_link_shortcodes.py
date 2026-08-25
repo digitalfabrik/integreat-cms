@@ -10,9 +10,9 @@ from lxml.html import fromstring, tostring
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import PageTranslation
 from integreat_cms.cms.utils.content_utils import clean_content
-from integreat_cms.cms.utils.link_shortcode_utils import (
-    collapse_links_to_shortcodes,
-    expand_link_shortcodes,
+from integreat_cms.cms.utils.shortcodes import (
+    collapse_into_shortcodes,
+    expand_shortcodes_for_cms,
 )
 
 #: The full url of the German translation of page 1 in the Augsburg region
@@ -36,11 +36,11 @@ def unpublish_page_3() -> None:
 
 def collapse(content: str) -> str:
     """
-    Run :func:`~integreat_cms.cms.utils.link_shortcode_utils.collapse_links_to_shortcodes`
+    Run :func:`~integreat_cms.cms.utils.shortcodes.collapse_into_shortcodes`
     on a html string and return the result as a html string again
     """
     element = fromstring(content)
-    collapse_links_to_shortcodes(element)
+    collapse_into_shortcodes(element)
     return tostring(element, encoding="unicode", with_tail=False)
 
 
@@ -49,7 +49,7 @@ def test_expand_page_shortcode_without_text(load_test_data: None) -> None:
     """
     A ``[page]`` shortcode without link text becomes an auto updating link
     """
-    assert expand_link_shortcodes("<p>[page 1]</p>", "de") == (
+    assert expand_shortcodes_for_cms("<p>[page 1]</p>", "de") == (
         f'<p><a href="{WILLKOMMEN_URL}" data-integreat-auto-update="true">Willkommen</a></p>'
     )
 
@@ -59,7 +59,7 @@ def test_expand_page_shortcode_with_text(load_test_data: None) -> None:
     """
     A ``[page]`` shortcode with link text becomes a plain link
     """
-    assert expand_link_shortcodes('<p>[page 1 "hier"]</p>', "de") == (
+    assert expand_shortcodes_for_cms('<p>[page 1 "hier"]</p>', "de") == (
         f'<p><a href="{WILLKOMMEN_URL}">hier</a></p>'
     )
 
@@ -69,7 +69,7 @@ def test_expand_page_shortcode_uses_requested_language(load_test_data: None) -> 
     """
     The shortcode is expanded to the url of the translation in the requested language
     """
-    assert expand_link_shortcodes("<p>[page 1]</p>", "en") == (
+    assert expand_shortcodes_for_cms("<p>[page 1]</p>", "en") == (
         '<p><a href="https://integreat.app/augsburg/en/welcome/"'
         ' data-integreat-auto-update="true">Welcome</a></p>'
     )
@@ -81,7 +81,7 @@ def test_expand_page_link_shortcode(load_test_data: None) -> None:
     A ``[page_link]`` block shortcode wraps its content in a link
     """
     assert (
-        expand_link_shortcodes(
+        expand_shortcodes_for_cms(
             '<p>[page_link 1]<img src="/media/test.png" alt="">[/page_link]</p>', "de"
         )
         == f'<p><a href="{WILLKOMMEN_URL}"><img src="/media/test.png" alt=""></a></p>'
@@ -95,14 +95,15 @@ def test_expand_unresolvable_shortcode_is_kept_verbatim(load_test_data: None) ->
     instead of silently vanishing from the content
     """
     assert (
-        expand_link_shortcodes("<p>[page 999999]</p>", "de") == "<p>[page 999999]</p>"
+        expand_shortcodes_for_cms("<p>[page 999999]</p>", "de")
+        == "<p>[page 999999]</p>"
     )
     assert (
-        expand_link_shortcodes('<p>[page 999999 "hier"]</p>', "de")
+        expand_shortcodes_for_cms('<p>[page 999999 "hier"]</p>', "de")
         == '<p>[page 999999 "hier"]</p>'
     )
     assert (
-        expand_link_shortcodes("<p>[page_link 999999]<b>x</b>[/page_link]</p>", "de")
+        expand_shortcodes_for_cms("<p>[page_link 999999]<b>x</b>[/page_link]</p>", "de")
         == "<p>[page_link 999999]<b>x</b>[/page_link]</p>"
     )
 
@@ -113,7 +114,7 @@ def test_expand_leaves_other_shortcodes_alone(load_test_data: None) -> None:
     Only link shortcodes are expanded, everything else is passed through
     """
     assert (
-        expand_link_shortcodes("<p>[contact 1 email]</p>", "de")
+        expand_shortcodes_for_cms("<p>[contact 1 email]</p>", "de")
         == "<p>[contact 1 email]</p>"
     )
 
@@ -125,7 +126,7 @@ def test_expand_page_shortcode_to_draft_page(load_test_data: None) -> None:
     so those shortcodes must be expanded as well
     """
     unpublish_page_3()
-    assert expand_link_shortcodes("<p>[page 3]</p>", "de") == (
+    assert expand_shortcodes_for_cms("<p>[page 3]</p>", "de") == (
         f'<p><a href="{UBER_DIE_APP_URL}" data-integreat-auto-update="true">'
         "Über die App Integreat Augsburg</a></p>"
     )
@@ -239,7 +240,7 @@ def test_round_trip(load_test_data: None, shortcodes: str) -> None:
     """
     Expanding and collapsing again must not change the stored content
     """
-    assert collapse(expand_link_shortcodes(shortcodes, "de")) == shortcodes
+    assert collapse(expand_shortcodes_for_cms(shortcodes, "de")) == shortcodes
 
 
 @pytest.mark.django_db
@@ -303,7 +304,7 @@ def test_round_trip_of_escaped_content(
     """
     content = shortcodes
     for _iteration in range(3):
-        content = collapse(expand_link_shortcodes(content, "de"))
+        content = collapse(expand_shortcodes_for_cms(content, "de"))
         assert content == shortcodes
 
 
