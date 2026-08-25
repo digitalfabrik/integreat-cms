@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-08-11T15:11:56+00:00" />
+    <meta property="article:modified_time" content="2026-08-25T10:22:47+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Constants &mdash; integreat-cms 2026.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -112,6 +112,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#pages">Pages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#pdf-export">PDF Export</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#raw-content">Raw Content</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#region-settings">Region Settings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#social-media-headers">Social Media Headers</a></li>
 </ul>
@@ -149,6 +150,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#postal-code">Postal Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#push-notifications">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#recurrence">Recurrence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#region-api-settings">Region API Settings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#region-status">Region Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#roles">Roles</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#status">Status</a></li>
@@ -460,6 +462,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-token-auth">Test API Token Auth</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-news-endpoint">Test News Endpoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-pushnotification-api">Test Pushnotification API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-region-settings">Test Region Settings</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.cms.html">CMS</a><ul>
@@ -725,6 +728,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pages">Pages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pdf_export">PDF Export</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.raw_content">Raw Content</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.region_settings">Region Settings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.social_media_headers">Social Media Headers</a></li>
 </ul>
@@ -778,6 +782,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.postal_code">Postal Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.recurrence">Recurrence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.region_api_settings">Region API Settings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.region_status">Region Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.roles">Roles</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.status">Status</a></li>
@@ -1551,6 +1556,18 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_pushnotification_api">Test Pushnotification API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_pushnotification_api.create_a_pushnotification"><code class="docutils literal notranslate"><span class="pre">create_a_pushnotification()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_pushnotification_api.test_no_archived_pushnotification"><code class="docutils literal notranslate"><span class="pre">test_no_archived_pushnotification()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_region_settings">Test Region Settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_api_managed_region_form_shows_the_real_budget"><code class="docutils literal notranslate"><span class="pre">test_api_managed_region_form_shows_the_real_budget()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_get_region_settings"><code class="docutils literal notranslate"><span class="pre">test_get_region_settings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_post_accepts_budget_outside_the_predefined_sizes"><code class="docutils literal notranslate"><span class="pre">test_post_accepts_budget_outside_the_predefined_sizes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_post_rejects_invalid_values"><code class="docutils literal notranslate"><span class="pre">test_post_rejects_invalid_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_post_rejects_non_writable_fields"><code class="docutils literal notranslate"><span class="pre">test_post_rejects_non_writable_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_post_updates_settings_and_records_sync"><code class="docutils literal notranslate"><span class="pre">test_post_updates_settings_and_records_sync()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_requires_authentication"><code class="docutils literal notranslate"><span class="pre">test_requires_authentication()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_requires_permission"><code class="docutils literal notranslate"><span class="pre">test_requires_permission()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_unknown_region_returns_404"><code class="docutils literal notranslate"><span class="pre">test_unknown_region_returns_404()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3458,6 +3475,33 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 </dd></dl>
 
 </section>
+<section id="region-api-settings">
+<h2>Region API Settings<a class="headerlink" href="#region-api-settings" title="Link to this heading"></a></h2>
+<p>This module contains the region settings which can be written through the API</p>
+<p>The list is the single source of truth for both the API endpoint and the region form: the endpoint
+only accepts these fields, and the form renders exactly these fields read-only once a region is
+managed externally. Core fields such as the name or the slug are deliberately not included — they
+identify the region and must never be changed by an external system.</p>
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.region_api_settings.</span></span><span class="sig-name descname"><span class="pre">WRITABLE_FIELDS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['events_enabled',</span> <span class="pre">'locations_enabled',</span> <span class="pre">'contacts_enabled',</span> <span class="pre">'external_news_enabled',</span> <span class="pre">'integreat_chat_enabled',</span> <span class="pre">'push_notifications_enabled',</span> <span class="pre">'mt_budget_booked',</span> <span class="pre">'mt_renewal_month',</span> <span class="pre">'mt_budget_adjustment']</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/region_api_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The region settings which an external system may write via the API</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">    </span><span class="s1">&#39;events_enabled&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;locations_enabled&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;contacts_enabled&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;external_news_enabled&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;integreat_chat_enabled&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;push_notifications_enabled&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;mt_budget_booked&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;mt_renewal_month&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;mt_budget_adjustment&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
 <section id="region-status">
 <h2>Region Status<a class="headerlink" href="#region-status" title="Link to this heading"></a></h2>
 <p>This module contains the possible status of regions.</p>
@@ -4536,7 +4580,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 11, 2026.
+      <span class="lastupdated">Last updated on Aug 25, 2026.
       </span></p>
   </div>
 
