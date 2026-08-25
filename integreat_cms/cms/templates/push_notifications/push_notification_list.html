@@ -115,15 +115,15 @@
                             <td colspan="4" class="px-4 py-3">
                                 {% if is_archived %}
                                     {% if search_query %}
-                                        {% translate "No archived push notifications found with these filters." %}
+                                        {% translate "No archived news found with these filters." %}
                                     {% else %}
-                                        {% translate "No push notifications archived yet." %}
+                                        {% translate "No news archived yet." %}
                                     {% endif %}
                                 {% else %}
                                     {% if search_query %}
-                                        {% translate "No push notifications found with these filters." %}
+                                        {% translate "No news found with these filters." %}
                                     {% else %}
-                                        {% translate "No push notifications available yet." %}
+                                        {% translate "No news available yet." %}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -135,7 +135,7 @@
         {% if push_notifications %}
             <div class="pt-2 px-2">
                 <div class="inline">
-                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Push notifications selected" %}</span>
+                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "News selected" %}</span>
                 </div>
             </div>
         {% endif %}
@@ -145,18 +145,22 @@
                     <option>
                         {% translate "Select bulk action" %}
                     </option>
+                    {% translate "news" context "plural" as content_type %}
                     {% if perms.cms.archive_pushnotification %}
                         {% if is_archived %}
                             <option data-bulk-action="{% url "bulk_restore_push_notifications" region_slug=request.region.slug language_slug=language.slug %}">
-                                {% translate "Restore push notifications" %}
+                                {% blocktranslate trimmed %}
+                                    Restore {{ content_type }}
+                                {% endblocktranslate %}
                             </option>
                         {% else %}
                             <option data-bulk-action="{% url "bulk_archive_push_notifications" region_slug=request.region.slug language_slug=language.slug %}">
-                                {% translate "Archive push notifications" %}
+                                {% blocktranslate trimmed %}
+                                    Archive {{ content_type }}
+                                {% endblocktranslate %}
                             </option>
                         {% endif %}
                     {% endif %}
-                    {% translate "Push notifications" as content_type %}
                     {% if perms.cms.delete_pushnotification %}
                         <option class="bulk-confirmation-dialog"
                                 data-bulk-action="{% url 'bulk_delete_push_notifications' region_slug=request.region.slug language_slug=language.slug %}"

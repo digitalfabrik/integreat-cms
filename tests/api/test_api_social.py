@@ -18,6 +18,7 @@ from .api_config import API_SOCIAL_ENDPOINTS
 )
 def test_api_result(
     load_test_data: None,
+    update_snapshots: bool,
     django_assert_num_queries: Callable,
     endpoint: str,
     expected_result: str,
@@ -30,6 +31,7 @@ def test_api_result(
     provided in the corresponding json file.
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param update_snapshots: Whether to update snapshot files instead of comparing
     :param django_assert_num_queries: The fixture providing the query assertion
     :param endpoint: The url of the new Django pattern
     :param expected_result: The path to the json file that contains the expected result
@@ -41,5 +43,10 @@ def test_api_result(
         response = client.get(endpoint, format="html")
     print(response.headers)
     assert response.status_code == expected_code
-    with open(expected_result, encoding="utf-8") as f:
-        assert f.read() == response.content.decode("utf-8")
+    content = response.content.decode("utf-8")
+    if update_snapshots:
+        with open(expected_result, "w", encoding="utf-8") as f:
+            f.write(content)
+    else:
+        with open(expected_result, encoding="utf-8") as f:
+            assert f.read() == content

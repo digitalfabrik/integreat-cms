@@ -65,14 +65,14 @@ class PushNotificationListView(TemplateView, FilterSortMixin, PaginationMixin):
         if not settings.FCM_ENABLED:
             messages.error(
                 request,
-                _("Push notifications are disabled."),
+                _("News are disabled."),
             )
             return redirect("dashboard", **{"region_slug": region.slug})
 
         if not region.push_notifications_enabled:
             messages.error(
                 request,
-                _("Push notifications are disabled in this region."),
+                _("News are disabled in this region."),
             )
             return redirect("dashboard", **{"region_slug": region.slug})
 
@@ -91,7 +91,7 @@ class PushNotificationListView(TemplateView, FilterSortMixin, PaginationMixin):
             messages.error(
                 request,
                 _(
-                    "Please create at least one language node before creating push notifications.",
+                    "Please create at least one language node before creating news.",
                 ),
             )
             return redirect(

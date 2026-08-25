@@ -4,7 +4,7 @@ from django.urls import resolve, reverse
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models.pages.page_translation import PageTranslation
-from tests.conftest import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
+from tests.constants import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 
 
 @pytest.mark.parametrize(

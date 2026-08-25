@@ -1781,7 +1781,6 @@ msgstr "Rechts nach Links"
 
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
 #: cms/templates/events/event_list_row.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/pages_page_tree_node.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Translation up-to-date"
@@ -1789,7 +1788,6 @@ msgstr "Übersetzung ist aktuell"
 
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
 #: cms/templates/events/event_list_row.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/pages_page_tree_node.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Currently in translation"
@@ -1797,7 +1795,6 @@ msgstr "Wird derzeit übersetzt"
 
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
 #: cms/templates/events/event_list_row.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/pages_page_tree_node.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Translation outdated"
@@ -2107,9 +2104,7 @@ msgstr "Kategorie"
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/events/external_calendar_list.html
 #: cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html
 #: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/pages/page_sbs.html
 #: cms/templates/push_notifications/push_notification_setting_box.html
 #: cms/templates/regions/region_list.html
 msgid "Status"
@@ -2431,20 +2426,6 @@ msgid "Timezone area"
 msgstr "Region der Zeitzone"
 
 #: cms/forms/regions/region_form.py
-msgid "Budget year start differs from the renewal date"
-msgstr "Unterjähriger Start des Abrechnungszeitraums"
-
-#: cms/forms/regions/region_form.py
-msgid ""
-"Enable to set an starting date of machine translation budget calculation "
-"differing from the renewal date. Budget will be set as a monthly fraction of "
-"the booked machine translation budget."
-msgstr ""
-"Aktivieren, um ein Startdatum für die Rechnung des Budgets für maschinelle "
-"Übersetztung anzugeben, welches sich vom Zurücksetzungsdatum unterscheidet. "
-"Das Budget wird monatsanteilig vom gebuchten Budgets berechnet."
-
-#: cms/forms/regions/region_form.py
 msgid "Zammad forms"
 msgstr "Zammad Formulare"
 
@@ -2465,14 +2446,6 @@ msgstr ""
 #: cms/forms/regions/region_form.py
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
-
-#: cms/forms/regions/region_form.py
-msgid ""
-"Please provide a valid budget year start date for foreign language "
-"translation."
-msgstr ""
-"Bitte geben Sie ein gültiges Startdatum für den Abrechnungszeitraum der "
-"Fremdsprachenübersetzung an."
 
 #: cms/forms/regions/region_form.py
 msgid ""
@@ -2545,6 +2518,10 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 #: cms/forms/statistics/statistics_filter_form.py
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
+
+#: cms/forms/users/api_token_form.py
+msgid "You already have a token with this name."
+msgstr "Sie haben bereits ein Token mit diesem Namen."
 
 #: cms/forms/users/authentication_form.py cms/forms/users/user_form.py
 #: cms/templates/authentication/password_reset_confirm.html
@@ -2712,8 +2689,8 @@ msgstr "Region"
 #: cms/models/languages/language_tree_node.py cms/models/media/directory.py
 #: cms/models/offers/offer_template.py
 #: cms/models/push_notifications/push_notification.py
-#: cms/models/regions/region.py cms/models/users/organization.py
-#: cms/models/users/user_fido_key.py
+#: cms/models/regions/region.py cms/models/users/api_token.py
+#: cms/models/users/organization.py cms/models/users/user_fido_key.py
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
@@ -4044,7 +4021,7 @@ msgid "channel"
 msgstr "Kanal"
 
 #: cms/models/push_notifications/push_notification.py
-msgid "The date and time when the News was sent."
+msgid "The date and time when the news item was sent."
 msgstr "Datum und Uhrzeit zu der die Nachricht gesendet wurde"
 
 #: cms/models/push_notifications/push_notification.py
@@ -4052,7 +4029,7 @@ msgid "scheduled send date"
 msgstr "Geplanter Zeitpunkt zum Senden"
 
 #: cms/models/push_notifications/push_notification.py
-msgid "The scheduled date for this News to be sent"
+msgid "The scheduled date for this news item to be sent"
 msgstr "Datum und Uhrzeit, wann die Nachricht gesendet werden soll"
 
 #: cms/models/push_notifications/push_notification.py
@@ -4060,33 +4037,34 @@ msgid "mode"
 msgstr "Modus"
 
 #: cms/models/push_notifications/push_notification.py
-msgid "Sets behavior for dealing with not existing News translations"
+msgid "Sets behavior for dealing with not existing news translations"
 msgstr ""
 "Legt das Verhalten für den Umgang mit nicht vorhandenen Übersetzungen von "
 "Nachrichten fest"
 
 #: cms/models/push_notifications/push_notification.py
-msgid ""
-"Whether or not the push notification is read-only and hidden in the API."
+msgid "Whether or not the news item is read-only and hidden in the API."
 msgstr ""
 "Ob die Nachricht schreibgeschützt und in der API verborgen ist oder nicht."
 
 #: cms/models/push_notifications/push_notification.py
 #: cms/models/push_notifications/push_notification_translation.py
-msgid "push notification"
-msgstr "Push-Benachrichtigung"
+msgid "news"
+msgstr "Nachricht"
 
 #: cms/models/push_notifications/push_notification.py
-msgid "push notifications"
-msgstr "Push-Benachrichtigungen"
+#: cms/templates/push_notifications/push_notification_list.html
+msgctxt "plural"
+msgid "news"
+msgstr "Nachrichten"
 
 #: cms/models/push_notifications/push_notification_translation.py
-msgid "push notification translation"
-msgstr "Push-Benachrichtigungs-Übersetzung"
+msgid "news translation"
+msgstr "Nachrichten-Übersetzung"
 
 #: cms/models/push_notifications/push_notification_translation.py
-msgid "push notification translations"
-msgstr "Push-Benachrichtigungs-Übersetzungen"
+msgid "news translations"
+msgstr "Nachrichten-Übersetzungen"
 
 #: cms/models/regions/region.py
 msgid "community identification number"
@@ -4164,12 +4142,12 @@ msgid "Whether or not contacts are enabled in the region"
 msgstr "Ob Kontakte in der Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py
-msgid "activate push notifications"
-msgstr "Push-Benachrichtigungen aktivieren"
+msgid "activate news"
+msgstr "Nachrichten aktivieren"
 
 #: cms/models/regions/region.py
-msgid "Whether or not push notifications are enabled in the region"
-msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
+msgid "Whether or not news is enabled in the region"
+msgstr "Ob Nachrichten in der Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py
 msgid "activate term explanations"
@@ -4380,6 +4358,15 @@ msgid "Machine translation budget"
 msgstr "Budget für Maschinelle Übersetzung"
 
 #: cms/models/regions/region.py
+msgid ""
+"The booked budget in number of words. For regions managed via the API this "
+"can be any value, so no choices are enforced on the model."
+msgstr ""
+"Das gebuchte Budget in Anzahl der Wörter. Für Regionen, die über die API "
+"verwaltet werden, sind beliebige Werte möglich, daher gibt es keine feste "
+"Auswahl."
+
+#: cms/models/regions/region.py
 msgid "Credits renewal date for foreign language translation"
 msgstr "Credits Zurücksetzungsdatum für Fremdsprachenübersetzung"
 
@@ -4388,17 +4375,34 @@ msgid "Budget usage will be reset on the 1st of the month"
 msgstr "Das Budget wird zum 1. des angegebenen Monats zurückgesetzt"
 
 #: cms/models/regions/region.py
-msgid "Budget year start date for foreign language translation"
-msgstr ""
-"Unterjähriger Start des Abrechnungszeitraums für Fremdsprachenübersetzung"
+msgid "Machine translation budget adjustment"
+msgstr "Anpassung des Budgets für Maschinelle Übersetzung"
 
 #: cms/models/regions/region.py
-msgid "Month from which the add-on package was booked"
-msgstr "Monat ab welchem das Add-On Paket gebucht wurde"
+msgid ""
+"Cumulative manual adjustment for the current budget year, added on top of "
+"the booked budget. Negative values reduce the budget."
+msgstr ""
+"Kumulierte manuelle Anpassung für das laufende Budgetjahr, die zum gebuchten "
+"Budget hinzugerechnet wird. Negative Werte verringern das Budget."
 
 #: cms/models/regions/region.py
 msgid "used budget"
 msgstr "verbrauchtes Budget"
+
+#: cms/models/regions/region.py
+msgid "last settings sync via API"
+msgstr "Letzte Synchronisierung der Einstellungen über die API"
+
+#: cms/models/regions/region.py
+msgid ""
+"Set when the region settings were last written through the API. Regions with "
+"a value here are managed externally and their synced settings are read-only "
+"in this form."
+msgstr ""
+"Wird gesetzt, wenn die Regionseinstellungen zuletzt über die API geschrieben "
+"wurden. Regionen mit einem Wert werden extern verwaltet, ihre "
+"synchronisierten Einstellungen sind in diesem Formular schreibgeschützt."
 
 #: cms/models/regions/region.py cms/templates/_base.html
 #: cms/templates/contacts/contact_form.html
@@ -4415,9 +4419,11 @@ msgstr "Seiten"
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: cms/models/regions/region.py
-msgid "Push Notifications"
-msgstr "Push-Benachrichtigungen"
+#: cms/models/regions/region.py cms/templates/_base.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: core/settings.py
+msgid "News"
+msgstr "Nachrichten"
 
 #: cms/models/regions/region.py
 msgid "Enable public chat"
@@ -4490,6 +4496,51 @@ msgstr ""
 #: cms/models/statistics/page_accesses.py
 msgid "page accesses"
 msgstr "Seitenzugriffe"
+
+#: cms/models/users/api_token.py cms/models/users/user.py
+#: cms/models/users/user_fido_key.py
+msgid "user"
+msgstr "Benutzer:in"
+
+#: cms/models/users/api_token.py
+msgid "token name"
+msgstr "Token-Name"
+
+#: cms/models/users/api_token.py
+msgid "token prefix"
+msgstr "Token-Präfix"
+
+#: cms/models/users/api_token.py
+msgid ""
+"The public part of the token which is used to identify it. It is stored as "
+"raw bytes and hex encoded in the plaintext token."
+msgstr ""
+"Der öffentliche Teil des Tokens, über den es identifiziert wird. Er wird als "
+"Rohbytes gespeichert und im Klartext-Token hexadezimal kodiert."
+
+#: cms/models/users/api_token.py
+msgid "token hash"
+msgstr "Token-Hash"
+
+#: cms/models/users/api_token.py
+msgid ""
+"The raw SHA-256 digest of the full plaintext token, i.e. of the hex encoded "
+"prefix, the separator and the secret."
+msgstr ""
+"Der rohe SHA-256-Hash des vollständigen Klartext-Tokens, also des "
+"hexadezimal kodierten Präfixes, des Trennzeichens und des geheimen Teils."
+
+#: cms/models/users/api_token.py cms/models/users/user_fido_key.py
+msgid "last date of use"
+msgstr "Letztes Datum der Verwendung"
+
+#: cms/models/users/api_token.py
+msgid "API token"
+msgstr "API-Token"
+
+#: cms/models/users/api_token.py
+msgid "API tokens"
+msgstr "API-Token"
 
 #: cms/models/users/organization.py
 msgid "organizations"
@@ -4598,10 +4649,6 @@ msgstr ""
 "Aktiveren Sie diese Option, um den passwortlosen Login für dieses Konto "
 "freizuschalten"
 
-#: cms/models/users/user.py cms/models/users/user_fido_key.py
-msgid "user"
-msgstr "Benutzer:in"
-
 #: cms/models/users/user.py
 msgid "users"
 msgstr "Benutzer:innen"
@@ -4625,10 +4672,6 @@ msgstr "Anzahl an Signierungs-Vorgängen"
 #: cms/models/users/user_fido_key.py
 msgid "Token to prevent replay attacks."
 msgstr "Token zur Verhinderung von Replay-Attacken."
-
-#: cms/models/users/user_fido_key.py
-msgid "last date of use"
-msgstr "Letztes Datum der Verwendung"
 
 #: cms/models/users/user_fido_key.py
 msgid "multi-factor authentication key"
@@ -4713,12 +4756,6 @@ msgid "Contacts"
 msgstr "Kontakte"
 
 #: cms/templates/_base.html
-#: cms/templates/push_notifications/push_notification_list.html
-#: core/settings.py
-msgid "News"
-msgstr "Nachrichten"
-
-#: cms/templates/_base.html
 #: cms/templates/push_notifications/push_notification_setting_box.html
 msgid "Settings"
 msgstr "Einstellungen"
@@ -4775,10 +4812,8 @@ msgstr "Ortskategorien"
 
 #: cms/templates/_base.html cms/templates/content_versions.html
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html
 #: cms/templates/imprint/open_source_licenses.html
-#: cms/templates/pages/page_form.html cms/templates/pages/page_sbs.html
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
 msgid "Version"
 msgstr "Version"
 
@@ -5061,11 +5096,9 @@ msgstr "Faxnummer"
 #: cms/templates/_tinymce_config.html cms/templates/contacts/contact_form.html
 #: cms/templates/events/event_form.html cms/templates/hix_widget.html
 #: cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html
 #: cms/templates/languagetreenodes/languagetreenode_form.html
 #: cms/templates/organizations/organization_form.html
-#: cms/templates/pages/page_form.html cms/templates/pages/page_sbs.html
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "Update"
 msgstr "Aktualisieren"
@@ -5144,8 +5177,7 @@ msgstr "Auf Maps öffnen"
 
 #: cms/templates/ajax_poi_form/_poi_form_widget.html
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
-#: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
+#: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
 msgid "Publish"
 msgstr "Veröffentlichen"
 
@@ -6274,13 +6306,11 @@ msgid "Create new event"
 msgstr "Veranstaltung erstellen"
 
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
-#: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
+#: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
 msgid "Save as draft"
 msgstr "Als Entwurf speichern"
 
 #: cms/templates/events/event_form.html cms/templates/pages/page_form.html
-#: cms/templates/pages/page_sbs.html
 msgid "Submit for approval"
 msgstr "Zur Freigabe vorlegen"
 
@@ -6298,8 +6328,7 @@ msgstr "Bearbeiten"
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list_row.html
 #: cms/templates/feedback/region_feedback_list_row.html
-#: cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
+#: cms/templates/imprint/imprint_form.html cms/templates/pages/page_form.html
 #: cms/templates/pages/page_form_sidebar/settings_box.html
 #: cms/templates/pois/poi_form.html
 msgid "Copy to clipboard"
@@ -6311,9 +6340,7 @@ msgstr "Veranstaltungsort"
 
 #: cms/templates/events/event_form_sidebar/actions_box.html
 #: cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html
 #: cms/templates/pages/page_form_sidebar/actions_box.html
-#: cms/templates/pages/page_sbs.html
 #: cms/templates/poicategories/poicategory_list.html
 #: cms/templates/pois/poi_form_sidebar/action_box.html
 #: cms/templates/regions/region_list.html
@@ -6892,7 +6919,6 @@ msgid "Short URL"
 msgstr "Kurz-URL"
 
 #: cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html
 msgid "Link to the imprint"
 msgstr "Link zum Impressum"
 
@@ -6911,73 +6937,6 @@ msgstr "Alle Übersetzungen des Impressums werden gelöscht."
 #: cms/templates/imprint/imprint_form.html
 msgid "Delete the imprint"
 msgstr "Das Impressum löschen"
-
-#: cms/templates/imprint/imprint_form.html
-msgid "Side-by-Side view"
-msgstr "Side-by-Side-Ansicht"
-
-#: cms/templates/imprint/imprint_form.html
-#: cms/templates/pages/page_form_sidebar/translator_view_box.html
-msgid "Direction of translation"
-msgstr "Übersetzungsrichtung"
-
-#: cms/templates/imprint/imprint_form.html
-msgid "Show translations side by side"
-msgstr "Übersetzungen nebeneinander anzeigen"
-
-#: cms/templates/imprint/imprint_sbs.html
-#, python-format
-msgid ""
-"Translate the imprint from %(source_language)s to %(target_language_name)s"
-msgstr ""
-"Übersetze das Impressum von %(source_language)s nach %(target_language_name)s"
-
-#: cms/templates/imprint/imprint_sbs.html
-#: cms/views/imprint/imprint_version_view.py
-msgid "Back to the imprint form"
-msgstr "Zurück zum Impressums-Formular"
-
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-msgid "No changes have been made to the source translation."
-msgstr "Die Quellübersetzung wurde nicht geändert."
-
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-msgid "Toggle source translation differences"
-msgstr "Änderungen der Quellübersetzung anzeigen"
-
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-msgid "Hide source translation differences"
-msgstr "Änderungen der Quellübersetzung verbergen"
-
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-msgid "Show source translation differences"
-msgstr "Änderungen der Quellübersetzung anzeigen"
-
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-msgid "Copy content"
-msgstr "Inhalt kopieren"
-
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-#, python-format
-msgid "Copy content of %(source_language)s to %(target_language_name)s"
-msgstr "Inhalt von %(source_language)s nach %(target_language_name)s kopieren"
-
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-msgid "Create Translation"
-msgstr "Übersetzung erstellen"
-
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-msgid "New"
-msgstr "Neu"
-
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-msgid "Not saved yet"
-msgstr "Noch nicht gespeichert"
-
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
-#: cms/templatetags/content_filters.py
-msgid "Implications on translations"
-msgstr "Auswirkungen auf Übersetzungen"
 
 #: cms/templates/imprint/open_source_licenses.html
 msgid "Open Source Licenses"
@@ -7773,33 +7732,6 @@ msgstr ""
 "Sie müssen die Seite erst als Entwurf speichern oder veröffentlichen, bevor "
 "Sie die Berechtigungen für diese Seite ändern können."
 
-#: cms/templates/pages/page_form_sidebar/translator_view_box.html
-msgid "Translator view"
-msgstr "Übersetzungs-Ansicht"
-
-#: cms/templates/pages/page_form_sidebar/translator_view_box.html
-msgid "Show translator view"
-msgstr "Übersetzungs-Ansicht anzeigen"
-
-#: cms/templates/pages/page_sbs.html
-#, python-format
-msgid ""
-"Translate \"%(page_title)s\" from %(source_language)s to "
-"%(target_language_name)s"
-msgstr ""
-"Übersetze \"%(page_title)s\" von %(source_language)s nach "
-"%(target_language_name)s"
-
-#: cms/templates/pages/page_sbs.html cms/views/pages/page_version_view.py
-msgid "Back to the page form"
-msgstr "Zurück zum Seiten-Formular"
-
-#: cms/templates/pages/page_sbs.html
-msgid " Leave blank to generate unique permalink from title"
-msgstr ""
-" Dieses Feld freilassen, um einen eindeutigen Permalink aus dem Titel zu "
-"generieren"
-
 #: cms/templates/pages/page_xliff_import_view.html
 msgid "Review XLIFF Import"
 msgstr "XLIFF Import überprüfen"
@@ -8356,36 +8288,34 @@ msgid "Sent"
 msgstr "Gesendet"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No archived push notifications found with these filters."
-msgstr "Keine archivierten Push-Benachrichtigungen mit diesen Filter gefunden."
+msgid "No archived news found with these filters."
+msgstr "Keine archivierten Nachrichten mit diesen Filtern gefunden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No push notifications archived yet."
-msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+msgid "No news archived yet."
+msgstr "Noch keine Nachrichten archiviert."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No push notifications found with these filters."
-msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
+msgid "No news found with these filters."
+msgstr "Keine Nachrichten mit diesen Filtern gefunden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "No push notifications available yet."
-msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+msgid "No news available yet."
+msgstr "Noch keine Nachrichten vorhanden."
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Push notifications selected"
-msgstr "Push-Benachrichtigungen ausgewählt"
+msgid "News selected"
+msgstr "Nachrichten ausgewählt"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Restore push notifications"
-msgstr "Push-Benachrichtigungen wiederherstellen"
+#, python-format
+msgid "Restore %(content_type)s"
+msgstr "%(content_type)s wiederherstellen"
 
 #: cms/templates/push_notifications/push_notification_list.html
-msgid "Archive push notifications"
-msgstr "Push-Benachrichtigungen archivieren"
-
-#: cms/templates/push_notifications/push_notification_list.html
-msgid "Push notifications"
-msgstr "Push-Benachrichtigungen"
+#, python-format
+msgid "Archive %(content_type)s"
+msgstr "%(content_type)s archivieren"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Title not available"
@@ -8400,36 +8330,33 @@ msgid "Message not sent yet"
 msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Restore push notification"
-msgstr "Push-Benachrichtigung wiederherstellen"
+msgid "Restore news"
+msgstr "Nachricht wiederherstellen"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Please confirm that you really want to restore this push notification"
+msgid "Please confirm that you really want to restore this news item"
 msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigung wiederhergestellt "
-"werden soll"
+"Bitte bestätigen Sie, dass diese Nachricht wiederhergestellt werden soll"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Archive push notification"
-msgstr "Push-Benachrichtigung archivieren"
+msgid "Archive news"
+msgstr "Nachricht archivieren"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Please confirm that you really want to archive this push notification"
-msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigung archiviert werden soll"
+msgid "Please confirm that you really want to archive this news item"
+msgstr "Bitte bestätigen Sie, dass diese Nachricht archiviert werden soll"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Delete push notification"
-msgstr "Push-Benachrichtigung löschen"
+msgid "Delete news"
+msgstr "Nachricht löschen"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Please confirm that you really want to delete this push notification"
-msgstr ""
-"Bitte bestätigen Sie, dass diese Push-Benachrichtigung gelöscht werden soll"
+msgid "Please confirm that you really want to delete this news item"
+msgstr "Bitte bestätigen Sie, dass diese Nachricht gelöscht werden soll"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Copy"
-msgstr "Kopieren"
+msgid "Copy news"
+msgstr "Nachricht kopieren"
 
 #: cms/templates/push_notifications/push_notification_setting_box.html
 #, python-format
@@ -8506,6 +8433,18 @@ msgstr "Region \"%(region_name)s\" bearbeiten"
 #: cms/templates/regions/region_form.html
 msgid "Create new region"
 msgstr "Neue Region erstellen"
+
+#: cms/templates/regions/region_form.html
+#, python-format
+msgid ""
+"The booked features and the translation budget of this region are managed "
+"via the API and were last synced on %(last_sync)s. These settings are read-"
+"only here and have to be changed in the connected system."
+msgstr ""
+"Die gebuchten Funktionen und das Übersetzungsbudget dieser Region werden "
+"über die API verwaltet und wurden zuletzt am %(last_sync)s synchronisiert. "
+"Diese Einstellungen sind hier schreibgeschützt und müssen im angebundenen "
+"System geändert werden."
 
 #: cms/templates/regions/region_form.html
 msgid "Center of the region"
@@ -8818,6 +8757,58 @@ msgid "Change password"
 msgstr "Passwort ändern"
 
 #: cms/templates/settings/user_settings.html
+msgid "My API tokens"
+msgstr "Meine API-Token"
+
+#: cms/templates/settings/user_settings.html
+msgid "API tokens allow external systems to access the API on your behalf."
+msgstr ""
+"Mit API-Token können externe Systeme in Ihrem Namen auf die API zugreifen."
+
+#: cms/templates/settings/user_settings.html
+msgid "A token has exactly the same permissions as your own account."
+msgstr "Ein Token hat genau dieselben Berechtigungen wie Ihr eigenes Konto."
+
+#: cms/templates/settings/user_settings.html
+msgid ""
+"The token is only displayed once directly after its creation and cannot be "
+"recovered afterwards."
+msgstr ""
+"Das Token wird nur einmal direkt nach dem Erstellen angezeigt und kann "
+"danach nicht wiederhergestellt werden."
+
+#: cms/templates/settings/user_settings.html
+msgid "Treat it like a password and delete tokens you no longer need."
+msgstr ""
+"Behandeln Sie es wie ein Passwort und löschen Sie Token, die Sie nicht mehr "
+"benötigen."
+
+#: cms/templates/settings/user_settings.html
+msgid "Copy your new API token now — it will not be shown again."
+msgstr ""
+"Kopieren Sie Ihr neues API-Token jetzt – es wird nicht erneut angezeigt."
+
+#: cms/templates/settings/user_settings.html
+msgid "Token name"
+msgstr "Token-Name"
+
+#: cms/templates/settings/user_settings.html
+msgid "Last usage"
+msgstr "Letzte Verwendung"
+
+#: cms/templates/settings/user_settings.html
+msgid "Date added"
+msgstr "Hinzugefügt am"
+
+#: cms/templates/settings/user_settings.html
+msgid "No API tokens have been created yet."
+msgstr "Es wurden noch keine API-Token erstellt."
+
+#: cms/templates/settings/user_settings.html
+msgid "Create a new API token"
+msgstr "Neues API-Token erstellen"
+
+#: cms/templates/settings/user_settings.html
 msgid "My 2-Factor-Authentication methods"
 msgstr "Meine 2-Faktor-Authentifizierungs-Methoden"
 
@@ -8879,14 +8870,6 @@ msgstr "Schlüssel sollten Sie an einem sicheren Ort aufbewahren."
 #: cms/templates/settings/user_settings.html
 msgid "Key name"
 msgstr "Schlüsselname"
-
-#: cms/templates/settings/user_settings.html
-msgid "Last usage"
-msgstr "Letzte Verwendung"
-
-#: cms/templates/settings/user_settings.html
-msgid "Date added"
-msgstr "Hinzugefügt am"
 
 #: cms/templates/settings/user_settings.html
 msgid "No FIDO2 keys have been added yet."
@@ -9010,9 +8993,9 @@ msgid ""
 "right\"></i></span></a>"
 msgstr ""
 "<strong>deshalb sind Unterschiede gegeben und zu erwarten.</strong> Mehr "
-"Details dazu in der <a href=\"%(wiki_url)s\"><span class=\"text-"
-"blue-600\">Dokumentation <i icon-name=\"square-arrow-out-up-right\"></i></"
-"span></a>"
+"Details dazu in der <a href=\"%(wiki_url)s\"><span class=\"text-blue-"
+"600\">Dokumentation <i icon-name=\"square-arrow-out-up-right\"></i></span></"
+"a>"
 
 #: cms/templates/statistics/statistics_sidebar.html
 msgid "Adjust shown data"
@@ -9401,6 +9384,10 @@ msgstr "Kein:e Administrator:in"
 #: cms/templatetags/content_filters.py
 msgid "Implications on the translation status"
 msgstr "Auswirkungen auf den Übersetzungsstatus"
+
+#: cms/templatetags/content_filters.py
+msgid "Implications on translations"
+msgstr "Auswirkungen auf Übersetzungen"
 
 #: cms/templatetags/content_filters.py
 msgid "Tick if this edit should not change the status of this translation."
@@ -10176,9 +10163,7 @@ msgstr ""
 "Bitte bestätigen Sie, dass dieser externer Kalendar gelöscht werden soll"
 
 #: cms/views/external_calendars/external_calendar_form_view.py
-#: cms/views/form_views.py cms/views/imprint/imprint_sbs_view.py
-#: cms/views/pages/page_sbs_view.py
-#: cms/views/poi_categories/poi_category_form_view.py
+#: cms/views/form_views.py cms/views/poi_categories/poi_category_form_view.py
 #: cms/views/roles/role_form_view.py cms/views/settings/user_settings_view.py
 #: cms/views/users/region_user_form_view.py cms/views/users/user_form_view.py
 msgid "No changes made"
@@ -10273,7 +10258,7 @@ msgstr "Dies ist nicht die neueste öffentliche Revision dieser Übersetzung."
 msgid "Instead, <a>revision {}</a> is shown in the apps."
 msgstr "Stattdessen wird die <a>Revision {}</a> in den Apps angezeigt."
 
-#: cms/views/imprint/imprint_form_view.py cms/views/imprint/imprint_sbs_view.py
+#: cms/views/imprint/imprint_form_view.py
 msgid "You don't have the permission to edit the imprint."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um das Impressum zu bearbeiten."
@@ -10282,28 +10267,9 @@ msgstr ""
 msgid "Imprint was successfully created"
 msgstr "Impressum wurde erfolgreich erstellt"
 
-#: cms/views/imprint/imprint_form_view.py cms/views/pages/page_form_view.py
-#, python-brace-format
-msgid "{source_language} to {target_language}"
-msgstr "{source_language} nach {target_language}"
-
-#: cms/views/imprint/imprint_sbs_view.py cms/views/pages/page_sbs_view.py
-#, python-brace-format
-msgid ""
-"You cannot use the side-by-side-view for the region's default language (in "
-"this case {default_language})."
-msgstr ""
-"Sie können die Side-by-Side-Ansicht nicht für die Standard-Sprache (in "
-"diesem Fall {default_language}) verwenden."
-
-#: cms/views/imprint/imprint_sbs_view.py cms/views/pages/page_sbs_view.py
-#, python-brace-format
-msgid ""
-"You cannot use the side-by-side-view if the source translation (in this case "
-"{source_language}) does not exist."
-msgstr ""
-"Sie können die Side-by-Side-Ansicht nicht verwenden, wenn die Quell-"
-"Übersetzung (in diesem Fall {source_language}) nicht existiert."
+#: cms/views/imprint/imprint_version_view.py
+msgid "Back to the imprint form"
+msgstr "Zurück zum Impressums-Formular"
 
 #: cms/views/language_tree/language_tree_actions.py
 msgid "A region can only have one root language."
@@ -10358,11 +10324,11 @@ msgstr "Bitte bestätigen Sie, dass dieser Sprachknoten gelöscht werden soll"
 
 #: cms/views/language_tree/language_tree_context_mixin.py
 msgid ""
-"All translations for pages, locations, events and push notifications of this "
-"language will also be deleted."
+"All translations for pages, locations, events and news of this language will "
+"also be deleted."
 msgstr ""
-"Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Push-"
-"Benachrichtigungen zu dieser Sprache werden ebenfalls gelöscht."
+"Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Nachrichten zu "
+"dieser Sprache werden ebenfalls gelöscht."
 
 #: cms/views/linkcheck/link_replace_view.py
 msgid ""
@@ -10953,7 +10919,7 @@ msgstr ""
 "Sie können diese Seite nicht bearbeiten, weil eine ihrer übergeordneten "
 "Seiten archiviert ist, und sie dadurch ebenfalls archiviert ist."
 
-#: cms/views/pages/page_form_view.py cms/views/pages/page_sbs_view.py
+#: cms/views/pages/page_form_view.py
 msgid "You don't have the permission to edit this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
 
@@ -11077,6 +11043,10 @@ msgid "You don't have the permission to edit or create pages."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Seiten zu bearbeiten oder zu "
 "erstellen."
+
+#: cms/views/pages/page_version_view.py
+msgid "Back to the page form"
+msgstr "Zurück zum Seiten-Formular"
 
 #: cms/views/pages/page_xliff_import_view.py
 msgid "This XLIFF import is no longer available."
@@ -11205,33 +11175,33 @@ msgstr "Zurück zum Formular"
 
 #: cms/views/push_notifications/push_notification_actions.py
 #, python-brace-format
-msgid "Push notification {0} was successfully archived"
-msgstr "Push-Benachrichtigung {0} wurde erfolgreich archiviert"
+msgid "News {0} was successfully archived"
+msgstr "Nachricht {0} wurde erfolgreich archiviert"
 
 #: cms/views/push_notifications/push_notification_actions.py
 #, python-brace-format
-msgid "Push notification {0} was successfully restored"
-msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
+msgid "News {0} was successfully restored"
+msgstr "Nachricht {0} wurde erfolgreich wiederhergestellt"
 
 #: cms/views/push_notifications/push_notification_actions.py
 #, python-brace-format
-msgid "Push notification {0} was successfully deleted"
-msgstr "Push-Benachrichtigung {0} wurde erfolgreich gelöscht"
+msgid "News {0} was successfully deleted"
+msgstr "Nachricht {0} wurde erfolgreich gelöscht"
 
 #: cms/views/push_notifications/push_notification_actions.py
 #, python-brace-format
-msgid "Push notification {0} was successfully copied"
-msgstr "Push-Benachrichtigung {0} wurde erfolgreich kopiert"
+msgid "News {0} was successfully copied"
+msgstr "Nachricht {0} wurde erfolgreich kopiert"
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
-msgid "Push notifications are disabled."
-msgstr "Push-Benachrichtigungen sind deaktiviert."
+msgid "News are disabled."
+msgstr "Nachrichten sind deaktiviert."
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
-msgid "Push notifications are disabled in this region."
-msgstr "Push-Benachrichtigungen sind in dieser Region deaktiviert."
+msgid "News are disabled in this region."
+msgstr "Nachrichten sind in dieser Region deaktiviert."
 
 #: cms/views/push_notifications/push_notification_form_view.py
 msgid "This news has already been sent as push notification to mobile devices."
@@ -11346,11 +11316,10 @@ msgid "News \"{}\" was successfully sent"
 msgstr "Nachricht \"{}\" wurde erfolgreich gesendet"
 
 #: cms/views/push_notifications/push_notification_list_view.py
-msgid ""
-"Please create at least one language node before creating push notifications."
+msgid "Please create at least one language node before creating news."
 msgstr ""
-"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
-"Benachrichtigungen verwalten."
+"Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Nachrichten "
+"erstellen."
 
 #: cms/views/region_condition/region_condition_actions.py
 msgid "Number of broken links"
@@ -11426,6 +11395,10 @@ msgstr "Rolle \"{}\" wurde erfolgreich erstellt"
 msgid "Role \"{}\" was successfully saved"
 msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
 
+#: cms/views/settings/api_token_delete_view.py
+msgid "API token was successfully deleted"
+msgstr "API-Token wurde erfolgreich gelöscht"
+
 #: cms/views/settings/totp_delete_view.py
 msgid ""
 "You have successfully disconnected your account from your authenticator app."
@@ -11460,6 +11433,10 @@ msgstr "Passwort wurde erfolgreich geändert"
 #: cms/views/settings/user_settings_view.py
 msgid "Name was successfully updated"
 msgstr "Name wurde erfolgreich aktualisiert"
+
+#: cms/views/settings/user_settings_view.py
+msgid "API token was successfully created"
+msgstr "API-Token wurde erfolgreich erstellt"
 
 #: cms/views/settings/webauthn/authenticate_modify_mfa_view.py
 msgid "The provided password is not correct"
@@ -12074,6 +12051,32 @@ msgstr ""
 
 #~ msgid "The number of times this URL is used in the content"
 #~ msgstr "Die Anzahl, wie oft diese URL im Inhalt verwendet wird"
+#~ msgid "Budget year start differs from the renewal date"
+#~ msgstr "Unterjähriger Start des Abrechnungszeitraums"
+
+#~ msgid ""
+#~ "Enable to set an starting date of machine translation budget calculation "
+#~ "differing from the renewal date. Budget will be set as a monthly fraction "
+#~ "of the booked machine translation budget."
+#~ msgstr ""
+#~ "Aktivieren, um ein Startdatum für die Rechnung des Budgets für "
+#~ "maschinelle Übersetztung anzugeben, welches sich vom Zurücksetzungsdatum "
+#~ "unterscheidet. Das Budget wird monatsanteilig vom gebuchten Budgets "
+#~ "berechnet."
+
+#~ msgid ""
+#~ "Please provide a valid budget year start date for foreign language "
+#~ "translation."
+#~ msgstr ""
+#~ "Bitte geben Sie ein gültiges Startdatum für den Abrechnungszeitraum der "
+#~ "Fremdsprachenübersetzung an."
+
+#~ msgid "Budget year start date for foreign language translation"
+#~ msgstr ""
+#~ "Unterjähriger Start des Abrechnungszeitraums für Fremdsprachenübersetzung"
+
+#~ msgid "Month from which the add-on package was booked"
+#~ msgstr "Monat ab welchem das Add-On Paket gebucht wurde"
 
 #~ msgid "Enable to set starting date differing from the renewal date."
 #~ msgstr ""
@@ -12171,6 +12174,110 @@ msgstr ""
 #~ "Sie können keinen Ort archivieren, der von einer zukünftigen "
 #~ "Veranstaltung oder einem Kontakt verwendet wird. \n"
 #~ "Dies betrifft auch archivierte Veranstaltungen und Kontakte"
+
+#~ msgid "push notification"
+#~ msgstr "Push-Benachrichtigung"
+
+#~ msgid "push notification translation"
+#~ msgstr "Push-Benachrichtigungs-Übersetzung"
+
+#~ msgid "push notification translations"
+#~ msgstr "Push-Benachrichtigungs-Übersetzungen"
+
+#~ msgid "activate push notifications"
+#~ msgstr "Push-Benachrichtigungen aktivieren"
+
+#~ msgid "Whether or not push notifications are enabled in the region"
+#~ msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully archived"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich archiviert"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully restored"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich wiederhergestellt"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully deleted"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich gelöscht"
+
+#, python-brace-format
+#~ msgid "Push notification {0} was successfully copied"
+#~ msgstr "Push-Benachrichtigung {0} wurde erfolgreich kopiert"
+
+#~ msgid "Push notifications are disabled."
+#~ msgstr "Push-Benachrichtigungen sind deaktiviert."
+
+#~ msgid "Push notifications are disabled in this region."
+#~ msgstr "Push-Benachrichtigungen sind in dieser Region deaktiviert."
+
+#~ msgid ""
+#~ "Please create at least one language node before creating push "
+#~ "notifications."
+#~ msgstr ""
+#~ "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
+#~ "Benachrichtigungen verwalten."
+
+#~ msgid "push notifications"
+#~ msgstr "Push-Benachrichtigungen"
+
+#~ msgid "Push Notifications"
+#~ msgstr "Push-Benachrichtigungen"
+
+#~ msgid "No archived push notifications found with these filters."
+#~ msgstr ""
+#~ "Keine archivierten Push-Benachrichtigungen mit diesen Filter gefunden."
+
+#~ msgid "No push notifications archived yet."
+#~ msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+
+#~ msgid "No push notifications found with these filters."
+#~ msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
+
+#~ msgid "No push notifications available yet."
+#~ msgstr "Noch keine Push-Benachrichtigungen vorhanden."
+
+#~ msgid "Push notifications selected"
+#~ msgstr "Push-Benachrichtigungen ausgewählt"
+
+#~ msgid "Restore push notifications"
+#~ msgstr "Push-Benachrichtigungen wiederherstellen"
+
+#~ msgid "Archive push notifications"
+#~ msgstr "Push-Benachrichtigungen archivieren"
+
+#~ msgid "Push notifications"
+#~ msgstr "Push-Benachrichtigungen"
+
+#~ msgid "Restore push notification"
+#~ msgstr "Push-Benachrichtigung wiederherstellen"
+
+#~ msgid ""
+#~ "Please confirm that you really want to restore this push notification"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigung wiederhergestellt "
+#~ "werden soll"
+
+#~ msgid "Archive push notification"
+#~ msgstr "Push-Benachrichtigung archivieren"
+
+#~ msgid ""
+#~ "Please confirm that you really want to archive this push notification"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigung archiviert werden "
+#~ "soll"
+
+#~ msgid "Delete push notification"
+#~ msgstr "Push-Benachrichtigung löschen"
+
+#~ msgid "Please confirm that you really want to delete this push notification"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Push-Benachrichtigung gelöscht werden "
+#~ "soll"
+
+#~ msgid "Copy"
+#~ msgstr "Kopieren"
 
 #~ msgid "Total Access Statistics"
 #~ msgstr "Statistiken für Gesamtzugriffe"
@@ -12566,12 +12673,6 @@ msgstr ""
 #~ msgid "There has been a server error. Please try again later"
 #~ msgstr "Zu viele Anfragen. Bitte versuchen Sie es später erneut."
 
-#~ msgid "No archived pages found with these filters."
-#~ msgstr "Keine archivierten Seiten mit diesen Filtern gefunden."
-
-#~ msgid "No pages archived yet."
-#~ msgstr "Noch keine Seiten archiviert."
-
 #~ msgid "This also involves non-archived subpages."
 #~ msgstr "Dies betrifft auch nicht-archivierte Unterseiten."
 
@@ -12908,9 +13009,6 @@ msgstr ""
 
 #~ msgid "Template \"{}\" was successfully created"
 #~ msgstr "Vorlage \"{}\" wurde erfolgreich erstellt"
-
-#~ msgid "News \"{}\" was successfully created"
-#~ msgstr "Nachricht \"{}\" wurde erfolgreich erstellt"
 
 #~ msgid "Template \"{}\" was successfully updated"
 #~ msgstr "Vorlage \"{}\" wurde erfolgreich aktualisiert"
@@ -13626,9 +13724,6 @@ msgstr ""
 #~ msgid "content of the imprint"
 #~ msgstr "Inhalt des Impressums"
 
-#~ msgid "translation"
-#~ msgstr "Übersetzung"
-
 #~ msgid "All pages"
 #~ msgstr "Alle Seiten"
 
@@ -13788,9 +13883,6 @@ msgstr ""
 
 #~ msgid "Page was successfully created and published"
 #~ msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
-
-#~ msgid "Page was successfully created"
-#~ msgstr "Seite wurde erfolgreich erstellt"
 
 #~ msgid "All language tree nodes"
 #~ msgstr "Alle Sprach-Knoten"
@@ -14219,7 +14311,6 @@ msgstr ""
 #~ msgid "was successfully deactivated."
 #~ msgstr "wurde erfolgreich deaktiviert."
 
-#~| msgid "Export"
 #~ msgid "Export XLIFF"
 #~ msgstr "Exportieren"
 
@@ -14311,11 +14402,6 @@ msgstr ""
 
 #~ msgid "Expert mode"
 #~ msgstr "Expert:innenmodus"
-
-#~ msgid "Leave blank to generate unique parameter from title"
-#~ msgstr ""
-#~ "Dieses Feld freilassen, um einen eindeutigen Alias aus dem Titel zu "
-#~ "generieren"
 
 #~ msgid "Unique per region and language"
 #~ msgstr "Eindeutig pro Region und Sprache"
@@ -14544,9 +14630,6 @@ msgstr ""
 #~ msgid "Create new POI translation"
 #~ msgstr "Neue POI Übersetzung erstellen"
 
-#~ msgid "Create new POI"
-#~ msgstr "POI erstellen"
-
 #~ msgid "Restore this POI"
 #~ msgstr "Diesen POI wiederherstellen"
 
@@ -14637,9 +14720,6 @@ msgstr ""
 
 #~ msgid "WebApp-URL"
 #~ msgstr "Web-App-URL"
-
-#~ msgid "Delete Pages"
-#~ msgstr "Seiten löschen"
 
 #~ msgid "Archive Pages"
 #~ msgstr "Seiten archivieren"

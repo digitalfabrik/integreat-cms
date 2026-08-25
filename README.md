@@ -110,6 +110,12 @@ When using the example file as starting point for configuration, all ports need 
 
 Run the development server using `/tools/run.sh`, then open your browser and go to `http://localhost:8000`. The default login credentials are username: "root" and password: "root1234".
 
+The test data also contains two personal API tokens for trying out the authenticated API endpoints — `746573740001.test-token-root` for "root" and `746573740002.test-token-service-team` for "service_team":
+
+```bash
+curl -H "Authorization: Bearer 746573740001.test-token-root" http://localhost:8000/api/v3/augsburg/settings/
+```
+
 ## Documentation
 
 For detailed instructions, tutorials and the source code reference have a look at our great documentation:

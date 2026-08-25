@@ -17,10 +17,11 @@ from urllib import error, parse, request
 from django.conf import settings
 from django.core.cache import cache
 from django.http import Http404, JsonResponse
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from ..cms.constants import feedback_ratings
-from ..cms.models import Language, Region
+from ..cms.models import ApiToken, Language, Region
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -127,6 +128,67 @@ def json_response(function: Callable) -> Callable:
             return JsonResponse({"error": str(e) or "Not found."}, status=404)
 
     return wrap
+
+
+def api_token_required(permission: str | None = None) -> Callable:
+    """
+    This decorator can be used to restrict an API endpoint to requests which carry a valid personal
+    API token of a CMS user (``Authorization: Bearer <token>``).
+
+    The request is executed on behalf of the token's user, so the endpoint inherits exactly the
+    permissions of that user instead of bypassing the RBAC structure.
+
+    Note that this only checks the global permission — it does **not** verify that the user is a
+    member of the region in the URL. Region-scoped endpoints have to check ``request.region``
+    against the user's regions themselves, analogous to
+    :func:`~integreat_cms.cms.decorators.region_permission_required`.
+
+    :param permission: The permission the token's user must hold, e.g. ``cms.change_region``
+    :return: The decorator for the API view function
+    """
+
+    def decorator(function: Callable) -> Callable:
+        @csrf_exempt
+        @wraps(function)
+        def wrap(
+            request: HttpRequest,
+            *args: Any,
+            **kwargs: Any,
+        ) -> JsonResponse:
+            r"""
+            The inner function for this decorator.
+            It authenticates the request via the supplied bearer token and only calls the decorated
+            view function if the token is valid and its user holds the required permission.
+
+            :param request: Django request
+            :param \*args: The supplied arguments
+            :param \**kwargs: The supplied kwargs
+            :return: The response of the given function or a 403 :class:`~django.http.JsonResponse`
+            """
+            header = request.headers.get("Authorization", "")
+            scheme, _, plaintext = header.partition(" ")
+            if scheme.lower() != "bearer" or not plaintext:
+                return JsonResponse(
+                    {"error": "Authentication required."},
+                    status=403,
+                )
+            if not (token := ApiToken.get_by_token(plaintext.strip())):
+                return JsonResponse({"error": "Invalid token."}, status=403)
+            if not token.user.is_active:
+                return JsonResponse({"error": "Invalid token."}, status=403)
+            if permission and not token.user.has_perm(permission):
+                return JsonResponse(
+                    {"error": "Insufficient permissions."},
+                    status=403,
+                )
+            token.last_usage = timezone.now()
+            token.save(update_fields=["last_usage"])
+            request.user = token.user
+            return function(request, *args, **kwargs)
+
+        return wrap
+
+    return decorator
 
 
 def matomo_tracking(func: Callable) -> Callable:

@@ -6,6 +6,7 @@ from urllib.parse import unquote, urlparse
 from django.conf import settings
 from django.db.models import Q
 from django.template import loader
+from django.utils.html import escape
 from django.utils.translation import gettext_lazy as _
 from lxml.etree import LxmlError
 from lxml.html import Element, fromstring, HtmlElement, tostring
@@ -18,6 +19,14 @@ from ..utils.link_utils import fix_content_link_encoding
 logger = logging.getLogger(__name__)
 
 _xss_cleaner = Cleaner(scripts=True, javascript=True, safe_attrs_only=False)
+
+#: Variant of the XSS cleaner which keeps tags that are unknown to lxml (e.g. ``<main>``) intact
+_xss_element_cleaner = Cleaner(
+    scripts=True,
+    javascript=True,
+    safe_attrs_only=False,
+    remove_unknown_tags=False,
+)
 
 
 def clean_content(
@@ -52,6 +61,36 @@ def clean_content(
 
     content_str = tostring(content, encoding="unicode", with_tail=False)
     return fix_content_link_encoding(content_str)
+
+
+def sanitize_html(content: str) -> str:
+    """
+    Strip scripts and other active content from a HTML string.
+
+    In contrast to :func:`~integreat_cms.cms.utils.content_utils.clean_content`, this does not apply any of our
+    content guidelines and can therefore also be used for content which does not originate from our own editor.
+
+    :param content: The HTML which should be sanitized
+
+    :return: The sanitized HTML, or the escaped input if it cannot be parsed as HTML
+    """
+    try:
+        return _xss_cleaner.clean_html(content)
+    except LxmlError:
+        # The content is not guaranteed to be valid html, for example it may be empty
+        return escape(content)
+
+
+def sanitize_html_element(element: HtmlElement) -> None:
+    """
+    Strip scripts and other active content from a HTML element in place.
+
+    In contrast to :func:`~integreat_cms.cms.utils.content_utils.sanitize_html`, the structure of the element is
+    kept as it is, even if it contains tags which are unknown to lxml.
+
+    :param element: The element which should be sanitized
+    """
+    _xss_element_cleaner(element)
 
 
 def convert_heading(content: HtmlElement) -> None:

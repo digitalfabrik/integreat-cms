@@ -376,7 +376,15 @@ push = false
     'release = "{version}"',
 ]
 
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "integreat_cms.core.test_settings"
+markers = [
+    "unit: Pure logic tests with no database or external service dependencies",
+    "slow: Tests that take a long time or run many parametrized variants",
+]
+
 [tool.coverage.report]
+fail_under = 50
 exclude_also = [
     "def __repr__",
     "if TYPE_CHECKING:",
@@ -534,6 +542,7 @@ ignore-variadic-names = true
 "integreat_cms/core/circleci_settings.py" = ["F405"]
 "integreat_cms/core/management/commands/find_large_files.py" = ["G004"]
 "integreat_cms/core/sphinx_settings.py" = ["F405"]
+"integreat_cms/core/test_settings.py" = ["F405"]
 "integreat_cms/google_translate_api/apps.py" = ["BLE001"]
 "integreat_cms/google_translate_api/google_translate_api_client.py" = ["BLE001"]
 "integreat_cms/nominatim_api/nominatim_api_client.py" = ["PERF401"]

@@ -164,6 +164,11 @@ user_settings_urlpatterns: list[URLPattern] = [
             [
                 path("", settings.UserSettingsView.as_view(), name="user_settings"),
                 path(
+                    "api-tokens/<int:token_id>/delete/",
+                    settings.ApiTokenDeleteView.as_view(),
+                    name="delete_api_token",
+                ),
+                path(
                     "totp/",
                     include(
                         [
@@ -1037,11 +1042,6 @@ urlpatterns: list[URLPattern] = [
                                                                     pages.PageFormView.as_view(),
                                                                     name="edit_page",
                                                                 ),
-                                                                path(
-                                                                    "side-by-side/",
-                                                                    pages.PageSideBySideView.as_view(),
-                                                                    name="sbs_edit_page",
-                                                                ),
                                                             ],
                                                         ),
                                                     ),
@@ -1118,11 +1118,6 @@ urlpatterns: list[URLPattern] = [
                                                         "",
                                                         imprint.ImprintFormView.as_view(),
                                                         name="edit_imprint",
-                                                    ),
-                                                    path(
-                                                        "side-by-side/",
-                                                        imprint.ImprintSideBySideView.as_view(),
-                                                        name="sbs_edit_imprint",
                                                     ),
                                                 ],
                                             ),

@@ -113,5 +113,5 @@ class TextlabClient:
             request.add_header("authorization", f"Bearer {auth_token}")
         request.add_header("Content-Type", "application/json")
         request.add_header("User-Agent", "")
-        with urlopen(request) as response:  # noqa: S310
+        with urlopen(request, timeout=settings.TEXTLAB_API_TIMEOUT) as response:  # noqa: S310
             return json.loads(response.read().decode("utf-8"))

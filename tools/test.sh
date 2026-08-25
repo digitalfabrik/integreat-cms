@@ -1,6 +1,20 @@
 #!/bin/bash
 
-# This script executes the tests and starts the database docker container if necessary.
+# This script executes the tests.
+#
+# By default the suite runs inside a Docker container that mirrors the CircleCI
+# environment (see docker-compose.test.yml), so a local run matches CI by
+# construction. Use --local to run on the host instead (starting the database
+# docker container if necessary).
+#
+# Usage examples:
+#   ./tools/test.sh                          Run the full test suite (in Docker)
+#   ./tools/test.sh --local                  Run the full test suite on the host
+#   ./tools/test.sh -m unit                  Run only unit tests (no database, fast)
+#   ./tools/test.sh -m "not slow"            Skip slow parametrized view tests
+#   ./tools/test.sh -m "not slow and not unit"  Integration tests only
+#   ./tools/test.sh -v -k test_tree_mutex    Run a specific test with verbose output
+#   QUICK_ROLES=1 ./tools/test.sh            Test only 4 representative roles (faster)
 
 # Import utility functions
 # shellcheck source=./tools/_functions.sh
@@ -10,32 +24,80 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 CODE_COVERAGE_DIR="${BASE_DIR:?}/htmlcov"
 rm -rf "${CODE_COVERAGE_DIR}"
 
-require_installed
+# By default, tests run inside a Docker container that mirrors the CircleCI
+# environment (same Python, OS, font stack and PostgreSQL version) so that a
+# local run matches CI by construction. Pass --local to run on the host instead.
+LOCAL_MODE=0
 
-ensure_webpack_bundle_exists
+# Runs the assembled pytest invocation inside the CI-matching Docker container.
+function run_tests_in_docker {
+    local compose_file="${BASE_DIR}/docker-compose.test.yml"
+    if ! command -v docker > /dev/null || ! docker compose version > /dev/null 2>&1; then
+        echo "Docker (with the Compose plugin) is required to run tests in the default Docker mode." | print_error
+        echo "Install Docker, or re-run with --local to use your host environment instead." | print_info
+        exit 1
+    fi
+    # The test image contains no Node.js — the webpack bundle must already
+    # exist on the host, because the source tree (including webpack-stats.json
+    # and static/dist) is bind-mounted into the container.
+    if command -v npm > /dev/null 2>&1; then
+        ensure_webpack_bundle_exists
+    elif [[ ! -f "${PACKAGE_DIR}/webpack-stats.json" ]]; then
+        echo "The webpack bundle is missing and npm is not available to build it." | print_error
+        echo "Run ./tools/install.sh once, or run the tests with --local." | print_info
+        exit 1
+    fi
+    # Run the container as the invoking host user so the bind-mounted tree
+    # stays writable and files created by the run belong to the developer.
+    # Under rootless docker the container's root is mapped to the host user,
+    # so uid 0 is the correct choice there; under rootful docker it is the
+    # real uid/gid.
+    if docker info --format '{{.SecurityOptions}}' 2> /dev/null | grep -q rootless; then
+        export TEST_UID=0 TEST_GID=0
+    else
+        TEST_UID="$(id -u)"
+        TEST_GID="$(id -g)"
+        export TEST_UID TEST_GID
+    fi
+    # The project's .env is a bash-source file (it `source`s the venv), not a
+    # docker-compose env file, so prevent Compose from auto-loading it for
+    # variable substitution (interpolation reads the process environment).
+    local compose=(docker compose --env-file /dev/null -f "${compose_file}")
+    echo "Building the CI-matching test image (first run only)..." | print_info
+    "${compose[@]}" build
+    echo "Running tests inside Docker (cimg/python:3.13.11 + cimg/postgres:17.10, matching CI)..." | print_info
+    "${compose[@]}" run --rm tests "$@"
+}
 
-require_database
+# Prepares the host environment for a --local test run (database, settings, …).
+function prepare_local_environment {
+    require_installed
 
-# Set dummy key to enable DeepL during testing
-export INTEGREAT_CMS_DEEPL_AUTH_KEY="dummy"
+    ensure_webpack_bundle_exists
 
-# Set dummy key to enable Textlab during testing
-export INTEGREAT_CMS_TEXTLAB_API_KEY="dummy"
-# Set Google credentials and project ID to enable Google Translate during testing
-export INTEGREAT_CMS_GOOGLE_CREDENTIALS="dummy.json"
-export INTEGREAT_CMS_GOOGLE_PROJECT_ID="dummy"
+    require_database
 
-# Disable linkcheck listeners during testing
-export INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS=1
+    # When require_database falls back to the dockerized postgres, it exposes the
+    # container on INTEGREAT_CMS_DOCKER_LISTEN_PORT. docker_settings hardcodes that
+    # port, but test_settings (below) inherits from base settings and reads the
+    # port from the env, so propagate it explicitly.
+    if [[ "${DJANGO_SETTINGS_MODULE}" == "integreat_cms.core.docker_settings" ]]; then
+        export INTEGREAT_CMS_DB_PORT="${INTEGREAT_CMS_DOCKER_LISTEN_PORT}"
+    fi
 
-# Disable background tasks during testing
-export INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED=0
+    # Test-specific settings (dummy API keys, disabled listeners, etc.) are
+    # configured in integreat_cms/core/test_settings.py.
+    # Override the DJANGO_SETTINGS_MODULE that require_database sets to the base
+    # settings, so pytest uses the test settings even when invoked via this script.
+    export DJANGO_SETTINGS_MODULE="integreat_cms.core.test_settings"
+}
 
 # Disable re-importing of external news posts on demand
 export INTEGREAT_CMS_EXTERNALNEWS_DISABLE_AUTO_REIMPORT=1
 
 
 TESTS=()
+PYTEST_PASSTHROUGH=()
 
 # Parse given command line arguments
 while [[ $# -gt 0 ]]; do
@@ -48,6 +110,10 @@ while [[ $# -gt 0 ]]; do
         -k) shift;KW_EXPR="$1";shift;;
         # Select tests by marker
         -m) shift;MARKER="$1";shift;;
+        # Run on the host instead of inside the CI-matching Docker container
+        --local) LOCAL_MODE=1;shift;;
+        # Forward any other long flags (e.g. --update-snapshots) directly to pytest
+        --*) PYTEST_PASSTHROUGH+=("$1");shift;;
         # If only particular tests should be run, test path can be passed as CLI argument
         *) TESTS+=("$1");shift;;
     esac
@@ -59,32 +125,60 @@ PYTEST_ARGS=("--disable-warnings" "--color=yes")
 if [[ -n "${VERBOSITY}" ]]; then
     PYTEST_ARGS+=("$VERBOSITY")
 else
-    PYTEST_ARGS+=("--quiet" "--numprocesses=auto")
+    PYTEST_ARGS+=("--quiet")
+    # testmon (required by --changed) conflicts with xdist, so only
+    # parallelize runs that don't use testmon.
+    if [[ -z "${CHANGED}" ]]; then
+        PYTEST_ARGS+=("--numprocesses=auto")
+    fi
+fi
+
+# testmon records which tests depend on which code per environment. Docker and
+# host runs use different interpreters and installed packages, so keep their
+# data in separate namespaces of the same .testmondata file instead of letting
+# each mode invalidate the other's.
+if [[ "${LOCAL_MODE}" -eq 1 ]]; then
+    TESTMON_ENV="local"
+else
+    TESTMON_ENV="docker"
 fi
 
 # Check if --changed flag was passed
 if [[ -n "${CHANGED}" ]]; then
     # Check if .testmondata file exists
     if [[ -f ".testmondata" ]]; then
-        # Only run changed tests and don't update dependency database
-        PYTEST_ARGS+=("--testmon-nocollect")
+        # Run the tests affected by recent changes and record the new
+        # dependencies, so the next run starts from the current state. Without
+        # collecting, the database would keep describing the code as it was
+        # when it was first built and the same tests would be selected forever.
+        PYTEST_ARGS+=("--testmon")
         CHANGED_MESSAGE=" affected by recent changes"
     else
         # Inform that all tests will be run
-        echo -e "\nIt looks like you have not run pytest without the \"--changed\" flag before." | print_warning
-        echo -e "Pytest has to build a dependency database by running all tests without the flag once.\n" | print_warning
+        echo -e "\nIt looks like you have not run pytest with the \"--changed\" flag before." | print_warning
+        echo -e "Pytest has to build a dependency database by running all tests once.\n" | print_warning
         # Override test path argument
         unset TESTS
         # Tell testmon to run all tests and collect data
         PYTEST_ARGS+=("--testmon-noselect")
     fi
+    PYTEST_ARGS+=("--testmon-env" "${TESTMON_ENV}")
 else
-    # Run all tests, but update list of tests
-    PYTEST_ARGS+=("--testmon-noselect")
+    # Disable testmon when running in parallel — testmon conflicts with xdist
+    # and causes sporadic User.DoesNotExist errors during fixture setup.
+    if [[ -z "${VERBOSITY}" ]]; then
+        PYTEST_ARGS+=("-p" "no:testmon")
+    else
+        # Serial mode (verbose): safe to use testmon
+        PYTEST_ARGS+=("--testmon-noselect" "--testmon-env" "${TESTMON_ENV}")
+    fi
 fi
 
-# Determine whether coverage data should be collected
-if [[ -z "${CHANGED}" ]] && (( ${#TESTS[@]} == 0 )); then
+# Determine whether coverage data should be collected. Only a full run yields a
+# meaningful report, and the coverage tracer slows every test down noticeably,
+# so filtered runs (-k/-m/test paths) — the ones used for quick iteration — are
+# not instrumented at all.
+if [[ -z "${CHANGED}" ]] && (( ${#TESTS[@]} == 0 )) && [[ -z "${KW_EXPR}" ]] && [[ -z "${MARKER}" ]]; then
     PYTEST_ARGS+=("--cov=integreat_cms" "--cov-report=html")
 fi
 
@@ -115,10 +209,17 @@ if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]] || (( ${#TESTS[@]} )); then
     TEST_MESSAGE+=" in $FILES_MESSAGE"
 fi
 
-"$(dirname "${BASH_SOURCE[0]}")/prune_pdf_cache.sh"
+PYTEST_ARGS+=("${PYTEST_PASSTHROUGH[@]}")
 
-echo -e "Running all tests${TEST_MESSAGE}${CHANGED_MESSAGE}..." | print_info
-deescalate_privileges pytest "${PYTEST_ARGS[@]}"
+if [[ "${LOCAL_MODE}" -eq 0 ]]; then
+    echo -e "Running all tests${TEST_MESSAGE}${CHANGED_MESSAGE} in Docker..." | print_info
+    run_tests_in_docker "${PYTEST_ARGS[@]}"
+else
+    prepare_local_environment
+    "$(dirname "${BASH_SOURCE[0]}")/prune_pdf_cache.sh"
+    echo -e "Running all tests${TEST_MESSAGE}${CHANGED_MESSAGE}..." | print_info
+    deescalate_privileges pytest "${PYTEST_ARGS[@]}"
+fi
 echo "✔ Tests successfully completed " | print_success
 
 if [[ -d "${CODE_COVERAGE_DIR}" ]]; then

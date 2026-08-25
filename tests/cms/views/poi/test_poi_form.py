@@ -28,7 +28,7 @@ from integreat_cms.cms.models import (
 )
 from integreat_cms.cms.models.pois.poi import get_default_opening_hours
 from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
-from tests.conftest import (
+from tests.constants import (
     ANONYMOUS,
     AUTHOR,
     EDITOR,

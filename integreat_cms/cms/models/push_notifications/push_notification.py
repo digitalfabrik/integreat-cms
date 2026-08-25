@@ -11,7 +11,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.translation import get_language
+from django.utils.translation import get_language, pgettext_lazy
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
@@ -48,7 +48,7 @@ class PushNotification(AbstractBaseModel):
         null=True,
         blank=True,
         verbose_name=_("sent date"),
-        help_text=_("The date and time when the News was sent."),
+        help_text=_("The date and time when the news item was sent."),
     )
     created_date = models.DateTimeField(
         auto_now_add=True,
@@ -58,21 +58,19 @@ class PushNotification(AbstractBaseModel):
         null=True,
         blank=True,
         verbose_name=_("scheduled send date"),
-        help_text=_("The scheduled date for this News to be sent"),
+        help_text=_("The scheduled date for this news item to be sent"),
     )
     #: Manage choices in :mod:`~integreat_cms.cms.constants.push_notifications`
     mode = models.CharField(
         max_length=128,
         choices=PN_MODES,
         verbose_name=_("mode"),
-        help_text=_("Sets behavior for dealing with not existing News translations"),
+        help_text=_("Sets behavior for dealing with not existing news translations"),
     )
     archived = models.BooleanField(
         default=False,
         verbose_name=_("archived"),
-        help_text=_(
-            "Whether or not the push notification is read-only and hidden in the API."
-        ),
+        help_text=_("Whether or not the news item is read-only and hidden in the API."),
     )
     do_not_translate_title = models.BooleanField(
         default=False,
@@ -231,9 +229,9 @@ class PushNotification(AbstractBaseModel):
 
     class Meta:
         #: The verbose name of the model
-        verbose_name = _("push notification")
-        #: The plural verbose name of the model
-        verbose_name_plural = _("push notifications")
+        verbose_name = _("news")
+        #: The plural verbose name of the model (context needed since "news" is the same word in singular and plural)
+        verbose_name_plural = pgettext_lazy("plural", "news")
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view", "archive")
         #: The custom permissions for this model
