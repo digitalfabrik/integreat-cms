@@ -19,7 +19,13 @@ from integreat_cms.core.management.commands.hix_bulk import calculate_hix_for_re
 from ....gvz_api.utils import GvzRegion
 from ....matomo_api.matomo_api_client import MatomoException
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
-from ...constants import duplicate_pbo_behaviors, region_status, status
+from ...constants import (
+    duplicate_pbo_behaviors,
+    machine_translation_budget,
+    region_api_settings,
+    region_status,
+    status,
+)
 from ...models import LanguageTreeNode, OfferTemplate, Page, Region
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
@@ -136,14 +142,6 @@ class RegionForm(CustomModelForm):
         required=False,
     )
 
-    mt_midyear_start_enabled = forms.BooleanField(
-        required=False,
-        label=_("Budget year start differs from the renewal date"),
-        help_text=_(
-            "Enable to set an starting date of machine translation budget calculation differing from the renewal date. Budget will be set as a monthly fraction of the booked machine translation budget.",
-        ),
-    )
-
     zammad_offers = forms.ModelMultipleChoiceField(
         queryset=OfferTemplate.objects.filter(is_zammad_form=True),
         required=False,
@@ -199,8 +197,7 @@ class RegionForm(CustomModelForm):
             "hix_enabled",
             "mt_budget_booked",
             "mt_renewal_month",
-            "mt_midyear_start_enabled",
-            "mt_midyear_start_month",
+            "mt_budget_adjustment",
             "integreat_chat_enabled",
             "zammad_url",
             "zammad_access_token",
@@ -232,9 +229,24 @@ class RegionForm(CustomModelForm):
         self.fields["longitude"].required = False
         if not settings.TEXTLAB_API_ENABLED and not self.instance.hix_enabled:
             self.fields["hix_enabled"].disabled = True
-        self.fields["mt_midyear_start_enabled"].initial = (
-            self.instance.mt_midyear_start_month is not None
-        )
+        if self.instance.id and self.instance.is_api_managed:
+            # Settings which are pushed through the API must not be edited here — the next sync
+            # would overwrite them anyway. API-managed regions also keep the plain integer budget
+            # field: their budget may be any value, and a dropdown without a matching option would
+            # silently display the wrong one.
+            for field_name in region_api_settings.WRITABLE_FIELDS:
+                self.fields[field_name].disabled = True
+        else:
+            # The model no longer restricts the budget to the predefined package sizes, because the
+            # API may push arbitrary values. Regions maintained in the CMS should still get the
+            # dropdown with the known sizes, so the choices are defined on the form instead.
+            self.fields["mt_budget_booked"] = forms.TypedChoiceField(
+                choices=machine_translation_budget.CHOICES,
+                coerce=int,
+                label=self.fields["mt_budget_booked"].label,
+                initial=machine_translation_budget.MINIMAL,
+            )
+
         self.disabled_offer_options = (
             OfferTemplate.objects.filter(pages__region=self.instance)
             if self.instance.id
@@ -322,7 +334,6 @@ class RegionForm(CustomModelForm):
         cleaned_data = super().clean()
 
         cleaned_data.update(self.clean_statistics())
-        cleaned_data.update(self.clean_mt_budget())
         cleaned_data.update(self.clean_zammad())
         cleaned_data.update(self.clean_chat())
         cleaned_data.update(self.clean_gvz())
@@ -371,39 +382,6 @@ class RegionForm(CustomModelForm):
         else:
             cleaned["matomo_id"] = None
 
-        return cleaned
-
-    def clean_mt_budget(self) -> dict[str, Any]:
-        """
-        If MT budget year differs from the set renewal date, make sure a budget year start date is set
-        This is not a typical django method cleaning only one, but a group of fields, and has to be called explicitly.
-        """
-        relevant_fields = [
-            "mt_midyear_start_enabled",
-            "mt_midyear_start_month",
-            "mt_renewal_month",
-        ]
-        cleaned: dict[str, Any] = {
-            key: self.cleaned_data[key]
-            for key in relevant_fields
-            if key in self.cleaned_data
-        }
-
-        if (
-            cleaned["mt_midyear_start_enabled"]
-            and cleaned["mt_midyear_start_month"] is None
-        ):
-            self.add_error(
-                "mt_midyear_start_month",
-                _(
-                    "Please provide a valid budget year start date for foreign language translation.",
-                ),
-            )
-        elif (
-            not cleaned["mt_midyear_start_enabled"]
-            or cleaned["mt_midyear_start_month"] == cleaned["mt_renewal_month"]
-        ):
-            cleaned["mt_midyear_start_month"] = None
         return cleaned
 
     def clean_zammad(self) -> dict[str, Any]:
@@ -680,6 +658,17 @@ class RegionForm(CustomModelForm):
                 self.add_error("aliases", _("Enter a valid JSON."))
         # Convert None to an empty dict
         return cleaned_aliases or {}
+
+    def clean_mt_budget_adjustment(self) -> int:
+        """
+        Treat an empty budget adjustment as no adjustment
+
+        The field is optional in the form, but the column is not nullable, so an empty input has
+        to be converted into the neutral value.
+
+        :return: The budget adjustment
+        """
+        return self.cleaned_data.get("mt_budget_adjustment") or 0
 
     def clean_hix_enabled(self) -> bool:
         """

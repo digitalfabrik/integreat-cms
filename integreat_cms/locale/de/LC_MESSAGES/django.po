@@ -2426,20 +2426,6 @@ msgid "Timezone area"
 msgstr "Region der Zeitzone"
 
 #: cms/forms/regions/region_form.py
-msgid "Budget year start differs from the renewal date"
-msgstr "Unterjähriger Start des Abrechnungszeitraums"
-
-#: cms/forms/regions/region_form.py
-msgid ""
-"Enable to set an starting date of machine translation budget calculation "
-"differing from the renewal date. Budget will be set as a monthly fraction of "
-"the booked machine translation budget."
-msgstr ""
-"Aktivieren, um ein Startdatum für die Rechnung des Budgets für maschinelle "
-"Übersetztung anzugeben, welches sich vom Zurücksetzungsdatum unterscheidet. "
-"Das Budget wird monatsanteilig vom gebuchten Budgets berechnet."
-
-#: cms/forms/regions/region_form.py
 msgid "Zammad forms"
 msgstr "Zammad Formulare"
 
@@ -2460,14 +2446,6 @@ msgstr ""
 #: cms/forms/regions/region_form.py
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
-
-#: cms/forms/regions/region_form.py
-msgid ""
-"Please provide a valid budget year start date for foreign language "
-"translation."
-msgstr ""
-"Bitte geben Sie ein gültiges Startdatum für den Abrechnungszeitraum der "
-"Fremdsprachenübersetzung an."
 
 #: cms/forms/regions/region_form.py
 msgid ""
@@ -4380,6 +4358,15 @@ msgid "Machine translation budget"
 msgstr "Budget für Maschinelle Übersetzung"
 
 #: cms/models/regions/region.py
+msgid ""
+"The booked budget in number of words. For regions managed via the API this "
+"can be any value, so no choices are enforced on the model."
+msgstr ""
+"Das gebuchte Budget in Anzahl der Wörter. Für Regionen, die über die API "
+"verwaltet werden, sind beliebige Werte möglich, daher gibt es keine feste "
+"Auswahl."
+
+#: cms/models/regions/region.py
 msgid "Credits renewal date for foreign language translation"
 msgstr "Credits Zurücksetzungsdatum für Fremdsprachenübersetzung"
 
@@ -4388,17 +4375,34 @@ msgid "Budget usage will be reset on the 1st of the month"
 msgstr "Das Budget wird zum 1. des angegebenen Monats zurückgesetzt"
 
 #: cms/models/regions/region.py
-msgid "Budget year start date for foreign language translation"
-msgstr ""
-"Unterjähriger Start des Abrechnungszeitraums für Fremdsprachenübersetzung"
+msgid "Machine translation budget adjustment"
+msgstr "Anpassung des Budgets für Maschinelle Übersetzung"
 
 #: cms/models/regions/region.py
-msgid "Month from which the add-on package was booked"
-msgstr "Monat ab welchem das Add-On Paket gebucht wurde"
+msgid ""
+"Cumulative manual adjustment for the current budget year, added on top of "
+"the booked budget. Negative values reduce the budget."
+msgstr ""
+"Kumulierte manuelle Anpassung für das laufende Budgetjahr, die zum gebuchten "
+"Budget hinzugerechnet wird. Negative Werte verringern das Budget."
 
 #: cms/models/regions/region.py
 msgid "used budget"
 msgstr "verbrauchtes Budget"
+
+#: cms/models/regions/region.py
+msgid "last settings sync via API"
+msgstr "Letzte Synchronisierung der Einstellungen über die API"
+
+#: cms/models/regions/region.py
+msgid ""
+"Set when the region settings were last written through the API. Regions with "
+"a value here are managed externally and their synced settings are read-only "
+"in this form."
+msgstr ""
+"Wird gesetzt, wenn die Regionseinstellungen zuletzt über die API geschrieben "
+"wurden. Regionen mit einem Wert werden extern verwaltet, ihre "
+"synchronisierten Einstellungen sind in diesem Formular schreibgeschützt."
 
 #: cms/models/regions/region.py cms/templates/_base.html
 #: cms/templates/contacts/contact_form.html
@@ -8459,6 +8463,18 @@ msgid "Create new region"
 msgstr "Neue Region erstellen"
 
 #: cms/templates/regions/region_form.html
+#, python-format
+msgid ""
+"The booked features and the translation budget of this region are managed "
+"via the API and were last synced on %(last_sync)s. These settings are read-"
+"only here and have to be changed in the connected system."
+msgstr ""
+"Die gebuchten Funktionen und das Übersetzungsbudget dieser Region werden "
+"über die API verwaltet und wurden zuletzt am %(last_sync)s synchronisiert. "
+"Diese Einstellungen sind hier schreibgeschützt und müssen im angebundenen "
+"System geändert werden."
+
+#: cms/templates/regions/region_form.html
 msgid "Center of the region"
 msgstr "Mittelpunkt der Region"
 
@@ -8797,7 +8813,8 @@ msgstr ""
 
 #: cms/templates/settings/user_settings.html
 msgid "Copy your new API token now — it will not be shown again."
-msgstr "Kopieren Sie Ihr neues API-Token jetzt – es wird nicht erneut angezeigt."
+msgstr ""
+"Kopieren Sie Ihr neues API-Token jetzt – es wird nicht erneut angezeigt."
 
 #: cms/templates/settings/user_settings.html
 msgid "Token name"
@@ -12001,6 +12018,33 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Budget year start differs from the renewal date"
+#~ msgstr "Unterjähriger Start des Abrechnungszeitraums"
+
+#~ msgid ""
+#~ "Enable to set an starting date of machine translation budget calculation "
+#~ "differing from the renewal date. Budget will be set as a monthly fraction "
+#~ "of the booked machine translation budget."
+#~ msgstr ""
+#~ "Aktivieren, um ein Startdatum für die Rechnung des Budgets für "
+#~ "maschinelle Übersetztung anzugeben, welches sich vom Zurücksetzungsdatum "
+#~ "unterscheidet. Das Budget wird monatsanteilig vom gebuchten Budgets "
+#~ "berechnet."
+
+#~ msgid ""
+#~ "Please provide a valid budget year start date for foreign language "
+#~ "translation."
+#~ msgstr ""
+#~ "Bitte geben Sie ein gültiges Startdatum für den Abrechnungszeitraum der "
+#~ "Fremdsprachenübersetzung an."
+
+#~ msgid "Budget year start date for foreign language translation"
+#~ msgstr ""
+#~ "Unterjähriger Start des Abrechnungszeitraums für Fremdsprachenübersetzung"
+
+#~ msgid "Month from which the add-on package was booked"
+#~ msgstr "Monat ab welchem das Add-On Paket gebucht wurde"
+
 #~ msgid "Enable to set starting date differing from the renewal date."
 #~ msgstr ""
 #~ "Aktivieren, um ein Startdatum anzugeben, welches sich vom "
@@ -14239,7 +14283,6 @@ msgstr ""
 #~ msgid "was successfully deactivated."
 #~ msgstr "wurde erfolgreich deaktiviert."
 
-#~| msgid "Export"
 #~ msgid "Export XLIFF"
 #~ msgstr "Exportieren"
 
