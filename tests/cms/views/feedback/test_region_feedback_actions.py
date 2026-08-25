@@ -15,7 +15,7 @@ from django.contrib import auth
 from django.urls import reverse
 
 from integreat_cms.cms.models.feedback.feedback import Feedback
-from tests.conftest import (
+from tests.constants import (
     ANONYMOUS,
     HIGH_PRIV_STAFF_ROLES,
     MANAGEMENT,
