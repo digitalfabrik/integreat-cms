@@ -1042,11 +1042,6 @@ urlpatterns: list[URLPattern] = [
                                                                     pages.PageFormView.as_view(),
                                                                     name="edit_page",
                                                                 ),
-                                                                path(
-                                                                    "side-by-side/",
-                                                                    pages.PageSideBySideView.as_view(),
-                                                                    name="sbs_edit_page",
-                                                                ),
                                                             ],
                                                         ),
                                                     ),
@@ -1123,11 +1118,6 @@ urlpatterns: list[URLPattern] = [
                                                         "",
                                                         imprint.ImprintFormView.as_view(),
                                                         name="edit_imprint",
-                                                    ),
-                                                    path(
-                                                        "side-by-side/",
-                                                        imprint.ImprintSideBySideView.as_view(),
-                                                        name="sbs_edit_imprint",
                                                     ),
                                                 ],
                                             ),
