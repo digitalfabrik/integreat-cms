@@ -35,6 +35,13 @@ pip-install
 This job executes ``pip install -e .[dev-pinned,pinned]`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
 It passes the virtual environment ``.venv`` to the subsequent jobs.
 
+Since a virtual environment is only valid for the interpreter which created it, the cache key contains not only the
+checksum of ``pyproject.toml``, but also the checksum of ``.python-build-id``, a file which is written by the job itself
+with the output of ``python3 -VV``. This means the cache is invalidated whenever the Python version of the Docker image
+changes, and the image can be referenced by its minor version (``cimg/python:3.13``) to receive patch updates
+automatically. Do not replace this with an environment variable: values which are exported to ``$BASH_ENV`` are not
+visible to the interpolation of cache keys.
+
 .. _circleci-webpack:
 
 webpack
