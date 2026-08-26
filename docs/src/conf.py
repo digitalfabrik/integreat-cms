@@ -120,7 +120,7 @@ intersphinx_mapping: Final[dict[str, tuple[str, str | None]]] = {
     "setuptools": ("https://setuptools.pypa.io/en/latest/", None),
     "twine": ("https://twine.readthedocs.io/en/latest/", None),
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
-    "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest/", None),
+    "weasyprint": ("https://doc.courtbouillon.org/weasyprint/stable/", None),
     "django-import-export": (
         "https://django-import-export.readthedocs.io/en/latest/",
         None,
