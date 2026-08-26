@@ -19,7 +19,8 @@
            rel="noopener noreferrer"
            class="text-blue-500 hover:underline"
            title="{{ url.url }}">
-            {{ url.url }}
+            {% remove_url_prefix url as plain_url %}
+            {{ plain_url }}
         </a>
         {% if url.redirect_to %}
             <br />
@@ -39,9 +40,11 @@
             </span>
         </div>
     </td>
-    <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 break-words {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
-        {% translate url.get_message %}
-    </td>
+    {% if view.kwargs.url_filter == 'valid' or view.kwargs.url_filter == 'invalid' %}
+        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 break-words {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+            {% translate url.get_message %}
+        </td>
+    {% endif %}
     {% with link_text=url.regions_links.0.text %}
         <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
             title="{{ link_text }}">
@@ -79,7 +82,13 @@
         <a title="{% if request.region %}{% translate "Replace URL centrally in the current region" %}{% else %}{% translate "Replace URL globally in all the regions" %}{% endif %}"
            href="{% url_for_current_region 'edit_url' request url_id=url.id url_filter=view.kwargs.url_filter %}{{ pagination_params }}#replace-url"
            class="flex items-center justify-end gap-1 text-blue-500 hover:underline whitespace-nowrap">
-            {% translate "Change links on all pages" %}
+            {% if view.kwargs.url_filter == 'invalid' or view.kwargs.url_filter == 'valid' %}
+                {% translate "Change links on all pages" %}
+            {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
+                {% translate "Adjust email on all pages" %}
+            {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
+                {% translate "Adjust phone number on all pages" %}
+            {% endif %}
             <i icon-name="pen-square" class="shrink-0"></i>
         </a>
         {% if view.kwargs.url_filter == 'invalid' %}
@@ -101,7 +110,7 @@
     <tr>
         <td colspan="6">
             <div class="flex gap-2 p-2">
-                {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
+                {% render_field edit_url_form.url|add_error_class:"border-red-500" form="edit-url-form" %}
                 <a href="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
                    class="btn btn-ghost">{% translate "Cancel" %}</a>
                 <button type="submit" form="edit-url-form" class="btn">
