@@ -149,7 +149,9 @@ def get_public_translation_for_webapp_link_parts(
         "status": status.PUBLIC,
     }
     if object_type != ImprintPageTranslation:
-        filter_args[f"{foreign_object}__translations__slug"] = object_slug
+        # Old/renamed slugs are intentionally not supported anymore
+        # (see https://github.com/digitalfabrik/integreat-cms/issues/4524).
+        filter_args["slug"] = object_slug
 
     instances = (
         object_type.objects.filter(**filter_args)
