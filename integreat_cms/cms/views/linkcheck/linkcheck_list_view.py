@@ -45,6 +45,7 @@ class LinkcheckListView(ListView):
         "current_menu_item": "linkcheck",
         "LINKCHECK_EMAIL_ENABLED": settings.LINKCHECK_EMAIL_ENABLED,
         "LINKCHECK_PHONE_ENABLED": settings.LINKCHECK_PHONE_ENABLED,
+        "wiki_url": settings.LINKCHECK_WIKI_URL,
     }
     #: The currently edited instance
     instance: Url | None = None
@@ -208,7 +209,19 @@ class LinkcheckListView(ListView):
                 # If the form is invalid, render the invalid form
                 return super().get(request, *args, **kwargs)
 
-        if action := request.POST.get("action"):
+        if url_id := request.POST.get("url_id"):
+            region_slug = request.region.slug if request.region else None
+            for url in get_urls(
+                region_slug=region_slug, url_ids=[url_id], prefetch_links=True
+            ):
+                link_ids = (
+                    [link.id for link in url.regions_links]
+                    if region_slug
+                    else url.links.all()
+                )
+                Link.objects.filter(id__in=link_ids).update(ignore=True)
+            messages.success(request, _("Link was successfully marked as verified"))
+        elif action := request.POST.get("action"):
             region_slug = request.region.slug if request.region else None
             selected_urls = get_urls(
                 region_slug=region_slug,

@@ -52,7 +52,11 @@ const toggleBulkActionButton = (root: HTMLElement) => {
         (selectedAction.id === "pdf-export-option" && !hasTranslation(root, selectItems));
 };
 
-const bulkActionExecute = (event: Event, root: HTMLElement) => {
+const bulkActionExecute = (event: SubmitEvent, root: HTMLElement) => {
+    const submitter = event.submitter as HTMLElement | null;
+    if (submitter?.classList.contains("row-action-button")) {
+        return;
+    }
     event.preventDefault();
     const bulkAction = root.querySelector<HTMLSelectElement>("#bulk-action");
     const form = root instanceof HTMLFormElement ? root : root.querySelector<HTMLFormElement>("#bulk-action-form");

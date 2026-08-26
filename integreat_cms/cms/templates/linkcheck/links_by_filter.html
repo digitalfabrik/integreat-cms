@@ -1,26 +1,11 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load static %}
-{% load linkcheck_filters %}
 {% load url_tags %}
 {% block content %}
-    <div class="flex flex-wrap justify-between gap-4">
+    <div class="flex flex-wrap justify-between gap-4 my-2">
         <h1 class="heading">
-            {% if view.kwargs.url_filter == 'valid' %}
-                {% translate "Valid links" %}
-            {% elif view.kwargs.url_filter == 'invalid' %}
-                {% translate "Broken links" %}
-            {% elif view.kwargs.url_filter == 'unchecked' %}
-                {% translate "Unchecked links" %}
-            {% elif view.kwargs.url_filter == 'ignored' %}
-                {% translate "Link verified" %}
-            {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
-                {% translate "Email links" %}
-            {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
-                {% translate "Phone links" %}
-            {% else %}
-                {% translate "All links" %}
-            {% endif %}
+            {% translate "Links" %}
         </h1>
         {% if request.user.expert_mode %}
             <a href="{% url_for_current_region 'search_and_replace_link' request %}"
@@ -77,6 +62,21 @@
             </a>
         {% endif %}
     {% endif %}
+    <div class="flex flex-wrap items-center justify-between gap-4 mt-4">
+        <p>
+            {% if view.kwargs.url_filter == 'invalid' %}
+                {% translate "The following links are reported by the system as potentially faulty." %}
+                <br />
+                {% translate "Click the links to check them and adjust them if necessary." %}
+            {% endif %}
+        </p>
+        <a href="{{ wiki_url }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn btn-ghost shrink-0 whitespace-nowrap">
+            {% translate "Link-Check Help" %}
+        </a>
+    </div>
     {% if view.kwargs.url_id %}
         <form action="{{ request.path }}{{ pagination_params }}"
               method="post"
@@ -97,26 +97,18 @@
                         <input type="checkbox" id="bulk-select-all" />
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "URL" %}
-                    </th>
-                    {# djlint:off H023 #}
-                    <th class="text-sm text-left uppercase py-3 pr-2 min"
-                        title="{% translate "SSL is the standard technology for securing Internet connections and protecting sensitive data transferred between two systems." %}&#013;&#013;{% translate "When a website is secured by an SSL certificate, its URL starts with 'https', insecure links with 'http' should no longer be used." %}">
-                        {% translate "SSL" %}
-                    </th>
-                    {# djlint:on #}
-                    {% if request.user.expert_mode %}
-                        <th class="text-sm text-left uppercase py-3 pr-2 min"
-                            title="{% translate "An anchor denotes a link to a fragement within an HTML document" %}">
-                            {% translate "Anchor" %}
-                        </th>
-                    {% endif %}
-                    <th class="text-sm text-left uppercase py-3 pr-2 min"
-                        title="{% translate "HTTP response status codes indicate whether a specific HTTP request has been successfully completed." %}">
-                        {% translate "Code" %}
+                        {% if view.kwargs.url_filter == 'invalid' %}
+                            {% translate "Link to be checked" %}
+                        {% else %}
+                            {% translate "URL" %}
+                        {% endif %}
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% translate "Status" %}
+                        {% if view.kwargs.url_filter == 'invalid' %}
+                            {% translate "Error message" %}
+                        {% else %}
+                            {% translate "Status" %}
+                        {% endif %}
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2"
                         title="{% translate "The link text of the first usage" %}">
@@ -125,10 +117,6 @@
                     <th class="text-sm text-left uppercase py-3 pr-2"
                         title="{% translate "The source translation of the first usage" %}">
                         {% translate "Source" %}
-                    </th>
-                    <th class="text-sm text-right uppercase py-3 pr-2 lg:max-w-[50px] xl:max-w-[100px] 2xl:max-w-full truncate min"
-                        title="{% translate "The number of times this URL is used in the content" %}">
-                        {% translate "Usages" %}
                     </th>
                     <th class="text-sm text-right uppercase py-3 pr-4 min">
                         {% translate "Options" %}
