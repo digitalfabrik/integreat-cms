@@ -1,164 +1,242 @@
 @import "../fonts/raleway/raleway-pdf.css";
 @import "../fonts/open-sans/open-sans-pdf.css";
 @import "../fonts/noto-sans-sc/noto-sans-sc-pdf.css";
+@import "../fonts/lateef/lateef-pdf.css";
 @import "../fonts/dejavu-sans/dejavu-sans-pdf.css";
 @import "../fonts/noto-sans-ethiopic/noto-sans-ethiopic-pdf.css";
 @import "../fonts/noto-sans-georgian/noto-sans-georgian-pdf.css";
 
+html {
+    /* The absolute-size keywords (large, x-large, ...) resolve against the
+    renderer's root font size, which differs between rendering engines. Pin it
+    to keep the page layout of the PDF stable and independent of the renderer. */
+    font-size: 9.375pt;
+}
+
 @page {
-    size: a4;
-    margin: 2cm;
-    @frame header_frame {
-        /* static frames: stay the same across different pages
-        is marked with -pdf-frame-content */
-        -pdf-frame-content: header;
-        left: 1cm;
-        top: 0.5cm;
-        right: 1cm;
-        height: 1cm;
+    size: A4;
+    margin: 1.8cm 1.5cm 2.4cm 1.5cm;
+
+    @top-center {
+        content: element(header);
+        width: 100%;
+        border-bottom: 1px solid black;
+        padding-bottom: 4pt;
+        margin-bottom: 8pt;
     }
-    @frame footer_frame {
-        -pdf-frame-content: footer;
-        left: 1cm;
-        bottom: 0.1cm;
-        right: 1cm;
-        height: 1.5cm;
-    }
-    @frame footer_bar_frame {
-        /* due to a malfunction of border-top property,
-        which selects all other borders (left, right, bottom) also,
-        this work-around uses a separate static frame with minimal height
-        to draw a single horizontale line at the bottom of the page */
-        -pdf-frame-content: footer_bar;
-        height: 0.001cm;
-        bottom: 2.0001cm;
-        left: 1cm;
-        right: 1cm;
-        border-top-color: black;
-        border-top-style: solid;
-        border-top-width: 1px;
-    }
-    @frame header_bar_frame {
-        /* due to a malfunction of border-top property,
-        which selects all other borders (left, right, bottom) also,
-        this work-around uses a separate static frame with minimal height
-        to draw a single horizontale line at the bottom of the page */
-        -pdf-frame-content: header_bar;
-        height: 0.001cm;
-        top: 1.6001cm;
-        left: 1cm;
-        right: 1cm;
-        border-top-color: black;
-        border-top-style: solid;
-        border-top-width: 1px;
+
+    @bottom-center {
+        content: element(footer);
+        width: 100%;
+        border-top: 1px solid black;
+        padding-top: 4pt;
+        margin-top: 8pt;
     }
 }
-.content,
+
+#header {
+    position: running(header);
+    text-align: right;
+}
+
 #footer {
-    font-size: large;
+    position: running(footer);
+    direction: ltr;
 }
-/* the following styles are applied only to the table of content
-at the first page of the pdf document */
-pdftoc {
-    /* applied to the whole toc */
-    font-size: large;
+
+#footer table {
+    width: 100%;
 }
-pdftoc.pdftoclevel1 {
-    /* applied for all children of the root page */
-    margin-left: 1em;
+
+#first-footer {
+    text-align: left;
 }
-pdftoc.pdftoclevel2 {
-    /* applied to all sub headers of the pages */
-    margin-left: 2em;
+
+#first-footer::after {
+    content: counter(page);
 }
-pdftoc.pdftoclevel3 {
-    /* applied to all sub headers of the pages */
-    margin-left: 3em;
+
+/* Languages written in the arabic script use their own digits. Arabic uses the
+arabic-indic ones, the other languages use the eastern arabic-indic ones. */
+:lang(ar) #first-footer::after {
+    content: counter(page, arabic-indic);
 }
-pdftoc.pdftoclevel4 {
-    /* applied to all sub headers of the pages */
-    margin-left: 4em;
+
+:lang(ckb) #first-footer::after,
+:lang(fa) #first-footer::after,
+:lang(pes) #first-footer::after,
+:lang(prs) #first-footer::after,
+:lang(ps) #first-footer::after,
+:lang(ur) #first-footer::after {
+    content: counter(page, persian);
 }
-pdftoc.pdftoclevel5 {
-    /* applied to all sub headers of the pages */
-    margin-left: 5em;
+
+#second-footer {
+    text-align: center;
 }
+
+#third-footer {
+    text-align: right;
+    background-color: white;
+}
+
+.font-latin {
+    font-family: "Open Sans", "DejaVu", sans-serif;
+}
+
+.font-latin h1,
+.font-latin .toc {
+    font-family: "Raleway", "Open Sans", sans-serif;
+}
+
+.font-rtl {
+    font-family: "Lateef", "DejaVu", sans-serif;
+    /* Lateef renders smaller than the latin fonts at the same font size, so
+    scale the whole document up to keep the text equally legible */
+    font-size: 1.3em;
+}
+
+.font-zh {
+    font-family: "Noto Sans SC", "Open Sans", sans-serif;
+}
+
+.font-ethiopic {
+    font-family: "Noto Sans Ethiopic", "Open Sans", sans-serif;
+}
+
+.font-georgian {
+    font-family: "Noto Sans Georgian", "Open Sans", sans-serif;
+}
+
+.no-italics i,
+.no-italics em,
+.no-italics cite {
+    font-style: normal;
+}
+
+.content {
+    padding-bottom: 30px;
+}
+
+.toc-page {
+    break-after: page;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc ul ul {
+    padding-left: 1.5em;
+}
+
+[dir="rtl"] .toc ul ul {
+    padding-left: 0;
+    padding-right: 1.5em;
+}
+
+.toc li {
+    padding: 1px 0;
+}
+
+.toc a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.toc a::after {
+    /* Append the page number the entry links to, separated by a dot leader */
+    content: leader(".") target-counter(attr(href), page);
+}
+
+:lang(ar) .toc a::after {
+    content: leader(".") target-counter(attr(href), page, arabic-indic);
+}
+
+:lang(ckb) .toc a::after,
+:lang(fa) .toc a::after,
+:lang(pes) .toc a::after,
+:lang(prs) .toc a::after,
+:lang(ps) .toc a::after,
+:lang(ur) .toc a::after {
+    content: leader(".") target-counter(attr(href), page, persian);
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-size: x-large;
+    font-size: 1.2em;
     margin: 0.83em 0;
-    padding: 3px 0px;
+    padding: 3px 0;
+    break-after: avoid;
 }
+
 h2,
 h3,
 h4,
 h5,
 h6 {
-    -pdf-outline: false;
+    /* Headings inside the page content must not show up in the table of
+    contents of the PDF viewer */
+    bookmark-level: none;
 }
+
 h1.level-0 {
-    font-size: xx-large;
+    font-size: 1.4em;
     margin: 0.67em 0;
-    -pdf-outline-level: 0;
-    /* keep the following html tag in the same frame */
-    -pdf-keep-with-next: false;
+    bookmark-level: 1;
 }
+
 h1.level-1 {
-    -pdf-outline-level: 1;
+    bookmark-level: 2;
 }
+
 h1.level-2 {
-    -pdf-outline-level: 2;
+    bookmark-level: 3;
 }
+
 h1.level-3 {
-    -pdf-outline-level: 3;
+    bookmark-level: 4;
 }
+
 h1.level-4 {
-    -pdf-outline-level: 4;
+    bookmark-level: 5;
 }
+
 h1.level-5 {
-    -pdf-outline-level: 5;
+    bookmark-level: 6;
 }
-/* title of document on first page should not show up
-    in the table of content */
+
+/* The title of the table of contents on the first page should not show up
+in the table of contents of the PDF viewer itself */
 #title_page {
-    -pdf-outline: false;
+    bookmark-level: none;
 }
+
 p,
 ol,
 ul {
     padding: 0;
 }
+
 li {
-    padding: 1px 0px;
-}
-ul li div:first-child {
-    display: inline-block;
-}
-.right-to-left {
-    text-align: right;
-}
-#header {
-    text-align: right;
-}
-#first-footer {
-    text-align: left;
-}
-#second-footer {
-    text-align: center;
-}
-#third-footer {
-    text-align: right;
-    background-color: white;
+    padding: 1px 0;
 }
 
-/* force linebreak between images wrapped in links */
+.content img {
+    max-width: 100%;
+    height: auto;
+}
+
 p a img {
     display: block;
 }
+
 p a:first-child img {
     display: inline-block;
 }

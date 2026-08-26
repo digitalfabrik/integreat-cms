@@ -88,7 +88,7 @@ jobs:
           at: .
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
+          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
       - run:
           name: Check release notes in Markdown
           command: ./tools/make_release_notes.sh --format=md --all
@@ -108,7 +108,7 @@ jobs:
           at: .
       - run:
           name: Install translation requirements
-          command: sudo apt-get update && sudo apt-get install gettext pcregrep libcairo2
+          command: sudo apt-get update && sudo apt-get install gettext pcregrep libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
       - run:
           name: Check translation file for missing or empty entries
           command: ./tools/check_translations.sh
@@ -240,7 +240,7 @@ jobs:
           at: .
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install libcairo2
+          command: sudo apt-get update && sudo apt-get install libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
       - run:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
@@ -265,7 +265,7 @@ jobs:
           at: .
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install libcairo2
+          command: sudo apt-get update && sudo apt-get install libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
       - run:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
@@ -348,7 +348,7 @@ jobs:
           at: .
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
+          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
       - run:
           name: Install Node.js
           command: |
@@ -519,7 +519,7 @@ jobs:
           at: .
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
+          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
       - run:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
@@ -599,7 +599,7 @@ jobs:
           at: .
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
+          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
       - run:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
@@ -632,7 +632,7 @@ jobs:
       - checkout
       - run:
           name: Install requirements
-          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
+          command: sudo apt-get update && sudo apt-get install pcregrep libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
       - run:
           name: Notify mattermost about release
           command: |
