@@ -62,12 +62,16 @@
             </a>
         {% endif %}
     {% endif %}
-    <div class="flex flex-wrap items-center justify-between gap-4 mt-4">
+    <div class="flex flex-wrap items-center justify-between gap-4 py-4">
         <p>
             {% if view.kwargs.url_filter == 'invalid' %}
                 {% translate "The following links are reported by the system as potentially faulty." %}
                 <br />
                 {% translate "Click the links to check them and adjust them if necessary." %}
+            {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
+                {% translate "The following email addresses are used and linked in the system." %}
+            {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
+                {% translate "The following telephone numbers are used and linked in the system." %}
             {% endif %}
         </p>
         <a href="{{ wiki_url }}"
@@ -90,7 +94,7 @@
           class="table-listing"
           data-js-bulk-actions>
         {% csrf_token %}
-        <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <table class="w-full rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
                     <th class="text-sm text-left uppercase py-3 pl-4 min">
@@ -99,17 +103,23 @@
                     <th class="text-sm text-left uppercase py-3 pr-2">
                         {% if view.kwargs.url_filter == 'invalid' %}
                             {% translate "Link to be checked" %}
+                        {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
+                            {% translate "Email linking" %}
+                        {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
+                            {% translate "Phone linking" %}
                         {% else %}
                             {% translate "URL" %}
                         {% endif %}
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">
-                        {% if view.kwargs.url_filter == 'invalid' %}
-                            {% translate "Error message" %}
-                        {% else %}
-                            {% translate "Status" %}
-                        {% endif %}
-                    </th>
+                    {% if view.kwargs.url_filter == 'valid' or view.kwargs.url_filter == 'invalid' %}
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% if view.kwargs.url_filter == 'invalid' %}
+                                {% translate "Error message" %}
+                            {% elif view.kwargs.url_filter == 'valid' %}
+                                {% translate "Status" %}
+                            {% endif %}
+                        </th>
+                    {% endif %}
                     <th class="text-sm text-left uppercase py-3 pr-2"
                         title="{% translate "The link text of the first usage" %}">
                         {% translate "Link text" %}
@@ -118,7 +128,7 @@
                         title="{% translate "The source translation of the first usage" %}">
                         {% translate "Source" %}
                     </th>
-                    <th class="text-sm text-right uppercase py-3 pr-4 min">
+                    <th class="text-sm text-right uppercase py-3 pr-4">
                         {% translate "Options" %}
                     </th>
                 </tr>
