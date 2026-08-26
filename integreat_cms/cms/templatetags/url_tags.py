@@ -11,11 +11,14 @@ from django import template
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
+from ..views.contacts.contact_from_existing_data import clean_url
+
 if TYPE_CHECKING:
     from typing import Any
     from urllib.parse import ParseResult
 
     from django.http import HttpRequest
+    from linkcheck import Url
 
 register = template.Library()
 
@@ -52,3 +55,13 @@ def url_for_current_region(target: str, request: HttpRequest, **kwargs: Any) -> 
     if request.region:
         kwargs["region_slug"] = request.region.slug
     return reverse(target, kwargs=kwargs)
+
+
+@register.simple_tag
+def remove_url_prefix(url: Url) -> str:
+    """
+    Return the url without prefix "mailto:" and "tel:"
+
+    :param target: Target url
+    """
+    return clean_url(url)

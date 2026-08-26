@@ -116,8 +116,17 @@ class LinkcheckListView(ListView):
             if request.POST:
                 form_kwargs = {"data": request.POST}
             else:
-                form_kwargs = {"initial": {"url": self.instance}}
+                form_kwargs = {"initial": {"url": None}}
             self.form = EditUrlForm(**form_kwargs)
+
+            # Potential conflicts with #4458
+            placeholder_text = _("Enter new link here")
+            if self.instance.type == "mailto":
+                placeholder_text = _("Enter new E-mail here")
+            elif self.instance.type == "phone":
+                placeholder_text = _("Enter new phone number here")
+
+            self.form.fields["url"].widget.attrs["placeholder"] = placeholder_text
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> TemplateResponse:
@@ -190,12 +199,20 @@ class LinkcheckListView(ListView):
                         ).format(len(failed_replacements)),
                     )
 
+                # Messages for E-mail and phone number links are adjusted in #4518. Do not overwrite or throw away in other PRs of #2837's children.
                 if new_url.startswith("mailto:"):
-                    messages.success(request, _("Email link was successfully replaced"))
+                    messages.success(
+                        request,
+                        _(
+                            "The email link has been successfully updated on all pages and in all translations."
+                        ),
+                    )
                 elif new_url.startswith("tel:"):
                     messages.success(
                         request,
-                        _("Phone number link was successfully replaced"),
+                        _(
+                            "The telephone link has been successfully updated on all pages and in all translations."
+                        ),
                     )
                 else:
                     messages.success(request, _("URL was successfully replaced"))
