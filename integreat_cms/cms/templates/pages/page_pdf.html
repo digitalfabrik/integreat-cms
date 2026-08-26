@@ -3,62 +3,16 @@
 {% load content_filters %}
 {% load pdf_filters %}
 {% load render_bundle from webpack_loader %}
-{% comment %}
-    These file does not inherit from _raw.html,
-    because xhtml2pdf does not work in combination with tailwind css,
-    so that no resources like tailwind from _raw.html can be incorporated.
-    Tailwind css uses the @media without a mediatype, but xhtml2pdf expects the media identifier.
-    See https://github.com/xhtml2pdf/xhtml2pdf/issues/498 for more information.
-    Once this issue is fixed, we can use tailwind in the pdf context.
-{% endcomment %}
 {# djlint:off H006,H007,H016,H025,H030,H031 #}
-<html>
+<!DOCTYPE html>
+<html lang="{{ language.bcp47_tag }}"
+      dir="{% if right_to_left %}rtl{% else %}ltr{% endif %}">
     <head>
-        <!-- these style settings are only set to pdf exported pages
-        for detailed information about the applied library concepts see
-        the documentation of xhtml2pdf -->
+        <meta charset="utf-8" />
         {% render_bundle 'pdf' 'css' %}
-        <style>
-            .content {
-                padding-bottom: 30px;
-            }
-            {% if language.slug == "zh" %}
-                html, body, pdftoc {
-                    font-family: "Noto Sans SC", sans-serif;
-                }
-                .content {
-                    -pdf-word-wrap: CJK;
-                }
-            {% elif language.slug == "am" or language.slug == "ti" %}
-                html, body, pdftoc {
-                    font-family: "Noto Sans Ethiopic", sans-serif;
-                }
-            {% elif language.slug == "el" %}
-                html, body, pdftoc {
-                    font-family: "Open Sans", sans-serif;
-                }
-            {% elif language.slug == "ka" %}
-                html, body, pdftoc {
-                font-family: "Noto Sans Georgian", sans-serif;
-            }
-            {% elif right_to_left %}
-                html, body {
-                    font-family: "DejaVu", sans-serif;
-                }
-            {% else %}
-                html, body {
-                    font-family: "DejaVu", sans-serif;
-                }
-                pdftoc, h1 {
-                    font-family: "Raleway", sans-serif;
-                }
-            {% endif %}
-        </style>
     </head>
-    <body>
+    <body class="{% if language.slug == 'zh' %}font-zh{% elif language.slug == 'am' or language.slug == 'ti' %}font-ethiopic{% elif language.slug == 'ka' %}font-georgian{% elif right_to_left %}font-rtl{% else %}font-latin{% endif %}{% if language.slug in prevent_italics %} no-italics{% endif %}">
         <div id="header">
-            <!-- make sure that image size fits in static frame to avoid problems -->
-            <!-- only applicable if icon is present -->
             {% if region.icon and region.icon.file %}
                 <img src="{% get_media_prefix %}{{ region.icon.file.name }}"
                      height="32"
@@ -69,11 +23,8 @@
             <table>
                 <tr>
                     <td id="first-footer">
-                        <pdf:pagenumber />
                     </td>
-                    <td id="second-footer">
-                        {{ region.full_name }}
-                    </td>
+                    <td id="second-footer">{{ region.full_name }}</td>
                     <td id="third-footer">
                         <img src="{% static 'logos/'|add:BRANDING|add:'/'|add:BRANDING|add:'-logo.png' %}"
                              height="40"
@@ -82,35 +33,33 @@
                 </tr>
             </table>
         </div>
-        {% if right_to_left %}
-            <div>
-                <pdf:language name="arabic" />
-            </div>
+        {% if amount_pages > 1 %}
+            <section class="toc-page">
+                <h1 id="title_page">{{ language.table_of_contents }}</h1>
+                <nav class="toc">
+                    {# djlint:off #}
+                    {% for page, info in annotated_pages %}
+                        {% if info.open %}
+                            <ul>
+                                <li>{% else %}</li>
+                            <li>
+                        {% endif %}
+                        {% get_public_translation page language.slug as page_translation %}
+                        <a href="#page-{{ page.pk }}">{{ page_translation.title }}</a>
+                        {% for close in info.close %}
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    {% endfor %}
+                    {# djlint:on #}
+                    {# djlint:off H006,H007,H016,H025,H030,H031 #}
+                </nav>
+            </section>
         {% endif %}
-        <div class="{% if right_to_left %}right-to-left{% endif %}">
-            {% if amount_pages > 1 %}
-                <!-- if the user selected several pages, additionally insert table of content -->
-                <h1 id="title_page">
-                    {{ language.table_of_contents }}
-                </h1>
-                <!-- according to xhtml2pdf documentation all custom tags like <pdf:toc />, <pdf:nextpage>, etc.
-                should be wrapped inside block tags like <div> to avoid problems -->
-                <div class="toc">
-                    <pdf:toc />
-                </div>
-                <div>
-                    <pdf:nextpage />
-                </div>
-            {% endif %}
-            {% for page, info in annotated_pages %}
-                {# djlint:off #}
-                {% if info.open %}
-                    <ul>
-                        <li>{% else %}</li>
-                    <li>
-                {% endif %}
-                {% get_public_translation page language.slug as page_translation %}
-                <h1 class="level-{{ page.depth|add:"-1" }}">{{ page_translation.title }}</h1>
+        {% for page, info in annotated_pages %}
+            {% get_public_translation page language.slug as page_translation %}
+            <section id="page-{{ page.pk }}" class="page-section">
+                <h1 class="level-{{ page.depth|add:'-1' }}">{{ page_translation.title }}</h1>
                 <div class="content">
                     {% if page.mirrored_page_first %}
                         {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|pdf_truncate_links:80|safe }}
@@ -120,14 +69,8 @@
                         {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|pdf_truncate_links:80|safe }}
                     {% endif %}
                 </div>
-                {% for close in info.close %}
-                        </li>
-                    </ul>
-                {% endfor %}
-                {# djlint:on #}
-                {# djlint:off H006,H007,H016,H025,H030,H031 #}
-            {% endfor %}
-        </div>
+            </section>
+        {% endfor %}
     </body>
 </html>
 {# djlint:on #}

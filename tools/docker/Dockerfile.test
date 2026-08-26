@@ -3,7 +3,7 @@
 #
 # Base image and system packages are kept in sync with .circleci/config.yml:
 #   - image:   cimg/python:3.13.11  (same Python + OS + font stack as CI)
-#   - apt:     libcairo2            (required by the PDF export tests)
+#   - apt:     libcairo2, pango, harfbuzz  (thumbnails + PDF export tests)
 # In addition we install `gettext` so translations can be compiled inside the
 # container (the .mo files are not committed and several tests depend on them).
 #
@@ -15,7 +15,7 @@ FROM cimg/python:3.13.11
 
 USER root
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libcairo2 gettext \
+    && apt-get install -y --no-install-recommends libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b gettext \
     && rm -rf /var/lib/apt/lists/*
 # The container runs as the invoking host user (see the `user:` key in
 # docker-compose.test.yml), whose uid is not known at build time and is neither
