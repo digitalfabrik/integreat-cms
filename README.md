@@ -45,6 +45,7 @@ To configure your development environment on your system, please follow these st
    - `python3-venv` (only on Debian-based distributions)
    - `gettext` for translation features
    - `libcairo2` for thumbnail generation
+   - `libpango-1.0-0`, `libpangoft2-1.0-0` and `libharfbuzz0b` for PDF export
    - Either `postgresql` **or** `docker` to run a local database server
 2. Execute `tools/install.sh` to download all dependencies.
 3. Execute `tools/migrate.sh` to apply all database schema migrations.
