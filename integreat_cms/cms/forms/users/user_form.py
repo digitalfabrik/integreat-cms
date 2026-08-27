@@ -81,7 +81,6 @@ class UserForm(CustomModelForm):
             "is_active",
             "is_superuser",
             "organization",
-            "expert_mode",
             "regions",
             "role",
             "send_activation_link",

@@ -22,12 +22,10 @@
                 {% translate "All links" %}
             {% endif %}
         </h1>
-        {% if request.user.expert_mode %}
-            <a href="{% url_for_current_region 'search_and_replace_link' request %}"
-               class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
-                <span><i icon-name="replace" class="align-top h-5"></i> {% translate "Search & replace" %}</span>
-            </a>
-        {% endif %}
+        <a href="{% url_for_current_region 'search_and_replace_link' request %}"
+           class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
+            <span><i icon-name="replace" class="align-top h-5"></i> {% translate "Search & replace" %}</span>
+        </a>
     </div>
     <a href="{% if view.kwargs.url_filter == 'valid' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='valid' %}{{ pagination_params }}{% endif %}"
        class="pr-2 {% if view.kwargs.url_filter == 'valid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
@@ -57,25 +55,23 @@
             ({{ number_ignored_urls }})
         </span>
     </a>
-    {% if request.user.expert_mode %}
-        {% if LINKCHECK_EMAIL_ENABLED %}
-            <a href="{% if view.kwargs.url_filter == 'email' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='email' %}{{ pagination_params }}{% endif %}"
-               class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'email' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-                📧 {% translate "Email links" %}
-                <span class="{% if view.kwargs.url_filter == 'email' %}text-gray-500 font-normal{% endif %}">
-                    ({{ number_email_urls }})
-                </span>
-            </a>
-        {% endif %}
-        {% if LINKCHECK_PHONE_ENABLED %}
-            <a href="{% if view.kwargs.url_filter == 'phone' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='phone' %}{{ pagination_params }}{% endif %}"
-               class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'phone' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-                ☎ {% translate "Phone links" %}
-                <span class="{% if view.kwargs.url_filter == 'phone' %}text-gray-500 font-normal{% endif %}">
-                    ({{ number_phone_urls }})
-                </span>
-            </a>
-        {% endif %}
+    {% if LINKCHECK_EMAIL_ENABLED %}
+        <a href="{% if view.kwargs.url_filter == 'email' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='email' %}{{ pagination_params }}{% endif %}"
+           class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'email' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+            📧 {% translate "Email links" %}
+            <span class="{% if view.kwargs.url_filter == 'email' %}text-gray-500 font-normal{% endif %}">
+                ({{ number_email_urls }})
+            </span>
+        </a>
+    {% endif %}
+    {% if LINKCHECK_PHONE_ENABLED %}
+        <a href="{% if view.kwargs.url_filter == 'phone' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='phone' %}{{ pagination_params }}{% endif %}"
+           class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'phone' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+            ☎ {% translate "Phone links" %}
+            <span class="{% if view.kwargs.url_filter == 'phone' %}text-gray-500 font-normal{% endif %}">
+                ({{ number_phone_urls }})
+            </span>
+        </a>
     {% endif %}
     {% if view.kwargs.url_id %}
         <form action="{{ request.path }}{{ pagination_params }}"
@@ -105,12 +101,10 @@
                         {% translate "SSL" %}
                     </th>
                     {# djlint:on #}
-                    {% if request.user.expert_mode %}
-                        <th class="text-sm text-left uppercase py-3 pr-2 min"
-                            title="{% translate "An anchor denotes a link to a fragement within an HTML document" %}">
-                            {% translate "Anchor" %}
-                        </th>
-                    {% endif %}
+                    <th class="text-sm text-left uppercase py-3 pr-2 min"
+                        title="{% translate "An anchor denotes a link to a fragement within an HTML document" %}">
+                        {% translate "Anchor" %}
+                    </th>
                     <th class="text-sm text-left uppercase py-3 pr-2 min"
                         title="{% translate "HTTP response status codes indicate whether a specific HTTP request has been successfully completed." %}">
                         {% translate "Code" %}

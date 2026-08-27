@@ -43,16 +43,14 @@
                 <i icon-name="minus"></i>
             {% endif %}
         </td>
-        {% if request.user.expert_mode %}
-            <td class="whitespace-nowrap"
-                title="{{ url.anchor_message }}{% if url.anchor %}{% if url.last_checked %}:{% endif %} #{{ url.anchor }} {% endif %}">
-                {% if url.anchor_message %}
-                    {% url_anchor_icon url %}
-                {% else %}
-                    <i icon-name="minus"></i>
-                {% endif %}
-            </td>
-        {% endif %}
+        <td class="whitespace-nowrap"
+            title="{{ url.anchor_message }}{% if url.anchor %}{% if url.last_checked %}:{% endif %} #{{ url.anchor }} {% endif %}">
+            {% if url.anchor_message %}
+                {% url_anchor_icon url %}
+            {% else %}
+                <i icon-name="minus"></i>
+            {% endif %}
+        </td>
         <td class="pr-2 whitespace-nowrap">
             {% if url.redirect_status_code %}
                 <div title="{{ url.get_redirect_status_code_display }}">
