@@ -15,12 +15,7 @@ from django.utils.translation import gettext_lazy as _
 
 from ..constants import translation_status, weekdays
 from ..models import (
-    EventTranslation,
-    ImprintPageTranslation,
     Language,
-    Organization,
-    PageTranslation,
-    POITranslation,
 )
 
 if TYPE_CHECKING:
@@ -29,7 +24,7 @@ if TYPE_CHECKING:
 
     from django.http import QueryDict
     from django.utils.datastructures import MultiValueDict
-    from django.utils.functional import Promise, SimpleLazyObject
+    from django.utils.functional import Promise
     from django.utils.safestring import SafeString
 
     from ..forms.custom_content_model_form import CustomContentModelForm
@@ -241,36 +236,6 @@ def is_empty(iterable: MultiValueDict) -> bool:
     :return: Whether or not the given iterable is empty
     """
     return not bool(iterable)
-
-
-@register.simple_tag
-def object_translation_has_view_perm(
-    user: SimpleLazyObject,
-    obj: AbstractContentTranslation,
-) -> bool:
-    """
-    This filter accepts any translation of Event, Page or Poi and returns
-    whether this account has the permission to view this object
-
-    :param user: The requested user
-    :param obj: The requested object
-               ~integreat_cms.cms.models.events.event_translation.EventTranslation, or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
-
-    :raises ValueError: if the object is not a translation of Event, Page or Poi
-
-    :return: Whether this account is allowed to view this object
-    """
-    if isinstance(obj, EventTranslation):
-        return user.has_perm("cms.view_event")
-    if isinstance(obj, PageTranslation):
-        return user.has_perm("cms.view_page")
-    if isinstance(obj, POITranslation):
-        return user.has_perm("cms.view_poi")
-    if isinstance(obj, ImprintPageTranslation):
-        return user.has_perm("cms.view_imprint")
-    if isinstance(obj, Organization):
-        return user.has_perm("cms.view:organization")
-    raise ValueError(f"Invalid model: {type(obj)}")
 
 
 @register.filter

@@ -4,7 +4,6 @@
 {% load model_tags %}
 {% load widget_tweaks %}
 {% load url_tags %}
-{% object_translation_has_view_perm request.user content_object as show_source_link %}
 <tr class="text-gray-800 hover:bg-gray-100"
     {% if url.id == view.kwargs.url_id %}id="replace-url"{% endif %}>
     <td class="py-3 pl-4 align-top border-t border-solid border-gray-200">
@@ -45,37 +44,34 @@
             {% translate url.get_message %}
         </td>
     {% endif %}
-    {% with link_text=url.regions_links.0.text %}
-        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
-            title="{{ link_text }}">
-            <div class="table-cell-truncate">
-                <span class="table-cell-content">{{ link_text }}</span>
-                <a class="toggle-table-cell">
-                    <i icon-name="chevron-down" class="more"></i>
-                    <i icon-name="chevron-up" class="less"></i>
-                </a>
-            </div>
-        </td>
-    {% endwith %}
     <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
-        <div class="table-cell-truncate">
+        <div>
             {% spaceless %}
-                <span class="table-cell-content">
-                    {% if show_source_link %}
-                        <a href="{{ content_object.backend_edit_link }}"
-                           title="{% translate "Go to source" %}"
-                           class="hover:underline">
-                            <span>{{ content_object.title }}</span>
+                {% if not link_info.text and not perms.cms.view_organization %}
+                    <span class="table-cell-content">
+                        <span>{{ link_info.title }}</span>
+                    </span>
+                {% else %}
+                    <span class="table-cell-content">
+                        <a href="{{ link_info.link }}"
+                           target="_blank"
+                           class="underline"
+                           rel="noopener noreferrer">
+                            <span>{{ link_info.title }}</span><i icon-name="external-link" class="ml-2"></i>
                         </a>
-                    {% else %}
-                        <span>{{ content_object.title }}</span>
-                    {% endif %}
-                </span>
+                        <br>
+                        {% if link_info.translated_title %}
+                            <span class="text-gray-600 text-sm">({{ link_info.translated_title }})</span>
+                        {% endif %}
+                    </span>
+                {% endif %}
             {% endspaceless %}
-            <a class="toggle-table-cell">
-                <i icon-name="chevron-down" class="more"></i>
-                <i icon-name="chevron-up" class="less"></i>
-            </a>
+        </div>
+    </td>
+    <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 break-words max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
+        title="{{ link_info.text }}">
+        <div>
+            <span class="table-cell-content">{{ link_info.text }}</span>
         </div>
     </td>
     <td class="py-3 pr-4 align-top border-t border-solid border-gray-200">
