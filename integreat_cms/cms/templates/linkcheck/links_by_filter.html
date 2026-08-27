@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load url_tags %}
+{% load link_checker %}
 {% block content %}
     <div class="flex flex-wrap justify-between gap-4 my-2">
         <h1 class="heading">
@@ -120,13 +121,11 @@
                             {% endif %}
                         </th>
                     {% endif %}
-                    <th class="text-sm text-left uppercase py-3 pr-2"
-                        title="{% translate "The link text of the first usage" %}">
-                        {% translate "Link text" %}
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Where is the link?" %}
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2"
-                        title="{% translate "The source translation of the first usage" %}">
-                        {% translate "Source" %}
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Link text" %}
                     </th>
                     <th class="text-sm text-right uppercase py-3 pr-4">
                         {% translate "Options" %}
@@ -135,7 +134,8 @@
             </thead>
             <tbody>
                 {% for url in filtered_urls %}
-                    {% include "linkcheck/link_list_row.html" with content_object=url.regions_links.0.content_object %}
+                    {% link_display_info url.regions_links request.region as link_info %}
+                    {% include "linkcheck/link_list_row.html" with link_info=link_info %}
                 {% empty %}
                     <tr>
                         <td colspan="6" class="px-4 py-3">
