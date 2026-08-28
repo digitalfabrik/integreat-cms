@@ -58,8 +58,8 @@
         {% endif %}
         {% for page, info in annotated_pages %}
             {% get_public_translation page language.slug as page_translation %}
-            <section id="page-{{ page.pk }}" class="page-section">
-                <h1 class="level-{{ page.depth|add:'-1' }}">{{ page_translation.title }}</h1>
+            <section id="page-{{ page.pk }}" class="level-{{ page.depth|add:'-1' }}">
+                <h1>{{ page_translation.title }}</h1>
                 <div class="content">
                     {% if page.mirrored_page_first %}
                         {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|pdf_truncate_links:80|safe }}

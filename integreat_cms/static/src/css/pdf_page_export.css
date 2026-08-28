@@ -15,7 +15,7 @@ html {
 
 @page {
     size: A4;
-    margin: 1.8cm 1.5cm 2.4cm 1.5cm;
+    margin: 1.8cm 2cm 2.4cm 2cm;
 
     @top-center {
         content: element(header);
@@ -115,7 +115,7 @@ arabic-indic ones, the other languages use the eastern arabic-indic ones. */
 }
 
 .content {
-    padding-bottom: 30px;
+    padding-bottom: 10px;
 }
 
 .toc-page {
@@ -186,30 +186,76 @@ h6 {
     bookmark-level: none;
 }
 
-h1.level-0 {
+.level-0 > h1 {
     font-size: 1.4em;
     margin: 0.67em 0;
     bookmark-level: 1;
 }
 
-h1.level-1 {
+.level-1 > h1 {
     bookmark-level: 2;
 }
 
-h1.level-2 {
+.level-2 > h1 {
     bookmark-level: 3;
 }
 
-h1.level-3 {
+.level-3 > h1 {
     bookmark-level: 4;
 }
 
-h1.level-4 {
+.level-4 > h1 {
     bookmark-level: 5;
 }
 
-h1.level-5 {
+.level-5 > h1 {
     bookmark-level: 6;
+}
+
+/* Indent the pages according to their level in the page tree. */
+.level-1 {
+    padding-left: 1em;
+}
+
+.level-2 {
+    padding-left: 2em;
+}
+
+.level-3 {
+    padding-left: 3em;
+}
+
+.level-4 {
+    padding-left: 4em;
+}
+
+.level-5 {
+    padding-left: 5em;
+}
+
+[dir="rtl"] .level-1 {
+    padding-left: 0;
+    padding-right: 1em;
+}
+
+[dir="rtl"] .level-2 {
+    padding-left: 0;
+    padding-right: 2em;
+}
+
+[dir="rtl"] .level-3 {
+    padding-left: 0;
+    padding-right: 3em;
+}
+
+[dir="rtl"] .level-4 {
+    padding-left: 0;
+    padding-right: 4em;
+}
+
+[dir="rtl"] .level-5 {
+    padding-left: 0;
+    padding-right: 5em;
 }
 
 /* The title of the table of contents on the first page should not show up
