@@ -174,7 +174,9 @@ def test_pdf_export_structure(
     """
     kwargs = {"region_slug": "augsburg", "language_slug": "de"}
     export_pdf = reverse("export_pdf", kwargs=kwargs)
-    response = admin_client.post(export_pdf, data={"selected_ids[]": [1, 2, 3, 4, 5, 6]})
+    response = admin_client.post(
+        export_pdf, data={"selected_ids[]": [1, 2, 3, 4, 5, 6]}
+    )
     assert response.status_code == 302
     response = admin_client.get(response.headers["Location"])
     result_pdf = pypdf.PdfReader(io.BytesIO(b"".join(response.streaming_content)))
