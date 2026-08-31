@@ -145,9 +145,7 @@ class ZammadAPI:
                 "id": attachment["id"],
                 "filename": attachment["filename"],
                 "size": int(attachment.get("size", 0) or 0),
-                "content_type": attachment.get("preferences", {}).get(
-                    "Content-Type", "application/octet-stream"
-                ),
+                "content_type": self._attachment_content_type(attachment),
             }
             for attachment in (message.get("attachments") or [])
         ]
@@ -247,6 +245,26 @@ class ZammadAPI:
             return None
         return response.json()
 
+    @staticmethod
+    def _attachment_content_type(attachment: dict) -> str:
+        """
+        Determine the MIME type of a Zammad attachment.
+
+        Zammad reports the MIME type under the ``Mime-Type`` preference key for
+        every attachment, while ``Content-Type`` is only present for inline
+        images. ``Mime-Type`` is therefore used first, falling back to
+        ``Content-Type`` and finally to ``application/octet-stream``.
+
+        :param attachment: attachment dict as returned by the Zammad API
+        :return: the MIME type of the attachment
+        """
+        preferences = attachment.get("preferences") or {}
+        for key in ("Mime-Type", "Content-Type"):
+            content_type = preferences.get(key)
+            if content_type:
+                return content_type
+        return "application/octet-stream"
+
     def get_attachment(
         self, article_id: int, attachment_id: int
     ) -> tuple[bytes, str, str] | None:
@@ -270,11 +288,7 @@ class ZammadAPI:
         if article.get("ticket_id") != self.zammad_id or article.get("internal"):
             return None
         attachment_meta = next(
-            (
-                a
-                for a in (article.get("attachments") or [])
-                if a["id"] == attachment_id
-            ),
+            (a for a in (article.get("attachments") or []) if a["id"] == attachment_id),
             None,
         )
         if attachment_meta is None:
@@ -286,9 +300,7 @@ class ZammadAPI:
             )
         except ValueError:
             return None
-        content_type = attachment_meta.get("preferences", {}).get(
-            "Content-Type", "application/octet-stream"
-        )
+        content_type = self._attachment_content_type(attachment_meta)
         return response.content, content_type, attachment_meta["filename"]
 
     @property

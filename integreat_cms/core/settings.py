@@ -1414,11 +1414,14 @@ MULTI_REGION_ZAMMAD: Final[bool] = bool(
 )
 
 #: Maximum size (bytes) of a single chat attachment uploaded by an Integreat app user
-INTEGREAT_CHAT_ATTACHMENT_MAX_SIZE: Final[int] = int(
-    os.environ.get(
-        "INTEGREAT_CMS_INTEGREAT_CHAT_ATTACHMENT_MAX_SIZE",
-        10 * 1024 * 1024,
-    )
+INTEGREAT_CHAT_ATTACHMENT_MAX_SIZE: Final[int] = env_int(
+    "INTEGREAT_CMS_INTEGREAT_CHAT_ATTACHMENT_MAX_SIZE",
+    10 * 1024 * 1024,
+)
+
+#: Maximum number of chat attachments per message from an Integreat app user
+INTEGREAT_CHAT_ATTACHMENT_MAX_COUNT: Final[int] = env_int(
+    "INTEGREAT_CMS_INTEGREAT_CHAT_ATTACHMENT_MAX_COUNT", 5
 )
 
 #: Allowed MIME types for chat attachments uploaded by Integreat app users

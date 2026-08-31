@@ -94,19 +94,24 @@ def get_or_create_user_chat(
 def validate_attachments(attachments: list[UploadedFile]) -> str | None:
     """
     Validate a list of uploaded chat attachments against the configured
-    size and MIME type restrictions.
+    size, MIME type and count restrictions.
 
     :param attachments: uploaded files to validate
     :return: an error message if validation fails, otherwise ``None``
     """
     for attachment in attachments:
-        if attachment.size is None or attachment.size > settings.INTEGREAT_CHAT_ATTACHMENT_MAX_SIZE:
+        if (
+            attachment.size is None
+            or attachment.size > settings.INTEGREAT_CHAT_ATTACHMENT_MAX_SIZE
+        ):
             return f"Attachment '{attachment.name}' exceeds the maximum allowed size."
         if (
             attachment.content_type
             not in settings.INTEGREAT_CHAT_ATTACHMENT_ALLOWED_MIME_TYPES
         ):
             return f"Attachment '{attachment.name}' has an unsupported file type."
+    if len(attachments) > settings.INTEGREAT_CHAT_ATTACHMENT_MAX_COUNT:
+        return f"At most {settings.INTEGREAT_CHAT_ATTACHMENT_MAX_COUNT} attachments can be sent per message."
     return None
 
 
@@ -138,7 +143,6 @@ def process_chat_payload(
         user_chat.language = language
         user_chat.save()
         if message_text and response is not None:
-            user_chat.processing_answer = True  # type: ignore[assignment]
             if user_chat.automatic_answers:
                 user_chat.processing_answer = True  # type: ignore[assignment]
                 celery_translate_and_answer_question.apply_async(
@@ -238,7 +242,7 @@ def chat_attachment(
             status=503,
         )
     user_chat = UserChat.objects.current_chat(device_id, region=request.region)
-    if user_chat is None:
+    if user_chat is None or user_chat.is_expired:
         return JsonResponse({"error": "Chat not found."}, status=404)
     try:
         result = user_chat.get_attachment(article_id, attachment_id)
