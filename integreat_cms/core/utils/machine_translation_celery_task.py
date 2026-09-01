@@ -394,17 +394,16 @@ def queue_translations(
         get_translation_queryset(content_type, content_objects, language_slug).update(
             currently_in_machine_translation=True
         )
-
     user_language_slug = get_language()
     # queue start_async_translations
     start_async_translation.apply_async(
-        args=[
-            user_id,
-            user_language_slug,
-            region_id,
-            content_type,
-            object_ids,
-            language_slugs,
-        ],
+        kwargs={
+            "user_id": user_id,
+            "user_language_slug": user_language_slug,
+            "region_id": region_id,
+            "content_type": content_type,
+            "object_ids": object_ids,
+            "language_slugs": language_slugs,
+        },
         task_id=task_id,
     )
