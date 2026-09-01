@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 from urllib.parse import unquote, urlparse
 
 from django.conf import settings
+from django.db.models import Exists, OuterRef
 
 from ..constants import status
 from ..models import (
@@ -149,12 +150,21 @@ def get_public_translation_for_webapp_link_parts(
         "status": status.PUBLIC,
     }
     if object_type != ImprintPageTranslation:
-        # Old/renamed slugs are intentionally not supported anymore
-        # (see https://github.com/digitalfabrik/integreat-cms/issues/4524).
         filter_args["slug"] = object_slug
 
+    newer_public_version = object_type.objects.filter(
+        **{
+            foreign_object: OuterRef(foreign_object),
+            "language": OuterRef("language"),
+            "status": status.PUBLIC,
+            "version__gt": OuterRef("version"),
+        }
+    )
+
+    # old/renamed slugs are intentionally excluded
     instances = (
         object_type.objects.filter(**filter_args)
+        .exclude(Exists(newer_public_version))
         .select_related("language", f"{foreign_object}__region")
         .order_by("-version")
     )
