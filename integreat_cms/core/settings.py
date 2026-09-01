@@ -1450,6 +1450,8 @@ else:
     # anyway, so nothing here ever needs to cross a process boundary.
     CELERY_BROKER_URL = "memory://"
     CELERY_RESULT_BACKEND = "cache+memory://"
+#: Let Celery's result backend store each task's own invocation alongside its results
+CELERY_RESULT_EXTENDE = True
 
 ########################
 # Beta test permission #
