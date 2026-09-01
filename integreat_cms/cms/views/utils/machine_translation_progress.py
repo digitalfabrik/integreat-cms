@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from typing import Literal, TYPE_CHECKING
 
+from celery import states
 from celery.result import AsyncResult
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
@@ -43,7 +44,6 @@ def _get_result_details(result: AsyncResult) -> Any:
 def get_machine_translation_task_progress(
     request: HttpRequest,
     region_slug: str,
-    language_slug: str,
     model_type: Literal["page", "event", "poi", "pushnotification"],
     task_id: str,
 ) -> JsonResponse:
@@ -58,7 +58,6 @@ def get_machine_translation_task_progress(
 
     :param request: The current request
     :param region_slug: The slug of the current region
-    :param language_slug: The slug of the target language
     :param model_type: The content type being translated (e.g. "page")
     :param task_id: The id of the Celery task to check
     :return: A JSON object describing the current translation progress
@@ -67,6 +66,12 @@ def get_machine_translation_task_progress(
         raise PermissionDenied
 
     result = AsyncResult(task_id)
+    if result.state != states.PENDING and (
+        result.kwargs.get("region_id") != request.region.id
+        or model_type != result.kwargs.get("content_type")
+    ):
+        raise PermissionDenied
+
     return JsonResponse(
         {"status": result.state, "details": _get_result_details(result)}
     )
