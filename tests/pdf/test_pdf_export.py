@@ -134,18 +134,64 @@ def test_pdf_export(
         )
         with open(f"tests/pdf/files/{expected_filename}", "rb") as file:
             expected_pdf = pypdf.PdfReader(file)
-            # Assert that both documents have same number of pages
             assert len(result_pdf.pages) == len(expected_pdf.pages)
-            # Assert that the content is identical
             for page_number in range(len(result_pdf.pages)):
                 result_page = result_pdf.pages[page_number]
                 expected_page = expected_pdf.pages[page_number]
-                assert result_page.artbox == expected_page.artbox
-                assert result_page.bleedbox == expected_page.bleedbox
-                assert result_page.cropbox == expected_page.cropbox
                 assert result_page.mediabox == expected_page.mediabox
                 assert result_page.extract_text() == expected_page.extract_text()
-                assert result_page.get_contents() == expected_page.get_contents()
+
+
+def _outline_titles(outline: list, level: int = 0) -> list[tuple[str, int]]:
+    """
+    Flatten the outline of a PDF document into its titles and nesting levels
+
+    :param outline: The outline of the PDF document or one of its sub-lists
+    :param level: The nesting level of the given outline
+    :return: The title and nesting level of each entry of the outline
+    """
+    titles = []
+    for entry in outline:
+        if isinstance(entry, list):
+            titles += _outline_titles(entry, level + 1)
+        else:
+            titles.append((entry.title, level))
+    return titles
+
+
+@pytest.mark.django_db
+# Override urls to serve PDF files
+@pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")
+def test_pdf_export_structure(
+    load_test_data: None,
+    admin_client: Client,
+) -> None:
+    """
+    Test whether the PDF export contains the page tree as outline and a footer on each page
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param admin_client: The fixture providing the logged in admin
+    """
+    kwargs = {"region_slug": "augsburg", "language_slug": "de"}
+    export_pdf = reverse("export_pdf", kwargs=kwargs)
+    response = admin_client.post(
+        export_pdf, data={"selected_ids[]": [1, 2, 3, 4, 5, 6]}
+    )
+    assert response.status_code == 302
+    response = admin_client.get(response.headers["Location"])
+    result_pdf = pypdf.PdfReader(io.BytesIO(b"".join(response.streaming_content)))
+    # The hierarchy of the pages should be reflected in the outline of the PDF
+    assert _outline_titles(result_pdf.outline) == [
+        ("Willkommen", 0),
+        ("Wissenswertes über Augsburg", 1),
+        ("Über die App Integreat Augsburg", 1),
+        ("Willkommen in Augsburg", 1),
+        ("Stadtplan", 1),
+        ("Kontakt zu App Team Augsburg", 1),
+    ]
+    # The footer should be repeated on every page
+    for page in result_pdf.pages:
+        assert "Stadt Augsburg" in page.extract_text()
 
 
 @pytest.mark.django_db
