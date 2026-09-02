@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0161_mt_budget_adjustment"),
+        ("cms", "0162_index_pgtranslation_slug"),
     ]
 
     operations = [
