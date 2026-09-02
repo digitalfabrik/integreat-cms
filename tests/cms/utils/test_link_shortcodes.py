@@ -36,7 +36,7 @@ def unpublish_page_3() -> None:
 
 def collapse(content: str) -> str:
     """
-    Run :func:`~integreat_cms.cms.utils.shortcodes.collapse_into_shortcodes`
+    Run :func:`~integreat_cms.cms.utils.shortcodes.conversion.collapse_into_shortcodes`
     on a html string and return the result as a html string again
     """
     element = fromstring(content)

@@ -9,7 +9,8 @@ from typing import TYPE_CHECKING
 from lxml.html import tostring
 
 from ..content_utils import render_contact_card
-from .base import register, Shortcode
+from .base import Shortcode
+from .registry import register
 
 if TYPE_CHECKING:
     from typing import Any, Final

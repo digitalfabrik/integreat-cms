@@ -130,7 +130,7 @@ def update_links(content: HtmlElement, language_slug: str) -> None:
     Super method that gathers all methods related to updating links
 
     Links which reference internal content are already gone at this point, because
-    :func:`~integreat_cms.cms.utils.shortcodes.collapse_into_shortcodes` replaced them by the
+    :func:`~integreat_cms.cms.utils.shortcodes.conversion.collapse_into_shortcodes` replaced them by the
     shortcode representing them.
 
     :param content: The content whose links should be updated

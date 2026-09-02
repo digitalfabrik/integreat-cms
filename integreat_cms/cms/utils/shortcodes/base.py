@@ -1,5 +1,5 @@
 """
-This module defines what a shortcode is and keeps the registry of all known shortcodes.
+This module defines what a shortcode is.
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ class Shortcode(ABC):
     scoped form (``[block_keyword …]…[/block_keyword]``) which encloses content.
 
     Subclasses become known to the application by being decorated with
-    :func:`~integreat_cms.cms.utils.shortcodes.base.register`.
+    :func:`~integreat_cms.cms.utils.shortcodes.registry.register`.
     """
 
     #: The keyword of the atomic form, for example ``page`` in ``[page 1]``
@@ -190,37 +190,6 @@ class EditableShortcode(Shortcode, ABC):
         :param element: The element which should be collapsed
         :return: Whether the element was replaced
         """
-
-
-#: All registered shortcodes, in the order they were registered
-_registry: list[Shortcode] = []
-
-
-def register[ShortcodeT: Shortcode](shortcode: type[ShortcodeT]) -> type[ShortcodeT]:
-    """
-    Class decorator which makes a shortcode known to the application::
-
-        @register
-        class CatShortcode(Shortcode):
-            keyword = "cat"
-
-            def expand(self, pargs, kwargs, context):
-                return "(=^･ω･^=)"
-
-    :param shortcode: The shortcode to register
-    :return: The shortcode itself, so that this can be used as a decorator
-    """
-    _registry.append(shortcode())
-    return shortcode
-
-
-def registered_shortcodes() -> tuple[Shortcode, ...]:
-    """
-    Get the shortcodes which have been registered so far
-
-    :return: The registered shortcodes
-    """
-    return tuple(_registry)
 
 
 def _unparse(keyword: str, pargs: list[str], kwargs: dict[str, str]) -> str:

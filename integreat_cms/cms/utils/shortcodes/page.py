@@ -7,8 +7,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from ...models import Page
-from .base import register
 from .internal_link import InternalLinkShortcode
+from .registry import register
 
 if TYPE_CHECKING:
     from typing import Final
