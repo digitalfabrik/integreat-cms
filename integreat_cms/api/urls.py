@@ -343,6 +343,11 @@ urlpatterns: list[URLPattern] = [
                     user_chat.is_chat_enabled_for_user,
                     name="is_chat_enabled_for_user",
                 ),
+                path(
+                    "chat/<slug:device_id>/attachment/<int:article_id>/<int:attachment_id>/",
+                    user_chat.chat_attachment,
+                    name="chat_attachment",
+                ),
                 path("<slug:language_slug>/", include(content_api_urlpatterns)),
             ],
         ),
