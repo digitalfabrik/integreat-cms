@@ -36,6 +36,7 @@ if TYPE_CHECKING:
     from ..models import Region
     from ..models.abstract_content_model import AbstractContentModel
     from ..models.abstract_content_translation import AbstractContentTranslation
+    from ..utils.machine_translation_types import ObjectIdAndLanguageSlug
 
 logger = logging.getLogger(__name__)
 register = template.Library()
@@ -61,7 +62,7 @@ def get_translation(
 def get_translation_state(
     instance: AbstractContentModel,
     language_slug: str,
-    mt_task_ids: dict[tuple[int, str], str | None] | None = None,
+    mt_task_ids: dict[ObjectIdAndLanguageSlug, str | None] | None = None,
 ) -> str:
     """
     This tag returns the translation state of the requested content object in
@@ -80,7 +81,7 @@ def get_translation_state(
 def get_machine_translation_task_id(
     instance: AbstractContentModel,
     language_slug: str,
-    mt_task_ids: dict[tuple[int, str], str | None] | None = None,
+    mt_task_ids: dict[ObjectIdAndLanguageSlug, str | None] | None = None,
 ) -> str | None:
     """
     This tag returns the id of the Celery task currently machine-translating

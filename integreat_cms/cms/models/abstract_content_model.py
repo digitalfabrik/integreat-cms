@@ -18,6 +18,9 @@ if TYPE_CHECKING:
     from typing import Any
 
     from integreat_cms.cms.models.users.user import User
+    from integreat_cms.cms.utils.machine_translation_types import (
+        ObjectIdAndLanguageSlug,
+    )
     from integreat_cms.cms.utils.slug_utils import SlugKwargs
 
     from .abstract_content_translation import AbstractContentTranslation
@@ -496,7 +499,7 @@ class AbstractContentModel(AbstractBaseModel):
     def get_translation_state(
         self,
         language_slug: str,
-        mt_task_ids: dict[tuple[int, str], str | None] | None = None,
+        mt_task_ids: dict[ObjectIdAndLanguageSlug, str | None] | None = None,
     ) -> str:
         """
         This function returns the current state of a translation in the given language.
@@ -522,7 +525,7 @@ class AbstractContentModel(AbstractBaseModel):
     def get_machine_translation_task_id(
         self,
         language_slug: str,
-        mt_task_ids: dict[tuple[int, str], str | None] | None = None,
+        mt_task_ids: dict[ObjectIdAndLanguageSlug, str | None] | None = None,
     ) -> str | None:
         """
         Unlike the `currently_in_machine_translation` flag (which lives on a
