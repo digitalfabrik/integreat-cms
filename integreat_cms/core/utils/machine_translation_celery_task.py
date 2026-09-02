@@ -30,11 +30,13 @@ if TYPE_CHECKING:
     from django.db.models import QuerySet
     from django.forms.models import ModelFormMetaclass
 
+    from ...cms.utils.machine_translation_types import ObjectIdAndLanguageSlug
     from .machine_translation_api_client import MachineTranslationApiClient
 
 logger = logging.getLogger(__name__)
 
-API_CLIENTS: dict[str, type[MachineTranslationApiClient]] = {
+
+_API_CLIENTS: dict[str, type[MachineTranslationApiClient]] = {
     "DeepL": DeepLApiClient,
     "Google Translate": GoogleTranslateApiClient,
 }
@@ -59,7 +61,7 @@ def _get_form_classes() -> dict[str, ModelFormMetaclass]:
     }
 
 
-TRANSLATION_FILTER_FIELD: dict[str, str] = {
+_TRANSLATION_FILTER_FIELD: dict[str, str] = {
     "page": "page__in",
     "event": "event__in",
     "poi": "poi__in",
@@ -73,19 +75,14 @@ def get_mt_redis_lock_key(content_type: str, object_id: int, language_slug: str)
 
 def get_mt_task_ids(
     content_type: str, object_ids: list[int], language_slugs: list[str]
-) -> dict[tuple[int, str], str | None]:
+) -> dict[ObjectIdAndLanguageSlug, str | None]:
     """
-    Batch-resolve the machine translation task id (if any) for every
-    (object_id, language_slug) pair in one cache round trip, instead of
-    checking each lock individually - for callers that need this for many
-    objects at once (e.g. a whole list view render).
+    Batch-resolve the machine translation task IDs for every (object_id, language_slug)
+    pair in one cache round trip. The returned dict contains an entry for every requested
+    pair:
 
-    The returned dict is dense: it contains an entry for every requested pair,
-    whether or not a translation is active. A value of ``None`` means no MT
-    task is currently running for that pair; a string value is the Celery task
-    id. This allows callers to do a plain ``dict[pair]`` lookup and treat
-    ``None`` as "not in progress", without needing a separate ``key in dict``
-    check first.
+    A value of None means no MT task is currently running for that pair, a string value
+    is the Celery task id.
     """
     lock_keys = {
         (object_id, language_slug): get_mt_redis_lock_key(
@@ -100,14 +97,14 @@ def get_mt_task_ids(
 
 #: How long an unread translation report stays queued for the user, in case
 #: they never revisit the relevant list view (safety net, not a hard rule).
-MT_REPORT_TTL = 60 * 60 * 24 * 7  # 7 days
+_MT_REPORT_TTL = 60 * 60 * 24 * 7  # 7 days
 
 
 def get_mt_report_cache_key(user_id: int, region_id: int, content_type: str) -> str:
     return f"mt_report:{user_id}:{region_id}:{content_type}"
 
 
-def queue_mt_report(
+def _queue_mt_report(
     user_id: int,
     region_id: int,
     content_type: str,
@@ -128,20 +125,20 @@ def queue_mt_report(
             "results": translation_report,
         }
     )
-    cache.set(key, reports, timeout=MT_REPORT_TTL)
+    cache.set(key, reports, timeout=_MT_REPORT_TTL)
 
 
-def get_translation_queryset(
+def _get_translation_queryset(
     content_type: str, content_objects: QuerySet[Any], language_slug: str
 ) -> QuerySet[Any]:
     translation_model = apps.get_model("cms", f"{content_type}translation")
     return translation_model.objects.filter(
-        **{TRANSLATION_FILTER_FIELD[content_type]: content_objects},
+        **{_TRANSLATION_FILTER_FIELD[content_type]: content_objects},
         language__slug=language_slug,
     )
 
 
-def get_language_report(
+def _get_language_report(
     client: MachineTranslationApiClient,
 ) -> dict[str, str | dict[str, str]]:
     return {
@@ -157,161 +154,153 @@ def get_language_report(
     }
 
 
-@shared_task(bind=True)
-def start_async_translation(
-    self: Task,
-    user_id: int,
-    user_language_slug: str,
-    region_id: int,
-    content_type: str,
-    object_ids: list[int],
-    language_slugs: list[str],
-) -> dict[str, Any]:
-    current_state = None
-    current_meta: dict[str, Any] = {}
-    translation_report: dict[str, dict[str, Any]] = defaultdict(dict)
-    clients_by_provider: dict[str, MachineTranslationApiClient] = {}
-
-    activate_language(user_language_slug)
-
+def _resolve_user(user_id: int) -> User:
     user = User.objects.filter(id=user_id).first()
     if user is None:
-        raise ValueError(gettext("User not found"))
+        raise ValueError("User not found")
+    return user
 
+
+def _resolve_region(region_id: int) -> Region:
     region = Region.objects.filter(id=region_id).first()
     if region is None:
-        raise ValueError(gettext("Region not found"))
+        raise ValueError("Region not found")
+    return region
 
-    mock_request = HttpRequest()
-    mock_request.user = user
-    mock_request.region = region
 
+def _resolve_form_class(content_type: str) -> ModelFormMetaclass:
     form_class = _get_form_classes().get(content_type)
     if form_class is None:
-        raise ValueError(gettext("Content type not found"))
+        raise ValueError("Content type not found")
+    return form_class
 
-    content_model = apps.get_model("cms", content_type)
 
-    content_objects = content_model.objects.filter(id__in=object_ids)
+def _mark_language_failed(
+    content_objects: QuerySet[Any], error_message: str
+) -> dict[str, dict[str, Any]]:
+    return {
+        str(content_object.id): {"exception": error_message}
+        for content_object in content_objects
+    }
 
-    # The `currently_in_machine_translation` flag is set synchronously in
-    # `queue_translations()`, before this task is even queued - see the
-    # comment there for why.
 
-    current_meta = {"progress": 0, "results": defaultdict(dict)}
-    current_state = "IN_PROGRESS"
+def _resolve_client_for_language(
+    region: Region,
+    language_slug: str,
+    mock_request: HttpRequest,
+    form_class: ModelFormMetaclass,
+    clients_by_provider: dict[str, MachineTranslationApiClient],
+) -> tuple[MachineTranslationApiClient | None, str | None]:
+    """
+    Resolve (and cache) the MT client to use for one language. Returns
+    ``(client, None)`` on success, or ``(None, error_message)`` if this
+    language can't be translated at all - either because it doesn't exist in
+    this region, MT is disabled for it, or its configured provider isn't one
+    of the supported ones.
+    """
+    language_node = region.language_node_by_slug.get(language_slug)
+    if language_node is None:
+        return None, gettext(
+            "The translation into '{language_slug}' cannot be executed, "
+            "because this language does not exist in this region."
+        ).format(language_slug=language_slug)
 
-    for i_language, language_slug in enumerate(language_slugs):
-        language_node = region.language_node_by_slug.get(language_slug)
-        if language_node is None:
-            error_message = gettext(
-                "The translation into '{language_slug}' cannot be executed, "
-                "because this language does not exist in this region."
-            ).format(language_slug=language_slug)
-            for content_object in content_objects:
-                translation_report[language_slug][str(content_object.id)] = {
-                    "exception": error_message
-                }
-            self.update_state(
-                state=current_state,
-                meta={
-                    "current_language": language_slug,
-                    "progress": i_language / len(language_slugs),
-                    "error": error_message,
-                },
+    if language_node.mt_provider is None:
+        return None, gettext(
+            "The translation into '{language_slug}' cannot be executed, "
+            "because machine translation is disabled for this language."
+        ).format(language_slug=language_slug)
+
+    provider_name = language_node.mt_provider.name
+    if client := clients_by_provider.get(provider_name):
+        return client, None
+
+    client_class: type[MachineTranslationApiClient] | None = _API_CLIENTS.get(
+        provider_name
+    )
+    if client_class is None:
+        return None, gettext("Provider does not exist")
+
+    client = client_class(mock_request, form_class)
+    clients_by_provider[provider_name] = client
+    return client, None
+
+
+def _translate_language(
+    task: Task,
+    client: MachineTranslationApiClient,
+    content_objects: QuerySet[Any],
+    language_slug: str,
+    progress_base: float,
+    progress_denominator: int,
+) -> dict[str, dict[str, Any]]:
+    """
+    Translate every content object into one language, reporting per-object
+    progress along the way. Returns this language's per-object report
+    entries - a mix of successes (:func:`_get_language_report`) and
+    per-object failures that don't abort the rest of the batch.
+    """
+    report: dict[str, dict[str, Any]] = {}
+    for i_objects, content_object in enumerate(content_objects):
+        current_meta = {
+            "current_language": language_slug,
+            "progress": progress_base + i_objects / progress_denominator,
+        }
+        try:
+            task.update_state(state="IN_PROGRESS", meta=current_meta)
+            client.translate_queryset([content_object], language_slug)
+        except Exception as e:
+            logger.exception(
+                "Machine translation of %r into %r failed for %r",
+                content_object,
+                language_slug,
+                client,
             )
+            report[str(content_object.id)] = {"exception": str(e)}
+            task.update_state(state="IN_PROGRESS", meta=current_meta)
             continue
+        report[str(content_object.id)] = _get_language_report(client)
+    return report
 
-        if language_node.mt_provider is None:
-            error_message = gettext(
-                "The translation into '{language_slug}' cannot be executed, "
-                "because machine translation is disabled for this language."
-            ).format(language_slug=language_slug)
-            for content_object in content_objects:
-                translation_report[language_slug][str(content_object.id)] = {
-                    "exception": error_message
-                }
-            self.update_state(
-                state=current_state,
-                meta={
-                    "current_language": language_slug,
-                    "progress": i_language / len(language_slugs),
-                    "error": error_message,
-                },
-            )
-            continue
-        provider_name = language_node.mt_provider.name
 
-        # get client per provider and cache it
-        if not (client := clients_by_provider.get(provider_name)):
-            client_class: type[MachineTranslationApiClient] | None = API_CLIENTS.get(
-                provider_name
-            )
-            if client_class is None:
-                error_message = gettext("Provider does not exist")
-                for content_object in content_objects:
-                    translation_report[language_slug][str(content_object.id)] = {
-                        "exception": error_message
-                    }
-                self.update_state(
-                    state=current_state,
-                    meta={
-                        "current_language": language_slug,
-                        "progress": i_language / len(language_slugs),
-                        "error": error_message,
-                    },
-                )
-                continue
-            client = client_class(mock_request, form_class)
-            clients_by_provider[provider_name] = client
-
-        # the translation loop
-        for i_objects, content_object in enumerate(content_objects):
-            try:
-                current_meta = {
-                    "current_language": language_slug,
-                    "progress": i_language / len(language_slugs)
-                    + i_objects / (len(language_slugs) * len(content_objects)),
-                }
-                self.update_state(state=current_state, meta=current_meta)
-                client.translate_queryset([content_object], language_slug)
-            except Exception as e:
-                logger.exception(
-                    "Machine translation of %r into %r failed for %r",
-                    content_object,
-                    language_slug,
-                    client,
-                )
-                translation_report[language_slug][str(content_object.id)] = {
-                    "exception": str(e)
-                }
-                self.update_state(state=current_state, meta=current_meta)
-                continue
-            translation_report[language_slug][str(content_object.id)] = (
-                get_language_report(client)
-            )
+def _clear_locks_and_flags(
+    content_type: str,
+    content_objects: QuerySet[Any],
+    object_ids: list[int],
+    language_slugs: list[str],
+) -> None:
+    """
+    Clear the `currently_in_machine_translation` flag and release the redis
+    locks once translation is done. The locks must go before
+    `_build_pages_data()` runs: for an object whose translation was newly
+    *created* but failed, there is still no translation row, so
+    `get_translation_state()` would otherwise fall back to checking the
+    (still-present) lock and incorrectly report
+    MACHINE_TRANSLATION_IN_PROGRESS instead of the real final state.
+    """
     for language_slug in language_slugs:
-        get_translation_queryset(content_type, content_objects, language_slug).update(
+        _get_translation_queryset(content_type, content_objects, language_slug).update(
             currently_in_machine_translation=False
         )
-
-    # Delete the locks before computing the final page data below: for an
-    # object whose translation was newly *created* but failed, there is still
-    # no translation row, so `get_translation_state()` would otherwise fall
-    # back to checking the (still-present) lock and incorrectly report
-    # MACHINE_TRANSLATION_IN_PROGRESS instead of the real final state.
     for obj_id in object_ids:
         for language_slug in language_slugs:
             cache.delete(get_mt_redis_lock_key(content_type, obj_id, language_slug))
 
-    # `content_objects` are the same instances used throughout the loop
-    # above, so `get_translation()`/`get_translation_state()` would
-    # otherwise still see whatever was cached before this task created or
-    # updated their translations, not the fresh result.
+
+def _build_pages_data(
+    content_objects: QuerySet[Any], language_slugs: list[str]
+) -> dict[str, dict[str, Any]]:
+    """
+    Build the final per-object, per-language payload returned as this
+    task's result. `content_objects` are the same instances used throughout
+    translation, so their cached translations must be invalidated first -
+    otherwise `get_translation()`/`get_translation_state()` would still see
+    whatever was cached before this task created or updated them.
+    """
     for content_object in content_objects:
         content_object.invalidate_cached_translations()
 
-    pages_data = {
+    return {
         str(content_object.id): {
             language_slug: {
                 "translation_state": content_object.get_translation_state(
@@ -333,7 +322,69 @@ def start_async_translation(
         for content_object in content_objects
     }
 
-    queue_mt_report(
+
+@shared_task(bind=True)
+def start_async_translation(
+    self: Task,
+    user_id: int,
+    user_language_slug: str,
+    region_id: int,
+    content_type: str,
+    object_ids: list[int],
+    language_slugs: list[str],
+) -> dict[str, Any]:
+    activate_language(user_language_slug)
+
+    user = _resolve_user(user_id)
+    region = _resolve_region(region_id)
+    form_class = _resolve_form_class(content_type)
+
+    mock_request = HttpRequest()
+    mock_request.user = user
+    mock_request.region = region
+
+    content_model = apps.get_model("cms", content_type)
+    content_objects = content_model.objects.filter(id__in=object_ids)
+
+    # The `currently_in_machine_translation` flag is set synchronously in
+    # `queue_translations()`, before this task is even queued - see the
+    # comment there for why.
+
+    translation_report: dict[str, dict[str, Any]] = defaultdict(dict)
+    clients_by_provider: dict[str, MachineTranslationApiClient] = {}
+
+    for i_language, language_slug in enumerate(language_slugs):
+        progress_base = i_language / len(language_slugs)
+        client, error_message = _resolve_client_for_language(
+            region, language_slug, mock_request, form_class, clients_by_provider
+        )
+        if client is None:
+            if error_message is None:
+                raise AssertionError(
+                    "_resolve_client_for_language returned no client and no error message"
+                )
+            translation_report[language_slug] = _mark_language_failed(
+                content_objects, error_message
+            )
+            self.update_state(
+                state="IN_PROGRESS",
+                meta={"current_language": language_slug, "progress": progress_base},
+            )
+            continue
+
+        translation_report[language_slug] = _translate_language(
+            self,
+            client,
+            content_objects,
+            language_slug,
+            progress_base,
+            len(language_slugs) * len(content_objects),
+        )
+
+    _clear_locks_and_flags(content_type, content_objects, object_ids, language_slugs)
+    pages_data = _build_pages_data(content_objects, language_slugs)
+
+    _queue_mt_report(
         user_id, region_id, content_type, language_slugs, translation_report
     )
 
@@ -391,7 +442,7 @@ def queue_translations(
     content_model = apps.get_model("cms", content_type)
     content_objects = content_model.objects.filter(id__in=object_ids)
     for language_slug in language_slugs:
-        get_translation_queryset(content_type, content_objects, language_slug).update(
+        _get_translation_queryset(content_type, content_objects, language_slug).update(
             currently_in_machine_translation=True
         )
     user_language_slug = get_language()

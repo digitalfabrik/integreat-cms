@@ -25,7 +25,7 @@ def _object_report_has_failure(object_report: dict[str, Any]) -> bool:
     A per-object entry in the translation report takes one of two shapes:
     ``{"exception": "..."}``, when something raised all the way up through
     the per-object ``try``/``except`` in the Celery task (e.g. an unknown
-    provider) - or the shape :func:`~...machine_translation_celery_task.get_language_report`
+    provider) - or the shape :func:`~...machine_translation_celery_task._get_language_report`
     returns, when ``translate_queryset()`` returned normally but still
     recorded a failure *internally* (e.g. the API client caught its own
     provider exception via ``mark_unsuccessful()``/``mark_too_long()`` and

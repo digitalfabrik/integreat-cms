@@ -8,21 +8,58 @@ from django.core.exceptions import PermissionDenied
 from django.test import RequestFactory
 
 from integreat_cms.cms.views.utils.machine_translation_progress import (
+    _get_failure_reason,
     _get_result_details,
     get_machine_translation_task_progress,
 )
+
+# --- _get_failure_reason ---
+
+
+def test_get_failure_reason_translates_known_causes() -> None:
+    assert (
+        _get_failure_reason("User not found")
+        == "the triggering user could not be found"
+    )
+    assert (
+        _get_failure_reason("Region not found")
+        == "the requested region could not be found"
+    )
+    assert (
+        _get_failure_reason("Content type not found")
+        == "the requested content type is not supported"
+    )
+
+
+def test_get_failure_reason_passes_through_unknown_message() -> None:
+    assert (
+        _get_failure_reason("Something unexpected happened")
+        == "Something unexpected happened"
+    )
+
 
 # --- _get_result_details ---
 
 
 def test_result_details_composes_failure_message() -> None:
+    result = MagicMock(
+        state="FAILURE", info=ValueError("Something unexpected happened")
+    )
+
+    details = _get_result_details(result)
+
+    assert "Something unexpected happened" in details["message"]
+    assert "message" in details
+    assert len(details) == 1
+
+
+def test_result_details_composes_failure_message_for_known_cause() -> None:
     result = MagicMock(state="FAILURE", info=ValueError("User not found"))
 
     details = _get_result_details(result)
 
-    assert "User not found" in details["message"]
-    assert "message" in details
-    assert len(details) == 1
+    assert "the triggering user could not be found" in details["message"]
+    assert "User not found" not in details["message"]
 
 
 def test_result_details_passes_through_non_failure_info_unchanged() -> None:
