@@ -540,6 +540,67 @@ class AbstractContentTranslation(AbstractBaseModel):
         return str(self)
 
     @cached_property
+    def combined_text(self) -> str:
+        """
+        The content this translation delivers, including any content embedded from elsewhere.
+
+        Only :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` embeds
+        anything (the translation of its mirrored page), so for every other content type this
+        is just the content itself.
+
+        :return: The content to deliver, still containing shortcodes
+        """
+        return self.content
+
+    @property
+    def content_for_cms(self) -> str:
+        """
+        The content as it should be presented to users of the CMS, which means with all
+        shortcodes referencing internal content expanded into ordinary links.
+
+        Everything which is saved back through
+        :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
+        is collapsed into shortcodes again.
+
+        This deliberately is not a :class:`~django.utils.functional.cached_property`:
+        :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
+        reads it while initializing the form and then assigns the submitted content to the
+        very same instance, so a cached value would be the *previous* content by the time
+        the instance is saved.
+
+        :return: The content with expanded links
+        """
+        # Imported here because the utils import the models
+        from ..utils.shortcodes import expand_shortcodes_for_cms
+
+        return expand_shortcodes_for_cms(self.content, self.language.slug)
+
+    def content_for_delivery(self, **extra_context: Any) -> str:
+        r"""
+        The content as it should be delivered by the API, which means with every shortcode
+        expanded into the representation of the object it references.
+
+        This is a method rather than a property because expanding a shortcode may need
+        context which cannot be derived from the translation, such as the current request.
+
+        :param \**extra_context: Additional context for the shortcodes, which takes
+                                 precedence over the context derived from this translation
+        :return: The expanded content
+        """
+        # Imported here because the utils import the models
+        from ..utils.shortcodes import expand_shortcodes_for_delivery
+
+        return expand_shortcodes_for_delivery(
+            self.combined_text,
+            context={
+                "region_slug": self.foreign_object.region.slug,
+                "language_slug": self.language.slug,
+                "content_object": self,
+                **extra_context,
+            },
+        )
+
+    @cached_property
     def hix_enabled(self) -> bool:
         """
         This function returns whether the HIX API is enabled for this instance

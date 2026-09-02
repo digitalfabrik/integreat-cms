@@ -78,13 +78,13 @@
                     <h1 class="font-default">
                         {{ diff.existing.title }}
                     </h1>
-                    {{ diff.existing.content|safe }}
+                    {{ diff.existing.content_for_cms|safe }}
                 </div>
                 <div class="xliff-import-target hidden">
                     <h1 class="font-default">
                         {{ diff.import.title }}
                     </h1>
-                    {{ diff.import.content|safe }}
+                    {{ diff.import.content_for_cms|safe }}
                 </div>
                 <div class="xliff-diff-preview-rendered {% if diff.existing.language.slug == 'zh' %} font-content-sc {% elif diff.right_to_left %} font-content-rtl text-right {% else %} font-content {% endif %}">
                 </div>

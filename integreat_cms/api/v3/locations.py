@@ -116,6 +116,7 @@ def transform_poi_translation(
     :return: Data for the APIv3 locations endpoint.
     """
     poi = poi_translation.poi
+    content = poi_translation.content_for_delivery()
 
     contacts = Contact.objects.filter(location=poi).all()
 
@@ -164,8 +165,8 @@ def transform_poi_translation(
             poi_translation.published_at or poi_translation.last_updated,
         ),
         "meta_description": poi_translation.meta_description,
-        "excerpt": strip_tags(poi_translation.content),
-        "content": poi_translation.content,
+        "excerpt": strip_tags(content),
+        "content": content,
         "available_languages": poi_translation.available_languages_dict,
         "icon": poi.icon.url if poi.icon else None,
         "thumbnail": poi.icon.thumbnail_url if poi.icon else None,

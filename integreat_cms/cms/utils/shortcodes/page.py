@@ -1,65 +1,67 @@
-from typing import Any
+"""
+This module contains the shortcode which references a :class:`~integreat_cms.cms.models.pages.page.Page`
+"""
 
-from django.utils.translation import gettext_lazy as _
-from lxml.html import Element, fromstring, tostring
+from __future__ import annotations
 
-from ...models import Page, PageTranslation
-from .utils import shortcode
+from typing import TYPE_CHECKING
+
+from ...models import Page
+from .internal_link import InternalLinkShortcode
+from .registry import register
+
+if TYPE_CHECKING:
+    from typing import Final
+
+#: The first path segment of webapp urls which point to something else than a page
+NON_PAGE_URL_INFIXES: Final[frozenset[str]] = frozenset(
+    {"events", "locations", "disclaimer", "news", "offers", "search"},
+)
 
 
-@shortcode
-def page(
-    pargs: list[str],
-    kwargs: dict[str, str],  # noqa: ARG001
-    context: dict[str, Any] | None,
-    content: str = "",  # noqa: ARG001
-) -> str:
+@register
+class PageShortcode(InternalLinkShortcode):
     """
     Shortcode to insert an internal link to a :class:`~integreat_cms.cms.models.pages.page.Page`.
 
-    Positional arguments:
+    Positional arguments of the atomic form ``[page …]``:
 
     * ``page_id``              – The id of the :class:`~integreat_cms.cms.models.pages.page.Page` to which should be linked
     * ``link_text`` (optional) – If not given, the title of the public :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` is used
 
     If the target page has an icon set and the shortcode has no ``link_text``,
-    the icon will be included as an ``<ìmg>`` before the page title.
+    the icon will be included as an ``<img>`` before the page title.
+
+    Whenever the link should wrap html instead of plain text, the block scoped form
+    ``[page_link …]…[/page_link]`` is used, which takes only the ``page_id``.
 
     .. list-table:: Examples
-        :widths: 30 70
+        :widths: 45 55
         :header-rows: 0
 
         * - ``[page 1]``
-          - ``<a href="/augsburg/de/willkommen/">Willkommen</a>``
+          - ``<a href="https://integreat.app/augsburg/de/willkommen/">Willkommen</a>``
         * - ``[page 1 "this page"]``
-          - ``<a href="/augsburg/de/willkommen/">this page</a>``
+          - ``<a href="https://integreat.app/augsburg/de/willkommen/">this page</a>``
+        * - ``[page_link 1]<b>hier</b>[/page_link]``
+          - ``<a href="https://integreat.app/augsburg/de/willkommen/"><b>hier</b></a>``
         * - ``[page 999999]``
           - ``<i>[MISSING LINK]</i>``
+        * - ``[page_link 999999]<b>hier</b>[/page_link]``
+          - ``<i>[<b>hier</b>]</i>``
     """
-    page_id = pargs[0] if pargs else None
-    text = pargs[1] if len(pargs) > 1 else None
-    try:
-        page = Page.objects.get(id=page_id)
-        translation = page.get_public_translation(
-            (context or {}).get("language_slug", page.region.default_language.slug)
-        )
-        if translation is None:
-            raise PageTranslation.DoesNotExist  # noqa: TRY301  # But… I want the two lines handling this to not be duplicated
-    except (Page.DoesNotExist, PageTranslation.DoesNotExist):
-        element = Element("i")
-        TEXT_MISSING = _(
-            "MISSING LINK"
-        )  # Separate variable because gettext apparently does not find _() if it is in an f-string
-        element.text = f"[{text or TEXT_MISSING}]"
-    else:
-        element = Element("a")
-        if text is None:
-            # LXML needs a single root element, so we're doing this in a roundabout way
-            root = fromstring(f"<root>{translation.link_title}</root>")
-            element.text = root.text
-            for child in root:
-                element.append(child)
-        else:
-            element.text = text or ""
-        element.attrib["href"] = translation.get_absolute_url()
-    return tostring(element).decode("utf-8")
+
+    keyword = "page"
+    block_keyword = "page_link"
+    model = Page
+    short_url_infix = "p"
+
+    def matches_url_infix(self, infix: str) -> bool:
+        """
+        Pages are the only content whose urls have no distinguishing path segment, so every
+        url which does not belong to another kind of content points to a page
+
+        :param infix: The first path segment after region and language
+        :return: Whether a url with this segment points to a page
+        """
+        return infix not in NON_PAGE_URL_INFIXES

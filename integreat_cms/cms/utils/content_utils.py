@@ -15,6 +15,7 @@ from lxml.html.clean import Cleaner
 from ..models import Contact, MediaFile
 from ..utils import internal_link_utils
 from ..utils.link_utils import fix_content_link_encoding
+from ..utils.shortcodes import collapse_into_shortcodes
 
 logger = logging.getLogger(__name__)
 
@@ -53,6 +54,7 @@ def clean_content(
     content = _xss_cleaner.clean_html(content)
     convert_heading(content)
     convert_monospaced_tags(content)
+    collapse_into_shortcodes(content)
     update_links(content, language_slug)
     fix_alt_texts(content)
     fix_notranslate(content)
@@ -127,10 +129,14 @@ def update_links(content: HtmlElement, language_slug: str) -> None:
     """
     Super method that gathers all methods related to updating links
 
+    Links which reference internal content are already gone at this point, because
+    :func:`~integreat_cms.cms.utils.shortcodes.conversion.collapse_into_shortcodes` replaced them by the
+    shortcode representing them.
+
     :param content: The content whose links should be updated
     :param language_slug: Slug of the current language
     """
-    for link in content.iter("a"):
+    for link in list(content.iter("a")):
         mark_external_links(link)
         remove_target_attribute(link)
         update_internal_links(link, language_slug)
@@ -331,37 +337,49 @@ def hide_anchor_tag_around_image(content: HtmlElement) -> None:
     """
 
     for anchor in content.iter("a"):
-        children = list(anchor.iterchildren())
+        hide_anchor_tag_around_single_image(anchor)
 
-        # Check if the anchor tag has only img children and no other text content
-        if (
-            len(children) == 1
-            and (img := children[0]).tag == "img"
-            and not anchor.text_content().strip()
-        ):
-            if img.attrib.get("alt", ""):
-                if "aria-hidden" in anchor.attrib:
-                    del anchor.attrib["aria-hidden"]
-                    logger.debug(
-                        "Removed 'aria-hidden' from anchor: %r",
-                        tostring(anchor, encoding="unicode"),
-                    )
-                if "tabindex" in anchor.attrib:
-                    del anchor.attrib["tabindex"]
-                    logger.debug(
-                        "Removed 'tabindex' from anchor: %r",
-                        tostring(anchor, encoding="unicode"),
-                    )
-            else:
-                # Hide the anchor tag by setting aria-hidden attribute if the image alt text is empty
-                anchor.set("aria-hidden", "true")
+
+def hide_anchor_tag_around_single_image(anchor: HtmlElement) -> None:
+    """
+    Apply :func:`~integreat_cms.cms.utils.content_utils.hide_anchor_tag_around_image` to a single anchor.
+
+    This is also needed when a link is rendered from a shortcode, because those links do not
+    exist yet when the content is cleaned.
+
+    :param anchor: the anchor tag which might be wrapped around an img tag
+    """
+    children = list(anchor.iterchildren())
+
+    # Check if the anchor tag has only img children and no other text content
+    if (
+        len(children) == 1
+        and (img := children[0]).tag == "img"
+        and not anchor.text_content().strip()
+    ):
+        if img.attrib.get("alt", ""):
+            if "aria-hidden" in anchor.attrib:
+                del anchor.attrib["aria-hidden"]
                 logger.debug(
-                    "Set 'aria-hidden' to true for anchor: %r",
+                    "Removed 'aria-hidden' from anchor: %r",
                     tostring(anchor, encoding="unicode"),
                 )
-                # Unfocus the anchor tag from tab key
-                anchor.set("tabindex", "-1")
+            if "tabindex" in anchor.attrib:
+                del anchor.attrib["tabindex"]
                 logger.debug(
-                    "Set 'tabindex' to -1 for anchor: %r",
+                    "Removed 'tabindex' from anchor: %r",
                     tostring(anchor, encoding="unicode"),
                 )
+        else:
+            # Hide the anchor tag by setting aria-hidden attribute if the image alt text is empty
+            anchor.set("aria-hidden", "true")
+            logger.debug(
+                "Set 'aria-hidden' to true for anchor: %r",
+                tostring(anchor, encoding="unicode"),
+            )
+            # Unfocus the anchor tag from tab key
+            anchor.set("tabindex", "-1")
+            logger.debug(
+                "Set 'tabindex' to -1 for anchor: %r",
+                tostring(anchor, encoding="unicode"),
+            )

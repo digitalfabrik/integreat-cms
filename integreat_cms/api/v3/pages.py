@@ -21,7 +21,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 from ...cms.forms import PageTranslationForm
 from ...cms.models import Page, PageTranslation
-from ...cms.utils.shortcodes import expand_shortcodes
 from ..decorators import json_response, matomo_tracking
 from .offers import transform_offer
 
@@ -38,13 +37,16 @@ logger = logging.getLogger(__name__)
 def transform_page(
     page_translation: PageTranslation,
     page: Page | None = None,
-    context: dict[str, Any] | None = None,
+    request: HttpRequest | None = None,
     slug_history: list[str] | None = None,
 ) -> dict[str, Any]:
     """
     Function to create a dict from a single page_translation Object.
 
     :param page_translation: single page translation object
+    :param page: the page the translation belongs to
+    :param request: the current request, passed to the shortcodes as context
+    :param slug_history: all slugs this translation has used
     :raises ~django.http.Http404: HTTP status 404 if a parent is archived
 
     :return: data necessary for API
@@ -86,6 +88,7 @@ def transform_page(
 
     organization = page.organization
     absolute_url = page_translation.get_absolute_url()
+    content = page_translation.content_for_delivery(request=request)
     return {
         "id": page_translation.id,
         "url": settings.BASE_URL + absolute_url,
@@ -96,10 +99,8 @@ def transform_page(
         "published_at": timezone.localtime(
             page_translation.published_at or page_translation.last_updated,
         ),
-        "excerpt": strip_tags(
-            expand_shortcodes(page_translation.combined_text, context=context)
-        ),
-        "content": expand_shortcodes(page_translation.combined_text, context=context),
+        "excerpt": strip_tags(content),
+        "content": content,
         "parent": parent,
         "order": order,
         "available_languages": page_translation.available_languages_dict,
@@ -168,12 +169,7 @@ def pages(
                 transform_page(
                     page_translation,
                     page,
-                    context={
-                        "region_slug": region_slug,
-                        "language_slug": language_slug,
-                        "content_object": page_translation,
-                        "request": request,
-                    },
+                    request=request,
                     slug_history=slug_history.get(page.id, []),
                 )
             )
@@ -269,12 +265,7 @@ def single_page(
             transform_page(
                 page_translation,
                 page,
-                context={
-                    "region_slug": region_slug,
-                    "language_slug": language_slug,
-                    "content_object": page_translation,
-                    "request": request,
-                },
+                request=request,
                 slug_history=list(
                     dict.fromkeys(
                         page_translation.all_versions.order_by("version").values_list(
@@ -355,12 +346,7 @@ def children(
         transform_page(
             page_translation,
             page,
-            context={
-                "region_slug": region_slug,
-                "language_slug": language_slug,
-                "content_object": page_translation,
-                "request": request,
-            },
+            request=request,
             slug_history=slug_history.get(page.id, []),
         )
         for page in pages.values()
@@ -428,10 +414,6 @@ def get_public_ancestor_translations(
             transform_page(
                 public_translation,
                 ancestor,
-                context={
-                    "language_slug": language_slug,
-                    "content_object": public_translation,
-                },
                 slug_history=slug_history.get(ancestor.id, []),
             )
         )

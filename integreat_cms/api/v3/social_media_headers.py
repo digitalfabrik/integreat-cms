@@ -228,7 +228,7 @@ def page_social_media_headers(
         request=request,
         title=get_region_title(region, page_translation.title),
         language_code=language.bcp47_tag,
-        excerpt=get_excerpt(page_translation.content),
+        excerpt=get_excerpt(page_translation.content_for_delivery()),
         url=page_translation.full_url,
     )
 
@@ -270,7 +270,7 @@ def event_social_media_headers(
         request=request,
         title=get_region_title(region, event_translation.title),
         language_code=language.bcp47_tag,
-        excerpt=get_excerpt(event_translation.content),
+        excerpt=get_excerpt(event_translation.content_for_delivery()),
         url=event_translation.full_url,
     )
 
@@ -342,6 +342,6 @@ def location_social_media_headers(
         request=request,
         title=get_region_title(region, location_translation.title),
         language_code=language.bcp47_tag,
-        excerpt=get_excerpt(location_translation.content),
+        excerpt=get_excerpt(location_translation.content_for_delivery()),
         url=location_translation.full_url,
     )

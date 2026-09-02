@@ -32,6 +32,7 @@ def transform_imprint(imprint_translation: ImprintPageTranslation) -> dict[str, 
     :return: data necessary for API
     """
     absolute_url = imprint_translation.get_absolute_url()
+    content = imprint_translation.content_for_delivery()
     return {
         "id": imprint_translation.id,
         "url": settings.BASE_URL + absolute_url,
@@ -39,8 +40,8 @@ def transform_imprint(imprint_translation: ImprintPageTranslation) -> dict[str, 
         "title": imprint_translation.title,
         "modified_gmt": imprint_translation.last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(imprint_translation.last_updated),
-        "excerpt": strip_tags(imprint_translation.content),
-        "content": imprint_translation.content,
+        "excerpt": strip_tags(content),
+        "content": content,
         "parent": None,
         "available_languages": imprint_translation.available_languages_dict,
         "thumbnail": None,
