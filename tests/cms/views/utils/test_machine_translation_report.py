@@ -16,7 +16,7 @@ from integreat_cms.cms.views.utils.machine_translation_report import (
     _get_report_outcome,
     get_machine_translation_report,
 )
-from integreat_cms.core.utils.machine_translation_celery_task import queue_mt_report
+from integreat_cms.core.utils.machine_translation_celery_task import _queue_mt_report
 
 if TYPE_CHECKING:
     from typing import Any
@@ -49,7 +49,7 @@ def test_report_outcome_partial_success_when_one_object_failed() -> None:
 
 def test_report_outcome_partial_success_for_failure_reported_via_failed_dict() -> None:
     """
-    Regression test: `get_language_report()`'s shape reports a failure via a
+    Regression test: `_get_language_report()`'s shape reports a failure via a
     populated "failed" bucket, not a top-level "exception" key - this
     happens whenever the API client catches its own provider exception
     internally (e.g. `mark_unsuccessful()`) and returns normally rather than
@@ -140,7 +140,7 @@ def test_get_machine_translation_report_is_destructive_read(
 ) -> None:
     user = get_user_model().objects.get(username="root")
     region = Region.objects.get(slug=REGION_SLUG)
-    queue_mt_report(
+    _queue_mt_report(
         user.id,
         region.id,
         "page",

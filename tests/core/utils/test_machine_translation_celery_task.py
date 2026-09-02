@@ -81,7 +81,7 @@ def stub_translate_queryset() -> Any:
 @pytest.fixture()
 def stub_language_report() -> Any:
     with patch(
-        "integreat_cms.core.utils.machine_translation_celery_task.get_language_report",
+        "integreat_cms.core.utils.machine_translation_celery_task._get_language_report",
         return_value={"succeeded": "ok", "failed": {}},
     ) as mock:
         yield mock
@@ -90,7 +90,7 @@ def stub_language_report() -> Any:
 @pytest.fixture()
 def spy_queue_mt_report() -> Any:
     with patch(
-        "integreat_cms.core.utils.machine_translation_celery_task.queue_mt_report"
+        "integreat_cms.core.utils.machine_translation_celery_task._queue_mt_report"
     ) as mock:
         yield mock
 
