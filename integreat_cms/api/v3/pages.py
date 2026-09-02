@@ -93,6 +93,9 @@ def transform_page(
         "title": page_translation.title,
         "modified_gmt": page_translation.combined_last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(page_translation.combined_last_updated),
+        "published_at": timezone.localtime(
+            page_translation.published_at or page_translation.last_updated,
+        ),
         "excerpt": strip_tags(
             expand_shortcodes(page_translation.combined_text, context=context)
         ),

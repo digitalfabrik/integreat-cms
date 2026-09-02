@@ -15,7 +15,13 @@ from django.urls import reverse
 
 from integreat_cms.cms.forms import ContactForm
 from integreat_cms.cms.models import Contact, Region, User
-from tests.conftest import ANONYMOUS, AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
+from tests.constants import (
+    ANONYMOUS,
+    AUTHOR,
+    EDITOR,
+    MANAGEMENT,
+    PRIV_STAFF_ROLES,
+)
 from tests.utils import assert_message_in_log
 
 # Use the region Augsburg, as it has some contacts in the test data

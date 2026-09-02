@@ -281,6 +281,24 @@ FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS: Final[int] = env_int(
     24,
 )
 
+#################
+# External News #
+#################
+
+#: How many days back news posts should be fetched from Tü News
+#: Default to FCM_HISTORY_DAYS
+TUNEWS_HISTORY_DAYS: Final[int] = env_int(
+    "INTEGREAT_CMS_TUNEWS_HISTORY_DAYS",
+    FCM_HISTORY_DAYS,
+)
+
+#: Disable re-importing of external news posts on demand e.g. in test context
+EXTERNALNEWS_DISABLE_AUTO_REIMPORT: bool = bool(
+    strtobool(
+        os.environ.get("INTEGREAT_CMS_EXTERNALNEWS_DISABLE_AUTO_REIMPORT", "False")
+    ),
+)
+
 ###########
 # GVZ API #
 ###########
@@ -362,6 +380,12 @@ TEXTLAB_API_BULK_COOL_DOWN_PERIOD: Final[float] = env_float(
 TEXTLAB_API_DEFAULT_BENCHMARK_ID: Final[int] = env_int(
     "INTEGREAT_CMS_TEXTLAB_API_DEFAULT_BENCHMARK_ID",
     420,
+)
+
+#: How many seconds to wait for the Textlab API to respond before giving up
+TEXTLAB_API_TIMEOUT: Final[float] = env_float(
+    "INTEGREAT_CMS_TEXTLAB_API_TIMEOUT",
+    30,
 )
 
 #: The minimum HIX score required for machine translation

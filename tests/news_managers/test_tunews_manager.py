@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 from datetime import datetime, UTC
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import pytest
 from django.core.cache import cache
 
+from integreat_cms.cms.models import Language
 from integreat_cms.news_managers.abstract_news_manager import clean_html
 from integreat_cms.news_managers.amalnews_manager import AmalnewsManager
 from integreat_cms.news_managers.tunews_manager import TunewsManager
@@ -59,6 +60,7 @@ expected_result_tunews = [
         "title": "Gültige Nachricht",
         "content": "<main>Eine interessante Tatsache</main>\n",
         "last_updated": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "published_at": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "display_date": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "channel": None,
         "available_languages": None,
@@ -73,6 +75,7 @@ expected_result_amalnews = [
         "title": "Titel der Nachricht 1",
         "content": "<main>Eine interessante Tatsache</main>\n",
         "last_updated": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "published_at": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "display_date": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "channel": None,
         "available_languages": None,
@@ -84,6 +87,7 @@ expected_result_amalnews = [
         "title": "Nachricht 2",
         "content": "<main>Eine interessante Tatsache</main>\n",
         "last_updated": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "published_at": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "display_date": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "channel": None,
         "available_languages": None,
@@ -95,6 +99,7 @@ expected_result_amalnews = [
         "title": "Gültige Nachricht",
         "content": "<main>Eine interessante Tatsache</main>\n",
         "last_updated": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
+        "published_at": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "display_date": datetime(2026, 4, 29, 16, 58, 38, tzinfo=UTC),
         "channel": None,
         "available_languages": None,
@@ -112,24 +117,54 @@ dummy_news_items = [
 
 
 @pytest.mark.django_db
-def test_import_news_item(load_test_data: None, clean_news_cache: None) -> None:
+def test_import_tunews_item(clean_news_cache: None) -> None:
+    response_1 = Mock()
+    response_1.status_code = 200
+    response_1.json.return_value = dummy_news_items
+
+    response_2 = Mock()
+    response_2.status_code = 400
+
+    first_language_slug = Language.objects.first().slug
+
     with patch(
         "integreat_cms.news_managers.tunews_manager.requests.get"
     ) as fake_tunews_server:
-        fake_tunews_server.return_value.status_code = 200
-        fake_tunews_server.return_value.json.return_value = dummy_news_items
+        fake_tunews_server.side_effect = [response_1, response_2] * (
+            Language.objects.all().count()
+        )
 
-        assert not cache.get(f"{tu_short_name}:de")
+        assert not cache.get(f"{tu_short_name}:{first_language_slug}")
 
         TunewsManager().import_news_items()
 
-        assert cache.get(f"{tu_short_name}:de") == expected_result_tunews
+        assert (
+            cache.get(f"{tu_short_name}:{first_language_slug}")
+            == expected_result_tunews
+        )
 
-        assert not cache.get(f"{amal_short_name}:de")
+
+@pytest.mark.django_db
+def test_import_amalnews_item(clean_news_cache: None) -> None:
+    response_1 = Mock()
+    response_1.status_code = 200
+    response_1.json.return_value = dummy_news_items
+
+    first_language_slug = Language.objects.first().slug
+
+    with patch(
+        "integreat_cms.news_managers.amalnews_manager.requests.get"
+    ) as fake_tunews_server:
+        fake_tunews_server.side_effect = [response_1] * (Language.objects.all().count())
+
+        assert not cache.get(f"{amal_short_name}:{first_language_slug}")
 
         AmalnewsManager().import_news_items()
 
-        assert cache.get(f"{amal_short_name}:de") == expected_result_amalnews
+        assert (
+            cache.get(f"{amal_short_name}:{first_language_slug}")
+            == expected_result_amalnews
+        )
 
 
 def test_clean_html_keeps_plain_text() -> None:
@@ -156,3 +191,13 @@ def test_clean_html_preserves_unrelated_classes() -> None:
     assert 'class="intro"' in result
     assert "Hallo" in result
     assert "Weg" not in result
+
+
+def test_clean_html_strips_active_content() -> None:
+    html = (
+        '<p>Wichtig</p><script>alert(1)</script><a href="javascript:alert(2)">Link</a>'
+    )
+    result = clean_html(html)
+    assert "Wichtig" in result
+    assert "alert(1)" not in result
+    assert "javascript:" not in result

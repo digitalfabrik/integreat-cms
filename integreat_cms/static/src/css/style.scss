@@ -1,10 +1,12 @@
 @use "sass:color";
 
-// Country flags - define these before tailwind to make it possible to override
-$fp-prepend: true;
-$fp-enable-1x1: false;
-$fp-4x3-path: "flagpack-dart-sass/flags/4x3/";
-@import "flagpack-dart-sass/src/flagpack.scss";
+// Country flags - configure these before tailwind to make it possible to override
+@use "flagpack-dart-sass/src/variables" with (
+    $fp-prepend: true,
+    $fp-enable-1x1: false,
+    $fp-4x3-path: "flagpack-dart-sass/flags/4x3/"
+);
+@use "flagpack-dart-sass/src/flagpack";
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";

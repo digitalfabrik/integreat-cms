@@ -128,13 +128,6 @@ class PageFormView(
             disabled=disabled,
         )
 
-        # Pass side by side language options
-        side_by_side_language_options = self.get_side_by_side_language_options(
-            region,
-            language,
-            page,
-        )
-
         # Pass siblings to template to enable rendering of page order table
         siblings = (
             (
@@ -163,7 +156,6 @@ class PageFormView(
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if page else [language],
-                "side_by_side_language_options": side_by_side_language_options,
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
@@ -302,11 +294,6 @@ class PageFormView(
                 "siblings": siblings,
                 "language": language,
                 "languages": region.active_languages if page_instance else [language],
-                "side_by_side_language_options": self.get_side_by_side_language_options(
-                    region,
-                    language,
-                    page_instance,
-                ),
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
@@ -315,40 +302,6 @@ class PageFormView(
                 ),
             },
         )
-
-    @staticmethod
-    def get_side_by_side_language_options(
-        region: Region,
-        language: Language,
-        page: Page | None,
-    ) -> list[dict[str, Any]]:
-        """
-        This is a helper function to generate the side-by-side language options for both the get and post requests.
-
-        :param region: The current region
-        :param language: The current language
-        :param page: The current page
-        :return: The list of language options, each represented by a dict
-        """
-
-        side_by_side_language_options = []
-        for language_node in filter(lambda n: n.active, region.language_tree):
-            if not language_node.is_root():
-                source_language = region.language_node_by_id.get(
-                    language_node.parent_id,
-                ).language
-                side_by_side_language_options.append(
-                    {
-                        "value": language_node.slug,
-                        "label": _("{source_language} to {target_language}").format(
-                            source_language=source_language.translated_name,
-                            target_language=language_node.translated_name,
-                        ),
-                        "selected": language_node.language == language,
-                        "disabled": not page or source_language not in page.languages,
-                    },
-                )
-        return side_by_side_language_options
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)

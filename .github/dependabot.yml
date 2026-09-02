@@ -20,6 +20,21 @@ updates:
           - "*"
     schedule:
       interval: monthly
+    # Major versions which cannot be adopted yet. Minor and patch updates of
+    # these packages are still proposed as usual.
+    ignore:
+      # eslint-config-airbnb-extended declares eslint ^9 as peer dependency
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@eslint/js"
+        update-types: ["version-update:semver-major"]
+      # Tailwind CSS 4 requires the separate @tailwindcss/postcss package and a
+      # CSS-first rewrite of the theme and safelist in tailwind.config.js
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
+      # MapLibre GL JS 6 is ESM-only, but ts-loader emits CommonJS
+      - dependency-name: "maplibre-gl"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: devcontainers
     directory: "/"

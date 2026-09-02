@@ -46,7 +46,7 @@ def test_not_first_day() -> None:
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_reset_mt_budget(load_test_data_transactional: Any | None) -> None:
     """
     Ensure that MT budget gets reset successfully
@@ -57,13 +57,13 @@ def test_reset_mt_budget(load_test_data_transactional: Any | None) -> None:
     region1 = Region.objects.create(
         slug="mt_test_1",
         mt_renewal_month=current_month,
-        mt_midyear_start_month=current_month + 1,
+        mt_budget_adjustment=1000,
         mt_budget_used=42,
     )
     region2 = Region.objects.create(
         slug="mt_test_2",
         mt_renewal_month=current_month + 1,
-        mt_midyear_start_month=current_month + 1,
+        mt_budget_adjustment=1000,
         mt_budget_used=42,
     )
 
@@ -77,9 +77,9 @@ def test_reset_mt_budget(load_test_data_transactional: Any | None) -> None:
     assert region2.mt_budget_used == 42, (
         "The MT budget of region 2 should remain unchanged."
     )
-    assert region1.mt_midyear_start_month is None, (
-        "The midyear start month of region 1 should have been reset to None."
+    assert not region1.mt_budget_adjustment, (
+        "The budget adjustment of region 1 should have been reset to 0."
     )
-    assert region2.mt_midyear_start_month == current_month + 1, (
-        "The midyear start month of region 2 should not have been reset to None."
+    assert region2.mt_budget_adjustment == 1000, (
+        "The budget adjustment of region 2 should remain unchanged."
     )

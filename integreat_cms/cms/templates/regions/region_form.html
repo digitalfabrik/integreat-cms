@@ -25,6 +25,20 @@
                 </button>
             {% endif %}
         </div>
+        {% if form.instance.is_api_managed %}
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3 mb-4"
+                 role="alert">
+                <p>
+                    {% with last_sync=form.instance.api_settings_synced_at %}
+                        {% blocktranslate trimmed %}
+                            The booked features and the translation budget of this region are managed
+                            via the API and were last synced on {{ last_sync }}. These settings are
+                            read-only here and have to be changed in the connected system.
+                        {% endblocktranslate %}
+                    {% endwith %}
+                </p>
+            </div>
+        {% endif %}
         <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
             <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
@@ -363,26 +377,12 @@
                     <div class="help-text">
                         {{ form.mt_renewal_month.help_text }}
                     </div>
-                    <div id="mt-toggle-div">
-                        {% render_field form.mt_midyear_start_enabled %}
-                        <label for="{{ form.mt_midyear_start_enabled.id_for_label }}"
-                               class="secondary">
-                            {{ form.mt_midyear_start_enabled.label }}
-                        </label>
-                        <div class="help-text">
-                            {{ form.mt_midyear_start_enabled.help_text }}
-                        </div>
-                        <div id="mt-renewal-toggle-div"
-                             {% if not form.instance.mt_midyear_start_enabled %}class="hidden"{% endif %}>
-                            <label for="{{ form.mt_midyear_start_month.id_for_label }}"
-                                   class="secondary">
-                                {{ form.mt_midyear_start_month.label }}
-                            </label>
-                            {% render_field form.mt_midyear_start_month %}
-                            <div class="help-text">
-                                {{ form.mt_midyear_start_month.help_text }}
-                            </div>
-                        </div>
+                    <label for="{{ form.mt_budget_adjustment.id_for_label }}" class="secondary">
+                        {{ form.mt_budget_adjustment.label }}
+                    </label>
+                    {% render_field form.mt_budget_adjustment %}
+                    <div class="help-text">
+                        {{ form.mt_budget_adjustment.help_text }}
                     </div>
                 </div>
                 <div>

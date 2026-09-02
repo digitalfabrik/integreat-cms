@@ -25,7 +25,6 @@ if TYPE_CHECKING:
 
     from django.http import HttpRequest, HttpResponse
 
-    from ...models import Language, Region
 
 logger = logging.getLogger(__name__)
 
@@ -156,11 +155,6 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if imprint else [language],
-                "side_by_side_language_options": self.get_side_by_side_language_options(
-                    region,
-                    language,
-                    imprint,
-                ),
                 "translation_states": imprint.translation_states if imprint else [],
                 "lock_key": edit_lock_key,
                 "right_to_left": (
@@ -263,11 +257,6 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                 "languages": (
                     region.active_languages if imprint_instance else [language]
                 ),
-                "side_by_side_language_options": self.get_side_by_side_language_options(
-                    region,
-                    language,
-                    imprint_instance,
-                ),
                 "translation_states": (
                     imprint_instance.translation_states if imprint_instance else []
                 ),
@@ -282,37 +271,3 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                 ),
             },
         )
-
-    @staticmethod
-    def get_side_by_side_language_options(
-        region: Region,
-        language: Language,
-        imprint: ImprintPage | None,
-    ) -> list[dict[str, Any]]:
-        """
-        This is a helper function to generate the side-by-side language options for both the get and post requests.
-
-        :param region: The current region
-        :param language: The current language
-        :param imprint: The current imprint
-        :return: The list of language options, each represented by a dict
-        """
-        side_by_side_language_options = []
-        for language_node in region.language_tree_nodes.filter(active=True):
-            if language_node.parent:
-                source_translation = ImprintPageTranslation.objects.filter(
-                    page=imprint,
-                    language=language_node.parent.language,
-                )
-                side_by_side_language_options.append(
-                    {
-                        "value": language_node.language.slug,
-                        "label": _("{source_language} to {target_language}").format(
-                            source_language=language_node.parent.language.translated_name,
-                            target_language=language_node.language.translated_name,
-                        ),
-                        "selected": language_node.language == language,
-                        "disabled": not source_translation.exists(),
-                    },
-                )
-        return side_by_side_language_options

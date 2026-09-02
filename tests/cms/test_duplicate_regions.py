@@ -16,7 +16,8 @@ if TYPE_CHECKING:
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.slow
+@pytest.mark.django_db(transaction=True)
 def test_duplicate_regions(
     load_test_data_transactional: None,
     admin_client: Client,
@@ -115,14 +116,29 @@ def test_duplicate_regions(
         ):
             source_page_translation_dict = model_to_dict(
                 source_page_translation,
-                exclude=["id", "page", "status", "hix_score", "hix_feedback"],
+                exclude=[
+                    "id",
+                    "page",
+                    "status",
+                    "hix_score",
+                    "hix_feedback",
+                    "published_at",
+                ],
             )
             target_page_translation_dict = model_to_dict(
                 target_page_translation,
-                exclude=["id", "page", "status", "hix_score", "hix_feedback"],
+                exclude=[
+                    "id",
+                    "page",
+                    "status",
+                    "hix_score",
+                    "hix_feedback",
+                    "published_at",
+                ],
             )
             assert source_page_translation_dict == target_page_translation_dict
             assert target_page_translation.status == status.DRAFT
+            assert target_page_translation.published_at is None
 
     # Check if all cloned language tree nodes exist and are identical
     source_language_tree = source_region.language_tree_nodes.all()
@@ -157,7 +173,8 @@ def test_duplicate_regions(
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.slow
+@pytest.mark.django_db(transaction=True)
 def test_duplicate_regions_no_translations(
     load_test_data_transactional: None,
     admin_client: Client,

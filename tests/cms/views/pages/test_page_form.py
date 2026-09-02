@@ -8,11 +8,13 @@ if TYPE_CHECKING:
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
 
+    from integreat_cms.cms.models import Page
+
 import pytest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from integreat_cms.cms.models import Language, Page, PageTranslation, Region
+from integreat_cms.cms.models import Language, PageTranslation, Region
 
 
 @pytest.mark.django_db

@@ -325,8 +325,11 @@ function wait_for_docker_container {
 function create_docker_container {
     echo "Creating new PostgreSQL database docker container..." | print_info
     mkdir -p "${BASE_DIR}/.postgres"
-    # Run new container
-    docker run -d --name "${DOCKER_CONTAINER_NAME}" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "${BASE_DIR}/.postgres:/var/lib/postgresql" -p "${INTEGREAT_CMS_DOCKER_LISTEN_PORT}":"${INTEGREAT_CMS_DB_PORT}" postgres > /dev/null
+    # Run new container. The container-internal port is hardcoded to 5432
+    # because that is the port the official postgres image listens on;
+    # INTEGREAT_CMS_DB_PORT only describes where Django connects on the host
+    # and must not leak into the container side of the port mapping.
+    docker run -d --name "${DOCKER_CONTAINER_NAME}" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "${BASE_DIR}/.postgres:/var/lib/postgresql" -p "${INTEGREAT_CMS_DOCKER_LISTEN_PORT}":5432 postgres > /dev/null
     wait_for_docker_container
     echo "✔ Created database container" | print_success
     # Set up exit trap to stop docker container when script ends
