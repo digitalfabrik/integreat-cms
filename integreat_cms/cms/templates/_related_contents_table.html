@@ -5,9 +5,7 @@
 {% with request.region.default_language as region_default_language %}
     <div class="table-listing w-full px-4 pb-4">
         <div>
-            <label>
-                {{ table_title }}
-            </label>
+            <label>{{ table_title }}</label>
         </div>
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
@@ -58,9 +56,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="2" class="px-4 py-3">
-                            {% trans no_content_message %}
-                        </td>
+                        <td colspan="2" class="px-4 py-3">{% trans no_content_message %}</td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -59,7 +59,7 @@ if TYPE_CHECKING:
     from typing import Any, Final
 
     from _pytest.fixtures import SubRequest
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
     from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]
     from pytest_httpserver.httpserver import HTTPServer
 
@@ -180,7 +180,7 @@ def clean_news_cache(load_test_data: None) -> Generator[None]:
 
 
 @pytest.fixture(autouse=True)
-def configure_celery_for_tests(settings: SettingsWrapper) -> None:
+def configure_celery_for_tests(settings: Settings) -> None:
     # by default, no worker is running to consume tasks during tests,
     # so we set celery to run synchronously and propagate errors to the test runner
     settings.CELERY_TASK_ALWAYS_EAGER = True
@@ -245,7 +245,7 @@ def clear_cache() -> None:
 
 
 @pytest.fixture()
-def disable_auto_news_reimport(settings: SettingsWrapper) -> None:
+def disable_auto_news_reimport(settings: Settings) -> None:
     """
     Disable re-import of external news on demand to avoid hitting the real APIs and getting real news posts
     """

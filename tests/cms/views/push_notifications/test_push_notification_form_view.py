@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 import pytest
 from django.urls import reverse
@@ -19,7 +19,7 @@ from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
 def test_validate_forms_with_only_german_title(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Augsburg (German) is creating a push notification with German title for itself and Berlin (English).

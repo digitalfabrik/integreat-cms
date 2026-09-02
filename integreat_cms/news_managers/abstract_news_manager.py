@@ -98,7 +98,7 @@ class AbstractNewsManager(ABC):
         """
         try:
             if not Region.objects.get(slug=region_slug).external_news_enabled:
-                logger.exception("External news not enabled: %s", region_slug)
+                logger.error("External news not enabled: %s", region_slug)
                 return []
         except Region.DoesNotExist:
             logger.exception("Region not found: %s", region_slug)

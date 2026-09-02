@@ -66,7 +66,7 @@ export default defineConfig([
             "docs/",
             "package.json",
             "package-lock.json",
-            "vitest.config.ts",
+            "vitest.config.mts",
         ],
     },
     {

@@ -43,8 +43,7 @@
                 <i icon-name="minus"></i>
             {% endif %}
         </td>
-        <td class="whitespace-nowrap"
-            title="{{ url.anchor_message }}{% if url.anchor %}{% if url.last_checked %}:{% endif %} #{{ url.anchor }} {% endif %}">
+        <td class="whitespace-nowrap" title="{{ url.anchor_message }}{% if url.anchor %}{% if url.last_checked %}:{% endif %} #{{ url.anchor }} {% endif %}">
             {% if url.anchor_message %}
                 {% url_anchor_icon url %}
             {% else %}
@@ -53,13 +52,9 @@
         </td>
         <td class="pr-2 whitespace-nowrap">
             {% if url.redirect_status_code %}
-                <div title="{{ url.get_redirect_status_code_display }}">
-                    {{ url.redirect_status_code }}
-                </div>
+                <div title="{{ url.get_redirect_status_code_display }}">{{ url.redirect_status_code }}</div>
             {% elif url.status_code %}
-                <div title="{{ url.get_status_code_display }}">
-                    {{ url.status_code }}
-                </div>
+                <div title="{{ url.get_status_code_display }}">{{ url.status_code }}</div>
             {% else %}
                 <i icon-name="minus"></i>
             {% endif %}
@@ -107,9 +102,7 @@
                 </a>
             </div>
         </td>
-        <td class="text-right pr-2">
-            {{ url.regions_links|length }}
-        </td>
+        <td class="text-right pr-2">{{ url.regions_links|length }}</td>
         <td class="text-right pr-4">
             <a title="{% if request.region %}{% translate "Replace URL centrally in the current region" %}{% else %}{% translate "Replace URL globally in all the regions" %}{% endif %}"
                href="{% url_for_current_region 'edit_url' request url_id=url.id url_filter=view.kwargs.url_filter %}{{ pagination_params }}#replace-url"
@@ -125,9 +118,7 @@
                     {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
                     <a href="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
                        class="btn btn-ghost">{% translate "Cancel" %}</a>
-                    <button type="submit" form="edit-url-form" class="btn">
-                        {% translate "Save" %}
-                    </button>
+                    <button type="submit" form="edit-url-form" class="btn">{% translate "Save" %}</button>
                 </div>
             </td>
         </tr>

@@ -208,7 +208,7 @@ nitpick_ignore: list[tuple[str, str]] = [
     ("py:class", "lxml.html.Element"),
     ("py:class", "polymorphic.query.PolymorphicQuerySet"),
     ("py:class", "PolymorphicQuerySet"),
-    ("py:class", "pytest_django.fixtures.SettingsWrapper"),
+    ("py:class", "pytest_django.fixtures.Settings"),
     ("py:class", "requests_mock.mocker.Mocker"),
     ("py:class", "webauthn.WebAuthnUser"),
     ("py:class", "xml.dom.minidom.Element"),

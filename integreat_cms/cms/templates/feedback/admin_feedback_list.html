@@ -64,36 +64,16 @@
                                    id="bulk-select-all"
                                    title="{% translate "Select all" %}" />
                         </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Category" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Feedback on" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Language" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Comment" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Rating" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Rating" %} ({% translate "overall" %})
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Region" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Marked as read by" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Date" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Automatically send" %}
-                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Category" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Feedback on" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Language" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Comment" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Rating" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Rating" %} ({% translate "overall" %})</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Region" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Marked as read by" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Date" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Automatically send" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,33 +113,19 @@
         {% if perms.cms.change_feedback %}
             <div class="flex self-start gap-2 mt-2">
                 <select id="bulk-action">
-                    <option>
-                        {% translate "Select bulk action" %}
-                    </option>
+                    <option>{% translate "Select bulk action" %}</option>
                     {% if not is_archive %}
-                        <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">
-                            {% translate "Mark as read" %}
-                        </option>
-                        <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">
-                            {% translate "Mark as unread" %}
-                        </option>
-                        <option data-bulk-action="{% url 'archive_admin_feedback' %}">
-                            {% translate "Archive" %}
-                        </option>
+                        <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">{% translate "Mark as read" %}</option>
+                        <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">{% translate "Mark as unread" %}</option>
+                        <option data-bulk-action="{% url 'archive_admin_feedback' %}">{% translate "Archive" %}</option>
                     {% else %}
-                        <option data-bulk-action="{% url 'restore_admin_feedback' %}">
-                            {% translate "Restore" %}
-                        </option>
+                        <option data-bulk-action="{% url 'restore_admin_feedback' %}">{% translate "Restore" %}</option>
                     {% endif %}
                     {% if perms.cms.delete_feedback %}
-                        <option data-bulk-action="{% url 'delete_admin_feedback' %}">
-                            {% translate "Delete" %}
-                        </option>
+                        <option data-bulk-action="{% url 'delete_admin_feedback' %}">{% translate "Delete" %}</option>
                     {% endif %}
                 </select>
-                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
-                    {% translate "Execute" %}
-                </button>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
             </div>
         {% endif %}
     </div>

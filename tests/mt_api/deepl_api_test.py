@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
     from tests.mock import MockServer
 
@@ -82,7 +82,7 @@ def test_deepl_bulk_mt_api_error(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     error: int,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:

@@ -9,16 +9,12 @@
     </label>
     <div id="meeting-url-block"
          class="{% if not form.has_not_location.value %}hidden{% endif %}">
-        <label for="{{ form.meeting_url.id_for_label }}">
-            {{ form.meeting_url.label }}
-        </label>
+        <label for="{{ form.meeting_url.id_for_label }}">{{ form.meeting_url.label }}</label>
         {% render_field form.meeting_url class+="input w-full" %}
     </div>
 {% endif %}
 {% if current_menu_item == "contacts" %}
-    <div class="help-text">
-        {{ help_text }}
-    </div>
+    <div class="help-text">{{ help_text }}</div>
 {% endif %}
 <div id="location-block"
      class="{% if form.has_not_location.value %}hidden{% endif %}">
@@ -26,14 +22,10 @@
             This is not for="{{ form.location.id_for_label }}" because the element with that id is a hidden input containing the locations id.
             The visible input element is poi-query-input (created a few lines further down) and updates the hidden input on user interaction.
     {% endcomment %}
-    <label for="poi-query-input">
-        {{ form.location.label }}
-    </label>
+    <label for="poi-query-input">{{ form.location.label }}</label>
     {% if archived %}
         {% if poi %}
-            <div class="text-lg">
-                {{ poi|poi_translation_title:current_language }}
-            </div>
+            <div class="text-lg">{{ poi|poi_translation_title:current_language }}</div>
         {% endif %}
     {% else %}
         {% translate "Select a location" as poi_title_placeholder %}
@@ -60,16 +52,12 @@
                 {{ help_text }}
             {% endif %}
         </p>
-        <div class="relative" id="poi-query-result">
-            {% include "_poi_query_result.html" %}
-        </div>
+        <div class="relative" id="poi-query-result">{% include "_poi_query_result.html" %}</div>
         {% if current_menu_item == "contacts" %}
             <div id="info-location-mandatory"
                  class="py-2 {% if poi %}hidden{% endif %}">
                 <i icon-name="alert-circle" class="h-5 w-5"></i>
-                <span class="help-text italic align-middle">
-                    {% trans "This field cannot be empty. Please select a location." %}
-                </span>
+                <span class="help-text italic align-middle">{% trans "This field cannot be empty. Please select a location." %}</span>
             </div>
         {% endif %}
     {% endif %}
@@ -82,6 +70,5 @@
          class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 hidden">
         {% trans "An error occurred." %}
     </div>
-    <div id="poi-form-widget">
-    </div>
+    <div id="poi-form-widget"></div>
 </div>

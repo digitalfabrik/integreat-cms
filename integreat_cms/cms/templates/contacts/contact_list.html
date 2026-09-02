@@ -54,9 +54,7 @@
             </form>
             <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
                 <thead>
-                    <tr class="border-b border-solid border-gray-200">
-                        {% render_table_header view.table_fields %}
-                    </tr>
+                    <tr class="border-b border-solid border-gray-200">{% render_table_header view.table_fields %}</tr>
                 </thead>
                 <tbody>
                     {% for contact in contacts %}
@@ -93,9 +91,7 @@
         {% if perms.cms.archive_contact %}
             <div class="flex flex-wrap gap-2 mt-4">
                 <select id="bulk-action" class="w-auto max-w-full">
-                    <option>
-                        {% translate "Select bulk action" %}
-                    </option>
+                    <option>{% translate "Select bulk action" %}</option>
                     {% if is_archive %}
                         <option data-bulk-action="{% url "bulk_restore_contacts" region_slug=request.region.slug %}">
                             {% translate "Restore contacts" %}
@@ -111,9 +107,7 @@
                         </option>
                     {% endif %}
                 </select>
-                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
-                    {% translate "Execute" %}
-                </button>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
             </div>
         {% endif %}
     </div>
