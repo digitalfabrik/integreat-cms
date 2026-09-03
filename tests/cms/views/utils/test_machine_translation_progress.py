@@ -6,6 +6,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from django.core.exceptions import PermissionDenied
 from django.test import RequestFactory
+from django.utils import translation
 
 from integreat_cms.cms.views.utils.machine_translation_progress import (
     _get_failure_reason,
@@ -17,18 +18,19 @@ from integreat_cms.cms.views.utils.machine_translation_progress import (
 
 
 def test_get_failure_reason_translates_known_causes() -> None:
-    assert (
-        _get_failure_reason("User not found")
-        == "the triggering user could not be found"
-    )
-    assert (
-        _get_failure_reason("Region not found")
-        == "the requested region could not be found"
-    )
-    assert (
-        _get_failure_reason("Content type not found")
-        == "the requested content type is not supported"
-    )
+    with translation.override("en"):
+        assert (
+            _get_failure_reason("User not found")
+            == "the triggering user could not be found"
+        )
+        assert (
+            _get_failure_reason("Region not found")
+            == "the requested region could not be found"
+        )
+        assert (
+            _get_failure_reason("Content type not found")
+            == "the requested content type is not supported"
+        )
 
 
 def test_get_failure_reason_passes_through_unknown_message() -> None:
@@ -56,7 +58,8 @@ def test_result_details_composes_failure_message() -> None:
 def test_result_details_composes_failure_message_for_known_cause() -> None:
     result = MagicMock(state="FAILURE", info=ValueError("User not found"))
 
-    details = _get_result_details(result)
+    with translation.override("en"):
+        details = _get_result_details(result)
 
     assert "the triggering user could not be found" in details["message"]
     assert "User not found" not in details["message"]
