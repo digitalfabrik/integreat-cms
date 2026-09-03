@@ -18,13 +18,14 @@
     <div id="accesses-server-error" class="text-red-500 px-4 hidden">
         <i icon-name="alert-triangle"></i> {% translate "A server error has occurred." %} {% translate "Please contact the administrator." %}
     </div>
-    <div id="page-accesses-loading" class="px-4 text-center">
-        <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
-    </div>
-    <div>
+
+    <div class="flex flex-row gap-4">
         <p class="pb-4">
             {% blocktranslate %}All pages with the status <strong>"Published"</strong> are listed.{% endblocktranslate %}
         </p>
+        <div id="page-accesses-loading" class="px-4 text-center">
+            <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
+        </div>
     </div>
     <form method="post"
           id="statistics-page-access"
