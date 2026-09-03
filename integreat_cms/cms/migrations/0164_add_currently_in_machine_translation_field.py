@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0160_news_wording"),
+        ("cms", "0163_remove_user_expert_mode"),
     ]
 
     operations = [

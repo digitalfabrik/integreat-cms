@@ -13,7 +13,6 @@ from integreat_cms.cms.constants.translation_status import (
 if TYPE_CHECKING:
     from typing import Any, Final
 
-    from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
 
@@ -40,7 +39,6 @@ from tests.constants import (
     WRITE_ROLES,
 )
 
-from ..utils import assert_message_in_log
 from .deepl_api_test import setup_deepl_supported_languages, setup_fake_deepl_api_server
 from .google_translate_api_test import (
     setup_fake_google_translate_api,
@@ -597,7 +595,6 @@ def test_mt_update_refreshes_outdated_translation_no_changes(
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     mock_server: MockServer,
-    caplog: LogCaptureFixture,
 ) -> None:
     """
     When a source translation is changed and reverted with MT update enabled:
@@ -671,9 +668,26 @@ def test_mt_update_refreshes_outdated_translation_no_changes(
     assert en_translation.translation_state == MACHINE_TRANSLATED
     assert mock_server.requests_counter == 1  # No new MT request should have been made
 
-    assert_message_in_log(
-        "INFO     Page \"Titel\": Translation into 'English' was not necessary -> no changes detected. The translation date has been refreshed.",
-        caplog,
+    # Translation now happens via a Celery task (eager in tests), so the
+    # refresh is reported through the queued report rather than a
+    # synchronous Django message.
+    report_url = reverse(
+        "machine_translation_report",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": "en",
+            "model_type": "page",
+        },
+    )
+    report_response = client.get(report_url)
+    report_data = report_response.json()
+    assert report_data["reports"], "Expected a queued machine translation report"
+    latest_report = report_data["reports"][-1]
+    assert latest_report["outcome"] == "FULL_SUCCESS"
+    assert (
+        "Translation into 'English' was not necessary -> no changes detected. "
+        "The translation date has been refreshed."
+        in latest_report["results"]["en"][str(page_id)]["refreshed"]
     )
 
 

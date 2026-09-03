@@ -53,7 +53,7 @@ def _get_result_details(result: AsyncResult) -> Any:
         return {
             "message": _(
                 "Machine translation of multiple pages was not successful. "
-                "The process was aborted because of {reason}. Please try again."
+                "The process was aborted because {reason}. Please try again."
             ).format(reason=_get_failure_reason(str(result.info)))
         }
     return result.info
