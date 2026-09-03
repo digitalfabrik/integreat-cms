@@ -143,6 +143,7 @@ def _get_language_report(
 ) -> dict[str, str | dict[str, str]]:
     return {
         "succeeded": client.get_successful_translation_message(),
+        "refreshed": client.get_refreshed_translations_message(),
         "failed": {
             "too-long": client.get_too_long_text_message(),
             "exceeds-limit": client.get_exceeds_limit_message(),
