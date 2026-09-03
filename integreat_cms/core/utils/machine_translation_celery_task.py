@@ -10,6 +10,7 @@ from celery import shared_task, Task
 from django.apps import apps
 from django.contrib import messages
 from django.core.cache import cache
+from django.db import transaction
 from django.http import HttpRequest
 from django.utils.translation import (
     activate as activate_language,
@@ -462,15 +463,19 @@ def queue_translations(
             currently_in_machine_translation=True
         )
     user_language_slug = get_language()
-    # queue start_async_translations
-    start_async_translation.apply_async(
-        kwargs={
-            "user_id": user_id,
-            "user_language_slug": user_language_slug,
-            "region_id": region_id,
-            "content_type": content_type,
-            "object_ids": object_ids,
-            "language_slugs": language_slugs,
-        },
-        task_id=task_id,
+    # Deferred until the enclosing transaction commits: dispatching
+    # immediately could let a worker read stale (pre-commit) data, or run
+    # the task at all even if this transaction later rolls back.
+    transaction.on_commit(
+        lambda: start_async_translation.apply_async(
+            kwargs={
+                "user_id": user_id,
+                "user_language_slug": user_language_slug,
+                "region_id": region_id,
+                "content_type": content_type,
+                "object_ids": object_ids,
+                "language_slugs": language_slugs,
+            },
+            task_id=task_id,
+        )
     )

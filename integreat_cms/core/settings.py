@@ -1451,7 +1451,7 @@ else:
     CELERY_BROKER_URL = "memory://"
     CELERY_RESULT_BACKEND = "cache+memory://"
 #: Let Celery's result backend store each task's own invocation alongside its results
-CELERY_RESULT_EXTENDE = True
+CELERY_RESULT_EXTENDED = True
 
 ########################
 # Beta test permission #

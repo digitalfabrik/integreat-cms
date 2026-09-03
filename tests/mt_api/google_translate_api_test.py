@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Final
+    from typing import Any, Final
 
     from django.test.client import Client
     from google.cloud.translate_v3 import TranslateTextRequest
@@ -120,6 +120,7 @@ def setup_fake_google_translate_api(  # type: ignore[no-untyped-def]
 def test_google_translate_error(
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check for error handling
@@ -146,7 +147,10 @@ def test_google_translate_error(
             "language_slug": TARGET_LANGUAGE_SLUG,
         },
     )
-    response = client.post(machine_translation, data={"selected_ids[]": selected_ids})
+    with django_capture_on_commit_callbacks(execute=True):
+        response = client.post(
+            machine_translation, data={"selected_ids[]": selected_ids}
+        )
     print(response.headers)
 
     assert response.status_code == 302

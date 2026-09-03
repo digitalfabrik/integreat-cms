@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Final
+    from typing import Any, Final
 
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
@@ -82,6 +82,7 @@ def test_deepl_bulk_mt_api_error(
     error: int,
     settings: SettingsWrapper,
     mock_server: MockServer,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check for error handling when DeepL API returns server error
@@ -116,7 +117,10 @@ def test_deepl_bulk_mt_api_error(
             "language_slug": TARGET_LANGUAGE_SLUG,
         },
     )
-    response = client.post(machine_translation, data={"selected_ids[]": selected_ids})
+    with django_capture_on_commit_callbacks(execute=True):
+        response = client.post(
+            machine_translation, data={"selected_ids[]": selected_ids}
+        )
     print(response.headers)
 
     assert response.status_code == 302
