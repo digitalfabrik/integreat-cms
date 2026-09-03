@@ -3,9 +3,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Final
+    from typing import Any, Final
 
-    from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
     from google.cloud.translate_v3 import TranslateTextRequest
     from pytest_django.fixtures import SettingsWrapper
@@ -21,8 +20,6 @@ from tests.constants import (
     MANAGEMENT,
     PRIV_STAFF_ROLES,
 )
-
-from ..utils import assert_message_in_log
 
 if TYPE_CHECKING:
     from django.forms.models import ModelFormMetaclass
@@ -123,14 +120,13 @@ def setup_fake_google_translate_api(  # type: ignore[no-untyped-def]
 def test_google_translate_error(
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
-    caplog: LogCaptureFixture,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check for error handling
 
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param settings: The fixture providing the django settings
-    :param caplog: The :fixture:`caplog` fixture
     """
 
     # Test for english messages
@@ -151,7 +147,10 @@ def test_google_translate_error(
             "language_slug": TARGET_LANGUAGE_SLUG,
         },
     )
-    response = client.post(machine_translation, data={"selected_ids[]": selected_ids})
+    with django_capture_on_commit_callbacks(execute=True):
+        response = client.post(
+            machine_translation, data={"selected_ids[]": selected_ids}
+        )
     print(response.headers)
 
     assert response.status_code == 302
@@ -165,7 +164,18 @@ def test_google_translate_error(
     assert response.headers.get("Location") == page_tree
     response = client.get(page_tree)
 
-    assert_message_in_log(
-        "ERROR    A problem with Google Translate API has occurred. Please contact an administrator.",
-        caplog,
+    # Translation now happens via a Celery task (eager in tests), so the
+    # failure surfaces through the queued report rather than a synchronous
+    # Django message.
+    report_url = reverse(
+        "machine_translation_report",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": TARGET_LANGUAGE_SLUG,
+            "model_type": "page",
+        },
     )
+    report_response = client.get(report_url)
+    report_data = report_response.json()
+    assert report_data["reports"], "Expected a queued machine translation report"
+    assert report_data["reports"][-1]["outcome"] == "PARTIAL_SUCCESS"

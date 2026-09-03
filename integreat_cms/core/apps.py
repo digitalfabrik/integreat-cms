@@ -36,7 +36,11 @@ class CoreConfig(AppConfig):
 
     def ready(self) -> None:
         # Implicitly connect signal handlers decorated with @receiver.
-        from . import signals  # noqa: F401
+        # Register system checks (e.g. Redis reachability)
+        from . import (
+            checks,  # noqa: F401
+            signals,  # noqa: F401
+        )
 
         # Add SUCCESS (25) as custom log level
         logging.addLevelName(SUCCESS, "SUCCESS")

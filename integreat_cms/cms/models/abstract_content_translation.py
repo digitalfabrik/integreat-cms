@@ -74,6 +74,13 @@ class AbstractContentTranslation(AbstractBaseModel):
             "Flag to indicate a translation is being updated by an external translator",
         ),
     )
+    currently_in_machine_translation = models.BooleanField(
+        default=False,
+        verbose_name=_("currently in machine translation"),
+        help_text=_(
+            "Flag to indicate a translation is currently being processed by a machine translation task",
+        ),
+    )
     machine_translated = models.BooleanField(
         default=False,
         verbose_name=_("machine translated"),
@@ -446,6 +453,37 @@ class AbstractContentTranslation(AbstractBaseModel):
         return self.foreign_object.translations.filter(language=self.language)
 
     @cached_property
+    def is_content_outdated(self) -> bool:
+        """
+        This property checks whether the translated *content* has fallen behind its source translation, regardless
+        of any "currently being worked on" state.
+
+        Unlike :attr:`is_outdated`, this does not treat a translation that is currently being (machine-)translated
+        or edited as not outdated - :attr:`translation_state` erases that information entirely while such a flag is
+        set, which is correct for *display* purposes (there is no need to also report "outdated" while a spinner is
+        already showing), but wrong for callers that need to know whether the content was actually stale
+        independently of who - if anyone - is currently working on it. The machine translation task calling this
+        while refreshing a translation is exactly such a caller: the flag it would otherwise be checking was set by
+        the very task asking the question.
+
+        :return: Flag to indicate whether the translated content is out of sync with its source translation
+        """
+        translation = self.latest_public_or_draft_version or self.major_version
+        if not translation or not self.source_language:
+            # If the language of this translation is the root of this region's language tree, it is always
+            # "up to date", and a missing translation is not "outdated" (just "missing")
+            return False
+        return (
+            # If the source language does not have a major public version, the translation is considered "outdated",
+            # because the content is not in sync with its source translation
+            not (source_translation := self.major_source_translation)
+            # If the source translation is already outdated, this translation is as well
+            or source_translation.is_content_outdated
+            # If the translation was edited before the last major change in the source language, it is outdated
+            or translation.last_updated <= source_translation.last_updated
+        )
+
+    @cached_property
     def is_outdated(self) -> bool:
         """
         This property checks whether a translation is outdated and thus needs a new revision of the content.
@@ -491,20 +529,14 @@ class AbstractContentTranslation(AbstractBaseModel):
             # If the page does not have a major public version, it is considered "missing" (keep in mind that it might
             # have draft versions or public versions that are marked as "minor edit")
             return translation_status.MISSING
+        if translation.currently_in_machine_translation:
+            return translation_status.MACHINE_TRANSLATION_IN_PROGRESS
         if translation.currently_in_translation:
             return translation_status.IN_TRANSLATION
         if not self.source_language:
             # If the language of this translation is the root of this region's language tree, it is always "up to date"
             return translation_status.UP_TO_DATE
-        if (
-            # If the source language does not have a major public version, the translation is considered "outdated",
-            # because the content is not in sync with its source translation
-            not (source_translation := self.major_source_translation)
-            # If the source translation is already outdated, this translation is as well
-            or source_translation.translation_state == translation_status.OUTDATED
-            # If the translation was edited before the last major change in the source language, it is outdated
-            or translation.last_updated <= source_translation.last_updated
-        ):
+        if self.is_content_outdated:
             return translation_status.OUTDATED
         if translation.machine_translated:
             # If the translation has been made by machine translation and is up to date, show the bot icon
