@@ -1,74 +1,38 @@
 from __future__ import annotations
 
 import json
+import logging
 from unittest.mock import MagicMock, patch
 
 import pytest
 from django.core.exceptions import PermissionDenied
 from django.test import RequestFactory
-from django.utils import translation
 
 from integreat_cms.cms.views.utils.machine_translation_progress import (
-    _get_failure_reason,
     _get_result_details,
     get_machine_translation_task_progress,
 )
 
-# --- _get_failure_reason ---
-
-
-def test_get_failure_reason_translates_known_causes() -> None:
-    with translation.override("en"):
-        assert (
-            _get_failure_reason("User not found")
-            == "the triggering user could not be found"
-        )
-        assert (
-            _get_failure_reason("Region not found")
-            == "the requested region could not be found"
-        )
-        assert (
-            _get_failure_reason("Content type not found")
-            == "the requested content type is not supported"
-        )
-
-
-def test_get_failure_reason_passes_through_unknown_message() -> None:
-    assert (
-        _get_failure_reason("Something unexpected happened")
-        == "Something unexpected happened"
-    )
-
-
 # --- _get_result_details ---
 
 
-def test_result_details_composes_failure_message() -> None:
-    result = MagicMock(
-        state="FAILURE", info=ValueError("Something unexpected happened")
-    )
-
-    details = _get_result_details(result)
-
-    assert "Something unexpected happened" in details["message"]
-    assert "message" in details
-    assert len(details) == 1
-
-
-def test_result_details_composes_failure_message_for_known_cause() -> None:
+def test_result_details_logs_the_cause_for_debugging(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
     result = MagicMock(state="FAILURE", info=ValueError("User not found"))
+    result.id = "task-1"
 
-    with translation.override("en"):
-        details = _get_result_details(result)
+    with caplog.at_level(logging.ERROR):
+        _get_result_details(result)
 
-    assert "the triggering user could not be found" in details["message"]
-    assert "User not found" not in details["message"]
+    assert "task-1" in caplog.text
+    assert "User not found" in caplog.text
 
 
 def test_result_details_passes_through_non_failure_info_unchanged() -> None:
-    result = MagicMock(state="SUCCESS", info={"progress": 1.0, "pages": {}})
+    result = MagicMock(state="SUCCESS", info={"progress": 1.0, "content_objects": {}})
 
-    assert _get_result_details(result) == {"progress": 1.0, "pages": {}}
+    assert _get_result_details(result) == {"progress": 1.0, "content_objects": {}}
 
 
 # --- get_machine_translation_task_progress ---
@@ -90,7 +54,9 @@ def test_get_machine_translation_task_progress_returns_status_and_details() -> N
     request.user.has_perm = MagicMock(return_value=True)
     request.region = MagicMock(id=1)
 
-    fake_result = MagicMock(state="SUCCESS", info={"progress": 1.0, "pages": {}})
+    fake_result = MagicMock(
+        state="SUCCESS", info={"progress": 1.0, "content_objects": {}}
+    )
     fake_result.kwargs = {"region_id": 1, "content_type": "page"}
 
     with patch(
@@ -104,7 +70,7 @@ def test_get_machine_translation_task_progress_returns_status_and_details() -> N
     assert response.status_code == 200
     assert json.loads(response.content) == {
         "status": "SUCCESS",
-        "details": {"progress": 1.0, "pages": {}},
+        "details": {"progress": 1.0, "content_objects": {}},
     }
 
 
@@ -114,7 +80,9 @@ def test_get_machine_translation_task_progress_cross_region_permission_denied() 
     request.user.has_perm = MagicMock(return_value=True)
     request.region = MagicMock(id=1)
 
-    fake_result = MagicMock(state="SUCCESS", info={"progress": 1.0, "pages": {}})
+    fake_result = MagicMock(
+        state="SUCCESS", info={"progress": 1.0, "content_objects": {}}
+    )
     fake_result.kwargs = {"region_id": 2, "content_type": "page"}
 
     with (
@@ -135,7 +103,9 @@ def test_get_machine_translation_task_progress_cross_content_type_permission_den
     request.user.has_perm = MagicMock(return_value=True)
     request.region = MagicMock(id=1)
 
-    fake_result = MagicMock(state="SUCCESS", info={"progress": 1.0, "pages": {}})
+    fake_result = MagicMock(
+        state="SUCCESS", info={"progress": 1.0, "content_objects": {}}
+    )
     fake_result.kwargs = {"region_id": 1, "content_type": "event"}
 
     with (

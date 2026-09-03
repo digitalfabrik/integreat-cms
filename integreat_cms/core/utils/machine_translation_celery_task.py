@@ -1,14 +1,18 @@
 from __future__ import annotations
 
+import contextlib
 import logging
 from collections import defaultdict
 from typing import Any, TYPE_CHECKING
 from uuid import uuid4
 
+from cacheops import invalidate_obj
 from celery import shared_task, Task
 from django.apps import apps
 from django.contrib import messages
 from django.core.cache import cache
+from django.core.exceptions import ImproperlyConfigured
+from django.db import transaction
 from django.http import HttpRequest
 from django.utils.translation import (
     activate as activate_language,
@@ -21,10 +25,13 @@ from django.utils.translation import (
     gettext_lazy as _,
 )
 
+from ...cms.models.abstract_content_model import AbstractContentModel
+from ...cms.models.machine_translations.machine_translation_report import (
+    MachineTranslationReport,
+)
 from ...cms.models.regions.region import Region
 from ...cms.models.users.user import User
-from ...deepl_api.deepl_api_client import DeepLApiClient
-from ...google_translate_api.google_translate_api_client import GoogleTranslateApiClient
+from ..checks import mt_locking_requires_redis
 
 if TYPE_CHECKING:
     from django.db.models import QuerySet
@@ -34,12 +41,6 @@ if TYPE_CHECKING:
     from .machine_translation_api_client import MachineTranslationApiClient
 
 logger = logging.getLogger(__name__)
-
-
-_API_CLIENTS: dict[str, type[MachineTranslationApiClient]] = {
-    "DeepL": DeepLApiClient,
-    "Google Translate": GoogleTranslateApiClient,
-}
 
 
 def _get_form_classes() -> dict[str, ModelFormMetaclass]:
@@ -73,6 +74,22 @@ def get_mt_redis_lock_key(content_type: str, object_id: int, language_slug: str)
     return f"mt_lock:{content_type}:{object_id}:{language_slug}"
 
 
+def _guard_mt_lock_backend() -> None:
+    """
+    Raise loudly, right where the MT lock is actually taken/released,
+    instead of letting it silently degrade to a per-process lock.
+    See :func:`~integreat_cms.core.checks.mt_locking_requires_redis`.
+    """
+    if mt_locking_requires_redis():
+        raise ImproperlyConfigured(
+            "Machine translation is enabled but Redis is disabled "
+            "(INTEGREAT_CMS_REDIS_CACHE=False), and Celery tasks are not "
+            "eager. Refusing to acquire/release a machine translation lock "
+            "that would not actually be shared across processes. Enable "
+            "Redis or set CELERY_TASK_ALWAYS_EAGER=True."
+        )
+
+
 def get_mt_task_ids(
     content_type: str, object_ids: list[int], language_slugs: list[str]
 ) -> dict[ObjectIdAndLanguageSlug, str | None]:
@@ -95,16 +112,13 @@ def get_mt_task_ids(
     return {pair: cached.get(key) for pair, key in lock_keys.items()}
 
 
-#: How long an unread translation report stays queued for the user, in case
-#: they never revisit the relevant list view (safety net, not a hard rule).
-_MT_REPORT_TTL = 60 * 60 * 24 * 7  # 7 days
-
-
-def get_mt_report_cache_key(user_id: int, region_id: int, content_type: str) -> str:
-    return f"mt_report:{user_id}:{region_id}:{content_type}"
+#: Safety net for a hard-killed worker (finally can't run then); longer than
+#: CELERY_TASK_TIME_LIMIT so it never expires a still-running task's lock.
+_MT_LOCK_TTL = 60 * 60 * 4  # 4 hours
 
 
 def _queue_mt_report(
+    task_id: str,
     user_id: int,
     region_id: int,
     content_type: str,
@@ -112,29 +126,18 @@ def _queue_mt_report(
     translation_report: dict[str, dict[str, Any]],
 ) -> None:
     """
-    Append a finished translation report to the list of reports the user has
-    not yet seen. Read-modify-write, not atomic - see discussion about
-    accepting rare race conditions between concurrently finishing tasks
-    for the same user/region/content_type.
+    Record a finished translation report for the user to see next time they
+    check - one row per report, so concurrently finishing tasks for the same
+    user/region/content_type can never clobber each other's report the way a
+    cache-based read-modify-write could.
     """
-    key = get_mt_report_cache_key(user_id, region_id, content_type)
-    reports = cache.get(key) or []
-    reports.append(
-        {
-            "language_slugs": language_slugs,
-            "results": translation_report,
-        }
-    )
-    cache.set(key, reports, timeout=_MT_REPORT_TTL)
-
-
-def _get_translation_queryset(
-    content_type: str, content_objects: QuerySet[Any], language_slug: str
-) -> QuerySet[Any]:
-    translation_model = apps.get_model("cms", f"{content_type}translation")
-    return translation_model.objects.filter(
-        **{_TRANSLATION_FILTER_FIELD[content_type]: content_objects},
-        language__slug=language_slug,
+    MachineTranslationReport.objects.create(
+        task_id=task_id,
+        user_id=user_id,
+        region_id=region_id,
+        content_type=content_type,
+        language_slugs=language_slugs,
+        results=dict(translation_report),
     )
 
 
@@ -213,12 +216,10 @@ def _resolve_client_for_language(
         ).format(language_slug=language_slug)
 
     provider_name = language_node.mt_provider.name
-    if client := clients_by_provider.get(provider_name):
-        return client, None
+    if cached_client := clients_by_provider.get(provider_name):
+        return cached_client, None
 
-    client_class: type[MachineTranslationApiClient] | None = _API_CLIENTS.get(
-        provider_name
-    )
+    client_class = language_node.mt_provider.api_client
     if client_class is None:
         return None, gettext("Provider does not exist")
 
@@ -264,31 +265,75 @@ def _translate_language(
     return report
 
 
-def _clear_locks_and_flags(
-    content_type: str,
-    content_objects: QuerySet[Any],
-    object_ids: list[int],
-    language_slugs: list[str],
+def _release_locks(
+    content_type: str, object_ids: list[int], language_slugs: list[str]
 ) -> None:
-    """
-    Clear the `currently_in_machine_translation` flag and release the redis
-    locks once translation is done. The locks must go before
-    `_build_pages_data()` runs: for an object whose translation was newly
-    *created* but failed, there is still no translation row, so
-    `get_translation_state()` would otherwise fall back to checking the
-    (still-present) lock and incorrectly report
-    MACHINE_TRANSLATION_IN_PROGRESS instead of the real final state.
-    """
-    for language_slug in language_slugs:
-        _get_translation_queryset(content_type, content_objects, language_slug).update(
-            currently_in_machine_translation=False
-        )
+    # No DB dependency, so this can run unconditionally from `finally`.
+    _guard_mt_lock_backend()
     for obj_id in object_ids:
         for language_slug in language_slugs:
             cache.delete(get_mt_redis_lock_key(content_type, obj_id, language_slug))
 
 
-def _build_pages_data(
+def _set_machine_translation_flag(
+    content_type: str, object_ids: list[int], language_slugs: list[str], value: bool
+) -> None:
+    # Builds its own queryset from plain ids (rather than reusing the caller's
+    # content_objects) so this can also run from `finally`. May raise
+    # LookupError if content_type itself was invalid - callers should
+    # expect that.
+    translation_model = apps.get_model("cms", f"{content_type}translation")
+    translations = translation_model.objects.filter(
+        **{_TRANSLATION_FILTER_FIELD[content_type]: object_ids},
+        language__slug__in=language_slugs,
+    )
+    translations.update(currently_in_machine_translation=value)
+    # A plain update() bypasses cacheops, which derives its invalidation keys
+    # from the full field values of each changed row - so the rows have to be
+    # loaded, the ids alone aren't enough. Invalidate after the update, so a
+    # concurrent read can't re-cache the old value in between.
+    for translation in translations:
+        invalidate_obj(translation)
+
+
+def _build_content_object_language_data(
+    content_object: Any, language_slug: str
+) -> dict[str, Any]:
+    """
+    Build the payload for a single (content object, language) pair.
+
+    `AbstractContentModel` types (page/event/poi) have a workflow status, a
+    slug and a translation-state concept (missing/fallback/up to date/...);
+    other content types (currently just `PushNotification`) have none of
+    that, so they only get the fields their translation actually has.
+    """
+    if not isinstance(content_object, AbstractContentModel):
+        translation = content_object.get_translation(language_slug)
+        return (
+            {
+                "title": translation.title,
+                "last_updated": translation.last_updated.isoformat(),
+            }
+            if translation
+            else {}
+        )
+
+    return {
+        "translation_state": content_object.get_translation_state(language_slug),
+        **(
+            {
+                "title": translation.title,
+                "slug": translation.slug,
+                "status": translation.get_status_display(),
+                "last_updated": translation.last_updated.isoformat(),
+            }
+            if (translation := content_object.get_translation(language_slug))
+            else {}
+        ),
+    }
+
+
+def _build_content_objects_data(
     content_objects: QuerySet[Any], language_slugs: list[str]
 ) -> dict[str, dict[str, Any]]:
     """
@@ -299,25 +344,14 @@ def _build_pages_data(
     whatever was cached before this task created or updated them.
     """
     for content_object in content_objects:
-        content_object.invalidate_cached_translations()
+        if isinstance(content_object, AbstractContentModel):
+            content_object.invalidate_cached_translations()
 
     return {
         str(content_object.id): {
-            language_slug: {
-                "translation_state": content_object.get_translation_state(
-                    language_slug
-                ),
-                **(
-                    {
-                        "title": translation.title,
-                        "slug": translation.slug,
-                        "status": translation.get_status_display(),
-                        "last_updated": translation.last_updated.isoformat(),
-                    }
-                    if (translation := content_object.get_translation(language_slug))
-                    else {}
-                ),
-            }
+            language_slug: _build_content_object_language_data(
+                content_object, language_slug
+            )
             for language_slug in language_slugs
         }
         for content_object in content_objects
@@ -336,75 +370,97 @@ def start_async_translation(
 ) -> dict[str, Any]:
     activate_language(user_language_slug)
 
-    user = _resolve_user(user_id)
-    region = _resolve_region(region_id)
-    form_class = _resolve_form_class(content_type)
+    try:
+        user = _resolve_user(user_id)
+        region = _resolve_region(region_id)
+        form_class = _resolve_form_class(content_type)
 
-    mock_request = HttpRequest()
-    mock_request.user = user
-    mock_request.region = region
+        mock_request = HttpRequest()
+        mock_request.user = user
+        mock_request.region = region
 
-    content_model = apps.get_model("cms", content_type)
-    content_objects = content_model.objects.filter(id__in=object_ids)
+        content_model = apps.get_model("cms", content_type)
+        content_objects = content_model.objects.filter(id__in=object_ids)
 
-    # The `currently_in_machine_translation` flag is set synchronously in
-    # `queue_translations()`, before this task is even queued - see the
-    # comment there for why.
+        # The `currently_in_machine_translation` flag is set synchronously in
+        # `queue_translations()`, before this task is even queued - see the
+        # comment there for why.
 
-    translation_report: dict[str, dict[str, Any]] = defaultdict(dict)
-    clients_by_provider: dict[str, MachineTranslationApiClient] = {}
+        translation_report: dict[str, dict[str, Any]] = defaultdict(dict)
+        clients_by_provider: dict[str, MachineTranslationApiClient] = {}
 
-    for i_language, language_slug in enumerate(language_slugs):
-        progress_base = i_language / len(language_slugs)
-        client, error_message = _resolve_client_for_language(
-            region, language_slug, mock_request, form_class, clients_by_provider
-        )
-        if client is None:
-            if error_message is None:
-                raise AssertionError(
-                    "_resolve_client_for_language returned no client and no error message"
+        for i_language, language_slug in enumerate(language_slugs):
+            progress_base = i_language / len(language_slugs)
+            client, error_message = _resolve_client_for_language(
+                region, language_slug, mock_request, form_class, clients_by_provider
+            )
+            if client is None:
+                if error_message is None:
+                    raise AssertionError(
+                        "_resolve_client_for_language returned no client and no error message"
+                    )
+                translation_report[language_slug] = _mark_language_failed(
+                    content_objects, error_message
                 )
-            translation_report[language_slug] = _mark_language_failed(
-                content_objects, error_message
-            )
-            self.update_state(
-                state="IN_PROGRESS",
-                meta={"current_language": language_slug, "progress": progress_base},
-            )
-            continue
+                self.update_state(
+                    state="IN_PROGRESS",
+                    meta={"current_language": language_slug, "progress": progress_base},
+                )
+                continue
 
-        translation_report[language_slug] = _translate_language(
-            self,
-            client,
-            content_objects,
-            language_slug,
-            progress_base,
-            len(language_slugs) * len(content_objects),
+            translation_report[language_slug] = _translate_language(
+                self,
+                client,
+                content_objects,
+                language_slug,
+                progress_base,
+                len(language_slugs) * len(content_objects),
+            )
+
+        # Must clear before _build_content_objects_data(), else a newly-created-but-failed
+        # translation would still show MACHINE_TRANSLATION_IN_PROGRESS via the lock.
+        _release_locks(content_type, object_ids, language_slugs)
+        _set_machine_translation_flag(
+            content_type, object_ids, language_slugs, value=False
         )
 
-    _clear_locks_and_flags(content_type, content_objects, object_ids, language_slugs)
-    pages_data = _build_pages_data(content_objects, language_slugs)
+        content_objects_data = _build_content_objects_data(
+            content_objects, language_slugs
+        )
 
-    _queue_mt_report(
-        user_id, region_id, content_type, language_slugs, translation_report
-    )
+        _queue_mt_report(
+            self.request.id,
+            user_id,
+            region_id,
+            content_type,
+            language_slugs,
+            translation_report,
+        )
+    finally:
+        # Idempotent backstop in case the above never ran (e.g. unknown user/region).
+        _release_locks(content_type, object_ids, language_slugs)
+        with contextlib.suppress(LookupError):
+            _set_machine_translation_flag(
+                content_type, object_ids, language_slugs, value=False
+            )
 
     # Returning this (rather than calling `self.update_state(state="SUCCESS", ...)`)
     # is what actually makes it the task's final result: once this function
     # returns normally, Celery's own completion handling stores the return
     # value as the SUCCESS result, overwriting any state set via
     # `update_state()` beforehand.
-    return {"progress": 1.0, "pages": pages_data}
+    return {"progress": 1.0, "content_objects": content_objects_data}
 
 
 def acquire_locks(
     content_type: str, object_ids: list[int], language_slugs: list[str], task_id: str
 ) -> list[str] | None:
+    _guard_mt_lock_backend()
     acquired: list[str] = []
     for language_slug in language_slugs:
         for object_id in object_ids:
             key = get_mt_redis_lock_key(content_type, object_id, language_slug)
-            if not cache.add(key, task_id, timeout=None):
+            if not cache.add(key, task_id, timeout=_MT_LOCK_TTL):
                 for k in acquired:
                     cache.delete(k)
                 return None
@@ -440,22 +496,21 @@ def queue_translations(
     # only starts running once a worker picks it up, some indeterminate time
     # later, which would otherwise race with the redirect this triggers -
     # the very next render could easily happen before the flag was set.
-    content_model = apps.get_model("cms", content_type)
-    content_objects = content_model.objects.filter(id__in=object_ids)
-    for language_slug in language_slugs:
-        _get_translation_queryset(content_type, content_objects, language_slug).update(
-            currently_in_machine_translation=True
-        )
+    _set_machine_translation_flag(content_type, object_ids, language_slugs, value=True)
     user_language_slug = get_language()
-    # queue start_async_translations
-    start_async_translation.apply_async(
-        kwargs={
-            "user_id": user_id,
-            "user_language_slug": user_language_slug,
-            "region_id": region_id,
-            "content_type": content_type,
-            "object_ids": object_ids,
-            "language_slugs": language_slugs,
-        },
-        task_id=task_id,
+    # Deferred until the enclosing transaction commits: dispatching
+    # immediately could let a worker read stale (pre-commit) data, or run
+    # the task at all even if this transaction later rolls back.
+    transaction.on_commit(
+        lambda: start_async_translation.apply_async(
+            kwargs={
+                "user_id": user_id,
+                "user_language_slug": user_language_slug,
+                "region_id": region_id,
+                "content_type": content_type,
+                "object_ids": object_ids,
+                "language_slugs": language_slugs,
+            },
+            task_id=task_id,
+        )
     )

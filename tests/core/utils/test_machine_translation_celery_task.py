@@ -7,19 +7,24 @@ import pytest
 from celery import Task
 from django.apps import apps
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import RequestFactory
 
+from integreat_cms.cms.constants.push_notifications import ONLY_AVAILABLE
 from integreat_cms.cms.models import (
     Language,
     LanguageTreeNode,
     Page,
     PageTranslation,
+    PushNotification,
+    PushNotificationTranslation,
     Region,
 )
 from integreat_cms.core.utils.machine_translation_api_client import (
     MachineTranslationApiClient,
 )
 from integreat_cms.core.utils.machine_translation_celery_task import (
+    get_mt_redis_lock_key,
     queue_translations,
     start_async_translation,
 )
@@ -96,10 +101,11 @@ def spy_queue_mt_report() -> Any:
 
 
 class _UnsupportedProvider:
-    """A stand-in for a provider that is configured on a language but has no
-    entry in API_CLIENTS (e.g. SummAI, which is being phased out)."""
+    """A stand-in for a provider that is configured on a language but
+    declares no ``api_client`` (e.g. SummAI, which is being phased out)."""
 
     name = "SummAI"
+    api_client = None
 
 
 @pytest.fixture()
@@ -124,6 +130,19 @@ def test_unknown_user_id_reports_failure(task_kwargs: dict[str, Any]) -> None:
     assert str(result.result) == "User not found"
     translation.refresh_from_db()
     assert translation.currently_in_machine_translation is False
+
+
+@pytest.mark.django_db
+def test_lock_released_after_validation_failure(task_kwargs: dict[str, Any]) -> None:
+    task_kwargs["user_id"] = 999999
+    lock_key = get_mt_redis_lock_key(
+        task_kwargs["content_type"], PAGE_ID, TARGET_LANGUAGE_SLUG
+    )
+    cache.add(lock_key, "some-task-id", timeout=None)
+
+    start_async_translation.apply(kwargs=task_kwargs, throw=False)
+
+    assert cache.get(lock_key) is None
 
 
 @pytest.mark.django_db
@@ -161,6 +180,7 @@ def test_unsupported_provider_skips_language_without_aborting(
 
     assert result.state == "SUCCESS"
     spy_queue_mt_report.assert_called_once_with(
+        result.id,
         task_kwargs["user_id"],
         task_kwargs["region_id"],
         task_kwargs["content_type"],
@@ -184,8 +204,9 @@ def test_empty_object_ids_and_language_slugs_completes(
     result = start_async_translation.apply(kwargs=task_kwargs)
 
     assert result.state == "SUCCESS"
-    assert result.result == {"progress": 1.0, "pages": {}}
+    assert result.result == {"progress": 1.0, "content_objects": {}}
     spy_queue_mt_report.assert_called_once_with(
+        result.id,
         task_kwargs["user_id"],
         task_kwargs["region_id"],
         task_kwargs["content_type"],
@@ -200,6 +221,7 @@ def test_flag_set_during_translation_and_cleared_after(
     update_state_calls: MagicMock,
     stub_translate_queryset: MagicMock,
     stub_language_report: MagicMock,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     The `currently_in_machine_translation` flag is set synchronously in
@@ -220,18 +242,19 @@ def test_flag_set_during_translation_and_cleared_after(
 
     stub_translate_queryset.side_effect = fake_translate
 
-    # `CELERY_TASK_ALWAYS_EAGER` (autouse, see conftest.py) makes the queued
-    # task run synchronously as part of this call, so by the time it
-    # returns, the whole lock-acquire -> translate -> flag-clear cycle has
-    # already happened.
-    queue_translations(
-        request=RequestFactory().get("/"),
-        user_id=task_kwargs["user_id"],
-        region_id=task_kwargs["region_id"],
-        content_type=task_kwargs["content_type"],
-        object_ids=task_kwargs["object_ids"],
-        language_slugs=task_kwargs["language_slugs"],
-    )
+    # The task is dispatched via transaction.on_commit(), which pytest-django's
+    # default (rolled-back) test transactions never actually fire - this
+    # fixture captures and runs those callbacks explicitly. CELERY_TASK_ALWAYS_EAGER
+    # (see core/test_settings.py) then makes the task run synchronously.
+    with django_capture_on_commit_callbacks(execute=True):
+        queue_translations(
+            request=RequestFactory().get("/"),
+            user_id=task_kwargs["user_id"],
+            region_id=task_kwargs["region_id"],
+            content_type=task_kwargs["content_type"],
+            object_ids=task_kwargs["object_ids"],
+            language_slugs=task_kwargs["language_slugs"],
+        )
 
     assert flag_during_call["value"] is True
     translation = PageTranslation.objects.get(
@@ -304,6 +327,7 @@ def test_one_language_failure_does_not_abort_others(
     assert result.result["progress"] == 1.0
 
     spy_queue_mt_report.assert_called_once_with(
+        result.id,
         task_kwargs["user_id"],
         task_kwargs["region_id"],
         task_kwargs["content_type"],
@@ -359,7 +383,9 @@ def test_cache_lock_keys_deleted_for_every_object_and_language(
 
     mock_cache.delete.assert_any_call(f"mt_lock:page:{PAGE_ID}:en")
     mock_cache.delete.assert_any_call(f"mt_lock:page:{PAGE_ID}:fa")
-    assert mock_cache.delete.call_count == 2
+    # Released twice on the success path: once explicitly, once more via the
+    # finally-block backstop.
+    assert mock_cache.delete.call_count == 4
 
 
 @pytest.mark.django_db
@@ -380,7 +406,7 @@ def test_content_type_resolves_form_and_translation_model(
 
 
 @pytest.mark.django_db
-def test_pages_data_reflects_freshly_created_translation(
+def test_content_objects_data_reflects_freshly_created_translation(
     task_kwargs: dict[str, Any],
     update_state_calls: MagicMock,
     stub_translate_queryset: MagicMock,
@@ -388,13 +414,13 @@ def test_pages_data_reflects_freshly_created_translation(
     spy_queue_mt_report: MagicMock,
 ) -> None:
     """
-    Regression test for a real bug found via manual testing: `pages_data`
+    Regression test for a real bug found via manual testing: `content_objects_data`
     used to report "MISSING" for a translation that had just been created
     by this very task, because `get_translation()` reads from a
     `@cached_property` that had already been populated (as "does not exist")
     before the translation was created, and nothing invalidated it
     afterward. Fixed by calling `invalidate_cached_translations()` on every
-    `content_object` right before building `pages_data`.
+    `content_object` right before building `content_objects_data`.
 
     Unlike the other tests in this module, `stub_translate_queryset`'s
     `side_effect` here actually creates a real `PageTranslation` row - the
@@ -422,7 +448,53 @@ def test_pages_data_reflects_freshly_created_translation(
     result = start_async_translation.apply(kwargs=task_kwargs)
 
     assert result.state == "SUCCESS"
-    page_data = result.result["pages"][str(page.id)][TARGET_LANGUAGE_SLUG]
+    page_data = result.result["content_objects"][str(page.id)][TARGET_LANGUAGE_SLUG]
     assert page_data["translation_state"] != "MISSING"
     assert page_data["title"] == "Translated title"
     assert page_data["slug"] == "translated-title"
+
+
+@pytest.mark.django_db
+def test_content_objects_data_for_push_notification_omits_content_only_fields(
+    task_kwargs: dict[str, Any],
+    update_state_calls: MagicMock,
+    stub_translate_queryset: MagicMock,
+    stub_language_report: MagicMock,
+    spy_queue_mt_report: MagicMock,
+) -> None:
+    """
+    Regression test: `PushNotification` is a child of `AbstractBaseModel`,
+    not `AbstractContentModel`, so it has no `invalidate_cached_translations()`,
+    `get_translation_state()`, or translation `status`/`slug` fields. Building
+    the task result for it used to always raise `AttributeError`, which the
+    other `pushnotification` cases in `test_content_type_resolves_form_and_translation_model`
+    never caught because they run with an empty `object_ids`.
+    """
+    region = Region.objects.get(slug=REGION_SLUG)
+    language = Language.objects.get(slug=TARGET_LANGUAGE_SLUG)
+    push_notification = PushNotification.objects.create(mode=ONLY_AVAILABLE)
+    push_notification.regions.add(region)
+
+    def fake_translate(queryset: Any, language_slug: str) -> None:
+        for content_object in queryset:
+            PushNotificationTranslation.objects.create(
+                push_notification=content_object,
+                language=language,
+                title="Translated title",
+                text="",
+            )
+
+    stub_translate_queryset.side_effect = fake_translate
+    task_kwargs["content_type"] = "pushnotification"
+    task_kwargs["object_ids"] = [push_notification.id]
+
+    result = start_async_translation.apply(kwargs=task_kwargs)
+
+    assert result.state == "SUCCESS"
+    push_notification_data = result.result["content_objects"][
+        str(push_notification.id)
+    ][TARGET_LANGUAGE_SLUG]
+    assert push_notification_data["title"] == "Translated title"
+    assert "translation_state" not in push_notification_data
+    assert "slug" not in push_notification_data
+    assert "status" not in push_notification_data
