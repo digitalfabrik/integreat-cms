@@ -172,3 +172,54 @@ def test_get_machine_translation_report_is_destructive_read(
 
     assert second_response.status_code == 200
     assert second_response.json() == {"reports": []}
+
+
+@pytest.mark.django_db
+def test_get_machine_translation_report_returns_multiple_queued_reports_in_order(
+    load_test_data: None,
+) -> None:
+    """
+    Regression test for the bug the move to one-row-per-report was meant to
+    fix: two reports queued for the same user/region/content_type - e.g. from
+    two batches finishing close together - must both survive and come back,
+    in the order they were queued, not have one overwrite the other.
+    """
+    user = get_user_model().objects.get(username="root")
+    region = Region.objects.get(slug=REGION_SLUG)
+    _queue_mt_report(
+        user.id,
+        region.id,
+        "page",
+        ["en"],
+        {"en": {"1": {"succeeded": "ok", "failed": {}}}},
+    )
+    _queue_mt_report(
+        user.id,
+        region.id,
+        "page",
+        ["fa"],
+        {"fa": {"2": {"exception": "provider exploded"}}},
+    )
+
+    client = Client()
+    client.force_login(user)
+    url = reverse(
+        "machine_translation_report",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": "en",
+            "model_type": "page",
+        },
+    )
+
+    response = client.get(url)
+
+    assert response.status_code == 200
+    reports = response.json()["reports"]
+    assert len(reports) == 2
+    assert reports[0]["language_slugs"] == ["en"]
+    assert reports[0]["outcome"] == "FULL_SUCCESS"
+    assert reports[1]["language_slugs"] == ["fa"]
+    assert reports[1]["outcome"] == "PARTIAL_SUCCESS"
+
+    assert client.get(url).json() == {"reports": []}
