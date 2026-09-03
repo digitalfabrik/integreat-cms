@@ -474,9 +474,18 @@ REDIS_CACHE: Final[bool] = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_REDIS_CACHE", "False")),
 )
 
-# Install cacheops only if redis cache is available
 if REDIS_CACHE:
     INSTALLED_APPS.append("cacheops")
+    #: Unix socket to connect to Redis over, if configured. Takes precedence
+    #: over :attr:`REDIS_HOST`/:attr:`REDIS_PORT` when set.
+    REDIS_UNIX_SOCKET: Final[str | None] = os.environ.get(
+        "INTEGREAT_CMS_REDIS_UNIX_SOCKET",
+    )
+    #: Hostname to reach Redis over TCP, e.g. a remote container in a
+    #: docker-compose setup. Ignored when :attr:`REDIS_UNIX_SOCKET` is set.
+    REDIS_HOST: Final[str] = os.environ.get("INTEGREAT_CMS_REDIS_HOST", "127.0.0.1")
+    #: Port to reach Redis over TCP
+    REDIS_PORT: Final[int] = int(os.environ.get("INTEGREAT_CMS_REDIS_PORT", "6379"))
 
 # The default Django Admin application and debug toolbar will only be activated if the system is in debug mode.
 if DEBUG:
@@ -1148,13 +1157,13 @@ CACHES: dict[str, dict[str, str | dict[str, str | bool]]] = {
 
 # Use RedisCache when activated
 if REDIS_CACHE:
-    if unix_socket := os.environ.get("INTEGREAT_CMS_REDIS_UNIX_SOCKET"):
+    if REDIS_UNIX_SOCKET:
         # Use unix socket if available (and also tell cacheops about it)
-        redis_location = f"unix://{unix_socket}?db=0"
-        CACHEOPS_REDIS: Final[str] = f"unix://{unix_socket}?db=1"
+        redis_location = f"unix://{REDIS_UNIX_SOCKET}?db=0"
+        CACHEOPS_REDIS: Final[str] = f"unix://{REDIS_UNIX_SOCKET}?db=1"
     else:
-        # If not, fall back to normal TCP connection
-        redis_location = "redis://127.0.0.1:6379/0"
+        # If not, fall back to TCP connection
+        redis_location = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
     CACHES["default"] = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": redis_location,
@@ -1439,10 +1448,10 @@ CELERY_TASK_TIME_LIMIT = 60 * 60 * 3
 #: broker/backend (no external service required) when Redis isn't
 #: configured, instead of a hardcoded socket path that may not exist.
 if REDIS_CACHE:
-    if unix_socket := os.environ.get("INTEGREAT_CMS_REDIS_UNIX_SOCKET"):
-        CELERY_BROKER_URL = f"redis+socket://{unix_socket}"
+    if REDIS_UNIX_SOCKET:
+        CELERY_BROKER_URL = f"redis+socket://{REDIS_UNIX_SOCKET}"
     else:
-        CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+        CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
     CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 else:
     # No external service needed: `CELERY_TASK_ALWAYS_EAGER` (set for tests,
