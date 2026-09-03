@@ -210,7 +210,7 @@ def fetch_page_accesses(
             region_slug=region_slug,
             languages=languages,
             pages=pages,
-            prefetched_translations=prefetched_translations,
+            prefetched_translations=list(prefetched_translations),
         )
         logger.info("Finished fetching page accesses for %s", region)
     except MatomoException:
