@@ -215,6 +215,7 @@ def test_flag_set_during_translation_and_cleared_after(
     update_state_calls: MagicMock,
     stub_translate_queryset: MagicMock,
     stub_language_report: MagicMock,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     The `currently_in_machine_translation` flag is set synchronously in
@@ -235,18 +236,19 @@ def test_flag_set_during_translation_and_cleared_after(
 
     stub_translate_queryset.side_effect = fake_translate
 
-    # `CELERY_TASK_ALWAYS_EAGER` (autouse, see conftest.py) makes the queued
-    # task run synchronously as part of this call, so by the time it
-    # returns, the whole lock-acquire -> translate -> flag-clear cycle has
-    # already happened.
-    queue_translations(
-        request=RequestFactory().get("/"),
-        user_id=task_kwargs["user_id"],
-        region_id=task_kwargs["region_id"],
-        content_type=task_kwargs["content_type"],
-        object_ids=task_kwargs["object_ids"],
-        language_slugs=task_kwargs["language_slugs"],
-    )
+    # The task is dispatched via transaction.on_commit(), which pytest-django's
+    # default (rolled-back) test transactions never actually fire - this
+    # fixture captures and runs those callbacks explicitly. CELERY_TASK_ALWAYS_EAGER
+    # (autouse, see conftest.py) then makes the task run synchronously.
+    with django_capture_on_commit_callbacks(execute=True):
+        queue_translations(
+            request=RequestFactory().get("/"),
+            user_id=task_kwargs["user_id"],
+            region_id=task_kwargs["region_id"],
+            content_type=task_kwargs["content_type"],
+            object_ids=task_kwargs["object_ids"],
+            language_slugs=task_kwargs["language_slugs"],
+        )
 
     assert flag_during_call["value"] is True
     translation = PageTranslation.objects.get(
