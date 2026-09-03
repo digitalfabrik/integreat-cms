@@ -23,6 +23,9 @@ from django.utils.translation import (
     gettext_lazy as _,
 )
 
+from ...cms.models.machine_translations.machine_translation_report import (
+    MachineTranslationReport,
+)
 from ...cms.models.regions.region import Region
 from ...cms.models.users.user import User
 from ...deepl_api.deepl_api_client import DeepLApiClient
@@ -97,17 +100,9 @@ def get_mt_task_ids(
     return {pair: cached.get(key) for pair, key in lock_keys.items()}
 
 
-#: How long an unread translation report stays queued for the user, in case
-#: they never revisit the relevant list view (safety net, not a hard rule).
-_MT_REPORT_TTL = 60 * 60 * 24 * 7  # 7 days
-
 #: Safety net for a hard-killed worker (finally can't run then); longer than
 #: CELERY_TASK_TIME_LIMIT so it never expires a still-running task's lock.
 _MT_LOCK_TTL = 60 * 60 * 4  # 4 hours
-
-
-def get_mt_report_cache_key(user_id: int, region_id: int, content_type: str) -> str:
-    return f"mt_report:{user_id}:{region_id}:{content_type}"
 
 
 def _queue_mt_report(
@@ -118,20 +113,18 @@ def _queue_mt_report(
     translation_report: dict[str, dict[str, Any]],
 ) -> None:
     """
-    Append a finished translation report to the list of reports the user has
-    not yet seen. Read-modify-write, not atomic - see discussion about
-    accepting rare race conditions between concurrently finishing tasks
-    for the same user/region/content_type.
+    Record a finished translation report for the user to see next time they
+    check - one row per report, so concurrently finishing tasks for the same
+    user/region/content_type can never clobber each other's report the way a
+    cache-based read-modify-write could.
     """
-    key = get_mt_report_cache_key(user_id, region_id, content_type)
-    reports = cache.get(key) or []
-    reports.append(
-        {
-            "language_slugs": language_slugs,
-            "results": translation_report,
-        }
+    MachineTranslationReport.objects.create(
+        user_id=user_id,
+        region_id=region_id,
+        content_type=content_type,
+        language_slugs=language_slugs,
+        results=dict(translation_report),
     )
-    cache.set(key, reports, timeout=_MT_REPORT_TTL)
 
 
 def _get_translation_queryset(

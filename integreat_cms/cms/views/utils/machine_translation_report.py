@@ -7,12 +7,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
-from ....core.utils.machine_translation_celery_task import get_mt_report_cache_key
+from ....cms.models import MachineTranslationReport
 
 if TYPE_CHECKING:
     from typing import Any
@@ -94,20 +94,22 @@ def get_machine_translation_report(
     if not request.user.has_perm(f"cms.view_{model_type}"):
         raise PermissionDenied
 
-    key = get_mt_report_cache_key(request.user.id, request.region.id, model_type)
-    reports = cache.get(key)
-    if not reports:
-        return JsonResponse({"reports": []})
-
-    cache.delete(key)
+    with transaction.atomic():
+        reports_qs = MachineTranslationReport.objects.select_for_update().filter(
+            user_id=request.user.id,
+            region_id=request.region.id,
+            content_type=model_type,
+        )
+        reports = list(reports_qs)
+        reports_qs.delete()
 
     return JsonResponse(
         {
             "reports": [
                 {
-                    "language_slugs": report["language_slugs"],
-                    "results": report["results"],
-                    "outcome": (outcome := _get_report_outcome(report["results"])),
+                    "language_slugs": report.language_slugs,
+                    "results": report.results,
+                    "outcome": (outcome := _get_report_outcome(report.results)),
                     "message": _get_report_message(outcome),
                 }
                 for report in reports
