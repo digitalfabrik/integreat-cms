@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import logging
 from collections import defaultdict
 from typing import Any, TYPE_CHECKING
@@ -98,6 +99,10 @@ def get_mt_task_ids(
 #: How long an unread translation report stays queued for the user, in case
 #: they never revisit the relevant list view (safety net, not a hard rule).
 _MT_REPORT_TTL = 60 * 60 * 24 * 7  # 7 days
+
+#: Safety net for a hard-killed worker (finally can't run then); longer than
+#: CELERY_TASK_TIME_LIMIT so it never expires a still-running task's lock.
+_MT_LOCK_TTL = 60 * 60 * 4  # 4 hours
 
 
 def get_mt_report_cache_key(user_id: int, region_id: int, content_type: str) -> str:
@@ -264,28 +269,28 @@ def _translate_language(
     return report
 
 
-def _clear_locks_and_flags(
-    content_type: str,
-    content_objects: QuerySet[Any],
-    object_ids: list[int],
-    language_slugs: list[str],
+def _release_locks(
+    content_type: str, object_ids: list[int], language_slugs: list[str]
 ) -> None:
-    """
-    Clear the `currently_in_machine_translation` flag and release the redis
-    locks once translation is done. The locks must go before
-    `_build_pages_data()` runs: for an object whose translation was newly
-    *created* but failed, there is still no translation row, so
-    `get_translation_state()` would otherwise fall back to checking the
-    (still-present) lock and incorrectly report
-    MACHINE_TRANSLATION_IN_PROGRESS instead of the real final state.
-    """
+    # No DB dependency, so this can run unconditionally from `finally`.
+    for obj_id in object_ids:
+        for language_slug in language_slugs:
+            cache.delete(get_mt_redis_lock_key(content_type, obj_id, language_slug))
+
+
+def _clear_machine_translation_flag(
+    content_type: str, object_ids: list[int], language_slugs: list[str]
+) -> None:
+    # Builds its own queryset (rather than reusing the caller's
+    # content_objects) so this can also run from `finally`. May raise
+    # LookupError if content_type itself was invalid - callers should
+    # expect that.
+    content_model = apps.get_model("cms", content_type)
+    content_objects = content_model.objects.filter(id__in=object_ids)
     for language_slug in language_slugs:
         _get_translation_queryset(content_type, content_objects, language_slug).update(
             currently_in_machine_translation=False
         )
-    for obj_id in object_ids:
-        for language_slug in language_slugs:
-            cache.delete(get_mt_redis_lock_key(content_type, obj_id, language_slug))
 
 
 def _build_pages_data(
@@ -336,58 +341,68 @@ def start_async_translation(
 ) -> dict[str, Any]:
     activate_language(user_language_slug)
 
-    user = _resolve_user(user_id)
-    region = _resolve_region(region_id)
-    form_class = _resolve_form_class(content_type)
+    try:
+        user = _resolve_user(user_id)
+        region = _resolve_region(region_id)
+        form_class = _resolve_form_class(content_type)
 
-    mock_request = HttpRequest()
-    mock_request.user = user
-    mock_request.region = region
+        mock_request = HttpRequest()
+        mock_request.user = user
+        mock_request.region = region
 
-    content_model = apps.get_model("cms", content_type)
-    content_objects = content_model.objects.filter(id__in=object_ids)
+        content_model = apps.get_model("cms", content_type)
+        content_objects = content_model.objects.filter(id__in=object_ids)
 
-    # The `currently_in_machine_translation` flag is set synchronously in
-    # `queue_translations()`, before this task is even queued - see the
-    # comment there for why.
+        # The `currently_in_machine_translation` flag is set synchronously in
+        # `queue_translations()`, before this task is even queued - see the
+        # comment there for why.
 
-    translation_report: dict[str, dict[str, Any]] = defaultdict(dict)
-    clients_by_provider: dict[str, MachineTranslationApiClient] = {}
+        translation_report: dict[str, dict[str, Any]] = defaultdict(dict)
+        clients_by_provider: dict[str, MachineTranslationApiClient] = {}
 
-    for i_language, language_slug in enumerate(language_slugs):
-        progress_base = i_language / len(language_slugs)
-        client, error_message = _resolve_client_for_language(
-            region, language_slug, mock_request, form_class, clients_by_provider
-        )
-        if client is None:
-            if error_message is None:
-                raise AssertionError(
-                    "_resolve_client_for_language returned no client and no error message"
+        for i_language, language_slug in enumerate(language_slugs):
+            progress_base = i_language / len(language_slugs)
+            client, error_message = _resolve_client_for_language(
+                region, language_slug, mock_request, form_class, clients_by_provider
+            )
+            if client is None:
+                if error_message is None:
+                    raise AssertionError(
+                        "_resolve_client_for_language returned no client and no error message"
+                    )
+                translation_report[language_slug] = _mark_language_failed(
+                    content_objects, error_message
                 )
-            translation_report[language_slug] = _mark_language_failed(
-                content_objects, error_message
-            )
-            self.update_state(
-                state="IN_PROGRESS",
-                meta={"current_language": language_slug, "progress": progress_base},
-            )
-            continue
+                self.update_state(
+                    state="IN_PROGRESS",
+                    meta={"current_language": language_slug, "progress": progress_base},
+                )
+                continue
 
-        translation_report[language_slug] = _translate_language(
-            self,
-            client,
-            content_objects,
-            language_slug,
-            progress_base,
-            len(language_slugs) * len(content_objects),
+            translation_report[language_slug] = _translate_language(
+                self,
+                client,
+                content_objects,
+                language_slug,
+                progress_base,
+                len(language_slugs) * len(content_objects),
+            )
+
+        # Must clear before _build_pages_data(), else a newly-created-but-failed
+        # translation would still show MACHINE_TRANSLATION_IN_PROGRESS via the lock.
+        _release_locks(content_type, object_ids, language_slugs)
+        _clear_machine_translation_flag(content_type, object_ids, language_slugs)
+
+        pages_data = _build_pages_data(content_objects, language_slugs)
+
+        _queue_mt_report(
+            user_id, region_id, content_type, language_slugs, translation_report
         )
-
-    _clear_locks_and_flags(content_type, content_objects, object_ids, language_slugs)
-    pages_data = _build_pages_data(content_objects, language_slugs)
-
-    _queue_mt_report(
-        user_id, region_id, content_type, language_slugs, translation_report
-    )
+    finally:
+        # Idempotent backstop in case the above never ran (e.g. unknown user/region).
+        _release_locks(content_type, object_ids, language_slugs)
+        with contextlib.suppress(LookupError):
+            _clear_machine_translation_flag(content_type, object_ids, language_slugs)
 
     # Returning this (rather than calling `self.update_state(state="SUCCESS", ...)`)
     # is what actually makes it the task's final result: once this function
@@ -404,7 +419,7 @@ def acquire_locks(
     for language_slug in language_slugs:
         for object_id in object_ids:
             key = get_mt_redis_lock_key(content_type, object_id, language_slug)
-            if not cache.add(key, task_id, timeout=None):
+            if not cache.add(key, task_id, timeout=_MT_LOCK_TTL):
                 for k in acquired:
                     cache.delete(k)
                 return None

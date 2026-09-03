@@ -7,6 +7,7 @@ import pytest
 from celery import Task
 from django.apps import apps
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import RequestFactory
 
 from integreat_cms.cms.models import (
@@ -20,6 +21,7 @@ from integreat_cms.core.utils.machine_translation_api_client import (
     MachineTranslationApiClient,
 )
 from integreat_cms.core.utils.machine_translation_celery_task import (
+    get_mt_redis_lock_key,
     queue_translations,
     start_async_translation,
 )
@@ -124,6 +126,19 @@ def test_unknown_user_id_reports_failure(task_kwargs: dict[str, Any]) -> None:
     assert str(result.result) == "User not found"
     translation.refresh_from_db()
     assert translation.currently_in_machine_translation is False
+
+
+@pytest.mark.django_db
+def test_lock_released_after_validation_failure(task_kwargs: dict[str, Any]) -> None:
+    task_kwargs["user_id"] = 999999
+    lock_key = get_mt_redis_lock_key(
+        task_kwargs["content_type"], PAGE_ID, TARGET_LANGUAGE_SLUG
+    )
+    cache.add(lock_key, "some-task-id", timeout=None)
+
+    start_async_translation.apply(kwargs=task_kwargs, throw=False)
+
+    assert cache.get(lock_key) is None
 
 
 @pytest.mark.django_db
@@ -359,7 +374,9 @@ def test_cache_lock_keys_deleted_for_every_object_and_language(
 
     mock_cache.delete.assert_any_call(f"mt_lock:page:{PAGE_ID}:en")
     mock_cache.delete.assert_any_call(f"mt_lock:page:{PAGE_ID}:fa")
-    assert mock_cache.delete.call_count == 2
+    # Released twice on the success path: once explicitly, once more via the
+    # finally-block backstop.
+    assert mock_cache.delete.call_count == 4
 
 
 @pytest.mark.django_db
