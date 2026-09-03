@@ -225,7 +225,12 @@ class MachineTranslationApiClient(ABC):
             target_translation = ctx.existing_target_translation
             if (
                 isinstance(target_translation, AbstractContentTranslation)
-                and target_translation.is_outdated
+                # `is_outdated` treats a translation currently being worked on
+                # as not outdated at all - correct for display, but wrong
+                # here: this task set that very flag on this very
+                # translation before it started, so it would otherwise
+                # always see "not outdated" about itself.
+                and target_translation.is_content_outdated
             ):
                 target_translation.save_new_version(self.request.user)
                 self.refreshed_translations.append(ctx)

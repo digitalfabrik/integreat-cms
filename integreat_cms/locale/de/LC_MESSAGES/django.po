@@ -2776,8 +2776,9 @@ msgstr "wird derzeit maschinell übersetzt"
 msgid ""
 "Flag to indicate a translation is currently being processed by a machine "
 "translation task"
-msgstr "Feld, das anzeigt, dass eine Übersetzung aktuell innerhalb einer "
-"Task zur maschinellen Übersetzung verarbeitet wird."
+msgstr ""
+"Feld, das anzeigt, dass eine Übersetzung aktuell innerhalb einer Task zur "
+"maschinellen Übersetzung verarbeitet wird."
 
 #: cms/models/abstract_content_translation.py
 msgid "machine translated"
@@ -11610,13 +11611,25 @@ msgstr ""
 "Nur Administrator:innen können die passwortlose Authentifizierung aktivieren"
 
 #: cms/views/utils/machine_translation_progress.py
+msgid "the triggering user could not be found"
+msgstr "die auslösende Benutzer:in nicht gefunden werden konnte"
+
+#: cms/views/utils/machine_translation_progress.py
+msgid "the requested region could not be found"
+msgstr "die angeforderte Region nicht gefunden werden konnte"
+
+#: cms/views/utils/machine_translation_progress.py
+msgid "the requested content type is not supported"
+msgstr "die angeforderte Art des Inhalts nicht unterstützt wird"
+
+#: cms/views/utils/machine_translation_progress.py
 #, python-brace-format
 msgid ""
 "Machine translation of multiple pages was not successful. The process was "
-"aborted because of {reason}. Please try again."
+"aborted because {reason}. Please try again."
 msgstr ""
 "Die maschinelle Übersetzung von mehreren Seiten war nicht erfolgreich. Der "
-"Vorgang wurde aus {reason} abgebrochen. Bitte versuchen Sie es erneut."
+"Vorgang wurde abgebrochen, weil {reason}. Bitte versuchen Sie es erneut."
 
 #: cms/views/utils/machine_translation_report.py
 msgid ""
@@ -11937,18 +11950,6 @@ msgstr ""
 "überschritten hat ({source_language} ➜ {target_language})."
 
 #: core/utils/machine_translation_celery_task.py
-msgid "User not found"
-msgstr "Nutzer nicht gefunden"
-
-#: core/utils/machine_translation_celery_task.py
-msgid "Region not found"
-msgstr "Region nicht gefunden"
-
-#: core/utils/machine_translation_celery_task.py
-msgid "Content type not found"
-msgstr "Art des Inhalts nicht gefunden"
-
-#: core/utils/machine_translation_celery_task.py
 #, python-brace-format
 msgid ""
 "The translation into '{language_slug}' cannot be executed, because this "
@@ -11979,7 +11980,7 @@ msgid ""
 msgstr ""
 "Die Übersetzung konnte nicht durchgeführt werden, da wenigstens eine der "
 "angefragten {content_type} bereits nach einer der angefragten Sprachen "
-"übersetzt wird." 
+"übersetzt wird."
 
 #: deepl_api/apps.py
 msgid "DeepL API"
@@ -12337,6 +12338,15 @@ msgstr ""
 
 #~ msgid "Back to the poi form"
 #~ msgstr "Zurück zum Formular"
+
+#~ msgid "User not found"
+#~ msgstr "Nutzer nicht gefunden"
+
+#~ msgid "Region not found"
+#~ msgstr "Region nicht gefunden"
+
+#~ msgid "Content type not found"
+#~ msgstr "Art des Inhalts nicht gefunden"
 
 #~ msgid ""
 #~ "A problem with DeepL API has occurred. Please contact an administrator."
