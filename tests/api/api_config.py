@@ -366,16 +366,16 @@ API_FEEDBACK_VIEWS: Final[list[tuple[str, dict[str, str]]]] = [
         },
     ),
     (
-        "api:poi_feedback",
+        "api:place_feedback",
         {
             "slug": "test-ort",
-            "comment": "Cool POI!",
+            "comment": "Cool Place!",
             "rating": "up",
             "category": "Inhalte",
         },
     ),
     (
-        "api:poi_feedback",
+        "api:place_feedback",
         {
             "slug": "test-ort",
             "comment": "Strange bug!",
@@ -521,10 +521,10 @@ API_FEEDBACK_ERRORS: Final[
         {"code": 404, "error": "No matching page found for slug."},
     ),
     (
-        "api:poi_feedback",
+        "api:place_feedback",
         {"region_slug": "augsburg", "language_slug": "de"},
         {"slug": "not-exist", "rating": "down"},
-        {"code": 404, "error": "No matching location found for slug."},
+        {"code": 404, "error": "No matching place found for slug."},
     ),
     (
         "api:imprint_page_feedbacks",

@@ -36,6 +36,7 @@ def transform_region(region: Region) -> dict[str, Any]:
         "plz": region.postal_code,
         "extras": region.offers.exists(),
         "events": region.events_enabled,
+        # The key stays "pois" because it is part of the public API contract
         "pois": region.locations_enabled,
         "contacts": region.contacts_enabled,
         "push_notifications": region.push_notifications_enabled,

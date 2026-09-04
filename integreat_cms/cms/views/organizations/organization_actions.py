@@ -45,7 +45,9 @@ def archive(
         logger.info("%r couldn't be archived by %r", organization, request.user)
         messages.error(
             request,
-            _("Organization couldn't be archived as it's used by a page, poi or user"),
+            _(
+                "Organization couldn't be archived as it's used by a page, place or user"
+            ),
         )
 
     return redirect("organizations", region_slug=region_slug)
@@ -102,7 +104,7 @@ def delete(
         logger.info("%r couldn't be deleted by %r", organization, request.user)
         messages.error(
             request,
-            _("Organization couldn't be deleted as it's used by a page, poi or user"),
+            _("Organization couldn't be deleted as it's used by a page, place or user"),
         )
 
     return redirect("organizations", region_slug=region_slug)

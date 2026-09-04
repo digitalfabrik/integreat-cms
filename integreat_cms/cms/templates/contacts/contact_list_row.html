@@ -8,9 +8,9 @@
                class="bulk-select-item" />
     </td>
     <td class="py-3 px-2">
-        <a href="{% url 'edit_poi' region_slug=request.region.slug language_slug=request.region.default_language.slug poi_id=contact.location.id %}"
+        <a href="{% url 'edit_place' region_slug=request.region.slug language_slug=request.region.default_language.slug place_id=contact.place.id %}"
            class="text-blue-500 hover:underline">
-            {{ contact.location }}
+            {{ contact.place }}
         </a>
     </td>
     <td class="px-2 py-3">
@@ -83,7 +83,7 @@
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ restore_dialog_title }}"
                         data-confirmation-subject="{{ contact.name }}"
-                        {% if contact.location.archived %} data-confirmation-referenced-location-title="{{ referenced_location_title }}" data-confirmation-referenced-location-subject="{{ contact.location }}" {% endif %}
+                        {% if contact.place.archived %} data-confirmation-referenced-place-title="{{ referenced_place_title }}" data-confirmation-referenced-place-subject="{{ contact.place }}" {% endif %}
                         data-action="{% url 'restore_contact' contact_id=contact.id region_slug=request.region.slug %}">
                     <i icon-name="refresh-ccw"></i>
                 </button>

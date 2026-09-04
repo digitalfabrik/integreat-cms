@@ -38,7 +38,7 @@ class EventContextMixin(ContextMixin):
                 "restore_dialog_title": _(
                     "Please confirm that you really want to restore this event",
                 ),
-                "referenced_location_title": _(
+                "referenced_place_title": _(
                     "The following linked content will also be restored:",
                 ),
                 "restore_dialog_text": _(
@@ -51,7 +51,7 @@ class EventContextMixin(ContextMixin):
                     "All translations of this event will also be deleted.",
                 ),
                 "help_text": _(
-                    "Create an event location or start typing the name of an existing location. Only published locations can be set as event venues.",
+                    "Create an event place or start typing the name of an existing place. Only published places can be set as event venues.",
                 ),
                 "cannot_copy_title": _(
                     "An event from an external calendar can't be copied.",

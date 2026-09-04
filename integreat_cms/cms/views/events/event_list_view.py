@@ -81,7 +81,7 @@ class EventListView(TemplateView, EventContextMixin, MachineTranslationContextMi
 
         # Filter events according to given filters, if any
         event_filter_form = EventFilterForm(data=request.GET)
-        events, poi, query = event_filter_form.apply(events, region, language_slug)
+        events, place, query = event_filter_form.apply(events, region, language_slug)
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
         paginator = Paginator(
@@ -101,7 +101,7 @@ class EventListView(TemplateView, EventContextMixin, MachineTranslationContextMi
                 "language": language,
                 "languages": region.active_languages,
                 "filter_form": event_filter_form,
-                "filter_poi": poi,
+                "filter_place": place,
                 "translation_status": translation_status,
                 "search_query": query,
                 "source_language": region.get_source_language(language.slug),

@@ -32,7 +32,7 @@ from integreat_cms.cms.models.push_notifications.push_notification import (
 )
 
 from ..constants import status
-from ..models import Page, POI
+from ..models import Page, Place
 from ..utils.stringify_list import iter_to_string
 from ..utils.tree_mutex import tree_mutex
 from .utils.publication_status import change_publication_status
@@ -361,7 +361,7 @@ class BulkArchiveView(BulkActionView):
             title = content_object.best_translation.title
             if self.model is Page and content_object.mirroring_pages.exists():
                 archive_failed_because_embedded.append(title)
-            elif self.model is POI and not content_object.can_be_archived:
+            elif self.model is Place and not content_object.can_be_archived:
                 archive_failed_because_reference.append(title)
             elif content_object.archived:
                 archive_unchanged.append(title)
@@ -427,8 +427,8 @@ class BulkArchiveView(BulkActionView):
             messages.error(
                 request,
                 ngettext_lazy(
-                    "Location {object_names} could not be archived because it is referenced by an event or a contact.",
-                    "The following locations could not be archived because they were referenced by an event or a contact: {object_names}",
+                    "Place {object_names} could not be archived because it is referenced by an event or a contact.",
+                    "The following places could not be archived because they were referenced by an event or a contact: {object_names}",
                     len(archive_failed_because_reference),
                 ).format(
                     object_names=iter_to_string(archive_failed_because_reference),

@@ -262,7 +262,7 @@ class Language(AbstractBaseModel):
             invalidate_obj(obj)
         for obj in self.event_translations.all():
             invalidate_obj(obj)
-        for obj in self.poi_translations.all():
+        for obj in self.place_translations.all():
             invalidate_obj(obj)
         for obj in self.push_notification_translations.all():
             invalidate_obj(obj)

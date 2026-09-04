@@ -45,9 +45,9 @@ class ContactForm(CustomModelForm):
         label=_("Mobile Phone number"),
     )
 
-    use_location_opening_hours = forms.BooleanField(
+    use_place_opening_hours = forms.BooleanField(
         required=False,
-        label=_("Adopt opening hours from linked location as office hours"),
+        label=_("Adopt opening hours from linked place as office hours"),
     )
 
     class Meta:
@@ -62,7 +62,7 @@ class ContactForm(CustomModelForm):
         fields = [
             "area_of_responsibility",
             "name",
-            "location",
+            "place",
             "email",
             "phone_number",
             "mobile_phone_number",
@@ -72,7 +72,7 @@ class ContactForm(CustomModelForm):
         ]
 
         error_messages = {
-            "location": {"invalid_choice": _("Location cannot be empty.")},
+            "place": {"invalid_choice": _("Place cannot be empty.")},
         }
 
     def __init__(self, **kwargs: Any) -> None:
@@ -83,17 +83,17 @@ class ContactForm(CustomModelForm):
         if instance and instance.id:
             adopt_hours = instance.opening_hours is None
             if adopt_hours:
-                instance.opening_hours = instance.location.opening_hours
+                instance.opening_hours = instance.place.opening_hours
 
         super().__init__(**kwargs)
-        self.fields["use_location_opening_hours"].initial = adopt_hours
+        self.fields["use_place_opening_hours"].initial = adopt_hours
 
         if instance and not instance.area_of_responsibility:
             self.fields["area_of_responsibility"].disabled = True
 
     def clean(self) -> dict[str, Any]:
         """
-        Validate the selected location, see :meth:`django.forms.Form.clean`
+        Validate the selected place, see :meth:`django.forms.Form.clean`
 
         :return: The cleaned form data
         """
@@ -101,12 +101,12 @@ class ContactForm(CustomModelForm):
         cleaned_data = super().clean()
         self.cleaned_data["opening_hours"] = self.validate_opening_hours()
 
-        if (location := cleaned_data.get("location")) and location.archived:
+        if (place := cleaned_data.get("place")) and place.archived:
             self.add_error(
-                "location",
+                "place",
                 forms.ValidationError(
                     _(
-                        "An archived location cannot be used for contacts.",
+                        "An archived place cannot be used for contacts.",
                     ),
                     code="invalid",
                 ),
@@ -120,7 +120,7 @@ class ContactForm(CustomModelForm):
         :return: The valid opening hours
         """
 
-        if self.cleaned_data["use_location_opening_hours"]:
+        if self.cleaned_data["use_place_opening_hours"]:
             return None
 
         # Only show generic error message because users cannot directly modify the JSON input

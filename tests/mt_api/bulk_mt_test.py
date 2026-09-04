@@ -18,7 +18,7 @@ from unittest.mock import patch
 import pytest
 from django.urls import reverse
 
-from integreat_cms.cms.models import Event, Page, POI, Region
+from integreat_cms.cms.models import Event, Page, Place, Region
 from integreat_cms.cms.utils.stringify_list import iter_to_string
 from integreat_cms.core.utils.word_count import word_count
 from integreat_cms.google_translate_api.google_translate_api_client import (
@@ -46,7 +46,7 @@ content_role_id_combination = [
         [28],
     ),
     (
-        POI,
+        Place,
         PRIV_STAFF_ROLES + WRITE_ROLES,
         [6],
     ),
@@ -71,7 +71,7 @@ def test_bulk_mt(
     caplog: LogCaptureFixture,
 ) -> None:
     """
-    Check for bulk machine translation of pages/events/pois via the MT API
+    Check for bulk machine translation of pages/events/places via the MT API
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
@@ -100,7 +100,7 @@ def test_bulk_mt(
         )
         expected_word_count += word_count(attrs)
 
-    # Translate the pois
+    # Translate the places
     machine_translation = reverse(
         "machine_translation_" + content_type._meta.default_related_name,
         kwargs={
@@ -153,7 +153,7 @@ def test_bulk_mt(
                     == f"<p>This is your translation from {provider}</p>"
                 )
                 if (
-                    content_type == POI
+                    content_type == Place
                     and translation[target_language_slug].meta_description
                 ):
                     assert (
@@ -374,12 +374,12 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
     # Log the user in
     client, _role = login_role_user
 
-    # Translate the pois
-    up_to_date_poi_id = 4
-    ready_for_mt_poi_id = 6
+    # Translate the places
+    up_to_date_place_id = 4
+    ready_for_mt_place_id = 6
 
     machine_translation = reverse(
-        "machine_translation_pois",
+        "machine_translation_places",
         kwargs={
             "region_slug": REGION_SLUG,
             "language_slug": target_language_slug,
@@ -393,44 +393,51 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
     ):
         response = client.post(
             machine_translation,
-            data={"selected_ids[]": [up_to_date_poi_id, ready_for_mt_poi_id]},
+            data={"selected_ids[]": [up_to_date_place_id, ready_for_mt_place_id]},
         )
         print(response.headers)
 
         assert response.status_code == 302
-        poi_tree = reverse(
-            "pois",
+        place_tree = reverse(
+            "places",
             kwargs={
                 "region_slug": REGION_SLUG,
                 "language_slug": target_language_slug,
             },
         )
-        assert response.headers.get("Location") == poi_tree
-        response = client.get(poi_tree)
+        assert response.headers.get("Location") == place_tree
+        response = client.get(place_tree)
 
-        poi_translations = get_content_translations(
-            POI,
-            [up_to_date_poi_id, ready_for_mt_poi_id],
+        place_translations = get_content_translations(
+            Place,
+            [up_to_date_place_id, ready_for_mt_place_id],
             source_language_slug,
             target_language_slug,
         )
 
-        for poi_translation in poi_translations:
+        for place_translation in place_translations:
             # Check for a failure message if translation was already up-to-date
-            if poi_translation[source_language_slug].poi_id == up_to_date_poi_id:
+            if place_translation[source_language_slug].place_id == up_to_date_place_id:
                 assert_message_in_log(
-                    f'ERROR    There already is an up-to-date translation for "{poi_translation[settings.LANGUAGE_CODE].title}"',
+                    f'ERROR    There already is an up-to-date translation for "{place_translation[settings.LANGUAGE_CODE].title}"',
                     caplog,
                 )
-                assert poi_translation[target_language_slug].machine_translated is False
+                assert (
+                    place_translation[target_language_slug].machine_translated is False
+                )
 
             # Check for a successful message if translation was ready for mt
-            if poi_translation[source_language_slug].poi_id == ready_for_mt_poi_id:
+            if (
+                place_translation[source_language_slug].place_id
+                == ready_for_mt_place_id
+            ):
                 assert_message_in_log(
-                    f'SUCCESS  Location "{poi_translation[source_language_slug]}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
+                    f'SUCCESS  Place "{place_translation[source_language_slug]}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
                     caplog,
                 )
-                assert poi_translation[target_language_slug].machine_translated is True
+                assert (
+                    place_translation[target_language_slug].machine_translated is True
+                )
 
 
 @pytest.mark.django_db

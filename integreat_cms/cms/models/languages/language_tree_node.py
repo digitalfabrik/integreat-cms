@@ -162,8 +162,8 @@ class LanguageTreeNode(AbstractTreeNode):
             invalidate_obj(page)
         for event in region.events.all():
             invalidate_obj(event)
-        for poi in region.pois.all():
-            invalidate_obj(poi)
+        for place in region.places.all():
+            invalidate_obj(place)
         for push_notification in region.push_notifications.all():
             invalidate_obj(push_notification)
         if region.imprint:
@@ -183,10 +183,10 @@ class LanguageTreeNode(AbstractTreeNode):
         event_translations = self.language.event_translations
         # filter those translations that belong to the region and delete them
         event_translations.filter(event__region=region).delete()
-        # get all poi translations assigned to the language node
-        poi_translations = self.language.poi_translations
+        # get all place translations assigned to the language node
+        place_translations = self.language.place_translations
         # filter those translations that belong to the region and delete them
-        poi_translations.filter(poi__region=region).delete()
+        place_translations.filter(place__region=region).delete()
 
         result = super().delete(*args, **kwargs)
 
