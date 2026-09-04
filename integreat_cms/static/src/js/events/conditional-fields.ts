@@ -59,7 +59,7 @@ window.addEventListener("load", () => {
         });
     }
 
-    // Toggle for location block and meeting url block in poi-box.ts
+    // Toggle for place block and meeting url block in place-box.ts
 
     // The list of time range options
     const eventsCustomTimeRangeCheckboxList = document.getElementById("id_events_time_range");

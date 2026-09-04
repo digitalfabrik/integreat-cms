@@ -13,7 +13,7 @@ from linkcheck.models import Link
 from ..abstract_content_model import AbstractContentModel, ContentQuerySet
 from ..external_calendars.external_calendar import ExternalCalendar
 from ..media.media_file import MediaFile
-from ..pois.poi import POI
+from ..places.place import Place
 from .event_translation import EventTranslation
 from .recurrence_rule import RecurrenceRule
 
@@ -97,18 +97,18 @@ class Event(AbstractContentModel):
     Can be directly imported from :mod:`~integreat_cms.cms.models`.
     """
 
-    location = models.ForeignKey(
-        POI,
+    place = models.ForeignKey(
+        Place,
         null=True,
         blank=True,
         on_delete=models.PROTECT,
-        verbose_name=_("location"),
+        verbose_name=_("place"),
     )
     meeting_url = models.URLField(
         blank=True,
         default="",
         verbose_name=_("Online event link"),
-        help_text=_("Link to the online event if it has no physical location."),
+        help_text=_("Link to the online event if it has no physical place."),
     )
     start = models.DateTimeField(verbose_name=_("start"))
     end = models.DateTimeField(
@@ -242,13 +242,13 @@ class Event(AbstractContentModel):
         return timezone.localtime(self.end)
 
     @cached_property
-    def has_location(self) -> bool:
+    def has_place(self) -> bool:
         """
-        This property checks whether the event has a physical location (:class:`~integreat_cms.cms.models.pois.poi.POI`).
+        This property checks whether the event has a physical place (:class:`~integreat_cms.cms.models.places.place.Place`).
 
-        :return: Whether event has a physical location
+        :return: Whether event has a physical place
         """
-        return bool(self.location)
+        return bool(self.place)
 
     def get_occurrences(self, start: datetime, end: datetime) -> list[datetime]:
         """
@@ -303,8 +303,8 @@ class Event(AbstractContentModel):
             # The post_save signal will create link objects from the content
             translation.save(update_timestamp=False)
 
-        if self.location and self.location.archived:
-            self.location.restore()
+        if self.place and self.place.archived:
+            self.place.restore()
 
     def delete(self, *args: Any, **kwargs: Any) -> tuple[int, dict[str, int]]:
         """
@@ -330,10 +330,10 @@ class Event(AbstractContentModel):
         #: The constraints for this model
         constraints = [
             models.CheckConstraint(
-                check=Q(meeting_url="") | Q(location=None),
-                name="meeting_url_requires_no_location",
+                check=Q(meeting_url="") | Q(place=None),
+                name="meeting_url_requires_no_place",
                 violation_error_message=_(
-                    "An event with a location can't have a meeting URL",
+                    "An event with a place can't have a meeting URL",
                 ),
             ),
         ]

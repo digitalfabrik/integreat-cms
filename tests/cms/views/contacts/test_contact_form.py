@@ -26,10 +26,10 @@ from tests.utils import assert_message_in_log
 
 # Use the region Augsburg, as it has some contacts in the test data
 REGION_SLUG = "augsburg"
-# Use the location with id=6, as it is used by the contacts of Augsburg and has already a primary contact.
-POI_ID = 6
-# The default value handed as POI ID if no POI is selected
-DUMMY_POI_ID = -1
+# Use the place with id=6, as it is used by the contacts of Augsburg and has already a primary contact.
+PLACE_ID = 6
+# The default value handed as Place ID if no Place is selected
+DUMMY_PLACE_ID = -1
 
 
 @pytest.mark.django_db
@@ -56,13 +56,13 @@ def test_create_a_new_contact(
     response = client.post(
         new_contact,
         data={
-            "location": POI_ID,
+            "place": PLACE_ID,
             "area_of_responsibility": "Title",
             "name": "Name",
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
             "website": "https://integreat-app.de/",
-            "use_location_opening_hours": True,
+            "use_place_opening_hours": True,
             "opening_hours": "null",
         },
     )
@@ -106,7 +106,7 @@ def test_edit_a_contact(
 
     region = Region.objects.filter(slug=REGION_SLUG).first()
     contact_id = (
-        Contact.objects.filter(location__region=region)
+        Contact.objects.filter(place__region=region)
         .exclude(area_of_responsibility="")
         .first()
         .id
@@ -122,13 +122,13 @@ def test_edit_a_contact(
     response = client.post(
         edit_contact,
         data={
-            "location": POI_ID,
+            "place": PLACE_ID,
             "area_of_responsibility": "Title Updated",
             "name": "New Name",
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
             "website": "https://integreat-app.de/",
-            "use_location_opening_hours": True,
+            "use_place_opening_hours": True,
             "opening_hours": "null",
         },
     )
@@ -156,14 +156,14 @@ def test_edit_a_contact(
 
 
 @pytest.mark.django_db
-def test_no_contact_without_poi(
+def test_no_contact_without_place(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
 ) -> None:
     """
-    Test that a new contact cannot be created without any POI selected.
+    Test that a new contact cannot be created without any Place selected.
     """
     client, role = login_role_user
 
@@ -179,7 +179,7 @@ def test_no_contact_without_poi(
     response = client.post(
         new_contact,
         data={
-            "location": DUMMY_POI_ID,
+            "place": DUMMY_PLACE_ID,
             "area_of_responsibility": "Title",
             "name": "Name",
             "email": "mail@mail.integreat",
@@ -190,10 +190,10 @@ def test_no_contact_without_poi(
 
     if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
-            "ERROR    Location: Location cannot be empty.",
+            "ERROR    Place: Place cannot be empty.",
             caplog,
         )
-        assert "Location: Location cannot be empty." in response.content.decode("utf-8")
+        assert "Place: Place cannot be empty." in response.content.decode("utf-8")
 
     elif role == ANONYMOUS:
         assert response.status_code == 302
@@ -229,7 +229,7 @@ def test_at_least_one_field_filled(
     response = client.post(
         new_contact,
         data={
-            "location": POI_ID,
+            "place": PLACE_ID,
             "area_of_responsibility": "",
             "name": "",
             "email": "",
@@ -260,14 +260,14 @@ def test_at_least_one_field_filled(
 
 
 @pytest.mark.django_db
-def test_one_primary_contact_per_poi(
+def test_one_primary_contact_per_place(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     caplog: LogCaptureFixture,
 ) -> None:
     """
-    Test that for each POI no second contact without title and name can be created.
+    Test that for each Place no second contact without title and name can be created.
     """
     client, role = login_role_user
 
@@ -283,7 +283,7 @@ def test_one_primary_contact_per_poi(
     response = client.post(
         new_contact,
         data={
-            "location": POI_ID,
+            "place": PLACE_ID,
             "area_of_responsibility": "",
             "name": "",
             "email": "mail@mail.integreat",
@@ -294,11 +294,11 @@ def test_one_primary_contact_per_poi(
 
     if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
-            "ERROR    Only one contact per location can have an empty area of responsibility.",
+            "ERROR    Only one contact per place can have an empty area of responsibility.",
             caplog,
         )
         assert (
-            "Only one contact per location can have an empty area of responsibility."
+            "Only one contact per place can have an empty area of responsibility."
             in response.content.decode("utf-8")
         )
 
@@ -328,7 +328,7 @@ def test_phone_number_conversion(
     ]
     for variant in variants:
         form_data = {
-            "location": POI_ID,
+            "place": PLACE_ID,
             "area_of_responsibility": "test",
             "name": "",
             "email": "mail@mail.integreat",
@@ -336,7 +336,7 @@ def test_phone_number_conversion(
             "website": "https://integreat-app.de/",
         }
 
-        contact = Contact.objects.filter(location__region__slug=REGION_SLUG).first()
+        contact = Contact.objects.filter(place__region__slug=REGION_SLUG).first()
         request = WSGIRequest(
             {
                 "REQUEST_METHOD": "POST",

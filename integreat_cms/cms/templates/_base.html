@@ -190,11 +190,11 @@
                         </a>
                     </div>
                 {% endif %}
-                {% if perms.cms.view_poi %}
-                    <div class="{% if current_menu_item|in_list:'pois,pois_form' %} active {% endif %}">
-                        <a href="{% url 'pois' region_slug=request.region.slug %}">
+                {% if perms.cms.view_place %}
+                    <div class="{% if current_menu_item|in_list:'places,places_form' %} active {% endif %}">
+                        <a href="{% url 'places' region_slug=request.region.slug %}">
                             <i icon-name="map-pin"></i>
-                            {% translate "Locations" %}
+                            {% translate "Places" %}
                         </a>
                     </div>
                 {% endif %}
@@ -334,11 +334,11 @@
                         {% translate "Feedback" %}
                     </a>
                 {% endif %}
-                {% if perms.cms.view_poicategory %}
-                    <a href="{% url 'poicategories' %}"
-                       class="{% if current_menu_item == 'poicategories' %} active{% endif %}">
+                {% if perms.cms.view_placecategory %}
+                    <a href="{% url 'placecategories' %}"
+                       class="{% if current_menu_item == 'placecategories' %} active{% endif %}">
                         <i icon-name="tag"></i>
-                        {% translate "Location Categories" %}
+                        {% translate "Place Categories" %}
                     </a>
                 {% endif %}
             {% endif %}

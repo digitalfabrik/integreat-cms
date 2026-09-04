@@ -1,6 +1,6 @@
 """
 This is a collection of tags and filters which are useful for all content types (:class:`~integreat_cms.cms.models.pages.page.Page`,
-:class:`~integreat_cms.cms.models.events.event.Event` and :class:`~integreat_cms.cms.models.pois.poi.POI`).
+:class:`~integreat_cms.cms.models.events.event.Event` and :class:`~integreat_cms.cms.models.places.place.Place`).
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ from ..models import (
     Language,
     Organization,
     PageTranslation,
-    POITranslation,
+    PlaceTranslation,
 )
 
 if TYPE_CHECKING:
@@ -52,7 +52,7 @@ def get_translation(
     :param instance: The content object instance
     :param language_slug: The slug of the requested language
     :return: The translation object of the requested instance
-            or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
+            or ~integreat_cms.cms.models.places.place_translation.PlaceTranslation
     """
     return instance.get_translation(language_slug)
 
@@ -68,7 +68,7 @@ def get_public_translation(
     :param instance: The content object instance
     :param language_slug: The slug of the requested language
     :return: The translation object of the requested instance
-            or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
+            or ~integreat_cms.cms.models.places.place_translation.PlaceTranslation
     """
     return instance.get_public_translation(language_slug)
 
@@ -249,14 +249,14 @@ def object_translation_has_view_perm(
     obj: AbstractContentTranslation,
 ) -> bool:
     """
-    This filter accepts any translation of Event, Page or Poi and returns
+    This filter accepts any translation of Event, Page or Place and returns
     whether this account has the permission to view this object
 
     :param user: The requested user
     :param obj: The requested object
-               ~integreat_cms.cms.models.events.event_translation.EventTranslation, or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
+               ~integreat_cms.cms.models.events.event_translation.EventTranslation, or ~integreat_cms.cms.models.places.place_translation.PlaceTranslation
 
-    :raises ValueError: if the object is not a translation of Event, Page or Poi
+    :raises ValueError: if the object is not a translation of Event, Page or Place
 
     :return: Whether this account is allowed to view this object
     """
@@ -264,8 +264,8 @@ def object_translation_has_view_perm(
         return user.has_perm("cms.view_event")
     if isinstance(obj, PageTranslation):
         return user.has_perm("cms.view_page")
-    if isinstance(obj, POITranslation):
-        return user.has_perm("cms.view_poi")
+    if isinstance(obj, PlaceTranslation):
+        return user.has_perm("cms.view_place")
     if isinstance(obj, ImprintPageTranslation):
         return user.has_perm("cms.view_imprint")
     if isinstance(obj, Organization):

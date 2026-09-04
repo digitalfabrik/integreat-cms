@@ -38,12 +38,12 @@ class EventForm(CustomModelForm):
         label=_("Recurring"),
         help_text=_("Determines whether the event is repeated at regular intervals."),
     )
-    # Whether or not the event has a physical location
-    has_not_location = forms.BooleanField(
+    # Whether or not the event has a physical place
+    has_not_place = forms.BooleanField(
         required=False,
-        label=_("Event does not have a physical location"),
+        label=_("Event does not have a physical place"),
         label_suffix="",
-        help_text=_("Determines whether the event is assigned to a physical location."),
+        help_text=_("Determines whether the event is assigned to a physical place."),
     )
     # Specific fields for the date and time of the start and end of the event
     # These Fields will be used for form the start and date fields of the event model
@@ -84,7 +84,7 @@ class EventForm(CustomModelForm):
             "start",
             "end",
             "icon",
-            "location",
+            "place",
             "meeting_url",
             "external_calendar",
             "external_event_id",
@@ -96,9 +96,9 @@ class EventForm(CustomModelForm):
             "icon": IconWidget(),
         }
         error_messages = {
-            "location": {
+            "place": {
                 "invalid_choice": _(
-                    "Either disable the event location or provide a valid location",
+                    "Either disable the event place or provide a valid place",
                 ),
             },
         }
@@ -125,7 +125,7 @@ class EventForm(CustomModelForm):
             self.fields["end_time"].initial = self.instance.end_local.time()
             self.fields["is_all_day"].initial = self.instance.is_all_day
             self.fields["is_recurring"].initial = self.instance.is_recurring
-            self.fields["has_not_location"].initial = not self.instance.has_location
+            self.fields["has_not_place"].initial = not self.instance.has_place
             self.fields["external_calendar"].initial = (
                 self.instance.external_calendar.pk
                 if self.instance.external_calendar
@@ -149,8 +149,8 @@ class EventForm(CustomModelForm):
         self.data = self.data.copy()
 
         # Apparently we need to drop the invalid fields from data altogether, only from cleaned_data is not sufficient
-        if cleaned_data.get("has_not_location", False):
-            self.data["location"] = None
+        if cleaned_data.get("has_not_place", False):
+            self.data["place"] = None
         else:
             self.data["meeting_url"] = ""
 

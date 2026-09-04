@@ -73,7 +73,7 @@ class Organization(AbstractBaseModel):
 
         :return: the current number of maintained pages of an organization object
         """
-        return self.pages.count() + self.pois.count()
+        return self.pages.count() + self.places.count()
 
     @property
     def num_members(self) -> int:
@@ -87,7 +87,7 @@ class Organization(AbstractBaseModel):
         """
         :return: whether this organization is used by another model
         """
-        return self.pages.exists() or self.pois.exists() or self.members.exists()
+        return self.pages.exists() or self.places.exists() or self.members.exists()
 
     @cached_property
     def backend_edit_link(self) -> str:
@@ -189,7 +189,7 @@ class Organization(AbstractBaseModel):
             was_successful = True
         else:
             logger.debug(
-                "Can't be deleted because this organization is used by a poi, page or user",
+                "Can't be deleted because this organization is used by a place, page or user",
             )
         return was_successful
 
@@ -204,7 +204,7 @@ class Organization(AbstractBaseModel):
             was_successful = True
         else:
             logger.debug(
-                "Can't be archived because this organization is used by a poi, page or user",
+                "Can't be archived because this organization is used by a place, page or user",
             )
         return was_successful
 

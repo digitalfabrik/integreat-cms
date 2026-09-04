@@ -13,7 +13,7 @@ from django.http import JsonResponse
 from ....core.utils.word_count import word_count
 from ....textlab_api.utils import check_hix_score
 from ...constants.machine_translatable_fields import TRANSLATABLE_FIELDS
-from ...models import Event, Page, POI
+from ...models import Event, Page, Place
 
 if TYPE_CHECKING:
     from typing import Literal
@@ -27,7 +27,7 @@ def build_json_for_machine_translation(
     request: HttpRequest,
     region_slug: str,
     language_slug: str,
-    model_type: Literal["page", "event", "poi"],
+    model_type: Literal["page", "event", "place"],
 ) -> JsonResponse:
     """
     This function collects the hix score and the amount of words per content entry from the source
@@ -41,7 +41,7 @@ def build_json_for_machine_translation(
     model_types = {
         "event": Event,
         "page": Page,
-        "poi": POI,
+        "place": Place,
     }
 
     try:

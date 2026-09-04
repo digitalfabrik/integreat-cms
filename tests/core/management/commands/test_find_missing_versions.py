@@ -25,12 +25,12 @@ def test_find_missing_versions_invalid_model() -> None:
         assert not any(get_command_output("find_missing_versions", "invalid"))
     assert (
         str(exc_info.value)
-        == "Error: argument model: Invalid model (must be either page, event or poi)"
+        == "Error: argument model: Invalid model (must be either page, event or place)"
     )
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("model", ["page", "event", "poi"])
+@pytest.mark.parametrize("model", ["page", "event", "place"])
 def test_find_missing_versions_success(load_test_data: None, model: str) -> None:
     """
     Ensure no errors are found in default test data

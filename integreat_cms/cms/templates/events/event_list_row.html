@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load rules %}
 {% load content_filters %}
-{% load poi_filters %}
+{% load place_filters %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4">
         {% if perms.cms.change_event %}
@@ -92,9 +92,9 @@
         {{ event_translation.get_status_display }}
     </td>
     <td class="py-3 pr-2">
-        {% if event.location %}
+        {% if event.place %}
             {% get_language LANGUAGE_CODE as current_language %}
-            <i icon-name="map-pin"></i> {{ event.location|poi_translation_title:current_language }}
+            <i icon-name="map-pin"></i> {{ event.place|place_translation_title:current_language }}
         {% else %}
             {% translate "Not specified" %}
         {% endif %}
@@ -182,7 +182,7 @@
                         data-confirmation-title="{{ restore_dialog_title }}"
                         data-confirmation-text="{{ restore_dialog_text }}"
                         data-confirmation-subject="{{ event_translation.title }}"
-                        {% if event.location and event.location.archived %} data-confirmation-referenced-location-title="{{ referenced_location_title }}" data-confirmation-referenced-location-subject="{{ event.location|poi_translation_title:current_language }}" {% endif %}
+                        {% if event.place and event.place.archived %} data-confirmation-referenced-place-title="{{ referenced_place_title }}" data-confirmation-referenced-place-subject="{{ event.place|place_translation_title:current_language }}" {% endif %}
                         data-action="{% url 'restore_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i icon-name="refresh-ccw"></i>
                 </button>

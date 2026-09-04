@@ -118,12 +118,12 @@ def async_delete_region(region_id: int) -> None:
     region.language_tree_nodes.update(parent=None)
     region.media_directories.update(parent=None)
     region.files.update(parent_directory=None)
-    # Prevent ProtectedError when location gets deleted before their events
-    region.events.update(location=None)
+    # Prevent ProtectedError when place gets deleted before their events
+    region.events.update(place=None)
     # Prevent ProtectedError when media files get deleted before their usages as organization logo
     region.organizations.all().delete()
-    # Prevent ProtectedError when location gets deleted before their contacts
-    Contact.objects.filter(location__region=region).delete()
+    # Prevent ProtectedError when place gets deleted before their contacts
+    Contact.objects.filter(place__region=region).delete()
     # Prevent IntegrityError when multiple feedback objects exist
     region.feedback.all().delete()
     # Disable linkchecking while deleting this region

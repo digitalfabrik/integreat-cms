@@ -29,9 +29,9 @@ class ContactBulkAction(BulkActionView):
 
     def get_extra_filters(self) -> Q:
         """
-        Overwrite to filter queryset for region of the location since contact gets its region from location
+        Overwrite to filter queryset for region of the place since contact gets its region from place
         """
-        return Q(location__region=self.request.region)
+        return Q(place__region=self.request.region)
 
 
 class ArchiveContactBulkAction(ContactBulkAction):

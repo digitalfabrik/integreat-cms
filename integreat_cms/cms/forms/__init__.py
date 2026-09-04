@@ -30,13 +30,13 @@ from .organizations.organization_form import OrganizationForm
 from .pages.page_filter_form import PageFilterForm
 from .pages.page_form import PageForm
 from .pages.page_translation_form import PageTranslationForm
-from .poi_categories.poi_category_form import POICategoryForm
-from .poi_categories.poi_category_translation_form import (
-    poi_category_translation_formset_factory,
-    POICategoryTranslationForm,
+from .place_categories.place_category_form import PlaceCategoryForm
+from .place_categories.place_category_translation_form import (
+    place_category_translation_formset_factory,
+    PlaceCategoryTranslationForm,
 )
-from .pois.poi_form import POIForm
-from .pois.poi_translation_form import POITranslationForm
+from .places.place_form import PlaceForm
+from .places.place_translation_form import PlaceTranslationForm
 from .push_notifications.push_notification_form import PushNotificationForm
 from .push_notifications.push_notification_translation_form import (
     PushNotificationTranslationForm,

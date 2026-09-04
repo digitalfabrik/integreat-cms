@@ -1,0 +1,220 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% load content_filters %}
+{% load rules %}
+{% load place_filters %}
+{% load render_bundle from webpack_loader %}
+{% block content %}
+    <form id="content_form"
+          method="post"
+          enctype="multipart/form-data"
+          data-unsaved-warning>
+        {% csrf_token %}
+        <div class="flex flex-wrap justify-between w-full mb-4">
+            <h1 class="overflow-hidden heading text-ellipsis">
+                {% if is_edit %}
+                    {% if place_translation_form.instance.id %}
+                        {% with place_translation_form.instance.title as place_title %}
+                            {% blocktranslate trimmed %}
+                                Edit place "{{ place_title }}"
+                            {% endblocktranslate %}
+                        {% endwith %}
+                    {% else %}
+                        {% translate "Create new translation of the place" %}
+                    {% endif %}
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% if place_form.instance.backend_translation and LANGUAGE_CODE != language.slug %}
+                        ({% translate "Title in" %} {% translated_language_name LANGUAGE_CODE %}: "{{ place_form.instance.backend_translation.title }}")
+                    {% endif %}
+                {% else %}
+                    {% translate "Create new place" %}
+                {% endif %}
+            </h1>
+            <div class="flex flex-wrap items-center gap-4 ml-auto mr-0">
+                {% if place_form.instance.id and not place_form.instance.archived and perms.cms.change_place %}
+                    {% include "generic_auto_save_note.html" with form_instance=place_translation_form.instance %}
+                {% endif %}
+                {% if place_form.instance.archived %}
+                    <a href="{% url 'archived_places' region_slug=request.region.slug language_slug=language.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% else %}
+                    <a href="{% url 'places' region_slug=request.region.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% endif %}
+                {% if not place_form.instance.archived and perms.cms.change_place %}
+                    <button name="status"
+                            value="{{ DRAFT }}"
+                            class="btn btn-outline no-premature-submission">
+                        {% translate "Save as draft" %}
+                    </button>
+                    <button name="status"
+                            value="{{ PUBLIC }}"
+                            class="btn no-premature-submission"
+                            {% if language != request.region.default_language and not place_form.instance.default_public_translation %} title="{% translate "The default translation is not yet published" %}" disabled {% endif %}>
+                        {% if is_edit and place_translation_form.instance.status == PUBLIC %}
+                            {% translate "Update" %}
+                        {% else %}
+                            {% translate "Publish" %}
+                        {% endif %}
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="pt-4 lg:pt-0 3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
+            <div class="flex flex-col flex-wrap col-span-2 3xl:col-span-1">
+                {% include "_form_language_tabs.html" with target="edit_place" instance=place_form.instance content_field="place_id" %}
+                <div class="flex flex-col flex-wrap gap-4">
+                    <div class="flex flex-col flex-auto w-full bg-white border border-blue-500 rounded shadow-2xl">
+                        <div class="flex flex-col flex-auto w-full p-4">
+                            <div class="flex justify-between">
+                                <label for="{{ place_translation_form.title.id_for_label }}"
+                                       data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='place' %}"
+                                       {% if place_form.instance.id %}data-model-id="{{ place_form.instance.id }}"{% endif %}>
+                                    {{ place_translation_form.title.label }}
+                                </label>
+                                {% if place_translation_form.instance.id %}
+                                    <div class="grid grid-cols-2 text-left">
+                                        <div class="pr-2 font-bold">
+                                            {% translate "Version" %}:
+                                        </div>
+                                        <div>
+                                            {{ place_translation_form.instance.version }}
+                                            (<a href="{% url 'place_versions' place_id=place_form.instance.id region_slug=request.region.slug language_slug=language.slug %}"
+   class="text-blue-500 hover:underline">{% translate "Show" %}</a>)
+                                        </div>
+                                        <div class="pr-2 font-bold">
+                                            {% translate "Publication status" %}:
+                                        </div>
+                                        <div>
+                                            {% if place.archived %}
+                                                {% translate "Archived" %}
+                                            {% else %}
+                                                {{ place_translation_form.instance.get_status_display }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% render_field place_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
+                            <div id="link-container" class="flex items-center">
+                                <label for="{{ place_translation_form.slug.id_for_label }}" class="mr-2">
+                                    {{ place_translation_form.slug.label }}:
+                                </label>
+                                <a id="slug-link"
+                                   href="{{ url_link }}{{ place_translation_form.instance.slug }}/"
+                                   class="text-blue-500 hover:underline">{{ url_link }}{{ place_translation_form.instance.slug }}</a>
+                                {% if perms.cms.change_place %}
+                                    <a id="edit-slug-btn"
+                                       title="{% translate "Edit" %}"
+                                       class="ml-2 btn-icon">
+                                        <i icon-name="pen-line"></i>
+                                    </a>
+                                {% endif %}
+                                <a id="copy-slug-btn"
+                                   data-copy-to-clipboard="{{ place_translation_form.instance.base_link }}{{ place_translation_form.instance.slug }}"
+                                   title="{% translate "Copy to clipboard" %}"
+                                   class="ml-2 btn-icon">
+                                    <i icon-name="copy"></i>
+                                    <i icon-name="check" class="hidden text-green-500"></i>
+                                </a>
+                                <div class="hidden slug-field">
+                                    <label for="{{ place_translation_form.slug.id_for_label }}">
+                                        {{ url_link }}
+                                    </label>
+                                    {% render_field place_translation_form.slug|add_error_class:"slug-error" %}
+                                </div>
+                                <a id="save-slug-btn" class="hidden ml-2 btn-icon">
+                                    <i icon-name="save"></i>
+                                </a>
+                                <a id="restore-slug-btn" class="hidden ml-2 btn-icon">
+                                    <i icon-name="x-circle"></i>
+                                </a>
+                            </div>
+                            <label for="{{ place_translation_form.content.id_for_label }}">
+                                {{ place_translation_form.content.label }}
+                            </label>
+                            {% render_field place_translation_form.content class+="tinymce_textarea flex-auto" %}
+                        </div>
+                    </div>
+                    {% if request.region.seo_enabled %}
+                        <div class="flex flex-col flex-wrap col-span-2 3xl:col-span-1">
+                            <div class="bg-white border border-blue-500 border-solid rounded shadow-2xl">
+                                <div class="p-4 rounded bg-water-500">
+                                    <h3 class="font-bold text-black heading">
+                                        <i icon-name="search" class="pb-1"></i>
+                                        {% translate "SEO section" %}
+                                    </h3>
+                                </div>
+                                <div class="px-4 pb-4 space-y-2 divide-y divide-gray-200">
+                                    <div>
+                                        <label for="{{ place_translation_form.meta_description.id_for_label }}"
+                                               class="secondary">
+                                            {{ place_translation_form.meta_description.label }}
+                                        </label>
+                                        <div class="help-text">
+                                            {{ place_translation_form.meta_description.help_text }}
+                                        </div>
+                                        {% render_field place_translation_form.meta_description|add_error_class:"border-red-500" %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="sm:block md:flex sm:mt-4 3xl:mt-0 3xl:block 4xl:flex">
+                <div id="left-sidebar-column"
+                     class="flex flex-col flex-auto min-w-0 mt-4 md:mt-0 md:mr-4 3xl:mr-0 md:w-full 4xl:mr-4">
+                    {% if is_edit and perms.cms.change_place %}
+                        {% include "./place_form_sidebar/minor_edit_box.html" with box_id="place-minor-edit" %}
+                    {% endif %}
+                    {% include "./place_form_sidebar/position_box.html" with box_id="place-position" %}
+                </div>
+                <div id="right-sidebar-column"
+                     class="flex flex-col min-w-0 3xl:col-end-3 4xl:col-end-auto md:w-full">
+                    {% include "./place_form_sidebar/contact_box.html" with box_id="place-contact" %}
+                    {% if perms.cms.view_contact and request.region.contacts_enabled %}
+                        {% include "./place_form_sidebar/related_contacts_box.html" with box_id="place-related-contacts" %}
+                    {% endif %}
+                    {% include "./place_form_sidebar/opening_hours_box.html" with box_id="place-opening-hours" no_padding=True %}
+                    {% include "./place_form_sidebar/category_box.html" with box_id="place-category" %}
+                    {% include "./place_form_sidebar/icon_box.html" with box_id="place-icon" %}
+                    {% if place_form.organization.field.queryset.exists %}
+                        {% include "./place_form_sidebar/organization_box.html" with box_id="place-organization" %}
+                    {% endif %}
+                    {% include "./place_form_sidebar/barrier_free_box.html" with box_id="place-barrier-free" %}
+                    {% if is_edit and perms.cms.change_place %}
+                        {% include "./place_form_sidebar/action_box.html" with box_id="place-action" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+    <form id="ajax_contact_form"
+          name="ajax_contact_form"
+          method="post"
+          enctype="multipart/form-data"
+          data-unsaved-warning>
+    </form>
+    {{ media_config_data|json_script:"media_config_data" }}
+    {% if not perms.cms.change_place or place_form.instance.id and place_form.instance.archived %}
+        {% include "../_tinymce_config.html" with readonly=1 %}
+    {% else %}
+        {% include "../_tinymce_config.html" %}
+        {% if place_form.instance.id %}
+            {% include "../_content_edit_lock.html" with lock_key=place_form.instance.edit_lock_key %}
+        {% endif %}
+    {% endif %}
+    {% if place_form.instance.id %}
+        {% include "../generic_confirmation_dialog.html" %}
+    {% endif %}
+{% endblock content %}
+{% block javascript %}
+    {% render_bundle 'editor' 'js' %}
+{% endblock javascript %}
+{% block javascript_head %}
+    {% render_bundle 'map' 'js' %}
+    {% render_bundle 'map' 'css' %}
+{% endblock javascript_head %}

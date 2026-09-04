@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class MapFeedback(Feedback):
     """
-    Database model representing feedback about the map (e.g. missing pois).
+    Database model representing feedback about the map (e.g. missing places).
     """
 
     @property
@@ -24,7 +24,7 @@ class MapFeedback(Feedback):
 
         :return: The name of the object this feedback refers to
         """
-        return _("Locations")
+        return _("Places")
 
     @cached_property
     def object_url(self) -> str:
@@ -34,7 +34,7 @@ class MapFeedback(Feedback):
         :return: The url to the referred object
         """
         return reverse(
-            "pois",
+            "places",
             kwargs={
                 "region_slug": self.region.slug,
             },

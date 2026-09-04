@@ -25,8 +25,15 @@ import pytest
 from django.urls import resolve, reverse
 
 from integreat_cms.cms.constants import status
-from integreat_cms.cms.models import Event, Language, Page, PageTranslation, POI, Region
-from integreat_cms.cms.models.pois.poi import get_default_opening_hours
+from integreat_cms.cms.models import (
+    Event,
+    Language,
+    Page,
+    PageTranslation,
+    Place,
+    Region,
+)
+from integreat_cms.cms.models.places.place import get_default_opening_hours
 from integreat_cms.core.utils.word_count import word_count
 from integreat_cms.google_translate_api.google_translate_api_client import (
     GoogleTranslateApiClient,
@@ -106,7 +113,7 @@ content_role_id_data_combination = [
         },
     ),
     (
-        POI,
+        Place,
         PRIV_STAFF_ROLES + WRITE_ROLES,
         4,
         {
@@ -137,7 +144,7 @@ content_role_id_data_combination = [
             "start_date": "2030-01-01",
             "end_date": "2030-01-01",
             "is_all_day": True,
-            "has_not_location": True,
+            "has_not_place": True,
         },
     ),
 ]
@@ -159,7 +166,7 @@ def test_automatic_translation(
     caplog: LogCaptureFixture,
 ) -> None:
     """
-    Check machine translation of the page/event/poi when automatic_translation checkbox in set on the form
+    Check machine translation of the page/event/place when automatic_translation checkbox in set on the form
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
@@ -190,8 +197,10 @@ def test_automatic_translation(
         ]
     )
 
-    # Get "page" from PAGE, "poi" from POI and "event" from EVENT
-    content_name = content_type._meta.verbose_name if content_type is not POI else "poi"
+    # Get "page" from PAGE, "place" from Place and "event" from EVENT
+    content_name = (
+        content_type._meta.verbose_name if content_type is not Place else "place"
+    )
 
     create_or_update = (
         "update"

@@ -34,9 +34,9 @@ if TYPE_CHECKING:
 
     T = TypeVar("T")
 
-SlugObject = Literal["page", "event", "poi"]
-DEFAULT_OBJECTS: Final[tuple[SlugObject, ...]] = ("event", "poi", "page")
-ALLOWED_OBJECTS = {"event", "poi", "page"}
+SlugObject = Literal["page", "event", "place"]
+DEFAULT_OBJECTS: Final[tuple[SlugObject, ...]] = ("event", "place", "page")
+ALLOWED_OBJECTS = {"event", "place", "page"}
 
 
 logger = logging.getLogger(__name__)
@@ -46,7 +46,7 @@ if TYPE_CHECKING:
     type ForeignModelType = Literal[
         "page",
         "event",
-        "poi",
+        "place",
         "region",
         "organization",
         "offer-template",
@@ -111,7 +111,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     * :func:`~integreat_cms.cms.forms.regions.region_form.RegionForm.clean_slug`
     * :func:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm.clean_slug`
     * :func:`~integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.clean_slug`
-    * :func:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm.clean_slug`
+    * :func:`~integreat_cms.cms.forms.places.place_translation_form.PlaceTranslationForm.clean_slug`
 
     :param \**kwargs: The supplied keyword arguments
 
@@ -241,7 +241,9 @@ def exclude_current_object[T](
 
 
 def update_translations(
-    translations: QuerySet, foreign_attr: Literal["page", "event", "poi"], dry_run: bool
+    translations: QuerySet,
+    foreign_attr: Literal["page", "event", "place"],
+    dry_run: bool,
 ) -> int:
     logger.info("Updating slugs in %sTranslations", foreign_attr.capitalize())
     counter = 0

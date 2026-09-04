@@ -86,7 +86,7 @@ class TranslationsManagementForm(CustomModelForm):
         fields = [
             "machine_translate_pages",
             "machine_translate_events",
-            "machine_translate_pois",
+            "machine_translate_places",
             "machine_translate_pushnotifications",
         ]
 

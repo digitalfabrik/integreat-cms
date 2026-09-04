@@ -3,7 +3,7 @@
 {% load static %}
 {% load widget_tweaks %}
 {% load content_filters %}
-{% load poi_filters %}
+{% load place_filters %}
 {% load rules %}
 {% load render_bundle from webpack_loader %}
 {% block content %}
@@ -12,7 +12,7 @@
               method="post"
               enctype="multipart/form-data"
               data-unsaved-warning
-              {% if event_form.disabled %}data-disable-poi-query{% endif %}>
+              {% if event_form.disabled %}data-disable-place-query{% endif %}>
             {% csrf_token %}
             {% get_current_language as LANGUAGE_CODE %}
             {% get_language LANGUAGE_CODE as current_language %}
@@ -160,7 +160,7 @@
                     </div>
                     <div id="right-sidebar-column"
                          class="md:w-full 3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col">
-                        {% include "../ajax_poi_form/event_poi_box.html" with form=event_form box_id="event-venue" title=_("Venue") %}
+                        {% include "../ajax_place_form/event_place_box.html" with form=event_form box_id="event-venue" title=_("Venue") %}
                         {% include "./event_form_sidebar/icon_box.html" with box_id="event-icon" %}
                         {% if event_form.instance.id and perms.cms.change_event %}
                             {% include "./event_form_sidebar/actions_box.html" with box_id="event-actions" %}
@@ -169,8 +169,8 @@
                 </div>
             </div>
         </form>
-        <form id="ajax_poi_form"
-              name="ajax_poi_form"
+        <form id="ajax_place_form"
+              name="ajax_place_form"
               method="post"
               enctype="multipart/form-data"
               data-unsaved-warning>

@@ -214,7 +214,7 @@ def render_contact_card(
         if region_id is None:
             contact = Contact.objects.get(pk=contact_id)
         else:
-            contact = Contact.objects.get(pk=contact_id, location__region_id=region_id)
+            contact = Contact.objects.get(pk=contact_id, place__region_id=region_id)
 
         context = {
             "contact": contact,

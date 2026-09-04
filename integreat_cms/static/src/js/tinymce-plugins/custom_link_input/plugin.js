@@ -12,7 +12,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
             },
             body: JSON.stringify({
                 query_string: query,
-                object_types: ["event", "page", "poi"],
+                object_types: ["event", "page", "place"],
                 archived: false,
                 is_link_suggestion: true,
             }),

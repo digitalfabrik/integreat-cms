@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 REGION_SLUG = "augsburg"
 
-# Contact ids from test data (all have location in Augsburg, region 1)
+# Contact ids from test data (all have place in Augsburg, region 1)
 # id=1 name="Martina Musterfrau", not archived
 # id=3 name="Mariana Musterfrau", not archived
 # id=5 name="referred to in a page", not archived

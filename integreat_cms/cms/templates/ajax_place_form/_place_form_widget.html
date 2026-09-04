@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load widget_tweaks %}
+<div>
+    <label for="{{ place_translation_form.title.id_for_label }}">
+        {{ place_translation_form.title.label }}
+    </label>
+    {% render_field place_translation_form.title|append_attr:"form:ajax_place_form" %}
+    <label for="{{ place_form.address.id_for_label }}">
+        {{ place_form.address.label }}
+    </label>
+    {% render_field place_form.address|append_attr:"form:ajax_place_form" %}
+    <label for="{{ place_form.postcode.id_for_label }}">
+        {{ place_form.postcode.label }}
+    </label>
+    {% render_field place_form.postcode|append_attr:"form:ajax_place_form" %}
+    <label for="{{ place_form.city.id_for_label }}">
+        {{ place_form.city.label }}
+    </label>
+    {% render_field place_form.city|append_attr:"form:ajax_place_form" %}
+    <label for="{{ place_form.country.id_for_label }}">
+        {{ place_form.country.label }}
+    </label>
+    {% render_field place_form.country|append_attr:"form:ajax_place_form" %}
+    <label for="{{ place_form.primary_email.id_for_label }}">
+        {{ place_form.primary_email.label }}
+    </label>
+    {% render_field place_form.primary_email|append_attr:"form:ajax_place_form" %}
+    <label for="{{ place_form.primary_phone_number.id_for_label }}">
+        {{ place_form.primary_phone_number.label }}
+    </label>
+    {% render_field place_form.primary_phone_number|append_attr:"form:ajax_place_form" %}
+    <label for="{{ place_form.primary_website.id_for_label }}">
+        {{ place_form.primary_website.label }}
+    </label>
+    {% render_field place_form.primary_website|append_attr:"form:ajax_place_form" %}
+    <label for="{{ place_form.category.id_for_label }}">
+        {{ place_form.category.label }}
+    </label>
+    {% render_field place_form.category|append_attr:"form:ajax_place_form" %}
+    <button name="status"
+            value="{{ PUBLIC }}"
+            form="ajax_place_form"
+            data-btn-save-place-form
+            class="btn w-full mt-4 mb-2"
+            data-url="{% url 'create_place_ajax' region_slug=request.region.slug language_slug=request.region.default_language.slug %}">
+        {% translate "Publish" %}
+    </button>
+</div>

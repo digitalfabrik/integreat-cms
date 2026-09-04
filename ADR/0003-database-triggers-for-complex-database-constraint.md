@@ -25,7 +25,7 @@ in Django nor SQL.
 ## Decision
 
 We use a database trigger that runs on INSERT and UPDATE, to guarantee that it
-is impossible to enter new translation objects with duplicate slugs for pages, pois and events.
+is impossible to enter new translation objects with duplicate slugs for pages, places and events.
 
 ## Consequences
 

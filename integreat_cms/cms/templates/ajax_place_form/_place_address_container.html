@@ -1,0 +1,28 @@
+{% load i18n %}
+<div id="place-address-container"
+     class="{% if not place %} hidden{% endif %}">
+    <label class="secondary">
+        {% translate "Address" %}
+    </label>
+    <input name="place"
+           id="id_place"
+           class="hidden"
+           value="{% if place %}{{ place.id }}{% else %}-1{% endif %}"
+           readonly
+           {% if disabled %}disabled{% endif %} />
+    <div class="text-lg">
+        {% if place %}
+            {{ place.address }}
+            <br>
+            {{ place.postcode }} {{ place.city }}
+            <br>
+            {{ place.country }}
+        {% endif %}
+    </div>
+    <a href="{{ place.map_url }}"
+       class="text-blue-500 hover:underline"
+       target="_blank"
+       rel="noopener noreferrer">
+        {% translate "Open on Maps" %}
+    </a>
+</div>

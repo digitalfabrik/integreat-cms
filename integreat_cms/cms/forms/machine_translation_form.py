@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
     from treebeard.ns_tree import NS_NodeQuerySet
 
-    from ..models import EventTranslation, PageTranslation, POITranslation
+    from ..models import EventTranslation, PageTranslation, PlaceTranslation
 
 from ...core.utils.machine_translation_provider import MachineTranslationProvider
 from ...textlab_api.utils import check_hix_score
@@ -139,7 +139,7 @@ class MachineTranslationForm(CustomContentModelForm):
     def save(
         self,
         commit: bool = True,
-    ) -> EventTranslation | (PageTranslation | POITranslation):
+    ) -> EventTranslation | (PageTranslation | PlaceTranslation):
         """
         Create machine translations and save them to the database
 

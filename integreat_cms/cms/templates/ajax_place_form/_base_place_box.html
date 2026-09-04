@@ -1,0 +1,86 @@
+{% load widget_tweaks %}
+{% load place_filters %}
+{% load i18n %}
+{% if current_menu_item == "events_form" %}
+    {% render_field form.has_not_place class+='inline-block' %}
+    <label class="secondary !inline" for="{{ form.has_not_place.id_for_label }}">
+        {{ form.has_not_place.label }}
+    </label>
+    <div id="meeting-url-block"
+         class="{% if not form.has_not_place.value %}hidden{% endif %}">
+        <label for="{{ form.meeting_url.id_for_label }}">
+            {{ form.meeting_url.label }}
+        </label>
+        {% render_field form.meeting_url class+="input w-full" %}
+    </div>
+{% endif %}
+{% if current_menu_item == "contacts" %}
+    <div class="help-text">
+        {{ help_text }}
+    </div>
+{% endif %}
+<div id="place-block"
+     class="{% if form.has_not_place.value %}hidden{% endif %}">
+    {% comment %}
+            This is not for="{{ form.place.id_for_label }}" because the element with that id is a hidden input containing the places id.
+            The visible input element is place-query-input (created a few lines further down) and updates the hidden input on user interaction.
+    {% endcomment %}
+    <label for="place-query-input">
+        {{ form.place.label }}
+    </label>
+    {% if archived %}
+        {% if place %}
+            <div class="text-lg">
+                {{ place|place_translation_title:current_language }}
+            </div>
+        {% endif %}
+    {% else %}
+        {% translate "Select a place" as place_title_placeholder %}
+        <div class="relative my-2">
+            <input id="place-query-input"
+                   type="search"
+                   autocomplete="off"
+                   class="pr-8 appearance-none block w-full bg-white text-gray-800 {% if place %}placeholder-gray-800 focus:placeholder-gray-800{% else %}focus:placeholder-gray-600{% endif %} border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                   {% if form.disabled %}disabled{% endif %}
+                   placeholder="{% if place %}{{ place|place_translation_title:current_language }}{% else %}{{ place_title_placeholder }}{% endif %}"
+                   data-url="{% url 'search_place_ajax' region_slug=request.region.slug %}"
+                   data-region-slug="{{ request.region.slug }}"
+                   data-default-placeholder="{{ place_title_placeholder }}" />
+            <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                <button id="place-remove"
+                        title="{% translate "Remove place" %}"
+                        {% if form.disabled %}disabled{% endif %}>
+                    <i icon-name="pencil" class="h-5 w-5"></i>
+                </button>
+            </div>
+        </div>
+        <p class="text-sm italic block mt-2 mb-2">
+            {% if current_menu_item == "events_form" %}
+                {{ help_text }}
+            {% endif %}
+        </p>
+        <div class="relative" id="place-query-result">
+            {% include "_place_query_result.html" %}
+        </div>
+        {% if current_menu_item == "contacts" %}
+            <div id="info-place-mandatory"
+                 class="py-2 {% if place %}hidden{% endif %}">
+                <i icon-name="alert-circle" class="h-5 w-5"></i>
+                <span class="help-text italic align-middle">
+                    {% trans "This field cannot be empty. Please select a place." %}
+                </span>
+            </div>
+        {% endif %}
+    {% endif %}
+    {% include "ajax_place_form/_place_address_container.html" with disabled=form.has_not_place.value %}
+    <div id="place-ajax-success-message"
+         class="bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 hidden">
+        {% trans "The new place was successfully created." %}
+    </div>
+    <div id="place-ajax-error-message"
+         class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 hidden">
+        {% trans "An error occurred." %}
+    </div>
+    <div id="place-form-widget">
+    </div>
+</div>

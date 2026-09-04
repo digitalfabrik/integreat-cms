@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.utils.html import strip_tags
 
 from ..decorators import json_response
-from .locations import transform_poi
+from .places import transform_place
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
     from django.http import HttpRequest
 
-    from ...cms.models import Event, EventTranslation, POITranslation
+    from ...cms.models import Event, EventTranslation, PlaceTranslation
 
 
 def transform_event(event: Event, custom_date: date | None = None) -> dict[str, Any]:
@@ -64,14 +64,14 @@ def transform_event(event: Event, custom_date: date | None = None) -> dict[str, 
 
 def transform_event_translation(
     event_translation: EventTranslation,
-    poi_translation: POITranslation | None,
+    place_translation: PlaceTranslation | None,
     recurrence_date: date | None = None,
 ) -> dict[str, Any]:
     """
     Function to create a JSON from a single event_translation object.
 
     :param event_translation: The event translation object which should be converted
-    :param poi_translation: The poi translation object which is associated to this event
+    :param place_translation: The place translation object which is associated to this event
     :param recurrence_date: The recurrence date for the event
     :return: data necessary for API
     """
@@ -100,9 +100,9 @@ def transform_event_translation(
             else event_translation.available_languages_dict
         ),
         "thumbnail": event.icon.url if event.icon else None,
-        "location": transform_poi(event.location),
+        "location": transform_place(event.place),
         "location_path": (
-            poi_translation.get_absolute_url() if poi_translation else None
+            place_translation.get_absolute_url() if place_translation else None
         ),
         "meeting_url": event.meeting_url or None,
         "event": transform_event(event, recurrence_date),
@@ -146,14 +146,14 @@ def transform_available_languages(
 
 def transform_event_recurrences(
     event_translation: EventTranslation,
-    poi_translation: POITranslation | None,
+    place_translation: PlaceTranslation | None,
     today: date,
 ) -> Iterator[dict[str, Any]]:
     """
     Yield all future recurrences of the event.
 
     :param event_translation: The event translation object which should be converted
-    :param poi_translation: The poi translation object which is associated to this event
+    :param place_translation: The place translation object which is associated to this event
     :param today: The first date at which event may be yielded
     :return: An iterator over all future recurrences up to ``settings.API_EVENTS_MAX_TIME_SPAN_DAYS``
     """
@@ -180,7 +180,7 @@ def transform_event_recurrences(
 
         yield transform_event_translation(
             event_translation,
-            poi_translation,
+            place_translation,
             recurrence_date,
         )
 
@@ -209,9 +209,9 @@ def events(
         if not event.is_past and (
             event_translation := event.get_public_translation(language_slug)
         ):
-            poi_translation = (
-                event.location.get_public_translation(language_slug)
-                if event_translation.event.location
+            place_translation = (
+                event.place.get_public_translation(language_slug)
+                if event_translation.event.place
                 else None
             )
             if event.is_recurring and not combine_recurring_events:
@@ -219,14 +219,14 @@ def events(
                     iter(
                         transform_event_recurrences(
                             event_translation,
-                            poi_translation,
+                            place_translation,
                             now,
                         ),
                     ),
                 )
             else:
                 result.append(
-                    transform_event_translation(event_translation, poi_translation),
+                    transform_event_translation(event_translation, place_translation),
                 )
 
     return JsonResponse(

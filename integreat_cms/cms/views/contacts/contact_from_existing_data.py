@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from lxml.html import fromstring
 
-from ...models import Contact, Event, Page, POI
+from ...models import Contact, Event, Page, Place
 from ...utils.link_utils import format_phone_number
 from ...utils.linkcheck_utils import get_link_query
 
@@ -79,8 +79,8 @@ class PotentialContactSourcesView(TemplateView):
         event_translation_content_type_id = ContentType.objects.get(
             model="eventtranslation"
         ).id
-        poi_translation_content_type_id = ContentType.objects.get(
-            model="poitranslation"
+        place_translation_content_type_id = ContentType.objects.get(
+            model="placetranslation"
         ).id
 
         links_in_pages = email_or_phone_links.filter(
@@ -89,8 +89,8 @@ class PotentialContactSourcesView(TemplateView):
         links_in_events = email_or_phone_links.filter(
             content_type=event_translation_content_type_id
         )
-        links_in_pois = email_or_phone_links.filter(
-            content_type=poi_translation_content_type_id
+        links_in_places = email_or_phone_links.filter(
+            content_type=place_translation_content_type_id
         )
 
         page_ids = (
@@ -109,7 +109,7 @@ class PotentialContactSourcesView(TemplateView):
             links = {
                 clean_url(link.url) for link in page_links if used_as_simple_link(link)
             }
-            contacts = Contact.objects.filter(location__region=request.region).filter(
+            contacts = Contact.objects.filter(place__region=request.region).filter(
                 Q(email__in=links) | Q(phone_number__in=links)
             )
             if links:
@@ -131,33 +131,33 @@ class PotentialContactSourcesView(TemplateView):
             links = {
                 clean_url(link.url) for link in event_links if used_as_simple_link(link)
             }
-            contacts = Contact.objects.filter(location__region=request.region).filter(
+            contacts = Contact.objects.filter(place__region=request.region).filter(
                 Q(email__in=links) | Q(phone_number__in=links)
             )
             if links:
                 links_per_event += [(event, links, contacts)]
 
-        poi_ids = (
-            links_in_pois.order_by()
-            .values_list("poi_translation__poi", flat=True)
+        place_ids = (
+            links_in_places.order_by()
+            .values_list("place_translation__place", flat=True)
             .distinct()
         )
-        links_per_poi = []
-        for poi_id in poi_ids:
-            poi = POI.objects.filter(id=poi_id).first()
-            poi_links = (
-                links_in_pois.filter(poi_translation__poi=poi_id)
+        links_per_place = []
+        for place_id in place_ids:
+            place = Place.objects.filter(id=place_id).first()
+            place_links = (
+                links_in_places.filter(place_translation__place=place_id)
                 .order_by()
-                .distinct("url__url", "poi_translation")
+                .distinct("url__url", "place_translation")
             )
             links = {
-                clean_url(link.url) for link in poi_links if used_as_simple_link(link)
+                clean_url(link.url) for link in place_links if used_as_simple_link(link)
             }
-            contacts = Contact.objects.filter(location__region=request.region).filter(
+            contacts = Contact.objects.filter(place__region=request.region).filter(
                 Q(email__in=links) | Q(phone_number__in=links)
             )
             if links:
-                links_per_poi += [(poi, links, contacts)]
+                links_per_place += [(place, links, contacts)]
 
         return render(
             request,
@@ -166,7 +166,7 @@ class PotentialContactSourcesView(TemplateView):
                 **self.get_context_data(**kwargs),
                 "links_per_page": links_per_page,
                 "links_per_event": links_per_event,
-                "links_per_poi": links_per_poi,
+                "links_per_place": links_per_place,
                 "wanted": [
                     "area_of_responsibility",
                     "name",
