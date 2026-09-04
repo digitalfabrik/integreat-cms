@@ -30,7 +30,7 @@ def archive_contact(
     to_be_archived_contact = get_object_or_404(
         Contact,
         id=contact_id,
-        location__region=request.region,
+        place__region=request.region,
     )
     if not to_be_archived_contact.referring_objects:
         to_be_archived_contact.archive()
@@ -70,7 +70,7 @@ def delete_contact(
     to_be_deleted_contact = get_object_or_404(
         Contact,
         id=contact_id,
-        location__region=request.region,
+        place__region=request.region,
     )
     if not to_be_deleted_contact.referring_objects:
         to_be_deleted_contact.delete()
@@ -110,7 +110,7 @@ def restore_contact(
     to_be_restored_contact = get_object_or_404(
         Contact,
         id=contact_id,
-        location__region=request.region,
+        place__region=request.region,
     )
     to_be_restored_contact.restore()
 
@@ -144,7 +144,7 @@ def copy_contact(
     to_be_copied_contact = get_object_or_404(
         Contact,
         id=contact_id,
-        location__region=request.region,
+        place__region=request.region,
     )
     to_be_copied_contact.copy()
 

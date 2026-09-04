@@ -22,7 +22,7 @@ from .feedback.map_feedback import MapFeedback
 from .feedback.offer_feedback import OfferFeedback
 from .feedback.offer_list_feedback import OfferListFeedback
 from .feedback.page_feedback import PageFeedback
-from .feedback.poi_feedback import POIFeedback
+from .feedback.place_feedback import PlaceFeedback
 from .feedback.region_feedback import RegionFeedback
 from .feedback.search_result_feedback import SearchResultFeedback
 from .languages.language import Language
@@ -34,10 +34,10 @@ from .pages.imprint_page import ImprintPage
 from .pages.imprint_page_translation import ImprintPageTranslation
 from .pages.page import Page
 from .pages.page_translation import PageTranslation
-from .poi_categories.poi_category import POICategory
-from .poi_categories.poi_category_translation import POICategoryTranslation
-from .pois.poi import POI
-from .pois.poi_translation import POITranslation
+from .place_categories.place_category import PlaceCategory
+from .place_categories.place_category_translation import PlaceCategoryTranslation
+from .places.place import Place
+from .places.place_translation import PlaceTranslation
 from .push_notifications.push_notification import PushNotification
 from .push_notifications.push_notification_translation import (
     PushNotificationTranslation,

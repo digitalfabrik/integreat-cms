@@ -8,13 +8,13 @@ if TYPE_CHECKING:
 
 import pytest
 
-from integreat_cms.cms.constants import poicategory
+from integreat_cms.cms.constants import placecategory
 from integreat_cms.cms.models import (
     Contact,
     Language,
-    POI,
-    POICategory,
-    POITranslation,
+    Place,
+    PlaceCategory,
+    PlaceTranslation,
     Region,
 )
 
@@ -96,18 +96,18 @@ def test_restoring_contact_works(
 
 
 @pytest.mark.django_db
-def test_contact_restore_with_referenced_poi() -> None:
+def test_contact_restore_with_referenced_place() -> None:
     """
-    Tests restoring a contact restores its location together.
+    Tests restoring a contact restores its place together.
     """
     region = Region.objects.create(name="new-region")
     language = Language.objects.create(slug="da", primary_country_code="de")
 
-    poi_category = POICategory.objects.create(
-        icon=poicategory.OTHER,
-        color=poicategory.DARK_BLUE,
+    place_category = PlaceCategory.objects.create(
+        icon=placecategory.OTHER,
+        color=placecategory.DARK_BLUE,
     )
-    poi = POI.objects.create(
+    place = Place.objects.create(
         region=region,
         address="Adress 42",
         postcode="00000",
@@ -115,10 +115,12 @@ def test_contact_restore_with_referenced_poi() -> None:
         country="Deutschland",
         latitude="48.3780446",
         longitude="10.8879783",
-        category=poi_category,
+        category=place_category,
         archived=True,
     )
-    POITranslation.objects.create(poi=poi, language=language, slug="new-poi-slug")
+    PlaceTranslation.objects.create(
+        place=place, language=language, slug="new-place-slug"
+    )
 
     contact = Contact.objects.create(
         email="",
@@ -126,15 +128,15 @@ def test_contact_restore_with_referenced_poi() -> None:
         website="",
         area_of_responsibility="Title",
         name="Contact",
-        location=poi,
+        place=place,
         archived=True,
     )
 
     assert contact.archived
-    assert poi.archived
-    assert contact.location.id == poi.id
+    assert place.archived
+    assert contact.place.id == place.id
 
     contact.restore()
 
     assert not contact.archived
-    assert not poi.archived
+    assert not place.archived

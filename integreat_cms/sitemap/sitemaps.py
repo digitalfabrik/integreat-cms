@@ -17,7 +17,7 @@ from ..cms.models import (
     EventTranslation,
     OfferTemplate,
     PageTranslation,
-    POITranslation,
+    PlaceTranslation,
 )
 
 if TYPE_CHECKING:
@@ -75,7 +75,7 @@ class WebappSitemap(ABC, Sitemap):
 
         :param translation: The given translation
                            ~integreat_cms.cms.models.events.event_translation.EventTranslation, or
-                           ~integreat_cms.cms.models.pois.poi_translation.POITranslation
+                           ~integreat_cms.cms.models.places.place_translation.PlaceTranslation
 
         :return: The list of urls
         """
@@ -183,9 +183,9 @@ class EventSitemap(WebappSitemap):
         ).distinct("event__pk")
 
 
-class POISitemap(WebappSitemap):
+class PlaceSitemap(WebappSitemap):
     """
-    This sitemap contains all urls to POI translations for a specific region and language.
+    This sitemap contains all urls to place translations for a specific region and language.
 
     Attributes inherited from :class:`~integreat_cms.sitemap.sitemaps.WebappSitemap`:
 
@@ -193,15 +193,15 @@ class POISitemap(WebappSitemap):
     :attribute priority: The priority of this sitemap's urls (see :attr:`WebappSitemap.priority`)
     """
 
-    #: The :class:`~integreat_cms.cms.models.pois.poi_translation.POITranslation` :class:`~django.db.models.query.QuerySet` queryset of this sitemap
-    queryset: QuerySet[POITranslation] = POITranslation.objects.filter(
-        poi__archived=False,
+    #: The :class:`~integreat_cms.cms.models.places.place_translation.PlaceTranslation` :class:`~django.db.models.query.QuerySet` queryset of this sitemap
+    queryset: QuerySet[PlaceTranslation] = PlaceTranslation.objects.filter(
+        place__archived=False,
         status=status.PUBLIC,
     )
 
     def __init__(self, region: Region, language: Language) -> None:
         """
-        This init function filters the queryset of POI translation objects based on the given region and language.
+        This init function filters the queryset of place translation objects based on the given region and language.
 
         :param region: The region of this sitemap's urls
         :param language: The language of this sitemap's urls
@@ -210,9 +210,9 @@ class POISitemap(WebappSitemap):
         super().__init__(region, language)
         # Filter queryset based on region and language
         self.queryset = self.queryset.filter(
-            poi__in=self.region.pois.all(),
+            place__in=self.region.places.all(),
             language=self.language,
-        ).distinct("poi__pk")
+        ).distinct("place__pk")
 
 
 class OfferSitemap(WebappSitemap):

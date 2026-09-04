@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_POST
 
 from ...decorators import permission_required
-from ...models import Contact, POI
+from ...models import Contact, Place
 from ...utils.link_utils import format_phone_number
 
 if TYPE_CHECKING:
@@ -79,7 +79,7 @@ def get_contact(
     :param region_slug: The slug of the current region
     :return: HTML representation of the requested contact
     """
-    contact = get_object_or_404(Contact, pk=contact_id, location__region=request.region)
+    contact = get_object_or_404(Contact, pk=contact_id, place__region=request.region)
 
     wanted = request.GET.get("details", "").split(",")
     return render(
@@ -102,7 +102,7 @@ def get_contact_raw(
     :param region_slug: The slug of the current region
     :return: Short representation of the requested contact
     """
-    contact = get_object_or_404(Contact, pk=contact_id, location__region=request.region)
+    contact = get_object_or_404(Contact, pk=contact_id, place__region=request.region)
     return JsonResponse(
         {
             "data": {
@@ -114,11 +114,11 @@ def get_contact_raw(
     )
 
 
-def generate_primary_contact_from_poi(
+def generate_primary_contact_from_place(
     website: str,
     phone_number: str,
     email: str,
-    poi: POI,
+    place: Place,
     language: Language,
     region: Region,
     title: str,
@@ -126,19 +126,19 @@ def generate_primary_contact_from_poi(
     # Look explicitly for the primary contact, not any first one,
     # as we do not delete non-primary contacts when deactivating contact in a region.
     # "get()" is not used as it raises an exception if there is no primary contact.
-    contact = poi.contacts.get_primary_contact()
+    contact = place.contacts.get_primary_contact()
 
     if website != "" or phone_number != "" or email != "":
         if not contact:
-            contact = Contact(location=poi)
+            contact = Contact(place=place)
         if phone_number:
             phone_number = format_phone_number(phone_number)
         contact.website = website
         contact.phone_number = phone_number
         contact.email = email
-        # opening hours is None means the contact adopts the location's opening hours
+        # opening hours is None means the contact adopts the place's opening hours
         if contact.opening_hours is None:
-            contact.appointment_url = poi.appointment_url
+            contact.appointment_url = place.appointment_url
         if not contact.name and language == region.default_language:
             contact.name = title
         contact.save()

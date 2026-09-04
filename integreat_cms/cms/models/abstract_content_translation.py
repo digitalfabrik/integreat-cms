@@ -116,7 +116,7 @@ class AbstractContentTranslation(AbstractBaseModel):
     read_only: bool = False
 
     @staticmethod
-    def foreign_field() -> Literal["page", "event", "poi"]:
+    def foreign_field() -> Literal["page", "event", "place"]:
         """
         The field name of the reference to the foreign object which the translation belongs to
 

@@ -107,7 +107,7 @@ class Command(LogCommand):
             if target_content._meta.default_related_name in [
                 "page_translations",
                 "event_translations",
-                "poi_translations",
+                "place_translations",
                 "imprint_translations",
             ]:
                 try:

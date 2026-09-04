@@ -16,7 +16,7 @@ from django.views.generic import TemplateView
 from ...constants import status, text_directions, translation_status
 from ...decorators import permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
-from ...models import Event, EventTranslation, Language, POI, RecurrenceRule
+from ...models import Event, EventTranslation, Language, Place, RecurrenceRule
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
@@ -106,7 +106,7 @@ class EventFormView(
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
-                "poi": event_instance.location if event_instance else None,
+                "place": event_instance.place if event_instance else None,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
                 "url_link": url_link,
@@ -133,7 +133,7 @@ class EventFormView(
         """
         region = request.region
         language = Language.objects.get(slug=kwargs.get("language_slug"))
-        poi = POI.objects.filter(id=request.POST.get("location")).first()
+        place = Place.objects.filter(id=request.POST.get("place")).first()
 
         event_id = kwargs.get("event_id")
         event_instance, event_translation_instance, recurrence_rule_instance = (
@@ -146,7 +146,7 @@ class EventFormView(
                 event_instance=event_instance,
                 recurrence_rule_instance=recurrence_rule_instance,
                 event_translation_instance=event_translation_instance,
-                poi=poi,
+                place=place,
                 language=language,
                 region=region,
             )
@@ -214,7 +214,7 @@ class EventFormView(
                     event_instance=event_instance,
                     recurrence_rule_instance=recurrence_rule_instance,
                     event_translation_instance=event_translation_instance,
-                    poi=poi,
+                    place=place,
                     language=language,
                     region=region,
                 )
@@ -228,7 +228,7 @@ class EventFormView(
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
-                "poi": poi,
+                "place": place,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
                 "url_link": url_link,
@@ -247,7 +247,7 @@ class EventFormView(
         event_instance: Event,
         recurrence_rule_instance: RecurrenceRule,
         event_translation_instance: EventTranslation,
-        poi: POI,
+        place: Place,
         region: Region,
         language: Language,
     ) -> tuple[EventForm, EventTranslationForm, RecurrenceRuleForm]:
@@ -255,7 +255,7 @@ class EventFormView(
             data=request.POST,
             files=request.FILES,
             instance=event_instance,
-            additional_instance_attributes={"region": region, "location": poi},
+            additional_instance_attributes={"region": region, "place": place},
         )
 
         event_form.is_valid()  # populate cleaned_data

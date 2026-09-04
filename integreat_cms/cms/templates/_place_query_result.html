@@ -1,0 +1,35 @@
+{% load i18n %}
+{% load content_filters %}
+{% load place_filters %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_language LANGUAGE_CODE as current_language %}
+{% if place_query and request.region %}
+    {% if place_query_result|length > 0 %}
+        <label class="secondary">
+            {% translate "Select existing place" %}
+        </label>
+        <select size="{% if place_query_result|length > 5 %}5{% elif place_query_result|length == 1 %}2{% else %}{{ place_query_result|length }}{% endif %}"
+                class="block w-full bg-none bg-white text-gray-800 border border-gray-500 mb-2 py-2 px-2 {% if place_query_result|length == 1 %}h-12{% endif %}">
+            {% for place in place_query_result %}
+                <option class="option-existing-place hover:bg-gray-200 cursor-pointer"
+                        title="{{ place.address }}, {{ place.postcode }} {{ place.city }}"
+                        data-place-address="{% render_place_address place %}"
+                        data-place-title="{{ place|place_translation_title:current_language }}"
+                        data-place-id="{{ place.id }}">
+                    {{ place|place_translation_title:current_language }}
+                </option>
+            {% endfor %}
+        </select>
+    {% endif %}
+    {% if create_place_option %}
+        <button id="show-place-form-button"
+                class="btn w-full option-new-place mb-2"
+                data-place-title="{{ place_query }}"
+                data-url="{% url 'show_place_form_ajax' region_slug=request.region.slug language_slug=request.region.default_language.slug place_title=place_query %}">
+            <i icon-name="map-pin"></i>
+            {% blocktranslate trimmed %}
+                Create place "{{ place_query }}"
+            {% endblocktranslate %}
+        </button>
+    {% endif %}
+{% endif %}

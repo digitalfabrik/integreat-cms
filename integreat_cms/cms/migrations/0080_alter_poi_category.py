@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from django.db import migrations, models
 
-from ..constants import poicategory
+from ..constants import placecategory
 
 if TYPE_CHECKING:
     from django.apps.registry import Apps
@@ -30,17 +30,17 @@ def check_and_update_poicategory(
     POI = apps.get_model("cms", "POI")
 
     if not (
-        default_category := POICategory.objects.filter(icon=poicategory.OTHER).first()
+        default_category := POICategory.objects.filter(icon=placecategory.OTHER).first()
     ):
         default_category = POICategory.objects.create(
-            icon=poicategory.OTHER,
-            color=poicategory.DARK_BLUE,
+            icon=placecategory.OTHER,
+            color=placecategory.DARK_BLUE,
         )
         POICategoryTranslation = apps.get_model("cms", "POICategoryTranslation")
         POICategoryTranslation.objects.create(
             category=default_category,
             language=default_language,
-            name=poicategory.OTHER,
+            name=placecategory.OTHER,
         )
 
     POI.objects.filter(category=None).update(category=default_category)

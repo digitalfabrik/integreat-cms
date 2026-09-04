@@ -8,7 +8,7 @@ Webpack is being used to generate frontend bundles based on TypeScript code that
 2. :github-source:`integreat_cms/static/src/editor.ts` (``editor.<hash>.js``): Contains TinyMCE and related assets. It was decided to bundle TinyMCE in a separate file because it is the largest of all bundled assets
 3. :github-source:`integreat_cms/static/src/editor_content.ts` (``editor_content.<hash>.js``/``editor_content.<hash>.css``): Contains assets for the TinyMCE content iframe which cannot be passed via the global context
 4. :github-source:`integreat_cms/static/src/pdf.ts` (``pdf.<hash>.js``/``pdf.css``): Contains assets for the PDF rendering
-5. :github-source:`integreat_cms/static/src/map.ts` (``map.<hash>.js``): Contains maplibre-gl and related assets for the map used in the POI form
+5. :github-source:`integreat_cms/static/src/map.ts` (``map.<hash>.js``): Contains maplibre-gl and related assets for the map used in the place form
 
 To get started with adding new code go to :github-source:`integreat_cms/static/src` and open the bundle you want to edit.
 In this file you can import any TypeScript or JavaScript file or library that is needed for the application.

@@ -19,7 +19,7 @@ from ...cms.models import (
     OfferFeedback,
     OfferListFeedback,
     PageFeedback,
-    POIFeedback,
+    PlaceFeedback,
     RegionFeedback,
     SearchResultFeedback,
 )
@@ -48,7 +48,7 @@ def feedback_delete_handler(
 @receiver(post_save, sender=PageFeedback)
 @receiver(post_save, sender=EventFeedback)
 @receiver(post_save, sender=EventListFeedback)
-@receiver(post_save, sender=POIFeedback)
+@receiver(post_save, sender=PlaceFeedback)
 @receiver(post_save, sender=ImprintPageFeedback)
 @receiver(post_save, sender=MapFeedback)
 @receiver(post_save, sender=OfferFeedback)
