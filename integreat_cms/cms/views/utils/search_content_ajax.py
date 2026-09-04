@@ -29,7 +29,7 @@ CONTENT_TYPES = [
     "region",
     "user",
 ]
-TRANSLATION_CONTENT_TYPES = ["event", "page", "poi", "pushnotification"]
+TRANSLATION_CONTENT_TYPES = ["event", "page", "place", "pushnotification"]
 
 
 @require_POST
@@ -38,7 +38,7 @@ def search_content_ajax(
     region_slug: str | None = None,
     language_slug: str | None = None,
 ) -> JsonResponse:
-    """Searches all pois, events and pages for the current region and returns all that
+    """Searches all places, events and pages for the current region and returns all that
     match the search query. Results which match the query in the title or slug get ranked
     higher than results which only match through their text content.
 

@@ -1,5 +1,5 @@
 """
-APIv3 endpoint for the map (POIs in general)
+APIv3 endpoint for the map (Places in general)
 """
 
 from __future__ import annotations

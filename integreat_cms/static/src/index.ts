@@ -55,7 +55,7 @@ import "./js/feedback/toggle-feedback-entries";
 import "./js/chat/send-chat-message";
 import "./js/chat/delete-chat-message";
 
-import "./js/poi-box";
+import "./js/place-box";
 import "./js/events/conditional-fields";
 import "./js/events/auto-complete";
 
@@ -102,12 +102,12 @@ import "./js/tutorial-overlay";
 
 import "./js/unsaved-warning";
 
-import "./js/pois/poi-actions";
-import "./js/pois/opening-hours";
+import "./js/places/place-actions";
+import "./js/places/opening-hours";
 
 import "./js/menu";
 
-import "./js/poi-categories/poicategory-colors-icons";
+import "./js/place-categories/placecategory-colors-icons";
 import "./js/dashboard/broken-links";
 import "./js/dashboard/translation-coverage";
 

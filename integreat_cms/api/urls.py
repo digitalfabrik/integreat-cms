@@ -20,14 +20,12 @@ from .v3.feedback import (
     offer_feedback,
     offer_list_feedback,
     page_feedback,
-    poi_feedback,
+    place_feedback,
     region_feedback,
     search_result_feedback,
 )
 from .v3.imprint import imprint
 from .v3.languages import languages
-from .v3.location_categories import location_categories
-from .v3.locations import locations
 from .v3.news import news, sent_push_notifications, single_news
 from .v3.offers import offers
 from .v3.pages import (
@@ -38,11 +36,13 @@ from .v3.pages import (
     single_page,
 )
 from .v3.pdf_export import pdf_export
+from .v3.place_categories import place_categories
+from .v3.places import places
 from .v3.raw_content import (
     event_content,
-    location_content,
     news_content,
     page_content,
+    place_content,
     region_content,
     root_content,
 )
@@ -50,9 +50,9 @@ from .v3.region_settings import region_settings
 from .v3.regions import region_by_slug, regions
 from .v3.social_media_headers import (
     event_social_media_headers,
-    location_social_media_headers,
     news_social_media_headers,
     page_social_media_headers,
+    place_social_media_headers,
     region_social_media_headers,
     root_social_media_headers,
 )
@@ -67,8 +67,8 @@ app_name: Final = "api"
 
 content_api_urlpatterns: list[URLPattern] = [
     path("pages/", pages, name="pages"),
-    path("locations/", locations, name="locations"),
-    path("location-categories/", location_categories, name="location_categories"),
+    path("locations/", places, name="places"),
+    path("location-categories/", place_categories, name="place_categories"),
     path("events/", events, name="events"),
     path("page/", single_page, name="single_page"),
     path("post/", single_page, name="single_page"),
@@ -110,7 +110,9 @@ content_api_urlpatterns: list[URLPattern] = [
                     name="region_feedback",
                 ),
                 re_path(r"^page/?$", page_feedback.page_feedback, name="page_feedback"),
-                re_path(r"^poi/?$", poi_feedback.poi_feedback, name="poi_feedback"),
+                re_path(
+                    r"^poi/?$", place_feedback.place_feedback, name="place_feedback"
+                ),
                 re_path(
                     r"^event/?$",
                     event_feedback.event_feedback,
@@ -230,8 +232,8 @@ social_media_api_urlpatterns = [
                 ),
                 path(
                     "locations/<slug:slug>/",
-                    location_social_media_headers,
-                    name="social_region_location_page",
+                    place_social_media_headers,
+                    name="social_region_place_page",
                 ),
                 path(
                     "<path:path>/",
@@ -310,8 +312,8 @@ raw_content_api_urlpatterns = [
                 ),
                 path(
                     "locations/<slug:slug>/",
-                    location_content,
-                    name="raw_content_region_location_page",
+                    place_content,
+                    name="raw_content_region_place_page",
                 ),
                 path(
                     "<path:path>/",

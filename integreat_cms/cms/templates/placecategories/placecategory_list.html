@@ -1,0 +1,56 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <div class="table-header flex justify-between">
+        <h1 class="heading">
+            {% translate "Place Categories" %}
+        </h1>
+        {% if perms.cms.change_placecategory %}
+            <a href="{% url 'new_placecategory' %}" class="btn">{% translate "Create place category" %}</a>
+        {% endif %}
+    </div>
+    <div class="table-listing">
+        <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <thead>
+                <tr class="border-b border-solid border-gray-200">
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                        {% translate "Name" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                        <div class="lang-grid flags whitespace-nowrap">
+                            {% for language in languages %}
+                                <span class="fp fp-rounded fp-{{ language.primary_country_code }}"
+                                      title="{{ language.translated_name }}"></span>
+                            {% endfor %}
+                        </div>
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Map marker" %}
+                    </th>
+                    <th class="text-sm text-right uppercase py-3 pr-2"
+                        title="{% translate "Number of places with this category" %}">
+                        {% translate "Number of places" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 p2-4 pr-4 min">
+                        {% translate "Actions" %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for place_category in placecategories %}
+                    {% include "placecategories/placecategory_list_row.html" %}
+                {% empty %}
+                    <tr>
+                        <td colspan="3" class="px-4 py-3">
+                            {% translate "No place categories available yet." %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% url "placecategories" as url %}
+    {% include "pagination.html" with chunk=page_obj %}
+    {% include "../generic_confirmation_dialog.html" %}
+{% endblock content %}

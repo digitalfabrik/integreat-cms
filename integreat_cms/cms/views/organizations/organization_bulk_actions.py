@@ -72,8 +72,8 @@ class ArchiveBulkAction(OrganizationBulkAction):
             messages.error(
                 request,
                 ngettext_lazy(
-                    "{model_name} {object_names} couldn't be archived as it's used by a page, poi or user.",
-                    "The following {model_name} couldn't be archived as they're used by a page, poi or user: {object_names}.",
+                    "{model_name} {object_names} couldn't be archived as it's used by a page, place or user.",
+                    "The following {model_name} couldn't be archived as they're used by a page, place or user: {object_names}.",
                     len(archive_failed),
                 ).format(
                     model_name=ngettext(
@@ -178,8 +178,8 @@ class DeleteBulkAction(OrganizationBulkAction):
             messages.error(
                 request,
                 ngettext_lazy(
-                    "{model_name} {object_names} couldn't be deleted as it's used by a page, poi or user.",
-                    "The following {model_name} couldn't be deleted as they're used by a page, poi or user: {object_names}.",
+                    "{model_name} {object_names} couldn't be deleted as it's used by a page, place or user.",
+                    "The following {model_name} couldn't be deleted as they're used by a page, place or user: {object_names}.",
                     len(delete_failed),
                 ).format(
                     model_name=ngettext(

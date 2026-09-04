@@ -8,7 +8,7 @@
                   method="post"
                   enctype="multipart/form-data"
                   data-unsaved-warning
-                  {% if contact_form.disabled %}data-disable-poi-query{% endif %}>
+                  {% if contact_form.disabled %}data-disable-place-query{% endif %}>
                 {% csrf_token %}
                 <div class="flex justify-between mb-4">
                     <h1 class="heading">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="grid xl:grid-cols-3 gap-4">
-                    {% include "ajax_poi_form/contact_poi_box.html" with form=contact_form title=_("Connect a location") %}
+                    {% include "ajax_place_form/contact_place_box.html" with form=contact_form title=_("Connect a place") %}
                     <div id="contact_fields"
                          class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white {% if not contact_form.instance.id %}hidden{% endif %}">
                         <div class="p-4 rounded bg-water-500">
@@ -55,7 +55,7 @@
                                     {% translate "At least one field must be filled." %}
                                 </div>
                                 <br>
-                                {% translate "Please note: there can only be one contact per location without area of responsibility" %}
+                                {% translate "Please note: there can only be one contact per place without area of responsibility" %}
                             </div>
                             <label for="{{ contact_form.area_of_responsibility.id_for_label }}">
                                 {{ contact_form.area_of_responsibility.label }}
@@ -93,17 +93,17 @@
                                         {{ contact_form.opening_hours.label }}
                                     </label>
                                     <div class="flex">
-                                        {% render_field contact_form.use_location_opening_hours class+=" mt-1" %}
+                                        {% render_field contact_form.use_place_opening_hours class+=" mt-1" %}
                                         <label class="font-medium text-base my-0"
-                                               for="{{ contact_form.use_location_opening_hours.id_for_label }}">
-                                            {{ contact_form.use_location_opening_hours.label }}
+                                               for="{{ contact_form.use_place_opening_hours.id_for_label }}">
+                                            {{ contact_form.use_place_opening_hours.label }}
                                         </label>
                                     </div>
                                 </p>
                                 <opening-hours-widget></opening-hours-widget>
                                 {{ opening_hour_config_data|json_script:"openingHourConfigData" }}
                                 {{ contact_form.opening_hours.value|json_script:"openingHourInitialData" }}
-                                {{ contact_form.instance.location.opening_hours|json_script:"openingHourLocationData" }}
+                                {{ contact_form.instance.place.opening_hours|json_script:"openingHourLocationData" }}
                                 <div class="py-2 px-4">
                                     {% render_field contact_form.temporarily_closed %}
                                     <label for="{{ contact_form.temporarily_closed.id_for_label }}">
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                             {% include "../_related_contents_table.html" with contents=referring_pages table_title=_("Pages") no_content_message=_("This contact is not currently referred to on any page.") %}
-                            {% include "../_related_contents_table.html" with contents=referring_locations table_title=_("Locations") no_content_message=_("This contact is not currently referred to in any location.") %}
+                            {% include "../_related_contents_table.html" with contents=referring_places table_title=_("Places") no_content_message=_("This contact is not currently referred to in any place.") %}
                             {% include "../_related_contents_table.html" with contents=referring_events table_title=_("Events") no_content_message=_("This contact is not currently referred to in any event.") %}
                         </div>
                     {% endif %}
@@ -165,7 +165,7 @@
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text }}"
                                     data-confirmation-subject="{{ contact_form.instance.name }}"
-                                    {% if contact_form.instance.location.archived %} data-confirmation-referenced-location-title="{{ referenced_location_title }}" data-confirmation-referenced-location-subject="{{ contact_form.instance.location }}" {% endif %}
+                                    {% if contact_form.instance.place.archived %} data-confirmation-referenced-place-title="{{ referenced_location_title }}" data-confirmation-referenced-place-subject="{{ contact_form.instance.place }}" {% endif %}
                                     data-action="{% url 'restore_contact' contact_id=contact_form.instance.id region_slug=request.region.slug %}">
                                 <i icon-name="refresh-ccw" class="mr-2"></i> {% translate "Restore this contact" %}
                             </button>
@@ -190,8 +190,8 @@
                     </div>
                 {% endif %}
             </form>
-            <form id="ajax_poi_form"
-                  name="ajax_poi_form"
+            <form id="ajax_place_form"
+                  name="ajax_place_form"
                   method="post"
                   enctype="multipart/form-data"
                   data-unsaved-warning>

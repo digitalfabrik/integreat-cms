@@ -1,0 +1,37 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    calendar-clock
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {{ place_form.opening_hours.label }}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <opening-hours-widget></opening-hours-widget>
+    {{ opening_hour_config_data|json_script:"openingHourConfigData" }}
+    {{ place_form.opening_hours.value|json_script:"openingHourInitialData" }}
+    {# This hidden input is required for the change detection of the opening hours field #}
+    <input type="hidden"
+           id="initial-id_opening_hours"
+           name="initial-opening_hours"
+           value="{{ place_form.opening_hours.value }}" />
+    <div class="py-2 px-4">
+        {% render_field place_form.temporarily_closed %}
+        <label for="{{ place_form.temporarily_closed.id_for_label }}">
+            {{ place_form.temporarily_closed.label }}
+        </label>
+        <div class="help-text">
+            {{ place_form.temporarily_closed.help_text }}
+        </div>
+        <label for="{{ place_form.appointment_url.id_for_label }}">
+            {{ place_form.appointment_url.label }}
+        </label>
+        {% render_field place_form.appointment_url %}
+        <div class="help-text">
+            {{ place_form.appointment_url.help_text }}
+        </div>
+    </div>
+{% endblock collapsible_box_content %}

@@ -22,8 +22,8 @@ from ..abstract_base_model import AbstractBaseModel
 from ..events.event_translation import EventTranslation
 from ..fields.truncating_char_field import TruncatingCharField
 from ..pages.page_translation import PageTranslation
-from ..pois.poi import POI
-from ..pois.poi_translation import POITranslation
+from ..places.place import Place
+from ..places.place_translation import PlaceTranslation
 
 if TYPE_CHECKING:
     from typing import Any
@@ -53,7 +53,7 @@ class Contact(AbstractBaseModel):
     Data model representing a contact
     """
 
-    search_fields = ["name", "location__translations__title", "area_of_responsibility"]
+    search_fields = ["name", "place__translations__title", "area_of_responsibility"]
 
     area_of_responsibility = TruncatingCharField(
         max_length=200,
@@ -61,10 +61,10 @@ class Contact(AbstractBaseModel):
         verbose_name=_("area of responsibility"),
     )
     name = models.CharField(max_length=200, blank=True, verbose_name=_("name"))
-    location = models.ForeignKey(
-        POI,
+    place = models.ForeignKey(
+        Place,
         on_delete=models.PROTECT,
-        verbose_name=_("location"),
+        verbose_name=_("place"),
         related_name="contacts",
     )
     email = models.EmailField(
@@ -85,7 +85,7 @@ class Contact(AbstractBaseModel):
     archived = models.BooleanField(
         default=False,
         verbose_name=_("archived"),
-        help_text=_("Whether or not the location is read-only and hidden in the API."),
+        help_text=_("Whether or not the place is read-only and hidden in the API."),
     )
     opening_hours = models.JSONField(
         null=True,
@@ -117,7 +117,7 @@ class Contact(AbstractBaseModel):
 
         :return: Region this contact belongs to
         """
-        return self.location.region
+        return self.place.region
 
     @classmethod
     def search(cls, region: Region, user_input: str) -> QuerySet:
@@ -135,13 +135,13 @@ class Contact(AbstractBaseModel):
             "website",
             "area_of_responsibility",
         )
-        location_vector = SearchVector(
-            "location__translations__title",
-            "location__address",
-            "location__postcode",
-            "location__city",
+        place_vector = SearchVector(
+            "place__translations__title",
+            "place__address",
+            "place__postcode",
+            "place__city",
         )
-        vector = contact_vector + location_vector
+        vector = contact_vector + place_vector
         query = SearchQuery(user_input, search_type="websearch")
         return (
             Contact.objects.annotate(
@@ -149,14 +149,14 @@ class Contact(AbstractBaseModel):
                 similarity=Greatest(
                     *[
                         TrigramSimilarity(expr, user_input)
-                        for vector in (contact_vector, location_vector)
+                        for vector in (contact_vector, place_vector)
                         for expr in vector.source_expressions
                     ]
                 ),
             )
             .filter(
                 Q(rank__gt=0.0) | Q(similarity__gt=0.1),
-                location__region=region,
+                place__region=region,
                 archived=False,
             )
             .order_by("-rank", "-similarity")
@@ -181,7 +181,7 @@ class Contact(AbstractBaseModel):
         contact_matches = (
             cls.objects.filter(
                 Q(name__icontains=query) | Q(area_of_responsibility__icontains=query),
-                location__region=region,
+                place__region=region,
                 archived=archived_flag,
             )
             .annotate(
@@ -215,8 +215,8 @@ class Contact(AbstractBaseModel):
                     "url": None,
                     "type": "contact",
                 }
-                for match in POITranslation.search(region, language_slug, query)
-                .filter(poi__archived=False)
+                for match in PlaceTranslation.search(region, language_slug, query)
+                .filter(place__archived=False)
                 .exclude(title__in=contact_matches)
                 .order_by("title")
                 .distinct("title")
@@ -227,14 +227,14 @@ class Contact(AbstractBaseModel):
     @classmethod
     def search_for_query(cls, region: Region, query: str) -> QuerySet:
         """
-        Searches for all contacts in the specified region whose name or location information
+        Searches for all contacts in the specified region whose name or place information
         matches the search query. The match is case-insensitive and supports partial text matching.
         :param region: The region to filter contacts by.
-        :param query: The search string used to match against contact names or location titles.
+        :param query: The search string used to match against contact names or place titles.
         :return: A QuerySet containing all matching contact objects.
         """
-        return cls.objects.filter(location__region=region).filter(
-            Q(name__icontains=query) | Q(location__translations__title__icontains=query)
+        return cls.objects.filter(place__region=region).filter(
+            Q(name__icontains=query) | Q(place__translations__title__icontains=query)
         )
 
     def __str__(self) -> str:
@@ -244,9 +244,9 @@ class Contact(AbstractBaseModel):
 
         :return: A readable string representation of the contact
         """
-        location_name = str(self.location)
+        place_name = str(self.place)
         additional_attribute = self.get_additional_attribute()
-        return " ".join(part for part in [location_name, additional_attribute] if part)
+        return " ".join(part for part in [place_name, additional_attribute] if part)
 
     def get_additional_attribute(self) -> str:
         """
@@ -274,7 +274,7 @@ class Contact(AbstractBaseModel):
 
     def label_in_reference_list(self) -> str:
         """
-        This function returns a display name of this contact for the poi contacts list
+        This function returns a display name of this contact for the place contacts list
         """
 
         label = (
@@ -309,9 +309,11 @@ class Contact(AbstractBaseModel):
         class_name = type(self).__name__
         if not self.pk:
             return f"<{class_name} (unsaved instance)>"
-        full_address = f"{self.location} {self.location.address} {self.location.postcode} {self.location.city}"
+        full_address = (
+            f"{self.place} {self.place.address} {self.place.postcode} {self.place.city}"
+        )
         full_address_string_repr = (
-            f"| Linked location: {full_address}" if self.location else ""
+            f"| Linked place: {full_address}" if self.place else ""
         )
         area_of_responsibility = (
             f"{self.area_of_responsibility}: " if self.area_of_responsibility else ""
@@ -350,19 +352,19 @@ class Contact(AbstractBaseModel):
         )
 
     @cached_property
-    def referring_poi_translations(self) -> QuerySet[POITranslation]:
+    def referring_place_translations(self) -> QuerySet[PlaceTranslation]:
         """
-        Returns a queryset containing all :class:`~integreat_cms.cms.models.pois.poi_translation.POITranslation` objects which reference this contact
+        Returns a queryset containing all :class:`~integreat_cms.cms.models.places.place_translation.PlaceTranslation` objects which reference this contact
 
-        :return: all POITranslation objects referencing this contact
+        :return: all PlaceTranslation objects referencing this contact
         """
-        from ...linklists import POITranslationLinklist
+        from ...linklists import PlaceTranslationLinklist
 
-        return POITranslation.objects.filter(
+        return PlaceTranslation.objects.filter(
             id__in=(
                 Link.objects.filter(
                     url__url__startswith=self.absolute_url,
-                    content_type=POITranslationLinklist.content_type(),
+                    content_type=PlaceTranslationLinklist.content_type(),
                 ).values("object_id")
             ),
         )
@@ -445,8 +447,8 @@ class Contact(AbstractBaseModel):
         self.archived = False
         self.save()
 
-        if self.location.archived:
-            self.location.restore()
+        if self.place.archived:
+            self.place.restore()
 
     def copy(self, add_suffix: bool = True) -> Contact:
         """
@@ -467,7 +469,7 @@ class Contact(AbstractBaseModel):
 
         :return: The full url
         """
-        return f"/{self.location.region.slug}/contact/{self.id}/"
+        return f"/{self.place.region.slug}/contact/{self.id}/"
 
     @cached_property
     def backend_edit_link(self) -> str:
@@ -489,15 +491,15 @@ class Contact(AbstractBaseModel):
         default_related_name = "contact"
         verbose_name_plural = _("contacts")
         default_permissions = ("change", "delete", "view", "archive")
-        ordering = ["location", "name"]
+        ordering = ["place", "name"]
 
         constraints = [
             models.UniqueConstraint(
-                "location",
+                "place",
                 condition=Q(area_of_responsibility=""),
-                name="contact_singular_empty_area_of_responsibility_per_location",
+                name="contact_singular_empty_area_of_responsibility_per_place",
                 violation_error_message=_(
-                    "Only one contact per location can have an empty area of responsibility.",
+                    "Only one contact per place can have an empty area of responsibility.",
                 ),
             ),
             models.CheckConstraint(

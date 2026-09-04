@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load widget_tweaks %}
 <div>
-    {% if poi_id %}
+    {% if place_id %}
         <label for="{{ contact_form.title.id_for_label }}">
             {{ contact_form.area_of_responsibility.label }}
         </label>
@@ -27,8 +27,8 @@
         </label>
         {% render_field contact_form.website|append_attr:"form:ajax_contact_form" %}
         <button id="submit-contact-form-button"
-                name="location"
-                value="{{ poi_id }}"
+                name="place"
+                value="{{ place_id }}"
                 form="ajax_contact_form"
                 data-btn-save-contact-form
                 class="btn w-full mt-4 mb-2"
@@ -36,29 +36,29 @@
             {% translate "Submit" %}
         </button>
     {% else %}
-        <label for="{{ poi_form.title.id_for_label }}">
-            {{ poi_form.area_of_responsibility.label }}
+        <label for="{{ place_form.title.id_for_label }}">
+            {{ place_form.area_of_responsibility.label }}
         </label>
-        {% render_field poi_form.area_of_responsibility|add_error_class:"border-red-500" %}
-        <label for="{{ poi_form.name.id_for_label }}">
-            {{ poi_form.name.label }}
+        {% render_field place_form.area_of_responsibility|add_error_class:"border-red-500" %}
+        <label for="{{ place_form.name.id_for_label }}">
+            {{ place_form.name.label }}
         </label>
-        {% render_field poi_form.name|add_error_class:"border-red-500" %}
-        <label for="{{ poi_form.email.id_for_label }}">
-            {{ poi_form.email.label }}
+        {% render_field place_form.name|add_error_class:"border-red-500" %}
+        <label for="{{ place_form.email.id_for_label }}">
+            {{ place_form.email.label }}
         </label>
-        {% render_field poi_form.email|add_error_class:"border-red-500" %}
-        <label for="{{ poi_form.phone_number.id_for_label }}">
-            {{ poi_form.phone_number.label }}
+        {% render_field place_form.email|add_error_class:"border-red-500" %}
+        <label for="{{ place_form.phone_number.id_for_label }}">
+            {{ place_form.phone_number.label }}
         </label>
-        {% render_field poi_form.phone_number|add_error_class:"border-red-500" %}
-        <label for="{{ poi_form.mobile_phone_number.id_for_label }}">
-            {{ poi_form.mobile_phone_number.label }}
+        {% render_field place_form.phone_number|add_error_class:"border-red-500" %}
+        <label for="{{ place_form.mobile_phone_number.id_for_label }}">
+            {{ place_form.mobile_phone_number.label }}
         </label>
-        {% render_field poi_form.mobile_phone_number|add_error_class:"border-red-500" %}
-        <label for="{{ poi_form.website.id_for_label }}">
-            {{ poi_form.website.label }}
+        {% render_field place_form.mobile_phone_number|add_error_class:"border-red-500" %}
+        <label for="{{ place_form.website.id_for_label }}">
+            {{ place_form.website.label }}
         </label>
-        {% render_field poi_form.website|add_error_class:"border-red-500" %}
+        {% render_field place_form.website|add_error_class:"border-red-500" %}
     {% endif %}
 </div>

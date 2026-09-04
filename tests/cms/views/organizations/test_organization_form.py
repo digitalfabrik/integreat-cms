@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 import pytest
 from django.urls import reverse
 
-from integreat_cms.cms.models import Organization, Page, POI
+from integreat_cms.cms.models import Organization, Page, Place
 from tests.constants import (
     ANONYMOUS,
     HIGH_PRIV_STAFF_ROLES,
@@ -21,9 +21,9 @@ from tests.utils import assert_message_in_log
 
 # Choose a region
 REGION_SLUG = "augsburg"
-# An organization which has a page and a poi assigned and belongs to the above chosen region
+# An organization which has a page and a place assigned and belongs to the above chosen region
 REFERENCED_ORGANIZATION_ID = 1
-# An organization which does not have a page and a poi assigned and belongs to the above chosen region
+# An organization which does not have a page and a place assigned and belongs to the above chosen region
 NOT_REFERENCED_ORGANIZATION_ID = 3
 # Choose a name which is not used by any organization
 NEW_ORGANIZATION_NAME = "New Organization"
@@ -58,7 +58,7 @@ def test_organization_form_shows_no_contents(
             in response.content.decode("utf-8")
         )
         assert (
-            "This organization currently has no maintained locations."
+            "This organization currently has no maintained places."
             in response.content.decode("utf-8")
         )
 
@@ -79,12 +79,12 @@ def test_organization_form_shows_associated_contents(
     settings: SettingsWrapper,
 ) -> None:
     """
-    Nicht archivierte Organisation in Augsburg has two pages and one location.
+    Nicht archivierte Organisation in Augsburg has two pages and one place.
     They must be shown in the form.
     """
 
     # To check contents that do not belong to the organization do not appear in the form,
-    # choose a page and a POI
+    # choose a page and a Place
     #   - 1) that do not belong to the organization chosen above
     # and
     #   - 2) whose titles are not contained in the titles of pages and organizations that belong to the organization
@@ -92,7 +92,7 @@ def test_organization_form_shows_associated_contents(
     #  If page "Willkommen" is used for this check, the test fails even though the system is working as expected.)
 
     NON_ORGANIZATION_PAGE_ID = 5
-    NON_ORGANIZATION_POI_ID = 6
+    NON_ORGANIZATION_PLACE_ID = 6
 
     client, role = login_role_user
 
@@ -101,12 +101,12 @@ def test_organization_form_shows_associated_contents(
 
     organization = Organization.objects.filter(id=REFERENCED_ORGANIZATION_ID).first()
     organization_pages = list(organization.pages.all())
-    organization_pois = list(organization.pois.all())
+    organization_places = list(organization.places.all())
 
     region = organization.region
 
     assert len(organization_pages) > 0
-    assert len(organization_pois) > 0
+    assert len(organization_places) > 0
 
     edit_organization = reverse(
         "edit_organization",
@@ -118,10 +118,10 @@ def test_organization_form_shows_associated_contents(
     response = client.get(edit_organization)
 
     non_organization_page = Page.objects.filter(id=NON_ORGANIZATION_PAGE_ID).first()
-    non_organization_poi = POI.objects.filter(id=NON_ORGANIZATION_POI_ID).first()
+    non_organization_place = Place.objects.filter(id=NON_ORGANIZATION_PLACE_ID).first()
 
     if role in [*STAFF_ROLES, MANAGEMENT]:
-        for content in organization_pages + organization_pois:
+        for content in organization_pages + organization_places:
             assert content.get_translation(
                 region.default_language.slug,
             ).title in response.content.decode("utf-8")
@@ -135,7 +135,7 @@ def test_organization_form_shows_associated_contents(
         assert non_organization_page.get_translation(
             region.default_language.slug,
         ).title not in response.content.decode("utf-8")
-        assert non_organization_poi.get_translation(
+        assert non_organization_place.get_translation(
             region.default_language.slug,
         ).title not in response.content.decode("utf-8")
 

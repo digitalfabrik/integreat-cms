@@ -12,7 +12,7 @@
             {% translate "Here is the list of E-mail addresses and phone numbers that are embedded in contents. We recommend to replace them with a contact card so they can be centrally managed and updated in the future." %}
         </span>
         <label>
-            {% translate "Please note that contact details need to be replaced with contact cards manually. Found details will be removed from the list below once you have replaced them with a contact card in the corresponding page, poi, or event in all languages." %}
+            {% translate "Please note that contact details need to be replaced with contact cards manually. Found details will be removed from the list below once you have replaced them with a contact card in the corresponding page, place, or event in all languages." %}
         </label>
     </div>
     <div class="pb-4">
@@ -48,14 +48,14 @@
     <div class="pb-4">
         <div class="pb-4">
             <h2 class="font-bold">
-                {% translate "Locations" %}
+                {% translate "Places" %}
             </h2>
-            {% if links_per_poi %}
-                {{ links_per_poi|length }}{% translate " events have potential contacts." %}
+            {% if links_per_place %}
+                {{ links_per_place|length }}{% translate " events have potential contacts." %}
             {% endif %}
         </div>
-        {% for content, links, contacts in links_per_poi %}
-            {% include "contacts/contact_from_email_and_phone_row.html" with collapsed=True icon="map-pin" button_title=_("Go to this location") %}
+        {% for content, links, contacts in links_per_place %}
+            {% include "contacts/contact_from_email_and_phone_row.html" with collapsed=True icon="map-pin" button_title=_("Go to this place") %}
         {% empty %}
             {% translate "No E-mail address and phone number detected" %}
         {% endfor %}

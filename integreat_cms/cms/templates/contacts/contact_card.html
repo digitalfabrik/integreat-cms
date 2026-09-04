@@ -32,7 +32,7 @@
                 {% if "address" in wanted %}
                     <li>
                         <img src="{% get_svg_icon "pin" %}" alt="Address: " width="15" height="15" />
-                        <a href="{{ contact.location.map_url }}">{{ contact.location.short_address }}</a>
+                        <a href="{{ contact.place.map_url }}">{{ contact.place.short_address }}</a>
                     </li>
                 {% endif %}
                 {% if contact.email and "email" in wanted %}
