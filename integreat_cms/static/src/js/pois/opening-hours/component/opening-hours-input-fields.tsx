@@ -42,7 +42,6 @@ const OpeningHoursInputFields = ({ openingHoursState, selectedDaysState, transla
 
     // Reset to one empty time slot
     const resetTimeSlots = (element: OpeningHours) => {
-        /* eslint-disable-next-line no-param-reassign */
         element.timeSlots = [{ start: "", end: "" }];
     };
 
