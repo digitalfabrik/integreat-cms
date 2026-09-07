@@ -30,42 +30,6 @@ const toggleSingleChartItem = (item: LegendItem, chart: Chart): void => {
     chart.update();
 };
 
-const setSelectAllLanguagesEventListener = (chart: Chart, items: LegendItem[]): void => {
-    const allLanguagesSelected: HTMLInputElement = document.getElementById("select-all-languages") as HTMLInputElement;
-    allLanguagesSelected?.addEventListener("change", () => {
-        const checked = allLanguagesSelected.checked;
-        const languageCheckboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll("[data-chart-item]");
-        languageCheckboxes.forEach((checkbox: HTMLInputElement) => {
-            const editableCheckbox = checkbox;
-            if (checkbox.getAttribute("data-language-slug") && checked !== checkbox.checked) {
-                const dataChartItem = checkbox.getAttribute("data-chart-item");
-                const item = items.find((item) => item.text === dataChartItem);
-                toggleSingleChartItem(item, chart);
-                editableCheckbox.checked = checked;
-            }
-        });
-        updatePageAccesses();
-    });
-};
-
-const setLegendEventlisteners = (): void => {
-    // const chart = Chart.instances[0];
-    const chart = Chart.getChart("statistics");
-    const items = chart.options.plugins.legend.labels.generateLabels(chart);
-    const allLanguagesSelected: HTMLInputElement = document.getElementById("select-all-languages") as HTMLInputElement;
-    items.forEach((item) => {
-        const checkbox = document.querySelector(`[data-chart-item="${item.text}"]`);
-        checkbox?.addEventListener("change", () => {
-            toggleSingleChartItem(item, chart);
-            if (checkbox.getAttribute("data-language-slug")) {
-                updatePageAccesses();
-                allLanguagesSelected.checked = false;
-            }
-        });
-    });
-    setSelectAllLanguagesEventListener(chart, items);
-};
-
 const initSelectedChartData = (chart: Chart, data: AjaxResponse): void => {
     const dataKeys = Object.keys(data.chartData.datasets);
     for (let i = 0; i < dataKeys.length; i++) {
@@ -287,7 +251,38 @@ window.addEventListener("load", async () => {
     await updateChart();
 
     // Set event handlers for language legend
-    setLegendEventlisteners();
+    const chart = Chart.getChart("statistics");
+    const items = chart.options.plugins.legend.labels.generateLabels(chart);
+    const allLanguagesSelected = document.getElementById("select-all-languages") as HTMLInputElement;
+
+    items.forEach((item) => {
+        const checkbox = document.querySelector(`[data-chart-item="${item.text}"]`);
+
+        checkbox?.addEventListener("change", () => {
+            toggleSingleChartItem(item, chart);
+
+            if (checkbox.getAttribute("data-language-slug")) {
+                updatePageAccesses();
+                allLanguagesSelected.checked = false;
+            }
+        });
+    });
+
+    allLanguagesSelected?.addEventListener("change", () => {
+        const checked = allLanguagesSelected.checked;
+
+        document.querySelectorAll<HTMLInputElement>("[data-chart-item]").forEach((checkbox: HTMLInputElement) => {
+            if (checkbox.getAttribute("data-language-slug") && checked !== checkbox.checked) {
+                const dataChartItem = checkbox.getAttribute("data-chart-item");
+                const item = items.find((item) => item.text === dataChartItem);
+
+                toggleSingleChartItem(item, chart);
+                checkbox.checked = checked;
+            }
+        });
+
+        updatePageAccesses();
+    });
 
     // Initialize export button
     toggleExportButton();
