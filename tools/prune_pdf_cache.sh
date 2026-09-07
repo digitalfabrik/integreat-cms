@@ -1,10 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# This script can be used to prune the pdf file cache.
+project_home=$(dirname "$(readlink -f "$0"/..)")
 
-# Import utility functions
-# shellcheck source=./tools/_functions.sh
-source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
-
-rm -rfv "${PACKAGE_DIR:?}/pdf"
-echo "Removed PDF cache" | print_info
+uv run "${project_home}/cli.py" cms pdf_cache_evict "$@"

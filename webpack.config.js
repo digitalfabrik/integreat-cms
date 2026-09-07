@@ -149,7 +149,7 @@ module.exports = {
     }),
     new BundleTracker({
       filename: "webpack-stats.json",
-      path: "integreat_cms",
+      path: "shared",
     }),
     ...(sentryUploadEnabled
       ? [

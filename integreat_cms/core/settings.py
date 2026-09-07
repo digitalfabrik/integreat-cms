@@ -1154,10 +1154,18 @@ if REDIS_CACHE:
     if unix_socket := os.environ.get("INTEGREAT_CMS_REDIS_UNIX_SOCKET"):
         # Use unix socket if available (and also tell cacheops about it)
         redis_location = f"unix://{unix_socket}?db=0"
-        CACHEOPS_REDIS: Final[str] = f"unix://{unix_socket}?db=1"
     else:
         # If not, fall back to normal TCP connection
-        redis_location = "redis://127.0.0.1:6379/0"
+        redis_host = os.environ.get("INTEGREAT_CMS_REDIS_HOST", "127.0.0.1")
+        redis_port = os.environ.get("INTEGREAT_CMS_REDIS_PORT", "6379")
+        redis_location = f"redis://{redis_host}:{redis_port}/0"
+
+    CACHEOPS_REDIS: Final[str] = (
+        f"redis://{redis_host}:{redis_port}/1"
+        if redis_host
+        else f"unix://{unix_socket}?db=1"
+    )
+
     CACHES["default"] = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": redis_location,
@@ -1259,7 +1267,7 @@ INTERNAL_URLS: Final[list[str]] = (
 WEBPACK_LOADER: Final[dict[str, dict[str, str]]] = {
     "DEFAULT": {
         "BUNDLE_DIR_NAME": "",
-        "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
+        "STATS_FILE": os.path.join(BASE_DIR, "..", "shared", "webpack-stats.json"),
     },
 }
 

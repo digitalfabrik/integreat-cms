@@ -1,0 +1,161 @@
+# Shared environment for the Django-based services (cms + celery worker).
+# Kept in one place via a YAML anchor so the two can never drift apart.
+x-integreat-env: &integreat-env
+  # CELERY_REDIS_URL: redis://redis:6379/0
+  CACHEOPS_ENABLED: "false"
+  CELERY_REDIS_URL: "redis://redis:6379/0"
+  INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED: "0"
+  INTEGREAT_CMS_DEBUG: "1"
+  INTEGREAT_CMS_DEEPL_AUTH_KEY: '8b779cd3-959b-ad27-323a-a99a539f9916:fx'
+  INTEGREAT_CMS_DB_HOST: db
+  INTEGREAT_CMS_DB_PASSWORD: password
+  INTEGREAT_CMS_DB_USER: integreat
+  INTEGREAT_CMS_FCM_KEY: dummy
+  INTEGREAT_CMS_REDIS_CACHE: "1"
+  INTEGREAT_CMS_REDIS_HOST: redis
+  INTEGREAT_CMS_REDIS_PORT: "6379"
+  INTEGREAT_CMS_SECRET_KEY: dummy
+
+services:
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    pull_policy: build
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./integreat_cms:/app/integreat_cms
+      - ./shared:/app/shared
+    environment: *integreat-env
+    command: >-
+      uv run celery
+      --app integreat_cms.integreat_celery
+      --broker redis://redis:6379/0
+      --result-backend redis://redis:6379/0
+      worker
+      --loglevel INFO
+      --beat
+      --concurrency=4
+      --queues default,celery,chat,statistics
+
+  cms:
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      web:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    pull_policy: build
+    develop:
+      watch:
+        - path: ./uv.lock
+          action: rebuild
+    restart: unless-stopped
+    volumes:
+      - ./dev:/app/dev
+      - ./integreat_cms:/app/integreat_cms
+      - ./shared:/app/shared
+      - ./tools:/app/tools
+    environment: *integreat-env
+    ports:
+      - 19000:8000
+    command: uv run tools/run.py
+
+  db:
+    # https://hub.docker.com/_/postgres
+    image: postgres:17-trixie
+    restart: unless-stopped
+    volumes:
+      - db:/var/lib/postgresql
+    ports:
+      - "19010:5432"
+    environment:
+      POSTGRES_USER: integreat
+      POSTGRES_DB: integreat
+      POSTGRES_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "localhost", "-U", "integreat", "-t", "16"]
+      interval: 30s
+      timeout: 30s
+      retries: 4
+      start_period: 4s
+      start_interval: 4s
+
+  redis:
+    # https://hub.docker.com/_/redis
+    image: redis:latest
+    restart: unless-stopped
+    ports:
+      - "19020:6379"
+
+  redis-admin:
+    # https://hub.docker.com/r/redis/redisinsight
+    image: redis/redisinsight:latest
+    restart: unless-stopped
+    ports:
+      - "19030:5540"
+    volumes:
+      - redisinsight:/data
+    environment:
+      RI_DATABASE_MANAGEMENT: false
+      RI_REDIS_HOST0: redis
+
+  # A generic service to run tools
+  tool:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    pull_policy: build
+    restart: no
+    volumes:
+      - ./.git:/app/.git
+      - ./cli.py/:/app/cli.py
+      - ./dev:/app/dev
+      - ./docs/:/app/docs
+      - ./integreat_cms:/app/integreat_cms
+      - ./shared:/app/shared
+      - ./tests:/app/tests
+      - ./tools:/app/tools
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    pull_policy: build
+    develop:
+      watch:
+        - path: ./package-lock.json
+          action: rebuild
+    volumes:
+      - ./.browserlistrc:/app/.browserlistrc
+      - ./.prettierignore:/app/.prettierignore
+      - ./.prettierrc:/app/.prettierrc
+      - ./eslint.config.mjs:/app/eslint.config.mjs
+      - ./postcss.config.js:/app/postcss.config.js
+      - ./tailwind.config.js:/app/tailwind.config.js
+      - ./webpack.config.js:/app/webpack.config.js
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./typedoc.json:/app/typedoc.json
+      - ./integreat_cms/cms/templates:/app/integreat_cms/cms/templates
+      - ./integreat_cms/static:/app/integreat_cms/static
+      - ./shared:/app/shared
+    command: npm run dev
+    restart: no
+    healthcheck:
+      test: ["CMD-SHELL", "stat /app/integreat_cms/static/dist/main.*.js"]
+      interval: 1m
+      retries: 4
+      start_period: 2s
+      start_interval: 4s
+
+volumes:
+  # CMS db data
+  db:
+  # Persistence for RedisInsight
+  redisinsight:

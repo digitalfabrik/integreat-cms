@@ -1,0 +1,67 @@
+# A base image for running the CMS and various tools
+FROM debian:trixie
+
+ADD /tools/docker /
+
+# Install ca-certificates first, then refresh the package lists.
+RUN \
+  --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+  && apt-get update && apt-get install -y --no-install-recommends \
+  gettext \
+  git \
+  libcairo2 \
+  libglib2.0-0t64 \
+  libmagic1t64 \
+  libpangoft2-1.0-0 \
+  nodejs \
+  postgresql-client \
+  patch \
+  python3
+
+# https://docs.astral.sh/uv/guides/integration/docker
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/bin/
+
+# TODO Why do we need this?
+ADD integreat_cms/static/src/logos/integreat/integreat-logo.png /app/integreat_cms/media/global/integreat-logo.png
+ADD integreat_cms/static/src/logos/malte/malte-logo.png /app/integreat_cms/media/global/malte-logo.png
+ADD integreat_cms/integreat-cms-cli /app/integreat_cms/
+ADD README.md LICENSE NOTICE.md MANIFEST.in \
+  pyproject.toml uv.lock setup.py \
+  package.json package-lock.json \
+  /app/
+
+
+WORKDIR /app
+
+RUN --mount=type=cache,target=/root/.cache/uv \
+  uv sync --all-extras --locked --link-mode=copy
+
+
+RUN --mount=type=cache,target=/root/.cache/uv \
+  uv sync --all-extras --locked --link-mode=copy
+
+RUN --mount=type=cache,target=/root/.npm \
+  npm ci --no-audit --no-fund
+
+
+# This enables scripts to detect that they are running in a container
+ENV DOCKER_EXEC="true"
+
+# https://docs.astral.sh/uv/concepts/projects/config/#project-packaging
+# ENV UV_PROJECT_ENVIRONMENT="/app-venv"
+
+# The image installs only dependencies (uv sync --no-install-project);
+# the integreat_cms package itself is imported from the bind-mounted
+# source tree, so /app must be on the import path.
+ENV PYTHONPATH="/app"
+
+# Reuse the virtual environment already built here instead of re-syncing
+# dependencies on every `uv run` invocation.
+ENV UV_NO_SYNC="true"
+
+# Keep Python's bytecode cache off the bind-mounted source tree, so the
+# container ignores the host's __pycache__ and concurrent xdist workers
+# cannot corrupt .pyc files ("EOFError: marshal data too short").
+ENV PYTHONPYCACHEPREFIX="/tmp/pycache"
