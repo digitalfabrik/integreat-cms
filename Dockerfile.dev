@@ -8,9 +8,13 @@ FROM debian:trixie AS base
 RUN \
   --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get update && apt-get install -y ca-certificates gnupg
+COPY docker /
+RUN \
+  --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt,sharing=locked \
   apt-get update && apt-get install -y --no-install-recommends \
   \
-  ca-certificates \
   gettext \
   git \
   libcairo2 \
@@ -18,7 +22,6 @@ RUN \
   libmagic1t64 \
   libpangoft2-1.0-0 \
   nodejs \
-  npm \
   postgresql-client \
   patch \
   python3
