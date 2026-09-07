@@ -45,6 +45,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr id="statistics-pages-empty-list" class="justify-self-center">
+                        <td colspan="4" class="px-4 py-3">
+                            {% translate "No pages available." %}
+                        </td>
+                    </tr>
                     {% for page in pages %}
                         {% include "statistics/statistics_viewed_pages_node.html" with is_archive=is_archive %}
                     {% endfor %}
