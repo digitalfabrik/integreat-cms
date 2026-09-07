@@ -20,7 +20,7 @@ from ...forms import StatisticsFilterForm
 if TYPE_CHECKING:
     from typing import Any
 
-    from django.http import HttpRequest, HttpResponseRedirect
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -36,9 +36,7 @@ class AnalyticsView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "statistics"}
 
-    def get(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
-    ) -> HttpResponseRedirect:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render statistics of access numbers tracked by Matomo
 
