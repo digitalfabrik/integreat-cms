@@ -11,6 +11,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+from ....core.utils.machine_translation_celery_task import get_mt_task_ids
 from ...decorators import permission_required
 from ...forms import PageFilterForm
 from ...models import PageTranslation
@@ -131,6 +132,16 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
 
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
+        pages = list(pages)
+
+        non_default_languages = [
+            lang for lang in region.active_languages if lang != region.default_language
+        ]
+        mt_task_ids = get_mt_task_ids(
+            "page",
+            [page.id for page in pages],
+            [lang.slug for lang in non_default_languages],
+        )
 
         return render(
             request,
@@ -142,6 +153,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                 "source_language": region.get_source_language(language.slug),
                 "content_type": "page",
                 "languages": region.active_languages,
+                "mt_task_ids": mt_task_ids,
                 "textlab_languages": settings.TEXTLAB_API_LANGUAGES,
                 "filter_form": filter_form,
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,

@@ -36,6 +36,7 @@ if TYPE_CHECKING:
     from ..models import Region
     from ..models.abstract_content_model import AbstractContentModel
     from ..models.abstract_content_translation import AbstractContentTranslation
+    from ..utils.machine_translation_types import ObjectIdAndLanguageSlug
 
 logger = logging.getLogger(__name__)
 register = template.Library()
@@ -55,6 +56,45 @@ def get_translation(
             or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
     """
     return instance.get_translation(language_slug)
+
+
+@register.simple_tag
+def get_translation_state(
+    instance: AbstractContentModel,
+    language_slug: str,
+    mt_task_ids: dict[ObjectIdAndLanguageSlug, str | None] | None = None,
+) -> str:
+    """
+    This tag returns the translation state of the requested content object in
+    the requested language.
+
+    :param instance: The content object instance
+    :param language_slug: The slug of the requested language
+    :param mt_task_ids: Optional precomputed machine-translation task id
+        lookup - see :meth:`~integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_translation_state`
+    :return: The translation state
+    """
+    return instance.get_translation_state(language_slug, mt_task_ids)
+
+
+@register.simple_tag
+def get_machine_translation_task_id(
+    instance: AbstractContentModel,
+    language_slug: str,
+    mt_task_ids: dict[ObjectIdAndLanguageSlug, str | None] | None = None,
+) -> str | None:
+    """
+    This tag returns the id of the Celery task currently machine-translating
+    the requested content object into the requested language, if any. Works
+    whether or not a translation already exists for that language.
+
+    :param instance: The content object instance
+    :param language_slug: The slug of the requested language
+    :param mt_task_ids: Optional precomputed lookup - see
+        :meth:`~integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_machine_translation_task_id`
+    :return: The task id, or ``None`` if no machine translation is in progress
+    """
+    return instance.get_machine_translation_task_id(language_slug, mt_task_ids)
 
 
 @register.simple_tag

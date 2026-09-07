@@ -11,6 +11,7 @@ from django.views.decorators.http import require_POST
 
 from integreat_cms.cms.constants import status
 
+from ....core.utils.machine_translation_celery_task import get_mt_task_ids
 from ...decorators import permission_required
 from ...models.languages.language import Language
 from ..pages.page_context_mixin import PageContextMixin
@@ -75,6 +76,15 @@ def render_partial_page_tree_views(
     for page in all_pages:
         pages_by_id[page.tree_id].append(page)
 
+    non_default_languages = [
+        lang for lang in region.active_languages if lang != region.default_language
+    ]
+    mt_task_ids = get_mt_task_ids(
+        "page",
+        [page.id for pages in pages_by_id.values() for page in pages],
+        [lang.slug for lang in non_default_languages],
+    )
+
     sub_trees = []
     for tree_id in requested_tree_ids:
         # Skip page trees which do not exist
@@ -95,6 +105,7 @@ def render_partial_page_tree_views(
                     "pages": children,
                     "language": language,
                     "languages": region.active_languages,
+                    "mt_task_ids": mt_task_ids,
                     "parent_id": parent.id,
                     "is_archive": is_archive,
                     "is_statistics": is_statistics,

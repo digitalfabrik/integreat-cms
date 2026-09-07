@@ -13,7 +13,6 @@ from integreat_cms.cms.constants.translation_status import (
 if TYPE_CHECKING:
     from typing import Any, Final
 
-    from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
 
@@ -40,13 +39,12 @@ from tests.constants import (
     WRITE_ROLES,
 )
 
-from ..utils import assert_message_in_log
 from .deepl_api_test import setup_deepl_supported_languages, setup_fake_deepl_api_server
 from .google_translate_api_test import (
     setup_fake_google_translate_api,
     setup_google_translate_supported_languages,
 )
-from .utils import get_content_translations, get_english_name
+from .utils import get_content_translations
 
 # Slugs we want to use for testing
 REGION_SLUG: Final[str] = "augsburg"
@@ -156,7 +154,7 @@ def test_automatic_translation(
     content_role_id_data_combination: tuple[Any, list, int, dict],
     settings: SettingsWrapper,
     mock_server: MockServer,
-    caplog: LogCaptureFixture,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check machine translation of the page/event/poi when automatic_translation checkbox in set on the form
@@ -167,7 +165,6 @@ def test_automatic_translation(
     :param content_role_id_data_combination: The combination of content type, user roles with permission and selected_ids used in the test
     :param settings: The fixture providing the django settings
     :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
-    :param caplog: The :fixture:`caplog` fixture
     """
 
     provider, source_language_slug, target_language_slug = provider_language_combination
@@ -227,56 +224,65 @@ def test_automatic_translation(
         },
     )
 
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
+    with (
+        patch.object(
+            GoogleTranslateApiClient,
+            "__init__",
+            setup_fake_google_translate_api,
+        ),
+        django_capture_on_commit_callbacks(execute=True),
     ):
         response = client.post(
             edit_content,
             **{"data": data},  # noqa: PIE804
         )
 
-        if role in entitled_roles:
-            # If the role should be allowed to access the view, we expect a successful result
-            translations = get_content_translations(
-                content_type,
-                [content_id],
-                source_language_slug,
-                target_language_slug,
-            )
-            source_translation = translations[0][source_language_slug]
-            target_translation = translations[0][target_language_slug]
+    if role in entitled_roles:
+        # If the role should be allowed to access the view, we expect a successful result
+        translations = get_content_translations(
+            content_type,
+            [content_id],
+            source_language_slug,
+            target_language_slug,
+        )
+        target_translation = translations[0][target_language_slug]
 
-            # Check that the success message is present
-            assert_message_in_log(
-                f'SUCCESS  {content_type._meta.verbose_name.capitalize()} "{source_translation.title}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
-                caplog,
-            )
+        # Translation now happens via a Celery task (eager in tests), so
+        # success surfaces through the queued report rather than a
+        # synchronous Django message.
+        report_url = reverse(
+            "machine_translation_report",
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "language_slug": target_language_slug,
+                "model_type": content_type._meta.model_name,
+            },
+        )
+        report_response = client.get(report_url)
+        report_data = report_response.json()
+        assert report_data["reports"], "Expected a queued machine translation report"
+        assert report_data["reports"][-1]["outcome"] == "FULL_SUCCESS"
 
-            # Check that the page translation exists and has the correct content
-            assert target_translation.machine_translated is True
-            assert (
-                target_translation.title == f"This is your translation from {provider}"
-            )
-            assert (
-                target_translation.content
-                == f"<p>This is your translation from {provider}</p>"
-            )
-            assert (
-                Region.objects.get(slug=REGION_SLUG).mt_budget_used
-                == expected_word_count
-            )
-        elif role == ANONYMOUS:
-            # For anonymous users, we want to redirect to the login form instead of showing an error
-            assert response.status_code == 302
-            assert (
-                response.headers.get("location")
-                == f"{settings.LOGIN_URL}?next={edit_content}"
-            )
-        else:
-            # For logged in users, we want to show an error if they get a permission denied
-            assert response.status_code == 403
+        # Check that the page translation exists and has the correct content
+        assert target_translation.machine_translated is True
+        assert target_translation.title == f"This is your translation from {provider}"
+        assert (
+            target_translation.content
+            == f"<p>This is your translation from {provider}</p>"
+        )
+        assert (
+            Region.objects.get(slug=REGION_SLUG).mt_budget_used == expected_word_count
+        )
+    elif role == ANONYMOUS:
+        # For anonymous users, we want to redirect to the login form instead of showing an error
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location")
+            == f"{settings.LOGIN_URL}?next={edit_content}"
+        )
+    else:
+        # For logged in users, we want to show an error if they get a permission denied
+        assert response.status_code == 403
 
 
 do_not_translate_title = [True, False]
@@ -295,6 +301,7 @@ def test_do_not_translate_title(
     do_not_translate_title: bool,
     settings: SettingsWrapper,
     mock_server: MockServer,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check `do_not_translate_title` flag works as expected
@@ -325,6 +332,7 @@ def test_do_not_translate_title(
             "de",
             "Neuer Titel",
             "Neuer Inhalt",
+            django_capture_on_commit_callbacks,
             region=region,
             mt_translations_to_create="en",
             do_not_translate_title=do_not_translate_title,
@@ -352,6 +360,7 @@ def test_do_not_translate_title(
             "en",
             "Title in English",
             "New content",
+            django_capture_on_commit_callbacks,
             region=region,
             mt_translations_to_create="ar",
             do_not_translate_title=do_not_translate_title,
@@ -383,6 +392,7 @@ def test_mt_update_to_empty_content(
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     mock_server: MockServer,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     When a page is updated with empty content and MT updates are enabled:
@@ -398,8 +408,22 @@ def test_mt_update_to_empty_content(
 
     # Create initial translations
     page_id = _create_page(client, REGION_SLUG, "Titel", "titel", "<p>Inhalt</p>")
-    _edit_translation(client, page_id, "en", "Title", "<p>Content</p>")
-    _edit_translation(client, page_id, "ar", "العنوان", "<p>العنوان</p>")
+    _edit_translation(
+        client,
+        page_id,
+        "en",
+        "Title",
+        "<p>Content</p>",
+        django_capture_on_commit_callbacks,
+    )
+    _edit_translation(
+        client,
+        page_id,
+        "ar",
+        "العنوان",
+        "<p>العنوان</p>",
+        django_capture_on_commit_callbacks,
+    )
 
     # Trigger automatic translations
     with patch.object(
@@ -413,6 +437,7 @@ def test_mt_update_to_empty_content(
             language_slug="de",
             title="Titel",
             content="",
+            django_capture_on_commit_callbacks=django_capture_on_commit_callbacks,
             region=region,
             mt_translations_to_update="en",
         )
@@ -434,6 +459,7 @@ def test_mt_update_to_empty_content(
             language_slug="en",
             title="Title",
             content="",
+            django_capture_on_commit_callbacks=django_capture_on_commit_callbacks,
             region=region,
             mt_translations_to_update="ar",
         )
@@ -457,12 +483,12 @@ def test_mt_update_up_to_date_no_changes(
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     mock_server: MockServer,
-    caplog: LogCaptureFixture,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     When a source translation is updated without changes and MT update is enabled but target translation is already up-to-date:
     - target translation is not updated
-    - failure message is displayed
+    - failure reported via the MT report endpoint
     """
     mt_setup(["de"], ["en-gb", "en-us"], [], [], settings, mock_server)
 
@@ -472,7 +498,14 @@ def test_mt_update_up_to_date_no_changes(
 
     # Create initial translations
     page_id = _create_page(client, REGION_SLUG, "Titel", "titel", "<p>Inhalt</p>")
-    _edit_translation(client, page_id, "en", "Title", "<p>Content</p>")
+    _edit_translation(
+        client,
+        page_id,
+        "en",
+        "Title",
+        "<p>Content</p>",
+        django_capture_on_commit_callbacks,
+    )
 
     en_translation = PageTranslation.objects.filter(
         page__id=page_id, language__slug="en"
@@ -488,15 +521,27 @@ def test_mt_update_up_to_date_no_changes(
         language_slug="de",
         title="Titel",
         content="<p>Inhalt</p>",
+        django_capture_on_commit_callbacks=django_capture_on_commit_callbacks,
         region=region,
         mt_translations_to_update="en",
     )
 
-    # Check for a failure message
-    assert_message_in_log(
-        "ERROR    Page \"Title\" was not translated into 'English', because there were no changes to the source translation.",
-        caplog,
+    # Translation now happens via a Celery task (eager in tests), so the
+    # "no changes" failure surfaces through the queued report rather than
+    # a synchronous Django message.
+    report_url = reverse(
+        "machine_translation_report",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": "en",
+            "model_type": "page",
+        },
     )
+    report_response = client.get(report_url)
+    report_data = report_response.json()
+    assert report_data["reports"], "Expected a queued machine translation report"
+    assert report_data["reports"][-1]["outcome"] == "PARTIAL_SUCCESS"
+
     en_translation = PageTranslation.objects.filter(
         page__id=page_id, language__slug="en"
     ).first()
@@ -513,6 +558,7 @@ def test_manual_update_mt_page(
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     mock_server: MockServer,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     When a machine-translated page is manually updated without any changes:
@@ -540,6 +586,7 @@ def test_manual_update_mt_page(
             language_slug="de",
             title="Titel",
             content="<p>Inhalt</p>",
+            django_capture_on_commit_callbacks=django_capture_on_commit_callbacks,
             region=region,
             mt_translations_to_create="en",
         )
@@ -559,6 +606,7 @@ def test_manual_update_mt_page(
             language_slug="en",
             title=en_translation.title,
             content=en_translation.content,
+            django_capture_on_commit_callbacks=django_capture_on_commit_callbacks,
             region=region,
         )
 
@@ -578,7 +626,7 @@ def test_mt_update_refreshes_outdated_translation_no_changes(
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
     mock_server: MockServer,
-    caplog: LogCaptureFixture,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     When a source translation is changed and reverted with MT update enabled:
@@ -602,6 +650,7 @@ def test_mt_update_refreshes_outdated_translation_no_changes(
         language_slug="de",
         title="Titel",
         content="",
+        django_capture_on_commit_callbacks=django_capture_on_commit_callbacks,
         region=region,
         mt_translations_to_create="en",
     )
@@ -622,6 +671,7 @@ def test_mt_update_refreshes_outdated_translation_no_changes(
         language_slug="de",
         title="Titel",
         content="<p>Inhalt</p>",
+        django_capture_on_commit_callbacks=django_capture_on_commit_callbacks,
     )
 
     en_translation = PageTranslation.objects.filter(
@@ -638,6 +688,7 @@ def test_mt_update_refreshes_outdated_translation_no_changes(
         language_slug="de",
         title="Titel",
         content="",
+        django_capture_on_commit_callbacks=django_capture_on_commit_callbacks,
         region=region,
         mt_translations_to_update="en",
     )
@@ -652,9 +703,26 @@ def test_mt_update_refreshes_outdated_translation_no_changes(
     assert en_translation.translation_state == MACHINE_TRANSLATED
     assert mock_server.requests_counter == 1  # No new MT request should have been made
 
-    assert_message_in_log(
-        "INFO     Page \"Titel\": Translation into 'English' was not necessary -> no changes detected. The translation date has been refreshed.",
-        caplog,
+    # Translation now happens via a Celery task (eager in tests), so the
+    # refresh is reported through the queued report rather than a
+    # synchronous Django message.
+    report_url = reverse(
+        "machine_translation_report",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": "en",
+            "model_type": "page",
+        },
+    )
+    report_response = client.get(report_url)
+    report_data = report_response.json()
+    assert report_data["reports"], "Expected a queued machine translation report"
+    latest_report = report_data["reports"][-1]
+    assert latest_report["outcome"] == "FULL_SUCCESS"
+    assert (
+        "Translation into 'English' was not necessary -> no changes detected. "
+        "The translation date has been refreshed."
+        in latest_report["results"]["en"][str(page_id)]["refreshed"]
     )
 
 
@@ -696,12 +764,13 @@ def _create_page(
     return resolve(edit_page_url).kwargs["page_id"]
 
 
-def _edit_translation(
+def _edit_translation(  # noqa: PLR0913
     client: Client,
     page_id: str,
     language_slug: str,
     title: str,
     content: str,
+    django_capture_on_commit_callbacks: Any,
     *,
     region: Region | None = None,
     mt_translations_to_create: str | None = None,
@@ -738,4 +807,5 @@ def _edit_translation(
                 language__slug=mt_translations_to_update
             ).id
 
-    client.post(url, data=data)
+    with django_capture_on_commit_callbacks(execute=True):
+        client.post(url, data=data)

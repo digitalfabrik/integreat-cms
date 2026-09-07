@@ -3,9 +3,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Final
+    from typing import Any, Final
 
-    from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
 
@@ -23,7 +22,6 @@ from tests.constants import (
     PRIV_STAFF_ROLES,
 )
 
-from ..utils import assert_message_in_log
 from .utils import get_content_translations
 
 # Slugs we want to use for testing
@@ -84,16 +82,16 @@ def test_deepl_bulk_mt_api_error(
     error: int,
     settings: SettingsWrapper,
     mock_server: MockServer,
-    caplog: LogCaptureFixture,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check for error handling when DeepL API returns server error
+
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param error: The error status to test
     :param settings: The fixture providing the django settings
     :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
-    :param caplog: The :fixture:`caplog` fixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -119,7 +117,10 @@ def test_deepl_bulk_mt_api_error(
             "language_slug": TARGET_LANGUAGE_SLUG,
         },
     )
-    response = client.post(machine_translation, data={"selected_ids[]": selected_ids})
+    with django_capture_on_commit_callbacks(execute=True):
+        response = client.post(
+            machine_translation, data={"selected_ids[]": selected_ids}
+        )
     print(response.headers)
 
     assert response.status_code == 302
@@ -140,11 +141,23 @@ def test_deepl_bulk_mt_api_error(
         TARGET_LANGUAGE_SLUG,
     )
 
-    # Check for a failure message
-    assert_message_in_log(
-        "ERROR    A problem with DeepL API has occurred. Please contact an administrator.",
-        caplog,
+    # Translation now happens via a Celery task (eager in tests), so the
+    # failure surfaces through the queued report rather than a synchronous
+    # Django message - see the outcome bug fixed in machine_translation_report.py,
+    # which this also guards against regressing.
+    report_url = reverse(
+        "machine_translation_report",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": TARGET_LANGUAGE_SLUG,
+            "model_type": "page",
+        },
     )
+    report_response = client.get(report_url)
+    report_data = report_response.json()
+    assert report_data["reports"], "Expected a queued machine translation report"
+    assert report_data["reports"][-1]["outcome"] == "PARTIAL_SUCCESS"
+
     for page_translation in page_translations:
         # Check that the page was not machine translated
         assert (

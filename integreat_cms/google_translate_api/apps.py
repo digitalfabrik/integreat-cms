@@ -19,7 +19,7 @@ from google.cloud import (  # type: ignore[attr-defined]
 from google.oauth2 import service_account
 
 if TYPE_CHECKING:
-    from typing import Final
+    from typing import Any, Final
 
     from django.utils.functional import Promise
     from google.oauth2.service_account import Credentials
@@ -85,38 +85,56 @@ class GoogleTranslateApiClientConfig(AppConfig):
         """
         Checking if API is available
         """
-        # Only check availability if running a server
+        # When running the dev server or under Apache, the process is already
+        # fully up, so the availability check can run right away. Under
+        # Celery, `ready()` fires while the worker is still being bootstrapped,
+        # so defer the check until the worker signals it's actually ready.
         if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
-            if settings.GOOGLE_TRANSLATE_ENABLED:
-                try:
-                    credentials = service_account.Credentials.from_service_account_file(
-                        settings.GOOGLE_APPLICATION_CREDENTIALS,
-                    )
-                    if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
-                        self.ready_v3(credentials)
-                    else:
-                        self.ready_v2(credentials)
+            self.check_availability()
+        else:
+            from celery.signals import celeryd_after_setup
 
-                    if not self.supported_source_languages:
-                        raise ValueError(  # noqa: TRY301
-                            "No supported source languages by Google Translate",
-                        )
-                    logger.debug(
-                        "Supported source languages by Google Translate: %r",
-                        self.supported_source_languages,
-                    )
+            celeryd_after_setup.connect(
+                self._check_availability_on_celery_ready, weak=False
+            )
 
-                    if not self.supported_source_languages:
-                        raise ValueError(  # noqa: TRY301
-                            "No supported target languages by Google Translate",
-                        )
-                    logger.debug(
-                        "Supported target languages by Google Translate: %r",
-                        self.supported_target_languages,
-                    )
+    def _check_availability_on_celery_ready(self, **kwargs: Any) -> None:
+        self.check_availability()
 
-                    logger.info("Google Translate API is enabled.")
-                except Exception:
-                    logger.exception("Google translate is not available.")
-            else:
-                logger.info("Google Translate API is disabled.")
+    def check_availability(self) -> None:
+        """
+        Checking if API is available
+        """
+        if settings.GOOGLE_TRANSLATE_ENABLED:
+            try:
+                credentials = service_account.Credentials.from_service_account_file(
+                    settings.GOOGLE_APPLICATION_CREDENTIALS,
+                )
+                if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
+                    self.ready_v3(credentials)
+                else:
+                    self.ready_v2(credentials)
+
+                if not self.supported_source_languages:
+                    raise ValueError(  # noqa: TRY301
+                        "No supported source languages by Google Translate",
+                    )
+                logger.debug(
+                    "Supported source languages by Google Translate: %r",
+                    self.supported_source_languages,
+                )
+
+                if not self.supported_source_languages:
+                    raise ValueError(  # noqa: TRY301
+                        "No supported target languages by Google Translate",
+                    )
+                logger.debug(
+                    "Supported target languages by Google Translate: %r",
+                    self.supported_target_languages,
+                )
+
+                logger.info("Google Translate API is enabled.")
+            except Exception:
+                logger.exception("Google translate is not available.")
+        else:
+            logger.info("Google Translate API is disabled.")
