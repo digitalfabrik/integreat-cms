@@ -36,41 +36,6 @@ const setCheckboxRecursively = (pageId: number, checked: boolean) => {
     }
 };
 
-const setSelectAllCheckboxEventListener = (selectAllCheckbox: HTMLInputElement, selectItems: HTMLInputElement[]) => {
-    selectAllCheckbox.classList.remove("cursor-wait");
-    selectAllCheckbox.addEventListener("click", () => {
-        // Set all checkboxes to the same value as the "select all" checkbox
-        selectItems.forEach((checkbox) => {
-            checkbox.checked = selectAllCheckbox.checked;
-        });
-        updateSelectionCount();
-    });
-
-    // Set all checkboxes initially in case the page tree was reloaded
-    selectItems.forEach((checkbox) => {
-        checkbox.checked = selectAllCheckbox.checked;
-    });
-    updateSelectionCount();
-};
-
-const setSelectItemCheckboxesEventlisteners = (selectItems: HTMLInputElement[]) => {
-    selectItems.forEach((selectItem) => {
-        selectItem.classList.remove("cursor-wait");
-        selectItem.addEventListener("change", () => {
-            // Check if checkbox belongs to a page with subpages
-            const pageId = selectItem.getAttribute("value");
-            const collapsiblePage = document.querySelector(`.toggle-subpages[data-page-id="${pageId}"]`);
-            if (collapsiblePage) {
-                const childrenIds: number[] = JSON.parse(collapsiblePage.getAttribute("data-page-children"));
-                childrenIds.forEach((childId) => {
-                    setCheckboxRecursively(childId, selectItem.checked);
-                });
-            }
-            updateSelectionCount();
-        });
-    });
-};
-
 const setAccessBarPerLanguage = (
     accessField: Element,
     languageSlug: string,
@@ -334,30 +299,63 @@ export const setPageAccessesEventListeners = () => {
     ajaxRequestID = 0;
     statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
     pageAccessesForm = document.getElementById("statistics-page-access") as HTMLFormElement;
+
     if (pageAccessesForm && statisticsForm) {
-        const selectAllCheckbox = document.getElementById("bulk-select-all") as HTMLInputElement;
-        const selectItems = <HTMLInputElement[]>Array.from(document.getElementsByClassName("bulk-select-item"));
+        pageAccessesURL = pageAccessesForm.getAttribute("data-page-accesses-url");
+
         // Remove cursor-wait from bulk checkboxes now that subpages have been loaded
         document
             .querySelectorAll<HTMLElement>(".bulk-select-item.cursor-wait, #bulk-select-all.cursor-wait")
             .forEach((el) => el.classList.remove("cursor-wait"));
-        pageAccessesURL = pageAccessesForm.getAttribute("data-page-accesses-url");
 
-        setSelectAllCheckboxEventListener(selectAllCheckbox, selectItems);
-        setSelectItemCheckboxesEventlisteners(selectItems);
-        updatePageAccesses();
-        statisticsForm.addEventListener("submit", async (event: Event) => {
+        const selectAllCheckbox = document.getElementById("bulk-select-all") as HTMLInputElement;
+        const selectItems = Array.from(document.getElementsByClassName("bulk-select-item")) as HTMLInputElement[];
+
+        // Set "selectAll checkbox" classes and event listeners
+        selectAllCheckbox.classList.remove("cursor-wait");
+        selectAllCheckbox.addEventListener("click", () => {
+            // Set all checkboxes to the same value as the "select all" checkbox
+            selectItems.forEach((checkbox) => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+            updateSelectionCount();
+        });
+
+        // Set all checkboxes initially in case the page tree was reloaded
+        selectItems.forEach((selectItem) => {
+            selectItem.checked = selectAllCheckbox.checked;
+            selectItem.classList.remove("cursor-wait");
+            selectItem.addEventListener("change", () => {
+                // Check if checkbox belongs to a page with subpages
+                const pageId = selectItem.getAttribute("value");
+                const collapsiblePage = document.querySelector(`.toggle-subpages[data-page-id="${pageId}"]`);
+                if (collapsiblePage) {
+                    const childrenIds: number[] = JSON.parse(collapsiblePage.getAttribute("data-page-children"));
+                    childrenIds.forEach((childId) => {
+                        setCheckboxRecursively(childId, selectItem.checked);
+                    });
+                }
+                updateSelectionCount();
+            });
+        });
+
+        statisticsForm.addEventListener("submit", (event: Event) => {
             // Prevent form submit
             event.preventDefault();
             updatePageAccesses();
         });
+
         document.getElementById("export-button")?.addEventListener("click", async () => {
             const exportStatistics = document.getElementById("export-statistics") as HTMLSelectElement;
+
             if (exportStatistics.value === "page-accesses-csv") {
                 // Wait for Page Accesses to be updated to ensure up to date export table
                 await updatePageAccesses();
                 exportPageAccessesData();
             }
         });
+
+        updateSelectionCount();
+        updatePageAccesses();
     }
 };
