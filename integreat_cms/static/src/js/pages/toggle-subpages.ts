@@ -47,15 +47,11 @@ const toggleSubpagesRecursive = (childrenIds: Array<number>) => {
 const setExpandedState = (element: HTMLElement, expanded: boolean) => {
     const id: number = JSON.parse(element.getAttribute("data-page-id"));
     if (expanded) {
-        /* eslint-disable-next-line no-param-reassign */
         element.innerHTML = '<i icon-name="chevron-down"></i>';
-        /* eslint-disable-next-line no-param-reassign */
         element.title = element.getAttribute("data-collapse-title");
         storeExpandedState(id, true);
     } else {
-        /* eslint-disable-next-line no-param-reassign */
         element.innerHTML = '<i icon-name="chevron-right"></i>';
-        /* eslint-disable-next-line no-param-reassign */
         element.title = element.getAttribute("data-expand-title");
         storeExpandedState(id, false);
     }
@@ -150,7 +146,6 @@ export const setToggleSubpagesEventListeners = () => {
         element.addEventListener("click", toggleSubpages);
         element.classList.remove("cursor-wait");
         element.classList.add("cursor-pointer", "hover:scale-125");
-        /* eslint-disable-next-line no-param-reassign */
         element.title = element.getAttribute("data-expand-title");
     });
     // Button to expand all pages at once

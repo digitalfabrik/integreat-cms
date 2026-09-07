@@ -41,7 +41,6 @@ const setSelectAllCheckboxEventListener = (selectAllCheckbox: HTMLInputElement, 
     selectAllCheckbox.addEventListener("click", () => {
         // Set all checkboxes to the same value as the "select all" checkbox
         selectItems.forEach((checkbox) => {
-            /* eslint-disable-next-line no-param-reassign */
             checkbox.checked = selectAllCheckbox.checked;
         });
         updateSelectionCount();
@@ -49,7 +48,6 @@ const setSelectAllCheckboxEventListener = (selectAllCheckbox: HTMLInputElement, 
 
     // Set all checkboxes initially in case the page tree was reloaded
     selectItems.forEach((checkbox) => {
-        /* eslint-disable-next-line no-param-reassign */
         checkbox.checked = selectAllCheckbox.checked;
     });
     updateSelectionCount();

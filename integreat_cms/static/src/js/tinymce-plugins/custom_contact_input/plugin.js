@@ -277,7 +277,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
         });
 
         // Ensure <details> are by default open in the editor, when they are not clickable as part of the contact card, but outside
-        /* eslint no-param-reassign: ["error", { "props": false }] */
         editor.on("BeforeSetContent", (e) => {
             e.content = e.content.replace("<details>", "<details open>");
         });

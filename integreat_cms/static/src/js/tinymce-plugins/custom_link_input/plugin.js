@@ -38,7 +38,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
     const updateLink = (editor, anchorElm, text, linkAttrs) => {
         if (text !== null) {
-            /* eslint-disable-next-line no-param-reassign */
             anchorElm.textContent = text;
         }
 

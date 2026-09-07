@@ -184,10 +184,8 @@ window.addEventListener("load", () => {
         const containerRight = containerScrollLeft + containerWidth;
 
         if (scrollLeft < containerScrollLeft) {
-            // eslint-disable-next-line no-param-reassign
             container.scrollLeft += scrollLeft - containerScrollLeft;
         } else if (scrollRight > containerRight) {
-            // eslint-disable-next-line no-param-reassign
             container.scrollLeft += scrollRight - containerRight;
         }
     };
