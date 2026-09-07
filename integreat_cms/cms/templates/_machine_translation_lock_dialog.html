@@ -1,0 +1,17 @@
+{% load i18n %}
+<!-- shown while the page currently being edited is being machine-translated in the background -->
+{% url "pages" region_slug=request.region.slug language_slug=language.slug as list_url %}
+<div id="machine-translation-lock-dialog"
+     class="flex flex-col justify-center max-w-sm fixed inset-0 hidden">
+    <div class="content w-full rounded shadow-2xl bg-white p-6 text-center">
+        <p class="mb-6">
+            {% translate "This page is currently being translated in the background and cannot be edited in the meantime." %}
+        </p>
+        <i icon-name="loader" class="animate-spin mx-auto h-12 w-12"></i>
+        <p class="mt-6">
+            {% blocktranslate trimmed %}
+                Please wait a moment or <a href="{{ list_url }}" class="text-blue-500 hover:underline">leave this page</a>
+            {% endblocktranslate %}
+        </p>
+    </div>
+</div>

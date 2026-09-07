@@ -10,6 +10,13 @@
 {% block content %}
     {% get_current_language as LANGUAGE_CODE %}
     {% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
+    <div id="mt-source-report-banner">
+    </div>
+    <div id="mt-source-in-progress-line"
+         class="hidden flex items-center gap-2 banner-warning">
+        <i icon-name="loader" class="animate-spin"></i>
+        {% translate "This page is currently being translated into other languages in the background." %}
+    </div>
     {% if page_form.instance.id and can_edit_page and not page.archived %}
         <form enctype="multipart/form-data"
               method="post"
@@ -233,6 +240,7 @@
         {% include "../_tinymce_config.html" %}
         {% if page_form.instance.id %}
             {% include "../_content_edit_lock.html" with lock_key=page.edit_lock_key %}
+            {% include "../_machine_translation_lock_dialog.html" %}
         {% endif %}
     {% endif %}
     {% include "../generic_confirmation_dialog.html" %}

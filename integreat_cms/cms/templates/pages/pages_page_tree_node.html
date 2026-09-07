@@ -4,6 +4,7 @@
 {% load tree_filters %}
 {% load rules %}
 {% get_translation page language.slug as page_translation %}
+{% get_translation_state page language.slug mt_task_ids as current_language_status %}
 <tr id="page-{{ page.id }}-drop-left"
     data-drop-id="{{ page.id }}"
     data-drop-position="left"
@@ -19,7 +20,7 @@
 <tr id="page-{{ page.id }}"
     data-drop-id="{{ page.id }}"
     data-drop-position="last-child"
-    class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %}hidden parent-page-{{ parent_id }}{% endif %}">
+    class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %}hidden parent-page-{{ parent_id }}{% endif %} {% if current_language_status == translation_status.MACHINE_TRANSLATION_IN_PROGRESS %}opacity-50 pointer-events-none{% endif %}">
     {% include "pages/_generic_page_tree_node.html" %}
     {% if not is_archive %}
         <td class="whitespace-nowrap">
@@ -34,12 +35,62 @@
         <div class="block py-1.5 px-2 text-gray-800">
             <div class="lang-grid">
                 {% spaceless %}
-                    {% for other_language, other_status in page.translation_states.values %}
+                    {% for other_language in languages %}
                         {% if other_language != request.region.default_language %}
+                            {% get_translation_state page other_language.slug mt_task_ids as other_status %}
                             <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language.slug %}"
                                class="{{ other_language.slug }}">
                                 <div id="translation-icon">
-                                    {% if other_status == translation_status.MACHINE_TRANSLATED %}
+                                    {% if other_status == translation_status.MACHINE_TRANSLATION_IN_PROGRESS %}
+                                        {% get_machine_translation_task_id page other_language.slug mt_task_ids as mt_task_id %}
+                                        <span data-mt-spinner
+                                              data-mt-task-id="{{ mt_task_id }}"
+                                              data-mt-page-id="{{ page.id }}"
+                                              data-mt-language-slug="{{ other_language.slug }}"
+                                              data-mt-task-progress-url="{% url 'machine_translation_task_progress' region_slug=request.region.slug model_type='page' task_id=mt_task_id %}"
+                                              title="{% translate "Currently being machine translated" %}">
+                                            <i icon-name="loader"
+                                               class="{% if other_language.slug == language.slug %}text-violet-500{% else %}text-gray-800{% endif %}"></i>
+                                        </span>
+                                        <span data-mt-finished
+                                              class="hidden"
+                                              title="{% translate "Machine translation finished - click to refresh" %}">
+                                            <i icon-name="refresh-cw"
+                                               class="{% if other_language.slug == language.slug %}text-violet-500{% else %}text-gray-800{% endif %}"></i>
+                                        </span>
+                                        {# The following are revealed instead of the fallback above once the #}
+                                        {# task finishes, matching whichever outcome it actually resolved to. #}
+                                        <span data-mt-outcome-icon="MACHINE_TRANSLATED"
+                                              class="hidden"
+                                              title="{% translate "Machine translated" %}">
+                                            <i icon-name="bot"
+                                               class="{% if other_language.slug == language.slug %}text-violet-500{% else %}text-gray-800{% endif %}"></i>
+                                        </span>
+                                        <span data-mt-outcome-icon="IN_TRANSLATION"
+                                              class="hidden"
+                                              title="{% translate "Currently in translation" %}">
+                                            <i icon-name="clock"
+                                               class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                        </span>
+                                        <span data-mt-outcome-icon="OUTDATED"
+                                              class="hidden"
+                                              title="{% translate "Translation outdated" %}">
+                                            <i icon-name="alert-triangle"
+                                               class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
+                                        </span>
+                                        <span data-mt-outcome-icon="UP_TO_DATE"
+                                              class="hidden"
+                                              title="{% translate "Translation up-to-date" %}">
+                                            <i icon-name="check"
+                                               class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
+                                        </span>
+                                        <span data-mt-outcome-icon="MISSING"
+                                              class="hidden no-trans"
+                                              title="{% translate "Translation missing" %}">
+                                            <i icon-name="x"
+                                               class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
+                                        </span>
+                                    {% elif other_status == translation_status.MACHINE_TRANSLATED %}
                                         <span title="{% translate "Machine translated" %}">
                                             <i icon-name="bot"
                                                class="{% if other_language.slug == language.slug %}text-violet-500{% else %}text-gray-800{% endif %}"></i>
@@ -95,13 +146,26 @@
                 </div>
             {% endif %}
         {% else %}
-            <div class="block py-1.5 px-2 text-gray-800">
+            <div class="block py-1.5 px-2 text-gray-800{% if current_language_status == translation_status.MACHINE_TRANSLATION_IN_PROGRESS %} hidden{% endif %}"
+                 data-mt-status-text>
                 {{ page_translation.get_status_display }}
             </div>
+            {% if current_language_status == translation_status.MACHINE_TRANSLATION_IN_PROGRESS %}
+                {% get_machine_translation_task_id page language.slug mt_task_ids as current_language_task_id %}
+                <div class="block py-1.5 px-2 text-gray-800 flex items-center gap-1"
+                     data-mt-status-cell
+                     data-mt-task-id="{{ current_language_task_id }}"
+                     data-mt-page-id="{{ page.id }}"
+                     data-mt-language-slug="{{ language.slug }}">
+                    <i icon-name="loader" class="animate-spin"></i>
+                    {% translate "Currently being translated" %}
+                </div>
+            {% endif %}
         {% endif %}
     </td>
     <td>
-        <div class="block py-1.5 px-2 whitespace-nowrap text-gray-800">
+        <div class="block py-1.5 px-2 whitespace-nowrap text-gray-800"
+             data-mt-last-updated>
             {{ page_translation.last_updated|date:"SHORT_DATE_FORMAT" }}
         </div>
     </td>
