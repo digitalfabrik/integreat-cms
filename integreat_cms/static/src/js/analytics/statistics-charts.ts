@@ -244,34 +244,33 @@ window.addEventListener("load", async () => {
     await updateChart(chart);
 
     // Set event handlers for language legend
-    const items = chart.options.plugins.legend.labels.generateLabels(chart);
     const allLanguagesSelected = document.getElementById("select-all-languages") as HTMLInputElement;
+    const chartItemsByCheckbox = chart.options.plugins.legend.labels.generateLabels(chart).reduce((acc, chartItem) => {
+        const checkbox = document.querySelector(`[data-chart-item="${chartItem.text}"]`) as HTMLInputElement;
+        if (checkbox) {
+            acc.set(checkbox, chartItem);
+        }
+        return acc;
+    }, new Map<HTMLInputElement, LegendItem>());
 
-    items.forEach((item) => {
-        const checkbox = document.querySelector(`[data-chart-item="${item.text}"]`);
-
+    for (const [checkbox, chartItem] of chartItemsByCheckbox.entries()) {
         checkbox?.addEventListener("change", () => {
-            toggleSingleChartItem(item, chart);
+            toggleSingleChartItem(chartItem, chart);
 
             if (checkbox.getAttribute("data-language-slug")) {
                 updatePageAccesses();
                 allLanguagesSelected.checked = false;
             }
         });
-    });
+    }
 
     allLanguagesSelected?.addEventListener("change", () => {
         const checked = allLanguagesSelected.checked;
 
-        document.querySelectorAll<HTMLInputElement>("[data-chart-item]").forEach((checkbox: HTMLInputElement) => {
-            if (checkbox.getAttribute("data-language-slug") && checked !== checkbox.checked) {
-                const dataChartItem = checkbox.getAttribute("data-chart-item");
-                const item = items.find((item) => item.text === dataChartItem);
-
-                toggleSingleChartItem(item, chart);
-                checkbox.checked = checked;
-            }
-        });
+        for (const [checkbox, chartItem] of chartItemsByCheckbox.entries()) {
+            toggleSingleChartItem(chartItem, chart);
+            checkbox.checked = checked;
+        }
 
         updatePageAccesses();
     });
