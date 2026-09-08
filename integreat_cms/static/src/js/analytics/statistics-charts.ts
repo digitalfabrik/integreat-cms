@@ -50,6 +50,10 @@ const chartOptions = {
     },
 } satisfies ChartConfiguration<"line", number[], string>;
 
+const HTTP_STATUS_OK = 200;
+const HTTP_STATUS_BAD_REQUEST = 400;
+const HTTP_STATUS_GATEWAY_TIMEOUT = 504;
+
 // global variable for export labels (better for csv than the readable labels)
 let exportLabels: Array<string>;
 
@@ -86,10 +90,6 @@ const updateChart = async (chart: Chart): Promise<void> => {
     chartNetworkError.classList.add("hidden");
     chartServerError.classList.add("hidden");
     chartHeavyTrafficError.classList.add("hidden");
-
-    const HTTP_STATUS_OK = 200;
-    const HTTP_STATUS_BAD_REQUEST = 400;
-    const HTTP_STATUS_GATEWAY_TIMEOUT = 504;
 
     // If form exists (which is the case on the statistics page), perform some extra steps
     if (statisticsForm) {
