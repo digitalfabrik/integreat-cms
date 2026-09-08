@@ -9,7 +9,7 @@ from django.core.exceptions import ImproperlyConfigured
 from integreat_cms.firebase_api.firebase_data_client import FirebaseDataClient
 
 if TYPE_CHECKING:
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
     from requests_mock.mocker import Mocker
 
 
@@ -311,7 +311,7 @@ class TestFirebaseDataClient:
     @pytest.mark.django_db
     def test_client_throws_exception_when_fcm_disabled(
         self,
-        settings: SettingsWrapper,
+        settings: Settings,
         load_test_data: None,
         mock_firebase_credentials: None,
     ) -> None:
@@ -330,7 +330,7 @@ class TestFirebaseDataClient:
     @pytest.mark.django_db
     def test_avg_per_region(
         self,
-        settings: SettingsWrapper,
+        settings: Settings,
         load_test_data: None,
         requests_mock: Mocker,
         mock_firebase_credentials: None,
@@ -449,7 +449,7 @@ class TestFirebaseDataClient:
     @pytest.mark.django_db
     def test_without_analytics_labels(
         self,
-        settings: SettingsWrapper,
+        settings: Settings,
         load_test_data: None,
         requests_mock: Mocker,
         mock_firebase_credentials: None,

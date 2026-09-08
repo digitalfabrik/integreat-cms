@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 import pytest
 from django.urls import reverse
@@ -31,7 +31,7 @@ test_archive_parameters = [
 def test_archive_organization(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: tuple[int, bool],
 ) -> None:
@@ -100,7 +100,7 @@ test_delete_parameters = [
 def test_delete_organization(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: tuple[int, bool],
 ) -> None:
@@ -161,7 +161,7 @@ def test_delete_organization(
 def test_restore_organization(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -222,7 +222,7 @@ BULK_ARCHIVE_SELECTED_IDS = [REFERENCED_ORGANIZATION_ID, NOT_REFERENCED_ORGANIZA
 def test_bulk_archive_organizations(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -292,7 +292,7 @@ BULK_DELETE_SELECTED_IDS = [REFERENCED_ORGANIZATION_ID, NOT_REFERENCED_ORGANIZAT
 def test_bulk_delete_organizations(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -356,7 +356,7 @@ BULK_RESTORE_SELECTED_IDS = [ARCHIVED_ORGANIZATION_ID]
 def test_bulk_restore_organizations(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """

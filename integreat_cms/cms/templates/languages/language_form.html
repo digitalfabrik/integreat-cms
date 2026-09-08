@@ -19,9 +19,7 @@
                 {% endif %}
             </h1>
             {% if perms.cms.change_language %}
-                <button class="btn ml-auto mr-0">
-                    {% translate "Save" %}
-                </button>
+                <button class="btn ml-auto mr-0">{% translate "Save" %}</button>
             {% endif %}
         </div>
         <div class="flex flex-wrap">
@@ -33,20 +31,12 @@
                         </h3>
                     </div>
                     <div class="w-full p-4">
-                        <label for="{{ form.native_name.id_for_label }}" class="block mb-2">
-                            {{ form.native_name.label }}
-                        </label>
+                        <label for="{{ form.native_name.id_for_label }}" class="block mb-2">{{ form.native_name.label }}</label>
                         {% render_field form.native_name|add_error_class:"border-red-500" %}
-                        <div class="mb-2 text-s text-gray-600">
-                            {{ form.native_name.help_text }}
-                        </div>
-                        <label for="{{ form.english_name.id_for_label }}" class="block mb-2">
-                            {{ form.english_name.label }}
-                        </label>
+                        <div class="mb-2 text-s text-gray-600">{{ form.native_name.help_text }}</div>
+                        <label for="{{ form.english_name.id_for_label }}" class="block mb-2">{{ form.english_name.label }}</label>
                         {% render_field form.english_name|add_error_class:"border-red-500" %}
-                        <div class="mb-2 text-s text-gray-600">
-                            {{ form.english_name.help_text }}
-                        </div>
+                        <div class="mb-2 text-s text-gray-600">{{ form.english_name.help_text }}</div>
                     </div>
                 </div>
                 <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
@@ -56,9 +46,7 @@
                         </h3>
                     </div>
                     <div class="w-full p-4">
-                        <label for="{{ form.slug.id_for_label }}" class="block mb-2">
-                            {{ form.slug.label }}
-                        </label>
+                        <label for="{{ form.slug.id_for_label }}" class="block mb-2">{{ form.slug.label }}</label>
                         {% render_field form.slug|add_error_class:"border-red-500" %}
                         <div class="mb-2 text-s text-gray-600">
                             {{ form.slug.help_text }} {% translate "This is in many cases a single (macro-)language tag, according to the" %} <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"
@@ -67,9 +55,7 @@
     class="underline"
     target="_blank">ISO 639</a>.
                         </div>
-                        <label for="{{ form.bcp47_tag.id_for_label }}" class="block mb-2">
-                            {{ form.bcp47_tag.label }}
-                        </label>
+                        <label for="{{ form.bcp47_tag.id_for_label }}" class="block mb-2">{{ form.bcp47_tag.label }}</label>
                         {% render_field form.bcp47_tag|add_error_class:"border-red-500" %}
                         <div class="mb-2 text-s text-gray-600">
                             {{ form.bcp47_tag.help_text }}
@@ -94,9 +80,7 @@
                         </div>
                         <div class="w-full p-4">
                             {% if form.instance.language_tree_nodes.exists %}
-                                <p>
-                                    {% translate "Total number of regions using this language: " %} {{ form.instance.language_tree_nodes.count }}
-                                </p>
+                                <p>{% translate "Total number of regions using this language: " %} {{ form.instance.language_tree_nodes.count }}</p>
                                 {% include "languages/region_list_section/region_list.html" %}
                             {% else %}
                                 {% translate "The language is not used in any region." %}
@@ -118,41 +102,31 @@
                             {{ form.social_media_webapp_title.label }}
                         </label>
                         {% render_field form.social_media_webapp_title|add_error_class:"border-red-500" %}
-                        <div class="mb-2 text-s text-gray-600">
-                            {{ form.social_media_webapp_title.help_text }}
-                        </div>
+                        <div class="mb-2 text-s text-gray-600">{{ form.social_media_webapp_title.help_text }}</div>
                         <label for="{{ form.social_media_webapp_description.id_for_label }}"
                                class="font-bold block mt-4 mb-2 cursor-pointer">
                             {{ form.social_media_webapp_description.label }}
                         </label>
                         {% render_field form.social_media_webapp_description rows="2"|add_error_class:"border-red-500" %}
-                        <div class="mb-2 text-s text-gray-600">
-                            {{ form.social_media_webapp_description.help_text }}
-                        </div>
+                        <div class="mb-2 text-s text-gray-600">{{ form.social_media_webapp_description.help_text }}</div>
                         <label for="{{ form.table_of_contents.id_for_label }}"
                                class="font-bold block mt-4 mb-2 cursor-pointer">
                             {{ form.table_of_contents.label }}
                         </label>
                         {% render_field form.table_of_contents|add_error_class:"border-red-500" %}
-                        <div class="mb-2 text-s text-gray-600">
-                            {{ form.table_of_contents.help_text }}
-                        </div>
+                        <div class="mb-2 text-s text-gray-600">{{ form.table_of_contents.help_text }}</div>
                         <label for="{{ form.message_content_not_available.id_for_label }}"
                                class="font-bold block mt-4 mb-2 cursor-pointer">
                             {{ form.message_content_not_available.label }}
                         </label>
                         {% render_field form.message_content_not_available|add_error_class:"border-red-500" %}
-                        <div class="mb-2 text-s text-gray-600">
-                            {{ form.message_content_not_available.help_text }}
-                        </div>
+                        <div class="mb-2 text-s text-gray-600">{{ form.message_content_not_available.help_text }}</div>
                         <label for="{{ form.message_partial_live_content_not_available.id_for_label }}"
                                class="font-bold block mt-4 mb-2 cursor-pointer">
                             {{ form.message_partial_live_content_not_available.label }}
                         </label>
                         {% render_field form.message_partial_live_content_not_available|add_error_class:"border-red-500" %}
-                        <div class="mb-2 text-s text-gray-600">
-                            {{ form.message_partial_live_content_not_available.help_text }}
-                        </div>
+                        <div class="mb-2 text-s text-gray-600">{{ form.message_partial_live_content_not_available.help_text }}</div>
                     </div>
                 </div>
                 <div class="w-full">
@@ -163,9 +137,7 @@
                             </h3>
                         </div>
                         <div class="w-full p-4">
-                            <label for="{{ form.text_direction.id_for_label }}" class="block mb-2">
-                                {{ form.text_direction.label }}
-                            </label>
+                            <label for="{{ form.text_direction.id_for_label }}" class="block mb-2">{{ form.text_direction.label }}</label>
                             {% render_field form.text_direction|add_error_class:"border-red-500" %}
                             <label for="{{ form.primary_country_code.label }}"
                                    class="font-bold block mb-1 cursor-pointer">
@@ -178,9 +150,7 @@
                                     {% render_field form.primary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
                                 </div>
                             </div>
-                            <div class="mb-2 text-s text-gray-600">
-                                {{ form.primary_country_code.help_text }}
-                            </div>
+                            <div class="mb-2 text-s text-gray-600">{{ form.primary_country_code.help_text }}</div>
                             <label for="{{ form.secondary_country_code.label }}"
                                    class="font-bold block mb-1 cursor-pointer">
                                 {{ form.secondary_country_code.label }}
@@ -192,24 +162,16 @@
                                     {% render_field form.secondary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
                                 </div>
                             </div>
-                            <div class="mb-2 text-s text-gray-600">
-                                {{ form.secondary_country_code.help_text }}
-                            </div>
-                            <label for="{{ form.language_color.id_for_label }}" class="block mb-2">
-                                {{ form.language_color.label }}
-                            </label>
+                            <div class="mb-2 text-s text-gray-600">{{ form.secondary_country_code.help_text }}</div>
+                            <label for="{{ form.language_color.id_for_label }}" class="block mb-2">{{ form.language_color.label }}</label>
                             <div class="flex my-2">
                                 <span class="language-color fp fp-{{ form.instance.language_color }} w-16 rounded-l {% if not form.instance.language_color %}hidden{% endif %}"
                                       title="{{ form.instance.translated_name }}"
                                       id="language-color-preview"
                                       style="background-color: {{ form.instance.language_color }}"></span>
-                                <div class="flex-grow">
-                                    {% render_field form.language_color|add_error_class:"border-red-500" %}
-                                </div>
+                                <div class="flex-grow">{% render_field form.language_color|add_error_class:"border-red-500" %}</div>
                             </div>
-                            <div class="mb-2 text-s text-gray-600">
-                                {{ form.language_color.help_text }}
-                            </div>
+                            <div class="mb-2 text-s text-gray-600">{{ form.language_color.help_text }}</div>
                         </div>
                     </div>
                 </div>

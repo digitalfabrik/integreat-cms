@@ -11,32 +11,20 @@
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div>
-        <label for="{{ page_form.icon.id_for_label }}" class="mt-0">
-            {{ page_form.icon.label }}
-        </label>
+        <label for="{{ page_form.icon.id_for_label }}" class="mt-0">{{ page_form.icon.label }}</label>
         {% render_field page_form.icon label=page_form.icon.label %}
     </div>
     <div>
-        <label>
-            {% translate "Positioning" %}
-        </label>
-        <label for="{{ page_form.parent.id_for_label }}" class="secondary">
-            {{ page_form.parent.label }}
-        </label>
+        <label>{% translate "Positioning" %}</label>
+        <label for="{{ page_form.parent.id_for_label }}" class="secondary">{{ page_form.parent.label }}</label>
         {% render_field page_form.treebeard_ref_node %}
         {% render_field page_form.treebeard_position %}
         {% render_field page_form.parent id="parent" %}
-        <label>
-            {% translate "Order" %}
-        </label>
-        <div id="page_order_table" class="mb-4">
-            {% include "pages/_page_order_table.html" %}
-        </div>
+        <label>{% translate "Order" %}</label>
+        <div id="page_order_table" class="mb-4">{% include "pages/_page_order_table.html" %}</div>
     </div>
     <div>
-        <label for="mirrored_page_region">
-            {% translate "Embed live content" %}
-        </label>
+        <label for="mirrored_page_region">{% translate "Embed live content" %}</label>
         {% render_field page_form.mirrored_page_region id="mirrored_page_region" %}
         <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}"
              id="mirrored_page_div"
@@ -50,16 +38,12 @@
     </div>
     {% if page_form.embedded_offers.field.choices %}
         <div>
-            <label for="embedded_offers">
-                {% translate "Embed offers" %}
-            </label>
+            <label for="embedded_offers">{% translate "Embed offers" %}</label>
             {% render_field page_form.embedded_offers id="embedded_offers" %}
         </div>
     {% endif %}
     <div>
-        <label>
-            {{ page_form.api_token.label }}
-        </label>
+        <label>{{ page_form.api_token.label }}</label>
         {% render_field page_form.enable_api_token %}
         <label for="{{ page_form.enable_api_token.id_for_label }}"
                class="secondary !inline">
@@ -81,23 +65,15 @@
                     <i icon-name="check-circle" class="w-5 align-middle"></i>
                 </button>
             </div>
-            <div class="help-text">
-                {{ page_form.api_token.help_text }}
-            </div>
+            <div class="help-text">{{ page_form.api_token.help_text }}</div>
         </div>
     </div>
     {% if perms.cms.grant_page_permissions and request.region.page_permissions_enabled %}
         <div>
-            <label>
-                {% translate "Additional permissions for this page" %}
-            </label>
+            <label>{% translate "Additional permissions for this page" %}</label>
             {% if page_id %}
-                <p class="italic">
-                    {% translate "This only affects users who do not have permission to edit arbitrary pages." %}
-                </p>
-                <div id="page_permission_table">
-                    {% include "pages/_page_permission_table.html" %}
-                </div>
+                <p class="italic">{% translate "This only affects users who do not have permission to edit arbitrary pages." %}</p>
+                <div id="page_permission_table">{% include "pages/_page_permission_table.html" %}</div>
             {% else %}
                 <i icon-name="alert-triangle" class="pb-1"></i> {% translate "Page permissions can only be set after the page has been saved as draft or published for the first time." %}
             {% endif %}
@@ -105,12 +81,8 @@
     {% endif %}
     {% if page_form.organization.field.queryset.exists %}
         <div>
-            <label for="{{ page_form.organization.id_for_label }}">
-                {{ page_form.organization.label }}
-            </label>
-            <div class="help-text">
-                {{ page_form.organization.help_text }}
-            </div>
+            <label for="{{ page_form.organization.id_for_label }}">{{ page_form.organization.label }}</label>
+            <div class="help-text">{{ page_form.organization.help_text }}</div>
             {% render_field page_form.organization|add_error_class:"border-red-500" %}
         </div>
     {% endif %}

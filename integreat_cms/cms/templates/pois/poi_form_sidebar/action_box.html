@@ -13,9 +13,7 @@
 {% block collapsible_box_content %}
     <div>
         {% if poi_form.instance.archived %}
-            <label class="mt-0">
-                {% translate "Restore location" %}
-            </label>
+            <label class="mt-0">{% translate "Restore location" %}</label>
             <button title="{% translate "Restore location" %}"
                     class="btn confirmation-button w-full"
                     data-confirmation-title="{{ restore_dialog_title }}"
@@ -25,9 +23,7 @@
                 <i icon-name="refresh-ccw" class="mr-2"></i> {% translate "Restore this location" %}
             </button>
         {% else %}
-            <label class="mt-0">
-                {% translate "Archive location" %}
-            </label>
+            <label class="mt-0">{% translate "Archive location" %}</label>
             {% if not poi_form.instance.can_be_archived %}
                 {% if poi_form.instance.events.filter_upcoming_non_archived.exists %}
                     <div class="mb-5">
@@ -87,9 +83,7 @@
     </div>
     {% if perms.cms.delete_poi %}
         <div>
-            <label>
-                {% translate "Delete location" %}
-            </label>
+            <label>{% translate "Delete location" %}</label>
             {% if poi_form.instance.is_used %}
                 {% if poi_form.instance.events.exists %}
                     <div class="mb-5">

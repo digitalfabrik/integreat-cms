@@ -20,18 +20,10 @@
            value="{{ poi_form.opening_hours.value }}" />
     <div class="py-2 px-4">
         {% render_field poi_form.temporarily_closed %}
-        <label for="{{ poi_form.temporarily_closed.id_for_label }}">
-            {{ poi_form.temporarily_closed.label }}
-        </label>
-        <div class="help-text">
-            {{ poi_form.temporarily_closed.help_text }}
-        </div>
-        <label for="{{ poi_form.appointment_url.id_for_label }}">
-            {{ poi_form.appointment_url.label }}
-        </label>
+        <label for="{{ poi_form.temporarily_closed.id_for_label }}">{{ poi_form.temporarily_closed.label }}</label>
+        <div class="help-text">{{ poi_form.temporarily_closed.help_text }}</div>
+        <label for="{{ poi_form.appointment_url.id_for_label }}">{{ poi_form.appointment_url.label }}</label>
         {% render_field poi_form.appointment_url %}
-        <div class="help-text">
-            {{ poi_form.appointment_url.help_text }}
-        </div>
+        <div class="help-text">{{ poi_form.appointment_url.help_text }}</div>
     </div>
 {% endblock collapsible_box_content %}

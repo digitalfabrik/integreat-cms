@@ -2,9 +2,7 @@
 {% load i18n %}
 {% block content %}
     <div class="table-header">
-        <h1 class="heading">
-            {% translate "Region condition" %}
-        </h1>
+        <h1 class="heading">{% translate "Region condition" %}</h1>
         <div class="flex justify-between">
             {% include "search_input_form.html" with object_type="region" object_archived=True %}
             <form action="{% url "export_region_conditions" file_format="csv" %}"
@@ -24,30 +22,14 @@
                class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
-                    <th class="text-left py-3 pl-4 pr-2 min">
-                        {% translate "Region" %}
-                    </th>
-                    <th>
-                        {% translate "Broken links" %}
-                    </th>
-                    <th>
-                        {% translate "Pages under HIX threshold" %}
-                    </th>
-                    <th>
-                        {% translate "Pages" %}
-                    </th>
-                    <th>
-                        {% translate "Pages with at least one missing or outdated translation" %}
-                    </th>
-                    <th>
-                        {% translate "Outdated pages" %}
-                    </th>
-                    <th>
-                        {% translate "Active languages besides default language" %}
-                    </th>
-                    <th>
-                        {% translate "Booked MT budget" %}
-                    </th>
+                    <th class="text-left py-3 pl-4 pr-2 min">{% translate "Region" %}</th>
+                    <th>{% translate "Broken links" %}</th>
+                    <th>{% translate "Pages under HIX threshold" %}</th>
+                    <th>{% translate "Pages" %}</th>
+                    <th>{% translate "Pages with at least one missing or outdated translation" %}</th>
+                    <th>{% translate "Outdated pages" %}</th>
+                    <th>{% translate "Active languages besides default language" %}</th>
+                    <th>{% translate "Booked MT budget" %}</th>
                 </tr>
             </thead>
             {% for region in regions %}

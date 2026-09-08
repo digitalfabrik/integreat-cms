@@ -56,14 +56,10 @@
             </form>
             <div class="px-2 pl-2">
                 <a href="{% if not is_archived %}{% url 'push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% endif %}">
-                    <span class="pr-4 {% if not not_sent %}font-bold{% endif %}">
-                        {% trans "All News" %}
-                    </span>
+                    <span class="pr-4 {% if not not_sent %}font-bold{% endif %}">{% trans "All News" %}</span>
                 </a>
                 <a href="{% if not is_archived %}{% url 'push_notifications_not_sent' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications_not_sent' region_slug=request.region.slug language_slug=language.slug %}{% endif %}">
-                    <span class="px-4 border-l-2 border-gray-500 {% if not_sent %}font-bold{% endif %}">
-                        {% trans "Not sent" %}
-                    </span>
+                    <span class="px-4 border-l-2 border-gray-500 {% if not_sent %}font-bold{% endif %}">{% trans "Not sent" %}</span>
                 </a>
             </div>
             <table class="w-full rounded border border-solid border-gray-200 shadow bg-white">
@@ -72,12 +68,8 @@
                         <th class="py-3 pl-4 min">
                             <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
                         </th>
-                        <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
-                            {% translate "Title" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Channel" %}
-                        </th>
+                        <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% translate "Title" %}</th>
+                        <th class="text-sm text-left uppercase py-3 px-2">{% translate "Channel" %}</th>
                         <th class="text-sm text-left uppercase py-3 px-2">
                             <div class="lang-grid flags whitespace-nowrap">
                                 {% spaceless %}
@@ -92,18 +84,10 @@
                                 {% endspaceless %}
                             </div>
                         </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Last updated" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Planned send date" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2 min">
-                            {% translate "Sent" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2 min">
-                            {% translate "Options" %}
-                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Last updated" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Planned send date" %}</th>
+                        <th class="text-sm text-left uppercase py-3 px-2 min">{% translate "Sent" %}</th>
+                        <th class="text-sm text-left uppercase py-3 px-2 min">{% translate "Options" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -142,9 +126,7 @@
         {% if perms.cms.archive_pushnotification or perms.cms.delete_pushnotification %}
             <div class="flex flex-wrap gap-2 mt-4">
                 <select id="bulk-action" class="w-auto max-w-full">
-                    <option>
-                        {% translate "Select bulk action" %}
-                    </option>
+                    <option>{% translate "Select bulk action" %}</option>
                     {% translate "news" context "plural" as content_type %}
                     {% if perms.cms.archive_pushnotification %}
                         {% if is_archived %}
@@ -173,9 +155,7 @@
                         </option>
                     {% endif %}
                 </select>
-                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
-                    {% translate "Execute" %}
-                </button>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
             </div>
         {% endif %}
     </div>

@@ -8,14 +8,14 @@ from integreat_cms.cms.models import PageTranslation, Region
 from integreat_cms.cms.utils.slug_utils import generate_unique_slug
 
 if TYPE_CHECKING:
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
     from integreat_cms.cms.utils.slug_utils import SlugKwargs
 
 
 @pytest.mark.django_db
 def test_generate_unique_slug_fallback(
-    settings: SettingsWrapper,
+    settings: Settings,
     load_test_data: None,
 ) -> None:
     """
@@ -35,7 +35,7 @@ def test_generate_unique_slug_fallback(
 
 @pytest.mark.django_db
 def test_generate_unique_slug_reserved_region_slug(
-    settings: SettingsWrapper,
+    settings: Settings,
     load_test_data: None,
 ) -> None:
     """
@@ -56,7 +56,7 @@ def test_generate_unique_slug_reserved_region_slug(
 
 @pytest.mark.django_db
 def test_generate_unique_slug_reserved_page_slug(
-    settings: SettingsWrapper,
+    settings: Settings,
     load_test_data: None,
 ) -> None:
     """

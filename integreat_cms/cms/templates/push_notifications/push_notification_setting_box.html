@@ -9,13 +9,9 @@
             </h3>
         </div>
         <div class="px-4 pb-4 rounded bg-white">
-            <label for="{{ push_notification_form.channel.id_for_label }}">
-                {{ push_notification_form.channel.label }}
-            </label>
+            <label for="{{ push_notification_form.channel.id_for_label }}">{{ push_notification_form.channel.label }}</label>
             {% render_field push_notification_form.channel|add_error_class:"border-red-500" %}
-            <label for="{{ push_notification_form.mode.id_for_label }}">
-                {{ push_notification_form.mode.label }}
-            </label>
+            <label for="{{ push_notification_form.mode.id_for_label }}">{{ push_notification_form.mode.label }}</label>
             {% render_field push_notification_form.mode|add_error_class:"border-red-500" %}
             <!-- Scheduled date and time -->
             {% if push_notification_form.instance.id %}
@@ -42,9 +38,7 @@
                 </div>
             {% endif %}
             <div {% if push_notification_form.regions|length == 1 %}class="hidden"{% endif %}>
-                <label for="{{ push_notification_form.regions.id_for_label }}">
-                    {{ push_notification_form.regions.label }}
-                </label>
+                <label for="{{ push_notification_form.regions.id_for_label }}">{{ push_notification_form.regions.label }}</label>
                 <p>
                     {% if not_accessible_regions_warning %}
                         <i icon-name="x" class="text-red-500 align-text-top"></i>

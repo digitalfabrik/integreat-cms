@@ -30,7 +30,7 @@ from integreat_cms.cms.views.utils.hix import (
 from tests.utils import disable_hix_post_save_signal
 
 if TYPE_CHECKING:
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
     from tests.mock import MockServer
 
@@ -64,7 +64,7 @@ def create_dummy_region() -> tuple[Language, Region]:
     return (dummy_language, dummy_region)
 
 
-def test_hix_rounding(settings: SettingsWrapper) -> None:
+def test_hix_rounding(settings: Settings) -> None:
     HIX_ROUNDING_PRECISION = 0.01
     actual_raw_hix_score_threshold = (
         settings.HIX_REQUIRED_FOR_MT - HIX_ROUNDING_PRECISION / 2
@@ -90,7 +90,7 @@ def test_hix_rounding(settings: SettingsWrapper) -> None:
 
 @pytest.mark.django_db
 def test_disregard_archived_pages(
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
@@ -152,7 +152,7 @@ def test_disregard_archived_pages(
 
 @pytest.mark.django_db
 def test_disregard_pages_with_hix_ignore(
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
@@ -218,7 +218,7 @@ def test_disregard_pages_with_hix_ignore(
 
 
 @pytest.mark.django_db
-def test_hix_values(settings: SettingsWrapper) -> None:
+def test_hix_values(settings: Settings) -> None:
     dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
 
@@ -296,7 +296,7 @@ def test_hix_values(settings: SettingsWrapper) -> None:
 
 
 @pytest.mark.django_db
-def test_versions_of_hix_page(settings: SettingsWrapper) -> None:
+def test_versions_of_hix_page(settings: Settings) -> None:
     dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
 
@@ -358,7 +358,7 @@ def test_contact_card_gets_filtered_out() -> None:
 
 
 def test_hix_lookup_times_out_instead_of_hanging(
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
 ) -> None:
     """

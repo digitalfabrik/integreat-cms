@@ -8,7 +8,7 @@ from django.urls import reverse
 
 if TYPE_CHECKING:
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 
 @pytest.mark.django_db
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 def test_login_success(
     load_test_data: None,
     client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     username: str,
 ) -> None:
     """
@@ -70,7 +70,7 @@ def test_login_success(
 def test_login_failure(
     load_test_data: None,
     client: Client,
-    settings: SettingsWrapper,
+    settings: Settings,
     username: str,
 ) -> None:
     """

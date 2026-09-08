@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 
 import pytest
@@ -22,7 +22,7 @@ from integreat_cms.cms.models import (
 @pytest.mark.django_db
 def test_contact_string(
     load_test_data: None,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Test whether __str__ of contact model works as expected
