@@ -3148,9 +3148,8 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.add_root">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">add_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.add_root" title="Link to this definition"></a></dt>
-<dd><p>Adds a root node to the tree.</p>
-</dd></dl>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">add_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.add_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.add_sibling">
@@ -3223,7 +3222,7 @@ Caches the result in the object itself to help in loops.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.check">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.check" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.check" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3287,8 +3286,10 @@ of all validation errors if any occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.dump_bulk">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dump_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.dump_bulk" title="Link to this definition"></a></dt>
-<dd><p>Dumps a tree branch to a python data structure.</p>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dump_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dump_bulk'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.dump_bulk" title="Link to this definition"></a></dt>
+<dd><p>Backward compatibility for class methods that have moved to the model manager.</p>
+<p>Logs a warning, and calls the manager method.</p>
+<p>This backward-compatibility will be removed in Treebeard 8.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -3344,39 +3345,23 @@ errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_ancestors">
-<span class="sig-name descname"><span class="pre">get_ancestors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L526"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_ancestors" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A queryset containing the current node object’s ancestors,
-starting by the root node and descending to the parent.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_ancestors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_ancestors'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_ancestors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_annotated_list">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_annotated_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L580"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_annotated_list" title="Link to this definition"></a></dt>
-<dd><p>Gets an annotated list from a tree branch.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> – The node whose descendants will be annotated. The node itself
-will be included in the list. If not given, the entire tree
-will be annotated.</p></li>
-<li><p><strong>max_depth</strong> – Optionally limit to specified depth</p></li>
-</ul>
-</dd>
-</dl>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_annotated_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_annotated_list'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_annotated_list" title="Link to this definition"></a></dt>
+<dd><p>Backward compatibility for class methods that have moved to the model manager.</p>
+<p>Logs a warning, and calls the manager method.</p>
+<p>This backward-compatibility will be removed in Treebeard 8.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_annotated_list_qs">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_annotated_list_qs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L549"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_annotated_list_qs" title="Link to this definition"></a></dt>
-<dd><p>Efficiently generates an annotated list from a queryset.</p>
-<p>The queryset MUST be ordered by path, otherwise it will yield
-incorrect results. The queryset must also represent the entirety of
-a branch of a tree: excluded objects will not be fetched and will
-result in gaps in the tree.</p>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_annotated_list_qs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_annotated_list_qs'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_annotated_list_qs" title="Link to this definition"></a></dt>
+<dd><p>Backward compatibility for class methods that have moved to the model manager.</p>
+<p>Logs a warning, and calls the manager method.</p>
+<p>This backward-compatibility will be removed in Treebeard 8.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -3417,23 +3402,13 @@ the root node and descending to the parent.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_children">
-<span class="sig-name descname"><span class="pre">get_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_children" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A queryset of all the node’s children</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_children'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_children" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_children_count">
-<span class="sig-name descname"><span class="pre">get_children_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_children_count" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The number of the node’s children</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_children_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_children_count'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_children_count" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_constraints">
@@ -3448,7 +3423,7 @@ the root node and descending to the parent.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_depth">
-<span class="sig-name descname"><span class="pre">get_depth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L432"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_depth" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_depth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L614"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_depth" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the depth (level) of the node</p>
@@ -3458,103 +3433,57 @@ the root node and descending to the parent.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_descendant_count">
-<span class="sig-name descname"><span class="pre">get_descendant_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L522"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_descendant_count" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the number of descendants of a node.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_descendant_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_descendant_count'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_descendant_count" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants">
-<span class="sig-name descname"><span class="pre">get_descendants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L511"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A queryset of all the node’s descendants as DFS, doesn’t
-include the node itself if <cite>include_self</cite> is <cite>False</cite></p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_descendants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_descendants'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants_group_count">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_descendants_group_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants_group_count" title="Link to this definition"></a></dt>
-<dd><p>Helper for a very common case: get a group of siblings and the number
-of <em>descendants</em> (not only children) in every sibling.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parent</strong> – The parent of the siblings to return. If no parent is given, the
-root nodes will be returned.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A <cite>list</cite> (<strong>NOT</strong> a Queryset) of node objects with an extra
-attribute: <cite>descendants_count</cite>.</p>
-</dd>
-</dl>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_descendants_group_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_descendants_group_count'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_descendants_group_count" title="Link to this definition"></a></dt>
+<dd><p>Backward compatibility for class methods that have moved to the model manager.</p>
+<p>Logs a warning, and calls the manager method.</p>
+<p>This backward-compatibility will be removed in Treebeard 8.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_first_child">
-<span class="sig-name descname"><span class="pre">get_first_child</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L229"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_first_child" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The leftmost node’s child, or None if it has no children.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_first_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_first_child'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_first_child" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_first_root_node">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_first_root_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_first_root_node" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The first root node in the tree or <code class="docutils literal notranslate"><span class="pre">None</span></code> if it is empty.</p>
-</dd>
-</dl>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_first_root_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_first_root_node'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_first_root_node" title="Link to this definition"></a></dt>
+<dd><p>Backward compatibility for class methods that have moved to the model manager.</p>
+<p>Logs a warning, and calls the manager method.</p>
+<p>This backward-compatibility will be removed in Treebeard 8.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_first_sibling">
-<span class="sig-name descname"><span class="pre">get_first_sibling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L245"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_first_sibling" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The leftmost node’s sibling, can return the node itself if
-it was the leftmost sibling.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_first_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_first_sibling'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_first_sibling" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_last_child">
-<span class="sig-name descname"><span class="pre">get_last_child</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_last_child" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The rightmost node’s child, or None if it has no children.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_last_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_last_child'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_last_child" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_last_root_node">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_last_root_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_last_root_node" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The last root node in the tree or <code class="docutils literal notranslate"><span class="pre">None</span></code> if it is empty.</p>
-</dd>
-</dl>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_last_root_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_last_root_node'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_last_root_node" title="Link to this definition"></a></dt>
+<dd><p>Backward compatibility for class methods that have moved to the model manager.</p>
+<p>Logs a warning, and calls the manager method.</p>
+<p>This backward-compatibility will be removed in Treebeard 8.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_last_sibling">
-<span class="sig-name descname"><span class="pre">get_last_sibling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L254"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_last_sibling" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The rightmost node’s sibling, can return the node itself if
-it was the rightmost sibling.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_last_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_last_sibling'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_last_sibling" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_model_name_plural">
@@ -3584,25 +3513,13 @@ it was the rightmost sibling.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_next_sibling">
-<span class="sig-name descname"><span class="pre">get_next_sibling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_next_sibling" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The next node’s sibling, or None if it was the rightmost
-sibling.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_next_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_next_sibling'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_next_sibling" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_parent">
-<span class="sig-name descname"><span class="pre">get_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L542"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_parent" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the parent node of the current node object.
-Caches the result in the object itself to help in loops.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_parent'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_parent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_preferred_mt_provider_display">
@@ -3612,14 +3529,8 @@ Caches the result in the object itself to help in loops.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_prev_sibling">
-<span class="sig-name descname"><span class="pre">get_prev_sibling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L263"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_prev_sibling" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The previous node’s sibling, or None if it was the leftmost
-sibling.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_prev_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_prev_sibling'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_prev_sibling" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_previous_by_created_date">
@@ -3684,49 +3595,21 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_root">
-<span class="sig-name descname"><span class="pre">get_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L440"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_root" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the root node for the current node object.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_root'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_root_nodes">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_root_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L560"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_root_nodes" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A queryset containing the root nodes in the tree.</p>
-</dd>
-</dl>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_root_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_root_nodes'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_root_nodes" title="Link to this definition"></a></dt>
+<dd><p>Backward compatibility for class methods that have moved to the model manager.</p>
+<p>Logs a warning, and calls the manager method.</p>
+<p>This backward-compatibility will be removed in Treebeard 8.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_siblings">
-<span class="sig-name descname"><span class="pre">get_siblings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L450"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_siblings" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A queryset of all the node’s siblings, including the node
-itself.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_sorted_pos_queryset">
-<span class="sig-name descname"><span class="pre">get_sorted_pos_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">siblings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newobj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L501"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_sorted_pos_queryset" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A queryset of the nodes that must be moved to the right.
-Called only for Node models with <a class="reference internal" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.node_order_by" title="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.node_order_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">node_order_by</span></code></a></p>
-</dd>
-</dl>
-<p>This function is based on _insertion_target_filters from django-mptt
-(MIT licensed) by Jonathan Buchanan:
-<a class="reference external" href="https://github.com/django-mptt/django-mptt/blob/0.3.0/mptt/signals.py">https://github.com/django-mptt/django-mptt/blob/0.3.0/mptt/signals.py</a></p>
-<p>See LICENSE-THIRD-PARTY</p>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_siblings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'get_siblings'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_siblings" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_tree">
@@ -3787,21 +3670,17 @@ has to be invalidated manually. Subclasses can extend this to invalidate related
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_child_of">
-<span class="sig-name descname"><span class="pre">is_child_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_child_of" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_child_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_child_of" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the node is a child of another node given as an
-argument, else, returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>node</strong> – The node that will be checked as a parent</p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the node is a child of the supplied node, otherwise <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_descendant_of">
-<span class="sig-name descname"><span class="pre">is_descendant_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L535"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_descendant_of" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_descendant_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L626"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_descendant_of" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the node if a descendant of another node given
@@ -3812,7 +3691,7 @@ as an argument, else, returns <code class="docutils literal notranslate"><span c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_leaf">
-<span class="sig-name descname"><span class="pre">is_leaf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_leaf" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_leaf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L618"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_leaf" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True if the node is a leaf node (else, returns False)</p>
@@ -3822,7 +3701,7 @@ as an argument, else, returns <code class="docutils literal notranslate"><span c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_root">
-<span class="sig-name descname"><span class="pre">is_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L446"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_root" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L622"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_root" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True if the node is a root node (else, returns False)</p>
@@ -3832,14 +3711,10 @@ as an argument, else, returns <code class="docutils literal notranslate"><span c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_sibling_of">
-<span class="sig-name descname"><span class="pre">is_sibling_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_sibling_of" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_sibling_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_sibling_of" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the node is a sibling of another node given as an
-argument, else, returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>node</strong> – The node that will be checked as a sibling</p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the node is a sibling of the supplied node, otherwise <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -3873,32 +3748,10 @@ argument, else, returns <code class="docutils literal notranslate"><span class="
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.load_bulk">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bulk_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.load_bulk" title="Link to this definition"></a></dt>
-<dd><p>Loads a list/dictionary structure to the tree.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>bulk_data</strong> – <p>The data that will be loaded, the structure is a list of
-dictionaries with 2 keys:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: will store arguments that will be passed for object
-creation, and</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">children</span></code>: a list of dictionaries, each one has it’s own
-<code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">children</span></code> keys (a recursive structure)</p></li>
-</ul>
-</p></li>
-<li><p><strong>parent</strong> – The node that will receive the structure as children, if not
-specified the first level of the structure will be loaded as root
-nodes</p></li>
-<li><p><strong>keep_ids</strong> – If enabled, loads the nodes with the same primary keys that are
-given in the structure. Will error if there are nodes without
-primary key info or if the primary keys are already used.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of the added node PKs.</p>
-</dd>
-</dl>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treebeard_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'load_bulk'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.load_bulk" title="Link to this definition"></a></dt>
+<dd><p>Backward compatibility for class methods that have moved to the model manager.</p>
+<p>Logs a warning, and calls the manager method.</p>
+<p>This backward-compatibility will be removed in Treebeard 8.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -4047,7 +3900,7 @@ relative to another node.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.refresh_from_db">
-<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L545"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.refresh_from_db" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.refresh_from_db" title="Link to this definition"></a></dt>
 <dd><p>Reload field values from the database.</p>
 <p>By default, the reloading happens from the database this instance was
 loaded from, or by the read router if this instance wasn’t loaded from
@@ -4179,24 +4032,6 @@ and not use this method.</p>
 <span class="sig-name descname"><span class="pre">tree_id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.tree_id" title="Link to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PositiveIntegerField</span></code></a></p>
 <p>Tree id</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.tree_model">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">tree_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L600"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.tree_model" title="Link to this definition"></a></dt>
-<dd><p>Determine what class we should use for the
-nodes returned by its tree methods (such as get_children).</p>
-<p>Usually this will be trivially the same as the initial model class,
-but there are special cases when model inheritance is in use:</p>
-<ul class="simple">
-<li><p>If the model extends another via multi-table inheritance, we need to
-use whichever ancestor originally implemented the tree behaviour (i.e.
-the one which defines the fields used by Treebeard). We can’t use the
-subclass, because it’s not guaranteed that the other nodes reachable
-from the current one will be instances of the same subclass.</p></li>
-<li><p>If the model is a proxy model, the returned nodes should also use
-the proxy class.</p></li>
-</ul>
 </dd></dl>
 
 <dl class="py method">
