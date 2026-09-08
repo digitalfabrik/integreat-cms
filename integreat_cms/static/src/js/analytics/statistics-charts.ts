@@ -80,21 +80,16 @@ const updateChart = async (chart: Chart): Promise<void> => {
     const chartServerError = document.getElementById("chart-server-error");
     const chartHeavyTrafficError = document.getElementById("chart-heavy-traffic-error");
     const chartLoading = document.getElementById("chart-loading");
+    const statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
 
     // Hide error in case it was shown before
     chartNetworkError.classList.add("hidden");
     chartServerError.classList.add("hidden");
     chartHeavyTrafficError.classList.add("hidden");
 
-    // Initialize default fetch parameters
-    let parameters = {};
-
     const HTTP_STATUS_OK = 200;
     const HTTP_STATUS_BAD_REQUEST = 400;
     const HTTP_STATUS_GATEWAY_TIMEOUT = 504;
-
-    // Get form
-    const statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
 
     // If form exists (which is the case on the statistics page), perform some extra steps
     if (statisticsForm) {
@@ -108,21 +103,23 @@ const updateChart = async (chart: Chart): Promise<void> => {
             element.classList.remove("border-2", "border-red-500");
             element.classList.add("border");
         });
-        // define fetch parameters - send POST parameters with form data
-        parameters = {
-            method: "POST",
-            body: new FormData(statisticsForm),
-        };
     }
 
     // Show loading icon
     chartLoading.classList.remove("hidden");
 
-    // Get AJAX URL
     const url = chart.canvas.getAttribute("data-statistics-url");
 
     try {
-        const response = await fetch(url, parameters);
+        const response = await fetch(
+            url,
+            statisticsForm
+                ? {
+                      method: "POST",
+                      body: new FormData(statisticsForm),
+                  }
+                : {}
+        );
 
         if (response.status === HTTP_STATUS_OK) {
             // The response text contains the data from Matomo as JSON.
