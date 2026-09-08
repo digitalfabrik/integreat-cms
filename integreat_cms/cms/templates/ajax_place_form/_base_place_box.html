@@ -3,21 +3,15 @@
 {% load i18n %}
 {% if current_menu_item == "events_form" %}
     {% render_field form.has_not_place class+='inline-block' %}
-    <label class="secondary !inline" for="{{ form.has_not_place.id_for_label }}">
-        {{ form.has_not_place.label }}
-    </label>
+    <label class="secondary !inline" for="{{ form.has_not_place.id_for_label }}">{{ form.has_not_place.label }}</label>
     <div id="meeting-url-block"
          class="{% if not form.has_not_place.value %}hidden{% endif %}">
-        <label for="{{ form.meeting_url.id_for_label }}">
-            {{ form.meeting_url.label }}
-        </label>
+        <label for="{{ form.meeting_url.id_for_label }}">{{ form.meeting_url.label }}</label>
         {% render_field form.meeting_url class+="input w-full" %}
     </div>
 {% endif %}
 {% if current_menu_item == "contacts" %}
-    <div class="help-text">
-        {{ help_text }}
-    </div>
+    <div class="help-text">{{ help_text }}</div>
 {% endif %}
 <div id="place-block"
      class="{% if form.has_not_place.value %}hidden{% endif %}">
@@ -25,14 +19,10 @@
             This is not for="{{ form.place.id_for_label }}" because the element with that id is a hidden input containing the places id.
             The visible input element is place-query-input (created a few lines further down) and updates the hidden input on user interaction.
     {% endcomment %}
-    <label for="place-query-input">
-        {{ form.place.label }}
-    </label>
+    <label for="place-query-input">{{ form.place.label }}</label>
     {% if archived %}
         {% if place %}
-            <div class="text-lg">
-                {{ place|place_translation_title:current_language }}
-            </div>
+            <div class="text-lg">{{ place|place_translation_title:current_language }}</div>
         {% endif %}
     {% else %}
         {% translate "Select a place" as place_title_placeholder %}
@@ -59,16 +49,12 @@
                 {{ help_text }}
             {% endif %}
         </p>
-        <div class="relative" id="place-query-result">
-            {% include "_place_query_result.html" %}
-        </div>
+        <div class="relative" id="place-query-result">{% include "_place_query_result.html" %}</div>
         {% if current_menu_item == "contacts" %}
             <div id="info-place-mandatory"
                  class="py-2 {% if place %}hidden{% endif %}">
                 <i icon-name="alert-circle" class="h-5 w-5"></i>
-                <span class="help-text italic align-middle">
-                    {% trans "This field cannot be empty. Please select a place." %}
-                </span>
+                <span class="help-text italic align-middle">{% trans "This field cannot be empty. Please select a place." %}</span>
             </div>
         {% endif %}
     {% endif %}
@@ -81,6 +67,5 @@
          class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 hidden">
         {% trans "An error occurred." %}
     </div>
-    <div id="place-form-widget">
-    </div>
+    <div id="place-form-widget"></div>
 </div>
