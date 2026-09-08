@@ -9,6 +9,7 @@ import {
     Legend,
     Tooltip,
     LegendItem,
+    type ChartConfiguration,
 } from "chart.js";
 import { downloadFile, updatePageAccesses } from "./statistics-page-accesses";
 
@@ -21,6 +22,33 @@ export type AjaxResponse = {
 // Register all components that are being used - the others will be excluded from the final webpack build
 // See https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc for details
 Chart.register(LineElement, PointElement, LineController, CategoryScale, LinearScale, Legend, Tooltip);
+
+const chartOptions = {
+    type: "line",
+    data: {
+        datasets: [] as ChartData<"line", number[], string>["datasets"],
+    },
+    options: {
+        plugins: {
+            legend: {
+                display: false,
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: "circle",
+                },
+            },
+            tooltip: {
+                usePointStyle: true,
+            },
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+            },
+        },
+        maintainAspectRatio: false,
+    },
+} satisfies ChartConfiguration<"line", number[], string>;
 
 // global variable for export labels (better for csv than the readable labels)
 let exportLabels: Array<string>;
@@ -46,10 +74,7 @@ const initSelectedChartData = (chart: Chart, data: AjaxResponse): void => {
 /*
  * This function updates the chart according to the dates currently selected in the form.
  */
-const updateChart = async (): Promise<void> => {
-    // Get Chart instance
-    const chart = Chart.getChart("statistics");
-
+const updateChart = async (chart: Chart): Promise<void> => {
     // Get HTML elements
     const chartNetworkError = document.getElementById("chart-network-error");
     const chartServerError = document.getElementById("chart-server-error");
@@ -218,40 +243,10 @@ window.addEventListener("load", async () => {
         return;
     }
 
-    // Initialize chart
-    /* eslint-disable-next-line no-new */
-    new Chart("statistics", {
-        type: "line",
-        data: {
-            datasets: [],
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: false,
-                    labels: {
-                        usePointStyle: true,
-                        pointStyle: "circle",
-                    },
-                },
-                tooltip: {
-                    usePointStyle: true,
-                },
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                },
-            },
-            maintainAspectRatio: false,
-        },
-    });
-
-    // Initialize chart data
-    await updateChart();
+    const chart = new Chart("statistics", chartOptions);
+    await updateChart(chart);
 
     // Set event handlers for language legend
-    const chart = Chart.getChart("statistics");
     const items = chart.options.plugins.legend.labels.generateLabels(chart);
     const allLanguagesSelected = document.getElementById("select-all-languages") as HTMLInputElement;
 
@@ -293,7 +288,7 @@ window.addEventListener("load", async () => {
         // Prevent form submit
         event.preventDefault();
         // Update chart
-        await updateChart();
+        await updateChart(chart);
     });
 
     // Set event handler for exporting the data
@@ -301,4 +296,6 @@ window.addEventListener("load", async () => {
 
     // Event handler for toggling export button
     document.getElementById("export-statistics")?.addEventListener("change", toggleExportButton);
+
+    await updateChart(chart);
 });
