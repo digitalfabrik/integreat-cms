@@ -18,7 +18,7 @@ import { downloadFile, updatePageAccesses } from "./statistics-page-accesses";
 import { domTokenListToggle as domTokenListSet } from "../utils/html";
 import { filter, some } from "../utils/iterators";
 
-export type AjaxResponse = {
+type AjaxResponse = {
     exportLabels: Array<string>;
     chartData: ChartData;
     legend: string;
