@@ -11,6 +11,8 @@ import {
     Legend,
     Tooltip,
     LegendItem,
+    ChartConfiguration,
+    ChartDataset,
 } from "chart.js";
 import { downloadFile, updatePageAccesses } from "./statistics-page-accesses";
 import { domTokenListToggle as domTokenListSet } from "../utils/html";
@@ -25,6 +27,37 @@ export type AjaxResponse = {
 // Register all components that are being used - the others will be excluded from the final webpack build
 // See https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc for details
 Chart.register(LineElement, PointElement, LineController, CategoryScale, LinearScale, Legend, Tooltip);
+
+const chartOptions = {
+    type: "line",
+    data: {
+        datasets: [] as ChartDataset<"line", number[]>[],
+    },
+    options: {
+        plugins: {
+            legend: {
+                display: false,
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: "circle",
+                },
+            },
+            tooltip: {
+                usePointStyle: true,
+            },
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+            },
+        },
+        maintainAspectRatio: false,
+    },
+} satisfies ChartConfiguration<"line", number[], string>;
+
+const HTTP_STATUS_OK = 200;
+const HTTP_STATUS_BAD_REQUEST = 400;
+const HTTP_STATUS_GATEWAY_TIMEOUT = 504;
 
 // global variable for export labels (better for csv than the readable labels)
 let exportLabels: Array<string>;
@@ -105,10 +138,6 @@ const updateChart = async (): Promise<void> => {
     chartNetworkError.classList.add("hidden");
     chartServerError.classList.add("hidden");
     chartHeavyTrafficError.classList.add("hidden");
-
-    const HTTP_STATUS_OK = 200;
-    const HTTP_STATUS_BAD_REQUEST = 400;
-    const HTTP_STATUS_GATEWAY_TIMEOUT = 504;
 
     // If form exists (which is the case on the statistics page), perform some extra steps
     if (statisticsForm) {
@@ -268,32 +297,7 @@ window.addEventListener("load", async () => {
 
     // Initialize chart
     /* eslint-disable-next-line no-new */
-    const chart = new Chart("statistics", {
-        type: "line",
-        data: {
-            datasets: [],
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: false,
-                    labels: {
-                        usePointStyle: true,
-                        pointStyle: "circle",
-                    },
-                },
-                tooltip: {
-                    usePointStyle: true,
-                },
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                },
-            },
-            maintainAspectRatio: false,
-        },
-    });
+    const chart = new Chart("statistics", chartOptions);
 
     // Initialize chart data
     await updateChart();
