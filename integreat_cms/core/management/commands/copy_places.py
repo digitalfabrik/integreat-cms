@@ -27,7 +27,7 @@ def make_hardlink(file_field: FileField, region_id: int) -> FileField:
     """
     Create a hardlink to the original file in the media path for the target region
     """
-    base = file_field.storage.base_place
+    base = file_field.storage.base_location
     orig_path = file_field.name
     new_path = re.sub(r"^regions/[0-9]+/", f"regions/{region_id}/", orig_path)
     # make the directory
