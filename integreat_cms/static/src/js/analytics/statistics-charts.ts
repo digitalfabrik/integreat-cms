@@ -13,7 +13,7 @@ import {
 } from "chart.js";
 import { downloadFile, updatePageAccesses } from "./statistics-page-accesses";
 
-export type AjaxResponse = {
+type AjaxResponse = {
     exportLabels: Array<string>;
     chartData: ChartData;
     legend: string;
