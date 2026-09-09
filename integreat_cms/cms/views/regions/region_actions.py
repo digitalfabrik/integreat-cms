@@ -158,7 +158,8 @@ def release_api_management(
     messages.info(
         request,
         _(
-            "If the connected system pushes settings again, they will become read-only once more.",
+            "If the connected system pushes settings again, it overwrites the values maintained "
+            "here and they become read-only once more.",
         ),
     )
 
