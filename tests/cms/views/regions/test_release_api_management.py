@@ -118,7 +118,13 @@ def test_release_of_a_region_which_is_not_api_managed(
     )
 
     assert response.status_code == 200
-    assert "not managed via the API" in response.content.decode("utf-8")
+    region.refresh_from_db()
+    assert not region.is_api_managed
+    # The message level is asserted instead of its text, which is translated: a hint, not a
+    # success -- nothing was released, so claiming otherwise would be misleading.
+    emitted = list(response.context["messages"])
+    assert len(emitted) == 1
+    assert emitted[0].level_tag == "info"
 
 
 @pytest.mark.django_db
