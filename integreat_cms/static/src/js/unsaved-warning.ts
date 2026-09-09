@@ -37,4 +37,12 @@ window.addEventListener("load", () => {
         dirty = false;
         console.debug("Autosave, disabled beforeunload warning");
     });
+    // A confirmed action navigates away by submitting the confirmation dialog, which is a
+    // separate form — so the submit listener above never fires. Without this the browser would
+    // ask a second time, and staying on the page would silently swallow an action the user has
+    // just explicitly confirmed.
+    document.querySelector("#confirmation-dialog form")?.addEventListener("submit", () => {
+        dirty = false;
+        console.debug("confirmation dialog submitted, disabled beforeunload warning");
+    });
 });
