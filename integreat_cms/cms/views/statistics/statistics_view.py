@@ -74,11 +74,6 @@ class AnalyticsView(TemplateView):
             .cache_tree(archived=False, language_slug=default_language.slug)
         )
 
-        show_page_based_statistics = (
-            request.user.has_perm("cms.test_beta_features")
-            or region.slug in settings.PILOT_REGIONS_PAGE_BASED_STATISTICS
-        )
-
         access_legends = {
             _("Phone App Accesses"): language_color.OFFLINE_ACCESS,
             _("WebApp Accesses"): language_color.WEB_APP_ACCESS,
@@ -97,7 +92,6 @@ class AnalyticsView(TemplateView):
                 "languages": languages,
                 "access_legends": access_legends,
                 "is_statistics": True,
-                "show_page_based_statistics": show_page_based_statistics,
                 "wiki_url": settings.STATISTICS_WIKI_URL,
             },
         )
