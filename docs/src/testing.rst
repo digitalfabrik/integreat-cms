@@ -267,23 +267,45 @@ Common Pitfalls
 2. **Don't use** ``serialized_rollback=True`` — it has FK ordering issues
    with PostgreSQL. Use ``load_test_data_transactional`` instead.
 
-3. **Clean up state you attach to session-scoped fixtures** — database changes
-   are rolled back after every non-transactional test, but the Python objects
-   returned by session-scoped fixtures are not: they live for the whole worker
-   process. The most common case is the ``Client`` returned by
-   ``login_role_user``, whose cookies survive the test that set them::
+3. **Watch for state that outlives the per-test DB rollback** — database
+   changes are rolled back after every non-transactional test, but not
+   everything a test touches lives in the database. Two recurring cases,
+   with opposite fixes:
 
-       @pytest.mark.django_db
-       def test_pagination_cookie(login_role_user):
-           client, role = login_role_user
-           client.cookies["page_size"] = "50"
-           try:
-               ...
-           finally:
-               client.cookies.pop("page_size", None)
+   a. **Objects returned by a session-scoped fixture** are not reset between
+      tests — they live for the whole worker process. The most common case
+      is the ``Client`` returned by ``login_role_user``, whose cookies
+      survive the test that set them. There is no framework mechanism for
+      this, so clean up manually::
 
-   The same applies to anything else cached in the fixture's return value —
-   only the rows it points at are reset between tests, not the object itself.
+          @pytest.mark.django_db
+          def test_pagination_cookie(login_role_user):
+              client, role = login_role_user
+              client.cookies["page_size"] = "50"
+              try:
+                  ...
+              finally:
+                  client.cookies.pop("page_size", None)
+
+      The same applies to anything else cached in the fixture's return
+      value — only the rows it points at are reset between tests, not the
+      object itself.
+
+   b. **Django settings** must be changed through the ``settings`` fixture,
+      never ``from django.conf import settings; settings.X = value``. Here a
+      framework mechanism *does* exist — the fixture restores the original
+      value after the test regardless of outcome — so the bug is bypassing
+      it, not forgetting to clean up by hand. This is especially dangerous
+      for ``LANGUAGE_CODE``: a view with ``lang: str = settings.LANGUAGE_CODE``
+      as a default argument bakes in whatever value is live *the first time
+      that module is imported*, which happens lazily on the first URL
+      resolution of the worker — i.e. whatever an earlier, unrelated test
+      last (mis)set it to::
+
+          @pytest.mark.django_db
+          def test_something(settings):
+              settings.LANGUAGE_CODE = "en"
+              ...
 
 4. **Import role constants from** ``tests.constants``, not ``tests.conftest``.
 
