@@ -18,6 +18,8 @@ import pytest
 from django.urls import reverse
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from django.test.client import Client
 
 
@@ -174,3 +176,54 @@ def test_pdf_export_invalid(
     for response in [response_cms, response_api]:
         print(response.headers)
         assert response.status_code == 404
+
+
+@pytest.mark.django_db
+# Override urls to serve PDF files
+@pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")
+def test_pdf_export_api_cache_hit_query_count(
+    load_test_data: None,
+    client: Client,
+    django_assert_num_queries: Callable,
+) -> None:
+    """
+    Assert that the API PDF export endpoint issues a small, constant number
+    of SQL queries on a cache hit (i.e. when the PDF file for the requested
+    region/language already exists).
+
+    This locks in the performance goal of the rewrite in
+    :func:`~integreat_cms.cms.utils.pdf_utils._compute_pdf_hash`: the hashing
+    step must not issue one query per page (the old code did
+    ``page.get_public_translation()`` and ``page.archived`` per page, plus a
+    prefetch of every public translation including ``content``), and must not
+    load the ``content`` field of any page into the server process.
+
+    The assertion is on the number of queries because that is the
+    regression we care about: someone adding a per-page query (a N+1) or
+    re-prefetching full translations will bump the count, and this test will
+    catch it. The exact value (5) reflects:
+
+    1. ``Region.objects.get(slug=...)`` in the region middleware
+    2. the language tree lookup for the region
+    3. the single hash-phase ``PageTranslation ... values_list ... distinct``
+       query (the whole point of the rewrite - 1 query for N pages)
+    4. the final ``pages.count()`` after exclusion
+    5. ``Language.objects.get(slug=...)`` for the filename
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param client: The fixture providing the anonymous user
+    :param django_assert_num_queries: The fixture providing the query assertion
+    """
+    kwargs = {"region_slug": "augsburg", "language_slug": "de"}
+    export_pdf_api = reverse("api:pdf_export", kwargs=kwargs)
+    # Warmup: ensure the PDF file has been created so the next call is a hit.
+    warm = client.get(export_pdf_api)
+    assert warm.status_code == 302
+    expected_url = warm.headers.get("Location")
+    assert expected_url is not None
+    # Cache hit: the file exists, so this must not regenerate the PDF.
+    # It must also not load the page contents to compute the hash.
+    with django_assert_num_queries(5):
+        response = client.get(export_pdf_api)
+    assert response.status_code == 302
+    assert response.headers.get("Location") == expected_url

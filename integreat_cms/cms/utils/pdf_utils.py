@@ -1,16 +1,16 @@
 from __future__ import annotations
 
+import contextlib
 import hashlib
 import logging
 import os
+import tempfile
 from typing import TYPE_CHECKING
 from urllib.parse import unquote, urlparse
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
-from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
-from django.db.models import Min
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template.loader import get_template
@@ -18,8 +18,8 @@ from django.utils.translation import gettext_lazy as _
 from xhtml2pdf import pisa
 from xhtml2pdf.default import DEFAULT_CSS
 
-from ..constants import text_directions
-from ..models import Language, Page
+from ..constants import status, text_directions
+from ..models import Language, Page, PageTranslation
 from .text_utils import truncate_bytewise
 
 if TYPE_CHECKING:
@@ -31,6 +31,73 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 pdf_storage = FileSystemStorage(location=settings.PDF_ROOT, base_url=settings.PDF_URL)
+
+
+def _compute_pdf_hash(
+    region: Region,
+    language_slug: str,
+    pages: PageQuerySet,
+) -> tuple[str, PageQuerySet, list[tuple]]:
+    """
+    Build the deterministic hash value that identifies the PDF to (re)generate
+    for a set of pages in a region/language combination.
+
+    The hash covers the region (slug + ``last_updated``) and, for every page
+    in ``pages`` that (a) has a public translation in ``language_slug`` and
+    (b) is not archived (explicitly or via an ancestor), the public
+    translation's id and ``last_updated``. Pages that fail either condition
+    are excluded from the result queryset.
+
+    :param region: owning region
+    :param language_slug: bcp47 slug of the language the PDF is rendered in
+    :param pages: pages to include in the hash (order is (tree_id, lft))
+    :return: the 10-char hash substring, the filtered ``pages`` queryset, and
+             the list of per-page tuples ``(page_id, depth, lft, rgt, tree_id,
+             explicitly_archived, title, translation_id, translation_updated)``
+             for inclusion in the title computation
+    """
+    pdf_key_list: list[object] = [region.slug, region.last_updated]
+    rows = (
+        PageTranslation.objects.filter(
+            language__slug=language_slug,
+            status=status.PUBLIC,
+            page__in=pages,
+        )
+        .order_by("page__id", "-version")
+        .values_list(
+            "page__id",
+            "page__depth",
+            "page__lft",
+            "page__rgt",
+            "page__tree_id",
+            "page__explicitly_archived",
+            "title",
+            "id",
+            "last_updated",
+        )
+        .distinct("page__id")
+    )
+    rows = list(rows)
+    rows.sort(key=lambda r: (r[4] or 0, r[2] or 0))
+
+    explicit = [(r[2], r[3]) for r in rows if r[5]]
+
+    def _is_archived(lft: int, rgt: int) -> bool:
+        return any(el < lft and rgt < er for (el, er) in explicit)
+
+    included_rows = [r for r in rows if not r[5] and not _is_archived(r[2], r[3])]
+
+    for r in included_rows:
+        pdf_key_list.append(r[7])  # translation id
+        pdf_key_list.append(r[8])  # translation last_updated
+
+    excluded_page_ids = {r[0] for r in rows} - {r[0] for r in included_rows}
+    if excluded_page_ids:
+        pages = pages.exclude(id__in=excluded_page_ids)
+
+    pdf_key_string = "_".join(map(str, pdf_key_list))
+    pdf_hash = hashlib.sha256(bytes(pdf_key_string, "utf-8")).hexdigest()[:10]
+    return pdf_hash, pages, included_rows
 
 
 def generate_pdf(
@@ -50,40 +117,28 @@ def generate_pdf(
     """
     # first all necessary data for hashing are collected, starting at region slug
     # region last_updated field taking into account, to keep track of maybe edited region icons
-    pdf_key_list = [region.slug, region.last_updated]
-    for page in pages:
-        # add translation id and last_updated to hash key list if they exist
-        page_translation = page.get_public_translation(language_slug)
-        if page_translation and not page.archived:
-            # if translation for this language exists
-            pdf_key_list.append(page_translation.id)
-            pdf_key_list.append(page_translation.last_updated)
-        else:
-            # if the page has no translation for this language
-            pages = pages.exclude(id=page.id)
-    # finally combine all list entries to a single hash key
-    pdf_key_string = "_".join(map(str, pdf_key_list))
-    # compute the hash value based on the hash key
-    pdf_hash = hashlib.sha256(bytes(pdf_key_string, "utf-8")).hexdigest()[:10]
+    # (see :func:`compute_pdf_hash` for the actual hash construction).
+    pdf_hash, pages, included_translations = _compute_pdf_hash(
+        region, language_slug, pages
+    )
+
     if not (amount_pages := pages.count()):
         return HttpResponse(
             _("No valid pages selected for PDF generation."),
             status=400,
         )
+
+    # Build the title from the already-fetched rows (no extra queries).
     if amount_pages == 1:
         # If pdf contains only one page, take its title as filename
-        title = pages.first().get_public_translation(language_slug).title
+        title = included_translations[0][6]
     else:
         # If pdf contains multiple pages, check the minimum level
-        min_level = pages.aggregate(Min("depth")).get("depth__min")
-        # Query all pages with this minimum level
-        min_level_pages = pages.filter(depth=min_level)
-        if min_level_pages.count() == 1:
-            # If there's exactly one page with the minimum level, take its title
-            title = min_level_pages.first().get_public_translation(language_slug).title
-        else:
-            # In any other case, take the region name
-            title = region.name
+        min_level = min(r[1] for r in included_translations)
+        min_level_rows = [r for r in included_translations if r[1] == min_level]
+        # If there's exactly one page with the minimum level, take its title;
+        # otherwise, fall back to the region name
+        title = min_level_rows[0][6] if len(min_level_rows) == 1 else region.name
     language = Language.objects.get(slug=language_slug)
     # Make sure, that the length of the filename is valid. To prevent potential
     # edge cases, shorten filenames to 3/4 of the allowed max length.
@@ -109,32 +164,40 @@ def generate_pdf(
             "BRANDING_TITLE": settings.BRANDING_TITLE,
         }
         html = get_template("pages/page_pdf.html").render(context)
-        # Save empty file
-        pdf_storage.save(filename, ContentFile(""))
 
         # Get fixed version of default pdf styling (see https://github.com/digitalfabrik/integreat-cms/issues/1537)
         fixed_css = DEFAULT_CSS.replace("background-color: transparent;", "", 1)
 
-        # Write PDF content into file
-        with pdf_storage.open(filename, "w+b") as pdf_file:
-            pisa_status = pisa.CreatePDF(
-                html,
-                dest=pdf_file,
-                link_callback=link_callback,
-                encoding="UTF-8",
-                default_css=fixed_css,
-            )
-        if pisa_status.err:
-            logger.error(
-                "The following PDF could not be rendered: %r, %r, %r",
-                region,
-                language,
-                pages,
-            )
-            return HttpResponse(
-                _("The PDF could not be successfully generated."),
-                status=500,
-            )
+        final_path = pdf_storage.path(filename)
+        directory = os.path.dirname(final_path)
+        os.makedirs(directory, exist_ok=True)
+        tmp_fd, tmp_path = tempfile.mkstemp(prefix=".", suffix=".part", dir=directory)
+        try:
+            with os.fdopen(tmp_fd, "w+b") as pdf_file:
+                pisa_status = pisa.CreatePDF(
+                    html,
+                    dest=pdf_file,
+                    link_callback=link_callback,
+                    encoding="UTF-8",
+                    default_css=fixed_css,
+                )
+            if pisa_status.err:
+                logger.error(
+                    "The following PDF could not be rendered: %r, %r, %r",
+                    region,
+                    language,
+                    pages,
+                )
+                return HttpResponse(
+                    _("The PDF could not be successfully generated."),
+                    status=500,
+                )
+            os.chmod(tmp_path, 0o644)
+            os.replace(tmp_path, final_path)  # atomic publish (same directory)
+        finally:
+            # Present only if rendering raised or returned an error above.
+            with contextlib.suppress(OSError):
+                os.unlink(tmp_path)  # no-op once os.replace() moved it
     return redirect(pdf_storage.url(filename))
 
 
