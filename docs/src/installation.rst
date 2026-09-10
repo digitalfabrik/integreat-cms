@@ -20,6 +20,7 @@ Following packages are required before installing the project (install them with
 * `python3-venv <https://packages.ubuntu.com/search?keywords=python3+venv>`_ (Only `Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__)
 * Either `postgresql <https://www.postgresql.org/>`_ **or** `docker <https://www.docker.com/>`_ to run a local database server
 * `gettext <https://www.gnu.org/software/gettext/>`_ and `pcregrep <https://pcre.org/original/doc/html/pcregrep.html>`_ to use the translation features
+* `libpango-1.0-0 <https://packages.ubuntu.com/search?keywords=libpango-1.0-0>`_, `libpangoft2-1.0-0 <https://packages.ubuntu.com/search?keywords=libpangoft2-1.0-0>`_ and `libharfbuzz0b <https://packages.ubuntu.com/search?keywords=libharfbuzz0b>`_ for PDF export
 
 Prerequisites on common distributions
 -------------------------------------
@@ -35,7 +36,7 @@ In the following, we provide the commands to install all these prerequisites on 
 ::
 
     # Install basic requirements
-    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3-venv libcairo2
+    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3-venv libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
     # Add PPA repository for NodeJS
     curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
     # Add PPA repository for Docker
@@ -56,7 +57,7 @@ In the following, we provide the commands to install all these prerequisites on 
     # Add PPA repository for Python3.9 and above
     sudo add-apt-repository -y ppa:deadsnakes/ppa
     # Install basic requirements
-    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3.13 python3.13-venv libcairo2
+    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3.13 python3.13-venv libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
     # Add PPA repository for NodeJS
     curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
     # Add PPA repository for Docker
