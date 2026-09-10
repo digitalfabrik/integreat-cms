@@ -82,7 +82,7 @@ export default defineConfig([
             },
             globals: {
                 ...globals.browser,
-                ...globals.es6,
+                ...globals.es2020,
             },
         },
     },
