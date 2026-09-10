@@ -320,6 +320,11 @@ urlpatterns: list[URLPattern] = [
                                 regions.delete_region,
                                 name="delete_region",
                             ),
+                            path(
+                                "release-api-management/",
+                                regions.release_api_management,
+                                name="release_api_management",
+                            ),
                         ],
                     ),
                 ),
