@@ -100,7 +100,7 @@ def get_content(
 @partial_content_response
 def root_content(
     request: HttpRequest,
-    language_slug: str = settings.LANGUAGE_CODE,
+    language_slug: str | None = None,
 ) -> HttpResponse:
     """
     Renders the raw HTML content for a root page
@@ -110,7 +110,10 @@ def root_content(
 
     :return: Raw HTML content of the root page
     """
-    language = get_object_or_404(Language, slug=language_slug)
+    language = get_object_or_404(
+        Language,
+        slug=language_slug or settings.LANGUAGE_CODE,
+    )
     title = language.social_media_webapp_title or settings.BRANDING_TITLE
 
     return render(
