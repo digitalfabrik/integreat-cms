@@ -171,7 +171,7 @@ def test_change_to_supporting_provider(
         data={
             "machine_translate_pages": 1,
             "machine_translate_events": 1,
-            "machine_translate_pois": 1,
+            "machine_translate_places": 1,
             "machine_translate_pushnotifications": 1,
             "en": ["Google Translate"],
             "ar": ["Google Translate"],
@@ -223,7 +223,7 @@ def test_change_to_not_supporting_provider(
         data={
             "machine_translate_pages": 1,
             "machine_translate_events": 1,
-            "machine_translate_pois": 1,
+            "machine_translate_places": 1,
             "machine_translate_pushnotifications": 1,
             "en": ["Google Translate"],
             "ar": ["Google Translate"],

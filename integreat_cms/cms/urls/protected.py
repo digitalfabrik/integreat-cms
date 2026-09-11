@@ -16,7 +16,7 @@ from ..forms import (
     LanguageTreeNodeForm,
     OfferTemplateForm,
     PageTranslationForm,
-    POITranslationForm,
+    PlaceTranslationForm,
     RegionForm,
 )
 from ..models import (
@@ -25,8 +25,8 @@ from ..models import (
     LanguageTreeNode,
     OfferTemplate,
     Page,
-    POI,
-    POICategory,
+    Place,
+    PlaceCategory,
     PushNotification,
     Role,
 )
@@ -49,8 +49,8 @@ from ..views import (
     media,
     organizations,
     pages,
-    poi_categories,
-    pois,
+    place_categories,
+    places,
     push_notifications,
     region_condition,
     regions,
@@ -393,21 +393,21 @@ urlpatterns: list[URLPattern] = [
         ),
     ),
     path(
-        "location-categories/",
+        "place-categories/",
         include(
             [
                 path(
                     "",
                     list_views.ModelListView.as_view(
-                        model=POICategory,
+                        model=PlaceCategory,
                         extra_context={"languages": Language.objects.all()},
                     ),
-                    name="poicategories",
+                    name="placecategories",
                 ),
                 path(
                     "new/",
-                    poi_categories.POICategoryCreateView.as_view(),
-                    name="new_poicategory",
+                    place_categories.PlaceCategoryCreateView.as_view(),
+                    name="new_placecategory",
                 ),
                 path(
                     "<int:pk>/",
@@ -415,13 +415,13 @@ urlpatterns: list[URLPattern] = [
                         [
                             path(
                                 "edit/",
-                                poi_categories.POICategoryUpdateView.as_view(),
-                                name="edit_poicategory",
+                                place_categories.PlaceCategoryUpdateView.as_view(),
+                                name="edit_placecategory",
                             ),
                             path(
                                 "delete/",
-                                poi_categories.POICategoryDeleteView.as_view(),
-                                name="delete_poicategory",
+                                place_categories.PlaceCategoryDeleteView.as_view(),
+                                name="delete_placecategory",
                             ),
                         ],
                     ),
@@ -783,9 +783,9 @@ urlpatterns: list[URLPattern] = [
                                 ),
                             ),
                             path(
-                                "search-poi/",
-                                events.search_poi_ajax,
-                                name="search_poi_ajax",
+                                "search-place/",
+                                events.search_place_ajax,
+                                name="search_place_ajax",
                             ),
                             path(
                                 "search/",
@@ -803,13 +803,13 @@ urlpatterns: list[URLPattern] = [
                                 name="dismiss_tutorial",
                             ),
                             path(
-                                "locations/auto-complete-address/",
-                                pois.auto_complete_address,
-                                name="auto_complete_poi_address",
+                                "places/auto-complete-address/",
+                                places.auto_complete_address,
+                                name="auto_complete_place_address",
                             ),
                             path(
-                                "locations/get-address-from-coordinates/",
-                                pois.get_address_from_coordinates,
+                                "places/get-address-from-coordinates/",
+                                places.get_address_from_coordinates,
                                 name="get_address_from_coordinates",
                             ),
                         ],
@@ -1339,115 +1339,115 @@ urlpatterns: list[URLPattern] = [
                     ),
                 ),
                 path(
-                    "pois/",
+                    "places/",
                     include(
                         [
-                            path("", pois.POIListView.as_view(), name="pois"),
+                            path("", places.PlaceListView.as_view(), name="places"),
                             path(
                                 "<slug:language_slug>/",
                                 include(
                                     [
                                         path(
                                             "",
-                                            pois.POIListView.as_view(),
-                                            name="pois",
+                                            places.PlaceListView.as_view(),
+                                            name="places",
                                         ),
                                         path(
                                             "archived/",
-                                            pois.POIListView.as_view(archived=True),
-                                            name="archived_pois",
+                                            places.PlaceListView.as_view(archived=True),
+                                            name="archived_places",
                                         ),
                                         path(
                                             "new/",
-                                            pois.POIFormView.as_view(),
-                                            name="new_poi",
+                                            places.PlaceFormView.as_view(),
+                                            name="new_place",
                                         ),
                                         path(
                                             "machine-translate/",
                                             bulk_action_views.BulkMachineTranslationView.as_view(
-                                                model=POI,
-                                                form=POITranslationForm,
+                                                model=Place,
+                                                form=PlaceTranslationForm,
                                             ),
-                                            name="machine_translation_pois",
+                                            name="machine_translation_places",
                                         ),
                                         path(
                                             "bulk-archive/",
                                             bulk_action_views.BulkArchiveView.as_view(
-                                                model=POI,
+                                                model=Place,
                                             ),
-                                            name="bulk_archive_pois",
+                                            name="bulk_archive_places",
                                         ),
                                         path(
                                             "bulk-restore/",
                                             bulk_action_views.BulkRestoreView.as_view(
-                                                model=POI,
+                                                model=Place,
                                             ),
-                                            name="bulk_restore_pois",
+                                            name="bulk_restore_places",
                                         ),
                                         path(
                                             "bulk-publish/",
                                             bulk_action_views.BulkPublishingView.as_view(
-                                                model=POI,
+                                                model=Place,
                                             ),
-                                            name="publish_multiple_pois",
+                                            name="publish_multiple_places",
                                         ),
                                         path(
                                             "bulk-draft/",
                                             bulk_action_views.BulkDraftingView.as_view(
-                                                model=POI,
+                                                model=Place,
                                             ),
-                                            name="draft_multiple_pois",
+                                            name="draft_multiple_places",
                                         ),
                                         path(
                                             "bulk-delete/",
                                             bulk_action_views.BulkDeletingView.as_view(
-                                                model=POI,
+                                                model=Place,
                                             ),
-                                            name="bulk_delete_pois",
+                                            name="bulk_delete_places",
                                         ),
                                         path(
-                                            "show-poi-form-ajax/<str:poi_title>/",
-                                            pois.POIFormAjaxView.as_view(),
-                                            name="show_poi_form_ajax",
+                                            "show-place-form-ajax/<str:place_title>/",
+                                            places.PlaceFormAjaxView.as_view(),
+                                            name="show_place_form_ajax",
                                         ),
                                         path(
-                                            "create-poi-ajax/",
-                                            pois.POIFormAjaxView.as_view(),
-                                            name="create_poi_ajax",
+                                            "create-place-ajax/",
+                                            places.PlaceFormAjaxView.as_view(),
+                                            name="create_place_ajax",
                                         ),
                                         path(
-                                            "<int:poi_id>/",
+                                            "<int:place_id>/",
                                             include(
                                                 [
                                                     path(
                                                         "view/",
-                                                        pois.view_poi,
-                                                        name="view_poi",
+                                                        places.view_place,
+                                                        name="view_place",
                                                     ),
                                                     path(
                                                         "edit/",
-                                                        pois.POIFormView.as_view(),
-                                                        name="edit_poi",
+                                                        places.PlaceFormView.as_view(),
+                                                        name="edit_place",
                                                     ),
                                                     path(
                                                         "copy/",
-                                                        pois.copy_poi,
-                                                        name="copy_poi",
+                                                        places.copy_place,
+                                                        name="copy_place",
                                                     ),
                                                     path(
                                                         "archive/",
-                                                        pois.archive_poi,
-                                                        name="archive_poi",
+                                                        places.archive_place,
+                                                        name="archive_place",
                                                     ),
                                                     path(
                                                         "restore/",
-                                                        pois.restore_poi,
-                                                        name="restore_poi",
+                                                        places.restore_place,
+                                                        name="restore_place",
                                                     ),
                                                     path(
                                                         "delete/",
-                                                        pois.delete_poi,
-                                                        name="delete_poi",
+                                                        places.delete_place,
+                                                        name="delete_place",
                                                     ),
                                                     path(
                                                         "versions/",
@@ -1455,13 +1455,13 @@ urlpatterns: list[URLPattern] = [
                                                             [
                                                                 path(
                                                                     "",
-                                                                    pois.POIVersionView.as_view(),
-                                                                    name="poi_versions",
+                                                                    places.PlaceVersionView.as_view(),
+                                                                    name="place_versions",
                                                                 ),
                                                                 path(
                                                                     "<int:selected_version>/",
-                                                                    pois.POIVersionView.as_view(),
-                                                                    name="poi_versions",
+                                                                    places.PlaceVersionView.as_view(),
+                                                                    name="place_versions",
                                                                 ),
                                                             ],
                                                         ),
@@ -1510,7 +1510,7 @@ urlpatterns: list[URLPattern] = [
                                 name="bulk_delete_contacts",
                             ),
                             path(
-                                "show-contact-form-ajax/<int:poi_id>/",
+                                "show-contact-form-ajax/<int:place_id>/",
                                 contacts.ContactFormAjaxView.as_view(),
                                 name="show_contact_form_ajax",
                             ),

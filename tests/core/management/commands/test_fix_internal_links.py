@@ -244,7 +244,7 @@ def test_fix_internal_links_commit_skips_version_conflicts(
     # Simulate a concurrent editor save: the latest version in the database is newer
     # than the version the linkcheck data still points to. The English translation of
     # the "test-links" page is the one whose links to the German page "willkommen",
-    # the event "test-veranstaltung" and the location "test-ort" would be fixed.
+    # the event "test-veranstaltung" and the place "test-ort" would be fixed.
     stale_translation = PageTranslation.objects.get(
         page__id=27,
         language__slug="en",

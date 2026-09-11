@@ -12,7 +12,7 @@ The base model :class:`~integreat_cms.cms.models.feedback.feedback.Feedback` as 
 
 * :class:`~integreat_cms.cms.models.feedback.page_feedback.PageFeedback`
 
-* :class:`~integreat_cms.cms.models.feedback.poi_feedback.POIFeedback`
+* :class:`~integreat_cms.cms.models.feedback.place_feedback.PlaceFeedback`
 
 * :class:`~integreat_cms.cms.models.feedback.map_feedback.MapFeedback`
 

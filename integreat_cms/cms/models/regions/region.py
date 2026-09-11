@@ -159,8 +159,8 @@ class Region(AbstractBaseModel):
     )
     locations_enabled = models.BooleanField(
         default=False,
-        verbose_name=_("activate locations"),
-        help_text=_("Whether or not locations are enabled in the region"),
+        verbose_name=_("activate places"),
+        help_text=_("Whether or not places are enabled in the region"),
     )
     contacts_enabled = models.BooleanField(
         default=True,
@@ -250,7 +250,7 @@ class Region(AbstractBaseModel):
         default=False,
         verbose_name=_("activate SEO section"),
         help_text=_(
-            "Enable possibility to fill meta description for pages, events and locations",
+            "Enable possibility to fill meta description for pages, events and places",
         ),
     )
     matomo_id = models.PositiveSmallIntegerField(
@@ -335,7 +335,7 @@ class Region(AbstractBaseModel):
         default=True,
         verbose_name=_("Show content in default language as fallback"),
         help_text=_(
-            "Whether or not events and locations are shown in default language as fallback",
+            "Whether or not events and places are shown in default language as fallback",
         ),
     )
 
@@ -401,10 +401,10 @@ class Region(AbstractBaseModel):
         verbose_name=_("Events"),
     )
 
-    machine_translate_pois = models.PositiveIntegerField(
+    machine_translate_places = models.PositiveIntegerField(
         choices=machine_translation_permissions.CHOICES,
         default=machine_translation_permissions.EVERYONE,
-        verbose_name=_("Locations"),
+        verbose_name=_("Places"),
     )
 
     machine_translate_pushnotifications = models.PositiveIntegerField(
@@ -985,10 +985,10 @@ class Region(AbstractBaseModel):
             )["latest_update"]
             or min_date
         )
-        latest_poi_update = (
-            self.pois.aggregate(latest_update=models.Max("translations__last_updated"))[
-                "latest_update"
-            ]
+        latest_place_update = (
+            self.places.aggregate(
+                latest_update=models.Max("translations__last_updated")
+            )["latest_update"]
             or min_date
         )
         latest_event_update = (
@@ -1007,7 +1007,7 @@ class Region(AbstractBaseModel):
 
         return max(
             latest_page_update,
-            latest_poi_update,
+            latest_place_update,
             latest_event_update,
             latest_imprint_update,
             self.last_updated,

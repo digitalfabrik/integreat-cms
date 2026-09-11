@@ -4,7 +4,7 @@ import logging
 from argparse import ArgumentTypeError
 from typing import TYPE_CHECKING
 
-from ....cms.models import EventTranslation, PageTranslation, POITranslation
+from ....cms.models import EventTranslation, PageTranslation, PlaceTranslation
 from ..log_command import LogCommand
 
 if TYPE_CHECKING:
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 MODELS: dict[str, ModelBase] = {
     "page": PageTranslation,
     "event": EventTranslation,
-    "poi": POITranslation,
+    "place": PlaceTranslation,
 }
 
 
@@ -35,7 +35,7 @@ def get_model(model_str: str) -> ModelBase:
         return MODELS[model_str]
     except KeyError as e:
         raise ArgumentTypeError(
-            "Invalid model (must be either page, event or poi)",
+            "Invalid model (must be either page, event or place)",
         ) from e
 
 

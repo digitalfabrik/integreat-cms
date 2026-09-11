@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from django.db import migrations, models
 
-import integreat_cms.cms.models.pois.poi
+import integreat_cms.cms.models.places.place
 
 
 class Migration(migrations.Migration):
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             model_name="poi",
             name="opening_hours",
             field=models.JSONField(
-                default=integreat_cms.cms.models.pois.poi.get_default_opening_hours,
+                default=integreat_cms.cms.models.places.place.get_default_opening_hours,
                 verbose_name="opening hours",
             ),
         ),

@@ -77,12 +77,12 @@ Duplicate all currently existing pages to make it easier to create production-li
 
 
 
-``copy_pois``
+``copy_places``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Duplicate all POIs of the template region, also all events and contacts if specified, into the target regions
+Duplicate all places of the template region, also all events and contacts if specified, into the target regions
 
-    integreat-cms-cli copy_pois TEMPLATE-SLUG TARGET-SLUG [TARGET-SLUG ...] [--username USERNAME] [--contacts] [--events] [--add-suffix]
+    integreat-cms-cli copy_places TEMPLATE-SLUG TARGET-SLUG [TARGET-SLUG ...] [--username USERNAME] [--contacts] [--events] [--add-suffix]
 
 **Options:**
 
@@ -114,7 +114,7 @@ Find version inconsistencies in the CMS::
 
 **Arguments:**
 
-* ``MODEL``: The model to check (one of ``page``, ``event``, ``poi``)
+* ``MODEL``: The model to check (one of ``page``, ``event``, ``place``)
 
 
 ``hix_bulk``
@@ -129,20 +129,20 @@ Set the hix value for all pages for which it is missing::
 * ``REGION_SLUGS``: The slugs of the regions to process, separated by a space. If none are given, every region will be processed
 
 
-``import_pois_from_csv``
-~~~~~~~~~~~~~~~~~~~~~~~~
+``import_places_from_csv``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Import POIs into the CMS database from a ``.csv`` file::
+Import places into the CMS database from a ``.csv`` file::
 
-    integreat-cms-cli import_pois_from_csv CSV_FILE REGION_SLUG USERNAME
+    integreat-cms-cli import_places_from_csv CSV_FILE REGION_SLUG USERNAME
 
 **Arguments:**
 
-* ``CSV_FILE``: Import all POIs inside the ``CSV_FILE``
-* ``REGION_SLUG``: The ``REGION_SLUG`` of the target region where the POIs should be imported to
+* ``CSV_FILE``: Import all places inside the ``CSV_FILE``
+* ``REGION_SLUG``: The ``REGION_SLUG`` of the target region where the places should be imported to
 * ``USERNAME``: Associate any new created translations with ``USERNAME``
 
-For the format and required columns of the ``.csv`` file, have a look at the :github-source:`tests/core/management/commands/assets/pois_to_import.csv` file.
+For the format and required columns of the ``.csv`` file, have a look at the :github-source:`tests/core/management/commands/assets/places_to_import.csv` file.
 
 
 ``replace_links``
@@ -284,7 +284,7 @@ Source path                                                                     
 ``make_slugs_unique``
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Iterates over all translations of pages, events and pois(locations) in the database and if it finds a duplicate slug somewhere, 
+Iterates over all translations of pages, events and places in the database and if it finds a duplicate slug somewhere, 
 it changes it so that in the end all slugs are unique per language and region. This command is needed because we currently do not 
 guarantee slug uniqueness on the database level, and therefore duplicate slugs are possible. 
 Once the database constraint will have been implemented, this command should be executed 
@@ -295,7 +295,7 @@ once and should not be needed afterwards in the future:
 **Input options:**
 
 * ``--dry-run``: Runs the Iteration without commiting the changes to the DB
-* ``--objects OBJECT_NAMES``: A list of names of content models this should be applied to e.g. `--objects page poi`
+* ``--objects OBJECT_NAMES``: A list of names of content models this should be applied to e.g. `--objects page place`
 
 
 Create new commands

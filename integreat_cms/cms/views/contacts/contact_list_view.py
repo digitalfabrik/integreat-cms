@@ -31,7 +31,7 @@ class ContactListView(
     archived = False
     model = Contact
     table_fields = [
-        (None, _("Name of related location")),
+        (None, _("Name of related place")),
         ("area_of_responsibility", _("Area of responsibility")),
         ("name", _("Name")),
         ("email", _("E-Mail")),
@@ -59,20 +59,20 @@ class ContactListView(
         if not region.default_language:
             return self.redirect_to_language_tree(request)
 
-        pois = region.pois.filter(
+        places = region.places.filter(
             translations__language=region.default_language,
         ).distinct()
 
-        if not pois:
-            return self.redirect_to_poi_list(request)
+        if not places:
+            return self.redirect_to_place_list(request)
 
         contacts = Contact.objects.filter(
-            location__region=region,
+            place__region=region,
             archived=self.archived,
-        ).select_related("location")
+        ).select_related("place")
 
         archived_count = Contact.objects.filter(
-            location__region=region,
+            place__region=region,
             archived=True,
         ).count()
 
@@ -113,21 +113,21 @@ class ContactListView(
             },
         )
 
-    def redirect_to_poi_list(self, request: HttpRequest) -> None:
+    def redirect_to_place_list(self, request: HttpRequest) -> None:
         """
-        This function redirects to the poi list if there is no default language.
+        This function redirects to the place list if there is no default language.
 
         :param request: The current request
 
-        :return: template of poi list
+        :return: template of place list
         """
         region = request.region
         messages.error(
             request,
-            _("Please create at least one location before creating contacts."),
+            _("Please create at least one place before creating contacts."),
         )
         return redirect(
-            "pois",
+            "places",
             **{
                 "region_slug": region.slug,
             },

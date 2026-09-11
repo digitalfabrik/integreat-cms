@@ -279,42 +279,42 @@ def news_content(
 
 
 @partial_content_response
-def location_content(
+def place_content(
     request: HttpRequest,
     region_slug: str,
     language_slug: str,
     slug: str,
 ) -> HttpResponse:
     """
-    Tries rendering the raw HTML content for a location page in a specified region and language.
+    Tries rendering the raw HTML content for a place page in a specified region and language.
 
     :param request: The current request
-    :param language_slug: The language slug of the language, which the location belongs to
-    :param slug: The location slug
+    :param language_slug: The language slug of the language, which the place belongs to
+    :param slug: The place slug
 
-    :return: Raw HTML content of the location page if it exists
+    :return: Raw HTML content of the place page if it exists
     """
     region = get_non_archived_region(request)
     language = region.get_language_or_404(language_slug, only_active=True)
 
     if not (
-        location_translation := get_public_translation_for_webapp_link_parts(
+        place_translation := get_public_translation_for_webapp_link_parts(
             region.slug,
             language_slug,
             ["locations", slug],
         )
     ):
-        raise Http404("POI not found in this region with this language.")
+        raise Http404("Place not found in this region with this language.")
 
-    if location_translation.foreign_object.archived:
-        raise Http404("This location is archived.")
+    if place_translation.foreign_object.archived:
+        raise Http404("This place is archived.")
 
     return render(
         request,
         "raw_content.html",
         {
-            "title": get_region_title(region, location_translation.title),
-            "content": get_content(request, region, language, location_translation),
+            "title": get_region_title(region, place_translation.title),
+            "content": get_content(request, region, language, place_translation),
             "language_code": language.bcp47_tag,
         },
     )

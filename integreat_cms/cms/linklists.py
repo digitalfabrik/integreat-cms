@@ -14,7 +14,7 @@ from .models import (
     Organization,
     Page,
     PageTranslation,
-    POITranslation,
+    PlaceTranslation,
 )
 
 if TYPE_CHECKING:
@@ -89,20 +89,20 @@ class ImprintTranslationLinklist(ActiveLanguageLinklist):
 
 class NonArchivedLinkList(ActiveLanguageLinklist):
     """
-    Class for excluding archived events and locations
+    Class for excluding archived events and places
     """
 
     @classmethod
     def filter_callable(cls, objects: QuerySet) -> QuerySet:
         """
-        Get only latest translations for non-archived events/locations in active languages
+        Get only latest translations for non-archived events/places in active languages
 
         :param objects: Objects to be filtered
         :return: Objects that passed the filter
         """
         # Apply filter of parent class
         objects = super().filter_callable(objects)
-        # Exclude archived events/locations
+        # Exclude archived events/places
         return objects.filter(
             **{f"{objects.model.foreign_field()}__archived": False},
         ).distinct(f"{objects.model.foreign_field()}__pk", "language__pk")
@@ -130,12 +130,12 @@ class EventTranslationLinklist(NonArchivedLinkList):
         return objects.filter(event__in=upcoming_events)
 
 
-class POITranslationLinklist(NonArchivedLinkList):
+class PlaceTranslationLinklist(NonArchivedLinkList):
     """
-    Class for selecting the POITranslation model for link checks
+    Class for selecting the PlaceTranslation model for link checks
     """
 
-    model: ModelBase = POITranslation
+    model: ModelBase = PlaceTranslation
 
 
 class OrganizationLinklist(Linklist):
@@ -151,7 +151,7 @@ class OrganizationLinklist(Linklist):
 linklists = {
     "PageTranslations": PageTranslationLinklist,
     "EventTranslations": EventTranslationLinklist,
-    "POITranslations": POITranslationLinklist,
+    "PlaceTranslations": PlaceTranslationLinklist,
     "ImprintPageTranslations": ImprintTranslationLinklist,
     "Organizations": OrganizationLinklist,
 }

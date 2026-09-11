@@ -30,7 +30,7 @@ class ContactContextMixin(ContextMixin):
         context = super().get_context_data(**kwargs)
         opening_hour_config_data = get_open_hour_config_data(
             related_class=self.related_class,
-            can_change_location=self.request.user.has_perm("cms.change_contact"),
+            can_change_place=self.request.user.has_perm("cms.change_contact"),
         )
 
         context.update(
@@ -42,7 +42,7 @@ class ContactContextMixin(ContextMixin):
                 "restore_dialog_title": _(
                     "Please confirm that you really want to restore this contact",
                 ),
-                "referenced_location_title": _(
+                "referenced_place_title": _(
                     "The following linked content will also be restored:",
                 ),
                 "delete_dialog_title": _(

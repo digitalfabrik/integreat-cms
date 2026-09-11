@@ -51,7 +51,7 @@ RESPONSE
        "plz": Number | null,               // plz (Postleitzahl/ZIP) of region
        "extras": Boolean,                  // true if at least one extra is enabled
        "events": Boolean,                  // true if events are enabled
-       "pois": Boolean,                    // true if points of interest are enabled
+       "pois": Boolean,                    // true if places are enabled
        "contacts": Boolean,                // true if contacts are enabled
        "push_notifications": Boolean,      // true if push-notifications are enabled
        "longitude": Number | null,         // longitude of the geographic center of the region
@@ -966,10 +966,10 @@ Body:
       "category": String | null,       // comment category ("Technisches Feedback" or null; any other string is treated like null)
    }
 
-POI
-~~~
+Place
+~~~~~
 
-Feedback about a point of interest
+Feedback about a place
 
 REQUEST
 ^^^^^^^
@@ -1092,7 +1092,7 @@ Body:
 Map
 ~~~
 
-Feedback about the map (E.g. missing points of interest)
+Feedback about the map (E.g. missing places)
 
 REQUEST
 ^^^^^^^

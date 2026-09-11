@@ -160,7 +160,7 @@ class IcalEventData:
             "end_time": self.end_time,
             "is_all_day": self.is_all_day,
             "is_recurring": bool(self.recurrence_rule),
-            "has_not_location": True,
+            "has_not_place": True,
             "external_calendar": self.external_calendar_id,
             "external_event_id": self.event_id,
         }

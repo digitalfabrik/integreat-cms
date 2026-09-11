@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 
 from ...decorators import permission_required
 from ...forms import ContactForm
-from ...models import Contact, Event, Page, POI
+from ...models import Contact, Event, Page, Place
 from .contact_context_mixin import ContactContextMixin
 
 if TYPE_CHECKING:
@@ -42,7 +42,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
         region = request.region
         contact_instance = Contact.objects.filter(
             id=kwargs.get("contact_id"),
-            location__region=region,
+            place__region=region,
         ).first()
 
         if contact_instance and contact_instance.archived:
@@ -67,10 +67,10 @@ class ContactFormView(TemplateView, ContactContextMixin):
         )
 
         help_text = (
-            _("This location is used for the contact.")
+            _("This place is used for the contact.")
             if contact_instance
             else _(
-                "Select a location to use for your contact or create a new location. Only published locations can be set.",
+                "Select a place to use for your contact or create a new place. Only published places can be set.",
             )
         )
 
@@ -87,11 +87,11 @@ class ContactFormView(TemplateView, ContactContextMixin):
             else None
         )
 
-        referring_locations = (
-            POI.objects.filter(
+        referring_places = (
+            Place.objects.filter(
                 id__in=(
-                    contact_instance.referring_poi_translations.values_list(
-                        "poi_id",
+                    contact_instance.referring_place_translations.values_list(
+                        "place_id",
                         flat=True,
                     )
                 ),
@@ -125,9 +125,9 @@ class ContactFormView(TemplateView, ContactContextMixin):
             {
                 **self.get_context_data(**kwargs),
                 "contact_form": contact_form,
-                "poi": contact_instance.location if contact_instance else None,
+                "place": contact_instance.place if contact_instance else None,
                 "referring_pages": referring_pages,
-                "referring_locations": referring_locations,
+                "referring_places": referring_places,
                 "referring_events": referring_events,
                 "help_text": help_text,
                 "is_primary_contact": contact_instance
@@ -152,7 +152,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
 
         contact_instance = Contact.objects.filter(
             id=kwargs.get("contact_id"),
-            location__region=region,
+            place__region=region,
         ).first()
         contact_form = ContactForm(
             request=request,
@@ -161,10 +161,10 @@ class ContactFormView(TemplateView, ContactContextMixin):
             additional_instance_attributes={"region": region},
         )
 
-        selected_poi_id = int(request.POST.get("location"))
-        # request.POST.get("location") == -1 if no POI is selected
-        selected_poi = (
-            POI.objects.get(id=selected_poi_id) if selected_poi_id > 0 else None
+        selected_place_id = int(request.POST.get("place"))
+        # request.POST.get("place") == -1 if no Place is selected
+        selected_place = (
+            Place.objects.get(id=selected_place_id) if selected_place_id > 0 else None
         )
 
         if not contact_form.is_valid():
@@ -203,10 +203,10 @@ class ContactFormView(TemplateView, ContactContextMixin):
             )
 
         help_text = (
-            _("This location is used for the contact.")
+            _("This place is used for the contact.")
             if contact_instance
             else _(
-                "Select a location to use for your contact or create a new location. Only published locations can be set.",
+                "Select a place to use for your contact or create a new place. Only published places can be set.",
             )
         )
 
@@ -216,9 +216,9 @@ class ContactFormView(TemplateView, ContactContextMixin):
             {
                 **self.get_context_data(**kwargs),
                 "contact_form": contact_form,
-                "poi": contact_instance.location if contact_instance else selected_poi,
+                "place": contact_instance.place if contact_instance else selected_place,
                 "referring_pages": None,
-                "referring_locations": None,
+                "referring_places": None,
                 "referring_events": None,
                 "help_text": help_text,
             },
