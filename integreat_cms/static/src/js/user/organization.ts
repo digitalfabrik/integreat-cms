@@ -20,7 +20,6 @@ const updateOrganizationChoices = (event: Event) => {
                 element.classList.remove("hidden");
             } else {
                 element.classList.add("hidden");
-                /* eslint-disable-next-line no-param-reassign */
                 element.selected = false;
             }
         }

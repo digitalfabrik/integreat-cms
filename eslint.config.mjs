@@ -82,7 +82,7 @@ export default defineConfig([
             },
             globals: {
                 ...globals.browser,
-                ...globals.es6,
+                ...globals.es2018,
             },
         },
     },
@@ -137,6 +137,7 @@ export default defineConfig([
             "default-case": "off",
             "no-unused-vars": "off",
             "no-use-before-define": "off",
+            "no-param-reassign": "off",
 
             "curly": ["error", "all"],
             "func-names": "error",

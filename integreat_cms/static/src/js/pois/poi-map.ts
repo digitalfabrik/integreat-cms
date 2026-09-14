@@ -91,7 +91,6 @@ const fetchAddress = async (marker: Marker) => {
         Array.from(document.getElementsByClassName("depends-on-address")).forEach((element) => {
             element.classList.remove("cursor-not-allowed", "text-gray-500");
             if (element instanceof HTMLInputElement) {
-                /* eslint-disable-next-line no-param-reassign */
                 element.disabled = false;
             }
         });
@@ -104,9 +103,7 @@ const fetchAddress = async (marker: Marker) => {
         Array.from(document.getElementsByClassName("depends-on-address")).forEach((element) => {
             element.classList.add("cursor-not-allowed", "text-gray-500");
             if (element instanceof HTMLInputElement) {
-                /* eslint-disable-next-line no-param-reassign */
                 element.disabled = true;
-                /* eslint-disable-next-line no-param-reassign */
                 element.checked = false;
             }
         });
