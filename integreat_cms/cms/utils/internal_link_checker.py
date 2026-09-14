@@ -8,9 +8,9 @@ from django.conf import settings
 from django.http import Http404
 from django.utils import timezone
 from django.utils.text import slugify
-from django.utils.translation import gettext_lazy as _
 
 from ..constants import region_status
+from ..constants.linkcheck_errors import InternalLinkError
 from ..models import Contact, Region
 
 if TYPE_CHECKING:
@@ -33,14 +33,14 @@ def mark_valid(url: Url) -> None:
     url.save()
 
 
-def mark_invalid(url: Url, error_message: str = "") -> None:
+def mark_invalid(url: Url, error: InternalLinkError) -> None:
     """
     :param url: The internal URL to mark as invalid
-    :param error_message: The reason why this URL is invalid
+    :param error: The reason why this URL is invalid
     """
     url.reset_for_check()
     url.status = False
-    url.error_message = error_message
+    url.error_message = error.error_code
     url.last_checked = timezone.now()
     url.save()
 
@@ -72,7 +72,7 @@ def check_imprint(
             region,
             language,
         )
-        mark_invalid(url, _("Imprint does not exist or is not public in this language"))
+        mark_invalid(url, InternalLinkError.IMPRINT_MISSING)
     return url.status
 
 
@@ -92,10 +92,7 @@ def check_news_link(
     :returns: The validity status of the URL
     """
     if len(path_components) == 1:
-        mark_invalid(
-            url,
-            _("News links require a subcategory (either 'local' or 'tu-news')"),
-        )
+        mark_invalid(url, InternalLinkError.NEWS_SUBCATEGORY_MISSING)
     elif len(path_components) <= 3:
         if path_components[1] == "tu-news":
             if region.external_news_enabled:
@@ -109,7 +106,7 @@ def check_news_link(
                     )
             else:
                 logger.debug("tü-news are disabled in %r", region)
-                mark_invalid(url, _("tü-news are disabled in this region."))
+                mark_invalid(url, InternalLinkError.TU_NEWS_DISABLED)
         elif path_components[1] == "local":
             if (
                 len(path_components) == 2
@@ -127,16 +124,16 @@ def check_news_link(
                     language,
                     region,
                 )
-                mark_invalid(url, _("This news entry does not exist or was not sent."))
+                mark_invalid(url, InternalLinkError.NEWS_ENTRY_MISSING)
         else:
             logger.debug("News subcategory %r does not exist", path_components[1])
-            mark_invalid(url, _("This news subcategory does not exist."))
+            mark_invalid(url, InternalLinkError.NEWS_SUBCATEGORY_INVALID)
     else:
         logger.debug(
             "News model is not hierarchical, got multiple path components %r",
             path_components,
         )
-        mark_invalid(url, _("News URL is invalid."))
+        mark_invalid(url, InternalLinkError.NEWS_URL_INVALID)
     return url.status
 
 
@@ -151,7 +148,7 @@ def check_offer_link(url: Url, path_components: list[str], region: Region) -> bo
     """
     if not region.offers.exists():
         logger.debug("No offers are enabled in %r", region)
-        mark_invalid(url, _("Offers are not enabled in this region."))
+        mark_invalid(url, InternalLinkError.OFFERS_DISABLED)
     elif len(path_components) == 1:
         logger.debug("Link to offer list in %r is valid", region)
         mark_valid(url)
@@ -164,13 +161,13 @@ def check_offer_link(url: Url, path_components: list[str], region: Region) -> bo
                 path_components[1],
                 region,
             )
-            mark_invalid(url, _("This offer does not exist in this region."))
+            mark_invalid(url, InternalLinkError.OFFERS_NOT_FOUND)
     else:
         logger.debug(
             "Offer model is not hierarchical, got multiple path components %r",
             path_components,
         )
-        mark_invalid(url, _("Offer URL is invalid"))
+        mark_invalid(url, InternalLinkError.OFFERS_URL_INVALID)
     return url.status
 
 
@@ -188,7 +185,7 @@ def check_translation_link(
     """
     if content_object.archived:
         logger.debug("%r is archived", content_object)
-        mark_invalid(url, _("The link target is archived."))
+        mark_invalid(url, InternalLinkError.LINK_TARGET_ARCHIVED)
     elif translation := content_object.get_public_translation(language.slug):
         if translation.get_absolute_url().strip("/") != unquote(url.internal_url).strip(
             "/",
@@ -199,7 +196,7 @@ def check_translation_link(
                 translation.get_absolute_url(),
                 url.internal_url,
             )
-            mark_invalid(url, _("The URL is not up-to-date."))
+            mark_invalid(url, InternalLinkError.LINK_TARGET_URL_OUTDATED)
         else:
             mark_valid(url)
     else:
@@ -208,7 +205,7 @@ def check_translation_link(
             content_object,
             language,
         )
-        mark_invalid(url, _("The link target is not public in this language."))
+        mark_invalid(url, InternalLinkError.LINK_TARGET_NOT_PUBLIC)
     return url.status
 
 
@@ -250,10 +247,7 @@ def check_object_link(
             region,
             language,
         )
-        mark_invalid(
-            url,
-            _("The link target does not exist in this region and language."),
-        )
+        mark_invalid(url, InternalLinkError.LINK_TARGET_NOT_FOUND)
     elif len(objects) == 1:
         if content_type == "Page":
             ancestors = objects[0].get_cached_ancestors()
@@ -267,7 +261,7 @@ def check_object_link(
                         ancestor,
                         objects[0],
                     )
-                    mark_invalid(url, _("One of the page ancestors is not public"))
+                    mark_invalid(url, InternalLinkError.LINK_TARGET_PARENT_NOT_PUBLIC)
                     return url.status
         check_translation_link(objects[0], url, language)
     else:
@@ -279,10 +273,7 @@ def check_object_link(
             language,
             objects,
         )
-        mark_invalid(
-            url,
-            _("The link target is not unique in this region and language."),
-        )
+        mark_invalid(url, InternalLinkError.LINK_TARGET_AMBIGUOUS)
     return url.status
 
 
@@ -329,7 +320,7 @@ def check_event_or_location(
             content_type,
             path_components,
         )
-        mark_invalid(url, _("This link is invalid."))
+        mark_invalid(url, InternalLinkError.EVENT_OR_LOCATION_INVALID)
     return url.status
 
 
@@ -365,7 +356,7 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
     )
     if not region:
         logger.debug("Region with slug %r does not exist or is not active", region_slug)
-        mark_invalid(url, _("This region does not exist or is not active."))
+        mark_invalid(url, InternalLinkError.REGION_OR_LANGUAGE_INVALID)
         return url.status
 
     if not language_and_path:
@@ -401,10 +392,7 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
             "Language with slug %r does not exist or is not active & visible",
             language_slug,
         )
-        mark_invalid(
-            url,
-            _("This language does not exist or is not active and visible."),
-        )
+        mark_invalid(url, InternalLinkError.REGION_OR_LANGUAGE_INVALID)
         return url.status
 
     if not path:
