@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import {
     Chart,
     ChartData,
@@ -12,6 +13,8 @@ import {
     type ChartConfiguration,
 } from "chart.js";
 import { downloadFile, updatePageAccesses } from "./statistics-page-accesses";
+import { domTokenListToggle as domTokenListSet } from "../utils/html";
+import { some } from "../utils/iterators";
 
 type AjaxResponse = {
     exportLabels: Array<string>;
@@ -160,6 +163,13 @@ const updateChart = async (chart: Chart): Promise<void> => {
     }
 };
 
+function updatePageStatisticsDisplay(checkBoxes: IterableIterator<HTMLInputElement>) {
+    const languageSelected = some(checkBoxes, (checkbox) => checkbox.checked);
+
+    domTokenListSet(document.getElementById("statistics-pages-empty-list").classList, languageSelected, "hidden");
+    domTokenListSet(document.getElementById("statistics-pages-content-list").classList, !languageSelected, "hidden");
+}
+
 /*
  * This function enables/disables the export button depending on whether an export format is selected or not.
  */
@@ -259,6 +269,7 @@ window.addEventListener("load", async () => {
 
             if (checkbox.getAttribute("data-language-slug")) {
                 updatePageAccesses();
+                updatePageStatisticsDisplay(chartItemsByCheckbox.keys());
                 allLanguagesSelected.checked = false;
             }
         });
@@ -273,6 +284,7 @@ window.addEventListener("load", async () => {
         }
 
         updatePageAccesses();
+        updatePageStatisticsDisplay(chartItemsByCheckbox.keys());
     });
 
     // Initialize export button
@@ -293,5 +305,6 @@ window.addEventListener("load", async () => {
     // Event handler for toggling export button
     document.getElementById("export-statistics")?.addEventListener("change", toggleExportButton);
 
+    updatePageStatisticsDisplay(chartItemsByCheckbox.keys());
     await updateChart(chart);
 });
