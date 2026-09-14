@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-03-09T12:41:20+00:00" />
+    <meta property="article:modified_time" content="2026-09-14T13:13:37+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Continuous Integration (CircleCI) &mdash; integreat-cms 2026.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -2330,6 +2330,12 @@ See <a class="reference external" href="https://circleci.com/docs/2.0/configurat
 <span id="circleci-pip-install"></span><h3>pip-install<a class="headerlink" href="#pip-install" title="Link to this heading"></a></h3>
 <p>This job executes <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[dev-pinned,pinned]</span></code> and makes use of the <a class="reference external" href="https://circleci.com/docs/2.0/caching/">CircleCI Dependency Cache</a>.
 It passes the virtual environment <code class="docutils literal notranslate"><span class="pre">.venv</span></code> to the subsequent jobs.</p>
+<p>Since a virtual environment is only valid for the interpreter which created it, the cache key contains not only the
+checksum of <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, but also the checksum of <code class="docutils literal notranslate"><span class="pre">.python-build-id</span></code>, a file which is written by the job itself
+with the output of <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-VV</span></code>. This means the cache is invalidated whenever the Python version of the Docker image
+changes, and the image can be referenced by its minor version (<code class="docutils literal notranslate"><span class="pre">cimg/python:3.13</span></code>) to receive patch updates
+automatically. Do not replace this with an environment variable: values which are exported to <code class="docutils literal notranslate"><span class="pre">$BASH_ENV</span></code> are not
+visible to the interpolation of cache keys.</p>
 </section>
 <section id="webpack">
 <span id="circleci-webpack"></span><h3>webpack<a class="headerlink" href="#webpack" title="Link to this heading"></a></h3>
@@ -2477,7 +2483,7 @@ See <a class="reference internal" href="troubleshooting.html#troubleshooting-una
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 09, 2025.
+      <span class="lastupdated">Last updated on Sep 14, 2026.
       </span></p>
   </div>
 
