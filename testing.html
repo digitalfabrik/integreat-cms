@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-09-02T13:15:24+00:00" />
+    <meta property="article:modified_time" content="2026-09-14T11:31:23+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Testing (Pytest) &mdash; integreat-cms 2026.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -2309,7 +2309,7 @@
              
   <section id="testing-pytest">
 <h1>Testing (Pytest)<a class="headerlink" href="#testing-pytest" title="Link to this heading"></a></h1>
-<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v9.2.0.dev293)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
+<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v9.2.0.dev314)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
 <p>In addition, we use the following plugins:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/index.html" title="(in pytest-cov v7.1.0)"><span class="xref std std-doc">pytest-cov</span></a>: This plugin produces coverage reports.</p></li>
@@ -2563,11 +2563,16 @@ ones. <code class="docutils literal notranslate"><span class="pre">&#64;pytest.m
 correct ordering after all collection hooks have run.</p></li>
 <li><p><strong>Don’t use</strong> <code class="docutils literal notranslate"><span class="pre">serialized_rollback=True</span></code> — it has FK ordering issues
 with PostgreSQL. Use <code class="docutils literal notranslate"><span class="pre">load_test_data_transactional</span></code> instead.</p></li>
-<li><p><strong>Clean up state you attach to session-scoped fixtures</strong> — database changes
-are rolled back after every non-transactional test, but the Python objects
-returned by session-scoped fixtures are not: they live for the whole worker
-process. The most common case is the <code class="docutils literal notranslate"><span class="pre">Client</span></code> returned by
-<code class="docutils literal notranslate"><span class="pre">login_role_user</span></code>, whose cookies survive the test that set them:</p>
+<li><p><strong>Watch for state that outlives the per-test DB rollback</strong> — database
+changes are rolled back after every non-transactional test, but not
+everything a test touches lives in the database. Two recurring cases,
+with opposite fixes:</p>
+<ol class="loweralpha">
+<li><p><strong>Objects returned by a session-scoped fixture</strong> are not reset between
+tests — they live for the whole worker process. The most common case
+is the <code class="docutils literal notranslate"><span class="pre">Client</span></code> returned by <code class="docutils literal notranslate"><span class="pre">login_role_user</span></code>, whose cookies
+survive the test that set them. There is no framework mechanism for
+this, so clean up manually:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_pagination_cookie</span><span class="p">(</span><span class="n">login_role_user</span><span class="p">):</span>
     <span class="n">client</span><span class="p">,</span> <span class="n">role</span> <span class="o">=</span> <span class="n">login_role_user</span>
@@ -2578,8 +2583,28 @@ process. The most common case is the <code class="docutils literal notranslate">
         <span class="n">client</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;page_size&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The same applies to anything else cached in the fixture’s return value —
-only the rows it points at are reset between tests, not the object itself.</p>
+<p>The same applies to anything else cached in the fixture’s return
+value — only the rows it points at are reset between tests, not the
+object itself.</p>
+</li>
+<li><p><strong>Django settings</strong> must be changed through the <code class="docutils literal notranslate"><span class="pre">settings</span></code> fixture,
+never <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">django.conf</span> <span class="pre">import</span> <span class="pre">settings;</span> <span class="pre">settings.X</span> <span class="pre">=</span> <span class="pre">value</span></code>. Here a
+framework mechanism <em>does</em> exist — the fixture restores the original
+value after the test regardless of outcome — so the bug is bypassing
+it, not forgetting to clean up by hand. This is especially dangerous
+for <code class="docutils literal notranslate"><span class="pre">LANGUAGE_CODE</span></code>: a view with <code class="docutils literal notranslate"><span class="pre">lang:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">settings.LANGUAGE_CODE</span></code>
+as a default argument bakes in whatever value is live <em>the first time
+that module is imported</em>, which happens lazily on the first URL
+resolution of the worker — i.e. whatever an earlier, unrelated test
+last (mis)set it to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_something</span><span class="p">(</span><span class="n">settings</span><span class="p">):</span>
+    <span class="n">settings</span><span class="o">.</span><span class="n">LANGUAGE_CODE</span> <span class="o">=</span> <span class="s2">&quot;en&quot;</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+</ol>
 </li>
 <li><p><strong>Import role constants from</strong> <code class="docutils literal notranslate"><span class="pre">tests.constants</span></code>, not <code class="docutils literal notranslate"><span class="pre">tests.conftest</span></code>.</p></li>
 <li><p><strong>Tree models</strong> (Page, LanguageTreeNode) must be created with
@@ -2620,7 +2645,7 @@ threshold, since each container runs only its share of the tests.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 02, 2026.
+      <span class="lastupdated">Last updated on Sep 14, 2026.
       </span></p>
   </div>
 
