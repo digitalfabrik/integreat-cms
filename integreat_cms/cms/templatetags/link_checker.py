@@ -8,10 +8,18 @@ from typing import TYPE_CHECKING
 
 from django import template
 from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
+
+from integreat_cms.cms.constants.linkcheck_errors import (
+    ExternalLinkError,
+    InternalLinkError,
+    LinkCheckError,
+)
 
 if TYPE_CHECKING:
     from typing import Any
 
+    from django.utils.functional import Promise
     from linkcheck.models import Link
 
     from integreat_cms.cms.models import Region
@@ -74,4 +82,35 @@ def link_display_info(links: list[Link], region: Region | None) -> dict[str, Any
         "link": link,
         "text": link_text,
         "translated_title": title_in_readable_language,
+    }
+
+
+@register.simple_tag
+def link_error_info(url: Any) -> dict[str, str | Promise]:
+    if url.internal:
+        try:
+            error: LinkCheckError = InternalLinkError[url.error_message]
+        except KeyError:
+            return {
+                "status": url.error_message,
+                "help_text": _("Look for the matching content and update the link."),
+            }
+    elif url.ssl_status is False:
+        error = ExternalLinkError.SSL_INVALID
+    else:
+        status_code = (
+            url.redirect_status_code
+            if url.redirect_status_code is not None
+            else url.status_code
+        )
+        error = {
+            403: ExternalLinkError.FORBIDDEN,
+            404: ExternalLinkError.NOT_FOUND,
+            500: ExternalLinkError.SERVER_ERROR,
+            503: ExternalLinkError.SERVER_ERROR,
+        }.get(status_code, ExternalLinkError.UNKNOWN_ERROR)
+
+    return {
+        "status": error.error_message,
+        "help_text": error.help_text,
     }
