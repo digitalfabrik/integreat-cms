@@ -13,6 +13,7 @@ from django.conf import settings
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 
+from ...cms.constants import region_status
 from ...cms.models.languages.language import Language
 from ...cms.utils.internal_link_utils import (
     get_public_translation_for_webapp_link_parts,
@@ -35,7 +36,25 @@ if TYPE_CHECKING:
         JsonResponse,
     )
 
+    from ...cms.models import Region
+
 logger = logging.getLogger(__name__)
+
+
+def get_non_archived_region(request: HttpRequest) -> Region:
+    """
+    Returns the region of the current request and ensures it is not archived.
+
+    :param request: The current request
+
+    :raises ~django.http.Http404: If the region is archived
+
+    :return: The non-archived region of the request
+    """
+    region = request.region
+    if region.status == region_status.ARCHIVED:
+        raise Http404("This region is archived.")
+    return region
 
 
 def site_url(request: HttpRequest) -> str:
@@ -51,12 +70,36 @@ def site_url(request: HttpRequest) -> str:
     return f"{settings.WEBAPP_URL}{path}"
 
 
-def partial_html_response(function: Callable) -> Callable:
+def render_error_headers(request: HttpRequest, error: str) -> HttpResponse:
+    """
+    Renders the partial HTML response for the webapp's server side include
+
+    :param request: The current request
+    :param error: The error message
+
+    :return: Partial HTML response for the webapp's server side include
+    """
+    return render(
+        request,
+        "error_headers.html",
+        {
+            "title": f"Error 404 | {settings.BRANDING_TITLE}",
+            "error": error,
+        },
+        status=404,
+    )
+
+
+def partial_html_response(
+    function: Callable,
+    error_renderer: Callable = render_error_headers,
+) -> Callable:
     """
     This decorator can be used to catch :class:`~django.http.Http404` exceptions and convert them to a partial HTML responses
     needed for the webapp's server side includes.
 
     :param function: The view function which should always return a partial HTML response
+    :param error_renderer: The function which renders the partial HTML response for the error case
 
     :return: The decorated function
     """
@@ -81,7 +124,7 @@ def partial_html_response(function: Callable) -> Callable:
         try:
             return function(request, *args, **kwargs)
         except Http404 as e:
-            return render_error_headers(
+            return error_renderer(
                 request=request,
                 error=str(e),
             )
@@ -89,30 +132,10 @@ def partial_html_response(function: Callable) -> Callable:
     return wrap
 
 
-def render_error_headers(request: HttpRequest, error: str) -> HttpResponse:
-    """
-    Renders the partial HTML response for the webapp's server side include
-
-    :param request: The current request
-    :param error: The error message
-
-    :return: Partial HTML response for the webapp's server side include
-    """
-    return render(
-        request,
-        "error_headers.html",
-        {
-            "title": f"Error 404 | {settings.BRANDING_TITLE}",
-            "error": error,
-        },
-        status=404,
-    )
-
-
 @partial_html_response
 def root_social_media_headers(
     request: HttpRequest,
-    language_slug: str = settings.LANGUAGE_CODE,
+    language_slug: str | None = None,
 ) -> HttpResponse:
     """
     Renders the social media headers for a root page
@@ -122,7 +145,10 @@ def root_social_media_headers(
 
     :return: HTML social meta headers required by social media platforms
     """
-    language = get_object_or_404(Language, slug=language_slug)
+    language = get_object_or_404(
+        Language,
+        slug=language_slug or settings.LANGUAGE_CODE,
+    )
     title = language.social_media_webapp_title or settings.BRANDING_TITLE
     url = site_url(request)
 
@@ -150,7 +176,7 @@ def region_social_media_headers(
 
     :return: HTML social meta headers required by social media platforms
     """
-    region = request.region
+    region = get_non_archived_region(request)
     if language_slug:
         language = region.get_language_or_404(language_slug, only_active=True)
     elif region.default_language:
@@ -179,7 +205,7 @@ def page_social_media_headers(
 
     :return: HTML social meta headers required by social media platforms if the page exists
     """
-    region = request.region
+    region = get_non_archived_region(request)
     language = region.get_language_or_404(language_slug, only_active=True)
 
     path_parts = unquote(path).strip("/").split("/")
@@ -191,6 +217,10 @@ def page_social_media_headers(
         )
     ):
         raise Http404("Page not found in this region with this language.")
+
+    # The imprint is the only content object which cannot be archived
+    if getattr(page_translation.foreign_object, "archived", False):
+        raise Http404("This page is archived.")
 
     # TODO(sarahsporck): add breadcrumb json-ld if content_translation exists
     # https://github.com/digitalfabrik/integreat-cms/issues/3287
@@ -219,7 +249,7 @@ def event_social_media_headers(
 
     :return: HTML social meta headers required by social media platforms if the event page exists
     """
-    region = request.region
+    region = get_non_archived_region(request)
     language = region.get_language_or_404(language_slug, only_active=True)
 
     if not (
@@ -230,6 +260,9 @@ def event_social_media_headers(
         )
     ):
         raise Http404("Event not found in this region with this language.")
+
+    if event_translation.foreign_object.archived:
+        raise Http404("This event is archived.")
 
     # TODO(sarahsporck): add event json-ld
     # https://github.com/digitalfabrik/integreat-cms/issues/3287
@@ -260,7 +293,7 @@ def news_social_media_headers(
 
     :return: HTML social meta headers required by social media platforms if the news page exists
     """
-    region = request.region
+    region = get_non_archived_region(request)
     language = region.get_language_or_404(language_slug, only_active=True)
 
     news_manager = next(
@@ -290,7 +323,7 @@ def location_social_media_headers(
 
     :return: HTML social meta headers required by social media platforms if the location page exists
     """
-    region = request.region
+    region = get_non_archived_region(request)
     language = region.get_language_or_404(language_slug, only_active=True)
 
     if not (
@@ -301,6 +334,9 @@ def location_social_media_headers(
         )
     ):
         raise Http404("POI not found in this region with this language.")
+
+    if location_translation.foreign_object.archived:
+        raise Http404("This location is archived.")
 
     return render_social_media_headers(
         request=request,

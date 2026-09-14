@@ -10,7 +10,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 
 from integreat_cms.cms.models import Directory, MediaFile
-from tests.conftest import (
+from tests.constants import (
     ANONYMOUS,
     HIGH_PRIV_STAFF_ROLES,
     PRIV_STAFF_ROLES,

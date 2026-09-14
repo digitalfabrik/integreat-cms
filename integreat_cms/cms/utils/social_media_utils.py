@@ -74,6 +74,7 @@ def render_social_media_headers(
         request,
         "social_media_headers.html",
         {
+            "site_name": f"{settings.BRANDING_TITLE}",
             "title": title,
             "excerpt": excerpt,
             "url": url,

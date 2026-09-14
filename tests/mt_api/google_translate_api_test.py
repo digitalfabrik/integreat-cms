@@ -8,15 +8,20 @@ if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
     from google.cloud.translate_v3 import TranslateTextRequest
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 import pytest
 from django.apps import apps
 from django.urls import reverse
 
 from integreat_cms.cms.constants.machine_translatable_fields import TRANSLATABLE_FIELDS
+from tests.constants import (
+    AUTHOR,
+    EDITOR,
+    MANAGEMENT,
+    PRIV_STAFF_ROLES,
+)
 
-from ..conftest import AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from ..utils import assert_message_in_log
 
 if TYPE_CHECKING:
@@ -117,7 +122,7 @@ def setup_fake_google_translate_api(  # type: ignore[no-untyped-def]
 )
 def test_google_translate_error(
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """

@@ -4,7 +4,7 @@ from django.utils import translation
 from lxml.html import tostring
 
 from integreat_cms.cms.utils.content_utils import clean_content, render_contact_card
-from tests.conftest import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
+from tests.constants import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 
 
 @pytest.mark.parametrize(

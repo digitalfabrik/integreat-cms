@@ -41,7 +41,7 @@ class PushNotificationTranslation(AbstractBaseModel):
         PushNotification,
         on_delete=models.CASCADE,
         related_name="translations",
-        verbose_name=_("push notification"),
+        verbose_name=_("news"),
     )
     last_updated = models.DateTimeField(
         auto_now=True,
@@ -194,9 +194,9 @@ class PushNotificationTranslation(AbstractBaseModel):
 
     class Meta:
         #: The verbose name of the model
-        verbose_name = _("push notification translation")
+        verbose_name = _("news translation")
         #: The plural verbose name of the model
-        verbose_name_plural = _("push notification translations")
+        verbose_name_plural = _("news translations")
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["push_notification__pk", "language__pk", "language"]
         #: The default permissions for this model

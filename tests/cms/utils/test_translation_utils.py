@@ -1,6 +1,9 @@
+import pytest
+
 from integreat_cms.cms.utils.translation_utils import translate_link
 
 
+@pytest.mark.unit
 def test_translate_link() -> None:
     """
     Test whether the :meth:`~integreat_cms.cms.utils.translation_utils.translate_link` function correctly escapes message

@@ -1,0 +1,22 @@
+/*
+ * This is a rather dirty fix
+ *
+ * Whatever package provides the checkbox styling switched to using :where, which is 0 specificity.
+ * Details: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascade/Specificity
+ * The TinyMCE skin didn't and now overrides the relevant rules making the checkbox work.
+ *
+ * This file attempts to fix it in the meantime by just copy and pasting the rules and prepending .tox to the selector.
+ */
+
+.tox input:where([type="checkbox"]):checked,
+input:where([type="radio"]):checked {
+    background-color: currentColor;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-color: transparent;
+}
+
+.tox input:where([type="checkbox"]):checked {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0'/%3E%3C/svg%3E");
+}

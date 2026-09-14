@@ -82,7 +82,7 @@ def test_creating_poi_translations_to_automatically_create_lowercase_slug() -> N
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_db_trigger_prevents_duplicate_slug_on_poi_translations() -> None:
     region = Region.objects.create(slug="trigger-test-region")
     poi_category = POICategory.objects.create(
@@ -121,7 +121,7 @@ def test_db_trigger_prevents_duplicate_slug_on_poi_translations() -> None:
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_db_trigger_enforce_slug_uniqueness_on_bulk_creation() -> None:
     region = Region.objects.create(slug="trigger-test-region")
     poi_category = POICategory.objects.create(

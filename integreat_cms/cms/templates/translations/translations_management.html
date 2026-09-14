@@ -8,13 +8,9 @@
     <form enctype="multipart/form-data" method="post" data-unsaved-warning>
         {% csrf_token %}
         <div class="flex flex-wrap justify-between mb-4">
-            <h1 class="heading overflow-hidden text-ellipsis">
-                {% translate "Manage machine translations" %}
-            </h1>
+            <h1 class="heading overflow-hidden text-ellipsis">{% translate "Manage machine translations" %}</h1>
             {% if perms.cms.manage_translations %}
-                <button class="btn ml-auto mr-0">
-                    {% translate "Save" %}
-                </button>
+                <button class="btn ml-auto mr-0">{% translate "Save" %}</button>
             {% endif %}
         </div>
         <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
@@ -28,9 +24,7 @@
                     <!-- Select which languages can be machine translated -->
                     {% if request.region.active_languages|length == 0 %}
                         <div>
-                            <div class="help-text mt-4">
-                                {% translate "There is no active language in this region." %}
-                            </div>
+                            <div class="help-text mt-4">{% translate "There is no active language in this region." %}</div>
                         </div>
                     {% elif request.region.active_languages|length == 1 %}
                         <div>
@@ -40,29 +34,21 @@
                         </div>
                     {% else %}
                         {% if form.get_language_fields %}
-                            <label>
-                                {% translate "Select provider" %}
-                            </label>
+                            <label>{% translate "Select provider" %}</label>
                             <div class="border-none help-text !m-0">
                                 {% translate "Please select which translation provider you prefer to use for the given language:" %}
                             </div>
                             {% for language_field in form.get_language_fields %}
                                 <div class="border-none">
-                                    <label for="{{ language_field.label }}">
-                                        {{ language_field.label }}
-                                    </label>
+                                    <label for="{{ language_field.label }}">{{ language_field.label }}</label>
                                     {{ language_field }}
                                 </div>
                             {% endfor %}
                         {% endif %}
                         {% if form.unavailable_languages %}
                             <div>
-                                <div class="help-text mt-4">
-                                    {% translate "These languages are currently unavailable for machine translations" %}:
-                                </div>
-                                <p>
-                                    {{ form.unavailable_languages|join:", " }}
-                                </p>
+                                <div class="help-text mt-4">{% translate "These languages are currently unavailable for machine translations" %}:</div>
+                                <p>{{ form.unavailable_languages|join:", " }}</p>
                             </div>
                         {% endif %}
                     {% endif %}
@@ -77,23 +63,13 @@
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                     <div>
                         <!-- Options related to the type of content which can be machine translated -->
-                        <label>
-                            {% translate "Automatic translations" %}
-                        </label>
-                        <div class="help-text">
-                            {% translate "Automatically machine translate the following types of content:" %}
-                        </div>
-                        <label for="{{ form.machine_translate_pages.id_for_label }}">
-                            {{ form.machine_translate_pages.label }}
-                        </label>
+                        <label>{% translate "Automatic translations" %}</label>
+                        <div class="help-text">{% translate "Automatically machine translate the following types of content:" %}</div>
+                        <label for="{{ form.machine_translate_pages.id_for_label }}">{{ form.machine_translate_pages.label }}</label>
                         {% render_field form.machine_translate_pages|add_error_class:"border-red-500" %}
-                        <label for="{{ form.machine_translate_events.id_for_label }}">
-                            {{ form.machine_translate_events.label }}
-                        </label>
+                        <label for="{{ form.machine_translate_events.id_for_label }}">{{ form.machine_translate_events.label }}</label>
                         {% render_field form.machine_translate_events|add_error_class:"border-red-500" %}
-                        <label for="{{ form.machine_translate_pois.id_for_label }}">
-                            {{ form.machine_translate_pois.label }}
-                        </label>
+                        <label for="{{ form.machine_translate_pois.id_for_label }}">{{ form.machine_translate_pois.label }}</label>
                         {% render_field form.machine_translate_pois|add_error_class:"border-red-500" %}
                         <label for="{{ form.machine_translate_pushnotifications.id_for_label }}">
                             {{ form.machine_translate_pushnotifications.label }}
@@ -116,12 +92,8 @@
                                     data-budget-total="{{ request.region.mt_budget }}"></canvas>
                         </div>
                         <div class="text-center font-bold">
-                            <p>
-                                {% translate "Available credits" %}
-                            </p>
-                            <p>
-                                {{ request.region.mt_budget_remaining|intcomma }} {% translate "words" %}
-                            </p>
+                            <p>{% translate "Available credits" %}</p>
+                            <p>{{ request.region.mt_budget_remaining|intcomma }} {% translate "words" %}</p>
                         </div>
                         <p>
                             {% blocktranslate trimmed with used=request.region.mt_budget_used|intcomma total=request.region.mt_budget|intcomma %}
@@ -149,53 +121,31 @@
                         <table class="w-full rounded bg-white">
                             <thead>
                                 <tr class="border-b border-solid border-gray-200">
-                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                        {% translate "Content type" %}
-                                    </th>
-                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                        {% translate "Published" %}
-                                    </th>
-                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                        {% translate "Draft" %}
-                                    </th>
-                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                        {% translate "Pending Approval" %}
-                                    </th>
-                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                        {% translate "Auto Save" %}
-                                    </th>
-                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                        {% translate "Total per Content type" %}
-                                    </th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% translate "Content type" %}</th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% translate "Published" %}</th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% translate "Draft" %}</th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% translate "Pending Approval" %}</th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% translate "Auto Save" %}</th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% translate "Total per Content type" %}</th>
                                 </tr>
                             </thead>
                             {% for content, counter in word_count.items %}
                                 <tbody>
                                     <tr class="border-t-2 border-solid border-gray-200 hover:bg-gray-100">
                                         <td class="pl-2">
-                                            <p class="block py-3 px-2 text-gray-800">
-                                                {{ content }}
-                                            </p>
+                                            <p class="block py-3 px-2 text-gray-800">{{ content }}</p>
                                         </td>
                                         <td class="pl-2">
-                                            <p class="block py-3 px-2 text-gray-800">
-                                                {{ counter.PUBLIC }}
-                                            </p>
+                                            <p class="block py-3 px-2 text-gray-800">{{ counter.PUBLIC }}</p>
                                         </td>
                                         <td class="pl-2">
-                                            <p class="block py-3 px-2 text-gray-800">
-                                                {{ counter.DRAFT }}
-                                            </p>
+                                            <p class="block py-3 px-2 text-gray-800">{{ counter.DRAFT }}</p>
                                         </td>
                                         <td class="pl-2">
-                                            <p class="block py-3 px-2 text-gray-800">
-                                                {{ counter.REVIEW }}
-                                            </p>
+                                            <p class="block py-3 px-2 text-gray-800">{{ counter.REVIEW }}</p>
                                         </td>
                                         <td class="pl-2">
-                                            <p class="block py-3 px-2 text-gray-800">
-                                                {{ counter.AUTO_SAVE }}
-                                            </p>
+                                            <p class="block py-3 px-2 text-gray-800">{{ counter.AUTO_SAVE }}</p>
                                         </td>
                                         <td class="pl-2">
                                             <p class="block py-3 px-2 text-gray-800">
@@ -203,44 +153,34 @@
                                             </p>
                                         </td>
                                     </tr>
-                                {% endfor %}
-                                <tr class="border-t-2 border-solid border-gray-900 hover:bg-gray-100">
-                                    <td class="pl-2">
-                                        <p class="block font-extrabold py-3 px-2 text-gray-900">
-                                            {% translate "Total per Status" %}
-                                        </p>
-                                    </td>
-                                    <td class="pl-2">
-                                        <p class="block py-3 px-2 text-gray-800">
-                                            {{ total_public_words }}
-                                        </p>
-                                    </td>
-                                    <td class="pl-2">
-                                        <p class="block py-3 px-2 text-gray-800">
-                                            {{ total_draft_words }}
-                                        </p>
-                                    </td>
-                                    <td class="pl-2">
-                                        <p class="block py-3 px-2 text-gray-800">
-                                            {{ total_review_words }}
-                                        </p>
-                                    </td>
-                                    <td class="pl-2">
-                                        <p class="block py-3 px-2 text-gray-800">
-                                            {{ total_autosave_words }}
-                                        </p>
-                                    </td>
-                                    <td class="pl-2">
-                                        <p class="block py-3 px-2 text-gray-800">
-                                            {{ total_public_words|add:total_draft_words|add:total_review_words|add:total_autosave_words }}
-                                        </p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            {% endfor %}
+                            <tr class="border-t-2 border-solid border-gray-900 hover:bg-gray-100">
+                                <td class="pl-2">
+                                    <p class="block font-extrabold py-3 px-2 text-gray-900">{% translate "Total per Status" %}</p>
+                                </td>
+                                <td class="pl-2">
+                                    <p class="block py-3 px-2 text-gray-800">{{ total_public_words }}</p>
+                                </td>
+                                <td class="pl-2">
+                                    <p class="block py-3 px-2 text-gray-800">{{ total_draft_words }}</p>
+                                </td>
+                                <td class="pl-2">
+                                    <p class="block py-3 px-2 text-gray-800">{{ total_review_words }}</p>
+                                </td>
+                                <td class="pl-2">
+                                    <p class="block py-3 px-2 text-gray-800">{{ total_autosave_words }}</p>
+                                </td>
+                                <td class="pl-2">
+                                    <p class="block py-3 px-2 text-gray-800">
+                                        {{ total_public_words|add:total_draft_words|add:total_review_words|add:total_autosave_words }}
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
     </form>
 {% endblock content %}

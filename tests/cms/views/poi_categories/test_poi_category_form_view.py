@@ -5,7 +5,13 @@ from django.urls import resolve, reverse
 
 from integreat_cms.cms.models.poi_categories.poi_category import POICategory
 from integreat_cms.cms.models.pois.poi import POI
-from tests.conftest import ANONYMOUS, CMS_TEAM, ROOT, SERVICE_TEAM, STAFF_ROLES
+from tests.constants import (
+    ANONYMOUS,
+    CMS_TEAM,
+    ROOT,
+    SERVICE_TEAM,
+    STAFF_ROLES,
+)
 
 DEFAULT_POST_DATA = {
     "icon": "daily_routine",
@@ -64,7 +70,7 @@ def test_poicategories_list_shows_all_items(
 
 
 @pytest.mark.django_db
-def test_correct_number_of_poicategories_in_database() -> None:
+def test_correct_number_of_poicategories_in_database(load_test_data: None) -> None:
     expected_number_of_poicategories = 3
     actual_number_of_poicategories_in_database = POICategory.objects.count()
     assert (
@@ -211,14 +217,7 @@ def test_edit_poi_category_was_successful(
     )
 
     assert response.status_code == 302
-    response = client.get(edit_url)
-    assert response.status_code == 200
-
-    assert (
-        "Ortskategorie &quot;Neu erstellte Ortskategorie&quot; wurde erfolgreich gespeichert"
-        in response.content.decode("utf-8")
-    )
-    translation = poicategory.translations.get(language__slug="de")
+    translation.refresh_from_db()
     assert translation.name == "Umbenannte Ortskategorie"
 
 

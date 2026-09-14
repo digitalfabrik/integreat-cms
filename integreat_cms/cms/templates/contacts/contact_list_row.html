@@ -83,6 +83,7 @@
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ restore_dialog_title }}"
                         data-confirmation-subject="{{ contact.name }}"
+                        {% if contact.location.archived %} data-confirmation-referenced-location-title="{{ referenced_location_title }}" data-confirmation-referenced-location-subject="{{ contact.location }}" {% endif %}
                         data-action="{% url 'restore_contact' contact_id=contact.id region_slug=request.region.slug %}">
                     <i icon-name="refresh-ccw"></i>
                 </button>

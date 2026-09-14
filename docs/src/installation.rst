@@ -15,16 +15,11 @@ Following packages are required before installing the project (install them with
 * `git <https://git-scm.com/>`_
 * `npm <https://www.npmjs.com/>`_ version 7 or later
 * `nodejs <https://nodejs.org/>`_ version 22 or later
-* `python3 <https://www.python.org/>`_ version 3.9 to 3.11 (for above 3.11 see below)
+* `python3 <https://www.python.org/>`_ version 3.13
 * `python3-pip <https://packages.ubuntu.com/search?keywords=python3-pip>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__) / `python-pip <https://www.archlinux.de/packages/extra/x86_64/python-pip>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
 * `python3-venv <https://packages.ubuntu.com/search?keywords=python3+venv>`_ (Only `Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__)
 * Either `postgresql <https://www.postgresql.org/>`_ **or** `docker <https://www.docker.com/>`_ to run a local database server
 * `gettext <https://www.gnu.org/software/gettext/>`_ and `pcregrep <https://pcre.org/original/doc/html/pcregrep.html>`_ to use the translation features
-
-.. Note::
-
-    If your distro does not contain python3.9 or later, you first have to add a ppa repository, e.g. ``sudo add-apt-repository ppa:deadsnakes/ppa``.
-
 
 Prerequisites on common distributions
 -------------------------------------
@@ -61,7 +56,7 @@ In the following, we provide the commands to install all these prerequisites on 
     # Add PPA repository for Python3.9 and above
     sudo add-apt-repository -y ppa:deadsnakes/ppa
     # Install basic requirements
-    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3.11 python3.11-venv libcairo2
+    sudo apt install -y apt-transport-https curl gettext git pcregrep python3-pip python3.13 python3.13-venv libcairo2
     # Add PPA repository for NodeJS
     curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
     # Add PPA repository for Docker
@@ -131,5 +126,5 @@ And install it using our developer tool :github-source:`tools/install.sh`::
     - This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pip.
       If only one of both dependency-managers should be invoked, run ``npm ci`` or ``pip install -e .[dev-pinned,pinned]`` directly.
 
-    - If your system uses Python 3.12 as the default (e.g., Ubuntu 24.04 or similar), you need to install Python 3.11 alongside it, without changing the default python3 symlink.
-      Then, to ensure the CMS uses Python 3.11, run the installation script with the appropriate interpreter: ``./tools/install.sh --python python3.11``
+    - If your system uses Python 3.12 as the default (e.g., Ubuntu 24.04 or similar), you need to install Python 3.13 alongside it, without changing the default python3 symlink.
+      Then, to ensure the CMS uses Python 3.13, run the installation script with the appropriate interpreter: ``./tools/install.sh --python python3.13``

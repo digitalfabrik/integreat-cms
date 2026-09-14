@@ -9,7 +9,7 @@ import pytest
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -18,6 +18,7 @@ from django.utils import timezone
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import (
+    Contact,
     Event,
     Language,
     POI,
@@ -27,7 +28,7 @@ from integreat_cms.cms.models import (
 )
 from integreat_cms.cms.models.pois.poi import get_default_opening_hours
 from tests.cms.views.bulk_actions import assert_bulk_delete, BulkActionIDs
-from tests.conftest import (
+from tests.constants import (
     ANONYMOUS,
     AUTHOR,
     EDITOR,
@@ -70,7 +71,7 @@ def test_barrier_free_and_organization_box_appear(
 REGION_SLUG = "augsburg"
 
 
-def create_used_poi(region_slug: str, name_add: str = "") -> int:
+def create_poi_used_by_event(region_slug: str, name_add: str = "") -> int:
     """
     A helper function to create a new POI used in an event
     """
@@ -103,6 +104,43 @@ def create_used_poi(region_slug: str, name_add: str = "") -> int:
     event.save()
 
     assert used_poi.events.count() > 0
+
+    return used_poi.id
+
+
+def create_poi_used_by_contact(region_slug: str, name_add: str = "") -> int:
+    """
+    helper function to create a new POI that is used in a contact
+    """
+    region = Region.objects.filter(slug=region_slug).first()
+    contact = Contact.objects.filter(location__region=region).first()
+    poi_category = POICategory.objects.first()
+
+    used_poi = POI.objects.create(
+        region_id=region.id,
+        address="Adress 42",
+        postcode="00000",
+        city="Augsburg",
+        country="Deutschland",
+        latitude="48.3780446",
+        longitude="10.8879783",
+        category=poi_category,
+    )
+
+    german_language = Language.objects.filter(slug="de").first()
+    POITranslation.objects.create(
+        title="Ort" + name_add,
+        slug="ort" + name_add,
+        status=status.PUBLIC,
+        content="",
+        language=german_language,
+        poi=used_poi,
+    )
+
+    contact.location = used_poi
+    contact.save()
+
+    assert used_poi.contacts.count() > 0
 
     return used_poi.id
 
@@ -182,20 +220,21 @@ def create_unused_poi(region_slug: str, name_add: str = "") -> int:
 
 
 @pytest.mark.django_db
-def test_poi_currently_in_use_cannot_be_archived(
+def test_poi_currently_used_by_event_cannot_be_archived(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Checks whether a POI is protected from archiving if it is currently used in an event
+    but can be archived if referencing events are archived
     """
     settings.LANGUAGE_CODE = "en"
     client, role = login_role_user
 
     # Make sure the target POI is used in an event
-    poi_id = create_used_poi("augsburg")
+    poi_id = create_poi_used_by_event("augsburg")
 
     # Try to archive the POI
     archive_poi = reverse(
@@ -212,7 +251,7 @@ def test_poi_currently_in_use_cannot_be_archived(
         )
     elif role in PRIV_STAFF_ROLES + WRITE_ROLES:
         assert_message_in_log(
-            "ERROR    This location cannot be archived because it is referenced by an event.",
+            "ERROR    This location cannot be archived because it is referenced by an event or a contact that is not archived.",
             caplog,
         )
     else:
@@ -221,13 +260,103 @@ def test_poi_currently_in_use_cannot_be_archived(
     # Check the POI is not archived
     assert not POI.objects.filter(id=poi_id).first().archived
 
+    # Archive referencing events
+    for event in POI.objects.filter(id=poi_id).first().events.all():
+        event.archived = True
+        event.save()
+
+    # Try to archive the POI
+    response = client.post(archive_poi)
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location")
+            == f"{settings.LOGIN_URL}?next={archive_poi}"
+        )
+    elif role in PRIV_STAFF_ROLES + WRITE_ROLES:
+        assert_message_in_log(
+            "SUCCESS  Location was successfully archived",
+            caplog,
+        )
+        # Check the POI is archived
+        assert POI.objects.filter(id=poi_id).first().archived
+    else:
+        assert response.status_code == 403
+
+
+@pytest.mark.django_db
+def test_poi_currently_used_by_contact_cannot_be_archived(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    caplog: LogCaptureFixture,
+    settings: Settings,
+) -> None:
+    """
+    Checks whether a POI is protected from archiving if it is currently used in a contact
+    but can be archived if referencing contacts are archived
+    """
+    settings.LANGUAGE_CODE = "en"
+    client, role = login_role_user
+
+    # Make sure the target POI is used in a contact
+    poi_id = create_poi_used_by_contact("augsburg")
+
+    # Try to archive the POI
+    archive_poi = reverse(
+        "archive_poi",
+        kwargs={"region_slug": "augsburg", "language_slug": "de", "poi_id": poi_id},
+    )
+    response = client.post(archive_poi)
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location")
+            == f"{settings.LOGIN_URL}?next={archive_poi}"
+        )
+    elif role in PRIV_STAFF_ROLES + WRITE_ROLES:
+        assert_message_in_log(
+            "ERROR    This location cannot be archived because it is referenced by an event or a contact that is not archived.",
+            caplog,
+        )
+    else:
+        assert response.status_code == 403
+
+    # Check the POI is not archived
+    assert not POI.objects.filter(id=poi_id).first().archived
+
+    # Archive referencing contacts
+    for contact in POI.objects.filter(id=poi_id).first().contacts.all():
+        contact.archived = True
+        contact.save()
+
+    # Try to archive the POI
+    response = client.post(archive_poi)
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location")
+            == f"{settings.LOGIN_URL}?next={archive_poi}"
+        )
+    elif role in PRIV_STAFF_ROLES + WRITE_ROLES:
+        assert_message_in_log(
+            "SUCCESS  Location was successfully archived",
+            caplog,
+        )
+        # Check the POI is archived
+        assert POI.objects.filter(id=poi_id).first().archived
+    else:
+        assert response.status_code == 403
+
 
 @pytest.mark.django_db
 def test_poi_used_by_past_event_can_be_archived(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Checks whether a POI can be arhcived if it is used by a past event
@@ -260,11 +389,54 @@ def test_poi_used_by_past_event_can_be_archived(
 
 
 @pytest.mark.django_db
+def test_poi_archive_not_crash(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    caplog: LogCaptureFixture,
+    settings: Settings,
+) -> None:
+    """
+    Checks whether a POI can be archived successfully in a region that does not use contact feature (regression found in #4436)
+    """
+    settings.LANGUAGE_CODE = "en"
+    client, role = login_role_user
+
+    poi_id = create_poi_used_by_contact("augsburg")
+
+    region = Region.objects.filter(slug="augsburg").first()
+    region.contacts_enabled = False
+    region.save()
+
+    archive_poi = reverse(
+        "archive_poi",
+        kwargs={
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "poi_id": poi_id,
+        },
+    )
+    response = client.post(archive_poi)
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location")
+            == f"{settings.LOGIN_URL}?next={archive_poi}"
+        )
+    elif role in PRIV_STAFF_ROLES + WRITE_ROLES:
+        assert_message_in_log("SUCCESS  Location was successfully archived", caplog)
+        # Check the POI is archived
+        assert POI.objects.get(id=poi_id).archived
+    else:
+        assert response.status_code == 403
+
+
+@pytest.mark.django_db
 def test_poi_in_use_not_deleted(
     load_test_data: None,
     caplog: LogCaptureFixture,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Checks whether a POI is protected from deleting if it is used in an event
@@ -274,7 +446,7 @@ def test_poi_in_use_not_deleted(
     settings.LANGUAGE_CODE = "en"
 
     # Make sure the target POI is used in an event
-    poi_id = create_used_poi("augsburg")
+    poi_id = create_poi_used_by_event("augsburg")
 
     # Try to delete the POI
     delete_poi = reverse(
@@ -308,7 +480,7 @@ def test_poi_in_use_not_bulk_archived(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Checks whether a POI is protected from bulk archiving if it is used in an event
@@ -317,7 +489,7 @@ def test_poi_in_use_not_bulk_archived(
     client, role = login_role_user
 
     # Make sure the target POI is used in an event
-    poi_id = create_used_poi("augsburg")
+    poi_id = create_poi_used_by_event("augsburg")
 
     # Try to archive the POI by bulk action
     bulk_archive_pois = reverse(
@@ -348,7 +520,7 @@ def test_poi_in_use_not_bulk_archived(
 def test_poi_form_shows_associated_contacts(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     POI "Draft location" (id=6) has four related contacts. Test whether they are shown in the POI form.
@@ -402,7 +574,7 @@ def test_poi_form_shows_associated_contacts(
 def test_poi_form_shows_no_associated_contacts(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     POI "Test location" (id=4) has no related contacts. Test whether the correct message is shown in the POi form.
@@ -462,7 +634,7 @@ def test_bulk_delete_pois(
     role: str,
     client: Client,
     load_test_data: None,
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     num_deletable: int,
     num_undeletable: int,
@@ -477,7 +649,8 @@ def test_bulk_delete_pois(
         create_unused_poi("augsburg", f"-{i}") for i in range(num_deletable)
     ]
     undeletable_pois = [
-        create_used_poi("augsburg", f"-{i}-used") for i in range(num_undeletable)
+        create_poi_used_by_event("augsburg", f"-{i}-used")
+        for i in range(num_undeletable)
     ]
     instance_ids: BulkActionIDs = {
         "deletable": deletable_pois,
@@ -497,7 +670,7 @@ def test_bulk_delete_pois(
 def test_case_insensitive_unique_slug(
     client: Client,
     load_test_data: None,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Test that an appropriate message is shown to users and the view does not crash when slug is updated for uniqueness

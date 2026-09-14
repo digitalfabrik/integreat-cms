@@ -18,6 +18,7 @@ from ...constants import status
 from ...decorators import permission_required
 from ...models import POITranslation, Region
 from ...models.events.event import CouldNotBeCopied
+from ...utils.event_utils import get_filtered_events_url
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -86,18 +87,12 @@ def copy(
             request,
             _("Event couldn't be copied because it's from an external calendar"),
         )
-        return redirect(
-            "events",
-            **{"region_slug": region_slug, "language_slug": language_slug},
-        )
+        return redirect(get_filtered_events_url(request, region_slug, language_slug))
 
     logger.debug("%r copied by %r", event, request.user)
     messages.success(request, _("Event was successfully copied"))
 
-    return redirect(
-        "events",
-        **{"region_slug": region_slug, "language_slug": language_slug},
-    )
+    return redirect(get_filtered_events_url(request, region_slug, language_slug))
 
 
 @require_POST
@@ -159,13 +154,7 @@ def delete(
     event.delete()
     messages.success(request, _("Event was successfully deleted"))
 
-    return redirect(
-        "events",
-        **{
-            "region_slug": region_slug,
-            "language_slug": language_slug,
-        },
-    )
+    return redirect(get_filtered_events_url(request, region_slug, language_slug))
 
 
 @require_POST

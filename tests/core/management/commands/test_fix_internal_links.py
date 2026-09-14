@@ -100,7 +100,6 @@ def test_fix_internal_links_skips_organization_links(load_test_data: None) -> No
 
 
 old_urls = [
-    "https://integreat.app/augsburg/de/deutsche-sprache/sprachlernangebote/",
     "https://integreat.app/augsburg/de/willkommen/",
     "https://integreat.app/augsburg/de/events/test-veranstaltung/",
     "https://integreat.app/augsburg/de/locations/test-ort/",
@@ -108,16 +107,26 @@ old_urls = [
 ]
 
 new_urls = [
-    "https://integreat.app/augsburg/de/deutsche-sprache/sonstige-sprachlernangebote/",
     "https://integreat.app/augsburg/en/welcome/",
     "https://integreat.app/augsburg/en/events/test-event/",
     "https://integreat.app/augsburg/en/locations/test-location/",
     "https://integreat.app/augsburg/de/test-links/",
 ]
 
+# A link to a page's outdated (renamed) slug, in the same language as the page itself.
+# Historical slug matching was intentionally removed (see #4524, cross-language slug
+# matching returned the wrong page), so such links can no longer be resolved and must
+# be left untouched instead of being rewritten to the page's current slug.
+outdated_slug_url = (
+    "https://integreat.app/augsburg/de/deutsche-sprache/sprachlernangebote/"
+)
+renamed_slug_url = (
+    "https://integreat.app/augsburg/de/deutsche-sprache/sonstige-sprachlernangebote/"
+)
+
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_fix_internal_links_dry_run(
     load_test_data_transactional: Any | None,
 ) -> None:
@@ -164,7 +173,7 @@ def test_fix_internal_links_dry_run(
 
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_fix_internal_links_commit(load_test_data_transactional: Any | None) -> None:
     """
     Ensure that committing changes to the database works as expected
@@ -181,6 +190,10 @@ def test_fix_internal_links_commit(load_test_data_transactional: Any | None) -> 
     for new_url in new_urls:
         assert not Url.objects.filter(url=new_url).exists()
         assert not Link.objects.filter(url__url=new_url).exists()
+
+    outdated_slug_link_count = Link.objects.filter(url__url=outdated_slug_url).count()
+    assert outdated_slug_link_count > 0
+    assert not Url.objects.filter(url=renamed_slug_url).exists()
 
     # Now pass --commit to write changes to database
     with enable_listeners():
@@ -205,9 +218,19 @@ def test_fix_internal_links_commit(load_test_data_transactional: Any | None) -> 
             "New link should exist after replacement"
         )
 
+    # A link to a renamed slug in the same language cannot be resolved anymore and
+    # must be left untouched, since historical slug matching is no longer supported
+    assert (
+        Link.objects.filter(url__url=outdated_slug_url).count()
+        == outdated_slug_link_count
+    ), "Links to an outdated slug should not be modified"
+    assert not Url.objects.filter(
+        url=renamed_slug_url,
+    ).exists(), "The renamed slug's URL should not be created"
+
 
 @pytest.mark.order("last")
-@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+@pytest.mark.django_db(transaction=True)
 def test_fix_internal_links_commit_skips_version_conflicts(
     load_test_data_transactional: Any | None,
 ) -> None:
@@ -237,7 +260,6 @@ def test_fix_internal_links_commit_skips_version_conflicts(
     skipped_url = "https://integreat.app/augsburg/en/welcome/"
     # URLs that fixes of other translations produce
     fixed_urls = [
-        "https://integreat.app/augsburg/de/deutsche-sprache/sonstige-sprachlernangebote/",
         "https://integreat.app/augsburg/de/test-links/",
     ]
     for url in [skipped_url, *fixed_urls]:
@@ -257,6 +279,15 @@ def test_fix_internal_links_commit_skips_version_conflicts(
     assert stale_translation.links.count() == stale_link_count, (
         "The link records of the skipped translation should be preserved"
     )
+    # The command must not have written its stale copy on top of the concurrently
+    # created version. Asserted directly on the version rows, because the URL check
+    # below only observes the symptom and would also trip on link records that
+    # unrelated test pollution attached to another version of this translation.
+    assert not PageTranslation.objects.filter(
+        page=stale_translation.page,
+        language=stale_translation.language,
+        version__gt=newer_version.version,
+    ).exists(), "No version newer than the concurrently created one should exist"
     assert not Url.objects.filter(
         url=skipped_url,
     ).exists(), "The links of the conflicting translation should not be replaced"

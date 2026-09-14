@@ -8,6 +8,8 @@ import datetime
 from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo
 
+import pytest
+
 from integreat_cms.cms.constants import weekdays, weeks
 from integreat_cms.cms.models import Event, RecurrenceRule
 
@@ -15,6 +17,7 @@ if TYPE_CHECKING:
     from rrule import rrule
 
 
+@pytest.mark.unit
 class TestCreatingIcalRule:
     """
     Test whether to_ical_rrule_string function is calculating the rrule correctly

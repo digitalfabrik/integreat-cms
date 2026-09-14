@@ -62,6 +62,14 @@ class EventQuerySet(ContentQuerySet):
             ),
         )
 
+    def filter_upcoming_non_archived(self) -> Self:
+        """
+        Filter all upcoming events that are not archived
+
+        :return: The Queryset of events that are upcoming and not archived
+        """
+        return self.filter_upcoming().exclude(archived=True)
+
     def filter_completed(self, to_date: date | None = None) -> Self:
         """
         Filter all events that are not ongoing and don't have any occurrences in the future. This is, per definition, if
@@ -294,6 +302,9 @@ class Event(AbstractContentModel):
         for translation in self.translations.distinct("event__pk", "language__pk"):
             # The post_save signal will create link objects from the content
             translation.save(update_timestamp=False)
+
+        if self.location and self.location.archived:
+            self.location.restore()
 
     def delete(self, *args: Any, **kwargs: Any) -> tuple[int, dict[str, int]]:
         """

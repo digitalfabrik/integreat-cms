@@ -18,6 +18,7 @@ from django.utils.translation import ngettext, ngettext_lazy
 
 from ...cms.constants.machine_translatable_fields import TRANSLATABLE_FIELDS
 from ...cms.constants.machine_translation_budget import MINIMAL
+from ...cms.models.abstract_content_translation import AbstractContentTranslation
 from ...cms.utils.stringify_list import iter_to_string
 from ...textlab_api.utils import check_hix_score
 from .word_count import word_count
@@ -31,7 +32,6 @@ if TYPE_CHECKING:
         Region,
     )
     from ...cms.models.abstract_content_model import AbstractContentModel
-    from ...cms.models.abstract_content_translation import AbstractContentTranslation
 
 
 logger = logging.getLogger(__name__)
@@ -59,6 +59,7 @@ class MachineTranslationApiClient(ABC):
     form_class: ModelFormMetaclass
     #: Successful translations
     successful_translations: list[TranslationContext] = []
+    refreshed_translations: list[TranslationContext] = []
     #: Translations with an attached API failure
     failed_translations: list[str] = []
     #: Content objects untranslatable since no actual changes were made
@@ -98,6 +99,7 @@ class MachineTranslationApiClient(ABC):
         shown to the user.
         """
         self.successful_translations = []
+        self.refreshed_translations = []
         self.failed_translations = []
         self.failed_because_no_changes_made = []
         self.failed_because_no_source_translation = []
@@ -172,15 +174,30 @@ class MachineTranslationApiClient(ABC):
         self.model_name = meta.verbose_name.title()
         self.model_name_plural = meta.verbose_name_plural
 
-        # Filter out content objects which can not be translated
-        context = self.prepare_content_objects()
-        context = self.filter_no_source_translation(context)
-        context = self.filter_unchanged_translations(context)
-        context = self.filter_insufficient_hix_score(context)
-        context = self.filter_exceeds_limit(context)
+        # Prepare all content objects
+        all_contexts = self.prepare_content_objects()
 
-        # Provider-API-specific implementation
-        self.invoke_translation_api(context)
+        # Separate contexts into those with changes and those without
+        changed_contexts = []
+        unchanged_contexts = []
+
+        for ctx in all_contexts:
+            if bool(ctx.translatable_attributes):
+                changed_contexts.append(ctx)
+            else:
+                unchanged_contexts.append(ctx)
+
+        self.handle_unchanged_contexts(unchanged_contexts)
+
+        # Filter out content objects which can not be translated
+        contexts_to_translate = self.filter_no_source_translation(changed_contexts)
+        contexts_to_translate = self.filter_insufficient_hix_score(
+            contexts_to_translate
+        )
+        contexts_to_translate = self.filter_exceeds_limit(contexts_to_translate)
+
+        # Provider-API-specific implementation for changed contexts
+        self.invoke_translation_api(contexts_to_translate)
 
         # Update remaining budget of the region
         region.mt_budget_used += sum(
@@ -190,6 +207,7 @@ class MachineTranslationApiClient(ABC):
 
         # Show success/error messages to the user
         self.alert_successful_translations()
+        self.alert_refreshed_translations()
         self.alert_failed_translations()
         self.alert_no_changes_made()
         self.alert_no_source_translation()
@@ -197,30 +215,33 @@ class MachineTranslationApiClient(ABC):
         self.alert_exceeds_limit()
         self.alert_too_long_text()
 
-    def filter_unchanged_translations(
-        self, context: list[TranslationContext]
-    ) -> list[TranslationContext]:
+    def handle_unchanged_contexts(
+        self, unchanged_contexts: list[TranslationContext]
+    ) -> None:
         """
-        This method filters out entries from the context list
-        if there have been no changes made to the source_translation.
+        Handle content objects without changes.
 
-        The removed entries are stored in order to show users
-        batched error messages after all objects have been handled.
+        If there are no changes but the target translation is outdated, a new
+        translation version is created with ``minor_edit=True`` to refresh its
+        status without flagging it as a content change.
+        Otherwise, the translation is not updated because no changes were detected.
 
-        :param context: The list of translation contexts to filter
-        :return: The filtered list of translation contexts
+        Push notifications are excluded from this processing because they do not
+        use ``AbstractContentTranslation`` and therefore have no outdated status
+        to refresh.
         """
-        filtered_context = []
-
-        for ctx in context:
-            if bool(ctx.translatable_attributes):
-                filtered_context.append(ctx)
+        for ctx in unchanged_contexts:
+            target_translation = ctx.existing_target_translation
+            if (
+                isinstance(target_translation, AbstractContentTranslation)
+                and target_translation.is_outdated
+            ):
+                target_translation.save_new_version(self.request.user)
+                self.refreshed_translations.append(ctx)
             else:
                 self.failed_because_no_changes_made.append(
                     ctx.instance.best_translation.title
                 )
-
-        return filtered_context
 
     def filter_no_source_translation(
         self, context: list[TranslationContext]
@@ -468,6 +489,29 @@ class MachineTranslationApiClient(ABC):
             self.mark_too_long(ctx, content_translation_form.errors)
         else:
             self.mark_unsuccessful(ctx, content_translation_form.errors)
+
+    def alert_refreshed_translations(self) -> None:
+        """
+        Add messages informing the user about refreshed translations
+        """
+        if self.refreshed_translations:
+            messages.info(
+                self.request,
+                ngettext_lazy(
+                    "{model_name} {object_names}: Translation into '{target_language}' was not necessary -> no changes detected. The translation date has been refreshed.",
+                    "{model_name} {object_names}: Translation into '{target_language}' was not necessary -> no changes detected. The translation dates have been refreshed.",
+                    len(self.refreshed_translations),
+                ).format(
+                    model_name=self.model_name,
+                    model_name_plural=self.model_name_plural,
+                    target_language=self.target_language,
+                    object_names=iter_to_string(
+                        ctx.source_translation.title
+                        for ctx in self.refreshed_translations
+                        if ctx.source_translation is not None
+                    ),
+                ),
+            )
 
     def alert_successful_translations(self) -> None:
         """

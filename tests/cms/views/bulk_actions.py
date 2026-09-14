@@ -4,13 +4,10 @@ from typing import TypedDict
 from _pytest.logging import LogCaptureFixture
 from django.db.models import Model
 from django.test.client import Client
-from pytest_django.fixtures import SettingsWrapper
+from pytest_django.fixtures import Settings
 
 from integreat_cms.cms.utils.stringify_list import iter_to_string
-from tests.conftest import (
-    ANONYMOUS,
-    HIGH_PRIV_STAFF_ROLES,
-)
+from tests.constants import ANONYMOUS, HIGH_PRIV_STAFF_ROLES
 from tests.utils import assert_message_in_log
 
 
@@ -25,7 +22,7 @@ def assert_bulk_delete(
     url: str,
     role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    settings: SettingsWrapper,
+    settings: Settings,
     fail_reasons: list[str],
 ) -> None:
     """

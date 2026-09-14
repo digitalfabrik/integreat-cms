@@ -91,6 +91,11 @@ class AbstractContentTranslation(AbstractBaseModel):
         default=timezone.now,
         verbose_name=_("modification date"),
     )
+    published_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_("publication date"),
+    )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
@@ -627,6 +632,25 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         return new_translation
 
+    def save_new_version(
+        self,
+        user: User | None = None,
+    ) -> AbstractContentTranslation:
+        """
+        Create and save a new minor-edit version of this translation
+        """
+        from ..utils.content_translation_utils import save_new_version_with_retry
+        from ..utils.link_ignore_preservation import preserve_ignored_links
+
+        new_version = self.create_new_version_copy(user)
+
+        with transaction.atomic(), preserve_ignored_links(self):
+            self.links.all().delete()
+            return save_new_version_with_retry(
+                new_version,
+                new_version.save,
+            )
+
     def replace_urls(
         self,
         urls_to_replace: dict[str, str],
@@ -675,11 +699,15 @@ class AbstractContentTranslation(AbstractBaseModel):
         class_name = type(self).__name__
         if not self.pk:
             return f"<{class_name} (unsaved instance)>"
+        # Read FK values from the *_id columns so repr() never triggers a DB
+        # fetch; otherwise repr() called after a test's DB blocker re-engages
+        # raises and produces noisy logging-emit failures.
+        foreign_id = getattr(self, f"{self.foreign_field()}_id")
         return (
-            f"<{type(self).__name__} ("
+            f"<{class_name} ("
             f"id: {self.id}, "
-            f"{self.foreign_field()}_id: {self.foreign_object.id}, "
-            f"language: {self.language.slug}, "
+            f"{self.foreign_field()}_id: {foreign_id}, "
+            f"language_id: {self.language_id}, "
             f"slug: {self.slug})>"
         )
 
@@ -698,6 +726,8 @@ class AbstractContentTranslation(AbstractBaseModel):
             )
         if kwargs.pop("update_timestamp", True):
             self.last_updated = timezone.now()
+        if self.status == status.PUBLIC and not self.published_at:
+            self.published_at = self.last_updated
         super().save(*args, **kwargs)
 
     @transaction.atomic

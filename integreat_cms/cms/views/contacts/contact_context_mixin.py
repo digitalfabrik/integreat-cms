@@ -42,6 +42,9 @@ class ContactContextMixin(ContextMixin):
                 "restore_dialog_title": _(
                     "Please confirm that you really want to restore this contact",
                 ),
+                "referenced_location_title": _(
+                    "The following linked content will also be restored:",
+                ),
                 "delete_dialog_title": _(
                     "Please confirm that you really want to delete this contact",
                 ),

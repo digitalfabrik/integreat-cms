@@ -11,7 +11,7 @@ import pytest
 from django.apps import apps
 from django.urls import reverse
 
-from ..conftest import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
+from tests.constants import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 
 
 @pytest.mark.django_db

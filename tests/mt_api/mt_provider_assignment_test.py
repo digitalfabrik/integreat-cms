@@ -7,14 +7,14 @@ if TYPE_CHECKING:
 
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 import pytest
 from django.urls import reverse
 
 from integreat_cms.cms.models import Language, LanguageTreeNode, Region
+from tests.constants import ANONYMOUS, HIGH_PRIV_STAFF_ROLES, MANAGEMENT
 
-from ..conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES, MANAGEMENT
 from .deepl_api_test import setup_deepl_supported_languages
 from .google_translate_api_test import setup_google_translate_supported_languages
 
@@ -142,7 +142,7 @@ def test_both_providers_available(
 def test_change_to_supporting_provider(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -195,7 +195,7 @@ def test_change_to_supporting_provider(
 def test_change_to_not_supporting_provider(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """

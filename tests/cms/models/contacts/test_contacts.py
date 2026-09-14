@@ -3,18 +3,26 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 
 import pytest
 
-from integreat_cms.cms.models import Contact
+from integreat_cms.cms.constants import poicategory
+from integreat_cms.cms.models import (
+    Contact,
+    Language,
+    POI,
+    POICategory,
+    POITranslation,
+    Region,
+)
 
 
 @pytest.mark.django_db
 def test_contact_string(
     load_test_data: None,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Test whether __str__ of contact model works as expected
@@ -85,3 +93,48 @@ def test_restoring_contact_works(
 
     assert Contact.objects.all().count() == 6
     assert contact.archived is False
+
+
+@pytest.mark.django_db
+def test_contact_restore_with_referenced_poi() -> None:
+    """
+    Tests restoring a contact restores its location together.
+    """
+    region = Region.objects.create(name="new-region")
+    language = Language.objects.create(slug="da", primary_country_code="de")
+
+    poi_category = POICategory.objects.create(
+        icon=poicategory.OTHER,
+        color=poicategory.DARK_BLUE,
+    )
+    poi = POI.objects.create(
+        region=region,
+        address="Adress 42",
+        postcode="00000",
+        city="Augsburg",
+        country="Deutschland",
+        latitude="48.3780446",
+        longitude="10.8879783",
+        category=poi_category,
+        archived=True,
+    )
+    POITranslation.objects.create(poi=poi, language=language, slug="new-poi-slug")
+
+    contact = Contact.objects.create(
+        email="",
+        phone_number="+49 123456789",
+        website="",
+        area_of_responsibility="Title",
+        name="Contact",
+        location=poi,
+        archived=True,
+    )
+
+    assert contact.archived
+    assert poi.archived
+    assert contact.location.id == poi.id
+
+    contact.restore()
+
+    assert not contact.archived
+    assert not poi.archived

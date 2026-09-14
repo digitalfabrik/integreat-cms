@@ -5,14 +5,20 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 import pytest
 from django.urls import reverse
 
 from integreat_cms.cms.constants import translation_status
 from integreat_cms.cms.models import Page
-from tests.conftest import ANONYMOUS, AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
+from tests.constants import (
+    ANONYMOUS,
+    AUTHOR,
+    EDITOR,
+    MANAGEMENT,
+    PRIV_STAFF_ROLES,
+)
 from tests.utils import assert_message_in_log
 
 IDS_PAGES_NOT_IN_TRANSLATION_PROCESS = [1, 2]
@@ -26,7 +32,7 @@ def test_bulk_cancel_translation_process(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     client, role = login_role_user
 

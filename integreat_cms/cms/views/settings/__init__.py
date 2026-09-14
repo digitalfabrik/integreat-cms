@@ -4,6 +4,7 @@ This package contains all views related to settings
 
 from __future__ import annotations
 
+from .api_token_delete_view import ApiTokenDeleteView
 from .dismiss_tutorial_view import DismissTutorial
 from .totp_delete_view import TOTPDeleteView
 from .totp_register_view import TOTPRegisterView

@@ -51,7 +51,9 @@ def archive_poi(
     else:
         messages.error(
             request,
-            _("This location cannot be archived because it is referenced by an event."),
+            _(
+                "This location cannot be archived because it is referenced by an event or a contact that is not archived."
+            ),
         )
 
     return redirect(

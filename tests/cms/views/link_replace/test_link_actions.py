@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 import pytest
 from django.urls import reverse
@@ -13,7 +13,12 @@ from linkcheck.listeners import enable_listeners
 from linkcheck.models import Link, Url
 
 from integreat_cms.cms.utils.linkcheck_utils import filter_urls
-from tests.conftest import ANONYMOUS, EDITOR, MANAGEMENT, STAFF_ROLES
+from tests.constants import (
+    ANONYMOUS,
+    EDITOR,
+    MANAGEMENT,
+    STAFF_ROLES,
+)
 from tests.utils import assert_message_in_log
 
 # ----------- Test for url replace -----------#
@@ -36,7 +41,7 @@ url_replace_parameters = [("network_management", 4, 0), ("augsburg", 4, 1)]
 def test_url_replace(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: tuple[str, int, int],
 ) -> None:
@@ -130,7 +135,7 @@ search_replace_parameters = [("network_management", 4, 0), ("augsburg", 4, 1)]
 def test_search_and_replace_links(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: tuple[str, int, int],
 ) -> None:
@@ -231,7 +236,7 @@ ignore_unignore_parameters = [
 def test_bulk_ignore_unignore_links(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: tuple[str, str, tuple[int, int], tuple[int, int]],
 ) -> None:
@@ -329,7 +334,7 @@ recheck_parameters = ["network_management", "augsburg"]
 def test_bulk_recheck_links(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     region: str,
 ) -> None:

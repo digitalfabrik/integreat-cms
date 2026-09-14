@@ -1,15 +1,22 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from django.test.client import Client
+    from pytest_django import Settings
+
 import pytest
-from django.conf import settings
-from django.test.client import Client
 from django.urls import reverse
 
-from tests.conftest import ANONYMOUS
+from tests.constants import ANONYMOUS
 
 
 @pytest.mark.django_db
 def test_suggest_contacts_is_shown(
     load_test_data: None,
     login_role_user: tuple[Client, str],
+    settings: Settings,
 ) -> None:
     settings.LANGUAGE_CODE = "en"
     client, role = login_role_user

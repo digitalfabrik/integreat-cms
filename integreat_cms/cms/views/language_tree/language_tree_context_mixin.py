@@ -32,7 +32,7 @@ class LanguageTreeContextMixin(ContextMixin):
                     "Please confirm that you really want to delete this language node",
                 ),
                 "delete_dialog_text": _(
-                    "All translations for pages, locations, events and push notifications of this language will also be deleted.",
+                    "All translations for pages, locations, events and news of this language will also be deleted.",
                 ),
             },
         )

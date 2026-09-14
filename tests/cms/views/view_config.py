@@ -13,8 +13,7 @@ from django.urls import reverse
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models.pois.poi import get_default_opening_hours
-
-from ...conftest import (
+from tests.constants import (
     ALL_ROLES,
     AUTHOR,
     CMS_TEAM,
@@ -641,18 +640,6 @@ VIEWS: ViewConfig = [
     ),
     (
         [
-            ("sbs_edit_imprint", [*STAFF_ROLES, MANAGEMENT]),
-            (
-                "sbs_edit_imprint",
-                [*PRIV_STAFF_ROLES, MANAGEMENT],
-                {"title": "imprint", "status": status.DRAFT},
-            ),
-        ],
-        # The kwargs for these views
-        {"region_slug": "augsburg", "language_slug": "en"},
-    ),
-    (
-        [
             (
                 "edit_page",
                 [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
@@ -1266,7 +1253,6 @@ VIEWS: ViewConfig = [
                     "status": status.PUBLIC,
                 },
             ),
-            ("sbs_edit_page", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             ("page_versions", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "archive_page",
@@ -1319,7 +1305,6 @@ VIEWS: ViewConfig = [
                     "status": status.PUBLIC,
                 },
             ),
-            ("sbs_edit_page", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             ("delete_page", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
@@ -1328,7 +1313,6 @@ VIEWS: ViewConfig = [
     (
         [
             ("edit_page", STAFF_ROLES),
-            ("sbs_edit_page", STAFF_ROLES),
             ("page_versions", STAFF_ROLES),
             ("archive_page", PRIV_STAFF_ROLES, {"post_data": True}),
             ("restore_page", PRIV_STAFF_ROLES, {"post_data": True}),
@@ -1658,24 +1642,6 @@ REDIRECT_VIEWS: Final[RedirectViewConfig] = [
         ],
         # The kwargs for these views
         {"region_slug": "empty-region"},
-    ),
-    (
-        [
-            (
-                "sbs_edit_page",
-                [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
-                reverse(
-                    "edit_page",
-                    kwargs={
-                        "region_slug": "augsburg",
-                        "language_slug": "de",
-                        "page_id": 1,
-                    },
-                ),
-            ),
-        ],
-        # The kwargs for these views
-        {"region_slug": "augsburg", "language_slug": "de", "page_id": 1},
     ),
     (
         [

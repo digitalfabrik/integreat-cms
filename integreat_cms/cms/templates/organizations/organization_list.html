@@ -54,24 +54,12 @@
                         <th class="py-3 pl-4 pr-2 min">
                             <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
                         </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Name" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Members" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Maintained contents" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Logo" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 pr-2">
-                            {% translate "Website" %}
-                        </th>
-                        <th class="text-sm text-left uppercase py-3 p2-4 pr-4 min">
-                            {% translate "Options" %}
-                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2">{% translate "Name" %}</th>
+                        <th class="text-sm text-left uppercase py-3 px-2">{% translate "Members" %}</th>
+                        <th class="text-sm text-left uppercase py-3 px-2">{% translate "Maintained contents" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Logo" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Website" %}</th>
+                        <th class="text-sm text-left uppercase py-3 p2-4 pr-4 min">{% translate "Options" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,9 +97,7 @@
         {% if perms.cms.change_organization %}
             <div class="flex flex-wrap gap-2 mt-4">
                 <select id="bulk-action" class="w-auto max-w-full">
-                    <option>
-                        {% translate "Select bulk action" %}
-                    </option>
+                    <option>{% translate "Select bulk action" %}</option>
                     {% if is_archive %}
                         <option data-bulk-action="{% url 'bulk_restore_organization' region_slug=request.region.slug %}">
                             {% translate "Restore organizations" %}
@@ -127,9 +113,7 @@
                         </option>
                     {% endif %}
                 </select>
-                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
-                    {% translate "Execute" %}
-                </button>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
             </div>
         {% endif %}
     </div>

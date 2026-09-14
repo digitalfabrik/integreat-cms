@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+import json
 import math
+import socket
+import time
 from copy import deepcopy
 from typing import TYPE_CHECKING
 
 import pytest
+from werkzeug.wrappers import Request, Response
 
 from integreat_cms.cms.constants.administrative_division import MUNICIPALITY
 from integreat_cms.cms.constants.region_status import ACTIVE
@@ -26,7 +30,9 @@ from integreat_cms.cms.views.utils.hix import (
 from tests.utils import disable_hix_post_save_signal
 
 if TYPE_CHECKING:
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
+
+    from tests.mock import MockServer
 
 
 def create_dummy_region() -> tuple[Language, Region]:
@@ -58,7 +64,7 @@ def create_dummy_region() -> tuple[Language, Region]:
     return (dummy_language, dummy_region)
 
 
-def test_hix_rounding(settings: SettingsWrapper) -> None:
+def test_hix_rounding(settings: Settings) -> None:
     HIX_ROUNDING_PRECISION = 0.01
     actual_raw_hix_score_threshold = (
         settings.HIX_REQUIRED_FOR_MT - HIX_ROUNDING_PRECISION / 2
@@ -84,7 +90,7 @@ def test_hix_rounding(settings: SettingsWrapper) -> None:
 
 @pytest.mark.django_db
 def test_disregard_archived_pages(
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
@@ -146,7 +152,7 @@ def test_disregard_archived_pages(
 
 @pytest.mark.django_db
 def test_disregard_pages_with_hix_ignore(
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
@@ -212,7 +218,7 @@ def test_disregard_pages_with_hix_ignore(
 
 
 @pytest.mark.django_db
-def test_hix_values(settings: SettingsWrapper) -> None:
+def test_hix_values(settings: Settings) -> None:
     dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
 
@@ -290,7 +296,7 @@ def test_hix_values(settings: SettingsWrapper) -> None:
 
 
 @pytest.mark.django_db
-def test_versions_of_hix_page(settings: SettingsWrapper) -> None:
+def test_versions_of_hix_page(settings: Settings) -> None:
     dummy_language, dummy_region = create_dummy_region()
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
 
@@ -349,3 +355,52 @@ def test_contact_card_gets_filtered_out() -> None:
 
     assert result is not None
     assert result["score"] is None
+
+
+def test_hix_lookup_times_out_instead_of_hanging(
+    settings: Settings,
+    mock_server: MockServer,
+) -> None:
+    """
+    If the Textlab API accepts the connection but never responds, ``lookup_hix_score()``
+    must give up after :attr:`~integreat_cms.core.settings.TEXTLAB_API_TIMEOUT` instead
+    of blocking forever (see #<issue-number>).
+    """
+    listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    listener.bind(("127.0.0.1", 0))
+    listener.listen(1)
+    port = listener.getsockname()[1]
+
+    def black_hole(request: Request) -> Response:
+        mock_server.requests_counter += 1
+        time.sleep(2)
+        return Response(
+            json.dumps(
+                {
+                    "formulaHix": 15.12345678,
+                    "moreSentencesInClauses": [4, 5, 6],
+                    "moreSentencesInWords": [],
+                }
+            ),
+            status=200,
+        )
+
+    mock_server.configure("/user/login", 200, {"token": "dummy"})
+    mock_server.http_server.expect_request("/benchmark/420").respond_with_handler(
+        black_hole
+    )
+
+    settings.TEXTLAB_API_ENABLED = True
+    settings.TEXTLAB_API_URL = f"http://127.0.0.1:{port}"
+    settings.TEXTLAB_API_TIMEOUT = 0.2
+
+    start = time.monotonic()
+    result = lookup_hix_score(
+        "Unique text for test_hix_lookup_times_out_instead_of_hanging",
+    )
+    elapsed = time.monotonic() - start
+
+    assert result is None
+    assert elapsed < 1, (
+        "lookup_hix_score() should give up after TEXTLAB_API_TIMEOUT, not hang"
+    )

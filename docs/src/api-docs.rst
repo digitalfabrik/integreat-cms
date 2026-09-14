@@ -249,6 +249,7 @@ RESPONSE
          "title": String,              // The title of the page
          "modified_gmt": String,       // Deprecated field
          "last_updated": String,       // When the page translation was last updated, in ISO 8601
+         "published_at": String,       // First publication date of this page translation, in ISO 8601
          "excerpt": String,            // An excerpt from the page translation content
          "content": String,            // The full content
          "parent": {                   // The parent of this page
@@ -323,6 +324,7 @@ RESPONSE
          "title": String,                // The title of this location
          "modified_gmt": String,         // Deprecated field
          "last_updated": String,         // When the location translation was last updated, in ISO 8601
+         "published_at": String,         // First publication date of this location translation, in ISO 8601
          "meta_description": String,     // The meta description of this location
          "excerpt": String,              // An excerpt from the content of the location
          "content": String,              // The content of the location
@@ -484,6 +486,7 @@ RESPONSE
          "title": String,                   // The title of this event
          "modified_gmt": String,            // Deprecated field
          "last_updated": String,            // When the event translation was last updated, in ISO 8601
+         "published_at": String,            // First publication date of this event translation, in ISO 8601
          "excerpt": String,                 // An excerpt from the content of the event
          "content": String,                 // The content of the event
          "available_languages": [           // The translations of this event
@@ -695,6 +698,7 @@ RESPONSE
       "message": String,       // The message of the push notification in the given language
       "timestamp": String,     // Deprecated field
       "last_updated": String,  // The date&time when the push notification was last updated
+      "published_at": String,  // The date&time when the push notification was sent, in ISO 8601
       "display_date": String,  // The date&time when the push notification was sent / last updated (whichever is newer)
       "channel": String,       // The channel the push notification was sent to (e.g. "News")
       "available_languages": [           // The available languages of the push notification
@@ -729,6 +733,7 @@ Response
          "title": String,                       // The title of the news
          "content": String,                     // The content of the news
          "last_updated": String,                // Date of last update
+         "published_at": String,                // When the news was published for the first time, in ISO 8601
          "display_date": String,                // Date of publication or last update, of which later
          "channel": String | null,              // The channel of the push notification, null for external news
          "available_languages": [               // The available languages of the push notification
@@ -765,6 +770,7 @@ Response
       "title": String,                       // The title of the news
       "content": String,                     // The content of the news
       "last_updated": String,                // Date of last update
+      "published_at": String,                // When the news was published for the first time, in ISO 8601
       "display_date": String,                // Date of publication or last update, of which later
       "channel": String | null,              // The channel of the push notification, null for external news
       "available_languages": [           // The available languages of the push notification

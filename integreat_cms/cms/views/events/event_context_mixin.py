@@ -38,6 +38,9 @@ class EventContextMixin(ContextMixin):
                 "restore_dialog_title": _(
                     "Please confirm that you really want to restore this event",
                 ),
+                "referenced_location_title": _(
+                    "The following linked content will also be restored:",
+                ),
                 "restore_dialog_text": _(
                     "All translations of this event will also be restored.",
                 ),

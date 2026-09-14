@@ -34,7 +34,7 @@ def main() -> None:
         # JWT expiration time (10 minute maximum)
         "exp": int(datetime.timestamp(datetime.now() + timedelta(minutes=9))),
         # GitHub App's identifier
-        "iss": 59249,
+        "iss": "59249",
     }
 
     # Sign payload and encode JWT

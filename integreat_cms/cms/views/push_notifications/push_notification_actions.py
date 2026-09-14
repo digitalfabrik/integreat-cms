@@ -39,7 +39,7 @@ def archive_push_notification(
     to_be_archived_pn.archive()
     messages.success(
         request,
-        _("Push notification {0} was successfully archived").format(to_be_archived_pn),
+        _("News {0} was successfully archived").format(to_be_archived_pn),
     )
     return redirect(
         "push_notifications",
@@ -74,7 +74,7 @@ def restore_push_notification(
 
     messages.success(
         request,
-        _("Push notification {0} was successfully restored").format(to_be_restored_pn),
+        _("News {0} was successfully restored").format(to_be_restored_pn),
     )
 
     return redirect(
@@ -112,7 +112,7 @@ def delete_push_notification(
 
     messages.success(
         request,
-        _("Push notification {0} was successfully deleted").format(best_translation),
+        _("News {0} was successfully deleted").format(best_translation),
     )
 
     return redirect(
@@ -150,7 +150,7 @@ def copy_push_notification(
 
     messages.success(
         request,
-        _("Push notification {0} was successfully copied").format(best_translation),
+        _("News {0} was successfully copied").format(best_translation),
     )
 
     return redirect(

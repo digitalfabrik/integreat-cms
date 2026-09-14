@@ -9,7 +9,13 @@ from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from ...forms import UserEmailForm, UserNameForm, UserPasswordForm
+from ...forms import (
+    ApiTokenForm,
+    UserEmailForm,
+    UserNameForm,
+    UserPasswordForm,
+)
+from ...models import ApiToken
 
 if TYPE_CHECKING:
     from typing import Any
@@ -39,9 +45,13 @@ class UserSettingsView(TemplateView):
         context.update(
             {
                 "keys": self.request.user.fido_keys.all(),
+                "api_tokens": self.request.user.api_tokens.all(),
                 "user_email_form": UserEmailForm(instance=self.request.user),
                 "user_password_form": UserPasswordForm(instance=self.request.user),
                 "user_name_form": UserNameForm(instance=self.request.user),
+                "user_api_token_form": ApiTokenForm(user=self.request.user),
+                # Popped from the session so the plaintext is rendered exactly once
+                "new_api_token": self.request.session.pop("new_api_token", None),
             },
         )
         return context
@@ -53,14 +63,16 @@ class UserSettingsView(TemplateView):
         **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
-        Submit :class:`~integreat_cms.cms.forms.users.user_email_form.UserEmailForm` and
-        :class:`~integreat_cms.cms.forms.users.user_password_form.UserPasswordForm` and save :class:`~django.contrib.auth.models.User`
-        object
+        Submit one of the account settings forms, depending on the ``submit_form`` parameter:
+        :class:`~integreat_cms.cms.forms.users.user_email_form.UserEmailForm`,
+        :class:`~integreat_cms.cms.forms.users.user_password_form.UserPasswordForm`,
+        :class:`~integreat_cms.cms.forms.users.user_name_form.UserNameForm` or
+        :class:`~integreat_cms.cms.forms.users.api_token_form.ApiTokenForm`
 
         :param request: The current request
         :param \*args: The supplied arguments
         :param \**kwargs: The supplied keyword arguments
-        :return: The rendered template response
+        :return: A redirection to the account settings, or the re-rendered form on validation errors
         """
         region = request.region
 
@@ -121,6 +133,28 @@ class UserSettingsView(TemplateView):
             else:
                 user_name_form.save()
                 messages.success(request, _("Name was successfully updated"))
+
+        elif request.POST.get("submit_form") == "api_token_form":
+            user_api_token_form = ApiTokenForm(data=request.POST, user=user)
+            if not user_api_token_form.is_valid():
+                user_api_token_form.add_error_messages(request)
+                return render(
+                    request,
+                    self.template_name,
+                    {
+                        **self.get_context_data(**kwargs),
+                        "user_api_token_form": user_api_token_form,
+                    },
+                )
+            _token, plaintext = ApiToken.create_token(
+                user,
+                user_api_token_form.cleaned_data["name"],
+            )
+            # The plaintext is passed on via the session instead of the messages framework,
+            # because :class:`~integreat_cms.core.storages.MessageLoggerStorage` writes every
+            # message to the log and the token must never end up there.
+            request.session["new_api_token"] = plaintext
+            messages.success(request, _("API token was successfully created"))
 
         kwargs = {"region_slug": region.slug} if region else {}
         return redirect("user_settings", **kwargs)

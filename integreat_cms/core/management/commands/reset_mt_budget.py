@@ -67,12 +67,14 @@ class Command(LogCommand):
         else:
             for region in regions:
                 logger.info(
-                    "Reset MT budget of %r (previously used: %r, previous midyear start month: %r).",
+                    "Reset MT budget of %r (previously used: %r, previous adjustment: %r).",
                     region,
                     region.mt_budget_used,
-                    region.mt_midyear_start_month,
+                    region.mt_budget_adjustment,
                 )
                 region.mt_budget_used = 0
-                region.mt_midyear_start_month = None
+                # The adjustment is cumulative per budget year, so it does not carry over into the
+                # new one — the CRM pushes the adjustment for the new year again
+                region.mt_budget_adjustment = 0
                 region.save()
             logger.success("✔ MT budget has been reset.")  # type: ignore[attr-defined]

@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
     from tests.mock import MockServer
 
@@ -16,8 +16,13 @@ from django.apps import apps
 from django.urls import reverse
 
 from integreat_cms.cms.models import Page
+from tests.constants import (
+    AUTHOR,
+    EDITOR,
+    MANAGEMENT,
+    PRIV_STAFF_ROLES,
+)
 
-from ..conftest import AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from ..utils import assert_message_in_log
 from .utils import get_content_translations
 
@@ -77,7 +82,7 @@ def test_deepl_bulk_mt_api_error(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     error: int,
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:

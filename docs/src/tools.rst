@@ -101,7 +101,11 @@ Run tests and generate coverage report with :github-source:`tools/test.sh`::
 
 **Options:**
 
-* ``--changed``: Run only tests affected by recent changes
+* ``--changed``: Run only tests affected by recent changes.
+  The first run builds the ``.testmondata`` dependency database by running the
+  whole suite; every following run updates it with what it learned. Docker and
+  ``--local`` runs keep their data separate, so the first ``--changed`` run
+  after switching modes runs everything again.
 
 * ``-v``, ``-vv``, ``-vvv``, ``-vvvv``: Verbosity levels, passed directly to pytest.
   Notice that if none are specified, we automatically pass ``--quiet``

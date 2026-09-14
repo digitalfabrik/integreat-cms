@@ -65,7 +65,6 @@ import "./js/pages/page-api-token";
 import "./js/pages/page-mirroring";
 import "./js/pages/page-order";
 import "./js/pages/page-permissions";
-import "./js/pages/page-side-by-side";
 import "./js/pages/unset-translation-state";
 import "./js/pages/xliff-file-upload";
 import "./js/pages/xliff-import";

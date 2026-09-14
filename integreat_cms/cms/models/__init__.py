@@ -44,6 +44,7 @@ from .push_notifications.push_notification_translation import (
 )
 from .regions.region import Region
 from .statistics.page_accesses import PageAccesses
+from .users.api_token import ApiToken
 from .users.organization import Organization
 from .users.role import Role
 from .users.user import User

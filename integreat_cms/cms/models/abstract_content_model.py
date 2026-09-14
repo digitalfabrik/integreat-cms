@@ -198,6 +198,7 @@ class AbstractContentModel(AbstractBaseModel):
             translation.pk = None
             setattr(translation, translation.foreign_field(), self)
             translation.status = status.DRAFT
+            translation.published_at = None
             if add_suffix:
                 translation.title = f"{translation.title} ({copy_translation})"
             kwargs: SlugKwargs = {

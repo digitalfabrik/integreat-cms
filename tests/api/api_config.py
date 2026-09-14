@@ -635,15 +635,123 @@ API_SOCIAL_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
         3,
     ),
     (
-        "/api/v3/social/augsburg/de/news/local/1/",
-        "tests/api/expected-outputs/social_augsburg_de_pn.html",
+        "/api/v3/social/augsburg/de/disclaimer/impressum/",
+        "tests/api/expected-outputs/social_augsburg_de_imprint.html",
         200,
-        7,
+        3,
+    ),
+    (
+        # The push notification of the test data was sent before the FCM history window
+        "/api/v3/social/augsburg/de/news/local/1/",
+        "tests/api/expected-outputs/social_augsburg_de_pn_non-existing.html",
+        404,
+        3,
     ),
     (
         "/api/v3/social/augsburg/de/news/local/0/",
         "tests/api/expected-outputs/social_augsburg_de_pn_non-existing.html",
         404,
         3,
+    ),
+    (
+        "/api/v3/social/birkenfeld/de/",
+        "tests/api/expected-outputs/social_birkenfeld_de_archived.html",
+        404,
+        2,
+    ),
+]
+
+#: The raw content endpoints
+API_RAW_CONTENT_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
+    (
+        "/api/v3/raw-content/",
+        "tests/api/expected-outputs/raw_content.html",
+        200,
+        1,
+    ),
+    (
+        "/api/v3/raw-content/landing/de/",
+        "tests/api/expected-outputs/raw_content_landing_de.html",
+        200,
+        1,
+    ),
+    (
+        "/api/v3/raw-content/landing/non-existing/",
+        "tests/api/expected-outputs/raw_content_landing_non-existing.html",
+        404,
+        1,
+    ),
+    (
+        "/api/v3/raw-content/augsburg/",
+        "tests/api/expected-outputs/raw_content_augsburg.html",
+        200,
+        2,
+    ),
+    (
+        "/api/v3/raw-content/augsburg/de/",
+        "tests/api/expected-outputs/raw_content_augsburg_de.html",
+        200,
+        2,
+    ),
+    (
+        "/api/v3/raw-content/augsburg/non-existing/",
+        "tests/api/expected-outputs/raw_content_augsburg_non-existing.html",
+        404,
+        2,
+    ),
+    (
+        "/api/v3/raw-content/augsburg/de/willkommen/",
+        "tests/api/expected-outputs/raw_content_augsburg_de_page.html",
+        200,
+        3,
+    ),
+    (
+        "/api/v3/raw-content/augsburg/de/non-existing/",
+        "tests/api/expected-outputs/raw_content_augsburg_de_page_non-existing.html",
+        404,
+        3,
+    ),
+    (
+        "/api/v3/raw-content/augsburg/de/disclaimer/impressum/",
+        "tests/api/expected-outputs/raw_content_augsburg_de_imprint.html",
+        200,
+        3,
+    ),
+    (
+        "/api/v3/raw-content/augsburg/de/events/test-veranstaltung/",
+        "tests/api/expected-outputs/raw_content_augsburg_de_event.html",
+        200,
+        3,
+    ),
+    (
+        "/api/v3/raw-content/augsburg/de/events/non-existing/",
+        "tests/api/expected-outputs/raw_content_augsburg_de_event_non-existing.html",
+        404,
+        3,
+    ),
+    (
+        "/api/v3/raw-content/augsburg/de/locations/test-ort/",
+        "tests/api/expected-outputs/raw_content_augsburg_de_location.html",
+        200,
+        3,
+    ),
+    (
+        "/api/v3/raw-content/augsburg/de/locations/non-existing/",
+        "tests/api/expected-outputs/raw_content_augsburg_de_location_non-existing.html",
+        404,
+        3,
+    ),
+    (
+        # The push notification of the test data was sent before the FCM history window
+        "/api/v3/raw-content/augsburg/de/news/local/1/",
+        "tests/api/expected-outputs/raw_content_augsburg_de_pn_non-existing.html",
+        404,
+        3,
+    ),
+    (
+        "/api/v3/raw-content/birkenfeld/de/",
+        "tests/api/expected-outputs/raw_content_birkenfeld_de_archived.html",
+        404,
+        2,
     ),
 ]

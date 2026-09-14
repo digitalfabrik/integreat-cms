@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import pytest
 from django.urls import reverse
 
-from tests.conftest import ANONYMOUS, ROLES
+from tests.constants import ANONYMOUS, ROLES
 
 if TYPE_CHECKING:
     from django.test.client import Client
