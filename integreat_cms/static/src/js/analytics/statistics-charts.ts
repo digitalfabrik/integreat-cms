@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import {
     Chart,
     ChartData,
@@ -11,7 +13,8 @@ import {
     LegendItem,
 } from "chart.js";
 import { downloadFile, updatePageAccesses } from "./statistics-page-accesses";
-import { filter } from "../utils/iterators";
+import { domTokenListToggle as domTokenListSet } from "../utils/html";
+import { filter, some } from "../utils/iterators";
 
 export type AjaxResponse = {
     exportLabels: Array<string>;
@@ -50,6 +53,7 @@ const setLegendEventlisteners = (chart: Chart): void => {
 
             if (checkbox.getAttribute("data-language-slug")) {
                 updatePageAccesses();
+                updatePageStatisticsDisplay(languageChartItemsByCheckboxes.keys());
                 allLanguagesSelected.checked = false;
             }
         });
@@ -65,6 +69,8 @@ const setLegendEventlisteners = (chart: Chart): void => {
 
         updatePageAccesses();
     });
+
+    updatePageStatisticsDisplay(languageChartItemsByCheckboxes.keys());
 };
 
 const initSelectedChartData = (chart: Chart, data: AjaxResponse): void => {
@@ -174,6 +180,13 @@ const updateChart = async (): Promise<void> => {
         chartLoading.classList.add("hidden");
     }
 };
+
+function updatePageStatisticsDisplay(checkBoxes: IterableIterator<HTMLInputElement>) {
+    const languageSelected = some(checkBoxes, (checkbox) => checkbox.checked);
+
+    domTokenListSet(document.getElementById("statistics-pages-empty-list").classList, languageSelected, "hidden");
+    domTokenListSet(document.getElementById("statistics-pages-content-list").classList, !languageSelected, "hidden");
+}
 
 /*
  * This function enables/disables the export button depending on whether an export format is selected or not.
