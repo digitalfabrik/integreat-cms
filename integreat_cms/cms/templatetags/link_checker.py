@@ -9,9 +9,12 @@ from typing import TYPE_CHECKING
 from django import template
 from django.utils.translation import get_language
 
+from integreat_cms.cms.constants.linkcheck_external_link_error import ExternalLinkError
+
 if TYPE_CHECKING:
     from typing import Any
 
+    from django.utils.functional import Promise
     from linkcheck.models import Link
 
     from integreat_cms.cms.models import Region
@@ -74,4 +77,29 @@ def link_display_info(links: list[Link], region: Region | None) -> dict[str, Any
         "link": link,
         "text": link_text,
         "translated_title": title_in_readable_language,
+    }
+
+
+@register.simple_tag
+def link_error_info(url: Any) -> dict[str, str | Promise]:
+    if url.internal:  # temporary stub for internal links
+        return {
+            "status": url.error_message,
+            "help_text": "",
+        }
+
+    if url.ssl_status is False:
+        error = ExternalLinkError.SSL_INVALID
+    else:
+        status_code = url.redirect_status_code or url.status_code
+        error = {
+            403: ExternalLinkError.FORBIDDEN,
+            404: ExternalLinkError.NOT_FOUND,
+            500: ExternalLinkError.SERVER_ERROR,
+            503: ExternalLinkError.SERVER_ERROR,
+        }.get(status_code, ExternalLinkError.UNKNOWN_ERROR)
+
+    return {
+        "status": error.error_message,
+        "help_text": error.help_text,
     }

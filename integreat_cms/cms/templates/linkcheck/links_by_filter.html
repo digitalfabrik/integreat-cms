@@ -121,6 +121,14 @@
                             {% endif %}
                         </th>
                     {% endif %}
+                    {% if view.kwargs.url_filter == 'invalid' %}
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            <span class="inline-flex items-center gap-2 rounded-full bg-green-100 px-3 py-1.5 font-semibold">
+                                <i icon-name="lightbulb" class="shrink-0"></i>
+                                {% translate "Help & Tips" %}
+                            </span>
+                        </th>
+                    {% endif %}
                     <th class="text-sm text-left uppercase py-3 pr-2">
                         {% translate "Where is the link?" %}
                     </th>

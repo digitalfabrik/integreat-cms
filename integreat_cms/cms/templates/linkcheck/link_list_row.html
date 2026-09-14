@@ -4,6 +4,7 @@
 {% load model_tags %}
 {% load widget_tweaks %}
 {% load url_tags %}
+{% load link_checker %}
 <tr class="text-gray-800 hover:bg-gray-100"
     {% if url.id == view.kwargs.url_id %}id="replace-url"{% endif %}>
     <td class="py-3 pl-4 align-top border-t border-solid border-gray-200">
@@ -39,9 +40,19 @@
             </span>
         </div>
     </td>
-    {% if view.kwargs.url_filter == 'valid' or view.kwargs.url_filter == 'invalid' %}
-        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 break-words {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+    {% if view.kwargs.url_filter == 'invalid' %}
+        {% link_error_info url as error_info %}
+    {% endif %}
+    {% if view.kwargs.url_filter == 'valid' %}
+        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 break-words max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
             {% translate url.get_message %}
+        </td>
+    {% elif view.kwargs.url_filter == 'invalid' %}
+        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 break-words max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+            {{ error_info.status }}
+        </td>
+        <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 break-words max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
+            {{ error_info.help_text }}
         </td>
     {% endif %}
     <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
