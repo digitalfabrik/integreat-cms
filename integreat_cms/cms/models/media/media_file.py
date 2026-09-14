@@ -126,7 +126,7 @@ class MediaFileQuerySet(models.QuerySet):
             icon_regions__isnull=True,
             events__isnull=True,
             pages__isnull=True,
-            pois__isnull=True,
+            places__isnull=True,
             is_embedded=False,
         )
 
@@ -230,7 +230,7 @@ class MediaFile(AbstractBaseModel):
             + list(self.icon_regions.all())
             + list(self.events.all())
             + list(self.pages.all())
-            + list(self.pois.all())
+            + list(self.places.all())
         )
 
     @cached_property

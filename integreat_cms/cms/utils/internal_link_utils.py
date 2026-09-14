@@ -16,7 +16,7 @@ from ..models import (
     EventTranslation,
     ImprintPageTranslation,
     PageTranslation,
-    POITranslation,
+    PlaceTranslation,
 )
 
 if TYPE_CHECKING:
@@ -141,7 +141,7 @@ def get_public_translation_for_webapp_link_parts(
 
     object_type, foreign_object = {
         "events": (EventTranslation, "event"),
-        "locations": (POITranslation, "poi"),
+        "locations": (PlaceTranslation, "place"),
         "disclaimer": (ImprintPageTranslation, "page"),
     }.get(path, (PageTranslation, "page"))
     filter_args = {

@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from django.db.models.query import QuerySet
     from django.utils.functional import SimpleLazyObject
 
-    from ...cms.models import Event, Language, Page, POI, Region
+    from ...cms.models import Event, Language, Page, Place, Region
 
 logger = logging.getLogger(__name__)
 
@@ -189,9 +189,9 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
 
     def is_needed(
         self,
-        queryset: QuerySet[Event | Page | POI],
+        queryset: QuerySet[Event | Page | Place],
         target_language: Language,
-    ) -> list[Event | Page | POI]:
+    ) -> list[Event | Page | Place]:
         """
         Checks if a machine translation is needed, thus checking if the
         translation status is UP_TO_DATE or MACHINE_TRANSLATED and then

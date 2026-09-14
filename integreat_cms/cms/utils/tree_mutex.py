@@ -33,7 +33,7 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
     we use :func:`django.db.transaction.atomic`
     to force treebeard's tree operations into a database transaction.
 
-    Allows page trees to be locked separately from POIs etc.,
+    Allows page trees to be locked separately from places etc.,
     but requires strict conformance to always specify the exact ``classname`` when using the decorator.
     If there is a typo, there will be no indication at server startup, and collisions and data corruption may occur.
     For more information, see :func:`cache_based_lock`.

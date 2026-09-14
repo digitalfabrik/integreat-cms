@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 class CustomContentModelForm(CustomModelForm):
     """
-    Form for the content model forms for pages, events and POIs.
+    Form for the content model forms for pages, events and places.
     """
 
     def __init__(self, **kwargs: Any) -> None:

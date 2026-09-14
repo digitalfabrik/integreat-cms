@@ -32,7 +32,7 @@ from integreat_cms.cms.models import (
     ImprintPageTranslation,
     Organization,
     PageTranslation,
-    POITranslation,
+    PlaceTranslation,
     Region,
 )
 
@@ -152,7 +152,7 @@ def exclude_links_in_contacts(
     if region_slug:
         region = Region.objects.get(slug=region_slug)
     contacts = (
-        Contact.objects.filter(location__region=region)
+        Contact.objects.filter(place__region=region)
         if region_slug
         else Contact.objects.all()
     )
@@ -183,7 +183,7 @@ def exclude_links_in_contacts(
     absolute_url_filters = Q()
     for contact in contacts:
         absolute_url_filters |= Q(url__startswith=contact.absolute_url)
-        absolute_url_filters |= Q(url=quote(contact.location.map_url, safe="/:&=?,-"))
+        absolute_url_filters |= Q(url=quote(contact.place.map_url, safe="/:&=?,-"))
     return urls.exclude(absolute_url_filters)
 
 
@@ -209,9 +209,9 @@ def get_link_query(regions: QuerySet[Region]) -> QuerySet:
         .distinct("page__id", "language__id")
         .values_list("pk", flat=True),
     )
-    latest_poitranslation_versions = Subquery(
-        POITranslation.objects.filter(poi__region__in=regions)
-        .distinct("poi__id", "language__id")
+    latest_placetranslation_versions = Subquery(
+        PlaceTranslation.objects.filter(place__region__in=regions)
+        .distinct("place__id", "language__id")
         .values_list("pk", flat=True),
     )
     latest_eventtranslation_versions = Subquery(
@@ -235,7 +235,7 @@ def get_link_query(regions: QuerySet[Region]) -> QuerySet:
             imprint_translation__id__in=latest_imprinttranslation_versions,
         ),
         Link.objects.filter(event_translation__id__in=latest_eventtranslation_versions),
-        Link.objects.filter(poi_translation__id__in=latest_poitranslation_versions),
+        Link.objects.filter(place_translation__id__in=latest_placetranslation_versions),
         Link.objects.filter(organization__id__in=organizations),
         all=True,
     )
