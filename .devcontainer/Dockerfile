@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get purge -y nodejs npm && \
     ln -sf /usr/local/bin/node /usr/bin/node
 
-RUN apt-get install -y netcat-traditional pcregrep libcairo2
+RUN apt-get install -y netcat-traditional pcregrep libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
 RUN apt-get install -y redis-server && \
     usermod -aG redis www-data
 
