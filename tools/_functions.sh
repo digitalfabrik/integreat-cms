@@ -365,7 +365,12 @@ function cleanup_docker_container {
 }
 
 function ensure_webpack_bundle_exists {
-    if [ ! -d "${PACKAGE_DIR}/static/dist/" ] || [ ! "$(ls -A "${PACKAGE_DIR}"/static/dist/ 2> /dev/null)" ]; then
+    local stats_file="${PACKAGE_DIR}/webpack-stats.json"
+    # Rebuild when the bundle is missing, or when a previous build failed and left
+    # an error-status stats file behind. Without the latter check a single failed
+    # build would be reused forever (django-webpack-loader re-raises the recorded
+    # error on every request), silently poisoning all later test runs.
+    if [ ! -d "${PACKAGE_DIR}/static/dist/" ] || [ ! "$(ls -A "${PACKAGE_DIR}"/static/dist/ 2> /dev/null)" ] || grep -q '"status": *"error"' "${stats_file}" 2> /dev/null; then
         echo "Building webpack bundle..." | print_info
         npm run build > /dev/null
     fi
