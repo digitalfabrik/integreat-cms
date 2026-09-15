@@ -16,7 +16,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from typing import Final
+    from typing import Any, Final
 
     from django.utils.functional import Promise
 
@@ -63,30 +63,44 @@ class DeepLApiClientConfig(AppConfig):
         return self.supported_glossaries.get(key)
 
     def ready(self) -> None:
-        """
-        Checking if API is available
-        """
-        # Only check availability if running a server
+        # Only check availability when actually serving requests (dev server or
+        # Apache/mod_wsgi web process) — not during management commands, migrations,
+        # or other non-server contexts where hitting the DeepL API is unnecessary.
+        # Under Celery, `ready()` fires while the worker is still being bootstrapped,
+        # so defer the check until the worker signals it's actually ready via
+        # `celeryd_after_setup` — Celery's own canonical hook for post-startup work.
         if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
-            if settings.DEEPL_ENABLED:
-                try:
-                    deepl_translator = Translator(
-                        auth_key=settings.DEEPL_AUTH_KEY,
-                        server_url=settings.DEEPL_API_URL,
-                    )
+            self.check_availability()
+        else:
+            from celery.signals import celeryd_after_setup
 
-                    self.init_supported_source_languages(deepl_translator)
-                    self.init_supported_target_languages(deepl_translator)
-                    self.init_supported_glossaries(deepl_translator)
+            celeryd_after_setup.connect(
+                self._check_availability_on_celery_ready, weak=False
+            )
 
-                    self.assert_usage_limit_not_reached(deepl_translator)
-                except (DeepLException, ValueError):
-                    logger.exception(
-                        "DeepL API is unavailable. You won't be able to "
-                        "create and update machine translations.",
-                    )
-            else:
-                logger.info("DeepL API is disabled.")
+    def _check_availability_on_celery_ready(self, **kwargs: Any) -> None:
+        self.check_availability()
+
+    def check_availability(self) -> None:
+        if settings.DEEPL_ENABLED:
+            try:
+                deepl_translator = Translator(
+                    auth_key=settings.DEEPL_AUTH_KEY,
+                    server_url=settings.DEEPL_API_URL,
+                )
+
+                self.init_supported_source_languages(deepl_translator)
+                self.init_supported_target_languages(deepl_translator)
+                self.init_supported_glossaries(deepl_translator)
+
+                self.assert_usage_limit_not_reached(deepl_translator)
+            except (DeepLException, ValueError):
+                logger.exception(
+                    "DeepL API is unavailable. You won't be able to "
+                    "create and update machine translations.",
+                )
+        else:
+            logger.info("DeepL API is disabled.")
 
     def init_supported_source_languages(self, translator: Translator) -> None:
         """

@@ -26,6 +26,8 @@ FALLBACK: Final = "FALLBACK"
 MISSING: Final = "MISSING"
 #: Machine translated
 MACHINE_TRANSLATED: Final = "MACHINE_TRANSLATED"
+#: Currently being machine translated
+MACHINE_TRANSLATION_IN_PROGRESS: Final = "MACHINE_TRANSLATION_IN_PROGRESS"
 
 #: Choices to use these constants in a database field
 CHOICES: Final[list[tuple[str, Promise]]] = [
