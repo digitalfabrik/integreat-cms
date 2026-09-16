@@ -4,47 +4,63 @@ Virtual Environment
 
 All python dependencies are installed in a virtual Python environment (see :doc:`python:tutorial/venv`).
 
-For portability and reproducibility, we use specific version of our dependencies locked in :github-source:`pyproject.toml`.
+For portability and reproducibility, the exact versions of all dependencies (including transitive
+ones) are locked in :github-source:`uv.lock`, which is managed by `uv <https://docs.astral.sh/uv/>`_.
 
 
 Install dependencies
 ====================
 
-To install exactly the specified versions of the dependencies, execute::
+To install exactly the versions from the lock file, execute::
 
-    pip install -e .[dev-pinned,pinned]
+    uv sync --locked
 
 .. Note::
 
-    This is also part of the ``install.sh`` dev-tool.
+    This is also part of the ``install.sh`` dev-tool. It creates the ``.venv`` directory if it does
+    not exist yet, using a Python interpreter which satisfies the ``requires-python`` constraint of
+    :github-source:`pyproject.toml`.
 
 
 Add dependencies
 ================
 
 Adding dependencies differs based on whether they are functional or only needed in development.
-
-Development dependencies
-------------------------
-
-1. Add the new package to the ``[project.optional-dependencies].dev`` section in :github-source:`pyproject.toml`
-2. Execute :github-source:`tools/install.sh` to install it in the venv
+In both cases, ``uv`` adds the package to :github-source:`pyproject.toml`, updates
+:github-source:`uv.lock` and installs it in the venv in one step.
 
 Production dependencies
 -----------------------
 
-1. Add the new package to the ``[project].dependencies`` section in :github-source:`pyproject.toml`
-2. Execute :github-source:`tools/update_dependencies.sh`, which should update the pinned versions
-   in ``[project.optional-dependencies].pinned`` of :github-source:`pyproject.toml`.
+Added to the ``[project].dependencies`` section::
+
+    uv add <package>
+
+Development dependencies
+------------------------
+
+Added to the ``[dependency-groups].dev`` section::
+
+    uv add --dev <package>
+
+.. Note::
+
+    Both :github-source:`uv.lock` and :github-source:`pyproject.toml` have to be committed together,
+    otherwise the ``uv-install`` job of the :doc:`continuous-integration` fails.
 
 
 Update dependencies
 ===================
 
-When you want to update the locked versions of the production dependencies,
+When you want to update the locked versions of the dependencies,
 use the developer tool :github-source:`tools/update_dependencies.sh`::
 
     ./tools/update_dependencies.sh
+
+To update a single package instead of all of them, e.g. to apply a security fix without pulling in
+unrelated changes, pass its name::
+
+    ./tools/update_dependencies.sh --package django
 
 
 Remove virtual environment
