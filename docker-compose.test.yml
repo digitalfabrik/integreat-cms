@@ -63,9 +63,12 @@ services:
       # container ignores the host's __pycache__ and concurrent xdist workers
       # cannot corrupt .pyc files ("EOFError: marshal data too short").
       PYTHONPYCACHEPREFIX: /tmp/pycache
-      # The invoking host uid has no passwd entry in the image; give pip and
+      # The invoking host uid has no passwd entry in the image; give uv and
       # friends a writable HOME for their caches.
       HOME: /tmp
+      # Use the interpreter of the image (the same as CI) instead of letting uv
+      # download a managed one.
+      UV_PYTHON_DOWNLOADS: never
     volumes:
       # Bind-mount the working tree so tests run against the current code.
       - .:/home/circleci/project

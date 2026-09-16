@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 .venv
-.venv.tmp
 venv
 build
 dist
@@ -30,6 +29,10 @@ htmlcov/
 # Compiled translations
 integreat_cms/locale/*/LC_MESSAGES/django.mo
 
+# Locked dependencies bundled into the distribution (generated from uv.lock at build time)
+integreat_cms/pylock.toml
+integreat_cms/requirements.lock.txt
+
 # Compressed JS & CSS Files
 integreat_cms/static/dist/
 
@@ -54,7 +57,7 @@ cms-django.iml
 integreat-cms.iml
 webpack-stats.json
 
-# Interpreter fingerprint for the CircleCI pip cache key
+# Interpreter fingerprint for the CircleCI uv cache key
 .python-build-id
 
 # Location file of redis unix socket

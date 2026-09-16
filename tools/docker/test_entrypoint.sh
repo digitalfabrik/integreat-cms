@@ -24,6 +24,7 @@ if [[ ! -w "${VENV_DIR}" ]]; then
     echo "    docker compose --env-file /dev/null -f docker-compose.test.yml down --volumes" >&2
     exit 1
 fi
+
 # Recreate the venv when its interpreter is missing or no longer runnable. The
 # base image tracks a floating cimg/python:3.13 tag, so a rebuild can bump the
 # pyenv patch version (e.g. 3.13.11 -> 3.13.15) and leave the cached venv's
@@ -32,17 +33,16 @@ fi
 # current interpreter.
 if [[ ! -x "${VENV_DIR}/bin/python" ]] || ! "${VENV_DIR}/bin/python" -c '' 2> /dev/null; then
     echo "Creating virtualenv at ${VENV_DIR}..."
-    python -m venv --clear "${VENV_DIR}"
-    "${VENV_DIR}/bin/pip" install --upgrade pip
+    uv run python -m venv --clear "${VENV_DIR}"
+    # Install the project with the exact locked versions CI uses. uv creates the
+    # virtualenv on the volume if it does not exist yet, and the install is a
+    # no-op on warm runs.
+    echo "Installing dependencies (locked, matching CI)..."
+    UV_PROJECT_ENVIRONMENT="${VENV_DIR}" uv sync --locked
 fi
+
 # shellcheck disable=SC1091
 source "${VENV_DIR}/bin/activate"
-
-# Install the project with the same pinned dependency sets CI uses. This is a
-# no-op on warm runs (the venv volume is cached) and fast thanks to the pip
-# cache volume.
-echo "Installing dependencies (pinned, matching CI)..."
-pip install -e ".[dev-pinned,pinned]"
 
 # The .mo translation files are not committed; compile them so translation-
 # dependent tests (e.g. the CSV feedback export) behave deterministically.
