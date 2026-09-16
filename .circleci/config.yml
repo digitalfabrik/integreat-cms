@@ -3,35 +3,40 @@ version: 2.1
 orbs:
   shellcheck: circleci/shellcheck@3.2.0
   qlty: qltysh/qlty-orb@0.0.10
+commands:
+  install-uv:
+    description: Install a pinned version of the uv package manager
+    steps:
+      - run:
+          name: Install uv
+          command: |
+            curl -LsSf https://astral.sh/uv/0.12.13/install.sh | sh
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
 jobs:
-  pip-install:
+  uv-install:
     docker:
       - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
+      - install-uv
       - run:
           name: Record interpreter identity for the cache key
           command: python3 -VV > .python-build-id
       - restore_cache:
-          key: pip-{{ checksum ".python-build-id" }}-{{ checksum "pyproject.toml" }}-v1
+          key: uv-{{ checksum ".python-build-id" }}-{{ checksum "uv.lock" }}-v1
       - run:
-          name: Install pip dependencies
-          command: |
-            if [[ -d ".venv" ]]; then
-              echo "Virtual environment restored from cache, skipping pip install"
-            else
-              python3 -m venv .venv
-              source .venv/bin/activate
-              pip install --upgrade pip
-              pip install -e .[dev-pinned,pinned]
-            fi
+          name: Check whether uv.lock is up to date
+          command: uv lock --check
+      - run:
+          name: Install Python dependencies
+          command: uv sync --locked
       - save_cache:
-          key: pip-{{ checksum ".python-build-id" }}-{{ checksum "pyproject.toml" }}-v1
+          key: uv-{{ checksum ".python-build-id" }}-{{ checksum "uv.lock" }}-v1
           paths:
             - .venv
             - integreat_cms.egg-info
-            - /home/circleci/.cache/pip
+            - /home/circleci/.cache/uv
       - persist_to_workspace:
           root: .
           paths:
@@ -317,6 +322,16 @@ jobs:
       - run:
           name: Use alternative README.md file
           command: mv integreat_cms/README.md .
+      - install-uv
+      - run:
+          name: Bundle the locked dependency versions into the package
+          command: |
+            # Consumed by deployments which want the exact versions this release was tested with.
+            # PEP 751 format including hashes, plus a requirements.txt export as fallback for pip < 26.1.
+            uv export --frozen --no-dev --no-emit-project --no-annotate \
+              --format pylock.toml -o integreat_cms/pylock.toml
+            uv export --frozen --no-dev --no-emit-project --no-annotate \
+              --format requirements.txt -o integreat_cms/requirements.lock.txt
       - run:
           name: Build integreat-cms package
           command: python3 -m build
@@ -444,6 +459,10 @@ jobs:
             # Bump version to next alpha version
             echo "Bump to the next version"
             bumpver update -n -t alpha --no-commit
+      - install-uv
+      - run:
+          name: Update the project version in uv.lock
+          command: uv lock --offline
       - run:
           name: Generate SBOM
           command: |
@@ -456,6 +475,7 @@ jobs:
           root: .
           paths:
             - pyproject.toml
+            - uv.lock
             - integreat_cms/__init__.py
             - integreat_cms/_manifest
   bump-rc-version:
@@ -495,6 +515,10 @@ jobs:
             # Bump version to next release candidate version
             echo "Bump to the next version"
             bumpver update -n -t rc --no-commit
+      - install-uv
+      - run:
+          name: Update the project version in uv.lock
+          command: uv lock --offline
       - run:
           name: Generate SBOM
           command: |
@@ -507,6 +531,7 @@ jobs:
           root: .
           paths:
             - pyproject.toml
+            - uv.lock
             - integreat_cms/__init__.py
             - integreat_cms/_manifest
   bump-version:
@@ -535,6 +560,13 @@ jobs:
       - run:
           name: Bump version
           command: bumpver update --tag=final
+      - install-uv
+      - run:
+          name: Update the project version in uv.lock
+          command: |
+            uv lock --offline
+            git add uv.lock
+            git commit --amend --no-edit
       - run:
           name: Get tag of newly created version
           command: |
@@ -658,7 +690,7 @@ jobs:
 workflows:
   develop:
     jobs:
-      - pip-install:
+      - uv-install:
           filters:
             branches:
               ignore: main
@@ -677,10 +709,10 @@ workflows:
             - npm-install
       - check-migrations:
           requires:
-            - pip-install
+            - uv-install
       - test:
           requires:
-            - pip-install
+            - uv-install
             - webpack
             - compile-translations
       - upload-test-coverage:
@@ -696,10 +728,10 @@ workflows:
               ignore: main
       - check-translations:
           requires:
-            - pip-install
+            - uv-install
       - compile-translations:
           requires:
-            - pip-install
+            - uv-install
       - bump-dev-version:
           filters:
             branches:
@@ -707,14 +739,14 @@ workflows:
                 - develop
                 - /.*-publish-dev-package/
           requires:
-            - pip-install
+            - uv-install
       - bump-rc-version:
           filters:
             branches:
               only:
                 - /rc\/\d{4}\.\d{1,2}\.\d{1,2}.*/
           requires:
-            - pip-install
+            - uv-install
       - build-package:
           name: build-rc-package
           filters:
@@ -752,13 +784,13 @@ workflows:
             - build-dev-package
       - djlint:
           requires:
-            - pip-install
+            - uv-install
       - ruff:
           requires:
-            - pip-install
+            - uv-install
       - mypy:
           requires:
-            - pip-install
+            - uv-install
       - eslint:
           requires:
             - npm-install
@@ -768,7 +800,7 @@ workflows:
               ignore: main
       - build-documentation:
           requires:
-            - pip-install
+            - uv-install
       - deploy-documentation:
           requires:
             - build-documentation
@@ -777,19 +809,19 @@ workflows:
               only: develop
   main:
     jobs:
-      - pip-install:
-          name: pip-install-main
+      - uv-install:
+          name: uv-install-main
           filters:
             branches:
               only: main
       - bump-version:
           context: deliverino
           requires:
-            - pip-install-main
+            - uv-install-main
   deploy:
     jobs:
-      - pip-install:
-          name: pip-install-deploy
+      - uv-install:
+          name: uv-install-deploy
           filters:
             tags:
               only: /.*/
@@ -812,7 +844,7 @@ workflows:
       - compile-translations:
           name: compile-translations-deploy
           requires:
-            - pip-install-deploy
+            - uv-install-deploy
           filters:
             tags:
               only: /.*/

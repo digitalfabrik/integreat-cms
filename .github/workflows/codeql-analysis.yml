@@ -30,8 +30,13 @@ jobs:
         with:
           python-version: "3.13"
       - if: matrix.language == 'python'
-        name: Install dependencies with pip
-        run: pip install -e .[dev-pinned,pinned]
+        name: Setup uv
+        uses: astral-sh/setup-uv@v10.1.0
+        with:
+          version: "0.12.13"
+      - if: matrix.language == 'python'
+        name: Install dependencies with uv
+        run: uv sync --locked
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
