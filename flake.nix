@@ -76,8 +76,7 @@
             with pkgs;
             [
               python313
-              python313Packages.pip
-              python313Packages.platformdirs
+              uv
 
               nodejs_22
 
@@ -141,6 +140,11 @@
             if ! command -v nixos-version &> /dev/null; then
                 unset LD_LIBRARY_PATH
             fi
+
+            # The CPython builds downloaded by uv are not patched for the Nix dynamic linker,
+            # so make it use the interpreter provided by this flake instead
+            export UV_PYTHON_DOWNLOADS=never
+            export UV_PYTHON=${pkgs.python313}/bin/python3
 
             SOURCE_DATE_EPOCH=$(date +%s)
             VENV=.venv
