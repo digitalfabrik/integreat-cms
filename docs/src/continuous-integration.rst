@@ -27,16 +27,18 @@ This workflow gets triggered everytime a commit is pushed to the ``develop`` bra
 .. image:: images/circleci-main-workflow.png
     :alt: CircleCI main workflow
 
-.. _circleci-pip-install:
+.. _circleci-uv-install:
 
-pip-install
+uv-install
 --------------
 
-This job executes ``pip install -e .[dev-pinned,pinned]`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
-It passes the virtual environment ``.venv`` to the subsequent jobs.
+This job verifies that :github-source:`uv.lock` is up to date with :github-source:`pyproject.toml`
+(``uv lock --check``) and installs the locked versions with ``uv sync --locked``.
+It makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__ and passes the
+virtual environment ``.venv`` to the subsequent jobs.
 
 Since a virtual environment is only valid for the interpreter which created it, the cache key contains not only the
-checksum of ``pyproject.toml``, but also the checksum of ``.python-build-id``, a file which is written by the job itself
+checksum of :github-source:`uv.lock`, but also the checksum of ``.python-build-id``, a file which is written by the job itself
 with the output of ``python3 -VV``. This means the cache is invalidated whenever the Python version of the Docker image
 changes, and the image can be referenced by its minor version (``cimg/python:3.13``) to receive patch updates
 automatically. Do not replace this with an environment variable: values which are exported to ``$BASH_ENV`` are not
@@ -142,10 +144,10 @@ Workflow ``main``
 
 This workflow gets executed when a commit is pushed to the ``main`` branch. Typically, this is a release PR from ``develop``.
 
-pip-install
---------------
+uv-install
+-------------
 
-See :ref:`circleci-pip-install`.
+See :ref:`circleci-uv-install`.
 
 bump-version
 ------------
@@ -159,10 +161,10 @@ Workflow ``deploy``
 
 This workflow gets executed when a commit is tagged.
 
-pip-install
---------------
+uv-install
+-------------
 
-See :ref:`circleci-pip-install`.
+See :ref:`circleci-uv-install`.
 
 webpack
 -------

@@ -24,19 +24,14 @@ if [[ ! -w "${VENV_DIR}" ]]; then
     echo "    docker compose --env-file /dev/null -f docker-compose.test.yml down --volumes" >&2
     exit 1
 fi
-if [[ ! -x "${VENV_DIR}/bin/python" ]]; then
-    echo "Creating virtualenv at ${VENV_DIR}..."
-    python -m venv "${VENV_DIR}"
-    "${VENV_DIR}/bin/pip" install --upgrade pip
-fi
+
+# Install the project with the exact locked versions CI uses. uv creates the
+# virtualenv on the volume if it does not exist yet, and the install is a
+# no-op on warm runs.
+echo "Installing dependencies (locked, matching CI)..."
+UV_PROJECT_ENVIRONMENT="${VENV_DIR}" uv sync --locked
 # shellcheck disable=SC1091
 source "${VENV_DIR}/bin/activate"
-
-# Install the project with the same pinned dependency sets CI uses. This is a
-# no-op on warm runs (the venv volume is cached) and fast thanks to the pip
-# cache volume.
-echo "Installing dependencies (pinned, matching CI)..."
-pip install -e ".[dev-pinned,pinned]"
 
 # The .mo translation files are not committed; compile them so translation-
 # dependent tests (e.g. the CSV feedback export) behave deterministically.
