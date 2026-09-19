@@ -66,6 +66,7 @@ const setLegendEventlisteners = (chart: Chart): void => {
                 checkbox.checked = allLanguagesSelected.checked;
             }
         }
+        updatePageStatisticsDisplay(languageChartItemsByCheckboxes.keys());
 
         updatePageAccesses();
     });
