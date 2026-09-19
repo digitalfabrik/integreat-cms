@@ -25,16 +25,12 @@
             <div>
                 <div class="xl:flex 3xl:block">
                     <div class="3xl:mt-3 3xl:w-full xl:w-1/2 xl:pr-2 3xl:pr-0">
-                        <label class="mt-0" for="{{ event_form.start_date.id_for_label }}">
-                            {{ event_form.start_date.label }}
-                        </label>
+                        <label class="mt-0" for="{{ event_form.start_date.id_for_label }}">{{ event_form.start_date.label }}</label>
                         {% render_field event_form.start_date|add_error_class:"border-red-500" %}
                     </div>
                     <div class="3xl:mt-3 3xl:w-full xl:w-1/2 {% if not event_form.is_long_term.value %} hidden {% endif %}"
                          id="end-date">
-                        <label class="mt-0" for="{{ event_form.end_date.id_for_label }}">
-                            {{ event_form.end_date.label }}
-                        </label>
+                        <label class="mt-0" for="{{ event_form.end_date.id_for_label }}">{{ event_form.end_date.label }}</label>
                         {% render_field event_form.end_date|add_error_class:"border-red-500" %}
                     </div>
                 </div>
@@ -46,40 +42,28 @@
                         </div>
                         <div>
                             {% render_field event_form.only_weekdays %}
-                            <label for="{{ event_form.only_weekdays.id_for_label }}">
-                                {{ event_form.only_weekdays.label }}
-                            </label>
+                            <label for="{{ event_form.only_weekdays.id_for_label }}">{{ event_form.only_weekdays.label }}</label>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-wrap my-3">
                     <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                        <label for="{{ event_form.start_time.id_for_label }}">
-                            {{ event_form.start_time.label }}
-                        </label>
+                        <label for="{{ event_form.start_time.id_for_label }}">{{ event_form.start_time.label }}</label>
                         {% render_field event_form.start_time|add_error_class:"border-red-500" %}
                     </div>
                     <div class="time-field w-1/2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                        <label for="{{ event_form.end_time.id_for_label }}">
-                            {{ event_form.end_time.label }}
-                        </label>
+                        <label for="{{ event_form.end_time.id_for_label }}">{{ event_form.end_time.label }}</label>
                         {% render_field event_form.end_time|add_error_class:"border-red-500" %}
                     </div>
                 </div>
                 {% render_field event_form.is_all_day %}
-                <label for="{{ event_form.is_all_day.id_for_label }}">
-                    {{ event_form.is_all_day.label }}
-                </label>
+                <label for="{{ event_form.is_all_day.id_for_label }}">{{ event_form.is_all_day.label }}</label>
             </div>
             <div id="recurrence-setting"
                  class="{% if event_form.is_long_term.value %}hidden{% endif %}">
                 {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
-                <label for="recurrence-rule-checkbox">
-                    {{ event_form.is_recurring.label }}
-                </label>
-                <div class="help-text">
-                    {{ event_form.is_recurring.help_text }}
-                </div>
+                <label for="recurrence-rule-checkbox">{{ event_form.is_recurring.label }}</label>
+                <div class="help-text">{{ event_form.is_recurring.help_text }}</div>
                 <div id="recurrence-rule"
                      {% if not event_form.is_recurring.value %}class="hidden"{% endif %}>
                     <label for="{{ recurrence_rule_form.frequency.id_for_label }}"
@@ -102,11 +86,7 @@
                                 class="{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}"
                                 {% if recurrence_rule_form.weekdays_for_weekly.field.disabled %} disabled {% endif %}>
                             {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
-                                <option value="{{ choice_value }}"
-                                        {% if not recurrence_rule_form.data|is_empty %} {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %}selected{% endif %}
-                                        {% else %}
-                                        {% if choice_value in recurrence_rule_form.instance.weekdays_for_weekly %}selected{% endif %}
-                                        {% endif %}>
+                                <option value="{{ choice_value }}" {% if not recurrence_rule_form.data|is_empty %} {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %}selected{% endif %} {% else %} {% if choice_value in recurrence_rule_form.instance.weekdays_for_weekly %}selected{% endif %} {% endif %}>
                                     {{ choice_label }}
                                 </option>
                             {% endfor %}

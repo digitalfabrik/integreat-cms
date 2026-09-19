@@ -44,7 +44,6 @@ type Props = {
     mediaTranslations: any;
     selectionMode?: boolean;
     globalEdit?: boolean;
-    expertMode?: boolean;
     onlyImage?: boolean;
     selectMedia?: (file: File) => any;
     submitForm: (event: Event) => void;
@@ -67,7 +66,6 @@ const EditSidebar = ({
     selectionMode,
     selectMedia,
     globalEdit,
-    expertMode,
     onlyImage,
     submitForm,
     ajaxRequest,
@@ -358,20 +356,18 @@ const EditSidebar = ({
                             </>
                         )}
                     </div>
-                    {expertMode && (
-                        <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-                            <label class="secondary my-0">{mediaTranslations.label_url}</label>
-                            <a
-                                href={file.url}
-                                target="_blank"
-                                rel="noreferrer"
-                                class="hover:text-blue-500 break-all"
-                                {...{ native: "" }}>
-                                {file.url}
-                                <ExternalLink class="inline-block ml-1 h-5" />
-                            </a>
-                        </div>
-                    )}
+                    <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
+                        <label class="secondary my-0">{mediaTranslations.label_url}</label>
+                        <a
+                            href={file.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            class="hover:text-blue-500 break-all"
+                            {...{ native: "" }}>
+                            {file.url}
+                            <ExternalLink class="inline-block ml-1 h-5" />
+                        </a>
+                    </div>
                     <div className="flex flex-col p-4 gap-4">
                         {isEditingAllowed ? (
                             <>

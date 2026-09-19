@@ -5,18 +5,15 @@
        data-chart-item="{{ name }}"
        id="{{ name|slugify }}"
        {% if language %} data-language-slug="{{ language.slug }}" {% endif %} />
-<div class="h-5 w-5 rounded-full" style="background-color: {{ color }}">
-</div>
+<div class="h-5 w-5 rounded-full" style="background-color: {{ color }}"></div>
 {% if language %}
     <div>
-        <span class="fp fp-{{ language.primary_country_code }} fp-rounded "
+        <span class="fp fp-{{ language.primary_country_code }} fp-rounded"
               title="{{ language.get_primary_country_code_display }}"></span>
         {% if language.secondary_country_code %}
-            <span class="fp fp-{{ language.secondary_country_code }} fp-rounded "
+            <span class="fp fp-{{ language.secondary_country_code }} fp-rounded"
                   title="{{ language.get_secondary_country_code_display }}"></span>
         {% endif %}
     </div>
 {% endif %}
-<label for="{{ name|slugify }}">
-    {{ name }}
-</label>
+<label for="{{ name|slugify }}">{{ name }}</label>

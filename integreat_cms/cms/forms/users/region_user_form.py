@@ -62,5 +62,4 @@ class RegionUserForm(UserForm):
             "role",
             "send_activation_link",
             "organization",
-            "expert_mode",
         ]

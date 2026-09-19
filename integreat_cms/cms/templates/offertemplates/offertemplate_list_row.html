@@ -6,9 +6,7 @@
             {{ offer_template.name }}
         </a>
     </td>
-    <td class="pr-2">
-        {{ offer_template.slug }}
-    </td>
+    <td class="pr-2">{{ offer_template.slug }}</td>
     <td class="pr-2">
         {% if offer_template.url %}
             {{ offer_template.url }}
@@ -16,15 +14,9 @@
             <i icon-name="minus"></i>
         {% endif %}
     </td>
-    <td class="pr-2">
-        {{ offer_template.last_updated|date:"SHORT_DATE_FORMAT" }}
-    </td>
-    <td class="pr-2">
-        {{ offer_template.created_date|date:"SHORT_DATE_FORMAT" }}
-    </td>
-    <td class="pr-2 text-right">
-        {{ offer_template.regions.count }}
-    </td>
+    <td class="pr-2">{{ offer_template.last_updated|date:"SHORT_DATE_FORMAT" }}</td>
+    <td class="pr-2">{{ offer_template.created_date|date:"SHORT_DATE_FORMAT" }}</td>
+    <td class="pr-2 text-right">{{ offer_template.regions.count }}</td>
     <td class="pl-2 pr-4 text-right">
         {% if perms.cms.delete_offertemplate %}
             {% if offer_template.regions.exists %}

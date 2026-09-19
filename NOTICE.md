@@ -18,5 +18,6 @@ limitations under the License.
 
 _________________
 
-
 All files in [./integreat_cms/static/src/logos/](./integreat_cms/static/src/logos/) are not covered by this license and may only be used with specific permission of the copyright holder.
+
+Tür an Tür Digitalfabrik gGmbH hereby grants a non-exclusive, non-transferable license to use the Integreat logos, subject to the condition that the software is utilized exclusively for the purpose of providing information to migrants. This authorization is personal to the Grantee and may not be assigned or sub-licensed to any third party. Integreat reserves the right to revoke this permission at its sole discretion, at any time, and without the requirement to provide justification.

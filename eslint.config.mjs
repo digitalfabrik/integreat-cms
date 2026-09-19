@@ -66,7 +66,7 @@ export default defineConfig([
             "docs/",
             "package.json",
             "package-lock.json",
-            "vitest.config.ts",
+            "vitest.config.mts",
         ],
     },
     {
@@ -82,7 +82,7 @@ export default defineConfig([
             },
             globals: {
                 ...globals.browser,
-                ...globals.es6,
+                ...globals.es2018,
             },
         },
     },

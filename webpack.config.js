@@ -91,6 +91,10 @@ module.exports = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      // maplibre-gl v6 is ESM-only; the CommonJS-emitting TS pipeline can't match its exports conditions
+      "maplibre-gl$": path.resolve(__dirname, "node_modules/maplibre-gl/dist/maplibre-gl.mjs"),
+    },
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -102,6 +106,16 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
+        // maplibre-gl v6 loads its web worker as a separate ES module; ship it (and its
+        // shared chunk) so setWorkerUrl in poi-map.ts can point at a real, JS-served file
+        {
+          from: "node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs",
+          to: "maplibre-gl-worker.mjs",
+        },
+        {
+          from: "node_modules/maplibre-gl/dist/maplibre-gl-shared.mjs",
+          to: "maplibre-gl-shared.mjs",
+        },
         {
           from: "node_modules/tinymce/skins/ui/oxide/skin.css",
           to: "skins/ui/oxide/skin.css",

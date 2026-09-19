@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
     from tests.mock import MockServer
 
@@ -66,7 +66,7 @@ def test_bulk_mt(
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     content_role_id_combination: tuple[Any, list, list[int]],
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
@@ -189,7 +189,7 @@ def test_bulk_mt_exceeds_limit(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -280,7 +280,7 @@ def test_bulk_mt_up_to_date(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -352,7 +352,7 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
@@ -444,7 +444,7 @@ def test_bulk_mt_no_source_language(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -526,7 +526,7 @@ def test_deepl_bulk_mt_no_target_language(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """

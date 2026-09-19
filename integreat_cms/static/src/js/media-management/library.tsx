@@ -34,7 +34,6 @@ export type LibraryProps = {
     apiEndpoints: MediaApiPaths;
     mediaTranslations: any;
     globalEdit?: boolean;
-    expertMode?: boolean;
     mediaTypes: { allowedMediaTypes: string };
     selectionMode?: boolean;
     onlyImage?: boolean;
@@ -64,7 +63,6 @@ const Library = ({
     mediaTranslations,
     mediaTypes,
     globalEdit,
-    expertMode,
     selectionMode,
     onlyImage,
     showMessage,
@@ -383,7 +381,6 @@ const Library = ({
                             selectMedia={selectMedia}
                             onlyImage={onlyImage}
                             globalEdit={globalEdit}
-                            expertMode={expertMode}
                             isLoading={isLoading}
                             canDeleteFile={canDeleteFile}
                             canReplaceFile={canReplaceFile}
