@@ -24,6 +24,7 @@ from django.utils.translation import (
     gettext_lazy as _,
 )
 
+from ...cms.models.abstract_content_model import AbstractContentModel
 from ...cms.models.machine_translations.machine_translation_report import (
     MachineTranslationReport,
 )
@@ -306,7 +307,44 @@ def _clear_machine_translation_flag(
         )
 
 
-def _build_pages_data(
+def _build_content_object_language_data(
+    content_object: Any, language_slug: str
+) -> dict[str, Any]:
+    """
+    Build the payload for a single (content object, language) pair.
+
+    `AbstractContentModel` types (page/event/poi) have a workflow status, a
+    slug and a translation-state concept (missing/fallback/up to date/...);
+    other content types (currently just `PushNotification`) have none of
+    that, so they only get the fields their translation actually has.
+    """
+    if not isinstance(content_object, AbstractContentModel):
+        translation = content_object.get_translation(language_slug)
+        return (
+            {
+                "title": translation.title,
+                "last_updated": translation.last_updated.isoformat(),
+            }
+            if translation
+            else {}
+        )
+
+    return {
+        "translation_state": content_object.get_translation_state(language_slug),
+        **(
+            {
+                "title": translation.title,
+                "slug": translation.slug,
+                "status": translation.get_status_display(),
+                "last_updated": translation.last_updated.isoformat(),
+            }
+            if (translation := content_object.get_translation(language_slug))
+            else {}
+        ),
+    }
+
+
+def _build_content_objects_data(
     content_objects: QuerySet[Any], language_slugs: list[str]
 ) -> dict[str, dict[str, Any]]:
     """
@@ -317,25 +355,14 @@ def _build_pages_data(
     whatever was cached before this task created or updated them.
     """
     for content_object in content_objects:
-        content_object.invalidate_cached_translations()
+        if isinstance(content_object, AbstractContentModel):
+            content_object.invalidate_cached_translations()
 
     return {
         str(content_object.id): {
-            language_slug: {
-                "translation_state": content_object.get_translation_state(
-                    language_slug
-                ),
-                **(
-                    {
-                        "title": translation.title,
-                        "slug": translation.slug,
-                        "status": translation.get_status_display(),
-                        "last_updated": translation.last_updated.isoformat(),
-                    }
-                    if (translation := content_object.get_translation(language_slug))
-                    else {}
-                ),
-            }
+            language_slug: _build_content_object_language_data(
+                content_object, language_slug
+            )
             for language_slug in language_slugs
         }
         for content_object in content_objects
@@ -401,12 +428,14 @@ def start_async_translation(
                 len(language_slugs) * len(content_objects),
             )
 
-        # Must clear before _build_pages_data(), else a newly-created-but-failed
+        # Must clear before _build_content_objects_data(), else a newly-created-but-failed
         # translation would still show MACHINE_TRANSLATION_IN_PROGRESS via the lock.
         _release_locks(content_type, object_ids, language_slugs)
         _clear_machine_translation_flag(content_type, object_ids, language_slugs)
 
-        pages_data = _build_pages_data(content_objects, language_slugs)
+        content_objects_data = _build_content_objects_data(
+            content_objects, language_slugs
+        )
 
         _queue_mt_report(
             user_id, region_id, content_type, language_slugs, translation_report
@@ -422,7 +451,7 @@ def start_async_translation(
     # returns normally, Celery's own completion handling stores the return
     # value as the SUCCESS result, overwriting any state set via
     # `update_state()` beforehand.
-    return {"progress": 1.0, "pages": pages_data}
+    return {"progress": 1.0, "content_objects": content_objects_data}
 
 
 def acquire_locks(
