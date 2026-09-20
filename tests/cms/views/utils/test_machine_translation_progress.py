@@ -66,9 +66,9 @@ def test_result_details_composes_failure_message_for_known_cause() -> None:
 
 
 def test_result_details_passes_through_non_failure_info_unchanged() -> None:
-    result = MagicMock(state="SUCCESS", info={"progress": 1.0, "pages": {}})
+    result = MagicMock(state="SUCCESS", info={"progress": 1.0, "content_objects": {}})
 
-    assert _get_result_details(result) == {"progress": 1.0, "pages": {}}
+    assert _get_result_details(result) == {"progress": 1.0, "content_objects": {}}
 
 
 # --- get_machine_translation_task_progress ---
@@ -90,7 +90,9 @@ def test_get_machine_translation_task_progress_returns_status_and_details() -> N
     request.user.has_perm = MagicMock(return_value=True)
     request.region = MagicMock(id=1)
 
-    fake_result = MagicMock(state="SUCCESS", info={"progress": 1.0, "pages": {}})
+    fake_result = MagicMock(
+        state="SUCCESS", info={"progress": 1.0, "content_objects": {}}
+    )
     fake_result.kwargs = {"region_id": 1, "content_type": "page"}
 
     with patch(
@@ -104,7 +106,7 @@ def test_get_machine_translation_task_progress_returns_status_and_details() -> N
     assert response.status_code == 200
     assert json.loads(response.content) == {
         "status": "SUCCESS",
-        "details": {"progress": 1.0, "pages": {}},
+        "details": {"progress": 1.0, "content_objects": {}},
     }
 
 
@@ -114,7 +116,9 @@ def test_get_machine_translation_task_progress_cross_region_permission_denied() 
     request.user.has_perm = MagicMock(return_value=True)
     request.region = MagicMock(id=1)
 
-    fake_result = MagicMock(state="SUCCESS", info={"progress": 1.0, "pages": {}})
+    fake_result = MagicMock(
+        state="SUCCESS", info={"progress": 1.0, "content_objects": {}}
+    )
     fake_result.kwargs = {"region_id": 2, "content_type": "page"}
 
     with (
@@ -135,7 +139,9 @@ def test_get_machine_translation_task_progress_cross_content_type_permission_den
     request.user.has_perm = MagicMock(return_value=True)
     request.region = MagicMock(id=1)
 
-    fake_result = MagicMock(state="SUCCESS", info={"progress": 1.0, "pages": {}})
+    fake_result = MagicMock(
+        state="SUCCESS", info={"progress": 1.0, "content_objects": {}}
+    )
     fake_result.kwargs = {"region_id": 1, "content_type": "event"}
 
     with (
