@@ -10,6 +10,7 @@ from celery import shared_task, Task
 from django.apps import apps
 from django.contrib import messages
 from django.core.cache import cache
+from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
 from django.http import HttpRequest
 from django.utils.translation import (
@@ -30,6 +31,7 @@ from ...cms.models.regions.region import Region
 from ...cms.models.users.user import User
 from ...deepl_api.deepl_api_client import DeepLApiClient
 from ...google_translate_api.google_translate_api_client import GoogleTranslateApiClient
+from ..checks import mt_locking_requires_redis
 
 if TYPE_CHECKING:
     from django.db.models import QuerySet
@@ -76,6 +78,22 @@ _TRANSLATION_FILTER_FIELD: dict[str, str] = {
 
 def get_mt_redis_lock_key(content_type: str, object_id: int, language_slug: str) -> str:
     return f"mt_lock:{content_type}:{object_id}:{language_slug}"
+
+
+def _guard_mt_lock_backend() -> None:
+    """
+    Raise loudly, right where the MT lock is actually taken/released,
+    instead of letting it silently degrade to a per-process lock.
+    See :func:`~integreat_cms.core.checks.mt_locking_requires_redis`.
+    """
+    if mt_locking_requires_redis():
+        raise ImproperlyConfigured(
+            "Machine translation is enabled but Redis is disabled "
+            "(INTEGREAT_CMS_REDIS_CACHE=False), and Celery tasks are not "
+            "eager. Refusing to acquire/release a machine translation lock "
+            "that would not actually be shared across processes. Enable "
+            "Redis or set CELERY_TASK_ALWAYS_EAGER=True."
+        )
 
 
 def get_mt_task_ids(
@@ -267,6 +285,7 @@ def _release_locks(
     content_type: str, object_ids: list[int], language_slugs: list[str]
 ) -> None:
     # No DB dependency, so this can run unconditionally from `finally`.
+    _guard_mt_lock_backend()
     for obj_id in object_ids:
         for language_slug in language_slugs:
             cache.delete(get_mt_redis_lock_key(content_type, obj_id, language_slug))
@@ -409,6 +428,7 @@ def start_async_translation(
 def acquire_locks(
     content_type: str, object_ids: list[int], language_slugs: list[str], task_id: str
 ) -> list[str] | None:
+    _guard_mt_lock_backend()
     acquired: list[str] = []
     for language_slug in language_slugs:
         for object_id in object_ids:
