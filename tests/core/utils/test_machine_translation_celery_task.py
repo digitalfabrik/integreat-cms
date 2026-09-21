@@ -101,10 +101,11 @@ def spy_queue_mt_report() -> Any:
 
 
 class _UnsupportedProvider:
-    """A stand-in for a provider that is configured on a language but has no
-    entry in API_CLIENTS (e.g. SummAI, which is being phased out)."""
+    """A stand-in for a provider that is configured on a language but
+    declares no ``api_client`` (e.g. SummAI, which is being phased out)."""
 
     name = "SummAI"
+    api_client = None
 
 
 @pytest.fixture()
