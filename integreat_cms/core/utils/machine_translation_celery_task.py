@@ -30,8 +30,6 @@ from ...cms.models.machine_translations.machine_translation_report import (
 )
 from ...cms.models.regions.region import Region
 from ...cms.models.users.user import User
-from ...deepl_api.deepl_api_client import DeepLApiClient
-from ...google_translate_api.google_translate_api_client import GoogleTranslateApiClient
 from ..checks import mt_locking_requires_redis
 
 if TYPE_CHECKING:
@@ -42,12 +40,6 @@ if TYPE_CHECKING:
     from .machine_translation_api_client import MachineTranslationApiClient
 
 logger = logging.getLogger(__name__)
-
-
-_API_CLIENTS: dict[str, type[MachineTranslationApiClient]] = {
-    "DeepL": DeepLApiClient,
-    "Google Translate": GoogleTranslateApiClient,
-}
 
 
 def _get_form_classes() -> dict[str, ModelFormMetaclass]:
@@ -231,12 +223,10 @@ def _resolve_client_for_language(
         ).format(language_slug=language_slug)
 
     provider_name = language_node.mt_provider.name
-    if client := clients_by_provider.get(provider_name):
-        return client, None
+    if cached_client := clients_by_provider.get(provider_name):
+        return cached_client, None
 
-    client_class: type[MachineTranslationApiClient] | None = _API_CLIENTS.get(
-        provider_name
-    )
+    client_class = language_node.mt_provider.api_client
     if client_class is None:
         return None, gettext("Provider does not exist")
 
