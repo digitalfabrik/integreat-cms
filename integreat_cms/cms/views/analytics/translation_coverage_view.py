@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...constants.translation_status import (
-    CHOICES,
+    CHART_CHOICES,
     COLORS,
     MISSING,
     OUTDATED,
@@ -61,7 +61,7 @@ class TranslationCoverageView(TemplateView):
                     "backgroundColor": COLORS[status],
                     "data": [data[status] for data in translation_count.values()],
                 }
-                for status, label in CHOICES
+                for status, label in CHART_CHOICES
             ],
         }
         # Update and return the template context
