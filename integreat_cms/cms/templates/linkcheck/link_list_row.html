@@ -109,25 +109,8 @@
                 {% render_field edit_url_form.url|add_error_class:"border-red-500" form="edit-url-form" %}
                 <a href="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
                    class="btn btn-ghost">{% translate "Cancel" %}</a>
-                <button type="submit" form="edit-url-form" class="btn">
-                    {% translate "Save" %}
-                </button>
+                <button type="submit" form="edit-url-form" class="btn">{% translate "Save" %}</button>
             </div>
         </td>
     </tr>
-<<<<<<< HEAD
-    {% if url.id == view.kwargs.url_id %}
-        <tr>
-            <td colspan="6">
-                <div class="flex gap-2 p-2">
-                    {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
-                    <a href="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
-                       class="btn btn-ghost">{% translate "Cancel" %}</a>
-                    <button type="submit" form="edit-url-form" class="btn">{% translate "Save" %}</button>
-                </div>
-            </td>
-        </tr>
-    {% endif %}
-=======
 {% endif %}
->>>>>>> ade6ed941 (fix linting)
