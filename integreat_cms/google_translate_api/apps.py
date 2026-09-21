@@ -87,14 +87,21 @@ class GoogleTranslateApiClientConfig(AppConfig):
         """
         # When running the dev server or under Apache, the process is already
         # fully up, so the availability check can run right away. Under
-        # Celery, `ready()` fires while the worker is still being bootstrapped,
-        # so defer the check until the worker signals it's actually ready.
+        # Celery, `ready()` fires in the main process before the worker pool
+        # forks - and on macOS, a network call made there initializes
+        # OS-level networking state that doesn't survive fork(): every child
+        # process's own socket connections (including its DB connection)
+        # then segfault with no traceback, and a replacement process is
+        # poisoned the same way, so the worker can never self-heal. Deferring
+        # to `worker_process_init` instead runs the check inside each
+        # already-forked pool child, at the cost of one check per pool child
+        # instead of one per worker startup.
         if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
             self.check_availability()
         else:
-            from celery.signals import celeryd_after_setup
+            from celery.signals import worker_process_init
 
-            celeryd_after_setup.connect(
+            worker_process_init.connect(
                 self._check_availability_on_celery_ready, weak=False
             )
 
