@@ -1,7 +1,8 @@
 from collections import Counter
 
+from ....core.utils.machine_translation_celery_task import get_mt_task_ids
 from ...constants.translation_status import MISSING, OUTDATED, UP_TO_DATE
-from ...models import Language, Region
+from ...models import Language, Page, Region
 
 
 def get_translation_and_word_count(
@@ -17,8 +18,7 @@ def get_translation_and_word_count(
     translation_count: dict[Language, Counter] = {}
     word_count: dict[Language, Counter] = {}
 
-    # Cache the page tree to avoid database overhead
-    pages = (
+    pages: list[Page] = (
         region.pages.filter(explicitly_archived=False)
         .prefetch_major_translations()
         .cache_tree(archived=False)
@@ -34,11 +34,22 @@ def get_translation_and_word_count(
         )
     )
 
-    # Iterate over all active languages of the current region
-    for language in region.active_languages:
-        # Only check pages that are not in the default language
-        if language == region.default_language:
-            continue
+    non_default_languages: list[Language] = [
+        language
+        for language in region.active_languages
+        if language != region.default_language
+    ]
+    # Batch-resolve the machine translation locks for every page/language pair
+    # at once, instead of each pair doing its own cache round trip via
+    # `get_translation_state()`.
+    mt_task_ids = get_mt_task_ids(
+        "page",
+        [page.id for page in pages],
+        [language.slug for language in non_default_languages],
+    )
+
+    # Iterate over all active, non-default languages of the current region
+    for language in non_default_languages:
         # Initialize counter dicts for both the translation count and the word count
         translation_count[language] = Counter()
         word_count[language] = Counter()
@@ -46,7 +57,7 @@ def get_translation_and_word_count(
         # Iterate over all non-archived pages
         for page in pages:
             # Retrieve the translation state of the current language
-            translation_state = page.get_translation_state(language.slug)
+            translation_state = page.get_translation_state(language.slug, mt_task_ids)
             translation_count[language][translation_state] += 1
             # If the state is either outdated or missing, keep track of the word count
             if translation_state in [OUTDATED, MISSING]:
@@ -60,7 +71,8 @@ def get_translation_and_word_count(
                 else:
                     translation = None
                 # Provide a rough estimation of the word count
-                word_count[language][translation_state] += len(
-                    translation.content.split()
-                )
+                if translation is not None:
+                    word_count[language][translation_state] += len(
+                        translation.content.split()
+                    )
     return translation_count, word_count
