@@ -108,6 +108,11 @@ class Migration(migrations.Migration):
             old_name="machine_translate_pois",
             new_name="machine_translate_places",
         ),
+        migrations.RenameField(
+            model_name="region",
+            old_name="locations_enabled",
+            new_name="places_enabled",
+        ),
         migrations.AlterModelOptions(
             name="contact",
             options={
@@ -333,7 +338,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name="region",
-            name="locations_enabled",
+            name="places_enabled",
             field=models.BooleanField(
                 default=False,
                 help_text="Whether or not places are enabled in the region",
@@ -363,7 +368,34 @@ class Migration(migrations.Migration):
             trigger=pgtrigger.compiler.Trigger(
                 name="enforce_slug_uniqueness",
                 sql=pgtrigger.compiler.UpsertTriggerSql(
-                    func="\n                DECLARE\n                    new_region_id INTEGER;\n                BEGIN\n                    -- Look up the region for the new/updated place\n                    SELECT region_id INTO new_region_id\n                    FROM cms_place\n                    WHERE id = NEW.place_id;\n\n                    -- Set advisory lock (Postgresql specific)\n                    PERFORM pg_advisory_xact_lock(hashtextextended(NEW.language_id || ':' || new_region_id || ':' || NEW.slug, 0));\n\n                    -- Check if there's a conflict (same slug/language/region but different place)\n                    IF EXISTS (\n                        SELECT 1\n                        FROM cms_placetranslation t\n                        JOIN cms_place p ON t.place_id = p.id\n                        WHERE t.slug = NEW.slug\n                        AND t.language_id = NEW.language_id\n                        AND p.region_id = new_region_id\n                        AND t.place_id <> NEW.place_id\n                    ) THEN\n                        RAISE EXCEPTION 'Slug must be unique per language and region across different places.' USING ERRCODE = 'unique_violation'; -- SQLSTATE 23505\n                    END IF;\n\n                    RETURN NEW;\n                END;\n                ",
+                    func="""
+                DECLARE
+                    new_region_id INTEGER;
+                BEGIN
+                    -- Look up the region for the new/updated place
+                    SELECT region_id INTO new_region_id
+                    FROM cms_place
+                    WHERE id = NEW.place_id;
+
+                    -- Set advisory lock (Postgresql specific)
+                    PERFORM pg_advisory_xact_lock(hashtextextended(NEW.language_id || ':' || new_region_id || ':' || NEW.slug, 0));
+
+                    -- Check if there's a conflict (same slug/language/region but different place)
+                    IF EXISTS (
+                        SELECT 1
+                        FROM cms_placetranslation t
+                        JOIN cms_place p ON t.place_id = p.id
+                        WHERE t.slug = NEW.slug
+                        AND t.language_id = NEW.language_id
+                        AND p.region_id = new_region_id
+                        AND t.place_id <> NEW.place_id
+                    ) THEN
+                        RAISE EXCEPTION 'Slug must be unique per language and region across different places.' USING ERRCODE = 'unique_violation'; -- SQLSTATE 23505
+                    END IF;
+
+                    RETURN NEW;
+                END;
+                """,
                     hash="e1810000dc54de7ae64a631807585b4aa27d3688",
                     operation="INSERT OR UPDATE",
                     pgid="pgtrigger_enforce_slug_uniqueness_ab870",

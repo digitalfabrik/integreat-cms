@@ -47,7 +47,7 @@ class ContactForm(CustomModelForm):
 
     use_place_opening_hours = forms.BooleanField(
         required=False,
-        label=_("Adopt opening hours from linked place as office hours"),
+        label=_("Adopt opening hours from the linked place as office hours"),
     )
 
     class Meta:

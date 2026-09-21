@@ -49,7 +49,7 @@ class RegionUpdateView(CustomUpdateView):
                     "An error occurred during cloning of this region. Please contact your administrator."
                 ),
             )
-        if self.object.locations_enabled and not self.object.has_bounding_box:
+        if self.object.places_enabled and not self.object.has_bounding_box:
             messages.warning(
                 request,
                 _(

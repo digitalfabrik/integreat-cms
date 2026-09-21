@@ -42,7 +42,7 @@ def transform_place_category(
         "icon": place_category.icon,
         "icon_url": (
             settings.BASE_URL
-            + static(f"/svg/poi-category-icons/{place_category.icon}.svg")
+            + static(f"/svg/place-category-icons/{place_category.icon}.svg")
         ),
         "icon_color": place_category.icon + "_" + place_category.color,
     }

@@ -157,7 +157,7 @@ class Region(AbstractBaseModel):
         verbose_name=_("activate events"),
         help_text=_("Whether or not events are enabled in the region"),
     )
-    locations_enabled = models.BooleanField(
+    places_enabled = models.BooleanField(
         default=False,
         verbose_name=_("activate places"),
         help_text=_("Whether or not places are enabled in the region"),

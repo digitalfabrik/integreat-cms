@@ -141,7 +141,7 @@
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text }}"
                                     data-confirmation-subject="{{ contact_form.instance.name }}"
-                                    {% if contact_form.instance.place.archived %} data-confirmation-referenced-place-title="{{ referenced_location_title }}" data-confirmation-referenced-place-subject="{{ contact_form.instance.place }}" {% endif %}
+                                    {% if contact_form.instance.place.archived %} data-confirmation-referenced-place-title="{{ referenced_place_title }}" data-confirmation-referenced-place-subject="{{ contact_form.instance.place }}" {% endif %}
                                     data-action="{% url 'restore_contact' contact_id=contact_form.instance.id region_slug=request.region.slug %}">
                                 <i icon-name="refresh-ccw" class="mr-2"></i> {% translate "Restore this contact" %}
                             </button>
