@@ -32,7 +32,7 @@ if TYPE_CHECKING:
 
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 
 @pytest.mark.django_db
@@ -45,7 +45,7 @@ if TYPE_CHECKING:
 )
 def test_xliff_export(
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     tmp_path: Path,
     xliff_version: str,
     view: str,
@@ -138,7 +138,7 @@ def test_xliff_export(
 )
 def test_xliff_import(
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     import_1: dict[str, Any],
     import_2: dict[str, Any],

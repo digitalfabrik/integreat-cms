@@ -7,9 +7,7 @@
                form="bulk-action-form"
                class="bulk-select-item" />
     </td>
-    <td class="pr-2 whitespace-nowrap">
-        {{ feedback.category }}
-    </td>
+    <td class="pr-2 whitespace-nowrap">{{ feedback.category }}</td>
     <td class="pr-2 truncate max-w-[75px] xl:max-w-[200px] 2xl:max-w-[300px] 3xl:max-w-[500px] 4xl:max-w-[800px]"
         title="{{ feedback.object_name }}">
         {% if feedback.object_url %}
@@ -30,9 +28,7 @@
             </div>
         {% endif %}
     </td>
-    <td class="pr-2">
-        {{ feedback.language.translated_name }}
-    </td>
+    <td class="pr-2">{{ feedback.language.translated_name }}</td>
     <td class="pr-2 max-w-[75px] xl:max-w-[200px] 2xl:max-w-[300px] 3xl:max-w-[500px] 4xl:max-w-[800px]"
         title="{{ feedback.comment }}">
         {% if not feedback.comment %}
@@ -82,9 +78,7 @@
             <i icon-name="minus" class="pr-1"></i>
         {% endif %}
     </td>
-    <td class="pr-2 text-right whitespace-nowrap">
-        {{ feedback.created_date|date:"SHORT_DATE_FORMAT" }}
-    </td>
+    <td class="pr-2 text-right whitespace-nowrap">{{ feedback.created_date|date:"SHORT_DATE_FORMAT" }}</td>
     <td class="pr-2 text-center">
         {% if feedback.is_automatically_send %}
             <i icon-name="x" class="pr-1"></i>

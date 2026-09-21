@@ -1453,20 +1453,6 @@ CELERY_RESULT_BACKEND = os.environ.get(
     ),
 )
 
-########################
-# Beta test permission #
-########################
-
-# Slugs of regions participating in the pilot phase of page based statistics
-PILOT_REGIONS_PAGE_BASED_STATISTICS: Final[list[str]] = [
-    slug
-    for slug in os.environ.get(
-        "INTEGREAT_CMS_PILOT_REGIONS_PAGE_BASED_STATISTICS",
-        "",
-    ).split(",")
-    if slug
-]
-
 ################
 # Live Content #
 ################

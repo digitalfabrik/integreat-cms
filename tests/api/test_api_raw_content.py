@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from collections.abc import Callable
 
+    from pytest_django import Settings
+
 import pytest
 from django.core.cache import cache
 from django.test.client import Client
@@ -59,6 +61,7 @@ def _create_push_notification(
 def test_api_result(
     load_test_data: None,
     django_assert_num_queries: Callable,
+    settings: Settings,
     endpoint: str,
     expected_result: str,
     expected_code: int,
@@ -71,11 +74,15 @@ def test_api_result(
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param django_assert_num_queries: The fixture providing the query assertion
+    :param settings: The fixture providing the django settings
     :param endpoint: The url of the new Django pattern
     :param expected_result: The path to the html file that contains the expected result
     :param expected_code: The expected HTTP status code
     :param expected_queries: The expected number of SQL queries
     """
+    # Other tests might raw-mutate settings.LANGUAGE_CODE without restoring it; pin it
+    # explicitly since /api/v3/raw-content/ relies on the default language.
+    settings.LANGUAGE_CODE = "de"
     client = Client()
     with django_assert_num_queries(expected_queries):
         response = client.get(endpoint, format="html")

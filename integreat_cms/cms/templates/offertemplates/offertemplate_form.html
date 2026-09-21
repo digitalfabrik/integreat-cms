@@ -19,13 +19,9 @@
             </h1>
             {% if perms.cms.change_offertemplate %}
                 {% if form.initial %}
-                    <button class="btn">
-                        {% translate "Save" %}
-                    </button>
+                    <button class="btn">{% translate "Save" %}</button>
                 {% else %}
-                    <button class="btn">
-                        {% translate "Create" %}
-                    </button>
+                    <button class="btn">{% translate "Create" %}</button>
                 {% endif %}
             {% endif %}
         </div>
@@ -39,36 +35,22 @@
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                     <div>
                         <!-- General Options for offer_template management -->
-                        <label for="{{ form.name.id_for_label }}">
-                            {{ form.name.label }}
-                        </label>
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                         {% render_field form.name %}
                     </div>
                     <div>
-                        <label for="{{ form.slug.id_for_label }}">
-                            {{ form.slug.label }}
-                        </label>
-                        <div class="help-text">
-                            {{ form.slug.help_text }}
-                        </div>
+                        <label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
+                        <div class="help-text">{{ form.slug.help_text }}</div>
                         {% render_field form.slug %}
                     </div>
                     <div>
-                        <label for="{{ form.url.id_for_label }}">
-                            {{ form.url.label }}
-                        </label>
-                        <div class="help-text">
-                            {{ form.url.help_text }}
-                        </div>
+                        <label for="{{ form.url.id_for_label }}">{{ form.url.label }}</label>
+                        <div class="help-text">{{ form.url.help_text }}</div>
                         {% render_field form.url %}
                     </div>
                     <div>
-                        <label for="{{ form.thumbnail.id_for_label }}">
-                            {{ form.thumbnail.label }}
-                        </label>
-                        <div class="mb-2 text-s text-gray-600">
-                            {{ form.thumbnail.help_text }}
-                        </div>
+                        <label for="{{ form.thumbnail.id_for_label }}">{{ form.thumbnail.label }}</label>
+                        <div class="mb-2 text-s text-gray-600">{{ form.thumbnail.help_text }}</div>
                         {% render_field form.thumbnail %}
                     </div>
                     <div>
@@ -77,9 +59,7 @@
                             {% render_field form.supported_by_app_in_content %}
                             {{ form.supported_by_app_in_content.label }}
                         </label>
-                        <div class="mb-2 text-s text-gray-600">
-                            {{ form.supported_by_app_in_content.help_text }}
-                        </div>
+                        <div class="mb-2 text-s text-gray-600">{{ form.supported_by_app_in_content.help_text }}</div>
                     </div>
                     <div>
                         <label for="{{ form.is_zammad_form.id_for_label }}"
@@ -87,9 +67,7 @@
                             {% render_field form.is_zammad_form %}
                             {{ form.is_zammad_form.label }}
                         </label>
-                        <div class="mb-2 text-s text-gray-600">
-                            {{ form.is_zammad_form.help_text }}
-                        </div>
+                        <div class="mb-2 text-s text-gray-600">{{ form.is_zammad_form.help_text }}</div>
                     </div>
                 </div>
             </div>
@@ -101,12 +79,8 @@
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                     <div>
-                        <label for="{{ form.post_data.id_for_label }}">
-                            {{ form.post_data.label }}
-                        </label>
-                        <div class="help-text">
-                            {{ form.post_data.help_text }}
-                        </div>
+                        <label for="{{ form.post_data.id_for_label }}">{{ form.post_data.label }}</label>
+                        <div class="help-text">{{ form.post_data.help_text }}</div>
                         {% if form.post_data.value == "null" %}
                             {% render_field form.post_data value="{}" %}
                         {% else %}
@@ -114,12 +88,8 @@
                         {% endif %}
                     </div>
                     <div>
-                        <label for="{{ form.use_postal_code.id_for_label }}">
-                            {{ form.use_postal_code.label }}
-                        </label>
-                        <div class="help-text">
-                            {{ form.use_postal_code.help_text }}
-                        </div>
+                        <label for="{{ form.use_postal_code.id_for_label }}">{{ form.use_postal_code.label }}</label>
+                        <div class="help-text">{{ form.use_postal_code.help_text }}</div>
                         {% render_field form.use_postal_code %}
                     </div>
                 </div>

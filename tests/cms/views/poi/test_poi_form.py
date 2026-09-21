@@ -9,7 +9,7 @@ import pytest
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -224,7 +224,7 @@ def test_poi_currently_used_by_event_cannot_be_archived(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Checks whether a POI is protected from archiving if it is currently used in an event
@@ -290,7 +290,7 @@ def test_poi_currently_used_by_contact_cannot_be_archived(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Checks whether a POI is protected from archiving if it is currently used in a contact
@@ -356,7 +356,7 @@ def test_poi_used_by_past_event_can_be_archived(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Checks whether a POI can be arhcived if it is used by a past event
@@ -393,7 +393,7 @@ def test_poi_archive_not_crash(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Checks whether a POI can be archived successfully in a region that does not use contact feature (regression found in #4436)
@@ -436,7 +436,7 @@ def test_poi_in_use_not_deleted(
     load_test_data: None,
     caplog: LogCaptureFixture,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Checks whether a POI is protected from deleting if it is used in an event
@@ -480,7 +480,7 @@ def test_poi_in_use_not_bulk_archived(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Checks whether a POI is protected from bulk archiving if it is used in an event
@@ -520,7 +520,7 @@ def test_poi_in_use_not_bulk_archived(
 def test_poi_form_shows_associated_contacts(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     POI "Draft location" (id=6) has four related contacts. Test whether they are shown in the POI form.
@@ -574,7 +574,7 @@ def test_poi_form_shows_associated_contacts(
 def test_poi_form_shows_no_associated_contacts(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     POI "Test location" (id=4) has no related contacts. Test whether the correct message is shown in the POi form.
@@ -634,7 +634,7 @@ def test_bulk_delete_pois(
     role: str,
     client: Client,
     load_test_data: None,
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     num_deletable: int,
     num_undeletable: int,
@@ -670,7 +670,7 @@ def test_bulk_delete_pois(
 def test_case_insensitive_unique_slug(
     client: Client,
     load_test_data: None,
-    settings: SettingsWrapper,
+    settings: Settings,
 ) -> None:
     """
     Test that an appropriate message is shown to users and the view does not crash when slug is updated for uniqueness

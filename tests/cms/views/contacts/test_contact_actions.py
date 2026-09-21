@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_django.fixtures import SettingsWrapper
+    from pytest_django.fixtures import Settings
 
 import pytest
 from django.urls import reverse
@@ -37,7 +37,7 @@ test_archive_parameters = [(NOT_USED_CONTACT_ID, True), (USED_CONTACT_ID, False)
 def test_archive_contact(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: tuple[int, bool],
 ) -> None:
@@ -102,7 +102,7 @@ test_delete_parameters = [(NOT_USED_CONTACT_ID, True), (USED_CONTACT_ID, False)]
 def test_delete_contact(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
     parameter: tuple[int, bool],
 ) -> None:
@@ -162,7 +162,7 @@ def test_delete_contact(
 def test_restore_contact(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -216,7 +216,7 @@ BULK_ARCHIVE_SELECTED_IDS = [NOT_USED_CONTACT_ID, USED_CONTACT_ID]
 def test_bulk_archive_contacts(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -282,7 +282,7 @@ BULK_DELETE_SELECTED_IDS = [NOT_USED_CONTACT_ID, USED_CONTACT_ID]
 def test_bulk_delete_contacts(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -348,7 +348,7 @@ BULK_RESTORE_SELECTED_IDS = [ARCHIVED_CONTACT_ID]
 def test_bulk_restore_contacts(
     load_test_data: None,
     login_role_user: tuple[Client, str],
-    settings: SettingsWrapper,
+    settings: Settings,
     caplog: LogCaptureFixture,
 ) -> None:
     """

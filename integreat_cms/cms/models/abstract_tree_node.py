@@ -16,12 +16,10 @@ from django.db.models import CheckConstraint, Deferrable, F, Q, UniqueConstraint
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from treebeard.exceptions import InvalidPosition
-from treebeard.ns_tree import NS_Node, NS_NodeManager
+from treebeard.ns_tree import NS_Node, NS_NodeManager, NS_NodeQuerySet
 
 if TYPE_CHECKING:
     from typing import Any, Self
-
-    from treebeard.ns_tree import NS_NodeQuerySet
 
 from ..constants import position
 from .abstract_base_model import AbstractBaseModel
@@ -29,10 +27,42 @@ from .abstract_base_model import AbstractBaseModel
 logger = logging.getLogger(__name__)
 
 
+class AbstractTreeNodeQuerySet(NS_NodeQuerySet):
+    """
+    Custom queryset invalidating the cache when tree nodes are deleted
+    """
+
+    def delete(self, *args: Any, **kwargs: Any) -> tuple[int, dict[str, int]]:
+        r"""
+        Delete the nodes of this queryset and invalidate the cache
+
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        :return: The number of deleted objects and the number of deletions per object type
+        """
+        self.model.invalidate_tree_cache()
+        try:
+            return super().delete(*args, **kwargs)
+        finally:
+            self.model.invalidate_tree_cache()
+
+
 class AbstractTreeNodeManager(NS_NodeManager):
     """
     Custom manager adding a stdout message to ``AbstractTreeNode.objects.create()``
+    and invalidating the cache around treebeard's tree operations
     """
+
+    def get_queryset(self) -> AbstractTreeNodeQuerySet:
+        """
+        Sets the custom queryset as the default.
+
+        :return: The sorted queryset
+        """
+        return AbstractTreeNodeQuerySet(self.model, using=self._db).order_by(
+            "tree_id",
+            "lft",
+        )
 
     def create(self, *args, **kwargs):  # type: ignore[no-untyped-def]
         """
@@ -70,6 +100,53 @@ class AbstractTreeNodeManager(NS_NodeManager):
         )
         return obj
 
+    # From django-treebeard 7 on, the tree operations are implemented on the manager and
+    # Node.add_child(), MoveNodeForm.save() and TreeAdmin.move_node() all route through it,
+    # so the cache has to be invalidated here as well as on the model methods below.
+    # These overrides are unreachable with django-treebeard 5, which implements the
+    # operations on the node itself.
+
+    def add_child(self, *args: Any, **kwargs: Any) -> AbstractTreeNode:
+        r"""
+        Add a child to the target node and invalidate the cache
+
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        :return: The new child
+        """
+        self.model.invalidate_tree_cache()
+        try:
+            return super().add_child(*args, **kwargs)
+        finally:
+            self.model.invalidate_tree_cache()
+
+    def add_sibling(self, *args: Any, **kwargs: Any) -> AbstractTreeNode:
+        r"""
+        Add a new node as a sibling to the target node and invalidate the cache
+
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        :return: The new sibling
+        """
+        self.model.invalidate_tree_cache()
+        try:
+            return super().add_sibling(*args, **kwargs)
+        finally:
+            self.model.invalidate_tree_cache()
+
+    def move(self, *args: Any, **kwargs: Any) -> None:
+        r"""
+        Move a node to a new position relative to another node and invalidate the cache
+
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        """
+        self.model.invalidate_tree_cache()
+        try:
+            super().move(*args, **kwargs)
+        finally:
+            self.model.invalidate_tree_cache()
+
 
 class AbstractTreeNode(NS_Node, AbstractBaseModel):
     """
@@ -95,6 +172,18 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
     )
 
     @classmethod
+    def invalidate_tree_cache(cls) -> None:
+        """
+        Invalidate all cached querysets of this model.
+
+        Treebeard shifts the ``lft``, ``rgt`` and ``tree_id`` of arbitrary other nodes with raw
+        ``QuerySet.update()`` calls. Cacheops only invalidates on ``save()``, ``delete()`` and its
+        own explicit ``invalidated_update()``, so it cannot see those shifts and the whole model
+        has to be invalidated manually. Subclasses can extend this to invalidate related models.
+        """
+        invalidate_model(cls)
+
+    @classmethod
     def get_region_root_nodes(cls, region_slug: str) -> NS_NodeQuerySet:
         """
         Get all root nodes of a specific region
@@ -111,12 +200,13 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :param \**kwargs: The supplied keyword arguments
         :return: The new child
         """
-        # Adding a child can modify all other nodes via raw sql queries (which are not recognized by cachalot),
-        # so we have to invalidate the whole model manually.
-        invalidate_model(self.__class__)
-        child = super().add_child(**kwargs)
-        invalidate_model(self.__class__)
-        return child
+        # Adding a child can modify all other nodes via raw sql queries (which are not
+        # recognized by cacheops), so we have to invalidate the whole model manually.
+        self.invalidate_tree_cache()
+        try:
+            return super().add_child(**kwargs)
+        finally:
+            self.invalidate_tree_cache()
 
     def add_sibling(self, pos: str | None = None, **kwargs: Any) -> AbstractTreeNode:
         r"""
@@ -126,12 +216,13 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :param \**kwargs: The supplied keyword arguments
         :return: The new sibling
         """
-        # Adding a sibling can modify all other nodes via raw sql queries (which are not recognized by cachalot),
-        # so we have to invalidate the whole model manually.
-        invalidate_model(self.__class__)
-        sibling = super().add_sibling(pos=pos, **kwargs)
-        invalidate_model(self.__class__)
-        return sibling
+        # Adding a sibling can modify all other nodes via raw sql queries (which are not
+        # recognized by cacheops), so we have to invalidate the whole model manually.
+        self.invalidate_tree_cache()
+        try:
+            return super().add_sibling(pos=pos, **kwargs)
+        finally:
+            self.invalidate_tree_cache()
 
     @classmethod
     def get_tree(cls, parent: AbstractTreeNode | None = None) -> NS_NodeQuerySet:
@@ -295,11 +386,13 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
                     self, self.region, target.region
                 )
             )
-        # Moving a node can modify all other nodes via raw sql queries (which are not recognized by cachalot),
-        # so we have to invalidate the whole model manually.
-        invalidate_model(self.__class__)
-        super().move(target, pos)
-        invalidate_model(self.__class__)
+        # Moving a node can modify all other nodes via raw sql queries (which are not
+        # recognized by cacheops), so we have to invalidate the whole model manually.
+        self.invalidate_tree_cache()
+        try:
+            super().move(target, pos)
+        finally:
+            self.invalidate_tree_cache()
 
         # Reload 'self' because lft/rgt may have changed
         self.refresh_from_db()

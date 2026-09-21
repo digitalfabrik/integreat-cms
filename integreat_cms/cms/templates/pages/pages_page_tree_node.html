@@ -95,9 +95,7 @@
                 </div>
             {% endif %}
         {% else %}
-            <div class="block py-1.5 px-2 text-gray-800">
-                {{ page_translation.get_status_display }}
-            </div>
+            <div class="block py-1.5 px-2 text-gray-800">{{ page_translation.get_status_display }}</div>
         {% endif %}
     </td>
     <td>
@@ -206,7 +204,7 @@
             {% endif %}
             {# djlint:on #}
         {% endif %}
-        {% if not is_archive and request.region.short_urls_enabled and request.user.expert_mode %}
+        {% if not is_archive and request.region.short_urls_enabled %}
             {% if page_translation %}
                 <a href="#"
                    data-copy-to-clipboard="{{ page_translation.short_url }}"

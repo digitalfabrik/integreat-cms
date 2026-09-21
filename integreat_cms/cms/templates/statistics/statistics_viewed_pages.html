@@ -15,65 +15,71 @@
     </div>
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    <div id="accesses-server-error" class="text-red-500 px-4 hidden">
-        <i icon-name="alert-triangle"></i> {% translate "A server error has occurred." %} {% translate "Please contact the administrator." %}
+    <div id="statistics-pages-empty-list"
+         class="flex justify-center items-center min-h-80">
+        {% translate "Choose one or more languages to view page based statistics." %}
     </div>
-    <div id="page-accesses-loading" class="px-4 text-center">
-        <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
-    </div>
-    <div>
-        <p class="pb-4">
-            {% blocktranslate %}All pages with the status <strong>"Published"</strong> are listed.{% endblocktranslate %}
-        </p>
-    </div>
-    <form method="post"
-          id="statistics-page-access"
-          class="table-listing"
-          data-page-accesses-url="{% url 'statistics_page_based_accesses' region_slug=request.region.slug %}">
-        {% csrf_token %}
-        <div class="overflow-x-auto">
-            <table data-delay-event-handlers
-                   data-activate-tree-drag-drop
-                   data-descendants-url="{% url 'get_page_tree_ajax' region_slug=request.region.slug language_slug=language.slug is_archive=False is_statistics=is_statistics %}"
-                   class="w-full rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
-                <thead>
-                    <tr class="border-b border-solid border-gray-200">
-                        {% include "pages/_generic_page_tree_header.html" %}
-                        <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Accesses" %} (<span id="date-range-start">{{ form.start_date.value|date:"d.m.Y" }}</span> - <span id="date-range-end">{{ form.end_date.value|date:"d.m.Y" }}</span>)
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for page in pages %}
-                        {% include "statistics/statistics_viewed_pages_node.html" with is_archive=is_archive %}
-                    {% endfor %}
-                </tbody>
-            </table>
+    <div id="statistics-pages-content-list" class="hidden">
+        <div id="accesses-server-error" class="text-red-500 px-4 hidden">
+            <i icon-name="alert-triangle"></i> {% translate "A server error has occurred." %} {% translate "Please contact the administrator." %}
         </div>
-        {% if pages %}
-            <div class="pt-2 px-2">
-                {% if not filter_form.is_enabled %}
-                    <a id="expand-all-pages" class="text-blue-500 !cursor-wait">
-                        {% spaceless %}
-                            <i icon-name="chevron-down"
-                               class="align-sub h-5 rounded-full group-hover:bg-blue-500 group-hover:text-white"></i>
-                            {% translate "Expand all" %}
-                        {% endspaceless %}
-                    </a>
-                    <span class="text-gray-600 font-default">|</span>
-                    <a id="collapse-all-pages" class="text-blue-500 !cursor-wait">
-                        {% spaceless %}
-                            <i icon-name="chevron-up"
-                               class="align-sub h-5 rounded-full group-hover:bg-blue-500 group-hover:text-white"></i>
-                            {% translate "Collapse all" %}
-                        {% endspaceless %}
-                    </a>  <span class="text-gray-600 font-default">|</span>
-                {% endif %}
-                <div class="inline">
-                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Pages selected" %}</span>
-                </div>
+        <div class="flex flex-row gap-4">
+            <p class="pb-4">
+                {% blocktranslate %}All pages with the status <strong>"Published"</strong> are listed.{% endblocktranslate %}
+            </p>
+            <div id="page-accesses-loading" class="px-4 text-center">
+                <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
             </div>
-        {% endif %}
-    </form>
+        </div>
+        <form method="post"
+              id="statistics-page-access"
+              class="table-listing"
+              data-page-accesses-url="{% url 'statistics_page_based_accesses' region_slug=request.region.slug %}">
+            {% csrf_token %}
+            <div class="overflow-x-auto">
+                <table data-delay-event-handlers
+                       data-activate-tree-drag-drop
+                       data-descendants-url="{% url 'get_page_tree_ajax' region_slug=request.region.slug language_slug=language.slug is_archive=False is_statistics=is_statistics %}"
+                       class="w-full rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
+                    <thead>
+                        <tr class="border-b border-solid border-gray-200">
+                            {% include "pages/_generic_page_tree_header.html" %}
+                            <th class="text-sm text-left uppercase py-3 px-2">
+                                {% translate "Accesses" %} (<span id="date-range-start">{{ form.start_date.value|date:"d.m.Y" }}</span> - <span id="date-range-end">{{ form.end_date.value|date:"d.m.Y" }}</span>)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for page in pages %}
+                            {% include "statistics/statistics_viewed_pages_node.html" with is_archive=is_archive %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if pages %}
+                <div class="pt-2 px-2">
+                    {% if not filter_form.is_enabled %}
+                        <a id="expand-all-pages" class="text-blue-500 !cursor-wait">
+                            {% spaceless %}
+                                <i icon-name="chevron-down"
+                                   class="align-sub h-5 rounded-full group-hover:bg-blue-500 group-hover:text-white"></i>
+                                {% translate "Expand all" %}
+                            {% endspaceless %}
+                        </a>
+                        <span class="text-gray-600 font-default">|</span>
+                        <a id="collapse-all-pages" class="text-blue-500 !cursor-wait">
+                            {% spaceless %}
+                                <i icon-name="chevron-up"
+                                   class="align-sub h-5 rounded-full group-hover:bg-blue-500 group-hover:text-white"></i>
+                                {% translate "Collapse all" %}
+                            {% endspaceless %}
+                        </a>  <span class="text-gray-600 font-default">|</span>
+                    {% endif %}
+                    <div class="inline">
+                        <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Pages selected" %}</span>
+                    </div>
+                </div>
+            {% endif %}
+        </form>
+    </div>
 {% endblock collapsible_box_content %}

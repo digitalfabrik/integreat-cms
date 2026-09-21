@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import {
     Chart,
     ChartData,
@@ -11,6 +13,8 @@ import {
     LegendItem,
 } from "chart.js";
 import { downloadFile, updatePageAccesses } from "./statistics-page-accesses";
+import { domTokenListToggle as domTokenListSet } from "../utils/html";
+import { filter, some } from "../utils/iterators";
 
 export type AjaxResponse = {
     exportLabels: Array<string>;
@@ -30,40 +34,44 @@ const toggleSingleChartItem = (item: LegendItem, chart: Chart): void => {
     chart.update();
 };
 
-const setSelectAllLanguagesEventListener = (chart: Chart, items: LegendItem[]): void => {
-    const allLanguagesSelected: HTMLInputElement = document.getElementById("select-all-languages") as HTMLInputElement;
-    allLanguagesSelected?.addEventListener("change", () => {
-        const checked = allLanguagesSelected.checked;
-        const languageCheckboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll("[data-chart-item]");
-        languageCheckboxes.forEach((checkbox: HTMLInputElement) => {
-            const editableCheckbox = checkbox;
-            if (checkbox.getAttribute("data-language-slug") && checked !== checkbox.checked) {
-                const dataChartItem = checkbox.getAttribute("data-chart-item");
-                const item = items.find((item) => item.text === dataChartItem);
-                toggleSingleChartItem(item, chart);
-                editableCheckbox.checked = checked;
-            }
-        });
-        updatePageAccesses();
-    });
-};
+const setLegendEventlisteners = (chart: Chart): void => {
+    const allLanguagesSelected = document.getElementById("select-all-languages") as HTMLInputElement;
+    const chartItemsByCheckbox = chart.options.plugins.legend.labels.generateLabels(chart).reduce((acc, chartItem) => {
+        const checkbox = document.querySelector(`[data-chart-item="${chartItem.text}"]`) as HTMLInputElement;
+        if (checkbox) {
+            acc.set(checkbox, chartItem);
+        }
+        return acc;
+    }, new Map<HTMLInputElement, LegendItem>());
+    const languageChartItemsByCheckboxes = new Map(
+        filter(chartItemsByCheckbox.entries(), ([checkbox, _]) => checkbox.getAttribute("data-language-slug") != null)
+    );
 
-const setLegendEventlisteners = (): void => {
-    // const chart = Chart.instances[0];
-    const chart = Chart.getChart("statistics");
-    const items = chart.options.plugins.legend.labels.generateLabels(chart);
-    const allLanguagesSelected: HTMLInputElement = document.getElementById("select-all-languages") as HTMLInputElement;
-    items.forEach((item) => {
-        const checkbox = document.querySelector(`[data-chart-item="${item.text}"]`);
+    for (const [checkbox, chartItem] of chartItemsByCheckbox.entries()) {
         checkbox?.addEventListener("change", () => {
-            toggleSingleChartItem(item, chart);
+            toggleSingleChartItem(chartItem, chart);
+
             if (checkbox.getAttribute("data-language-slug")) {
                 updatePageAccesses();
+                updatePageStatisticsDisplay(languageChartItemsByCheckboxes.keys());
                 allLanguagesSelected.checked = false;
             }
         });
+    }
+
+    allLanguagesSelected?.addEventListener("change", () => {
+        for (const [checkbox, chartItem] of languageChartItemsByCheckboxes.entries()) {
+            if (checkbox.checked !== allLanguagesSelected.checked) {
+                toggleSingleChartItem(chartItem, chart);
+                checkbox.checked = allLanguagesSelected.checked;
+            }
+        }
+        updatePageStatisticsDisplay(languageChartItemsByCheckboxes.keys());
+
+        updatePageAccesses();
     });
-    setSelectAllLanguagesEventListener(chart, items);
+
+    updatePageStatisticsDisplay(languageChartItemsByCheckboxes.keys());
 };
 
 const initSelectedChartData = (chart: Chart, data: AjaxResponse): void => {
@@ -174,6 +182,13 @@ const updateChart = async (): Promise<void> => {
     }
 };
 
+function updatePageStatisticsDisplay(checkBoxes: IterableIterator<HTMLInputElement>) {
+    const languageSelected = some(checkBoxes, (checkbox) => checkbox.checked);
+
+    domTokenListSet(document.getElementById("statistics-pages-empty-list").classList, languageSelected, "hidden");
+    domTokenListSet(document.getElementById("statistics-pages-content-list").classList, !languageSelected, "hidden");
+}
+
 /*
  * This function enables/disables the export button depending on whether an export format is selected or not.
  */
@@ -256,7 +271,7 @@ window.addEventListener("load", async () => {
 
     // Initialize chart
     /* eslint-disable-next-line no-new */
-    new Chart("statistics", {
+    const chart = new Chart("statistics", {
         type: "line",
         data: {
             datasets: [],
@@ -287,7 +302,7 @@ window.addEventListener("load", async () => {
     await updateChart();
 
     // Set event handlers for language legend
-    setLegendEventlisteners();
+    setLegendEventlisteners(chart);
 
     // Initialize export button
     toggleExportButton();

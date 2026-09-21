@@ -58,23 +58,23 @@
                             <div class="border-b-2 border-white">
                                 {% if other_language == language %}
                                     <div class="py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t text-blue-500 cursor-default">
-                                    {% else %}
-                                        <a class="block py-[calc(0.75rem+2px)] px-4 bg-water-500 border-l border-t border-r border-blue-500 rounded-t text-black hover:bg-white hover:text-blue-500"
-                                           href="{% url 'edit_push_notification' region_slug=request.region.slug language_slug=other_language.slug push_notification_id=push_notification_form.instance.id %}">
-                                        {% endif %}
-                                        <span class="flex-grow language-name">{{ other_language.translated_name }}</span>
-                                        <span class="flex-end w-8 fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
-                                        {% if other_language.secondary_country_code %}
-                                            <span class="fp ml-1 w-8 fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                        {% endif %}
-                                        {% if other_language != language %}
+                                {% else %}
+                                    <a class="block py-[calc(0.75rem+2px)] px-4 bg-water-500 border-l border-t border-r border-blue-500 rounded-t text-black hover:bg-white hover:text-blue-500"
+                                       href="{% url 'edit_push_notification' region_slug=request.region.slug language_slug=other_language.slug push_notification_id=push_notification_form.instance.id %}">
+                                {% endif %}
+                                    <span class="flex-grow language-name">{{ other_language.translated_name }}</span>
+                                    <span class="flex-end w-8 fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                    {% if other_language.secondary_country_code %}
+                                        <span class="fp ml-1 w-8 fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                    {% endif %}
+                                    {% if other_language != language %}
                                         </a>
                                     {% else %}
-                                    </div>
-                                {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
                 {% endfor %}
                 {% if languages|length > 4 %}
                     <li class="z-10 ml-auto">
