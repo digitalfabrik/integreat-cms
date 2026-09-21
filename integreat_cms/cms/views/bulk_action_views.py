@@ -31,6 +31,7 @@ from integreat_cms.cms.models.push_notifications.push_notification import (
     PushNotification,
 )
 
+from ...core.utils.machine_translation_celery_task import queue_translations
 from ..constants import status
 from ..models import Page, POI
 from ..utils.stringify_list import iter_to_string
@@ -220,8 +221,15 @@ class BulkMachineTranslationView(BulkActionView):
             language_node.language,
             to_translate,
         )
-        api_client = language_node.mt_provider.api_client(request, self.form)
-        api_client.translate_queryset(to_translate, language_node.slug)
+
+        queue_translations(
+            request=request,
+            user_id=request.user.id,
+            region_id=request.region.id,
+            content_type=self.model._meta.model_name,
+            object_ids=[obj.id for obj in to_translate],
+            language_slugs=[language_node.slug],
+        )
 
         # Let the base view handle the redirect
         return super().post(request, *args, **kwargs)

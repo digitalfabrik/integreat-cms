@@ -11,6 +11,7 @@ if TYPE_CHECKING:
 
     from ...models import Page
 
+from ....core.utils.machine_translation_celery_task import get_mt_task_ids
 from ...constants import status, translation_status
 from ..custom_filter_form import CustomFilterForm
 
@@ -127,10 +128,15 @@ class PageFilterForm(CustomFilterForm):
         :return: The filtered page list
         """
         selected_status = self.cleaned_data["translation_status"]
+        # Batch-resolve the machine translation locks for all pages at once,
+        # instead of each page doing its own cache round trip via `get_translation_state()`.
+        mt_task_ids = get_mt_task_ids(
+            "page", [page.id for page in pages], [language_slug]
+        )
         # Buffer variable because the pages list should not be modified during iteration
         filtered_pages = []
         for page in pages:
-            _, translation_state = page.translation_states.get(language_slug)
+            translation_state = page.get_translation_state(language_slug, mt_task_ids)
             if translation_state in selected_status:
                 filtered_pages.append(page)
         return filtered_pages

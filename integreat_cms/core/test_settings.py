@@ -56,6 +56,11 @@ if "cacheops" in INSTALLED_APPS:
 #: reachable, redis-py's connection retries add minutes of backoff sleeps to
 #: every tree operation. This flag makes all cacheops entry points no-ops.
 CACHEOPS_ENABLED = False
+#: Let celery tasks run synchronously, propagating their errors to the caller
+#: Set directly here (rather than only via a pytest fixture) so it also
+#: applies to bare management commands, e.g. ``makemigrations --check`` in CI.
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
 #: Disable linkcheck listeners during testing
 LINKCHECK_DISABLE_LISTENERS = True
 # Disable background tasks during testing
