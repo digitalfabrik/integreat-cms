@@ -365,7 +365,7 @@ function cleanup_docker_container {
 }
 
 function ensure_webpack_bundle_exists {
-    local stats_file="${PACKAGE_DIR}/webpack-stats.json"
+    local stats_file="${PACKAGE_DIR}/static/shared/webpack-stats.json"
     # Rebuild when the bundle is missing, or when a previous build failed and left
     # an error-status stats file behind. Without the latter check a single failed
     # build would be reused forever (django-webpack-loader re-raises the recorded
