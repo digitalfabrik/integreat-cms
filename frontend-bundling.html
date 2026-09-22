@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-09-22T08:09:14+00:00" />
+    <meta property="article:modified_time" content="2026-09-22T11:32:12+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Frontend Bundling (Webpack) &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -1734,6 +1734,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.pdf.html#module-tests.pdf.test_pdf_export">Test PDF Export</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export"><code class="docutils literal notranslate"><span class="pre">test_pdf_export()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export_invalid"><code class="docutils literal notranslate"><span class="pre">test_pdf_export_invalid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export_structure"><code class="docutils literal notranslate"><span class="pre">test_pdf_export_structure()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2376,7 +2377,16 @@ Any logic that needs to be shared between a feature module and other code belong
 <li><p>Amharic alphabet: <code class="docutils literal notranslate"><span class="pre">Noto</span> <span class="pre">Sans</span> <span class="pre">Ethiopic</span></code></p></li>
 <li><p>Georgian alphabet: <code class="docutils literal notranslate"><span class="pre">Noto</span> <span class="pre">Sans</span> <span class="pre">Georgian</span></code></p></li>
 </ul>
-<p>Unfortunately, xhtml2pdf does not support <code class="docutils literal notranslate"><span class="pre">Lateef</span></code> (yet), so at the moment we have to rely on <code class="docutils literal notranslate"><span class="pre">DejaVu</span> <span class="pre">Sans</span></code> as fallback for the PDF rendering of right-to-left alphabets.</p>
+<p>The PDF export uses the same fonts, which are defined in the separate <code class="docutils literal notranslate"><span class="pre">*-pdf.css</span></code> files:</p>
+<ul class="simple">
+<li><p>Headings and table of contents of latin alphabets: <code class="docutils literal notranslate"><span class="pre">Raleway</span></code></p></li>
+<li><p>Latin alphabets: <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Sans</span></code></p></li>
+<li><p>Right-to-left alphabets: <code class="docutils literal notranslate"><span class="pre">Lateef</span></code></p></li>
+<li><p>Chinese alphabet: <code class="docutils literal notranslate"><span class="pre">Noto</span> <span class="pre">Sans</span> <span class="pre">SC</span></code></p></li>
+<li><p>Amharic alphabet: <code class="docutils literal notranslate"><span class="pre">Noto</span> <span class="pre">Sans</span> <span class="pre">Ethiopic</span></code></p></li>
+<li><p>Georgian alphabet: <code class="docutils literal notranslate"><span class="pre">Noto</span> <span class="pre">Sans</span> <span class="pre">Georgian</span></code></p></li>
+<li><p>Fallback for latin and right-to-left alphabets: <code class="docutils literal notranslate"><span class="pre">DejaVu</span> <span class="pre">Sans</span></code></p></li>
+</ul>
 </section>
 </section>
 

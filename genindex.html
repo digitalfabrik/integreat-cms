@@ -1730,6 +1730,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.pdf.html#module-tests.pdf.test_pdf_export">Test PDF Export</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export"><code class="docutils literal notranslate"><span class="pre">test_pdf_export()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export_invalid"><code class="docutils literal notranslate"><span class="pre">test_pdf_export_invalid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export_structure"><code class="docutils literal notranslate"><span class="pre">test_pdf_export_structure()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2778,6 +2779,8 @@
         <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.external_calendar_utils.ImportResult.__init__">(integreat_cms.cms.utils.external_calendar_utils.ImportResult method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.external_calendar_utils.RecurrenceRuleData.__init__">(integreat_cms.cms.utils.external_calendar_utils.RecurrenceRuleData method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher.__init__">(integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.repair_tree.MPTTFixer.__init__">(integreat_cms.cms.utils.repair_tree.MPTTFixer method)</a>
 </li>
@@ -3857,6 +3860,8 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.place_categories.html#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.add_fields">add_fields() (integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher.add_handler">add_handler() (integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.mirrored_page_field_widget.MirroredPageFieldWidget.add_id_index">add_id_index (integreat_cms.cms.forms.pages.mirrored_page_field_widget.MirroredPageFieldWidget attribute)</a>
 
@@ -6848,6 +6853,8 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.utils.html#integreat_cms.cms.views.utils.machine_translations.build_json_for_machine_translation">build_json_for_machine_translation() (in module integreat_cms.cms.views.utils.machine_translations)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.build_pdf_filename">build_pdf_filename() (in module integreat_cms.cms.utils.pdf_utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_permission_actions.AbstractPagePermission.build_revoke_message">build_revoke_message() (integreat_cms.cms.views.pages.page_permission_actions.AbstractPagePermission method)</a>
 
       <ul>
@@ -8007,6 +8014,8 @@
       <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.client">client (integreat_cms.core.management.commands.firebase_data_backup.Command property)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.region_status.CLONING_ERROR">CLONING_ERROR (in module integreat_cms.cms.constants.region_status)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher.close">close() (integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.roles.CMS_TEAM">CMS_TEAM (in module integreat_cms.cms.constants.roles)</a>
 </li>
@@ -10363,6 +10372,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_permission_actions.MessageLevel.ERROR">ERROR (integreat_cms.cms.views.pages.page_permission_actions.MessageLevel attribute)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher.error">error() (integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher method)</a>
+</li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.error_json_function">error_json_function() (tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.passwordless_authentication_form.PasswordlessAuthenticationForm.error_messages">error_messages (integreat_cms.cms.forms.users.passwordless_authentication_form.PasswordlessAuthenticationForm attribute)</a>
@@ -11329,8 +11340,12 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource">FeedbackResource (class in integreat_cms.cms.views.feedback.feedback_resource)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch">fetch() (integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher.fetch">fetch() (integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch">(integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_data_client.FirebaseDataClient.fetch_notification_statistics">fetch_notification_statistics() (integreat_cms.firebase_api.firebase_data_client.FirebaseDataClient method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.statistics.html#integreat_cms.cms.views.statistics.statistics_actions.fetch_page_accesses">fetch_page_accesses() (in module integreat_cms.cms.views.statistics.statistics_actions)</a>
@@ -23877,8 +23892,6 @@
         <li><a href="ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap.limit">(integreat_cms.sitemap.sitemaps.WebappSitemap attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.link_callback">link_callback() (in module integreat_cms.cms.utils.pdf_utils)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.link_title">link_title (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
 
       <ul>
@@ -26856,6 +26869,8 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.only_weekdays">only_weekdays (integreat_cms.cms.models.events.event.Event attribute)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher.open">open() (integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.places.html#integreat_cms.cms.models.places.place.Place.opening_hours">opening_hours (integreat_cms.cms.models.places.place.Place attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.imprint.html#integreat_cms.cms.views.imprint.open_source_licenses_view.OpenSourceLicensesView">OpenSourceLicensesView (class in integreat_cms.cms.views.imprint.open_source_licenses_view)</a>
@@ -28195,6 +28210,8 @@
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.pdf_filters.pdf_truncate_links">pdf_truncate_links() (in module integreat_cms.cms.templatetags.pdf_filters)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PDF_URL">PDF_URL (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.PdfUrlFetcher">PdfUrlFetcher (class in integreat_cms.cms.utils.pdf_utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE">PER_PAGE (in module integreat_cms.core.settings)</a>
 </li>
@@ -31260,6 +31277,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.partial_page_tree_view.render_partial_page_tree_views">render_partial_page_tree_views() (in module integreat_cms.cms.views.pages.partial_page_tree_view)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.render_pdf_html">render_pdf_html() (in module integreat_cms.cms.utils.pdf_utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.place_filters.render_place_address">render_place_address() (in module integreat_cms.cms.templatetags.place_filters)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.social_media_utils.render_social_media_headers">render_social_media_headers() (in module integreat_cms.cms.utils.social_media_utils)</a>
@@ -31690,6 +31709,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.PageQuerySet.resolve_expression">(integreat_cms.cms.models.pages.page.PageQuerySet method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.resolve_pdf_uri">resolve_pdf_uri() (in module integreat_cms.cms.utils.pdf_utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#integreat_cms.cms.views.analytics.app_size_view.AppSizeView.response_class">response_class (integreat_cms.cms.views.analytics.app_size_view.AppSizeView attribute)</a>
 
       <ul>
@@ -35054,10 +35075,10 @@
 </li>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_check_internal_invalid">test_check_internal_invalid() (in module tests.cms.utils.test_internal_link_checker)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_check_internal_skipped">test_check_internal_skipped() (in module tests.cms.utils.test_internal_link_checker)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_check_internal_valid">test_check_internal_valid() (in module tests.cms.utils.test_internal_link_checker)</a>
 </li>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_content_utils.test_clean_content">test_clean_content() (in module tests.cms.utils.test_content_utils)</a>
@@ -35315,6 +35336,8 @@
       <li><a href="ref-ext/tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export">test_pdf_export() (in module tests.pdf.test_pdf_export)</a>
 </li>
       <li><a href="ref-ext/tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export_invalid">test_pdf_export_invalid() (in module tests.pdf.test_pdf_export)</a>
+</li>
+      <li><a href="ref-ext/tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export_structure">test_pdf_export_structure() (in module tests.pdf.test_pdf_export)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_region_settings.test_post_accepts_budget_outside_the_predefined_sizes">test_post_accepts_budget_outside_the_predefined_sizes() (in module tests.api.test_region_settings)</a>
 </li>
@@ -38273,6 +38296,8 @@
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.auth.WPBCryptPasswordHasher">WPBCryptPasswordHasher (class in integreat_cms.cms.auth)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.region_api_settings.WRITABLE_FIELDS">WRITABLE_FIELDS (in module integreat_cms.cms.constants.region_api_settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.write_pdf">write_pdf() (in module integreat_cms.cms.utils.pdf_utils)</a>
 </li>
       <li><a href="ref-ext/tests.html#tests.constants.WRITE_ROLES">WRITE_ROLES (in module tests.constants)</a>
 </li>
