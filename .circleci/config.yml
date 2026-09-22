@@ -2,7 +2,8 @@ version: 2.1
 
 orbs:
   shellcheck: circleci/shellcheck@3.2.0
-  qlty: qltysh/qlty-orb@0.0.10
+  qlty: qltysh/qlty-orb@0.1.2
+
 commands:
   install-uv:
     description: Install a pinned version of the uv package manager
@@ -12,6 +13,20 @@ commands:
           command: |
             curl -LsSf https://astral.sh/uv/0.12.13/install.sh | sh
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
+  docker_build_images:
+    description: Build Docker images and cache them to the Github Container registry
+    steps:
+      - run:
+          name: Login to Github Continer registry
+          command: echo "${GITHUB_TOKEN}" | docker login ghcr.io -u DigitalfabrikCI --password-stdin
+      - run:
+          name: Build test images and cache to Github Container registry
+          command: |
+            docker buildx build -f Dockerfile.dev \
+            --cache-from type=registry,ref=ghcr.io/digitalfabrik/integreat-cms:buildcache \
+            --cache-to type=registry,ref=ghcr.io/digitalfabrik/integreat-cms:buildcache,mode=max \
+            .
+
 jobs:
   uv-install:
     docker:
@@ -229,70 +244,49 @@ jobs:
             - integreat_cms/static/dist
             - integreat_cms/webpack-stats.json
   check-migrations:
-    docker:
-      # Keep these images in sync with docker-compose.test.yml and
-      # tools/docker/Dockerfile.test, which mirror this job locally
-      - image: cimg/python:3.13
-      - image: cimg/postgres:17.10
-        environment:
-          POSTGRES_USER: integreat
-          POSTGRES_DB: integreat
-          POSTGRES_PASSWORD: password
-    resource_class: small
+    machine:
+      # https://circleci.com/developer/images?imageType=machine
+      image: ubuntu-2604:current
+      # https://circleci.com/docs/reference/configuration-reference/#linuxvm-execution-environment
+      resource_class: medium
     steps:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          name: Install requirements
-          command: sudo apt-get update && sudo apt-get install libcairo2
-      - run:
-          name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - docker_build_images
       - run:
           name: Check for missing migrations
-          command: integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
+          command: |
+            docker compose -f docker-compose.test.yaml \
+            run --quiet-build --quiet-build cms \
+            uv run integreat_cms/integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
   test:
-    docker:
-      # Keep these images in sync with docker-compose.test.yml and
-      # tools/docker/Dockerfile.test, which mirror this job locally
-      - image: cimg/python:3.13
-      - image: cimg/postgres:17.10
-        environment:
-          POSTGRES_USER: integreat
-          POSTGRES_DB: integreat
-          POSTGRES_PASSWORD: password
-    resource_class: large
-    parallelism: 8
+    machine:
+      # https://circleci.com/developer/images?imageType=machine
+      image: ubuntu-2604:current
+      # https://circleci.com/docs/reference/configuration-reference/#linuxvm-execution-environment
+      resource_class: large
     steps:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          name: Install requirements
-          command: sudo apt-get update && sudo apt-get install libcairo2
-      - run:
-          name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - docker_build_images
       - run:
           name: Run tests
-          # pytest-django creates and migrates its own test database, so no
-          # migrate step is needed. Each container additionally runs
-          # pytest-xdist with one worker per vCPU (resource_class large = 4),
-          # mirroring the local test setup; testmon is disabled for the same
-          # reason as in tools/test.sh.
           command: |
-            circleci tests glob "tests/**/test_*.py" "tests/**/*_test.py" \
-              | circleci tests split --split-by=timings --timings-type=filename \
-              | xargs pytest --numprocesses=auto -p no:testmon --disable-warnings --cov=integreat_cms --cov-report=xml:coverage.xml --cov-fail-under=0 --junitxml=test-results/junit.xml -o junit_family=xunit1 --ds=integreat_cms.core.circleci_settings
+            docker compose -f docker-compose.test.yaml \
+            run --quiet-build cms \
+            uv run python tools/test.py ci
       - store_test_results:
-          path: test-results
+          # Only the JUnit report lives here; coverage.xml is a Cobertura file
+          # and would fail JUnit parsing ("invalid top level element: coverage").
+          path: test-results/junit
       - store_artifacts:
           path: test-results
       - persist_to_workspace:
           root: .
           paths:
-            - coverage.xml
+            - test-results/coverage.xml
   upload-test-coverage:
     docker:
       - image: cimg/base:stable
@@ -301,7 +295,7 @@ jobs:
       - attach_workspace:
           at: .
       - qlty/coverage_publish:
-          files: coverage.xml
+          files: test-results/coverage.xml
       - run:
           name: Copy CMS log
           command: cp integreat_cms/integreat-cms.log integreat-cms.log
@@ -391,7 +385,8 @@ jobs:
       - attach_workspace:
           at: .
       - add_ssh_keys:
-          fingerprints: aa:6c:35:24:8a:80:d8:6a:f3:d7:b1:b3:49:42:a2:b3
+          fingerprints:
+            - "aa:6c:35:24:8a:80:d8:6a:f3:d7:b1:b3:49:42:a2:b3"
       - run:
           name: Add GitHub's Public SSH Key to known hosts
           command: echo 'github.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCj7ndNxQowgcQnjshcLrqPEiiphnt+VTTvDP6mHBL9j1aNUkY4Ue1gvwnGLVlOhGeYrnZaMgRK6+PKCUXaDbC7qtbW8gIkhL7aGCsOr/C56SJMy/BCZfxd1nWzAOxSDPgVsmerOBYfNqltV9/hWCqBywINIR+5dIg6JTJ72pcEpEjcYgXkE2YEFXV1JHnsKgbLWNlhScqb2UmyRkQyytRLtL+38TGxkxCflmO+5Z8CSSNY7GidjMIZ7Q4zMjA2n1nGrlTDkzwDCsw+wqFPGQA179cnfGWOWRVruj16z6XyvxvjJwbz0wQZ75XK5tKSb7FNyeIEs4TT4jk+S4dhPeAUC5y+bDYirYgM4GC7uEnztnZyaVWQ7B381AK4Qdrwt51ZqExKbQpTUNn+EjqoTwvqNj4kqx5QUCI0ThS/YkOxJCXmPUWZbhjpCg56i+2aB6CmK2JGhn57K5mj0MNdBXA4/WnwH6XoPWJzK5Nyu2zB3nAZp+S5hpQs+p1vN1/wsjk=' >> ~/.ssh/known_hosts
@@ -707,14 +702,8 @@ workflows:
       - webpack:
           requires:
             - npm-install
-      - check-migrations:
-          requires:
-            - uv-install
-      - test:
-          requires:
-            - uv-install
-            - webpack
-            - compile-translations
+      - check-migrations
+      - test
       - upload-test-coverage:
           context: codeclimate
           requires:

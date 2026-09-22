@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import os
 import sys
+from pathlib import Path
 from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
@@ -35,8 +36,8 @@ if TYPE_CHECKING:
 # CUSTOM SETTINGS #
 ###################
 
-#: Build paths inside the project like this: ``os.path.join(BASE_DIR, ...)``
-BASE_DIR: Final[str] = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#: Project package directory (/integreat_cms).
+BASE_DIR: Final[Path] = Path(__file__).resolve().parent.parent
 
 #: The URL to our webapp. This is used for urls in the ``sitemap.xml``
 #: (see :mod:`~integreat_cms.sitemap` for more information).
@@ -208,10 +209,10 @@ DEFAULT_REQUEST_TIMEOUT: Final[int] = env_int(
 )
 
 #: Where release notes are stored
-RELEASE_NOTES_DIRS: Final[str] = os.path.join(BASE_DIR, "release_notes")
+RELEASE_NOTES_DIRS: Final[str] = str(BASE_DIR / "release_notes")
 
 #: Where SBoM files are stored
-SBOM_DIR: Final[str] = os.path.join(BASE_DIR, "_manifest/spdx_2.2/")
+SBOM_DIR: Final[str] = str(BASE_DIR / "_manifest/spdx_2.2/")
 SBOM_FILE_NAME: Final[str] = "manifest.spdx.json"
 
 #: Custom path for additional local translation files
@@ -514,7 +515,7 @@ ROOT_URLCONF: Final[str] = "integreat_cms.core.urls"
 TEMPLATES: Final[list[dict[str, str | list | bool | dict[str, list[str] | bool]]]] = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "api/v3/templates")],
+        "DIRS": [str(BASE_DIR / "api/v3/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -685,7 +686,7 @@ DEPS_LOG_LEVEL: Final[str] = os.environ.get(
 #: The file path of the logfile. Needs to be writable by the application.
 LOGFILE: Final[str] = os.environ.get(
     "INTEGREAT_CMS_LOGFILE",
-    os.path.join(BASE_DIR, "integreat-cms.log"),
+    str(BASE_DIR / "integreat-cms.log"),
 )
 
 #: A custom message store for logging (see :setting:`django:MESSAGE_STORAGE`)
@@ -970,7 +971,7 @@ LANGUAGES: Final[list[tuple[str, Promise]]] = [
 
 #: A list of directories where Django looks for translation files
 #: (see :setting:`django:LOCALE_PATHS` and :doc:`django:topics/i18n/index`)
-LOCALE_PATHS: Final[list[str]] = [os.path.join(BASE_DIR, "locale"), CUSTOM_LOCALE_PATH]
+LOCALE_PATHS: Final[list[str]] = [str(BASE_DIR / "locale"), CUSTOM_LOCALE_PATH]
 
 #: A string representing the language slug for this installation
 #: (see :setting:`django:LANGUAGE_CODE` and :doc:`django:topics/i18n/index`)
@@ -1081,7 +1082,7 @@ GOOGLE_PARENT_PARAM: Final[str] = (
 #: This setting defines the additional locations the :mod:`django.contrib.staticfiles` app will traverse to collect
 #: static files for deployment or to serve them during development (see :setting:`django:STATICFILES_DIRS` and
 #: :doc:`Managing static files <django:howto/static-files/index>`).
-STATICFILES_DIRS: Final[list[str]] = [os.path.join(BASE_DIR, "static/dist")]
+STATICFILES_DIRS: Final[list[str]] = [str(BASE_DIR / "static/dist")]
 
 #: The absolute path to the output directory where :mod:`django.contrib.staticfiles` will put static files for
 #: deployment (see :setting:`django:STATIC_ROOT` and :doc:`Managing static files <django:howto/static-files/index>`)
@@ -1110,7 +1111,7 @@ MEDIA_URL: Final[str] = "/media/"
 #: Absolute filesystem path to the directory that will hold user-uploaded files (see :setting:`django:MEDIA_ROOT`)
 MEDIA_ROOT: Final[str] = os.environ.get(
     "INTEGREAT_CMS_MEDIA_ROOT",
-    os.path.join(BASE_DIR, "media"),
+    str(BASE_DIR / "media"),
 )
 
 #: The maximum size of media images in pixels (larger images will automatically be resized)
@@ -1256,7 +1257,7 @@ INTERNAL_URLS: Final[list[str]] = (
 WEBPACK_LOADER: Final[dict[str, dict[str, str]]] = {
     "DEFAULT": {
         "BUNDLE_DIR_NAME": "",
-        "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
+        "STATS_FILE": str(BASE_DIR / ".." / "shared" / "webpack-stats.json"),
     },
 }
 
@@ -1291,7 +1292,7 @@ DEBUG_TOOLBAR_PANELS: Final[list[str]] = [
 #: The directory where PDF files are stored
 PDF_ROOT: Final[str] = os.environ.get(
     "INTEGREAT_CMS_PDF_ROOT",
-    os.path.join(BASE_DIR, "pdf"),
+    str(BASE_DIR / "pdf"),
 )
 
 #: The URL path where PDF files are served for download
@@ -1333,7 +1334,7 @@ XLIFF_LEGACY_FIELDS: Final[dict[str, str]] = {"body": "content"}
 #: The directory where xliff files are stored
 XLIFF_ROOT: Final[str] = os.environ.get(
     "INTEGREAT_CMS_XLIFF_ROOT",
-    os.path.join(BASE_DIR, "xliff"),
+    str(BASE_DIR / "xliff"),
 )
 
 #: The directory to which xliff files should be uploaded (this should not be reachable by the webserver)

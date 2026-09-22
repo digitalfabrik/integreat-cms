@@ -158,13 +158,6 @@ push = false
     'release = "{version}"',
 ]
 
-[tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "integreat_cms.core.test_settings"
-markers = [
-    "unit: Pure logic tests with no database or external service dependencies",
-    "slow: Tests that take a long time or run many parametrized variants",
-]
-
 [tool.coverage.report]
 fail_under = 50
 exclude_also = [
@@ -277,6 +270,8 @@ select = [
   # "TID",  # flake8-tidy-imports
 ]
 ignore = [
+  "ERA001", # Found commented-out code
+  "FIX002", # Line contains TODO, consider resolving the issue
   "INP001",
   "N806",
   "N818",
@@ -288,6 +283,10 @@ ignore = [
   "RUF003",
   "RUF012",
   "E501", # line too long - only applicable to strings and comments, everything else is auto-formatted by ruff
+  "TD002", # Missing author in TODO
+  "TD003", # Missing issue link for this TODO
+  "TD004", # Missing colon in TODO
+  "TD005", # Missing issue description after `TODO`
   "TRY003",
   "S308", # mark_safe may expose cross-site scripting vulnerabilities
   "COM812", # missing trailing comma - recommended to disable when using ruff formatter
