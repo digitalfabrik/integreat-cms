@@ -17,6 +17,11 @@ USER root
 RUN apt-get update \
     && apt-get install -y --no-install-recommends libcairo2 gettext \
     && rm -rf /var/lib/apt/lists/*
+# Replace the uv shipped by cimg with the same pinned version as in
+# .circleci/config.yml (the installer there writes to the same path). It
+# installs the locked dependencies into the venv volume, see
+# tools/docker/test_entrypoint.sh.
+COPY --from=ghcr.io/astral-sh/uv:0.12.13 /uv /home/circleci/.local/bin/uv
 # The container runs as the invoking host user (see the `user:` key in
 # docker-compose.test.yml), whose uid is not known at build time and is neither
 # `circleci` nor a member of its group. cimg (Ubuntu-based) creates the home

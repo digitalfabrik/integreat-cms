@@ -59,6 +59,25 @@ Integreat CMS Package
 
                pip3 install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple integreat-cms
 
+       .. _prod-server-pinned-dependencies:
+
+       .. Note::
+
+           The command above resolves all dependencies to their newest compatible versions. To install
+           exactly the versions this release was tested with, install the package without its dependencies
+           first and then the lock file it bundles (see :ref:`bundled-lock-files`)::
+
+               # Install the Integreat CMS itself without resolving its dependencies
+               pip3 install --no-deps integreat-cms
+               # Install the locked dependencies from the file bundled into the package, verifying their hashes
+               pip3 install --no-deps --require-hashes -r "$(python3 -c 'import integreat_cms, pathlib; print(pathlib.Path(integreat_cms.__file__).parent / "requirements.lock.txt")')"
+
+           Both ``--no-deps`` flags are required: without them, pip resolves the dependencies on top of
+           the lock file, which defeats the point of locking. Run both commands on every upgrade and only
+           restart the application after the second one. With pip 26.1 or later, ``pylock.toml`` can be
+           used instead of ``requirements.lock.txt``. To check whether an installation is in sync with its
+           lock file, run the second command with ``--dry-run``, which lists the packages it would change.
+
     6. Create a symlink to the :github-source:`integreat_cms/core/wsgi.py` file to facilitate the Apache configuration::
 
         ln -s $(python -c "from integreat_cms.core import wsgi; print(wsgi.__file__)") .
