@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 from linkcheck.models import Url
 
+from integreat_cms.cms.constants.linkcheck_errors import InternalLinkError
 from integreat_cms.cms.utils.internal_link_checker import check_internal
 
 VALID_INTERNAL_LINKS: list[str] = [
@@ -32,31 +33,33 @@ VALID_INTERNAL_LINKS: list[str] = [
     "https://integreat.app/nurnberg/de/locations/test-ort",
 ]
 
-INVALID_INTERNAL_LINKS: list[str] = [
-    "https://integreat.app/non-existing",
-    "https://integreat.app/non-existing/de",
-    "https://integreat.app/augsburg/non-existing",
-    "https://integreat.app/augsburg/de/non-existing",
-    "https://integreat.app/augsburg/de/disclaimer/non-existing",
-    "https://integreat.app/augsburg/de/events/non-existing/",
-    "https://integreat.app/augsburg/de/locations/non-existing",
-    "https://integreat.app/augsburg/de/locations/entwurf-ort",
-    "https://integreat.app/augsburg/ar/news/local/1",
-    "https://integreat.app/nurnberg/de/news",
-    "https://integreat.app/nurnberg/ar/news/local/1",
-    "https://integreat.app/nurnberg/de/news/local/2",
-    "https://integreat.app/nurnberg/de/news/tu-news",
-    "https://integreat.app/nurnberg/de/news/tu-news/999",
-    "https://integreat.app/augsburg/de/offers/ihk-praktikumsboerse",
-    "https://integreat.app/augsburg/de/offers/non-existing",
-    "https://integreat.app/nurnberg/de/offers/sprungbrett",
-    "https://integreat.app/augsburg/de/non-existing/non-existing",
-    "https://integreat.app/augsburg/de/beh%C3%B6rden-und-beratung/beh%C3%B6rden/archiviertes-amt",
-    "https://integreat.app/augsburg/de/beh%C3%B6rden-und-beratung/beh%C3%B6rden/archiviertes-amt/nicht-archivierte-details",
-    "https://integreat.app/augsburg/hidden/test-hidden-language",
-    "https://integreat.app/nurnberg/fa/events/test-veranstaltung",
-    "https://integreat.app/nurnberg/ar/locations/test-ort",
-]
+#: Maps each invalid internal link to the :class:`~integreat_cms.cms.constants.linkcheck_errors.InternalLinkError`
+#: that :func:`~integreat_cms.cms.utils.internal_link_checker.check_internal` is expected to store on the ``Url``.
+INVALID_INTERNAL_LINKS: dict[str, InternalLinkError] = {
+    "https://integreat.app/non-existing": InternalLinkError.REGION_OR_LANGUAGE_INVALID,
+    "https://integreat.app/non-existing/de": InternalLinkError.REGION_OR_LANGUAGE_INVALID,
+    "https://integreat.app/augsburg/non-existing": InternalLinkError.REGION_OR_LANGUAGE_INVALID,
+    "https://integreat.app/augsburg/de/non-existing": InternalLinkError.LINK_TARGET_NOT_FOUND,
+    "https://integreat.app/augsburg/de/disclaimer/non-existing": InternalLinkError.IMPRINT_MISSING,
+    "https://integreat.app/augsburg/de/events/non-existing/": InternalLinkError.LINK_TARGET_NOT_FOUND,
+    "https://integreat.app/augsburg/de/locations/non-existing": InternalLinkError.LINK_TARGET_NOT_FOUND,
+    "https://integreat.app/augsburg/de/locations/entwurf-ort": InternalLinkError.LINK_TARGET_NOT_PUBLIC,
+    "https://integreat.app/augsburg/ar/news/local/1": InternalLinkError.NEWS_ENTRY_MISSING,
+    "https://integreat.app/nurnberg/de/news": InternalLinkError.NEWS_SUBCATEGORY_MISSING,
+    "https://integreat.app/nurnberg/ar/news/local/1": InternalLinkError.NEWS_ENTRY_MISSING,
+    "https://integreat.app/nurnberg/de/news/local/2": InternalLinkError.NEWS_ENTRY_MISSING,
+    "https://integreat.app/nurnberg/de/news/tu-news": InternalLinkError.TU_NEWS_DISABLED,
+    "https://integreat.app/nurnberg/de/news/tu-news/999": InternalLinkError.TU_NEWS_DISABLED,
+    "https://integreat.app/augsburg/de/offers/ihk-praktikumsboerse": InternalLinkError.OFFERS_NOT_FOUND,
+    "https://integreat.app/augsburg/de/offers/non-existing": InternalLinkError.OFFERS_NOT_FOUND,
+    "https://integreat.app/nurnberg/de/offers/sprungbrett": InternalLinkError.OFFERS_NOT_FOUND,
+    "https://integreat.app/augsburg/de/non-existing/non-existing": InternalLinkError.LINK_TARGET_NOT_FOUND,
+    "https://integreat.app/augsburg/de/beh%C3%B6rden-und-beratung/beh%C3%B6rden/archiviertes-amt": InternalLinkError.LINK_TARGET_ARCHIVED,
+    "https://integreat.app/augsburg/de/beh%C3%B6rden-und-beratung/beh%C3%B6rden/archiviertes-amt/nicht-archivierte-details": InternalLinkError.LINK_TARGET_ARCHIVED,
+    "https://integreat.app/augsburg/hidden/test-hidden-language": InternalLinkError.REGION_OR_LANGUAGE_INVALID,
+    "https://integreat.app/nurnberg/fa/events/test-veranstaltung": InternalLinkError.LINK_TARGET_NOT_FOUND,
+    "https://integreat.app/nurnberg/ar/locations/test-ort": InternalLinkError.LINK_TARGET_NOT_FOUND,
+}
 
 SKIPPED_INTERNAL_LINKS: list[str] = [
     "https://google.com",
@@ -122,6 +125,9 @@ def test_check_internal_invalid(
     assert not check_internal(
         url,
     ), f"URL '{link}' is not correctly identified as invalid"
+    assert (
+        InternalLinkError[url.error_message] == INVALID_INTERNAL_LINKS[link]
+    ), f"URL '{link}' is not tagged with the expected error"
 
 
 @pytest.mark.django_db
