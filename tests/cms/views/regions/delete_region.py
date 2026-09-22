@@ -7,7 +7,7 @@ from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models.feedback.page_feedback import PageFeedback
-from integreat_cms.cms.models.feedback.poi_feedback import POIFeedback
+from integreat_cms.cms.models.feedback.place_feedback import PlaceFeedback
 from integreat_cms.cms.models.media.media_file import MediaFile
 from integreat_cms.cms.models.pages.page import Page
 from integreat_cms.cms.models.push_notifications.push_notification import (
@@ -23,7 +23,7 @@ from tests.constants import (
 
 CLONED_PAGE = 30
 NESTED_MEDIA_OBJECT_ID = 1
-POI_FEEDBACK_AUGSBURG_ID = 6
+PLACE_FEEDBACK_AUGSBURG_ID = 6
 PAGE_FEEDBACK_AUGSBURG_ID = 2
 
 
@@ -39,7 +39,7 @@ def test_delete_all_regions_is_successful(
 
     # We want to test regions can be deleted even if they have feedback and/or nested media object
     # See #2462 for details: IntegrityError when there are 2 feedback with different endpoint
-    assert POIFeedback.objects.filter(id=POI_FEEDBACK_AUGSBURG_ID).first()
+    assert PlaceFeedback.objects.filter(id=PLACE_FEEDBACK_AUGSBURG_ID).first()
     assert PageFeedback.objects.filter(id=PAGE_FEEDBACK_AUGSBURG_ID).first()
     # See 1749 for details: ProtectedError when a subfolder in a media library has contents
     nested_media_object = MediaFile.objects.filter(id=NESTED_MEDIA_OBJECT_ID).first()

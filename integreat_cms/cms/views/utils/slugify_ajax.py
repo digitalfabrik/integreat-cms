@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.utils.text import slugify
 
-from ...models import EventTranslation, PageTranslation, POITranslation
+from ...models import EventTranslation, PageTranslation, PlaceTranslation
 from ...utils.slug_utils import generate_unique_slug
 
 if TYPE_CHECKING:
@@ -22,26 +22,26 @@ def slugify_ajax(
     request: HttpRequest,
     region_slug: str,
     language_slug: str,
-    model_type: Literal["page", "event", "poi"],
+    model_type: Literal["page", "event", "place"],
 ) -> JsonResponse:
     """checks the current user input for title and generates unique slug for permalink
 
     :param request: The current request
     :param language_slug: language slug
-    :param model_type: The type of model to generate a unique slug for, one of `event|page|poi`
+    :param model_type: The type of model to generate a unique slug for, one of `event|page|place`
     :return: unique translation slug
     :raises ~django.core.exceptions.PermissionDenied: If the user does not have the permission to access this function
     """
     required_permission = {
         "event": "cms.change_event",
         "page": "cms.change_page",
-        "poi": "cms.change_poi",
+        "place": "cms.change_place",
     }[model_type]
 
     managers = {
         "event": EventTranslation,
         "page": PageTranslation,
-        "poi": POITranslation,
+        "place": PlaceTranslation,
     }
 
     json_data = json.loads(request.body)

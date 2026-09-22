@@ -25,11 +25,11 @@ def get_default_opening_hours() -> list[dict[str, Any]]:
 
 def format_object_translation(
     object_translation: AbstractContentTranslation,
-    typ: Literal["page", "event", "poi"],
+    typ: Literal["page", "event", "place"],
     target_language_slug: str,
 ) -> dict:
     """
-    Formats the [poi/event/page]-translation as json
+    Formats the [place/event/page]-translation as json
 
     :param object_translation: A translation object which has a title and a permalink
     :param typ: The type of this object

@@ -39,7 +39,7 @@ class Settings(TypedDict):
     """
 
     events_enabled: bool
-    locations_enabled: bool
+    places_enabled: bool
     contacts_enabled: bool
     external_news_enabled: bool
     integreat_chat_enabled: bool

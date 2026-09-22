@@ -37,7 +37,7 @@ class RegionUpdateView(CustomUpdateView):
         """
         # Populate self.object
         response = super().get(request, *args, **kwargs)
-        # Show warning when locations are enabled without bounding box
+        # Show warning when places are enabled without bounding box
         if self.object.status == region_status.IN_CLONING:
             messages.warning(
                 request, _("The cloning procedure for this region is not finished yet.")
@@ -49,11 +49,11 @@ class RegionUpdateView(CustomUpdateView):
                     "An error occurred during cloning of this region. Please contact your administrator."
                 ),
             )
-        if self.object.locations_enabled and not self.object.has_bounding_box:
+        if self.object.places_enabled and not self.object.has_bounding_box:
             messages.warning(
                 request,
                 _(
-                    "Locations are enabled but the bounding box coordinates are incomplete.",
+                    "Places are enabled but the bounding box coordinates are incomplete.",
                 ),
             )
         return response

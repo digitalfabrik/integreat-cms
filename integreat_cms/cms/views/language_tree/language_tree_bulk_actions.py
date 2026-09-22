@@ -19,7 +19,7 @@ from ...models import (
     EventTranslation,
     LanguageTreeNode,
     PageTranslation,
-    POITranslation,
+    PlaceTranslation,
 )
 from ..bulk_action_views import BulkUpdateBooleanFieldView
 
@@ -83,8 +83,8 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
         # Flush cache of content objects
         for page in self.request.region.pages.all():
             invalidate_obj(page)
-        for poi in self.request.region.pois.all():
-            invalidate_obj(poi)
+        for place in self.request.region.places.all():
+            invalidate_obj(place)
         for event in self.request.region.events.all():
             invalidate_obj(event)
 
@@ -134,7 +134,7 @@ class BulkActivateView(LanguageTreeBulkActionView):
         **kwargs: Any,
     ) -> HttpResponseRedirect:
         for language_tree_node in self.get_queryset():
-            models = [PageTranslation, EventTranslation, POITranslation]
+            models = [PageTranslation, EventTranslation, PlaceTranslation]
             for model in models:
                 filters = {
                     f"{model.foreign_field()}__region": request.region,

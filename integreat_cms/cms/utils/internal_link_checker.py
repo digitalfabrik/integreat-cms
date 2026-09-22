@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from django.db.models.fields.related import RelatedManager
     from linkcheck.models import Url
 
-    from ..models import Event, Language, Page, POI
+    from ..models import Event, Language, Page, Place
 
 logger = logging.getLogger(__name__)
 
@@ -175,7 +175,7 @@ def check_offer_link(url: Url, path_components: list[str], region: Region) -> bo
 
 
 def check_translation_link(
-    content_object: Event | (Page | POI),
+    content_object: Event | (Page | Place),
     url: Url,
     language: Language,
 ) -> bool:
@@ -223,7 +223,7 @@ def check_object_link(
     """
     Check whether the given content objects are valid
 
-    :param content_type: The content type (``Page``, ``Event`` or ``POI``)
+    :param content_type: The content type (``Page``, ``Event`` or ``Place``)
     :param manager: The object manager
     :param url: The internal URL to check
     :param path_components: Split up path components including slug of the translation
@@ -286,7 +286,7 @@ def check_object_link(
     return url.status
 
 
-def check_event_or_location(
+def check_event_or_place(
     content_type: str,
     manager: RelatedManager,
     url: Url,
@@ -295,10 +295,10 @@ def check_event_or_location(
     language: Language,
 ) -> bool:
     """
-    Check whether the event or location with that URL exists in the given region and language.
+    Check whether the event or place with that URL exists in the given region and language.
     Fallback translations are also checked when they are enabled in the specific region.
 
-    :param content_type: The content type (``Event`` or ``POI``)
+    :param content_type: The content type (``Event`` or ``Place``)
     :param manager: The object manager
     :param url: The internal URL to check
     :param path_components: The path components
@@ -417,7 +417,7 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
     if content_type == settings.IMPRINT_SLUG:
         return check_imprint(url, path_components, region, language)
     if content_type == "events":
-        return check_event_or_location(
+        return check_event_or_place(
             "Event",
             region.events,
             url,
@@ -426,9 +426,9 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
             language,
         )
     if content_type == "locations":
-        return check_event_or_location(
-            "POI",
-            region.pois,
+        return check_event_or_place(
+            "Place",
+            region.places,
             url,
             path_components,
             region,

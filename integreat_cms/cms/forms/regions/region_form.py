@@ -166,7 +166,7 @@ class RegionForm(CustomModelForm):
             "common_id",
             "slug",
             "events_enabled",
-            "locations_enabled",
+            "places_enabled",
             "contacts_enabled",
             "push_notifications_enabled",
             "term_explanations_enabled",

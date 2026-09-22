@@ -72,10 +72,10 @@ export const showConfirmationPopup = (event: Event, onSubmit?: (event: Event) =>
         button.getAttribute("data-confirmation-text"),
         onSubmit
     );
-    const referencedLocationTitle = button.getAttribute("data-confirmation-referenced-location-title");
-    document.getElementById("confirmation-referenced-location-title").textContent = referencedLocationTitle ?? "";
-    const referencedLocationSubject = button.getAttribute("data-confirmation-referenced-location-subject");
-    document.getElementById("confirmation-referenced-location-subject").textContent = referencedLocationSubject ?? "";
+    const referencedPlaceTitle = button.getAttribute("data-confirmation-referenced-place-title");
+    document.getElementById("confirmation-referenced-place-title").textContent = referencedPlaceTitle ?? "";
+    const referencedPlaceSubject = button.getAttribute("data-confirmation-referenced-place-subject");
+    document.getElementById("confirmation-referenced-place-subject").textContent = referencedPlaceSubject ?? "";
     const action = button.getAttribute("data-action");
     if (action) {
         const url = new URL(action, window.location.origin);

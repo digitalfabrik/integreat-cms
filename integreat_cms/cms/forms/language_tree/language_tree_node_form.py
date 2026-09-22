@@ -154,8 +154,8 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         # Flush cache of content objects
         for page in self.instance.region.pages.all():
             invalidate_obj(page)
-        for poi in self.instance.region.pois.all():
-            invalidate_obj(poi)
+        for place in self.instance.region.places.all():
+            invalidate_obj(place)
         for event in self.instance.region.events.all():
             invalidate_obj(event)
         if self.instance.region.imprint:

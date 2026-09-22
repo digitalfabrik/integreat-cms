@@ -14,7 +14,7 @@ from django.db.models import F, Q
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from ...models import POI, Region
+    from ...models import Place, Region
     from ...models.events.event import EventQuerySet
 
 from ...constants import (
@@ -82,7 +82,7 @@ class EventFilterForm(CustomFilterForm):
         required=False,
     )
 
-    poi_id = forms.IntegerField(widget=forms.HiddenInput, initial=-1, required=False)
+    place_id = forms.IntegerField(widget=forms.HiddenInput, initial=-1, required=False)
 
     search_query = forms.CharField(required=False)
 
@@ -126,18 +126,18 @@ class EventFilterForm(CustomFilterForm):
             events = events.filter_completed()
         return events
 
-    def filter_events_by_location(
+    def filter_events_by_place(
         self, events: EventQuerySet
-    ) -> tuple[EventQuerySet, POI]:
+    ) -> tuple[EventQuerySet, Place]:
         """
-        Filter events by location
+        Filter events by place
 
         :param events: the unfiltered events
         :param events: the filtered events
         """
-        if poi := self.region.pois.filter(id=self.cleaned_data["poi_id"]).first():
-            events = events.filter(location=poi)
-        return events, poi
+        if place := self.region.places.filter(id=self.cleaned_data["place_id"]).first():
+            events = events.filter(place=place)
+        return events, place
 
     def filter_events_by_all_day(self, events: EventQuerySet) -> EventQuerySet:
         """
@@ -252,14 +252,14 @@ class EventFilterForm(CustomFilterForm):
         events: EventQuerySet,
         region: Region,
         language_slug: str,
-    ) -> tuple[EventQuerySet, POI, str]:
+    ) -> tuple[EventQuerySet, Place, str]:
         """
         Filter the events according to the given filter data
 
         :param events: The list of events
         :param region: The current region
         :param language_slug: The slug of the current language
-        :return: The filtered list of events, the poi used for filtering, and the search query
+        :return: The filtered list of events, the place used for filtering, and the search query
         """
         self.region = region
         self.language_slug = language_slug
@@ -268,11 +268,11 @@ class EventFilterForm(CustomFilterForm):
             events = events.filter_upcoming()
 
         events = self.filter_events_by_time_range(events)
-        events, poi = self.filter_events_by_location(events)
+        events, place = self.filter_events_by_place(events)
         events = self.filter_events_by_all_day(events)
         events = self.filter_events_by_recurrence(events)
         events = self.filter_events_by_imported_event(events)
         events = self.filter_events_by_status(events, self.language_slug)
         events, query = self.search_events(events)
 
-        return events, poi, query
+        return events, place, query

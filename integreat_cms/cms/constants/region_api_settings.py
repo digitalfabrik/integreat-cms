@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 #: The region settings which an external system may write via the API
 WRITABLE_FIELDS: Final[list[str]] = [
     "events_enabled",
-    "locations_enabled",
+    "places_enabled",
     "contacts_enabled",
     "external_news_enabled",
     "integreat_chat_enabled",
