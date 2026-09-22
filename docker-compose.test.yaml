@@ -1,0 +1,95 @@
+# Stripped down Docker Compose environment for running CMS tests
+
+name: integreat-cms-test
+
+services:
+  cms:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: integreat-cms-dev:latest
+    pull_policy: build
+    # Run as the invoking host user so the bind-mounted tree stays writable
+    # (editable install writes egg-info) and files created by the test run
+    # (.mo files, htmlcov, snapshots) belong to the developer. tools/test.sh
+    # detects the right value per docker mode — see the header comment.
+    # user: "${TEST_UID:?export TEST_UID/TEST_GID or run via tools/test.sh}:${TEST_GID:?export TEST_UID/TEST_GID or run via tools/test.sh}"
+    depends_on:
+      db:
+        condition: service_healthy
+      web:
+        condition: service_started
+    environment:
+      DJANGO_SETTINGS_MODULE: integreat_cms.core.test_settings
+      # The invoking host uid has no passwd entry in the image; give pip and
+      # friends a writable HOME for their caches.
+      HOME: /tmp
+      INTEGREAT_CMS_DB_HOST: db
+      INTEGREAT_CMS_DB_PASSWORD: password
+      INTEGREAT_CMS_DB_USER: integreat
+      INTEGREAT_CMS_FCM_KEY: dummy
+      INTEGREAT_CMS_SECRET_KEY: dummy
+      REDIS_CACHE: False
+    volumes:
+      - ./integreat_cms:/app/integreat_cms
+      - ./pytest.toml:/app/pytest.toml
+      - ./test-results:/app/test-results
+      - ./tests:/app/tests
+      - ./tools:/app/tools
+      - type: tmpfs
+        target: /tmp
+      # Mount an empty tmpfs into the pdf cache dir.
+      - type: tmpfs
+        target: /app/integreat_cms/pdf
+      # Mount a shared volume to let cms and web shared some files
+      - shared:/app/shared
+  db:
+    # https://hub.docker.com/_/postgres
+    image: postgres:17-trixie
+    restart: unless-stopped
+    volumes:
+      - type: tmpfs
+        target: /var/lib/postgresql
+    environment:
+      POSTGRES_USER: integreat
+      POSTGRES_DB: integreat
+      POSTGRES_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "localhost", "-U", "integreat", "-t", "16"]
+      interval: 30s
+      timeout: 30s
+      retries: 4
+      start_period: 4s
+      start_interval: 4s
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: integreat-cms-dev:latest
+    pull_policy: build
+    volumes:
+      - ./.browserlistrc:/app/.browserlistrc
+      - ./.prettierignore:/app/.prettierignore
+      - ./.prettierrc:/app/.prettierrc
+      - ./eslint.config.mjs:/app/eslint.config.mjs
+      - ./postcss.config.js:/app/postcss.config.js
+      - ./tailwind.config.js:/app/tailwind.config.js
+      - ./webpack.config.js:/app/webpack.config.js
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./typedoc.json:/app/typedoc.json
+      - ./integreat_cms/cms/templates:/app/integreat_cms/cms/templates
+      - ./integreat_cms/static:/app/integreat_cms/static
+      # Mount a shared volume to let cms and web shared some files
+      - shared:/app/shared
+    command: npm run build
+    restart: no
+
+volumes:
+  # Shared file
+  shared:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      o: size=1G
+      device: tmpfs
