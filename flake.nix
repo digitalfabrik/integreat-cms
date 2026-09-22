@@ -102,6 +102,8 @@
               stdenv.cc.cc.lib
               file
               cairo
+              pango
+              harfbuzz
             ]
           );
 
