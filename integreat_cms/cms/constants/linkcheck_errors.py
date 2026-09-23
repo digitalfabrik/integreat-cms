@@ -25,12 +25,18 @@ class ExternalLinkError(LinkCheckError, Enum):
         ),
     )
     FORBIDDEN = (
-        _("Automatic checking of this link is unfortunately blocked."),
-        _("Click the link. If it works for you, mark it as valid."),
+        _(
+            "Automatic checking of this link is unfortunately blocked. The system cannot determine whether it is valid or not."
+        ),
+        _(
+            "Click the link. If it works for you, mark it as valid. If not, find a new link or remove the old one."
+        ),
     )
     SERVER_ERROR = (
-        _("This link cannot (currently) be reached. Users cannot continue."),
-        _("This error lies with the website's provider and may be temporary."),
+        _("The link cannot be reached (at the moment). Users cannot proceed."),
+        _(
+            "This error is on the website provider's side and may be temporary. Click the link: if it works, mark it as valid."
+        ),
     )
     SSL_INVALID = (
         _(
@@ -111,7 +117,7 @@ class InternalLinkError(LinkCheckError, Enum):
         _("Create the link again using the linking feature for news."),
     )
     TU_NEWS_DISABLED = (
-        _("Tü-news is not enabled for this region. The link leads nowhere."),
+        _("tü-news is not enabled for this region. The link leads nowhere."),
         _("Enable tü-news for this region or remove the link."),
     )
     NEWS_ENTRY_MISSING = (

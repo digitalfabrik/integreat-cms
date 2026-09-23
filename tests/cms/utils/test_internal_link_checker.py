@@ -125,9 +125,9 @@ def test_check_internal_invalid(
     assert not check_internal(
         url,
     ), f"URL '{link}' is not correctly identified as invalid"
-    assert (
-        InternalLinkError[url.error_message] == INVALID_INTERNAL_LINKS[link]
-    ), f"URL '{link}' is not tagged with the expected error"
+    assert InternalLinkError[url.error_message] == INVALID_INTERNAL_LINKS[link], (
+        f"URL '{link}' is not tagged with the expected error"
+    )
 
 
 @pytest.mark.django_db
