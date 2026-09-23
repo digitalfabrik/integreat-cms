@@ -109,6 +109,63 @@ def delete_region(
     return redirect("regions")
 
 
+@require_POST
+@permission_required("cms.change_region")
+def release_api_management(
+    request: HttpRequest,
+    *args: Any,
+    **kwargs: Any,
+) -> HttpResponseRedirect:
+    r"""
+    This view releases a region from being managed by an external system via the API.
+
+    It only clears :attr:`~integreat_cms.cms.models.regions.region.Region.api_settings_synced_at`,
+    which is what marks a region as API-managed and makes the synced settings read-only in the
+    region form. Nothing else is changed: the settings themselves keep the values the external
+    system pushed last.
+
+    The release is deliberately not permanent. If the connected system pushes again, the region is
+    marked as API-managed once more and the fields become read-only again -- which is the desired
+    semantics: the release states "we maintain these settings here from now on", and a subsequent
+    push visibly contradicts that instead of failing silently.
+
+    :param request: The current request
+    :param \*args: The supplied arguments
+    :param \**kwargs: The supplied keyword arguments
+    :return: A redirection to the region form
+    """
+    region = get_object_or_404(Region, slug=kwargs.get("slug"))
+
+    if not region.is_api_managed:
+        messages.info(
+            request,
+            _('The settings of the region "{}" are not managed via the API.').format(
+                region.name,
+            ),
+        )
+        return redirect("edit_region", slug=region.slug)
+
+    region.api_settings_synced_at = None
+    region.save(update_fields=["api_settings_synced_at"])
+    logger.info("%r released %r from API management", request.user, region)
+
+    messages.success(
+        request,
+        _('The settings of the region "{}" can be edited here again.').format(
+            region.name,
+        ),
+    )
+    messages.info(
+        request,
+        _(
+            "If the connected system pushes settings again, it overwrites the values maintained "
+            "here and they become read-only once more.",
+        ),
+    )
+
+    return redirect("edit_region", slug=region.slug)
+
+
 @shared_task
 def async_delete_region(region_id: int) -> None:
     region = Region.objects.get(id=region_id)
