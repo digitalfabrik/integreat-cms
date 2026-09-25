@@ -75,8 +75,7 @@
         </div>
     </td>
     <td class="py-3 pr-4 align-top border-t border-solid border-gray-200">
-        <a title="{% if request.region %}{% translate "Replace URL centrally in the current region" %}{% else %}{% translate "Replace URL globally in all the regions" %}{% endif %}"
-           href="{% url_for_current_region 'edit_url' request url_id=url.id url_filter=view.kwargs.url_filter %}{{ pagination_params }}#replace-url"
+        <a href="{% url_for_current_region 'edit_url' request url_id=url.id url_filter=view.kwargs.url_filter %}{{ pagination_params }}#replace-url"
            class="flex items-center justify-end gap-1 text-blue-500 hover:underline whitespace-nowrap">
             {% if view.kwargs.url_filter == 'invalid' or view.kwargs.url_filter == 'valid' %}
                 {% translate "Change links on all pages" %}
