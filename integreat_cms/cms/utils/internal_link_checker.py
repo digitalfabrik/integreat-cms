@@ -299,7 +299,7 @@ def check_event_or_place(
     return url.status
 
 
-def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
+def check_internal(url: Url) -> bool | None:
     """
     :param url: The internal URL to check
     :returns: The status of the URL
