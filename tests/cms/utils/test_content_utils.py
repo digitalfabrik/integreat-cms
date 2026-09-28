@@ -52,6 +52,11 @@ def test_clean_content_strips_event_handler() -> None:
     assert "onclick" not in result
 
 
+def test_clean_content_contact_card_without_parent() -> None:
+    raw_content = '<div data-contact-id="3" data-contact-url="/augsburg/contact/3/?details=name"></div>'
+    assert clean_content(raw_content, "de") == raw_content
+
+
 @pytest.mark.django_db
 def test_render_contact_card_same_region(load_test_data: None) -> None:
     """
