@@ -266,6 +266,9 @@ def update_contacts(content: HtmlElement, region_id: int | None = None) -> None:
     for contact_id, contact_url, contact_card in zip(
         contact_ids, contact_urls, contact_cards, strict=True
     ):
+        # A contact card without a parent cannot be replaced
+        if contact_card.getparent() is None:
+            continue
         try:
             wanted_details = contact_url.split("details=", 1)[1].split(",")
         except IndexError:
