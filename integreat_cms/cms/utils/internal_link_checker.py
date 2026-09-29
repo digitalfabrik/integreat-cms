@@ -140,40 +140,6 @@ def check_news_link(
     return url.status
 
 
-def check_offer_link(url: Url, path_components: list[str], region: Region) -> bool:
-    """
-    Check whether the offer exists in the given region
-
-    :param url: The internal URL to check
-    :param path_components: The path components
-    :param region: The region
-    :returns: The validity status of the URL
-    """
-    if not region.offers.exists():
-        logger.debug("No offers are enabled in %r", region)
-        mark_invalid(url, _("Offers are not enabled in this region."))
-    elif len(path_components) == 1:
-        logger.debug("Link to offer list in %r is valid", region)
-        mark_valid(url)
-    elif len(path_components) == 2:
-        if region.offers.filter(slug=path_components[1]).exists():
-            mark_valid(url)
-        else:
-            logger.debug(
-                "Offer %r does not exist or is not enabled in %r",
-                path_components[1],
-                region,
-            )
-            mark_invalid(url, _("This offer does not exist in this region."))
-    else:
-        logger.debug(
-            "Offer model is not hierarchical, got multiple path components %r",
-            path_components,
-        )
-        mark_invalid(url, _("Offer URL is invalid"))
-    return url.status
-
-
 def check_translation_link(
     content_object: Event | (Page | Place),
     url: Url,
@@ -333,7 +299,7 @@ def check_event_or_place(
     return url.status
 
 
-def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
+def check_internal(url: Url) -> bool | None:
     """
     :param url: The internal URL to check
     :returns: The status of the URL
@@ -436,8 +402,6 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
         )
     if content_type == "news":
         return check_news_link(url, path_components, region, language)
-    if content_type == "offers":
-        return check_offer_link(url, path_components, region)
     return check_object_link(
         "Page",
         region.pages,
