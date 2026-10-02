@@ -61,9 +61,9 @@
         <div class="grid xl:grid-cols-2 gap-4">
             <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
-                    <h3 class="heading font-bold text-black">
+                    <h2 class="heading font-bold text-black">
                         <i icon-name="umbrella" class="mr-2"></i> {% translate "General Settings" %}
-                    </h3>
+                    </h2>
                 </div>
                 <div class="px-4 pb-4">
                     <!-- General Options for organization management -->
@@ -75,9 +75,9 @@
             </div>
             <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
-                    <h3 class="heading font-bold text-black">
+                    <h2 class="heading font-bold text-black">
                         <i icon-name="settings" class="mr-2"></i> {% translate "Extended Settings" %}
-                    </h3>
+                    </h2>
                 </div>
                 <div class="px-4 pb-4">
                     <label for="{{ form.icon.id_for_label }}">{{ form.icon.label }}</label>
@@ -89,20 +89,20 @@
             <div class="grid xl:grid-cols-2 gap-4">
                 <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="p-4 rounded bg-water-500">
-                        <h3 class="heading font-bold text-black">
+                        <h2 class="heading font-bold text-black">
                             <i icon-name="layout" class="mr-2"></i>
                             {% translate "Pages and places" %}
-                        </h3>
+                        </h2>
                     </div>
                     {% include "../_related_contents_table.html" with contents=form.instance.pages.all table_title=_("Pages") no_content_message=_("This organization currently has no maintained pages.") %}
                     {% include "../_related_contents_table.html" with contents=form.instance.places.all table_title=_("Places") no_content_message=_("This organization currently has no maintained places.") %}
                 </div>
                 <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="p-4 rounded bg-water-500">
-                        <h3 class="heading font-bold text-black">
+                        <h2 class="heading font-bold text-black">
                             <i icon-name="users" class="mr-2"></i>
                             {% translate "Members" %}
-                        </h3>
+                        </h2>
                     </div>
                     <div class="table-listing w-full px-4 pb-4">
                         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
