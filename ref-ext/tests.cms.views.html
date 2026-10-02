@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-09-23T17:30:13+00:00" />
+    <meta property="article:modified_time" content="2026-10-02T09:05:43+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Views &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -483,6 +483,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.status_code.html">Status Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#bulk-actions">Bulk Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#test-public-view-status-code">Test Public View Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#test-view-heading-hierarchy">Test View Heading Hierarchy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#test-view-redirect">Test View Redirect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#utils">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#view-config">View Config</a></li>
@@ -1591,6 +1592,7 @@
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.status_code.html">Status Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-tests.cms.views.bulk_actions">Bulk Actions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-tests.cms.views.test_public_view_status_code">Test Public View Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tests.cms.views.test_view_heading_hierarchy">Test View Heading Hierarchy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-tests.cms.views.test_view_redirect">Test View Redirect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-tests.cms.views.utils">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-tests.cms.views.view_config">View Config</a></li>
@@ -2523,6 +2525,359 @@ In either case, this is followed by: for k in F:  D[k] = F[k]</p>
 <li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev349)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 <li><p><strong>view_name</strong> (<em>ViewNameStr</em>) – The identifier of the view</p></li>
 <li><p><strong>post_data</strong> (<em>PostData</em>) – The post data for this view</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-tests.cms.views.test_view_heading_hierarchy">
+<span id="test-view-heading-hierarchy"></span><h2>Test View Heading Hierarchy<a class="headerlink" href="#module-tests.cms.views.test_view_heading_hierarchy" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">tests.cms.views.test_view_heading_hierarchy.</span></span><span class="sig-name descname"><span class="pre">HeadingLevelParser</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/views/test_view_heading_hierarchy.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/library/html.parser.html#html.parser.HTMLParser" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTMLParser</span></code></a></p>
+<p>Collects the level of every heading (<code class="docutils literal notranslate"><span class="pre">h1</span></code> to <code class="docutils literal notranslate"><span class="pre">h6</span></code>) in document order</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.CDATA_CONTENT_ELEMENTS">
+<span class="sig-name descname"><span class="pre">CDATA_CONTENT_ELEMENTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('script',</span> <span class="pre">'style',</span> <span class="pre">'xmp',</span> <span class="pre">'iframe',</span> <span class="pre">'noembed',</span> <span class="pre">'noframes')</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/views/test_view_heading_hierarchy.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.CDATA_CONTENT_ELEMENTS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.RCDATA_CONTENT_ELEMENTS">
+<span class="sig-name descname"><span class="pre">RCDATA_CONTENT_ELEMENTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('textarea',</span> <span class="pre">'title')</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/views/test_view_heading_hierarchy.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.RCDATA_CONTENT_ELEMENTS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/views/test_view_heading_hierarchy.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize and reset this instance.</p>
+<p>If convert_charrefs is true (the default), all character references
+are automatically converted to the corresponding Unicode characters.</p>
+<p>If <em>scripting</em> is false (the default), the content of the
+<code class="docutils literal notranslate"><span class="pre">noscript</span></code> element is parsed normally; if it’s true,
+it’s returned as is without being parsed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.check_for_whole_start_tag">
+<span class="sig-name descname"><span class="pre">check_for_whole_start_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L506"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.check_for_whole_start_tag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.clear_cdata_mode">
+<span class="sig-name descname"><span class="pre">clear_cdata_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.clear_cdata_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L195"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.close" title="Link to this definition"></a></dt>
+<dd><p>Handle any buffered data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.feed">
+<span class="sig-name descname"><span class="pre">feed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.feed" title="Link to this definition"></a></dt>
+<dd><p>Feed data to the parser.</p>
+<p>Call this as often as you want, with as little or as much text
+as you want (may include ‘n’).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.get_starttag_text">
+<span class="sig-name descname"><span class="pre">get_starttag_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.get_starttag_text" title="Link to this definition"></a></dt>
+<dd><p>Return full source of start tag: ‘&lt;…&gt;’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.getpos">
+<span class="sig-name descname"><span class="pre">getpos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/_markupbase.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.getpos" title="Link to this definition"></a></dt>
+<dd><p>Return current line number and offset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.goahead">
+<span class="sig-name descname"><span class="pre">goahead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L242"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.goahead" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_charref">
+<span class="sig-name descname"><span class="pre">handle_charref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L559"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_charref" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_comment">
+<span class="sig-name descname"><span class="pre">handle_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_comment" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_data">
+<span class="sig-name descname"><span class="pre">handle_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L567"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_decl">
+<span class="sig-name descname"><span class="pre">handle_decl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decl</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_decl" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_endtag">
+<span class="sig-name descname"><span class="pre">handle_endtag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L555"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_endtag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_entityref">
+<span class="sig-name descname"><span class="pre">handle_entityref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L563"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_entityref" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_pi">
+<span class="sig-name descname"><span class="pre">handle_pi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L579"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_pi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_startendtag">
+<span class="sig-name descname"><span class="pre">handle_startendtag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L546"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_startendtag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_starttag">
+<span class="sig-name descname"><span class="pre">handle_starttag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#tuple" title="(in Python v3.13)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/views/test_view_heading_hierarchy.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_starttag" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>)</p></li>
+<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>None</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.levels">
+<span class="sig-name descname"><span class="pre">levels</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/views/test_view_heading_hierarchy.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.levels" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_bogus_comment">
+<span class="sig-name descname"><span class="pre">parse_bogus_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L432"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_bogus_comment" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_comment">
+<span class="sig-name descname"><span class="pre">parse_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L415"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_comment" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_declaration">
+<span class="sig-name descname"><span class="pre">parse_declaration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/_markupbase.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_declaration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_endtag">
+<span class="sig-name descname"><span class="pre">parse_endtag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L516"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_endtag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_html_declaration">
+<span class="sig-name descname"><span class="pre">parse_html_declaration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L390"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_html_declaration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_marked_section">
+<span class="sig-name descname"><span class="pre">parse_marked_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/_markupbase.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_marked_section" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_pi">
+<span class="sig-name descname"><span class="pre">parse_pi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L444"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_pi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_starttag">
+<span class="sig-name descname"><span class="pre">parse_starttag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L456"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.parse_starttag" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L152"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset this instance.  Loses all unprocessed data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.set_cdata_mode">
+<span class="sig-name descname"><span class="pre">set_cdata_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">escapable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L209"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.set_cdata_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.unknown_decl">
+<span class="sig-name descname"><span class="pre">unknown_decl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/html/parser.py#L582"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.unknown_decl" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.updatepos">
+<span class="sig-name descname"><span class="pre">updatepos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/_markupbase.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.updatepos" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.ROOT_GET_URLS">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.views.test_view_heading_hierarchy.</span></span><span class="sig-name descname"><span class="pre">ROOT_GET_URLS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['/login/mfa/',</span> <span class="pre">'/sitemap.xml',</span> <span class="pre">'/admin-dashboard/',</span> <span class="pre">'/feedback/',</span> <span class="pre">'/languages/',</span> <span class="pre">'/media-library/',</span> <span class="pre">'/ajax/media/directory/path/',</span> <span class="pre">'/ajax/media/directory/content/',</span> <span class="pre">'/ajax/media/filter/unused/',</span> <span class="pre">'/languages/new/',</span> <span class="pre">'/offer-templates/new/',</span> <span class="pre">'/regions/new/',</span> <span class="pre">'/roles/new/',</span> <span class="pre">'/users/new/',</span> <span class="pre">'/offer-templates/',</span> <span class="pre">'/place-categories/',</span> <span class="pre">'/release-notes/',</span> <span class="pre">'/regions/',</span> <span class="pre">'/roles/',</span> <span class="pre">'/user-settings/',</span> <span class="pre">'/user-settings/mfa/authenticate/',</span> <span class="pre">'/users/',</span> <span class="pre">'/augsburg/',</span> <span class="pre">'/augsburg/language-tree/',</span> <span class="pre">'/augsburg/media-library/',</span> <span class="pre">'/augsburg/ajax/media/directory/path/',</span> <span class="pre">'/augsburg/ajax/media/directory/content/',</span> <span class="pre">'/augsburg/ajax/media/filter/unused/',</span> <span class="pre">'/augsburg/language-tree/new/',</span> <span class="pre">'/augsburg/users/new/',</span> <span class="pre">'/augsburg/release-notes/',</span> <span class="pre">'/augsburg/feedback/',</span> <span class="pre">'/augsburg/users/',</span> <span class="pre">'/augsburg/analytics/translation-coverage/',</span> <span class="pre">'/augsburg/organizations/',</span> <span class="pre">'/augsburg/organizations/new/',</span> <span class="pre">'/augsburg/user-settings/',</span> <span class="pre">'/augsburg/user-settings/mfa/authenticate/',</span> <span class="pre">'/augsburg/translations/manage/',</span> <span class="pre">'/nurnberg/',</span> <span class="pre">'/nurnberg/language-tree/',</span> <span class="pre">'/nurnberg/media-library/',</span> <span class="pre">'/nurnberg/ajax/media/directory/path/',</span> <span class="pre">'/nurnberg/ajax/media/directory/content/',</span> <span class="pre">'/nurnberg/language-tree/new/',</span> <span class="pre">'/nurnberg/users/new/',</span> <span class="pre">'/nurnberg/feedback/',</span> <span class="pre">'/nurnberg/users/',</span> <span class="pre">'/nurnberg/organizations/',</span> <span class="pre">'/nurnberg/organizations/new/',</span> <span class="pre">'/nurnberg/analytics/translation-coverage/',</span> <span class="pre">'/nurnberg/user-settings/',</span> <span class="pre">'/nurnberg/user-settings/mfa/authenticate/',</span> <span class="pre">'/empty-region/',</span> <span class="pre">'/empty-region/language-tree/',</span> <span class="pre">'/empty-region/media-library/',</span> <span class="pre">'/empty-region/ajax/media/directory/path/',</span> <span class="pre">'/empty-region/ajax/media/directory/content/',</span> <span class="pre">'/empty-region/users/new/',</span> <span class="pre">'/empty-region/feedback/',</span> <span class="pre">'/empty-region/users/',</span> <span class="pre">'/empty-region/organizations/',</span> <span class="pre">'/empty-region/organizations/new/',</span> <span class="pre">'/empty-region/analytics/translation-coverage/',</span> <span class="pre">'/empty-region/user-settings/',</span> <span class="pre">'/empty-region/user-settings/mfa/authenticate/',</span> <span class="pre">'/augsburg/de/sitemap.xml',</span> <span class="pre">'/augsburg/pages/de/archived/',</span> <span class="pre">'/augsburg/places/de/archived/',</span> <span class="pre">'/augsburg/imprint/de/edit/',</span> <span class="pre">'/augsburg/events/de/',</span> <span class="pre">'/augsburg/events/de/?events_time_range=CUSTOM&amp;date_from=2023-01-01&amp;date_to=2030-12-31',</span> <span class="pre">'/augsburg/events/de/?events_time_range=CUSTOM&amp;date_from=2023-01-01',</span> <span class="pre">'/augsburg/events/de/?events_time_range=CUSTOM&amp;date_to=2030-12-31',</span> <span class="pre">'/augsburg/events/de/?events_time_range=%5B%27PAST%27%2C+%27UPCOMING%27%5D',</span> <span class="pre">'/augsburg/events/de/?events_time_range=UPCOMING&amp;place_id=4&amp;all_day=1&amp;recurring=1',</span> <span class="pre">'/augsburg/events/de/?events_time_range=PAST&amp;all_day=2&amp;recurring=2&amp;query=test',</span> <span class="pre">'/augsburg/events/de/archived/',</span> <span class="pre">'/augsburg/events/de/new/',</span> <span class="pre">'/augsburg/pages/de/new/',</span> <span class="pre">'/augsburg/places/de/new/',</span> <span class="pre">'/augsburg/pages/de/',</span> <span class="pre">'/augsburg/places/de/',</span> <span class="pre">'/nurnberg/pages/de/archived/',</span> <span class="pre">'/nurnberg/places/de/archived/',</span> <span class="pre">'/nurnberg/imprint/de/edit/',</span> <span class="pre">'/nurnberg/events/de/',</span> <span class="pre">'/nurnberg/events/de/archived/',</span> <span class="pre">'/nurnberg/events/de/new/',</span> <span class="pre">'/nurnberg/pages/de/new/',</span> <span class="pre">'/nurnberg/places/de/new/',</span> <span class="pre">'/nurnberg/pages/de/',</span> <span class="pre">'/nurnberg/places/de/',</span> <span class="pre">'/regions/augsburg/edit/',</span> <span class="pre">'/languages/de/edit/',</span> <span class="pre">'/users/1/edit/',</span> <span class="pre">'/roles/1/edit/',</span> <span class="pre">'/offer-templates/ihk-lehrstellenboerse/edit/',</span> <span class="pre">'/place-categories/1/edit/',</span> <span class="pre">'/augsburg/analytics/linkcheck/valid/',</span> <span class="pre">'/nurnberg/analytics/linkcheck/valid/',</span> <span class="pre">'/augsburg/analytics/linkcheck/unchecked/',</span> <span class="pre">'/nurnberg/analytics/linkcheck/unchecked/',</span> <span class="pre">'/augsburg/analytics/linkcheck/ignored/',</span> <span class="pre">'/nurnberg/analytics/linkcheck/ignored/',</span> <span class="pre">'/augsburg/analytics/linkcheck/invalid/',</span> <span class="pre">'/nurnberg/analytics/linkcheck/invalid/',</span> <span class="pre">'/augsburg/ajax/render/page-order-table/parent-1/',</span> <span class="pre">'/nurnberg/ajax/render/page-order-table/parent-7/',</span> <span class="pre">'/augsburg/ajax/render/page-order-table/parent-1/page-2/',</span> <span class="pre">'/nurnberg/ajax/render/page-order-table/parent-7/page-8/',</span> <span class="pre">'/augsburg/ajax/render/page-order-table/page-2/',</span> <span class="pre">'/nurnberg/ajax/render/page-order-table/page-8/',</span> <span class="pre">'/augsburg/pages/en/1/edit/',</span> <span class="pre">'/augsburg/pages/en/1/versions/',</span> <span class="pre">'/augsburg/pages/en/2/edit/',</span> <span class="pre">'/nurnberg/pages/en/7/edit/',</span> <span class="pre">'/nurnberg/pages/en/7/versions/',</span> <span class="pre">'/augsburg/pages/de/1/versions/1/',</span> <span class="pre">'/augsburg/events/de/1/edit/',</span> <span class="pre">'/augsburg/places/de/4/edit/',</span> <span class="pre">'/augsburg/language-tree/3/edit/',</span> <span class="pre">'/augsburg/users/2/edit/',</span> <span class="pre">'/nurnberg/users/2/edit/']</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/views/test_view_heading_hierarchy.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.ROOT_GET_URLS" title="Link to this definition"></a></dt>
+<dd><p>Every view a root user can open with a GET request, once per URL</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">    </span><span class="s1">&#39;/login/mfa/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/sitemap.xml&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/admin-dashboard/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/feedback/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/languages/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/media-library/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/ajax/media/directory/path/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/ajax/media/directory/content/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/ajax/media/filter/unused/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/languages/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/offer-templates/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/regions/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/roles/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/users/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/offer-templates/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/place-categories/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/release-notes/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/regions/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/roles/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/user-settings/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/user-settings/mfa/authenticate/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/users/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/language-tree/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/media-library/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/ajax/media/directory/path/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/ajax/media/directory/content/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/ajax/media/filter/unused/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/language-tree/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/users/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/release-notes/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/feedback/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/users/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/analytics/translation-coverage/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/organizations/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/organizations/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/user-settings/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/user-settings/mfa/authenticate/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/translations/manage/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/language-tree/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/media-library/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/ajax/media/directory/path/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/ajax/media/directory/content/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/language-tree/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/users/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/feedback/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/users/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/organizations/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/organizations/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/analytics/translation-coverage/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/user-settings/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/user-settings/mfa/authenticate/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/language-tree/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/media-library/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/ajax/media/directory/path/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/ajax/media/directory/content/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/users/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/feedback/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/users/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/organizations/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/organizations/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/analytics/translation-coverage/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/user-settings/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/empty-region/user-settings/mfa/authenticate/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/de/sitemap.xml&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/pages/de/archived/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/places/de/archived/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/imprint/de/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/events/de/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/events/de/?events_time_range=CUSTOM&amp;date_from=2023-01-01&amp;date_to=2030-12-31&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/events/de/?events_time_range=CUSTOM&amp;date_from=2023-01-01&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/events/de/?events_time_range=CUSTOM&amp;date_to=2030-12-31&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/events/de/?events_time_range=%5B%27PAST%27%2C+%27UPCOMING%27%5D&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/events/de/?events_time_range=UPCOMING&amp;place_id=4&amp;all_day=1&amp;recurring=1&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/events/de/?events_time_range=PAST&amp;all_day=2&amp;recurring=2&amp;query=test&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/events/de/archived/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/events/de/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/pages/de/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/places/de/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/pages/de/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/places/de/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/pages/de/archived/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/places/de/archived/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/imprint/de/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/events/de/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/events/de/archived/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/events/de/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/pages/de/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/places/de/new/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/pages/de/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/places/de/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/regions/augsburg/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/languages/de/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/users/1/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/roles/1/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/offer-templates/ihk-lehrstellenboerse/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/place-categories/1/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/analytics/linkcheck/valid/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/analytics/linkcheck/valid/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/analytics/linkcheck/unchecked/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/analytics/linkcheck/unchecked/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/analytics/linkcheck/ignored/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/analytics/linkcheck/ignored/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/analytics/linkcheck/invalid/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/analytics/linkcheck/invalid/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/ajax/render/page-order-table/parent-1/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/ajax/render/page-order-table/parent-7/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/ajax/render/page-order-table/parent-1/page-2/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/ajax/render/page-order-table/parent-7/page-8/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/ajax/render/page-order-table/page-2/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/ajax/render/page-order-table/page-8/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/pages/en/1/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/pages/en/1/versions/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/pages/en/2/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/pages/en/7/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/pages/en/7/versions/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/pages/de/1/versions/1/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/events/de/1/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/places/de/4/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/language-tree/3/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/augsburg/users/2/edit/&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;/nurnberg/users/2/edit/&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.views.test_view_heading_hierarchy.test_view_does_not_skip_heading_levels">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.views.test_view_heading_hierarchy.</span></span><span class="sig-name descname"><span class="pre">test_view_does_not_skip_heading_levels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/views/test_view_heading_hierarchy.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.views.test_view_heading_hierarchy.test_view_does_not_skip_heading_levels" title="Link to this definition"></a></dt>
+<dd><p>A page’s headings must not skip a level, e.g. an <code class="docutils literal notranslate"><span class="pre">h3</span></code> directly after an <code class="docutils literal notranslate"><span class="pre">h1</span></code>,
+because screen reader users navigate a page by its heading structure (see #4109)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The url of the view</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -8091,7 +8446,7 @@ a dict to send form data or a string to send JSON.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 23, 2026.
+      <span class="lastupdated">Last updated on Oct 02, 2026.
       </span></p>
   </div>
 
