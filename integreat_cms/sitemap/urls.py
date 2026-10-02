@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from django.urls import include, path
+from django.urls import include, path, URLResolver
 
 from .views import SitemapIndexView, SitemapView
 
@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 app_name: Final = "sitemap"
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
-urlpatterns: list[URLPattern] = [
+urlpatterns: list[URLPattern | URLResolver] = [
     path("sitemap.xml", SitemapIndexView.as_view(), name="index"),
     path("wp-json/ig-sitemap/v1/sitemap-index.xml", SitemapIndexView.as_view()),
     path(
