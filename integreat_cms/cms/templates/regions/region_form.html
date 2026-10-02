@@ -35,6 +35,18 @@
                         {% endblocktranslate %}
                     {% endwith %}
                 </p>
+                {% if perms.cms.change_region %}
+                    <button type="button"
+                            title="{% translate "Edit these settings here again" %}"
+                            class="btn btn-blue mt-2 confirmation-button"
+                            data-confirmation-title="{% translate "Please confirm that you want to maintain these settings here again." %}"
+                            data-confirmation-text="{% translate "The connected system will no longer be the source for the booked features and the translation budget." %} {% translate "If it pushes settings again, it overwrites the values maintained here and they become read-only once more." %}"
+                            data-confirmation-subject="{{ form.name.value }}"
+                            data-action="{% url 'release_api_management' slug=form.instance.slug %}">
+                        <i icon-name="unlock"></i>
+                        {% translate "Edit these settings here again" %}
+                    </button>
+                {% endif %}
             </div>
         {% endif %}
         <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
