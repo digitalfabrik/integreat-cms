@@ -296,7 +296,6 @@ window.addEventListener("load", async () => {
     }
 
     // Initialize chart
-    /* eslint-disable-next-line no-new */
     const chart = new Chart("statistics", chartOptions);
 
     // Initialize chart data
