@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 import time
+from typing import TYPE_CHECKING
 
 import pytest
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models.feedback.page_feedback import PageFeedback
@@ -14,12 +16,20 @@ from integreat_cms.cms.models.push_notifications.push_notification import (
     PushNotification,
 )
 from integreat_cms.cms.models.regions.region import Region
+from integreat_cms.cms.utils.media_utils import get_region_media_directory
+from integreat_cms.cms.views.regions.region_actions import async_delete_region
 from tests.constants import (
     ANONYMOUS,
     CMS_TEAM,
     ROOT,
     SERVICE_TEAM,
 )
+
+if TYPE_CHECKING:
+    from pathlib import Path
+
+    from django.test.client import Client
+    from pytest_django.fixtures import Settings
 
 CLONED_PAGE = 30
 NESTED_MEDIA_OBJECT_ID = 1
@@ -134,3 +144,28 @@ def test_deleting_mirrored_region_is_unsucessful(
             in response.content.decode("utf-8")
         )
         assert Region.objects.filter(slug="augsburg").exists()
+
+
+@pytest.mark.django_db
+def test_delete_region_removes_media_directory(
+    load_test_data: None,
+    settings: Settings,
+    tmp_path: Path,
+) -> None:
+    settings.MEDIA_ROOT = str(tmp_path)
+
+    region, other_region = Region.objects.exclude(slug="augsburg")[:2]
+    region_id = region.id
+    region_file = get_region_media_directory(region_id) / "2024" / "01" / "file.png"
+    other_region_file = get_region_media_directory(other_region.id) / "file.png"
+    global_file = tmp_path / "global" / "file.png"
+    for file in (region_file, other_region_file, global_file):
+        file.parent.mkdir(parents=True)
+        file.touch()
+
+    async_delete_region(region_id)
+
+    assert not Region.objects.filter(id=region_id).exists()
+    assert not get_region_media_directory(region_id).exists()
+    assert other_region_file.exists()
+    assert global_file.exists()

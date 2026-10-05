@@ -18,6 +18,7 @@ from linkcheck.listeners import disable_listeners
 
 from ...decorators import permission_required
 from ...models import Contact, Page, PushNotification, Region
+from ...utils.media_utils import delete_region_media_directory
 
 if TYPE_CHECKING:
     from typing import Any
@@ -35,8 +36,8 @@ def delete_region(
     **kwargs: Any,
 ) -> HttpResponseRedirect:
     r"""
-    This view deletes a region. All content is cascade deleted. Region users, who are not assigned to any other region,
-    are manually removed.
+    This view deletes a region. All content is cascade deleted and the region's media files are removed from the file
+    system. Region users, who are not assigned to any other region, are manually removed.
 
     :param request: The current request
     :param \*args: The supplied arguments
@@ -136,6 +137,8 @@ def async_delete_region(region_id: int) -> None:
         region,
         deleted_objects,
     )
+    # Remove the physical media files of the region
+    delete_region_media_directory(region_id)
     # Get orphan users who aren't superuser or staff and don't have a region assigned
     # (Creating users with these combination is impossible, so they were region users of the deleted region before)
     orphan_users = get_user_model().objects.filter(
