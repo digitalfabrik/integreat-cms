@@ -276,7 +276,12 @@ def update_contacts(content: HtmlElement, region_id: int | None = None) -> None:
             if any(detail for detail in wanted_details)
             else fromstring("<div><p></p></div>")
         )
-        contact_card.getparent().replace(contact_card, *contact_card_new)
+        # A card without a parent cannot be replaced, so reuse it as a wrapper for the new card
+        if contact_card.getparent() is None:
+            contact_card.clear()
+            contact_card.extend(contact_card_new)
+        else:
+            contact_card.getparent().replace(contact_card, *contact_card_new)
 
 
 def fix_alt_texts(content: HtmlElement) -> None:
