@@ -1443,10 +1443,8 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 60 * 60 * 3
 
 #: Default broker URL, and the backend used to store task results
-#: (tombstones). Mirrors the ``CACHES`` fallback above rather than assuming a
-#: Redis instance is always reachable: falls back to Celery's own in-process
-#: broker/backend (no external service required) when Redis isn't
-#: configured, instead of a hardcoded socket path that may not exist.
+#: (tombstones). Uses the same Redis instance as ``CACHES`` when Redis is
+#: configured.
 if REDIS_CACHE:
     if REDIS_UNIX_SOCKET:
         CELERY_BROKER_URL = f"redis+socket://{REDIS_UNIX_SOCKET}"
@@ -1454,11 +1452,15 @@ if REDIS_CACHE:
         CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
     CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 else:
-    # No external service needed: `CELERY_TASK_ALWAYS_EAGER` (set for tests,
-    # see tests/conftest.py) runs tasks synchronously in the same process
-    # anyway, so nothing here ever needs to cross a process boundary.
-    CELERY_BROKER_URL = "memory://"
-    CELERY_RESULT_BACKEND = "cache+memory://"
+    CELERY_BROKER_URL = os.environ.get(
+        "CELERY_REDIS_URL",
+        (
+            "redis+socket:///var/run/redis/redis-server.sock"
+            if not DEBUG
+            else "redis://localhost:6379/0"
+        ),
+    )
+    CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 #: Let Celery's result backend store each task's own invocation alongside its results
 CELERY_RESULT_EXTENDED = True
 
