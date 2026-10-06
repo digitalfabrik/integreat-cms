@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-09-23T17:30:13+00:00" />
+    <meta property="article:modified_time" content="2026-10-06T09:50:53+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -2040,6 +2040,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#copy-places"><code class="docutils literal notranslate"><span class="pre">copy_places</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#delete-orphaned-region-media"><code class="docutils literal notranslate"><span class="pre">delete_orphaned_region_media</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#import-places-from-csv"><code class="docutils literal notranslate"><span class="pre">import_places_from_csv</span></code></a></li>
@@ -2345,6 +2346,76 @@
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="test-delete-orphaned-region-media">
+<h2>Test Delete Orphaned Region Media<a class="headerlink" href="#test-delete-orphaned-region-media" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_delete_orphaned_region_media.</span></span><span class="sig-name descname"><span class="pre">fixture_media_directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.region_settings.Settings" title="integreat_cms.api.v3.region_settings.Settings"><span class="pre">Settings</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmp_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#tuple" title="(in Python v3.13)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_delete_orphaned_region_media.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Create media directories of an existing region, of a non-existing region and unexpected directories</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data</p></li>
+<li><p><strong>settings</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.region_settings.Settings" title="integreat_cms.api.v3.region_settings.Settings"><em>Settings</em></a>) – The Django settings</p></li>
+<li><p><strong>tmp_path</strong> (<em>Path</em>) – A temporary directory</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The existing, orphaned and unexpected directories</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#tuple" title="(in Python v3.13)">tuple</a>[Path, Path, <a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)">list</a>[Path]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_delete_orphaned_region_media.</span></span><span class="sig-name descname"><span class="pre">test_delete_orphaned_region_media</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">media_directories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#tuple" title="(in Python v3.13)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_delete_orphaned_region_media.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Ensure that only media directories of non-existing regions are deleted</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>media_directories</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Path</em><em>, </em><em>Path</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><em>Path</em><em>]</em><em>]</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_delete_orphaned_region_media.</span></span><span class="sig-name descname"><span class="pre">test_delete_orphaned_region_media_dry_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">media_directories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#tuple" title="(in Python v3.13)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_delete_orphaned_region_media.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Ensure that no directories are deleted in dry run mode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>media_directories</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>[</em><em>Path</em><em>, </em><em>Path</em><em>, </em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><em>Path</em><em>]</em><em>]</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_delete_orphaned_region_media.</span></span><span class="sig-name descname"><span class="pre">test_delete_orphaned_region_media_without_orphans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.region_settings.Settings" title="integreat_cms.api.v3.region_settings.Settings"><span class="pre">Settings</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmp_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_delete_orphaned_region_media.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Ensure that the command handles the absence of orphaned directories</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>)</p></li>
+<li><p><strong>settings</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.region_settings.Settings" title="integreat_cms.api.v3.region_settings.Settings"><em>Settings</em></a>)</p></li>
+<li><p><strong>tmp_path</strong> (<em>Path</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3424,7 +3495,7 @@ and that both the content and indexed link object are updated accordingly.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 23, 2026.
+      <span class="lastupdated">Last updated on Oct 06, 2026.
       </span></p>
   </div>
 

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-09-23T17:30:13+00:00" />
+    <meta property="article:modified_time" content="2026-10-06T09:50:53+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -2040,6 +2040,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#copy-places"><code class="docutils literal notranslate"><span class="pre">copy_places</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#delete-orphaned-region-media"><code class="docutils literal notranslate"><span class="pre">delete_orphaned_region_media</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#import-places-from-csv"><code class="docutils literal notranslate"><span class="pre">import_places_from_csv</span></code></a></li>
@@ -2891,6 +2892,168 @@ to stderr. If the <code class="docutils literal notranslate"><span class="pre">-
 <dd class="field-even"><p>FileField</p>
 </dd>
 </dl>
+</dd></dl>
+
+</section>
+<section id="module-integreat_cms.core.management.commands.delete_orphaned_region_media">
+<span id="delete-orphaned-region-media"></span><h2>Delete Orphaned Region Media<a class="headerlink" href="#module-integreat_cms.core.management.commands.delete_orphaned_region_media" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">integreat_cms.core.management.commands.delete_orphaned_region_media.</span></span><span class="sig-name descname"><span class="pre">Command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/delete_orphaned_region_media.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="integreat_cms.core.management.html#integreat_cms.core.management.log_command.LogCommand" title="integreat_cms.core.management.log_command.LogCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogCommand</span></code></a></p>
+<p>Management command to delete media directories of regions which do not exist anymore</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/core/management/base.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.add_arguments">
+<span class="sig-name descname"><span class="pre">add_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandParser</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/delete_orphaned_region_media.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.add_arguments" title="Link to this definition"></a></dt>
+<dd><p>Define the arguments of this command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parser</strong> (<em>CommandParser</em>) – The argument parser</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.add_base_argument">
+<span class="sig-name descname"><span class="pre">add_base_argument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/core/management/base.py#L384"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.add_base_argument" title="Link to this definition"></a></dt>
+<dd><p>Call the parser’s add_argument() method, suppressing the help text
+according to BaseCommand.suppressed_base_arguments.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.base_stealth_options">
+<span class="sig-name descname"><span class="pre">base_stealth_options</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('stderr',</span> <span class="pre">'stdout')</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/delete_orphaned_region_media.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.base_stealth_options" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.check">
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_configs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_num_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_deployment_checks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fail_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">databases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/core/management/base.py#L481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.check" title="Link to this definition"></a></dt>
+<dd><p>Use the system check framework to validate entire Django project.
+Raise CommandError for any serious message (error or critical errors).
+If there are only light messages (like warnings), print them to stderr
+and don’t raise an exception.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.check_migrations">
+<span class="sig-name descname"><span class="pre">check_migrations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/core/management/base.py#L583"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.check_migrations" title="Link to this definition"></a></dt>
+<dd><p>Print a warning if the set of migrations on disk don’t match the
+migrations in the database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.create_parser">
+<span class="sig-name descname"><span class="pre">create_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prog_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subcommand</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/core/management/base.py#L302"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.create_parser" title="Link to this definition"></a></dt>
+<dd><p>Create and return the <code class="docutils literal notranslate"><span class="pre">ArgumentParser</span></code> which will be used to
+parse the arguments to this command.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/core/management/base.py#L439"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.execute" title="Link to this definition"></a></dt>
+<dd><p>Try to execute this command, performing system checks if needed (as
+controlled by the <code class="docutils literal notranslate"><span class="pre">requires_system_checks</span></code> attribute, except if
+force-skipped).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.get_check_kwargs">
+<span class="sig-name descname"><span class="pre">get_check_kwargs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/core/management/base.py#L476"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.get_check_kwargs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.get_version">
+<span class="sig-name descname"><span class="pre">get_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/core/management/base.py#L294"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.get_version" title="Link to this definition"></a></dt>
+<dd><p>Return the Django version, which should be correct for all built-in
+Django commands. User-supplied commands can override this method to
+return their own version.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.handle">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/delete_orphaned_region_media.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.handle" title="Link to this definition"></a></dt>
+<dd><p>Try to run the command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>dry_run</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether the directories should only be listed</p></li>
+<li><p><strong>**options</strong> (<em>Any</em>) – The supplied keyword options</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.help">
+<span class="sig-name descname"><span class="pre">help</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Delete</span> <span class="pre">media</span> <span class="pre">directories</span> <span class="pre">of</span> <span class="pre">regions</span> <span class="pre">which</span> <span class="pre">do</span> <span class="pre">not</span> <span class="pre">exist</span> <span class="pre">anymore'</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/delete_orphaned_region_media.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.help" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.output_transaction">
+<span class="sig-name descname"><span class="pre">output_transaction</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/delete_orphaned_region_media.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.output_transaction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.print_help">
+<span class="sig-name descname"><span class="pre">print_help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prog_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subcommand</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/core/management/base.py#L395"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.print_help" title="Link to this definition"></a></dt>
+<dd><p>Print the help message for this command, derived from
+<code class="docutils literal notranslate"><span class="pre">self.usage()</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.requires_migrations_checks">
+<span class="sig-name descname"><span class="pre">requires_migrations_checks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/delete_orphaned_region_media.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.requires_migrations_checks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.requires_system_checks">
+<span class="sig-name descname"><span class="pre">requires_system_checks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'__all__'</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/delete_orphaned_region_media.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.requires_system_checks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.run_from_argv">
+<span class="sig-name descname"><span class="pre">run_from_argv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/core/management/base.py#L403"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.run_from_argv" title="Link to this definition"></a></dt>
+<dd><p>Set up any environment changes requested (e.g., Python path
+and Django settings), then run this command. If the
+command raises a <code class="docutils literal notranslate"><span class="pre">CommandError</span></code>, intercept it and print it sensibly
+to stderr. If the <code class="docutils literal notranslate"><span class="pre">--traceback</span></code> option is present or the raised
+<code class="docutils literal notranslate"><span class="pre">Exception</span></code> is not <code class="docutils literal notranslate"><span class="pre">CommandError</span></code>, raise it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.set_logging_stream">
+<span class="sig-name descname"><span class="pre">set_logging_stream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/log_command.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.set_logging_stream" title="Link to this definition"></a></dt>
+<dd><p>Set the output stream to the command’s stdout/stderr wrapper.
+Has to be called as part of the command’s handle() function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.stealth_options">
+<span class="sig-name descname"><span class="pre">stealth_options</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/delete_orphaned_region_media.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.stealth_options" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.core.management.commands.delete_orphaned_region_media.Command.suppressed_base_arguments">
+<span class="sig-name descname"><span class="pre">suppressed_base_arguments</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/delete_orphaned_region_media.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.suppressed_base_arguments" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
@@ -5963,7 +6126,7 @@ Has to be called as part of the command’s handle() function.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 23, 2026.
+      <span class="lastupdated">Last updated on Oct 06, 2026.
       </span></p>
   </div>
 

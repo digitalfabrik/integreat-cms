@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-09-23T17:30:13+00:00" />
+    <meta property="article:modified_time" content="2026-10-06T09:50:53+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Regions &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -2040,6 +2040,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#copy-places"><code class="docutils literal notranslate"><span class="pre">copy_places</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#delete-orphaned-region-media"><code class="docutils literal notranslate"><span class="pre">delete_orphaned_region_media</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#import-places-from-csv"><code class="docutils literal notranslate"><span class="pre">import_places_from_csv</span></code></a></li>
@@ -2324,9 +2325,9 @@
 <p>This module contains view actions for region objects.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.regions.region_actions.</span></span><span class="sig-name descname"><span class="pre">delete_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/regions/region_actions.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This view deletes a region. All content is cascade deleted. Region users, who are not assigned to any other region,
-are manually removed.</p>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.regions.region_actions.</span></span><span class="sig-name descname"><span class="pre">delete_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/regions/region_actions.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This view deletes a region. All content is cascade deleted and the region’s media files are removed from the file
+system. Region users, who are not assigned to any other region, are manually removed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2521,7 +2522,7 @@ are manually removed.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 23, 2026.
+      <span class="lastupdated">Last updated on Oct 06, 2026.
       </span></p>
   </div>
 

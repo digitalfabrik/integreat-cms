@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-09-23T17:30:13+00:00" />
+    <meta property="article:modified_time" content="2026-10-06T09:50:53+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Management Commands &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -2040,6 +2040,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#copy-places"><code class="docutils literal notranslate"><span class="pre">copy_places</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-orphaned-region-media"><code class="docutils literal notranslate"><span class="pre">delete_orphaned_region_media</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#import-places-from-csv"><code class="docutils literal notranslate"><span class="pre">import_places_from_csv</span></code></a></li>
@@ -2398,6 +2399,17 @@ when you use this command in production to make sure links in archived pages are
 <li><p><code class="docutils literal notranslate"><span class="pre">--threshold</span> <span class="pre">THRESHOLD</span></code>: Only show files larger than this <code class="docutils literal notranslate"><span class="pre">THRESHOLD</span></code> (in MiB, defaults to 3.0)</p></li>
 </ul>
 </section>
+<section id="delete-orphaned-region-media">
+<h4><code class="docutils literal notranslate"><span class="pre">delete_orphaned_region_media</span></code><a class="headerlink" href="#delete-orphaned-region-media" title="Link to this heading"></a></h4>
+<p>Delete media directories of regions which do not exist anymore:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>integreat-cms-cli<span class="w"> </span>delete_orphaned_region_media<span class="w"> </span><span class="o">[</span>--dry-run<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--dry-run</span></code>: Only list the orphaned media directories without deleting them</p></li>
+</ul>
+</section>
 <section id="find-missing-versions">
 <h4><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code><a class="headerlink" href="#find-missing-versions" title="Link to this heading"></a></h4>
 <p>Find version inconsistencies in the CMS:</p>
@@ -2621,7 +2633,7 @@ once and should not be needed afterwards in the future:</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 23, 2026.
+      <span class="lastupdated">Last updated on Oct 06, 2026.
       </span></p>
   </div>
 

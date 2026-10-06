@@ -2040,6 +2040,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#copy-places"><code class="docutils literal notranslate"><span class="pre">copy_places</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#delete-orphaned-region-media"><code class="docutils literal notranslate"><span class="pre">delete_orphaned_region_media</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#import-places-from-csv"><code class="docutils literal notranslate"><span class="pre">import_places_from_csv</span></code></a></li>
@@ -2314,7 +2315,7 @@
              
   <section id="module-tests">
 <span id="tests"></span><h1>Tests<a class="headerlink" href="#module-tests" title="Link to this heading"></a></h1>
-<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v9.2.0.dev352)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
+<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v9.2.0.dev353)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
 <p>In addition, we use the following plugins:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/index.html" title="(in pytest-cov v7.1.0)"><span class="xref std std-doc">pytest-cov</span></a>: This plugin produces coverage reports.</p></li>
@@ -2578,6 +2579,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tests.core.management.html">Management</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.core.management.commands.html">Commands</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.commands.html#module-tests.core.management.commands.test_copy_places">Test Copy Places</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.core.management.commands.html#module-tests.core.management.commands.test_delete_orphaned_region_media">Test Delete Orphaned Region Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.commands.html#module-tests.core.management.commands.test_duplicate_pages">Test Duplicate Pages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.commands.html#module-tests.core.management.commands.test_find_large_files">Test Find Large Files</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.commands.html#module-tests.core.management.commands.test_find_missing_versions">Test Find Missing Versions</a></li>
@@ -3102,11 +3104,11 @@ non-transactional tests within the same worker.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.conftest.pytest_addoption">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">pytest_addoption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.Parser" title="(in pytest v9.2.0.dev352)"><span class="pre">Parser</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.pytest_addoption" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">pytest_addoption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.Parser" title="(in pytest v9.2.0.dev353)"><span class="pre">Parser</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.pytest_addoption" title="Link to this definition"></a></dt>
 <dd><p>Register custom CLI options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parser</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.Parser" title="(in pytest v9.2.0.dev352)"><em>Parser</em></a>)</p>
+<dd class="field-odd"><p><strong>parser</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.Parser" title="(in pytest v9.2.0.dev353)"><em>Parser</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -3138,11 +3140,11 @@ worker.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.conftest.update_snapshots">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">update_snapshots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v9.2.0.dev352)"><span class="pre">FixtureRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.update_snapshots" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">update_snapshots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v9.2.0.dev353)"><span class="pre">FixtureRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.update_snapshots" title="Link to this definition"></a></dt>
 <dd><p>Whether <code class="docutils literal notranslate"><span class="pre">--update-snapshots</span></code> was passed on the CLI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v9.2.0.dev352)"><em>FixtureRequest</em></a>)</p>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v9.2.0.dev353)"><em>FixtureRequest</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#bool" title="(in Python v3.13)">bool</a></p>
@@ -3258,20 +3260,20 @@ fixture registration.</p>
 <span id="mock"></span><h2>Mock<a class="headerlink" href="#module-tests.mock" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="tests.mock.MockServer">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">tests.mock.</span></span><span class="sig-name descname"><span class="pre">MockServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">http_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytest-httpserver.readthedocs.io/en/latest/api.html#pytest_httpserver.HTTPServer" title="(in pytest_httpserver v1.1.5)"><span class="pre">HTTPServer</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/mock.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.mock.MockServer" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">tests.mock.</span></span><span class="sig-name descname"><span class="pre">MockServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">http_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytest-httpserver.readthedocs.io/en/latest/api.html#pytest_httpserver.HTTPServer" title="(in pytest_httpserver v1.2.0)"><span class="pre">HTTPServer</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/mock.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.mock.MockServer" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Http server instance that allowes to configure mock responses</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>http_server</strong> (<a class="reference external" href="https://pytest-httpserver.readthedocs.io/en/latest/api.html#pytest_httpserver.HTTPServer" title="(in pytest_httpserver v1.1.5)"><em>HTTPServer</em></a>)</p>
+<dd class="field-odd"><p><strong>http_server</strong> (<a class="reference external" href="https://pytest-httpserver.readthedocs.io/en/latest/api.html#pytest_httpserver.HTTPServer" title="(in pytest_httpserver v1.2.0)"><em>HTTPServer</em></a>)</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="tests.mock.MockServer.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">http_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytest-httpserver.readthedocs.io/en/latest/api.html#pytest_httpserver.HTTPServer" title="(in pytest_httpserver v1.1.5)"><span class="pre">HTTPServer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/mock.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.mock.MockServer.__init__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">http_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytest-httpserver.readthedocs.io/en/latest/api.html#pytest_httpserver.HTTPServer" title="(in pytest_httpserver v1.2.0)"><span class="pre">HTTPServer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/mock.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.mock.MockServer.__init__" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>http_server</strong> (<a class="reference external" href="https://pytest-httpserver.readthedocs.io/en/latest/api.html#pytest_httpserver.HTTPServer" title="(in pytest_httpserver v1.1.5)"><em>HTTPServer</em></a>)</p>
+<dd class="field-odd"><p><strong>http_server</strong> (<a class="reference external" href="https://pytest-httpserver.readthedocs.io/en/latest/api.html#pytest_httpserver.HTTPServer" title="(in pytest_httpserver v1.2.0)"><em>HTTPServer</em></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -3315,7 +3317,7 @@ fixture registration.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The expected message</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev352)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev353)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -3333,7 +3335,7 @@ fixture registration.</p>
 <dd><p>Assert that no error messages were shown to the user</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev352)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev353)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/exceptions.html#AssertionError" title="(in Python v3.13)"><strong>AssertionError</strong></a> – When the the logs contains error messages</p>
@@ -3360,7 +3362,7 @@ fixture registration.</p>
 <dd><p>Get all errors from the messages framework</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev352)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev353)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of error messages that were shown to the user</p>
@@ -3377,7 +3379,7 @@ fixture registration.</p>
 <dd><p>Get all logs from the messages framework</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev352)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev353)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of messages that were shown to the user</p>
