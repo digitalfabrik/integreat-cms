@@ -105,6 +105,18 @@ Find large media files in the CMS::
 * ``--threshold THRESHOLD``: Only show files larger than this ``THRESHOLD`` (in MiB, defaults to 3.0)
 
 
+``delete_orphaned_region_media``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Delete media directories of regions which do not exist anymore::
+
+    integreat-cms-cli delete_orphaned_region_media [--dry-run]
+
+**Options:**
+
+* ``--dry-run``: Only list the orphaned media directories without deleting them
+
+
 ``find_missing_versions``
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 

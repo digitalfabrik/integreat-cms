@@ -5,7 +5,9 @@ Utility functions for the media management. Most of the functions are used to tr
 from __future__ import annotations
 
 import logging
+import shutil
 from io import BytesIO
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 import cairosvg
@@ -79,3 +81,33 @@ def generate_thumbnail(
         return None
     else:
         return thumbnail
+
+
+def get_region_media_directory(region_id: int) -> Path:
+    """
+    Get the file system directory which contains the media files of a region
+
+    :param region_id: The id of the region
+    :return: The path of the region's media directory
+    """
+    return Path(settings.MEDIA_ROOT) / "regions" / str(region_id)
+
+
+def delete_region_media_directory(region_id: int) -> bool:
+    """
+    Delete the file system directory which contains the media files of a region
+
+    :param region_id: The id of the region
+    :return: Whether the directory does not exist anymore
+    """
+    media_directory = get_region_media_directory(region_id)
+    if not media_directory.exists():
+        logger.debug("Media directory %s does not exist", media_directory)
+        return True
+    try:
+        shutil.rmtree(media_directory)
+    except OSError:
+        logger.exception("Deleting media directory %s failed", media_directory)
+        return False
+    logger.info("Deleted media directory %s", media_directory)
+    return True
