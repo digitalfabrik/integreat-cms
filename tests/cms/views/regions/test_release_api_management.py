@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils import timezone
 
@@ -188,7 +189,7 @@ def test_released_budget_outside_the_package_sizes_survives_a_save(
     The API may push any word count, the form offers a dropdown of package sizes. A value outside
     those sizes has no matching option, so the browser would submit the first one and the next
     save of the region form -- even one that only toggles an unrelated switch -- would silently
-    reduce the budget. The field therefore has to stay a plain integer input in that case.
+    reduce the budget. The current value is therefore offered as an additional option.
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param admin_client: The fixture providing the http client of the superuser
@@ -204,9 +205,41 @@ def test_released_budget_outside_the_package_sizes_survives_a_save(
 
     region.refresh_from_db()
     field = RegionForm(instance=region).fields["mt_budget_booked"]
-    assert not hasattr(field, "choices"), (
-        "The budget is offered as a dropdown although the current value is not among its "
-        "options, so the next save would overwrite it"
+    assert 77777 in dict(field.choices), (
+        "The budget is offered as a dropdown without the current value among its options, so "
+        "the next save would overwrite it"
+    )
+    assert field.clean("77777") == 77777
+
+
+@pytest.mark.django_db
+def test_released_budget_cannot_be_changed_to_another_arbitrary_value(
+    load_test_data: None,
+    admin_client: Client,
+) -> None:
+    """
+    Test that keeping a budget outside the package sizes does not allow entering arbitrary ones
+
+    Only the current value is offered in addition to the package sizes. Any other value is
+    rejected, so arbitrary budgets can still only be set via the API.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param admin_client: The fixture providing the http client of the superuser
+    """
+    region = mark_as_api_managed()
+    region.mt_budget_booked = 77777
+    region.save(update_fields=["mt_budget_booked"])
+
+    admin_client.post(
+        reverse("release_api_management", kwargs={"slug": REGION_SLUG}),
+    )
+
+    region.refresh_from_db()
+    field = RegionForm(instance=region).fields["mt_budget_booked"]
+    with pytest.raises(ValidationError):
+        field.clean("66666")
+    assert field.clean(str(machine_translation_budget.MEDIUM)) == (
+        machine_translation_budget.MEDIUM
     )
 
 

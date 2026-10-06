@@ -236,18 +236,29 @@ class RegionForm(CustomModelForm):
             # silently display the wrong one.
             for field_name in region_api_settings.WRITABLE_FIELDS:
                 self.fields[field_name].disabled = True
-        elif self.instance.mt_budget_booked in dict(machine_translation_budget.CHOICES):
+        else:
             # The model no longer restricts the budget to the predefined package sizes, because the
             # API may push arbitrary values. Regions maintained in the CMS should still get the
             # dropdown with the known sizes, so the choices are defined on the form instead.
             #
-            # A budget outside those sizes keeps the plain integer field, for the same reason the
-            # API-managed branch above does: a dropdown without a matching option displays the
-            # wrong one, and the next save of this form would silently write that wrong value.
-            # This is not hypothetical -- it is exactly the state of a region that was released
-            # from API management while the API had pushed an arbitrary word count.
+            # A budget outside those sizes is offered as an additional option: without a matching
+            # option the browser would select the first one, and the next save of this form would
+            # silently write that wrong value. This is exactly the state of a region that was
+            # released from API management while the API had pushed an arbitrary word count. The
+            # current value can be kept, but not changed to another arbitrary one.
+            choices = list(machine_translation_budget.CHOICES)
+            current_budget = self.instance.mt_budget_booked
+            if current_budget not in dict(choices):
+                choices.append(
+                    (
+                        current_budget,
+                        _("{} (current value)").format(
+                            f"{current_budget:,}".replace(",", ".")
+                        ),
+                    )
+                )
             self.fields["mt_budget_booked"] = forms.TypedChoiceField(
-                choices=machine_translation_budget.CHOICES,
+                choices=choices,
                 coerce=int,
                 label=self.fields["mt_budget_booked"].label,
                 initial=machine_translation_budget.MINIMAL,
