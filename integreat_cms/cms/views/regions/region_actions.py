@@ -113,8 +113,7 @@ def delete_region(
 @permission_required("cms.change_region")
 def release_api_management(
     request: HttpRequest,
-    *args: Any,
-    **kwargs: Any,
+    slug: str,
 ) -> HttpResponseRedirect:
     r"""
     This view releases a region from being managed by an external system via the API.
@@ -130,11 +129,10 @@ def release_api_management(
     push visibly contradicts that instead of failing silently.
 
     :param request: The current request
-    :param \*args: The supplied arguments
-    :param \**kwargs: The supplied keyword arguments
+    :param slug: The slug of the region
     :return: A redirection to the region form
     """
-    region = get_object_or_404(Region, slug=kwargs.get("slug"))
+    region = get_object_or_404(Region, slug=slug)
 
     if not region.is_api_managed:
         messages.info(
