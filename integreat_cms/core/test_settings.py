@@ -61,6 +61,11 @@ CACHEOPS_ENABLED = False
 #: applies to bare management commands, e.g. ``makemigrations --check`` in CI.
 CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
+#: Keep Celery's broker and result backend in-process, since no Redis is
+#: available during tests. Eager tasks still write their state to the result
+#: backend (e.g. via ``update_state()``).
+CELERY_BROKER_URL = "memory://"
+CELERY_RESULT_BACKEND = "cache+memory://"
 #: Disable linkcheck listeners during testing
 LINKCHECK_DISABLE_LISTENERS = True
 # Disable background tasks during testing
