@@ -91,6 +91,9 @@ def check_news_link(
     :param language: The language
     :returns: The validity status of the URL
     """
+    # Split local news links in the format "news/local-<id>" into their subcategory and id
+    if len(path_components) == 2 and path_components[1].startswith("local-"):
+        path_components = [path_components[0], *path_components[1].split("-", 1)]
     if len(path_components) == 1:
         mark_invalid(
             url,
@@ -114,7 +117,7 @@ def check_news_link(
             if (
                 len(path_components) == 2
                 or region.push_notifications.filter(
-                    id=path_components[2],
+                    translations__id=path_components[2],
                     sent_date__isnull=False,
                     translations__language=language,
                 ).exists()
