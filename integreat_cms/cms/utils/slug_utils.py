@@ -62,7 +62,7 @@ if TYPE_CHECKING:
         foreign_object: NotRequired[AbstractContentModel]
         language: NotRequired[Language]
         manager: Manager
-        object_instance: AbstractBaseModel
+        object_instance: AbstractBaseModel | None
         region: NotRequired[Region]
         slug: NotRequired[str]
 
@@ -120,7 +120,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     slug: str = kwargs.get("slug", "")
     foreign_model: str | None = kwargs.get("foreign_model")
     foreign_object: AbstractContentModel | None = kwargs.get("foreign_object")
-    object_instance: AbstractBaseModel = kwargs["object_instance"]
+    object_instance: AbstractBaseModel | None = kwargs["object_instance"]
     fallback: str = kwargs.get("fallback", "")
     region: Region | None = kwargs.get("region")
     language: Language | None = kwargs.get("language")
@@ -131,7 +131,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
         logger.debug("%r, %r", region, language)
     logger.debug("slug: %r", slug)
 
-    base_slug = generate_base_slug(slug, fallback, object_instance, foreign_model)
+    base_slug = generate_base_slug(slug, fallback, manager.model, foreign_model)
     pre_filtered_objects = get_prefiltered_queryset(
         manager,
         foreign_model,
@@ -168,7 +168,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
 def generate_base_slug(
     slug: str,
     fallback: str,
-    object_instance: AbstractBaseModel,
+    model: type[AbstractBaseModel],
     foreign_model: str | None,
 ) -> str:
     """
@@ -177,7 +177,7 @@ def generate_base_slug(
     if slug:
         return slug.lower()
 
-    allow_unicode = object_instance._meta.get_field("slug").allow_unicode
+    allow_unicode = model._meta.get_field("slug").allow_unicode
     slug = slugify(fallback, allow_unicode=allow_unicode)
 
     return slug.lower() or (foreign_model or "").lower()
