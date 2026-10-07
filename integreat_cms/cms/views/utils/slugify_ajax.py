@@ -49,9 +49,15 @@ def slugify_ajax(
     model_id = json_data.get("model_id")
 
     manager = managers[model_type].objects
-    # New objects don't have an id yet
+    # New objects don't have an id yet, and new translations of existing objects have no instance yet
     object_instance = (
-        manager.filter(**{model_type: model_id, "language": language}).first()
+        manager.filter(
+            **{
+                model_type: model_id,
+                f"{model_type}__region": request.region,
+                "language": language,
+            },
+        ).first()
         if model_id
         else None
     )
@@ -61,7 +67,7 @@ def slugify_ajax(
         or (
             model_type == "page"
             and model_id
-            and Page.objects.filter(id=model_id).first()
+            and Page.objects.filter(id=model_id, region=request.region).first()
             in request.user.access_granted_pages(request.region)
         )
     ):

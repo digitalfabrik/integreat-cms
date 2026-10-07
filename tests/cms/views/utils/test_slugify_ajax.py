@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from django.test.client import Client
 from django.urls import reverse
 
-from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES
+from tests.constants import ANONYMOUS
 
 
 @pytest.mark.django_db
@@ -49,13 +49,14 @@ def test_slugify_ajax_for_new_object(
     if role == ANONYMOUS:
         assert response.status_code == 302
         return
-    assert response.status_code in (200, 403)
-    if role in PRIV_STAFF_ROLES:
-        assert response.status_code == 200
-        # The slug may get a counter suffix if it already exists
-        assert re.fullmatch(
-            rf"{expected_slug or model_type}(-\d+)?", response.json()["unique_slug"]
-        )
+    if not response.wsgi_request.user.has_perm(f"cms.change_{model_type}"):
+        assert response.status_code == 403
+        return
+    assert response.status_code == 200
+    # The slug may get a counter suffix if it already exists
+    assert re.fullmatch(
+        rf"{expected_slug or model_type}(-\d+)?", response.json()["unique_slug"]
+    )
 
 
 @pytest.mark.django_db
