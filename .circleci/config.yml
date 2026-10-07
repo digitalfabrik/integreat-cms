@@ -26,9 +26,6 @@ jobs:
       - restore_cache:
           key: uv-{{ checksum ".python-build-id" }}-{{ checksum "uv.lock" }}-v1
       - run:
-          name: Check whether uv.lock is up to date
-          command: uv lock --check
-      - run:
           name: Install Python dependencies
           command: uv sync --locked
       - save_cache:
