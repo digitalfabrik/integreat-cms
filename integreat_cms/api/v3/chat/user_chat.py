@@ -7,12 +7,13 @@ from __future__ import annotations
 import json
 import logging
 import random
+from io import BytesIO
 from typing import TYPE_CHECKING
 
 import requests
 from django.conf import settings
 from django.core.cache import cache
-from django.http import HttpResponse, JsonResponse
+from django.http import FileResponse, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.dateparse import parse_datetime
 from django.views.decorators.csrf import csrf_exempt
@@ -26,6 +27,7 @@ from .utils.chat_bot import (
 )
 
 if TYPE_CHECKING:
+    from django.core.files.uploadedfile import UploadedFile
     from django.http import HttpRequest
 
 logger = logging.getLogger(__name__)
@@ -89,6 +91,30 @@ def get_or_create_user_chat(
     return None
 
 
+def validate_attachments(attachments: list[UploadedFile]) -> str | None:
+    """
+    Validate a list of uploaded chat attachments against the configured
+    size, MIME type and count restrictions.
+
+    :param attachments: uploaded files to validate
+    :return: an error message if validation fails, otherwise ``None``
+    """
+    for attachment in attachments:
+        if (
+            attachment.size is None
+            or attachment.size > settings.INTEGREAT_CHAT_ATTACHMENT_MAX_SIZE
+        ):
+            return f"Attachment '{attachment.name}' exceeds the maximum allowed size."
+        if (
+            attachment.content_type
+            not in settings.INTEGREAT_CHAT_ATTACHMENT_ALLOWED_MIME_TYPES
+        ):
+            return f"Attachment '{attachment.name}' has an unsupported file type."
+    if len(attachments) > settings.INTEGREAT_CHAT_ATTACHMENT_MAX_COUNT:
+        return f"At most {settings.INTEGREAT_CHAT_ATTACHMENT_MAX_COUNT} attachments can be sent per message."
+    return None
+
+
 def process_chat_payload(
     request: HttpRequest, device_id: str, language_slug: str
 ) -> JsonResponse:
@@ -103,13 +129,20 @@ def process_chat_payload(
     language = Language.objects.get(slug=language_slug)
     if (user_chat := get_or_create_user_chat(request, device_id, language)) is None:
         return JsonResponse({"error": "Chat not found."}, status=404)
-    if request.POST.get("message"):
+    attachments = request.FILES.getlist("attachment")
+    if attachments and (error := validate_attachments(attachments)) is not None:
+        return JsonResponse({"error": error}, status=400)
+    message_text = request.POST.get("message", "")
+    if message_text or attachments:
         response = user_chat.save_message(
-            message=request.POST.get("message"), internal=False, automatic_message=False
+            message=message_text,
+            internal=False,
+            automatic_message=False,
+            attachments=attachments or None,
         )
         user_chat.language = language
         user_chat.save()
-        if response is not None:
+        if message_text and response is not None:
             if user_chat.automatic_answers:
                 user_chat.processing_answer = True  # type: ignore[assignment]
                 celery_translate_and_answer_question.apply_async(
@@ -122,7 +155,7 @@ def process_chat_payload(
             else:
                 celery_translate_question.apply_async(
                     args=[
-                        request.POST.get("message"),
+                        message_text,
                         request.region.slug,
                         response["ticket_id"],
                     ]
@@ -174,6 +207,66 @@ def chat(
             },
             status=500,
         )
+
+
+@csrf_exempt
+@json_response
+@rate_limit
+def chat_attachment(
+    request: HttpRequest,
+    region_slug: str,
+    device_id: str,
+    article_id: int,
+    attachment_id: int,
+) -> FileResponse | JsonResponse:
+    """
+    Download an attachment from the current chat ticket of the given device.
+
+    The attachment must belong to a non-internal article of the device's current
+    Zammad ticket; otherwise a 404 is returned.
+
+    :param request: Django request
+    :param region_slug: slug of the region
+    :param device_id: ID of the device requesting the attachment
+    :param article_id: ID of the Zammad article the attachment belongs to
+    :param attachment_id: ID of the attachment within the article
+    :return: file response or JSON error
+    """
+    if (
+        not request.region.integreat_chat_enabled
+        or not request.region.zammad_url
+        or not request.region.zammad_access_token
+    ):
+        return JsonResponse(
+            {"error": "No chat server is configured for your region."},
+            status=503,
+        )
+    user_chat = UserChat.objects.current_chat(device_id, region=request.region)
+    if user_chat is None or user_chat.is_expired:
+        return JsonResponse({"error": "Chat not found."}, status=404)
+    try:
+        result = user_chat.get_attachment(article_id, attachment_id)
+    except (
+        requests.exceptions.HTTPError,
+        requests.exceptions.ConnectionError,
+        ValueError,
+    ):
+        logger.exception("Could not connect to Zammad")
+        return JsonResponse(
+            {
+                "error": "An error occurred while attempting to connect to the chat server."
+            },
+            status=500,
+        )
+    if result is None:
+        return JsonResponse({"error": "Attachment not found."}, status=404)
+    content, content_type, filename = result
+    return FileResponse(
+        BytesIO(content),
+        content_type=content_type,
+        as_attachment=True,
+        filename=filename,
+    )
 
 
 def is_app_user_message(webhook_message: dict) -> bool:
