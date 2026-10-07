@@ -15,9 +15,16 @@ FROM cimg/python:3.13
 
 USER root
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b gettext \
-    && rm -rf /var/lib/apt/lists/*
+RUN \
+	--mount=type=cache,target=/var/cache/apt,sharing=locked \
+	--mount=type=cache,target=/var/lib/apt,sharing=locked \
+	apt-get update && apt-get install -y --no-install-recommends \
+	ca-certificates \
+	gettext \
+	libcairo2 \
+	libharfbuzz0b \
+	libpango-1.0-0 \
+	libpangoft2-1.0-0
 
 # Replace the uv shipped by cimg with the same pinned version as in
 # .circleci/config.yml (the installer there writes to the same path). It
@@ -35,8 +42,8 @@ COPY --from=ghcr.io/astral-sh/uv:0.12.23 /uv /home/circleci/.local/bin/uv
 # world-writable so the same uid can populate the cached virtualenv (a fresh
 # named volume inherits the mountpoint's permissions).
 RUN chmod 0755 /home/circleci \
-    && mkdir -p /home/circleci/venv \
-    && chmod 0777 /home/circleci/venv
+	&& mkdir -p /home/circleci/venv \
+	&& chmod 0777 /home/circleci/venv
 
 USER circleci
 
