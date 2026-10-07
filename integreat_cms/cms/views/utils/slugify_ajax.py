@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.utils.text import slugify
 
-from ...models import EventTranslation, PageTranslation, PlaceTranslation
+from ...models import EventTranslation, Page, PageTranslation, PlaceTranslation
 from ...utils.slug_utils import generate_unique_slug
 
 if TYPE_CHECKING:
@@ -49,15 +49,19 @@ def slugify_ajax(
     model_id = json_data.get("model_id")
 
     manager = managers[model_type].objects
-    object_instance = manager.filter(
-        **{model_type: model_id, "language": language},
-    ).first()
+    # New objects don't have an id yet
+    object_instance = (
+        manager.filter(**{model_type: model_id, "language": language}).first()
+        if model_id
+        else None
+    )
 
     if not (
         request.user.has_perms((required_permission,))
         or (
             model_type == "page"
-            and object_instance.page
+            and model_id
+            and Page.objects.filter(id=model_id).first()
             in request.user.access_granted_pages(request.region)
         )
     ):
@@ -71,7 +75,7 @@ def slugify_ajax(
         "foreign_model": model_type,
         "region": request.region,
         "language": language,
-        "fallback": object_instance.title,  # function is already restricted to handle only objects with title
+        "fallback": object_instance.title if object_instance else "",
     }
     unique_slug = generate_unique_slug(**kwargs)
     return JsonResponse({"unique_slug": unique_slug})
