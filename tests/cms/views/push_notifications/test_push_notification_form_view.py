@@ -104,8 +104,10 @@ def test_invalid_new_translation_keeps_language_tabs(
 
     if role == ANONYMOUS:
         assert response.status_code == 302
-    elif response.status_code == 200:
-        region = Region.objects.get(slug="augsburg")
-        assert list(response.context["languages"]) == list(region.active_languages)
-    if role in PRIV_STAFF_ROLES:
-        assert response.status_code == 200
+        return
+    if not response.wsgi_request.user.has_perm("cms.change_pushnotification"):
+        assert response.status_code == 403
+        return
+    assert response.status_code == 200
+    region = Region.objects.get(slug="augsburg")
+    assert list(response.context["languages"]) == list(region.active_languages)
