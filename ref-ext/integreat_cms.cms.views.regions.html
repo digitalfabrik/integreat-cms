@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-10-06T09:51:28+00:00" />
+    <meta property="article:modified_time" content="2026-10-07T15:57:11+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Regions &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -2345,6 +2345,34 @@ system. Region users, who are not assigned to any other region, are manually rem
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.regions.region_actions.release_api_management">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.regions.region_actions.</span></span><span class="sig-name descname"><span class="pre">release_api_management</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/regions/region_actions.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.regions.region_actions.release_api_management" title="Link to this definition"></a></dt>
+<dd><p>This view releases a region from being managed by an external system via the API.</p>
+<p>It only clears <a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.api_settings_synced_at" title="integreat_cms.cms.models.regions.region.Region.api_settings_synced_at"><code class="xref py py-attr docutils literal notranslate"><span class="pre">api_settings_synced_at</span></code></a>,
+which is what marks a region as API-managed and makes the synced settings read-only in the
+region form. Nothing else is changed: the settings themselves keep the values the external
+system pushed last.</p>
+<p>The release is deliberately not permanent. If the connected system pushes again, the region is
+marked as API-managed once more and the fields become read-only again – which is the desired
+semantics: the release states “we maintain these settings here from now on”, and a subsequent
+push visibly contradicts that instead of failing silently.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>slug</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The slug of the region</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirection to the region form</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponseRedirect</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-integreat_cms.cms.views.regions.region_list_view">
 <span id="region-list-view"></span><h2>Region List View<a class="headerlink" href="#module-integreat_cms.cms.views.regions.region_list_view" title="Link to this heading"></a></h2>
@@ -3035,7 +3063,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 06, 2026.
+      <span class="lastupdated">Last updated on Oct 07, 2026.
       </span></p>
   </div>
 
