@@ -1158,12 +1158,15 @@ CACHES: dict[str, dict[str, str | dict[str, str | bool]]] = {
 # Use RedisCache when activated
 if REDIS_CACHE:
     if REDIS_UNIX_SOCKET:
-        # Use unix socket if available (and also tell cacheops about it)
+        # Use unix socket if available
         redis_location = f"unix://{REDIS_UNIX_SOCKET}?db=0"
-        CACHEOPS_REDIS: Final[str] = f"unix://{REDIS_UNIX_SOCKET}?db=1"
+        cacheops_redis_location = f"unix://{REDIS_UNIX_SOCKET}?db=1"
     else:
         # If not, fall back to TCP connection
         redis_location = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+        cacheops_redis_location = f"redis://{REDIS_HOST}:{REDIS_PORT}/1"
+    #: Same Redis instance for cacheops, but a separate database from the default cache
+    CACHEOPS_REDIS: Final[str] = cacheops_redis_location
     CACHES["default"] = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": redis_location,
