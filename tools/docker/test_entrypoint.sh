@@ -15,9 +15,10 @@ set -eo pipefail
 # the invoking host user; the image opens /home/circleci for traversal and
 # pre-creates this mountpoint world-writable so that uid can reach and populate
 # the volume regardless of its value (see tools/docker/Dockerfile.test).
-VENV_DIR="/home/circleci/venv"
-if [[ ! -w "${VENV_DIR}" ]]; then
-    echo "The virtualenv volume at ${VENV_DIR} is not writable by uid $(id -u)." >&2
+UV_PROJECT_ENVIRONMENT="/home/circleci/venv"
+export UV_PROJECT_ENVIRONMENT
+if [[ ! -w "${UV_PROJECT_ENVIRONMENT}" ]]; then
+    echo "The virtualenv volume at ${UV_PROJECT_ENVIRONMENT} is not writable by uid $(id -u)." >&2
     echo "This usually means the test image predates the permission fix; rebuild" >&2
     echo "it and reset the cached volume:" >&2
     echo "    docker compose --env-file /dev/null -f docker-compose.test.yml build" >&2
@@ -31,18 +32,13 @@ fi
 # bin/python symlink dangling. `python -m venv` without --clear keeps existing
 # symlinks, so it would not repair such a venv; --clear rebuilds it from the
 # current interpreter.
-if [[ ! -x "${VENV_DIR}/bin/python" ]] || ! "${VENV_DIR}/bin/python" -c '' 2> /dev/null; then
-    echo "Creating virtualenv at ${VENV_DIR}..."
-    uv run python -m venv --clear "${VENV_DIR}"
+if [[ ! -x "${UV_PROJECT_ENVIRONMENT}/bin/python" ]] || ! "${UV_PROJECT_ENVIRONMENT}/bin/python" -c '' 2> /dev/null; then
     # Install the project with the exact locked versions CI uses. uv creates the
     # virtualenv on the volume if it does not exist yet, and the install is a
     # no-op on warm runs.
     echo "Installing dependencies (locked, matching CI)..."
-    UV_PROJECT_ENVIRONMENT="${VENV_DIR}" uv sync --locked
+    uv sync --locked
 fi
-
-# shellcheck disable=SC1091
-source "${VENV_DIR}/bin/activate"
 
 # The .mo translation files are not committed; compile them so translation-
 # dependent tests (e.g. the CSV feedback export) behave deterministically.
