@@ -49,11 +49,11 @@ class MatomoApiClient:
     """
 
     #: Matomo API-key
-    matomo_token: str | None = None
+    __matomo_token: str
     #: Matomo ID
-    matomo_id: int | None = None
+    __matomo_id: int
     #: The active languages
-    languages: list[Language] = []
+    __languages: list[Language]
 
     def __init__(self, region: Region) -> None:
         """
@@ -63,9 +63,9 @@ class MatomoApiClient:
         """
         self.region_slug = region.slug
         self.region_name = region.name
-        self.matomo_token = region.matomo_token
-        self.matomo_id = region.matomo_id
-        self.languages = region.active_languages
+        self.__matomo_token = region.matomo_token
+        self.__matomo_id = region.matomo_id
+        self.__languages = region.active_languages
 
     async def async_fetch(
         self,
@@ -86,7 +86,7 @@ class MatomoApiClient:
         query_params = {
             "format": "JSON",
             "module": "API",
-            "token_auth": self.matomo_token,
+            "token_auth": self.__matomo_token,
         }
         # Update with the custom params for this request
         query_params.update(kwargs)
@@ -133,7 +133,7 @@ class MatomoApiClient:
         query_params = {
             "format": "JSON",
             "module": "API",
-            "token_auth": self.matomo_token,
+            "token_auth": self.__matomo_token,
         }
         # Update with the custom params for this request
         query_params.update(kwargs)
@@ -252,9 +252,9 @@ class MatomoApiClient:
 
         :return: The total visits in the ChartData format expected by ChartJs
         """
-        query_params = {
+        query_params: dict[str, str | int | None] = {
             "date": f"{start_date},{end_date}",
-            "idSite": self.matomo_id,
+            "idSite": self.__matomo_id,
             "method": "VisitsSummary.getActions",
             "period": period,
         }
@@ -382,7 +382,7 @@ class MatomoApiClient:
             "expanded": "1",
             "filter_limit": "-1",
             "format_metrics": "1",
-            "idSite": self.matomo_id,
+            "idSite": self.__matomo_id,
             "method": "VisitsSummary.getActions",
             "period": period,
         }
@@ -392,7 +392,7 @@ class MatomoApiClient:
         )
         # Convert languages to a list to force an evaluation in the sync function
         # (in Django, database queries cannot be executed in async functions without more ado)
-        languages = list(self.languages)
+        languages = list(self.__languages)
 
         # Initialize async event loop
         loop = asyncio.new_event_loop()
@@ -585,7 +585,7 @@ class MatomoApiClient:
             "flat": "1",
             "filter_limit": "-1",
             "format_metrics": "1",
-            "idSite": self.matomo_id,
+            "idSite": self.__matomo_id,
             "period": matomo_periods.DAY,
         }
         logger.debug("Fetching visits for %rlanguages.", languages)
