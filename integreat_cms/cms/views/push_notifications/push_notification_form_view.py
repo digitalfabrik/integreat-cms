@@ -270,7 +270,7 @@ class PushNotificationFormView(TemplateView):
                 "push_notification_translation_form": pn_translation_form,
                 "language": language,
                 "languages": region.active_languages
-                if push_notification_translation_instance
+                if push_notification_instance
                 else [language],
             },
         )
