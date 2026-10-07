@@ -2376,7 +2376,7 @@ Just code how you feel comfortable and let the tool do the work for you (see <a 
 <section id="sphinx">
 <h2>Sphinx<a class="headerlink" href="#sphinx" title="Link to this heading"></a></h2>
 <p>In the python files please add docstrings in the sphinx format (see <a class="reference external" href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html" title="(in Sphinx-RTD-Tutorial)"><span>Writing docstrings</span></a>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">"""</span>
 <span class="sd">[Summary]</span>
 
 <span class="sd">:param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]</span>
@@ -2386,7 +2386,7 @@ Just code how you feel comfortable and let the tool do the work for you (see <a 
 
 <span class="sd">:raises [ErrorType]: [ErrorDescription]</span>
 <span class="sd">...</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 </pre></div>
 </div>
 <div class="admonition hint">
@@ -2397,7 +2397,7 @@ model field type.</p>
 <p>Whenever you want to document module/class attributes which are not parameters (i.e. because they are not passed to the
 <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>-function or contain static values), use inline comments:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#: Description of attribute</span>
-<span class="n">attribute</span> <span class="o">=</span> <span class="s2">&quot;value of this attribute&quot;</span>
+<span class="n">attribute</span> <span class="o">=</span> <span class="s2">"value of this attribute"</span>
 </pre></div>
 </div>
 <p>See the configuration files <a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings" title="integreat_cms.core.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">settings</span></code></a> and <a class="reference internal" href="documentation.html#module-conf" title="conf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">conf</span></code></a> or <a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants" title="integreat_cms.cms.constants"><code class="xref py py-mod docutils literal notranslate"><span class="pre">constants</span></code></a> for examples.</p>

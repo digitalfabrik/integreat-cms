@@ -2397,7 +2397,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>client</strong> (<em>Client</em>) – The authenticated client</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev353)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev356)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 <li><p><strong>response</strong> (<em>HttpResponseRedirect</em>) – The response of the confirm view to be validated</p></li>
 <li><p><strong>import_1</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict of import information</p></li>
 <li><p><strong>import_2</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A list of import information</p></li>
@@ -2420,52 +2420,52 @@
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">    </span><span class="p">(</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="s1">&#39;content&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&lt;p&gt;Updated content&lt;/p&gt;&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;file&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;augsburg_de_en_1_2_willkommen.xliff&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;id&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;message&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;SUCCESS  Pages &quot;Updated title&quot; and &quot;Updated title&quot; (Title in German: &quot;Willkommen in Augsburg&quot;) were imported successfully.&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;title&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Updated title&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'content'</span><span class="o">:</span><span class="w"> </span><span class="s1">'&lt;p&gt;Updated content&lt;/p&gt;'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'file'</span><span class="o">:</span><span class="w"> </span><span class="s1">'augsburg_de_en_1_2_willkommen.xliff'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'id'</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'message'</span><span class="o">:</span><span class="w"> </span><span class="s1">'SUCCESS  Pages "Updated title" and "Updated title" (Title in German: "Willkommen in Augsburg") were imported successfully.'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'title'</span><span class="o">:</span><span class="w"> </span><span class="s1">'Updated title'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="s1">&#39;content&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&lt;p&gt;Updated content&lt;/p&gt;&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;expected_file&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;augsburg_de_en_2_1_willkommen-in-augsburg.xliff&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;file&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;augsburg_de_en_2_1_willkommen-in-augsburg.zip&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;id&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;message&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;SUCCESS  Pages &quot;Updated title&quot; and &quot;Updated title&quot; (Title in German: &quot;Willkommen in Augsburg&quot;) were imported successfully.&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;title&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Updated title&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">    </span><span class="p">),</span>
-<span class="w">    </span><span class="p">(</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="s1">&#39;content&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&lt;p&gt;Welcome to Augsburg&lt;/p&gt;&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;file&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;augsburg_de_en_1_2_willkommen_unchanged.xliff&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;id&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;message&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;INFO     Pages &quot;Welcome&quot; and &quot;City Map&quot; were imported without changes.&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;title&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Welcome&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="s1">&#39;content&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&lt;p&gt;These changes were saved automatically&lt;/p&gt;&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;file&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;augsburg_de_en_5_1_stadtplan_unchanged.xliff&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;id&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;message&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;INFO     Pages &quot;Welcome&quot; and &quot;City Map&quot; were imported without changes.&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;title&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;City Map&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'content'</span><span class="o">:</span><span class="w"> </span><span class="s1">'&lt;p&gt;Updated content&lt;/p&gt;'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'expected_file'</span><span class="o">:</span><span class="w"> </span><span class="s1">'augsburg_de_en_2_1_willkommen-in-augsburg.xliff'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'file'</span><span class="o">:</span><span class="w"> </span><span class="s1">'augsburg_de_en_2_1_willkommen-in-augsburg.zip'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'id'</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'message'</span><span class="o">:</span><span class="w"> </span><span class="s1">'SUCCESS  Pages "Updated title" and "Updated title" (Title in German: "Willkommen in Augsburg") were imported successfully.'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'title'</span><span class="o">:</span><span class="w"> </span><span class="s1">'Updated title'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="s1">&#39;content&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&lt;p&gt;Updated content&lt;/p&gt;&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;file&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;augsburg_de_en_1_2_willkommen.xliff&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;id&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;message&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;SUCCESS  Page &quot;Updated title&quot; was imported successfully.&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;title&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Updated title&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'content'</span><span class="o">:</span><span class="w"> </span><span class="s1">'&lt;p&gt;Welcome to Augsburg&lt;/p&gt;'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'file'</span><span class="o">:</span><span class="w"> </span><span class="s1">'augsburg_de_en_1_2_willkommen_unchanged.xliff'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'id'</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'message'</span><span class="o">:</span><span class="w"> </span><span class="s1">'INFO     Pages "Welcome" and "City Map" were imported without changes.'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'title'</span><span class="o">:</span><span class="w"> </span><span class="s1">'Welcome'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="s1">&#39;confirmation_message&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ERROR    Page &lt;b&gt;&amp;quot;Welcome&amp;quot;&lt;/b&gt; from file &lt;b&gt;augsburg_de_en_1_2_willkommen.xliff&lt;/b&gt; was also translated in file &lt;b&gt;augsburg_de_en_1_2_willkommen_conflict.xliff&lt;/b&gt;. Please check which of the files contains the most recent version and upload only this file. If you confirm this import, only the first file will be imported and the latter will be ignored.&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;content&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&lt;p&gt;Updated content&lt;/p&gt;&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;file&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;augsburg_de_en_1_2_willkommen_conflict.xliff&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;id&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;message&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ERROR    Page &amp;quot;Conflicting title&amp;quot; from the file &lt;b&gt;augsburg_de_en_1_2_willkommen_conflict.xliff&lt;/b&gt; could not be imported. Check if you have uploaded any other conflicting files for this page. If the problem persists, contact an administrator.&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;title&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Updated title&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'content'</span><span class="o">:</span><span class="w"> </span><span class="s1">'&lt;p&gt;These changes were saved automatically&lt;/p&gt;'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'file'</span><span class="o">:</span><span class="w"> </span><span class="s1">'augsburg_de_en_5_1_stadtplan_unchanged.xliff'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'id'</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'message'</span><span class="o">:</span><span class="w"> </span><span class="s1">'INFO     Pages "Welcome" and "City Map" were imported without changes.'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'title'</span><span class="o">:</span><span class="w"> </span><span class="s1">'City Map'</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="s1">'content'</span><span class="o">:</span><span class="w"> </span><span class="s1">'&lt;p&gt;Updated content&lt;/p&gt;'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'file'</span><span class="o">:</span><span class="w"> </span><span class="s1">'augsburg_de_en_1_2_willkommen.xliff'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'id'</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'message'</span><span class="o">:</span><span class="w"> </span><span class="s1">'SUCCESS  Page "Updated title" was imported successfully.'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'title'</span><span class="o">:</span><span class="w"> </span><span class="s1">'Updated title'</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="s1">'confirmation_message'</span><span class="o">:</span><span class="w"> </span><span class="s1">'ERROR    Page &lt;b&gt;&amp;quot;Welcome&amp;quot;&lt;/b&gt; from file &lt;b&gt;augsburg_de_en_1_2_willkommen.xliff&lt;/b&gt; was also translated in file &lt;b&gt;augsburg_de_en_1_2_willkommen_conflict.xliff&lt;/b&gt;. Please check which of the files contains the most recent version and upload only this file. If you confirm this import, only the first file will be imported and the latter will be ignored.'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'content'</span><span class="o">:</span><span class="w"> </span><span class="s1">'&lt;p&gt;Updated content&lt;/p&gt;'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'file'</span><span class="o">:</span><span class="w"> </span><span class="s1">'augsburg_de_en_1_2_willkommen_conflict.xliff'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'id'</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'message'</span><span class="o">:</span><span class="w"> </span><span class="s1">'ERROR    Page &amp;quot;Conflicting title&amp;quot; from the file &lt;b&gt;augsburg_de_en_1_2_willkommen_conflict.xliff&lt;/b&gt; could not be imported. Check if you have uploaded any other conflicting files for this page. If the problem persists, contact an administrator.'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'title'</span><span class="o">:</span><span class="w"> </span><span class="s1">'Updated title'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="p">]</span>
@@ -2508,7 +2508,7 @@
 <li><p><strong>settings</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.region_settings.Settings" title="integreat_cms.api.v3.region_settings.Settings"><em>Settings</em></a>) – The fixture providing the django settings</p></li>
 <li><p><strong>import_1</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict of import information</p></li>
 <li><p><strong>import_2</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A list of import information</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev353)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev356)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

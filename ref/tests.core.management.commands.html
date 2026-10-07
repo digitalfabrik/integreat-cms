@@ -2750,55 +2750,55 @@ are skipped instead of crashing the command</p>
 <dd><p>A Collection of (Calendar file, events in that file, recurrence rules in that file)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">    </span><span class="p">(</span>
-<span class="w">        </span><span class="s1">&#39;tests/core/management/commands/assets/calendars/single_event.ics&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="p">[</span><span class="s1">&#39;Testevent&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="s1">'tests/core/management/commands/assets/calendars/single_event.ics'</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="s1">'Testevent'</span><span class="p">],</span>
 <span class="w">        </span><span class="p">{},</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
-<span class="w">        </span><span class="s1">&#39;tests/core/management/commands/assets/calendars/single_event_v2.ics&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="p">[</span><span class="s1">&#39;Testeventv2&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="s1">'tests/core/management/commands/assets/calendars/single_event_v2.ics'</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="s1">'Testeventv2'</span><span class="p">],</span>
 <span class="w">        </span><span class="p">{},</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
-<span class="w">        </span><span class="s1">&#39;tests/core/management/commands/assets/calendars/empty_calendar.ics&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">'tests/core/management/commands/assets/calendars/empty_calendar.ics'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">[],</span>
 <span class="w">        </span><span class="p">{},</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
-<span class="w">        </span><span class="s1">&#39;tests/core/management/commands/assets/calendars/event_with_wrong_category.ics&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="p">[</span><span class="s1">&#39;wrong_category&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="s1">'tests/core/management/commands/assets/calendars/event_with_wrong_category.ics'</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="s1">'wrong_category'</span><span class="p">],</span>
 <span class="w">        </span><span class="p">{},</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
-<span class="w">        </span><span class="s1">&#39;tests/core/management/commands/assets/calendars/recurrence_rules.ics&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">'tests/core/management/commands/assets/calendars/recurrence_rules.ics'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">[</span>
-<span class="w">            </span><span class="s1">&#39;Singular event&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;Every first Monday&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;Weekly event&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;Every year until 2034&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;Every 3rd Wednesday&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'Singular event'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'Every first Monday'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'Weekly event'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'Every year until 2034'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'Every 3rd Wednesday'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">],</span>
 <span class="w">        </span><span class="nx">set</span><span class="p">([</span>
-<span class="w">            </span><span class="s1">&#39;DTSTART:20961112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+1MO&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;DTSTART:20961112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+3WE&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;DTSTART:20961112T230000\nRRULE:FREQ=YEARLY;UNTIL=20991112T235959&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;DTSTART:20961113T190000\nRRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'DTSTART:20961112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+1MO'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'DTSTART:20961112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+3WE'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'DTSTART:20961112T230000\nRRULE:FREQ=YEARLY;UNTIL=20991112T235959'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'DTSTART:20961113T190000\nRRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">]),</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
-<span class="w">        </span><span class="s1">&#39;tests/core/management/commands/assets/calendars/outlook_calendar.ics&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">'tests/core/management/commands/assets/calendars/outlook_calendar.ics'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">[</span>
-<span class="w">            </span><span class="s1">&#39;Weekly - On Wednesday only - Never ends&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;Yearly - End after 2 times&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'Weekly - On Wednesday only - Never ends'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'Yearly - End after 2 times'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">],</span>
 <span class="w">        </span><span class="nx">set</span><span class="p">([</span>
-<span class="w">            </span><span class="s1">&#39;DTSTART:20961231T230000\nRRULE:FREQ=WEEKLY;UNTIL=20990513T235959;BYDAY=WE&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;DTSTART:20961231T230000\nRRULE:FREQ=YEARLY;UNTIL=20991231T235959&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'DTSTART:20961231T230000\nRRULE:FREQ=WEEKLY;UNTIL=20990513T235959;BYDAY=WE'</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">'DTSTART:20961231T230000\nRRULE:FREQ=YEARLY;UNTIL=20991231T235959'</span><span class="p">,</span>
 <span class="w">        </span><span class="p">]),</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
-<span class="w">        </span><span class="s1">&#39;tests/core/management/commands/assets/calendars/single_recurring_event_b.ics&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="p">[</span><span class="s1">&#39;Repeating event?&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="s1">'tests/core/management/commands/assets/calendars/single_recurring_event_b.ics'</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="s1">'Repeating event?'</span><span class="p">],</span>
 <span class="w">        </span><span class="p">{},</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="p">]</span>

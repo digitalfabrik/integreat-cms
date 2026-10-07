@@ -2411,26 +2411,26 @@ the icon will be included as an <code class="docutils literal notranslate"><span
 <p>For example, this would declare a shortcode <code class="docutils literal notranslate"><span class="pre">cat</span></code> (taken from the function name),
 where the first parameter can be <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">1</span></code> to select between two ASCII cats to insert:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@shortcode</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">cat</span><span class="p">(</span><span class="n">pargs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
-    <span class="n">cats</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cat</span><span class="p">(</span><span class="n">pargs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">""</span><span class="p">):</span>
+    <span class="n">cats</span> <span class="o">=</span> <span class="s1">'''</span>
 <span class="s1">        (=^･ω･^=)</span>
 <span class="s1">        ฅ/ᐠ- ˕ -マ</span>
-<span class="s1">    &#39;&#39;&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="s1">    '''</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">cats</span><span class="p">[</span><span class="n">pargs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 </pre></div>
 </div>
 <p>If the shortcode should use a different keyword than just the name of the function,
 it can be provided as an argument to the decorator:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>@shortcode(&quot;ASCII_cat&quot;)
-def cat(pargs, kwargs, context, content=&quot;&quot;):
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>@shortcode("ASCII_cat")
+def cat(pargs, kwargs, context, content=""):
 […]
 </pre></div>
 </div>
 <p>When <code class="docutils literal notranslate"><span class="pre">endtag</span></code> is given, the shortcode will not be atomic but can enclose content
 between its opening tag and end tag:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@shortcode</span><span class="p">(</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;tac&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">cat</span><span class="p">(</span><span class="n">pargs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;⚞(</span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s2">)⚟&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@shortcode</span><span class="p">(</span><span class="s2">"cat"</span><span class="p">,</span> <span class="s2">"tac"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cat</span><span class="p">(</span><span class="n">pargs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">""</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"⚞(</span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s2">)⚟"</span>
 </pre></div>
 </div>
 <p>This can then be used as <code class="docutils literal notranslate"><span class="pre">[cat]some</span> <span class="pre">&lt;b&gt;feline</span> <span class="pre">content&lt;/b&gt;[tac]</span></code>.</p>
