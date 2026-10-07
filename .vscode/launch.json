@@ -31,6 +31,15 @@
         "INTEGREAT_CMS_DEBUG": "true",
         "DJANGO_SETTINGS_MODULE": "integreat_cms.core.settings"
       }
+    },
+    {
+      "name": "cms tests debug (launch)",
+      "type": "debugpy",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "program": "docker",
+      "args": ["compose", "-f", "docker-compose.test.yaml", "run", "--rm", "--remove-orphans", "cms", "tools/test.py"],
+      "console": "integratedTerminal"
     }
   ]
 }
