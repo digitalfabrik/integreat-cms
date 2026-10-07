@@ -17,6 +17,10 @@ COPY_URL = reverse(
     "copy_push_notification",
     kwargs={"push_notification_id": PUSH_NOTIFICATION_ID, **URL_KWARGS},
 )
+EDIT_URL = reverse(
+    "edit_push_notification",
+    kwargs={"push_notification_id": PUSH_NOTIFICATION_ID, **URL_KWARGS},
+)
 
 
 @pytest.mark.django_db
@@ -50,11 +54,14 @@ def test_copy_push_notification(
         return
 
     assert list_response.status_code == 200
+    content = list_response.content.decode("utf-8")
+    # Make sure the push notification is actually part of the list
+    assert f'href="{EDIT_URL}"' in content
     if archived:
-        assert COPY_URL not in list_response.content.decode("utf-8")
+        assert COPY_URL not in content
         assert copy_response.status_code == 404
         assert PushNotification.objects.count() == count
     else:
-        assert COPY_URL in list_response.content.decode("utf-8")
+        assert COPY_URL in content
         assert copy_response.status_code == 302
         assert PushNotification.objects.count() == count + 1
