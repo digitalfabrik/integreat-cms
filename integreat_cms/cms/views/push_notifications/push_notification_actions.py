@@ -132,17 +132,20 @@ def copy_push_notification(
     language_slug: str,
 ) -> HttpResponseRedirect:
     """
-    Copy given push notification
+    Copy given push notification. Archived push notifications cannot be copied.
 
     :param request: The current request
-    :param push_notification_id: The id of the push notification which should be deleted
+    :param push_notification_id: The id of the push notification which should be copied
     :param region_slug: The slug of the current region
+    :param language_slug: The slug of the current language
+    :raises ~django.http.Http404: If the push notification does not exist or is archived
     :return: A redirection to the :class:`~integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView`
     """
     to_be_copied_pn = get_object_or_404(
         PushNotification,
         id=push_notification_id,
         regions=request.region,
+        archived=False,
     )
     # we need to save the title in a new variable to show it in the message
     best_translation = to_be_copied_pn.best_translation
