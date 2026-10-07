@@ -47,13 +47,13 @@ fi
 # may contain a bind-mounted host virtualenv whose third-party .po files
 # (e.g. sphinx) fail msgfmt with fatal errors.
 echo "Compiling translations..."
-(cd integreat_cms && integreat-cms-cli compilemessages)
+(cd integreat_cms && uv run integreat-cms-cli compilemessages)
 
 # Wait for the PostgreSQL service to accept connections. `depends_on` with a
 # health check already gates startup, but this makes the dependency explicit and
 # survives a restarted db container.
 echo "Waiting for database at ${INTEGREAT_CMS_DB_HOST}:${INTEGREAT_CMS_DB_PORT}..."
-python - <<'PY'
+uv run python - <<'PY'
 import os
 import socket
 import sys
@@ -71,4 +71,4 @@ sys.exit(f"Database at {host}:{port} did not become reachable in time")
 PY
 
 echo "Running tests..."
-exec pytest "$@"
+exec uv run pytest "$@"
