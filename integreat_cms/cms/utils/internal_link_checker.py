@@ -91,6 +91,14 @@ def check_news_link(
     :param language: The language
     :returns: The validity status of the URL
     """
+
+    if len(path_components) == 3 and path_components[1] == "local":
+        logger.debug(
+            "Local news links require the format 'local-<id>', got %r",
+            path_components,
+        )
+        mark_invalid(url, _("News URL is invalid."))
+        return url.status
     # Split local news links in the format "news/local-<id>" into their subcategory and id
     if len(path_components) == 2 and path_components[1].startswith("local-"):
         path_components = [path_components[0], *path_components[1].split("-", 1)]
