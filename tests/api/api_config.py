@@ -642,13 +642,13 @@ API_SOCIAL_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
     ),
     (
         # The push notification of the test data was sent before the FCM history window
-        "/api/v3/social/augsburg/de/news/local/1/",
+        "/api/v3/social/augsburg/de/news/local-1/",
         "tests/api/expected-outputs/social_augsburg_de_pn_non-existing.html",
         404,
         3,
     ),
     (
-        "/api/v3/social/augsburg/de/news/local/0/",
+        "/api/v3/social/augsburg/de/news/local-0/",
         "tests/api/expected-outputs/social_augsburg_de_pn_non-existing.html",
         404,
         3,
@@ -743,7 +743,7 @@ API_RAW_CONTENT_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
     ),
     (
         # The push notification of the test data was sent before the FCM history window
-        "/api/v3/raw-content/augsburg/de/news/local/1/",
+        "/api/v3/raw-content/augsburg/de/news/local-1/",
         "tests/api/expected-outputs/raw_content_augsburg_de_pn_non-existing.html",
         404,
         3,
