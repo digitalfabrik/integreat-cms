@@ -20,25 +20,23 @@ jobs:
     steps:
       - checkout
       - uv-install
-      - run:
-          name: Record interpreter identity for the cache key
-          command: python3 -VV > .python-build-id
       - restore_cache:
-          key: uv-{{ checksum ".python-build-id" }}-{{ checksum "uv.lock" }}-v1
+          keys:
+            - uv-cache-v1-{{ arch }}-{{ checksum "uv.lock" }}
       - run:
           name: Install Python dependencies
-          command: uv sync --locked
+          # Install _everything_ so the cache is most useful
+          command: uv sync --locked --all-extras --all-groups
       - save_cache:
-          key: uv-{{ checksum ".python-build-id" }}-{{ checksum "uv.lock" }}-v1
+          key: uv-cache-v1-{{ arch }}-{{ checksum "uv.lock" }}
           paths:
-            - .venv
-            - integreat_cms.egg-info
             - /home/circleci/.cache/uv
       - persist_to_workspace:
           root: .
           paths:
             - .venv
             - integreat_cms.egg-info
+
   djlint:
     docker:
       - image: cimg/python:3.13
@@ -660,6 +658,7 @@ jobs:
     steps:
       - checkout
       - run:
+          # TODO This is probably unnecessary
           name: Install requirements
           command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
       - run:
