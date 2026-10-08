@@ -12,6 +12,7 @@ commands:
           command: |
             curl -LsSf https://astral.sh/uv/0.12.23/install.sh | sh
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
+
 jobs:
   python-dependencies-install:
     docker:
@@ -51,6 +52,7 @@ jobs:
       - run:
           name: Check formatting of Django templates
           command: djlint --check --lint integreat_cms
+
   ruff:
     docker:
       - image: cimg/python:3.13
@@ -67,6 +69,7 @@ jobs:
           command: |
             ruff check
             ruff format --check
+
   mypy:
     docker:
       - image: cimg/python:3.13
@@ -98,6 +101,7 @@ jobs:
       - run:
           name: Check release notes in raw format
           command: ./tools/make_release_notes.sh --format=raw --all
+
   check-translations:
     docker:
       - image: cimg/python:3.13
@@ -112,6 +116,7 @@ jobs:
       - run:
           name: Check translation file for missing or empty entries
           command: ./tools/check_translations.sh
+
   compile-translations:
     docker:
       - image: cimg/python:3.13
@@ -128,13 +133,13 @@ jobs:
           command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
           name: Compile translation file
-          command: |
-            cd integreat_cms
-            integreat-cms-cli compilemessages --settings=integreat_cms.core.circleci_settings
+          working_directory: integreat_cms
+          command: ./integreat-cms-cli compilemessages --settings=integreat_cms.core.circleci_settings
       - persist_to_workspace:
           root: .
           paths:
             - integreat_cms/locale/*/LC_MESSAGES/django.mo
+
   npm-install:
     docker:
       - image: "cimg/node:lts"
@@ -165,6 +170,7 @@ jobs:
           root: .
           paths:
             - node_modules
+
   prettier:
     docker:
       - image: "cimg/node:lts"
@@ -176,6 +182,7 @@ jobs:
       - run:
           name: Check formatting of CSS & JS files
           command: npx prettier --check .
+
   vitest:
     docker:
       - image: "cimg/node:lts"
@@ -187,6 +194,7 @@ jobs:
       - run:
           name: Run frontend tests
           command: npm run test
+
   eslint:
     docker:
       - image: "cimg/node:lts"
@@ -198,6 +206,7 @@ jobs:
       - run:
           name: Lint static CSS, JS & YAML files
           command: npx eslint .
+
   shellcheck:
     docker:
       - image: cimg/base:stable
@@ -208,6 +217,7 @@ jobs:
       - shellcheck/check:
           dir: ./tools
           external_sources: true
+
   webpack:
     docker:
       - image: "cimg/node:lts"
@@ -223,6 +233,7 @@ jobs:
           paths:
             - integreat_cms/static/dist
             - integreat_cms/webpack-stats.json
+
   check-migrations:
     docker:
       # Keep these images in sync with docker-compose.test.yml and
@@ -246,7 +257,9 @@ jobs:
           command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
           name: Check for missing migrations
-          command: integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
+          working_directory: integreat_cms
+          command: ./integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
+
   test:
     docker:
       # Keep these images in sync with docker-compose.test.yml and
@@ -288,6 +301,7 @@ jobs:
           root: .
           paths:
             - coverage.xml
+
   upload-test-coverage:
     docker:
       - image: cimg/base:stable
@@ -303,6 +317,7 @@ jobs:
           when: on_fail
       - store_artifacts:
           path: integreat-cms.log
+
   build-package:
     docker:
       - image: cimg/python:3.13
@@ -334,6 +349,7 @@ jobs:
           root: .
           paths:
             - dist
+
   publish-package:
     docker:
       - image: cimg/python:3.13
@@ -348,6 +364,7 @@ jobs:
       - run:
           name: Publish integreat-cms package to (Test-)PyPI
           command: twine upload --non-interactive ./dist/integreat_cms-*.tar.gz
+
   build-documentation:
     docker:
       - image: cimg/python:3.13
@@ -374,6 +391,7 @@ jobs:
           root: .
           paths:
             - docs/dist
+
   deploy-documentation:
     docker:
       - image: cimg/python:3.13
@@ -418,6 +436,7 @@ jobs:
             git add --all
             git commit -m "Update documentation of commit ${CIRCLE_SHA1} [skip ci]" || true
             git push origin $BRANCH
+
   bump-dev-version:
     docker:
       - image: cimg/python:3.13
@@ -473,6 +492,7 @@ jobs:
             - uv.lock
             - integreat_cms/__init__.py
             - integreat_cms/_manifest
+
   bump-rc-version:
     docker:
       - image: cimg/python:3.13
@@ -529,6 +549,7 @@ jobs:
             - uv.lock
             - integreat_cms/__init__.py
             - integreat_cms/_manifest
+
   bump-version:
     docker:
       - image: cimg/python:3.13
@@ -616,6 +637,7 @@ jobs:
       - run:
           name: Merge version bump into develop
           command: git checkout develop && git merge main --commit --no-edit && git push
+
   create-release:
     docker:
       - image: cimg/python:3.13
@@ -651,6 +673,7 @@ jobs:
       - run:
           name: Create release as Deliverino app
           command: ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${RELEASE_NOTES}" "${CONTRIBUTORS}" ./dist/integreat_cms-*.tar.gz
+
   notify-mattermost:
     docker:
       - image: cimg/base:stable
@@ -803,6 +826,7 @@ workflows:
           filters:
             branches:
               only: develop
+
   main:
     jobs:
       - python-dependencies-install:
@@ -814,6 +838,7 @@ workflows:
           context: deliverino
           requires:
             - python-dependencies-install-main
+
   deploy:
     jobs:
       - python-dependencies-install:
