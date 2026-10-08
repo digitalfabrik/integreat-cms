@@ -13,7 +13,7 @@ commands:
             curl -LsSf https://astral.sh/uv/0.12.23/install.sh | sh
             echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
 jobs:
-  uv-install:
+  python-dependencies-install:
     docker:
       - image: cimg/python:3.13
     resource_class: small
@@ -687,7 +687,7 @@ jobs:
 workflows:
   develop:
     jobs:
-      - uv-install:
+      - python-dependencies-install:
           filters:
             branches:
               ignore: main
@@ -706,10 +706,10 @@ workflows:
             - npm-install
       - check-migrations:
           requires:
-            - uv-install
+            - python-dependencies-install
       - test:
           requires:
-            - uv-install
+            - python-dependencies-install
             - webpack
             - compile-translations
       - upload-test-coverage:
@@ -725,10 +725,10 @@ workflows:
               ignore: main
       - check-translations:
           requires:
-            - uv-install
+            - python-dependencies-install
       - compile-translations:
           requires:
-            - uv-install
+            - python-dependencies-install
       - bump-dev-version:
           filters:
             branches:
@@ -736,14 +736,14 @@ workflows:
                 - develop
                 - /.*-publish-dev-package/
           requires:
-            - uv-install
+            - python-dependencies-install
       - bump-rc-version:
           filters:
             branches:
               only:
                 - /rc\/\d{4}\.\d{1,2}\.\d{1,2}.*/
           requires:
-            - uv-install
+            - python-dependencies-install
       - build-package:
           name: build-rc-package
           filters:
@@ -781,13 +781,13 @@ workflows:
             - build-dev-package
       - djlint:
           requires:
-            - uv-install
+            - python-dependencies-install
       - ruff:
           requires:
-            - uv-install
+            - python-dependencies-install
       - mypy:
           requires:
-            - uv-install
+            - python-dependencies-install
       - eslint:
           requires:
             - npm-install
@@ -797,7 +797,7 @@ workflows:
               ignore: main
       - build-documentation:
           requires:
-            - uv-install
+            - python-dependencies-install
       - deploy-documentation:
           requires:
             - build-documentation
@@ -806,19 +806,19 @@ workflows:
               only: develop
   main:
     jobs:
-      - uv-install:
-          name: uv-install-main
+      - python-dependencies-install:
+          name: python-dependencies-install-main
           filters:
             branches:
               only: main
       - bump-version:
           context: deliverino
           requires:
-            - uv-install-main
+            - python-dependencies-install-main
   deploy:
     jobs:
-      - uv-install:
-          name: uv-install-deploy
+      - python-dependencies-install:
+          name: python-dependencies-install-deploy
           filters:
             tags:
               only: /.*/
@@ -841,7 +841,7 @@ workflows:
       - compile-translations:
           name: compile-translations-deploy
           requires:
-            - uv-install-deploy
+            - python-dependencies-install-deploy
           filters:
             tags:
               only: /.*/
