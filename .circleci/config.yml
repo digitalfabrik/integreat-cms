@@ -4,7 +4,7 @@ orbs:
   shellcheck: circleci/shellcheck@3.2.0
   qlty: qltysh/qlty-orb@0.0.10
 commands:
-  install-uv:
+  uv-install:
     description: Install a pinned version of the uv package manager
     steps:
       - run:
@@ -19,7 +19,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - install-uv
+      - uv-install
       - run:
           name: Record interpreter identity for the cache key
           command: python3 -VV > .python-build-id
@@ -319,7 +319,7 @@ jobs:
       - run:
           name: Use alternative README.md file
           command: mv integreat_cms/README.md .
-      - install-uv
+      - uv-install
       - run:
           name: Bundle the locked dependency versions into the package
           command: |
@@ -456,7 +456,7 @@ jobs:
             # Bump version to next alpha version
             echo "Bump to the next version"
             bumpver update -n -t alpha --no-commit
-      - install-uv
+      - uv-install
       - run:
           name: Update the project version in uv.lock
           command: uv lock --offline
@@ -512,7 +512,7 @@ jobs:
             # Bump version to next release candidate version
             echo "Bump to the next version"
             bumpver update -n -t rc --no-commit
-      - install-uv
+      - uv-install
       - run:
           name: Update the project version in uv.lock
           command: uv lock --offline
@@ -557,7 +557,7 @@ jobs:
       - run:
           name: Bump version
           command: bumpver update --tag=final
-      - install-uv
+      - uv-install
       - run:
           name: Update the project version in uv.lock
           command: |
