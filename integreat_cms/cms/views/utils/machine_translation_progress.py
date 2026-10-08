@@ -5,6 +5,7 @@ asynchronous machine translation Celery task.
 
 from __future__ import annotations
 
+import logging
 from typing import Literal, TYPE_CHECKING
 
 from celery import states
@@ -18,23 +19,7 @@ if TYPE_CHECKING:
 
     from django.http import HttpRequest
 
-
-def _get_failure_reason(raw_message: str) -> str:
-    """
-    Translate a known, internal validation-failure message into user-facing
-    text.
-
-    :param raw_message: The exception's own message, as raised
-    :return: The translated reason to show the user, or the original message
-        if it isn't one of the known cases
-    """
-    if raw_message == "User not found":
-        return _("the triggering user could not be found")
-    if raw_message == "Region not found":
-        return _("the requested region could not be found")
-    if raw_message == "Content type not found":
-        return _("the requested content type is not supported")
-    return raw_message
+logger = logging.getLogger(__name__)
 
 
 def _get_result_details(result: AsyncResult) -> Any:
@@ -50,11 +35,16 @@ def _get_result_details(result: AsyncResult) -> Any:
     :return: JSON-safe details for the current state
     """
     if result.state == states.FAILURE:
+        logger.error(
+            "Machine translation task %r failed: %r",
+            result.id,
+            result.info,
+        )
         return {
             "message": _(
                 "Machine translation of multiple pages was not successful. "
-                "The process was aborted because {reason}. Please try again."
-            ).format(reason=_get_failure_reason(str(result.info)))
+                "Please try again."
+            )
         }
     return result.info
 
