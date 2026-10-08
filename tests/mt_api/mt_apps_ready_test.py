@@ -36,10 +36,32 @@ def test_ready_connects_check_to_worker_process_init_under_celery(
         app_config.ready()
 
     mock_worker_process_init.connect.assert_called_once_with(
-        app_config._check_availability_on_celery_ready,  # type: ignore[attr-defined]
+        app_config.check_availability,  # type: ignore[attr-defined]
         weak=False,
     )
     mock_celeryd_after_setup.connect.assert_not_called()
+
+
+@pytest.mark.parametrize("app_label", APP_LABELS)
+def test_check_availability_is_accepted_as_a_celery_receiver(app_label: str) -> None:
+    """
+    Celery rejects any signal receiver that doesn't accept keyword arguments,
+    so `check_availability` has to declare `**kwargs` even though it ignores
+    them - connecting it is what proves the signature is still acceptable.
+    """
+    from celery.signals import worker_process_init
+
+    app_config: AppConfig = apps.get_app_config(app_label)
+
+    try:
+        worker_process_init.connect(
+            app_config.check_availability,  # type: ignore[attr-defined]
+            weak=False,
+        )
+    finally:
+        worker_process_init.disconnect(
+            app_config.check_availability,  # type: ignore[attr-defined]
+        )
 
 
 @pytest.mark.parametrize("app_label", APP_LABELS)
