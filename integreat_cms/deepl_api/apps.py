@@ -80,14 +80,15 @@ class DeepLApiClientConfig(AppConfig):
         else:
             from celery.signals import worker_process_init
 
-            worker_process_init.connect(
-                self._check_availability_on_celery_ready, weak=False
-            )
+            worker_process_init.connect(self.check_availability, weak=False)
 
-    def _check_availability_on_celery_ready(self, **kwargs: Any) -> None:
-        self.check_availability()
+    def check_availability(self, **kwargs: Any) -> None:
+        """
+        Checking if API is available
 
-    def check_availability(self) -> None:
+        :param kwargs: The signal arguments, ignored - only declared so Celery
+            accepts this method as a ``worker_process_init`` receiver
+        """
         if settings.DEEPL_ENABLED:
             try:
                 deepl_translator = Translator(
