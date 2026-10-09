@@ -68,11 +68,11 @@ Integreat CMS Package
            first and then the lock file it bundles (see :ref:`bundled-lock-files`)::
 
                # Install the Integreat CMS itself without resolving its dependencies
-               pip3 install --no-deps integreat-cms
+               pip3 install --upgrade --no-deps integreat-cms
                # Install the locked dependencies from the file bundled into the package, verifying their hashes
                pip3 install --no-deps --require-hashes -r "$(python3 -c 'import integreat_cms, pathlib; print(pathlib.Path(integreat_cms.__file__).parent / "requirements.lock.txt")')"
 
-           Both ``--no-deps`` flags are required: without them, pip resolves the dependencies on top of
+           In both invocations, the ``--no-deps`` flag is required: without them, pip resolves the dependencies on top of
            the lock file, which defeats the point of locking. Run both commands on every upgrade and only
            restart the application after the second one. With pip 26.1 or later, ``pylock.toml`` can be
            used instead of ``requirements.lock.txt``. To check whether an installation is in sync with its
