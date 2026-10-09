@@ -57,9 +57,6 @@ use the developer tool :github-source:`tools/update_dependencies.sh`::
 
     ./tools/update_dependencies.sh
 
-To update a single package instead of all of them, e.g. to apply a security fix without pulling in
-unrelated changes, pass its name::
-
     ./tools/update_dependencies.sh --package django
 
 
