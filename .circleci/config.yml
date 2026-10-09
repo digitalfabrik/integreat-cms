@@ -476,7 +476,7 @@ jobs:
       - uv-install
       - run:
           name: Update the project version in uv.lock
-          command: uv lock --offline
+          command: uv lock
       - run:
           name: Generate SBOM
           command: |
@@ -533,7 +533,7 @@ jobs:
       - uv-install
       - run:
           name: Update the project version in uv.lock
-          command: uv lock --offline
+          command: uv lock
       - run:
           name: Generate SBOM
           command: |
@@ -580,7 +580,7 @@ jobs:
       - run:
           name: Update the project version in uv.lock
           command: |
-            uv lock --offline
+            uv lock
             git add uv.lock
             git commit --amend --no-edit
       - run:
