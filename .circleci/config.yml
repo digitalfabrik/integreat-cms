@@ -3,40 +3,41 @@ version: 2.1
 orbs:
   shellcheck: circleci/shellcheck@3.2.0
   qlty: qltysh/qlty-orb@0.0.10
+commands:
+  uv-install:
+    description: Install a pinned version of the uv package manager
+    steps:
+      - run:
+          name: Install uv
+          command: |
+            curl -LsSf https://astral.sh/uv/0.12.23/install.sh | sh
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> $BASH_ENV
+
 jobs:
-  pip-install:
+  python-dependencies-install:
     docker:
       - image: cimg/python:3.13
     resource_class: small
     steps:
       - checkout
-      - run:
-          name: Record interpreter identity for the cache key
-          command: python3 -VV > .python-build-id
+      - uv-install
       - restore_cache:
-          key: pip-{{ checksum ".python-build-id" }}-{{ checksum "pyproject.toml" }}-v1
+          keys:
+            - uv-cache-v1-{{ arch }}-{{ checksum "uv.lock" }}
       - run:
-          name: Install pip dependencies
-          command: |
-            if [[ -d ".venv" ]]; then
-              echo "Virtual environment restored from cache, skipping pip install"
-            else
-              python3 -m venv .venv
-              source .venv/bin/activate
-              pip install --upgrade pip
-              pip install -e .[dev-pinned,pinned]
-            fi
+          name: Install Python dependencies
+          # Install _everything_ so the cache is most useful
+          command: uv sync --locked --all-extras --all-groups
       - save_cache:
-          key: pip-{{ checksum ".python-build-id" }}-{{ checksum "pyproject.toml" }}-v1
+          key: uv-cache-v1-{{ arch }}-{{ checksum "uv.lock" }}
           paths:
-            - .venv
-            - integreat_cms.egg-info
-            - /home/circleci/.cache/pip
+            - /home/circleci/.cache/uv
       - persist_to_workspace:
           root: .
           paths:
             - .venv
             - integreat_cms.egg-info
+
   djlint:
     docker:
       - image: cimg/python:3.13
@@ -47,10 +48,11 @@ jobs:
           at: .
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Check formatting of Django templates
           command: djlint --check --lint integreat_cms
+
   ruff:
     docker:
       - image: cimg/python:3.13
@@ -61,12 +63,13 @@ jobs:
           at: .
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Run ruff
           command: |
             ruff check
             ruff format --check
+
   mypy:
     docker:
       - image: cimg/python:3.13
@@ -98,6 +101,7 @@ jobs:
       - run:
           name: Check release notes in raw format
           command: ./tools/make_release_notes.sh --format=raw --all
+
   check-translations:
     docker:
       - image: cimg/python:3.13
@@ -112,6 +116,7 @@ jobs:
       - run:
           name: Check translation file for missing or empty entries
           command: ./tools/check_translations.sh
+
   compile-translations:
     docker:
       - image: cimg/python:3.13
@@ -125,16 +130,16 @@ jobs:
           command: sudo apt-get update && sudo apt-get install gettext
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Compile translation file
-          command: |
-            cd integreat_cms
-            integreat-cms-cli compilemessages --settings=integreat_cms.core.circleci_settings
+          working_directory: integreat_cms
+          command: ./integreat-cms-cli compilemessages --settings=integreat_cms.core.circleci_settings
       - persist_to_workspace:
           root: .
           paths:
             - integreat_cms/locale/*/LC_MESSAGES/django.mo
+
   npm-install:
     docker:
       - image: "cimg/node:lts"
@@ -165,6 +170,7 @@ jobs:
           root: .
           paths:
             - node_modules
+
   prettier:
     docker:
       - image: "cimg/node:lts"
@@ -176,6 +182,7 @@ jobs:
       - run:
           name: Check formatting of CSS & JS files
           command: npx prettier --check .
+
   vitest:
     docker:
       - image: "cimg/node:lts"
@@ -187,6 +194,7 @@ jobs:
       - run:
           name: Run frontend tests
           command: npm run test
+
   eslint:
     docker:
       - image: "cimg/node:lts"
@@ -198,6 +206,7 @@ jobs:
       - run:
           name: Lint static CSS, JS & YAML files
           command: npx eslint .
+
   shellcheck:
     docker:
       - image: cimg/base:stable
@@ -208,6 +217,7 @@ jobs:
       - shellcheck/check:
           dir: ./tools
           external_sources: true
+
   webpack:
     docker:
       - image: "cimg/node:lts"
@@ -223,6 +233,7 @@ jobs:
           paths:
             - integreat_cms/static/dist
             - integreat_cms/webpack-stats.json
+
   check-migrations:
     docker:
       # Keep these images in sync with docker-compose.test.yml and
@@ -243,10 +254,12 @@ jobs:
           command: sudo apt-get update && sudo apt-get install libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Check for missing migrations
-          command: integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
+          working_directory: integreat_cms
+          command: ./integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
+
   test:
     docker:
       # Keep these images in sync with docker-compose.test.yml and
@@ -268,7 +281,7 @@ jobs:
           command: sudo apt-get update && sudo apt-get install libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Run tests
           # pytest-django creates and migrates its own test database, so no
@@ -288,6 +301,7 @@ jobs:
           root: .
           paths:
             - coverage.xml
+
   upload-test-coverage:
     docker:
       - image: cimg/base:stable
@@ -303,6 +317,7 @@ jobs:
           when: on_fail
       - store_artifacts:
           path: integreat-cms.log
+
   build-package:
     docker:
       - image: cimg/python:3.13
@@ -313,10 +328,20 @@ jobs:
           at: .
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Use alternative README.md file
           command: mv integreat_cms/README.md .
+      - uv-install
+      - run:
+          name: Bundle the locked dependency versions into the package
+          command: |
+            # Consumed by deployments which want the exact versions this release was tested with.
+            # PEP 751 format including hashes, plus a requirements.txt export as fallback for pip < 26.1.
+            uv export --frozen --no-dev --no-emit-project --no-annotate \
+              --format pylock.toml -o integreat_cms/pylock.toml
+            uv export --frozen --no-dev --no-emit-project --no-annotate \
+              --format requirements.txt -o integreat_cms/requirements.lock.txt
       - run:
           name: Build integreat-cms package
           command: python3 -m build
@@ -324,6 +349,7 @@ jobs:
           root: .
           paths:
             - dist
+
   publish-package:
     docker:
       - image: cimg/python:3.13
@@ -334,10 +360,11 @@ jobs:
           at: .
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Publish integreat-cms package to (Test-)PyPI
           command: twine upload --non-interactive ./dist/integreat_cms-*.tar.gz
+
   build-documentation:
     docker:
       - image: cimg/python:3.13
@@ -364,6 +391,7 @@ jobs:
           root: .
           paths:
             - docs/dist
+
   deploy-documentation:
     docker:
       - image: cimg/python:3.13
@@ -408,6 +436,7 @@ jobs:
             git add --all
             git commit -m "Update documentation of commit ${CIRCLE_SHA1} [skip ci]" || true
             git push origin $BRANCH
+
   bump-dev-version:
     docker:
       - image: cimg/python:3.13
@@ -418,7 +447,7 @@ jobs:
           at: .
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Bump version
           command: |
@@ -444,6 +473,10 @@ jobs:
             # Bump version to next alpha version
             echo "Bump to the next version"
             bumpver update -n -t alpha --no-commit
+      - uv-install
+      - run:
+          name: Update the project version in uv.lock
+          command: uv lock
       - run:
           name: Generate SBOM
           command: |
@@ -456,8 +489,10 @@ jobs:
           root: .
           paths:
             - pyproject.toml
+            - uv.lock
             - integreat_cms/__init__.py
             - integreat_cms/_manifest
+
   bump-rc-version:
     docker:
       - image: cimg/python:3.13
@@ -468,7 +503,7 @@ jobs:
           at: .
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Bump version
           command: |
@@ -495,6 +530,10 @@ jobs:
             # Bump version to next release candidate version
             echo "Bump to the next version"
             bumpver update -n -t rc --no-commit
+      - uv-install
+      - run:
+          name: Update the project version in uv.lock
+          command: uv lock
       - run:
           name: Generate SBOM
           command: |
@@ -507,8 +546,10 @@ jobs:
           root: .
           paths:
             - pyproject.toml
+            - uv.lock
             - integreat_cms/__init__.py
             - integreat_cms/_manifest
+
   bump-version:
     docker:
       - image: cimg/python:3.13
@@ -522,7 +563,7 @@ jobs:
           command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Request installation access token to authorize as Deliverino app
           command: echo "export DELIVERINO_ACCESS_TOKEN=$(./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
@@ -535,6 +576,13 @@ jobs:
       - run:
           name: Bump version
           command: bumpver update --tag=final
+      - uv-install
+      - run:
+          name: Update the project version in uv.lock
+          command: |
+            uv lock
+            git add uv.lock
+            git commit --amend --no-edit
       - run:
           name: Get tag of newly created version
           command: |
@@ -589,6 +637,7 @@ jobs:
       - run:
           name: Merge version bump into develop
           command: git checkout develop && git merge main --commit --no-edit && git push
+
   create-release:
     docker:
       - image: cimg/python:3.13
@@ -602,7 +651,7 @@ jobs:
           command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
       - run:
           name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
       - run:
           name: Request installation access token to authorize as Deliverino app
           command: echo "export DELIVERINO_ACCESS_TOKEN=$(./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
@@ -624,6 +673,7 @@ jobs:
       - run:
           name: Create release as Deliverino app
           command: ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${RELEASE_NOTES}" "${CONTRIBUTORS}" ./dist/integreat_cms-*.tar.gz
+
   notify-mattermost:
     docker:
       - image: cimg/base:stable
@@ -631,6 +681,7 @@ jobs:
     steps:
       - checkout
       - run:
+          # TODO This is probably unnecessary
           name: Install requirements
           command: sudo apt-get update && sudo apt-get install pcregrep libcairo2
       - run:
@@ -658,7 +709,7 @@ jobs:
 workflows:
   develop:
     jobs:
-      - pip-install:
+      - python-dependencies-install:
           filters:
             branches:
               ignore: main
@@ -677,10 +728,10 @@ workflows:
             - npm-install
       - check-migrations:
           requires:
-            - pip-install
+            - python-dependencies-install
       - test:
           requires:
-            - pip-install
+            - python-dependencies-install
             - webpack
             - compile-translations
       - upload-test-coverage:
@@ -696,10 +747,10 @@ workflows:
               ignore: main
       - check-translations:
           requires:
-            - pip-install
+            - python-dependencies-install
       - compile-translations:
           requires:
-            - pip-install
+            - python-dependencies-install
       - bump-dev-version:
           filters:
             branches:
@@ -707,14 +758,14 @@ workflows:
                 - develop
                 - /.*-publish-dev-package/
           requires:
-            - pip-install
+            - python-dependencies-install
       - bump-rc-version:
           filters:
             branches:
               only:
                 - /rc\/\d{4}\.\d{1,2}\.\d{1,2}.*/
           requires:
-            - pip-install
+            - python-dependencies-install
       - build-package:
           name: build-rc-package
           filters:
@@ -752,13 +803,13 @@ workflows:
             - build-dev-package
       - djlint:
           requires:
-            - pip-install
+            - python-dependencies-install
       - ruff:
           requires:
-            - pip-install
+            - python-dependencies-install
       - mypy:
           requires:
-            - pip-install
+            - python-dependencies-install
       - eslint:
           requires:
             - npm-install
@@ -768,28 +819,30 @@ workflows:
               ignore: main
       - build-documentation:
           requires:
-            - pip-install
+            - python-dependencies-install
       - deploy-documentation:
           requires:
             - build-documentation
           filters:
             branches:
               only: develop
+
   main:
     jobs:
-      - pip-install:
-          name: pip-install-main
+      - python-dependencies-install:
+          name: python-dependencies-install-main
           filters:
             branches:
               only: main
       - bump-version:
           context: deliverino
           requires:
-            - pip-install-main
+            - python-dependencies-install-main
+
   deploy:
     jobs:
-      - pip-install:
-          name: pip-install-deploy
+      - python-dependencies-install:
+          name: python-dependencies-install-deploy
           filters:
             tags:
               only: /.*/
@@ -812,7 +865,7 @@ workflows:
       - compile-translations:
           name: compile-translations-deploy
           requires:
-            - pip-install-deploy
+            - python-dependencies-install-deploy
           filters:
             tags:
               only: /.*/
