@@ -55,6 +55,13 @@ class CustomContentModelForm(CustomModelForm):
             with suppress(ObjectDoesNotExist):
                 self.locked_by_user = self.instance.foreign_object.get_locking_user()
 
+        # Check for isinstance(self.data["content"], str) to exclude `TextResult` returned by MT
+        if "content" in self.data and isinstance(self.data["content"], str):
+            form_data = self.data.copy()
+            content = form_data["content"]
+            form_data["content"] = content.replace("\r\n", "\n").replace("\r", "\n")
+            self.data = form_data
+
     def clean(self) -> dict[str, Any]:
         """
         This method extends the ``clean()``-method to verify that a user can modify this content model
