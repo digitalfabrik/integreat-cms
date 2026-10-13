@@ -11,7 +11,7 @@ from django.conf import settings
 from django.core.cache import cache
 
 if TYPE_CHECKING:
-    from ..models import Region
+    from ..models import Language, Region
 
 
 class ZammadAPI:
@@ -38,6 +38,14 @@ class ZammadAPI:
     @property
     @abstractmethod
     def device_id(self) -> str:
+        """
+        Property that has to be defined in child classes
+        """
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def language(self) -> "Language":
         """
         Property that has to be defined in child classes
         """
@@ -288,21 +296,42 @@ class ZammadAPI:
         """
         Create Zammad ticket and return ticket ID
 
+        The region and language slugs are stored in the optional ticket object attributes
+        "region_slug" and "language_slug". This allows using them in Zammad triggers, for
+        example on Zammad servers shared by multiple regions. Zammad ignores the values
+        if the attributes do not exist.
+
         :param title: Ticket title
         :return: Zammad ticket ID
         """
-        payload = {
-            "title": title,
-            "group": settings.INTEGREAT_CHAT_TICKET_GROUP,
-            "customer": self.get_zammad_user_mail(),
-        }
-        if settings.MULTI_REGION_ZAMMAD:
-            payload["device_id"] = self.device_id
         return self.zammad_request(
             "POST",
             "/api/v1/tickets",
-            payload,
+            {
+                "title": title,
+                "group": settings.INTEGREAT_CHAT_TICKET_GROUP,
+                "customer": self.get_zammad_user_mail(),
+                "region_slug": self.region.slug,
+                "language_slug": self.language.slug,
+            },
         ).json()["id"]
+
+    def save_language_slug(self) -> bool:
+        """
+        Update the language slug of the Zammad ticket after the user changed the
+        language of the app
+
+        :return: success
+        """
+        try:
+            response = self.zammad_request(
+                "PUT",
+                f"/api/v1/tickets/{self.zammad_id}",
+                {"language_slug": self.language.slug},
+            )
+        except (ValueError, requests.exceptions.RequestException):
+            return False
+        return response.status_code == 200
 
     @property
     def processing_answer(self) -> None:
