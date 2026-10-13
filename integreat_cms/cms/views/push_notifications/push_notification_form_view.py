@@ -11,7 +11,7 @@ from django.core.exceptions import (
     ObjectDoesNotExist,
     PermissionDenied,
 )
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.formats import localize
 from django.utils.html import mark_safe
@@ -57,6 +57,7 @@ class PushNotificationFormView(TemplateView):
         :param request: Object representing the user call
         :param \*args: The supplied arguments
         :param \**kwargs: The supplied keyword arguments
+        :raises ~django.http.Http404: If the push notification object does not exist in the region
         :return: The rendered template response
         """
 
@@ -83,7 +84,10 @@ class PushNotificationFormView(TemplateView):
 
         push_notification_id = kwargs.get("push_notification_id")
         push_notification = (
-            region.push_notifications.get(id=push_notification_id)
+            get_object_or_404(
+                region.push_notifications,
+                id=push_notification_id,
+            )
             if push_notification_id
             else None
         )
@@ -169,6 +173,7 @@ class PushNotificationFormView(TemplateView):
         :param \*args: The supplied arguments
         :param \**kwargs: The supplied keyword arguments
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to send push notifications
+        :raises ~django.http.Http404: If the push notification object does not exist in the region
         :raises NotImplementedError: If no valid submit button was clicked
 
         :return: The rendered template response
@@ -177,9 +182,15 @@ class PushNotificationFormView(TemplateView):
         region = request.region
         language = Language.objects.get(slug=kwargs.get("language_slug"))
 
-        push_notification_instance = PushNotification.objects.filter(
-            id=kwargs.get("push_notification_id"),
-        ).first()
+        push_notification_id = kwargs.get("push_notification_id")
+        push_notification_instance = (
+            get_object_or_404(
+                region.push_notifications,
+                id=push_notification_id,
+            )
+            if push_notification_id
+            else None
+        )
 
         push_notification_translation_instance = (
             PushNotificationTranslation.objects.filter(
