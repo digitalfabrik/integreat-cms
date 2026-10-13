@@ -291,17 +291,14 @@ class ZammadAPI:
         :param title: Ticket title
         :return: Zammad ticket ID
         """
-        payload = {
-            "title": title,
-            "group": settings.INTEGREAT_CHAT_TICKET_GROUP,
-            "customer": self.get_zammad_user_mail(),
-        }
-        if settings.MULTI_REGION_ZAMMAD:
-            payload["device_id"] = self.device_id
         return self.zammad_request(
             "POST",
             "/api/v1/tickets",
-            payload,
+            {
+                "title": title,
+                "group": settings.INTEGREAT_CHAT_TICKET_GROUP,
+                "customer": self.get_zammad_user_mail(),
+            },
         ).json()["id"]
 
     @property

@@ -195,29 +195,22 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
     """
     Receive webhooks from Zammad to update the latest article translation.
 
-    Optional feature: if a Zammad has an object attribute "device_id" for tickets,
-    we can use this to directly fetch the corresponding chat from our database.
-    This allows multiple regions to use the same Zammad server. As not all Zammad
-    servers have this configured, we still need to support the old method were we
-    fetch the UserChat object identified by the region token and Zammad ticket id.
+    Zammad ticket IDs are only unique per Zammad server. Therefore the chat is looked
+    up by the ticket ID in all regions that use the same Zammad URL as the region of
+    the webhook token. This allows multiple regions to share a Zammad server, while
+    regions with their own Zammad server stay separated.
     """
     token_region = get_object_or_404(
-        Region,
+        Region.objects.exclude(zammad_url=""),
         zammad_webhook_token=request.GET.get("token", None),
     )
     webhook_message = json.loads(request.body)
 
-    if (
-        "device_id" in webhook_message["ticket"]
-        and webhook_message["ticket"]["device_id"]
-    ):
-        zammad_chat = get_object_or_404(
-            UserChat, device_id=webhook_message["ticket"]["device_id"]
-        )
-    else:  # legacy support
-        zammad_chat = get_object_or_404(
-            UserChat, zammad_id=webhook_message["ticket"]["id"], region=token_region
-        )
+    zammad_chat = get_object_or_404(
+        UserChat,
+        zammad_id=webhook_message["ticket"]["id"],
+        region__zammad_url=token_region.zammad_url,
+    )
 
     region = zammad_chat.region
 

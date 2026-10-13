@@ -6,7 +6,9 @@ As we have no Zammad server in the test setup, we need to mock the responses.
 
 from __future__ import annotations
 
+import json
 from datetime import timedelta
+from typing import TYPE_CHECKING
 from unittest.mock import Mock, patch
 
 import pytest
@@ -18,7 +20,10 @@ from django.test.client import Client
 from django.urls import reverse
 from django.utils import timezone
 
-from integreat_cms.cms.models import ABTester, UserChat
+from integreat_cms.cms.models import ABTester, Region, UserChat
+
+if TYPE_CHECKING:
+    from django.http import HttpResponse
 
 default_kwargs = {
     "region_slug": "augsburg",
@@ -570,3 +575,113 @@ def test_api_chat_ratelimiting_trusted_ip_header(
     client.post(url, data={"message": "is it ham?"})
     response = client.get(url, HTTP_X_FORWARDED_FOR="10.0.0.2")
     assert response.status_code == 200
+
+
+def zammad_webhook_payload(ticket: dict) -> dict:
+    """
+    Build a minimal Zammad webhook payload for a human counselor answer
+
+    :param ticket: ticket attributes of the payload
+    :return: webhook payload
+    """
+    return {
+        "ticket": {"automatic_answers": False} | ticket,
+        "article": {
+            "body": "counselor answer",
+            "internal": False,
+            "sender": "Agent",
+            "created_by": {"login": "counselor@example.com"},
+        },
+    }
+
+
+def post_zammad_webhook(token: str, payload: dict) -> HttpResponse:
+    """
+    Send a Zammad webhook request
+
+    :param token: webhook token of the region
+    :param payload: webhook payload
+    :return: response of the webhook view
+    """
+    return Client().post(
+        f"{reverse('api:zammad_webhook')}?token={token}",
+        data=json.dumps(payload),
+        content_type="application/json",
+    )
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    ("other_zammad_url", "expected_status"),
+    [("https://zammad.example.com", 200), ("https://other-zammad.example.com", 404)],
+)
+@patch("integreat_cms.api.v3.chat.user_chat.celery_translate_answer")
+def test_zammad_webhook_shared_zammad(
+    celery_translate_answer: Mock,
+    load_test_data: None,
+    other_zammad_url: str,
+    expected_status: int,
+) -> None:
+    """
+    Check that a webhook sent with the token of one region finds chats of other
+    regions using the same Zammad server, but not chats of regions with their own server.
+
+    :param celery_translate_answer: Mocked translation task
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param other_zammad_url: Zammad URL of the second region
+    :param expected_status: expected HTTP status of the webhook response
+    """
+    token_region = Region.objects.get(slug="augsburg")
+    other_region = Region.objects.get(slug="nurnberg")
+    other_region.zammad_url = other_zammad_url
+    other_region.integreat_chat_enabled = True
+    other_region.save()
+    UserChat(
+        region=other_region,
+        device_id="nurnbergDeviceID",
+        zammad_id=5,
+        language=other_region.default_language,
+    ).save()
+
+    response = post_zammad_webhook(
+        str(token_region.zammad_webhook_token), zammad_webhook_payload({"id": 5})
+    )
+
+    assert response.status_code == expected_status
+    if expected_status == 200:
+        assert response.json()["region"] == "nurnberg"
+        celery_translate_answer.apply_async.assert_called_once()
+    else:
+        celery_translate_answer.apply_async.assert_not_called()
+
+
+@pytest.mark.django_db
+@patch("integreat_cms.api.v3.chat.user_chat.celery_translate_answer")
+def test_zammad_webhook_device_with_multiple_chats(
+    celery_translate_answer: Mock,
+    load_test_data: None,
+) -> None:
+    """
+    Check that a webhook finds the correct chat if the device has multiple chats.
+    Tickets created with the former ``MULTI_REGION_ZAMMAD`` setting still contain
+    a device_id attribute, which has to be ignored.
+
+    :param celery_translate_answer: Mocked translation task
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    region = Region.objects.get(slug="augsburg")
+    UserChat(
+        region=region,
+        device_id=default_kwargs["device_id"],
+        zammad_id=6,
+        language=region.default_language,
+    ).save()
+
+    response = post_zammad_webhook(
+        str(region.zammad_webhook_token),
+        zammad_webhook_payload({"id": 6, "device_id": default_kwargs["device_id"]}),
+    )
+
+    assert response.status_code == 200
+    celery_translate_answer.apply_async.assert_called_once()
+    assert celery_translate_answer.apply_async.call_args.kwargs["args"][2] == 6
