@@ -107,7 +107,9 @@ def process_chat_payload(
         response = user_chat.save_message(
             message=request.POST.get("message"), internal=False, automatic_message=False
         )
-        user_chat.language = language
+        if user_chat.language != language:
+            user_chat.language = language
+            user_chat.save_language_slug()
         user_chat.save()
         if response is not None:
             if user_chat.automatic_answers:
