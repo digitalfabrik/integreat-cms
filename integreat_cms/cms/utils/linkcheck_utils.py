@@ -32,6 +32,7 @@ from integreat_cms.cms.models import (
     ImprintPageTranslation,
     Organization,
     PageTranslation,
+    Place,
     PlaceTranslation,
     Region,
 )
@@ -43,6 +44,12 @@ if TYPE_CHECKING:
     from ..models.abstract_content_translation import AbstractContentTranslation
 
 logger = logging.getLogger(__name__)
+
+#: Pattern of the URLs which point to a contact card, e.g. ``/augsburg/contact/42/?details=name``.
+#: Neither the region slug nor the contact id are validated on purpose, because contact cards of
+#: contacts which do not exist are rendered with the region slug ``None`` (see
+#: :func:`~integreat_cms.cms.utils.content_utils.render_contact_card`).
+_CONTACT_CARD_URL_REGEX = r"^/[^/]+/contact/[0-9]+(/.*)?$"
 
 
 def get_urls(
@@ -180,11 +187,15 @@ def exclude_links_in_contacts(
     )
     urls = urls.exclude(url__in=contact_links)
 
-    absolute_url_filters = Q()
-    for contact in contacts:
-        absolute_url_filters |= Q(url__startswith=contact.absolute_url)
-        absolute_url_filters |= Q(url=quote(contact.place.map_url, safe="/:&=?,-"))
-    return urls.exclude(absolute_url_filters)
+    # Exclude links to contact cards by their URL structure instead of by the existing contacts,
+    # so that links to contacts which do not (or no longer) exist are hidden as well
+    urls = urls.exclude(url__regex=_CONTACT_CARD_URL_REGEX)
+
+    map_urls = {
+        quote(place.map_url, safe="/:&=?,-")
+        for place in Place.objects.filter(contacts__in=contacts).distinct()
+    }
+    return urls.exclude(url__in=map_urls)
 
 
 def get_link_query(regions: QuerySet[Region]) -> QuerySet:
