@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-10-07T15:57:11+00:00" />
+    <meta property="article:modified_time" content="2026-10-13T14:52:06+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Push Notifications &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -2350,21 +2350,24 @@
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.push_notifications.push_notification_actions.</span></span><span class="sig-name descname"><span class="pre">copy_push_notification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">push_notification_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/push_notifications/push_notification_actions.py#L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Copy given push notification</p>
+<dd><p>Copy given push notification. Archived push notifications cannot be copied.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
-<li><p><strong>push_notification_id</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The id of the push notification which should be deleted</p></li>
+<li><p><strong>push_notification_id</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The id of the push notification which should be copied</p></li>
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The slug of the current region</p></li>
-<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>)</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The slug of the current language</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A redirection to the <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView" title="integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationListView</span></code></a></p>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/5.2/topics/http/views/#django.http.Http404" title="(in Django v5.2)"><strong>Http404</strong></a> – If the push notification does not exist or is archived</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>HttpResponseRedirect</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A redirection to the <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView" title="integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationListView</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>HttpResponseRedirect</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2803,7 +2806,7 @@ if asked for by user.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 07, 2026.
+      <span class="lastupdated">Last updated on Oct 13, 2026.
       </span></p>
   </div>
 
