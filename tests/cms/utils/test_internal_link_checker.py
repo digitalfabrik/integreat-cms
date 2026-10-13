@@ -19,7 +19,8 @@ VALID_INTERNAL_LINKS: list[str] = [
     "https://integreat.app/augsburg/de/locations/test-ort",
     "https://integreat.app/augsburg/fa/locations/test-ort",
     "https://integreat.app/augsburg/de/news/local",
-    "https://integreat.app/augsburg/de/news/local/1",
+    "https://integreat.app/augsburg/de/news/local-1",
+    "https://integreat.app/augsburg/en/news/local-2",
     "https://integreat.app/augsburg/de/news/tu-news",
     "https://integreat.app/augsburg/de/willkommen/uber-die-app-integreat-augsburg",
     "https://integreat.app/augsburg/en/welcome/about-the-integreat-app-augsburg",
@@ -27,6 +28,7 @@ VALID_INTERNAL_LINKS: list[str] = [
     "https://integreat.app/augsburg/fa/%DA%AF%D8%A7%D9%85-%D9%86%D8%AE%D8%B3%D8%AA/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1",
     "https://integreat.app/nurnberg/de/events/test-veranstaltung",
     "https://integreat.app/nurnberg/de/locations/test-ort",
+    "https://integreat.app/nurnberg/de/news/local-7",
 ]
 
 INVALID_INTERNAL_LINKS: list[str] = [
@@ -38,10 +40,12 @@ INVALID_INTERNAL_LINKS: list[str] = [
     "https://integreat.app/augsburg/de/events/non-existing/",
     "https://integreat.app/augsburg/de/locations/non-existing",
     "https://integreat.app/augsburg/de/locations/entwurf-ort",
-    "https://integreat.app/augsburg/ar/news/local/1",
+    "https://integreat.app/augsburg/ar/news/local-1",
+    "https://integreat.app/augsburg/en/news/local-1",
+    "https://integreat.app/augsburg/de/news/local/1",
     "https://integreat.app/nurnberg/de/news",
-    "https://integreat.app/nurnberg/ar/news/local/1",
-    "https://integreat.app/nurnberg/de/news/local/2",
+    "https://integreat.app/nurnberg/ar/news/local-1",
+    "https://integreat.app/nurnberg/de/news/local-2",
     "https://integreat.app/nurnberg/de/news/tu-news",
     "https://integreat.app/nurnberg/de/news/tu-news/999",
     "https://integreat.app/augsburg/de/offers",

@@ -226,7 +226,7 @@ social_media_api_urlpatterns = [
                     name="social_region_event_page",
                 ),
                 path(
-                    "news/<slug:news_type>/<slug:news_raw_id>/",
+                    "news/<slug:news_type>-<slug:news_raw_id>/",
                     news_social_media_headers,
                     name="social_region_local_news_page",
                 ),
@@ -306,7 +306,7 @@ raw_content_api_urlpatterns = [
                     name="raw_content_region_event_page",
                 ),
                 path(
-                    "news/<slug:news_type>/<slug:news_raw_id>/",
+                    "news/<slug:news_type>-<slug:news_raw_id>/",
                     news_content,
                     name="raw_content_region_news_page",
                 ),
