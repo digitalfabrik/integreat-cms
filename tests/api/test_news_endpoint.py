@@ -275,7 +275,10 @@ def test_news_endpoint_excludes_local_news_when_disabled(
         kwargs={"region_slug": region_slug, "language_slug": language_slug},
     )
     timestamp = datetime.now(tz=UTC)
-    local_news_id = f"local-{_create_push_notification(region_slug, language_slug, timestamp)}"
+    translation_id = _create_push_notification(
+        region_slug, language_slug, timestamp
+    )
+    local_news_id = f"local-{translation_id}"
 
     region = Region.objects.get(slug=region_slug)
     region.push_notifications_enabled = False
