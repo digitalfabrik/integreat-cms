@@ -10,7 +10,7 @@ import pytest
 from django.urls import reverse
 
 from integreat_cms.cms.models import Region
-from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
+from tests.constants import ANONYMOUS, MANAGEMENT, PRIV_STAFF_ROLES, STAFF_ROLES
 
 # We use Augsburg (region with German as default language) and Berlin (region with English as default language)
 # to test every language is required which is the default language of at least one region of the push notification
@@ -44,7 +44,7 @@ def test_disabled_news_feature_blocks_post(
     if role == ANONYMOUS:
         assert response.status_code == 302
         return
-    if role not in PRIV_STAFF_ROLES:
+    if role not in [*PRIV_STAFF_ROLES, MANAGEMENT]:
         assert response.status_code == 403
         return
 
