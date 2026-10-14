@@ -114,11 +114,7 @@ const renderContactForm = async (root: HTMLElement) => {
             createContact(event, root);
         });
         contactFormWidget.addEventListener("keydown", (event) => {
-            if (
-                event instanceof KeyboardEvent &&
-                event.key === "Enter" &&
-                event.target instanceof HTMLInputElement
-            ) {
+            if (event instanceof KeyboardEvent && event.key === "Enter" && event.target instanceof HTMLInputElement) {
                 event.preventDefault();
             }
         });
