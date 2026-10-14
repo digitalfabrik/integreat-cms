@@ -21,7 +21,7 @@ System requirements
 
     2. Install system requirements::
 
-        sudo apt -y install python3-venv python3-pip
+        sudo apt -y install python3-venv python3-pip libcairo2 libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b
 
 
 Integreat CMS Package

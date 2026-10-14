@@ -140,7 +140,7 @@ def test_bulk_delete_pages(
     num_undeletable_2: int,
 ) -> None:
     """
-    Test whether bulk deleting of pois works as expected
+    Test whether bulk deleting of places works as expected
     """
     user = get_user_model().objects.get(username=role.lower())
     client.force_login(user)

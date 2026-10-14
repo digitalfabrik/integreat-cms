@@ -18,14 +18,14 @@ if TYPE_CHECKING:
 
     from integreat_cms.cms.models.events.event_translation import EventTranslation
     from integreat_cms.cms.models.pages.page_translation import PageTranslation
-    from integreat_cms.cms.models.pois.poi_translation import POITranslation
+    from integreat_cms.cms.models.places.place_translation import PlaceTranslation
 
 logger = logging.getLogger(__name__)
 
 
 def check_hix_score(
     request: HttpRequest,
-    source_translation: EventTranslation | (PageTranslation | POITranslation),
+    source_translation: EventTranslation | (PageTranslation | PlaceTranslation),
     show_message: bool = True,
 ) -> bool:
     """

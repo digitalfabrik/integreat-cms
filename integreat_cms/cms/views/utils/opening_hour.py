@@ -1,14 +1,14 @@
 from django.utils.translation import gettext_lazy as _
 
-from integreat_cms.cms.forms.pois.poi_form import POIForm
+from integreat_cms.cms.forms.places.place_form import PlaceForm
 from integreat_cms.cms.models.contact.contact import Contact
 
 from ...constants import weekdays
-from ...models import POI
+from ...models import Place
 
 
 def get_open_hour_config_data(
-    related_class: type[POIForm] | type[Contact], can_change_location: bool
+    related_class: type[PlaceForm] | type[Contact], can_change_place: bool
 ) -> dict:
     use_office_hours = related_class == Contact
     if use_office_hours:
@@ -22,7 +22,7 @@ def get_open_hour_config_data(
     else:
         edit_label = _("Edit opening hours for this weekday")
         edit_all_label = _("Edit all opening hours")
-        model_verbose_name = POI._meta.get_field(
+        model_verbose_name = Place._meta.get_field(
             "opening_hours",
         ).verbose_name.title()
         openingTimeLabel = _("Opening time")
@@ -55,7 +55,7 @@ def get_open_hour_config_data(
             "removeTimeSlotText": _("Remove this time slot"),
             "errorOnlyLastSlotEmpty": _("Only the last time slot may be empty"),
             "errorLastSlotRequired": _(
-                "If the location is neither closed nor open all day, you have to specify at least one time slot",
+                "If the place is neither closed nor open all day, you have to specify at least one time slot",
             ),
             "errorClosingTimeMissing": _("Closing time is missing"),
             "errorOpeningTimeMissing": _("Opening time is missing"),
@@ -72,5 +72,5 @@ def get_open_hour_config_data(
                 "Opening time is identical with the closing time of the previous slot",
             ),
         },
-        "canChangeLocation": can_change_location,
+        "canChangePlace": can_change_place,
     }

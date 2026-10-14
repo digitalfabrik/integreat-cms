@@ -366,16 +366,16 @@ API_FEEDBACK_VIEWS: Final[list[tuple[str, dict[str, str]]]] = [
         },
     ),
     (
-        "api:poi_feedback",
+        "api:place_feedback",
         {
             "slug": "test-ort",
-            "comment": "Cool POI!",
+            "comment": "Cool Place!",
             "rating": "up",
             "category": "Inhalte",
         },
     ),
     (
-        "api:poi_feedback",
+        "api:place_feedback",
         {
             "slug": "test-ort",
             "comment": "Strange bug!",
@@ -521,10 +521,10 @@ API_FEEDBACK_ERRORS: Final[
         {"code": 404, "error": "No matching page found for slug."},
     ),
     (
-        "api:poi_feedback",
+        "api:place_feedback",
         {"region_slug": "augsburg", "language_slug": "de"},
         {"slug": "not-exist", "rating": "down"},
-        {"code": 404, "error": "No matching location found for slug."},
+        {"code": 404, "error": "No matching place found for slug."},
     ),
     (
         "api:imprint_page_feedbacks",
@@ -642,13 +642,13 @@ API_SOCIAL_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
     ),
     (
         # The push notification of the test data was sent before the FCM history window
-        "/api/v3/social/augsburg/de/news/local/1/",
+        "/api/v3/social/augsburg/de/news/local-1/",
         "tests/api/expected-outputs/social_augsburg_de_pn_non-existing.html",
         404,
         3,
     ),
     (
-        "/api/v3/social/augsburg/de/news/local/0/",
+        "/api/v3/social/augsburg/de/news/local-0/",
         "tests/api/expected-outputs/social_augsburg_de_pn_non-existing.html",
         404,
         3,
@@ -743,7 +743,7 @@ API_RAW_CONTENT_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
     ),
     (
         # The push notification of the test data was sent before the FCM history window
-        "/api/v3/raw-content/augsburg/de/news/local/1/",
+        "/api/v3/raw-content/augsburg/de/news/local-1/",
         "tests/api/expected-outputs/raw_content_augsburg_de_pn_non-existing.html",
         404,
         3,

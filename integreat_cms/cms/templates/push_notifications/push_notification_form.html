@@ -97,7 +97,7 @@
                     <div class="flex flex-col flex-auto w-full p-4">
                         <div class="flex justify-between">
                             <label for="{{ push_notification_translation_form.title.id_for_label }}"
-                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='poi' %}"
+                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='place' %}"
                                    {% if push_notification_form.instance.id %}data-model-id="{{ push_notification_form.instance.id }}"{% endif %}>
                                 {{ push_notification_translation_form.title.label }}
                             </label>

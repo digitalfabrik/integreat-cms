@@ -36,7 +36,6 @@ window.addEventListener("load", () => {
     // Iterate over revisions and calculate diff
     document.querySelectorAll(".xliff-diff-preview").forEach((xliffImport) => {
         // Calculate the actual diff and insert into the diff div
-        /* eslint-disable-next-line no-param-reassign */
         xliffImport.querySelector(".xliff-diff-preview-rendered").innerHTML = HtmlDiff.execute(
             xliffImport.querySelector(".xliff-import-source").innerHTML,
             xliffImport.querySelector(".xliff-import-target").innerHTML

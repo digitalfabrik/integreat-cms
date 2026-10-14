@@ -12,7 +12,6 @@ const resetToDefaultValue = (node: HTMLSelectElement | HTMLInputElement) => {
         }
     } else if (node.classList.contains("default-value")) {
         // Non-checkbox input marked to have a default value
-        /* eslint-disable-next-line no-param-reassign */
         node.value = node.getAttribute("data-default-value");
     } else if (node.matches("select")) {
         const inputElement = document.getElementById(node.id) as HTMLInputElement;

@@ -7,7 +7,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from .sitemaps import EventSitemap, OfferSitemap, PageSitemap, POISitemap
+from .sitemaps import EventSitemap, OfferSitemap, PageSitemap, PlaceSitemap
 
 if TYPE_CHECKING:
     from typing import Any
@@ -29,7 +29,7 @@ def get_sitemaps(region: Region, language: Language) -> list[Any]:
     """
     sitemaps = [
         PageSitemap(region, language),
-        POISitemap(region, language),
+        PlaceSitemap(region, language),
         OfferSitemap(region, language),
     ]
     if region.events_enabled:

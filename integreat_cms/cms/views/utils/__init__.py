@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from .contact_utils import (
-    generate_primary_contact_from_poi,
+    generate_primary_contact_from_place,
     get_contact,
     get_contact_raw,
     search_contact_ajax,

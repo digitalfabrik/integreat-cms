@@ -16,7 +16,7 @@ from django.views.decorators.http import require_POST
 
 from ...constants import status
 from ...decorators import permission_required
-from ...models import POITranslation, Region
+from ...models import PlaceTranslation, Region
 from ...models.events.event import CouldNotBeCopied
 from ...utils.event_utils import get_filtered_events_url
 
@@ -159,50 +159,50 @@ def delete(
 
 @require_POST
 @permission_required("cms.view_event")
-def search_poi_ajax(
+def search_place_ajax(
     request: HttpRequest,
     region_slug: str,
 ) -> HttpResponse:
     """
-    AJAX endpoint for searching POIs
+    AJAX endpoint for searching places
 
     :param request: Object representing the user call
     :return: The rendered template response
     """
     data = json.loads(request.body.decode("utf-8"))
 
-    poi_query = data.get("query_string")
-    create_poi_option = data.get("create_poi_option")
+    place_query = data.get("query_string")
+    create_place_option = data.get("create_place_option")
 
-    logger.debug('Ajax call: Live search for POIs with query "%r"', poi_query)
+    logger.debug('Ajax call: Live search for places with query "%r"', place_query)
 
     region = get_object_or_404(Region, slug=data.get("region_slug"))
 
-    # All latest versions of a POI (one for each language)
-    latest_public_poi_versions = (
-        POITranslation.objects.filter(poi=OuterRef("pk"), status=status.PUBLIC)
+    # All latest versions of a place (one for each language)
+    latest_public_place_versions = (
+        PlaceTranslation.objects.filter(place=OuterRef("pk"), status=status.PUBLIC)
         .order_by("language__pk", "-version")
         .distinct("language")
         .values("id")
     )
-    # All POIs which are not archived and have a latest public revision which contains the query
-    poi_query_result = (
-        region.pois.prefetch_related("translations")
+    # All places which are not archived and have a latest public revision which contains the query
+    place_query_result = (
+        region.places.prefetch_related("translations")
         .filter(
             archived=False,
-            translations__in=Subquery(latest_public_poi_versions),
-            translations__title__icontains=poi_query,
+            translations__in=Subquery(latest_public_place_versions),
+            translations__title__icontains=place_query,
         )
         .distinct()
     )
 
     return render(
         request,
-        "_poi_query_result.html",
+        "_place_query_result.html",
         {
-            "poi_query": poi_query,
-            "poi_query_result": poi_query_result,
-            "create_poi_option": create_poi_option,
+            "place_query": place_query,
+            "place_query_result": place_query_result,
+            "create_place_option": create_place_option,
             "region": region,
         },
     )

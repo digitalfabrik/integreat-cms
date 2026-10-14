@@ -110,7 +110,6 @@ export default defineFeature((root) => {
 
     // Sync initial checkbox state in case the page tree was reloaded
     root.querySelectorAll<HTMLInputElement>(".bulk-select-item").forEach((checkbox) => {
-        /* eslint-disable-next-line no-param-reassign */
         checkbox.checked = selectAllCheckbox.checked;
     });
 
@@ -121,7 +120,6 @@ export default defineFeature((root) => {
 
     selectAllCheckbox.addEventListener("click", () => {
         root.querySelectorAll<HTMLInputElement>(".bulk-select-item").forEach((checkbox) => {
-            /* eslint-disable-next-line no-param-reassign */
             checkbox.checked = selectAllCheckbox.checked;
         });
         updateSelectionCount(root);

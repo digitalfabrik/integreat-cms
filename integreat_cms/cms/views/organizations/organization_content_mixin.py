@@ -45,10 +45,10 @@ class OrganizationContextMixin(ContextMixin):
                     "Deleting this organization removes it from all users and content objects that use it",
                 ),
                 "cannot_archive_title": _(
-                    "You cannot archive an organization which is used by a poi, page or user. \nThis also involves archived pages and pois",
+                    "You cannot archive an organization which is used by a place, page or user. \nThis also involves archived pages and places",
                 ),
                 "cannot_delete_title": _(
-                    "You cannot delete an organization which is used by a poi, page or user. \nThis also involves archived pages and pois",
+                    "You cannot delete an organization which is used by a place, page or user. \nThis also involves archived pages and places",
                 ),
             },
         )

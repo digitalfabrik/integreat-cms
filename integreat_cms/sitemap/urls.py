@@ -22,14 +22,14 @@ from .views import SitemapIndexView, SitemapView
 if TYPE_CHECKING:
     from typing import Final
 
-    from django.urls.resolvers import URLPattern
+    from django.urls.resolvers import URLPattern, URLResolver
 
 
 #: The namespace for this URL config (see :attr:`django.urls.ResolverMatch.app_name`)
 app_name: Final = "sitemap"
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
-urlpatterns: list[URLPattern] = [
+urlpatterns: list[URLPattern | URLResolver] = [
     path("sitemap.xml", SitemapIndexView.as_view(), name="index"),
     path("wp-json/ig-sitemap/v1/sitemap-index.xml", SitemapIndexView.as_view()),
     path(

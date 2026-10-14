@@ -34,9 +34,9 @@ if TYPE_CHECKING:
 
     T = TypeVar("T")
 
-SlugObject = Literal["page", "event", "poi"]
-DEFAULT_OBJECTS: Final[tuple[SlugObject, ...]] = ("event", "poi", "page")
-ALLOWED_OBJECTS = {"event", "poi", "page"}
+SlugObject = Literal["page", "event", "place"]
+DEFAULT_OBJECTS: Final[tuple[SlugObject, ...]] = ("event", "place", "page")
+ALLOWED_OBJECTS = {"event", "place", "page"}
 
 
 logger = logging.getLogger(__name__)
@@ -46,7 +46,7 @@ if TYPE_CHECKING:
     type ForeignModelType = Literal[
         "page",
         "event",
-        "poi",
+        "place",
         "region",
         "organization",
         "offer-template",
@@ -62,7 +62,7 @@ if TYPE_CHECKING:
         foreign_object: NotRequired[AbstractContentModel]
         language: NotRequired[Language]
         manager: Manager
-        object_instance: AbstractBaseModel
+        object_instance: AbstractBaseModel | None
         region: NotRequired[Region]
         slug: NotRequired[str]
 
@@ -111,7 +111,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     * :func:`~integreat_cms.cms.forms.regions.region_form.RegionForm.clean_slug`
     * :func:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm.clean_slug`
     * :func:`~integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.clean_slug`
-    * :func:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm.clean_slug`
+    * :func:`~integreat_cms.cms.forms.places.place_translation_form.PlaceTranslationForm.clean_slug`
 
     :param \**kwargs: The supplied keyword arguments
 
@@ -120,7 +120,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     slug: str = kwargs.get("slug", "")
     foreign_model: str | None = kwargs.get("foreign_model")
     foreign_object: AbstractContentModel | None = kwargs.get("foreign_object")
-    object_instance: AbstractBaseModel = kwargs["object_instance"]
+    object_instance: AbstractBaseModel | None = kwargs["object_instance"]
     fallback: str = kwargs.get("fallback", "")
     region: Region | None = kwargs.get("region")
     language: Language | None = kwargs.get("language")
@@ -131,7 +131,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
         logger.debug("%r, %r", region, language)
     logger.debug("slug: %r", slug)
 
-    base_slug = generate_base_slug(slug, fallback, object_instance, foreign_model)
+    base_slug = generate_base_slug(slug, fallback, manager.model, foreign_model)
     pre_filtered_objects = get_prefiltered_queryset(
         manager,
         foreign_model,
@@ -168,7 +168,7 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
 def generate_base_slug(
     slug: str,
     fallback: str,
-    object_instance: AbstractBaseModel,
+    model: type[AbstractBaseModel],
     foreign_model: str | None,
 ) -> str:
     """
@@ -177,7 +177,7 @@ def generate_base_slug(
     if slug:
         return slug.lower()
 
-    allow_unicode = object_instance._meta.get_field("slug").allow_unicode
+    allow_unicode = model._meta.get_field("slug").allow_unicode
     slug = slugify(fallback, allow_unicode=allow_unicode)
 
     return slug.lower() or (foreign_model or "").lower()
@@ -241,7 +241,9 @@ def exclude_current_object[T](
 
 
 def update_translations(
-    translations: QuerySet, foreign_attr: Literal["page", "event", "poi"], dry_run: bool
+    translations: QuerySet,
+    foreign_attr: Literal["page", "event", "place"],
+    dry_run: bool,
 ) -> int:
     logger.info("Updating slugs in %sTranslations", foreign_attr.capitalize())
     counter = 0

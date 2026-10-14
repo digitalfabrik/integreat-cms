@@ -18,6 +18,7 @@ from linkcheck.listeners import disable_listeners
 
 from ...decorators import permission_required
 from ...models import Contact, Page, PushNotification, Region
+from ...utils.media_utils import delete_region_media_directory
 
 if TYPE_CHECKING:
     from typing import Any
@@ -35,8 +36,8 @@ def delete_region(
     **kwargs: Any,
 ) -> HttpResponseRedirect:
     r"""
-    This view deletes a region. All content is cascade deleted. Region users, who are not assigned to any other region,
-    are manually removed.
+    This view deletes a region. All content is cascade deleted and the region's media files are removed from the file
+    system. Region users, who are not assigned to any other region, are manually removed.
 
     :param request: The current request
     :param \*args: The supplied arguments
@@ -109,6 +110,61 @@ def delete_region(
     return redirect("regions")
 
 
+@require_POST
+@permission_required("cms.change_region")
+def release_api_management(
+    request: HttpRequest,
+    slug: str,
+) -> HttpResponseRedirect:
+    r"""
+    This view releases a region from being managed by an external system via the API.
+
+    It only clears :attr:`~integreat_cms.cms.models.regions.region.Region.api_settings_synced_at`,
+    which is what marks a region as API-managed and makes the synced settings read-only in the
+    region form. Nothing else is changed: the settings themselves keep the values the external
+    system pushed last.
+
+    The release is deliberately not permanent. If the connected system pushes again, the region is
+    marked as API-managed once more and the fields become read-only again -- which is the desired
+    semantics: the release states "we maintain these settings here from now on", and a subsequent
+    push visibly contradicts that instead of failing silently.
+
+    :param request: The current request
+    :param slug: The slug of the region
+    :return: A redirection to the region form
+    """
+    region = get_object_or_404(Region, slug=slug)
+
+    if not region.is_api_managed:
+        messages.info(
+            request,
+            _('The settings of the region "{}" are not managed via the API.').format(
+                region.name,
+            ),
+        )
+        return redirect("edit_region", slug=region.slug)
+
+    region.api_settings_synced_at = None
+    region.save(update_fields=["api_settings_synced_at"])
+    logger.info("%r released %r from API management", request.user, region)
+
+    messages.success(
+        request,
+        _('The settings of the region "{}" can be edited here again.').format(
+            region.name,
+        ),
+    )
+    messages.info(
+        request,
+        _(
+            "If the connected system pushes settings again, it overwrites the values maintained "
+            "here and they become read-only once more.",
+        ),
+    )
+
+    return redirect("edit_region", slug=region.slug)
+
+
 @shared_task
 def async_delete_region(region_id: int) -> None:
     region = Region.objects.get(id=region_id)
@@ -118,12 +174,12 @@ def async_delete_region(region_id: int) -> None:
     region.language_tree_nodes.update(parent=None)
     region.media_directories.update(parent=None)
     region.files.update(parent_directory=None)
-    # Prevent ProtectedError when location gets deleted before their events
-    region.events.update(location=None)
+    # Prevent ProtectedError when place gets deleted before their events
+    region.events.update(place=None)
     # Prevent ProtectedError when media files get deleted before their usages as organization logo
     region.organizations.all().delete()
-    # Prevent ProtectedError when location gets deleted before their contacts
-    Contact.objects.filter(location__region=region).delete()
+    # Prevent ProtectedError when place gets deleted before their contacts
+    Contact.objects.filter(place__region=region).delete()
     # Prevent IntegrityError when multiple feedback objects exist
     region.feedback.all().delete()
     # Disable linkchecking while deleting this region
@@ -136,6 +192,8 @@ def async_delete_region(region_id: int) -> None:
         region,
         deleted_objects,
     )
+    # Remove the physical media files of the region
+    delete_region_media_directory(region_id)
     # Get orphan users who aren't superuser or staff and don't have a region assigned
     # (Creating users with these combination is impossible, so they were region users of the deleted region before)
     orphan_users = get_user_model().objects.filter(

@@ -12,7 +12,7 @@ from django.conf import settings
 from django.urls import reverse
 
 from integreat_cms.cms.constants import status
-from integreat_cms.cms.models.pois.poi import get_default_opening_hours
+from integreat_cms.cms.models.places.place import get_default_opening_hours
 from tests.constants import (
     ALL_ROLES,
     AUTHOR,
@@ -86,7 +86,7 @@ VIEWS: ViewConfig = [
             ("new_role", [ROOT]),
             ("new_user", STAFF_ROLES),
             ("offertemplates", STAFF_ROLES),
-            ("poicategories", STAFF_ROLES),
+            ("placecategories", STAFF_ROLES),
             ("release_notes", STAFF_ROLES),
             ("regions", STAFF_ROLES),
             ("roles", [ROOT]),
@@ -175,7 +175,7 @@ VIEWS: ViewConfig = [
                 {
                     "machine_translate_pages": 0,
                     "machine_translate_events": 1,
-                    "machine_translate_pois": 1,
+                    "machine_translate_places": 1,
                     "machine_translate_pushnotifications": 1,
                 },
             ),
@@ -287,7 +287,7 @@ VIEWS: ViewConfig = [
         [
             ("sitemap:region_language", ALL_ROLES),
             ("archived_pages", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
-            ("archived_pois", ROLES),
+            ("archived_places", ROLES),
             ("edit_imprint", [*STAFF_ROLES, MANAGEMENT]),
             (
                 "edit_imprint",
@@ -349,7 +349,7 @@ VIEWS: ViewConfig = [
                     parse.urlencode(
                         {
                             "events_time_range": "UPCOMING",
-                            "poi_id": 4,
+                            "place_id": 4,
                             "all_day": 1,
                             "recurring": 1,
                         },
@@ -382,7 +382,7 @@ VIEWS: ViewConfig = [
                     "end_date": "2030-01-01",
                     "is_all_day": True,
                     "status": status.DRAFT,
-                    "has_not_location": True,
+                    "has_not_place": True,
                 },
             ),
             ("new_page", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
@@ -408,12 +408,12 @@ VIEWS: ViewConfig = [
                     "status": status.PUBLIC,
                 },
             ),
-            ("new_poi", ROLES),
+            ("new_place", ROLES),
             (
-                "new_poi",
+                "new_place",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {
-                    "title": "new poi",
+                    "title": "new place",
                     "meta_description": "meta description",
                     "address": "Test-Straße 5",
                     "postcode": "54321",
@@ -430,7 +430,7 @@ VIEWS: ViewConfig = [
                 },
             ),
             ("pages", [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
-            ("pois", ROLES),
+            ("places", ROLES),
             (
                 "bulk_archive_pages",
                 [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
@@ -472,22 +472,22 @@ VIEWS: ViewConfig = [
                 {"selected_ids[]": [1]},
             ),
             (
-                "bulk_archive_pois",
+                "bulk_archive_places",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [4]},
             ),
             (
-                "bulk_restore_pois",
+                "bulk_restore_places",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [4]},
             ),
             (
-                "publish_multiple_pois",
+                "publish_multiple_places",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [4]},
             ),
             (
-                "draft_multiple_pois",
+                "draft_multiple_places",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [4]},
             ),
@@ -508,7 +508,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "query_string": "Test-Ort",
-                        "object_types": ["poi"],
+                        "object_types": ["place"],
                         "archived": False,
                     },
                 ),
@@ -605,13 +605,13 @@ VIEWS: ViewConfig = [
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 json.dumps(
                     {
-                        "title": "Slugify poi",
+                        "title": "Slugify place",
                         "model_id": 4,
                     },
                 ),
             ),
         ],
-        {"region_slug": "augsburg", "language_slug": "de", "model_type": "poi"},
+        {"region_slug": "augsburg", "language_slug": "de", "model_type": "place"},
     ),
     (
         [
@@ -689,7 +689,7 @@ VIEWS: ViewConfig = [
     (
         [
             ("archived_pages", STAFF_ROLES),
-            ("archived_pois", STAFF_ROLES),
+            ("archived_places", STAFF_ROLES),
             ("edit_imprint", STAFF_ROLES),
             (
                 "edit_imprint",
@@ -708,7 +708,7 @@ VIEWS: ViewConfig = [
                     "end_date": "2030-01-01",
                     "is_all_day": True,
                     "status": status.DRAFT,
-                    "has_not_location": True,
+                    "has_not_place": True,
                 },
             ),
             ("new_page", STAFF_ROLES),
@@ -723,12 +723,12 @@ VIEWS: ViewConfig = [
                     "status": status.DRAFT,
                 },
             ),
-            ("new_poi", STAFF_ROLES),
+            ("new_place", STAFF_ROLES),
             (
-                "new_poi",
+                "new_place",
                 PRIV_STAFF_ROLES,
                 {
-                    "title": "new poi",
+                    "title": "new place",
                     "meta_description": "meta description",
                     "address": "Test-Straße 5",
                     "postcode": "54321",
@@ -745,7 +745,7 @@ VIEWS: ViewConfig = [
                 },
             ),
             ("pages", STAFF_ROLES),
-            ("pois", STAFF_ROLES),
+            ("places", STAFF_ROLES),
         ],
         # The kwargs for these views
         {"region_slug": "nurnberg", "language_slug": "de"},
@@ -847,14 +847,14 @@ VIEWS: ViewConfig = [
         {"slug": "ihk-lehrstellenboerse"},
     ),
     (
-        [("edit_poicategory", STAFF_ROLES)],
+        [("edit_placecategory", STAFF_ROLES)],
         # The kwargs for these views
         {"pk": 1},
     ),
     (
         [
             (
-                "edit_poicategory",
+                "edit_placecategory",
                 HIGH_PRIV_STAFF_ROLES,
                 {
                     "translations-TOTAL_FORMS": 2,
@@ -1059,33 +1059,33 @@ VIEWS: ViewConfig = [
     (
         [
             (
-                "poi_versions",
+                "place_versions",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"revision": 1, "status": status.REVIEW},
             ),
             (
-                "poi_versions",
+                "place_versions",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"revision": 1, "status": status.PUBLIC},
             ),
             (
-                "poi_versions",
+                "place_versions",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"revision": 1, "status": status.DRAFT},
             ),
             (
-                "poi_versions",
+                "place_versions",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"revision": 1},
             ),
             (
-                "poi_versions",
+                "place_versions",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"revision": 2, "status": status.PUBLIC},
             ),
         ],
         # The kwargs for these views
-        {"region_slug": "augsburg", "language_slug": "de", "poi_id": 4},
+        {"region_slug": "augsburg", "language_slug": "de", "place_id": 4},
     ),
     (
         [
@@ -1366,7 +1366,7 @@ VIEWS: ViewConfig = [
                     "end_date": "2030-01-01",
                     "is_all_day": True,
                     "status": status.DRAFT,
-                    "has_not_location": True,
+                    "has_not_place": True,
                 },
             ),
             (
@@ -1386,9 +1386,9 @@ VIEWS: ViewConfig = [
     ),
     (
         [
-            ("edit_poi", ROLES),
+            ("edit_place", ROLES),
             (
-                "edit_poi",
+                "edit_place",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {
                     "title": "new title",
@@ -1408,19 +1408,19 @@ VIEWS: ViewConfig = [
                 },
             ),
             (
-                "archive_poi",
+                "archive_place",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"post_data": True},
             ),
             (
-                "restore_poi",
+                "restore_place",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"post_data": True},
             ),
-            ("delete_poi", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
+            ("delete_place", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
-        {"region_slug": "augsburg", "language_slug": "de", "poi_id": 4},
+        {"region_slug": "augsburg", "language_slug": "de", "place_id": 4},
     ),
     (
         [
@@ -1625,7 +1625,7 @@ REDIRECT_VIEWS: Final[RedirectViewConfig] = [
                 reverse("languagetreenodes", kwargs={"region_slug": "empty-region"}),
             ),
             (
-                "pois",
+                "places",
                 STAFF_ROLES,
                 reverse("languagetreenodes", kwargs={"region_slug": "empty-region"}),
             ),
@@ -1705,16 +1705,16 @@ REDIRECT_VIEWS: Final[RedirectViewConfig] = [
     (
         [
             (
-                "poi_versions",
+                "place_versions",
                 ROLES,
-                "/augsburg/pois/de/4/versions/",
+                "/augsburg/places/de/4/versions/",
             ),
         ],
         # The kwargs for these views
         {
             "region_slug": "augsburg",
             "language_slug": "de",
-            "poi_id": 4,
+            "place_id": 4,
             "selected_version": 999,
         },
     ),
