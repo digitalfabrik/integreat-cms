@@ -176,7 +176,9 @@ def test_contact_edit_form_includes_edit_lock(
 
     if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert 'id="content-edit-lock-data"' in response.content.decode("utf-8")
-        assert f"[{contact.id}, &quot;Contact&quot;]" in response.content.decode("utf-8")
+        assert f"[{contact.id}, &quot;Contact&quot;]" in response.content.decode(
+            "utf-8"
+        )
     elif role == ANONYMOUS:
         assert response.status_code == 302
     else:
