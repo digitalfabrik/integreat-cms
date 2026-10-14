@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from html import unescape
 from typing import TYPE_CHECKING
 
 from django.conf import settings
@@ -42,7 +43,7 @@ def format_object_translation(
         )
     if isinstance(object_translation.link_title, str):
         html_title = object_translation.link_title
-        text_title = object_translation.link_title
+        text_title = unescape(html_title)
     else:
         html_title = tostring(object_translation.link_title).decode("utf-8")
         text_title = (
