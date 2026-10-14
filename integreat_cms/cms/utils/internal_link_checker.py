@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING
-from urllib.parse import unquote
+from urllib.parse import unquote, urlsplit
 
 from django.conf import settings
 from django.http import Http404
@@ -93,10 +93,8 @@ def check_news_link(
     """
     match path_components:
         case ["news"]:
-            mark_invalid(
-                url,
-                _("News links require a subcategory (either 'local' or 'tu-news')"),
-            )
+            logger.debug("Link to news list in %r is valid", region)
+            mark_valid(url)
         case ["news", "tu-news"] if region.external_news_enabled:
             logger.debug("Link to tü-news list in %r is valid", region)
             mark_valid(url)
@@ -116,8 +114,11 @@ def check_news_link(
         case ["news", news_slug] if news_slug.startswith("local-"):
             news_id = news_slug.removeprefix("local-")
             if region.push_notifications.filter(
+                archived=False,
                 translations__id=news_id,
                 sent_date__isnull=False,
+                sent_date__gte=timezone.now()
+                - timezone.timedelta(days=settings.FCM_HISTORY_DAYS),
                 translations__language=language,
             ).exists():
                 mark_valid(url)
@@ -322,7 +323,7 @@ def check_internal(url: Url) -> bool | None:
         logger.debug("Skipping type %r", url.type)
         return url.status
 
-    prepared_url = unquote(url.internal_url).strip("/")
+    prepared_url = urlsplit(unquote(url.internal_url)).path.strip("/")
     if "/" not in prepared_url:
         prepared_url += "/"
     region_slug, language_and_path = prepared_url.split("/", maxsplit=1)

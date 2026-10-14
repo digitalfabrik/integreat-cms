@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import pytest
+from django.utils import timezone
 from linkcheck.models import Url
 
+from integreat_cms.cms.models import PushNotification
 from integreat_cms.cms.utils.internal_link_checker import check_internal
 
 VALID_INTERNAL_LINKS: list[str] = [
@@ -19,6 +21,8 @@ VALID_INTERNAL_LINKS: list[str] = [
     "https://integreat.app/augsburg/de/locations/test-ort",
     "https://integreat.app/augsburg/fa/locations/test-ort",
     "https://integreat.app/augsburg/de/news/local",
+    "https://integreat.app/augsburg/de/news",
+    "https://integreat.app/augsburg/de/news?source=local",
     "https://integreat.app/augsburg/de/news/local-1",
     "https://integreat.app/augsburg/en/news/local-2",
     "https://integreat.app/augsburg/de/news/tu-news",
@@ -43,6 +47,7 @@ INVALID_INTERNAL_LINKS: list[str] = [
     "https://integreat.app/augsburg/ar/news/local-1",
     "https://integreat.app/augsburg/en/news/local-1",
     "https://integreat.app/augsburg/de/news/local/1",
+    "https://integreat.app/augsburg/de/news/local-1",
     "https://integreat.app/nurnberg/de/news",
     "https://integreat.app/nurnberg/ar/news/local-1",
     "https://integreat.app/nurnberg/de/news/local-2",
@@ -100,6 +105,11 @@ def test_check_internal_valid(
     :param trailing_slash: Whether to ensure the trailing slash
     """
     url = prepage_url(link, trailing_slash)
+    if "/news/local-" in link:
+        news_id = link.rsplit("local-", 1)[1]
+        PushNotification.objects.filter(translations__id=news_id).update(
+            sent_date=timezone.now()
+        )
     assert check_internal(url), f"URL '{link}' is not correctly identified as valid"
 
 
