@@ -20,39 +20,39 @@ For reference of our test framework and test cases, see :mod:`tests`.
 Running Tests
 =============
 
-By default ``./tools/test.sh`` runs the suite inside a Docker container that
+By default ``./tools/test.py`` runs the suite inside a Docker container that
 mirrors the CircleCI environment (same Python, OS and PostgreSQL versions,
 see ``docker-compose.test.yml``), so a local run matches CI by construction.
 Pass ``--local`` to run directly on the host instead.
 
 Run the full test suite (in Docker)::
 
-    ./tools/test.sh
+    ./tools/test.py
 
 Run the full test suite on the host::
 
-    ./tools/test.sh --local
+    ./tools/test.py --local
 
 Run only **unit tests** (no database, completes in seconds)::
 
-    ./tools/test.sh -m unit
+    ./tools/test.py -m unit
 
 Run everything **except slow** parametrized view tests::
 
-    ./tools/test.sh -m "not slow"
+    ./tools/test.py -m "not slow"
 
 Run a **specific test** by keyword::
 
-    ./tools/test.sh -v -k test_tree_mutex
+    ./tools/test.py -v -k test_tree_mutex
 
 Run with **fewer roles** for faster local iteration (4 representative roles
 instead of 11)::
 
-    QUICK_ROLES=1 ./tools/test.sh
+    QUICK_ROLES=1 ./tools/test.py
 
 These options can be combined::
 
-    QUICK_ROLES=1 ./tools/test.sh -m "not slow" -v
+    QUICK_ROLES=1 ./tools/test.py -m "not slow" -v
 
 
 Test Markers
@@ -238,7 +238,7 @@ expected output files in ``tests/api/expected-outputs/``.
 When API output changes (e.g., new fields, changed formatting), regenerate all
 snapshot files at once::
 
-    ./tools/test.sh -v -k test_api_result --update-snapshots
+    ./tools/test.py -v -k test_api_result --update-snapshots
 
 Then review the diff with ``git diff`` and commit the updated files.
 
@@ -316,7 +316,7 @@ Common Pitfalls
 Coverage
 ========
 
-A full run of ``./tools/test.sh`` collects coverage and enforces the minimum
+A full run of ``./tools/test.py --preset coverage`` collects coverage and enforces the minimum
 total coverage configured in ``pyproject.toml`` (``fail_under``). Filtered
 runs (``-k``/``-m``/a test path) are not instrumented at all — they only ever
 see a subset of the suite, and skipping the coverage tracer keeps them fast.
