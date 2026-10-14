@@ -650,9 +650,9 @@ def refresh_date(
         if page_translation.language.slug == language_slug
         or page_translation.is_up_to_date
     ]
-    # Update timestamps of up-to-date translations
+    # Create an attributed minor revision for every refreshed translation
     for page_translation in translations_to_update:
-        page_translation.save()
+        page_translation.save_new_version(request.user)
 
     messages.success(request, _("Marked all translations of this page as up-to-date"))
     return redirect(

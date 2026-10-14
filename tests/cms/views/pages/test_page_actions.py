@@ -115,6 +115,40 @@ def create_page_with_mirror(
 
 
 @pytest.mark.django_db
+def test_refresh_date_creates_version_with_current_editor(
+    client: Client,
+    load_test_data: None,
+) -> None:
+    """Refreshing a page records the user who made that update."""
+    page_id = create_page("augsburg")
+    previous_editor = get_user_model().objects.get(username="author")
+    current_editor = get_user_model().objects.get(username="editor")
+    translation = PageTranslation.objects.get(page_id=page_id, language__slug="de")
+    translation.creator = previous_editor
+    translation.save()
+    client.force_login(current_editor)
+
+    response = client.post(
+        reverse(
+            "refresh_page",
+            kwargs={
+                "page_id": page_id,
+                "region_slug": "augsburg",
+                "language_slug": "de",
+            },
+        )
+    )
+
+    assert response.status_code == 302
+    latest_translation = PageTranslation.objects.get(
+        page_id=page_id,
+        language__slug="de",
+        version=translation.version + 1,
+    )
+    assert latest_translation.creator == current_editor
+
+
+@pytest.mark.django_db
 @pytest.mark.parametrize("role", ["ROOT", "AUTHOR"])
 @pytest.mark.parametrize(
     "num_deletable, num_undeletable_1, num_undeletable_2",
