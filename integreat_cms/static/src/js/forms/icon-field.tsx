@@ -10,11 +10,14 @@ window.addEventListener("load", () => {
     const setIconButton = document.getElementById("set-icon-button");
     const removeButton = document.getElementById("remove-icon");
     const restoreButton = document.getElementById("restore-icon");
+    let removedIconValue = (iconField as HTMLInputElement).value;
 
     /**
      * Handles all UI elements when an icon is removed
      */
     const removeIcon = () => {
+        // Keep the original association so that it can be restored before submitting the form
+        removedIconValue = (iconField as HTMLInputElement).value;
         // Hide preview
         document.getElementById("icon_preview").classList.add("hidden");
         // Change icon label
@@ -24,7 +27,7 @@ window.addEventListener("load", () => {
         document.getElementById("remove-icon").classList.add("hidden");
         document.getElementById("restore-icon").classList.remove("hidden");
         // Remove any association from field
-        (iconField as HTMLInputElement).value = null;
+        (iconField as HTMLInputElement).value = "";
     };
 
     /**
@@ -39,6 +42,14 @@ window.addEventListener("load", () => {
         // Toggle remove/restore buttons
         document.getElementById("restore-icon").classList.add("hidden");
         document.getElementById("remove-icon").classList.remove("hidden");
+    };
+
+    /**
+     * Restores the icon association that was removed in this form session.
+     */
+    const restoreIcon = () => {
+        (iconField as HTMLInputElement).value = removedIconValue;
+        setIcon();
     };
 
     /**
@@ -82,7 +93,7 @@ window.addEventListener("load", () => {
         removeButton.addEventListener("click", removeIcon);
     }
     if (restoreButton) {
-        restoreButton.addEventListener("click", setIcon);
+        restoreButton.addEventListener("click", restoreIcon);
     }
     if (setIconButton) {
         setIconButton.addEventListener("click", setIconWithMediaLibrary);
