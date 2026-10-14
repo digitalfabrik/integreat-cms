@@ -84,6 +84,7 @@ class PlaceFormAjaxView(TemplateView, PlaceContextMixin):
                 return JsonResponse(
                     data={
                         "success": False,
+                        "errors": place_form.get_error_messages(),
                     },
                 )
             place = place_form.save()
@@ -100,9 +101,11 @@ class PlaceFormAjaxView(TemplateView, PlaceContextMixin):
             )
 
             if not place_translation_form.is_valid():
+                transaction.set_rollback(True)
                 return JsonResponse(
                     data={
                         "success": False,
+                        "errors": place_translation_form.get_error_messages(),
                     },
                 )
 

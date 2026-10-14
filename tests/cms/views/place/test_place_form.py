@@ -72,6 +72,44 @@ def test_barrier_free_and_organization_box_appear(
 REGION_SLUG = "augsburg"
 
 
+@pytest.mark.django_db
+@pytest.mark.parametrize("login_role_user", [MANAGEMENT], indirect=True)
+def test_ajax_place_form_returns_validation_errors_without_creating_a_place(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+) -> None:
+    """Invalid inline place data should remain correctable without a partial save."""
+    client, _ = login_role_user
+    place_count = Place.objects.count()
+    category = PlaceCategory.objects.first()
+    assert category
+
+    response = client.post(
+        reverse(
+            "create_place_ajax",
+            kwargs={"region_slug": REGION_SLUG, "language_slug": "de"},
+        ),
+        data={
+            "title": "Inline validation test",
+            "address": "Test Street 1",
+            "postcode": "86150",
+            "city": "Augsburg",
+            "country": "Germany",
+            "category": category.id,
+            "primary_phone_number": "not-a-phone-number",
+            "status": status.PUBLIC,
+        },
+    )
+
+    assert response.status_code == 200
+    assert not response.json()["success"]
+    assert any(
+        error["text"].startswith("Phone number:")
+        for error in response.json()["errors"]
+    )
+    assert Place.objects.count() == place_count
+
+
 def create_place_used_by_event(region_slug: str, name_add: str = "") -> int:
     """
     A helper function to create a new Place used in an event

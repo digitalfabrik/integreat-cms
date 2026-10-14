@@ -1,7 +1,12 @@
 import { createIconsAt } from "./utils/create-icons";
 import { getCsrfToken } from "./utils/csrf-token";
 
-type FormResponse = { success: boolean; place_address_container: string; place_id: string };
+type FormResponse = {
+    success: boolean;
+    errors?: { text: string }[];
+    place_address_container: string;
+    place_id: string;
+};
 
 const showContactFieldBox = () => {
     const contactFieldsBox = document.getElementById("contact_fields");
@@ -76,10 +81,13 @@ const showMessage = (response: FormResponse) => {
         }, timeoutDuration);
     } else {
         const errorMessageField = document.getElementById("place-ajax-error-message");
+        errorMessageField.replaceChildren();
+        response.errors?.forEach(({ text }) => {
+            const error = document.createElement("div");
+            error.innerText = text;
+            errorMessageField.append(error);
+        });
         errorMessageField.classList.remove("hidden");
-        setTimeout(() => {
-            errorMessageField.classList.add("hidden");
-        }, timeoutDuration);
     }
 };
 
@@ -122,7 +130,9 @@ const showPlaceFormWidget = async ({ target }: Event) => {
                 );
                 document.getElementById("place-address-container")?.classList.remove("hidden");
             }
-            hidePlaceFormWidget();
+            if (responseData.success) {
+                hidePlaceFormWidget();
+            }
         });
     });
 };
