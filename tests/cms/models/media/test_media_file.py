@@ -203,9 +203,14 @@ class TestMediaFile:
     def test_file_is_deletable_if_only_used_as_icon_by_archived_page(self) -> None:
         region = Region.objects.create(name="Testregion")
         file = MediaFile.objects.create(
-            file="example.pdf", thumbnail="example_thumbnail.jpg", file_size=1024,
-            type="PDF", name="Example File", alt_text="This is an example file",
-            last_modified=datetime(2024, 4, 11, 10, 30, 0), is_hidden=False,
+            file="example.pdf",
+            thumbnail="example_thumbnail.jpg",
+            file_size=1024,
+            type="PDF",
+            name="Example File",
+            alt_text="This is an example file",
+            last_modified=datetime(2024, 4, 11, 10, 30, 0),
+            is_hidden=False,
         )
         root = Page.add_root(region=region)
         page = root.add_child(region=region, icon=file)
@@ -219,16 +224,27 @@ class TestMediaFile:
     def test_file_is_deletable_if_only_used_as_icon_by_archived_place(self) -> None:
         region = Region.objects.create(name="Testregion")
         file = MediaFile.objects.create(
-            file="example.pdf", thumbnail="example_thumbnail.jpg", file_size=1024,
-            type="PDF", name="Example File", alt_text="This is an example file",
-            last_modified=datetime(2024, 4, 11, 10, 30, 0), is_hidden=False,
+            file="example.pdf",
+            thumbnail="example_thumbnail.jpg",
+            file_size=1024,
+            type="PDF",
+            name="Example File",
+            alt_text="This is an example file",
+            last_modified=datetime(2024, 4, 11, 10, 30, 0),
+            is_hidden=False,
         )
         category = PlaceCategory.objects.create(
             icon=placecategory.OTHER, color=placecategory.DARK_BLUE
         )
         Place.objects.create(
-            region=region, address="Address 42", postcode="00000", city="Augsburg",
-            country="Germany", category=category, icon=file, archived=True,
+            region=region,
+            address="Address 42",
+            postcode="00000",
+            city="Augsburg",
+            country="Germany",
+            category=category,
+            icon=file,
+            archived=True,
         )
 
         assert file.is_deletable
