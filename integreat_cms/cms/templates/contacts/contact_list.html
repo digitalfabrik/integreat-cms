@@ -93,16 +93,28 @@
                 <select id="bulk-action" class="w-auto max-w-full">
                     <option>{% translate "Select bulk action" %}</option>
                     {% if is_archive %}
-                        <option data-bulk-action="{% url "bulk_restore_contacts" region_slug=request.region.slug %}">
+                        <option class="bulk-confirmation-dialog"
+                                data-bulk-action="{% url "bulk_restore_contacts" region_slug=request.region.slug %}"
+                                data-popup-title="{% translate "Restore selected contacts" %}"
+                                data-popup-subject="{% translate "The selected contacts will be restored" %}"
+                                data-popup-text="{% translate "Do you want to continue?" %}">
                             {% translate "Restore contacts" %}
                         </option>
                     {% else %}
-                        <option data-bulk-action="{% url "bulk_archive_contacts" region_slug=request.region.slug %}">
+                        <option class="bulk-confirmation-dialog"
+                                data-bulk-action="{% url "bulk_archive_contacts" region_slug=request.region.slug %}"
+                                data-popup-title="{% translate "Archive selected contacts" %}"
+                                data-popup-subject="{% translate "The selected contacts will no longer be publicly available" %}"
+                                data-popup-text="{% translate "Do you want to continue?" %}">
                             {% translate "Archive contacts" %}
                         </option>
                     {% endif %}
                     {% if perms.cms.delete_contact %}
-                        <option data-bulk-action="{% url "bulk_delete_contacts" region_slug=request.region.slug %}">
+                        <option class="bulk-confirmation-dialog"
+                                data-bulk-action="{% url "bulk_delete_contacts" region_slug=request.region.slug %}"
+                                data-popup-title="{% translate "Delete selected contacts" %}"
+                                data-popup-subject="{% translate "This action cannot be undone" %}"
+                                data-popup-text="{% translate "Do you want to continue?" %}">
                             {% translate "Delete contacts" %}
                         </option>
                     {% endif %}
