@@ -123,7 +123,7 @@ def test_saved_news_form_shows_permitted_actions(
     edit_push_notification = reverse(
         "edit_push_notification",
         kwargs={
-            "push_notification_id": 8,
+            "push_notification_id": 2,
             "region_slug": "augsburg",
             "language_slug": "de",
         },
@@ -135,7 +135,7 @@ def test_saved_news_form_shows_permitted_actions(
         return
 
     content = response.content.decode("utf-8")
-    push_notification = PushNotification.objects.get(id=8)
+    push_notification = PushNotification.objects.get(id=2)
     if response.wsgi_request.user.has_perm("cms.archive_pushnotification"):
         action_label = "Restore news" if push_notification.archived else "Archive news"
         assert action_label in content
