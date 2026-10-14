@@ -182,3 +182,26 @@ def test_bulk_delete_pages(
     assert_bulk_delete(
         Page, instance_ids, url, (client, role), caplog, settings, fail_reason
     )
+
+
+@pytest.mark.django_db
+def test_bulk_delete_selected_page_tree(
+    load_test_data: None,
+    client: Client,
+) -> None:
+    """A selected root and all selected descendants are deleted deepest-first (#4506)."""
+    client.force_login(get_user_model().objects.get(username="root"))
+    root_id = create_page_with_children("augsburg", num_children=2)
+    selected_ids = [
+        root_id,
+        *Page.objects.filter(parent_id=root_id).values_list("id", flat=True),
+    ]
+    url = reverse(
+        "bulk_delete_pages",
+        kwargs={"region_slug": "augsburg", "language_slug": "en"},
+    )
+
+    response = client.post(url, data={"selected_ids[]": selected_ids})
+
+    assert response.status_code == 302
+    assert not Page.objects.filter(id__in=selected_ids).exists()

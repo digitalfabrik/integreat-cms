@@ -597,7 +597,11 @@ class BulkDeletingView(BulkActionView):
         can_delete = True
         delete_failures = defaultdict(list)
 
-        for content_object in self.get_queryset():
+        queryset = self.get_queryset()
+        if self.model is Page:
+            queryset = queryset.order_by("-depth")
+
+        for content_object in queryset:
             if hasattr(content_object, "can_be_deleted"):
                 can_delete, error_msg_cannot_delete = content_object.can_be_deleted()
             else:
