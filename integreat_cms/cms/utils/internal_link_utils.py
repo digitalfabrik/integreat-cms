@@ -172,6 +172,26 @@ def get_public_translation_for_webapp_link_parts(
     return instances.first()
 
 
+def get_public_translation_for_historical_webapp_link_parts(
+    region_slug: str,
+    language_slug: str,
+    path_parts: list[str],
+) -> AbstractContentTranslation | None:
+    """Resolve a historical page slug to its latest public translation."""
+    historical_translation = (
+        PageTranslation.objects.filter(
+            page__region__slug=region_slug,
+            language__slug=language_slug,
+            slug=path_parts[-1],
+            status=status.PUBLIC,
+        )
+        .select_related("language", "page__region")
+        .order_by("-version")
+        .first()
+    )
+    return historical_translation.public_version if historical_translation else None
+
+
 def get_public_translation_for_short_link(
     path: str,
 ) -> AbstractContentTranslation | None:

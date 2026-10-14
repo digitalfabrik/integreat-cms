@@ -11,10 +11,11 @@ from urllib.parse import unquote
 
 from django.conf import settings
 from django.http import Http404
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from ...cms.models.languages.language import Language
 from ...cms.utils.internal_link_utils import (
+    get_public_translation_for_historical_webapp_link_parts,
     get_public_translation_for_webapp_link_parts,
 )
 from ...cms.utils.shortcodes import expand_shortcodes
@@ -183,13 +184,21 @@ def page_content(
     language = region.get_language_or_404(language_slug, only_active=True)
 
     path_parts = unquote(path).strip("/").split("/")
-    if not (
-        page_translation := get_public_translation_for_webapp_link_parts(
+    page_translation = get_public_translation_for_webapp_link_parts(
+        region.slug,
+        language_slug,
+        path_parts,
+    )
+    if not page_translation:
+        historical_translation = get_public_translation_for_historical_webapp_link_parts(
             region.slug,
             language_slug,
             path_parts,
         )
-    ):
+        if historical_translation:
+            return redirect(
+                f"/api/v3/raw-content{historical_translation.get_absolute_url()}"
+            )
         raise Http404("Page not found in this region with this language.")
 
     # The imprint is the only content object which cannot be archived

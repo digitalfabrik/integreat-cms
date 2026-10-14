@@ -163,28 +163,34 @@ def test_local_news_text_is_escaped(load_test_data: None) -> None:
 
 
 @pytest.mark.django_db
-def test_page_content_rejects_outdated_slug(load_test_data: None) -> None:
+@pytest.mark.parametrize("api", ["raw-content", "social"])
+def test_page_content_redirects_outdated_slug(
+    load_test_data: None, api: str
+) -> None:
     """
-    A page's outdated (renamed) slug must not resolve to its current content anymore, even
-    though the superseded translation version which used it is still marked as ``PUBLIC``
-    (see https://github.com/digitalfabrik/integreat-cms/issues/4524).
+    A page's outdated slug redirects to the current same-language page instead of being
+    resolved as content or returning an error (see #4544).
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     # Page 22 was renamed from "sprachlernangebote" (v1) to "sonstige-sprachlernangebote" (v2),
     # both versions are still stored with status PUBLIC.
     outdated_slug_response = Client().get(
-        f"/api/v3/raw-content/{REGION_SLUG}/{LANGUAGE_SLUG}/deutsche-sprache/sprachlernangebote/"
+        f"/api/v3/{api}/{REGION_SLUG}/{LANGUAGE_SLUG}/deutsche-sprache/sprachlernangebote/"
     )
-    assert outdated_slug_response.status_code == 404
+    assert outdated_slug_response.status_code == 302
+    assert outdated_slug_response.headers["Location"] == (
+        f"/api/v3/{api}/{REGION_SLUG}/{LANGUAGE_SLUG}/deutsche-sprache/sonstige-sprachlernangebote/"
+    )
 
-    current_slug_response = Client().get(
-        f"/api/v3/raw-content/{REGION_SLUG}/{LANGUAGE_SLUG}/deutsche-sprache/sonstige-sprachlernangebote/"
-    )
-    assert current_slug_response.status_code == 200
-    assert "Sonstige Sprachlernangebote" in current_slug_response.content.decode(
-        "utf-8"
-    )
+    if api == "raw-content":
+        current_slug_response = Client().get(
+            f"/api/v3/{api}/{REGION_SLUG}/{LANGUAGE_SLUG}/deutsche-sprache/sonstige-sprachlernangebote/"
+        )
+        assert current_slug_response.status_code == 200
+        assert "Sonstige Sprachlernangebote" in current_slug_response.content.decode(
+            "utf-8"
+        )
 
 
 @pytest.mark.django_db
