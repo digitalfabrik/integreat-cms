@@ -8,12 +8,16 @@
 );
 @use "flagpack-dart-sass/src/flagpack";
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-@import "./contact_card.css";
-@import "./page_preview.css";
-@import "./place_categories.css";
+@use "tailwindcss/base";
+@use "tailwindcss/components";
+@use "tailwindcss/utilities";
+
+@use "./contact_card.css";
+@use "./page_preview.css";
+@use "./place_categories.css";
+@use "./upload_form.css";
+@use "./tomselect.scss";
+@use "./oxide_fix.css";
 
 @layer utilities {
     // Tailwind class: "font-default"
@@ -29,10 +33,6 @@
     // Tailwind class: "font-content-ka"
     @import "../fonts/noto-sans-georgian/noto-sans-georgian.css";
 }
-
-@import "./upload_form.css";
-@import "./tomselect.scss";
-@import "./oxide_fix.css";
 
 $list-bg-color: white;
 $list-border-color: lightgray;

@@ -52,7 +52,6 @@ const fetchSubpages = (collapseSpan: HTMLElement, html: string) => {
     const descendants = JSON.parse(dragSpan.dataset.nodeDescendants) as number[];
     dragSpan.dataset.nodeDescendants = `[${descendants.concat(descendantIds)}]`;
     // Set direct children to enable expand/collapse functionality
-    /* eslint-disable-next-line no-param-reassign */
     collapseSpan.dataset.pageChildren = `[${directChildrenIds}]`;
 };
 
