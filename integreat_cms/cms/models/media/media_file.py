@@ -240,7 +240,16 @@ class MediaFile(AbstractBaseModel):
 
         :return: Whether a file is an icon
         """
-        return bool(self.icon_usages)
+        return bool(self.non_archived_icon_usages)
+
+    @cached_property
+    def non_archived_icon_usages(self) -> list[AbstractBaseModel]:
+        """Return icon usages that still represent live content."""
+        return [
+            usage
+            for usage in self.icon_usages
+            if not getattr(usage, "archived", False)
+        ]
 
     @cached_property
     def content_usages(self) -> QuerySet:
@@ -269,7 +278,7 @@ class MediaFile(AbstractBaseModel):
         """
         usage_counts = [
             self.past_event_usages.count(),
-            (len(self.icon_usages) + self.content_usages.count()),
+            (len(self.non_archived_icon_usages) + self.content_usages.count()),
             self.events.count(),
         ]
 

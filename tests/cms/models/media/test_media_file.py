@@ -10,12 +10,16 @@ import pytest
 from django.utils import timezone
 from linkcheck.utils import find_all_links
 
+from integreat_cms.cms.constants import placecategory
 from integreat_cms.cms.models import (
     Event,
     EventTranslation,
     Language,
     MediaFile,
     Organization,
+    Page,
+    Place,
+    PlaceCategory,
     RecurrenceRule,
     Region,
 )
@@ -169,6 +173,65 @@ class TestMediaFile:
         )
 
         assert not file.is_deletable
+
+    @pytest.mark.django_db
+    def test_file_is_deletable_if_only_used_as_icon_by_archived_event(self) -> None:
+        region = Region.objects.create(name="Testregion")
+        file = MediaFile.objects.create(
+            file="example.pdf",
+            thumbnail="example_thumbnail.jpg",
+            file_size=1024,
+            type="PDF",
+            name="Example File",
+            alt_text="This is an example file",
+            last_modified=datetime(2024, 4, 11, 10, 30, 0),
+            is_hidden=False,
+        )
+        Event.objects.create(
+            start=timezone.now() + timedelta(days=1),
+            end=timezone.now() + timedelta(days=2),
+            region=region,
+            icon=file,
+            archived=True,
+        )
+
+        assert file.icon_usages
+        assert not file.non_archived_icon_usages
+        assert file.is_deletable
+
+    @pytest.mark.django_db
+    def test_file_is_deletable_if_only_used_as_icon_by_archived_page(self) -> None:
+        region = Region.objects.create(name="Testregion")
+        file = MediaFile.objects.create(
+            file="example.pdf", thumbnail="example_thumbnail.jpg", file_size=1024,
+            type="PDF", name="Example File", alt_text="This is an example file",
+            last_modified=datetime(2024, 4, 11, 10, 30, 0), is_hidden=False,
+        )
+        root = Page.add_root(region=region)
+        page = root.add_child(region=region, icon=file)
+        root.archive()
+        page.refresh_from_db()
+
+        assert page.archived
+        assert file.is_deletable
+
+    @pytest.mark.django_db
+    def test_file_is_deletable_if_only_used_as_icon_by_archived_place(self) -> None:
+        region = Region.objects.create(name="Testregion")
+        file = MediaFile.objects.create(
+            file="example.pdf", thumbnail="example_thumbnail.jpg", file_size=1024,
+            type="PDF", name="Example File", alt_text="This is an example file",
+            last_modified=datetime(2024, 4, 11, 10, 30, 0), is_hidden=False,
+        )
+        category = PlaceCategory.objects.create(
+            icon=placecategory.OTHER, color=placecategory.DARK_BLUE
+        )
+        Place.objects.create(
+            region=region, address="Address 42", postcode="00000", city="Augsburg",
+            country="Germany", category=category, icon=file, archived=True,
+        )
+
+        assert file.is_deletable
 
     @pytest.mark.django_db
     def test_is_not_deletable_if_used_as_organization_icon(self) -> None:
