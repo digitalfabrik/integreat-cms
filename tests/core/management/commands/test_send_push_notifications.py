@@ -166,9 +166,13 @@ class TestSendPushNotification:
         overdue_push_notification.regions.add(region)
         overdue_push_notification.save()
 
-        call_command("send_push_notifications")
+        with patch(
+            "integreat_cms.core.management.commands.send_push_notifications.invalidate_obj",
+        ) as invalidate_obj:
+            call_command("send_push_notifications")
 
         assert self.called_success == 1
+        invalidate_obj.assert_called_once_with(push_notification)
 
     @pytest.mark.django_db
     def test_retry_failed_notification(

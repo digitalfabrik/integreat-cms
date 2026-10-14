@@ -4,6 +4,7 @@ import logging
 from datetime import timedelta
 from typing import TYPE_CHECKING
 
+from cacheops import invalidate_obj
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
 from django.core.management.base import CommandError
@@ -106,6 +107,7 @@ class Command(LogCommand):
                 )
                 push_notification.sent_date = timezone.now()
                 push_notification.save()
+                invalidate_obj(push_notification)
             else:
                 logger.error(
                     "Push notification %d/%d could not be sent: %r",
