@@ -608,7 +608,7 @@ API_SOCIAL_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
         "/api/v3/social/augsburg/de/non-existing/",
         "tests/api/expected-outputs/social_augsburg_de_page_non-existing.html",
         404,
-        3,
+        4,
     ),
     (
         "/api/v3/social/augsburg/de/events/test-veranstaltung/",
