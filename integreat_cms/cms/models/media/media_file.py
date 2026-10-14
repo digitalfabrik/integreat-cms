@@ -245,7 +245,9 @@ class MediaFile(AbstractBaseModel):
     @cached_property
     def non_archived_icon_usages(self) -> list[AbstractBaseModel]:
         """Return icon usages that still represent live content."""
-        return [usage for usage in self.icon_usages if not getattr(usage, "archived", False)]
+        return [
+            usage for usage in self.icon_usages if not getattr(usage, "archived", False)
+        ]
 
     @cached_property
     def content_usages(self) -> QuerySet:
