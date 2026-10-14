@@ -7,9 +7,8 @@ from __future__ import annotations
 import re
 from html import unescape
 
-from django.utils.functional import Promise, keep_lazy_text
+from django.utils.functional import keep_lazy_text, Promise
 from django.utils.html import strip_tags
-
 
 STRUCTURAL_HTML_TAGS = r"(?:br|/?p|/?div|/?li|/?h[1-6])"
 
