@@ -60,6 +60,41 @@ def test_slugify_ajax_for_new_object(
 
 
 @pytest.mark.django_db
+@pytest.mark.parametrize("model_id", ["asdf", 999999999])
+def test_slugify_ajax_with_invalid_model_id(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    model_id: str | int,
+) -> None:
+    """
+    Invalid IDs must not cause database lookups to raise a server error (see #4624).
+    """
+    client, role = login_role_user
+
+    response = client.post(
+        reverse(
+            "slugify_ajax",
+            kwargs={
+                "region_slug": "augsburg",
+                "language_slug": "de",
+                "model_type": "page",
+            },
+        ),
+        data=json.dumps({"title": "A new title", "model_id": model_id}),
+        content_type="application/json",
+    )
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+        return
+    if not response.wsgi_request.user.has_perm("cms.change_page"):
+        assert response.status_code == 403
+        return
+    assert response.status_code == 200
+    assert re.fullmatch(r"a-new-title(-\d+)?", response.json()["unique_slug"])
+
+
+@pytest.mark.django_db
 @pytest.mark.parametrize(
     ("page_id", "expected_status"),
     [

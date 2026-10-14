@@ -47,6 +47,12 @@ def slugify_ajax(
     json_data = json.loads(request.body)
     language = request.region.get_language_or_404(language_slug, only_active=True)
     model_id = json_data.get("model_id")
+    if model_id:
+        try:
+            model_id = int(model_id)
+        except (TypeError, ValueError):
+            # Treat malformed IDs like a new object instead of passing them to an ID lookup.
+            model_id = None
 
     if not (
         request.user.has_perms((required_permission,))
