@@ -144,12 +144,22 @@ def test_cross_region_edit_blocked(
         return
     assert get_response.status_code == 404
 
+    original_german_news = PushNotification.objects.get(id=6).get_translation("de")
+    original_german_title = original_german_news.title
+    original_german_text = original_german_news.text
+
+    new_title = "Cross Region Edit"
+    new_text = "Cross region text"
+
+    assert not original_german_title == new_title
+    assert not original_german_text == new_text
+
     post_response = client.post(
         cross_region_url,
         data={
-            "title": "Cross Region Edit",
-            "text": "Cross region text",
-            "regions": [1],
+            "title": new_title,
+            "text": new_text,
+            "regions": [2],
             "channel": "news",
             "mode": "ONLY_AVAILABLE",
             "submit_update": True,
@@ -161,6 +171,13 @@ def test_cross_region_edit_blocked(
 
     assert post_response.status_code == 404
     assert PushNotification.objects.count() == initial_count
+    
+    german_news = PushNotification.objects.get(id=6).get_translation("de")
+    german_title = german_news.title
+    german_text = german_news.text
+
+    assert original_german_title == german_title
+    assert original_german_text == german_text
 
 
 @pytest.mark.django_db
