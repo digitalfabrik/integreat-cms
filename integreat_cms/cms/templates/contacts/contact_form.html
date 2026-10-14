@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load widget_tweaks %}
+{% load render_bundle from webpack_loader %}
 {% block content %}
     {% with request.region.default_language as current_language %}
         {% with contact_form.instance.archived as archived %}
@@ -172,7 +173,13 @@
                   enctype="multipart/form-data"
                   data-unsaved-warning>
             </form>
+            {% if contact_form.instance.id and perms.cms.change_contact and not archived %}
+                {% include "_content_edit_lock.html" with lock_key=contact_form.instance.edit_lock_key %}
+            {% endif %}
             {% include "generic_confirmation_dialog.html" %}
         {% endwith %}
     {% endwith %}
 {% endblock content %}
+{% block javascript %}
+    {% render_bundle 'editor' 'js' %}
+{% endblock javascript %}

@@ -156,6 +156,34 @@ def test_edit_a_contact(
 
 
 @pytest.mark.django_db
+def test_contact_edit_form_includes_edit_lock(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+) -> None:
+    """
+    Test that editable contacts provide the shared content edit lock payload.
+    """
+    client, role = login_role_user
+    contact = Contact.objects.filter(place__region__slug=REGION_SLUG).first()
+    assert contact
+
+    response = client.get(
+        reverse(
+            "edit_contact",
+            kwargs={"region_slug": REGION_SLUG, "contact_id": contact.id},
+        ),
+    )
+
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
+        assert 'id="content-edit-lock-data"' in response.content.decode("utf-8")
+        assert f"[{contact.id}, &quot;Contact&quot;]" in response.content.decode("utf-8")
+    elif role == ANONYMOUS:
+        assert response.status_code == 302
+    else:
+        assert 'id="content-edit-lock-data"' not in response.content.decode("utf-8")
+
+
+@pytest.mark.django_db
 def test_no_contact_without_place(
     load_test_data: None,
     login_role_user: tuple[Client, str],

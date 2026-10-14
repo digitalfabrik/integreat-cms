@@ -55,6 +55,15 @@ class Contact(AbstractBaseModel):
 
     search_fields = ["name", "place__translations__title", "area_of_responsibility"]
 
+    @property
+    def edit_lock_key(self) -> tuple[int | None, str]:
+        """
+        Return the key used to lock this contact while it is being edited.
+
+        :return: The contact id and its model name
+        """
+        return (self.id, type(self).__name__)
+
     area_of_responsibility = TruncatingCharField(
         max_length=200,
         blank=True,
