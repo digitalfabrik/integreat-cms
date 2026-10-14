@@ -164,9 +164,7 @@ def test_local_news_text_is_escaped(load_test_data: None) -> None:
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("api", ["raw-content", "social"])
-def test_page_content_redirects_outdated_slug(
-    load_test_data: None, api: str
-) -> None:
+def test_page_content_redirects_outdated_slug(load_test_data: None, api: str) -> None:
     """
     A page's outdated slug redirects to the current same-language page instead of being
     resolved as content or returning an error (see #4544).

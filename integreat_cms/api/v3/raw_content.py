@@ -190,10 +190,12 @@ def page_content(
         path_parts,
     )
     if not page_translation:
-        historical_translation = get_public_translation_for_historical_webapp_link_parts(
-            region.slug,
-            language_slug,
-            path_parts,
+        historical_translation = (
+            get_public_translation_for_historical_webapp_link_parts(
+                region.slug,
+                language_slug,
+                path_parts,
+            )
         )
         if historical_translation:
             return redirect(

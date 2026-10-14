@@ -709,7 +709,7 @@ API_RAW_CONTENT_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
         "/api/v3/raw-content/augsburg/de/non-existing/",
         "tests/api/expected-outputs/raw_content_augsburg_de_page_non-existing.html",
         404,
-        3,
+        4,
     ),
     (
         "/api/v3/raw-content/augsburg/de/disclaimer/impressum/",
