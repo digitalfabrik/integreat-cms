@@ -21,6 +21,8 @@ const autocompleteEndTime = (event: Event) => {
 window.addEventListener("load", () => {
     if (document.getElementById("id_start_date") && document.getElementById("id_start_time")) {
         document.getElementById("id_start_date").addEventListener("focusout", autocompleteEndDate);
+        document.getElementById("id_start_date").addEventListener("change", autocompleteEndDate);
         document.getElementById("id_start_time").addEventListener("focusout", autocompleteEndTime);
+        document.getElementById("id_start_time").addEventListener("change", autocompleteEndTime);
     }
 });
