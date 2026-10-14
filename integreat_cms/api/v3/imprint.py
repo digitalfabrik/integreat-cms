@@ -18,8 +18,8 @@ if TYPE_CHECKING:
 
     from ...cms.models.pages.imprint_page_translation import ImprintPageTranslation
 
-from ..decorators import json_response
 from ...cms.utils.text_utils import strip_html_with_whitespace
+from ..decorators import json_response
 
 logger = logging.getLogger(__name__)
 

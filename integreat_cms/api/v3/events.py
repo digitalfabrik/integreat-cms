@@ -11,8 +11,8 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
 
-from ..decorators import json_response
 from ...cms.utils.text_utils import strip_html_with_whitespace
+from ..decorators import json_response
 from .places import transform_place
 
 if TYPE_CHECKING:
