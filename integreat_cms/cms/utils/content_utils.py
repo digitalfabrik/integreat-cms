@@ -38,6 +38,7 @@ def clean_content(
     :param content: the body of content that should be cleaned
     :param language_slug: Slug of the current language
     """
+    content = content.replace("\r\n", "\n").replace("\r", "\n")
     try:
         element = fromstring(content)
     except LxmlError:
@@ -59,7 +60,12 @@ def clean_content(
     hide_anchor_tag_around_image(content)
     update_contacts(content, region_id)
 
-    content_str = tostring(content, encoding="unicode", with_tail=False)
+    content_str = tostring(
+        content,
+        encoding="unicode",
+        with_tail=False,
+        pretty_print=True,  # pretty print to achieve a normalized string representation of the HTML
+    ).strip()  # prevent misleading has_changed() just from Djangos TextField stripping trailing whitespace
     return fix_content_link_encoding(content_str)
 
 
