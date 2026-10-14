@@ -4,13 +4,12 @@ This module contains helpers for rendering social media meta headers.
 
 from __future__ import annotations
 
-import re
-from html import unescape
 from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.shortcuts import render
-from django.utils.html import strip_tags
+
+from .text_utils import strip_html_with_whitespace
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
@@ -26,15 +25,7 @@ def get_excerpt(content: str) -> str:
 
     :return: A page excerpt containing the first 100 characters of "raw" content
     """
-    stripped_content = re.sub(
-        r"\s+",
-        " ",
-        unescape(
-            strip_tags(
-                content.replace("\n", " ").replace("\r", "").replace("<br>", " ")
-            )
-        ),
-    ).strip()
+    stripped_content = strip_html_with_whitespace(content)
     if len(stripped_content) <= 100:
         return stripped_content
     return stripped_content[:100].rsplit(" ", 1)[0] + " …"

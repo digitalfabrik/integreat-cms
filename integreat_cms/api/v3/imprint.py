@@ -10,7 +10,6 @@ from typing import TYPE_CHECKING
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
-from django.utils.html import strip_tags
 
 if TYPE_CHECKING:
     from typing import Any
@@ -20,6 +19,7 @@ if TYPE_CHECKING:
     from ...cms.models.pages.imprint_page_translation import ImprintPageTranslation
 
 from ..decorators import json_response
+from ...cms.utils.text_utils import strip_html_with_whitespace
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +39,7 @@ def transform_imprint(imprint_translation: ImprintPageTranslation) -> dict[str, 
         "title": imprint_translation.title,
         "modified_gmt": imprint_translation.last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(imprint_translation.last_updated),
-        "excerpt": strip_tags(imprint_translation.content),
+        "excerpt": strip_html_with_whitespace(imprint_translation.content),
         "content": imprint_translation.content,
         "parent": None,
         "available_languages": imprint_translation.available_languages_dict,

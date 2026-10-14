@@ -10,9 +10,9 @@ from typing import TYPE_CHECKING
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
-from django.utils.html import strip_tags
 
 from ..decorators import json_response
+from ...cms.utils.text_utils import strip_html_with_whitespace
 from .places import transform_place
 
 if TYPE_CHECKING:
@@ -92,7 +92,7 @@ def transform_event_translation(
         "published_at": timezone.localtime(
             event_translation.published_at or event_translation.last_updated,
         ),
-        "excerpt": strip_tags(event_translation.content),
+        "excerpt": strip_html_with_whitespace(event_translation.content),
         "content": event_translation.content,
         "available_languages": (
             transform_available_languages(event_translation, recurrence_date)

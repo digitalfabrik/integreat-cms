@@ -10,11 +10,11 @@ from django.conf import settings
 from django.db.models import Prefetch
 from django.http import JsonResponse
 from django.utils import timezone
-from django.utils.html import strip_tags
 
 from ...cms.constants import status
 from ...cms.models import Contact, PlaceCategoryTranslation
 from ...cms.models.places.place import get_default_opening_hours
+from ...cms.utils.text_utils import strip_html_with_whitespace
 from ...core.utils.strtobool import strtobool
 from ..decorators import json_response
 from .place_categories import transform_place_category
@@ -164,7 +164,7 @@ def transform_place_translation(
             place_translation.published_at or place_translation.last_updated,
         ),
         "meta_description": place_translation.meta_description,
-        "excerpt": strip_tags(place_translation.content),
+        "excerpt": strip_html_with_whitespace(place_translation.content),
         "content": place_translation.content,
         "available_languages": place_translation.available_languages_dict,
         "icon": place.icon.url if place.icon else None,

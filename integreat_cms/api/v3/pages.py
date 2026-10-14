@@ -15,13 +15,13 @@ from django.db.models import prefetch_related_objects, Q
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.views.decorators.csrf import csrf_exempt
 
 from ...cms.forms import PageTranslationForm
 from ...cms.models import Page, PageTranslation
 from ...cms.utils.shortcodes import expand_shortcodes
+from ...cms.utils.text_utils import strip_html_with_whitespace
 from ..decorators import json_response, matomo_tracking
 from .offers import transform_offer
 
@@ -96,7 +96,7 @@ def transform_page(
         "published_at": timezone.localtime(
             page_translation.published_at or page_translation.last_updated,
         ),
-        "excerpt": strip_tags(
+        "excerpt": strip_html_with_whitespace(
             expand_shortcodes(page_translation.combined_text, context=context)
         ),
         "content": expand_shortcodes(page_translation.combined_text, context=context),
