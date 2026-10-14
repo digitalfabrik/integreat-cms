@@ -136,7 +136,11 @@
             </div>
             <div class="flex flex-col flex-wrap col-span-2">
                 {% include "./push_notification_setting_box.html" with box_id="push-notification-setting" %}
+                {% if push_notification_form.instance.id %}
+                    {% include "./push_notification_actions_box.html" with box_id="push-notification-actions" %}
+                {% endif %}
             </div>
         </div>
     </form>
+    {% include "../generic_confirmation_dialog.html" %}
 {% endblock content %}

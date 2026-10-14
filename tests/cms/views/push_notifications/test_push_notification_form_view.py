@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 import pytest
 from django.urls import reverse
 
-from integreat_cms.cms.models import Region
+from integreat_cms.cms.models import PushNotification, Region
 from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
 
 # We use Augsburg (region with German as default language) and Berlin (region with English as default language)
@@ -111,3 +111,38 @@ def test_invalid_new_translation_keeps_language_tabs(
     assert response.status_code == 200
     region = Region.objects.get(slug="augsburg")
     assert list(response.context["languages"]) == list(region.active_languages)
+
+
+@pytest.mark.django_db
+def test_saved_news_form_shows_permitted_actions(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+) -> None:
+    """Saved news should offer the same permitted actions as the list view."""
+    client, _ = login_role_user
+    edit_push_notification = reverse(
+        "edit_push_notification",
+        kwargs={
+            "push_notification_id": 8,
+            "region_slug": "augsburg",
+            "language_slug": "de",
+        },
+    )
+
+    response = client.get(edit_push_notification)
+
+    if response.status_code != 200:
+        return
+
+    content = response.content.decode("utf-8")
+    push_notification = PushNotification.objects.get(id=8)
+    if response.wsgi_request.user.has_perm("cms.archive_pushnotification"):
+        action_label = "Restore news" if push_notification.archived else "Archive news"
+        assert action_label in content
+    else:
+        assert "Archive news" not in content
+        assert "Restore news" not in content
+    if response.wsgi_request.user.has_perm("cms.delete_pushnotification"):
+        assert "Delete news" in content
+    else:
+        assert "Delete news" not in content
