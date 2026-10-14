@@ -17,6 +17,44 @@ from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
 
 
 @pytest.mark.django_db
+@pytest.mark.parametrize(
+    ("fcm_enabled", "push_notifications_enabled"),
+    [(False, True), (True, False)],
+)
+def test_disabled_news_feature_blocks_post(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    settings: Settings,
+    fcm_enabled: bool,
+    push_notifications_enabled: bool,
+) -> None:
+    """POST uses the same feature-availability guards as GET (#4621)."""
+    client, role = login_role_user
+    region = Region.objects.get(slug="augsburg")
+    region.push_notifications_enabled = push_notifications_enabled
+    region.save(update_fields=["push_notifications_enabled"])
+    settings.FCM_ENABLED = fcm_enabled
+    url = reverse(
+        "new_push_notification",
+        kwargs={"region_slug": region.slug, "language_slug": "de"},
+    )
+
+    response = client.post(url)
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+        return
+    if role not in PRIV_STAFF_ROLES:
+        assert response.status_code == 403
+        return
+
+    assert response.status_code == 302
+    assert response.headers["location"] == reverse(
+        "dashboard", kwargs={"region_slug": region.slug}
+    )
+
+
+@pytest.mark.django_db
 def test_validate_forms_with_only_german_title(
     load_test_data: None,
     login_role_user: tuple[Client, str],

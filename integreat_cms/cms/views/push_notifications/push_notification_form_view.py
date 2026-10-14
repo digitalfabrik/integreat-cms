@@ -175,6 +175,21 @@ class PushNotificationFormView(TemplateView):
         """
 
         region = request.region
+
+        if not settings.FCM_ENABLED:
+            messages.error(
+                request,
+                _("News are disabled."),
+            )
+            return redirect("dashboard", **{"region_slug": region.slug})
+
+        if not region.push_notifications_enabled:
+            messages.error(
+                request,
+                _("News are disabled in this region."),
+            )
+            return redirect("dashboard", **{"region_slug": region.slug})
+
         language = Language.objects.get(slug=kwargs.get("language_slug"))
 
         push_notification_instance = PushNotification.objects.filter(
