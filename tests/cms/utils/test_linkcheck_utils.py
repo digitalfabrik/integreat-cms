@@ -4,8 +4,8 @@ import pytest
 from django.contrib.contenttypes.models import ContentType
 from linkcheck.models import Link, Url
 
-from integreat_cms.cms.models import PageTranslation
-from integreat_cms.cms.utils.linkcheck_utils import filter_urls
+from integreat_cms.cms.models import PageTranslation, Region
+from integreat_cms.cms.utils.linkcheck_utils import filter_urls, get_link_query
 
 #: The page translation of the test data which contains a contact card
 PAGE_TRANSLATION_WITH_CONTACT_CARD_ID: int = 101
@@ -40,6 +40,12 @@ def add_broken_contact_link(url: str) -> Url:
         ignore=False,
     )
     return url_object
+
+
+@pytest.mark.django_db
+def test_get_link_query_without_regions_returns_no_links(load_test_data: None) -> None:
+    """A fresh installation without regions can open the link checker."""
+    assert not get_link_query(Region.objects.none()).exists()
 
 
 @pytest.mark.django_db
