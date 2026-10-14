@@ -66,8 +66,7 @@ This job sets up the test coverage reporter for CodeClimate.
 tests
 -----
 
-This job runs the tests in 16 parallel containers. It sets up a temporary postgres database and runs the migrations
-before testing. It runs pytest and passes the coverage in the ``test-results`` directory to the build artifacts.
+It sets up a temporary postgres database and runs the migrations before testing. It runs pytest and passes the coverage in the ``/tests-results`` directory to the build artifacts.
 
 .. _circleci-upload-test-coverage:
 
