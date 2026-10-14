@@ -24,8 +24,19 @@ const getCoordinateInputFields = () => {
 // Get the values of the coordinate input fields
 const getCoordinates = () => {
     const [latitudeInput, longitudeInput] = getCoordinateInputFields();
-    if (latitudeInput.value && longitudeInput.value) {
-        return new LngLat(longitudeInput.valueAsNumber, latitudeInput.valueAsNumber);
+    const latitude = latitudeInput.valueAsNumber;
+    const longitude = longitudeInput.valueAsNumber;
+    if (
+        latitudeInput.value &&
+        longitudeInput.value &&
+        Number.isFinite(latitude) &&
+        Number.isFinite(longitude) &&
+        latitude >= -90 &&
+        latitude <= 90 &&
+        longitude >= -180 &&
+        longitude <= 180
+    ) {
+        return new LngLat(longitude, latitude);
     }
     return null;
 };
