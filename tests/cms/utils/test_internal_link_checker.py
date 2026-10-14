@@ -48,7 +48,6 @@ INVALID_INTERNAL_LINKS: list[str] = [
     "https://integreat.app/augsburg/en/news/local-1",
     "https://integreat.app/augsburg/de/news/local/1",
     "https://integreat.app/augsburg/de/news/local-1",
-    "https://integreat.app/nurnberg/de/news",
     "https://integreat.app/nurnberg/ar/news/local-1",
     "https://integreat.app/nurnberg/de/news/local-2",
     "https://integreat.app/nurnberg/de/news/tu-news",
