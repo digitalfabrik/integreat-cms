@@ -136,13 +136,27 @@ def test_saved_news_form_shows_permitted_actions(
 
     content = response.content.decode("utf-8")
     push_notification = PushNotification.objects.get(id=2)
+    action_kwargs = {
+        "push_notification_id": push_notification.id,
+        "region_slug": "augsburg",
+        "language_slug": "de",
+    }
     if response.wsgi_request.user.has_perm("cms.archive_pushnotification"):
-        action_label = "Restore news" if push_notification.archived else "Archive news"
-        assert action_label in content
+        action_name = (
+            "restore_push_notification"
+            if push_notification.archived
+            else "archive_push_notification"
+        )
+        action_url = reverse(action_name, kwargs=action_kwargs)
+        assert f'data-action="{action_url}"' in content
     else:
-        assert "Archive news" not in content
-        assert "Restore news" not in content
+        archive_url = reverse("archive_push_notification", kwargs=action_kwargs)
+        restore_url = reverse("restore_push_notification", kwargs=action_kwargs)
+        assert f'data-action="{archive_url}"' not in content
+        assert f'data-action="{restore_url}"' not in content
     if response.wsgi_request.user.has_perm("cms.delete_pushnotification"):
-        assert "Delete news" in content
+        delete_url = reverse("delete_push_notification", kwargs=action_kwargs)
+        assert f'data-action="{delete_url}"' in content
     else:
-        assert "Delete news" not in content
+        delete_url = reverse("delete_push_notification", kwargs=action_kwargs)
+        assert f'data-action="{delete_url}"' not in content
