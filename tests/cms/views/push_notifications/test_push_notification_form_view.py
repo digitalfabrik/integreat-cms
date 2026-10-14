@@ -151,8 +151,8 @@ def test_cross_region_edit_blocked(
     new_title = "Cross Region Edit"
     new_text = "Cross region text"
 
-    assert not original_german_title == new_title
-    assert not original_german_text == new_text
+    assert original_german_title != new_title
+    assert original_german_text != new_text
 
     post_response = client.post(
         cross_region_url,
@@ -171,7 +171,7 @@ def test_cross_region_edit_blocked(
 
     assert post_response.status_code == 404
     assert PushNotification.objects.count() == initial_count
-    
+
     german_news = PushNotification.objects.get(id=6).get_translation("de")
     german_title = german_news.title
     german_text = german_news.text
