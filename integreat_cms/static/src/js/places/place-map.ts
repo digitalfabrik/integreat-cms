@@ -14,6 +14,11 @@ import { updateField } from "./place-actions";
 // The worker file is copied to the static root by webpack (see CopyPlugin config)
 setWorkerUrl(`${__webpack_public_path__}maplibre-gl-worker.mjs`);
 
+const MIN_LATITUDE = -90;
+const MAX_LATITUDE = 90;
+const MIN_LONGITUDE = -180;
+const MAX_LONGITUDE = 180;
+
 // Get the coordinate input fields
 const getCoordinateInputFields = () => {
     const latitudeInput = document.getElementById("id_latitude") as HTMLInputElement;
@@ -31,10 +36,10 @@ const getCoordinates = () => {
         longitudeInput.value &&
         Number.isFinite(latitude) &&
         Number.isFinite(longitude) &&
-        latitude >= -90 &&
-        latitude <= 90 &&
-        longitude >= -180 &&
-        longitude <= 180
+        latitude >= MIN_LATITUDE &&
+        latitude <= MAX_LATITUDE &&
+        longitude >= MIN_LONGITUDE &&
+        longitude <= MAX_LONGITUDE
     ) {
         return new LngLat(longitude, latitude);
     }
