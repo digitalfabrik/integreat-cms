@@ -10,7 +10,7 @@ import pytest
 from django.urls import reverse
 
 from integreat_cms.cms.models import Region
-from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
+from tests.constants import ANONYMOUS, EDITOR, PRIV_STAFF_ROLES, STAFF_ROLES
 
 # We use Augsburg (region with German as default language) and Berlin (region with English as default language)
 # to test every language is required which is the default language of at least one region of the push notification
@@ -111,3 +111,27 @@ def test_invalid_new_translation_keeps_language_tabs(
     assert response.status_code == 200
     region = Region.objects.get(slug="augsburg")
     assert list(response.context["languages"]) == list(region.active_languages)
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("login_role_user", [EDITOR], indirect=True)
+def test_inaccessible_regions_warning_is_retained_after_post(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+) -> None:
+    """An editor cannot regain save controls after posting shared news."""
+    client, _ = login_role_user
+    edit_push_notification = reverse(
+        "edit_push_notification",
+        kwargs={
+            "push_notification_id": 8,
+            "region_slug": "augsburg",
+            "language_slug": "de",
+        },
+    )
+
+    response = client.post(edit_push_notification, data={"submit_update": True})
+
+    assert response.status_code == 200
+    assert response.context["not_accessible_regions_warning"]
+    assert b'name="submit_update"' not in response.content
