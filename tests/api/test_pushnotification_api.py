@@ -76,3 +76,22 @@ def test_no_archived_pushnotification(load_test_data: None) -> None:
     response_after_archiving = client.get(api)
     result_after_archiving = response_after_archiving.content.decode("utf-8")
     assert result_after_archiving == start_result
+
+
+@pytest.mark.django_db
+def test_disabled_region_excludes_sent_pushnotification(load_test_data: None) -> None:
+    """The public FCM feed does not expose local news from a disabled region."""
+    client = Client()
+    api = reverse(
+        "api:sent_push_notifications",
+        kwargs={"region_slug": REGION_SLUG, "language_slug": "de"},
+    )
+    _, translation_id = create_a_pushnotification(REGION_SLUG)
+
+    region = Region.objects.get(slug=REGION_SLUG)
+    region.push_notifications_enabled = False
+    region.save(update_fields=["push_notifications_enabled"])
+
+    result = client.get(api).json()
+
+    assert all(item["id"] != translation_id for item in result)

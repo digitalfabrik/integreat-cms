@@ -36,6 +36,7 @@ def _query_sent_translations(
     query_result = (
         PushNotificationTranslation.objects.filter(push_notification__archived=False)
         .filter(push_notification__regions__slug=region_slug)
+        .filter(push_notification__regions__push_notifications_enabled=True)
         .filter(
             push_notification__sent_date__gte=timezone.now()
             - timezone.timedelta(days=settings.FCM_HISTORY_DAYS),
@@ -58,7 +59,7 @@ def _get_public_translation(
     Return the push notification translation with ``translation_id`` if it is publicly available in ``region`` and
     ``language``, i.e. if it is not archived and has been sent within the FCM history window.
     """
-    if not translation_id.isdigit():
+    if not region.push_notifications_enabled or not translation_id.isdigit():
         return None
     return (
         PushNotificationTranslation.objects.filter(

@@ -264,6 +264,29 @@ def test_news_endpoint_source_filter(
 
 
 @pytest.mark.django_db
+def test_news_endpoint_excludes_local_news_when_disabled(
+    load_test_data: None, clean_news_cache: None, disable_auto_news_reimport: None
+) -> None:
+    """Disabled local news are not returned by the public news endpoint."""
+    region_slug = "augsburg"
+    language_slug = "de"
+    url = reverse(
+        "api:news",
+        kwargs={"region_slug": region_slug, "language_slug": language_slug},
+    )
+    timestamp = datetime.now(tz=UTC)
+    local_news_id = f"local-{_create_push_notification(region_slug, language_slug, timestamp)}"
+
+    region = Region.objects.get(slug=region_slug)
+    region.push_notifications_enabled = False
+    region.save(update_fields=["push_notifications_enabled"])
+
+    result = Client().get(url, {"source": "local"}).json()
+
+    assert all(item["id"] != local_news_id for item in result)
+
+
+@pytest.mark.django_db
 def test_single_news_endpoint(
     load_test_data: None, clean_news_cache: None, disable_auto_news_reimport: None
 ) -> None:
@@ -369,6 +392,15 @@ def test_single_news_endpoint(
     )
     local_result = client.get(url).json()
     assert local_result["id"] == pn_id_1
+
+    region = Region.objects.get(slug=region_slug)
+    region.push_notifications_enabled = False
+    region.save(update_fields=["push_notifications_enabled"])
+
+    disabled_local_result = client.get(url).json()
+    assert disabled_local_result == {
+        "error": "Push Notification not found in this region with this language."
+    }
 
     url = reverse(
         "api:single_news",
