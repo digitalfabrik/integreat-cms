@@ -9,8 +9,8 @@ if TYPE_CHECKING:
 import pytest
 from django.urls import reverse
 
-from integreat_cms.cms.models import Region
-from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
+from integreat_cms.cms.models import PushNotification, Region
+from tests.constants import ANONYMOUS, MANAGEMENT, PRIV_STAFF_ROLES, STAFF_ROLES
 
 # We use Augsburg (region with German as default language) and Berlin (region with English as default language)
 # to test every language is required which is the default language of at least one region of the push notification
@@ -111,3 +111,48 @@ def test_invalid_new_translation_keeps_language_tabs(
     assert response.status_code == 200
     region = Region.objects.get(slug="augsburg")
     assert list(response.context["languages"]) == list(region.active_languages)
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("login_role_user", [MANAGEMENT], indirect=True)
+@pytest.mark.parametrize("restricted_regions", [True, False])
+def test_invalid_post_preserves_edit_button_visibility(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    restricted_regions: bool,
+) -> None:
+    """
+    Invalid submissions must keep actions hidden for news shared with inaccessible
+    regions, while leaving actions available for news the user can edit.
+    """
+    client, _role = login_role_user
+    push_notification = PushNotification.objects.get(id=8)
+    push_notification.regions.set([1, 8] if restricted_regions else [1])
+    edit_push_notification = reverse(
+        "edit_push_notification",
+        kwargs={
+            "push_notification_id": push_notification.id,
+            "region_slug": "augsburg",
+            "language_slug": "de",
+        },
+    )
+
+    response = client.post(
+        edit_push_notification,
+        data={
+            "title": "German title",
+            "text": "x" * 501,
+            "regions": [1],
+            "channel": "news",
+            "mode": "ONLY_AVAILABLE",
+            "submit_update": True,
+        },
+    )
+
+    assert response.status_code == 200
+    assert (
+        bool(response.context["not_accessible_regions_warning"]) == restricted_regions
+    )
+    content = response.content.decode("utf-8")
+    for action in ("submit_update", "submit_send", "submit_schedule"):
+        assert (f'name="{action}"' in content) != restricted_regions
