@@ -15,34 +15,30 @@ set -eo pipefail
 # the invoking host user; the image opens /home/circleci for traversal and
 # pre-creates this mountpoint world-writable so that uid can reach and populate
 # the volume regardless of its value (see tools/docker/Dockerfile.test).
-VENV_DIR="/home/circleci/venv"
-if [[ ! -w "${VENV_DIR}" ]]; then
-    echo "The virtualenv volume at ${VENV_DIR} is not writable by uid $(id -u)." >&2
+UV_PROJECT_ENVIRONMENT="/home/circleci/venv"
+export UV_PROJECT_ENVIRONMENT
+if [[ ! -w "${UV_PROJECT_ENVIRONMENT}" ]]; then
+    echo "The virtualenv volume at ${UV_PROJECT_ENVIRONMENT} is not writable by uid $(id -u)." >&2
     echo "This usually means the test image predates the permission fix; rebuild" >&2
     echo "it and reset the cached volume:" >&2
     echo "    docker compose --env-file /dev/null -f docker-compose.test.yml build" >&2
     echo "    docker compose --env-file /dev/null -f docker-compose.test.yml down --volumes" >&2
     exit 1
 fi
+
 # Recreate the venv when its interpreter is missing or no longer runnable. The
 # base image tracks a floating cimg/python:3.13 tag, so a rebuild can bump the
 # pyenv patch version (e.g. 3.13.11 -> 3.13.15) and leave the cached venv's
 # bin/python symlink dangling. `python -m venv` without --clear keeps existing
 # symlinks, so it would not repair such a venv; --clear rebuilds it from the
 # current interpreter.
-if [[ ! -x "${VENV_DIR}/bin/python" ]] || ! "${VENV_DIR}/bin/python" -c '' 2> /dev/null; then
-    echo "Creating virtualenv at ${VENV_DIR}..."
-    python -m venv --clear "${VENV_DIR}"
-    "${VENV_DIR}/bin/pip" install --upgrade pip
+if [[ ! -x "${UV_PROJECT_ENVIRONMENT}/bin/python" ]] || ! "${UV_PROJECT_ENVIRONMENT}/bin/python" -c '' 2> /dev/null; then
+    # Install the project with the exact locked versions CI uses. uv creates the
+    # virtualenv on the volume if it does not exist yet, and the install is a
+    # no-op on warm runs.
+    echo "Installing dependencies (locked, matching CI)..."
+    uv sync --locked
 fi
-# shellcheck disable=SC1091
-source "${VENV_DIR}/bin/activate"
-
-# Install the project with the same pinned dependency sets CI uses. This is a
-# no-op on warm runs (the venv volume is cached) and fast thanks to the pip
-# cache volume.
-echo "Installing dependencies (pinned, matching CI)..."
-pip install -e ".[dev-pinned,pinned]"
 
 # The .mo translation files are not committed; compile them so translation-
 # dependent tests (e.g. the CSV feedback export) behave deterministically.
@@ -51,13 +47,13 @@ pip install -e ".[dev-pinned,pinned]"
 # may contain a bind-mounted host virtualenv whose third-party .po files
 # (e.g. sphinx) fail msgfmt with fatal errors.
 echo "Compiling translations..."
-(cd integreat_cms && integreat-cms-cli compilemessages)
+(cd integreat_cms && uv run integreat-cms-cli compilemessages)
 
 # Wait for the PostgreSQL service to accept connections. `depends_on` with a
 # health check already gates startup, but this makes the dependency explicit and
 # survives a restarted db container.
 echo "Waiting for database at ${INTEGREAT_CMS_DB_HOST}:${INTEGREAT_CMS_DB_PORT}..."
-python - <<'PY'
+uv run python - <<'PY'
 import os
 import socket
 import sys
@@ -75,4 +71,4 @@ sys.exit(f"Database at {host}:{port} did not become reachable in time")
 PY
 
 echo "Running tests..."
-exec pytest "$@"
+exec uv run pytest "$@"
