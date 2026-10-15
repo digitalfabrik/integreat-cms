@@ -37,6 +37,9 @@ if TYPE_CHECKING:
 
     from django.db.models.query import QuerySet
 
+    from ...models import Language
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -936,6 +939,9 @@ def duplicate_pages(
     source_pages = source_region.pages.filter(
         parent=source_parent,
         explicitly_archived=False,
+    ).prefetch_major_public_translations()
+    target_region_languages = target_region.language_tree_nodes.select_related(
+        "language"
     )
     num_source_pages = len(source_pages)
     for i, source_page in enumerate(source_pages):
@@ -992,6 +998,7 @@ def duplicate_pages(
         duplicate_page_translations(
             source_page,
             target_page,
+            target_region_languages,
             row_logging_prefix,
             keep_status,
         )
@@ -1012,11 +1019,12 @@ def duplicate_pages(
 def duplicate_page_translations(
     source_page: Page,
     target_page: Page,
+    target_region_languages: QuerySet[Language],
     logging_prefix: str,
     keep_status: bool,
 ) -> None:
     """
-    Duplicate all translations of a given source page to a given target page
+    Duplicate the latest translations of a given source page to a given target page
 
     :param source_page: The given source page
     :param target_page: The desired target page
@@ -1027,12 +1035,13 @@ def duplicate_page_translations(
         "%s Duplicating page translations",
         logging_prefix + ("└─" if source_page.is_leaf() else "├─"),
     )
-    # Clone all page translations of the source page
-    source_page_translations = source_page.translations.filter(
-        language__in=[
-            node.language for node in target_page.region.language_tree_nodes.all()
-        ],
-    )
+    # Clone latest major public translations of the source page
+    source_page_translations = [
+        translation
+        for node in target_region_languages
+        if (translation := source_page.get_major_public_translation(node.language.slug))
+    ]
+
     num_translations = len(source_page_translations)
     translation_row_logging_prefix = logging_prefix + (
         "  " if source_page.is_leaf() else "│  "
@@ -1045,6 +1054,10 @@ def duplicate_page_translations(
         page_translation.pk = None
         # Reset the publication date because the duplicate has not been published yet
         page_translation.published_at = None
+        # Remove the editor information so it won't be shown in the new region
+        page_translation.creator = None
+        # Set the version number to 1, version numbers must be continuous
+        page_translation.version = 1
         # Set the translation to draft if keep_status is false
         if keep_status is False:
             page_translation.status = status.DRAFT
@@ -1085,16 +1098,28 @@ def duplicate_imprint(
     if only_root:
         return
 
-    # Duplicate imprint translations by iterating to all existing ones
-    source_page_translations = source_imprint.translations.all()
+    # Duplicate imprint translations of latest major public version
+    source_imprint_translations = [
+        translation
+        for node in target_imprint.region.language_tree_nodes.select_related("language")
+        if (
+            translation := source_imprint.get_major_public_translation(
+                node.language.slug
+            )
+        )
+    ]
 
-    for imprint_translation in source_page_translations:
+    for imprint_translation in source_imprint_translations:
         # Set the page of the source translation to the new imprint
         imprint_translation.page = target_imprint
         # Delete the primary key to duplicate the object instance instead of updating it
         imprint_translation.pk = None
         # Reset the publication date because the duplicate has not been published yet
         imprint_translation.published_at = None
+        # Remove the editor information so it won't be shown in the new region
+        imprint_translation.creator = None
+        # Set the version number to 1, version numbers must be continuous
+        imprint_translation.version = 1
         # Set the translation to draft
         imprint_translation.status = status.DRAFT
         # Check if the imprint translation is valid
