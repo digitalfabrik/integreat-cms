@@ -1,7 +1,7 @@
 """
 Django settings for running tests.
 
-Shared by both local test runs (``tools/test.sh``) and CI (CircleCI).
+Shared by both local test runs (``tools/test.py``) and CI (CircleCI).
 All configuration is imported from :mod:`~integreat_cms.core.settings`
 and then overridden with test-specific values.
 
@@ -51,11 +51,7 @@ CACHES = {
 }
 if "cacheops" in INSTALLED_APPS:
     INSTALLED_APPS.remove("cacheops")
-#: The app code calls cacheops' ``invalidate_obj``/``invalidate_model`` directly,
-#: which contact Redis regardless of the app being installed — with no Redis
-#: reachable, redis-py's connection retries add minutes of backoff sleeps to
-#: every tree operation. This flag makes all cacheops entry points no-ops.
-CACHEOPS_ENABLED = False
+
 #: Disable linkcheck listeners during testing
 LINKCHECK_DISABLE_LISTENERS = True
 # Disable background tasks during testing
