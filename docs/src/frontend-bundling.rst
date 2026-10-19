@@ -17,22 +17,43 @@ When running :github-source:`tools/run.sh`, ``webpack-dev-server`` is being used
 For a production build one should run ``npm run prod``.
 This will generate minified js and css files in the same target directory.
 
+.. _frontend-sentry:
+
+Error monitoring (Sentry)
+=========================
+
+All bundles import :github-source:`integreat_cms/static/src/js/sentry.ts`, which initializes Sentry error reporting and performance tracing.
+The configuration is injected at build time via environment variables, so they have to be set when running ``npm run prod``:
+
+* ``SENTRY_TRACES_SAMPLE_RATE``: The percentage of transactions which are sent to Sentry for performance tracing (defaults to ``0.0``)
+
+The release is set to ``integreat-cms@<version>``, the same as in the backend. No personally identifiable information is sent to Sentry.
+
+To upload source maps to Sentry, additionally set the following variables:
+
+* ``SENTRY_AUTH_TOKEN``: An auth token for Sentry. If this is not set, no source maps are generated or uploaded.
+* ``SENTRY_ORG``: The slug of the Sentry organization
+* ``SENTRY_PROJECT``: The slug of the Sentry project
+* ``SENTRY_URL``: The URL of the Sentry instance (only needed for self-hosted Sentry)
+
+The source maps are deleted after the upload, so they are not served publicly.
+
 .. _feature-modules:
 
 Feature modules
 ===============
 
-Feature modules are very simple components that are scoped to their root element in the DOM.  
-They are not bound to a specific template and can be used many times.  
+Feature modules are very simple components that are scoped to their root element in the DOM.
+They are not bound to a specific template and can be used many times.
 
-To mark an element as a root for a specific feature module, the attribute ``data-js-<name-of-feature-module>`` needs to be set.  
+To mark an element as a root for a specific feature module, the attribute ``data-js-<name-of-feature-module>`` needs to be set.
 For example:
 
 .. code-block:: html
 
     <div data-js-search-query></div>
 
-This sets the div as the root element for the feature module ``search-query``.  
+This sets the div as the root element for the feature module ``search-query``.
 
 To create a feature module, create a TypeScript file inside ``/integreat_cms/static/src/js/feature/``.
 The file name determines the attribute name — ``search-query.ts`` is activated by ``data-js-search-query``.
