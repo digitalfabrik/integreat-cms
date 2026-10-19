@@ -14,6 +14,8 @@ import os
 
 from django.core.asgi import get_asgi_application
 
+from integreat_cms.core.sentry import init_sentry
+
 
 def configure_application() -> None:
     """
@@ -35,4 +37,5 @@ def configure_application() -> None:
 
 
 configure_application()
+init_sentry("cms")
 application = get_asgi_application()
