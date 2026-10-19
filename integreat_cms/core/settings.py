@@ -1462,3 +1462,13 @@ EXCLUDED_HIDDEN_MIRRORED_REGIONS: Final[list[str]] = [
     ).split(",")
     if slug
 ]
+
+##########
+# SENTRY #
+##########
+
+#: The percentage of transactions which are sent to Sentry for performance tracing (between ``0.0`` and ``1.0``)
+SENTRY_TRACES_SAMPLE_RATE: Final[float] = env_float(
+    "INTEGREAT_CMS_SENTRY_TRACES_SAMPLE_RATE",
+    0.0,
+)
