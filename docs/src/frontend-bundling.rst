@@ -17,6 +17,29 @@ When running :github-source:`tools/run.sh`, ``webpack-dev-server`` is being used
 For a production build one should run ``npm run prod``.
 This will generate minified js and css files in the same target directory.
 
+.. _frontend-sentry:
+
+Error monitoring (Sentry)
+=========================
+
+All bundles import :github-source:`integreat_cms/static/src/js/sentry.ts`, which initializes Sentry error reporting and performance tracing.
+The configuration is injected at build time via environment variables, so they have to be set when running ``npm run prod``:
+
+* ``SENTRY_FRONTEND_DSN``: The DSN of the Sentry project for the frontend. If this is not set, Sentry is disabled and not included in the bundles.
+* ``SENTRY_FRONTEND_ENVIRONMENT``: The environment which is reported to Sentry (defaults to ``production`` for production builds and ``development`` otherwise)
+* ``SENTRY_FRONTEND_TRACES_SAMPLE_RATE``: The percentage of transactions which are sent to Sentry for performance tracing (defaults to ``0.0``)
+
+The release is set to ``integreat-cms@<version>``, the same as in the backend. No personally identifiable information is sent to Sentry.
+
+To upload source maps to Sentry, additionally set the following variables:
+
+* ``SENTRY_AUTH_TOKEN``: An auth token for Sentry. If this is not set, no source maps are generated or uploaded.
+* ``SENTRY_ORG``: The slug of the Sentry organization
+* ``SENTRY_PROJECT``: The slug of the Sentry project
+* ``SENTRY_URL``: The URL of the Sentry instance (only needed for self-hosted Sentry)
+
+The source maps are deleted after the upload, so they are not served publicly.
+
 .. _feature-modules:
 
 Feature modules
