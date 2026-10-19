@@ -1,1 +1,3 @@
-__version__ = "2026.10.0"
+from importlib.metadata import version
+
+__version__ = version("integreat-cms")

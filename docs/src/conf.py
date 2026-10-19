@@ -19,6 +19,7 @@ from typing import Any, Final, TYPE_CHECKING
 
 from django import VERSION as DJANGO_VERSION_TUPLE
 
+from integreat_cms import __version__
 from integreat_cms.core import settings
 
 if TYPE_CHECKING:
@@ -57,7 +58,7 @@ django_github_url: Final[str] = (
 )
 
 #: The full version, including alpha/beta/rc tags
-release = "2026.10.0"
+release = __version__
 
 # -- General configuration ---------------------------------------------------
 
