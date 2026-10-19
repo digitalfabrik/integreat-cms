@@ -24,6 +24,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import "whatwg-fetch"; // IE11: Element.closest
 
+
 import "./css/style.scss";
 
 import "./js/tree-drag-and-drop";
@@ -38,6 +39,7 @@ import "./js/language-tabs";
 import "./js/machine-translation-overlay";
 import "./js/revisions";
 import "./js/event-duration";
+import "./js/sentry";
 
 import "./js/forms/slug-error";
 import "./js/forms/update-permalink";

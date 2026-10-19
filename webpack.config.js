@@ -1,9 +1,21 @@
+const fs = require("fs");
 const path = require("path");
+const { DefinePlugin } = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const BundleTracker = require("webpack-bundle-tracker");
+const { sentryWebpackPlugin } = require("@sentry/webpack-plugin");
+const { parse: parseToml } = require("smol-toml");
+
+// Use the same release identifier as the backend Sentry integration
+const { version } = parseToml(
+  fs.readFileSync(path.resolve(__dirname, "pyproject.toml"), "utf8")
+).project;
+
+// Source maps are only generated and uploaded to Sentry if an auth token is set
+const sentryUploadEnabled = Boolean(process.env.SENTRY_AUTH_TOKEN);
 
 module.exports = {
   entry: {
@@ -97,6 +109,12 @@ module.exports = {
     },
   },
   plugins: [
+    new DefinePlugin({
+      WEBPACK_SENTRY_TRACES_SAMPLE_RATE: JSON.stringify(
+        process.env.SENTRY_FRONTEND_TRACES_SAMPLE_RATE || "0.0"
+      ),
+      WEBPACK_VERSION: JSON.stringify(version),
+    }),
     new MiniCssExtractPlugin({
       filename: function (config) {
         if (config.chunk.name == "pdf") return "[name].css";
@@ -133,6 +151,22 @@ module.exports = {
       filename: "webpack-stats.json",
       path: "integreat_cms",
     }),
+    ...(sentryUploadEnabled
+      ? [
+          sentryWebpackPlugin({
+            org: "digitalfabrik",
+            project: "integreat-cms-web",
+            authToken: process.env.SENTRY_AUTH_TOKEN,
+            url: "https://2d8b10e46b9ac2f1bc17477ec97b4099@sentry.tuerantuer.org//9",
+            release: { name: version },
+            sourcemaps: {
+              // Do not serve the source maps publicly
+              filesToDeleteAfterUpload: ["integreat_cms/static/dist/**/*.map"],
+            },
+            telemetry: false,
+          }),
+        ]
+      : []),
   ],
   optimization: {
     minimize: process.env.NODE_ENV === "production",
@@ -143,5 +177,6 @@ module.exports = {
       }),
     ],
   },
-  devtool: process.env.NODE_ENV !== "production" ? "inline-source-map" : false,
+  devtool:
+    process.env.NODE_ENV !== "production" ? "inline-source-map" : sentryUploadEnabled ? "hidden-source-map" : false,
 };
