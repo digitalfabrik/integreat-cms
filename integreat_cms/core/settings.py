@@ -736,6 +736,9 @@ LOGGING: dict[str, Any] = {
         },
     },
     "filters": {
+        "api_not_found": {
+            "()": "integreat_cms.core.logging_filter.ApiNotFoundFilter",
+        },
         "debug_request": {
             "()": "integreat_cms.core.logging_filter.DebugRequestFilter",
         },
@@ -841,6 +844,10 @@ LOGGING: dict[str, Any] = {
         "django": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
+        },
+        # Downgrade 404 responses of the API to INFO (handled by the "django" logger)
+        "django.request": {
+            "filters": ["api_not_found"],
         },
         "geopy": {
             "handlers": ["console", "logfile"],
