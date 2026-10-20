@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import datetime
+import datetime as dt
 import json
 import logging
 from typing import TYPE_CHECKING
@@ -66,7 +66,7 @@ class WebAuthnVerifyView(View):
 
         # Update counter.
         key.sign_count = authentication_verification.new_sign_count
-        key.last_usage = datetime.datetime.now()
+        key.last_usage = dt.datetime.now()
         key.save()
 
         auth_login(request, user, backend="django.contrib.auth.backends.ModelBackend")
