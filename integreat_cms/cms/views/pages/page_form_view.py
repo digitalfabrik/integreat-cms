@@ -540,10 +540,14 @@ class PageFormView(
         languages = [language] + [
             node.language for node in language_tree_node.get_descendants()
         ]
-        page.translations.filter(
+        translations_to_draft = page.translations.filter(
             language__in=languages,
             status=status.PUBLIC,
-        ).update(status=status.DRAFT)
+        )
+        if settings.REDIS_CACHE:
+            translations_to_draft.invalidated_update(status=status.DRAFT)
+        else:
+            translations_to_draft.update(status=status.DRAFT)
 
     def handle_messages(
         self,
