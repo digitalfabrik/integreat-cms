@@ -42,13 +42,15 @@
     <td class="pl-2 pr-4 text-right min">
         {% if perms.cms.delete_placecategory %}
             {% if place_category.places.exists %}
-                <button title="{% translate "You cannot delete a place category that is used in at least one place." %}"
+                <button type="button"
+                        title="{% translate "You cannot delete a place category that is used in at least one place." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% else %}
-                <button title="{% translate "Delete place category" %}"
+                <button type="button"
+                        title="{% translate "Delete place category" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"

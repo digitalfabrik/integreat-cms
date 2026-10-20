@@ -12,7 +12,7 @@
         {% endif %}
         {% has_perm 'cms.delete_chat_message_object' request.user message as can_delete_message %}
         {# djlint:off #}
-        <button title="{% translate "Delete chat message" %}"
+        <button type="button" title="{% translate "Delete chat message" %}"
                 class="{% if not can_delete_message %} invisible{% endif %} button-delete-chat-message btn-icon float-right ml-2"
                 data-confirmation-title="{% translate "Please confirm that you really want to delete this chat message:" %}"
                 data-confirmation-text='{% translate "Sender:" %} {{ message.sender.full_user_name }}
