@@ -5,7 +5,7 @@ Utility functions for working with external calendars
 from __future__ import annotations
 
 import dataclasses
-import datetime
+import datetime as dt
 import zoneinfo
 from typing import Any, Self, TYPE_CHECKING
 
@@ -43,10 +43,10 @@ class IcalEventData:
     event_id: str
     title: str
     content: str
-    start_date: datetime.date
-    start_time: datetime.time | None
-    end_date: datetime.date
-    end_time: datetime.time | None
+    start_date: dt.date
+    start_time: dt.time | None
+    end_date: dt.date
+    end_time: dt.time | None
     is_all_day: bool
     recurrence_rule: RecurrenceRuleData | None
     categories: list[str]
@@ -83,7 +83,7 @@ class IcalEventData:
         )
         start = event.decoded("DTSTART")
         end = event.decoded(
-            "DTEND", start + event.decoded("DURATION", datetime.timedelta(days=1))
+            "DTEND", start + event.decoded("DURATION", dt.timedelta(days=1))
         )
 
         # Categories can be a "vCategory" object, a list of such objects, or be missing
@@ -108,11 +108,11 @@ class IcalEventData:
         )
 
         is_all_day = not (
-            isinstance(start, datetime.datetime) and isinstance(end, datetime.datetime)
+            isinstance(start, dt.datetime) and isinstance(end, dt.datetime)
         )
         if is_all_day:
             start_date, start_time = start, None
-            end_date, end_time = end - datetime.timedelta(days=1), None
+            end_date, end_time = end - dt.timedelta(days=1), None
         else:
             if hasattr(start, "tzinfo") and start.tzinfo:
                 tz = zoneinfo.ZoneInfo(external_calendar.region.timezone)
@@ -201,7 +201,7 @@ class RecurrenceRuleData:
     def from_ical_rrule(
         cls,
         recurrence_rule: vRecur,
-        start: datetime.date,
+        start: dt.date,
         logger: logging.Logger,
     ) -> Self:
         """

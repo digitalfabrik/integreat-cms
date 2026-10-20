@@ -4,7 +4,7 @@ This module contains shared fixtures for pytest
 
 from __future__ import annotations
 
-import datetime
+import datetime as dt
 import itertools
 import os
 from typing import TYPE_CHECKING
@@ -384,15 +384,15 @@ def create_event() -> Callable[..., Event]:
 
     def _create_event(
         region: Region,
-        start: datetime.datetime | None = None,
-        end: datetime.datetime | None = None,
+        start: dt.datetime | None = None,
+        end: dt.datetime | None = None,
         **overrides: Any,
     ) -> Event:
         utc = ZoneInfo("UTC")
         if start is None:
-            start = datetime.datetime(2030, 6, 1, 10, 0, tzinfo=utc)
+            start = dt.datetime(2030, 6, 1, 10, 0, tzinfo=utc)
         if end is None:
-            end = start + datetime.timedelta(hours=1)
+            end = start + dt.timedelta(hours=1)
         defaults: dict[str, Any] = {
             "region": region,
             "start": start,
