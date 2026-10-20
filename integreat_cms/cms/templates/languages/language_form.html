@@ -19,7 +19,7 @@
                 {% endif %}
             </h1>
             {% if perms.cms.change_language %}
-                <button class="btn ml-auto mr-0">{% translate "Save" %}</button>
+                <button type="submit" class="btn ml-auto mr-0">{% translate "Save" %}</button>
             {% endif %}
         </div>
         <div class="flex flex-wrap">
@@ -31,10 +31,12 @@
                         </h2>
                     </div>
                     <div class="w-full p-4">
-                        <label for="{{ form.native_name.id_for_label }}" class="block mb-2">{{ form.native_name.label }}</label>
+                        <label for="{{ form.native_name.id_for_label }}"
+                               class="block mb-2">{{ form.native_name.label }}</label>
                         {% render_field form.native_name|add_error_class:"border-red-500" %}
                         <div class="mb-2 text-s text-gray-600">{{ form.native_name.help_text }}</div>
-                        <label for="{{ form.english_name.id_for_label }}" class="block mb-2">{{ form.english_name.label }}</label>
+                        <label for="{{ form.english_name.id_for_label }}"
+                               class="block mb-2">{{ form.english_name.label }}</label>
                         {% render_field form.english_name|add_error_class:"border-red-500" %}
                         <div class="mb-2 text-s text-gray-600">{{ form.english_name.help_text }}</div>
                     </div>
@@ -55,7 +57,8 @@
     class="underline"
     target="_blank">ISO 639</a>.
                         </div>
-                        <label for="{{ form.bcp47_tag.id_for_label }}" class="block mb-2">{{ form.bcp47_tag.label }}</label>
+                        <label for="{{ form.bcp47_tag.id_for_label }}"
+                               class="block mb-2">{{ form.bcp47_tag.label }}</label>
                         {% render_field form.bcp47_tag|add_error_class:"border-red-500" %}
                         <div class="mb-2 text-s text-gray-600">
                             {{ form.bcp47_tag.help_text }}
@@ -165,10 +168,12 @@
                             <div class="mb-2 text-s text-gray-600">{{ form.secondary_country_code.help_text }}</div>
                             <label for="{{ form.language_color.id_for_label }}" class="block mb-2">{{ form.language_color.label }}</label>
                             <div class="flex my-2">
+                                {# djlint:off H021 #}
                                 <span class="language-color fp fp-{{ form.instance.language_color }} w-16 rounded-l {% if not form.instance.language_color %}hidden{% endif %}"
                                       title="{{ form.instance.translated_name }}"
                                       id="language-color-preview"
                                       style="background-color: {{ form.instance.language_color }}"></span>
+                                {# djlint:on #}
                                 <div class="flex-grow">{% render_field form.language_color|add_error_class:"border-red-500" %}</div>
                             </div>
                             <div class="mb-2 text-s text-gray-600">{{ form.language_color.help_text }}</div>
@@ -179,14 +184,16 @@
         </div>
         {% if form.instance.id and perms.cms.delete_language %}
             {% if form.instance.language_tree_nodes.exists %}
-                <button title="{% translate "You cannot delete a language that is used in at least one region." %}"
+                <button type="button"
+                        title="{% translate "You cannot delete a language that is used in at least one region." %}"
                         class="btn"
                         disabled>
                     <i icon-name="trash-2"></i>
                     {% translate "Delete this language" %}
                 </button>
             {% else %}
-                <button title="{% translate "Delete language" %}"
+                <button type="button"
+                        title="{% translate "Delete language" %}"
                         class="btn confirmation-button btn-red"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"

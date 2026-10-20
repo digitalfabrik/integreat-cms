@@ -50,7 +50,12 @@
                     {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
                         You can only create places in the default language ({{ default_language }}).
                     {% endblocktranslate %}
-                    <button title="{{ disabled_button_title }}" class="btn" disabled>{% translate "Create place" %}</button>
+                    <button type="button"
+                            title="{{ disabled_button_title }}"
+                            class="btn"
+                            disabled>
+                        {% translate "Create place" %}
+                    </button>
                 {% endif %}
             {% endif %}
         </div>
@@ -136,7 +141,8 @@
         {% if places and perms.cms.change_place %}
             <div class="pt-2 px-2">
                 <div class="inline">
-                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Places selected" %}</span>
+                    <span class="text-gray-800 font-bold"
+                          data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Places selected" %}</span>
                 </div>
             </div>
         {% endif %}
@@ -198,7 +204,13 @@
                         </option>
                     {% endif %}
                 </select>
-                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+                <button type="submit"
+                        form="bulk-action-form"
+                        id="bulk-action-execute"
+                        class="btn"
+                        disabled>
+                    {% translate "Execute" %}
+                </button>
             </div>
         {% endif %}
     </div>

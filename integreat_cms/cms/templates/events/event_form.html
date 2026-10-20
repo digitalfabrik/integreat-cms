@@ -50,12 +50,14 @@
                     {% endif %}
                     {% if not disabled %}
                         {% if perms.cms.publish_event %}
-                            <button name="status"
+                            <button type="submit"
+                                    name="status"
                                     value="{{ DRAFT }}"
                                     class="btn btn-outline no-premature-submission">
                                 {% translate "Save as draft" %}
                             </button>
-                            <button name="status"
+                            <button type="submit"
+                                    name="status"
                                     value="{{ PUBLIC }}"
                                     class="btn no-premature-submission">
                                 {% if event_translation_form.instance.status == PUBLIC %}
@@ -65,7 +67,8 @@
                                 {% endif %}
                             </button>
                         {% else %}
-                            <button name="status"
+                            <button type="submit"
+                                    name="status"
                                     value="{{ REVIEW }}"
                                     class="btn no-premature-submission">
                                 {% translate "Submit for approval" %}

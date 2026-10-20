@@ -23,7 +23,7 @@
                     <a href="{% if not push_notification_form.instance.archived %}{% url 'push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% endif %}"
                        class="btn btn-ghost">{% translate "Cancel" %}</a>
                     {% if not push_notification_form.instance.archived %}
-                        <button name="submit_update" class="btn btn-ghost">
+                        <button type="submit" name="submit_update" class="btn btn-ghost">
                             {% if not push_notification_form.instance.sent_date %}
                                 {% translate "Save" %}
                             {% else %}
@@ -32,11 +32,13 @@
                         </button>
                         {% if push_notification_form.instance.id and not push_notification_form.instance.sent_date and perms.cms.send_push_notification %}
                             <div id="button_submit_send">
-                                <button name="submit_send"
+                                <button type="submit"
+                                        name="submit_send"
                                         class="btn {% if push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
                                     {% translate "Send" %}
                                 </button>
-                                <button name="submit_schedule"
+                                <button type="submit"
+                                        name="submit_schedule"
                                         class="btn {% if not push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
                                     {% if push_notification_form.instance.scheduled_send_date %}
                                         {% translate "Re-schedule" %}

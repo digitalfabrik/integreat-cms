@@ -19,7 +19,8 @@
     {% render_field place_form.primary_website|append_attr:"form:ajax_place_form" %}
     <label for="{{ place_form.category.id_for_label }}">{{ place_form.category.label }}</label>
     {% render_field place_form.category|append_attr:"form:ajax_place_form" %}
-    <button name="status"
+    <button type="button"
+            name="status"
             value="{{ PUBLIC }}"
             form="ajax_place_form"
             data-btn-save-place-form
