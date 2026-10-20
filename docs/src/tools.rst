@@ -22,11 +22,16 @@ Install all project dependencies and the local python package with :github-sourc
 
 * ``--pre-commit``: Install all :ref:`pre-commit-hooks` (can also be manually performed via ``pre-commit install``)
 
-* ``--python``: Use the ``PYTHON_COMMAND`` (e.g. ``python3.9``) to create the virtual environment instead of the default ``python3``
+* ``--python``: Use the ``PYTHON_COMMAND`` (e.g. ``python3.13``) to create the virtual environment instead of
+  letting ``uv`` select a suitable interpreter
 
 Update all project dependencies and fix security issues with :github-source:`tools/update_dependencies.sh`::
 
-    ./tools/update_dependencies.sh
+    ./tools/update_dependencies.sh [--package=PACKAGE]
+
+**Options:**
+
+* ``--package``: Only update the given ``PACKAGE`` (e.g. ``django``) instead of all dependencies
 
 Create portable debian package with :github-source:`tools/package.sh`::
 

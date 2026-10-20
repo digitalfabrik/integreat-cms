@@ -16,7 +16,7 @@ This content management system helps local integration experts to provide multil
 ## Development Setup
 
 This section provides a brief overview of setting up the development environment.
-We support various environments: you can set up everything locally using your preferred package manager, use it as a devcontainer, or utilize the nix-flake. Please clone the repository with the following snippet before starting to
+We support various environments: you can set up everything locally using uv and npm as package managers, use it as a devcontainer, or utilize the nix-flake. Please clone the repository with the following snippet before starting to
 setup your development environment.
 
 ````
@@ -40,9 +40,7 @@ To configure your development environment on your system, please follow these st
 1. Ensure that the following packages are installed alongside your preferred IDE:
    - `npm` version 7 or later
    - `nodejs` version 22 or later
-   - `python3` version 3.13
-   - `python3-pip` (Debian-based distributions) / `python-pip` (Arch-based distributions)
-   - `python3-venv` (only on Debian-based distributions)
+   - [`uv`](https://docs.astral.sh/uv/) to manage the Python dependencies (a system-wide Python installation is not required)
    - `gettext` for translation features
    - `libcairo2` for thumbnail generation
    - `libpango-1.0-0`, `libpangoft2-1.0-0` and `libharfbuzz0b` for PDF export
