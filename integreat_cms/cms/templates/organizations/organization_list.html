@@ -15,7 +15,8 @@
                 {% if is_archive %}
                     <a href="{% url 'organizations' region_slug=request.region.slug %}"
                        class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
-                        <span><i icon-name="umbrella" class="align-top h-5"></i> {% translate "Back to organizations" %}</span>
+                        <span><i icon-name="umbrella"
+   class="align-top h-5"></i> {% translate "Back to organizations" %}</span>
                     </a>
                 {% else %}
                     <a href="{% url 'archived_organizations' region_slug=request.region.slug %}"
@@ -90,7 +91,8 @@
         {% if organizations %}
             <div class="pt-2 px-2">
                 <div class="inline">
-                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Organizations selected" %}</span>
+                    <span class="text-gray-800 font-bold"
+                          data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Organizations selected" %}</span>
                 </div>
             </div>
         {% endif %}
