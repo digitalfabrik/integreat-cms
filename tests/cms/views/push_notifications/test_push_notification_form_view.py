@@ -9,7 +9,12 @@ if TYPE_CHECKING:
 import pytest
 from django.urls import reverse
 
-from integreat_cms.cms.models import PushNotification, Region
+from integreat_cms.cms.models import (
+    LanguageTreeNode,
+    PushNotification,
+    PushNotificationTranslation,
+    Region,
+)
 from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
 
 # We use Augsburg (region with German as default language) and Berlin (region with English as default language)
@@ -227,3 +232,60 @@ def test_non_existent_push_notification_edit_blocked(
 
     assert post_response.status_code == 404
     assert PushNotification.objects.count() == initial_count
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("language_slug", ["nonexistent", "en"])
+def test_post_rejects_invalid_or_inactive_language(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    language_slug: str,
+) -> None:
+    """Reject invalid or inactive languages before saving news (see #4613)."""
+    client, role = login_role_user
+
+    # English exists in Augsburg but is disabled for this test.
+    LanguageTreeNode.objects.filter(
+        region__slug="augsburg",
+        language__slug="en",
+    ).update(active=False, visible=False)
+
+    notifications_before = list(PushNotification.objects.order_by("pk").values())
+    translations_before = list(
+        PushNotificationTranslation.objects.order_by("pk").values()
+    )
+
+    url = reverse(
+        "edit_push_notification",
+        kwargs={
+            "push_notification_id": 2,
+            "region_slug": "augsburg",
+            "language_slug": language_slug,
+        },
+    )
+    response = client.post(
+        url,
+        data={
+            "title": "This title must not be saved",
+            "text": "This text must not be saved",
+            "regions": [1],
+            "channel": "news",
+            "mode": "ONLY_AVAILABLE",
+            "submit_update": True,
+        },
+    )
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+    elif not response.wsgi_request.user.has_perm("cms.change_pushnotification"):
+        assert response.status_code == 403
+    else:
+        assert response.status_code == 404
+
+    assert (
+        list(PushNotification.objects.order_by("pk").values()) == notifications_before
+    )
+    assert (
+        list(PushNotificationTranslation.objects.order_by("pk").values())
+        == translations_before
+    )
