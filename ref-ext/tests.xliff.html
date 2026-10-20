@@ -1846,8 +1846,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#add-dependencies">Add dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../virtualenv.html#development-dependencies">Development dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../virtualenv.html#production-dependencies">Production dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtualenv.html#development-dependencies">Development dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#update-dependencies">Update dependencies</a></li>
@@ -1948,7 +1948,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pip-install">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#uv-install">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#check-migrations">check-migrations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#setup-test-reporter">setup-test-reporter</a></li>
@@ -1965,12 +1965,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id1">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id1">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#bump-version">bump-version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id2">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id2">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id3">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id4">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id5">build-package</a></li>
@@ -2015,6 +2015,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../packaging.html">Packaging</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../packaging.html#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packaging.html#bundled-lock-files">Bundled lock files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../packaging.html#publish-package">Publish package</a></li>
 </ul>
 </li>
@@ -2403,7 +2404,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>client</strong> (<em>Client</em>) – The authenticated client</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev382)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev391)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 <li><p><strong>response</strong> (<em>HttpResponseRedirect</em>) – The response of the confirm view to be validated</p></li>
 <li><p><strong>import_1</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict of import information</p></li>
 <li><p><strong>import_2</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A list of import information</p></li>
@@ -2514,7 +2515,7 @@
 <li><p><strong>settings</strong> (<a class="reference internal" href="integreat_cms.api.v3.html#integreat_cms.api.v3.region_settings.Settings" title="integreat_cms.api.v3.region_settings.Settings"><em>Settings</em></a>) – The fixture providing the django settings</p></li>
 <li><p><strong>import_1</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict of import information</p></li>
 <li><p><strong>import_2</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A list of import information</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev382)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v9.2.0.dev391)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

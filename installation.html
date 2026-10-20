@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-10-07T15:57:11+00:00" />
+    <meta property="article:modified_time" content="2026-10-20T09:47:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -1846,8 +1846,8 @@
 <li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="virtualenv.html#production-dependencies">Production dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#update-dependencies">Update dependencies</a></li>
@@ -1948,7 +1948,7 @@
 <li class="toctree-l1"><a class="reference internal" href="continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#pip-install">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#uv-install">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#check-migrations">check-migrations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#setup-test-reporter">setup-test-reporter</a></li>
@@ -1965,12 +1965,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#bump-version">bump-version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id3">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id4">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id5">build-package</a></li>
@@ -2015,6 +2015,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html#bundled-lock-files">Bundled lock files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html#publish-package">Publish package</a></li>
 </ul>
 </li>
@@ -2333,20 +2334,25 @@
 <li><p><a class="reference external" href="https://git-scm.com/">git</a></p></li>
 <li><p><a class="reference external" href="https://www.npmjs.com/">npm</a> version 7 or later</p></li>
 <li><p><a class="reference external" href="https://nodejs.org/">nodejs</a> version 22 or later</p></li>
-<li><p><a class="reference external" href="https://www.python.org/">python3</a> version 3.13</p></li>
-<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3-pip">python3-pip</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>) / <a class="reference external" href="https://www.archlinux.de/packages/extra/x86_64/python-pip">python-pip</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
-<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3+venv">python3-venv</a> (Only <a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>)</p></li>
+<li><p><a class="reference external" href="https://docs.astral.sh/uv/">uv</a> to manage the Python dependencies</p></li>
 <li><p>Either <a class="reference external" href="https://www.postgresql.org/">postgresql</a> <strong>or</strong> <a class="reference external" href="https://www.docker.com/">docker</a> to run a local database server</p></li>
 <li><p><a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> and <a class="reference external" href="https://pcre.org/original/doc/html/pcregrep.html">pcregrep</a> to use the translation features</p></li>
 <li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=libpango-1.0-0">libpango-1.0-0</a>, <a class="reference external" href="https://packages.ubuntu.com/search?keywords=libpangoft2-1.0-0">libpangoft2-1.0-0</a> and <a class="reference external" href="https://packages.ubuntu.com/search?keywords=libharfbuzz0b">libharfbuzz0b</a> for PDF export</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A system-wide Python installation is not required. <code class="docutils literal notranslate"><span class="pre">uv</span></code> provisions an interpreter which
+satisfies the <code class="docutils literal notranslate"><span class="pre">requires-python</span></code> constraint of <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/pyproject.toml">pyproject.toml</a> on its own.</p>
+</div>
 <section id="prerequisites-on-common-distributions">
 <h3>Prerequisites on common distributions<a class="headerlink" href="#prerequisites-on-common-distributions" title="Link to this heading"></a></h3>
 <p>In the following, we provide the commands to install all these prerequisites on popular distributions.</p>
 <details>
 <summary><a>Ubuntu 22.04 LTS (Jammy Jellyfish) / Debian 11 ("Bullseye")</a></summary>
 <br><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install basic requirements</span>
-<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="o">-</span><span class="n">venv</span> <span class="n">libcairo2</span> <span class="n">libpango</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span> <span class="n">libpangoft2</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span> <span class="n">libharfbuzz0b</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">libcairo2</span> <span class="n">libpango</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span> <span class="n">libpangoft2</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span> <span class="n">libharfbuzz0b</span>
+<span class="c1"># Install uv</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">LsSf</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">astral</span><span class="o">.</span><span class="n">sh</span><span class="o">/</span><span class="n">uv</span><span class="o">/</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="o">|</span> <span class="n">sh</span>
 <span class="c1"># Add PPA repository for NodeJS</span>
 <span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_22</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">E</span> <span class="n">bash</span> <span class="o">-</span>
 <span class="c1"># Add PPA repository for Docker</span>
@@ -2359,10 +2365,10 @@
 </div>
 <details>
 <summary><a>Ubuntu 20.04 LTS (Focal Fossa) / Debian 10 (Buster)</a></summary>
-<br><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add PPA repository for Python3.9 and above</span>
-<span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="o">-</span><span class="n">y</span> <span class="n">ppa</span><span class="p">:</span><span class="n">deadsnakes</span><span class="o">/</span><span class="n">ppa</span>
-<span class="c1"># Install basic requirements</span>
-<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="mf">.13</span> <span class="n">python3</span><span class="mf">.13</span><span class="o">-</span><span class="n">venv</span> <span class="n">libcairo2</span> <span class="n">libpango</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span> <span class="n">libpangoft2</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span> <span class="n">libharfbuzz0b</span>
+<br><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install basic requirements</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">libcairo2</span> <span class="n">libpango</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span> <span class="n">libpangoft2</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">0</span> <span class="n">libharfbuzz0b</span>
+<span class="c1"># Install uv</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">LsSf</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">astral</span><span class="o">.</span><span class="n">sh</span><span class="o">/</span><span class="n">uv</span><span class="o">/</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="o">|</span> <span class="n">sh</span>
 <span class="c1"># Add PPA repository for NodeJS</span>
 <span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_22</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">E</span> <span class="n">bash</span> <span class="o">-</span>
 <span class="c1"># Add PPA repository for Docker</span>
@@ -2380,7 +2386,7 @@
 <p>This assumes you have completed a basic system installation including a web browser etc. and a helper for the <a class="reference external" href="https://aur.archlinux.org/">AUR</a>, e.g. <a class="reference external" href="https://github.com/Jguer/yay">yay</a>.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install requirements</span>
-<span class="n">yay</span> <span class="o">-</span><span class="n">S</span> <span class="n">docker</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">netcat</span> <span class="n">nodejs</span><span class="o">-</span><span class="n">lts</span><span class="o">-</span><span class="n">hydrogen</span> <span class="n">npm</span> <span class="n">pcre</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span>
+<span class="n">yay</span> <span class="o">-</span><span class="n">S</span> <span class="n">docker</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">netcat</span> <span class="n">nodejs</span><span class="o">-</span><span class="n">lts</span><span class="o">-</span><span class="n">hydrogen</span> <span class="n">npm</span> <span class="n">pcre</span> <span class="n">uv</span>
 </pre></div>
 </div>
 </details><br></section>
@@ -2410,10 +2416,10 @@ cd integreat-cms</pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p>This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pip.
-If only one of both dependency-managers should be invoked, run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code> or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[dev-pinned,pinned]</span></code> directly.</p></li>
-<li><p>If your system uses Python 3.12 as the default (e.g., Ubuntu 24.04 or similar), you need to install Python 3.13 alongside it, without changing the default python3 symlink.
-Then, to ensure the CMS uses Python 3.13, run the installation script with the appropriate interpreter: <code class="docutils literal notranslate"><span class="pre">./tools/install.sh</span> <span class="pre">--python</span> <span class="pre">python3.13</span></code></p></li>
+<li><p>This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and uv.
+If only one of both dependency-managers should be invoked, run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code> or <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span> <span class="pre">--locked</span></code> directly.</p></li>
+<li><p>By default, <code class="docutils literal notranslate"><span class="pre">uv</span></code> selects a suitable Python interpreter itself. To use a specific one which is
+already installed on your system, pass it to the installation script: <code class="docutils literal notranslate"><span class="pre">./tools/install.sh</span> <span class="pre">--python</span> <span class="pre">python3.13</span></code></p></li>
 </ul>
 </div>
 </section>
@@ -2434,7 +2440,7 @@ Then, to ensure the CMS uses Python 3.13, run the installation script with the a
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 07, 2026.
+      <span class="lastupdated">Last updated on Oct 20, 2026.
       </span></p>
   </div>
 

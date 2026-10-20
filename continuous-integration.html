@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-10-07T15:57:11+00:00" />
+    <meta property="article:modified_time" content="2026-10-20T09:47:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Continuous Integration (CircleCI) &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -1846,8 +1846,8 @@
 <li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="virtualenv.html#production-dependencies">Production dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#update-dependencies">Update dependencies</a></li>
@@ -1948,7 +1948,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Continuous Integration (CircleCI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pip-install">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uv-install">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#check-migrations">check-migrations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#setup-test-reporter">setup-test-reporter</a></li>
@@ -1965,12 +1965,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bump-version">bump-version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">build-package</a></li>
@@ -2015,6 +2015,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html#bundled-lock-files">Bundled lock files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html#publish-package">Publish package</a></li>
 </ul>
 </li>
@@ -2339,12 +2340,14 @@ See <a class="reference external" href="https://circleci.com/docs/2.0/configurat
 <h2>Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code><a class="headerlink" href="#workflow-develop" title="Link to this heading"></a></h2>
 <p>This workflow gets triggered everytime a commit is pushed to the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch or a PR is opened.</p>
 <img alt="CircleCI main workflow" src="_images/circleci-main-workflow.png" />
-<section id="pip-install">
-<span id="circleci-pip-install"></span><h3>pip-install<a class="headerlink" href="#pip-install" title="Link to this heading"></a></h3>
-<p>This job executes <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[dev-pinned,pinned]</span></code> and makes use of the <a class="reference external" href="https://circleci.com/docs/2.0/caching/">CircleCI Dependency Cache</a>.
-It passes the virtual environment <code class="docutils literal notranslate"><span class="pre">.venv</span></code> to the subsequent jobs.</p>
+<section id="uv-install">
+<span id="circleci-uv-install"></span><h3>uv-install<a class="headerlink" href="#uv-install" title="Link to this heading"></a></h3>
+<p>This job verifies that <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/uv.lock">uv.lock</a> is up to date with <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/pyproject.toml">pyproject.toml</a>
+(<code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">lock</span> <span class="pre">--check</span></code>) and installs the locked versions with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span> <span class="pre">--locked</span></code>.
+It makes use of the <a class="reference external" href="https://circleci.com/docs/2.0/caching/">CircleCI Dependency Cache</a> and passes the
+virtual environment <code class="docutils literal notranslate"><span class="pre">.venv</span></code> to the subsequent jobs.</p>
 <p>Since a virtual environment is only valid for the interpreter which created it, the cache key contains not only the
-checksum of <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, but also the checksum of <code class="docutils literal notranslate"><span class="pre">.python-build-id</span></code>, a file which is written by the job itself
+checksum of <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/uv.lock">uv.lock</a>, but also the checksum of <code class="docutils literal notranslate"><span class="pre">.python-build-id</span></code>, a file which is written by the job itself
 with the output of <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-VV</span></code>. This means the cache is invalidated whenever the Python version of the Docker image
 changes, and the image can be referenced by its minor version (<code class="docutils literal notranslate"><span class="pre">cimg/python:3.13</span></code>) to receive patch updates
 automatically. Do not replace this with an environment variable: values which are exported to <code class="docutils literal notranslate"><span class="pre">$BASH_ENV</span></code> are not
@@ -2422,8 +2425,8 @@ and to allow external sources because all dev tools source one common function s
 <h2>Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code><a class="headerlink" href="#workflow-main" title="Link to this heading"></a></h2>
 <p>This workflow gets executed when a commit is pushed to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch. Typically, this is a release PR from <code class="docutils literal notranslate"><span class="pre">develop</span></code>.</p>
 <section id="id1">
-<h3>pip-install<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
-<p>See <a class="reference internal" href="#circleci-pip-install"><span class="std std-ref">pip-install</span></a>.</p>
+<h3>uv-install<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>See <a class="reference internal" href="#circleci-uv-install"><span class="std std-ref">uv-install</span></a>.</p>
 </section>
 <section id="bump-version">
 <h3>bump-version<a class="headerlink" href="#bump-version" title="Link to this heading"></a></h3>
@@ -2435,8 +2438,8 @@ changes to the main branch. Additionally, it merges the version bump commit into
 <h2>Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code><a class="headerlink" href="#workflow-deploy" title="Link to this heading"></a></h2>
 <p>This workflow gets executed when a commit is tagged.</p>
 <section id="id2">
-<h3>pip-install<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
-<p>See <a class="reference internal" href="#circleci-pip-install"><span class="std std-ref">pip-install</span></a>.</p>
+<h3>uv-install<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>See <a class="reference internal" href="#circleci-uv-install"><span class="std std-ref">uv-install</span></a>.</p>
 </section>
 <section id="id3">
 <h3>webpack<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
@@ -2496,7 +2499,7 @@ See <a class="reference internal" href="troubleshooting.html#troubleshooting-una
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 07, 2026.
+      <span class="lastupdated">Last updated on Oct 20, 2026.
       </span></p>
   </div>
 

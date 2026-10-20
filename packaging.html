@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-05-06T09:45:22+00:00" />
+    <meta property="article:modified_time" content="2026-10-20T09:47:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Packaging &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -1846,8 +1846,8 @@
 <li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="virtualenv.html#production-dependencies">Production dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#update-dependencies">Update dependencies</a></li>
@@ -1948,7 +1948,7 @@
 <li class="toctree-l1"><a class="reference internal" href="continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#pip-install">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#uv-install">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#check-migrations">check-migrations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#setup-test-reporter">setup-test-reporter</a></li>
@@ -1965,12 +1965,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#bump-version">bump-version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id3">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id4">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id5">build-package</a></li>
@@ -2015,6 +2015,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Packaging</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bundled-lock-files">Bundled lock files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#publish-package">Publish package</a></li>
 </ul>
 </li>
@@ -2340,14 +2341,35 @@ npm<span class="w"> </span>run<span class="w"> </span>prod
 </pre></div>
 </div>
 </li>
-<li><p>After that, you can build the python package with <a class="reference external" href="https://setuptools.pypa.io/en/latest/index.html" title="(in setuptools v84.0.0)"><span>Documentation</span></a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>build<span class="w"> </span>twine
-python3<span class="w"> </span>-m<span class="w"> </span>build
+<li><p>Bundle the locked dependency versions into the package (see <a class="reference internal" href="#bundled-lock-files"><span class="std std-ref">Bundled lock files</span></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--frozen<span class="w"> </span>--no-dev<span class="w"> </span>--no-emit-project<span class="w"> </span>--no-annotate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--format<span class="w"> </span>pylock.toml<span class="w"> </span>-o<span class="w"> </span>integreat_cms/pylock.toml
+uv<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--frozen<span class="w"> </span>--no-dev<span class="w"> </span>--no-emit-project<span class="w"> </span>--no-annotate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--format<span class="w"> </span>requirements.txt<span class="w"> </span>-o<span class="w"> </span>integreat_cms/requirements.lock.txt
+</pre></div>
+</div>
+</li>
+<li><p>After that, you can build the python package with <a class="reference external" href="https://setuptools.pypa.io/en/latest/index.html" title="(in setuptools v84.2.0)"><span>Documentation</span></a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>build
 </pre></div>
 </div>
 <p>Then, the built package can be found in <code class="docutils literal notranslate"><span class="pre">./dist/</span></code>.</p>
 </li>
 </ol>
+</section>
+<section id="bundled-lock-files">
+<span id="id1"></span><h2>Bundled lock files<a class="headerlink" href="#bundled-lock-files" title="Link to this heading"></a></h2>
+<p>Every distribution contains the exact dependency versions the release was tested with, exported from
+<a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/uv.lock">uv.lock</a>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">integreat_cms/pylock.toml</span></code> - the <a class="reference external" href="https://peps.python.org/pep-0751/">PEP 751</a> lock format,
+including a <code class="docutils literal notranslate"><span class="pre">sha256</span></code> hash per package. Requires pip 26.1 or later.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">integreat_cms/requirements.lock.txt</span></code> - the same set in the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> format, as a
+fallback for older pip versions.</p></li>
+</ul>
+<p>These files do not constrain a regular <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">integreat-cms</span></code>, which keeps resolving the
+dependencies as usual. They only take effect when a deployment explicitly passes them to pip, see
+<a class="reference internal" href="prod-server.html#prod-server-pinned-dependencies"><span class="std std-ref">Install pinned dependencies</span></a>.</p>
 </section>
 <section id="publish-package">
 <h2>Publish package<a class="headerlink" href="#publish-package" title="Link to this heading"></a></h2>
@@ -2374,7 +2396,7 @@ python3<span class="w"> </span>-m<span class="w"> </span>build
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 06, 2024.
+      <span class="lastupdated">Last updated on Oct 20, 2026.
       </span></p>
   </div>
 

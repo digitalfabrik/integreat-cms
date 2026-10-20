@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-09-14T13:05:31+00:00" />
+    <meta property="article:modified_time" content="2026-10-20T09:47:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Developer Tools &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -1846,8 +1846,8 @@
 <li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="virtualenv.html#production-dependencies">Production dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#update-dependencies">Update dependencies</a></li>
@@ -1948,7 +1948,7 @@
 <li class="toctree-l1"><a class="reference internal" href="continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#pip-install">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#uv-install">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#check-migrations">check-migrations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#setup-test-reporter">setup-test-reporter</a></li>
@@ -1965,12 +1965,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#bump-version">bump-version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id3">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id4">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id5">build-package</a></li>
@@ -2015,6 +2015,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html#bundled-lock-files">Bundled lock files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html#publish-package">Publish package</a></li>
 </ul>
 </li>
@@ -2337,12 +2338,17 @@ They are not intended to be run with the virtual environment already activated.<
 static files in <code class="docutils literal notranslate"><span class="pre">integreat_cms/static/dist/</span></code>. Existing outdated JavaScript files in these directories can cause compilation
 failures for the <a class="reference internal" href="frontend-bundling.html"><span class="doc">Frontend Bundling (Webpack)</span></a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--pre-commit</span></code>: Install all <a class="reference internal" href="git-flow.html#pre-commit-hooks"><span class="std std-ref">Pre-commit Hooks</span></a> (can also be manually performed via <code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">install</span></code>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--python</span></code>: Use the <code class="docutils literal notranslate"><span class="pre">PYTHON_COMMAND</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">python3.9</span></code>) to create the virtual environment instead of the default <code class="docutils literal notranslate"><span class="pre">python3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--python</span></code>: Use the <code class="docutils literal notranslate"><span class="pre">PYTHON_COMMAND</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">python3.13</span></code>) to create the virtual environment instead of
+letting <code class="docutils literal notranslate"><span class="pre">uv</span></code> select a suitable interpreter</p></li>
 </ul>
 <p>Update all project dependencies and fix security issues with <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/update_dependencies.sh">tools/update_dependencies.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">update_dependencies</span><span class="o">.</span><span class="n">sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">update_dependencies</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">package</span><span class="o">=</span><span class="n">PACKAGE</span><span class="p">]</span>
 </pre></div>
 </div>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--package</span></code>: Only update the given <code class="docutils literal notranslate"><span class="pre">PACKAGE</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">django</span></code>) instead of all dependencies</p></li>
+</ul>
 <p>Create portable debian package with <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/package.sh">tools/package.sh</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">package</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
@@ -2548,7 +2554,7 @@ This will activate both the bash options <code class="docutils literal notransla
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 14, 2026.
+      <span class="lastupdated">Last updated on Oct 20, 2026.
       </span></p>
   </div>
 

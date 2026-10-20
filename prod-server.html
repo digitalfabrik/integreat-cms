@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-10-07T15:57:11+00:00" />
+    <meta property="article:modified_time" content="2026-10-20T09:47:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Production Server &mdash; integreat-cms 2026.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -1846,8 +1846,8 @@
 <li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="virtualenv.html#production-dependencies">Production dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#update-dependencies">Update dependencies</a></li>
@@ -1948,7 +1948,7 @@
 <li class="toctree-l1"><a class="reference internal" href="continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#pip-install">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#uv-install">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#check-migrations">check-migrations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#setup-test-reporter">setup-test-reporter</a></li>
@@ -1965,12 +1965,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#bump-version">bump-version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id3">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id4">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id5">build-package</a></li>
@@ -2015,6 +2015,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html#bundled-lock-files">Bundled lock files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="packaging.html#publish-package">Publish package</a></li>
 </ul>
 </li>
@@ -2378,6 +2379,23 @@ python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>integreat-cms
 </pre></div>
 </div>
+<div class="admonition note" id="prod-server-pinned-dependencies">
+<p class="admonition-title">Note</p>
+<p>The command above resolves all dependencies to their newest compatible versions. To install
+exactly the versions this release was tested with, install the package without its dependencies
+first and then the lock file it bundles (see <a class="reference internal" href="packaging.html#bundled-lock-files"><span class="std std-ref">Bundled lock files</span></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the Integreat CMS itself without resolving its dependencies</span>
+pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--no-deps<span class="w"> </span>integreat-cms
+<span class="c1"># Install the locked dependencies from the file bundled into the package, verifying their hashes</span>
+pip3<span class="w"> </span>install<span class="w"> </span>--no-deps<span class="w"> </span>--require-hashes<span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">'import integreat_cms, pathlib; print(pathlib.Path(integreat_cms.__file__).parent / "requirements.lock.txt")'</span><span class="k">)</span><span class="s2">"</span>
+</pre></div>
+</div>
+<p>In both invocations, the <code class="docutils literal notranslate"><span class="pre">--no-deps</span></code> flag is required: without them, pip resolves the dependencies on top of
+the lock file, which defeats the point of locking. Run both commands on every upgrade and only
+restart the application after the second one. With pip 26.1 or later, <code class="docutils literal notranslate"><span class="pre">pylock.toml</span></code> can be
+used instead of <code class="docutils literal notranslate"><span class="pre">requirements.lock.txt</span></code>. To check whether an installation is in sync with its
+lock file, run the second command with <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code>, which lists the packages it would change.</p>
+</div>
 </li>
 <li><p>Create a symlink to the <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/wsgi.py">integreat_cms/core/wsgi.py</a> file to facilitate the Apache configuration:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ln<span class="w"> </span>-s<span class="w"> </span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"from integreat_cms.core import wsgi; print(wsgi.__file__)"</span><span class="k">)</span><span class="w"> </span>.
@@ -2562,7 +2580,7 @@ unixsocketperm<span class="w"> </span><span class="m">770</span>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 07, 2026.
+      <span class="lastupdated">Last updated on Oct 20, 2026.
       </span></p>
   </div>
 

@@ -1846,8 +1846,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#add-dependencies">Add dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../virtualenv.html#development-dependencies">Development dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../virtualenv.html#production-dependencies">Production dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtualenv.html#development-dependencies">Development dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#update-dependencies">Update dependencies</a></li>
@@ -1948,7 +1948,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pip-install">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#uv-install">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#check-migrations">check-migrations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#setup-test-reporter">setup-test-reporter</a></li>
@@ -1965,12 +1965,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id1">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id1">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#bump-version">bump-version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id2">pip-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id2">uv-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id3">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id4">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id5">build-package</a></li>
@@ -2015,6 +2015,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../packaging.html">Packaging</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../packaging.html#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packaging.html#bundled-lock-files">Bundled lock files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../packaging.html#publish-package">Publish package</a></li>
 </ul>
 </li>
@@ -2650,12 +2651,12 @@ The opposite of the hidden_fields() method.</p>
 <p>A formset for translations of place categories</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as_new</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1089"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.__init__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_as_new</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1090"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.__init__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.add_fields">
-<span class="sig-name descname"><span class="pre">add_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1159"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.add_fields" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.add_fields" title="Link to this definition"></a></dt>
 <dd><p>Add a hidden field for the object’s primary key.</p>
 </dd></dl>
 
@@ -2778,7 +2779,7 @@ self._non_form_errors.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.get_default_prefix">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_default_prefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.get_default_prefix" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_default_prefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.get_default_prefix" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2823,7 +2824,7 @@ self._non_form_errors.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.get_unique_error_message">
-<span class="sig-name descname"><span class="pre">get_unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1198"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.get_unique_error_message" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.get_unique_error_message" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2834,7 +2835,7 @@ self._non_form_errors.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.initial_form_count">
-<span class="sig-name descname"><span class="pre">initial_form_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.initial_form_count" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">initial_form_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.initial_form_count" title="Link to this definition"></a></dt>
 <dd><p>Return the number of forms that are required in this FormSet.</p>
 </dd></dl>
 
@@ -2919,13 +2920,13 @@ as necessary, and return the list of instances.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.save_new">
-<span class="sig-name descname"><span class="pre">save_new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1152"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.save_new" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save_new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L1153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.save_new" title="Link to this definition"></a></dt>
 <dd><p>Save and return a new model instance for the given form.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.save_new_objects">
-<span class="sig-name descname"><span class="pre">save_new_objects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L950"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.save_new_objects" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save_new_objects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/forms/models.py#L951"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.place_categories.place_category_translation_form.BaseInlinePlaceCategoryTranslationFormSet.save_new_objects" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
