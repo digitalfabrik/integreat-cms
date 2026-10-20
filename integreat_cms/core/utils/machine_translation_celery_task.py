@@ -6,6 +6,7 @@ from collections import defaultdict
 from typing import Any, TYPE_CHECKING
 from uuid import uuid4
 
+from cacheops import invalidate_obj
 from celery import shared_task, Task
 from django.apps import apps
 from django.contrib import messages
@@ -135,16 +136,6 @@ def _queue_mt_report(
         content_type=content_type,
         language_slugs=language_slugs,
         results=dict(translation_report),
-    )
-
-
-def _get_translation_queryset(
-    content_type: str, content_objects: QuerySet[Any], language_slug: str
-) -> QuerySet[Any]:
-    translation_model = apps.get_model("cms", f"{content_type}translation")
-    return translation_model.objects.filter(
-        **{_TRANSLATION_FILTER_FIELD[content_type]: content_objects},
-        language__slug=language_slug,
     )
 
 
@@ -282,19 +273,25 @@ def _release_locks(
             cache.delete(get_mt_redis_lock_key(content_type, obj_id, language_slug))
 
 
-def _clear_machine_translation_flag(
-    content_type: str, object_ids: list[int], language_slugs: list[str]
+def _set_machine_translation_flag(
+    content_type: str, object_ids: list[int], language_slugs: list[str], value: bool
 ) -> None:
-    # Builds its own queryset (rather than reusing the caller's
+    # Builds its own queryset from plain ids (rather than reusing the caller's
     # content_objects) so this can also run from `finally`. May raise
     # LookupError if content_type itself was invalid - callers should
     # expect that.
-    content_model = apps.get_model("cms", content_type)
-    content_objects = content_model.objects.filter(id__in=object_ids)
-    for language_slug in language_slugs:
-        _get_translation_queryset(content_type, content_objects, language_slug).update(
-            currently_in_machine_translation=False
-        )
+    translation_model = apps.get_model("cms", f"{content_type}translation")
+    translations = translation_model.objects.filter(
+        **{_TRANSLATION_FILTER_FIELD[content_type]: object_ids},
+        language__slug__in=language_slugs,
+    )
+    translations.update(currently_in_machine_translation=value)
+    # A plain update() bypasses cacheops, which derives its invalidation keys
+    # from the full field values of each changed row - so the rows have to be
+    # loaded, the ids alone aren't enough. Invalidate after the update, so a
+    # concurrent read can't re-cache the old value in between.
+    for translation in translations:
+        invalidate_obj(translation)
 
 
 def _build_content_object_language_data(
@@ -421,7 +418,9 @@ def start_async_translation(
         # Must clear before _build_content_objects_data(), else a newly-created-but-failed
         # translation would still show MACHINE_TRANSLATION_IN_PROGRESS via the lock.
         _release_locks(content_type, object_ids, language_slugs)
-        _clear_machine_translation_flag(content_type, object_ids, language_slugs)
+        _set_machine_translation_flag(
+            content_type, object_ids, language_slugs, value=False
+        )
 
         content_objects_data = _build_content_objects_data(
             content_objects, language_slugs
@@ -434,7 +433,9 @@ def start_async_translation(
         # Idempotent backstop in case the above never ran (e.g. unknown user/region).
         _release_locks(content_type, object_ids, language_slugs)
         with contextlib.suppress(LookupError):
-            _clear_machine_translation_flag(content_type, object_ids, language_slugs)
+            _set_machine_translation_flag(
+                content_type, object_ids, language_slugs, value=False
+            )
 
     # Returning this (rather than calling `self.update_state(state="SUCCESS", ...)`)
     # is what actually makes it the task's final result: once this function
@@ -488,12 +489,7 @@ def queue_translations(
     # only starts running once a worker picks it up, some indeterminate time
     # later, which would otherwise race with the redirect this triggers -
     # the very next render could easily happen before the flag was set.
-    content_model = apps.get_model("cms", content_type)
-    content_objects = content_model.objects.filter(id__in=object_ids)
-    for language_slug in language_slugs:
-        _get_translation_queryset(content_type, content_objects, language_slug).update(
-            currently_in_machine_translation=True
-        )
+    _set_machine_translation_flag(content_type, object_ids, language_slugs, value=True)
     user_language_slug = get_language()
     # Deferred until the enclosing transaction commits: dispatching
     # immediately could let a worker read stale (pre-commit) data, or run
