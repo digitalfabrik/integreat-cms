@@ -4,7 +4,7 @@ Test module for RecurrenceRule class
 
 from __future__ import annotations
 
-import datetime
+import datetime as dt
 from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo
 
@@ -24,8 +24,8 @@ class TestCreatingIcalRule:
     """
 
     test_event = Event(
-        start=datetime.datetime(2030, 1, 1, 11, 30, 0, 0, ZoneInfo("UTC")),
-        end=datetime.datetime(2030, 1, 1, 12, 30, 0, 0, ZoneInfo("UTC")),
+        start=dt.datetime(2030, 1, 1, 11, 30, 0, 0, ZoneInfo("UTC")),
+        end=dt.datetime(2030, 1, 1, 12, 30, 0, 0, ZoneInfo("UTC")),
     )
 
     def test_api_rrule_every_year_start_date_in_the_past(self) -> None:
@@ -38,8 +38,8 @@ class TestCreatingIcalRule:
             recurrence_end_date=None,
         )
         test_event = Event(
-            start=datetime.datetime(2020, 1, 1, 11, 30, 0, 0, ZoneInfo("UTC")),
-            end=datetime.datetime(2030, 1, 1, 12, 30, 0, 0, ZoneInfo("UTC")),
+            start=dt.datetime(2020, 1, 1, 11, 30, 0, 0, ZoneInfo("UTC")),
+            end=dt.datetime(2030, 1, 1, 12, 30, 0, 0, ZoneInfo("UTC")),
         )
         test_event.recurrence_rule = recurrence_rule
         ical_rrule = recurrence_rule.to_ical_rrule_string()
@@ -113,7 +113,7 @@ class TestCreatingIcalRule:
             weekdays_for_weekly=None,
             weekday_for_monthly=weekdays.SUNDAY,
             week_for_monthly=weeks.FIRST,
-            recurrence_end_date=datetime.date(2030, 10, 19),
+            recurrence_end_date=dt.date(2030, 10, 19),
         )
         self.check_rrule(
             recurrence_rule,

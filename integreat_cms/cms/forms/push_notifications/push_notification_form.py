@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import datetime
+import datetime as dt
 import zoneinfo
 from typing import TYPE_CHECKING
 
@@ -123,9 +123,9 @@ class PushNotificationForm(CustomModelForm):
             and not self.instance.sent_date
         ):
             tzinfo = zoneinfo.ZoneInfo(str(timezone.get_current_timezone()))
-            time = cleaned_data["scheduled_send_date_time"] or datetime.time()
+            time = cleaned_data["scheduled_send_date_time"] or dt.time()
 
-            cleaned_data["scheduled_send_date"] = datetime.datetime.combine(
+            cleaned_data["scheduled_send_date"] = dt.datetime.combine(
                 cleaned_data["scheduled_send_date_day"],
                 time,
             ).replace(tzinfo=tzinfo)
