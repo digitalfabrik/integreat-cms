@@ -52,7 +52,8 @@
         {% has_perm 'cms.change_organization' request.user as can_edit_organization %}
         {% if is_archive %}
             {% if can_edit_organization %}
-                <button title="{% translate "Restore organization" %}"
+                <button type="button"
+                        title="{% translate "Restore organization" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ restore_dialog_title }}"
                         data-confirmation-subject="{{ organization.name }}"
@@ -63,11 +64,15 @@
         {% else %}
             {% if can_edit_organization %}
                 {% if organization.is_used %}
-                    <button title="{{ cannot_archive_title }}" class="btn-icon" disabled>
+                    <button type="button"
+                            title="{{ cannot_archive_title }}"
+                            class="btn-icon"
+                            disabled>
                         <i icon-name="archive"></i>
                     </button>
                 {% else %}
-                    <button title="{% translate "Archive organization" %}"
+                    <button type="button"
+                            title="{% translate "Archive organization" %}"
                             class="confirmation-button btn-icon"
                             data-confirmation-title="{{ archive_dialog_title }}"
                             data-confirmation-text="{{ archive_dialog_text }}"
@@ -80,11 +85,15 @@
         {% endif %}
         {% if perms.cms.delete_organization %}
             {% if organization.is_used %}
-                <button title="{{ cannot_delete_title }}" class="btn-icon" disabled>
+                <button type="button"
+                        title="{{ cannot_delete_title }}"
+                        class="btn-icon"
+                        disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% else %}
-                <button title="{% translate "Delete organization" %}"
+                <button type="button"
+                        title="{% translate "Delete organization" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"

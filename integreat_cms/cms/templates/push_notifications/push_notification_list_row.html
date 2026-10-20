@@ -60,7 +60,8 @@
         {% if push_notification.sent_date %}
             <i icon-name="check" class="text-green-500 align-text-top"></i> {{ push_notification.sent_date }}
         {% elif push_notification.is_overdue %}
-            <i icon-name="x" class="text-red-500 align-text-top"></i> {% translate "Message is overdue and will not be sent" %}
+            <i icon-name="x"
+               class="text-red-500 align-text-top"></i> {% translate "Message is overdue and will not be sent" %}
         {% else %}
             <i icon-name="x" class="text-red-500 align-text-top"></i> {% translate "Message not sent yet" %}
         {% endif %}
@@ -68,7 +69,8 @@
     <td>
         {% if is_archived %}
             {% if perms.cms.archive_pushnotification %}
-                <button title="{% translate "Restore news" %}"
+                <button type="button"
+                        title="{% translate "Restore news" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{% trans "Please confirm that you really want to restore this news item" %}"
                         data-confirmation-subject="{{ push_notification.title }}"
@@ -78,7 +80,8 @@
             {% endif %}
         {% else %}
             {% if perms.cms.archive_pushnotification %}
-                <button title="{% translate "Archive news" %}"
+                <button type="button"
+                        title="{% translate "Archive news" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{% trans "Please confirm that you really want to archive this news item" %}"
                         data-confirmation-subject="{{ push_notification.title }}"
@@ -88,7 +91,8 @@
             {% endif %}
         {% endif %}
         {% if perms.cms.delete_pushnotification %}
-            <button title="{% translate "Delete news" %}"
+            <button type="button"
+                    title="{% translate "Delete news" %}"
                     class="confirmation-button btn-icon"
                     data-confirmation-title="{% trans "Please confirm that you really want to delete this news item" %}"
                     data-confirmation-subject="{{ push_notification.title }}"

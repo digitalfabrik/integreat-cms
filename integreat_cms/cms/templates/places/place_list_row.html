@@ -133,7 +133,8 @@
                     <i icon-name="external-link"></i>
                 </a>
             {% else %}
-                <button title="{% translate "This place cannot be opened in the web app, because it is not public." %}"
+                <button type="button"
+                        title="{% translate "This place cannot be opened in the web app, because it is not public." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="external-link"></i>
@@ -150,16 +151,20 @@
                 <form action="{% url 'copy_place' place_id=place.id region_slug=request.region.slug language_slug=language.slug %}"
                       method="post">
                     {% csrf_token %}
-                    <button class="btn-icon" title="{% translate "Copy place" %}">
+                    <button type="submit" class="btn-icon" title="{% translate "Copy place" %}">
                         <i icon-name="copy"></i>
                     </button>
                 </form>
                 {% if not place.can_be_archived %}
-                    <button title="{{ cannot_archive_title }}" class="btn-icon" disabled>
+                    <button type="button"
+                            title="{{ cannot_archive_title }}"
+                            class="btn-icon"
+                            disabled>
                         <i icon-name="archive"></i>
                     </button>
                 {% else %}
-                    <button title="{% translate "Archive place" %}"
+                    <button type="button"
+                            title="{% translate "Archive place" %}"
                             class="confirmation-button btn-icon"
                             data-confirmation-title="{{ archive_dialog_title }}"
                             data-confirmation-text="{{ archive_dialog_text }}"
@@ -169,7 +174,8 @@
                     </button>
                 {% endif %}
             {% else %}
-                <button title="{% translate "Restore place" %}"
+                <button type="button"
+                        title="{% translate "Restore place" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ restore_dialog_title }}"
                         data-confirmation-text="{{ restore_dialog_text }}"
@@ -181,12 +187,16 @@
         {% endif %}
         {% if perms.cms.delete_place %}
             {% if place.is_used %}
-                <button title="{{ cannot_delete_title }}" class="btn-icon" disabled>
+                <button type="button"
+                        title="{{ cannot_delete_title }}"
+                        class="btn-icon"
+                        disabled>
                     <i icon-name="trash-2"></i>
                 </button>
                 {# djlint:on #}
             {% else %}
-                <button title="{% translate "Delete place" %}"
+                <button type="button"
+                        title="{% translate "Delete place" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"

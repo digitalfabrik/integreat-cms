@@ -3,25 +3,25 @@
 {% load static %}
 {% load i18n %}
 {% if permission_message %}
-    {% if permission_message.level_tag.value == 'info' %}
+    {% if permission_message.level_tag.value == "info" %}
         <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 px-4 py-3 my-2"
              role="alert">
             <p>{{ permission_message.message }}</p>
         </div>
     {% endif %}
-    {% if permission_message.level_tag.value == 'success' %}
+    {% if permission_message.level_tag.value == "success" %}
         <div class="bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 my-2"
              role="alert">
             <p>{{ permission_message.message }}</p>
         </div>
     {% endif %}
-    {% if permission_message.level_tag.value == 'warning' %}
+    {% if permission_message.level_tag.value == "warning" %}
         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 my-2"
              role="alert">
             <p>{{ permission_message.message }}</p>
         </div>
     {% endif %}
-    {% if permission_message.level_tag.value == 'error' %}
+    {% if permission_message.level_tag.value == "error" %}
         <div class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 my-2"
              role="alert">
             <p>{{ permission_message.message }}</p>
@@ -48,7 +48,8 @@
 </div>
 <div class="w-full flex flex-wrap mt-2">
     {% render_field page_form.authors %}
-    <button class="btn grant-page-permission mt-2 w-full"
+    <button type="button"
+            class="btn grant-page-permission mt-2 w-full"
             data-url="{% url 'grant_page_permission_ajax' region_slug=request.region.slug %}"
             data-page-id="{{ page.id }}"
             data-permission="edit">
@@ -75,7 +76,8 @@
 </div>
 <div class="w-full flex flex-wrap mt-2">
     {% render_field page_form.editors %}
-    <button class="btn grant-page-permission mt-2 w-full"
+    <button type="button"
+            class="btn grant-page-permission mt-2 w-full"
             data-url="{% url 'grant_page_permission_ajax' region_slug=request.region.slug %}"
             data-page-id="{{ page.id }}"
             data-permission="publish">

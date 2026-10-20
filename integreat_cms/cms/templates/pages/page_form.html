@@ -66,12 +66,14 @@
                     </button>
                     {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
                     {% if can_publish_page %}
-                        <button name="status"
+                        <button type="submit"
+                                name="status"
                                 value="{{ DRAFT }}"
                                 class="btn btn-outline no-premature-submission">
                             {% translate "Save as draft" %}
                         </button>
-                        <button name="status"
+                        <button type="submit"
+                                name="status"
                                 value="{{ PUBLIC }}"
                                 class="btn whitespace-nowrap no-premature-submission">
                             {% if page_translation_form.instance.status == PUBLIC %}
@@ -81,7 +83,8 @@
                             {% endif %}
                         </button>
                     {% elif can_edit_page %}
-                        <button name="status"
+                        <button type="submit"
+                                name="status"
                                 value="{{ REVIEW }}"
                                 class="btn no-premature-submission">
                             {% translate "Submit for approval" %}

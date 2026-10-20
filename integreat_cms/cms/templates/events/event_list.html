@@ -42,7 +42,7 @@
                     {% endif %}
                 </div>
                 <div class="flex flex-wrap gap-4">
-                    <button id="filter-toggle" class="btn btn-ghost">
+                    <button type="button" id="filter-toggle" class="btn btn-ghost">
                         <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% translate "Show filters" %}</span>
                         <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% translate "Hide filters" %}</span>
                     </button>
@@ -56,7 +56,12 @@
                             {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
                                 You can only create events in the default language ({{ default_language }}).
                             {% endblocktranslate %}
-                            <button title="{{ disabled_button_title }}" class="btn" disabled>{% translate "Create event" %}</button>
+                            <button type="button"
+                                    title="{{ disabled_button_title }}"
+                                    class="btn"
+                                    disabled>
+                                {% translate "Create event" %}
+                            </button>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -143,7 +148,8 @@
         {% if events and perms.cms.change_event %}
             <div class="pt-2 px-2">
                 <div class="inline">
-                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Events selected" %}</span>
+                    <span class="text-gray-800 font-bold"
+                          data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Events selected" %}</span>
                 </div>
             </div>
         {% endif %}
@@ -205,7 +211,13 @@
                         </option>
                     {% endif %}
                 </select>
-                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+                <button type="submit"
+                        form="bulk-action-form"
+                        id="bulk-action-execute"
+                        class="btn"
+                        disabled>
+                    {% translate "Execute" %}
+                </button>
             </div>
         {% endif %}
     </div>

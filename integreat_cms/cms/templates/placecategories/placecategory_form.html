@@ -16,7 +16,7 @@
                 {% endif %}
             </h1>
             {% if perms.cms.change_placecategory %}
-                <button class="btn">{% translate "Save" %}</button>
+                <button type="submit" class="btn">{% translate "Save" %}</button>
             {% endif %}
         </div>
         <div class="flex flex-wrap">
@@ -46,9 +46,11 @@
                         <div>
                             <label for="{{ form.color.id_for_label }}">{{ form.color.label }}</label>
                             <div class="flex">
+                                {# djlint:off H021 #}
                                 <span id="place-category-color-preview"
                                       class="w-12 rounded-l"
                                       style="background-color: {{ form.instance.color }}"></span>
+                                {# djlint:on #}
                                 <div class="relative flex-grow">{% render_field form.color|add_error_class:"border-red-500" %}</div>
                             </div>
                         </div>

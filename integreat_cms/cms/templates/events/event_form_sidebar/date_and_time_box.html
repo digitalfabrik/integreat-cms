@@ -25,12 +25,14 @@
             <div>
                 <div class="xl:flex 3xl:block">
                     <div class="3xl:mt-3 3xl:w-full xl:w-1/2 xl:pr-2 3xl:pr-0">
-                        <label class="mt-0" for="{{ event_form.start_date.id_for_label }}">{{ event_form.start_date.label }}</label>
+                        <label class="mt-0"
+                               for="{{ event_form.start_date.id_for_label }}">{{ event_form.start_date.label }}</label>
                         {% render_field event_form.start_date|add_error_class:"border-red-500" %}
                     </div>
                     <div class="3xl:mt-3 3xl:w-full xl:w-1/2 {% if not event_form.is_long_term.value %} hidden {% endif %}"
                          id="end-date">
-                        <label class="mt-0" for="{{ event_form.end_date.id_for_label }}">{{ event_form.end_date.label }}</label>
+                        <label class="mt-0"
+                               for="{{ event_form.end_date.id_for_label }}">{{ event_form.end_date.label }}</label>
                         {% render_field event_form.end_date|add_error_class:"border-red-500" %}
                     </div>
                 </div>
@@ -72,7 +74,8 @@
                     </label>
                     {% render_field recurrence_rule_form.frequency|add_error_class:"border-red-500" %}
                     <div id="one_time_recurring-info" class="flex flex-wrap my-3">
-                        <i icon-name="info" class="size-6 pr-1"></i>{% translate "Please create daily repeating events under “Long-term”." %}
+                        <i icon-name="info"
+                           class="size-6 pr-1"></i>{% translate "Please create daily repeating events under “Long-term”." %}
                     </div>
                     <div id="recurrence-weekly"
                          {% if not recurrence_rule_form.instance.frequency == 'WEEKLY' %}class="hidden"{% endif %}>
