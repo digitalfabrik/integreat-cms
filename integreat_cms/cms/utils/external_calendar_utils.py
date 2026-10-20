@@ -379,7 +379,7 @@ def _import_events(
     try:
         ical = calendar.load_ical()
     except OSError:
-        logger.exception("Could not import events from %s", calendar)
+        logger.info("Could not import events from %s", calendar)
         errors.append(_("Could not access the url of this external calendar"))
         return
     except ValueError:
@@ -438,7 +438,7 @@ def import_event(
             event, language.slug, calendar, logger, calendar.region.id
         )
     except ValueError as e:
-        logger.exception("Could not import event: %r due to error", event)
+        logger.info("Could not import event: %r due to error", event)
         errors.append(_("Could not import '{}': {}").format(event.get("SUMMARY"), e))
         try:
             return event.decoded("UID")
@@ -478,7 +478,7 @@ def import_event(
         additional_instance_attributes={"region": calendar.region},
     )
     if not event_form.is_valid():
-        logger.error("Could not import event: %r", event_form.errors)
+        logger.info("Could not import event: %r", event_form.errors)
         errors.append(
             _("Could not import '{}': {}").format(event_data.title, event_form.errors),
         )
@@ -505,7 +505,7 @@ def import_event(
         # fall on one of the RRULE days.
     )
     if recurrence_rule_form_data and not recurrence_rule_form.is_valid():
-        logger.error(
+        logger.info(
             "Could not import recurrence rule: %r",
             recurrence_rule_form.errors,
         )
@@ -534,7 +534,7 @@ def import_event(
         },
     )
     if not event_translation_form.is_valid():
-        logger.error("Could not import event: %r", event_translation_form.errors)
+        logger.info("Could not import event: %r", event_translation_form.errors)
         errors.append(
             _("Could not import '{}': {}").format(
                 event_data.title,

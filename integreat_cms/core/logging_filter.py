@@ -32,3 +32,25 @@ class DebugRequestFilter(logging.Filter):
                 getattr(settings, "LOG_LEVEL_NORMAL", "INFO")
             )
         return True
+
+
+class ApiNotFoundFilter(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool:
+        """
+        Downgrade the log level of "404 Not Found" responses of the API to DEBUG.
+
+        Django logs every 4xx response as WARNING (see :func:`django.utils.log.log_response`).
+        Since API clients frequently request non-existing content, these entries clutter the logfile.
+
+        :param record: The log record to filter
+        :return: Always True, the record is never dropped
+        """
+        request = getattr(record, "request", None)
+        if (
+            getattr(record, "status_code", None) == 404
+            and request is not None
+            and request.path.startswith("/api/")
+        ):
+            record.levelno = logging.DEBUG
+            record.levelname = logging.getLevelName(logging.DEBUG)
+        return True
