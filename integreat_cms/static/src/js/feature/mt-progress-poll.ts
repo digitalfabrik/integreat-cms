@@ -142,7 +142,7 @@ const pollTask = async (
     // any rows discovered later (e.g. subpages that only loaded after this
     // poll started, see below) were pushed into it in the meantime, so this
     // patches everything found so far, not just what was known at the start.
-    showFinished(elements, data.details?.pages);
+    showFinished(elements, data.details?.content_objects);
     knownElementsByTask.delete(taskId);
 
     const bannerContainer = root.querySelector("[data-mt-report-banner]");
