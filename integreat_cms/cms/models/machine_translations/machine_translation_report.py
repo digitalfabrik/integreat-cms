@@ -26,6 +26,13 @@ class MachineTranslationReport(AbstractBaseModel):
         related_name="machine_translation_reports",
         verbose_name=_("region"),
     )
+    #: The Celery task this report belongs to - lets callers who watched a
+    #: specific task read only its report, not every other one still queued
+    task_id = models.CharField(
+        max_length=36,
+        unique=True,
+        verbose_name=_("task id"),
+    )
     content_type = models.CharField(
         max_length=20,
         verbose_name=_("content type"),

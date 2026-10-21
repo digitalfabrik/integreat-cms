@@ -100,6 +100,8 @@ def get_machine_translation_report(
             region_id=request.region.id,
             content_type=model_type,
         )
+        if task_id := request.GET.get("task_id"):
+            reports_qs = reports_qs.filter(task_id=task_id)
         reports = list(reports_qs)
         reports_qs.delete()
 

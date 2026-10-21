@@ -22,6 +22,12 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
+                    "task_id",
+                    models.CharField(
+                        max_length=36, unique=True, verbose_name="task id"
+                    ),
+                ),
+                (
                     "content_type",
                     models.CharField(max_length=20, verbose_name="content type"),
                 ),
