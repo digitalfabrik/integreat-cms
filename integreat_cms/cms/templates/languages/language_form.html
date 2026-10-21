@@ -63,13 +63,13 @@
                         <div class="mb-2 text-s text-gray-600">
                             {{ form.bcp47_tag.help_text }}
                             {% if DEEPL_ENABLED %}
-                                <br />
-                                <br />
-                                <i class="h-5" icon-name="alert-triangle"></i>
-                                {% blocktranslate trimmed with link="href='https://www.deepl.com/de/docs-api/translate-text/translate-text/' target='_blank' class='underline'" %}
-                                    For some languages, DeepL needs a correct BCP47 tag (for example English or Portuguese).
-                                    For more information, please checkout the <a {{ link }}>DeepL documentation</a>.
-                                {% endblocktranslate %}
+                                <p class="mt-4">
+                                    <i class="h-5" icon-name="alert-triangle"></i>
+                                    {% blocktranslate trimmed with link="href='https://www.deepl.com/de/docs-api/translate-text/translate-text/' target='_blank' class='underline'" %}
+                                        For some languages, DeepL needs a correct BCP47 tag (for example English or Portuguese).
+                                        For more information, please checkout the <a {{ link }}>DeepL documentation</a>.
+                                    {% endblocktranslate %}
+                                </p>
                             {% endif %}
                         </div>
                     </div>
