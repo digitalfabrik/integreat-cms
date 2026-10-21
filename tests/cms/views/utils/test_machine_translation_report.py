@@ -10,7 +10,7 @@ from django.test import RequestFactory
 from django.test.client import Client
 from django.urls import reverse
 
-from integreat_cms.cms.models import Region
+from integreat_cms.cms.models import MachineTranslationReport, Region
 from integreat_cms.cms.views.utils.machine_translation_report import (
     _get_report_message,
     _get_report_outcome,
@@ -141,6 +141,7 @@ def test_get_machine_translation_report_is_destructive_read(
     user = get_user_model().objects.get(username="root")
     region = Region.objects.get(slug=REGION_SLUG)
     _queue_mt_report(
+        "task-1",
         user.id,
         region.id,
         "page",
@@ -187,6 +188,7 @@ def test_get_machine_translation_report_returns_multiple_queued_reports_in_order
     user = get_user_model().objects.get(username="root")
     region = Region.objects.get(slug=REGION_SLUG)
     _queue_mt_report(
+        "task-1",
         user.id,
         region.id,
         "page",
@@ -194,6 +196,7 @@ def test_get_machine_translation_report_returns_multiple_queued_reports_in_order
         {"en": {"1": {"succeeded": "ok", "failed": {}}}},
     )
     _queue_mt_report(
+        "task-2",
         user.id,
         region.id,
         "page",
@@ -223,3 +226,92 @@ def test_get_machine_translation_report_returns_multiple_queued_reports_in_order
     assert reports[1]["outcome"] == "PARTIAL_SUCCESS"
 
     assert client.get(url).json() == {"reports": []}
+
+
+@pytest.mark.django_db
+def test_get_machine_translation_report_scoped_to_task_id(
+    load_test_data: None,
+) -> None:
+    """
+    A caller that watched one specific task finish must only get that task's
+    report - not the reports of other runs that are still queued, which stay
+    queued for a later, unscoped read.
+    """
+    user = get_user_model().objects.get(username="root")
+    region = Region.objects.get(slug=REGION_SLUG)
+    _queue_mt_report(
+        "task-1",
+        user.id,
+        region.id,
+        "page",
+        ["en"],
+        {"en": {"1": {"succeeded": "ok", "failed": {}}}},
+    )
+    _queue_mt_report(
+        "task-2",
+        user.id,
+        region.id,
+        "page",
+        ["fa"],
+        {"fa": {"2": {"exception": "provider exploded"}}},
+    )
+
+    client = Client()
+    client.force_login(user)
+    url = reverse(
+        "machine_translation_report",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": "en",
+            "model_type": "page",
+        },
+    )
+
+    scoped_response = client.get(url, {"task_id": "task-2"})
+
+    assert scoped_response.status_code == 200
+    scoped_reports = scoped_response.json()["reports"]
+    assert len(scoped_reports) == 1
+    assert scoped_reports[0]["language_slugs"] == ["fa"]
+
+    remaining_reports = client.get(url).json()["reports"]
+    assert len(remaining_reports) == 1
+    assert remaining_reports[0]["language_slugs"] == ["en"]
+
+
+@pytest.mark.django_db
+def test_get_machine_translation_report_scoped_read_ignores_other_users_report(
+    load_test_data: None,
+) -> None:
+    """
+    Anyone who can see a task's spinner can ask for that task's report, but a
+    report only ever goes to the user who triggered the translation.
+    """
+    triggering_user = get_user_model().objects.get(username="root")
+    other_user = get_user_model().objects.get(username="management")
+    region = Region.objects.get(slug=REGION_SLUG)
+    _queue_mt_report(
+        "task-1",
+        triggering_user.id,
+        region.id,
+        "page",
+        ["en"],
+        {"en": {"1": {"succeeded": "ok", "failed": {}}}},
+    )
+
+    client = Client()
+    client.force_login(other_user)
+    url = reverse(
+        "machine_translation_report",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": "en",
+            "model_type": "page",
+        },
+    )
+
+    response = client.get(url, {"task_id": "task-1"})
+
+    assert response.status_code == 200
+    assert response.json() == {"reports": []}
+    assert MachineTranslationReport.objects.filter(task_id="task-1").exists()

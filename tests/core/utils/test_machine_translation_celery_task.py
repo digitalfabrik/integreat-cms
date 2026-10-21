@@ -180,6 +180,7 @@ def test_unsupported_provider_skips_language_without_aborting(
 
     assert result.state == "SUCCESS"
     spy_queue_mt_report.assert_called_once_with(
+        result.id,
         task_kwargs["user_id"],
         task_kwargs["region_id"],
         task_kwargs["content_type"],
@@ -205,6 +206,7 @@ def test_empty_object_ids_and_language_slugs_completes(
     assert result.state == "SUCCESS"
     assert result.result == {"progress": 1.0, "content_objects": {}}
     spy_queue_mt_report.assert_called_once_with(
+        result.id,
         task_kwargs["user_id"],
         task_kwargs["region_id"],
         task_kwargs["content_type"],
@@ -325,6 +327,7 @@ def test_one_language_failure_does_not_abort_others(
     assert result.result["progress"] == 1.0
 
     spy_queue_mt_report.assert_called_once_with(
+        result.id,
         task_kwargs["user_id"],
         task_kwargs["region_id"],
         task_kwargs["content_type"],

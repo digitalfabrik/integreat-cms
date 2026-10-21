@@ -118,6 +118,7 @@ _MT_LOCK_TTL = 60 * 60 * 4  # 4 hours
 
 
 def _queue_mt_report(
+    task_id: str,
     user_id: int,
     region_id: int,
     content_type: str,
@@ -131,6 +132,7 @@ def _queue_mt_report(
     cache-based read-modify-write could.
     """
     MachineTranslationReport.objects.create(
+        task_id=task_id,
         user_id=user_id,
         region_id=region_id,
         content_type=content_type,
@@ -427,7 +429,12 @@ def start_async_translation(
         )
 
         _queue_mt_report(
-            user_id, region_id, content_type, language_slugs, translation_report
+            self.request.id,
+            user_id,
+            region_id,
+            content_type,
+            language_slugs,
+            translation_report,
         )
     finally:
         # Idempotent backstop in case the above never ran (e.g. unknown user/region).
