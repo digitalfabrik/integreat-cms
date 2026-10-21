@@ -105,7 +105,7 @@ def test_local_news_is_addressed_by_translation_id(
     pn_translation = _create_push_notification(datetime.now(tz=UTC) - timedelta(days=1))
 
     response = Client().get(
-        f"{prefix}/{REGION_SLUG}/{LANGUAGE_SLUG}/news/local/{pn_translation.id}/"
+        f"{prefix}/{REGION_SLUG}/{LANGUAGE_SLUG}/news/local-{pn_translation.id}/"
     )
 
     assert response.status_code == 200
@@ -132,7 +132,7 @@ def test_local_news_which_is_not_public(
     pn_translation = _create_push_notification(sent_date, text="Geheimer Inhalt")
 
     response = Client().get(
-        f"{prefix}/{REGION_SLUG}/{LANGUAGE_SLUG}/news/local/{pn_translation.id}/"
+        f"{prefix}/{REGION_SLUG}/{LANGUAGE_SLUG}/news/local-{pn_translation.id}/"
     )
 
     assert response.status_code == 404
@@ -152,7 +152,7 @@ def test_local_news_text_is_escaped(load_test_data: None) -> None:
     )
 
     response = Client().get(
-        f"/api/v3/raw-content/{REGION_SLUG}/{LANGUAGE_SLUG}/news/local/{pn_translation.id}/"
+        f"/api/v3/raw-content/{REGION_SLUG}/{LANGUAGE_SLUG}/news/local-{pn_translation.id}/"
     )
     content = response.content.decode("utf-8")
 
@@ -217,7 +217,7 @@ def test_external_news_content_is_sanitized(
     )
 
     response = Client().get(
-        f"/api/v3/raw-content/{REGION_SLUG}/{LANGUAGE_SLUG}/news/tunews/42/"
+        f"/api/v3/raw-content/{REGION_SLUG}/{LANGUAGE_SLUG}/news/tunews-42/"
     )
     content = response.content.decode("utf-8")
 

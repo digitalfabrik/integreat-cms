@@ -24,9 +24,15 @@ if [[ ! -w "${VENV_DIR}" ]]; then
     echo "    docker compose --env-file /dev/null -f docker-compose.test.yml down --volumes" >&2
     exit 1
 fi
-if [[ ! -x "${VENV_DIR}/bin/python" ]]; then
+# Recreate the venv when its interpreter is missing or no longer runnable. The
+# base image tracks a floating cimg/python:3.13 tag, so a rebuild can bump the
+# pyenv patch version (e.g. 3.13.11 -> 3.13.15) and leave the cached venv's
+# bin/python symlink dangling. `python -m venv` without --clear keeps existing
+# symlinks, so it would not repair such a venv; --clear rebuilds it from the
+# current interpreter.
+if [[ ! -x "${VENV_DIR}/bin/python" ]] || ! "${VENV_DIR}/bin/python" -c '' 2> /dev/null; then
     echo "Creating virtualenv at ${VENV_DIR}..."
-    python -m venv "${VENV_DIR}"
+    python -m venv --clear "${VENV_DIR}"
     "${VENV_DIR}/bin/pip" install --upgrade pip
 fi
 # shellcheck disable=SC1091

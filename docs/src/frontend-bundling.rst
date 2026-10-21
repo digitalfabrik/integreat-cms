@@ -8,7 +8,7 @@ Webpack is being used to generate frontend bundles based on TypeScript code that
 2. :github-source:`integreat_cms/static/src/editor.ts` (``editor.<hash>.js``): Contains TinyMCE and related assets. It was decided to bundle TinyMCE in a separate file because it is the largest of all bundled assets
 3. :github-source:`integreat_cms/static/src/editor_content.ts` (``editor_content.<hash>.js``/``editor_content.<hash>.css``): Contains assets for the TinyMCE content iframe which cannot be passed via the global context
 4. :github-source:`integreat_cms/static/src/pdf.ts` (``pdf.<hash>.js``/``pdf.css``): Contains assets for the PDF rendering
-5. :github-source:`integreat_cms/static/src/map.ts` (``map.<hash>.js``): Contains maplibre-gl and related assets for the map used in the POI form
+5. :github-source:`integreat_cms/static/src/map.ts` (``map.<hash>.js``): Contains maplibre-gl and related assets for the map used in the place form
 
 To get started with adding new code go to :github-source:`integreat_cms/static/src` and open the bundle you want to edit.
 In this file you can import any TypeScript or JavaScript file or library that is needed for the application.
@@ -81,4 +81,12 @@ For the conventions of fonts to be used for different content languages, see htt
 * Amharic alphabet: ``Noto Sans Ethiopic``
 * Georgian alphabet: ``Noto Sans Georgian``
 
-Unfortunately, xhtml2pdf does not support ``Lateef`` (yet), so at the moment we have to rely on ``DejaVu Sans`` as fallback for the PDF rendering of right-to-left alphabets.
+The PDF export uses the same fonts, which are defined in the separate ``*-pdf.css`` files:
+
+* Headings and table of contents of latin alphabets: ``Raleway``
+* Latin alphabets: ``Open Sans``
+* Right-to-left alphabets: ``Lateef``
+* Chinese alphabet: ``Noto Sans SC``
+* Amharic alphabet: ``Noto Sans Ethiopic``
+* Georgian alphabet: ``Noto Sans Georgian``
+* Fallback for latin and right-to-left alphabets: ``DejaVu Sans``

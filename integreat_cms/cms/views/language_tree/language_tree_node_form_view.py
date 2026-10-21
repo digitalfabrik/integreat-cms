@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING
 from django.urls import reverse
 
 from ...forms import LanguageTreeNodeForm
-from ...models import EventTranslation, PageTranslation, POITranslation
+from ...models import EventTranslation, PageTranslation, PlaceTranslation
 from ...utils.tree_mutex import tree_mutex
 from ..form_views import CustomCreateView, CustomUpdateView
 
@@ -78,7 +78,7 @@ class LanguageTreeNodeUpdateView(CustomUpdateView):
         language_tree_node = self.get_object()
 
         if "active" in form.changed_data:
-            models = [PageTranslation, EventTranslation, POITranslation]
+            models = [PageTranslation, EventTranslation, PlaceTranslation]
             for model in models:
                 filters = {
                     f"{model.foreign_field()}__region": language_tree_node.region,

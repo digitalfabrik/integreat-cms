@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from django.db.models.fields.related import RelatedManager
     from linkcheck.models import Url
 
-    from ..models import Event, Language, Page, POI
+    from ..models import Event, Language, Page, Place
 
 logger = logging.getLogger(__name__)
 
@@ -91,91 +91,58 @@ def check_news_link(
     :param language: The language
     :returns: The validity status of the URL
     """
-    if len(path_components) == 1:
-        mark_invalid(
-            url,
-            _("News links require a subcategory (either 'local' or 'tu-news')"),
-        )
-    elif len(path_components) <= 3:
-        if path_components[1] == "tu-news":
-            if region.external_news_enabled:
-                if len(path_components) == 2:
-                    logger.debug("Link to tü-news list in %r is valid", region)
-                    mark_valid(url)
-                else:
-                    logger.debug(
-                        "Skipping check of tü-news with id %r",
-                        path_components[2],
-                    )
-            else:
-                logger.debug("tü-news are disabled in %r", region)
-                mark_invalid(url, _("tü-news are disabled in this region."))
-        elif path_components[1] == "local":
-            if (
-                len(path_components) == 2
-                or region.push_notifications.filter(
-                    id=path_components[2],
-                    sent_date__isnull=False,
-                    translations__language=language,
-                ).exists()
-            ):
+    match path_components:
+        case ["news"]:
+            mark_invalid(
+                url,
+                _("News links require a subcategory (either 'local' or 'tu-news')"),
+            )
+        case ["news", "tu-news"] if region.external_news_enabled:
+            logger.debug("Link to tü-news list in %r is valid", region)
+            mark_valid(url)
+        case ["news", "tu-news", news_id] if region.external_news_enabled:
+            logger.debug("Skipping check of tü-news with id %r", news_id)
+        case ["news", "tu-news"] | ["news", "tu-news", _]:
+            logger.debug("tü-news are disabled in %r", region)
+            mark_invalid(url, _("tü-news are disabled in this region."))
+        case ["news", "local"]:
+            mark_valid(url)
+        case ["news", "local", _]:
+            logger.debug(
+                "Local news links require the format 'local-<id>', got %r",
+                path_components,
+            )
+            mark_invalid(url, _("News URL is invalid."))
+        case ["news", news_slug] if news_slug.startswith("local-"):
+            news_id = news_slug.removeprefix("local-")
+            if region.push_notifications.filter(
+                translations__id=news_id,
+                sent_date__isnull=False,
+                translations__language=language,
+            ).exists():
                 mark_valid(url)
             else:
                 logger.debug(
                     "News with id %r does not exist in %r or was not sent in %r",
-                    path_components[2],
+                    news_id,
                     language,
                     region,
                 )
                 mark_invalid(url, _("This news entry does not exist or was not sent."))
-        else:
-            logger.debug("News subcategory %r does not exist", path_components[1])
+        case ["news", subcategory] | ["news", subcategory, _]:
+            logger.debug("News subcategory %r does not exist", subcategory)
             mark_invalid(url, _("This news subcategory does not exist."))
-    else:
-        logger.debug(
-            "News model is not hierarchical, got multiple path components %r",
-            path_components,
-        )
-        mark_invalid(url, _("News URL is invalid."))
-    return url.status
-
-
-def check_offer_link(url: Url, path_components: list[str], region: Region) -> bool:
-    """
-    Check whether the offer exists in the given region
-
-    :param url: The internal URL to check
-    :param path_components: The path components
-    :param region: The region
-    :returns: The validity status of the URL
-    """
-    if not region.offers.exists():
-        logger.debug("No offers are enabled in %r", region)
-        mark_invalid(url, _("Offers are not enabled in this region."))
-    elif len(path_components) == 1:
-        logger.debug("Link to offer list in %r is valid", region)
-        mark_valid(url)
-    elif len(path_components) == 2:
-        if region.offers.filter(slug=path_components[1]).exists():
-            mark_valid(url)
-        else:
+        case _:
             logger.debug(
-                "Offer %r does not exist or is not enabled in %r",
-                path_components[1],
-                region,
+                "News model is not hierarchical, got multiple path components %r",
+                path_components,
             )
-            mark_invalid(url, _("This offer does not exist in this region."))
-    else:
-        logger.debug(
-            "Offer model is not hierarchical, got multiple path components %r",
-            path_components,
-        )
-        mark_invalid(url, _("Offer URL is invalid"))
+            mark_invalid(url, _("News URL is invalid."))
     return url.status
 
 
 def check_translation_link(
-    content_object: Event | (Page | POI),
+    content_object: Event | (Page | Place),
     url: Url,
     language: Language,
 ) -> bool:
@@ -223,7 +190,7 @@ def check_object_link(
     """
     Check whether the given content objects are valid
 
-    :param content_type: The content type (``Page``, ``Event`` or ``POI``)
+    :param content_type: The content type (``Page``, ``Event`` or ``Place``)
     :param manager: The object manager
     :param url: The internal URL to check
     :param path_components: Split up path components including slug of the translation
@@ -286,7 +253,7 @@ def check_object_link(
     return url.status
 
 
-def check_event_or_location(
+def check_event_or_place(
     content_type: str,
     manager: RelatedManager,
     url: Url,
@@ -295,10 +262,10 @@ def check_event_or_location(
     language: Language,
 ) -> bool:
     """
-    Check whether the event or location with that URL exists in the given region and language.
+    Check whether the event or place with that URL exists in the given region and language.
     Fallback translations are also checked when they are enabled in the specific region.
 
-    :param content_type: The content type (``Event`` or ``POI``)
+    :param content_type: The content type (``Event`` or ``Place``)
     :param manager: The object manager
     :param url: The internal URL to check
     :param path_components: The path components
@@ -306,34 +273,35 @@ def check_event_or_location(
     :param language: The language
     :returns: The validity status of the URL
     """
-    if len(path_components) == 1:
-        logger.debug(
-            "Link to %s list of %r in %r is valid",
-            content_type,
-            region,
-            language,
-        )
-        mark_valid(url)
-    elif len(path_components) == 2:
-        check_object_link(
-            content_type,
-            manager,
-            path_components[1],
-            url,
-            region,
-            language,
-        )
-    else:
-        logger.debug(
-            "%s model is not hierarchical, got multiple path components %r",
-            content_type,
-            path_components,
-        )
-        mark_invalid(url, _("This link is invalid."))
+    match path_components:
+        case [_]:
+            logger.debug(
+                "Link to %s list of %r in %r is valid",
+                content_type,
+                region,
+                language,
+            )
+            mark_valid(url)
+        case [_, slug]:
+            check_object_link(
+                content_type,
+                manager,
+                slug,
+                url,
+                region,
+                language,
+            )
+        case _:
+            logger.debug(
+                "%s model is not hierarchical, got multiple path components %r",
+                content_type,
+                path_components,
+            )
+            mark_invalid(url, _("This link is invalid."))
     return url.status
 
 
-def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
+def check_internal(url: Url) -> bool | None:
     """
     :param url: The internal URL to check
     :returns: The status of the URL
@@ -417,7 +385,7 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
     if content_type == settings.IMPRINT_SLUG:
         return check_imprint(url, path_components, region, language)
     if content_type == "events":
-        return check_event_or_location(
+        return check_event_or_place(
             "Event",
             region.events,
             url,
@@ -426,9 +394,9 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
             language,
         )
     if content_type == "locations":
-        return check_event_or_location(
-            "POI",
-            region.pois,
+        return check_event_or_place(
+            "Place",
+            region.places,
             url,
             path_components,
             region,
@@ -436,8 +404,6 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
         )
     if content_type == "news":
         return check_news_link(url, path_components, region, language)
-    if content_type == "offers":
-        return check_offer_link(url, path_components, region)
     return check_object_link(
         "Page",
         region.pages,

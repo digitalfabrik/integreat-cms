@@ -16,7 +16,7 @@ from integreat_cms.cms.models import (
     OfferFeedback,
     OfferListFeedback,
     PageFeedback,
-    POIFeedback,
+    PlaceFeedback,
     RegionFeedback,
     SearchResultFeedback,
 )
@@ -32,7 +32,7 @@ if TYPE_CHECKING:
 feedback_type_dict: Final[dict[str, ModelBase]] = {
     "api:region_feedback": RegionFeedback,
     "api:page_feedback": PageFeedback,
-    "api:poi_feedback": POIFeedback,
+    "api:place_feedback": PlaceFeedback,
     "api:event_feedback": EventFeedback,
     "api:event_list_feedback": EventListFeedback,
     "api:imprint_page_feedbacks": ImprintPageFeedback,

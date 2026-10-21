@@ -19,7 +19,7 @@ from ....cms.models import (
     EventTranslation,
     ImprintPageTranslation,
     PageTranslation,
-    POITranslation,
+    PlaceTranslation,
     Region,
 )
 from ....cms.utils import internal_link_utils
@@ -134,7 +134,7 @@ class Command(LogCommand):
                 EventTranslation,
                 ImprintPageTranslation,
                 PageTranslation,
-                POITranslation,
+                PlaceTranslation,
             ).values(),
         )
 

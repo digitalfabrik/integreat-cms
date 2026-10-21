@@ -12,7 +12,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
             },
             body: JSON.stringify({
                 query_string: query,
-                object_types: ["event", "page", "poi"],
+                object_types: ["event", "page", "place"],
                 archived: false,
                 is_link_suggestion: true,
             }),
@@ -38,7 +38,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
     const updateLink = (editor, anchorElm, text, linkAttrs) => {
         if (text !== null) {
-            /* eslint-disable-next-line no-param-reassign */
             anchorElm.textContent = text;
         }
 

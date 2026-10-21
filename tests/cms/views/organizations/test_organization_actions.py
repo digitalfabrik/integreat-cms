@@ -69,11 +69,11 @@ def test_archive_organization(
             assert Organization.objects.filter(id=organization_id).first().archived
         else:
             assert_message_in_log(
-                "ERROR    Organization couldn't be archived as it's used by a page, poi or user",
+                "ERROR    Organization couldn't be archived as it's used by a page, place or user",
                 caplog,
             )
             assert (
-                "Organization couldn&#x27;t be archived as it&#x27;s used by a page, poi or user"
+                "Organization couldn&#x27;t be archived as it&#x27;s used by a page, place or user"
                 in client.get(redirect_url).content.decode("utf-8")
             )
             assert not Organization.objects.filter(id=organization_id).first().archived
@@ -138,11 +138,11 @@ def test_delete_organization(
             assert not Organization.objects.filter(id=organization_id).first()
         else:
             assert_message_in_log(
-                "ERROR    Organization couldn't be deleted as it's used by a page, poi or user",
+                "ERROR    Organization couldn't be deleted as it's used by a page, place or user",
                 caplog,
             )
             assert (
-                "Organization couldn&#x27;t be deleted as it&#x27;s used by a page, poi or user"
+                "Organization couldn&#x27;t be deleted as it&#x27;s used by a page, place or user"
                 in client.get(redirect_url).content.decode("utf-8")
             )
             assert Organization.objects.filter(id=organization_id).first()
@@ -250,11 +250,11 @@ def test_bulk_archive_organizations(
         redirect_page = client.get(redirect_url).content.decode("utf-8")
 
         assert_message_in_log(
-            "ERROR    Organization \"Nicht archivierte Organisation\" couldn't be archived as it's used by a page, poi or user.",
+            "ERROR    Organization \"Nicht archivierte Organisation\" couldn't be archived as it's used by a page, place or user.",
             caplog,
         )
         assert (
-            "Organization &quot;Nicht archivierte Organisation&quot; couldn&#x27;t be archived as it&#x27;s used by a page, poi or user."
+            "Organization &quot;Nicht archivierte Organisation&quot; couldn&#x27;t be archived as it&#x27;s used by a page, place or user."
             in redirect_page
         )
         assert (
@@ -320,11 +320,11 @@ def test_bulk_delete_organizations(
         redirect_page = client.get(redirect_url).content.decode("utf-8")
 
         assert_message_in_log(
-            "ERROR    Organization \"Nicht archivierte Organisation\" couldn't be deleted as it's used by a page, poi or user.",
+            "ERROR    Organization \"Nicht archivierte Organisation\" couldn't be deleted as it's used by a page, place or user.",
             caplog,
         )
         assert (
-            "Organization &quot;Nicht archivierte Organisation&quot; couldn&#x27;t be deleted as it&#x27;s used by a page, poi or user."
+            "Organization &quot;Nicht archivierte Organisation&quot; couldn&#x27;t be deleted as it&#x27;s used by a page, place or user."
             in redirect_page
         )
         assert Organization.objects.filter(id=REFERENCED_ORGANIZATION_ID).exists()

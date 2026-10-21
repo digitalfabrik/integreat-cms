@@ -48,7 +48,6 @@ window.addEventListener("load", () => {
     // Set listener for select-all toggle.
     document.getElementById("select-all-languages")?.addEventListener("change", (toggle) => {
         document.querySelectorAll(".bulk-select-language").forEach((el) => {
-            /* eslint-disable-next-line no-param-reassign */
             (el as HTMLInputElement).checked = (toggle.target as HTMLInputElement).checked;
             toggleXliffBulkActionButton();
         });

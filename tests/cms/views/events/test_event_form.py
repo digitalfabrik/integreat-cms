@@ -30,24 +30,24 @@ from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, WRITE_ROLES
 from tests.utils import assert_message_in_log
 
 REGION_SLUG = "augsburg"
-POI_ID = 4  # Use a POI which belongs to the region with REGION_SLUG
+PLACE_ID = 4  # Use a Place which belongs to the region with REGION_SLUG
 EVENT_TITLE = (
     "New Event"  # Choose a name that does not exist yet as event title in the test data
 )
 
 
 # Possible combinations
-# (<ID of selected POI>, <Whether "no physical location" is checked>, <whether successful or not> )
-location_test_parameters = [
+# (<ID of selected Place>, <Whether "no physical place" is checked>, <whether successful or not> )
+place_test_parameters = [
     (-1, False, False),
     (None, True, True),
-    (POI_ID, False, True),
+    (PLACE_ID, False, True),
 ]
 
 
 def create_event(region_slug: str, name_add: str = "") -> int:
     """
-    A helper function to create a new POI that is unused (and therefore deletable)
+    A helper function to create a new Place that is unused (and therefore deletable)
 
     Returns the new events ID
     """
@@ -76,7 +76,7 @@ def create_event(region_slug: str, name_add: str = "") -> int:
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("parameter", location_test_parameters)
+@pytest.mark.parametrize("parameter", place_test_parameters)
 def test_create_event_location_check(
     load_test_data: None,
     login_role_user: tuple[Client, str],
@@ -85,10 +85,10 @@ def test_create_event_location_check(
     parameter: tuple[int, bool, bool],
 ) -> None:
     """
-    Test that event creation is working as expected (focus on location check)
+    Test that event creation is working as expected (focus on place check)
     """
     client, role = login_role_user
-    poi_id, has_not_location, successfully_created = parameter
+    place_id, has_not_place, successfully_created = parameter
     settings.LANGUAGE_CODE = "en"
 
     new_event = reverse(
@@ -106,12 +106,12 @@ def test_create_event_location_check(
         "is_all_day": True,
         "status": status.PUBLIC,
     }
-    if has_not_location:
+    if has_not_place:
         data = copy.deepcopy(data)
-        data.update({"has_not_location": True})
-    if poi_id:
+        data.update({"has_not_place": True})
+    if place_id:
         data = copy.deepcopy(data)
-        data.update({"location": poi_id})
+        data.update({"place": place_id})
     response = client.post(
         new_event,
         data=data,
@@ -137,11 +137,11 @@ def test_create_event_location_check(
 
         else:
             assert_message_in_log(
-                "ERROR    Location: Either disable the event location or provide a valid location",
+                "ERROR    Place: Either disable the event place or provide a valid place",
                 caplog,
             )
             assert (
-                "Either disable the event location or provide a valid location"
+                "Either disable the event place or provide a valid place"
                 in response.content.decode("utf-8")
             )
 
@@ -464,7 +464,7 @@ def test_event_start_date_range_validation(
         "is_all_day": True,
         "is_long_term": True,
         "status": status.PUBLIC,
-        "has_not_location": True,
+        "has_not_place": True,
     }
     response = client.post(
         new_event,
@@ -606,7 +606,7 @@ def test_bulk_delete_events(
     num_undeletable: int,
 ) -> None:
     """
-    Test whether bulk deleting of pois works as expected
+    Test whether bulk deleting of places works as expected
     """
     user = get_user_model().objects.get(username=role.lower())
     client.force_login(user)
@@ -670,7 +670,7 @@ def test_case_insensitive_unique_slug(
             "is_all_day": True,
             "is_long_term": True,
             "status": status.PUBLIC,
-            "has_not_location": True,
+            "has_not_place": True,
         },
     )
 

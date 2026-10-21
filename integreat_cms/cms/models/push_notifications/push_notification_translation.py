@@ -169,7 +169,7 @@ class PushNotificationTranslation(AbstractBaseModel):
 
         :return: The link to the news
         """
-        return f"/{self.push_notification.regions.first().slug}/{self.language.slug}/{self.push_notification.channel}/local/{self.id}"
+        return f"/{self.push_notification.regions.first().slug}/{self.language.slug}/{self.push_notification.channel}/local-{self.id}"
 
     def __str__(self) -> str:
         """

@@ -165,11 +165,9 @@ export const toggleOptionalText = (trigger: HTMLElement, optionalText: HTMLEleme
     trigger.addEventListener("click", () => {
         optionalText.classList.toggle("hidden");
         optionalText.classList.toggle("block");
-        if (optionalText.classList.contains("block")) {
-            trigger.textContent = trigger.dataset.alternativeText; // eslint-disable-line no-param-reassign
-        } else {
-            trigger.textContent = trigger.dataset.defaultText; // eslint-disable-line no-param-reassign
-        }
+        trigger.textContent = optionalText.classList.contains("block")
+            ? trigger.dataset.alternativeText
+            : trigger.dataset.defaultText;
     });
 };
 

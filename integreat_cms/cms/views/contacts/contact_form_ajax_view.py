@@ -32,7 +32,7 @@ class ContactFormAjaxView(TemplateView, ContactContextMixin):
         :param request: The current request
         :param \*args: The supplied arguments
         :param \**kwargs: The supplied keyword arguments
-        :return: The html template of a POI form
+        :return: The html template of a Place form
         """
         contact_form = ContactForm(
             additional_instance_attributes={"region": request.region}
@@ -45,14 +45,14 @@ class ContactFormAjaxView(TemplateView, ContactContextMixin):
             {
                 **self.get_context_data(**kwargs),
                 "contact_form": contact_form,
-                "poi_id": kwargs.get(
-                    "poi_id",
+                "place_id": kwargs.get(
+                    "place_id",
                 ),
             },
         )
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        r"""Add a new POI to the database
+        r"""Add a new Place to the database
 
         :param request: The current request
         :param \*args: The supplied arguments

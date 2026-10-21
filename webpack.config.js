@@ -107,7 +107,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         // maplibre-gl v6 loads its web worker as a separate ES module; ship it (and its
-        // shared chunk) so setWorkerUrl in poi-map.ts can point at a real, JS-served file
+        // shared chunk) so setWorkerUrl in place-map.ts can point at a real, JS-served file
         {
           from: "node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs",
           to: "maplibre-gl-worker.mjs",

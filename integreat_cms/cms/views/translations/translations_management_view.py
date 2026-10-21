@@ -17,7 +17,7 @@ from ...constants.machine_translatable_fields import TRANSLATABLE_FIELDS
 from ...constants.status import CHOICES
 from ...decorators import permission_required
 from ...forms import TranslationsManagementForm
-from ...models import Event, Page, POI
+from ...models import Event, Page, Place
 
 if TYPE_CHECKING:
     from typing import Any
@@ -48,7 +48,7 @@ class TranslationsManagementView(TemplateView):
         """
 
         region = self.request.region
-        content_types = [Event, POI, Page]
+        content_types = [Event, Place, Page]
 
         word_counter: dict[str, Counter] = {}
 

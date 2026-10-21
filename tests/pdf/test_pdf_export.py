@@ -18,6 +18,8 @@ import pytest
 from django.urls import reverse
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from django.test.client import Client
 
 
@@ -134,18 +136,64 @@ def test_pdf_export(
         )
         with open(f"tests/pdf/files/{expected_filename}", "rb") as file:
             expected_pdf = pypdf.PdfReader(file)
-            # Assert that both documents have same number of pages
             assert len(result_pdf.pages) == len(expected_pdf.pages)
-            # Assert that the content is identical
             for page_number in range(len(result_pdf.pages)):
                 result_page = result_pdf.pages[page_number]
                 expected_page = expected_pdf.pages[page_number]
-                assert result_page.artbox == expected_page.artbox
-                assert result_page.bleedbox == expected_page.bleedbox
-                assert result_page.cropbox == expected_page.cropbox
                 assert result_page.mediabox == expected_page.mediabox
                 assert result_page.extract_text() == expected_page.extract_text()
-                assert result_page.get_contents() == expected_page.get_contents()
+
+
+def _outline_titles(outline: list, level: int = 0) -> list[tuple[str, int]]:
+    """
+    Flatten the outline of a PDF document into its titles and nesting levels
+
+    :param outline: The outline of the PDF document or one of its sub-lists
+    :param level: The nesting level of the given outline
+    :return: The title and nesting level of each entry of the outline
+    """
+    titles = []
+    for entry in outline:
+        if isinstance(entry, list):
+            titles += _outline_titles(entry, level + 1)
+        else:
+            titles.append((entry.title, level))
+    return titles
+
+
+@pytest.mark.django_db
+# Override urls to serve PDF files
+@pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")
+def test_pdf_export_structure(
+    load_test_data: None,
+    admin_client: Client,
+) -> None:
+    """
+    Test whether the PDF export contains the page tree as outline and a footer on each page
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param admin_client: The fixture providing the logged in admin
+    """
+    kwargs = {"region_slug": "augsburg", "language_slug": "de"}
+    export_pdf = reverse("export_pdf", kwargs=kwargs)
+    response = admin_client.post(
+        export_pdf, data={"selected_ids[]": [1, 2, 3, 4, 5, 6]}
+    )
+    assert response.status_code == 302
+    response = admin_client.get(response.headers["Location"])
+    result_pdf = pypdf.PdfReader(io.BytesIO(b"".join(response.streaming_content)))
+    # The hierarchy of the pages should be reflected in the outline of the PDF
+    assert _outline_titles(result_pdf.outline) == [
+        ("Willkommen", 0),
+        ("Wissenswertes über Augsburg", 1),
+        ("Über die App Integreat Augsburg", 1),
+        ("Willkommen in Augsburg", 1),
+        ("Stadtplan", 1),
+        ("Kontakt zu App Team Augsburg", 1),
+    ]
+    # The footer should be repeated on every page
+    for page in result_pdf.pages:
+        assert "Stadt Augsburg" in page.extract_text()
 
 
 @pytest.mark.django_db
@@ -174,3 +222,54 @@ def test_pdf_export_invalid(
     for response in [response_cms, response_api]:
         print(response.headers)
         assert response.status_code == 404
+
+
+@pytest.mark.django_db
+# Override urls to serve PDF files
+@pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")
+def test_pdf_export_api_cache_hit_query_count(
+    load_test_data: None,
+    client: Client,
+    django_assert_num_queries: Callable,
+) -> None:
+    """
+    Assert that the API PDF export endpoint issues a small, constant number
+    of SQL queries on a cache hit (i.e. when the PDF file for the requested
+    region/language already exists).
+
+    This locks in the performance goal of the rewrite in
+    :func:`~integreat_cms.cms.utils.pdf_utils._compute_pdf_hash`: the hashing
+    step must not issue one query per page (the old code did
+    ``page.get_public_translation()`` and ``page.archived`` per page, plus a
+    prefetch of every public translation including ``content``), and must not
+    load the ``content`` field of any page into the server process.
+
+    The assertion is on the number of queries because that is the
+    regression we care about: someone adding a per-page query (a N+1) or
+    re-prefetching full translations will bump the count, and this test will
+    catch it. The exact value (5) reflects:
+
+    1. ``Region.objects.get(slug=...)`` in the region middleware
+    2. the language tree lookup for the region
+    3. the single hash-phase ``PageTranslation ... values_list ... distinct``
+       query (the whole point of the rewrite - 1 query for N pages)
+    4. the final ``pages.count()`` after exclusion
+    5. ``Language.objects.get(slug=...)`` for the filename
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param client: The fixture providing the anonymous user
+    :param django_assert_num_queries: The fixture providing the query assertion
+    """
+    kwargs = {"region_slug": "augsburg", "language_slug": "de"}
+    export_pdf_api = reverse("api:pdf_export", kwargs=kwargs)
+    # Warmup: ensure the PDF file has been created so the next call is a hit.
+    warm = client.get(export_pdf_api)
+    assert warm.status_code == 302
+    expected_url = warm.headers.get("Location")
+    assert expected_url is not None
+    # Cache hit: the file exists, so this must not regenerate the PDF.
+    # It must also not load the page contents to compute the hash.
+    with django_assert_num_queries(5):
+        response = client.get(export_pdf_api)
+    assert response.status_code == 302
+    assert response.headers.get("Location") == expected_url

@@ -20,7 +20,7 @@ def get_content_translations(
     """
     Load the translations for the given content model from the database
 
-    :param content_model: Name of the requested data model (Page, Event or POI)
+    :param content_model: Name of the requested data model (Page, Event or Place)
     :param ids: List of ids of the requested model entries
     :param language_slugs: List of the requested language slugs
     :return: Content translations

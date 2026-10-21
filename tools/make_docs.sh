@@ -79,7 +79,7 @@ find "${APIDOC_EXT_SRC_DIR}" -type f -name "*.rst" -print0 | xargs -0 --no-run-i
     -e 's/\( module\| package\)//' `# Remove module & package strings at the end of headings` \
     -e '/^[^ ]\+$/s/\(.*\.\)\?\([^\.]\+\)/\u\2/' `# Remove module path in headings (separated by dots) and make first letter uppercase` \
     -e '/^[^ ]\+$/s/\\_\([a-z]\)/ \u\1/g' `# Replace \_ with spaces in headings and make following letter uppercase` \
-    -e 's/Cms/CMS/g;s/Api/API/g;s/Poi/POI/g;s/Mfa/MFA/g;s/Pdf/PDF/g;s/Xliff1/XLIFF 1.2/g;s/Xliff2/XLIFF 2.0/g;s/Xliff/XLIFF/g' # Make specific keywords uppercase
+    -e 's/Cms/CMS/g;s/Api/API/g;s/Mfa/MFA/g;s/Pdf/PDF/g;s/Xliff1/XLIFF 1.2/g;s/Xliff2/XLIFF 2.0/g;s/Xliff/XLIFF/g' # Make specific keywords uppercase
 
 # Include _urls in sitemap automodule
 # shellcheck disable=SC2251

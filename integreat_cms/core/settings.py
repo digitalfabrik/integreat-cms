@@ -866,7 +866,7 @@ LOGGING: dict[str, Any] = {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
-        "xhtml2pdf": {
+        "weasyprint": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
@@ -1404,13 +1404,6 @@ INTEGREAT_CHAT_BACK_END_TIMEOUT: Final[int] = env_int(
 INTEGREAT_CHAT_CMS_USER_MAIL = os.environ.get(
     "INTEGREAT_CMS_INTEGREAT_CHAT_CMS_USER_MAIL",
     "tech+integreat-cms@tuerantuer.org",
-)
-
-#: Whether a single Zammad instance is shared by multiple regions. If enabled,
-#: the ``device_id`` attribute is set on Zammad tickets so that incoming webhooks
-#: can be mapped to the correct chat regardless of the region.
-MULTI_REGION_ZAMMAD: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_MULTI_REGION_ZAMMAD", "False")),
 )
 
 ##########
