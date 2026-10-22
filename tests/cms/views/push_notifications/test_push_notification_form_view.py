@@ -244,6 +244,7 @@ def test_invalid_post_preserves_edit_button_visibility(
     client, _role = login_role_user
     push_notification = PushNotification.objects.get(id=8)
     # User "management (Region Manager)" has only access to Region Augsburg (id=1)
+    # User "management (Region Manager)" has only access to Region Augsburg (id=1)
     push_notification.regions.set([1, 8] if restricted_regions else [1])
     edit_push_notification = reverse(
         "edit_push_notification",
