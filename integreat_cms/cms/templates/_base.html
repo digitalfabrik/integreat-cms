@@ -186,6 +186,7 @@
                         </a>
                     </div>
                 {% endif %}
+                {% comment %} PROTOTYPE: old "Places" and "Contacts" items hidden, replaced by "Kontakte & Orte"
                 {% if perms.cms.view_place %}
                     <div class="{% if current_menu_item|in_list:'places,places_form' %} active {% endif %}">
                         <a href="{% url 'places' region_slug=request.region.slug %}">
@@ -202,6 +203,13 @@
                         </a>
                     </div>
                 {% endif %}
+                {% endcomment %}
+                <div class="{% if current_menu_item == 'contacts_locations' %} active {% endif %}">
+                    <a href="{% url 'contacts_locations' region_slug=request.region.slug %}">
+                        <i icon-name="map-pin"></i>
+                        Orte & Kontakte
+                    </a>
+                </div>
                 {% if FCM_ENABLED and request.region.push_notifications_enabled and perms.cms.view_pushnotification %}
                     <div class="{% if current_menu_item|in_list:'push_notifications,push_notifications_form' %} active {% endif %}">
                         <a href="{% url 'push_notifications' region_slug=request.region.slug %}">

@@ -1,0 +1,58 @@
+{% extends "_base.html" %}
+{% block content %}
+    <div class="table-header">
+        <h1 class="heading">Orte & Kontakte</h1>
+    </div>
+    {% with active_tab=request.GET.tab|default:"orte" %}
+        <nav class="w-max max-w-full overflow-hidden border-b-2 border-gray-700"
+             aria-label="Kontakte & Orte">
+            <ul class="flex items-center gap-2 w-max -mb-0.5">
+                <li>
+                    <a href="?tab=orte"
+                       class="block px-4 py-3 rounded-t-[14px] font-bold leading-snug whitespace-nowrap {% if active_tab == 'orte' %}bg-gray-700 text-white border-2 border-gray-700{% else %}bg-white text-blue-500 border-2 border-gray-200 hover:text-blue-700{% endif %}"
+                       {% if active_tab == 'orte' %}aria-current="page"{% endif %}>Orte</a>
+                </li>
+                <li>
+                    <a href="?tab=kontakte"
+                       class="block px-4 py-3 rounded-t-[14px] font-bold leading-snug whitespace-nowrap {% if active_tab == 'kontakte' %}bg-gray-700 text-white border-2 border-gray-700{% else %}bg-white text-blue-500 border-2 border-gray-200 hover:text-blue-700{% endif %}"
+                       {% if active_tab == 'kontakte' %}aria-current="page"{% endif %}>Kontakte</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="w-full mt-6 min-h-[300px] overflow-hidden bg-white rounded-[20px] shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+            {% if active_tab == "orte" %}
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full min-w-[980px] table-fixed text-left text-black">
+                        <colgroup>
+                            <col class="w-10">
+                            <col class="w-[32%]">
+                            <col class="w-[18%]">
+                            <col class="w-[22%]">
+                            <col class="w-[14%]">
+                            <col class="w-[14%]">
+                        </colgroup>
+                        <thead class="h-[50px] bg-gray-100 text-sm font-semibold">
+                            <tr>
+                                <th class="pl-4">
+                                    <input type="checkbox"
+                                           aria-label="Alle Orte auswählen"
+                                           class="size-4 rounded border-gray-500">
+                                </th>
+                                <th>Ort-Titel</th>
+                                <th>verknüpfte Kontaktpersonen</th>
+                                <th>Adresse</th>
+                                <th>Status</th>
+                                <th class="pr-4 text-right">Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for place in fake_places %}
+                                {% include "contacts_locations/_place_row.html" %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+    {% endwith %}
+{% endblock content %}

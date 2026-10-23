@@ -9,6 +9,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django.urls import include, path
+from django.views.generic import TemplateView
 
 from ..forms import (
     EventTranslationForm,
@@ -1479,6 +1480,30 @@ urlpatterns: list[URLPattern] = [
                             ),
                         ],
                     ),
+                ),
+                # PROTOTYPE: new combined "Kontakte & Orte" page
+                path(
+                    "contacts-locations/",
+                    TemplateView.as_view(
+                        template_name="contacts_locations/contacts_locations.html",
+                        extra_context={
+                            "current_menu_item": "contacts_locations",
+                            # Fake data for the user test
+                            "fake_places": [
+                                {"title": "#dreizehn", "categories": ["Treffpunkt", "Kultur"], "contacts": 3, "street": "Von-Parseval-Straße 20a", "city": "86159 Augsburg", "published": True},
+                                {"title": "Abendrealschule für Berufstätige", "categories": ["Bildung"], "contacts": 8, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
+                                {"title": "Agentur für Arbeit Augsburg", "categories": ["Behörde/Amt"], "contacts": 12, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "Altes Stadtbad", "categories": ["Freizeit"], "contacts": 0, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
+                                {"title": "Konzerthalle", "categories": ["Gesundheit"], "contacts": 1, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "Amt für Kinder, Jugend und Familie", "categories": ["Behörde/Amt"], "contacts": 12, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": 5, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "Amt für Soziale Leistungen, Senioren und Menschen mit Behinderung", "categories": ["Behörde/Amt", "Sonstiges"], "contacts": 3, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "Arbeiter-Samariter-Bund", "categories": ["Einrichtung"], "contacts": 0, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
+                                {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": 1, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                            ],
+                        },
+                    ),
+                    name="contacts_locations",
                 ),
                 path(
                     "contact/",
