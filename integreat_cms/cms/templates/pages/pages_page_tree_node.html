@@ -103,123 +103,184 @@
             {{ page_translation.last_updated|date:"SHORT_DATE_FORMAT" }}
         </div>
     </td>
+    {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
     <td class="pl-2 pr-4 py-1.5 text-right flex flex-nowrap gap-2">
-        {% if page_translation.content or page.mirrored_page %}
-            <button type="button"
-                    data-preview-page="{% url 'preview_page_ajax' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-                    title="{% translate "View page as preview" %}"
-                    class="btn-icon">
-                <i icon-name="eye"></i>
-            </button>
-        {% else %}
-            <button type="button"
-                    title="{% translate "You cannot preview an empty page." %}"
-                    class="btn-icon"
-                    disabled>
-                <i icon-name="eye"></i>
-            </button>
-        {% endif %}
         {% if not is_archive %}
-            {% if page_translation.status == PUBLIC %}
-                <a href="{{ WEBAPP_URL }}{{ page_translation.get_absolute_url }}"
-                   rel="noopener noreferrer"
-                   target="_blank"
-                   title="{% translate "Open page in web app" %}"
-                   class="btn-icon">
-                    <i icon-name="external-link"></i>
-                </a>
-            {% else %}
-                <button title="{% translate "This page cannot be opened in the web app, because it is not public." %}"
-                        class="btn-icon"
-                        disabled>
-                    <i icon-name="external-link"></i>
-                </button>
-            {% endif %}
             <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
                title="{% translate "Edit page" %}"
-               class="btn-icon">
+               class="flex h-[38px] items-center gap-2 rounded bg-blue-100 px-3 py-2 font-bold text-gray-700 hover:bg-blue-200">
                 <i icon-name="pencil"></i>
+                {% translate "Edit" %}
             </a>
         {% endif %}
-        {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
-        {% if not is_archive and can_publish_page %}
-            {% if page.mirroring_pages.exists %}
-                <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
-                        class="btn-icon"
-                        disabled>
-                    <i icon-name="archive"></i>
+        {% if not is_archive or can_publish_page or perms.cms.delete_page %}
+            <div data-row-actions class="relative">
+                <button type="button"
+                        data-row-actions-toggle
+                        title="{% translate "More actions" %}"
+                        aria-label="{% translate "More actions" %}"
+                        aria-haspopup="menu"
+                        aria-expanded="false"
+                        class="flex h-[38px] w-[44px] items-center justify-center rounded border-2 border-blue-200 bg-white text-gray-700 hover:border-blue-300">
+                    <i icon-name="ellipsis"></i>
                 </button>
-            {% else %}
-                <button title="{% translate "Archive page" %}"
-                        class="confirmation-button btn-icon"
-                        data-confirmation-title="{{ archive_dialog_title }}"
-                        data-confirmation-text="{{ archive_dialog_text }}"
-                        data-confirmation-subject="{{ page.best_translation.title }}"
-                        data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                    <i icon-name="archive"></i>
-                </button>
-            {% endif %}
-        {% endif %}
-        {% if is_archive and can_publish_page %}
-            {% if page.explicitly_archived %}
-                <button title="{% translate "Restore page" %}"
-                        class="confirmation-button btn-icon"
-                        data-confirmation-title="{{ restore_dialog_title }}"
-                        data-confirmation-text="{{ restore_dialog_text }}"
-                        data-confirmation-subject="{{ page.best_translation.title }}"
-                        data-action="{% url 'restore_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                    <i icon-name="refresh-ccw"></i>
-                </button>
-            {% else %}
-                <a title="{% translate "To restore this page, you have to restore its archived parent page." %}"
-                   class="btn-icon"
-                   disabled>
-                    <i icon-name="refresh-ccw"></i>
-                </a>
-            {% endif %}
-        {% endif %}
-        {% if perms.cms.delete_page %}
-            {# djlint:off H023 #}
-            {% if not page.is_leaf %}
-                <button title="{% translate "You cannot delete a page which has subpages." %}&#013;{% translate "This also involves archived subpages." %}"
-                        class="btn-icon"
-                        disabled>
-                    <i icon-name="trash-2"></i>
-                </button>
-            {% elif page.mirroring_pages.exists %}
-                <button title="{% translate "This page cannot be deleted because it was embedded as live content from another page." %}"
-                        class="btn-icon"
-                        disabled>
-                    <i icon-name="trash-2"></i>
-                </button>
-            {% else %}
-                <button title="{% translate "Delete page" %}"
-                        class="confirmation-button btn-icon"
-                        data-confirmation-title="{{ delete_dialog_title }}"
-                        data-confirmation-text="{{ delete_dialog_text }}"
-                        data-confirmation-subject="{{ page.best_translation.title }}"
-                        data-action="{% url 'delete_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                    <i icon-name="trash-2"></i>
-                </button>
-            {% endif %}
-            {# djlint:on #}
-        {% endif %}
-        {% if not is_archive and request.region.short_urls_enabled %}
-            {% if page_translation %}
-                <a href="#"
-                   data-copy-to-clipboard="{{ page_translation.short_url }}"
-                   title="{% translate "Copy short link" %}"
-                   class="btn-icon">
-                    <i icon-name="copy"></i>
-                    <i icon-name="check" class="hidden text-green-500"></i>
-                </a>
-            {% else %}
-                <button title="{% translate "You cannot copy a short link of a page which has no translation." %}"
-                        class="btn-icon"
-                        disabled>
-                    <i icon-name="copy"></i>
-                </button>
-            {% endif %}
+                <div data-row-actions-menu
+                     role="menu"
+                     class="hidden fixed z-10 flex-col gap-4 w-max min-w-[228px] rounded border-2 border-blue-200 bg-white p-4 text-left shadow-[2px_6px_10px_rgba(51,65,85,0.5)]">
+                    {% if not is_archive %}
+                        <div class="flex flex-col gap-4">
+                            {% if page_translation.status == PUBLIC %}
+                                <a href="{{ WEBAPP_URL }}{{ page_translation.get_absolute_url }}"
+                                   rel="noopener noreferrer"
+                                   target="_blank"
+                                   role="menuitem"
+                                   class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 hover:text-blue-500">
+                                    <i icon-name="external-link"></i>
+                                    {% translate "Open page in web app" %}
+                                </a>
+                            {% else %}
+                                <button type="button"
+                                        title="{% translate "This page cannot be opened in the web app, because it is not public." %}"
+                                        role="menuitem"
+                                        class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 cursor-not-allowed opacity-30"
+                                        disabled>
+                                    <i icon-name="external-link"></i>
+                                    {% translate "Open page in web app" %}
+                                </button>
+                            {% endif %}
+                            {# Dummy entry: no functionality yet #}
+                            <button type="button"
+                                    role="menuitem"
+                                    class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 hover:text-blue-500">
+                                <i icon-name="circle-check"></i>
+                                {% translate "Mark as current" %}
+                            </button>
+                        </div>
+                        <div class="flex flex-col gap-4 border-t border-gray-200 pt-4">
+                            {# Dummy entries: no functionality yet #}
+                            <button type="button"
+                                    role="menuitem"
+                                    class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 cursor-not-allowed opacity-30"
+                                    disabled>
+                                <i icon-name="arrow-up"></i>
+                                {% translate "Move up" %}
+                            </button>
+                            <button type="button"
+                                    role="menuitem"
+                                    class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 cursor-not-allowed opacity-30"
+                                    disabled>
+                                <i icon-name="arrow-down"></i>
+                                {% translate "Move down" %}
+                            </button>
+                        </div>
+                    {% endif %}
+                    {% if can_publish_page or perms.cms.delete_page or not is_archive and request.region.short_urls_enabled %}
+                        <div class="flex flex-col gap-4 {% if not is_archive %}border-t border-gray-200 pt-4{% endif %}">
+                            {% if not is_archive and request.region.short_urls_enabled %}
+                                {% if page_translation %}
+                                    <button type="button"
+                                            data-copy-to-clipboard="{{ page_translation.short_url }}"
+                                            role="menuitem"
+                                            class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 hover:text-blue-500">
+                                        <i icon-name="copy"></i>
+                                        <i icon-name="check" class="hidden text-green-500"></i>
+                                        {% translate "Copy short link" %}
+                                    </button>
+                                {% else %}
+                                    <button type="button"
+                                            title="{% translate "You cannot copy a short link of a page which has no translation." %}"
+                                            role="menuitem"
+                                            class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 cursor-not-allowed opacity-30"
+                                            disabled>
+                                        <i icon-name="copy"></i>
+                                        {% translate "Copy short link" %}
+                                    </button>
+                                {% endif %}
+                            {% endif %}
+                            {% if not is_archive and can_publish_page %}
+                                {% if page.mirroring_pages.exists %}
+                                    <button type="button"
+                                            title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
+                                            role="menuitem"
+                                            class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 cursor-not-allowed opacity-30"
+                                            disabled>
+                                        <i icon-name="archive"></i>
+                                        {% translate "Archive page" %}
+                                    </button>
+                                {% else %}
+                                    <button type="button"
+                                            role="menuitem"
+                                            class="confirmation-button flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 hover:text-blue-500"
+                                            data-confirmation-title="{{ archive_dialog_title }}"
+                                            data-confirmation-text="{{ archive_dialog_text }}"
+                                            data-confirmation-subject="{{ page.best_translation.title }}"
+                                            data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                                        <i icon-name="archive"></i>
+                                        {% translate "Archive page" %}
+                                    </button>
+                                {% endif %}
+                            {% endif %}
+                            {% if is_archive and can_publish_page %}
+                                {% if page.explicitly_archived %}
+                                    <button type="button"
+                                            role="menuitem"
+                                            class="confirmation-button flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 hover:text-blue-500"
+                                            data-confirmation-title="{{ restore_dialog_title }}"
+                                            data-confirmation-text="{{ restore_dialog_text }}"
+                                            data-confirmation-subject="{{ page.best_translation.title }}"
+                                            data-action="{% url 'restore_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                                        <i icon-name="refresh-ccw"></i>
+                                        {% translate "Restore page" %}
+                                    </button>
+                                {% else %}
+                                    <button type="button"
+                                            title="{% translate "To restore this page, you have to restore its archived parent page." %}"
+                                            role="menuitem"
+                                            class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 cursor-not-allowed opacity-30"
+                                            disabled>
+                                        <i icon-name="refresh-ccw"></i>
+                                        {% translate "Restore page" %}
+                                    </button>
+                                {% endif %}
+                            {% endif %}
+                            {% if perms.cms.delete_page %}
+                                {# djlint:off H023 #}
+                                {% if not page.is_leaf %}
+                                    <button type="button"
+                                            title="{% translate "You cannot delete a page which has subpages." %}&#013;{% translate "This also involves archived subpages." %}"
+                                            role="menuitem"
+                                            class="flex items-center gap-2 whitespace-nowrap font-bold text-red-500 cursor-not-allowed opacity-30"
+                                            disabled>
+                                        <i icon-name="trash-2"></i>
+                                        {% translate "Delete page" %}
+                                    </button>
+                                {% elif page.mirroring_pages.exists %}
+                                    <button type="button"
+                                            title="{% translate "This page cannot be deleted because it was embedded as live content from another page." %}"
+                                            role="menuitem"
+                                            class="flex items-center gap-2 whitespace-nowrap font-bold text-red-500 cursor-not-allowed opacity-30"
+                                            disabled>
+                                        <i icon-name="trash-2"></i>
+                                        {% translate "Delete page" %}
+                                    </button>
+                                {% else %}
+                                    <button type="button"
+                                            role="menuitem"
+                                            class="confirmation-button flex items-center gap-2 whitespace-nowrap font-bold text-red-500 hover:text-red-700"
+                                            data-confirmation-title="{{ delete_dialog_title }}"
+                                            data-confirmation-text="{{ delete_dialog_text }}"
+                                            data-confirmation-subject="{{ page.best_translation.title }}"
+                                            data-action="{% url 'delete_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                                        <i icon-name="trash-2"></i>
+                                        {% translate "Delete page" %}
+                                    </button>
+                                {% endif %}
+                                {# djlint:on #}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
         {% endif %}
     </td>
 </tr>

@@ -70,6 +70,7 @@ import "./js/pages/xliff-file-upload";
 import "./js/pages/xliff-import";
 import "./js/pages/xliff-export-overlay";
 import "./js/pages/page-preview";
+import "./js/pages/page-row-actions";
 
 import "./js/mfa/add-key";
 import "./js/mfa/login";
