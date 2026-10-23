@@ -283,6 +283,7 @@ class PushNotificationFormView(TemplateView):
                 "languages": region.active_languages
                 if push_notification_instance
                 else [language],
+                "not_accessible_regions_warning": details["disable_edit"],
             },
         )
 
