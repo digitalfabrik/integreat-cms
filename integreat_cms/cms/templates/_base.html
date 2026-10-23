@@ -14,12 +14,12 @@
             {% translate "Changes you make are only visible in development versions of the app (such as webnext)." %}
         </div>
     {% endif %}
-    <header class="fixed h-14 lg:pl-56 {% if TEST %}top-6{% endif %} inset-x-0 flex flex-nowrap justify-end z-50 bg-gray-300 whitespace-nowrap">
+    <header class="fixed h-14 lg:pl-56 {% if TEST %}top-6{% endif %} inset-x-0 flex flex-nowrap justify-end z-50 bg-gray-700 whitespace-nowrap">
         {% if debug and request.user.is_staff %}
             <a href="{% url 'admin:index' %}"
                target="_blank"
                rel="noopener noreferrer"
-               class="hidden lg:block relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
+               class="hidden lg:block relative px-2 pt-4 text-gray-200 hover:bg-gray-600 border-r border-gray-400">
                 <i icon-name="sliders"></i>
                 {% translate "Django Admin" %}
             </a>
@@ -27,7 +27,7 @@
         <a href="{% url 'public:wiki_redirect' %}"
            target="_blank"
            rel="noopener noreferrer"
-           class="hidden lg:block relative px-2 pt-4 text-gray-900 hover:bg-gray-200 border-r border-gray-400">
+           class="hidden lg:block relative px-2 pt-4 text-gray-200 hover:bg-gray-600 border-r border-gray-400">
             <img class="inline-block"
                  alt="logo"
                  fill="none"
@@ -37,7 +37,7 @@
             {% translate "Documentation (Wiki)" %}
         </a>
         <div id="region-selector"
-             class="relative p-4 cursor-pointer text-gray-800 hover:bg-gray-200 border-r border-gray-400">
+             class="relative p-4 cursor-pointer text-gray-200 hover:bg-gray-600 border-r border-gray-400">
             <div class="truncate">
                 {% if request.region %}
                     {% if request.quick_access_regions or user.is_superuser or user.is_staff %}
@@ -47,7 +47,8 @@
                             <i icon-name="chevron-down"></i>
                         </span>
                     {% else %}
-                        <a href="{% url 'dashboard' region_slug=request.region.slug %}">
+                        <a href="{% url 'dashboard' region_slug=request.region.slug %}"
+                           class="text-gray-200">
                             <i icon-name="home"></i>
                             {{ request.region.full_name }}
                         </a>
@@ -81,7 +82,7 @@
             </div>
         </div>
         <div id="user-info"
-             class="relative p-4 text-gray-800 cursor-pointer hover:bg-gray-200">
+             class="relative p-4 text-gray-200 cursor-pointer hover:bg-gray-600">
             <i icon-name="user"></i>
             <span class="hidden lg:inline">
                 {{ request.user.full_user_name }}
