@@ -1256,7 +1256,7 @@ INTERNAL_URLS: Final[list[str]] = (
 WEBPACK_LOADER: Final[dict[str, dict[str, str]]] = {
     "DEFAULT": {
         "BUNDLE_DIR_NAME": "",
-        "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
+        "STATS_FILE": os.path.join(BASE_DIR, "static", "shared", "webpack-stats.json"),
     },
 }
 
