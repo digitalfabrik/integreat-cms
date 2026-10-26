@@ -30,6 +30,7 @@ from typing import TYPE_CHECKING
 from celery import Celery
 from celery.schedules import crontab
 from celery.signals import setup_logging
+from django.conf import settings
 from django.core.management import call_command
 
 if TYPE_CHECKING:
@@ -59,6 +60,9 @@ app.autodiscover_tasks()
 app.conf.task_routes = {
     "integreat_cms.cms.views.statistics.statistics_actions": {"queue": "statistics"},
     "integreat_cms.api.v3.chat.utils.chat_bot.*": {"queue": "chat"},
+    "integreat_cms.integreat_celery.celery.wrapper_update_region_conditions": {
+        "queue": "statistics",
+    },
 }
 
 
@@ -92,6 +96,17 @@ def wrapper_import_external_news() -> None:
     call_command("import_external_news")
 
 
+@app.task(soft_time_limit=settings.CELERY_TASK_TIME_LIMIT - 5 * 60)
+def wrapper_update_region_conditions() -> None:
+    """
+    Periodic task to precompute the condition of all active and hidden regions
+    """
+    call_command(
+        "update_region_conditions",
+        time_budget=settings.CELERY_TASK_TIME_LIMIT - 20 * 60,
+    )
+
+
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender: Any, **kwargs: Any) -> None:
     """
@@ -113,4 +128,11 @@ def setup_periodic_tasks(sender: Any, **kwargs: Any) -> None:
         crontab(hour=0, minute=40),
         wrapper_import_external_news.s(),
         name="wrapper_import_external_news",
+    )
+
+    # UTC, after the other nightly tasks
+    sender.add_periodic_task(
+        crontab(hour=2, minute=30),
+        wrapper_update_region_conditions.s(),
+        name="wrapper_update_region_conditions",
     )
