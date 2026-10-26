@@ -18,8 +18,10 @@ class RegionCondition(AbstractBaseModel):
 
     Computing these metrics is too slow to do on request. They are computed every night (see
     :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`) and stored
-    here, one row per region, overwritten by each successful run. ``computed_at`` tells how old the
-    values are: a region whose computation failed keeps the values of its last successful run.
+    here, at most one row per active or hidden region, overwritten whenever the computation of
+    that region succeeds. Rows of regions which are no longer active or hidden are removed.
+    ``computed_at`` tells how old the values are: a region whose computation failed or was not
+    reached keeps the values of its last successful run.
     """
 
     #: The names of the metric fields. Each one must also match a ``dehydrate_<name>`` method of
@@ -44,9 +46,10 @@ class RegionCondition(AbstractBaseModel):
     num_broken_links = models.PositiveIntegerField(
         verbose_name=_("number of broken links"),
     )
-    #: Counts page translations, not pages, like the column of the region condition export
+    #: Counts page translations, not pages; the name matches the column of the region condition
+    #: export
     num_low_hix_pages = models.PositiveIntegerField(
-        verbose_name=_("number of low hix pages"),
+        verbose_name=_("number of page translations with low HIX value"),
     )
     num_pages = models.PositiveIntegerField(verbose_name=_("number of pages"))
     num_pages_with_missing_or_outdated_translation = models.PositiveIntegerField(

@@ -10,11 +10,15 @@ The export and the region condition view are unchanged and still compute live.
 from __future__ import annotations
 
 import logging
+import time
 from contextlib import contextmanager
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
+import cacheops.conf
 from celery.exceptions import SoftTimeLimitExceeded
-from django.db.models import F, Q
+from django.db import InterfaceError, OperationalError
+from django.db.models import F
 from django.test import override_settings
 from django.utils import timezone
 
@@ -26,6 +30,23 @@ if TYPE_CHECKING:
     from collections.abc import Iterator
 
 logger = logging.getLogger(__name__)
+
+#: The statuses of the regions whose condition is computed and served
+COMPUTED_STATUSES = [region_status.ACTIVE, region_status.HIDDEN]
+
+
+@dataclass
+class UpdateResult:
+    """
+    The outcome of a run of :func:`update_region_conditions`
+    """
+
+    #: The number of regions whose condition was stored
+    updated: int = 0
+    #: The slugs of the regions whose computation failed
+    failed: list[str] = field(default_factory=list)
+    #: The slugs of the regions which were not reached before the time budget ran out
+    not_reached: list[str] = field(default_factory=list)
 
 
 @contextmanager
@@ -44,8 +65,15 @@ def cacheops_disabled() -> Iterator[None]:
 
     :return: A context in which queries bypass the cache
     """
-    with override_settings(CACHEOPS_ENABLED=False):
-        yield
+    try:
+        with override_settings(CACHEOPS_ENABLED=False):
+            yield
+    finally:
+        # cacheops memoizes the setting and only forgets it on ``setting_changed``. If an
+        # asynchronous exception (e.g. Celery's soft time limit) interrupted the restore before
+        # that signal, cacheops would stay disabled — and stop invalidating — for the rest of
+        # the worker process.
+        cacheops.conf.settings.__dict__.pop("CACHEOPS_ENABLED", None)
 
 
 def compute_region_condition(region: Region) -> dict[str, int]:
@@ -65,50 +93,78 @@ def compute_region_condition(region: Region) -> dict[str, int]:
         }
 
 
-def update_region_conditions() -> tuple[int, list[str]]:
+def update_region_conditions(time_budget: float | None = None) -> UpdateResult:
     """
     Compute and store the condition of all active and hidden regions
 
     A failure in one region is logged and does not stop the others, so a single broken region
-    cannot leave all other regions with stale numbers. The regions with the oldest values are
-    computed first, so a run that is cut short by the time limit does not always miss the same
-    regions. Stored values of regions which are no longer active or hidden are removed, so the API
-    does not keep serving them.
+    cannot leave all other regions with stale numbers. Regions without stored values and then
+    those with the oldest values are computed first, so a run that is cut short does not always
+    miss the same regions. Stored values of regions which are no longer active or hidden are
+    removed, so the API does not keep serving them.
 
-    :raises ~celery.exceptions.SoftTimeLimitExceeded: When the Celery task runs out of time
-    :return: The number of updated regions and the slugs of the failed regions
+    :param time_budget: The number of seconds after which no further region is started. Checking
+                        this between regions keeps a run from being interrupted in the middle of
+                        a computation by Celery's time limit, which is only a last resort.
+    :raises ~django.db.Error: When the database connection fails, which is not a problem of a single
+                              region and would otherwise fail every remaining one
+    :raises ~celery.exceptions.SoftTimeLimitExceeded: When Celery's time limit is hit anyway
+    :return: The outcome of the run
     """
-    regions = Region.objects.filter(
-        Q(status=region_status.ACTIVE) | Q(status=region_status.HIDDEN),
-    ).order_by(F("condition__computed_at").asc(nulls_first=True), "slug")
-    RegionCondition.objects.exclude(region__in=regions).delete()
-
-    updated = 0
-    failed: list[str] = []
-    remaining = list(regions)
-    for region in list(remaining):
-        try:
-            metrics = compute_region_condition(region)
-            # Written outside of the cacheops block, so the cached API read is invalidated
-            RegionCondition.objects.update_or_create(
-                region=region,
-                defaults={**metrics, "computed_at": timezone.now()},
-            )
-        except SoftTimeLimitExceeded:
-            logger.exception(
-                "Ran out of time, the condition of these regions was not updated: %s",
-                ", ".join(r.slug for r in remaining),
-            )
-            raise
-        except Exception:
-            logger.exception("Could not compute the condition of %r", region)
-            failed.append(region.slug)
-        else:
-            updated += 1
-        remaining.remove(region)
-    logger.info(
-        "Updated the condition of %d regions (%d failed)",
-        updated,
-        len(failed),
+    deadline = time.monotonic() + time_budget if time_budget is not None else None
+    regions = Region.objects.filter(status__in=COMPUTED_STATUSES).order_by(
+        F("condition__computed_at").asc(nulls_first=True),
+        "slug",
     )
-    return updated, failed
+    RegionCondition.objects.exclude(region__status__in=COMPUTED_STATUSES).delete()
+
+    result = UpdateResult()
+    remaining = list(regions)
+    try:
+        while remaining:
+            if deadline is not None and time.monotonic() > deadline:
+                result.not_reached = [region.slug for region in remaining]
+                break
+            region = remaining[0]
+            try:
+                metrics = compute_region_condition(region)
+                # Only store if the region was not archived or deleted during the run
+                if Region.objects.filter(
+                    pk=region.pk,
+                    status__in=COMPUTED_STATUSES,
+                ).exists():
+                    # Written outside of cacheops_disabled(): with CACHEOPS_ENABLED=False
+                    # cacheops skips invalidation, and the cached read of the API would serve
+                    # the old values for up to an hour
+                    RegionCondition.objects.update_or_create(
+                        region=region,
+                        defaults={**metrics, "computed_at": timezone.now()},
+                    )
+                    result.updated += 1
+            except (SoftTimeLimitExceeded, InterfaceError, OperationalError):
+                raise
+            except Exception:
+                logger.exception("Could not compute the condition of %r", region)
+                result.failed.append(region.slug)
+            remaining.pop(0)
+    except (SoftTimeLimitExceeded, InterfaceError, OperationalError):
+        result.not_reached = [region.slug for region in remaining]
+        logger.exception(
+            "Aborted the update of the region conditions; not updated: %s; failed before: %s",
+            ", ".join(result.not_reached),
+            ", ".join(result.failed) or "none",
+        )
+        raise
+
+    if result.not_reached:
+        logger.error(
+            "Ran out of time, the condition of these regions was not updated: %s",
+            ", ".join(result.not_reached),
+        )
+    logger.info(
+        "Updated the condition of %d regions (%d failed, %d not reached)",
+        result.updated,
+        len(result.failed),
+        len(result.not_reached),
+    )
+    return result

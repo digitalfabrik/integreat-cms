@@ -5,12 +5,13 @@ The condition metrics are expensive to compute, so this endpoint never computes 
 It only returns the values precomputed every night by
 :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`, together with the
 time they were computed. ``computed_at`` tells how old they are: they can be older than a day if the
-last runs failed for the region. The machine translation budget is read live from the region.
+last runs failed for the region, did not reach it in time, or did not run at all. The machine
+translation budget is read live from the region.
 """
 
 from __future__ import annotations
 
-from typing import cast, TYPE_CHECKING, TypedDict
+from typing import TYPE_CHECKING, TypedDict
 
 from django.http import JsonResponse
 
@@ -27,14 +28,15 @@ class Condition(TypedDict):
     """
     The stored condition metrics of a region
 
-    The metrics mirror :attr:`~integreat_cms.cms.models.regions.region_condition.RegionCondition.METRICS`
-    — this is asserted in ``tests.api.test_region_statistics`` — and ``num_low_hix_pages`` counts
-    page translations, not pages.
+    The keys are the public names of the metrics. They are listed explicitly instead of being
+    derived from :attr:`~integreat_cms.cms.models.regions.region_condition.RegionCondition.METRICS`,
+    so renaming a model field cannot silently rename a key of the API;
+    ``test_metrics_match_the_model_and_the_api`` makes sure every metric is exposed.
     """
 
     computed_at: str
     num_broken_links: int
-    num_low_hix_pages: int
+    num_low_hix_page_translations: int
     num_pages: int
     num_pages_with_missing_or_outdated_translation: int
     num_outdated_pages: int
@@ -45,9 +47,9 @@ class Statistics(TypedDict):
     """
     The JSON representation of the statistics of a region
 
-    ``condition`` is ``None`` as long as no run has stored a condition for the region yet, e.g. for
-    a new region or one whose computation has always failed. Otherwise all of its metrics are set.
-    The budget values are always current.
+    ``condition`` is ``None`` if no condition is stored for the region: it has not been computed
+    yet (a new region, or one whose computation has always failed), or the region is no longer
+    active or hidden. Otherwise all of its metrics are set. The budget values are always current.
     """
 
     condition: Condition | None
@@ -63,17 +65,19 @@ def transform_region_condition(condition: RegionCondition) -> Condition:
     :param condition: The stored condition
     :return: The condition metrics with the time they were computed
     """
-    # Read dynamically to keep the model the single source of truth for the metric names, which
-    # the type checker cannot verify against the keys of the typed dictionary
-    return cast(
-        "Condition",
-        {
-            "computed_at": condition.computed_at.isoformat(),
-            **{
-                metric: getattr(condition, metric) for metric in RegionCondition.METRICS
-            },
-        },
-    )
+    return {
+        "computed_at": condition.computed_at.isoformat(),
+        "num_broken_links": condition.num_broken_links,
+        "num_low_hix_page_translations": condition.num_low_hix_pages,
+        "num_pages": condition.num_pages,
+        "num_pages_with_missing_or_outdated_translation": (
+            condition.num_pages_with_missing_or_outdated_translation
+        ),
+        "num_outdated_pages": condition.num_outdated_pages,
+        "num_languages_besides_root_language": (
+            condition.num_languages_besides_root_language
+        ),
+    }
 
 
 def transform_region_statistics(region: Region) -> Statistics:
