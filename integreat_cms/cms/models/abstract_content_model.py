@@ -40,6 +40,7 @@ class ContentQuerySet(models.QuerySet):
     def prefetch_translations(
         self,
         to_attr: str = "prefetched_translations",
+        defer_content: bool = False,
         **filters: Any,
     ) -> ContentQuerySet:
         r"""
@@ -47,18 +48,25 @@ class ContentQuerySet(models.QuerySet):
         translations of each content object in each language, optionally filtered by the given ``status``
 
         :param to_attr: To which attribute the prefetched translations should be added [optional, defaults to ``prefetched_translations``]
+        :param defer_content: Whether the ``content`` field should be deferred, for callers which only
+                              need translation metadata [optional, defaults to ``False``]
         :param \**filters: Additional filters to be applied on the translations (e.g. by status)
         :return: The queryset of content objects
         """
         TranslationModel = self.model.get_translation_model()
         foreign_field = TranslationModel.foreign_field() + "_id"
+        translations = (
+            TranslationModel.objects.filter(**filters)
+            .order_by(foreign_field, "language_id", "-version")
+            .distinct(foreign_field, "language_id")
+            .select_related("language")
+        )
+        if defer_content:
+            translations = translations.defer("content")
         return self.prefetch_related(
             models.Prefetch(
                 "translations",
-                queryset=TranslationModel.objects.filter(**filters)
-                .order_by(foreign_field, "language_id", "-version")
-                .distinct(foreign_field, "language_id")
-                .select_related("language"),
+                queryset=translations,
                 to_attr=to_attr,
             ),
         )
@@ -91,15 +99,20 @@ class ContentQuerySet(models.QuerySet):
             status__in=[status.DRAFT, status.PUBLIC],
         )
 
-    def prefetch_major_translations(self) -> ContentQuerySet:
+    def prefetch_major_translations(
+        self,
+        defer_content: bool = False,
+    ) -> ContentQuerySet:
         """
         Get the queryset including the custom attribute ``prefetched_major_translations`` which contains the
         latest major (in other words not a minor edit) translations of each content object in each language
 
+        :param defer_content: Whether the ``content`` field should be deferred [optional, defaults to ``False``]
         :return: The queryset of content objects
         """
         return self.prefetch_translations(
             to_attr="prefetched_major_translations",
+            defer_content=defer_content,
             minor_edit=False,
         )
 
