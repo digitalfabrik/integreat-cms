@@ -1,0 +1,70 @@
+from __future__ import annotations
+
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+from ..abstract_base_model import AbstractBaseModel
+from .region import Region
+
+
+class RegionCondition(AbstractBaseModel):
+    """
+    Data model representing the precomputed condition of a region
+
+    Computing these metrics runs heavy queries over all pages of a region, which is too slow to do
+    on request. They are therefore computed once per night (see
+    :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`) and only read
+    afterwards, e.g. by the statistics API endpoint.
+    """
+
+    region = models.OneToOneField(
+        Region,
+        on_delete=models.CASCADE,
+        related_name="condition",
+        verbose_name=_("region"),
+    )
+    computed_at = models.DateTimeField(verbose_name=_("computed at"))
+    num_broken_links = models.PositiveIntegerField(
+        verbose_name=_("number of broken links"),
+    )
+    num_low_hix_pages = models.PositiveIntegerField(
+        verbose_name=_("number of low hix pages"),
+    )
+    num_pages = models.PositiveIntegerField(verbose_name=_("number of pages"))
+    num_pages_with_missing_or_outdated_translation = models.PositiveIntegerField(
+        verbose_name=_(
+            "number of pages with at least one missing or outdated translation",
+        ),
+    )
+    num_outdated_pages = models.PositiveIntegerField(
+        verbose_name=_("number of outdated pages"),
+    )
+    num_languages_besides_root_language = models.PositiveIntegerField(
+        verbose_name=_("number of active languages besides default language"),
+    )
+
+    def __str__(self) -> str:
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which
+        would return ``RegionCondition object (id)``.
+
+        :return: A readable string representation of the region condition
+        """
+        return f"{self.region} ({self.computed_at:%Y-%m-%d %H:%M})"
+
+    def get_repr(self) -> str:
+        """
+        This overwrites the default Django ``__repr__()`` method which would return
+        ``<RegionCondition: RegionCondition object (id)>``.
+
+        :return: The canonical string representation of the region condition
+        """
+        return f"<RegionCondition (id: {self.id}, region: {self.region.slug})>"
+
+    class Meta:
+        #: The verbose name of the model
+        verbose_name = _("region condition")
+        #: The plural verbose name of the model
+        verbose_name_plural = _("region conditions")
+        #: The default permissions for this model
+        default_permissions = ()

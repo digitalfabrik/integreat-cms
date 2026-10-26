@@ -59,6 +59,10 @@ app.autodiscover_tasks()
 app.conf.task_routes = {
     "integreat_cms.cms.views.statistics.statistics_actions": {"queue": "statistics"},
     "integreat_cms.api.v3.chat.utils.chat_bot.*": {"queue": "chat"},
+    # Runs for a long time, so keep it from blocking the default queue
+    "integreat_cms.integreat_celery.celery.wrapper_update_region_conditions": {
+        "queue": "statistics",
+    },
 }
 
 
@@ -92,6 +96,14 @@ def wrapper_import_external_news() -> None:
     call_command("import_external_news")
 
 
+@app.task
+def wrapper_update_region_conditions() -> None:
+    """
+    Periodic task to precompute the condition of all regions
+    """
+    call_command("update_region_conditions")
+
+
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender: Any, **kwargs: Any) -> None:
     """
@@ -113,4 +125,10 @@ def setup_periodic_tasks(sender: Any, **kwargs: Any) -> None:
         crontab(hour=0, minute=40),
         wrapper_import_external_news.s(),
         name="wrapper_import_external_news",
+    )
+
+    sender.add_periodic_task(
+        crontab(hour=2, minute=30),
+        wrapper_update_region_conditions.s(),
+        name="wrapper_update_region_conditions",
     )

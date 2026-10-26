@@ -47,6 +47,7 @@ from .v3.raw_content import (
     root_content,
 )
 from .v3.region_settings import region_settings
+from .v3.region_statistics import region_statistics
 from .v3.regions import region_by_slug, regions
 from .v3.social_media_headers import (
     event_social_media_headers,
@@ -340,6 +341,7 @@ urlpatterns: list[URLPattern] = [
                 path("offers/", offers, name="offers"),
                 path("extras/", offers, name="offers"),
                 path("settings/", region_settings, name="region_settings"),
+                path("statistics/", region_statistics, name="region_statistics"),
                 path(
                     "<slug:device_id>/is_chat_enabled/",
                     user_chat.is_chat_enabled_for_user,
