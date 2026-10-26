@@ -59,7 +59,8 @@ app.autodiscover_tasks()
 app.conf.task_routes = {
     "integreat_cms.cms.views.statistics.statistics_actions": {"queue": "statistics"},
     "integreat_cms.api.v3.chat.utils.chat_bot.*": {"queue": "chat"},
-    # Runs for a long time, so keep it from blocking the default queue
+    # Runs for a long time; on production the statistics queue has its own worker, so this does
+    # not block the default queue
     "integreat_cms.integreat_celery.celery.wrapper_update_region_conditions": {
         "queue": "statistics",
     },
@@ -96,10 +97,12 @@ def wrapper_import_external_news() -> None:
     call_command("import_external_news")
 
 
-@app.task
+# Ten minutes before the hard limit (``CELERY_TASK_TIME_LIMIT``), so a run that takes too long
+# logs which regions it did not reach instead of being killed without a trace
+@app.task(soft_time_limit=60 * 60 * 3 - 10 * 60)
 def wrapper_update_region_conditions() -> None:
     """
-    Periodic task to precompute the condition of all regions
+    Periodic task to precompute the condition of all active and hidden regions
     """
     call_command("update_region_conditions")
 
@@ -127,6 +130,7 @@ def setup_periodic_tasks(sender: Any, **kwargs: Any) -> None:
         name="wrapper_import_external_news",
     )
 
+    # 02:30 UTC (``CELERY_TIMEZONE``), after the other nightly jobs
     sender.add_periodic_task(
         crontab(hour=2, minute=30),
         wrapper_update_region_conditions.s(),

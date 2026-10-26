@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import logging
 from typing import TYPE_CHECKING
 
 from django.core.management.base import CommandError
@@ -11,19 +10,17 @@ from ..log_command import LogCommand
 if TYPE_CHECKING:
     from typing import Any
 
-logger = logging.getLogger(__name__)
-
 
 class Command(LogCommand):
     """
-    Management command to precompute the condition of all regions
+    Management command to precompute the condition of all active and hidden regions
     """
 
     help = "Compute and store the condition metrics of all active and hidden regions"
 
     def handle(self, *args: Any, **options: Any) -> None:
         r"""
-        Compute and store the condition of all regions
+        Compute and store the condition of all active and hidden regions
 
         :param \*args: The supplied arguments
         :param \**options: The supplied keyword options
@@ -34,5 +31,6 @@ class Command(LogCommand):
         _updated, failed = update_region_conditions()
         if failed:
             raise CommandError(
-                f"The condition of {failed} region(s) could not be computed, see the log above.",
+                f"The condition of {len(failed)} region(s) could not be computed: "
+                f"{', '.join(failed)}",
             )

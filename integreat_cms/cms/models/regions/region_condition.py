@@ -1,21 +1,38 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
 from .region import Region
 
+if TYPE_CHECKING:
+    from typing import Final
+
 
 class RegionCondition(AbstractBaseModel):
     """
-    Data model representing the precomputed condition of a region
+    Data model representing the stored condition of a region
 
-    Computing these metrics runs heavy queries over all pages of a region, which is too slow to do
-    on request. They are therefore computed once per night (see
-    :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`) and only read
-    afterwards, e.g. by the statistics API endpoint.
+    Computing these metrics is too slow to do on request. They are computed every night (see
+    :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`) and stored
+    here, one row per region, overwritten by each successful run. ``computed_at`` tells how old the
+    values are: a region whose computation failed keeps the values of its last successful run.
     """
+
+    #: The names of the metric fields. Each one must also match a ``dehydrate_<name>`` method of
+    #: :class:`~integreat_cms.cms.views.region_condition.region_condition_actions.RegionConditionResource`,
+    #: which computes it.
+    METRICS: Final[tuple[str, ...]] = (
+        "num_broken_links",
+        "num_low_hix_pages",
+        "num_pages",
+        "num_pages_with_missing_or_outdated_translation",
+        "num_outdated_pages",
+        "num_languages_besides_root_language",
+    )
 
     region = models.OneToOneField(
         Region,
@@ -27,6 +44,7 @@ class RegionCondition(AbstractBaseModel):
     num_broken_links = models.PositiveIntegerField(
         verbose_name=_("number of broken links"),
     )
+    #: Counts page translations, not pages, like the column of the region condition export
     num_low_hix_pages = models.PositiveIntegerField(
         verbose_name=_("number of low hix pages"),
     )

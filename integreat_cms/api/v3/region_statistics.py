@@ -1,15 +1,16 @@
 """
 This module includes the endpoint to read the condition statistics of a single region.
 
-The metrics are expensive to compute, so this endpoint never computes them on request — it only
-returns the values precomputed every night by
+The condition metrics are expensive to compute, so this endpoint never computes them on request.
+It only returns the values precomputed every night by
 :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`, together with the
-time they were computed. The machine translation budget is read live from the region.
+time they were computed. ``computed_at`` tells how old they are: they can be older than a day if the
+last runs failed for the region. The machine translation budget is read live from the region.
 """
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, TypedDict
+from typing import cast, TYPE_CHECKING, TypedDict
 
 from django.http import JsonResponse
 
@@ -22,24 +23,57 @@ if TYPE_CHECKING:
     from ...cms.models import Region
 
 
+class Condition(TypedDict):
+    """
+    The stored condition metrics of a region
+
+    The metrics mirror :attr:`~integreat_cms.cms.models.regions.region_condition.RegionCondition.METRICS`
+    — this is asserted in ``tests.api.test_region_statistics`` — and ``num_low_hix_pages`` counts
+    page translations, not pages.
+    """
+
+    computed_at: str
+    num_broken_links: int
+    num_low_hix_pages: int
+    num_pages: int
+    num_pages_with_missing_or_outdated_translation: int
+    num_outdated_pages: int
+    num_languages_besides_root_language: int
+
+
 class Statistics(TypedDict):
     """
     The JSON representation of the statistics of a region
 
-    The condition metrics and ``computed_at`` are ``None`` as long as they have not been computed
-    for the region yet, e.g. directly after it was created.
+    ``condition`` is ``None`` as long as no run has stored a condition for the region yet, e.g. for
+    a new region or one whose computation has always failed. Otherwise all of its metrics are set.
+    The budget values are always current.
     """
 
-    computed_at: str | None
-    num_broken_links: int | None
-    num_low_hix_pages: int | None
-    num_pages: int | None
-    num_pages_with_missing_or_outdated_translation: int | None
-    num_outdated_pages: int | None
-    num_languages_besides_root_language: int | None
+    condition: Condition | None
     mt_budget: int
     mt_budget_used: int
     mt_budget_remaining: int
+
+
+def transform_region_condition(condition: RegionCondition) -> Condition:
+    """
+    Build the JSON representation of the stored condition of a region
+
+    :param condition: The stored condition
+    :return: The condition metrics with the time they were computed
+    """
+    # Read dynamically to keep the model the single source of truth for the metric names, which
+    # the type checker cannot verify against the keys of the typed dictionary
+    return cast(
+        "Condition",
+        {
+            "computed_at": condition.computed_at.isoformat(),
+            **{
+                metric: getattr(condition, metric) for metric in RegionCondition.METRICS
+            },
+        },
+    )
 
 
 def transform_region_statistics(region: Region) -> Statistics:
@@ -51,19 +85,7 @@ def transform_region_statistics(region: Region) -> Statistics:
     """
     condition = RegionCondition.objects.filter(region=region).first()
     return {
-        "computed_at": condition.computed_at.isoformat() if condition else None,
-        "num_broken_links": condition.num_broken_links if condition else None,
-        "num_low_hix_pages": condition.num_low_hix_pages if condition else None,
-        "num_pages": condition.num_pages if condition else None,
-        "num_pages_with_missing_or_outdated_translation": (
-            condition.num_pages_with_missing_or_outdated_translation
-            if condition
-            else None
-        ),
-        "num_outdated_pages": condition.num_outdated_pages if condition else None,
-        "num_languages_besides_root_language": (
-            condition.num_languages_besides_root_language if condition else None
-        ),
+        "condition": transform_region_condition(condition) if condition else None,
         "mt_budget": region.mt_budget,
         "mt_budget_used": region.mt_budget_used,
         "mt_budget_remaining": region.mt_budget_remaining,
@@ -74,7 +96,10 @@ def transform_region_statistics(region: Region) -> Statistics:
 @api_token_required("cms.view_region")
 def region_statistics(request: HttpRequest, region_slug: str) -> JsonResponse:
     """
-    Return the precomputed condition statistics of a region
+    Return the stored condition metrics of a region and its current machine translation budget
+
+    The region membership of the token's user is not checked: ``cms.view_region`` is only held by
+    staff roles, which may see all regions anyway.
 
     :param request: Django request
     :param region_slug: The slug of the region
