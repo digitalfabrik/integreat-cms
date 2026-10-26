@@ -101,6 +101,22 @@ def set_region_settings(request: HttpRequest, region: Region) -> JsonResponse:
     if not isinstance(data, dict):
         return JsonResponse({"error": "Expected a JSON object."}, status=400)
 
+    for alias, field in region_api_settings.DEPRECATED_ALIASES.items():
+        if alias not in data:
+            continue
+        if field in data:
+            return JsonResponse(
+                {"error": f"{alias} is a deprecated alias of {field}, send only one."},
+                status=400,
+            )
+        logger.warning(
+            "Deprecated field %r used by %r, please send %r instead",
+            alias,
+            request.user,
+            field,
+        )
+        data[field] = data.pop(alias)
+
     if unknown_fields := sorted(set(data) - set(region_api_settings.WRITABLE_FIELDS)):
         return JsonResponse(
             {

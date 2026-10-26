@@ -145,6 +145,53 @@ def test_post_rejects_non_writable_fields(
 
 
 @pytest.mark.django_db
+def test_post_accepts_deprecated_field_name(load_test_data: None) -> None:
+    """
+    The former name ``locations_enabled`` is still accepted and written to ``places_enabled``.
+
+    External systems keep sending the old name until they are updated; rejecting it would fail the
+    whole request and with it every other setting.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    region = Region.objects.get(slug="augsburg")
+    expected = not region.places_enabled
+
+    endpoint = reverse("api:region_settings", kwargs={"region_slug": "augsburg"})
+    response = Client().post(
+        endpoint,
+        data=json.dumps({"locations_enabled": expected, "events_enabled": False}),
+        content_type="application/json",
+        headers={"authorization": f"Bearer {_token_for('root')}"},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["places_enabled"] is expected
+    region.refresh_from_db()
+    assert region.places_enabled is expected
+    assert region.events_enabled is False
+
+
+@pytest.mark.django_db
+def test_post_rejects_alias_together_with_current_name(load_test_data: None) -> None:
+    """
+    Sending both names is ambiguous, so the request is rejected instead of guessing.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    endpoint = reverse("api:region_settings", kwargs={"region_slug": "augsburg"})
+    response = Client().post(
+        endpoint,
+        data=json.dumps({"locations_enabled": True, "places_enabled": False}),
+        content_type="application/json",
+        headers={"authorization": f"Bearer {_token_for('root')}"},
+    )
+
+    assert response.status_code == 400
+    assert Region.objects.get(slug="augsburg").api_settings_synced_at is None
+
+
+@pytest.mark.django_db
 def test_post_rejects_invalid_values(load_test_data: None) -> None:
     """
     Values which do not pass the model validation are rejected with 400.

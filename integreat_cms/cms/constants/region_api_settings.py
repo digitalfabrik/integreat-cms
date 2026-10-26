@@ -26,3 +26,11 @@ WRITABLE_FIELDS: Final[list[str]] = [
     "mt_renewal_month",
     "mt_budget_adjustment",
 ]
+
+#: Former names of writable fields which the API still accepts, mapped to their current name.
+#: ``locations_enabled`` was renamed with the switch from "POI" to "place" (#4547); external systems
+#: such as the CRM keep sending the old name until they are updated, and rejecting it would fail
+#: the whole request rather than just this one setting.
+DEPRECATED_ALIASES: Final[dict[str, str]] = {
+    "locations_enabled": "places_enabled",
+}
