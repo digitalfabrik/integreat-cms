@@ -845,9 +845,15 @@ LOGGING: dict[str, Any] = {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
-        # Downgrade 404 responses of the API to INFO (handled by the "django" logger)
+        # Downgrade 404 responses of the API to DEBUG (handled by the "django" logger)
         "django.request": {
             "filters": ["api_not_found"],
+        },
+        # Override Django's default config of this logger to keep it handled by the "django" logger
+        "django.server": {
+            "filters": ["api_not_found"],
+            "level": "NOTSET",
+            "propagate": True,
         },
         "geopy": {
             "handlers": ["console", "logfile"],

@@ -39,18 +39,34 @@ class ApiNotFoundFilter(logging.Filter):
         """
         Downgrade the log level of "404 Not Found" responses of the API to DEBUG.
 
-        Django logs every 4xx response as WARNING (see :func:`django.utils.log.log_response`).
+        Django logs every 4xx response as WARNING (see :func:`django.utils.log.log_response`
+        and :meth:`django.core.servers.basehttp.WSGIRequestHandler.log_message`).
         Since API clients frequently request non-existing content, these entries clutter the logfile.
 
         :param record: The log record to filter
         :return: Always True, the record is never dropped
         """
-        request = getattr(record, "request", None)
-        if (
-            getattr(record, "status_code", None) == 404
-            and request is not None
-            and request.path.startswith("/api/")
-        ):
+        if getattr(record, "status_code", None) == 404 and self.get_path(
+            record
+        ).startswith("/api/"):
             record.levelno = logging.DEBUG
             record.levelname = logging.getLevelName(logging.DEBUG)
         return True
+
+    @staticmethod
+    def get_path(record: logging.LogRecord) -> str:
+        """
+        Get the requested path of a log record of the ``django.request`` or ``django.server`` logger.
+
+        :param record: The log record
+        :return: The requested path or an empty string if it cannot be determined
+        """
+        # Records of "django.request" contain the HttpRequest object
+        if path := getattr(getattr(record, "request", None), "path", None):
+            return path
+        # Records of "django.server" contain the request line (e.g. "GET /api/v3/ HTTP/1.1") as first argument
+        if isinstance(record.args, tuple) and record.args:
+            request_line = str(record.args[0]).split()
+            if len(request_line) > 1:
+                return request_line[1]
+        return ""
