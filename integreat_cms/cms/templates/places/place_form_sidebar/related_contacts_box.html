@@ -39,7 +39,8 @@
             <div>
                 <div class="help-text mt-4 font-bold">
                     <div>
-                        <button id="show-contact-form-button"
+                        <button type="button"
+                                id="show-contact-form-button"
                                 form="ajax_contact_form"
                                 class="btn w-full mt-4 mb-2{% if show_contact_form_widget %} hidden{% endif %}"
                                 {% if place_id %}data-url="{% url 'show_contact_form_ajax' region_slug=request.region.slug place_id=place_id %}"{% endif %}>

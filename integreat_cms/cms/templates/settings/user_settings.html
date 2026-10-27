@@ -28,7 +28,7 @@
                                 </option>
                             {% endfor %}
                         </select>
-                        <button class="btn mt-4">{% translate "Change language" %}</button>
+                        <button type="submit" class="btn mt-4">{% translate "Change language" %}</button>
                     </form>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                         {% render_field user_name_form.first_name|add_error_class:"border-red-500" %}
                         <label for="{{ user_name_form.last_name.id_for_label }}">{{ user_name_form.last_name.label }}</label>
                         {% render_field user_name_form.last_name|add_error_class:"border-red-500" %}
-                        <button name="submit_form" value="name_form" class="btn mt-4">{% translate "Change name" %}</button>
+                        <button type="submit" name="submit_form" value="name_form" class="btn mt-4">{% translate "Change name" %}</button>
                     </form>
                 </div>
             </div>
@@ -64,7 +64,9 @@
                         {% csrf_token %}
                         <label for="{{ user_email_form.email.id_for_label }}">{{ user_email_form.email.label }}</label>
                         {% render_field user_email_form.email|add_error_class:"border-red-500" %}
-                        <button name="submit_form" value="email_form" class="btn mt-4">{% translate "Change e-mail-address" %}</button>
+                        <button type="submit" name="submit_form" value="email_form" class="btn mt-4">
+                            {% translate "Change e-mail-address" %}
+                        </button>
                     </form>
                 </div>
             </div>
@@ -94,7 +96,7 @@
                                 <li class="py-1">{{ item }}</li>
                             {% endfor %}
                         </ul>
-                        <button name="submit_form" value="password_form" class="btn">{% translate "Change password" %}</button>
+                        <button type="submit" name="submit_form" value="password_form" class="btn">{% translate "Change password" %}</button>
                     </form>
                 </div>
             </div>
@@ -115,7 +117,8 @@
             {% if new_api_token %}
                 <div class="mx-4 mb-4 p-4 rounded border border-solid border-blue-500 bg-blue-100">
                     <p class="font-bold">
-                        <i icon-name="alert-triangle" class="mr-2"></i> {% translate "Copy your new API token now — it will not be shown again." %}
+                        <i icon-name="alert-triangle"
+                           class="mr-2"></i> {% translate "Copy your new API token now — it will not be shown again." %}
                     </p>
                     <code class="block mt-2 p-2 rounded bg-white break-all">{{ new_api_token }}</code>
                 </div>
@@ -147,7 +150,8 @@
                             </tr>
                         {% empty %}
                             <tr>
-                                <td colspan="4" class="px-4 py-3">{% translate "No API tokens have been created yet." %}</td>
+                                <td colspan="4"
+                                    class="px-4 py-3">{% translate "No API tokens have been created yet." %}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -156,7 +160,12 @@
                     {% csrf_token %}
                     <label for="{{ user_api_token_form.name.id_for_label }}">{{ user_api_token_form.name.label }}</label>
                     {% render_field user_api_token_form.name|add_error_class:"border-red-500" %}
-                    <button name="submit_form" value="api_token_form" class="btn mt-4">{% translate "Create a new API token" %}</button>
+                    <button type="submit"
+                            name="submit_form"
+                            value="api_token_form"
+                            class="btn mt-4">
+                        {% translate "Create a new API token" %}
+                    </button>
                 </form>
             </div>
         </div>
@@ -206,7 +215,8 @@
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <td colspan="6" class="px-4 py-3">{% translate "No FIDO2 keys have been added yet." %}</td>
+                                    <td colspan="6"
+                                        class="px-4 py-3">{% translate "No FIDO2 keys have been added yet." %}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
