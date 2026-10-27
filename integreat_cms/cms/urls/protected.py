@@ -1488,7 +1488,9 @@ urlpatterns: list[URLPattern] = [
                         template_name="contacts_locations/contacts_locations.html",
                         extra_context={
                             "current_menu_item": "contacts_locations",
+                            "tabs": [("orte", "Orte"), ("kontakte", "Kontakte")],
                             # Fake data for the user test
+                            "fake_place_categories": ["Behörde/Amt", "Bildung", "Einrichtung", "Freizeit", "Gesundheit", "Kultur", "Treffpunkt", "Sonstiges"],
                             "fake_places": [
                                 {"title": "#dreizehn", "categories": ["Treffpunkt", "Kultur"], "contacts": 3, "street": "Von-Parseval-Straße 20a", "city": "86159 Augsburg", "published": True},
                                 {"title": "Abendrealschule für Berufstätige", "categories": ["Bildung"], "contacts": 8, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
@@ -1504,6 +1506,40 @@ urlpatterns: list[URLPattern] = [
                         },
                     ),
                     name="contacts_locations",
+                ),
+                # PROTOTYPE: new edit concept, always shows the same fake place
+                path(
+                    "contacts-locations/place/edit/",
+                    TemplateView.as_view(
+                        template_name="contacts_locations/place_edit.html",
+                        extra_context={
+                            "current_menu_item": "contacts_locations",
+                            "edit_tabs": [
+                                ("texte", "Texte & Übersetzungen"),
+                                ("infos", "Orts-Infos & Einstellungen"),
+                                ("verknuepfungen", "Verknüpfungen"),
+                            ],
+                            "fake_place_categories": ["Behörde/Amt", "Bildung", "Einrichtung", "Freizeit", "Gesundheit", "Kultur", "Treffpunkt", "Sonstiges"],
+                            # Fake opening hours: (day, value, missing)
+                            "fake_opening_hours": [
+                                ("Montag", "geschlossen", False),
+                                ("Dienstag", "keine Angabe", True),
+                                ("Mittwoch", "keine Angabe", True),
+                                ("Donnerstag", "keine Angabe", True),
+                                ("Freitag", "18:00 - 24:00", False),
+                                ("Samstag", "18:00 - 24:00", False),
+                                ("Sonntag", "18:00 - 23:00", False),
+                            ],
+                            # Fake translation states: "done", "machine" or "missing"
+                            "fake_translations": [
+                                ("AR", "done"), ("BG", "done"), ("CS", "done"), ("DA", "done"), ("EL", "done"), ("EN", "done"),
+                                ("ES", "machine"), ("FA", "machine"), ("FI", "machine"), ("FR", "machine"), ("HI", "machine"), ("HR", "machine"), ("HU", "machine"),
+                                ("ID", "done"), ("IT", "done"), ("KA", "done"), ("KO", "done"), ("KMR", "done"), ("LT", "done"), ("NL", "done"), ("PL", "done"), ("PT", "done"),
+                                ("RO", "missing"),
+                            ],
+                        },
+                    ),
+                    name="contacts_locations_place_edit",
                 ),
                 path(
                     "contact/",

@@ -1,0 +1,38 @@
+{% extends "_base.html" %}
+{% comment %}
+    PROTOTYPE: layout of the new edit concept, meant to be reused for places, pages, events, contacts, ...
+    Context: edit_tabs = list of (key, label), the active tab is taken from ?tab= and defaults to the first one.
+    Blocks: edit_title, edit_header_actions, edit_top (above the main column), edit_main, edit_sidebar.
+    The variable active_tab is available inside all blocks.
+{% endcomment %}
+{% block content %}
+    {% with active_tab=request.GET.tab|default:edit_tabs.0.0 %}
+        <div class="flex items-center justify-between gap-8 max-[1100px]:flex-col max-[1100px]:items-start">
+            <h1 class="heading !mb-0">
+                {% block edit_title %}{% endblock edit_title %}
+            </h1>
+            <div class="flex shrink-0 flex-wrap items-center gap-3">
+                {% block edit_header_actions %}{% endblock edit_header_actions %}
+            </div>
+        </div>
+        <div class="mt-[42px]">
+            {% include "_tab_navigation.html" with tabs=edit_tabs nav_label="Bereiche" full_width=True %}
+        </div>
+        {# 3 column grid: the main column spans 2 columns (2/3), the sidebar 1 column (1/3) #}
+        {# The sidebar starts at the height of the main column, not at the top element #}
+        {# Override edit_grid to place other cards in the 3 columns, e.g. 1/3 + 1/3 + 1/3 (use block.super for the default) #}
+        <div class="mt-[42px] grid grid-cols-3 items-start gap-x-12 gap-y-[26px] max-[1100px]:grid-cols-1">
+            {% block edit_grid %}
+                <div class="col-span-2 col-start-1 min-w-0 max-[1100px]:col-span-1">
+                    {% block edit_top %}{% endblock edit_top %}
+                </div>
+                <div class="col-span-2 col-start-1 min-w-0 max-[1100px]:col-span-1">
+                    {% block edit_main %}{% endblock edit_main %}
+                </div>
+                <div class="col-start-3 row-start-2 min-w-0 max-[1100px]:col-start-1 max-[1100px]:row-start-auto">
+                    {% block edit_sidebar %}{% endblock edit_sidebar %}
+                </div>
+            {% endblock edit_grid %}
+        </div>
+    {% endwith %}
+{% endblock content %}

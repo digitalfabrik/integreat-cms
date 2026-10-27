@@ -1,0 +1,169 @@
+{% load static %}
+{# PROTOTYPE: content of the "Orts-Infos & Einstellungen" tab, 3 columns with stacked cards, nothing is saved #}
+{# Each column is one grid cell of the edit layout, headings sit above the cards #}
+{# Column 1: address and map #}
+<div class="flex min-w-0 flex-col gap-8">
+    <section>
+        <div class="flex min-h-11 items-baseline gap-3.5">
+            <h2 class="text-2xl leading-normal">Adresse des Orts</h2>
+            <span class="italic text-red-500"><strong>* </strong>Pflichtfeld</span>
+        </div>
+        <div class="rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+            <div class="grid grid-cols-[134px_minmax(0,1fr)] gap-4">
+                <input type="text"
+                       value="Neusässer Straße 35"
+                       aria-label="Straße und Hausnummer"
+                       class="col-span-2 h-[46px] px-3 py-2">
+                <input type="text"
+                       value="86156"
+                       aria-label="Postleitzahl"
+                       class="h-[46px] px-3 py-2">
+                <input type="text"
+                       value="Augsburg"
+                       aria-label="Ort"
+                       class="h-[46px] px-3 py-2">
+                <select aria-label="Land" class="col-span-2 h-[46px] px-3 py-2">
+                    <option selected>Deutschland</option>
+                    <option>Österreich</option>
+                    <option>Schweiz</option>
+                </select>
+            </div>
+            <label class="my-0 mt-4 flex items-center gap-2 text-base font-normal leading-[1.4]">
+                <input type="checkbox" checked class="size-4 shrink-0 rounded text-blue-500">
+                Ort auf Karte in Integreat App anzeigen
+            </label>
+        </div>
+    </section>
+    <section>
+        <div class="flex min-h-11 items-baseline gap-3.5">
+            <h2 class="text-2xl leading-normal">Genaue Position des Orts</h2>
+            <span class="italic opacity-50">optional</span>
+        </div>
+        <div class="rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+            {# Static map screenshot from the Figma export with a fake marker #}
+            <div class="relative h-36 overflow-hidden">
+                <img src="{% static 'images/prototype/map-konzerthalle.png' %}"
+                     alt="Karte mit der Position der Konzerthalle"
+                     class="size-full object-cover">
+                <i icon-name="map-pin"
+                   class="absolute left-1/2 top-1/2 size-[53px] -translate-x-1/2 -translate-y-full fill-red-500 text-white"></i>
+                <span class="absolute bottom-0 right-0 bg-white/80 px-1 text-[10px]">© OpenStreetMap</span>
+            </div>
+            <button type="button"
+                    class="mt-3 flex items-center gap-2 font-bold text-blue-500 hover:text-blue-700">
+                Detaillierte Karten-Einstellungen
+                <i icon-name="chevron-down" class="size-6 text-gray-700"></i>
+            </button>
+        </div>
+    </section>
+</div>
+{# Column 2: opening hours and accessibility #}
+<div class="flex min-w-0 flex-col gap-8">
+    <section>
+        <div class="flex min-h-11 items-baseline gap-3.5">
+            <h2 class="text-2xl leading-normal">Öffnungszeiten des Orts</h2>
+            <span class="italic opacity-50">optional</span>
+        </div>
+        <div class="rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+            <button type="button" class="btn btn-ghost w-full">Öffnungszeiten bearbeiten</button>
+            <div class="mt-2 flex flex-col divide-y divide-gray-200">
+                {% for day, value, missing in fake_opening_hours %}
+                    <div class="flex items-center justify-between py-0.5 leading-normal">
+                        <span class="text-base">{{ day }}</span>
+                        <span class="text-right text-sm {% if missing %}italic text-black/60{% endif %}">{{ value }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="flex min-h-11 items-baseline gap-3.5">
+            <h2 class="text-2xl leading-normal">Barrierefreiheit</h2>
+            <span class="italic opacity-50">optional</span>
+        </div>
+        <div class="flex flex-col gap-3.5 rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+            <label for="edit-place-accessible" class="my-0 text-lg font-bold leading-[1.4]">Ist der Ort barrierefrei zugänglich?</label>
+            <select id="edit-place-accessible" class="h-[46px] px-3 py-2">
+                <option selected>Ja</option>
+                <option>Nein</option>
+                <option>Keine Angabe</option>
+            </select>
+        </div>
+    </section>
+</div>
+{# Column 3: categories, contact data and image #}
+<div class="flex min-w-0 flex-col gap-8">
+    <section>
+        <div class="flex min-h-11 items-baseline gap-3.5">
+            <h2 class="text-2xl leading-normal">Kategorie(n) des Orts</h2>
+            <span class="italic text-red-500"><strong>* </strong>Pflichtfeld</span>
+        </div>
+        {# Same multiselect without JS as in the "Neuen Ort erstellen" overlay #}
+        <div class="rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+            <details class="group relative">
+                <summary class="flex h-[46px] cursor-pointer list-none items-center justify-between rounded border-2 border-gray-200 bg-gray-200 px-3 py-2 text-xl leading-[1.4] [&::-webkit-details-marker]:hidden">
+                    <span class="opacity-60">auswählen</span>
+                    <i icon-name="chevron-down" class="size-6 group-open:rotate-180"></i>
+                </summary>
+                <div class="absolute z-10 mt-1 flex w-full flex-col rounded border-2 border-blue-200 bg-white py-2 shadow-[2px_6px_10px_rgba(51,65,85,0.5)]">
+                    {% for category in fake_place_categories %}
+                        <label for="edit-place-category-{{ forloop.counter }}"
+                               class="my-0 cursor-pointer px-4 py-2 text-base font-bold text-gray-700 hover:bg-blue-100">
+                            {{ category }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </details>
+            <div class="mt-3 flex flex-wrap items-center gap-2">
+                {% for category in fake_place_categories %}
+                    {# Each pair needs its own wrapper, otherwise peer-checked would match the checkboxes of other chips too #}
+                    <span class="contents">
+                        <input id="edit-place-category-{{ forloop.counter }}"
+                               type="checkbox"
+                               {% if category == "Bildung" or category == "Treffpunkt" %}checked{% endif %}
+                               class="peer/category sr-only">
+                        <label for="edit-place-category-{{ forloop.counter }}"
+                               title="{{ category }} entfernen"
+                               class="relative my-0 hidden h-6 cursor-pointer rounded-[15px] bg-blue-200 py-1 pl-2 pr-7 text-xs font-bold leading-[1.4] text-black peer-checked/category:inline-block">
+                            {{ category }}
+                            <span class="absolute right-0 top-0 flex size-6 items-center justify-center">
+                                <span class="flex size-4 items-center justify-center rounded-full bg-gray-700 text-white">
+                                    <i icon-name="x" class="size-3"></i>
+                                </span>
+                            </span>
+                        </label>
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="flex min-h-11 items-baseline gap-3.5">
+            <h2 class="text-2xl leading-normal">Allgemeine Kontaktdaten</h2>
+            <span class="italic opacity-50">optional</span>
+        </div>
+        <div class="flex flex-col gap-2 rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+            <input type="tel"
+                   value="0821 1256987"
+                   aria-label="Telefonnummer"
+                   class="h-[46px] px-3 py-2">
+            <input type="email"
+                   value="konzerthalle@augsburg.de"
+                   aria-label="E-Mail-Adresse"
+                   class="h-[46px] px-3 py-2">
+            <input type="url"
+                   placeholder="Website"
+                   aria-label="Website"
+                   class="h-[46px] px-3 py-2">
+        </div>
+    </section>
+    <section>
+        <div class="flex min-h-11 items-baseline gap-3.5">
+            <h2 class="text-2xl leading-normal">Bild des Orts</h2>
+            <span class="italic opacity-50">optional</span>
+        </div>
+        <div class="rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+            <button type="button" class="btn btn-ghost w-full">Bild auswählen</button>
+        </div>
+    </section>
+</div>

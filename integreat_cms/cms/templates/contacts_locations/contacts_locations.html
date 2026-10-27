@@ -1,24 +1,40 @@
 {% extends "_base.html" %}
 {% block content %}
     <div class="table-header">
-        <h1 class="heading">Orte & Kontakte</h1>
+        <div class="flex flex-wrap justify-between items-center gap-4">
+            <h1 class="heading">Orte & Kontakte</h1>
+            {# PROTOTYPE: reuses the row actions dropdown script, menu items are inert #}
+            <div data-row-actions class="relative">
+                <button type="button"
+                        data-row-actions-toggle
+                        aria-haspopup="menu"
+                        aria-expanded="false"
+                        class="btn">Neuer Eintrag ▾</button>
+                <div data-row-actions-menu
+                     role="menu"
+                     class="hidden fixed z-10 flex-col gap-4 w-max min-w-[228px] rounded border-2 border-blue-200 bg-white p-4 text-left shadow-[2px_6px_10px_rgba(51,65,85,0.5)]">
+                    <button type="button"
+                            role="menuitem"
+                            data-overlay-open="overlay-new-place"
+                            class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 hover:text-blue-500">
+                        <i icon-name="map-pin"></i>
+                        Neuen Ort erstellen
+                    </button>
+                    <button type="button"
+                            role="menuitem"
+                            data-overlay-open="overlay-new-contact"
+                            class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 hover:text-blue-500">
+                        <i icon-name="user"></i>
+                        Neuen Kontakt erstellen
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-place" title="Neuen Ort-Entwurf erstellen" body_template="contacts_locations/_overlay_new_place_body.html" footer_template="contacts_locations/_overlay_new_place_footer.html" %}
+    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-contact" title="Neuen Kontakt erstellen" %}
     {% with active_tab=request.GET.tab|default:"orte" %}
-        <nav class="w-max max-w-full overflow-hidden border-b-2 border-gray-700"
-             aria-label="Kontakte & Orte">
-            <ul class="flex items-center gap-2 w-max -mb-0.5">
-                <li>
-                    <a href="?tab=orte"
-                       class="block px-4 py-3 rounded-t-[14px] font-bold leading-snug whitespace-nowrap {% if active_tab == 'orte' %}bg-gray-700 text-white border-2 border-gray-700{% else %}bg-white text-blue-500 border-2 border-gray-200 hover:text-blue-700{% endif %}"
-                       {% if active_tab == 'orte' %}aria-current="page"{% endif %}>Orte</a>
-                </li>
-                <li>
-                    <a href="?tab=kontakte"
-                       class="block px-4 py-3 rounded-t-[14px] font-bold leading-snug whitespace-nowrap {% if active_tab == 'kontakte' %}bg-gray-700 text-white border-2 border-gray-700{% else %}bg-white text-blue-500 border-2 border-gray-200 hover:text-blue-700{% endif %}"
-                       {% if active_tab == 'kontakte' %}aria-current="page"{% endif %}>Kontakte</a>
-                </li>
-            </ul>
-        </nav>
+        {% include "_tab_navigation.html" with tabs=tabs nav_label="Kontakte & Orte" %}
         <div class="w-full mt-6 min-h-[300px] overflow-hidden bg-white rounded-[20px] shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
             {% if active_tab == "orte" %}
                 <div class="w-full overflow-x-auto">

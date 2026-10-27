@@ -1,0 +1,16 @@
+{# PROTOTYPE: shared tab navigation, switches tabs via ?tab= #}
+{# Usage: {% include "_tab_navigation.html" with tabs=<list of (key, label)> active_tab=... nav_label="..." full_width=True %} #}
+{# full_width: the bottom border spans the whole width instead of ending after the last tab #}
+{# Spacing around the navigation is set by the including template #}
+<nav class="{% if full_width %}w-full{% else %}w-max{% endif %} max-w-full overflow-hidden border-b-2 border-gray-700"
+     aria-label="{{ nav_label }}">
+    <ul class="flex items-center gap-2 w-max -mb-0.5">
+        {% for key, label in tabs %}
+            <li>
+                <a href="?tab={{ key }}"
+                   class="block px-4 py-3 rounded-t-[14px] font-bold leading-snug whitespace-nowrap {% if active_tab == key %}bg-gray-700 text-white border-2 border-gray-700{% else %}bg-white text-blue-500 border-2 border-gray-200 hover:text-blue-700{% endif %}"
+                   {% if active_tab == key %}aria-current="page"{% endif %}>{{ label }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

@@ -1,0 +1,165 @@
+{% extends "_edit_layout.html" %}
+{# PROTOTYPE: edit page of a place in the new edit concept, always shows the fake "Konzerthalle", nothing is saved #}
+{% block edit_title %}
+    Ort “Konzerthalle” bearbeiten
+{% endblock edit_title %}
+{% block edit_header_actions %}
+    <a href="{% url 'contacts_locations' region_slug=request.region.slug %}"
+       class="btn btn-ghost">Abbrechen</a>
+    {# Reuses the row actions dropdown script, the status options are inert #}
+    <div data-row-actions class="relative">
+        <button type="button"
+                data-row-actions-toggle
+                aria-haspopup="menu"
+                aria-expanded="false"
+                class="flex h-[46px] items-center gap-2 rounded border-2 border-blue-500 bg-white px-3">
+            <span>Status: <strong>Veröffentlicht</strong></span>
+            <i icon-name="chevron-down" class="size-6 text-gray-700"></i>
+        </button>
+        <div data-row-actions-menu
+             role="menu"
+             class="hidden fixed z-10 flex-col gap-4 w-max min-w-[228px] rounded border-2 border-blue-200 bg-white p-4 text-left shadow-[2px_6px_10px_rgba(51,65,85,0.5)]">
+            <button type="button"
+                    role="menuitem"
+                    class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 hover:text-blue-500">
+                <span class="size-2 rounded-full bg-[#0f766e]"></span>
+                Veröffentlicht
+            </button>
+            <button type="button"
+                    role="menuitem"
+                    class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 hover:text-blue-500">
+                <span class="size-2 rounded-full bg-yellow-500"></span>
+                Entwurf
+            </button>
+            <button type="button"
+                    role="menuitem"
+                    class="flex items-center gap-2 whitespace-nowrap font-bold text-gray-700 hover:text-blue-500">
+                <span class="size-2 rounded-full bg-gray-500"></span>
+                Unsichtbar
+            </button>
+        </div>
+    </div>
+    <a href="{% url 'contacts_locations' region_slug=request.region.slug %}"
+       class="btn">Speichern</a>
+{% endblock edit_header_actions %}
+{% block edit_grid %}
+    {% if active_tab == "infos" %}
+        {# 3 equal columns with stacked cards #}
+        {% include "contacts_locations/_place_edit_infos.html" %}
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock edit_grid %}
+{% block edit_top %}
+    {% if active_tab == "texte" %}
+        {# Language bar: source language DE, then the target languages with their fake translation state #}
+        <div class="overflow-x-auto rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+            <div class="grid min-w-[720px] grid-cols-[repeat(25,minmax(0,1fr))] gap-x-2 text-center font-mono font-light uppercase">
+                <div class="mx-auto -my-3 flex w-9 flex-col items-center gap-[11px] rounded-[10px] bg-blue-500 py-3 text-white">
+                    <span class="flex h-6 items-center text-xs">DE</span>
+                    <i icon-name="check" class="size-6"></i>
+                </div>
+                <div class="flex flex-col items-center gap-[11px]">
+                    <span class="flex h-6 items-center"><i icon-name="arrow-right" class="size-4"></i></span>
+                    <span class="h-6"></span>
+                </div>
+                {% for code, state in fake_translations %}
+                    <div class="flex flex-col items-center gap-[11px]">
+                        <span class="flex h-6 items-center text-xs">{{ code }}</span>
+                        {% if state == "done" %}
+                            <i icon-name="check" class="size-6 text-[#0f766e]" title="Übersetzt"></i>
+                        {% elif state == "machine" %}
+                            <i icon-name="bot" class="size-6 text-[#4338ca]" title="Maschinell übersetzt"></i>
+                        {% else %}
+                            <i icon-name="x" class="size-6 text-red-800" title="Nicht übersetzt"></i>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock edit_top %}
+{% block edit_main %}
+    <div class="rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+        {% if active_tab == "texte" %}
+            <div>
+                <div class="flex items-center gap-3">
+                    <h2 class="text-lg font-bold leading-[1.4]">Titel des Orts</h2>
+                    <span class="text-red-500"><strong class="italic">* </strong><em>Pflichtfeld</em></span>
+                </div>
+                <input type="text"
+                       value="Konzerthalle"
+                       aria-label="Titel des Orts"
+                       class="mt-2 h-[46px] px-3">
+            </div>
+            <div class="mt-4">
+                <div class="flex items-center gap-3">
+                    <h2 class="text-lg font-bold leading-[1.4]">Beschreibung</h2>
+                    <em class="opacity-50">optional</em>
+                </div>
+                <div class="mt-2">
+                    <textarea class="tinymce_textarea" aria-label="Beschreibung"><p>Die Konzerthalle ist ein Veranstaltungsort für Konzerte, Theater und Lesungen. Der Eingang ist barrierefrei.</p><p>Öffnungszeiten: Montag bis Freitag, 10 bis 18 Uhr.</p></textarea>
+                </div>
+            </div>
+            <div class="mt-4">
+                <h2 class="text-lg font-bold leading-[1.4]">Weitere Infos</h2>
+                <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span>Link zum Ort:</span>
+                    <a href="#" class="break-all text-blue-500 underline">https://integreat.app/augsburg/de/locations/konzerthalle</a>
+                    <button type="button" class="inline-flex items-center gap-1 text-blue-500">
+                        <i icon-name="pencil" class="size-4"></i>
+                        bearbeiten
+                    </button>
+                </div>
+                <div class="mt-2 flex items-center gap-4">
+                    <span>Version des Orts:</span>
+                    <strong class="text-gray-700">2</strong>
+                    <button type="button" class="inline-flex items-center gap-1 text-blue-500">
+                        <i icon-name="pencil" class="size-4"></i>
+                        Versionen anzeigen
+                    </button>
+                </div>
+                <div class="mt-2 flex items-center gap-3">
+                    <span>Zuletzt gespeichert:</span>
+                    <strong class="text-gray-700">26.2.2026</strong>
+                </div>
+            </div>
+            {% include "_tinymce_config.html" with language=request.region.default_language %}
+        {% else %}
+            <p class="text-gray-600">Dieser Bereich ist im Prototyp noch leer.</p>
+        {% endif %}
+    </div>
+{% endblock edit_main %}
+{% block edit_sidebar %}
+    {% if active_tab == "texte" %}
+        <aside class="rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+            <label class="my-0 flex items-center gap-3 text-base font-normal">
+                <input type="checkbox" class="size-4 rounded">
+                Titel übersetzen
+            </label>
+            <div class="mt-6">
+                <h2 class="text-lg font-bold leading-[1.4]">Übersetzung der Beschreibung</h2>
+                <div class="mt-3 space-y-3">
+                    <label class="my-0 flex items-center gap-3 text-base font-normal">
+                        <input type="radio" name="fake-translation" class="size-4">
+                        <span>Nur geringfügige Änderung erfolgt,
+                            <br>
+                        <span class="text-black/60">keine Übersetzung notwendig</span></span>
+                    </label>
+                    <label class="my-0 flex items-center gap-3 text-base font-normal">
+                        <input type="radio" name="fake-translation" class="size-4">
+                        <span><strong>Deutsch</strong> in jeder Sprache anzeigen</span>
+                    </label>
+                    <label class="my-0 flex items-center gap-3 text-base font-normal">
+                        <input type="radio" name="fake-translation" checked class="size-4">
+                        <span>Neu in <strong>alle</strong> Sprachen übersetzen</span>
+                    </label>
+                    <label class="my-0 flex items-center gap-3 text-base font-normal">
+                        <input type="radio" name="fake-translation" class="size-4">
+                        <span>Neu in <strong>ausgewählte</strong> Sprachen übersetzen</span>
+                    </label>
+                </div>
+            </div>
+        </aside>
+    {% endif %}
+{% endblock edit_sidebar %}

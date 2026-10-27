@@ -246,7 +246,8 @@
                         {% translate "Organizations" %}
                     </a>
                 {% endif %}
-                {% if perms.cms.view_externalcalendar %}
+                {# PROTOTYPE: external calendars are hidden from the menu for the user test #}
+                {% if False and perms.cms.view_externalcalendar %}
                     <a href="{% url 'external_calendar_list' region_slug=request.region.slug %}"
                        class="{% if current_menu_item == 'external_calendar_list' %} active{% endif %}">
                         <i icon-name="calendar-plus"></i>

@@ -39,11 +39,12 @@
     </td>
     <td class="py-2 pr-4 align-top">
         <div class="flex justify-end gap-1">
-            <button type="button"
-                    class="flex h-[38px] items-center gap-2 rounded bg-blue-100 px-3 py-2 font-bold text-gray-700 hover:bg-blue-200">
+            {# Every row opens the same fake edit page #}
+            <a href="{% url 'contacts_locations_place_edit' region_slug=request.region.slug %}"
+               class="flex h-[38px] items-center gap-2 rounded bg-blue-100 px-3 py-2 font-bold text-gray-700 hover:bg-blue-200">
                 <i icon-name="pencil"></i>
                 Bearbeiten
-            </button>
+            </a>
             <div data-row-actions class="relative">
                 <button type="button"
                         data-row-actions-toggle

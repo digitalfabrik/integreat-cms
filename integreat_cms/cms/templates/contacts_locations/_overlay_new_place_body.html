@@ -1,0 +1,89 @@
+{# PROTOTYPE: form of the "Neuen Ort erstellen" overlay, nothing is saved #}
+<div class="flex flex-col gap-9 max-[680px]:gap-[34px]">
+    <div class="flex flex-col gap-3">
+        <div id="new-place-title-label"
+             class="flex min-h-9 items-center gap-[18px] max-[680px]:flex-wrap max-[680px]:gap-2">
+            <span class="text-2xl leading-normal">Titel des Orts</span>
+            <span class="whitespace-nowrap text-base italic text-red-500"><strong>* </strong>Pflichtfeld</span>
+        </div>
+        <input id="new-place-title"
+               type="text"
+               aria-labelledby="new-place-title-label"
+               placeholder="..."
+               class="h-12 px-3 py-2">
+    </div>
+    <div role="group"
+         aria-labelledby="new-place-address-label"
+         class="flex flex-col gap-3">
+        <div id="new-place-address-label"
+             class="flex min-h-9 items-center gap-[18px] max-[680px]:flex-wrap max-[680px]:gap-2">
+            <span class="text-2xl leading-normal">Adresse des Orts</span>
+            <span class="whitespace-nowrap text-base italic text-red-500"><strong>* </strong>Pflichtfeld</span>
+        </div>
+        <div class="grid grid-cols-2 gap-4 max-[680px]:grid-cols-1 max-[680px]:gap-2.5">
+            <input type="text"
+                   aria-label="Straße und Hausnummer"
+                   placeholder="Straße und Hausnummer"
+                   class="col-span-2 h-12 px-3 py-2 max-[680px]:col-span-1">
+            <input type="text"
+                   aria-label="Postleitzahl"
+                   placeholder="Postleitzahl"
+                   class="h-12 px-3 py-2">
+            <input type="text"
+                   aria-label="Ort"
+                   placeholder="Ort"
+                   class="h-12 px-3 py-2">
+            <select aria-label="Land"
+                    class="col-span-2 h-12 px-3 py-2 max-[680px]:col-span-1">
+                <option selected>Deutschland</option>
+                <option>Österreich</option>
+                <option>Schweiz</option>
+            </select>
+        </div>
+        <label class="flex items-center gap-2 whitespace-nowrap text-base leading-[1.4] max-[680px]:whitespace-normal">
+            <input type="checkbox" checked class="size-4 shrink-0 rounded text-blue-500">
+            Ort auf Karte in Integreat App anzeigen
+        </label>
+    </div>
+    {# Multiselect without JS: the dropdown entries are labels for the hidden checkboxes next to the chips #}
+    <div class="flex flex-col gap-3">
+        <div class="flex min-h-9 items-center gap-[18px] max-[680px]:flex-wrap max-[680px]:gap-2">
+            <span class="text-2xl leading-normal">Kategorie(n) des Orts</span>
+            <span class="whitespace-nowrap text-base italic text-red-500"><strong>* </strong>Pflichtfeld</span>
+        </div>
+        <details class="group relative">
+            <summary class="flex h-12 cursor-pointer list-none items-center justify-between rounded border-2 border-gray-200 bg-gray-200 px-3 py-2 text-xl leading-[1.4] [&::-webkit-details-marker]:hidden">
+                <span class="opacity-60">auswählen</span>
+                <i icon-name="chevron-down" class="size-6 group-open:rotate-180"></i>
+            </summary>
+            <div class="absolute z-10 mt-1 flex w-full flex-col rounded border-2 border-blue-200 bg-white py-2 shadow-[2px_6px_10px_rgba(51,65,85,0.5)]">
+                {% for category in fake_place_categories %}
+                    <label for="new-place-category-{{ forloop.counter }}"
+                           class="cursor-pointer px-4 py-2 font-bold text-gray-700 hover:bg-blue-100">
+                        {{ category }}
+                    </label>
+                {% endfor %}
+            </div>
+        </details>
+        <div class="flex flex-wrap items-center gap-2">
+            {% for category in fake_place_categories %}
+                {# Each pair needs its own wrapper, otherwise peer-checked would match the checkboxes of other chips too #}
+                <span class="contents">
+                    <input id="new-place-category-{{ forloop.counter }}"
+                           type="checkbox"
+                           class="peer/category sr-only">
+                    <label for="new-place-category-{{ forloop.counter }}"
+                           title="{{ category }} entfernen"
+                           class="relative hidden h-6 cursor-pointer rounded-[15px] bg-blue-200 py-1 pl-2 pr-7 text-xs font-bold leading-[1.4] peer-checked/category:inline-block">
+                        {{ category }}
+                        <span class="absolute right-0 top-0 flex size-6 items-center justify-center">
+                            <span class="flex size-4 items-center justify-center rounded-full bg-gray-700 text-white">
+                                <i icon-name="x" class="size-3"></i>
+                            </span>
+                        </span>
+                    </label>
+                </span>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+{# PROTOTYPE: centered card overlay with dark backdrop, see static/src/js/contacts-locations/overlay.ts #}
+{# Usage: {% include "contacts_locations/_overlay.html" with overlay_id="..." title="..." body_template="..." footer_template="..." %} #}
+{# The header stays fixed, body and footer scroll. Below 680px the overlay is shown fullscreen. #}
+<dialog id="{{ overlay_id }}"
+        data-overlay
+        aria-labelledby="{{ overlay_id }}-title"
+        class="m-auto open:flex flex-col w-[calc(100%-2rem)] max-w-[40vw] max-h-[calc(100vh-4rem)] overflow-hidden rounded-[20px] bg-white p-0 text-black backdrop:bg-black/50 max-[680px]:h-full max-[680px]:max-h-none max-[680px]:w-full max-[680px]:max-w-none max-[680px]:rounded-none">
+    <div class="flex shrink-0 items-start justify-between gap-4 px-9 pt-9 max-[680px]:px-5 max-[680px]:pt-6">
+        <h2 id="{{ overlay_id }}-title"
+            class="text-3xl max-[680px]:max-w-[80%]">
+            {{ title }}
+        </h2>
+        <button type="button"
+                data-overlay-close
+                title="Schließen"
+                aria-label="Schließen"
+                class="shrink-0 text-gray-700 hover:text-blue-500">
+            <i icon-name="x" class="size-8"></i>
+        </button>
+    </div>
+    <div class="min-h-0 flex-1 overflow-y-auto px-9 py-9 max-[680px]:px-5 max-[680px]:py-[34px]">
+        {% if body_template %}
+            {% include body_template %}
+        {% else %}
+            <p class="text-gray-600">Hier kommt der Inhalt hin.</p>
+        {% endif %}
+        {# PROTOTYPE test: the footer scrolls with the content instead of staying fixed at the bottom #}
+        <div class="mt-9 flex items-end justify-between gap-2 max-[680px]:mt-[34px] max-[680px]:flex-col max-[680px]:items-stretch">
+            {% if footer_template %}
+                {% include footer_template %}
+            {% else %}
+                <button type="button" data-overlay-close class="btn btn-ghost">Abbrechen</button>
+                <button type="button" data-overlay-close class="btn">Speichern</button>
+            {% endif %}
+        </div>
+    </div>
+</dialog>
