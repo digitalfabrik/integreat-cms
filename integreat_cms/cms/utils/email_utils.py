@@ -44,6 +44,7 @@ def send_mail(
             "COMPANY": settings.COMPANY,
             "BRANDING": settings.BRANDING,
             "BRANDING_TITLE": settings.BRANDING_TITLE,
+            "ENVIRONMENT": settings.ENVIRONMENT,
         },
     )
     # Assemble message body

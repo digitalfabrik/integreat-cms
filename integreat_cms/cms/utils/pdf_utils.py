@@ -220,6 +220,7 @@ def render_pdf_html(
         "prevent_italics": ["ar", "fa"],
         "BRANDING": settings.BRANDING,
         "BRANDING_TITLE": settings.BRANDING_TITLE,
+        "ENVIRONMENT": settings.ENVIRONMENT,
     }
     return get_template("pages/page_pdf.html").render(context)
 
