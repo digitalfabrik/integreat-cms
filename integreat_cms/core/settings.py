@@ -45,8 +45,8 @@ BASE_DIR: Final[str] = os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 #:     Never deploy a site into production with :setting:`DEBUG` turned on!
 DEBUG: Final[bool] = bool(strtobool(os.environ.get("INTEGREAT_CMS_DEBUG", "False")))
 
-#: Whether this is a testing system (even if DEBUG is off)
-TEST: Final[bool] = bool(strtobool(os.environ.get("INTEGREAT_CMS_TEST", "False")))
+#: The environment this installation runs in (e.g. ``development``, ``test``, ``staging``, ``production``)R
+ENVIRONMENT = os.environ.get("INTEGREAT_CMS_ENVIRONMENT", "development")
 
 if DEBUG:
     load_dotenv(os.path.join(BASE_DIR, ".env"))
