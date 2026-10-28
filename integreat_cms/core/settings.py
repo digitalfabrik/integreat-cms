@@ -19,6 +19,7 @@ from urllib.parse import urlparse
 from django.contrib.messages.constants import SUCCESS
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
+from dotenv import load_dotenv
 
 from integreat_cms.nominatim_api.utils import BoundingBox
 
@@ -46,6 +47,9 @@ DEBUG: Final[bool] = bool(strtobool(os.environ.get("INTEGREAT_CMS_DEBUG", "False
 
 #: Whether this is a testing system (even if DEBUG is off)
 TEST: Final[bool] = bool(strtobool(os.environ.get("INTEGREAT_CMS_TEST", "False")))
+
+if DEBUG:
+    load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 #: Enabled applications (see :setting:`django:INSTALLED_APPS`)
 INSTALLED_APPS: Final[list[str]] = [
@@ -86,6 +90,7 @@ if DEBUG:
     INSTALLED_APPS.append("django.contrib.admin")
     # Comment out the following line if you want to disable the Django debug toolbar
     INSTALLED_APPS.append("debug_toolbar")
+
 
 #: Activated middlewares (see :setting:`django:MIDDLEWARE`)
 MIDDLEWARE: list[str] = [
