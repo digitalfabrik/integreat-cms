@@ -87,15 +87,18 @@ class ContentQuerySet(models.QuerySet):
 
     def prefetch_public_or_draft_translations(
         self,
+        defer_content: bool = False,
     ) -> ContentQuerySet:
         """
         Get the queryset including the custom attribute ``prefetched_public_or_draft_translations`` which contains the latest
         public or draft translations of each content object in each language
 
+        :param defer_content: Whether the ``content`` field should be deferred [optional, defaults to ``False``]
         :return: The queryset of content objects
         """
         return self.prefetch_translations(
             to_attr="prefetched_public_or_draft_translations",
+            defer_content=defer_content,
             status__in=[status.DRAFT, status.PUBLIC],
         )
 

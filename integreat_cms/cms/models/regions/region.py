@@ -860,7 +860,7 @@ class Region(AbstractBaseModel):
             .exclude(Q(content="") & Q(page__mirrored_page=None))
         )
 
-    def get_partially_translated_pages(self) -> int:
+    def get_number_of_partially_translated_pages(self) -> int:
         """
         Returns the number of pages with at least one missing or outdated translation
         """
@@ -878,7 +878,7 @@ class Region(AbstractBaseModel):
             prefetch_translations=True,
             prefetch_major_translations=True,
             defer_translation_content=True,
-        )
+        ).prefetch_public_or_draft_translations(defer_content=True)
         return sum(1 for page in pages if has_bad_translation(page))
 
     @classmethod
