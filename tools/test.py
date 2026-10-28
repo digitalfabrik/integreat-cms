@@ -20,7 +20,7 @@ options:
 import sys
 from argparse import ArgumentParser
 from collections.abc import Callable
-from os import environ
+from os import environ, getgid, getuid
 from pathlib import Path
 from shutil import rmtree
 from subprocess import CalledProcessError, run
@@ -206,6 +206,8 @@ def _ensure_docker_compose_run(
         # Already running in Docker
         action()
     else:
+        user = f"{getuid()}:{getgid()}" if sys.platform == "linux" else "0:0"
+
         # Forward the command to a new service container
         command = [
             "docker",
@@ -222,7 +224,7 @@ def _ensure_docker_compose_run(
             *sys.argv[1:],
         ]
         _print_info(f"➡ Running: {' '.join(command)}")
-        run(command, check=True, text=True)
+        run(command, check=True, text=True, env={**environ, "DOCKER_USER": user})
 
 
 _parser = ArgumentParser("test.py")

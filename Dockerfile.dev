@@ -38,6 +38,10 @@ RUN --mount=type=cache,target=/root/.npm \
   npm ci --only=dev --no-audit --no-fund
 
 
+# Set the user's home directory to a writeable directory,
+# independent from the actual UID we will run
+ENV HOME="/tmp"
+
 # This enables scripts to detect that they are running in a container
 ENV DOCKER_EXEC="true"
 

@@ -14,6 +14,7 @@ services:
         condition: service_healthy
       web:
         condition: service_started
+    user: "${DOCKER_USER}"
     environment:
       DJANGO_SETTINGS_MODULE: integreat_cms.core.test_settings
       # The invoking host uid has no passwd entry in the image; give pip and
@@ -65,6 +66,7 @@ services:
       dockerfile: Dockerfile.dev
     image: integreat-cms-dev:latest
     pull_policy: build
+    user: "${DOCKER_USER}"
     volumes:
       - ./.browserlistrc:/app/.browserlistrc
       - ./.prettierignore:/app/.prettierignore
