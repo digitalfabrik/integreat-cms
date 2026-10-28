@@ -437,6 +437,68 @@ jobs:
             git commit -m "Update documentation of commit ${CIRCLE_SHA1} [skip ci]" || true
             git push origin $BRANCH
 
+  llm-review:
+    docker:
+      - image: cimg/python:3.13
+    resource_class: small
+    environment:
+      # Commit of https://github.com/digitalfabrik/github-agent from which the review script is used
+      GITHUB_AGENT_COMMIT: 5458b155e0fde6e0989dc3d7e3b3716224aa84e6
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Enable virtual environment
+          command: echo "source ${CIRCLE_WORKING_DIRECTORY}/.venv/bin/activate" >> $BASH_ENV
+      - run:
+          name: Request installation access token to authorize as Deliverino app
+          command: |
+            # Restrict the token to what the review needs, the Deliverino app itself has more permissions
+            # Assign it first so the step fails if the token can't be requested
+            DELIVERINO_ACCESS_TOKEN=$(./.circleci/scripts/get_access_token.py --repository integreat-cms --permission pull_requests=write --permission contents=read)
+            echo "export GITHUB_TOKEN=${DELIVERINO_ACCESS_TOKEN}" >> $BASH_ENV
+      - run:
+          name: Get pull request of this branch
+          command: |
+            # The pipeline is triggered by the push, so give the author a few minutes to open the pull request
+            for attempt in {1..10}; do
+              # Prints the number of the pull request, "draft" if it's a draft or nothing if there is none
+              PR_NUMBER=$(curl -fsS --get \
+                -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+                --data-urlencode "head=digitalfabrik:${CIRCLE_BRANCH}" \
+                --data "state=open" \
+                https://api.github.com/repos/digitalfabrik/integreat-cms/pulls \
+                | python -c "import json, sys; pull_requests = json.load(sys.stdin); print(next((str(pr['number']) for pr in pull_requests if not pr['draft']), 'draft' if pull_requests else ''))")
+              if [[ -n "${PR_NUMBER}" ]]; then
+                break
+              fi
+              if [[ ${attempt} -lt 10 ]]; then
+                echo "There is no open pull request for branch ${CIRCLE_BRANCH} yet, checking again in 30 seconds"
+                sleep 30
+              fi
+            done
+            # Only review pull requests which are ready for review
+            if [[ -z "${PR_NUMBER}" ]]; then
+              echo "There is no open pull request for branch ${CIRCLE_BRANCH}"
+              circleci-agent step halt
+              exit 0
+            fi
+            if [[ "${PR_NUMBER}" == "draft" ]]; then
+              echo "The pull request of branch ${CIRCLE_BRANCH} is a draft"
+              circleci-agent step halt
+              exit 0
+            fi
+            echo "export PR_NUMBER=${PR_NUMBER}" >> $BASH_ENV
+      - run:
+          name: Download review script
+          command: curl -fsSL -o /tmp/pr-review.py "https://raw.githubusercontent.com/digitalfabrik/github-agent/${GITHUB_AGENT_COMMIT}/pr-review.py"
+      - run:
+          name: Review pull request and post the review as Deliverino app
+          # The LLM may take up to LLM_TIMEOUT (default 10 minutes) without any output
+          no_output_timeout: 15m
+          command: python /tmp/pr-review.py digitalfabrik/integreat-cms "${PR_NUMBER}" --post
+
   bump-dev-version:
     docker:
       - image: cimg/python:3.13
@@ -817,6 +879,19 @@ workflows:
           filters:
             branches:
               ignore: main
+      - llm-review:
+          context:
+            - deliverino
+            - llm-review
+          requires:
+            - python-dependencies-install
+          filters:
+            branches:
+              ignore:
+                - main
+                - develop
+                - /pull\/.*/
+                - /dependabot\/.*/
       - build-documentation:
           requires:
             - python-dependencies-install

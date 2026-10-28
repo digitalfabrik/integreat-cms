@@ -138,6 +138,20 @@ This job makes use of the `ShellCheck CircleCI Orb <https://circleci.com/develop
 executes the pre-defined job ``shellcheck/check``. It is configured to check the directory :github-source:`tools`
 and to allow external sources because all dev tools source one common function script. Also see :ref:`shellcheck`.
 
+llm-review
+----------
+
+This job reviews the open pull request of the current branch with our self-hosted LLM and posts the review as comment.
+It authenticates as the Deliverino app with a token which is restricted to this repository and the permissions the
+review needs (``pull_requests: write`` and ``contents: read``) and
+runs ``pr-review.py`` of `github-agent <https://github.com/digitalfabrik/github-agent>`_ at the commit pinned in the job.
+The LLM endpoint is configured via the variables ``LLM_BASE_URL``, ``LLM_API_KEY`` and ``LLM_MODEL`` of the
+``llm-review`` context. The instructions for the review are read from :github-source:`REVIEW_PROMPT.md` on the
+``develop`` branch. On subsequent pushes, the existing review comment is updated instead of creating a new one.
+Draft pull requests, pull requests from forks and Dependabot are not reviewed. Since the pipeline is triggered by the
+push and not by the pull request, the job waits up to 5 minutes for a pull request to be opened. Pull requests which are
+opened later or marked as ready for review are reviewed on the next push.
+
 
 Workflow ``main``
 =================
