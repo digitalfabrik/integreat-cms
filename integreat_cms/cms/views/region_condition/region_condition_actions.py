@@ -96,7 +96,7 @@ class RegionConditionResource(resources.ModelResource):
         :param region: The region
         :return: The number of pages with at least one missing or outdated translation
         """
-        return region.get_partially_translated_pages()
+        return region.get_number_of_partially_translated_pages()
 
     @staticmethod
     def dehydrate_num_outdated_pages(region: Region) -> int:

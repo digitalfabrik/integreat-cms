@@ -12,5 +12,5 @@ register = template.Library()
 
 
 @register.simple_tag
-def get_partially_translated_pages(region: Region) -> int:
-    return region.get_partially_translated_pages()
+def get_number_of_partially_translated_pages(region: Region) -> int:
+    return region.get_number_of_partially_translated_pages()
