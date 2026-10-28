@@ -6,7 +6,8 @@
 {# djlint:off H006,H007,H016,H025,H030,H031 #}
 <!DOCTYPE html>
 <html lang="{{ language.bcp47_tag }}"
-      dir="{% if right_to_left %}rtl{% else %}ltr{% endif %}">
+      dir="{% if right_to_left %}rtl{% else %}ltr{% endif %}"
+      data-environment="{{ ENVIRONMENT }}">
     <head>
         <meta charset="utf-8" />
         {% render_bundle 'pdf' 'css' %}
