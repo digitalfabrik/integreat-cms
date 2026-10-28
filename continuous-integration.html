@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-10-21T12:22:32+00:00" />
+    <meta property="article:modified_time" content="2026-10-28T13:09:21+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Continuous Integration (CircleCI) &mdash; integreat-cms 2026.10.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -1962,6 +1962,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#build-documentation">build-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#deploy-documentation">deploy-documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#shellcheck-check">shellcheck/check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#llm-review">llm-review</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
@@ -2421,6 +2422,19 @@ which is then deployed to <code class="docutils literal notranslate"><span class
 executes the pre-defined job <code class="docutils literal notranslate"><span class="pre">shellcheck/check</span></code>. It is configured to check the directory <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools">tools</a>
 and to allow external sources because all dev tools source one common function script. Also see <a class="reference internal" href="code-style.html#shellcheck"><span class="std std-ref">Shellcheck</span></a>.</p>
 </section>
+<section id="llm-review">
+<h3>llm-review<a class="headerlink" href="#llm-review" title="Link to this heading"></a></h3>
+<p>This job reviews the open pull request of the current branch with our self-hosted LLM and posts the review as comment.
+It authenticates as the Deliverino app with a token which is restricted to this repository and the permissions the
+review needs (<code class="docutils literal notranslate"><span class="pre">pull_requests:</span> <span class="pre">write</span></code> and <code class="docutils literal notranslate"><span class="pre">contents:</span> <span class="pre">read</span></code>) and
+runs <code class="docutils literal notranslate"><span class="pre">pr-review.py</span></code> of <a class="reference external" href="https://github.com/digitalfabrik/github-agent">github-agent</a> at the commit pinned in the job.
+The LLM endpoint is configured via the variables <code class="docutils literal notranslate"><span class="pre">LLM_BASE_URL</span></code>, <code class="docutils literal notranslate"><span class="pre">LLM_API_KEY</span></code> and <code class="docutils literal notranslate"><span class="pre">LLM_MODEL</span></code> of the
+<code class="docutils literal notranslate"><span class="pre">llm-review</span></code> context. The instructions for the review are read from <a class="extlink-github-source reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/REVIEW_PROMPT.md">REVIEW_PROMPT.md</a> on the
+<code class="docutils literal notranslate"><span class="pre">develop</span></code> branch. On subsequent pushes, the existing review comment is updated instead of creating a new one.
+Draft pull requests, pull requests from forks and Dependabot are not reviewed. Since the pipeline is triggered by the
+push and not by the pull request, the job waits up to 5 minutes for a pull request to be opened. Pull requests which are
+opened later or marked as ready for review are reviewed on the next push.</p>
+</section>
 </section>
 <section id="workflow-main">
 <h2>Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code><a class="headerlink" href="#workflow-main" title="Link to this heading"></a></h2>
@@ -2500,7 +2514,7 @@ See <a class="reference internal" href="troubleshooting.html#troubleshooting-una
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 21, 2026.
+      <span class="lastupdated">Last updated on Oct 28, 2026.
       </span></p>
   </div>
 
