@@ -29,6 +29,12 @@ Run the full test suite (in Docker)::
 
     ./tools/test.py
 
+Run the full test suite with Podman instead of Docker (give the Podman machine
+at least 6 GiB of memory, e.g. ``podman machine set --memory 8192``, otherwise
+the parallel test workers get killed by the OOM killer)::
+
+    CONTAINER_ENGINE=podman ./tools/test.py
+
 Run the full test suite on the host::
 
     ./tools/test.py --local

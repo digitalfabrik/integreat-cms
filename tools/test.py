@@ -207,10 +207,12 @@ def _ensure_docker_compose_run(
         action()
     else:
         user = f"{getuid()}:{getgid()}" if sys.platform == "linux" else "0:0"
+        # Allow e.g. `CONTAINER_ENGINE=podman` for users without Docker
+        engine = environ.get("CONTAINER_ENGINE", "docker")
 
         # Forward the command to a new service container
         command = [
-            "docker",
+            engine,
             "compose",
             "-f",
             "docker-compose.test.yaml",
