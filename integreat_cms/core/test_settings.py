@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from .settings import *
 
+ENVIRONMENT = os.environ.get("INTEGREAT_CMS_ENVIRONMENT", "development")
+
 #: Set a dummy secret key for CircleCI build even if it's not in debug mode
 SECRET_KEY = "dummy"  # noqa: S105
 #: Set dummy credentials path to test push notifications
