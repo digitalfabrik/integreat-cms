@@ -43,14 +43,18 @@ class ApiNotFoundFilter(logging.Filter):
         and :meth:`django.core.servers.basehttp.WSGIRequestHandler.log_message`).
         Since API clients frequently request non-existing content, these entries clutter the logfile.
 
+        The logger level is only checked before filters are applied, so downgraded records
+        have to be dropped here if the logger is not enabled for DEBUG.
+
         :param record: The log record to filter
-        :return: Always True, the record is never dropped
+        :return: False if the record was downgraded and DEBUG is not enabled, True otherwise
         """
         if getattr(record, "status_code", None) == 404 and self.get_path(
             record
         ).startswith("/api/"):
             record.levelno = logging.DEBUG
             record.levelname = logging.getLevelName(logging.DEBUG)
+            return logging.getLogger(record.name).isEnabledFor(logging.DEBUG)
         return True
 
     @staticmethod
