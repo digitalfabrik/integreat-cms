@@ -134,10 +134,25 @@ const pollTask = async (
     elements: HTMLElement[],
     knownElementsByTask: Map<string, HTMLElement[]>
 ) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    if (RUNNING_STATES.has(data.status)) {
+    const scheduleNextPoll = () =>
         setTimeout(() => pollTask(root, taskId, url, elements, knownElementsByTask), POLL_INTERVAL_MS);
+
+    let data;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP status ${response.status} ${response.statusText}`);
+        }
+        data = await response.json();
+    } catch (error) {
+        // Keep polling on failed requests (e.g. a 502 during a deployment) -
+        // otherwise the spinner and the disabled row would stay until reload
+        console.error(`Polling machine translation task ${taskId} failed:`, error);
+        scheduleNextPoll();
+        return;
+    }
+    if (RUNNING_STATES.has(data.status)) {
+        scheduleNextPoll();
         return;
     }
     // `elements` is the same array `knownElementsByTask` holds for this task -
