@@ -55,8 +55,19 @@ export const showReportBanners = async (container: Element | null, reportUrl: st
         return;
     }
     const url = taskId ? `${reportUrl}?${new URLSearchParams({ task_id: taskId })}` : reportUrl;
-    const response = await fetch(url);
-    const data = await response.json();
+    let data;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP status ${response.status} ${response.statusText}`);
+        }
+        data = await response.json();
+    } catch (error) {
+        // Not retried: the report endpoint is a destructive read, so the
+        // report may already have been consumed by the failed request
+        console.error("Fetching machine translation reports failed:", error);
+        return;
+    }
     data.reports?.forEach((report: { outcome: string; message: string }) => {
         const className = OUTCOME_BANNER_CLASSNAMES[report.outcome];
         if (className) {
