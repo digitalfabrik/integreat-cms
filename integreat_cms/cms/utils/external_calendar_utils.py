@@ -378,8 +378,8 @@ def _import_events(
     """
     try:
         ical = calendar.load_ical()
-    except OSError:
-        logger.info("Could not import events from %s", calendar)
+    except OSError as e:
+        logger.info("Could not import events from %s due to %r", calendar, e)
         errors.append(_("Could not access the url of this external calendar"))
         return
     except ValueError:
@@ -438,7 +438,7 @@ def import_event(
             event, language.slug, calendar, logger, calendar.region.id
         )
     except ValueError as e:
-        logger.info("Could not import event: %r due to error", event)
+        logger.info("Could not import event: %r due to error %s", event, e)
         errors.append(_("Could not import '{}': {}").format(event.get("SUMMARY"), e))
         try:
             return event.decoded("UID")
