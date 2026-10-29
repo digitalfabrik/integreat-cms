@@ -47,12 +47,15 @@ export const showBanner = (container: Element | null, className: string, text: s
  *
  * @param container The banner placeholder to append into
  * @param reportUrl The report endpoint to fetch, if known
+ * @param taskId The task whose report to show, if the caller watched a
+ * specific task finish - otherwise every report still queued is shown
  */
-export const showReportBanners = async (container: Element | null, reportUrl: string | undefined) => {
+export const showReportBanners = async (container: Element | null, reportUrl: string | undefined, taskId?: string) => {
     if (!container || !reportUrl) {
         return;
     }
-    const response = await fetch(reportUrl);
+    const url = taskId ? `${reportUrl}?${new URLSearchParams({ task_id: taskId })}` : reportUrl;
+    const response = await fetch(url);
     const data = await response.json();
     data.reports?.forEach((report: { outcome: string; message: string }) => {
         const className = OUTCOME_BANNER_CLASSNAMES[report.outcome];
