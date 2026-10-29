@@ -180,7 +180,10 @@ class PushNotificationFormView(TemplateView):
         """
 
         region = request.region
-        language = Language.objects.get(slug=kwargs.get("language_slug"))
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"),
+            only_active=True,
+        )
 
         push_notification_id = kwargs.get("push_notification_id")
         push_notification_instance = (
