@@ -13,10 +13,12 @@
  * shares one Celery task id, so rather than polling per row, all elements
  * sharing a `data-mt-task-id` are grouped and only one poll runs per task.
  *
- * Once a task's poll resolves, a one-off aggregate banner is also shown
- * (not the per-page report) via the shared `utils/mt-report-banner` module -
- * also used by `content-edit-lock.ts` for the same banners, discovered
- * through the heartbeat instead of a dedicated poll there.
+ * Once a task's poll resolves, a one-off aggregate banner for that task's
+ * report is also shown (not the per-page report) via the shared
+ * `utils/mt-report-banner` module - also used by `content-edit-lock.ts` for
+ * the same banners, discovered through the heartbeat instead of a dedicated
+ * poll there. Reports of runs that finished while nobody was watching them
+ * are shown once when the list loads.
  *
  * @module mt-progress-poll
  */
@@ -149,7 +151,7 @@ const pollTask = async (
     if (data.status === "FAILURE") {
         showBanner(bannerContainer, FAILURE_BANNER_CLASS, data.details?.message);
     } else {
-        showReportBanners(bannerContainer, root.dataset.mtReportUrl);
+        showReportBanners(bannerContainer, root.dataset.mtReportUrl, taskId);
     }
 };
 
@@ -190,6 +192,8 @@ const pollNewTasks = (root: HTMLElement, knownElementsByTask: Map<string, HTMLEl
 };
 
 export default defineFeature((root) => {
+    // Reports of runs that finished while nobody was watching them
+    showReportBanners(root.querySelector("[data-mt-report-banner]"), root.dataset.mtReportUrl);
     const knownElementsByTask = new Map<string, HTMLElement[]>();
     pollNewTasks(root, knownElementsByTask);
     document.addEventListener("subpages-loaded", () => pollNewTasks(root, knownElementsByTask));

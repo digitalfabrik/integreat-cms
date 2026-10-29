@@ -12,32 +12,33 @@ let heartbeatInterval: ReturnType<typeof setTimeout> | null = null;
 let unloadEventListener: (this: Window, ev: Event) => any | null = null;
 let numHeartbeats = 0;
 let isMachineTranslationLockShowing = false;
-let hasActiveChildTranslation = false;
+let activeChildTranslationTaskId: string | null = null;
 
 /**
  * Shows/hides the "this page is translating into other languages" line
  * based on the heartbeat's `activeChildTranslationTaskId`, and shows the
- * outcome banner once a previously-active one is no longer running. Reuses
- * the heartbeat's own request/interval rather than a dedicated poll, since
- * this and the human edit-lock check both need the same "is anything still
- * going on for this page" answer on the same cadence.
+ * outcome banner of a previously-active task once it is no longer running.
+ * Compares task ids rather than just "something is running": the heartbeat
+ * only reports one active task, so if one finishes while another one into a
+ * different child language is still running, the id changes without ever
+ * becoming empty. Reuses the heartbeat's own request/interval rather than a
+ * dedicated poll, since this and the human edit-lock check both need the
+ * same "is anything still going on for this page" answer on the same cadence.
  *
  * @param heartbeatData The heartbeat data element (for the report url)
  * @param activeTaskId The task id from the latest heartbeat response, if any
  */
 const updateChildTranslationProgress = (heartbeatData: HTMLElement, activeTaskId: string | null) => {
-    const inProgressLine = document.getElementById("mt-source-in-progress-line");
-    if (activeTaskId) {
-        hasActiveChildTranslation = true;
-        inProgressLine?.classList.remove("hidden");
-        return;
-    }
-    if (hasActiveChildTranslation) {
-        hasActiveChildTranslation = false;
-        inProgressLine?.classList.add("hidden");
+    if (activeChildTranslationTaskId && activeChildTranslationTaskId !== activeTaskId) {
         const reportUrl = heartbeatData.getAttribute("data-mt-report-url");
-        showReportBanners(document.getElementById("mt-source-report-banner"), reportUrl ?? undefined);
+        showReportBanners(
+            document.getElementById("mt-source-report-banner"),
+            reportUrl ?? undefined,
+            activeChildTranslationTaskId
+        );
     }
+    activeChildTranslationTaskId = activeTaskId;
+    document.getElementById("mt-source-in-progress-line")?.classList.toggle("hidden", !activeTaskId);
 };
 
 const sendMessage = async (url: string, payload: string): Promise<any> => {
