@@ -378,11 +378,11 @@ def test_daily_event_not_imported(httpserver: HTTPServer, load_test_data: None) 
     calendar_url = serve(httpserver, CALENDAR_DAILY_EVENT)
     calendar = setup_calendar(calendar_url)
 
-    _, err = get_command_output("import_events")
+    out, _ = get_command_output("import_events")
 
     assert not RecurrenceRule.objects.filter(
         event__external_calendar=calendar
     ).exists(), "The recurrence rule should not exist"
     assert not calendar.events.exists(), "The event should not exist"
 
-    assert "Could not import event" in err
+    assert "Could not import event" in out
