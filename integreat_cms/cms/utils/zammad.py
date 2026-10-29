@@ -157,6 +157,20 @@ class ZammadAPI:
         ]
         return {key: message[key] for key in message if key in keys_to_keep}
 
+    def get_cached_ticket_articles(self) -> list[dict]:
+        """
+        Get all Zammad articles of this ticket, including internal ones.
+        The raw response is cached for 60 seconds and cleared by :meth:`save_message`.
+
+        :return: list of unfiltered Zammad articles
+        """
+        cache_key = f"{self.region.slug}_{self.device_id}"
+        articles = cache.get(cache_key)
+        if articles is None:
+            articles = self.get_zammad_ticket_messages()
+            cache.set(cache_key, articles, 60)
+        return articles
+
     def get_messages(
         self, before: datetime | None = None, only_user: bool = False
     ) -> list[dict]:
@@ -167,14 +181,8 @@ class ZammadAPI:
         :param only_user: optionally only retrieve user messages
         :return: formatted chat messages
         """
-        cache_key = f"{self.region.slug}_{self.device_id}"
-        response = cache.get(cache_key)
-        if response is None:
-            response = self.get_zammad_ticket_messages()
-            cache.set(cache_key, response, 60)
-
         messages = []
-        for message in response:
+        for message in self.get_cached_ticket_articles():
             if message["internal"]:
                 continue
             if only_user and message["sender"] != "Customer":
@@ -183,6 +191,18 @@ class ZammadAPI:
         if before:
             messages = self.filter_messages_before(messages, before)
         return messages
+
+    def last_message_is_internal_note(self) -> bool:
+        """
+        Whether the newest article of the ticket is an internal note sent by the app
+        user
+
+        :return: True if the last article is an internal note from the app user
+        """
+        if not (articles := self.get_cached_ticket_articles()):
+            return False
+        last_article = articles[-1]
+        return bool(last_article["internal"]) and last_article["sender"] == "Customer"
 
     def save_message(
         self,
