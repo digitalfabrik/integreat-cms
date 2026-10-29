@@ -141,7 +141,7 @@ def test_api_chat_incorrect_server_error(
 @pytest.mark.django_db
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
-    return_value=False,
+    new=Mock(return_value=True),
 )
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
@@ -176,7 +176,6 @@ def test_api_chat_first_chat(
     save_message: Mock,
     messages: Mock,
     celery_translate_and_answer_question: Mock,
-    last_message_is_internal_note: Mock,
     load_test_data: None,
 ) -> None:
     """
@@ -201,7 +200,7 @@ def test_api_chat_first_chat(
 @pytest.mark.django_db
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
-    return_value=False,
+    new=Mock(return_value=True),
 )
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
@@ -244,7 +243,6 @@ def test_api_chat_set_evaluation_consent(
     messages: Mock,
     get_zammad_user_mail: Mock,
     automatic_answers: Mock,
-    last_message_is_internal_note: Mock,
     load_test_data: None,
 ) -> None:
     """
@@ -336,7 +334,7 @@ def test_api_chat_send_message(
 @pytest.mark.django_db
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
-    return_value=True,
+    new=Mock(return_value=True),
 )
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
@@ -373,7 +371,6 @@ def test_api_chat_send_internal_note(
     get_messages: Mock,
     evaluation_consent: Mock,
     automatic_answers: Mock,
-    last_message_is_internal_note: Mock,
     load_test_data: None,
 ) -> None:
     """
@@ -449,7 +446,7 @@ def test_api_chat_get_messages_success(
 @pytest.mark.django_db
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
-    return_value=False,
+    new=Mock(return_value=True),
 )
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
@@ -484,7 +481,6 @@ def test_api_chat_stale_chat_starts_new_chat(
     create_ticket: Mock,
     get_zammad_user_mail: Mock,
     automatic_answers: Mock,
-    last_message_is_internal_note: Mock,
     load_test_data: None,
 ) -> None:
     """
