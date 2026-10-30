@@ -103,12 +103,14 @@ def test_duplicate_regions(
         assert source_page_dict == target_page_dict
 
         # Check if all cloned page translations exist and are identical
-        source_page_translations = source_page.translations.all()
+        source_page_translations = source_page.translations.order_by(
+            "language__id", "-version"
+        ).distinct("language__id")
         # Limit target page translations to all that existed before the links might have been replaced
         target_page_translations = target_page.translations.filter(
             last_updated__lt=before_cloning,
         )
-        assert len(source_page_translations) == len(target_page_translations)
+
         for source_page_translation, target_page_translation in zip(
             source_page_translations,
             target_page_translations,
@@ -123,6 +125,8 @@ def test_duplicate_regions(
                     "hix_score",
                     "hix_feedback",
                     "published_at",
+                    "version",
+                    "creator",
                 ],
             )
             target_page_translation_dict = model_to_dict(
@@ -134,11 +138,15 @@ def test_duplicate_regions(
                     "hix_score",
                     "hix_feedback",
                     "published_at",
+                    "version",
+                    "creator",
                 ],
             )
             assert source_page_translation_dict == target_page_translation_dict
             assert target_page_translation.status == status.DRAFT
             assert target_page_translation.published_at is None
+            assert target_page_translation.version == 1
+            assert target_page_translation.creator is None
 
     # Check if all cloned language tree nodes exist and are identical
     source_language_tree = source_region.language_tree_nodes.all()
@@ -252,11 +260,11 @@ def test_duplicate_regions_no_translations(
         )
         assert source_page_dict == target_page_dict
 
-        source_page_translations_filtered = source_page.translations.filter(
-            language=source_language_root,
-        )
         target_page_translations = target_page.translations.filter(
             last_updated__lt=before_cloning,
         )
-        assert len(source_page_translations_filtered) == len(target_page_translations)
-        assert target_page_translations[0].language == source_language_root
+
+        assert target_page_translations.count() == 1
+        assert target_page_translations.first().language == source_language_root
+        assert target_page_translations.first().version == 1
+        assert target_page_translations.first().creator is None
