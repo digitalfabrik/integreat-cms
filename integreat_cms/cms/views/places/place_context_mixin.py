@@ -35,7 +35,9 @@ class PlaceContextMixin(ContextMixin):
         context = super().get_context_data(**kwargs)
         opening_hour_config_data = get_open_hour_config_data(
             related_class=self.related_class,
-            can_change_place=kwargs.get("can_change_place", self.request.user.has_perm("cms.change_place")),
+            can_change_place=kwargs.get(
+                "can_change_place", self.request.user.has_perm("cms.change_place")
+            ),
         )
         context.update(
             {

@@ -151,7 +151,9 @@ const renderMap = () => {
     // Initialize map and marker
     const map = new Map(options);
     const marker = new Marker();
-    marker.setDraggable(container.dataset.changePermission === "True");
+
+    const canChangePlace = container.dataset.changePermission === "True";
+    marker.setDraggable(canChangePlace);
 
     // If initial coordinates are given, set the marker to this position
     if (coordinates) {
@@ -159,12 +161,16 @@ const renderMap = () => {
     }
 
     // Support setting the marker both via drag & drop and via clicking on the map
-    map.on("click", (event: MapMouseEvent) => {
-        marker.setLngLat(event.lngLat).addTo(map);
-        updateHelpText(event.lngLat);
-        fetchAddress(marker);
-    });
-    marker.on("dragend", () => fetchAddress(marker));
+    // Only allow changing the position when editing is permitted
+    if (canChangePlace) {
+        map.on("click", (event: MapMouseEvent) => {
+            marker.setLngLat(event.lngLat).addTo(map);
+            updateHelpText(event.lngLat);
+            fetchAddress(marker);
+        });
+
+        marker.on("dragend", () => fetchAddress(marker));
+    }
 
     // Set the initial zoom
     map.on("load", map.resize);
