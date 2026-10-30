@@ -103,7 +103,7 @@ class PlaceFormView(
             request,
             self.template_name,
             {
-                **self.get_context_data(**kwargs),
+                **self.get_context_data(**kwargs, can_change_place=not disabled),
                 "place_form": place_form,
                 "place_translation_form": place_translation_form,
                 "language": language,
