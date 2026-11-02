@@ -1492,16 +1492,16 @@ urlpatterns: list[URLPattern] = [
                             # Fake data for the user test
                             "fake_place_categories": ["Behörde/Amt", "Bildung", "Einrichtung", "Freizeit", "Gesundheit", "Kultur", "Treffpunkt", "Sonstiges"],
                             "fake_places": [
-                                {"title": "#dreizehn", "categories": ["Treffpunkt", "Kultur"], "contacts": 3, "street": "Von-Parseval-Straße 20a", "city": "86159 Augsburg", "published": True},
-                                {"title": "Abendrealschule für Berufstätige", "categories": ["Bildung"], "contacts": 8, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
-                                {"title": "Agentur für Arbeit Augsburg", "categories": ["Behörde/Amt"], "contacts": 12, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
-                                {"title": "Altes Stadtbad", "categories": ["Freizeit"], "contacts": 0, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
-                                {"title": "Konzerthalle", "categories": ["Gesundheit"], "contacts": 1, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
-                                {"title": "Amt für Kinder, Jugend und Familie", "categories": ["Behörde/Amt"], "contacts": 12, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
-                                {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": 5, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
-                                {"title": "Amt für Soziale Leistungen, Senioren und Menschen mit Behinderung", "categories": ["Behörde/Amt", "Sonstiges"], "contacts": 3, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
-                                {"title": "Arbeiter-Samariter-Bund", "categories": ["Einrichtung"], "contacts": 0, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
-                                {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": 1, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "#dreizehn", "categories": ["Treffpunkt", "Kultur"], "contacts": ["Albus Percival Wulfric Brian Dumbledore", "Bruno Bohne", "Vinsmoke Sanji"], "street": "Von-Parseval-Straße 20a", "city": "86159 Augsburg", "published": True},
+                                {"title": "Abendrealschule für Berufstätige", "categories": ["Bildung"], "contacts": ["Paula Pünktlich", "Karl Kümmerer", "Frieda Fleißig", "Otto Ordnung", "Lotte Lustig", "Gustav Gründlich", "Hanna Hilfreich", "Theo Tatkraft"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
+                                {"title": "Agentur für Arbeit Augsburg", "categories": ["Behörde/Amt"], "contacts": ["Rosi Ruhig", "Mia Mutig", "Erwin Ehrlich", "Wilma Wachsam", "Fritz Freundlich", "Berta Besonnen", "Kurt Klug", "Nina Neugier", "Paul Pfiffig", "Ida Ideenreich", "Sven Sorgfalt", "Greta Geduld"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "Altes Stadtbad", "categories": ["Freizeit"], "contacts": [], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
+                                {"title": "Konzerthalle", "categories": ["Gesundheit"], "contacts": ["Lena Lebhaft"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "Amt für Kinder, Jugend und Familie", "categories": ["Behörde/Amt"], "contacts": ["Edeltraud Einfühlsam", "Udo Umsicht", "Paula Pünktlich", "Mia Mutig", "Karl Kümmerer", "Frieda Fleißig", "Theo Tatkraft", "Wilma Wachsam", "Kurt Klug", "Greta Geduld", "Rosi Ruhig", "Erwin Ehrlich"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": ["Harald Haudegen", "Hanna Hilfreich", "Otto Ordnung", "Berta Besonnen", "Nina Neugier"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "Amt für Soziale Leistungen, Senioren und Menschen mit Behinderung", "categories": ["Behörde/Amt", "Sonstiges"], "contacts": ["Gustav Gründlich", "Ida Ideenreich", "Sven Sorgfalt"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
+                                {"title": "Arbeiter-Samariter-Bund", "categories": ["Einrichtung"], "contacts": [], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
+                                {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": ["Harald Haudegen"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
                             ],
                             # Fake contacts: places and pages are only titles, empty lists show a dash
                             "fake_contacts": [
