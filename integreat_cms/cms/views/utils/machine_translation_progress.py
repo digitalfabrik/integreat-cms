@@ -52,7 +52,7 @@ def _get_result_details(result: AsyncResult) -> Any:
 def get_machine_translation_task_progress(
     request: HttpRequest,
     region_slug: str,
-    model_type: Literal["page", "event", "poi", "pushnotification"],
+    model_type: Literal["page", "event", "place", "pushnotification"],
     task_id: str,
 ) -> JsonResponse:
     """

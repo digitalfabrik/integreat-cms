@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0164_add_currently_in_machine_translation_field"),
+        ("cms", "0165_add_currently_in_machine_translation_field"),
     ]
 
     operations = [

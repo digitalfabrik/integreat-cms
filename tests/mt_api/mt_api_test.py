@@ -13,6 +13,7 @@ from integreat_cms.cms.constants.translation_status import (
 if TYPE_CHECKING:
     from typing import Any, Final
 
+    from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
     from pytest_django.fixtures import Settings
 
@@ -23,7 +24,7 @@ from unittest.mock import patch
 import pytest
 from django.urls import resolve, reverse
 
-from integreat_cms.cms.constants import status
+from integreat_cms.cms.constants import async_machine_translation, status
 from integreat_cms.cms.models import (
     Event,
     Language,
@@ -46,12 +47,13 @@ from tests.constants import (
     WRITE_ROLES,
 )
 
+from ..utils import assert_message_in_log
 from .deepl_api_test import setup_deepl_supported_languages, setup_fake_deepl_api_server
 from .google_translate_api_test import (
     setup_fake_google_translate_api,
     setup_google_translate_supported_languages,
 )
-from .utils import get_content_translations
+from .utils import get_content_translations, get_english_name
 
 # Slugs we want to use for testing
 REGION_SLUG: Final[str] = "augsburg"
@@ -161,6 +163,7 @@ def test_automatic_translation(
     content_role_id_data_combination: tuple[Any, list, int, dict],
     settings: Settings,
     mock_server: MockServer,
+    caplog: LogCaptureFixture,
     django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
@@ -172,6 +175,7 @@ def test_automatic_translation(
     :param content_role_id_data_combination: The combination of content type, user roles with permission and selected_ids used in the test
     :param settings: The fixture providing the django settings
     :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
+    :param caplog: The :fixture:`caplog` fixture
     """
 
     provider, source_language_slug, target_language_slug = provider_language_combination
@@ -254,23 +258,30 @@ def test_automatic_translation(
             source_language_slug,
             target_language_slug,
         )
+        source_translation = translations[0][source_language_slug]
         target_translation = translations[0][target_language_slug]
 
-        # Translation now happens via a Celery task (eager in tests), so
-        # success surfaces through the queued report rather than a
-        # synchronous Django message.
-        report_url = reverse(
-            "machine_translation_report",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": target_language_slug,
-                "model_type": content_type._meta.model_name,
-            },
-        )
-        report_response = client.get(report_url)
-        report_data = report_response.json()
-        assert report_data["reports"], "Expected a queued machine translation report"
-        assert report_data["reports"][-1]["outcome"] == "FULL_SUCCESS"
+        if content_type._meta.model_name in async_machine_translation.CONTENT_TYPES:
+            # Async translations report their outcome via the queued report
+            report_url = reverse(
+                "machine_translation_report",
+                kwargs={
+                    "region_slug": REGION_SLUG,
+                    "language_slug": target_language_slug,
+                    "model_type": content_type._meta.model_name,
+                },
+            )
+            report_response = client.get(report_url)
+            report_data = report_response.json()
+            assert report_data["reports"], (
+                "Expected a queued machine translation report"
+            )
+            assert report_data["reports"][-1]["outcome"] == "FULL_SUCCESS"
+        else:
+            assert_message_in_log(
+                f'SUCCESS  {content_type._meta.verbose_name.capitalize()} "{source_translation.title}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
+                caplog,
+            )
 
         # Check that the page translation exists and has the correct content
         assert target_translation.machine_translated is True
