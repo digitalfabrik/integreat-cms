@@ -27,39 +27,58 @@ import os
 from datetime import datetime, timedelta
 from typing import TYPE_CHECKING
 
-from celery import Celery
+import sentry_sdk
+from celery import Celery, signals
 from celery.schedules import crontab
 from celery.signals import setup_logging
+from django.conf import settings
 from django.core.management import call_command
+from sentry_sdk.integrations.celery import CeleryIntegration
+
+from integreat_cms import __version__
 
 if TYPE_CHECKING:
     from typing import Any
-
-# Read config from config file
-config = configparser.ConfigParser(interpolation=None)
-config.read("/etc/integreat-cms.ini")
-for section in config.sections():
-    for KEY, VALUE in config.items(section):
-        os.environ.setdefault(f"INTEGREAT_CMS_{KEY.upper()}", VALUE)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
-app = Celery("celery_app")
-app.config_from_object("django.conf:settings", namespace="CELERY")
 
 
 @setup_logging.connect
 def config_loggers(*args: Any, **kwags: Any) -> None:
     from logging.config import dictConfig
 
-    from django.conf import settings
-
     dictConfig(settings.LOGGING)
 
 
+# Read config from config file
+config = configparser.ConfigParser(interpolation=None)
+config.read("/etc/integreat-cms.ini")
+
+for section in config.sections():
+    for KEY, VALUE in config.items(section):
+        os.environ.setdefault(f"INTEGREAT_CMS_{KEY.upper()}", VALUE)
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
+
+app = Celery("celery_app")
+app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
 app.conf.task_routes = {
     "integreat_cms.cms.views.statistics.statistics_actions": {"queue": "statistics"},
     "integreat_cms.api.v3.chat.utils.chat_bot.*": {"queue": "chat"},
 }
+
+
+@signals.celeryd_init.connect
+def init_sentry(**_kwargs: Any) -> None:
+    if settings.ENVIRONMENT in ["production", "staging"]:
+        sentry_sdk.init(
+            dsn="https://1c1f99e0448508351c4f5ec6770be414@sentry.tuerantuer.org//10",
+            environment=settings.ENVIRONMENT,
+            release=f"integreat-cms@{__version__}",
+            traces_sample_rate=settings.SENTRY_TRACES_SAMPLE_RATE,
+            send_default_pii=False,
+            integrations=[CeleryIntegration()],
+        )
+        sentry_sdk.set_tag("component", "celery-worker")
 
 
 @app.task
