@@ -32,7 +32,7 @@
         </div>
     </div>
     {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-place" title="Neuen Ort-Entwurf erstellen" body_template="contacts_locations/_overlay_new_place_body.html" footer_template="contacts_locations/_overlay_new_place_footer.html" %}
-    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-contact" title="Neuen Kontakt erstellen" %}
+    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-contact" title="Neuen Kontakt erstellen" overlay_class="h-[min(750px,calc(100vh-4rem))]" body_template="contacts_locations/_overlay_new_contact_body.html" footer_template="contacts_locations/_overlay_new_contact_footer.html" %}
     {% with active_tab=request.GET.tab|default:"orte" %}
         {% include "_tab_navigation.html" with tabs=tabs nav_label="Kontakte & Orte" %}
         <div class="w-full mt-6 min-h-[300px] overflow-hidden bg-white rounded-[20px] shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
