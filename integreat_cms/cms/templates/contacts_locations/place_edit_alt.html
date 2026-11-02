@@ -1,0 +1,73 @@
+{% extends "contacts_locations/place_edit.html" %}
+{# PROTOTYPE: variant 2 of the place edit page for another user group #}
+{# Same as place_edit.html, only the "Texte" tab shows the OLD language tabs and the OLD title + editor box, nothing is saved #}
+{% block edit_top %}
+    {% if active_tab != "texte" %}
+        {{ block.super }}
+    {% endif %}
+{% endblock edit_top %}
+{% block edit_main %}
+    {% if active_tab == "texte" %}
+        {# Old language tabs, copied from _form_language_tabs.html as static markup, clicking does nothing #}
+        <ul class="flex flex-wrap items-end px-4">
+            {% for name, flag, state, active in fake_old_language_tabs %}
+                <li class="mr-2 -mb-[2px] {% if active %}z-10{% endif %}">
+                    <div class="font-bold bg-white">
+                        <div class="border-b-2 border-white">
+                            <div class="flex items-center gap-1 py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t {% if active %}text-blue-500 cursor-default{% else %}bg-water-500 text-black cursor-pointer hover:bg-white hover:text-blue-500{% endif %}">
+                                {% if state == "done" %}
+                                    <span title="Übersetzung ist aktuell"><i icon-name="check"></i></span>
+                                {% elif state == "machine" %}
+                                    <span title="Maschinell übersetzt"><i icon-name="bot"></i></span>
+                                {% elif state == "outdated" %}
+                                    <span title="Übersetzung ist veraltet"><i icon-name="alert-triangle"></i></span>
+                                {% else %}
+                                    <span title="Übersetzung fehlt"><i icon-name="x"></i></span>
+                                {% endif %}
+                                <span class="flex-grow">{{ name }}</span>
+                                <span class="w-8 fp fp-rounded fp-{{ flag }}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+            <li class="z-10 ml-auto">
+                <div class="flex items-center gap-1 font-bold text-black bg-water-500 py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t cursor-default">
+                    <span>Weitere Sprachen</span>
+                    <i icon-name="chevron-down"></i>
+                </div>
+            </li>
+        </ul>
+        {# Old title + editor box, copied from places/place_form.html #}
+        <div class="flex flex-col w-full bg-white border border-blue-500 rounded shadow-2xl">
+            <div class="flex flex-col w-full p-4">
+                <div class="flex justify-between">
+                    <label for="fake-old-title">Titel des Ortes</label>
+                    <div class="grid grid-cols-2 text-left">
+                        <div class="pr-2 font-bold">Version:</div>
+                        <div>
+                            2 (<a href="#" class="text-blue-500 hover:underline">Anzeigen</a>)
+                        </div>
+                        <div class="pr-2 font-bold">Veröffentlichungsstatus:</div>
+                        <div>Veröffentlicht</div>
+                    </div>
+                </div>
+                <input id="fake-old-title" type="text" value="Konzerthalle" class="mb-2">
+                <div class="flex items-center">
+                    <span class="mr-2 font-bold">Link zum Ort:</span>
+                    <a href="#" class="text-blue-500 hover:underline">https://integreat.app/augsburg/de/locations/konzerthalle</a>
+                    <a title="Bearbeiten" class="ml-2 btn-icon"><i icon-name="pen-line"></i></a>
+                    <a title="In die Zwischenablage kopieren" class="ml-2 btn-icon"><i icon-name="copy"></i></a>
+                </div>
+                <label>Inhalt des Ortes</label>
+                {# TinyMCE takes the height of the textarea, so force a minimum height on the editor box #}
+                <div class="[&_.tox-tinymce]:min-h-[400px]">
+                    <textarea class="tinymce_textarea flex-auto" aria-label="Inhalt des Ortes"><p>Die Konzerthalle ist ein Veranstaltungsort für Konzerte, Theater und Lesungen. Der Eingang ist barrierefrei.</p><p>Öffnungszeiten: Montag bis Freitag, 10 bis 18 Uhr.</p></textarea>
+                </div>
+            </div>
+        </div>
+        {% include "_tinymce_config.html" with language=request.region.default_language %}
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock edit_main %}

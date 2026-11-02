@@ -137,6 +137,7 @@
                             {% translate "Statistics" %}
                         </a>
                     {% endif %}
+                    {% comment %} 
                     {% if perms.cms.view_translation_report %}
                         <a href="{% url 'translation_coverage' region_slug=request.region.slug %}"
                            class="{% if current_menu_item == 'translation_coverage' %} active{% endif %}">
@@ -144,6 +145,7 @@
                             {% translate "Translation Report" %}
                         </a>
                     {% endif %}
+                    {% endcomment %} 
                     {% if perms.cms.view_feedback %}
                         <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
                            class="{% if current_menu_item == 'region_feedback' %} active{% endif %}">

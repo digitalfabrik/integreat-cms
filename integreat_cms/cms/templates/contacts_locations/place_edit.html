@@ -1,5 +1,10 @@
 {% extends "_edit_layout.html" %}
+{% load render_bundle from webpack_loader %}
 {# PROTOTYPE: edit page of a place in the new edit concept, always shows the fake "Konzerthalle", nothing is saved #}
+{# The editor bundle turns the .tinymce_textarea into TinyMCE, like in places/place_form.html #}
+{% block javascript %}
+    {% render_bundle 'editor' 'js' %}
+{% endblock javascript %}
 {% block edit_title %}
     Ort “Konzerthalle” bearbeiten
 {% endblock edit_title %}
@@ -97,7 +102,8 @@
                     <h2 class="text-lg font-bold leading-[1.4]">Beschreibung</h2>
                     <em class="opacity-50">optional</em>
                 </div>
-                <div class="mt-2">
+                {# TinyMCE takes the height of the textarea, so force a minimum height on the editor box #}
+                <div class="mt-2 [&_.tox-tinymce]:min-h-[400px]">
                     <textarea class="tinymce_textarea" aria-label="Beschreibung"><p>Die Konzerthalle ist ein Veranstaltungsort für Konzerte, Theater und Lesungen. Der Eingang ist barrierefrei.</p><p>Öffnungszeiten: Montag bis Freitag, 10 bis 18 Uhr.</p></textarea>
                 </div>
             </div>

@@ -13,14 +13,14 @@
             {% endfor %}
         </div>
     </td>
-    <td class="py-3 align-top">
+    <td class="py-3 align-middle">
         {% if place.contacts %}
             <span class="inline-flex size-8 items-center justify-center rounded-full bg-blue-100 font-semibold text-blue-500">{{ place.contacts }}</span>
         {% else %}
             <span class="inline-flex size-8 items-center justify-center text-gray-500">—</span>
         {% endif %}
     </td>
-    <td class="py-3 pr-4 align-top leading-snug">
+    <td class="py-3 pr-4 align-middle leading-snug">
         <strong class="block font-semibold">{{ place.street }}</strong>
         <span>{{ place.city }}</span>
     </td>
@@ -37,7 +37,7 @@
             </span>
         {% endif %}
     </td>
-    <td class="py-2 pr-4 align-top">
+    <td class="py-2 pr-4 align-middle">
         <div class="flex justify-end gap-1">
             {# Every row opens the same fake edit page #}
             <a href="{% url 'contacts_locations_place_edit' region_slug=request.region.slug %}"

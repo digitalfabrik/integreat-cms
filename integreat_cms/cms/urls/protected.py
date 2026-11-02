@@ -1541,6 +1541,42 @@ urlpatterns: list[URLPattern] = [
                     ),
                     name="contacts_locations_place_edit",
                 ),
+                # PROTOTYPE: variant 2 for another user group, same as above but with the old language tabs and editor box
+                path(
+                    "contacts-locations/place/edit-alt/",
+                    TemplateView.as_view(
+                        template_name="contacts_locations/place_edit_alt.html",
+                        extra_context={
+                            "current_menu_item": "contacts_locations",
+                            "edit_tabs": [
+                                ("texte", "Texte & Übersetzungen"),
+                                ("infos", "Orts-Infos & Einstellungen"),
+                                ("verknuepfungen", "Verknüpfungen"),
+                            ],
+                            "fake_place_categories": ["Behörde/Amt", "Bildung", "Einrichtung", "Freizeit", "Gesundheit", "Kultur", "Treffpunkt", "Sonstiges"],
+                            # Fake opening hours: (day, value, missing)
+                            "fake_opening_hours": [
+                                ("Montag", "geschlossen", False),
+                                ("Dienstag", "keine Angabe", True),
+                                ("Mittwoch", "keine Angabe", True),
+                                ("Donnerstag", "keine Angabe", True),
+                                ("Freitag", "18:00 - 24:00", False),
+                                ("Samstag", "18:00 - 24:00", False),
+                                ("Sonntag", "18:00 - 23:00", False),
+                            ],
+                            # Fake old language tabs: (name, flag country code, state, active)
+                            "fake_old_language_tabs": [
+                                ("Deutsch", "de", "done", True),
+                                ("Englisch", "gb", "done", False),
+                                ("Arabisch", "sa", "done", False),
+                                ("Farsi", "ir", "machine", False),
+                                ("Französisch", "fr", "machine", False),
+                                ("Rumänisch", "ro", "missing", False),
+                            ],
+                        },
+                    ),
+                    name="contacts_locations_place_edit_alt",
+                ),
                 path(
                     "contact/",
                     include(
