@@ -18,7 +18,7 @@ from integreat_cms.cms.models import (
     LanguageTreeNode,
     Page,
     PageTranslation,
-    POI,
+    Place,
     PushNotification,
     PushNotificationTranslation,
     Region,
@@ -506,11 +506,11 @@ def test_content_objects_data_for_push_notification_omits_content_only_fields(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    ("content_model", "object_id"), [(Page, PAGE_ID), (Event, 1), (POI, 6)]
+    ("content_model", "object_id"), [(Page, PAGE_ID), (Event, 1), (Place, 6)]
 )
 def test_start_machine_translations_scoped_to_async_content_types(
     load_test_data: None,
-    content_model: type[Event | Page | POI],
+    content_model: type[Event | Page | Place],
     object_id: int,
     stub_translate_queryset: MagicMock,
 ) -> None:

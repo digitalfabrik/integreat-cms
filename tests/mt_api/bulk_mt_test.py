@@ -460,15 +460,22 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
                     f'ERROR    There already is an up-to-date translation for "{place_translation[settings.LANGUAGE_CODE].title}"',
                     caplog,
                 )
-                assert place_translation[target_language_slug].machine_translated is False
+                assert (
+                    place_translation[target_language_slug].machine_translated is False
+                )
 
             # Check for a successful message if translation was ready for mt
-            if place_translation[source_language_slug].place_id == ready_for_mt_place_id:
+            if (
+                place_translation[source_language_slug].place_id
+                == ready_for_mt_place_id
+            ):
                 assert_message_in_log(
                     f'SUCCESS  Place "{place_translation[source_language_slug]}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
                     caplog,
                 )
-                assert place_translation[target_language_slug].machine_translated is True
+                assert (
+                    place_translation[target_language_slug].machine_translated is True
+                )
 
 
 @pytest.mark.django_db

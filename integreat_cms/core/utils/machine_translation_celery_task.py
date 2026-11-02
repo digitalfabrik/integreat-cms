@@ -303,7 +303,7 @@ def _build_content_object_language_data(
     """
     Build the payload for a single (content object, language) pair.
 
-    `AbstractContentModel` types (page/event/poi) have a workflow status, a
+    `AbstractContentModel` types (page/event/place) have a workflow status, a
     slug and a translation-state concept (missing/fallback/up to date/...);
     other content types (currently just `PushNotification`) have none of
     that, so they only get the fields their translation actually has.
