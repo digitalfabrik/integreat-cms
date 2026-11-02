@@ -1,6 +1,7 @@
 /*
  * Takes a list of boxes and calculates an even distribution into two columns
  */
+
 const findPartition = (boxes: Array<HTMLElement>) => {
     // Remember the box heights so we don't have to calculate them for every recursion step
     const boxesHeights: Map<HTMLElement, number> = new Map(boxes.map((box) => [box, box.offsetHeight]));
@@ -39,11 +40,25 @@ const findPartition = (boxes: Array<HTMLElement>) => {
     return [largerColumn, column];
 };
 
+const isSideBySide = (left: HTMLElement, right: HTMLElement) =>
+    right.getBoundingClientRect().top < left.getBoundingClientRect().bottom;
+
+const distributeBoxes = (leftColumn: HTMLElement, rightColumn: HTMLElement, pageTranslationBox: HTMLElement) => {
+    if (leftColumn && rightColumn && pageTranslationBox) {
+        if (isSideBySide(leftColumn, rightColumn)) {
+            rightColumn.prepend(pageTranslationBox);
+        } else {
+            leftColumn.prepend(pageTranslationBox);
+        }
+    }
+};
+
 window.addEventListener("load", () => {
+    const pageTranslationBox = document.getElementById("page-minor-edit")?.parentElement;
     const leftColumn = document.getElementById("left-sidebar-column");
     const rightColumn = document.getElementById("right-sidebar-column");
-    // Check if there are multiple columns in the document
-    if (leftColumn && rightColumn) {
+
+    if (!pageTranslationBox && leftColumn && rightColumn) {
         // Get the initial distribution of boxes
         const leftColumnBoxes = Array.from(leftColumn.children) as Array<HTMLElement>;
         const rightColumnBoxes = Array.from(rightColumn.children) as Array<HTMLElement>;
@@ -53,5 +68,10 @@ window.addEventListener("load", () => {
         // Apply the changes
         leftColumn.append(...leftPartition);
         rightColumn.append(...rightPartition);
+    } else {
+        distributeBoxes(leftColumn, rightColumn, pageTranslationBox);
+        window.addEventListener("resize", () => {
+            distributeBoxes(leftColumn, rightColumn, pageTranslationBox);
+        });
     }
 });
