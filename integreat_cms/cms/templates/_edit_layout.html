@@ -2,15 +2,19 @@
 {% comment %}
     PROTOTYPE: layout of the new edit concept, meant to be reused for places, pages, events, contacts, ...
     Context: edit_tabs = list of (key, label), the active tab is taken from ?tab= and defaults to the first one.
-    Blocks: edit_title, edit_header_actions, edit_top (above the main column), edit_main, edit_sidebar.
+    Blocks: edit_back_link, edit_title, edit_header_actions, edit_top (above the main column), edit_main, edit_sidebar.
     The variable active_tab is available inside all blocks.
 {% endcomment %}
 {% block content %}
     {% with active_tab=request.GET.tab|default:edit_tabs.0.0 %}
         <div class="flex items-center justify-between gap-8 max-[1100px]:flex-col max-[1100px]:items-start">
-            <h1 class="heading !mb-0">
-                {% block edit_title %}{% endblock edit_title %}
-            </h1>
+            <div>
+                {# Optional link above the title, e.g. back to the list #}
+                {% block edit_back_link %}{% endblock edit_back_link %}
+                <h1 class="heading !mb-0">
+                    {% block edit_title %}{% endblock edit_title %}
+                </h1>
+            </div>
             <div class="flex shrink-0 flex-wrap items-center gap-3">
                 {% block edit_header_actions %}{% endblock edit_header_actions %}
             </div>

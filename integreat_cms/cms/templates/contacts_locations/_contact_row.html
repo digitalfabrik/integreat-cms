@@ -8,7 +8,15 @@
     <td class="py-3 pr-4 align-middle leading-snug">{{ contact.name }}</td>
     <td class="py-3 pr-4 align-middle leading-snug">{{ contact.role|default:"—" }}</td>
     <td class="py-3 pr-4 align-middle leading-snug">
-        {{ contact.places|join:", "|default:"—" }}
+        {% if contact.places %}
+            <ul class="list-disc pl-5">
+                {% for place in contact.places %}
+                    <li>{{ place }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            —
+        {% endif %}
     </td>
     <td class="py-3 pr-4 align-middle">
         <div class="flex justify-end">
@@ -46,12 +54,12 @@
     </td>
     <td class="py-2 pr-4 align-middle">
         <div class="flex justify-end gap-1">
-            {# No contact edit page yet, so the button does nothing #}
-            <button type="button"
-                    class="flex h-[38px] items-center gap-2 rounded bg-blue-100 px-3 py-2 font-bold text-gray-700 hover:bg-blue-200">
+            {# Every row opens the same fake edit page #}
+            <a href="{% url 'contacts_locations_contact_edit' region_slug=request.region.slug %}"
+               class="flex h-[38px] items-center gap-2 rounded bg-blue-100 px-3 py-2 font-bold text-gray-700 hover:bg-blue-200">
                 <i icon-name="pencil"></i>
                 Bearbeiten
-            </button>
+            </a>
             <div data-row-actions class="relative">
                 <button type="button"
                         data-row-actions-toggle

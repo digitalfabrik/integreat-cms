@@ -5,6 +5,10 @@
 {% block javascript %}
     {% render_bundle 'editor' 'js' %}
 {% endblock javascript %}
+{% block edit_back_link %}
+    <a href="{% url 'contacts_locations' region_slug=request.region.slug %}?tab=orte"
+       class="text-blue-500 hover:text-blue-700">← zurück zur Liste</a>
+{% endblock edit_back_link %}
 {% block edit_title %}
     Ort “Konzerthalle” bearbeiten
 {% endblock edit_title %}

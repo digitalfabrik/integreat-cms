@@ -1,0 +1,54 @@
+{# PROTOTYPE: radio buttons "An keinem Ort" / "An einem Ort" with the place dropdown, used in the new contact overlay and the contact edit page #}
+{# Usage: {% include "contacts_locations/_contact_location_choice.html" with radio_name="..." at_place=True selected_place="..." %} #}
+{# Must be placed inside a role="radiogroup" element, needs fake_places in the context, search and selection in overlay.ts #}
+{# "An einem Ort" shows the place dropdown below it (CSS only via peer-has) #}
+<label class="my-0 flex items-start gap-3 text-base font-normal leading-[1.4]">
+    <input type="radio"
+           name="{{ radio_name }}"
+           value="none"
+           {% if not at_place %}checked{% endif %}
+           class="mt-0.5 size-5 shrink-0 text-blue-500">
+    <span>
+        <span class="block text-lg">An keinem Ort</span>
+        <span class="block text-sm text-black/60">nur z. B. via Telefon oder E-Mail oder anderweitig ereichbar</span>
+    </span>
+</label>
+<label class="peer/place my-0 flex items-start gap-3 text-base font-normal leading-[1.4]">
+    <input type="radio"
+           name="{{ radio_name }}"
+           value="place"
+           {% if at_place %}checked{% endif %}
+           class="mt-0.5 size-5 shrink-0 text-blue-500">
+    <span class="text-lg">An einem Ort</span>
+</label>
+{# Place dropdown with search field, lists the fake places from A-Z, the choice is not saved #}
+<details data-place-picker class="group hidden pl-8 peer-has-[:checked]/place:block">
+    <summary class="flex h-12 cursor-pointer list-none items-center justify-between rounded border-2 border-gray-200 bg-gray-200 px-3 py-2 text-xl leading-[1.4] [&::-webkit-details-marker]:hidden">
+        <span data-place-picker-value class="truncate {% if not selected_place %}opacity-60{% endif %}">{{ selected_place|default:"Ort auswählen" }}</span>
+        <i icon-name="chevron-down" class="size-6 shrink-0 group-open:rotate-180"></i>
+    </summary>
+    {# Not absolute, so the list pushes the buttons down instead of being cut off by the scrolling overlay #}
+    <div class="mt-1 flex flex-col rounded border-2 border-blue-200 bg-white shadow-[2px_6px_10px_rgba(51,65,85,0.5)]">
+        <div class="relative border-b border-gray-200 p-2">
+            <i icon-name="search"
+               class="pointer-events-none absolute left-5 top-1/2 size-5 -translate-y-1/2 text-gray-500"></i>
+            <input type="search"
+                   data-place-picker-search
+                   aria-label="Ort suchen"
+                   placeholder="Ort suchen ..."
+                   class="h-10 w-full pl-10 pr-3">
+        </div>
+        <div role="listbox" class="flex max-h-60 flex-col overflow-y-auto py-2">
+            {% for place in fake_places|dictsort:"title" %}
+                <button type="button"
+                        role="option"
+                        data-place-picker-option
+                        class="flex flex-col px-4 py-2 text-left hover:bg-blue-100">
+                    <span class="font-bold text-gray-700">{{ place.title }}</span>
+                    <span class="text-sm text-black/60">{{ place.street }}, {{ place.city }}</span>
+                </button>
+            {% endfor %}
+            <p data-place-picker-empty class="hidden px-4 py-2 italic text-black/60">Kein Ort gefunden</p>
+        </div>
+    </div>
+</details>

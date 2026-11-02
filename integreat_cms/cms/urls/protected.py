@@ -240,6 +240,20 @@ page_order_table_urlpatterns: list[URLPattern] = [
 ]
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
+# PROTOTYPE: fake places, used by the contacts & locations list and the contact edit page
+FAKE_PLACES = [
+    {"title": "#dreizehn", "categories": ["Treffpunkt", "Kultur"], "contacts": ["Albus Percival Wulfric Brian Dumbledore", "Bruno Bohne", "Vinsmoke Sanji"], "street": "Von-Parseval-Straße 20a", "city": "86159 Augsburg", "translations": "mmmccmmmxmccmmcccccmmmm", "published": True},
+    {"title": "Abendrealschule für Berufstätige", "categories": ["Bildung"], "contacts": ["Paula Pünktlich", "Karl Kümmerer", "Frieda Fleißig", "Otto Ordnung", "Lotte Lustig", "Gustav Gründlich", "Hanna Hilfreich", "Theo Tatkraft"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "cccccxcxcccxccccccccccc", "published": False},
+    {"title": "Agentur für Arbeit Augsburg", "categories": ["Behörde/Amt"], "contacts": ["Rosi Ruhig", "Mia Mutig", "Erwin Ehrlich", "Wilma Wachsam", "Fritz Freundlich", "Berta Besonnen", "Kurt Klug", "Nina Neugier", "Paul Pfiffig", "Ida Ideenreich", "Sven Sorgfalt", "Greta Geduld"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "cxccccmmmcxccccccccccmm", "published": True},
+    {"title": "Altes Stadtbad", "categories": ["Freizeit"], "contacts": [], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mmmmmccmmmmmmmccxccccmm", "published": False},
+    {"title": "Konzerthalle", "categories": ["Gesundheit"], "contacts": ["Lena Lebhaft"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mcccccmmmmmmmmmmmmmcccc", "published": True},
+    {"title": "Amt für Kinder, Jugend und Familie", "categories": ["Behörde/Amt"], "contacts": ["Edeltraud Einfühlsam", "Udo Umsicht", "Paula Pünktlich", "Mia Mutig", "Karl Kümmerer", "Frieda Fleißig", "Theo Tatkraft", "Wilma Wachsam", "Kurt Klug", "Greta Geduld", "Rosi Ruhig", "Erwin Ehrlich"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mmxcccccccccccccccccccc", "published": True},
+    {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": ["Harald Haudegen", "Hanna Hilfreich", "Otto Ordnung", "Berta Besonnen", "Nina Neugier"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "ccccccccccccccccccxcccm", "published": True},
+    {"title": "Amt für Soziale Leistungen, Senioren und Menschen mit Behinderung", "categories": ["Behörde/Amt", "Sonstiges"], "contacts": ["Gustav Gründlich", "Ida Ideenreich", "Sven Sorgfalt"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "cccccxmccccccccxccmmmmx", "published": True},
+    {"title": "Arbeiter-Samariter-Bund", "categories": ["Einrichtung"], "contacts": [], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mmmxmmxmxcmmmmmmmmmmmmm", "published": False},
+    {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": ["Harald Haudegen"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mcccccxccccccmccccccccc", "published": True},
+]
+
 urlpatterns: list[URLPattern] = [
     path(
         "admin-dashboard/",
@@ -1493,18 +1507,7 @@ urlpatterns: list[URLPattern] = [
                             "fake_place_categories": ["Behörde/Amt", "Bildung", "Einrichtung", "Freizeit", "Gesundheit", "Kultur", "Treffpunkt", "Sonstiges"],
                             # Target languages of the translation view, "translations" of a place has one status per language: c = aktuell, m = maschinell, x = fehlt
                             "fake_languages": ["AR", "BG", "CS", "DA", "EL", "EN", "ES", "FA", "FI", "FR", "HI", "HR", "HU", "ID", "IT", "KA", "KO", "KMR", "LT", "NL", "PL", "PT", "RO"],
-                            "fake_places": [
-                                {"title": "#dreizehn", "categories": ["Treffpunkt", "Kultur"], "contacts": ["Albus Percival Wulfric Brian Dumbledore", "Bruno Bohne", "Vinsmoke Sanji"], "street": "Von-Parseval-Straße 20a", "city": "86159 Augsburg", "translations": "mmmccmmmxmccmmcccccmmmm", "published": True},
-                                {"title": "Abendrealschule für Berufstätige", "categories": ["Bildung"], "contacts": ["Paula Pünktlich", "Karl Kümmerer", "Frieda Fleißig", "Otto Ordnung", "Lotte Lustig", "Gustav Gründlich", "Hanna Hilfreich", "Theo Tatkraft"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "cccccxcxcccxccccccccccc", "published": False},
-                                {"title": "Agentur für Arbeit Augsburg", "categories": ["Behörde/Amt"], "contacts": ["Rosi Ruhig", "Mia Mutig", "Erwin Ehrlich", "Wilma Wachsam", "Fritz Freundlich", "Berta Besonnen", "Kurt Klug", "Nina Neugier", "Paul Pfiffig", "Ida Ideenreich", "Sven Sorgfalt", "Greta Geduld"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "cxccccmmmcxccccccccccmm", "published": True},
-                                {"title": "Altes Stadtbad", "categories": ["Freizeit"], "contacts": [], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mmmmmccmmmmmmmccxccccmm", "published": False},
-                                {"title": "Konzerthalle", "categories": ["Gesundheit"], "contacts": ["Lena Lebhaft"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mcccccmmmmmmmmmmmmmcccc", "published": True},
-                                {"title": "Amt für Kinder, Jugend und Familie", "categories": ["Behörde/Amt"], "contacts": ["Edeltraud Einfühlsam", "Udo Umsicht", "Paula Pünktlich", "Mia Mutig", "Karl Kümmerer", "Frieda Fleißig", "Theo Tatkraft", "Wilma Wachsam", "Kurt Klug", "Greta Geduld", "Rosi Ruhig", "Erwin Ehrlich"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mmxcccccccccccccccccccc", "published": True},
-                                {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": ["Harald Haudegen", "Hanna Hilfreich", "Otto Ordnung", "Berta Besonnen", "Nina Neugier"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "ccccccccccccccccccxcccm", "published": True},
-                                {"title": "Amt für Soziale Leistungen, Senioren und Menschen mit Behinderung", "categories": ["Behörde/Amt", "Sonstiges"], "contacts": ["Gustav Gründlich", "Ida Ideenreich", "Sven Sorgfalt"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "cccccxmccccccccxccmmmmx", "published": True},
-                                {"title": "Arbeiter-Samariter-Bund", "categories": ["Einrichtung"], "contacts": [], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mmmxmmxmxcmmmmmmmmmmmmm", "published": False},
-                                {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": ["Harald Haudegen"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mcccccxccccccmccccccccc", "published": True},
-                            ],
+                            "fake_places": FAKE_PLACES,
                             # Fake contacts: places and pages are only titles, empty lists show a dash
                             "fake_contacts": [
                                 {"name": "Albus Percival Wulfric Brian Dumbledore", "role": "Schulleiter", "places": ["#dreizehn"], "pages": ["Schulen in Augsburg"]},
@@ -1551,6 +1554,22 @@ urlpatterns: list[URLPattern] = [
                         },
                     ),
                     name="contacts_locations_place_edit",
+                ),
+                # PROTOTYPE: new edit concept for contacts, always shows the same fake contact
+                path(
+                    "contacts-locations/contact/edit/",
+                    TemplateView.as_view(
+                        template_name="contacts_locations/contact_edit.html",
+                        extra_context={
+                            "current_menu_item": "contacts_locations",
+                            "edit_tabs": [
+                                ("infos", "Kontakt-Informationen"),
+                                ("verknuepfungen", "Verknüpfungen"),
+                            ],
+                            "fake_places": FAKE_PLACES,
+                        },
+                    ),
+                    name="contacts_locations_contact_edit",
                 ),
                 # PROTOTYPE: variant 2 for another user group, same as above but with the old language tabs and editor box
                 path(
