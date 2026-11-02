@@ -25,6 +25,7 @@ from django.utils.translation import (
     gettext_lazy as _,
 )
 
+from ...cms.constants import async_machine_translation
 from ...cms.models.abstract_content_model import AbstractContentModel
 from ...cms.models.machine_translations.machine_translation_report import (
     MachineTranslationReport,
@@ -45,7 +46,7 @@ logger = logging.getLogger(__name__)
 
 def _get_form_classes() -> dict[str, ModelFormMetaclass]:
     # Imported lazily to avoid a circular import: these form modules import
-    # `queue_translations` from this module, so importing them at module
+    # `start_machine_translations` from this module, so importing them at module
     # level here would create an import cycle.
     from ...cms.forms.events.event_translation_form import EventTranslationForm
     from ...cms.forms.pages.page_translation_form import PageTranslationForm
@@ -514,3 +515,40 @@ def queue_translations(
             task_id=task_id,
         )
     )
+
+
+def start_machine_translations(
+    request: HttpRequest,
+    content_objects: list[AbstractContentModel],
+    language_slugs: list[str],
+) -> None:
+    """
+    Machine translate the given content objects into the given languages.
+    Content types in :data:`~integreat_cms.cms.constants.async_machine_translation.CONTENT_TYPES`
+    are queued as Celery task, all others are translated synchronously.
+
+    :param request: The current request
+    :param content_objects: The content objects to translate
+    :param language_slugs: The slugs of the target languages
+    """
+    content_type = content_objects[0]._meta.model_name
+    if content_type in async_machine_translation.CONTENT_TYPES:
+        queue_translations(
+            request=request,
+            user_id=request.user.id,
+            region_id=request.region.id,
+            content_type=content_type,
+            object_ids=[content_object.id for content_object in content_objects],
+            language_slugs=language_slugs,
+        )
+        return
+
+    form_class = _resolve_form_class(content_type)
+    for language_slug in language_slugs:
+        language_node = request.region.language_node_by_slug[language_slug]
+        # Invalidate cached property to take new versions into account
+        for content_object in content_objects:
+            content_object.invalidate_cached_translations()
+        api_client = language_node.mt_provider.api_client(request, form_class)
+        api_client.translate_queryset(content_objects, language_slug)
+        api_client.alert_messages()

@@ -10,12 +10,15 @@ from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.test import RequestFactory
 
+from integreat_cms.cms.constants import async_machine_translation
 from integreat_cms.cms.constants.push_notifications import ONLY_AVAILABLE
 from integreat_cms.cms.models import (
+    Event,
     Language,
     LanguageTreeNode,
     Page,
     PageTranslation,
+    POI,
     PushNotification,
     PushNotificationTranslation,
     Region,
@@ -27,6 +30,7 @@ from integreat_cms.core.utils.machine_translation_celery_task import (
     get_mt_redis_lock_key,
     queue_translations,
     start_async_translation,
+    start_machine_translations,
 )
 
 if TYPE_CHECKING:
@@ -498,3 +502,35 @@ def test_content_objects_data_for_push_notification_omits_content_only_fields(
     assert "translation_state" not in push_notification_data
     assert "slug" not in push_notification_data
     assert "status" not in push_notification_data
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    ("content_model", "object_id"), [(Page, PAGE_ID), (Event, 1), (POI, 6)]
+)
+def test_start_machine_translations_scoped_to_async_content_types(
+    load_test_data: None,
+    content_model: type[Event | Page | POI],
+    object_id: int,
+    stub_translate_queryset: MagicMock,
+) -> None:
+    """
+    Only content types in :data:`~integreat_cms.cms.constants.async_machine_translation.CONTENT_TYPES`
+    are queued, all others are translated synchronously.
+    """
+    request = RequestFactory().get("/")
+    request.user = get_user_model().objects.get(username="root")
+    request.region = Region.objects.get(slug=REGION_SLUG)
+    content_object = content_model.objects.get(id=object_id)
+
+    with (
+        patch(
+            "integreat_cms.core.utils.machine_translation_celery_task.queue_translations"
+        ) as mock_queue_translations,
+        patch.object(MachineTranslationApiClient, "alert_messages"),
+    ):
+        start_machine_translations(request, [content_object], [TARGET_LANGUAGE_SLUG])
+
+    is_async = content_model._meta.model_name in async_machine_translation.CONTENT_TYPES
+    assert mock_queue_translations.called is is_async
+    assert stub_translate_queryset.called is not is_async

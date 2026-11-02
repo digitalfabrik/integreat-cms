@@ -18,6 +18,7 @@ from unittest.mock import patch
 import pytest
 from django.urls import reverse
 
+from integreat_cms.cms.constants import async_machine_translation
 from integreat_cms.cms.models import Event, Page, Place, Region
 from integreat_cms.core.utils.word_count import word_count
 from integreat_cms.google_translate_api.google_translate_api_client import (
@@ -67,6 +68,7 @@ def test_bulk_mt(
     content_role_id_combination: tuple[Any, list, list[int]],
     settings: Settings,
     mock_server: MockServer,
+    caplog: LogCaptureFixture,
     django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
@@ -78,6 +80,7 @@ def test_bulk_mt(
     :param content_role_id_combination: The combination of content type, user roles with permission and selected_ids used in the test
     :param settings: The fixture providing the django settings
     :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
+    :param caplog: The :fixture:`caplog` fixture
     """
 
     provider, source_language_slug, target_language_slug = provider_language_combination
@@ -138,23 +141,32 @@ def test_bulk_mt(
             target_language_slug,
         )
 
-        # Translation now happens via a Celery task (eager in tests), so
-        # success surfaces through the queued report rather than a
-        # synchronous Django message.
-        report_url = reverse(
-            "machine_translation_report",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": target_language_slug,
-                "model_type": content_type._meta.model_name,
-            },
+        is_async = (
+            content_type._meta.model_name in async_machine_translation.CONTENT_TYPES
         )
-        report_response = client.get(report_url)
-        report_data = report_response.json()
-        assert report_data["reports"], "Expected a queued machine translation report"
-        assert report_data["reports"][-1]["outcome"] == "FULL_SUCCESS"
+        if is_async:
+            # Async translations report their outcome via the queued report
+            report_url = reverse(
+                "machine_translation_report",
+                kwargs={
+                    "region_slug": REGION_SLUG,
+                    "language_slug": target_language_slug,
+                    "model_type": content_type._meta.model_name,
+                },
+            )
+            report_response = client.get(report_url)
+            report_data = report_response.json()
+            assert report_data["reports"], (
+                "Expected a queued machine translation report"
+            )
+            assert report_data["reports"][-1]["outcome"] == "FULL_SUCCESS"
 
         for translation in translations:
+            if not is_async:
+                assert_message_in_log(
+                    f'SUCCESS  {content_type._meta.verbose_name.capitalize()} "{translation[source_language_slug]}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
+                    caplog,
+                )
             # Check that the page translation exists and really has the correct content
             assert translation[target_language_slug].machine_translated is True
             assert (
@@ -381,7 +393,6 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
     settings: Settings,
     mock_server: MockServer,
     caplog: LogCaptureFixture,
-    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check for bulk machine translation when one of the target translations is up-to-date and the other is ready for MT
@@ -413,13 +424,10 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
         },
     )
 
-    with (
-        patch.object(
-            GoogleTranslateApiClient,
-            "__init__",
-            setup_fake_google_translate_api,
-        ),
-        django_capture_on_commit_callbacks(execute=True),
+    with patch.object(
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
     ):
         response = client.post(
             machine_translation,
@@ -427,54 +435,40 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
         )
         print(response.headers)
 
-    assert response.status_code == 302
-    place_tree = reverse(
-        "places",
-        kwargs={
-            "region_slug": REGION_SLUG,
-            "language_slug": target_language_slug,
-        },
-    )
-    assert response.headers.get("Location") == place_tree
-    response = client.get(place_tree)
+        assert response.status_code == 302
+        place_tree = reverse(
+            "places",
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "language_slug": target_language_slug,
+            },
+        )
+        assert response.headers.get("Location") == place_tree
+        response = client.get(place_tree)
 
-    place_translations = get_content_translations(
-        Place,
-        [up_to_date_place_id, ready_for_mt_place_id],
-        source_language_slug,
-        target_language_slug,
-    )
+        place_translations = get_content_translations(
+            Place,
+            [up_to_date_place_id, ready_for_mt_place_id],
+            source_language_slug,
+            target_language_slug,
+        )
 
-    # The up-to-date place is filtered out before queueing, so only the
-    # ready-for-mt one is ever actually translated - translation now
-    # happens via a Celery task (eager in tests), so its success
-    # surfaces through the queued report rather than a synchronous
-    # Django message.
-    report_url = reverse(
-        "machine_translation_report",
-        kwargs={
-            "region_slug": REGION_SLUG,
-            "language_slug": target_language_slug,
-            "model_type": "place",
-        },
-    )
-    report_response = client.get(report_url)
-    report_data = report_response.json()
-    assert report_data["reports"], "Expected a queued machine translation report"
-    assert report_data["reports"][-1]["outcome"] == "FULL_SUCCESS"
+        for place_translation in place_translations:
+            # Check for a failure message if translation was already up-to-date
+            if place_translation[source_language_slug].place_id == up_to_date_place_id:
+                assert_message_in_log(
+                    f'ERROR    There already is an up-to-date translation for "{place_translation[settings.LANGUAGE_CODE].title}"',
+                    caplog,
+                )
+                assert place_translation[target_language_slug].machine_translated is False
 
-    for place_translation in place_translations:
-        # Check for a failure message if translation was already up-to-date
-        if place_translation[source_language_slug].place_id == up_to_date_place_id:
-            assert_message_in_log(
-                f'ERROR    There already is an up-to-date translation for "{place_translation[settings.LANGUAGE_CODE].title}"',
-                caplog,
-            )
-            assert place_translation[target_language_slug].machine_translated is False
-
-        # Check for a successful translation if the place was ready for mt
-        if place_translation[source_language_slug].place_id == ready_for_mt_place_id:
-            assert place_translation[target_language_slug].machine_translated is True
+            # Check for a successful message if translation was ready for mt
+            if place_translation[source_language_slug].place_id == ready_for_mt_place_id:
+                assert_message_in_log(
+                    f'SUCCESS  Place "{place_translation[source_language_slug]}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
+                    caplog,
+                )
+                assert place_translation[target_language_slug].machine_translated is True
 
 
 @pytest.mark.django_db
