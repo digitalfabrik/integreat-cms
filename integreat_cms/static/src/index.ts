@@ -72,6 +72,7 @@ import "./js/pages/xliff-export-overlay";
 import "./js/pages/page-preview";
 import "./js/pages/page-row-actions";
 import "./js/contacts-locations/overlay";
+import "./js/contacts-locations/translation-toggle";
 
 import "./js/mfa/add-key";
 import "./js/mfa/login";

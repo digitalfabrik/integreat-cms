@@ -1,10 +1,26 @@
 {% extends "_base.html" %}
 {% block content %}
     <div class="table-header">
-        <div class="flex flex-wrap justify-between items-center gap-4">
-            <h1 class="heading">Orte & Kontakte</h1>
+        <h1 class="heading">Orte & Kontakte</h1>
+    </div>
+    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-place" title="Neuen Ort-Entwurf erstellen" body_template="contacts_locations/_overlay_new_place_body.html" footer_template="contacts_locations/_overlay_new_place_footer.html" %}
+    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-contact" title="Neuen Kontakt erstellen" overlay_class="h-[min(750px,calc(100vh-4rem))]" body_template="contacts_locations/_overlay_new_contact_body.html" footer_template="contacts_locations/_overlay_new_contact_footer.html" %}
+    {% with active_tab=request.GET.tab|default:"orte" %}
+        {# Three columns so the toggle sits centered between the tabs and the button #}
+        <div class="grid grid-cols-[1fr_auto_1fr] items-end gap-4">
+            {% include "_tab_navigation.html" with tabs=tabs nav_label="Kontakte & Orte" %}
+            {% if active_tab == "orte" %}
+                {# PROTOTYPE: switches between the two place tables without reload, see translation-toggle.ts #}
+                <label class="mb-2 flex cursor-pointer items-center gap-3 text-sm">
+                    <input type="checkbox" data-translation-toggle class="peer sr-only">
+                    <span class="relative h-6 w-10 rounded-full bg-gray-300 transition-colors after:absolute after:left-1 after:top-1 after:size-4 after:rounded-full after:bg-white after:transition-all peer-checked:bg-blue-200 peer-checked:after:left-5 peer-checked:after:bg-blue-500 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500"></span>
+                    zeige Übersetzungsdetails
+                </label>
+            {% else %}
+                <span></span>
+            {% endif %}
             {# PROTOTYPE: reuses the row actions dropdown script, menu items are inert #}
-            <div data-row-actions class="relative">
+            <div data-row-actions class="relative mb-1 justify-self-end">
                 <button type="button"
                         data-row-actions-toggle
                         aria-haspopup="menu"
@@ -30,15 +46,10 @@
                 </div>
             </div>
         </div>
-    </div>
-    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-place" title="Neuen Ort-Entwurf erstellen" body_template="contacts_locations/_overlay_new_place_body.html" footer_template="contacts_locations/_overlay_new_place_footer.html" %}
-    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-contact" title="Neuen Kontakt erstellen" overlay_class="h-[min(750px,calc(100vh-4rem))]" body_template="contacts_locations/_overlay_new_contact_body.html" footer_template="contacts_locations/_overlay_new_contact_footer.html" %}
-    {% with active_tab=request.GET.tab|default:"orte" %}
-        {% include "_tab_navigation.html" with tabs=tabs nav_label="Kontakte & Orte" %}
         <div class="w-full mt-6 min-h-[300px] overflow-hidden bg-white rounded-[20px] shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
             {% if active_tab == "orte" %}
-                <div class="w-full overflow-x-auto">
-                    <table class="w-full min-w-[980px] table-fixed text-left text-black">
+                <div data-translation-view="off" class="w-full overflow-x-auto">
+                    <table class="w-full min-w-[1200px] table-fixed text-left text-black">
                         <colgroup>
                             <col class="w-10">
                             <col class="w-[32%]">
@@ -47,7 +58,7 @@
                             <col class="w-[14%]">
                             <col class="w-[14%]">
                         </colgroup>
-                        <thead class="h-[50px] bg-gray-100 text-sm font-semibold">
+                        <thead class="h-[60px] bg-gray-100 text-sm font-semibold">
                             <tr>
                                 <th class="pl-4">
                                     <input type="checkbox"
@@ -68,6 +79,43 @@
                         </tbody>
                     </table>
                 </div>
+                {# Translation view: replaces contacts, address and status with one translation status per language #}
+                <div data-translation-view="on" class="hidden w-full overflow-x-auto">
+                    <table class="w-full min-w-[1200px] table-fixed text-left text-black">
+                        <colgroup>
+                            <col class="w-10">
+                            <col class="w-[32%]">
+                            <col>
+                            <col class="w-[14%]">
+                        </colgroup>
+                        <thead class="h-[60px] bg-gray-100 text-sm font-semibold">
+                            <tr>
+                                <th class="pl-4">
+                                    <input type="checkbox"
+                                           aria-label="Alle Orte auswählen"
+                                           class="size-4 rounded border-gray-500">
+                                </th>
+                                <th>Ort-Name</th>
+                                <th>
+                                    Übersetzungen
+                                    <div class="mt-1 flex font-mono text-[12px] font-normal text-gray-700">
+                                        <span class="w-6 text-center">DE</span>
+                                        <span class="flex w-6 justify-center" aria-hidden="true"><i icon-name="move-right" class="size-4"></i></span>
+                                        {% for language in fake_languages %}
+                                            <span class="w-6 text-center">{{ language }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </th>
+                                <th class="pr-4 text-right">Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for place in fake_places %}
+                                {% include "contacts_locations/_place_translation_row.html" %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             {% elif active_tab == "kontakte" %}
                 <div class="w-full overflow-x-auto">
                     <table class="w-full min-w-[980px] table-fixed text-left text-black">
@@ -79,7 +127,7 @@
                             <col class="w-[13%]">
                             <col class="w-[21%]">
                         </colgroup>
-                        <thead class="h-[50px] bg-gray-100 text-sm font-semibold">
+                        <thead class="h-[60px] bg-gray-100 text-sm font-semibold">
                             <tr>
                                 <th class="pl-4">
                                     <input type="checkbox"

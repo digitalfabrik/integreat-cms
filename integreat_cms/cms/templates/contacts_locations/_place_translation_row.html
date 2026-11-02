@@ -1,0 +1,41 @@
+{# PROTOTYPE: one row of the fake places table in the translation view, place.translations has one status letter per language in fake_languages #}
+<tr class="h-[74px] border-b border-gray-600/30 hover:bg-gray-50">
+    <td class="pl-4 pt-4 align-top">
+        <input type="checkbox"
+               aria-label="{{ place.title }} auswählen"
+               class="size-4 rounded border-gray-500">
+    </td>
+    <td class="py-3 pr-4 align-top">
+        <div class="leading-snug">{{ place.title }}</div>
+        <div class="mt-0.5 flex flex-wrap gap-1">
+            {% for category in place.categories %}
+                <span class="rounded-full bg-[#e6e6e6] px-2 py-1 text-xs font-bold leading-4">{{ category }}</span>
+            {% endfor %}
+        </div>
+    </td>
+    <td class="py-3 align-middle">
+        <div class="flex">
+            {# The source language is always up to date, the empty cell sits below the arrow #}
+            <span class="flex w-6 justify-center text-[#0f766e]" title="DE: Ausgangssprache">
+                <i icon-name="check" class="size-4"></i>
+            </span>
+            <span class="w-6"></span>
+            {% for status in place.translations %}
+                {% if status == "c" %}
+                    <span class="flex w-6 justify-center text-[#0f766e]" title="Übersetzung aktuell">
+                        <i icon-name="check" class="size-4"></i>
+                    </span>
+                {% elif status == "m" %}
+                    <span class="flex w-6 justify-center text-blue-500" title="maschinell übersetzt">
+                        <i icon-name="bot" class="size-4"></i>
+                    </span>
+                {% else %}
+                    <span class="flex w-6 justify-center text-red-500" title="Übersetzung fehlt">
+                        <i icon-name="x" class="size-4"></i>
+                    </span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </td>
+    {% include "contacts_locations/_place_row_actions.html" %}
+</tr>
