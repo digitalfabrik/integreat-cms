@@ -27,35 +27,37 @@ import os
 from datetime import datetime, timedelta
 from typing import TYPE_CHECKING
 
-from celery import Celery
+from celery import Celery, signals
 from celery.schedules import crontab
 from celery.signals import setup_logging
 from django.conf import settings
 from django.core.management import call_command
 
+from integreat_cms.core.sentry import init_sentry
+
 if TYPE_CHECKING:
     from typing import Any
-
-# Read config from config file
-config = configparser.ConfigParser(interpolation=None)
-config.read("/etc/integreat-cms.ini")
-for section in config.sections():
-    for KEY, VALUE in config.items(section):
-        os.environ.setdefault(f"INTEGREAT_CMS_{KEY.upper()}", VALUE)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
-app = Celery("celery_app")
-app.config_from_object("django.conf:settings", namespace="CELERY")
 
 
 @setup_logging.connect
 def config_loggers(*args: Any, **kwags: Any) -> None:
     from logging.config import dictConfig
 
-    from django.conf import settings
-
     dictConfig(settings.LOGGING)
 
 
+# Read config from config file
+config = configparser.ConfigParser(interpolation=None)
+config.read("/etc/integreat-cms.ini")
+
+for section in config.sections():
+    for KEY, VALUE in config.items(section):
+        os.environ.setdefault(f"INTEGREAT_CMS_{KEY.upper()}", VALUE)
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
+
+app = Celery("celery_app")
+app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
 app.conf.task_routes = {
     "integreat_cms.cms.views.statistics.statistics_actions": {"queue": "statistics"},
@@ -64,6 +66,22 @@ app.conf.task_routes = {
         "queue": "statistics",
     },
 }
+
+
+@signals.celeryd_init.connect
+def init_sentry_worker(**_kwargs: Any) -> None:
+    """
+    Initialize Sentry in the Celery worker main process (before the pool processes are forked)
+    """
+    init_sentry("celery-worker")
+
+
+@signals.beat_init.connect
+def init_sentry_beat(**_kwargs: Any) -> None:
+    """
+    Initialize Sentry in the Celery beat scheduler
+    """
+    init_sentry("celery-beat")
 
 
 @app.task
