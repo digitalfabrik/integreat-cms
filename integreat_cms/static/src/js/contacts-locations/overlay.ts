@@ -14,6 +14,12 @@ document.addEventListener("click", ({ target }) => {
         element.closest<HTMLDialogElement>("dialog[data-overlay]")?.close();
         return;
     }
+    // "Verknüpfung entfernen" on the place edit page: hide the row, it is back after a reload
+    const remover = element.closest("[data-remove-row]");
+    if (remover) {
+        remover.closest("[data-removable-row]")?.remove();
+        return;
+    }
     // Place dropdown: picking a place shows it in the closed dropdown
     const option = element.closest("[data-place-picker-option]");
     if (option) {

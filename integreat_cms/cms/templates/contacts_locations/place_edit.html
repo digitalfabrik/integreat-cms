@@ -55,6 +55,36 @@
     {% if active_tab == "infos" %}
         {# 3 equal columns with stacked cards #}
         {% include "contacts_locations/_place_edit_infos.html" %}
+    {% elif active_tab == "verknuepfungen" %}
+        {# One full width card with the fake contacts of this place #}
+        <div class="col-span-3 min-w-0 max-[1100px]:col-span-1">
+            <h2 class="text-2xl leading-normal">Kontakte, die an diesem Ort angezeigt werden</h2>
+            <ul class="mt-3 overflow-hidden rounded-[20px] bg-white shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+                {% for name, role, email in fake_place_contacts %}
+                    {# "Verknüpfung entfernen" only hides the row until reload, see overlay.ts #}
+                    <li data-removable-row
+                        class="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-center gap-4 border-b border-gray-200 px-7 py-5">
+                        <strong class="truncate">{{ name }}</strong>
+                        <span class="truncate">{{ role }}</span>
+                        <span class="truncate">{{ email }}</span>
+                        <button type="button"
+                                data-remove-row
+                                class="flex items-center gap-1 whitespace-nowrap text-blue-500 hover:text-blue-700">
+                            <i icon-name="unlink" class="size-4"></i>
+                            Verknüpfung entfernen
+                        </button>
+                    </li>
+                {% endfor %}
+                <li class="px-7 py-5">
+                    {# Inert for now #}
+                    <button type="button"
+                            class="flex items-center gap-2 font-bold text-blue-500 hover:text-blue-700">
+                        <i icon-name="plus" class="size-5"></i>
+                        Verknüpfung hinzufügen
+                    </button>
+                </li>
+            </ul>
+        </div>
     {% else %}
         {{ block.super }}
     {% endif %}

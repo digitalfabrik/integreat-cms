@@ -1544,6 +1544,11 @@ urlpatterns: list[URLPattern] = [
                                 ("Samstag", "18:00 - 24:00", False),
                                 ("Sonntag", "18:00 - 23:00", False),
                             ],
+                            # Fake contacts of the place on the "Verknüpfungen" tab: (name, role, email)
+                            "fake_place_contacts": [
+                                ("Bruno Bohne", "Barista", "sina@email.de"),
+                                ("Albus Percival Wulfric Dumbledore", "Schulleiter", "albus@hogwarts.de"),
+                            ],
                             # Fake translation states: "done", "machine" or "missing"
                             "fake_translations": [
                                 ("AR", "done"), ("BG", "done"), ("CS", "done"), ("DA", "done"), ("EL", "done"), ("EN", "done"),
@@ -1584,6 +1589,11 @@ urlpatterns: list[URLPattern] = [
                                 ("verknuepfungen", "Verknüpfungen"),
                             ],
                             "fake_place_categories": ["Behörde/Amt", "Bildung", "Einrichtung", "Freizeit", "Gesundheit", "Kultur", "Treffpunkt", "Sonstiges"],
+                            # Fake contacts of the place on the "Verknüpfungen" tab: (name, role, email)
+                            "fake_place_contacts": [
+                                ("Bruno Bohne", "Barista", "sina@email.de"),
+                                ("Albus Percival Wulfric Dumbledore", "Schulleiter", "albus@hogwarts.de"),
+                            ],
                             # Fake opening hours: (day, value, missing)
                             "fake_opening_hours": [
                                 ("Montag", "geschlossen", False),
