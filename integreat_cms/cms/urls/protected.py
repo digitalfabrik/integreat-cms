@@ -1503,6 +1503,15 @@ urlpatterns: list[URLPattern] = [
                                 {"title": "Arbeiter-Samariter-Bund", "categories": ["Einrichtung"], "contacts": 0, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": False},
                                 {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": 1, "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "published": True},
                             ],
+                            # Fake contacts: places and pages are only titles, empty lists show a dash
+                            "fake_contacts": [
+                                {"name": "Albus Percival Wulfric Brian Dumbledore", "role": "Schulleiter", "places": ["#dreizehn"], "pages": ["Schulen in Augsburg"]},
+                                {"name": "Edeltraud Einfühlsam", "role": "Integrationsbeauftragte", "places": ["Amt für Kinder, Jugend und Familie"], "pages": ["Beratung für Familien"]},
+                                {"name": "Inga Integration", "role": "", "places": [], "pages": ["Integrationskurse"]},
+                                {"name": "Harald Haudegen", "role": "Schulleiter", "places": ["Amt für Kindertagesbetreuung"], "pages": []},
+                                {"name": "Bruno Bohne", "role": "Barista", "places": ["#dreizehn", "Kresslesmühle"], "pages": ["Treffpunkte und Cafés", "Ehrenamt in Augsburg"]},
+                                {"name": "Vinsmoke Sanji", "role": "Koch", "places": ["#dreizehn"], "pages": []},
+                            ],
                         },
                     ),
                     name="contacts_locations",

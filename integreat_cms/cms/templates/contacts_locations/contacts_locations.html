@@ -68,6 +68,38 @@
                         </tbody>
                     </table>
                 </div>
+            {% elif active_tab == "kontakte" %}
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full min-w-[980px] table-fixed text-left text-black">
+                        <colgroup>
+                            <col class="w-10">
+                            <col class="w-[22%]">
+                            <col class="w-[18%]">
+                            <col class="w-[26%]">
+                            <col class="w-[13%]">
+                            <col class="w-[21%]">
+                        </colgroup>
+                        <thead class="h-[50px] bg-gray-100 text-sm font-semibold">
+                            <tr>
+                                <th class="pl-4">
+                                    <input type="checkbox"
+                                           aria-label="Alle Kontakte auswählen"
+                                           class="size-4 rounded border-gray-500">
+                                </th>
+                                <th>Kontaktperson Name</th>
+                                <th>Rolle</th>
+                                <th>verknüpft mit Ort(en)</th>
+                                <th class="pr-4 text-right">verwendet auf Seiten</th>
+                                <th class="pr-4 text-right">Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contact in fake_contacts %}
+                                {% include "contacts_locations/_contact_row.html" %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             {% endif %}
         </div>
     {% endwith %}
