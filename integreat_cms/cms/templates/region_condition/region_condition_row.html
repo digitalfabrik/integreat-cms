@@ -20,7 +20,7 @@
     </td>
     <td class="text-center py-3 pr-2">{{ region.get_pages.count }}</td>
     <td class="text-center py-3 pr-2">
-        {% get_partially_translated_pages region as outdated_or_missing_translation %}
+        {% get_number_of_partially_translated_pages region as outdated_or_missing_translation %}
         {{ outdated_or_missing_translation }}
     </td>
     <td class="text-center py-3 pr-2">{{ region.outdated_pages.count }}</td>

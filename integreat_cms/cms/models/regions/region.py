@@ -785,6 +785,7 @@ class Region(AbstractBaseModel):
         prefetch_major_translations: bool = False,
         prefetch_public_translations: bool = False,
         annotate_language_tree: bool = False,
+        defer_translation_content: bool = False,
     ) -> PageQuerySet:
         """
         This method returns either all archived or all non-archived pages of this region.
@@ -796,13 +797,19 @@ class Region(AbstractBaseModel):
         :param prefetch_major_translations: Whether the latest major translations for each language should be prefetched (default: ``False``)
         :param prefetch_public_translations: Whether the latest public translations for each language should be prefetched (default: ``False``)
         :param annotate_language_tree: Whether the pages should be annotated with the region's language tree (default: ``False``)
+        :param defer_translation_content: Whether the ``content`` field of prefetched translations should be
+                                          deferred, for callers which only need translation metadata (default: ``False``)
         :return: Either the archived or the non-archived pages of this region
         """
         pages = self.archived_pages if archived else self.non_archived_pages
         if prefetch_translations:
-            pages = pages.prefetch_translations()
+            pages = pages.prefetch_translations(
+                defer_content=defer_translation_content,
+            )
         if prefetch_major_translations:
-            pages = pages.prefetch_major_translations()
+            pages = pages.prefetch_major_translations(
+                defer_content=defer_translation_content,
+            )
         if prefetch_public_translations:
             pages = pages.prefetch_public_translations()
         if annotate_language_tree:
@@ -853,7 +860,7 @@ class Region(AbstractBaseModel):
             .exclude(Q(content="") & Q(page__mirrored_page=None))
         )
 
-    def get_partially_translated_pages(self) -> int:
+    def get_number_of_partially_translated_pages(self) -> int:
         """
         Returns the number of pages with at least one missing or outdated translation
         """
@@ -870,7 +877,8 @@ class Region(AbstractBaseModel):
             archived=False,
             prefetch_translations=True,
             prefetch_major_translations=True,
-        )
+            defer_translation_content=True,
+        ).prefetch_public_or_draft_translations(defer_content=True)
         return sum(1 for page in pages if has_bad_translation(page))
 
     @classmethod
