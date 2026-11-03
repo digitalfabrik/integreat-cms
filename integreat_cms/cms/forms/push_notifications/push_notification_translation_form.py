@@ -211,6 +211,7 @@ class PushNotificationTranslationForm(CustomModelForm):
                     self.instance.foreign_object,
                     language_node.slug,
                 )
+                api_client.alert_messages()
         return self.instance
 
     class Meta:
