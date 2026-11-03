@@ -14,14 +14,13 @@ if TYPE_CHECKING:
 
 class RegionCondition(AbstractBaseModel):
     """
-    Data model representing the stored condition of a region
+    Data model representing the condition of a region at the time it was computed
 
     Computing these metrics is too slow to do on request. They are computed every night (see
-    :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`) and stored
-    here, at most one row per active or hidden region, overwritten whenever the computation of
-    that region succeeds. Rows of regions which are no longer active or hidden are removed.
-    ``computed_at`` tells how old the values are: a region whose computation failed or was not
-    reached keeps the values of its last successful run.
+    :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`) and every
+    successful computation adds a row, so the history of a region can be evaluated. The newest
+    row is the current condition; if the computation of a region failed or did not reach it, that
+    is still the row of its last successful run.
     """
 
     #: The names of the metric fields. Each one must also match a ``dehydrate_<name>`` method of
@@ -36,10 +35,10 @@ class RegionCondition(AbstractBaseModel):
         "num_languages_besides_root_language",
     )
 
-    region = models.OneToOneField(
+    region = models.ForeignKey(
         Region,
         on_delete=models.CASCADE,
-        related_name="condition",
+        related_name="conditions",
         verbose_name=_("region"),
     )
     computed_at = models.DateTimeField(verbose_name=_("computed at"))
@@ -89,3 +88,11 @@ class RegionCondition(AbstractBaseModel):
         verbose_name_plural = _("region conditions")
         #: The default permissions for this model
         default_permissions = ()
+        #: The newest condition first
+        ordering = ["-computed_at"]
+        indexes = [
+            models.Index(
+                fields=["region", "-computed_at"],
+                name="regioncondition_newest",
+            ),
+        ]

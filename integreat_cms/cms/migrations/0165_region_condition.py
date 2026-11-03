@@ -57,9 +57,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "region",
-                    models.OneToOneField(
+                    models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="condition",
+                        related_name="conditions",
                         to="cms.region",
                         verbose_name="region",
                     ),
@@ -69,6 +69,13 @@ class Migration(migrations.Migration):
                 "verbose_name": "region condition",
                 "verbose_name_plural": "region conditions",
                 "default_permissions": (),
+                "ordering": ["-computed_at"],
+                "indexes": [
+                    models.Index(
+                        fields=["region", "-computed_at"],
+                        name="regioncondition_newest",
+                    )
+                ],
             },
         ),
     ]

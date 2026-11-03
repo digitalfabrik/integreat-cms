@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 from datetime import datetime, timedelta, UTC
+from typing import TYPE_CHECKING
 from unittest.mock import Mock, patch
 
 import cacheops.conf
@@ -14,6 +15,7 @@ from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.core.signals import setting_changed
 from django.db import OperationalError
+from django.db.models import Max
 from django.db.models.signals import post_save
 from django.test import override_settings
 from django.test.client import Client
@@ -25,7 +27,7 @@ from integreat_cms.api.v3.region_statistics import (
     transform_region_condition,
 )
 from integreat_cms.cms.constants import region_status
-from integreat_cms.cms.models import ApiToken, Region, RegionCondition
+from integreat_cms.cms.models import ApiToken, Region, RegionCondition, User
 from integreat_cms.cms.utils import region_condition_utils
 from integreat_cms.cms.utils.region_condition_utils import (
     cacheops_disabled,
@@ -37,6 +39,9 @@ from integreat_cms.cms.views.region_condition.region_condition_actions import (
     RegionConditionResource,
 )
 from integreat_cms.integreat_celery import celery
+
+if TYPE_CHECKING:
+    from django.test.client import _MonkeyPatchedWSGIResponse
 
 #: Values the test data cannot produce, so a response containing them must come from the database.
 #: They are pairwise distinct, so every metric can be traced to its key in the API.
@@ -62,7 +67,7 @@ STORED_CONDITION = {
 STORED_AT = datetime(2026, 1, 1, 2, 30, tzinfo=UTC)
 
 
-def _token_for(user: object) -> str:
+def _token_for(user: User | str) -> str:
     """
     Create an API token for the given user
 
@@ -70,12 +75,16 @@ def _token_for(user: object) -> str:
     :return: The plaintext token
     """
     if isinstance(user, str):
-        user = get_user_model().objects.get(username=user)
+        user = User.objects.get(username=user)
+    assert isinstance(user, User)
     _token, plaintext = ApiToken.create_token(user, "test-token")
     return plaintext
 
 
-def _get_statistics(token: str, region_slug: str = "augsburg") -> dict:
+def _get_statistics(
+    token: str,
+    region_slug: str = "augsburg",
+) -> _MonkeyPatchedWSGIResponse:
     """
     Request the statistics of a region
 
@@ -138,7 +147,7 @@ def test_metrics_match_the_model_and_the_api(load_test_data: None) -> None:
     # The stored values are pairwise distinct, so this proves each metric reaches its own key
     condition = transform_region_condition(_store())
     assert set(condition) == set(Condition.__annotations__)
-    assert sorted(v for k, v in condition.items() if k != "computed_at") == sorted(
+    assert sorted(v for k, v in condition.items() if isinstance(v, int)) == sorted(
         STORED_VALUES.values(),
     )
 
@@ -189,6 +198,40 @@ def test_statistics_return_the_stored_values_of_the_region(
 
 
 @pytest.mark.django_db
+def test_statistics_return_the_newest_values(load_test_data: None) -> None:
+    """
+    Of the history of a region, only the newest condition is returned.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    newest = STORED_AT + timedelta(days=1)
+    _store(computed_at=newest, num_pages=22222)
+    _store(num_pages=11111)
+
+    condition = _get_statistics(_token_for("root")).json()["condition"]
+
+    assert condition["computed_at"] == newest.isoformat()
+    assert condition["num_pages"] == 22222
+
+
+@pytest.mark.django_db
+def test_statistics_of_an_archived_region_are_not_served(load_test_data: None) -> None:
+    """
+    The history of an archived region is kept, but not served as its current condition.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    _store()
+    Region.objects.filter(slug="augsburg").update(status=region_status.ARCHIVED)
+
+    response = _get_statistics(_token_for("root"))
+
+    assert response.status_code == 200
+    assert response.json()["condition"] is None
+    assert RegionCondition.objects.filter(region__slug="augsburg").exists()
+
+
+@pytest.mark.django_db
 def test_statistics_are_not_computed_on_request(load_test_data: None) -> None:
     """
     Reading the statistics must never run the expensive computation.
@@ -212,7 +255,7 @@ def test_update_covers_exactly_the_active_and_hidden_regions(
     load_test_data: None,
 ) -> None:
     """
-    Active and hidden regions are computed; stored values of other regions are removed.
+    Active and hidden regions are computed; the history of other regions is kept untouched.
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
@@ -227,16 +270,20 @@ def test_update_covers_exactly_the_active_and_hidden_regions(
     assert result.updated == len(_computed_slugs())
     assert (
         sorted(
-            RegionCondition.objects.values_list("region__slug", flat=True),
+            RegionCondition.objects.filter(computed_at__gt=STORED_AT).values_list(
+                "region__slug",
+                flat=True,
+            ),
         )
         == _computed_slugs()
     )
+    assert RegionCondition.objects.get(region=archived).computed_at == STORED_AT
 
 
 @pytest.mark.django_db
-def test_update_overwrites_the_stored_values(load_test_data: None) -> None:
+def test_update_keeps_the_history(load_test_data: None) -> None:
     """
-    A later run replaces the row of a region instead of failing on the one-to-one relation.
+    A later run adds a row for a region and keeps the earlier ones.
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
@@ -245,7 +292,11 @@ def test_update_overwrites_the_stored_values(load_test_data: None) -> None:
 
     update_region_conditions()
 
-    condition = RegionCondition.objects.get(region=region)
+    old, condition = RegionCondition.objects.filter(region=region).order_by(
+        "computed_at",
+    )
+    assert old.computed_at == STORED_AT
+    assert old.num_pages == STORED_VALUES["num_pages"]
     assert condition.computed_at > STORED_AT
     assert {
         metric: getattr(condition, metric) for metric in RegionCondition.METRICS
@@ -314,10 +365,11 @@ def test_failing_region_keeps_its_values_and_does_not_stop_the_others(
     assert condition.computed_at == STORED_AT
     assert condition.num_pages == STORED_VALUES["num_pages"]
     assert all(
-        computed_at > STORED_AT + timedelta(days=1)
-        for computed_at in RegionCondition.objects.exclude(
-            region__slug="augsburg",
-        ).values_list("computed_at", flat=True)
+        newest > STORED_AT + timedelta(days=1)
+        for newest in Region.objects.filter(status__in=COMPUTED_STATUSES)
+        .exclude(slug="augsburg")
+        .annotate(newest=Max("conditions__computed_at"))
+        .values_list("newest", flat=True)
     )
 
 
@@ -409,11 +461,42 @@ def test_lost_database_connection_aborts_the_run(load_test_data: None) -> None:
             "compute_region_condition",
             side_effect=OperationalError("connection lost"),
         ) as compute,
+        patch.object(
+            region_condition_utils.connection,
+            "is_usable",
+            return_value=False,
+        ),
         pytest.raises(OperationalError),
     ):
         update_region_conditions()
 
     compute.assert_called_once()
+
+
+@pytest.mark.django_db
+def test_query_error_only_fails_its_region(load_test_data: None) -> None:
+    """
+    An :class:`~django.db.OperationalError` with a usable connection (e.g. a statement timeout)
+    only fails the region in which it occurred.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    original = region_condition_utils.compute_region_condition
+
+    def time_out_for_augsburg(region: Region) -> dict[str, int]:
+        if region.slug == "augsburg":
+            raise OperationalError("canceling statement due to statement timeout")
+        return original(region)
+
+    with patch.object(
+        region_condition_utils,
+        "compute_region_condition",
+        side_effect=time_out_for_augsburg,
+    ):
+        result = update_region_conditions()
+
+    assert result.failed == ["augsburg"]
+    assert result.updated == len(_computed_slugs()) - 1
 
 
 @pytest.mark.django_db

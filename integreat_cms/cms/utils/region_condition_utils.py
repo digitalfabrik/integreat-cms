@@ -17,8 +17,8 @@ from typing import TYPE_CHECKING
 
 import cacheops.conf
 from celery.exceptions import SoftTimeLimitExceeded
-from django.db import InterfaceError, OperationalError
-from django.db.models import F
+from django.db import connection, InterfaceError, OperationalError
+from django.db.models import F, Max
 from django.test import override_settings
 from django.utils import timezone
 
@@ -54,14 +54,9 @@ def cacheops_disabled() -> Iterator[None]:
     """
     Disable the cacheops query cache for the duration of the block
 
-    The metrics run large querysets over all pages of a region. Caching them is useless — every
-    region is computed only once — and harmful: cacheops would store each of these results in
-    Redis, several MB per key, which for all regions can exhaust the memory of Redis.
-
-    ``override_settings`` sends ``setting_changed``, which cacheops listens to, so the override
-    takes effect immediately. It is global to the process, which is safe in a prefork Celery worker
-    or a management command but not in a threaded process. While it is active, cacheops does not
-    invalidate on writes either, so only read inside this block.
+    The metrics run large querysets over all pages of a region. Caching them would store several
+    MB per region in Redis, which can exhaust its memory. The override is global to the process
+    and also disables the invalidation on writes, so only read inside this block.
 
     :return: A context in which queries bypass the cache
     """
@@ -69,19 +64,13 @@ def cacheops_disabled() -> Iterator[None]:
         with override_settings(CACHEOPS_ENABLED=False):
             yield
     finally:
-        # cacheops memoizes the setting and only forgets it on ``setting_changed``. If an
-        # asynchronous exception (e.g. Celery's soft time limit) interrupted the restore before
-        # that signal, cacheops would stay disabled — and stop invalidating — for the rest of
-        # the worker process.
+        # Otherwise an interrupted restore would keep cacheops disabled for the worker process
         cacheops.conf.settings.__dict__.pop("CACHEOPS_ENABLED", None)
 
 
 def compute_region_condition(region: Region) -> dict[str, int]:
     """
-    Compute the condition metrics of a region
-
-    The computation reuses the ``dehydrate_*`` methods of the region condition export, so both
-    calculate their numbers the same way.
+    Compute the condition metrics of a region with the ``dehydrate_*`` methods of the export
 
     :param region: The region whose condition should be computed
     :return: The metrics of the region, keyed like the fields of the region condition model
@@ -97,26 +86,21 @@ def update_region_conditions(time_budget: float | None = None) -> UpdateResult:
     """
     Compute and store the condition of all active and hidden regions
 
-    A failure in one region is logged and does not stop the others, so a single broken region
-    cannot leave all other regions with stale numbers. Regions without stored values and then
-    those with the oldest values are computed first, so a run that is cut short does not always
-    miss the same regions. Stored values of regions which are no longer active or hidden are
-    removed, so the API does not keep serving them.
+    A failure in one region is logged and does not stop the others. Regions without stored values
+    and then those with the oldest values are computed first, so a run that is cut short does not
+    always miss the same regions. Every successful computation adds a row, so the history is kept.
 
-    :param time_budget: The number of seconds after which no further region is started. Checking
-                        this between regions keeps a run from being interrupted in the middle of
-                        a computation by Celery's time limit, which is only a last resort.
-    :raises ~django.db.Error: When the database connection fails, which is not a problem of a single
-                              region and would otherwise fail every remaining one
+    :param time_budget: The number of seconds after which no further region is started
+    :raises ~django.db.Error: When the database connection is lost
     :raises ~celery.exceptions.SoftTimeLimitExceeded: When Celery's time limit is hit anyway
     :return: The outcome of the run
     """
     deadline = time.monotonic() + time_budget if time_budget is not None else None
-    regions = Region.objects.filter(status__in=COMPUTED_STATUSES).order_by(
-        F("condition__computed_at").asc(nulls_first=True),
-        "slug",
+    regions = (
+        Region.objects.filter(status__in=COMPUTED_STATUSES)
+        .annotate(last_computed_at=Max("conditions__computed_at"))
+        .order_by(F("last_computed_at").asc(nulls_first=True), "slug")
     )
-    RegionCondition.objects.exclude(region__status__in=COMPUTED_STATUSES).delete()
 
     result = UpdateResult()
     remaining = list(regions)
@@ -128,22 +112,24 @@ def update_region_conditions(time_budget: float | None = None) -> UpdateResult:
             region = remaining[0]
             try:
                 metrics = compute_region_condition(region)
-                # Only store if the region was not archived or deleted during the run
+                # The region might have been archived during the computation
                 if Region.objects.filter(
                     pk=region.pk,
                     status__in=COMPUTED_STATUSES,
                 ).exists():
-                    # Written outside of cacheops_disabled(): with CACHEOPS_ENABLED=False
-                    # cacheops skips invalidation, and the cached read of the API would serve
-                    # the old values for up to an hour
-                    RegionCondition.objects.update_or_create(
+                    # Outside of cacheops_disabled(), so the cached read of the API is invalidated
+                    RegionCondition.objects.create(
                         region=region,
-                        defaults={**metrics, "computed_at": timezone.now()},
+                        computed_at=timezone.now(),
+                        **metrics,
                     )
                     result.updated += 1
-            except (SoftTimeLimitExceeded, InterfaceError, OperationalError):
+            except (SoftTimeLimitExceeded, InterfaceError):
                 raise
-            except Exception:
+            except Exception as error:
+                # Timeouts, deadlocks etc. only concern this region, a lost connection all of them
+                if isinstance(error, OperationalError) and not connection.is_usable():
+                    raise
                 logger.exception("Could not compute the condition of %r", region)
                 result.failed.append(region.slug)
             remaining.pop(0)

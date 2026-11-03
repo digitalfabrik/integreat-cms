@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING, TypedDict
 from django.http import JsonResponse
 
 from ...cms.models import RegionCondition
+from ...cms.utils.region_condition_utils import COMPUTED_STATUSES
 from ..decorators import api_token_required, json_response
 
 if TYPE_CHECKING:
@@ -87,7 +88,15 @@ def transform_region_statistics(region: Region) -> Statistics:
     :param region: The region whose statistics should be returned
     :return: The statistics of the region
     """
-    condition = RegionCondition.objects.filter(region=region).first()
+    # The history of an archived region is kept, but it has no current condition
+    condition = (
+        RegionCondition.objects.filter(
+            region=region,
+            region__status__in=COMPUTED_STATUSES,
+        )
+        .order_by("-computed_at")
+        .first()
+    )
     return {
         "condition": transform_region_condition(condition) if condition else None,
         "mt_budget": region.mt_budget,
