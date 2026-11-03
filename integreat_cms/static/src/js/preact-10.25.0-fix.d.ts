@@ -5,9 +5,9 @@ import * as preact from "preact";
  */
 
 declare module "preact-router" {
-    export function Link(props: preact.JSX.AnchorHTMLAttributes<HTMLAnchorElement>): preact.VNode;
+    export function Link(props: preact.AnchorHTMLAttributes<HTMLAnchorElement>): preact.VNode;
 }
 
 declare module "preact-router/match" {
-    export function Link(props: preact.JSX.AnchorHTMLAttributes<HTMLAnchorElement>): preact.VNode;
+    export function Link(props: preact.AnchorHTMLAttributes<HTMLAnchorElement>): preact.VNode;
 }
