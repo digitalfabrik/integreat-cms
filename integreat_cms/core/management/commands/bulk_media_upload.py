@@ -125,7 +125,7 @@ class Command(LogCommand):
         # DO THE UPLOADING
         with open(
             options["csv"], "w"
-        ) as out:  # TODO(PeterNerlich): Fail if file exists (and add --force option?)  # noqa: TD003, FIX002
+        ) as out:  # TODO(PeterNerlich): Fail if file exists (and add --force option?)
             # Write out the CSV header
             out.write("name,upload_path\n")
             if options["zip"]:
