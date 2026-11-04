@@ -48,8 +48,9 @@ class TestFirebaseApiClient:
         "404": {"error": {"code": 404}, "status_code": 404},
     }
 
-    def __init__(self) -> None:
-        self.patch: Any = None
+    #: The patch of the access token method, started and stopped for every test method.
+    #: This must not be initialized in ``__init__()``, because pytest does not collect test classes with a constructor.
+    patch: Any = None
 
     def setup_method(self) -> None:
         self.patch = patch.object(
@@ -182,7 +183,7 @@ class TestFirebaseApiClient:
         )
         for record in caplog.records:
             assert "sent, but unexpected API response" in record.message
-        assert status
+        assert not status
 
     @pytest.mark.django_db
     def test_firebase_api_403_wrong_token(
@@ -207,7 +208,7 @@ class TestFirebaseApiClient:
             self.response_mock_data["401_invalid_key"],
         )
         for record in caplog.records:
-            assert "Received invalid response from FCM for" in record.message
+            assert "sent, but unexpected API response" in record.message
         assert not status
 
     @pytest.mark.django_db
@@ -232,7 +233,7 @@ class TestFirebaseApiClient:
             self.response_mock_data["404"],
         )
         for record in caplog.records:
-            assert "Received invalid response from FCM for" in record.message
+            assert "sent, but unexpected API response" in record.message
         assert not status
 
     @pytest.mark.django_db
