@@ -39,6 +39,7 @@ import "./js/machine-translation-overlay";
 import "./js/revisions";
 import "./js/event-duration";
 
+import "./js/forms/add-missing-url-scheme";
 import "./js/forms/slug-error";
 import "./js/forms/update-permalink";
 import "./js/forms/distribute-sidebar-boxes";
