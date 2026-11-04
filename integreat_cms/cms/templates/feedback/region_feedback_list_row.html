@@ -70,7 +70,8 @@
     <td class="pr-2">
         {% if feedback.read_by %}
             {% if feedback.read_by.email %}
-                <a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{{ feedback.read_by.full_user_name }}</a>
+                <a href="mailto:{{ feedback.read_by.email }}"
+                   class="hover:underline">{{ feedback.read_by.full_user_name }}</a>
             {% else %}
                 {{ feedback.read_by.full_user_name }}
             {% endif %}

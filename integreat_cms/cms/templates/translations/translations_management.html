@@ -10,7 +10,7 @@
         <div class="flex flex-wrap justify-between mb-4">
             <h1 class="heading overflow-hidden text-ellipsis">{% translate "Manage machine translations" %}</h1>
             {% if perms.cms.manage_translations %}
-                <button class="btn ml-auto mr-0">{% translate "Save" %}</button>
+                <button type="submit" class="btn ml-auto mr-0">{% translate "Save" %}</button>
             {% endif %}
         </div>
         <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
@@ -110,7 +110,8 @@
             <div class="2xl:col-span-2 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
                     <h2 class="heading font-bold text-black">
-                        <i icon-name="bar-chart-horizontal" class="mr-2"></i> {% translate "Number of words in the German contents" %}
+                        <i icon-name="bar-chart-horizontal"
+                           class="mr-2"></i> {% translate "Number of words in the German contents" %}
                     </h2>
                 </div>
                 <div class="px-4 pb-4 mt-4">

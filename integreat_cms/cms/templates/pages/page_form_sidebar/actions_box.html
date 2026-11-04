@@ -12,7 +12,8 @@
     {% has_perm 'cms.publish_page_object' request.user page as can_publish_pages %}
     {% if page_form.instance.id and can_edit_page and not page.archived %}
         <label class="mt-0">{% translate "Refresh date" %}</label>
-        <button title="{% translate "Mark this page as up-to-date" %}"
+        <button type="submit"
+                title="{% translate "Mark this page as up-to-date" %}"
                 form="refresh_date_form"
                 name="refresh_page"
                 class="btn text-center w-full">
@@ -23,7 +24,8 @@
     {% if can_publish_pages %}
         {% if page.explicitly_archived %}
             <label>{% translate "Restore page" %}</label>
-            <button title="{% translate "Restore page" %}"
+            <button type="button"
+                    title="{% translate "Restore page" %}"
                     class="btn confirmation-button w-full"
                     data-confirmation-title="{{ restore_dialog_title }}"
                     data-confirmation-text="{{ restore_dialog_text }}"
@@ -52,7 +54,8 @@
         {% else %}
             <label>{% translate "Archive page" %}</label>
             {% if not page.mirroring_pages.exists %}
-                <button title="{% translate "Archive page" %}"
+                <button type="button"
+                        title="{% translate "Archive page" %}"
                         class="btn confirmation-button w-full"
                         data-confirmation-title="{{ archive_dialog_title }}"
                         data-confirmation-text="{{ archive_dialog_text }}"
@@ -164,7 +167,8 @@
                 {% endfor %}
             {% endwith %}
         {% else %}
-            <button title="{% translate "Delete page" %}"
+            <button type="button"
+                    title="{% translate "Delete page" %}"
                     class="btn confirmation-button btn-red w-full"
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"

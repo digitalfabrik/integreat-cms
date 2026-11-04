@@ -16,7 +16,7 @@
     <form id="chat-form" method="post" class="pt-4" action="{% spaceless %} {% if request.region %} {% url 'send_chat_message' region_slug=request.region.slug %} {% else %} {% url 'send_chat_message' %} {% endif %} {% endspaceless %}">
         {% csrf_token %}
         {% render_field chat_form.text rows="2" class="mb-2" %}
-        <button id="send-chat-message" class="btn">
+        <button type="submit" id="send-chat-message" class="btn">
             <i icon-name="send"></i> {% translate "Send message" %}
         </button>
         <span id="chat-loading" class="px-4 hidden"><i icon-name="loader" class="animate-spin"></i></span>

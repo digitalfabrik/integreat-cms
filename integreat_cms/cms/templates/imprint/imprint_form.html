@@ -24,8 +24,13 @@
             <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
                 {% include "generic_auto_save_note.html" with form_instance=imprint_translation_form.instance %}
                 {% if perms.cms.change_imprintpage %}
-                    <button name="status" value="{{ DRAFT }}" class="btn btn-outline">{% translate "Save as draft" %}</button>
-                    <button name="status" value="{{ PUBLIC }}" class="btn">
+                    <button type="submit"
+                            name="status"
+                            value="{{ DRAFT }}"
+                            class="btn btn-outline">
+                        {% translate "Save as draft" %}
+                    </button>
+                    <button type="submit" name="status" value="{{ PUBLIC }}" class="btn">
                         {% if imprint_translation_form.instance.status == PUBLIC %}
                             {% translate "Update" %}
                         {% else %}
@@ -122,7 +127,8 @@
                             </div>
                             <div class="px-4 pb-4">
                                 <label>{% translate "Delete imprint" %}</label>
-                                <button title="{% translate "Delete imprint" %}"
+                                <button type="button"
+                                        title="{% translate "Delete imprint" %}"
                                         class="btn btn-red confirmation-button w-full"
                                         data-confirmation-title="{% translate "Please confirm that you really want to delete the imprint" %}"
                                         data-confirmation-text="{% translate "All translations of the imprint will also be deleted." %}"

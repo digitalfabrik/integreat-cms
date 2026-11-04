@@ -46,9 +46,11 @@
               title="{{ node.language.get_secondary_country_code_display }}"></span>
     </td>
     <td>
+        {# djlint:off H021 #}
         <span class="fp fp-{{ node.language.language_color }} w-5 h-5 rounded-full"
               title="{{ node.language.get_language_color_display }}"
               style="background-color: {{ node.language.language_color }}"></span>
+        {# djlint:on #}
     </td>
     <td>
         <div class="flex justify-center">
@@ -70,7 +72,8 @@
     </td>
     <td class="pl-2 pr-4 py-1.5 text-right">
         {% if perms.cms.delete_languagetreenode %}
-            <button title="{% if not node.is_leaf %}{% translate "You cannot delete a node which has children." %}{% else %}{% translate "Delete entire language node" %}{% endif %}"
+            <button type="button"
+                    title="{% if not node.is_leaf %}{% translate "You cannot delete a node which has children." %}{% else %}{% translate "Delete entire language node" %}{% endif %}"
                     class="btn-icon confirmation-button"
                     {% if not node.is_leaf %}disabled{% endif %}
                     data-confirmation-title="{{ delete_dialog_title }}"

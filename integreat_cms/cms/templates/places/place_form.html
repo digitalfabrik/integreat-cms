@@ -44,12 +44,14 @@
                        class="btn btn-ghost">{% translate "Cancel" %}</a>
                 {% endif %}
                 {% if not place_form.instance.archived and perms.cms.change_place %}
-                    <button name="status"
+                    <button type="submit"
+                            name="status"
                             value="{{ DRAFT }}"
                             class="btn btn-outline no-premature-submission">
                         {% translate "Save as draft" %}
                     </button>
-                    <button name="status"
+                    <button type="submit"
+                            name="status"
                             value="{{ PUBLIC }}"
                             class="btn no-premature-submission"
                             {% if language != request.region.default_language and not place_form.instance.default_public_translation %} title="{% translate "The default translation is not yet published" %}" disabled {% endif %}>

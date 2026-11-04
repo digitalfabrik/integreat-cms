@@ -180,7 +180,11 @@ extend_exclude = [
 ]
 ignore=[
   "H005", # Html tag should have lang attribute. <html>
+  "H021", # Inline styles should be avoided.
 ]
+
+[tool.djlint.per-file-ignores]
+"integreat_cms/cms/templates/emails/*" = "H036" # br tags are needed for spacing in emails
 
 
 [tool.mypy]
