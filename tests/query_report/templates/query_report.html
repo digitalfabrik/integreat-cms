@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Query report</title>
+        <style>
+            :root { color-scheme: light dark; --muted: #888; --line: #8884; --accent: #c0392b; }
+            body { font: 14px/1.4 system-ui, sans-serif; margin: 2rem auto; max-width: 1400px; padding: 0 1rem; }
+            h1 { margin-bottom: 0.2rem; }
+            h2 { margin-top: 2.5rem; border-bottom: 2px solid var(--line); padding-bottom: 0.3rem; }
+            .meta { color: var(--muted); }
+            .cards { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; }
+            .card { border: 1px solid var(--line); border-radius: 6px; padding: 0.6rem 1rem; min-width: 9rem; }
+            .card b { display: block; font-size: 1.6rem; }
+            .card span { color: var(--muted); }
+            nav a { margin-right: 1rem; }
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border-bottom: 1px solid var(--line); padding: 0.3rem 0.5rem; text-align: left; vertical-align: top; }
+            th { position: sticky; top: 0; background: Canvas; }
+            td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+            code { font-family: ui-monospace, monospace; font-size: 12px; word-break: break-all; }
+            .site { color: var(--muted); }
+            .hot { color: var(--accent); font-weight: bold; }
+            details { margin: 0.2rem 0; }
+            details > summary { cursor: pointer; }
+            details .inner { padding: 0.5rem 0 1rem 1.2rem; }
+            details h4 { margin: 0.6rem 0 0.2rem; }
+        </style>
+    </head>
+    <body>
+        <h1>Query report</h1>
+        <p class="meta">
+            {{ report.meta.created }} · {{ report.meta.database }} ·
+            {{ report.meta.workers }} worker(s) ·
+            N+1 threshold {{ report.meta.n1_threshold }} ·
+            cacheops {% if report.meta.cacheops %}<span class="hot">enabled – counts may be hidden by the query cache</span>{% else %}disabled{% endif %}
+            {% if report.meta.args %}· <code>{{ report.meta.args|join:" " }}</code>{% endif %}
+        </p>
+        <p class="meta">
+            Rankings use the queries of the test body (<code>call</code> phase). Fixture setup and teardown queries are counted separately.
+        </p>
+        <div class="cards">
+            <div class="card"><b>{{ report.totals.tests }}</b><span>tests</span></div>
+            <div class="card"><b>{{ report.totals.queries }}</b><span>queries (call)</span></div>
+            <div class="card"><b>{{ report.totals.time|floatformat:2 }} s</b><span>query time (call)</span></div>
+            <div class="card"><b>{{ report.totals.setup_queries }}</b><span>setup queries</span></div>
+            <div class="card"><b>{{ report.totals.tests_with_n1 }}</b><span>tests with N+1 candidates</span></div>
+            <div class="card"><b>{{ report.totals.tests_with_duplicates }}</b><span>tests with duplicates</span></div>
+        </div>
+        <nav>
+            <a href="#n1">N+1 candidates</a>
+            <a href="#endpoints">Endpoints</a>
+            <a href="#duplicates">Duplicates</a>
+            <a href="#slowest">Slowest queries</a>
+            <a href="#shapes">Frequent statements</a>
+            <a href="#files">Test files</a>
+            <a href="#tests">Tests</a>
+        </nav>
+        <h2 id="n1">N+1 candidates</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="num">Max/test</th>
+                    <th class="num">Tests</th>
+                    <th>Call site · statement</th>
+                    <th>Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in report.top_n1 %}
+                    <tr>
+                        <td class="num hot">{{ entry.max_count }}</td>
+                        <td class="num">{{ entry.tests }}</td>
+                        <td>
+                            <code>{{ entry.call_site }}</code>
+                            <details>
+                                <summary>SQL &amp; stack</summary>
+                                <div class="inner">
+                                    <code>{{ entry.sql }}</code>
+                                    {% for frame in entry.stack %}<br><code class="site">{{ frame }}</code>{% endfor %}
+                                </div>
+                            </details>
+                        </td>
+                        <td><code>{{ entry.example }}</code></td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="4">No N+1 candidates.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 id="endpoints">Endpoints</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Route</th>
+                    <th class="num">Max/request</th>
+                    <th class="num">Requests</th>
+                    <th class="num">Queries</th>
+                    <th class="num">Tests</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in report.endpoints %}
+                    <tr>
+                        <td><code>{{ entry.route }}</code></td>
+                        <td class="num hot">{{ entry.max_per_request }}</td>
+                        <td class="num">{{ entry.requests }}</td>
+                        <td class="num">{{ entry.queries }}</td>
+                        <td class="num">{{ entry.tests }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="5">No requests recorded.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 id="duplicates">Duplicate queries</h2>
+        <p class="meta">The same statement with the same parameters from the same call site within one test.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="num">Wasted</th>
+                    <th class="num">Tests</th>
+                    <th>Call site · statement</th>
+                    <th>Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in report.top_duplicates %}
+                    <tr>
+                        <td class="num hot">{{ entry.wasted }}</td>
+                        <td class="num">{{ entry.tests }}</td>
+                        <td><code>{{ entry.call_site }}</code><br><code class="site">{{ entry.sql|truncatechars:300 }}</code></td>
+                        <td><code>{{ entry.example }}</code></td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="4">No duplicate queries.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 id="slowest">Slowest queries</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="num">Seconds</th>
+                    <th>Call site · statement</th>
+                    <th>Test</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for query in report.slowest %}
+                    <tr>
+                        <td class="num">{{ query.duration|floatformat:4 }}</td>
+                        <td><code>{{ query.call_site }}</code><br><code class="site">{{ query.sql|truncatechars:300 }}</code></td>
+                        <td><code>{{ query.nodeid }}</code></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 id="shapes">Most frequent statements</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="num">Executions</th>
+                    <th class="num">Seconds</th>
+                    <th class="num">Tests</th>
+                    <th>Statement</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for shape in report.shapes %}
+                    <tr>
+                        <td class="num">{{ shape.count }}</td>
+                        <td class="num">{{ shape.time|floatformat:3 }}</td>
+                        <td class="num">{{ shape.tests }}</td>
+                        <td><code>{{ shape.sql|truncatechars:300 }}</code></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 id="files">Test files</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>File</th>
+                    <th class="num">Tests</th>
+                    <th class="num">Queries</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in report.files %}
+                    <tr>
+                        <td><code>{{ entry.file }}</code></td>
+                        <td class="num">{{ entry.tests }}</td>
+                        <td class="num">{{ entry.queries }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 id="tests">Tests by query count</h2>
+        <p class="meta">Top {{ html_tests }} tests. The JSON report contains all tests.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="num">Queries</th>
+                    <th class="num">Seconds</th>
+                    <th class="num">Setup</th>
+                    <th class="num">N+1</th>
+                    <th class="num">Dupl.</th>
+                    <th>Test</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for test in tests %}
+                    <tr>
+                        <td class="num">{{ test.total }}</td>
+                        <td class="num">{{ test.time|floatformat:3 }}</td>
+                        <td class="num">{{ test.phases.setup }}</td>
+                        <td class="num{% if test.n1 %} hot{% endif %}">{{ test.n1|length }}</td>
+                        <td class="num">{{ test.duplicates|length }}</td>
+                        <td>
+                            <details>
+                                <summary><code>{{ test.nodeid }}</code></summary>
+                                <div class="inner">
+                                    {% if test.n1 %}
+                                        <h4>N+1 candidates</h4>
+                                        {% for entry in test.n1 %}
+                                            <div><b>{{ entry.count }}×</b> <code>{{ entry.call_site }}</code><br><code class="site">{{ entry.sql|truncatechars:300 }}</code></div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if test.duplicates %}
+                                        <h4>Duplicates</h4>
+                                        {% for entry in test.duplicates %}
+                                            <div><b>{{ entry.count }}×</b> <code>{{ entry.call_site }}</code><br><code class="site">{{ entry.sql|truncatechars:300 }} {{ entry.params }}</code></div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if test.routes %}
+                                        <h4>Requests</h4>
+                                        {% for usage in test.routes %}
+                                            <div><code>{{ usage.route }}</code> – {{ usage.requests }} request(s), {{ usage.queries }} queries, max {{ usage.max_per_request }}</div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if test.slowest %}
+                                        <h4>Slowest</h4>
+                                        {% for query in test.slowest %}
+                                            <div>{{ query.duration|floatformat:4 }} s <code>{{ query.call_site }}</code><br><code class="site">{{ query.sql|truncatechars:300 }}</code></div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </details>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
