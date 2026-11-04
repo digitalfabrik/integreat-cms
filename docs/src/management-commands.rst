@@ -209,6 +209,15 @@ Reset MT budget of regions whose renewal month is the current month::
 * ``--force``: Allow to reset the budget even if it's not the first day of the month
 
 
+``cleanup_machine_translation_flags_and_reports``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Clear the ``currently_in_machine_translation`` flag of translations whose machine translation lock does not exist anymore
+(e.g. because the Celery worker crashed) and delete machine translation reports which are older than 30 days::
+
+    integreat-cms-cli cleanup_machine_translation_flags_and_reports
+
+
 ``update_link_text``
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -296,10 +305,10 @@ Source path                                                                     
 ``make_slugs_unique``
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Iterates over all translations of pages, events and places in the database and if it finds a duplicate slug somewhere, 
-it changes it so that in the end all slugs are unique per language and region. This command is needed because we currently do not 
-guarantee slug uniqueness on the database level, and therefore duplicate slugs are possible. 
-Once the database constraint will have been implemented, this command should be executed 
+Iterates over all translations of pages, events and places in the database and if it finds a duplicate slug somewhere,
+it changes it so that in the end all slugs are unique per language and region. This command is needed because we currently do not
+guarantee slug uniqueness on the database level, and therefore duplicate slugs are possible.
+Once the database constraint will have been implemented, this command should be executed
 once and should not be needed afterwards in the future:
 
     integreat-cms-cli make_slugs_unique [--dryrun] [--objects OBJECT_NAMES]
