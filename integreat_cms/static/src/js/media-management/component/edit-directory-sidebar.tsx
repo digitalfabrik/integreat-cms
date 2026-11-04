@@ -97,7 +97,7 @@ const EditDirectorySidebar = ({
                         <input
                             id="directory-name-input"
                             name="name"
-                            type={isDirectoryNameEditable ? "text" : "hidden"}
+                            {...(isDirectoryNameEditable ? { type: "text" as const } : { type: "hidden" as const })}
                             value={changedDirectory.name}
                             onInput={({ target }) =>
                                 setChangedDirectory({
