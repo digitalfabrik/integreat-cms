@@ -43,7 +43,11 @@ const findPartition = (boxes: Array<HTMLElement>) => {
 const isSideBySide = (left: HTMLElement, right: HTMLElement) =>
     right.getBoundingClientRect().top < left.getBoundingClientRect().bottom;
 
-const distributeBoxes = (leftColumn: HTMLElement, rightColumn: HTMLElement, pageTranslationBox: HTMLElement) => {
+const distributeBoxes = (
+    leftColumn: HTMLElement | null,
+    rightColumn: HTMLElement | null,
+    pageTranslationBox: HTMLElement | null
+) => {
     if (leftColumn && rightColumn && pageTranslationBox) {
         if (isSideBySide(leftColumn, rightColumn)) {
             rightColumn.prepend(pageTranslationBox);
