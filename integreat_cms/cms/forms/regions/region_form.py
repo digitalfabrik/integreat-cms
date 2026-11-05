@@ -1027,11 +1027,11 @@ def duplicate_page_translations(
         "%s Duplicating page translations",
         logging_prefix + ("└─" if source_page.is_leaf() else "├─"),
     )
-    # Clone latest translations of the source page
+    # Clone latest major public translations of the source page
     source_page_translations = [
         translation
         for node in target_page.region.language_tree_nodes.all()
-        if (translation := source_page.get_translation(node.language.slug))
+        if (translation := source_page.get_major_public_translation(node.language.slug))
     ]
 
     num_translations = len(source_page_translations)
@@ -1090,11 +1090,11 @@ def duplicate_imprint(
     if only_root:
         return
 
-    # Duplicate imprint translations of latest version
+    # Duplicate imprint translations of latest major public version
     source_imprint_translations = [
         translation
         for node in target_imprint.region.language_tree_nodes.all()
-        if (translation := source_imprint.get_translation(node.language.slug))
+        if (translation := source_imprint.get_major_public_translation(node.language.slug))
     ]
 
     for imprint_translation in source_imprint_translations:
