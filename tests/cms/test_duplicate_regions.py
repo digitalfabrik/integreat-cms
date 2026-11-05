@@ -103,9 +103,11 @@ def test_duplicate_regions(
         assert source_page_dict == target_page_dict
 
         # Check if all cloned page translations exist and are identical
-        source_page_translations = source_page.translations.order_by(
-            "language__id", "-version"
-        ).distinct("language__id")
+        source_page_translations = (
+            source_page.translations.filter(status=status.PUBLIC, minor_edit=False)
+            .order_by("language__id", "-version")
+            .distinct("language__id")
+        )
         # Limit target page translations to all that existed before the links might have been replaced
         target_page_translations = target_page.translations.filter(
             last_updated__lt=before_cloning,

@@ -1094,7 +1094,11 @@ def duplicate_imprint(
     source_imprint_translations = [
         translation
         for node in target_imprint.region.language_tree_nodes.all()
-        if (translation := source_imprint.get_major_public_translation(node.language.slug))
+        if (
+            translation := source_imprint.get_major_public_translation(
+                node.language.slug
+            )
+        )
     ]
 
     for imprint_translation in source_imprint_translations:
