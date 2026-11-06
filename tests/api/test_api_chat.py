@@ -140,6 +140,10 @@ def test_api_chat_incorrect_server_error(
 
 @pytest.mark.django_db
 @patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
+    new=Mock(return_value=True),
+)
+@patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
     return_value=True,
 )
@@ -194,6 +198,10 @@ def test_api_chat_first_chat(
 
 
 @pytest.mark.django_db
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
+    new=Mock(return_value=True),
+)
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
     return_value=True,
@@ -257,6 +265,10 @@ def test_api_chat_set_evaluation_consent(
 
 @pytest.mark.django_db
 @patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
+    return_value=False,
+)
+@patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
     return_value=True,
 )
@@ -292,6 +304,7 @@ def test_api_chat_send_message(
     get_messages: Mock,
     evaluation_consent: Mock,
     automatic_answers: Mock,
+    last_message_is_internal_note: Mock,
     load_test_data: None,
 ) -> None:
     """
@@ -320,6 +333,76 @@ def test_api_chat_send_message(
 
 @pytest.mark.django_db
 @patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
+    new=Mock(return_value=True),
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
+    return_value=True,
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.evaluation_consent",
+    return_value=True,
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_messages",
+    return_value=[{"body": "message1", "user_is_author": True}],
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.save_message",
+    return_value={"ticket_id": 1, "updated_at": "2025-11-13T21:49+01:00"},
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
+    return_value="tech@tuerantuer.org",
+)
+@patch("integreat_cms.api.v3.chat.user_chat.celery_translate_question")
+@patch("integreat_cms.api.v3.chat.user_chat.celery_translate_and_answer_question")
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.save_language_slug",
+    return_value=True,
+)
+def test_api_chat_send_internal_note(
+    save_language_slug: Mock,
+    celery_translate_and_answer_question: Mock,
+    celery_translate_question: Mock,
+    get_zammad_user_mail: Mock,
+    save_message: Mock,
+    get_messages: Mock,
+    evaluation_consent: Mock,
+    automatic_answers: Mock,
+    load_test_data: None,
+) -> None:
+    """
+    Post-ing with ``internal=true`` is saved as an internal note
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    mark_chat_active(default_kwargs["device_id"])
+    cache.delete(f"generating_answer_{default_kwargs['device_id']}")
+    cache.delete("api_rate_limit_127.0.0.1")
+
+    response = Client().post(
+        reverse("api:chat", kwargs=default_kwargs),
+        data={"message": "Test internal", "internal": "true"},
+    )
+
+    assert response.status_code == 200
+    save_message.assert_called_once_with(
+        message="Test internal", internal=True, automatic_message=False
+    )
+    celery_translate_and_answer_question.apply_async.assert_not_called()
+    celery_translate_question.apply_async.assert_not_called()
+    assert not response.json()["chatbot_typing"]
+    assert response.json()["last_message_is_internal_note"]
+
+
+@pytest.mark.django_db
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
+    return_value=False,
+)
+@patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
     return_value="tech@tuerantuer.org",
 )
@@ -340,6 +423,7 @@ def test_api_chat_get_messages_success(
     evaluation_consent: Mock,
     messages: Mock,
     get_zammad_user_mail: Mock,
+    last_message_is_internal_note: Mock,
     load_test_data: None,
 ) -> None:
     """
@@ -360,6 +444,10 @@ def test_api_chat_get_messages_success(
 
 
 @pytest.mark.django_db
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
+    new=Mock(return_value=True),
+)
 @patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
     return_value=True,
@@ -478,6 +566,10 @@ def test_api_chat_get_messages_failure(
 
 @pytest.mark.django_db
 @patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
+    return_value=False,
+)
+@patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
     return_value="tech@tuerantuer.org",
 )
@@ -498,6 +590,7 @@ def test_api_chat_ratelimiting(
     evaluation_consent: Mock,
     messages: Mock,
     get_zammad_user_mail: Mock,
+    last_message_is_internal_note: Mock,
     load_test_data: None,
 ) -> None:
     """
@@ -540,6 +633,10 @@ def test_api_chat_ratelimiting(
 
 @pytest.mark.django_db
 @patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
+    return_value=False,
+)
+@patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
     return_value="tech@tuerantuer.org",
 )
@@ -561,6 +658,7 @@ def test_api_chat_ratelimiting_trusted_ip_header(
     evaluation_consent: Mock,
     messages: Mock,
     get_zammad_user_mail: Mock,
+    last_message_is_internal_note: Mock,
     load_test_data: None,
 ) -> None:
     """
@@ -735,6 +833,10 @@ def test_create_ticket_contains_region_and_language_slug(
     ("previous_language_slug", "language_changed"), [("en", True), ("de", False)]
 )
 @patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.last_message_is_internal_note",
+    return_value=False,
+)
+@patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
     return_value=True,
 )
@@ -762,6 +864,7 @@ def test_api_chat_language_change_updates_ticket(
     evaluation_consent: Mock,
     get_messages: Mock,
     automatic_answers: Mock,
+    last_message_is_internal_note: Mock,
     load_test_data: None,
     previous_language_slug: str,
     language_changed: bool,

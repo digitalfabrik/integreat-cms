@@ -96,6 +96,10 @@ def process_chat_payload(
     Create or get UserChat object and return list of messages. Save new message
     or updated Zammad ticket attributes.
 
+    If the optional POST parameter ``internal`` is truthy, the message is stored as
+    an internal note on the Zammad ticket. Internal notes are not translated and do
+    not trigger an automatic answer.
+
     :param request: Django request
     :param device_id: UUID of the app device
     :param language_slug: slug of language that is used by the app
@@ -103,15 +107,16 @@ def process_chat_payload(
     language = Language.objects.get(slug=language_slug)
     if (user_chat := get_or_create_user_chat(request, device_id, language)) is None:
         return JsonResponse({"error": "Chat not found."}, status=404)
-    if request.POST.get("message"):
+    if message := request.POST.get("message"):
+        internal = request.POST.get("internal", "") == "true"
         response = user_chat.save_message(
-            message=request.POST.get("message"), internal=False, automatic_message=False
+            message=message, internal=internal, automatic_message=False
         )
         if user_chat.language != language:
             user_chat.language = language
             user_chat.save_language_slug()
         user_chat.save()
-        if response is not None:
+        if response is not None and not internal:
             if user_chat.automatic_answers:
                 user_chat.processing_answer = True  # type: ignore[assignment]
                 celery_translate_and_answer_question.apply_async(
@@ -124,7 +129,7 @@ def process_chat_payload(
             else:
                 celery_translate_question.apply_async(
                     args=[
-                        request.POST.get("message"),
+                        message,
                         request.region.slug,
                         response["ticket_id"],
                     ]
