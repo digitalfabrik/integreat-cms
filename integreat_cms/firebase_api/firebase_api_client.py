@@ -105,6 +105,22 @@ class FirebaseApiClient:
                 return False
         return True
 
+    def get_topic(self, pnt: PushNotificationTranslation, region: Region) -> str:
+        """
+        Get the FCM topic to which the push notification translation is sent
+
+        On test systems (see :setting:`TEST`), the suffix ``-test`` is appended to the topic, so that push
+        notifications sent from the test system do not reach end users of the production system.
+
+        :param pnt: The prepared push notification translation to be sent
+        :param region: The region for which to send the prepared push notification translation
+        :return: The FCM topic
+        """
+        topic = f"{region.slug}-{pnt.language.slug}-{self.push_notification.channel}"
+        if settings.TEST:
+            topic += "-test"
+        return topic
+
     def send_pn(self, pnt: PushNotificationTranslation, region: Region) -> bool:
         """
         Send single push notification translation
@@ -117,7 +133,7 @@ class FirebaseApiClient:
         payload = {
             "validate_only": settings.DEBUG,
             "message": {
-                "topic": f"{region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
+                "topic": self.get_topic(pnt, region),
                 "notification": {"title": pnt.title, "body": pnt.text},
                 "data": {
                     "news_id": str(pnt.id),
