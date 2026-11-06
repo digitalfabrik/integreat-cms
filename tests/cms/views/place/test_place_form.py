@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import timedelta
 from typing import TYPE_CHECKING
 
@@ -742,3 +743,51 @@ def test_case_insensitive_unique_slug(
 
     assert PlaceTranslation.objects.filter(slug="slug").count() == 1
     assert PlaceTranslation.objects.filter(slug="slug-2").count() == 1
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("archived", [True, False])
+def test_place_editing_controls_respect_archived_state(
+    load_test_data: None,
+    client: Client,
+    archived: bool,
+) -> None:
+    # Log in as a user with editing permission
+    user = get_user_model().objects.get(username="root")
+    client.force_login(user)
+
+    # Get a test place and set its archived status
+    place = Place.objects.get(id=4)
+    place.archived = archived
+    place.save(update_fields=["archived"])
+
+    # Open the place editing page
+    url = reverse(
+        "edit_place",
+        kwargs={
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "place_id": place.id,
+        },
+    )
+    response = client.get(url)
+
+    assert response.status_code == 200
+
+    # Check opening-hours editing permission
+    config = response.context["opening_hour_config_data"]
+    assert config["canChangePlace"] is not archived
+
+    html = response.content.decode("utf-8")
+
+    # Check map editing permission
+    expected_permission = "False" if archived else "True"
+    assert f'data-change-permission="{expected_permission}"' in html
+
+    # Check automatic-coordinates checkbox
+    checkbox = re.search(
+        r'<input\b[^>]*\bid="auto-fill-coordinates"[^>]*>',
+        html,
+    )
+    assert checkbox is not None
+    assert ("disabled" in checkbox.group(0)) is archived
