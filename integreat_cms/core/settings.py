@@ -19,6 +19,7 @@ from urllib.parse import urlparse
 from django.contrib.messages.constants import SUCCESS
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
+from dotenv import load_dotenv
 
 from integreat_cms.nominatim_api.utils import BoundingBox
 
@@ -31,12 +32,119 @@ if TYPE_CHECKING:
 
     from django.utils.functional import Promise
 
-###################
-# CUSTOM SETTINGS #
-###################
+########################
+# DJANGO CORE SETTINGS #
+########################
 
 #: Build paths inside the project like this: ``os.path.join(BASE_DIR, ...)``
 BASE_DIR: Final[str] = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+#: A boolean that turns on/off debug mode (see :setting:`django:DEBUG`)
+#:
+#: .. warning::
+#:     Never deploy a site into production with :setting:`DEBUG` turned on!
+DEBUG: Final[bool] = bool(strtobool(os.environ.get("INTEGREAT_CMS_DEBUG", "False")))
+
+#: The environment this installation runs in (e.g. ``development``, ``test``, ``staging``, ``production``)R
+ENVIRONMENT = os.environ.get("INTEGREAT_CMS_ENVIRONMENT", "development")
+
+if DEBUG:
+    load_dotenv(os.path.join(BASE_DIR, ".env"))
+
+#: Enabled applications (see :setting:`django:INSTALLED_APPS`)
+INSTALLED_APPS: Final[list[str]] = [
+    # Installed custom apps
+    "integreat_cms.cms",
+    "integreat_cms.core",
+    "integreat_cms.deepl_api",
+    "integreat_cms.google_translate_api",
+    "integreat_cms.firebase_api",
+    "integreat_cms.gvz_api",
+    "integreat_cms.matomo_api",
+    "integreat_cms.nominatim_api",
+    "integreat_cms.textlab_api",
+    "integreat_cms.integreat_celery",
+    # Installed Django apps
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.humanize",
+    "django.contrib.messages",
+    "django.contrib.sessions",
+    "django.contrib.sitemaps",
+    "django.contrib.staticfiles",
+    # Installed third-party-apps
+    "corsheaders",
+    "db_mutex",
+    "import_export",
+    "linkcheck",
+    "polymorphic",
+    "rules.apps.AutodiscoverRulesConfig",
+    "treebeard",
+    "webpack_loader",
+    "widget_tweaks",
+    "pgtrigger",
+]
+
+# The default Django Admin application and debug toolbar will only be activated if the system is in debug mode.
+if DEBUG:
+    INSTALLED_APPS.append("django.contrib.admin")
+    # Comment out the following line if you want to disable the Django debug toolbar
+    INSTALLED_APPS.append("debug_toolbar")
+
+
+#: Activated middlewares (see :setting:`django:MIDDLEWARE`)
+MIDDLEWARE: list[str] = [
+    "django.middleware.gzip.GZipMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "integreat_cms.core.middleware.RegionMiddleware",
+    "integreat_cms.core.middleware.AccessControlMiddleware",
+    "integreat_cms.core.middleware.TimezoneMiddleware",
+]
+
+# The Django debug toolbar middleware will only be activated if the debug_toolbar app is installed
+if "debug_toolbar" in INSTALLED_APPS:
+    # The debug toolbar middleware should be put first (see :doc:`django-debug-toolbar:installation`)
+    MIDDLEWARE.insert(1, "debug_toolbar.middleware.DebugToolbarMiddleware")
+    MIDDLEWARE.append("integreat_cms.api.middleware.JsonDebugToolbarMiddleware")
+
+#: Default URL dispatcher (see :setting:`django:ROOT_URLCONF`)
+ROOT_URLCONF: Final[str] = "integreat_cms.core.urls"
+
+#: Config for HTML templates (see :setting:`django:TEMPLATES`)
+TEMPLATES: Final[list[dict[str, str | list | bool | dict[str, list[str] | bool]]]] = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "api/v3/templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "integreat_cms.core.context_processors.version_processor",
+                "integreat_cms.core.context_processors.settings_processor",
+                "integreat_cms.core.context_processors.constants_processor",
+            ],
+            "debug": DEBUG,
+        },
+    },
+]
+
+#: WSGI (Web Server Gateway Interface) config (see :setting:`django:WSGI_APPLICATION`)
+WSGI_APPLICATION: Final[str] = "integreat_cms.core.wsgi.application"
+
+###################
+# CUSTOM SETTINGS #
+###################
 
 #: The URL to our webapp. This is used for urls in the ``sitemap.xml``
 #: (see :mod:`~integreat_cms.sitemap` for more information).
@@ -420,55 +528,6 @@ if not HOSTNAME:
     raise ImproperlyConfigured(f"The base URL {BASE_URL!r} is is invalid.")
 
 
-########################
-# DJANGO CORE SETTINGS #
-########################
-
-#: A boolean that turns on/off debug mode (see :setting:`django:DEBUG`)
-#:
-#: .. warning::
-#:     Never deploy a site into production with :setting:`DEBUG` turned on!
-DEBUG: Final[bool] = bool(strtobool(os.environ.get("INTEGREAT_CMS_DEBUG", "False")))
-
-
-#: Whether this is a testing system (even if DEBUG is off)
-TEST: Final[bool] = bool(strtobool(os.environ.get("INTEGREAT_CMS_TEST", "False")))
-
-
-#: Enabled applications (see :setting:`django:INSTALLED_APPS`)
-INSTALLED_APPS: Final[list[str]] = [
-    # Installed custom apps
-    "integreat_cms.cms",
-    "integreat_cms.core",
-    "integreat_cms.deepl_api",
-    "integreat_cms.google_translate_api",
-    "integreat_cms.firebase_api",
-    "integreat_cms.gvz_api",
-    "integreat_cms.matomo_api",
-    "integreat_cms.nominatim_api",
-    "integreat_cms.textlab_api",
-    "integreat_cms.integreat_celery",
-    # Installed Django apps
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.humanize",
-    "django.contrib.messages",
-    "django.contrib.sessions",
-    "django.contrib.sitemaps",
-    "django.contrib.staticfiles",
-    # Installed third-party-apps
-    "corsheaders",
-    "db_mutex",
-    "import_export",
-    "linkcheck",
-    "polymorphic",
-    "rules.apps.AutodiscoverRulesConfig",
-    "treebeard",
-    "webpack_loader",
-    "widget_tweaks",
-    "pgtrigger",
-]
-
 #: Check whether redis is activated
 REDIS_CACHE: Final[bool] = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_REDIS_CACHE", "False")),
@@ -477,62 +536,6 @@ REDIS_CACHE: Final[bool] = bool(
 # Install cacheops only if redis cache is available
 if REDIS_CACHE:
     INSTALLED_APPS.append("cacheops")
-
-# The default Django Admin application and debug toolbar will only be activated if the system is in debug mode.
-if DEBUG:
-    INSTALLED_APPS.append("django.contrib.admin")
-    # Comment out the following line if you want to disable the Django debug toolbar
-    INSTALLED_APPS.append("debug_toolbar")
-
-#: Activated middlewares (see :setting:`django:MIDDLEWARE`)
-MIDDLEWARE: list[str] = [
-    "django.middleware.gzip.GZipMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.locale.LocaleMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "integreat_cms.core.middleware.RegionMiddleware",
-    "integreat_cms.core.middleware.AccessControlMiddleware",
-    "integreat_cms.core.middleware.TimezoneMiddleware",
-]
-
-# The Django debug toolbar middleware will only be activated if the debug_toolbar app is installed
-if "debug_toolbar" in INSTALLED_APPS:
-    # The debug toolbar middleware should be put first (see :doc:`django-debug-toolbar:installation`)
-    MIDDLEWARE.insert(1, "debug_toolbar.middleware.DebugToolbarMiddleware")
-    MIDDLEWARE.append("integreat_cms.api.middleware.JsonDebugToolbarMiddleware")
-
-#: Default URL dispatcher (see :setting:`django:ROOT_URLCONF`)
-ROOT_URLCONF: Final[str] = "integreat_cms.core.urls"
-
-#: Config for HTML templates (see :setting:`django:TEMPLATES`)
-TEMPLATES: Final[list[dict[str, str | list | bool | dict[str, list[str] | bool]]]] = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "api/v3/templates")],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-                "integreat_cms.core.context_processors.version_processor",
-                "integreat_cms.core.context_processors.settings_processor",
-                "integreat_cms.core.context_processors.constants_processor",
-            ],
-            "debug": DEBUG,
-        },
-    },
-]
-
-#: WSGI (Web Server Gateway Interface) config (see :setting:`django:WSGI_APPLICATION`)
-WSGI_APPLICATION: Final[str] = "integreat_cms.core.wsgi.application"
 
 
 ############
@@ -1472,3 +1475,18 @@ EXCLUDED_HIDDEN_MIRRORED_REGIONS: Final[list[str]] = [
     ).split(",")
     if slug
 ]
+
+##########
+# SENTRY #
+##########
+
+SENTRY_DSN_MAIN: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_SENTRY_DSN_MAIN",
+    default="https://626c8f2ed56d7afa46551b9126028bdf@sentry.tuerantuer.org/8",
+)
+
+#: The percentage of transactions which are sent to Sentry for performance tracing (between ``0.0`` and ``1.0``)
+SENTRY_TRACES_SAMPLE_RATE: Final[float] = env_float(
+    "INTEGREAT_CMS_SENTRY_TRACES_SAMPLE_RATE",
+    0.0,
+)

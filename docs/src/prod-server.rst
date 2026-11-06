@@ -205,3 +205,17 @@ Email configuration
         EMAIL_HOST = <your-smtp-server>
         EMAIL_HOST_USER = <your-username>
         EMAIL_HOST_PASSWORD = <your-password>
+
+Error monitoring (Sentry)
+=========================
+
+    1. Add the DSN of your Sentry project to ``/etc/integreat-cms.ini`` (for all values, see :github-source:`example-configs/integreat-cms.ini`)::
+
+        SENTRY_DSN = <your-sentry-dsn>
+        SENTRY_ENVIRONMENT = production
+        SENTRY_TRACES_SAMPLE_RATE = 0.0
+
+       This enables error reporting and performance tracing for the Django application and the Celery workers.
+       No personally identifiable information is sent to Sentry. If ``SENTRY_DSN`` is not set, Sentry is disabled.
+
+    2. The frontend is configured separately at build time, see :ref:`frontend-sentry`.

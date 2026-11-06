@@ -77,11 +77,13 @@ dependencies = [
     "qrcode",
     "requests",
     "rules",
+    "sentry-sdk[celery,django]",
     "shortcodes",
     "six",
     "uvicorn",
     "webauthn",
     "weasyprint",
+    "python-dotenv>=1.2.4",
 ]
 
 [dependency-groups]
@@ -149,12 +151,6 @@ push = false
 "pyproject.toml" = [
     'current_version = "{version}"',
     'version = "{version}"',
-]
-"integreat_cms/__init__.py" = [
-    '__version__ = "{version}"',
-]
-"docs/src/conf.py" = [
-    'release = "{version}"',
 ]
 
 [tool.pytest.ini_options]
