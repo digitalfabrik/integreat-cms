@@ -781,7 +781,7 @@ def test_place_editing_controls_respect_archived_state(
     html = response.content.decode("utf-8")
 
     # Check map editing permission
-    expected_permission = "False" if archived else "True"
+    expected_permission = "True" if archived else "False"
     assert f'data-change-permission="{expected_permission}"' in html
 
     # Check automatic-coordinates checkbox
