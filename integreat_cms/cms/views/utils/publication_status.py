@@ -56,9 +56,15 @@ def change_publication_status(
                             translation.pk = None
                             translation.version += 1
                             if desired_status == status.DRAFT:
-                                translation.all_versions.filter(
+                                versions_to_draft = translation.all_versions.filter(
                                     status=status.PUBLIC,
-                                ).update(status=status.DRAFT)
+                                )
+                                if hasattr(versions_to_draft, "invalidated_update"):
+                                    versions_to_draft.invalidated_update(
+                                        status=status.DRAFT,
+                                    )
+                                else:
+                                    versions_to_draft.update(status=status.DRAFT)
                             save_new_version_with_retry(translation, translation.save)
                         successful.append(translation.title)
                     except IntegrityError:
