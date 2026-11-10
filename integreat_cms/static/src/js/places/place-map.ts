@@ -24,7 +24,9 @@ const getCoordinateInputFields = () => {
 // Get the values of the coordinate input fields
 const getCoordinates = () => {
     const [latitudeInput, longitudeInput] = getCoordinateInputFields();
-    if (latitudeInput.value && longitudeInput.value) {
+    // Unlike longitude, latitude can't wrap past the poles, so maplibre throws for invalid values
+    const MAX_LATITUDE = 90;
+    if (latitudeInput.value && longitudeInput.value && Math.abs(latitudeInput.valueAsNumber) <= MAX_LATITUDE) {
         return new LngLat(longitudeInput.valueAsNumber, latitudeInput.valueAsNumber);
     }
     return null;
