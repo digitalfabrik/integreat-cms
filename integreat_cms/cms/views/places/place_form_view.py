@@ -117,6 +117,7 @@ class PlaceFormView(
                 "contact_form": contact_form,
                 "show_contact_form_widget": False,
                 "is_edit": is_edit,
+                "disabled": disabled,
             },
         )
 
