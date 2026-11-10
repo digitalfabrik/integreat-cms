@@ -152,7 +152,7 @@ const renderMap = () => {
     const map = new Map(options);
     const marker = new Marker();
 
-    const canChangePlace = container.dataset.changePermission === "True";
+    const canChangePlace = container.dataset.changePermission === "False";
     marker.setDraggable(canChangePlace);
 
     // If initial coordinates are given, set the marker to this position
