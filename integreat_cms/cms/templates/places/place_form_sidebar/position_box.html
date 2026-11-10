@@ -54,7 +54,7 @@
              class="aspect-video"
              data-url="{% url "get_address_from_coordinates" region_slug=request.region.slug %}"
              data-bounding-box="{{ request.region.bounding_box.api_representation }}"
-             data-change-permission="{% if perms.cms.change_place and not place_form.instance.archived %}True{% else %}False{% endif %}">
+             data-change-permission="{{ disabled }}">
         </div>
         <div id="set_map_position_text" class="help-text hidden">
             {% translate "You can set the position by clicking on the map" %}
