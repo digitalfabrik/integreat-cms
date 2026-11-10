@@ -544,7 +544,7 @@ class PageFormView(
             language__in=languages,
             status=status.PUBLIC,
         )
-        if settings.REDIS_CACHE:
+        if hasattr(translations_to_draft, "invalidated_update"):
             translations_to_draft.invalidated_update(status=status.DRAFT)
         else:
             translations_to_draft.update(status=status.DRAFT)

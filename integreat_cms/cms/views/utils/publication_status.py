@@ -7,7 +7,6 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from django.conf import settings
 from django.contrib import messages
 from django.db import IntegrityError, transaction
 from django.utils.translation import ngettext, ngettext_lazy
@@ -60,7 +59,7 @@ def change_publication_status(
                                 versions_to_draft = translation.all_versions.filter(
                                     status=status.PUBLIC,
                                 )
-                                if settings.REDIS_CACHE:
+                                if hasattr(versions_to_draft, "invalidated_update"):
                                     versions_to_draft.invalidated_update(
                                         status=status.DRAFT,
                                     )
