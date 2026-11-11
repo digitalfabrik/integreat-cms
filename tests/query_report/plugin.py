@@ -15,7 +15,9 @@ import pytest
 from django.conf import settings
 from django.db import connection
 
-from .analysis import analyze_test, merge_results, N1_THRESHOLD
+from integreat_cms.core.test_settings import ZEAL_NPLUSONE_THRESHOLD
+
+from .analysis import analyze_test, merge_results
 from .capture import record_queries
 from .render import render_html
 
@@ -55,10 +57,10 @@ def add_query_report_options(parser: pytest.Parser) -> None:
     group.addoption(
         "--query-report-n1-threshold",
         type=int,
-        default=N1_THRESHOLD,
+        default=ZEAL_NPLUSONE_THRESHOLD,
         help=(
             "Executions of the same statement from one call site to count as N+1 "
-            f"candidate (default: {N1_THRESHOLD})."
+            f"candidate (default: {ZEAL_NPLUSONE_THRESHOLD})."
         ),
     )
 

@@ -8,6 +8,8 @@ import re
 from collections import Counter, defaultdict
 from typing import TYPE_CHECKING, TypedDict
 
+from integreat_cms.core.test_settings import ZEAL_NPLUSONE_THRESHOLD
+
 if TYPE_CHECKING:
     from typing import Any, Final
 
@@ -15,8 +17,6 @@ if TYPE_CHECKING:
 
 #: The test phases, in execution order
 PHASES: Final = ("setup", "call", "teardown")
-#: The default number of executions of the same statement from one call site to count as N+1 candidate
-N1_THRESHOLD: Final = 5
 #: The number of slowest queries kept per test
 SLOW_TOP: Final = 5
 #: The number of entries kept in the suite-wide rankings
@@ -130,7 +130,7 @@ def normalize_sql(sql: str) -> str:
 def analyze_test(
     nodeid: str,
     phases: dict[str, list[QueryRecord]],
-    n1_threshold: int = N1_THRESHOLD,
+    n1_threshold: int = ZEAL_NPLUSONE_THRESHOLD,
     slow_top: int = SLOW_TOP,
 ) -> TestResult:
     """
