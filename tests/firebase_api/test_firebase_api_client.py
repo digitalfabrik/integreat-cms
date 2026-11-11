@@ -48,8 +48,9 @@ class TestFirebaseApiClient:
         "404": {"error": {"code": 404}, "status_code": 404},
     }
 
-    def __init__(self) -> None:
-        self.patch: Any = None
+    #: The patch of the access token method, started and stopped for every test method.
+    #: This must not be initialized in ``__init__()``, because pytest does not collect test classes with a constructor.
+    patch: Any = None
 
     def setup_method(self) -> None:
         self.patch = patch.object(
@@ -182,7 +183,7 @@ class TestFirebaseApiClient:
         )
         for record in caplog.records:
             assert "sent, but unexpected API response" in record.message
-        assert status
+        assert not status
 
     @pytest.mark.django_db
     def test_firebase_api_403_wrong_token(
@@ -207,7 +208,7 @@ class TestFirebaseApiClient:
             self.response_mock_data["401_invalid_key"],
         )
         for record in caplog.records:
-            assert "Received invalid response from FCM for" in record.message
+            assert "sent, but unexpected API response" in record.message
         assert not status
 
     @pytest.mark.django_db
@@ -232,7 +233,7 @@ class TestFirebaseApiClient:
             self.response_mock_data["404"],
         )
         for record in caplog.records:
-            assert "Received invalid response from FCM for" in record.message
+            assert "sent, but unexpected API response" in record.message
         assert not status
 
     @pytest.mark.django_db
@@ -319,3 +320,50 @@ class TestFirebaseApiClient:
             "augsburg-en-news",
             "augsburg-de-news",
         }
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize(
+        ("is_test_system", "expected_targets"),
+        [
+            (False, {"augsburg-en-news", "augsburg-de-news"}),
+            (True, {"augsburg-en-news-test", "augsburg-de-news-test"}),
+        ],
+    )
+    def test_test_suffix_appended_on_test_system(
+        self,
+        settings: Settings,
+        load_test_data: None,
+        requests_mock: Mocker,
+        is_test_system: bool,
+        expected_targets: set[str],
+    ) -> None:
+        """
+        Tests that the suffix ``-test`` is appended to the topics if and only if the system is a test system
+
+        :param settings: The Django settings
+        :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+        :param requests_mock: Fixture for mocking requests, see :doc:`requests-mock:pytest`
+        :param is_test_system: The value of the ``TEST`` setting
+        :param expected_targets: The topics the push notification is expected to be sent to
+        """
+        targets = set()
+        groups = set()
+
+        def evaluate_request(request: _RequestObjectProxy, context: _Context) -> object:
+            targets.add(request.json()["message"]["topic"])
+            groups.add(request.json()["message"]["data"]["group"])
+            return self.response_mock_data["200_success"]
+
+        requests_mock.post(settings.FCM_URL, json=evaluate_request, status_code=200)
+
+        settings.FCM_ENABLED = True
+        settings.TEST = is_test_system
+
+        notification = PushNotification.objects.get(pk=1)
+
+        pns = FirebaseApiClient(notification)
+        assert pns.send_all()
+
+        assert targets == expected_targets
+        # The channel in the data payload should not be modified
+        assert groups == {"news"}
