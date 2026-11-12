@@ -237,12 +237,13 @@ def matomo_tracking(func: Callable) -> Callable:
         """
         if (
             not settings.MATOMO_TRACKING
-            or settings.TEST
+            or settings.ENVIRONMENT == "test"
             or not request.region.matomo_id
             or not request.region.matomo_token
             or "HTTP_X_INTEGREAT_DEVELOPMENT" in request.META
         ):
             return func(request, *args, **kwargs)
+
         data = {
             "idsite": request.region.matomo_id,
             "token_auth": request.region.matomo_token,

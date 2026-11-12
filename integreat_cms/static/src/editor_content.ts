@@ -3,6 +3,8 @@
  * This applies for custom plugins and content css for the editor iframe.
  */
 
+import "./js/sentry";
+
 /* Custom tincymce plugins */
 import "./js/tinymce-plugins/autolink_tel/plugin.js";
 import "./js/tinymce-plugins/custom_link_input/plugin.js";
