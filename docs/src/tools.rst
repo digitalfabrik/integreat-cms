@@ -96,9 +96,9 @@ Check whether your translations is up-to-date with :github-source:`tools/check_t
 Testing
 =======
 
-Run tests and generate coverage report with :github-source:`tools/test.sh`::
+Run tests and generate coverage report with :github-source:`tools/test.py`::
 
-    ./tools/test.sh [--changed] [-v[v[v[v]]]] [TEST_PATH]
+    ./tools/test.py --preset coverage [-v[v[v[v]]]] [TEST_PATH]
 
 **Arguments:**
 
