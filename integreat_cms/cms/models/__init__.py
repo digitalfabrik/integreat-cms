@@ -43,6 +43,7 @@ from .push_notifications.push_notification_translation import (
     PushNotificationTranslation,
 )
 from .regions.region import Region
+from .regions.region_condition import RegionCondition
 from .statistics.page_accesses import PageAccesses
 from .users.api_token import ApiToken
 from .users.organization import Organization
