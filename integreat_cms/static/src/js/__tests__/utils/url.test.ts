@@ -21,6 +21,6 @@ describe("addMissingUrlScheme", () => {
         "",
         "   ",
     ])("leaves %j unchanged", (input) => {
-        expect(addMissingUrlScheme(input,"invalid")).toBe(input);
+        expect(addMissingUrlScheme(input, "invalid")).toBe(input);
     });
 });

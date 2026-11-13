@@ -18,9 +18,17 @@ export const addMissingUrlScheme = (value: string, url_filter: string): string =
         return value;
     }
 
-    const prefix = url_filter === "email" ? "mailto:" : url_filter === "phone" ? "tel:" : "https:";
+    let prefix;
 
-    if (trimmedValue.startsWith("//") || prefix != "https:") {
+    if (url_filter === "email") {
+        prefix = "mailto:";
+    } else if (url_filter === "phone") {
+        prefix = "tel:";
+    } else {
+        prefix = "https:";
+    }
+
+    if (trimmedValue.startsWith("//") || prefix !== "https:") {
         return `${prefix}${trimmedValue}`;
     }
     return `${prefix}//${trimmedValue}`;
