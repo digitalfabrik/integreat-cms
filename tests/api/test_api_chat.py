@@ -320,6 +320,67 @@ def test_api_chat_send_message(
 
 @pytest.mark.django_db
 @patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.automatic_answers",
+    return_value=True,
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.evaluation_consent",
+    return_value=True,
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_messages",
+    return_value=[{"body": "message1", "user_is_author": True}],
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.save_message",
+    return_value={"ticket_id": 1, "updated_at": "2025-11-13T21:49+01:00"},
+)
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
+    return_value="tech@tuerantuer.org",
+)
+@patch("integreat_cms.api.v3.chat.user_chat.celery_translate_question")
+@patch("integreat_cms.api.v3.chat.user_chat.celery_translate_and_answer_question")
+@patch(
+    "integreat_cms.api.v3.chat.user_chat.UserChat.save_language_slug",
+    return_value=True,
+)
+def test_api_chat_send_internal_note(
+    save_language_slug: Mock,
+    celery_translate_and_answer_question: Mock,
+    celery_translate_question: Mock,
+    get_zammad_user_mail: Mock,
+    save_message: Mock,
+    get_messages: Mock,
+    evaluation_consent: Mock,
+    automatic_answers: Mock,
+    load_test_data: None,
+) -> None:
+    """
+    Post-ing with ``internal=true`` is saved as an internal note
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    mark_chat_active(default_kwargs["device_id"])
+    cache.delete(f"generating_answer_{default_kwargs['device_id']}")
+    cache.delete("api_rate_limit_127.0.0.1")
+
+    response = Client().post(
+        reverse("api:chat", kwargs=default_kwargs),
+        data={"message": "Test internal", "internal": "true"},
+    )
+
+    assert response.status_code == 200
+    save_message.assert_called_once_with(
+        message="Test internal", internal=True, automatic_message=False
+    )
+    celery_translate_and_answer_question.apply_async.assert_not_called()
+    celery_translate_question.apply_async.assert_not_called()
+    assert not response.json()["chatbot_typing"]
+
+
+@pytest.mark.django_db
+@patch(
     "integreat_cms.api.v3.chat.user_chat.UserChat.get_zammad_user_mail",
     return_value="tech@tuerantuer.org",
 )
