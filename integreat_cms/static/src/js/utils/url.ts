@@ -12,13 +12,16 @@ const SCHEME_REGEX = /^[a-z][a-z0-9+-]*:/i;
  * @param value The URL entered by the user
  * @returns The URL including a scheme
  */
-export const addMissingUrlScheme = (value: string): string => {
+export const addMissingUrlScheme = (value: string, url_filter: string): string => {
     const trimmedValue = value.trim();
     if (!trimmedValue || SCHEME_REGEX.test(trimmedValue)) {
         return value;
     }
-    if (trimmedValue.startsWith("//")) {
-        return `https:${trimmedValue}`;
+
+    const prefix = url_filter === "email" ? "mailto:" : url_filter === "phone" ? "tel:" : "https:";
+
+    if (trimmedValue.startsWith("//") || prefix != "https:") {
+        return `${prefix}${trimmedValue}`;
     }
-    return `https://${trimmedValue}`;
+    return `${prefix}//${trimmedValue}`;
 };

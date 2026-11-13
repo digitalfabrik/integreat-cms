@@ -1,5 +1,5 @@
 /**
- * This file prepends "https://" to the value of URL input fields if the user did not enter a scheme.
+ * This file prepends a scheme ("https://", "mailto:" or "tel:") to the value of URL input fields if the user did not enter one.
  * Otherwise, the browser's built-in validation rejects values like "www.example.com" with an unhelpful error.
  */
 
@@ -7,7 +7,7 @@ import { addMissingUrlScheme } from "../utils/url";
 
 const completeUrl = (target: EventTarget | null) => {
     if (target instanceof HTMLInputElement && target.type === "url" && !target.readOnly && !target.disabled) {
-        const completedUrl = addMissingUrlScheme(target.value);
+        const completedUrl = addMissingUrlScheme(target.value, target.parentElement.getAttribute("url_filter"));
         if (completedUrl !== target.value) {
             target.value = completedUrl;
         }

@@ -9,7 +9,7 @@ describe("addMissingUrlScheme", () => {
         ["  www.example.com  ", "https://www.example.com"],
         ["//example.com", "https://example.com"],
     ])("prepends https:// to %j", (input, expected) => {
-        expect(addMissingUrlScheme(input)).toBe(expected);
+        expect(addMissingUrlScheme(input, "invalid")).toBe(expected);
     });
 
     test.each([
@@ -21,6 +21,6 @@ describe("addMissingUrlScheme", () => {
         "",
         "   ",
     ])("leaves %j unchanged", (input) => {
-        expect(addMissingUrlScheme(input)).toBe(input);
+        expect(addMissingUrlScheme(input,"invalid")).toBe(input);
     });
 });
