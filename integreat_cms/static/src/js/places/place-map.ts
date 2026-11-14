@@ -116,10 +116,14 @@ const fetchAddress = async (marker: Marker) => {
 };
 
 // Adjust help text below the map
-const updateHelpText = (coordinates: LngLat) => {
+const updateHelpText = (coordinates: LngLat | null, canChangePlace: boolean) => {
     const setMapPositionText = document.getElementById("set_map_position_text");
     const changeMapPositionText = document.getElementById("change_map_position_text");
-    if (coordinates) {
+
+    if (!canChangePlace) {
+        setMapPositionText.classList.add("hidden");
+        changeMapPositionText.classList.add("hidden");
+    } else if (coordinates) {
         setMapPositionText.classList.add("hidden");
         changeMapPositionText.classList.remove("hidden");
     } else {
@@ -165,7 +169,7 @@ const renderMap = () => {
     if (canChangePlace) {
         map.on("click", (event: MapMouseEvent) => {
             marker.setLngLat(event.lngLat).addTo(map);
-            updateHelpText(event.lngLat);
+            updateHelpText(event.lngLat, canChangePlace);
             fetchAddress(marker);
         });
 
@@ -178,7 +182,7 @@ const renderMap = () => {
     // Allow to open the map in full screen
     map.addControl(new FullscreenControl({ container }));
 
-    updateHelpText(coordinates);
+    updateHelpText(coordinates, canChangePlace);
 
     return [map, marker];
 };
@@ -187,6 +191,7 @@ const renderMap = () => {
 const updateMap = (map: Map, marker: Marker) => {
     // Get the coordinates from the input fields
     const coordinates = getCoordinates();
+    const canChangePlace = map.getContainer().dataset.changePermission === "False";
 
     if (coordinates) {
         // If coordinates are given, fly to their location
@@ -202,7 +207,7 @@ const updateMap = (map: Map, marker: Marker) => {
         map.fitBounds(JSON.parse(map.getContainer().dataset.boundingBox) as LngLatBoundsLike);
     }
 
-    updateHelpText(coordinates);
+    updateHelpText(coordinates, canChangePlace);
 };
 
 // Set the value of the coordinate input fields to the given value

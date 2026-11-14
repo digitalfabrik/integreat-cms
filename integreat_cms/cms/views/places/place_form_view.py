@@ -104,6 +104,7 @@ class PlaceFormView(
             self.template_name,
             {
                 **self.get_context_data(**kwargs, can_change_place=not disabled),
+                "disabled": disabled,
                 "place_form": place_form,
                 "place_translation_form": place_translation_form,
                 "language": language,
@@ -117,7 +118,6 @@ class PlaceFormView(
                 "contact_form": contact_form,
                 "show_contact_form_widget": False,
                 "is_edit": is_edit,
-                "disabled": disabled,
             },
         )
 
@@ -254,12 +254,14 @@ class PlaceFormView(
             )
 
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{place_translation_form.instance.url_infix}/"
+        disabled = self.check_if_place_is_locked(request, place_instance)
         return render(
             request,
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
                 "place_form": place_form,
+                "disabled": disabled,
                 "place_translation_form": place_translation_form,
                 "contact_form": contact_form,
                 "language": language,
