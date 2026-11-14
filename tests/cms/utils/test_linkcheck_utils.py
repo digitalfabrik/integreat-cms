@@ -4,8 +4,12 @@ import pytest
 from django.contrib.contenttypes.models import ContentType
 from linkcheck.models import Link, Url
 
-from integreat_cms.cms.models import PageTranslation
-from integreat_cms.cms.utils.linkcheck_utils import filter_urls
+from integreat_cms.cms.models import PageTranslation, Region
+from integreat_cms.cms.utils.linkcheck_utils import (
+    filter_urls,
+    get_link_query,
+    get_urls_regions,
+)
 
 #: The page translation of the test data which contains a contact card
 PAGE_TRANSLATION_WITH_CONTACT_CARD_ID: int = 101
@@ -21,6 +25,31 @@ NON_EXISTING_CONTACT_URL: str = "/augsburg/contact/99999/?details=name"
 #: The url of a contact card which is rendered when the contact cannot be found at all
 #: (see :func:`~integreat_cms.cms.utils.content_utils.render_contact_card`)
 UNKNOWN_REGION_CONTACT_URL: str = "/None/contact/99999/?details=name"
+
+
+@pytest.mark.unit
+def test_empty_regions_have_no_links() -> None:
+    """An empty region queryset returns a chainable, empty link queryset."""
+    links = get_link_query(Region.objects.none())
+
+    assert not links.filter(ignore=False).exists()
+
+
+@pytest.mark.unit
+@pytest.mark.parametrize("prefetch_links", [False, True])
+@pytest.mark.parametrize("prefilter_urls", [False, True])
+def test_empty_regions_have_no_urls(
+    prefetch_links: bool,
+    prefilter_urls: bool,
+) -> None:
+    """No URLs are returned for empty regions, including prefiltered URLs."""
+    urls = get_urls_regions(
+        Region.objects.none(),
+        urls=Url.objects.all() if prefilter_urls else None,
+        prefetch_links=prefetch_links,
+    )
+
+    assert list(urls) == []
 
 
 def add_broken_contact_link(url: str) -> Url:
