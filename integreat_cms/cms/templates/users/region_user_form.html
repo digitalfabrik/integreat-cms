@@ -22,7 +22,7 @@
                 <a href="{% url 'region_users' region_slug=request.region.slug %}"
                    class="btn btn-ghost">{% translate "Cancel" %}</a>
                 {% if perms.cms.change_user %}
-                    <button class="btn">{% translate "Save" %}</button>
+                    <button type="submit" class="btn">{% translate "Save" %}</button>
                 {% endif %}
             </div>
         </div>
@@ -109,7 +109,8 @@
         {% if user_form.instance.id and perms.cms.delete_user %}
             {% if user_form.instance.regions.count == 1 %}
                 <div class="pt-2 pb-4">
-                    <button title="{% translate "Delete this account" %}"
+                    <button type="button"
+                            title="{% translate "Delete this account" %}"
                             class="btn confirmation-button btn-red"
                             data-confirmation-title="{% translate "Please confirm that you really want to delete this account" %}"
                             data-confirmation-text="{% translate "This cannot be reversed." %}"
@@ -121,7 +122,8 @@
                 </div>
             {% else %}
                 <div class="pt-2 pb-4">
-                    <button title="{% blocktranslate %}Remove this user from region {{ request.region }}{% endblocktranslate %}"
+                    <button type="button"
+                            title="{% blocktranslate %}Remove this user from region {{ request.region }}{% endblocktranslate %}"
                             class="btn confirmation-button btn-red"
                             data-confirmation-title="{% blocktranslate %}Please confirm that you really want to remove this account from region {{ request.region }}.{% endblocktranslate %}"
                             data-confirmation-text="{% translate "The account will keep access to the following regions:" %} {{ user_form.instance|remaining_regions:request.region|join:', ' }}"

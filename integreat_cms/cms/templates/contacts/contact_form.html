@@ -28,7 +28,7 @@
                         {% endif %}
                         {% if perms.cms.change_contact and not archived %}
                             <div class="flex flex-wrap gap-4">
-                                <button class="btn">
+                                <button type="submit" class="btn">
                                     {% if contact_form.instance.id %}
                                         {% translate "Update" %}
                                     {% else %}
@@ -106,7 +106,8 @@
                              class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                             <div class="p-4 rounded bg-water-500">
                                 <h2 class="heading font-bold text-black">
-                                    <i icon-name="message-square" class="mr-2"></i> {% translate "Contact information" %}
+                                    <i icon-name="message-square"
+                                       class="mr-2"></i> {% translate "Contact information" %}
                                 </h2>
                             </div>
                             <div class="p-4">
@@ -121,7 +122,8 @@
                 {% if contact_form.instance.id %}
                     <div class="flex flex-wrap grow justify-end gap-2 items-center">
                         {% if perms.cms.archive_contact and not archived %}
-                            <button {% if contact_form.instance.referring_objects %}title="{% translate "At least one content object refers to this contact." %}" disabled {% else %} title="{% translate "Archive contact" %}"{% endif %}
+                            <button type="button"
+                                    {% if contact_form.instance.referring_objects %}title="{% translate "At least one content object refers to this contact." %}" disabled {% else %} title="{% translate "Archive contact" %}"{% endif %}
                                     class="btn confirmation-button btn-blue"
                                     data-confirmation-title="{{ archive_dialog_title }}"
                                     data-confirmation-text="{{ archive_dialog_text }}"
@@ -136,7 +138,8 @@
                             </button>
                         {% endif %}
                         {% if perms.cms.archive_contact and archived %}
-                            <button title="{% translate "Restore contact" %}"
+                            <button type="button"
+                                    title="{% translate "Restore contact" %}"
                                     class="btn confirmation-button btn-blue"
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text }}"
@@ -148,7 +151,8 @@
                         {% endif %}
                         {% if perms.cms.delete_contact %}
                             <div class="flex flex-wrap gap-4">
-                                <button {% if contact_form.instance.referring_objects %}title="{% translate "At least one content object refers to this contact." %}" disabled {% else %} title="{% translate "Delete contact" %}"{% endif %}
+                                <button type="button"
+                                        {% if contact_form.instance.referring_objects %}title="{% translate "At least one content object refers to this contact." %}" disabled {% else %} title="{% translate "Delete contact" %}"{% endif %}
                                         class="btn confirmation-button btn-red"
                                         data-confirmation-title="{{ delete_dialog_title }}"
                                         data-confirmation-text="{{ delete_dialog_text }}"

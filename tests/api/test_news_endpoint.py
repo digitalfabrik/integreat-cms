@@ -264,6 +264,44 @@ def test_news_endpoint_source_filter(
 
 
 @pytest.mark.django_db
+def test_news_endpoint_local_news_disabled(
+    load_test_data: None, clean_news_cache: None, disable_auto_news_reimport: None
+) -> None:
+    """
+    Existing local news are not delivered anymore once push notifications are disabled in the region.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param clean_news_cache: Fixture that wipes external news-source cache entries
+    """
+    region_slug = "augsburg"
+    language_slug = "de"
+    url = reverse(
+        "api:news",
+        kwargs={"region_slug": region_slug, "language_slug": language_slug},
+    )
+    client = Client()
+
+    pn_id = f"local-{_create_push_notification(region_slug, language_slug, datetime.now(tz=UTC))}"
+    single_news_url = reverse(
+        "api:single_news",
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": language_slug,
+            "news_id": pn_id,
+        },
+    )
+    assert any(item["id"] == pn_id for item in client.get(url).json())
+    assert client.get(single_news_url).status_code == 200
+
+    region = Region.objects.get(slug=region_slug)
+    region.push_notifications_enabled = False
+    region.save()
+
+    assert not any(item["source"] == "local" for item in client.get(url).json())
+    assert client.get(single_news_url).status_code == 404
+
+
+@pytest.mark.django_db
 def test_single_news_endpoint(
     load_test_data: None, clean_news_cache: None, disable_auto_news_reimport: None
 ) -> None:

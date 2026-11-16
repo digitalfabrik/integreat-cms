@@ -28,6 +28,7 @@
     </td>
     <td class="py-2 pr-2 text-left flex items-center gap-2">
         {% if place_category.icon %}
+            {# djlint:off H021 #}
             <div class="w-8 h-8 place-category-circle"
                  style="background: {{ place_category.color|default_if_none:"" }}">
                 <object class="preview-color w-1.4 h-1.4"
@@ -35,6 +36,7 @@
                         data-color="{{ place_category.color|default_if_none:"" }}"
                         type="image/svg+xml"></object>
             </div>
+            {# djlint:on #}
             <div>{{ place_category.get_icon_display }}</div>
         {% endif %}
     </td>
@@ -42,13 +44,15 @@
     <td class="pl-2 pr-4 text-right min">
         {% if perms.cms.delete_placecategory %}
             {% if place_category.places.exists %}
-                <button title="{% translate "You cannot delete a place category that is used in at least one place." %}"
+                <button type="button"
+                        title="{% translate "You cannot delete a place category that is used in at least one place." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% else %}
-                <button title="{% translate "Delete place category" %}"
+                <button type="button"
+                        title="{% translate "Delete place category" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"

@@ -16,9 +16,11 @@
               title="{{ language.get_secondary_country_code_display }}"></span>
     </td>
     <td class="pr-2">
+        {# djlint:off H021 #}
         <span class="fp fp-{{ language.language_color }} w-5 h-5 rounded-full"
               title="{{ language.get_language_color_display }}"
               style="background-color: {{ language.language_color }}"></span>
+        {# djlint:on #}
     </td>
     <td class="pr-2">{{ language.get_text_direction_display }}</td>
     <td class="pr-2">{{ language.created_date|date:"SHORT_DATE_FORMAT" }}</td>
@@ -27,13 +29,15 @@
     <td class="pl-2 pr-4 text-right">
         {% if perms.cms.delete_language %}
             {% if language.language_tree_nodes.exists %}
-                <button title="{% translate "You cannot delete a language that is used in at least one region." %}"
+                <button type="button"
+                        title="{% translate "You cannot delete a language that is used in at least one region." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% else %}
-                <button title="{% translate "Delete language" %}"
+                <button type="button"
+                        title="{% translate "Delete language" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"

@@ -39,7 +39,8 @@
                   action="{% url 'resend_activation_link' user_id=user.id %}"
                   class="inline">
                 {% csrf_token %}
-                <button class="bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer">
+                <button type="submit"
+                        class="bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer">
                     {% translate "Resend activation link" %}
                 </button>
             </form>

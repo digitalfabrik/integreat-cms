@@ -14,7 +14,8 @@
         {% render_field contact_form.mobile_phone_number|append_attr:"form:ajax_contact_form" %}
         <label for="{{ contact_form.website.id_for_label }}">{{ contact_form.website.label }}</label>
         {% render_field contact_form.website|append_attr:"form:ajax_contact_form" %}
-        <button id="submit-contact-form-button"
+        <button type="button"
+                id="submit-contact-form-button"
                 name="place"
                 value="{{ place_id }}"
                 form="ajax_contact_form"

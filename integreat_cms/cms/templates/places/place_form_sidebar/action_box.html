@@ -14,7 +14,8 @@
     <div>
         {% if place_form.instance.archived %}
             <label class="mt-0">{% translate "Restore place" %}</label>
-            <button title="{% translate "Restore place" %}"
+            <button type="button"
+                    title="{% translate "Restore place" %}"
                     class="btn confirmation-button w-full"
                     data-confirmation-title="{{ restore_dialog_title }}"
                     data-confirmation-text="{{ restore_dialog_text }}"
@@ -70,7 +71,8 @@
                     </div>
                 {% endif %}
             {% else %}
-                <button title="{% translate "Archive place" %}"
+                <button type="button"
+                        title="{% translate "Archive place" %}"
                         class="btn confirmation-button w-full"
                         data-confirmation-title="{{ archive_dialog_title }}"
                         data-confirmation-text="{{ archive_dialog_text }}"
@@ -130,7 +132,8 @@
                     </div>
                 {% endif %}
             {% else %}
-                <button title="{% translate "Delete place" %}"
+                <button type="button"
+                        title="{% translate "Delete place" %}"
                         class="btn confirmation-button w-full btn-red"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"

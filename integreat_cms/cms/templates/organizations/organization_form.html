@@ -29,7 +29,7 @@
                 {% if form.instance.id and perms.cms.delete_organization %}
                     <div class="flex flex-wrap gap-4">
                         {% if form.instance.is_used %}
-                            <button title="{{ cannot_delete_title }}" class="btn" disabled>
+                            <button type="button" title="{{ cannot_delete_title }}" class="btn" disabled>
                                 <i icon-name="trash-2" class="mr-2"></i>
                                 {% translate "Delete" %}
                             </button>
@@ -50,9 +50,9 @@
                 <div class="flex flex-wrap gap-4">
                     {% if perms.cms.change_organization %}
                         {% if form.instance.id %}
-                            <button class="btn">{% translate "Update" %}</button>
+                            <button type="submit" class="btn">{% translate "Update" %}</button>
                         {% else %}
-                            <button class="btn">{% translate "Create" %}</button>
+                            <button type="submit" class="btn">{% translate "Create" %}</button>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -120,7 +120,8 @@
                                     </tr>
                                 {% empty %}
                                     <tr>
-                                        <td colspan="6" class="px-4 py-3">{% translate "This organization currently has no members." %}</td>
+                                        <td colspan="6"
+                                            class="px-4 py-3">{% translate "This organization currently has no members." %}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
