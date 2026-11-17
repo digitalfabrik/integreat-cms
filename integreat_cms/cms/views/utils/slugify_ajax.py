@@ -48,6 +48,21 @@ def slugify_ajax(
     language = request.region.get_language_or_404(language_slug, only_active=True)
     model_id = json_data.get("model_id")
 
+    if model_id is not None:
+        if isinstance(model_id, bool) or not isinstance(model_id, (int, str)):
+            return JsonResponse(
+                {"error": "Invalid model ID"},
+                status=400,
+            )
+
+        try:
+            model_id = int(model_id)
+        except ValueError:
+            return JsonResponse(
+                {"error": "Invalid model ID"},
+                status=400,
+            )
+
     if not (
         request.user.has_perms((required_permission,))
         or (
@@ -58,6 +73,20 @@ def slugify_ajax(
         )
     ):
         raise PermissionDenied
+
+    if model_id is not None:
+        foreign_model = (
+            managers[model_type]._meta.get_field(model_type).remote_field.model
+        )
+
+        if not foreign_model.objects.filter(
+            pk=model_id,
+            region=request.region,
+        ).exists():
+            return JsonResponse(
+                {"error": "Invalid model ID"},
+                status=400,
+            )
 
     manager = managers[model_type].objects
     # New objects don't have an id yet, and new translations of existing objects have no instance yet

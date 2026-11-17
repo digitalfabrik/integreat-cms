@@ -94,3 +94,38 @@ def test_slugify_ajax_for_new_translation_with_page_permission(
     )
 
     assert response.status_code == expected_status
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("model_type", ["page", "event", "place"])
+@pytest.mark.parametrize("model_id", ["asdf", 999999999])
+def test_slugify_ajax_with_invalid_model_id(
+    load_test_data: None,
+    model_id: str | int,
+    model_type: str,
+) -> None:
+    """
+    An invalid model ID should not cause an unhandled exception.
+    """
+    client = Client()
+    client.force_login(get_user_model().objects.get(username="root"))
+
+    response = client.post(
+        reverse(
+            "slugify_ajax",
+            kwargs={
+                "region_slug": "augsburg",
+                "language_slug": "de",
+                "model_type": model_type,
+            },
+        ),
+        data=json.dumps(
+            {
+                "title": "A new title",
+                "model_id": model_id,
+            }
+        ),
+        content_type="application/json",
+    )
+
+    assert response.status_code == 400
