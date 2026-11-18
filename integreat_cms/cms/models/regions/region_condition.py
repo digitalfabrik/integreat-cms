@@ -16,16 +16,13 @@ class RegionCondition(AbstractBaseModel):
     """
     Data model representing the condition of a region at the time it was computed
 
-    Computing these metrics is too slow to do on request. They are computed every night (see
-    :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`) and every
-    successful computation adds a row, so the history of a region can be evaluated. The newest
-    row is the current condition; if the computation of a region failed or did not reach it, that
-    is still the row of its last successful run.
+    Every nightly run of
+    :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions` adds a row
+    per region, the newest one is the current condition.
     """
 
-    #: The names of the metric fields. Each one must also match a ``dehydrate_<name>`` method of
-    #: :class:`~integreat_cms.cms.views.region_condition.region_condition_actions.RegionConditionResource`,
-    #: which computes it.
+    #: The metric fields, each computed by the ``dehydrate_<name>`` method of
+    #: :class:`~integreat_cms.cms.views.region_condition.region_condition_actions.RegionConditionResource`
     METRICS: Final[tuple[str, ...]] = (
         "num_broken_links",
         "num_low_hix_pages",

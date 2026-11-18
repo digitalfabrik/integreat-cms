@@ -1,12 +1,8 @@
 """
-This module includes the endpoint to read the condition statistics of a single region.
+This module includes the endpoint to read the statistics of a single region.
 
-The condition metrics are expensive to compute, so this endpoint never computes them on request.
-It only returns the values precomputed every night by
-:func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`, together with the
-time they were computed. ``computed_at`` tells how old they are: they can be older than a day if the
-last runs failed for the region, did not reach it in time, or did not run at all. The machine
-translation budget is read live from the region.
+The condition metrics are not computed on request, but precomputed every night by
+:func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions`.
 """
 
 from __future__ import annotations
@@ -29,10 +25,7 @@ class Condition(TypedDict):
     """
     The stored condition metrics of a region
 
-    The keys are the public names of the metrics. They are listed explicitly instead of being
-    derived from :attr:`~integreat_cms.cms.models.regions.region_condition.RegionCondition.METRICS`,
-    so renaming a model field cannot silently rename a key of the API;
-    ``test_metrics_match_the_model_and_the_api`` makes sure every metric is exposed.
+    The keys are listed explicitly, so renaming a model field cannot silently change the API.
     """
 
     computed_at: str
@@ -48,9 +41,8 @@ class Statistics(TypedDict):
     """
     The JSON representation of the statistics of a region
 
-    ``condition`` is ``None`` if no condition is stored for the region: it has not been computed
-    yet (a new region, or one whose computation has always failed), or the region is no longer
-    active or hidden. Otherwise all of its metrics are set. The budget values are always current.
+    ``condition`` is ``None`` if the region has not been computed yet or is no longer active or
+    hidden.
     """
 
     condition: Condition | None
@@ -59,9 +51,9 @@ class Statistics(TypedDict):
     mt_budget_remaining: int
 
 
-def transform_region_condition(condition: RegionCondition) -> Condition:
+def _transform_region_condition(condition: RegionCondition) -> Condition:
     """
-    Build the JSON representation of the stored condition of a region
+    Build the JSON representation of a stored region condition
 
     :param condition: The stored condition
     :return: The condition metrics with the time they were computed
@@ -81,24 +73,19 @@ def transform_region_condition(condition: RegionCondition) -> Condition:
     }
 
 
-def transform_region_statistics(region: Region) -> Statistics:
+def _transform_region_statistics(
+    region: Region,
+    condition: RegionCondition | None,
+) -> Statistics:
     """
     Build the JSON representation of the statistics of a region
 
-    :param region: The region whose statistics should be returned
+    :param region: The region
+    :param condition: The newest stored condition of the region, if any
     :return: The statistics of the region
     """
-    # The history of an archived region is kept, but it has no current condition
-    condition = (
-        RegionCondition.objects.filter(
-            region=region,
-            region__status__in=COMPUTED_STATUSES,
-        )
-        .order_by("-computed_at")
-        .first()
-    )
     return {
-        "condition": transform_region_condition(condition) if condition else None,
+        "condition": _transform_region_condition(condition) if condition else None,
         "mt_budget": region.mt_budget,
         "mt_budget_used": region.mt_budget_used,
         "mt_budget_remaining": region.mt_budget_remaining,
@@ -120,4 +107,14 @@ def region_statistics(request: HttpRequest, region_slug: str) -> JsonResponse:
     """
     if request.method != "GET":
         return JsonResponse({"error": "Invalid request."}, status=405)
-    return JsonResponse(transform_region_statistics(request.region))
+    region = request.region
+    # The history of an archived region is kept, but it has no current condition
+    condition = (
+        RegionCondition.objects.filter(
+            region=region,
+            region__status__in=COMPUTED_STATUSES,
+        )
+        .order_by("-computed_at")
+        .first()
+    )
+    return JsonResponse(_transform_region_statistics(region, condition))

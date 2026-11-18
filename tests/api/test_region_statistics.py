@@ -22,16 +22,16 @@ from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.api.v3.region_statistics import (
+    _transform_region_condition,
     Condition,
     Statistics,
-    transform_region_condition,
 )
 from integreat_cms.cms.constants import region_status
 from integreat_cms.cms.models import ApiToken, Region, RegionCondition, User
 from integreat_cms.cms.utils import region_condition_utils
 from integreat_cms.cms.utils.region_condition_utils import (
-    cacheops_disabled,
-    compute_region_condition,
+    _cacheops_disabled,
+    _compute_region_condition,
     COMPUTED_STATUSES,
     update_region_conditions,
 )
@@ -145,7 +145,7 @@ def test_metrics_match_the_model_and_the_api(load_test_data: None) -> None:
         for metric in RegionCondition.METRICS
     )
     # The stored values are pairwise distinct, so this proves each metric reaches its own key
-    condition = transform_region_condition(_store())
+    condition = _transform_region_condition(_store())
     assert set(condition) == set(Condition.__annotations__)
     assert sorted(v for k, v in condition.items() if isinstance(v, int)) == sorted(
         STORED_VALUES.values(),
@@ -300,7 +300,7 @@ def test_update_keeps_the_history(load_test_data: None) -> None:
     assert condition.computed_at > STORED_AT
     assert {
         metric: getattr(condition, metric) for metric in RegionCondition.METRICS
-    } == compute_region_condition(region)
+    } == _compute_region_condition(region)
 
 
 @pytest.mark.django_db
@@ -315,7 +315,7 @@ def test_regions_without_or_with_oldest_values_come_first(load_test_data: None) 
     _store(slugs[0], computed_at=STORED_AT + timedelta(days=2))
     _store(slugs[1], computed_at=STORED_AT)
     order: list[str] = []
-    original = region_condition_utils.compute_region_condition
+    original = _compute_region_condition
 
     def record(region: Region) -> dict[str, int]:
         order.append(region.slug)
@@ -323,7 +323,7 @@ def test_regions_without_or_with_oldest_values_come_first(load_test_data: None) 
 
     with patch.object(
         region_condition_utils,
-        "compute_region_condition",
+        "_compute_region_condition",
         side_effect=record,
     ):
         update_region_conditions()
@@ -345,7 +345,7 @@ def test_failing_region_keeps_its_values_and_does_not_stop_the_others(
         if slug != "augsburg":
             _store(slug, computed_at=STORED_AT + timedelta(days=1))
     _store("augsburg")
-    original = region_condition_utils.compute_region_condition
+    original = _compute_region_condition
 
     def fail_for_augsburg(region: Region) -> dict[str, int]:
         if region.slug == "augsburg":
@@ -354,7 +354,7 @@ def test_failing_region_keeps_its_values_and_does_not_stop_the_others(
 
     with patch.object(
         region_condition_utils,
-        "compute_region_condition",
+        "_compute_region_condition",
         side_effect=fail_for_augsburg,
     ):
         result = update_region_conditions()
@@ -380,7 +380,7 @@ def test_region_archived_during_the_run_is_not_stored(load_test_data: None) -> N
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
-    original = region_condition_utils.compute_region_condition
+    original = _compute_region_condition
 
     def archive_augsburg(region: Region) -> dict[str, int]:
         metrics = original(region)
@@ -390,7 +390,7 @@ def test_region_archived_during_the_run_is_not_stored(load_test_data: None) -> N
 
     with patch.object(
         region_condition_utils,
-        "compute_region_condition",
+        "_compute_region_condition",
         side_effect=archive_augsburg,
     ):
         result = update_region_conditions()
@@ -425,7 +425,7 @@ def test_time_limit_is_propagated_and_logged(
     :param caplog: The fixture capturing the log output
     """
     slugs = _computed_slugs()
-    original = region_condition_utils.compute_region_condition
+    original = _compute_region_condition
 
     def time_out_after_the_first(region: Region) -> dict[str, int]:
         if region.slug != slugs[0]:
@@ -436,7 +436,7 @@ def test_time_limit_is_propagated_and_logged(
         caplog.at_level(logging.ERROR),
         patch.object(
             region_condition_utils,
-            "compute_region_condition",
+            "_compute_region_condition",
             side_effect=time_out_after_the_first,
         ),
         pytest.raises(SoftTimeLimitExceeded),
@@ -458,7 +458,7 @@ def test_lost_database_connection_aborts_the_run(load_test_data: None) -> None:
     with (
         patch.object(
             region_condition_utils,
-            "compute_region_condition",
+            "_compute_region_condition",
             side_effect=OperationalError("connection lost"),
         ) as compute,
         patch.object(
@@ -481,7 +481,7 @@ def test_query_error_only_fails_its_region(load_test_data: None) -> None:
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
-    original = region_condition_utils.compute_region_condition
+    original = _compute_region_condition
 
     def time_out_for_augsburg(region: Region) -> dict[str, int]:
         if region.slug == "augsburg":
@@ -490,7 +490,7 @@ def test_query_error_only_fails_its_region(load_test_data: None) -> None:
 
     with patch.object(
         region_condition_utils,
-        "compute_region_condition",
+        "_compute_region_condition",
         side_effect=time_out_for_augsburg,
     ):
         result = update_region_conditions()
@@ -547,7 +547,7 @@ def test_cacheops_is_restored_even_if_the_restore_is_interrupted() -> None:
     ``setting_changed`` signal of the restore never reached cacheops.
     """
     with override_settings(CACHEOPS_ENABLED=True):
-        with pytest.raises(SoftTimeLimitExceeded), cacheops_disabled():
+        with pytest.raises(SoftTimeLimitExceeded), _cacheops_disabled():
             assert cacheops.conf.settings.CACHEOPS_ENABLED is False
             # The restore restores Django's settings, then dies before notifying cacheops
             patch.object(
@@ -581,7 +581,7 @@ def test_command_names_the_failed_regions(load_test_data: None) -> None:
     with (
         patch.object(
             region_condition_utils,
-            "compute_region_condition",
+            "_compute_region_condition",
             side_effect=RuntimeError("broken region"),
         ),
         pytest.raises(CommandError, match="augsburg"),

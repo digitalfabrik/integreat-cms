@@ -1,10 +1,8 @@
 """
 This module contains utilities to precompute the condition of regions
 
-The metrics are calculated the same way as the columns of the region condition export, but
-computing them runs heavy queries over all pages of a region. They are therefore computed once per
-night and stored in :class:`~integreat_cms.cms.models.regions.region_condition.RegionCondition`.
-The export and the region condition view are unchanged and still compute live.
+Computing the metrics is too slow to do on request, so they are computed once per night and stored
+in :class:`~integreat_cms.cms.models.regions.region_condition.RegionCondition`.
 """
 
 from __future__ import annotations
@@ -27,7 +25,7 @@ from ..models import Region, RegionCondition
 from ..views.region_condition.region_condition_actions import RegionConditionResource
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator
+    from collections.abc import Generator
 
 logger = logging.getLogger(__name__)
 
@@ -50,13 +48,12 @@ class UpdateResult:
 
 
 @contextmanager
-def cacheops_disabled() -> Iterator[None]:
+def _cacheops_disabled() -> Generator[None]:
     """
     Disable the cacheops query cache for the duration of the block
 
-    The metrics run large querysets over all pages of a region. Caching them would store several
-    MB per region in Redis, which can exhaust its memory. The override is global to the process
-    and also disables the invalidation on writes, so only read inside this block.
+    Caching the large querysets of the metrics can exhaust the memory of Redis. The override is
+    global to the process and also disables the invalidation on writes, so only read inside it.
 
     :return: A context in which queries bypass the cache
     """
@@ -68,14 +65,14 @@ def cacheops_disabled() -> Iterator[None]:
         cacheops.conf.settings.__dict__.pop("CACHEOPS_ENABLED", None)
 
 
-def compute_region_condition(region: Region) -> dict[str, int]:
+def _compute_region_condition(region: Region) -> dict[str, int]:
     """
     Compute the condition metrics of a region with the ``dehydrate_*`` methods of the export
 
     :param region: The region whose condition should be computed
     :return: The metrics of the region, keyed like the fields of the region condition model
     """
-    with cacheops_disabled():
+    with _cacheops_disabled():
         return {
             metric: getattr(RegionConditionResource, f"dehydrate_{metric}")(region)
             for metric in RegionCondition.METRICS
@@ -86,9 +83,8 @@ def update_region_conditions(time_budget: float | None = None) -> UpdateResult:
     """
     Compute and store the condition of all active and hidden regions
 
-    A failure in one region is logged and does not stop the others. Regions without stored values
-    and then those with the oldest values are computed first, so a run that is cut short does not
-    always miss the same regions. Every successful computation adds a row, so the history is kept.
+    A failure in one region is logged and does not stop the others. The regions with the oldest
+    values are computed first, so a run that is cut short does not always miss the same regions.
 
     :param time_budget: The number of seconds after which no further region is started
     :raises ~django.db.Error: When the database connection is lost
@@ -96,28 +92,27 @@ def update_region_conditions(time_budget: float | None = None) -> UpdateResult:
     :return: The outcome of the run
     """
     deadline = time.monotonic() + time_budget if time_budget is not None else None
-    regions = (
+    regions = list(
         Region.objects.filter(status__in=COMPUTED_STATUSES)
         .annotate(last_computed_at=Max("conditions__computed_at"))
-        .order_by(F("last_computed_at").asc(nulls_first=True), "slug")
+        .order_by(F("last_computed_at").asc(nulls_first=True), "slug"),
     )
 
     result = UpdateResult()
-    remaining = list(regions)
     try:
-        while remaining:
+        while regions:
             if deadline is not None and time.monotonic() > deadline:
-                result.not_reached = [region.slug for region in remaining]
+                result.not_reached = [region.slug for region in regions]
                 break
-            region = remaining[0]
+            region = regions[0]
             try:
-                metrics = compute_region_condition(region)
+                metrics = _compute_region_condition(region)
                 # The region might have been archived during the computation
                 if Region.objects.filter(
                     pk=region.pk,
                     status__in=COMPUTED_STATUSES,
                 ).exists():
-                    # Outside of cacheops_disabled(), so the cached read of the API is invalidated
+                    # Outside of _cacheops_disabled(), so the cached read of the API is invalidated
                     RegionCondition.objects.create(
                         region=region,
                         computed_at=timezone.now(),
@@ -126,15 +121,18 @@ def update_region_conditions(time_budget: float | None = None) -> UpdateResult:
                     result.updated += 1
             except (SoftTimeLimitExceeded, InterfaceError):
                 raise
-            except Exception as error:
+            except OperationalError:
                 # Timeouts, deadlocks etc. only concern this region, a lost connection all of them
-                if isinstance(error, OperationalError) and not connection.is_usable():
+                if not connection.is_usable():
                     raise
                 logger.exception("Could not compute the condition of %r", region)
                 result.failed.append(region.slug)
-            remaining.pop(0)
+            except Exception:
+                logger.exception("Could not compute the condition of %r", region)
+                result.failed.append(region.slug)
+            regions.pop(0)
     except (SoftTimeLimitExceeded, InterfaceError, OperationalError):
-        result.not_reached = [region.slug for region in remaining]
+        result.not_reached = [region.slug for region in regions]
         logger.exception(
             "Aborted the update of the region conditions; not updated: %s; failed before: %s",
             ", ".join(result.not_reached),
