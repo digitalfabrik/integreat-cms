@@ -19,7 +19,9 @@
                 {% else %}
                     <h1 class="heading">
                         {% translate "Page Tree" %}
-                        <button data-show-tutorial="page-tree" class="hover:text-blue-500">
+                        <button type="button"
+                                data-show-tutorial="page-tree"
+                                class="hover:text-blue-500">
                             <i icon-name="help-circle" class="align-baseline"></i>
                         </button>
                     </h1>
@@ -40,7 +42,7 @@
                     {% endif %}
                 </div>
                 <div class="flex flex-wrap gap-4">
-                    <button id="filter-toggle" class="btn btn-ghost">
+                    <button type="button" id="filter-toggle" class="btn btn-ghost">
                         <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% translate "Show filters" %}</span>
                         <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% translate "Hide filters" %}</span>
                     </button>
@@ -55,7 +57,12 @@
                                 {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
                                     You can only create pages in the default language ({{ default_language }}).
                                 {% endblocktranslate %}
-                                <button title="{{ disabled_button_title }}" class="btn" disabled>{% translate "Create page" %}</button>
+                                <button type="button"
+                                        title="{{ disabled_button_title }}"
+                                        class="btn"
+                                        disabled>
+                                    {% translate "Create page" %}
+                                </button>
                             {% endif %}
                         {% endif %}
                     {% endif %}
@@ -152,7 +159,8 @@
                     </a>  <span class="text-gray-600 font-default">|</span>
                 {% endif %}
                 <div class="inline">
-                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Pages selected" %}</span>
+                    <span class="text-gray-800 font-bold"
+                          data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Pages selected" %}</span>
                 </div>
             </div>
         {% endif %}
@@ -212,7 +220,8 @@
                             <option disabled title="{{ xliff_export_disabled }}">
                                 {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
                             </option>
-                            <option disabled title="{{ xliff_export_disabled }}">{{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})</option>
+                            <option disabled
+                                    title="{{ xliff_export_disabled }}">{{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})</option>
                         {% else %}
                             <option data-bulk-action="{% url 'download_xliff_only_public' region_slug=request.region.slug language_slug=language.slug %}">
                                 {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
@@ -264,7 +273,7 @@
                     </option>
                 {% endif %}
             </select>
-            <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+            <button type="submit" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
         </div>
     </form>
     {% if not is_archive %}
@@ -294,7 +303,7 @@
                            accept=".zip, .xlf, .xliff"
                            multiple />
                     {% csrf_token %}
-                    <button id="xliff_file_submit" class="btn" disabled>{% translate "Import" %}</button>
+                    <button type="submit" id="xliff_file_submit" class="btn" disabled>{% translate "Import" %}</button>
                 </form>
             </div>
         {% endif %}

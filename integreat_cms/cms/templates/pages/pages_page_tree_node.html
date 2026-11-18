@@ -129,7 +129,8 @@
                     <i icon-name="external-link"></i>
                 </a>
             {% else %}
-                <button title="{% translate "This page cannot be opened in the web app, because it is not public." %}"
+                <button type="button"
+                        title="{% translate "This page cannot be opened in the web app, because it is not public." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="external-link"></i>
@@ -144,13 +145,15 @@
         {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
         {% if not is_archive and can_publish_page %}
             {% if page.mirroring_pages.exists %}
-                <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
+                <button type="button"
+                        title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="archive"></i>
                 </button>
             {% else %}
-                <button title="{% translate "Archive page" %}"
+                <button type="button"
+                        title="{% translate "Archive page" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ archive_dialog_title }}"
                         data-confirmation-text="{{ archive_dialog_text }}"
@@ -162,7 +165,8 @@
         {% endif %}
         {% if is_archive and can_publish_page %}
             {% if page.explicitly_archived %}
-                <button title="{% translate "Restore page" %}"
+                <button type="button"
+                        title="{% translate "Restore page" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ restore_dialog_title }}"
                         data-confirmation-text="{{ restore_dialog_text }}"
@@ -181,19 +185,22 @@
         {% if perms.cms.delete_page %}
             {# djlint:off H023 #}
             {% if not page.is_leaf %}
-                <button title="{% translate "You cannot delete a page which has subpages." %}&#013;{% translate "This also involves archived subpages." %}"
+                <button type="button"
+                        title="{% translate "You cannot delete a page which has subpages." %} {% translate "This also involves archived subpages." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% elif page.mirroring_pages.exists %}
-                <button title="{% translate "This page cannot be deleted because it was embedded as live content from another page." %}"
+                <button type="button"
+                        title="{% translate "This page cannot be deleted because it was embedded as live content from another page." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% else %}
-                <button title="{% translate "Delete page" %}"
+                <button type="button"
+                        title="{% translate "Delete page" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"
@@ -214,7 +221,8 @@
                     <i icon-name="check" class="hidden text-green-500"></i>
                 </a>
             {% else %}
-                <button title="{% translate "You cannot copy a short link of a page which has no translation." %}"
+                <button type="button"
+                        title="{% translate "You cannot copy a short link of a page which has no translation." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="copy"></i>

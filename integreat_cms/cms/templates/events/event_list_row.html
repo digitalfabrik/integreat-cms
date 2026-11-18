@@ -138,7 +138,8 @@
                     <i icon-name="external-link"></i>
                 </a>
             {% else %}
-                <button title="{% translate "This event cannot be opened in the web app, because it is not public." %}"
+                <button type="button"
+                        title="{% translate "This event cannot be opened in the web app, because it is not public." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="external-link"></i>
@@ -157,16 +158,20 @@
                     <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}?{{ request.GET.urlencode }}"
                           method="post">
                         {% csrf_token %}
-                        <button class="btn-icon" title="{% translate "Copy event" %}">
+                        <button type="submit" class="btn-icon" title="{% translate "Copy event" %}">
                             <i icon-name="copy"></i>
                         </button>
                     </form>
                 {% else %}
-                    <button title="{{ cannot_copy_title }}" class="btn-icon" disabled>
+                    <button type="button"
+                            title="{{ cannot_copy_title }}"
+                            class="btn-icon"
+                            disabled>
                         <i icon-name="copy"></i>
                     </button>
                 {% endif %}
-                <button title="{% translate "Archive event" %}"
+                <button type="button"
+                        title="{% translate "Archive event" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ archive_dialog_title }}"
                         data-confirmation-text="{{ archive_dialog_text }}"
@@ -175,7 +180,8 @@
                     <i icon-name="archive"></i>
                 </button>
             {% else %}
-                <button title="{% translate "Restore event" %}"
+                <button type="button"
+                        title="{% translate "Restore event" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ restore_dialog_title }}"
                         data-confirmation-text="{{ restore_dialog_text }}"
@@ -187,7 +193,8 @@
             {% endif %}
         {% endif %}
         {% if perms.cms.delete_event %}
-            <button title="{% translate "Delete event" %}"
+            <button type="button"
+                    title="{% translate "Delete event" %}"
                     class="confirmation-button btn-icon"
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"

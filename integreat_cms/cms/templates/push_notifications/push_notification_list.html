@@ -119,7 +119,8 @@
         {% if push_notifications %}
             <div class="pt-2 px-2">
                 <div class="inline">
-                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "News selected" %}</span>
+                    <span class="text-gray-800 font-bold"
+                          data-list-selection-count>0</span> <span class="text-gray-600">{% translate "News selected" %}</span>
                 </div>
             </div>
         {% endif %}
@@ -155,7 +156,13 @@
                         </option>
                     {% endif %}
                 </select>
-                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+                <button type="submit"
+                        form="bulk-action-form"
+                        id="bulk-action-execute"
+                        class="btn"
+                        disabled>
+                    {% translate "Execute" %}
+                </button>
             </div>
         {% endif %}
     </div>

@@ -20,7 +20,8 @@
         </select>
     {% endif %}
     {% if create_place_option %}
-        <button id="show-place-form-button"
+        <button type="button"
+                id="show-place-form-button"
                 class="btn w-full option-new-place mb-2"
                 data-place-title="{{ place_query }}"
                 data-url="{% url 'show_place_form_ajax' region_slug=request.region.slug language_slug=request.region.default_language.slug place_title=place_query %}">

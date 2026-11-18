@@ -297,3 +297,46 @@ p a img {
 p a:first-child img {
     display: inline-block;
 }
+
+.contact-card {
+    a[href] {
+        display: inline-block;
+        max-width: 70ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+    }
+
+    p {
+        margin: 0.2em 0;
+    }
+
+    h4 {
+        margin: 0 0 0.75em 0;
+    }
+
+    ul.details {
+        padding-inline-start: 1.5em;
+        margin: 0;
+
+        li {
+            position: relative;
+
+            &:has(img:first-child) {
+                list-style: none;
+            }
+
+            img:first-child {
+                position: absolute;
+                left: -1.5em;
+                top: 1px;
+                width: 1em;
+                height: 1em;
+            }
+        }
+    }
+
+    font-family: "Open Sans";
+    font-size: 9.375pt;
+}

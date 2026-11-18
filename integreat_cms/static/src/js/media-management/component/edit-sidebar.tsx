@@ -197,7 +197,7 @@ const EditSidebar = ({
                         <input
                             id="filename-input"
                             name="name"
-                            type={isFileNameEditable ? "text" : "hidden"}
+                            {...(isFileNameEditable ? { type: "text" as const } : { type: "hidden" as const })}
                             value={changedFile.name}
                             disabled={isLoading}
                             onInput={({ target }) =>
@@ -239,7 +239,7 @@ const EditSidebar = ({
                         <input
                             id="alt-text-input"
                             name="alt_text"
-                            type={isAltTextEditable ? "text" : "hidden"}
+                            {...(isAltTextEditable ? { type: "text" as const } : { type: "hidden" as const })}
                             value={changedFile.altText}
                             disabled={isLoading}
                             onInput={({ target }) =>

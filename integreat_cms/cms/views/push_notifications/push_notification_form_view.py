@@ -11,6 +11,7 @@ from django.core.exceptions import (
     ObjectDoesNotExist,
     PermissionDenied,
 )
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.formats import localize
@@ -164,7 +165,14 @@ class PushNotificationFormView(TemplateView):
             },
         )
 
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def post(
+        self,
+        request: HttpRequest,
+        *args: Any,
+        language_slug: str | None = None,
+        push_notification_id: int | None = None,
+        **kwargs: Any,
+    ) -> HttpResponse:
         r"""
         Save and show form for creating or editing a push notification. Send push notification
         if asked for by user.
@@ -179,10 +187,12 @@ class PushNotificationFormView(TemplateView):
         :return: The rendered template response
         """
 
-        region = request.region
-        language = Language.objects.get(slug=kwargs.get("language_slug"))
+        if not language_slug:
+            raise Http404("No language slug given.")
 
-        push_notification_id = kwargs.get("push_notification_id")
+        region = request.region
+        language = region.get_language_or_404(language_slug, only_active=True)
+
         push_notification_instance = (
             get_object_or_404(
                 region.push_notifications,
@@ -283,6 +293,7 @@ class PushNotificationFormView(TemplateView):
                 "languages": region.active_languages
                 if push_notification_instance
                 else [language],
+                "not_accessible_regions_warning": details["disable_edit"],
             },
         )
 
