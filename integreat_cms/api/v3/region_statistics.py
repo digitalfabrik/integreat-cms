@@ -26,6 +26,7 @@ class Condition(TypedDict):
     The stored condition metrics of a region
 
     The keys are listed explicitly, so renaming a model field cannot silently change the API.
+    ``computed_at`` can be older than a day if the last runs failed for the region.
     """
 
     computed_at: str
@@ -41,7 +42,7 @@ class Statistics(TypedDict):
     """
     The JSON representation of the statistics of a region
 
-    ``condition`` is ``None`` if the region has not been computed yet or is no longer active or
+    ``condition`` is ``None`` if the region has never been computed or is neither active nor
     hidden.
     """
 
@@ -80,7 +81,7 @@ def _transform_region_statistics(
     """
     Build the JSON representation of the statistics of a region
 
-    :param region: The region
+    :param region: The region whose statistics should be returned
     :param condition: The newest stored condition of the region, if any
     :return: The statistics of the region
     """

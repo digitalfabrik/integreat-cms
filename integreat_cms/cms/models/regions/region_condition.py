@@ -16,9 +16,9 @@ class RegionCondition(AbstractBaseModel):
     """
     Data model representing the condition of a region at the time it was computed
 
-    Every nightly run of
-    :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions` adds a row
-    per region, the newest one is the current condition.
+    Every successful computation of a region by
+    :func:`~integreat_cms.cms.utils.region_condition_utils.update_region_conditions` adds a row,
+    the newest one is its current condition.
     """
 
     #: The metric fields, each computed by the ``dehydrate_<name>`` method of

@@ -54,8 +54,6 @@ def _cacheops_disabled() -> Generator[None]:
 
     Caching the large querysets of the metrics can exhaust the memory of Redis. The override is
     global to the process and also disables the invalidation on writes, so only read inside it.
-
-    :return: A context in which queries bypass the cache
     """
     try:
         with override_settings(CACHEOPS_ENABLED=False):
@@ -83,8 +81,9 @@ def update_region_conditions(time_budget: float | None = None) -> UpdateResult:
     """
     Compute and store the condition of all active and hidden regions
 
-    A failure in one region is logged and does not stop the others. The regions with the oldest
-    values are computed first, so a run that is cut short does not always miss the same regions.
+    A failure in one region is logged and does not stop the others. Regions without values, then
+    those with the oldest, are computed first, so a run that is cut short does not always miss the
+    same regions.
 
     :param time_budget: The number of seconds after which no further region is started
     :raises ~django.db.Error: When the database connection is lost
