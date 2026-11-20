@@ -206,6 +206,9 @@ def get_link_query(regions: QuerySet[Region]) -> QuerySet:
 
     :return: A query containing the relevant links
     """
+    if not regions:
+        return Link.objects.none()
+
     non_archived_pages = regions[0].non_archived_pages.values("pk")
     for region in regions[1:]:
         # When more than one region is requested, the request comes from the central linkchecker and only active regions should be considered
