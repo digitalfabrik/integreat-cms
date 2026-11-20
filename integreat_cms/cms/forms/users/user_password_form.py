@@ -9,6 +9,7 @@ from django.contrib.auth.password_validation import (
     password_validators_help_texts,
     validate_password,
 )
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from ..custom_model_form import CustomModelForm
@@ -18,7 +19,7 @@ if TYPE_CHECKING:
 
     from django.db.models import ModelBase
 
-    from ..models import User
+    from ...models import User
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +37,6 @@ class UserPasswordForm(CustomModelForm):
 
     new_password = forms.CharField(
         widget=forms.PasswordInput,
-        validators=[validate_password],
         label=_("My new password"),
         help_text=password_validators_help_texts,
     )
@@ -88,9 +88,13 @@ class UserPasswordForm(CustomModelForm):
 
         if not self.instance.check_password(old_password):
             self.add_error("old_password", _("Your old password is not correct."))
-
         if new_password != new_password_confirm:
             self.add_error("new_password_confirm", _("The new passwords do not match."))
+        if new_password and new_password == new_password_confirm:
+            try:
+                validate_password(new_password, self.instance)
+            except ValidationError as error:
+                self.add_error("new_password", error)
 
         logger.debug(
             "UserPasswordForm validated [2] with cleaned data %r",

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from copy import copy
 from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model
@@ -45,7 +46,6 @@ class UserForm(CustomModelForm):
     )
     password = forms.CharField(
         widget=forms.PasswordInput,
-        validators=[validate_password],
         help_text=password_validators_help_texts,
         required=False,
     )
@@ -298,6 +298,19 @@ class UserForm(CustomModelForm):
                         code="invalid",
                     ),
                 )
+        password = cleaned_data.get("password")
 
+        if password:
+            # Create a copy of the user with the submitted attributes
+            user = copy(self.instance)
+
+            for attribute in ("username", "first_name", "last_name", "email"):
+                if attribute in cleaned_data:
+                    setattr(user, attribute, cleaned_data[attribute])
+
+            try:
+                validate_password(password, user)
+            except forms.ValidationError as error:
+                self.add_error("password", error)
         logger.debug("UserForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data
