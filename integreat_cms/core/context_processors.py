@@ -42,7 +42,7 @@ def settings_processor(request: HttpRequest) -> dict[str, Any]:
         "DEEPL_ENABLED": settings.DEEPL_ENABLED,
         "TEXTLAB_API_LANGUAGES": settings.TEXTLAB_API_LANGUAGES,
         "TEXTLAB_API_ENABLED": settings.TEXTLAB_API_ENABLED,
-        "TEST": settings.TEST,
+        "ENVIRONMENT": settings.ENVIRONMENT,
         "INTEGREAT_CHAT_TICKET_GROUP": settings.INTEGREAT_CHAT_TICKET_GROUP,
         "PRIVACY_POLICY_URL": settings.PRIVACY_POLICY_URL,
         "IMPRINT_URL": settings.IMPRINT_URL,
