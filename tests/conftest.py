@@ -18,6 +18,7 @@ from django.core.cache import cache
 from django.core.management import call_command
 from django.test.client import Client
 from linkcheck.listeners import unregister_listeners
+from zeal import zeal_context, zeal_ignore
 
 from integreat_cms.cms.constants.administrative_division import MUNICIPALITY
 from integreat_cms.cms.constants.region_status import ACTIVE
@@ -53,6 +54,10 @@ from tests.constants import (  # noqa: F401 — re-exported for backward compati
     WRITE_ROLES,
 )
 from tests.mock import MockServer
+from tests.query_report.plugin import (
+    add_query_report_options,
+    configure_query_report,
+)
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Generator
@@ -72,6 +77,12 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         default=False,
         help="Update API expected-output snapshot files instead of asserting against them.",
     )
+    add_query_report_options(parser)
+
+
+def pytest_configure(config: pytest.Config) -> None:
+    """Register the query report plugin if ``--query-report`` is passed."""
+    configure_query_report(config)
 
 
 @pytest.fixture(scope="session")
@@ -114,7 +125,8 @@ def load_test_data_transactional(
     :param transactional_db: The fixture providing transaction support for the database
     :param django_db_blocker: The fixture providing the database blocker
     """
-    with django_db_blocker.unblock():
+    # Loading fixtures resolves natural keys one by one, which is not an N+1 of the code under test
+    with django_db_blocker.unblock(), zeal_ignore():
         call_command("loaddata", "integreat_cms/cms/fixtures/test_roles.json")
         call_command("loaddata", "integreat_cms/cms/fixtures/test_data.json")
 
@@ -227,6 +239,19 @@ def reset_linkcheck_listeners() -> Generator[None]:
     yield
     if settings.LINKCHECK_DISABLE_LISTENERS:
         unregister_listeners()
+
+
+@pytest.fixture(autouse=True)
+def zeal() -> Generator[None]:
+    """
+    Detect N+1 queries in every test with django-zeal.
+
+    Known N+1s are listed in :setting:`ZEAL_ALLOWLIST` in
+    :mod:`~integreat_cms.core.test_settings`. To allow an N+1 only within one
+    test, wrap the code in :func:`zeal.zeal_ignore` instead.
+    """
+    with zeal_context():
+        yield
 
 
 @pytest.fixture(autouse=True)
