@@ -180,14 +180,6 @@ def clean_news_cache(load_test_data: None) -> Generator[None]:
 
 
 @pytest.fixture(autouse=True)
-def configure_celery_for_tests(settings: Settings) -> None:
-    # by default, no worker is running to consume tasks during tests,
-    # so we set celery to run synchronously and propagate errors to the test runner
-    settings.CELERY_TASK_ALWAYS_EAGER = True
-    settings.CELERY_TASK_EAGER_PROPAGATES = True
-
-
-@pytest.fixture(autouse=True)
 def clear_leaked_messages(request: SubRequest) -> Generator[None]:
     """
     Discard unread messages from the shared client after every test.
