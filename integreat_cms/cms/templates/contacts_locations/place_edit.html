@@ -61,6 +61,20 @@
         <div class="col-span-3 min-w-0 max-[1100px]:col-span-1">
             <h2 class="text-2xl leading-normal">Kontakte, die an diesem Ort angezeigt werden</h2>
             <ul class="mt-3 overflow-hidden rounded-[20px] bg-white shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+                {# Column header: same grid as the rows, lighter text, empty last column instead of the unlink button #}
+                {% if fake_place_contacts %}
+                    <li class="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-center gap-4 border-b border-gray-200 px-7 py-3 text-sm font-semibold text-black/50">
+                        <span>Name</span>
+                        <span>Rolle</span>
+                        <span>E-Mail-Adresse</span>
+                        {# Invisible copy of the button keeps the columns aligned with the rows #}
+                        <span aria-hidden="true"
+                              class="invisible flex items-center gap-1 whitespace-nowrap text-base font-normal">
+                            <i icon-name="unlink" class="size-4"></i>
+                            Verknüpfung entfernen
+                        </span>
+                    </li>
+                {% endif %}
                 {% for contact in fake_place_contacts %}
                     {# "Verknüpfung entfernen" removes the link in the session data and reloads this tab #}
                     <li class="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-center gap-4 border-b border-gray-200 px-7 py-5">
