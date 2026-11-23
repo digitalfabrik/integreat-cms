@@ -2,6 +2,7 @@
 {# Usage: {% include "contacts_locations/_overlay.html" with overlay_id="..." title="..." body_template="..." footer_template="..." %} #}
 {# The header stays fixed, body and footer scroll. Below 680px the overlay is shown fullscreen. #}
 {# Optional: overlay_class adds classes to the dialog, e.g. a fixed height #}
+{# Optional: form_action wraps body and footer in a POST form, the submit buttons send name="action" #}
 <dialog id="{{ overlay_id }}"
         data-overlay
         aria-labelledby="{{ overlay_id }}-title"
@@ -20,6 +21,10 @@
         </button>
     </div>
     <div class="min-h-0 flex-1 overflow-y-auto px-9 py-9 max-[680px]:px-5 max-[680px]:py-[34px]">
+        {% if form_action %}
+            <form method="post" action="{{ form_action }}">
+                {% csrf_token %}
+            {% endif %}
         {% if body_template %}
             {% include body_template %}
         {% else %}
@@ -34,5 +39,6 @@
                 <button type="button" data-overlay-close class="btn">Speichern</button>
             {% endif %}
         </div>
+        {% if form_action %}</form>{% endif %}
     </div>
 </dialog>

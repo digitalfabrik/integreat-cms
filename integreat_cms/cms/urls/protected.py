@@ -36,6 +36,7 @@ from ..views import (
     bulk_action_views,
     chat,
     contacts,
+    contacts_locations_prototype,
     dashboard,
     delete_views,
     events,
@@ -240,20 +241,6 @@ page_order_table_urlpatterns: list[URLPattern] = [
 ]
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
-# PROTOTYPE: fake places, used by the contacts & locations list and the contact edit page
-FAKE_PLACES = [
-    {"title": "#dreizehn", "categories": ["Treffpunkt", "Kultur"], "contacts": ["Albus Percival Wulfric Brian Dumbledore", "Bruno Bohne", "Vinsmoke Sanji"], "street": "Von-Parseval-Straße 20a", "city": "86159 Augsburg", "translations": "mmmccmmmxmccmmcccccmmmm", "published": True},
-    {"title": "Abendrealschule für Berufstätige", "categories": ["Bildung"], "contacts": ["Paula Pünktlich", "Karl Kümmerer", "Frieda Fleißig", "Otto Ordnung", "Lotte Lustig", "Gustav Gründlich", "Hanna Hilfreich", "Theo Tatkraft"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "cccccxcxcccxccccccccccc", "published": False},
-    {"title": "Agentur für Arbeit Augsburg", "categories": ["Behörde/Amt"], "contacts": ["Rosi Ruhig", "Mia Mutig", "Erwin Ehrlich", "Wilma Wachsam", "Fritz Freundlich", "Berta Besonnen", "Kurt Klug", "Nina Neugier", "Paul Pfiffig", "Ida Ideenreich", "Sven Sorgfalt", "Greta Geduld"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "cxccccmmmcxccccccccccmm", "published": True},
-    {"title": "Altes Stadtbad", "categories": ["Freizeit"], "contacts": [], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mmmmmccmmmmmmmccxccccmm", "published": False},
-    {"title": "Konzerthalle", "categories": ["Gesundheit"], "contacts": ["Lena Lebhaft"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mcccccmmmmmmmmmmmmmcccc", "published": True},
-    {"title": "Amt für Kinder, Jugend und Familie", "categories": ["Behörde/Amt"], "contacts": ["Edeltraud Einfühlsam", "Udo Umsicht", "Paula Pünktlich", "Mia Mutig", "Karl Kümmerer", "Frieda Fleißig", "Theo Tatkraft", "Wilma Wachsam", "Kurt Klug", "Greta Geduld", "Rosi Ruhig", "Erwin Ehrlich"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mmxcccccccccccccccccccc", "published": True},
-    {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": ["Harald Haudegen", "Hanna Hilfreich", "Otto Ordnung", "Berta Besonnen", "Nina Neugier"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "ccccccccccccccccccxcccm", "published": True},
-    {"title": "Amt für Soziale Leistungen, Senioren und Menschen mit Behinderung", "categories": ["Behörde/Amt", "Sonstiges"], "contacts": ["Gustav Gründlich", "Ida Ideenreich", "Sven Sorgfalt"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "cccccxmccccccccxccmmmmx", "published": True},
-    {"title": "Arbeiter-Samariter-Bund", "categories": ["Einrichtung"], "contacts": [], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mmmxmmxmxcmmmmmmmmmmmmm", "published": False},
-    {"title": "Amt für Kindertagesbetreuung", "categories": ["Behörde/Amt"], "contacts": ["Harald Haudegen"], "street": "Auf dem Kreuz 36", "city": "86152 Augsburg", "translations": "mcccccxccccccmccccccccc", "published": True},
-]
-
 urlpatterns: list[URLPattern] = [
     path(
         "admin-dashboard/",
@@ -1495,86 +1482,56 @@ urlpatterns: list[URLPattern] = [
                         ],
                     ),
                 ),
-                # PROTOTYPE: new combined "Kontakte & Orte" page
+                # PROTOTYPE: new combined "Orte & Kontakte" page, fake data lives in the session, see views/contacts_locations_prototype.py
                 path(
                     "contacts-locations/",
-                    TemplateView.as_view(
-                        template_name="contacts_locations/contacts_locations.html",
-                        extra_context={
-                            "current_menu_item": "contacts_locations",
-                            "tabs": [("orte", "Orte"), ("kontakte", "Kontakte")],
-                            # Fake data for the user test
-                            "fake_place_categories": ["Behörde/Amt", "Bildung", "Einrichtung", "Freizeit", "Gesundheit", "Kultur", "Treffpunkt", "Sonstiges"],
-                            # Target languages of the translation view, "translations" of a place has one status per language: c = aktuell, m = maschinell, x = fehlt
-                            "fake_languages": ["AR", "BG", "CS", "DA", "EL", "EN", "ES", "FA", "FI", "FR", "HI", "HR", "HU", "ID", "IT", "KA", "KO", "KMR", "LT", "NL", "PL", "PT", "RO"],
-                            "fake_places": FAKE_PLACES,
-                            # Fake contacts: places and pages are only titles, empty lists show a dash
-                            "fake_contacts": [
-                                {"name": "Albus Percival Wulfric Brian Dumbledore", "role": "Schulleiter", "places": ["#dreizehn"], "pages": ["Schulen in Augsburg"]},
-                                {"name": "Edeltraud Einfühlsam", "role": "Integrationsbeauftragte", "places": ["Amt für Kinder, Jugend und Familie"], "pages": ["Beratung für Familien"]},
-                                {"name": "Inga Integration", "role": "", "places": [], "pages": ["Integrationskurse"]},
-                                {"name": "Harald Haudegen", "role": "Schulleiter", "places": ["Amt für Kindertagesbetreuung"], "pages": []},
-                                {"name": "Bruno Bohne", "role": "Barista", "places": ["#dreizehn", "Kresslesmühle"], "pages": ["Treffpunkte und Cafés", "Ehrenamt in Augsburg"]},
-                                {"name": "Vinsmoke Sanji", "role": "Koch", "places": ["#dreizehn"], "pages": []},
-                            ],
-                        },
-                    ),
+                    contacts_locations_prototype.overview,
                     name="contacts_locations",
                 ),
-                # PROTOTYPE: new edit concept, always shows the same fake place
                 path(
-                    "contacts-locations/place/edit/",
-                    TemplateView.as_view(
-                        template_name="contacts_locations/place_edit.html",
-                        extra_context={
-                            "current_menu_item": "contacts_locations",
-                            "edit_tabs": [
-                                ("texte", "Texte & Übersetzungen"),
-                                ("infos", "Orts-Infos & Einstellungen"),
-                                ("verknuepfungen", "Verknüpfungen"),
-                            ],
-                            "fake_place_categories": ["Behörde/Amt", "Bildung", "Einrichtung", "Freizeit", "Gesundheit", "Kultur", "Treffpunkt", "Sonstiges"],
-                            # Fake opening hours: (day, value, missing)
-                            "fake_opening_hours": [
-                                ("Montag", "geschlossen", False),
-                                ("Dienstag", "keine Angabe", True),
-                                ("Mittwoch", "keine Angabe", True),
-                                ("Donnerstag", "keine Angabe", True),
-                                ("Freitag", "18:00 - 24:00", False),
-                                ("Samstag", "18:00 - 24:00", False),
-                                ("Sonntag", "18:00 - 23:00", False),
-                            ],
-                            # Fake contacts of the place on the "Verknüpfungen" tab: (name, role, email)
-                            "fake_place_contacts": [
-                                ("Bruno Bohne", "Barista", "sina@email.de"),
-                                ("Albus Percival Wulfric Dumbledore", "Schulleiter", "albus@hogwarts.de"),
-                            ],
-                            # Fake translation states: "done", "machine" or "missing"
-                            "fake_translations": [
-                                ("AR", "done"), ("BG", "done"), ("CS", "done"), ("DA", "done"), ("EL", "done"), ("EN", "done"),
-                                ("ES", "machine"), ("FA", "machine"), ("FI", "machine"), ("FR", "machine"), ("HI", "machine"), ("HR", "machine"), ("HU", "machine"),
-                                ("ID", "done"), ("IT", "done"), ("KA", "done"), ("KO", "done"), ("KMR", "done"), ("LT", "done"), ("NL", "done"), ("PL", "done"), ("PT", "done"),
-                                ("RO", "missing"),
-                            ],
-                        },
-                    ),
+                    "contacts-locations/reset/",
+                    contacts_locations_prototype.reset,
+                    name="contacts_locations_reset",
+                ),
+                path(
+                    "contacts-locations/place/new/",
+                    contacts_locations_prototype.new_place,
+                    name="contacts_locations_new_place",
+                ),
+                path(
+                    "contacts-locations/contact/new/",
+                    contacts_locations_prototype.new_contact,
+                    name="contacts_locations_new_contact",
+                ),
+                path(
+                    "contacts-locations/place/<int:place_id>/edit/",
+                    contacts_locations_prototype.place_edit,
                     name="contacts_locations_place_edit",
                 ),
-                # PROTOTYPE: new edit concept for contacts, always shows the same fake contact
                 path(
-                    "contacts-locations/contact/edit/",
-                    TemplateView.as_view(
-                        template_name="contacts_locations/contact_edit.html",
-                        extra_context={
-                            "current_menu_item": "contacts_locations",
-                            "edit_tabs": [
-                                ("infos", "Kontakt-Informationen"),
-                                ("verknuepfungen", "Verknüpfungen"),
-                            ],
-                            "fake_places": FAKE_PLACES,
-                        },
-                    ),
+                    "contacts-locations/place/<int:place_id>/categories/",
+                    contacts_locations_prototype.place_categories,
+                    name="contacts_locations_place_categories",
+                ),
+                path(
+                    "contacts-locations/place/<int:place_id>/unlink/",
+                    contacts_locations_prototype.place_unlink,
+                    name="contacts_locations_place_unlink",
+                ),
+                path(
+                    "contacts-locations/place/<int:place_id>/link/",
+                    contacts_locations_prototype.place_link,
+                    name="contacts_locations_place_link",
+                ),
+                path(
+                    "contacts-locations/contact/<int:contact_id>/edit/",
+                    contacts_locations_prototype.contact_edit,
                     name="contacts_locations_contact_edit",
+                ),
+                path(
+                    "contacts-locations/contact/<int:contact_id>/save/",
+                    contacts_locations_prototype.contact_save,
+                    name="contacts_locations_contact_save",
                 ),
                 # PROTOTYPE: variant 2 for another user group, same as above but with the old language tabs and editor box
                 path(
@@ -1588,7 +1545,7 @@ urlpatterns: list[URLPattern] = [
                                 ("infos", "Orts-Infos & Einstellungen"),
                                 ("verknuepfungen", "Verknüpfungen"),
                             ],
-                            "fake_place_categories": ["Behörde/Amt", "Bildung", "Einrichtung", "Freizeit", "Gesundheit", "Kultur", "Treffpunkt", "Sonstiges"],
+                            "fake_place_categories": ["Behörde/Amt", "Beratung", "Bildung", "Dienstleistung", "Einkaufen", "Einrichtung", "Freizeit", "Gastronomie", "Gesundheit", "Kultur", "Mobilität", "Multimedia", "Sonstiges", "Treffpunkt"],
                             # Fake contacts of the place on the "Verknüpfungen" tab: (name, role, email)
                             "fake_place_contacts": [
                                 ("Bruno Bohne", "Barista", "sina@email.de"),

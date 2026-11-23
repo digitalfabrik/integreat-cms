@@ -1,8 +1,7 @@
 {# PROTOTYPE: actions cell of a fake place row, shared by the normal and the translation view #}
     <td class="py-2 pr-4 align-middle">
         <div class="flex justify-end gap-1">
-            {# Every row opens the same fake edit page #}
-            <a href="{% url 'contacts_locations_place_edit' region_slug=request.region.slug %}"
+            <a href="{% url 'contacts_locations_place_edit' region_slug=request.region.slug place_id=place.id %}"
                class="flex h-[38px] items-center gap-2 rounded bg-blue-100 px-3 py-2 font-bold text-gray-700 hover:bg-blue-200">
                 <i icon-name="pencil"></i>
                 Bearbeiten

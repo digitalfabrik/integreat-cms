@@ -14,6 +14,12 @@ document.addEventListener("click", ({ target }) => {
         element.closest<HTMLDialogElement>("dialog[data-overlay]")?.close();
         return;
     }
+    // "Anwenden" in the category multiselect: just close the dropdown, the checkboxes are already set
+    const detailsCloser = element.closest("[data-details-close]");
+    if (detailsCloser) {
+        detailsCloser.closest("details")?.removeAttribute("open");
+        return;
+    }
     // "Verknüpfung entfernen" on the place edit page: hide the row, it is back after a reload
     const remover = element.closest("[data-remove-row]");
     if (remover) {
@@ -27,6 +33,7 @@ document.addEventListener("click", ({ target }) => {
         const value = picker.querySelector("[data-place-picker-value]");
         value.textContent = option.querySelector("span").textContent;
         value.classList.remove("opacity-60");
+        picker.querySelector<HTMLInputElement>("[data-place-picker-input]").value = option.getAttribute("data-place-id");
         picker.open = false;
     }
 });
@@ -60,3 +67,10 @@ document.addEventListener(
     // The toggle event does not bubble, so listen in the capture phase
     true
 );
+
+// Browser back may show a cached copy of a prototype page without the new place/contact, so reload it then
+window.addEventListener("pageshow", (event) => {
+    if (event.persisted && window.location.pathname.includes("/contacts-locations/")) {
+        window.location.reload();
+    }
+});

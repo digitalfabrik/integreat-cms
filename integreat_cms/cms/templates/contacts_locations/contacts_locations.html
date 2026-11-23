@@ -3,8 +3,10 @@
     <div class="table-header">
         <h1 class="heading">Orte & Kontakte</h1>
     </div>
-    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-place" title="Neuen Ort-Entwurf erstellen" body_template="contacts_locations/_overlay_new_place_body.html" footer_template="contacts_locations/_overlay_new_place_footer.html" %}
-    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-contact" title="Neuen Kontakt erstellen" overlay_class="h-[min(750px,calc(100vh-4rem))]" body_template="contacts_locations/_overlay_new_contact_body.html" footer_template="contacts_locations/_overlay_new_contact_footer.html" %}
+    {% url 'contacts_locations_new_place' region_slug=request.region.slug as new_place_url %}
+    {% url 'contacts_locations_new_contact' region_slug=request.region.slug as new_contact_url %}
+    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-place" title="Neuen Ort-Entwurf erstellen" form_action=new_place_url body_template="contacts_locations/_overlay_new_place_body.html" footer_template="contacts_locations/_overlay_new_place_footer.html" %}
+    {% include "contacts_locations/_overlay.html" with overlay_id="overlay-new-contact" title="Neuen Kontakt erstellen" form_action=new_contact_url overlay_class="h-[min(750px,calc(100vh-4rem))]" body_template="contacts_locations/_overlay_new_contact_body.html" footer_template="contacts_locations/_overlay_new_contact_footer.html" %}
     {% with active_tab=request.GET.tab|default:"orte" %}
         {# Three columns so the toggle sits centered between the tabs and the button #}
         <div class="grid grid-cols-[1fr_auto_1fr] items-end gap-4">

@@ -1,15 +1,18 @@
-{# PROTOTYPE: same buttons as _overlay_new_place_footer.html, nothing is saved #}
-{# "Speichern & Bearbeiten" opens the fake contact edit page, which always shows the same contact #}
+{# PROTOTYPE: same buttons as _overlay_new_place_footer.html, the contact is stored in the session #}
+{# "Speichern & Schließen" goes back to the contact list, "Speichern & Bearbeiten" opens the edit page of the new contact #}
 <button type="button"
         data-overlay-close
         class="btn btn-ghost whitespace-nowrap max-[680px]:order-2">Abbrechen</button>
 <div class="flex gap-2 max-[680px]:flex-col">
-    <button type="button"
-            data-overlay-close
+    <button type="submit"
+            name="action"
+            value="close"
             class="btn btn-ghost whitespace-nowrap">Speichern & Schließen</button>
-    <a href="{% url 'contacts_locations_contact_edit' region_slug=request.region.slug %}"
-       class="btn inline-flex items-center justify-center gap-2 whitespace-nowrap">
+    <button type="submit"
+            name="action"
+            value="edit"
+            class="btn inline-flex items-center justify-center gap-2 whitespace-nowrap">
         Speichern & Bearbeiten
         <i icon-name="arrow-right" class="size-5 !pr-0"></i>
-    </a>
+    </button>
 </div>

@@ -1,5 +1,5 @@
 {% load static %}
-{# PROTOTYPE: content of the "Orts-Infos & Einstellungen" tab, 3 columns with stacked cards, nothing is saved #}
+{# PROTOTYPE: content of the "Orts-Infos & Einstellungen" tab, 3 columns with stacked cards, only the categories are saved ("Anwenden") #}
 {# Each column is one grid cell of the edit layout, headings sit above the cards #}
 {# Column 1: address and map #}
 <div class="flex min-w-0 flex-col gap-8">
@@ -11,15 +11,15 @@
         <div class="rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
             <div class="grid grid-cols-[134px_minmax(0,1fr)] gap-4">
                 <input type="text"
-                       value="Neusässer Straße 35"
+                       value="{{ place.street }}"
                        aria-label="Straße und Hausnummer"
                        class="col-span-2 h-[46px] px-3 py-2">
                 <input type="text"
-                       value="86156"
+                       value="{{ place.zip }}"
                        aria-label="Postleitzahl"
                        class="h-[46px] px-3 py-2">
                 <input type="text"
-                       value="Augsburg"
+                       value="{{ place.town }}"
                        aria-label="Ort"
                        class="h-[46px] px-3 py-2">
                 <select aria-label="Land" class="col-span-2 h-[46px] px-3 py-2">
@@ -43,7 +43,7 @@
             {# Static map screenshot from the Figma export with a fake marker #}
             <div class="relative h-36 overflow-hidden">
                 <img src="{% static 'images/prototype/map-konzerthalle.png' %}"
-                     alt="Karte mit der Position der Konzerthalle"
+                     alt="Karte mit der Position des Orts"
                      class="size-full object-cover">
                 <i icon-name="map-pin"
                    class="absolute left-1/2 top-1/2 size-[53px] -translate-x-1/2 -translate-y-full fill-red-500 text-white"></i>
@@ -99,7 +99,21 @@
             <span class="italic text-red-500"><strong>* </strong>Pflichtfeld</span>
         </div>
         {# Same multiselect without JS as in the "Neuen Ort erstellen" overlay #}
-        <div class="rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
+        {# "Anwenden" submits the ticked categories and reloads this tab #}
+        <form method="post"
+              action="{% url 'contacts_locations_place_categories' region_slug=request.region.slug place_id=place.id %}"
+              class="rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]"
+              id="edit-place-categories">
+            {% csrf_token %}
+            {# Checkbox look in the dropdown, driven by the hidden chip checkboxes via :has() #}
+            <style>
+                .cat-box { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 20px; height: 20px; border: 2px solid #9ca3af; border-radius: 4px; background: #fff; color: #fff; }
+                .cat-box > * { width: 14px; height: 14px; visibility: hidden; }
+                {% for category in fake_place_categories %}
+                #edit-place-categories:has(#edit-place-category-{{ forloop.counter }}:checked) label[for="edit-place-category-{{ forloop.counter }}"] .cat-box { background: #2563eb; border-color: #2563eb; }
+                #edit-place-categories:has(#edit-place-category-{{ forloop.counter }}:checked) label[for="edit-place-category-{{ forloop.counter }}"] .cat-box > * { visibility: visible; }
+                {% endfor %}
+            </style>
             <details class="group relative">
                 <summary class="flex h-[46px] cursor-pointer list-none items-center justify-between rounded border-2 border-gray-200 bg-gray-200 px-3 py-2 text-xl leading-[1.4] [&::-webkit-details-marker]:hidden">
                     <span class="opacity-60">auswählen</span>
@@ -108,10 +122,14 @@
                 <div class="absolute z-10 mt-1 flex w-full flex-col rounded border-2 border-blue-200 bg-white py-2 shadow-[2px_6px_10px_rgba(51,65,85,0.5)]">
                     {% for category in fake_place_categories %}
                         <label for="edit-place-category-{{ forloop.counter }}"
-                               class="my-0 cursor-pointer px-4 py-2 text-base font-bold text-gray-700 hover:bg-blue-100">
+                               class="my-0 flex cursor-pointer items-center gap-3 px-4 py-2 text-base font-bold text-gray-700 hover:bg-blue-100">
+                            <span class="cat-box"><i icon-name="check"></i></span>
                             {{ category }}
                         </label>
                     {% endfor %}
+                    <div class="mt-2 flex justify-end border-t border-gray-200 px-4 pt-3">
+                        <button type="submit" class="btn">Anwenden</button>
+                    </div>
                 </div>
             </details>
             <div class="mt-3 flex flex-wrap items-center gap-2">
@@ -120,11 +138,13 @@
                     <span class="contents">
                         <input id="edit-place-category-{{ forloop.counter }}"
                                type="checkbox"
-                               {% if category == "Bildung" or category == "Treffpunkt" %}checked{% endif %}
+                               name="categories"
+                               value="{{ category }}"
+                               {% if category in place.categories %}checked{% endif %}
                                class="peer/category sr-only">
                         <label for="edit-place-category-{{ forloop.counter }}"
                                title="{{ category }} entfernen"
-                               class="relative my-0 hidden h-6 cursor-pointer rounded-[15px] bg-blue-200 py-1 pl-2 pr-7 text-xs font-bold leading-[1.4] text-black peer-checked/category:inline-block">
+                               class="relative my-0 !hidden h-6 cursor-pointer rounded-[15px] bg-blue-200 py-1 pl-2 pr-7 text-xs font-bold leading-[1.4] text-black peer-checked/category:!inline-block">
                             {{ category }}
                             <span class="absolute right-0 top-0 flex size-6 items-center justify-center">
                                 <span class="flex size-4 items-center justify-center rounded-full bg-gray-700 text-white">
@@ -135,7 +155,7 @@
                     </span>
                 {% endfor %}
             </div>
-        </div>
+        </form>
     </section>
     <section>
         <div class="flex min-h-11 items-baseline gap-3.5">
@@ -144,11 +164,11 @@
         </div>
         <div class="flex flex-col gap-2 rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
             <input type="tel"
-                   value="0821 1256987"
+                   {% if place.new %}placeholder="Telefonnummer"{% else %}value="0821 000{{ place.id|stringformat:'02d' }}{{ place.id|stringformat:'02d' }}"{% endif %}
                    aria-label="Telefonnummer"
                    class="h-[46px] px-3 py-2">
             <input type="email"
-                   value="konzerthalle@augsburg.de"
+                   {% if place.new %}placeholder="E-Mail-Adresse"{% else %}value="info@{{ place.title|slugify }}.augsburg.example"{% endif %}
                    aria-label="E-Mail-Adresse"
                    class="h-[46px] px-3 py-2">
             <input type="url"

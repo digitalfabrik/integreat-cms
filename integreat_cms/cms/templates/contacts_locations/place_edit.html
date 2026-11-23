@@ -1,6 +1,7 @@
 {% extends "_edit_layout.html" %}
 {% load render_bundle from webpack_loader %}
-{# PROTOTYPE: edit page of a place in the new edit concept, always shows the fake "Konzerthalle", nothing is saved #}
+{# PROTOTYPE: edit page of a place in the new edit concept, shows the place from the session data (see views/contacts_locations_prototype.py) #}
+{# Only categories ("Anwenden") and "Verknüpfung entfernen" are saved, everything else is inert #}
 {# The editor bundle turns the .tinymce_textarea into TinyMCE, like in places/place_form.html #}
 {% block javascript %}
     {% render_bundle 'editor' 'js' %}
@@ -10,10 +11,10 @@
        class="text-blue-500 hover:text-blue-700">← zurück zur Liste</a>
 {% endblock edit_back_link %}
 {% block edit_title %}
-    Ort “Konzerthalle” bearbeiten
+    Ort “{{ place.title }}” bearbeiten
 {% endblock edit_title %}
 {% block edit_header_actions %}
-    <a href="{% url 'contacts_locations' region_slug=request.region.slug %}"
+    <a href="{% url 'contacts_locations' region_slug=request.region.slug %}?tab=orte"
        class="btn btn-ghost">Abbrechen</a>
     {# Reuses the row actions dropdown script, the status options are inert #}
     <div data-row-actions class="relative">
@@ -22,7 +23,7 @@
                 aria-haspopup="menu"
                 aria-expanded="false"
                 class="flex h-[46px] items-center gap-2 rounded border-2 border-blue-500 bg-white px-3">
-            <span>Status: <strong>Veröffentlicht</strong></span>
+            <span>Status: <strong>{% if place.published %}Veröffentlicht{% else %}Entwurf{% endif %}</strong></span>
             <i icon-name="chevron-down" class="size-6 text-gray-700"></i>
         </button>
         <div data-row-actions-menu
@@ -48,7 +49,7 @@
             </button>
         </div>
     </div>
-    <a href="{% url 'contacts_locations' region_slug=request.region.slug %}"
+    <a href="{% url 'contacts_locations' region_slug=request.region.slug %}?tab=orte"
        class="btn">Speichern</a>
 {% endblock edit_header_actions %}
 {% block edit_grid %}
@@ -56,28 +57,34 @@
         {# 3 equal columns with stacked cards #}
         {% include "contacts_locations/_place_edit_infos.html" %}
     {% elif active_tab == "verknuepfungen" %}
-        {# One full width card with the fake contacts of this place #}
+        {# One full width card with the contacts linked to this place #}
         <div class="col-span-3 min-w-0 max-[1100px]:col-span-1">
             <h2 class="text-2xl leading-normal">Kontakte, die an diesem Ort angezeigt werden</h2>
             <ul class="mt-3 overflow-hidden rounded-[20px] bg-white shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
-                {% for name, role, email in fake_place_contacts %}
-                    {# "Verknüpfung entfernen" only hides the row until reload, see overlay.ts #}
-                    <li data-removable-row
-                        class="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-center gap-4 border-b border-gray-200 px-7 py-5">
-                        <strong class="truncate">{{ name }}</strong>
-                        <span class="truncate">{{ role }}</span>
-                        <span class="truncate">{{ email }}</span>
-                        <button type="button"
-                                data-remove-row
-                                class="flex items-center gap-1 whitespace-nowrap text-blue-500 hover:text-blue-700">
-                            <i icon-name="unlink" class="size-4"></i>
-                            Verknüpfung entfernen
-                        </button>
+                {% for contact in fake_place_contacts %}
+                    {# "Verknüpfung entfernen" removes the link in the session data and reloads this tab #}
+                    <li class="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-center gap-4 border-b border-gray-200 px-7 py-5">
+                        <strong class="truncate">{{ contact.name }}</strong>
+                        <span class="truncate">{{ contact.role|default:"—" }}</span>
+                        <span class="truncate">{{ contact.email|default:"—" }}</span>
+                        <form method="post"
+                              action="{% url 'contacts_locations_place_unlink' region_slug=request.region.slug place_id=place.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="contact_id" value="{{ contact.id }}">
+                            <button type="submit"
+                                    class="flex items-center gap-1 whitespace-nowrap text-blue-500 hover:text-blue-700">
+                                <i icon-name="unlink" class="size-4"></i>
+                                Verknüpfung entfernen
+                            </button>
+                        </form>
                     </li>
+                {% empty %}
+                    <li class="border-b border-gray-200 px-7 py-5 italic text-black/60">Mit diesem Ort sind keine Kontakte verknüpft.</li>
                 {% endfor %}
                 <li class="px-7 py-5">
-                    {# Inert for now #}
+                    {# Opens the overlay below, picking a contact there links it to this place #}
                     <button type="button"
+                            data-overlay-open="overlay-link-contact"
                             class="flex items-center gap-2 font-bold text-blue-500 hover:text-blue-700">
                         <i icon-name="plus" class="size-5"></i>
                         Verknüpfung hinzufügen
@@ -85,6 +92,11 @@
                 </li>
             </ul>
         </div>
+        {# The variant 2 page (place_edit_alt.html) has no session place, so the overlay only exists here #}
+        {% if place.id %}
+            {% url 'contacts_locations_place_link' region_slug=request.region.slug place_id=place.id as link_contact_url %}
+            {% include "contacts_locations/_overlay.html" with overlay_id="overlay-link-contact" title="Kontakt verknüpfen" form_action=link_contact_url body_template="contacts_locations/_overlay_link_contact_body.html" footer_template="contacts_locations/_overlay_link_contact_footer.html" %}
+        {% endif %}
     {% else %}
         {{ block.super }}
     {% endif %}
@@ -127,7 +139,7 @@
                     <span class="text-red-500"><strong class="italic">* </strong><em>Pflichtfeld</em></span>
                 </div>
                 <input type="text"
-                       value="Konzerthalle"
+                       value="{{ place.title }}"
                        aria-label="Titel des Orts"
                        class="mt-2 h-[46px] px-3">
             </div>
@@ -138,14 +150,14 @@
                 </div>
                 {# TinyMCE takes the height of the textarea, so force a minimum height on the editor box #}
                 <div class="mt-2 [&_.tox-tinymce]:min-h-[400px]">
-                    <textarea class="tinymce_textarea" aria-label="Beschreibung"><p>Die Konzerthalle ist ein Veranstaltungsort für Konzerte, Theater und Lesungen. Der Eingang ist barrierefrei.</p><p>Öffnungszeiten: Montag bis Freitag, 10 bis 18 Uhr.</p></textarea>
+                    <textarea class="tinymce_textarea" aria-label="Beschreibung">{% if not place.new %}<p>{{ place.title }} ist eine Anlaufstelle in Augsburg. Der Eingang ist barrierefrei.</p><p>Bitte vereinbaren Sie vorab einen Termin.</p>{% endif %}</textarea>
                 </div>
             </div>
             <div class="mt-4">
                 <h2 class="text-lg font-bold leading-[1.4]">Weitere Infos</h2>
                 <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
                     <span>Link zum Ort:</span>
-                    <a href="#" class="break-all text-blue-500 underline">https://integreat.app/augsburg/de/locations/konzerthalle</a>
+                    <a href="#" class="break-all text-blue-500 underline">https://integreat.app/augsburg/de/locations/{{ place.title|slugify }}</a>
                     <button type="button" class="inline-flex items-center gap-1 text-blue-500">
                         <i icon-name="pencil" class="size-4"></i>
                         bearbeiten
@@ -153,7 +165,7 @@
                 </div>
                 <div class="mt-2 flex items-center gap-4">
                     <span>Version des Orts:</span>
-                    <strong class="text-gray-700">2</strong>
+                    <strong class="text-gray-700">{% if place.new %}1{% else %}2{% endif %}</strong>
                     <button type="button" class="inline-flex items-center gap-1 text-blue-500">
                         <i icon-name="pencil" class="size-4"></i>
                         Versionen anzeigen
@@ -161,7 +173,7 @@
                 </div>
                 <div class="mt-2 flex items-center gap-3">
                     <span>Zuletzt gespeichert:</span>
-                    <strong class="text-gray-700">26.2.2026</strong>
+                    <strong class="text-gray-700">{% if place.new %}{% now "j.n.Y" %}{% else %}26.10.2026{% endif %}</strong>
                 </div>
             </div>
             {% include "_tinymce_config.html" with language=request.region.default_language %}

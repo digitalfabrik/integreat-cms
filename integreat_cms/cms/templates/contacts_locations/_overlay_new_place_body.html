@@ -1,4 +1,4 @@
-{# PROTOTYPE: form of the "Neuen Ort erstellen" overlay, nothing is saved #}
+{# PROTOTYPE: form of the "Neuen Ort erstellen" overlay, posted to views/contacts_locations_prototype.new_place #}
 <div class="flex flex-col gap-9 max-[680px]:gap-[34px]">
     <div class="flex flex-col gap-3">
         <div id="new-place-title-label"
@@ -8,8 +8,10 @@
         </div>
         <input id="new-place-title"
                type="text"
+               name="title"
+               required
                aria-labelledby="new-place-title-label"
-               placeholder="..."
+               placeholder="Titel"
                class="h-12 px-3 py-2">
     </div>
     <div role="group"
@@ -22,14 +24,20 @@
         </div>
         <div class="grid grid-cols-2 gap-4 max-[680px]:grid-cols-1 max-[680px]:gap-2.5">
             <input type="text"
+                   name="street"
+                   required
                    aria-label="Straße und Hausnummer"
                    placeholder="Straße und Hausnummer"
                    class="col-span-2 h-12 px-3 py-2 max-[680px]:col-span-1">
             <input type="text"
+                   name="zip"
+                   required
                    aria-label="Postleitzahl"
                    placeholder="Postleitzahl"
                    class="h-12 px-3 py-2">
             <input type="text"
+                   name="town"
+                   required
                    aria-label="Ort"
                    placeholder="Ort"
                    class="h-12 px-3 py-2">
@@ -46,7 +54,16 @@
         </label>
     </div>
     {# Multiselect without JS: the dropdown entries are labels for the hidden checkboxes next to the chips #}
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col gap-3" id="new-place-categories">
+        {# Checkbox look in the dropdown, driven by the hidden chip checkboxes via :has() #}
+        <style>
+            .cat-box { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 20px; height: 20px; border: 2px solid #9ca3af; border-radius: 4px; background: #fff; color: #fff; }
+            .cat-box > * { width: 14px; height: 14px; visibility: hidden; }
+            {% for category in fake_place_categories %}
+            #new-place-categories:has(#new-place-category-{{ forloop.counter }}:checked) label[for="new-place-category-{{ forloop.counter }}"] .cat-box { background: #2563eb; border-color: #2563eb; }
+            #new-place-categories:has(#new-place-category-{{ forloop.counter }}:checked) label[for="new-place-category-{{ forloop.counter }}"] .cat-box > * { visibility: visible; }
+            {% endfor %}
+        </style>
         <div class="flex min-h-9 items-center gap-[18px] max-[680px]:flex-wrap max-[680px]:gap-2">
             <span class="text-2xl leading-normal">Kategorie(n) des Orts</span>
             <span class="whitespace-nowrap text-base italic text-red-500"><strong>* </strong>Pflichtfeld</span>
@@ -59,10 +76,14 @@
             <div class="absolute z-10 mt-1 flex w-full flex-col rounded border-2 border-blue-200 bg-white py-2 shadow-[2px_6px_10px_rgba(51,65,85,0.5)]">
                 {% for category in fake_place_categories %}
                     <label for="new-place-category-{{ forloop.counter }}"
-                           class="cursor-pointer px-4 py-2 font-bold text-gray-700 hover:bg-blue-100">
+                           class="flex cursor-pointer items-center gap-3 px-4 py-2 font-bold text-gray-700 hover:bg-blue-100">
+                        <span class="cat-box"><i icon-name="check"></i></span>
                         {{ category }}
                     </label>
                 {% endfor %}
+                <div class="mt-2 flex justify-end border-t border-gray-200 px-4 pt-3">
+                    <button type="button" data-details-close class="btn">Anwenden</button>
+                </div>
             </div>
         </details>
         <div class="flex flex-wrap items-center gap-2">
@@ -71,10 +92,12 @@
                 <span class="contents">
                     <input id="new-place-category-{{ forloop.counter }}"
                            type="checkbox"
+                           name="categories"
+                           value="{{ category }}"
                            class="peer/category sr-only">
                     <label for="new-place-category-{{ forloop.counter }}"
                            title="{{ category }} entfernen"
-                           class="relative hidden h-6 cursor-pointer rounded-[15px] bg-blue-200 py-1 pl-2 pr-7 text-xs font-bold leading-[1.4] peer-checked/category:inline-block">
+                           class="relative !hidden h-6 cursor-pointer rounded-[15px] bg-blue-200 py-1 pl-2 pr-7 text-xs font-bold leading-[1.4] peer-checked/category:!inline-block">
                         {{ category }}
                         <span class="absolute right-0 top-0 flex size-6 items-center justify-center">
                             <span class="flex size-4 items-center justify-center rounded-full bg-gray-700 text-white">

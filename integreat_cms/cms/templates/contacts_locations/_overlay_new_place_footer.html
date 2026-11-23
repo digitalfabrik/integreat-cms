@@ -1,16 +1,20 @@
-{# PROTOTYPE: nothing is saved, "Speichern & Bearbeiten" opens the fake edit page, the others only close the overlay #}
+{# PROTOTYPE: both save buttons submit the overlay form, the place is stored in the session (see views/contacts_locations_prototype.py) #}
+{# "Speichern & Schließen" goes back to the list, "Speichern & Bearbeiten" opens the edit page of the new place #}
 {# Only "Speichern & Bearbeiten" is a primary button, all others are secondary #}
 {# On small screens the buttons are stacked full width and "Abbrechen" moves to the bottom #}
 <button type="button"
         data-overlay-close
         class="btn btn-ghost whitespace-nowrap max-[680px]:order-2">Abbrechen</button>
 <div class="flex gap-2 max-[680px]:flex-col">
-    <button type="button"
-            data-overlay-close
+    <button type="submit"
+            name="action"
+            value="close"
             class="btn btn-ghost whitespace-nowrap">Speichern & Schließen</button>
-    <a href="{% url 'contacts_locations_place_edit' region_slug=request.region.slug %}"
-       class="btn inline-flex items-center justify-center gap-2 whitespace-nowrap">
+    <button type="submit"
+            name="action"
+            value="edit"
+            class="btn inline-flex items-center justify-center gap-2 whitespace-nowrap">
         Speichern & Bearbeiten
         <i icon-name="arrow-right" class="size-5 !pr-0"></i>
-    </a>
+    </button>
 </div>

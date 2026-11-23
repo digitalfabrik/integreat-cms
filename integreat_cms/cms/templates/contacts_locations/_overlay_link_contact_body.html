@@ -1,0 +1,44 @@
+{# PROTOTYPE: form of the "Verknüpfung hinzufügen" overlay on the place edit page, posted to views/contacts_locations_prototype.place_link #}
+{# Same dropdown as the place picker in _contact_location_choice.html, but with contacts. It reuses the data-place-picker hooks in overlay.ts, #}
+{# so data-place-id holds the contact id and the hidden input is sent as "contact_id" #}
+<div class="flex flex-col gap-3">
+    <div class="flex min-h-9 items-center gap-[18px] max-[680px]:flex-wrap max-[680px]:gap-2">
+        <span class="text-2xl leading-normal">Kontakt</span>
+        <span class="whitespace-nowrap text-base italic text-red-500"><strong>* </strong>Pflichtfeld</span>
+    </div>
+    <details data-place-picker class="group">
+        <summary class="flex h-12 cursor-pointer list-none items-center justify-between rounded border-2 border-gray-200 bg-gray-200 px-3 py-2 text-xl leading-[1.4] [&::-webkit-details-marker]:hidden">
+            <span data-place-picker-value class="truncate opacity-60">Kontakt auswählen</span>
+            <i icon-name="chevron-down" class="size-6 shrink-0 group-open:rotate-180"></i>
+        </summary>
+        <input type="hidden" name="contact_id" data-place-picker-input value="">
+        {# Not absolute, so the list pushes the buttons down instead of being cut off by the scrolling overlay #}
+        <div class="mt-1 flex flex-col rounded border-2 border-blue-200 bg-white shadow-[2px_6px_10px_rgba(51,65,85,0.5)]">
+            <div class="relative border-b border-gray-200 p-2">
+                <i icon-name="search"
+                   class="pointer-events-none absolute left-5 top-1/2 size-5 -translate-y-1/2 text-gray-500"></i>
+                <input type="search"
+                       data-place-picker-search
+                       aria-label="Kontakt suchen"
+                       placeholder="Kontakt suchen ..."
+                       class="h-10 w-full pl-10 pr-3">
+            </div>
+            <div role="listbox" class="flex max-h-60 flex-col overflow-y-auto py-2">
+                {% for contact in fake_link_contacts %}
+                    <button type="button"
+                            role="option"
+                            data-place-picker-option
+                            data-place-id="{{ contact.id }}"
+                            class="flex flex-col px-4 py-2 text-left hover:bg-blue-100">
+                        <span class="font-bold text-gray-700">{{ contact.name }}</span>
+                        <span class="text-sm text-black/60">{{ contact.role|default:"—" }}</span>
+                    </button>
+                {% endfor %}
+                <p data-place-picker-empty
+                   class="{% if fake_link_contacts %}hidden{% endif %} px-4 py-2 italic text-black/60">
+                    Kein Kontakt gefunden
+                </p>
+            </div>
+        </div>
+    </details>
+</div>
