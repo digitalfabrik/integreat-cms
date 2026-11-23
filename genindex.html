@@ -123,6 +123,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#all-day">All Day</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#allowed-media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#async-machine-translation">Async Machine Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#calendar-filters">Calendar Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#custom-translations">Custom Translations</a></li>
@@ -192,6 +193,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.machine_translations.html">Machine Translations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.offers.html">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.pages.html">Pages</a></li>
@@ -254,6 +256,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#link-ignore-preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#link-utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#linkcheck-utils">Linkcheck Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#machine-translation-types">Machine Translation Types</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
@@ -339,7 +342,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.signals.html">Signals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.signals.html#auth-signals">Auth Signals</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.signals.html#cache-signals">Cache Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.signals.html#contact-signals">Contact Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.signals.html#feedback-signals">Feedback Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.signals.html#hix-signals">Hix Signals</a></li>
@@ -350,6 +352,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#decorators">Decorators</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#env">Env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#machine-translation-api-client">Machine Translation API Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#machine-translation-celery-task">Machine Translation Celery Task</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#machine-translation-provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#strtobool">Strtobool</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#word-count">Word Count</a></li>
@@ -358,6 +361,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#asgi">Asgi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#authentication-backends">Authentication Backends</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#checks">Checks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#docker-settings">Docker Settings</a></li>
@@ -499,6 +503,10 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/tests.core.management.html#utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/tests.core.utils.html#test-machine-translation-celery-task">Test Machine Translation Celery Task</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.firebase_api.html">Firebase API</a><ul>
@@ -511,6 +519,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#deepl-api-test">Deepl API Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#google-translate-api-test">Google Translate API Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#mt-api-test">Mt API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#mt-apps-ready-test">Mt Apps Ready Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#mt-provider-assignment-test">Mt Provider Assignment Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#test-mt-button-visibility">Test Mt Button Visibility</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#utils">Utils</a></li>
@@ -757,6 +766,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.all_day">All Day</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.async_machine_translation">Async Machine Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.calendar_filters">Calendar Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.countries">Countries</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.custom_translations">Custom Translations</a></li>
@@ -826,6 +836,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.machine_translations.html">Machine Translations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.offers.html">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.pages.html">Pages</a></li>
@@ -889,6 +900,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_ignore_preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.machine_translation_types">Machine Translation Types</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
@@ -1002,7 +1014,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html">Signals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.auth_signals">Auth Signals</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.cache_signals">Cache Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.contact_signals">Contact Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.feedback_signals">Feedback Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.hix_signals">Hix Signals</a></li>
@@ -1013,6 +1024,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.decorators">Decorators</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.env">Env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client">Machine Translation API Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_celery_task">Machine Translation Celery Task</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.strtobool">Strtobool</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.word_count">Word Count</a></li>
@@ -1028,6 +1040,12 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.authentication_backends">Authentication Backends</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend"><code class="docutils literal notranslate"><span class="pre">EmailAuthenticationBackend</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.checks">Checks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.checks.check_mt_lock_backend"><code class="docutils literal notranslate"><span class="pre">check_mt_lock_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.checks.check_redis_reachable"><code class="docutils literal notranslate"><span class="pre">check_redis_reachable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.checks.mt_locking_requires_redis"><code class="docutils literal notranslate"><span class="pre">mt_locking_requires_redis()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a><ul>
@@ -1076,8 +1094,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS_DEFAULTS"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_DEFAULTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS_DEGRADE_ON_FAILURE"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_DEGRADE_ON_FAILURE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHES"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_BROKER_URL"><code class="docutils literal notranslate"><span class="pre">CELERY_BROKER_URL</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_RESULT_BACKEND"><code class="docutils literal notranslate"><span class="pre">CELERY_RESULT_BACKEND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_RESULT_EXTENDED"><code class="docutils literal notranslate"><span class="pre">CELERY_RESULT_EXTENDED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_TASK_TIME_LIMIT"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_TIME_LIMIT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_TASK_TRACK_STARTED"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_TRACK_STARTED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_TIMEZONE"><code class="docutils literal notranslate"><span class="pre">CELERY_TIMEZONE</span></code></a></li>
@@ -1247,6 +1264,8 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.test_settings">Test Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CACHEOPS_ENABLED"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CACHES"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CELERY_BROKER_URL"><code class="docutils literal notranslate"><span class="pre">CELERY_BROKER_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CELERY_TASK_ALWAYS_EAGER"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_ALWAYS_EAGER</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
@@ -1648,6 +1667,10 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.core.management.html#module-tests.core.management.utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.core.utils.html#module-tests.core.utils.test_machine_translation_celery_task">Test Machine Translation Celery Task</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.firebase_api.html">Firebase API</a><ul>
@@ -1695,6 +1718,12 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_refreshes_outdated_translation_no_changes"><code class="docutils literal notranslate"><span class="pre">test_mt_update_refreshes_outdated_translation_no_changes()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_to_empty_content"><code class="docutils literal notranslate"><span class="pre">test_mt_update_to_empty_content()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_up_to_date_no_changes"><code class="docutils literal notranslate"><span class="pre">test_mt_update_up_to_date_no_changes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_apps_ready_test">Mt Apps Ready Test</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_check_availability_is_accepted_as_a_celery_receiver"><code class="docutils literal notranslate"><span class="pre">test_check_availability_is_accepted_as_a_celery_receiver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_ready_checks_immediately_under_runserver"><code class="docutils literal notranslate"><span class="pre">test_ready_checks_immediately_under_runserver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_ready_connects_check_to_worker_process_init_under_celery"><code class="docutils literal notranslate"><span class="pre">test_ready_connects_check_to_worker_process_init_under_celery()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_provider_assignment_test">Mt Provider Assignment Test</a><ul>
@@ -1788,7 +1817,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.clean_news_cache"><code class="docutils literal notranslate"><span class="pre">clean_news_cache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.clear_cache"><code class="docutils literal notranslate"><span class="pre">clear_cache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.clear_leaked_messages"><code class="docutils literal notranslate"><span class="pre">clear_leaked_messages()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.configure_celery_for_tests"><code class="docutils literal notranslate"><span class="pre">configure_celery_for_tests()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.create_event"><code class="docutils literal notranslate"><span class="pre">create_event()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.create_event_translation"><code class="docutils literal notranslate"><span class="pre">create_event_translation()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.create_language"><code class="docutils literal notranslate"><span class="pre">create_language()</span></code></a></li>
@@ -2057,6 +2085,7 @@
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#send-push-notifications"><code class="docutils literal notranslate"><span class="pre">send_push_notifications</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#fix-internal-links"><code class="docutils literal notranslate"><span class="pre">fix_internal_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="management-commands.html#cleanup-machine-translation-flags-and-reports"><code class="docutils literal notranslate"><span class="pre">cleanup_machine_translation_flags_and_reports</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#bulk-replace-page-icons"><code class="docutils literal notranslate"><span class="pre">bulk_replace_page_icons</span></code></a></li>
@@ -2656,6 +2685,12 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned.__init__">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.__init__">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist.__init__">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.MultipleObjectsReturned.__init__">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.MultipleObjectsReturned method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.__init__">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.DoesNotExist.__init__">(integreat_cms.cms.models.media.directory.Directory.DoesNotExist method)</a>
@@ -3098,6 +3133,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.__init__">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.__init__">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.__init__">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.__init__">(integreat_cms.core.management.commands.delete_orphaned_region_media.Command method)</a>
@@ -3539,6 +3576,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.acount">(integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_celery_task.acquire_locks">acquire_locks() (in module integreat_cms.core.utils.machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.acreate">acreate() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
 
       <ul>
@@ -3604,6 +3643,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.add_arguments">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.add_arguments">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.add_arguments">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.add_arguments">(integreat_cms.core.management.commands.delete_orphaned_region_media.Command method)</a>
@@ -3651,6 +3692,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.add_base_argument">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.add_base_argument">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.add_base_argument">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
@@ -4096,6 +4139,10 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist.add_note">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.MultipleObjectsReturned method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.DoesNotExist.add_note">(integreat_cms.cms.models.media.directory.Directory.DoesNotExist method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.media.directory.Directory.MultipleObjectsReturned method)</a>
@@ -4389,6 +4436,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.adelete">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.adelete">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.adelete">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.adelete">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
@@ -4867,6 +4916,14 @@
         <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.alert_insufficient_hix_score">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_insufficient_hix_score">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.alert_messages">alert_messages() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.alert_messages">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_messages">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.alert_no_changes_made">alert_no_changes_made() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
@@ -5356,6 +5413,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.arefresh_from_db">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.arefresh_from_db">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.arefresh_from_db">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.arefresh_from_db">(integreat_cms.cms.models.media.media_file.MediaFile method)</a>
@@ -5489,6 +5548,10 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.DoesNotExist.args">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned.args">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist.args">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.MultipleObjectsReturned.args">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.MultipleObjectsReturned attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.DoesNotExist.args">(integreat_cms.cms.models.media.directory.Directory.DoesNotExist attribute)</a>
 </li>
@@ -6288,6 +6351,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.asave">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.asave">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.asave">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.asave">(integreat_cms.cms.models.media.media_file.MediaFile method)</a>
@@ -6637,6 +6702,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.base_stealth_options">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.base_stealth_options">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.base_stealth_options">(integreat_cms.core.management.commands.copy_places.Command attribute)</a>
 </li>
@@ -7129,9 +7196,11 @@
 </li>
       <li><a href="ref-ext/tests.cms.views.html#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.CDATA_CONTENT_ELEMENTS">CDATA_CONTENT_ELEMENTS (tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser attribute)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_BROKER_URL">CELERY_BROKER_URL (in module integreat_cms.core.settings)</a>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CELERY_BROKER_URL">CELERY_BROKER_URL (in module integreat_cms.core.test_settings)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_RESULT_BACKEND">CELERY_RESULT_BACKEND (in module integreat_cms.core.settings)</a>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_RESULT_EXTENDED">CELERY_RESULT_EXTENDED (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CELERY_TASK_ALWAYS_EAGER">CELERY_TASK_ALWAYS_EAGER (in module integreat_cms.core.test_settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_TASK_TIME_LIMIT">CELERY_TASK_TIME_LIMIT (in module integreat_cms.core.settings)</a>
 </li>
@@ -7267,6 +7336,8 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.characters">characters() (integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.translation_status.CHART_CHOICES">CHART_CHOICES (in module integreat_cms.cms.constants.translation_status)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.chat">chat() (in module integreat_cms.api.v3.chat.user_chat)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.chat_beta_tester_percentage">chat_beta_tester_percentage (integreat_cms.cms.models.regions.region.Region attribute)</a>
@@ -7352,6 +7423,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.check">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.check">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.check">(integreat_cms.cms.models.media.directory.Directory class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.check">(integreat_cms.cms.models.media.media_file.MediaFile class method)</a>
@@ -7406,6 +7479,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.check">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.check">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.check">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.check">(integreat_cms.core.management.commands.delete_orphaned_region_media.Command method)</a>
@@ -7451,8 +7526,14 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.check_autosave_or_pending_review">check_autosave_or_pending_review() (integreat_cms.cms.views.pages.page_form_view.PageFormView method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.check_availability">check_availability() (integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient method)</a>
+      <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.apps.DeepLApiClientConfig.check_availability">check_availability() (integreat_cms.deepl_api.apps.DeepLApiClientConfig method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.apps.GoogleTranslateApiClientConfig.check_availability">(integreat_cms.google_translate_api.apps.GoogleTranslateApiClientConfig method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.check_availability">(integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.internal_link_checker.check_event_or_place">check_event_or_place() (in module integreat_cms.cms.utils.internal_link_checker)</a>
 </li>
       <li><a href="ref-ext/tests.cms.views.html#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.check_for_whole_start_tag">check_for_whole_start_tag() (tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser method)</a>
@@ -7473,6 +7554,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.check_migrations">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.check_migrations">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.check_migrations">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
@@ -7517,6 +7600,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.html#integreat_cms.core.management.log_command.LogCommand.check_migrations">(integreat_cms.core.management.log_command.LogCommand method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.checks.check_mt_lock_backend">check_mt_lock_backend() (in module integreat_cms.core.checks)</a>
+</li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.check_mt_provider">check_mt_provider() (in module tests.mt_api.mt_provider_assignment_test)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.internal_link_checker.check_news_link">check_news_link() (in module integreat_cms.cms.utils.internal_link_checker)</a>
@@ -7524,6 +7609,8 @@
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.internal_link_checker.check_object_link">check_object_link() (in module integreat_cms.cms.utils.internal_link_checker)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.check_password">check_password() (integreat_cms.cms.models.users.user.User method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.checks.check_redis_reachable">check_redis_reachable() (in module integreat_cms.core.checks)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator.check_token">check_token() (integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator method)</a>
 </li>
@@ -7780,6 +7867,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.clean">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.clean">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.clean">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.clean">(integreat_cms.cms.models.media.media_file.MediaFile method)</a>
@@ -7907,6 +7996,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.clean_fields">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.clean_fields">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.clean_fields">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.clean_fields">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
@@ -8053,6 +8144,8 @@
 </li>
       <li><a href="ref-ext/tests.html#tests.conftest.clear_leaked_messages">clear_leaked_messages() (in module tests.conftest)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.clear_stale_flags">clear_stale_flags() (integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command static method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.client">client (integreat_cms.core.management.commands.firebase_data_backup.Command property)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.region_status.CLONING_ERROR">CLONING_ERROR (in module integreat_cms.cms.constants.region_status)</a>
@@ -8101,6 +8194,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command">(class in integreat_cms.core.management.commands.bulk_replace_page_icons)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command">(class in integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command">(class in integreat_cms.core.management.commands.copy_places)</a>
 </li>
@@ -8212,8 +8307,6 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.asgi.configure_application">configure_application() (in module integreat_cms.core.asgi)</a>
 </li>
-      <li><a href="ref-ext/tests.html#tests.conftest.configure_celery_for_tests">configure_celery_for_tests() (in module tests.conftest)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.context_processors.constants_processor">constants_processor() (in module integreat_cms.core.context_processors)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.shortcodes.html#integreat_cms.cms.utils.shortcodes.contact.contact">contact() (in module integreat_cms.cms.utils.shortcodes.contact)</a>
@@ -8290,9 +8383,11 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.utils.html#integreat_cms.cms.views.utils.content_edit_lock.content_edit_lock_release">content_edit_lock_release() (in module integreat_cms.cms.views.utils.content_edit_lock)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#integreat_cms.cms.views.analytics.app_size_view.AppSizeView.content_type">content_type (integreat_cms.cms.views.analytics.app_size_view.AppSizeView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.content_type">content_type (integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#integreat_cms.cms.views.analytics.app_size_view.AppSizeView.content_type">(integreat_cms.cms.views.analytics.app_size_view.AppSizeView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#integreat_cms.cms.views.analytics.translation_coverage_view.TranslationCoverageView.content_type">(integreat_cms.cms.views.analytics.translation_coverage_view.TranslationCoverageView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.content_type">(integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView attribute)</a>
@@ -8462,6 +8557,8 @@
         <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.PlaceTranslationLinklist.content_type">(integreat_cms.cms.linklists.PlaceTranslationLinklist class method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.async_machine_translation.CONTENT_TYPES">CONTENT_TYPES (in module integreat_cms.cms.constants.async_machine_translation)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.content_usages">content_usages (integreat_cms.cms.models.media.media_file.MediaFile attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ContentEditLockMixin">ContentEditLockMixin (class in integreat_cms.cms.views.mixins)</a>
@@ -8783,6 +8880,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.create_parser">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.create_parser">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.create_parser">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.create_parser">(integreat_cms.core.management.commands.delete_orphaned_region_media.Command method)</a>
@@ -8830,6 +8929,8 @@
 </li>
       <li><a href="ref-ext/tests.html#tests.conftest.create_region">create_region() (in module tests.conftest)</a>
 </li>
+      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports.create_report">create_report() (in module tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.create_superuser">create_superuser() (integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.create_ticket">create_ticket() (integreat_cms.cms.models.chat.user_chat.UserChat method)</a>
@@ -8850,9 +8951,11 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.file_utils.create_zip_archive">create_zip_archive() (in module integreat_cms.cms.utils.file_utils)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.created_at">created_at (integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.created_at">created_at (integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.created_at">(integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.created_at">(integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
 </li>
       </ul></li>
@@ -8966,6 +9069,22 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CURRENT_TIME_ZONE">CURRENT_TIME_ZONE (in module integreat_cms.core.settings)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.currently_in_machine_translation">currently_in_machine_translation (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation.currently_in_machine_translation">(integreat_cms.cms.models.events.event_translation.EventTranslation attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.currently_in_machine_translation">(integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation.currently_in_machine_translation">(integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.currently_in_machine_translation">(integreat_cms.cms.models.pages.page_translation.PageTranslation attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.places.html#integreat_cms.cms.models.places.place_translation.PlaceTranslation.currently_in_machine_translation">(integreat_cms.cms.models.places.place_translation.PlaceTranslation attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.currently_in_machine_translation">(integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation attribute)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.currently_in_translation">currently_in_translation (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
 
       <ul>
@@ -9023,9 +9142,9 @@
       <li><a href="ref-ext/integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.event_filter_form.EventFilterForm.data">data (integreat_cms.cms.forms.events.event_filter_form.EventFilterForm attribute)</a>
 
       <ul>
-        <li><a href="ref-ext/integreat_cms.cms.forms.feedback.html#integreat_cms.cms.forms.feedback.admin_feedback_filter_form.AdminFeedbackFilterForm.data">(integreat_cms.cms.forms.feedback.admin_feedback_filter_form.AdminFeedbackFilterForm attribute)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.cms.forms.feedback.html#integreat_cms.cms.forms.feedback.region_feedback_filter_form.RegionFeedbackFilterForm.data">(integreat_cms.cms.forms.feedback.region_feedback_filter_form.RegionFeedbackFilterForm attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_filter_form.PageFilterForm.data">(integreat_cms.cms.forms.pages.page_filter_form.PageFilterForm attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.docker_settings.DATABASES">DATABASES (in module integreat_cms.core.docker_settings)</a>
@@ -9092,6 +9211,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.date_error_message">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.date_error_message">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.date_error_message">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.date_error_message">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
@@ -9654,6 +9775,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.delete">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.delete">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.delete">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.delete">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
@@ -10729,6 +10852,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.execute">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.execute">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.execute">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.execute">(integreat_cms.core.management.commands.delete_orphaned_region_media.Command method)</a>
@@ -11712,6 +11837,14 @@
         <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_no_source_translation">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.filter_unchanged_translations">filter_unchanged_translations() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.filter_unchanged_translations">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_unchanged_translations">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFileQuerySet.filter_unused">filter_unused() (integreat_cms.cms.models.media.media_file.MediaFileQuerySet method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.EventQuerySet.filter_upcoming">filter_upcoming() (integreat_cms.cms.models.events.event.EventQuerySet method)</a>
@@ -11837,8 +11970,6 @@
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.repair_tree.MPTTFixer.fix_values_on_subtree">fix_values_on_subtree() (integreat_cms.cms.utils.repair_tree.MPTTFixer method)</a>
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_delete_orphaned_region_media.fixture_media_directories">fixture_media_directories() (in module tests.core.management.commands.test_delete_orphaned_region_media)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.core.signals.html#integreat_cms.core.signals.cache_signals.flush_cache_after_migrate">flush_cache_after_migrate() (in module integreat_cms.core.signals.cache_signals)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -12149,6 +12280,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.from_db">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.from_db">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.from_db">(integreat_cms.cms.models.media.directory.Directory class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.from_db">(integreat_cms.cms.models.media.media_file.MediaFile class method)</a>
@@ -12380,6 +12513,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.full_clean">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.full_clean">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.full_clean">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.full_clean">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
@@ -12945,6 +13080,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.get_check_kwargs">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.get_check_kwargs">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.get_check_kwargs">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.get_check_kwargs">(integreat_cms.core.management.commands.delete_orphaned_region_media.Command method)</a>
@@ -13082,6 +13219,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.get_constraints">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_constraints">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.get_constraints">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.get_constraints">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
@@ -13675,6 +13814,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_deferred_fields">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.get_deferred_fields">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.get_deferred_fields">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.get_deferred_fields">(integreat_cms.cms.models.media.media_file.MediaFile method)</a>
@@ -13910,6 +14051,14 @@
         <li><a href="ref-ext/integreat_cms.cms.views.region_condition.html#integreat_cms.cms.views.region_condition.region_condition_actions.RegionConditionResource.get_error_result_class">(integreat_cms.cms.views.region_condition.region_condition_actions.RegionConditionResource class method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.get_exceeds_limit_message">get_exceeds_limit_message() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.get_exceeds_limit_message">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_exceeds_limit_message">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.social_media_utils.get_excerpt">get_excerpt() (in module integreat_cms.cms.utils.social_media_utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_export_fields">get_export_fields() (integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource method)</a>
@@ -13990,6 +14139,14 @@
         <li><a href="ref-ext/integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_bulk_actions.PushNotificationBulkAction.get_extra_filters">(integreat_cms.cms.views.push_notifications.push_notification_bulk_actions.PushNotificationBulkAction method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_bulk_actions.RestorePushNotificationsBulkAction.get_extra_filters">(integreat_cms.cms.views.push_notifications.push_notification_bulk_actions.RestorePushNotificationsBulkAction method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.get_failed_translation_message">get_failed_translation_message() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.get_failed_translation_message">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_failed_translation_message">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_field_name">get_field_name() (integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource method)</a>
@@ -14428,6 +14585,14 @@
         <li><a href="ref-ext/integreat_cms.cms.views.places.html#integreat_cms.cms.views.places.place_form_view.PlaceFormView.get_instances">(integreat_cms.cms.views.places.place_form_view.PlaceFormView method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.get_insufficient_hix_score_message">get_insufficient_hix_score_message() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.get_insufficient_hix_score_message">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_insufficient_hix_score_message">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.content_filters.get_int_list">get_int_list() (in module integreat_cms.cms.templatetags.content_filters)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.content_filters.get_language">get_language() (in module integreat_cms.cms.templatetags.content_filters)</a>
@@ -14666,6 +14831,26 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_machine_translate_pushnotifications_display">get_machine_translate_pushnotifications_display() (integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.views.utils.html#integreat_cms.cms.views.utils.machine_translation_report.get_machine_translation_report">get_machine_translation_report() (in module integreat_cms.cms.views.utils.machine_translation_report)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.content_filters.get_machine_translation_task_id">get_machine_translation_task_id() (in module integreat_cms.cms.templatetags.content_filters)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_machine_translation_task_id">(integreat_cms.cms.models.abstract_content_model.AbstractContentModel method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.get_machine_translation_task_id">(integreat_cms.cms.models.events.event.Event method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.get_machine_translation_task_id">(integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page.ImprintPage.get_machine_translation_task_id">(integreat_cms.cms.models.pages.imprint_page.ImprintPage method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.get_machine_translation_task_id">(integreat_cms.cms.models.pages.page.Page method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.places.html#integreat_cms.cms.models.places.place.Place.get_machine_translation_task_id">(integreat_cms.cms.models.places.place.Place method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.utils.html#integreat_cms.cms.views.utils.machine_translation_progress.get_machine_translation_task_progress">get_machine_translation_task_progress() (in module integreat_cms.cms.views.utils.machine_translation_progress)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_major_public_translation">get_major_public_translation() (integreat_cms.cms.models.abstract_content_model.AbstractContentModel method)</a>
 
       <ul>
@@ -14795,6 +14980,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_model_name_plural">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.get_model_name_plural">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.get_model_name_plural">(integreat_cms.cms.models.media.directory.Directory class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.get_model_name_plural">(integreat_cms.cms.models.media.media_file.MediaFile class method)</a>
@@ -14872,7 +15059,11 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.apps.XLIFFConfig.get_models">(integreat_cms.xliff.apps.XLIFFConfig method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_celery_task.get_mt_redis_lock_key">get_mt_redis_lock_key() (in module integreat_cms.core.utils.machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_mt_renewal_month_display">get_mt_renewal_month_display() (integreat_cms.cms.models.regions.region.Region method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_celery_task.get_mt_task_ids">get_mt_task_ids() (in module integreat_cms.core.utils.machine_translation_celery_task)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.base_filters.get_mt_visibility">get_mt_visibility() (in module integreat_cms.cms.templatetags.base_filters)</a>
 </li>
@@ -14882,9 +15073,11 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_next_by_chat_last_visited">get_next_by_chat_last_visited() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_next_by_created_at">get_next_by_created_at() (integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.get_next_by_created_at">get_next_by_created_at() (integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_next_by_created_at">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.get_next_by_created_at">(integreat_cms.cms.models.users.user_fido_key.FidoKey method)</a>
 </li>
       </ul></li>
@@ -14994,6 +15187,22 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.get_next_sibling">(integreat_cms.cms.models.pages.page.Page method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.PageManager.get_next_sibling">(integreat_cms.cms.models.pages.page.PageManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.get_no_changes_made_message">get_no_changes_made_message() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.get_no_changes_made_message">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_no_changes_made_message">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.get_no_source_translation_message">get_no_source_translation_message() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.get_no_source_translation_message">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_no_source_translation_message">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.get_non_archived_children">get_non_archived_children() (integreat_cms.cms.models.pages.page.Page method)</a>
@@ -15692,9 +15901,11 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_previous_by_chat_last_visited">get_previous_by_chat_last_visited() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_previous_by_created_at">get_previous_by_created_at() (integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.get_previous_by_created_at">get_previous_by_created_at() (integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.get_previous_by_created_at">(integreat_cms.cms.models.users.api_token.ApiToken method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.get_previous_by_created_at">(integreat_cms.cms.models.users.user_fido_key.FidoKey method)</a>
 </li>
       </ul></li>
@@ -16278,6 +16489,14 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.content_translation_utils.get_referencing_translations">get_referencing_translations() (in module integreat_cms.cms.utils.content_translation_utils)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.get_refreshed_translations_message">get_refreshed_translations_message() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.get_refreshed_translations_message">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_refreshed_translations_message">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.get_region">get_region() (in module integreat_cms.core.management.commands.fix_internal_links)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_region_bounding_box">get_region_bounding_box() (integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient method)</a>
@@ -16360,6 +16579,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.get_repr">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_repr">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.get_repr">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.get_repr">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
@@ -16606,6 +16827,14 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.webauthn.html#integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView.get_success_url_allowed_hosts">(integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.get_successful_translation_message">get_successful_translation_message() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.get_successful_translation_message">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_successful_translation_message">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.svg_tags.get_svg_icon">get_svg_icon() (in module integreat_cms.cms.templatetags.svg_tags)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.get_target_language_key">get_target_language_key() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient static method)</a>
@@ -16784,6 +17013,14 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.get_title">get_title() (integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.get_too_long_text_message">get_too_long_text_message() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.get_too_long_text_message">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_too_long_text_message">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_total_visits">get_total_visits() (integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.statistics.html#integreat_cms.cms.views.statistics.statistics_actions.get_total_visits_ajax">get_total_visits_ajax() (in module integreat_cms.cms.views.statistics.statistics_actions)</a>
@@ -16846,9 +17083,11 @@
 </li>
       <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.utils.get_translation_slug">get_translation_slug() (in module integreat_cms.matomo_api.utils)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_translation_state">get_translation_state() (integreat_cms.cms.models.abstract_content_model.AbstractContentModel method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.content_filters.get_translation_state">get_translation_state() (in module integreat_cms.cms.templatetags.content_filters)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_translation_state">(integreat_cms.cms.models.abstract_content_model.AbstractContentModel method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.get_translation_state">(integreat_cms.cms.models.events.event.Event method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.get_translation_state">(integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage method)</a>
@@ -16986,6 +17225,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.get_version">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.get_version">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.get_version">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
@@ -17174,6 +17415,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.handle">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.handle">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.handle">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
@@ -17388,14 +17631,6 @@
 </li>
       <li><a href="ref-ext/tests.cms.views.html#tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser.handle_starttag">handle_starttag() (tests.cms.views.test_view_heading_hierarchy.HeadingLevelParser method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.handle_unchanged_contexts">handle_unchanged_contexts() (integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient method)</a>
-
-      <ul>
-        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.handle_unchanged_contexts">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient method)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.handle_unchanged_contexts">(integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient method)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.error_handler.html#integreat_cms.cms.views.error_handler.error_handler.handler400">handler400() (in module integreat_cms.cms.views.error_handler.error_handler)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.error_handler.html#integreat_cms.cms.views.error_handler.error_handler.handler403">handler403() (in module integreat_cms.cms.views.error_handler.error_handler)</a>
@@ -17842,6 +18077,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.help">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.help">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.help">(integreat_cms.core.management.commands.copy_places.Command attribute)</a>
 </li>
@@ -18657,6 +18894,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.id">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.id">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.id">(integreat_cms.cms.models.media.directory.Directory attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.id">(integreat_cms.cms.models.media.media_file.MediaFile attribute)</a>
@@ -19405,6 +19644,13 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.constants.async_machine_translation
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.async_machine_translation">module</a>
 </li>
       </ul></li>
       <li>
@@ -20381,6 +20627,20 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.cms.models.machine_translations
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#module-integreat_cms.cms.models.machine_translations">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.models.machine_translations.machine_translation_report
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#module-integreat_cms.cms.models.machine_translations.machine_translation_report">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.cms.models.media
 
       <ul>
@@ -20892,6 +21152,13 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.cms.utils.machine_translation_types
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.machine_translation_types">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.cms.utils.media_utils
 
       <ul>
@@ -21094,8 +21361,6 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.logout_view">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication.password_reset_confirm_view
 
@@ -21110,6 +21375,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.password_reset_view">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication.passwordless_login_view
 
@@ -22070,6 +22337,20 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.cms.views.utils.machine_translation_progress
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.machine_translation_progress">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.views.utils.machine_translation_report
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.machine_translation_report">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.cms.views.utils.machine_translations
 
       <ul>
@@ -22144,6 +22425,13 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.authentication_backends">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.core.checks
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.checks">module</a>
 </li>
       </ul></li>
       <li>
@@ -22242,6 +22530,13 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.bulk_replace_page_icons">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports">module</a>
 </li>
       </ul></li>
       <li>
@@ -22448,13 +22743,6 @@
 </li>
       </ul></li>
       <li>
-    integreat_cms.core.signals.cache_signals
-
-      <ul>
-        <li><a href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.cache_signals">module</a>
-</li>
-      </ul></li>
-      <li>
     integreat_cms.core.signals.contact_signals
 
       <ul>
@@ -22536,6 +22824,13 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.core.utils.machine_translation_celery_task
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_celery_task">module</a>
 </li>
       </ul></li>
       <li>
@@ -23037,6 +23332,20 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.is_child_of">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.is_child_of">(integreat_cms.cms.models.pages.page.Page method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.is_content_outdated">is_content_outdated (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation.is_content_outdated">(integreat_cms.cms.models.events.event_translation.EventTranslation attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.is_content_outdated">(integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation.is_content_outdated">(integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.is_content_outdated">(integreat_cms.cms.models.pages.page_translation.PageTranslation attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.places.html#integreat_cms.cms.models.places.place_translation.PlaceTranslation.is_content_outdated">(integreat_cms.cms.models.places.place_translation.PlaceTranslation attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.is_deletable">is_deletable (integreat_cms.cms.models.media.media_file.MediaFile attribute)</a>
@@ -23731,6 +24040,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.language_slug">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.language_slugs">language_slugs (integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.language_tree">language_tree (integreat_cms.cms.models.regions.region.Region attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationLanguageOptions.language_tree_node">language_tree_node (integreat_cms.cms.forms.translations.translations_management_form.TranslationLanguageOptions attribute)</a>
@@ -24287,6 +24598,14 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.machine_translation_enabled">machine_translation_enabled (integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.translation_status.MACHINE_TRANSLATION_IN_PROGRESS">MACHINE_TRANSLATION_IN_PROGRESS (in module integreat_cms.cms.constants.translation_status)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.machine_translation_reports">machine_translation_reports (integreat_cms.cms.models.regions.region.Region attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.machine_translation_reports">(integreat_cms.cms.models.users.user.User attribute)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient">MachineTranslationApiClient (class in integreat_cms.core.utils.machine_translation_api_client)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.MachineTranslationContextMixin">MachineTranslationContextMixin (class in integreat_cms.cms.views.mixins)</a>
@@ -24296,6 +24615,12 @@
       <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_provider.MachineTranslationProvider">MachineTranslationProvider (class in integreat_cms.core.utils.machine_translation_provider)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_provider.MachineTranslationProviderType">MachineTranslationProviderType (class in integreat_cms.core.utils.machine_translation_provider)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport">MachineTranslationReport (class in integreat_cms.cms.models.machine_translations.machine_translation_report)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist">MachineTranslationReport.DoesNotExist</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.MultipleObjectsReturned">MachineTranslationReport.MultipleObjectsReturned</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.major_public_source_translation">major_public_source_translation (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
 
@@ -24987,6 +25312,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">integreat_cms.cms.constants.allowed_media</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.async_machine_translation">integreat_cms.cms.constants.async_machine_translation</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.calendar_filters">integreat_cms.cms.constants.calendar_filters</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.countries">integreat_cms.cms.constants.countries</a>
@@ -25265,6 +25592,10 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#module-integreat_cms.cms.models.languages.language_tree_node">integreat_cms.cms.models.languages.language_tree_node</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#module-integreat_cms.cms.models.machine_translations">integreat_cms.cms.models.machine_translations</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#module-integreat_cms.cms.models.machine_translations.machine_translation_report">integreat_cms.cms.models.machine_translations.machine_translation_report</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#module-integreat_cms.cms.models.media">integreat_cms.cms.models.media</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#module-integreat_cms.cms.models.media.directory">integreat_cms.cms.models.media.directory</a>
@@ -25410,6 +25741,8 @@
         <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_utils">integreat_cms.cms.utils.link_utils</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">integreat_cms.cms.utils.linkcheck_utils</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.machine_translation_types">integreat_cms.cms.utils.machine_translation_types</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">integreat_cms.cms.utils.media_utils</a>
 </li>
@@ -25747,6 +26080,10 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.hix">integreat_cms.cms.views.utils.hix</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.machine_translation_progress">integreat_cms.cms.views.utils.machine_translation_progress</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.machine_translation_report">integreat_cms.cms.views.utils.machine_translation_report</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.machine_translations">integreat_cms.cms.views.utils.machine_translations</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.opening_hour">integreat_cms.cms.views.utils.opening_hour</a>
@@ -25768,6 +26105,8 @@
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.asgi">integreat_cms.core.asgi</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.authentication_backends">integreat_cms.core.authentication_backends</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.checks">integreat_cms.core.checks</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">integreat_cms.core.circleci_settings</a>
 </li>
@@ -25796,6 +26135,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.bulk_media_upload">integreat_cms.core.management.commands.bulk_media_upload</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.bulk_replace_page_icons">integreat_cms.core.management.commands.bulk_replace_page_icons</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports">integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.copy_places">integreat_cms.core.management.commands.copy_places</a>
 </li>
@@ -25855,8 +26196,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.auth_signals">integreat_cms.core.signals.auth_signals</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.cache_signals">integreat_cms.core.signals.cache_signals</a>
-</li>
         <li><a href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.contact_signals">integreat_cms.core.signals.contact_signals</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.feedback_signals">integreat_cms.core.signals.feedback_signals</a>
@@ -25880,6 +26219,8 @@
         <li><a href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.env">integreat_cms.core.utils.env</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client">integreat_cms.core.utils.machine_translation_api_client</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_celery_task">integreat_cms.core.utils.machine_translation_celery_task</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_provider">integreat_cms.core.utils.machine_translation_provider</a>
 </li>
@@ -26113,6 +26454,8 @@
 </li>
         <li><a href="ref-ext/tests.core.management.commands.html#module-tests.core.management.commands">tests.core.management.commands</a>
 </li>
+        <li><a href="ref-ext/tests.core.management.commands.html#module-tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports">tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports</a>
+</li>
         <li><a href="ref-ext/tests.core.management.commands.html#module-tests.core.management.commands.test_copy_places">tests.core.management.commands.test_copy_places</a>
 </li>
         <li><a href="ref-ext/tests.core.management.commands.html#module-tests.core.management.commands.test_delete_orphaned_region_media">tests.core.management.commands.test_delete_orphaned_region_media</a>
@@ -26143,6 +26486,10 @@
 </li>
         <li><a href="ref-ext/tests.core.management.html#module-tests.core.management.utils">tests.core.management.utils</a>
 </li>
+        <li><a href="ref-ext/tests.core.utils.html#module-tests.core.utils">tests.core.utils</a>
+</li>
+        <li><a href="ref-ext/tests.core.utils.html#module-tests.core.utils.test_machine_translation_celery_task">tests.core.utils.test_machine_translation_celery_task</a>
+</li>
         <li><a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api">tests.firebase_api</a>
 </li>
         <li><a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api.test_firebase_api_client">tests.firebase_api.test_firebase_api_client</a>
@@ -26160,6 +26507,8 @@
         <li><a href="ref-ext/tests.mt_api.html#module-tests.mt_api.google_translate_api_test">tests.mt_api.google_translate_api_test</a>
 </li>
         <li><a href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_api_test">tests.mt_api.mt_api_test</a>
+</li>
+        <li><a href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_apps_ready_test">tests.mt_api.mt_apps_ready_test</a>
 </li>
         <li><a href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_provider_assignment_test">tests.mt_api.mt_provider_assignment_test</a>
 </li>
@@ -26282,6 +26631,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.push_notifications.html#integreat_cms.cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.mt_form_is_enabled">(integreat_cms.cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.checks.mt_locking_requires_redis">mt_locking_requires_redis() (in module integreat_cms.core.checks)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.mt_provider">mt_provider (integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.mt_providers">mt_providers (integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
@@ -26295,6 +26646,8 @@
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.mt_setup">mt_setup() (in module tests.mt_api.mt_api_test)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MT_SOFT_MARGIN_FRACTION">MT_SOFT_MARGIN_FRACTION (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.views.utils.html#integreat_cms.cms.views.utils.content_edit_lock.MT_SUPPORTED_LOCK_TYPES">MT_SUPPORTED_LOCK_TYPES (in module integreat_cms.cms.views.utils.content_edit_lock)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.administrative_division.MUNICIPALITY">MUNICIPALITY (in module integreat_cms.cms.constants.administrative_division)</a>
 </li>
@@ -26728,6 +27081,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.object_url">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.machine_translation_types.ObjectIdAndLanguageSlug">ObjectIdAndLanguageSlug (in module integreat_cms.cms.utils.machine_translation_types)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.objects">objects (integreat_cms.cms.models.abstract_content_model.AbstractContentModel attribute)</a>
 
       <ul>
@@ -26774,6 +27129,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.objects">(integreat_cms.cms.models.languages.language.Language attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.objects">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.objects">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.objects">(integreat_cms.cms.models.media.directory.Directory attribute)</a>
 </li>
@@ -27526,6 +27883,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.output_transaction">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.output_transaction">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.output_transaction">(integreat_cms.core.management.commands.copy_places.Command attribute)</a>
 </li>
@@ -28667,6 +29026,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.pk">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode property)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.pk">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport property)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.pk">(integreat_cms.cms.models.media.directory.Directory property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.pk">(integreat_cms.cms.models.media.media_file.MediaFile property)</a>
@@ -29731,6 +30092,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.prepare_database_save">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.prepare_database_save">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.prepare_database_save">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.prepare_database_save">(integreat_cms.cms.models.media.media_file.MediaFile method)</a>
@@ -29798,6 +30161,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.print_help">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.print_help">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.print_help">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
@@ -30366,6 +30731,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicManager.queryset_class">queryset_class (integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicManager attribute)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_celery_task.queue_translations">queue_translations() (in module integreat_cms.core.utils.machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/tests.html#tests.conftest.QUICK_ROLE_SET">QUICK_ROLE_SET (in module tests.conftest)</a>
 </li>
   </ul></td>
@@ -30927,6 +31294,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.refresh_from_db">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.refresh_from_db">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.refresh_from_db">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.refresh_from_db">(integreat_cms.cms.models.media.media_file.MediaFile method)</a>
@@ -31023,6 +31392,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.region">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.region">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.region">(integreat_cms.cms.models.media.directory.Directory attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.region">(integreat_cms.cms.models.media.media_file.MediaFile attribute)</a>
@@ -31102,6 +31473,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.region_id">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.region_id">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.region_id">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.region_id">(integreat_cms.cms.models.media.directory.Directory attribute)</a>
 </li>
@@ -31608,6 +31981,8 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.media.html#integreat_cms.cms.forms.media.replace_media_file_form.ReplaceMediaFileForm">ReplaceMediaFileForm (class in integreat_cms.cms.forms.media.replace_media_file_form)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.REPORT_EXPIRATION">REPORT_EXPIRATION (in module integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.request">request (integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
 
       <ul>
@@ -31719,6 +32094,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.requires_migrations_checks">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.requires_migrations_checks">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.requires_migrations_checks">(integreat_cms.core.management.commands.copy_places.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.requires_migrations_checks">(integreat_cms.core.management.commands.delete_orphaned_region_media.Command attribute)</a>
@@ -31766,6 +32143,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.requires_system_checks">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.requires_system_checks">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.requires_system_checks">(integreat_cms.core.management.commands.copy_places.Command attribute)</a>
 </li>
@@ -32062,6 +32441,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_bulk_actions.RestorePushNotificationsBulkAction">RestorePushNotificationsBulkAction (class in integreat_cms.cms.views.push_notifications.push_notification_bulk_actions)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.results">results (integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.reverse">reverse() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
 
       <ul>
@@ -32200,6 +32581,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.run_from_argv">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.run_from_argv">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.run_from_argv">(integreat_cms.core.management.commands.copy_places.Command method)</a>
 </li>
@@ -32401,6 +32784,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.save">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.save">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.save">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.save">(integreat_cms.cms.models.media.media_file.MediaFile method)</a>
@@ -32504,6 +32889,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.save_base">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.save_base">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.save_base">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.save_base">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
@@ -32919,6 +33306,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.serializable_value">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.serializable_value">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.serializable_value">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.serializable_value">(integreat_cms.cms.models.media.media_file.MediaFile method)</a>
@@ -33008,6 +33397,8 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.set_logging_stream">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.set_logging_stream">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.set_logging_stream">(integreat_cms.core.management.commands.delete_orphaned_region_media.Command method)</a>
 </li>
@@ -33411,6 +33802,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.DoesNotExist attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.media.directory.Directory.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.media.media_file.MediaFile.DoesNotExist attribute)</a>
@@ -33682,6 +34075,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_permission_actions.MessageLevel.splitlines">splitlines() (integreat_cms.cms.views.pages.page_permission_actions.MessageLevel method)</a>
 </li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.spy_queue_mt_report">spy_queue_mt_report() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.SQLQueryNeverTriggered">SQLQueryNeverTriggered</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role.staff_role">staff_role (integreat_cms.cms.models.users.role.Role attribute)</a>
@@ -33697,6 +34092,8 @@
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.external_calendar_utils.IcalEventData.start_date">start_date (integreat_cms.cms.utils.external_calendar_utils.IcalEventData attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.start_local">start_local (integreat_cms.cms.models.events.event.Event attribute)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_celery_task.start_machine_translations">start_machine_translations() (in module integreat_cms.core.utils.machine_translation_celery_task)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.base_serializer.Serializer.start_object">start_object() (integreat_cms.xliff.base_serializer.Serializer method)</a>
 
@@ -33767,6 +34164,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.stealth_options">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.stealth_options">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.stealth_options">(integreat_cms.core.management.commands.copy_places.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.stealth_options">(integreat_cms.core.management.commands.delete_orphaned_region_media.Command attribute)</a>
@@ -33832,6 +34231,12 @@
         <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.strtobool.strtobool">(in module integreat_cms.core.utils.strtobool)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.stub_language_report">stub_language_report() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.stub_translate_queryset">stub_translate_queryset() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.stub_unsupported_mt_provider">stub_unsupported_mt_provider() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.subdirectories">subdirectories (integreat_cms.cms.models.media.directory.Directory attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.subject_template_name">subject_template_name (integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView attribute)</a>
@@ -33963,6 +34368,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.suggest">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.suggest">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.suggest">(integreat_cms.cms.models.media.directory.Directory class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.suggest">(integreat_cms.cms.models.media.media_file.MediaFile class method)</a>
@@ -34057,6 +34464,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.bulk_replace_page_icons.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.bulk_replace_page_icons.Command attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports.Command attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.copy_places.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.copy_places.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.delete_orphaned_region_media.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.delete_orphaned_region_media.Command attribute)</a>
@@ -34146,6 +34555,10 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff2_serializer.Serializer.target_language">(integreat_cms.xliff.xliff2_serializer.Serializer attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.task_id">task_id (integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.task_kwargs">task_kwargs() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.teardown_method">teardown_method() (tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
 
       <ul>
@@ -35232,9 +35645,13 @@
 </li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.bulk_mt_test.test_bulk_mt_up_to_date_and_ready_for_mt">test_bulk_mt_up_to_date_and_ready_for_mt() (in module tests.mt_api.bulk_mt_test)</a>
 </li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_cache_lock_keys_deleted_for_every_object_and_language">test_cache_lock_keys_deleted_for_every_object_and_language() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_change_to_not_supporting_provider">test_change_to_not_supporting_provider() (in module tests.mt_api.mt_provider_assignment_test)</a>
 </li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_change_to_supporting_provider">test_change_to_supporting_provider() (in module tests.mt_api.mt_provider_assignment_test)</a>
+</li>
+      <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_check_availability_is_accepted_as_a_celery_receiver">test_check_availability_is_accepted_as_a_celery_receiver() (in module tests.mt_api.mt_apps_ready_test)</a>
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_repair_tree.test_check_broken_tree_fields">test_check_broken_tree_fields() (in module tests.core.management.commands.test_repair_tree)</a>
 </li>
@@ -35258,11 +35675,11 @@
 </li>
       <li><a href="ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_preserves_unrelated_classes">test_clean_html_preserves_unrelated_classes() (in module tests.news_managers.test_tunews_manager)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_strips_active_content">test_clean_html_strips_active_content() (in module tests.news_managers.test_tunews_manager)</a>
 </li>
       <li><a href="ref-ext/tests.news_managers.html#tests.news_managers.test_tunews_manager.test_clean_html_strips_pvc_elements">test_clean_html_strips_pvc_elements() (in module tests.news_managers.test_tunews_manager)</a>
+</li>
+      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports.test_clears_only_flags_without_lock">test_clears_only_flags_without_lock() (in module tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports)</a>
 </li>
       <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.test_client_throws_exception_when_fcm_disabled">test_client_throws_exception_when_fcm_disabled() (tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
 
@@ -35272,10 +35689,18 @@
       </ul></li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_update_link_text.test_command_succeeds">test_command_succeeds() (in module tests.core.management.commands.test_update_link_text)</a>
 </li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_content_objects_data_for_push_notification_omits_content_only_fields">test_content_objects_data_for_push_notification_omits_content_only_fields() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_content_objects_data_reflects_freshly_created_translation">test_content_objects_data_reflects_freshly_created_translation() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_content_type_resolves_form_and_translation_model">test_content_type_resolves_form_and_translation_model() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_copy_places.test_copy_places_succeeds">test_copy_places_succeeds() (in module tests.core.management.commands.test_copy_places)</a>
 </li>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_external_calendar_utils.test_correct_handling_of_timezone_awareness">test_correct_handling_of_timezone_awareness() (in module tests.cms.utils.test_external_calendar_utils)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_media_library.test_create_directory">test_create_directory() (in module tests.cms.test_media_library)</a>
 </li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_language.test_create_new_language_node">test_create_new_language_node() (in module tests.cms.test_language)</a>
@@ -35302,6 +35727,8 @@
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_delete_orphaned_region_media.test_delete_orphaned_region_media_without_orphans">test_delete_orphaned_region_media_without_orphans() (in module tests.core.management.commands.test_delete_orphaned_region_media)</a>
 </li>
+      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports.test_deletes_only_expired_reports">test_deletes_only_expired_reports() (in module tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports)</a>
+</li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_media_library.test_directory_path">test_directory_path() (in module tests.cms.test_media_library)</a>
 </li>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_disable_hix_post_save_signal.test_disable_hix_post_save_signal">test_disable_hix_post_save_signal() (in module tests.cms.utils.test_disable_hix_post_save_signal)</a>
@@ -35323,6 +35750,8 @@
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_media_library.test_edit_directory">test_edit_directory() (in module tests.cms.test_media_library)</a>
 </li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_media_library.test_edit_file">test_edit_file() (in module tests.cms.test_media_library)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_empty_object_ids_and_language_slugs_completes">test_empty_object_ids_and_language_slugs_completes() (in module tests.core.utils.test_machine_translation_celery_task)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.apps.CoreConfig.test_external_apis">test_external_apis (integreat_cms.core.apps.CoreConfig attribute)</a>
 </li>
@@ -35375,6 +35804,12 @@
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_skips_links_without_public_target_translation">test_fix_internal_links_skips_links_without_public_target_translation() (in module tests.core.management.commands.test_fix_internal_links)</a>
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_skips_organization_links">test_fix_internal_links_skips_organization_links() (in module tests.core.management.commands.test_fix_internal_links)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_flag_cleared_after_exception">test_flag_cleared_after_exception() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_flag_scoped_to_requested_objects_only">test_flag_scoped_to_requested_objects_only() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_flag_set_during_translation_and_cleared_after">test_flag_set_during_translation_and_cleared_after() (in module tests.core.utils.test_machine_translation_celery_task)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.test_func">test_func() (integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing method)</a>
 </li>
@@ -35454,6 +35889,8 @@
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_raw_content.test_local_news_which_is_not_public">test_local_news_which_is_not_public() (in module tests.api.test_api_raw_content)</a>
 </li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_lock_released_after_validation_failure">test_lock_released_after_validation_failure() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_login.test_login_failure">test_login_failure() (in module tests.cms.test_login)</a>
 </li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_login.test_login_success">test_login_success() (in module tests.cms.test_login)</a>
@@ -35504,6 +35941,8 @@
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_reset_deepl_budget.test_not_first_day">test_not_first_day() (in module tests.core.management.commands.test_reset_deepl_budget)</a>
 </li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_one_language_failure_does_not_abort_others">test_one_language_failure_does_not_abort_others() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_only_deepl_available">test_only_deepl_available() (in module tests.mt_api.mt_provider_assignment_test)</a>
 </li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_only_google_translate_available">test_only_google_translate_available() (in module tests.mt_api.mt_provider_assignment_test)</a>
@@ -35534,11 +35973,17 @@
 </li>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_preserve_ignored_links_across_update_links_to">test_preserve_ignored_links_across_update_links_to() (in module tests.cms.utils.test_internal_link_checker)</a>
 </li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_progress_reported_per_language">test_progress_reported_per_language() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/tests.cms.views.html#tests.cms.views.test_public_view_status_code.test_public_view_status_code">test_public_view_status_code() (in module tests.cms.views.test_public_view_status_code)</a>
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.test_push_notifications_disabled">test_push_notifications_disabled() (tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.test_push_notifications_nonexisting_testregion">test_push_notifications_nonexisting_testregion() (tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
+</li>
+      <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_ready_checks_immediately_under_runserver">test_ready_checks_immediately_under_runserver() (in module tests.mt_api.mt_apps_ready_test)</a>
+</li>
+      <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_ready_connects_check_to_worker_process_init_under_celery">test_ready_connects_check_to_worker_process_init_under_celery() (in module tests.mt_api.mt_apps_ready_test)</a>
 </li>
       <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.test_region_notification_send">test_region_notification_send() (tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
 </li>
@@ -35582,11 +36027,21 @@
 </li>
       <li><a href="ref-ext/tests.sitemap.html#tests.sitemap.test_sitemap.test_sitemap">test_sitemap() (in module tests.sitemap.test_sitemap)</a>
 </li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_start_machine_translations_scoped_to_async_content_types">test_start_machine_translations_scoped_to_async_content_types() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_translation_utils.test_translate_link">test_translate_link() (in module tests.cms.utils.test_translation_utils)</a>
 </li>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.test_tree_mutex">test_tree_mutex() (in module tests.cms.utils.test_tree_mutex)</a>
 </li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_unknown_content_type_reports_failure">test_unknown_content_type_reports_failure() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_unknown_region_id_reports_failure">test_unknown_region_id_reports_failure() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_region_settings.test_unknown_region_returns_404">test_unknown_region_returns_404() (in module tests.api.test_region_settings)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_unknown_user_id_reports_failure">test_unknown_user_id_reports_failure() (in module tests.core.utils.test_machine_translation_celery_task)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.test_unsupported_provider_skips_language_without_aborting">test_unsupported_provider_skips_language_without_aborting() (in module tests.core.utils.test_machine_translation_celery_task)</a>
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_import_events.test_update_event">test_update_event() (in module tests.core.management.commands.test_import_events)</a>
 </li>
@@ -36074,6 +36529,13 @@
 </li>
       </ul></li>
       <li>
+    tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports
+
+      <ul>
+        <li><a href="ref-ext/tests.core.management.commands.html#module-tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports">module</a>
+</li>
+      </ul></li>
+      <li>
     tests.core.management.commands.test_copy_places
 
       <ul>
@@ -36179,6 +36641,20 @@
 </li>
       </ul></li>
       <li>
+    tests.core.utils
+
+      <ul>
+        <li><a href="ref-ext/tests.core.utils.html#module-tests.core.utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    tests.core.utils.test_machine_translation_celery_task
+
+      <ul>
+        <li><a href="ref-ext/tests.core.utils.html#module-tests.core.utils.test_machine_translation_celery_task">module</a>
+</li>
+      </ul></li>
+      <li>
     tests.firebase_api
 
       <ul>
@@ -36239,6 +36715,13 @@
 
       <ul>
         <li><a href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_api_test">module</a>
+</li>
+      </ul></li>
+      <li>
+    tests.mt_api.mt_apps_ready_test
+
+      <ul>
+        <li><a href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_apps_ready_test">module</a>
 </li>
       </ul></li>
       <li>
@@ -36832,6 +37315,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.unique_error_message">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.unique_error_message">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.unique_error_message">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.unique_error_message">(integreat_cms.cms.models.media.media_file.MediaFile method)</a>
@@ -36998,6 +37483,8 @@
       <li><a href="ref-ext/integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_form_view.EventFormView.update_recurrence_rule">update_recurrence_rule() (integreat_cms.cms.views.events.event_form_view.EventFormView method)</a>
 </li>
       <li><a href="ref-ext/tests.html#tests.conftest.update_snapshots">update_snapshots() (in module tests.conftest)</a>
+</li>
+      <li><a href="ref-ext/tests.core.utils.html#tests.core.utils.test_machine_translation_celery_task.update_state_calls">update_state_calls() (in module tests.core.utils.test_machine_translation_celery_task)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.slug_utils.update_translations">update_translations() (in module integreat_cms.cms.utils.slug_utils)</a>
 </li>
@@ -37344,6 +37831,8 @@
       <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.passwordless_authentication_form.PasswordlessAuthenticationForm.user">user (integreat_cms.cms.forms.users.passwordless_authentication_form.PasswordlessAuthenticationForm attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.user">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.user">(integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.user">(integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
@@ -37357,9 +37846,11 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm.user_has_publish_rights">user_has_publish_rights() (integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.user_id">user_id (integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.user_id">user_id (integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.api_token.ApiToken.user_id">(integreat_cms.cms.models.users.api_token.ApiToken attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.user_id">(integreat_cms.cms.models.users.user_fido_key.FidoKey attribute)</a>
 </li>
       </ul></li>
@@ -37507,6 +37998,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.validate_constraints">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.validate_constraints">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.validate_constraints">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.validate_constraints">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
@@ -37703,6 +38196,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.validate_unique">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.validate_unique">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.validate_unique">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.validate_unique">(integreat_cms.cms.models.media.directory.Directory method)</a>
 </li>
@@ -38411,6 +38906,10 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.DoesNotExist.with_traceback">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.DoesNotExist method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned.with_traceback">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.MultipleObjectsReturned method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist.with_traceback">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.machine_translations.html#integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.MultipleObjectsReturned.with_traceback">(integreat_cms.cms.models.machine_translations.machine_translation_report.MachineTranslationReport.MultipleObjectsReturned method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.DoesNotExist.with_traceback">(integreat_cms.cms.models.media.directory.Directory.DoesNotExist method)</a>
 </li>

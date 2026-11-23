@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-11-20T16:56:03+00:00" />
+    <meta property="article:modified_time" content="2026-11-23T11:51:25+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tests &mdash; integreat-cms 2026.11.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -127,6 +127,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#all-day">All Day</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#allowed-media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#async-machine-translation">Async Machine Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#calendar-filters">Calendar Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#custom-translations">Custom Translations</a></li>
@@ -196,6 +197,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.machine_translations.html">Machine Translations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.offers.html">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html">Pages</a></li>
@@ -258,6 +260,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#link-ignore-preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#link-utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#linkcheck-utils">Linkcheck Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#machine-translation-types">Machine Translation Types</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
@@ -343,7 +346,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.signals.html">Signals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#auth-signals">Auth Signals</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#cache-signals">Cache Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#contact-signals">Contact Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#feedback-signals">Feedback Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#hix-signals">Hix Signals</a></li>
@@ -354,6 +356,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#decorators">Decorators</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#env">Env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#machine-translation-api-client">Machine Translation API Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#machine-translation-celery-task">Machine Translation Celery Task</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#machine-translation-provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#strtobool">Strtobool</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#word-count">Word Count</a></li>
@@ -362,6 +365,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#asgi">Asgi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#authentication-backends">Authentication Backends</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#checks">Checks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#docker-settings">Docker Settings</a></li>
@@ -503,6 +507,10 @@
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.html#utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="tests.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.core.utils.html#test-machine-translation-celery-task">Test Machine Translation Celery Task</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.firebase_api.html">Firebase API</a><ul>
@@ -515,6 +523,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#deepl-api-test">Deepl API Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#google-translate-api-test">Google Translate API Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#mt-api-test">Mt API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#mt-apps-ready-test">Mt Apps Ready Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#mt-provider-assignment-test">Mt Provider Assignment Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#test-mt-button-visibility">Test Mt Button Visibility</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#utils">Utils</a></li>
@@ -761,6 +770,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.all_day">All Day</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.async_machine_translation">Async Machine Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.calendar_filters">Calendar Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.countries">Countries</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.custom_translations">Custom Translations</a></li>
@@ -830,6 +840,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.machine_translations.html">Machine Translations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.offers.html">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html">Pages</a></li>
@@ -893,6 +904,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_ignore_preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.machine_translation_types">Machine Translation Types</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
@@ -1006,7 +1018,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html">Signals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.auth_signals">Auth Signals</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.cache_signals">Cache Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.contact_signals">Contact Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.feedback_signals">Feedback Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.hix_signals">Hix Signals</a></li>
@@ -1017,6 +1028,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.decorators">Decorators</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.env">Env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client">Machine Translation API Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_celery_task">Machine Translation Celery Task</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.strtobool">Strtobool</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.word_count">Word Count</a></li>
@@ -1032,6 +1044,12 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.authentication_backends">Authentication Backends</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend"><code class="docutils literal notranslate"><span class="pre">EmailAuthenticationBackend</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.checks">Checks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.checks.check_mt_lock_backend"><code class="docutils literal notranslate"><span class="pre">check_mt_lock_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.checks.check_redis_reachable"><code class="docutils literal notranslate"><span class="pre">check_redis_reachable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.checks.mt_locking_requires_redis"><code class="docutils literal notranslate"><span class="pre">mt_locking_requires_redis()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a><ul>
@@ -1080,8 +1098,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS_DEFAULTS"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_DEFAULTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS_DEGRADE_ON_FAILURE"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_DEGRADE_ON_FAILURE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHES"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_BROKER_URL"><code class="docutils literal notranslate"><span class="pre">CELERY_BROKER_URL</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_RESULT_BACKEND"><code class="docutils literal notranslate"><span class="pre">CELERY_RESULT_BACKEND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_RESULT_EXTENDED"><code class="docutils literal notranslate"><span class="pre">CELERY_RESULT_EXTENDED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_TASK_TIME_LIMIT"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_TIME_LIMIT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_TASK_TRACK_STARTED"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_TRACK_STARTED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_TIMEZONE"><code class="docutils literal notranslate"><span class="pre">CELERY_TIMEZONE</span></code></a></li>
@@ -1251,6 +1268,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.test_settings">Test Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CACHEOPS_ENABLED"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CACHES"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CELERY_BROKER_URL"><code class="docutils literal notranslate"><span class="pre">CELERY_BROKER_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CELERY_TASK_ALWAYS_EAGER"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_ALWAYS_EAGER</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
@@ -1652,6 +1671,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.core.management.html#module-tests.core.management.utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.core.utils.html#module-tests.core.utils.test_machine_translation_celery_task">Test Machine Translation Celery Task</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.firebase_api.html">Firebase API</a><ul>
@@ -1699,6 +1722,12 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_refreshes_outdated_translation_no_changes"><code class="docutils literal notranslate"><span class="pre">test_mt_update_refreshes_outdated_translation_no_changes()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_to_empty_content"><code class="docutils literal notranslate"><span class="pre">test_mt_update_to_empty_content()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_up_to_date_no_changes"><code class="docutils literal notranslate"><span class="pre">test_mt_update_up_to_date_no_changes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.mt_api.html#module-tests.mt_api.mt_apps_ready_test">Mt Apps Ready Test</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_check_availability_is_accepted_as_a_celery_receiver"><code class="docutils literal notranslate"><span class="pre">test_check_availability_is_accepted_as_a_celery_receiver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_ready_checks_immediately_under_runserver"><code class="docutils literal notranslate"><span class="pre">test_ready_checks_immediately_under_runserver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_ready_connects_check_to_worker_process_init_under_celery"><code class="docutils literal notranslate"><span class="pre">test_ready_connects_check_to_worker_process_init_under_celery()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.mt_api.html#module-tests.mt_api.mt_provider_assignment_test">Mt Provider Assignment Test</a><ul>
@@ -1792,7 +1821,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.clean_news_cache"><code class="docutils literal notranslate"><span class="pre">clean_news_cache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.clear_cache"><code class="docutils literal notranslate"><span class="pre">clear_cache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.clear_leaked_messages"><code class="docutils literal notranslate"><span class="pre">clear_leaked_messages()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.configure_celery_for_tests"><code class="docutils literal notranslate"><span class="pre">configure_celery_for_tests()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.create_event"><code class="docutils literal notranslate"><span class="pre">create_event()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.create_event_translation"><code class="docutils literal notranslate"><span class="pre">create_event_translation()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.create_language"><code class="docutils literal notranslate"><span class="pre">create_language()</span></code></a></li>
@@ -2061,6 +2089,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#send-push-notifications"><code class="docutils literal notranslate"><span class="pre">send_push_notifications</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fix-internal-links"><code class="docutils literal notranslate"><span class="pre">fix_internal_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#cleanup-machine-translation-flags-and-reports"><code class="docutils literal notranslate"><span class="pre">cleanup_machine_translation_flags_and_reports</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#bulk-replace-page-icons"><code class="docutils literal notranslate"><span class="pre">bulk_replace_page_icons</span></code></a></li>
@@ -2410,6 +2439,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tests.core.html">Core</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tests.core.management.html">Management</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.core.management.commands.html">Commands</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.core.management.commands.html#test-cleanup-machine-translation-flags-and-reports">Test Cleanup Machine Translation Flags And Reports</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.commands.html#test-copy-places">Test Copy Places</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.commands.html#test-delete-orphaned-region-media">Test Delete Orphaned Region Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.commands.html#test-duplicate-pages">Test Duplicate Pages</a></li>
@@ -2429,6 +2459,10 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.core.management.html#utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="tests.core.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.core.utils.html#test-machine-translation-celery-task">Test Machine Translation Celery Task</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tests.firebase_api.html">Firebase API</a><ul>
@@ -2441,6 +2475,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tests.mt_api.html#deepl-api-test">Deepl API Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests.mt_api.html#google-translate-api-test">Google Translate API Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests.mt_api.html#mt-api-test">Mt API Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.mt_api.html#mt-apps-ready-test">Mt Apps Ready Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests.mt_api.html#mt-provider-assignment-test">Mt Provider Assignment Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests.mt_api.html#test-mt-button-visibility">Test Mt Button Visibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests.mt_api.html#utils">Utils</a></li>
@@ -2526,7 +2561,7 @@ automatically reflected.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L232"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L224"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Reset the cache before every test so cache state cannot leak between tests.</p>
 <p>The cache backend used in tests (<code class="xref py py-class docutils literal notranslate"><span class="pre">LocMemCache</span></code>)
 lives for the lifetime of the worker process, and Django only rolls back the
@@ -2543,7 +2578,7 @@ and makes assertions depend on test execution order.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">clear_leaked_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SubRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L190"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">clear_leaked_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SubRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Discard unread messages from the shared client after every test.</p>
 <p><a class="reference internal" href="../ref-ext/tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a> is session-scoped, so one client —
 and one cookie jar — is reused for the whole run, while
@@ -2563,7 +2598,7 @@ test renders it into its own response and trips content assertions.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><span class="pre">Event</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L375"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><span class="pre">Event</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L367"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Factory fixture to create an
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a> with sensible defaults
 for all required fields.</p>
@@ -2579,7 +2614,7 @@ for all required fields.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_event_translation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><span class="pre">EventTranslation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L407"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_event_translation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><span class="pre">EventTranslation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L399"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Factory fixture to create an
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a>
 with sensible defaults for all required fields.</p>
@@ -2595,7 +2630,7 @@ with sensible defaults for all required fields.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_language</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><span class="pre">Language</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_language</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><span class="pre">Language</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L247"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Factory fixture to create a
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> with sensible
 defaults for all required fields, so tests only need to pass the values they
@@ -2612,7 +2647,7 @@ care about.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L319"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L311"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Factory fixture to create a
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> via treebeard’s
 <code class="docutils literal notranslate"><span class="pre">add_root</span></code> / <code class="docutils literal notranslate"><span class="pre">add_child</span></code> API.</p>
@@ -2628,7 +2663,7 @@ care about.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_page_translation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><span class="pre">PageTranslation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_page_translation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><span class="pre">PageTranslation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L335"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Factory fixture to create a
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>
 with sensible defaults for all required fields.</p>
@@ -2644,7 +2679,7 @@ with sensible defaults for all required fields.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_recurrence_rule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule" title="integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule"><span class="pre">RecurrenceRule</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L438"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_recurrence_rule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule" title="integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule"><span class="pre">RecurrenceRule</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L430"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Factory fixture to create a
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule" title="integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrenceRule</span></code></a>.</p>
 <dl class="field-list simple">
@@ -2659,7 +2694,7 @@ with sensible defaults for all required fields.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">create_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><span class="pre">Language</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><span class="pre">Region</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L283"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">create_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><span class="pre">Language</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><span class="pre">Region</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Factory fixture to create a
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> with sensible
 defaults for all required fields.
@@ -2680,7 +2715,7 @@ is created and attached automatically.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_user</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><span class="pre">User</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L458"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">create_user</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><span class="pre">User</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L450"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Factory fixture to create a
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>.</p>
 <dl class="field-list simple">
@@ -2695,7 +2730,7 @@ is created and attached automatically.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">disable_auto_news_reimport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.region_settings.Settings" title="integreat_cms.api.v3.region_settings.Settings"><span class="pre">Settings</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L247"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">disable_auto_news_reimport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.region_settings.Settings" title="integreat_cms.api.v3.region_settings.Settings"><span class="pre">Settings</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L239"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Disable re-import of external news on demand to avoid hitting the real APIs and getting real news posts</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2781,7 +2816,7 @@ non-transactional tests within the same worker.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">reset_linkcheck_listeners</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">reset_linkcheck_listeners</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Restore the configured linkcheck listener state around every test.</p>
 <p><code class="xref py py-func docutils literal notranslate"><span class="pre">linkcheck.listeners.disable_listeners()</span></code> re-registers the listeners
 when its context manager exits instead of restoring whatever state was
@@ -3039,7 +3074,7 @@ fixture registration.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 20, 2026.
+      <span class="lastupdated">Last updated on Nov 23, 2026.
       </span></p>
   </div>
 

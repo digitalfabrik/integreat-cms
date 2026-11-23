@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-10-21T12:21:15+00:00" />
+    <meta property="article:modified_time" content="2026-11-23T11:51:25+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Google Translate API &mdash; integreat-cms 2026.11.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -127,6 +127,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#all-day">All Day</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#allowed-media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#async-machine-translation">Async Machine Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#calendar-filters">Calendar Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#custom-translations">Custom Translations</a></li>
@@ -196,6 +197,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.machine_translations.html">Machine Translations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.offers.html">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.pages.html">Pages</a></li>
@@ -258,6 +260,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#link-ignore-preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#link-utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#linkcheck-utils">Linkcheck Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#machine-translation-types">Machine Translation Types</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
@@ -343,7 +346,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.signals.html">Signals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.signals.html#auth-signals">Auth Signals</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.signals.html#cache-signals">Cache Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.signals.html#contact-signals">Contact Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.signals.html#feedback-signals">Feedback Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.signals.html#hix-signals">Hix Signals</a></li>
@@ -354,6 +356,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#decorators">Decorators</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#env">Env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#machine-translation-api-client">Machine Translation API Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#machine-translation-celery-task">Machine Translation Celery Task</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#machine-translation-provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#strtobool">Strtobool</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#word-count">Word Count</a></li>
@@ -362,6 +365,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#asgi">Asgi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#authentication-backends">Authentication Backends</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#checks">Checks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#docker-settings">Docker Settings</a></li>
@@ -503,6 +507,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.core.management.html#utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.core.utils.html#test-machine-translation-celery-task">Test Machine Translation Celery Task</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.firebase_api.html">Firebase API</a><ul>
@@ -515,6 +523,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.mt_api.html#deepl-api-test">Deepl API Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.mt_api.html#google-translate-api-test">Google Translate API Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.mt_api.html#mt-api-test">Mt API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.mt_api.html#mt-apps-ready-test">Mt Apps Ready Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.mt_api.html#mt-provider-assignment-test">Mt Provider Assignment Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.mt_api.html#test-mt-button-visibility">Test Mt Button Visibility</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.mt_api.html#utils">Utils</a></li>
@@ -761,6 +770,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.all_day">All Day</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.async_machine_translation">Async Machine Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.calendar_filters">Calendar Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.countries">Countries</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.custom_translations">Custom Translations</a></li>
@@ -830,6 +840,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.machine_translations.html">Machine Translations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.offers.html">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html">Pages</a></li>
@@ -893,6 +904,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_ignore_preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.machine_translation_types">Machine Translation Types</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
@@ -1006,7 +1018,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.signals.html">Signals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#module-integreat_cms.core.signals.auth_signals">Auth Signals</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#module-integreat_cms.core.signals.cache_signals">Cache Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#module-integreat_cms.core.signals.contact_signals">Contact Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#module-integreat_cms.core.signals.feedback_signals">Feedback Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#module-integreat_cms.core.signals.hix_signals">Hix Signals</a></li>
@@ -1017,6 +1028,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.decorators">Decorators</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.env">Env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client">Machine Translation API Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_celery_task">Machine Translation Celery Task</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.strtobool">Strtobool</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.word_count">Word Count</a></li>
@@ -1032,6 +1044,12 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.authentication_backends">Authentication Backends</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend"><code class="docutils literal notranslate"><span class="pre">EmailAuthenticationBackend</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.checks">Checks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.checks.check_mt_lock_backend"><code class="docutils literal notranslate"><span class="pre">check_mt_lock_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.checks.check_redis_reachable"><code class="docutils literal notranslate"><span class="pre">check_redis_reachable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.checks.mt_locking_requires_redis"><code class="docutils literal notranslate"><span class="pre">mt_locking_requires_redis()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a><ul>
@@ -1080,8 +1098,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS_DEFAULTS"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_DEFAULTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS_DEGRADE_ON_FAILURE"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_DEGRADE_ON_FAILURE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.CACHES"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.CELERY_BROKER_URL"><code class="docutils literal notranslate"><span class="pre">CELERY_BROKER_URL</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.CELERY_RESULT_BACKEND"><code class="docutils literal notranslate"><span class="pre">CELERY_RESULT_BACKEND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.CELERY_RESULT_EXTENDED"><code class="docutils literal notranslate"><span class="pre">CELERY_RESULT_EXTENDED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.CELERY_TASK_TIME_LIMIT"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_TIME_LIMIT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.CELERY_TASK_TRACK_STARTED"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_TRACK_STARTED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.CELERY_TIMEZONE"><code class="docutils literal notranslate"><span class="pre">CELERY_TIMEZONE</span></code></a></li>
@@ -1251,6 +1268,8 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.test_settings">Test Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.test_settings.CACHEOPS_ENABLED"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.test_settings.CACHES"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.test_settings.CELERY_BROKER_URL"><code class="docutils literal notranslate"><span class="pre">CELERY_BROKER_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.test_settings.CELERY_TASK_ALWAYS_EAGER"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_ALWAYS_EAGER</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.test_settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.test_settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.test_settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
@@ -1652,6 +1671,10 @@
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.html#module-tests.core.management.utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="tests.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.core.utils.html#module-tests.core.utils.test_machine_translation_celery_task">Test Machine Translation Celery Task</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.firebase_api.html">Firebase API</a><ul>
@@ -1699,6 +1722,12 @@
 <li class="toctree-l4"><a class="reference internal" href="tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_refreshes_outdated_translation_no_changes"><code class="docutils literal notranslate"><span class="pre">test_mt_update_refreshes_outdated_translation_no_changes()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_to_empty_content"><code class="docutils literal notranslate"><span class="pre">test_mt_update_to_empty_content()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_up_to_date_no_changes"><code class="docutils literal notranslate"><span class="pre">test_mt_update_up_to_date_no_changes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#module-tests.mt_api.mt_apps_ready_test">Mt Apps Ready Test</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_check_availability_is_accepted_as_a_celery_receiver"><code class="docutils literal notranslate"><span class="pre">test_check_availability_is_accepted_as_a_celery_receiver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_ready_checks_immediately_under_runserver"><code class="docutils literal notranslate"><span class="pre">test_ready_checks_immediately_under_runserver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_ready_connects_check_to_worker_process_init_under_celery"><code class="docutils literal notranslate"><span class="pre">test_ready_connects_check_to_worker_process_init_under_celery()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#module-tests.mt_api.mt_provider_assignment_test">Mt Provider Assignment Test</a><ul>
@@ -1792,7 +1821,6 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.clean_news_cache"><code class="docutils literal notranslate"><span class="pre">clean_news_cache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.clear_cache"><code class="docutils literal notranslate"><span class="pre">clear_cache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.clear_leaked_messages"><code class="docutils literal notranslate"><span class="pre">clear_leaked_messages()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.configure_celery_for_tests"><code class="docutils literal notranslate"><span class="pre">configure_celery_for_tests()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.create_event"><code class="docutils literal notranslate"><span class="pre">create_event()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.create_event_translation"><code class="docutils literal notranslate"><span class="pre">create_event_translation()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.create_language"><code class="docutils literal notranslate"><span class="pre">create_language()</span></code></a></li>
@@ -2061,6 +2089,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#send-push-notifications"><code class="docutils literal notranslate"><span class="pre">send_push_notifications</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fix-internal-links"><code class="docutils literal notranslate"><span class="pre">fix_internal_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#cleanup-machine-translation-flags-and-reports"><code class="docutils literal notranslate"><span class="pre">cleanup_machine_translation_flags_and_reports</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#bulk-replace-page-icons"><code class="docutils literal notranslate"><span class="pre">bulk_replace_page_icons</span></code></a></li>
@@ -2345,6 +2374,21 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.apps.GoogleTranslateApiClientConfig.check_availability">
+<span class="sig-name descname"><span class="pre">check_availability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/apps.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.apps.GoogleTranslateApiClientConfig.check_availability" title="Link to this definition"></a></dt>
+<dd><p>Checking if API is available</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>Any</em>) – The signal arguments, ignored - only declared so Celery
+accepts this method as a <code class="docutils literal notranslate"><span class="pre">worker_process_init</span></code> receiver</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.apps.GoogleTranslateApiClientConfig.create">
 <span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/5.2.x/django/apps/config.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.apps.GoogleTranslateApiClientConfig.create" title="Link to this definition"></a></dt>
 <dd><p>Factory that creates an app config from an entry in INSTALLED_APPS.</p>
@@ -2451,7 +2495,7 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 <span id="google-translate-api-client"></span><h2>Google Translate API Client<a class="headerlink" href="#module-integreat_cms.google_translate_api.google_translate_api_client" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">integreat_cms.google_translate_api.google_translate_api_client.</span></span><span class="sig-name descname"><span class="pre">GoogleTranslateApiClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">integreat_cms.google_translate_api.google_translate_api_client.</span></span><span class="sig-name descname"><span class="pre">GoogleTranslateApiClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient" title="integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">MachineTranslationApiClient</span></code></a></p>
 <p>Google Translate API client to automatically translate selected objects.</p>
 <dl class="field-list simple">
@@ -2464,7 +2508,7 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.__init__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.__init__" title="Link to this definition"></a></dt>
 <dd><p>Initialize the Google Translate client</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2482,10 +2526,8 @@ subclass of the current content type</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_exceeds_limit">
-<span class="sig-name descname"><span class="pre">alert_exceeds_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L649"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_exceeds_limit" title="Link to this definition"></a></dt>
-<dd><p>Add messages alerting the user that machine translation failed
-due to insufficient translation budget</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">alert_exceeds_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L651"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_exceeds_limit" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
@@ -2494,9 +2536,8 @@ due to insufficient translation budget</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_failed_translations">
-<span class="sig-name descname"><span class="pre">alert_failed_translations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L545"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_failed_translations" title="Link to this definition"></a></dt>
-<dd><p>Add messages informing the user about failed translations</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">alert_failed_translations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L631"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_failed_translations" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
@@ -2505,10 +2546,18 @@ due to insufficient translation budget</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_insufficient_hix_score">
-<span class="sig-name descname"><span class="pre">alert_insufficient_hix_score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L622"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_insufficient_hix_score" title="Link to this definition"></a></dt>
-<dd><p>Add messages alerting the user that machine translation failed
-due to insufficient HIX scores</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">alert_insufficient_hix_score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L646"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_insufficient_hix_score" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_messages">
+<span class="sig-name descname"><span class="pre">alert_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L661"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_messages" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
@@ -2517,10 +2566,8 @@ due to insufficient HIX scores</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_no_changes_made">
-<span class="sig-name descname"><span class="pre">alert_no_changes_made</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L569"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_no_changes_made" title="Link to this definition"></a></dt>
-<dd><p>Add messages alerting the user that machine translation failed
-due to missing source translations</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">alert_no_changes_made</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L636"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_no_changes_made" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
@@ -2529,10 +2576,8 @@ due to missing source translations</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_no_source_translation">
-<span class="sig-name descname"><span class="pre">alert_no_source_translation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L596"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_no_source_translation" title="Link to this definition"></a></dt>
-<dd><p>Add messages alerting the user that machine translation failed
-due to missing source translations</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">alert_no_source_translation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_no_source_translation" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
@@ -2541,9 +2586,8 @@ due to missing source translations</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_refreshed_translations">
-<span class="sig-name descname"><span class="pre">alert_refreshed_translations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L493"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_refreshed_translations" title="Link to this definition"></a></dt>
-<dd><p>Add messages informing the user about refreshed translations</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">alert_refreshed_translations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L621"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_refreshed_translations" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
@@ -2552,9 +2596,8 @@ due to missing source translations</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_successful_translations">
-<span class="sig-name descname"><span class="pre">alert_successful_translations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L516"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_successful_translations" title="Link to this definition"></a></dt>
-<dd><p>Add messages informing the user about successful translations</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">alert_successful_translations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L626"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_successful_translations" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
@@ -2563,10 +2606,8 @@ due to missing source translations</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_too_long_text">
-<span class="sig-name descname"><span class="pre">alert_too_long_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L676"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_too_long_text" title="Link to this definition"></a></dt>
-<dd><p>Add messages alerting the user that machine translation failed
-because translation generated by MT was too long</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">alert_too_long_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L656"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.alert_too_long_text" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
@@ -2575,43 +2616,43 @@ because translation generated by MT was too long</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_exceeds_limit">
-<span class="sig-name descname"><span class="pre">failed_because_exceeds_limit</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_exceeds_limit" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">failed_because_exceeds_limit</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_exceeds_limit" title="Link to this definition"></a></dt>
 <dd><p>Content objects untranslatable due to insufficient translation budget</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_insufficient_hix_score">
-<span class="sig-name descname"><span class="pre">failed_because_insufficient_hix_score</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_insufficient_hix_score" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">failed_because_insufficient_hix_score</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_insufficient_hix_score" title="Link to this definition"></a></dt>
 <dd><p>Content objects untranslatable due to too-low hix score</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_no_changes_made">
-<span class="sig-name descname"><span class="pre">failed_because_no_changes_made</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_no_changes_made" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">failed_because_no_changes_made</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_no_changes_made" title="Link to this definition"></a></dt>
 <dd><p>Content objects untranslatable since no actual changes were made</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_no_source_translation">
-<span class="sig-name descname"><span class="pre">failed_because_no_source_translation</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_no_source_translation" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">failed_because_no_source_translation</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_no_source_translation" title="Link to this definition"></a></dt>
 <dd><p>Content objects untranslatable due to missing source translations</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_too_long_text">
-<span class="sig-name descname"><span class="pre">failed_because_too_long_text</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_too_long_text" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">failed_because_too_long_text</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_because_too_long_text" title="Link to this definition"></a></dt>
 <dd><p>Content objects untranslatable due to too long text (only applies for push notification translation)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_translations">
-<span class="sig-name descname"><span class="pre">failed_translations</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_translations" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">failed_translations</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.failed_translations" title="Link to this definition"></a></dt>
 <dd><p>Translations with an attached API failure</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_exceeds_limit">
-<span class="sig-name descname"><span class="pre">filter_exceeds_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_exceeds_limit" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filter_exceeds_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_exceeds_limit" title="Link to this definition"></a></dt>
 <dd><p>This method filters out entries from the context list
 if translating them would exceed the translation budget.</p>
 <p>The removed entries are stored in order to show users
@@ -2631,7 +2672,7 @@ batched error messages after all objects have been handled.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_insufficient_hix_score">
-<span class="sig-name descname"><span class="pre">filter_insufficient_hix_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L271"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_insufficient_hix_score" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filter_insufficient_hix_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L269"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_insufficient_hix_score" title="Link to this definition"></a></dt>
 <dd><p>This method filters out entries from the context list
 if they do not have the required HIX score.</p>
 <p>The removed entries are stored in order to show users
@@ -2651,7 +2692,7 @@ batched error messages after all objects have been handled.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_no_source_translation">
-<span class="sig-name descname"><span class="pre">filter_no_source_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L246"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_no_source_translation" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filter_no_source_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_no_source_translation" title="Link to this definition"></a></dt>
 <dd><p>This method filters out entries from the context list
 if they do not have the required source translation.</p>
 <p>The removed entries are stored in order to show users
@@ -2669,15 +2710,112 @@ batched error messages after all objects have been handled.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_unchanged_translations">
+<span class="sig-name descname"><span class="pre">filter_unchanged_translations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L196"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.filter_unchanged_translations" title="Link to this definition"></a></dt>
+<dd><p>This method filters out entries from the context list if there have
+been no changes made to the source_translation.</p>
+<p>If there are no changes but the target translation is outdated, a new
+translation version is created with <code class="docutils literal notranslate"><span class="pre">minor_edit=True</span></code> to refresh its
+status without flagging it as a content change, instead of being
+recorded as a plain “no changes made” failure.</p>
+<p>Push notifications are excluded from the refresh case because they do
+not use <code class="docutils literal notranslate"><span class="pre">AbstractContentTranslation</span></code> and therefore have no outdated
+status to refresh.</p>
+<p>The removed entries are stored in order to show users batched
+messages after all objects have been handled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><em>TranslationContext</em></a><em>]</em>) – The list of translation contexts to filter</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The filtered list of translation contexts</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><em>TranslationContext</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.form_class">
-<span class="sig-name descname"><span class="pre">form_class</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.form_class" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.form_class" title="Link to this definition"></a></dt>
 <dd><p>The <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm" title="integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomContentModelForm</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_exceeds_limit_message">
+<span class="sig-name descname"><span class="pre">get_exceeds_limit_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_exceeds_limit_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_failed_translation_message">
+<span class="sig-name descname"><span class="pre">get_failed_translation_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L544"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_failed_translation_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_insufficient_hix_score_message">
+<span class="sig-name descname"><span class="pre">get_insufficient_hix_score_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L581"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_insufficient_hix_score_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_no_changes_made_message">
+<span class="sig-name descname"><span class="pre">get_no_changes_made_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L557"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_no_changes_made_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_no_source_translation_message">
+<span class="sig-name descname"><span class="pre">get_no_source_translation_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L570"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_no_source_translation_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_refreshed_translations_message">
+<span class="sig-name descname"><span class="pre">get_refreshed_translations_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L507"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_refreshed_translations_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_successful_translation_message">
+<span class="sig-name descname"><span class="pre">get_successful_translation_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L524"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_successful_translation_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_target_language_key">
-<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_target_language_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><span class="pre">Language</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_target_language_key" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_target_language_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><span class="pre">Language</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_target_language_key" title="Link to this definition"></a></dt>
 <dd><p>This function decides the correct target language key</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2693,29 +2831,18 @@ batched error messages after all objects have been handled.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.handle_unchanged_contexts">
-<span class="sig-name descname"><span class="pre">handle_unchanged_contexts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unchanged_contexts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L218"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.handle_unchanged_contexts" title="Link to this definition"></a></dt>
-<dd><p>Handle content objects without changes.</p>
-<p>If there are no changes but the target translation is outdated, a new
-translation version is created with <code class="docutils literal notranslate"><span class="pre">minor_edit=True</span></code> to refresh its
-status without flagging it as a content change.
-Otherwise, the translation is not updated because no changes were detected.</p>
-<p>Push notifications are excluded from this processing because they do not
-use <code class="docutils literal notranslate"><span class="pre">AbstractContentTranslation</span></code> and therefore have no outdated status
-to refresh.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>unchanged_contexts</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><em>TranslationContext</em></a><em>]</em>)</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_too_long_text_message">
+<span class="sig-name descname"><span class="pre">get_too_long_text_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L607"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.get_too_long_text_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.invoke_translation_api">
-<span class="sig-name descname"><span class="pre">invoke_translation_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.invoke_translation_api" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">invoke_translation_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.invoke_translation_api" title="Link to this definition"></a></dt>
 <dd><p>Translate all content objects (wrapped by TranslationContext) stored in context using Google Translate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2729,7 +2856,7 @@ to refresh.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.mark_successful">
-<span class="sig-name descname"><span class="pre">mark_successful</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L391"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.mark_successful" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mark_successful</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L389"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.mark_successful" title="Link to this definition"></a></dt>
 <dd><p>Mark a content object as having been translated successfully</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2743,13 +2870,13 @@ to refresh.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.mark_too_long">
-<span class="sig-name descname"><span class="pre">mark_too_long</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.mark_too_long" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mark_too_long</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ErrorDict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/builtins/exceptions.html#Exception" title="(in Python v3.13)"><span class="pre">Exception</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.mark_too_long" title="Link to this definition"></a></dt>
 <dd><p>Mark a translation as too long</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ctx</strong> (<a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><em>TranslationContext</em></a>)</p></li>
-<li><p><strong>errors</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>)</p></li>
+<li><p><strong>errors</strong> (<em>ErrorDict</em><em> | </em><a class="reference external" href="https://docs.python.org/3.13/builtins/exceptions.html#Exception" title="(in Python v3.13)"><em>Exception</em></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2760,13 +2887,13 @@ to refresh.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.mark_unsuccessful">
-<span class="sig-name descname"><span class="pre">mark_unsuccessful</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L401"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.mark_unsuccessful" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mark_unsuccessful</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ErrorDict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/builtins/exceptions.html#Exception" title="(in Python v3.13)"><span class="pre">Exception</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.mark_unsuccessful" title="Link to this definition"></a></dt>
 <dd><p>Mark a translation as unsuccessful (usually due to API errors)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ctx</strong> (<a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><em>TranslationContext</em></a>)</p></li>
-<li><p><strong>errors</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>)</p></li>
+<li><p><strong>errors</strong> (<em>ErrorDict</em><em> | </em><a class="reference external" href="https://docs.python.org/3.13/builtins/exceptions.html#Exception" title="(in Python v3.13)"><em>Exception</em></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2777,13 +2904,13 @@ to refresh.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.max_text_length">
-<span class="sig-name descname"><span class="pre">max_text_length</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.max_text_length" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">max_text_length</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.max_text_length" title="Link to this definition"></a></dt>
 <dd><p>Max length of “text” of Push Notification Translation</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.prepare_content_objects">
-<span class="sig-name descname"><span class="pre">prepare_content_objects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.prepare_content_objects" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prepare_content_objects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L341"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.prepare_content_objects" title="Link to this definition"></a></dt>
 <dd><p>Wrap each content object in a <code class="xref py py-class docutils literal notranslate"><span class="pre">TranslationContext</span></code> and
 populate it with pre-computed translation metadata (source/target
 translations, translatable attributes, word count).</p>
@@ -2799,24 +2926,24 @@ translations, translatable attributes, word count).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.refreshed_translations">
-<span class="sig-name descname"><span class="pre">refreshed_translations</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.refreshed_translations" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">refreshed_translations</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.refreshed_translations" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.region">
-<span class="sig-name descname"><span class="pre">region</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.region" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">region</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.region" title="Link to this definition"></a></dt>
 <dd><p>The current region</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.request">
-<span class="sig-name descname"><span class="pre">request</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.request" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">request</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.request" title="Link to this definition"></a></dt>
 <dd><p>The current request</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.reset" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.reset" title="Link to this definition"></a></dt>
 <dd><p>A single instance of a MachineTranslationApiClient may
 be used multiple times in succession, requiring a reset
 of the stored results and failures.</p>
@@ -2832,7 +2959,7 @@ shown to the user.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.save_translation">
-<span class="sig-name descname"><span class="pre">save_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L435"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.save_translation" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.TranslationContext" title="integreat_cms.core.utils.machine_translation_api_client.TranslationContext"><span class="pre">TranslationContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L437"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.save_translation" title="Link to this definition"></a></dt>
 <dd><p>Create a translation form based on the extracted content object data,
 save it, and validate the translation.</p>
 <dl class="field-list simple">
@@ -2850,13 +2977,13 @@ save it, and validate the translation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.successful_translations">
-<span class="sig-name descname"><span class="pre">successful_translations</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.successful_translations" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">successful_translations</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.successful_translations" title="Link to this definition"></a></dt>
 <dd><p>Successful translations</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.translate_object">
-<span class="sig-name descname"><span class="pre">translate_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel" title="integreat_cms.cms.models.abstract_content_model.AbstractContentModel"><span class="pre">AbstractContentModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.translate_object" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">translate_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel" title="integreat_cms.cms.models.abstract_content_model.AbstractContentModel"><span class="pre">AbstractContentModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.translate_object" title="Link to this definition"></a></dt>
 <dd><p>This function translates one content object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2873,7 +3000,7 @@ save it, and validate the translation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.translate_queryset">
-<span class="sig-name descname"><span class="pre">translate_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel" title="integreat_cms.cms.models.abstract_content_model.AbstractContentModel"><span class="pre">AbstractContentModel</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L137"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.translate_queryset" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">translate_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel" title="integreat_cms.cms.models.abstract_content_model.AbstractContentModel"><span class="pre">AbstractContentModel</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/utils/machine_translation_api_client.py#L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient.translate_queryset" title="Link to this definition"></a></dt>
 <dd><p>This function translates a content queryset via the configured machine translation provider.</p>
 <p>Content objects are wrapped into <code class="xref py py-class docutils literal notranslate"><span class="pre">TranslationContext</span></code> instances, filtered
 for translatability, and then passed to the provider-specific translation API.</p>
@@ -2907,7 +3034,7 @@ for translatability, and then passed to the provider-specific translation API.</
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.google_translate_api.google_translate_provider.GoogleTranslateProvider.api_client">
-<span class="sig-name descname"><span class="pre">api_client</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_provider.GoogleTranslateProvider.api_client" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">api_client</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/google_translate_api/google_translate_api_client.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.google_translate_api.google_translate_provider.GoogleTranslateProvider.api_client" title="Link to this definition"></a></dt>
 <dd><p>The API client class for this provider</p>
 <p>alias of <a class="reference internal" href="#integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient" title="integreat_cms.google_translate_api.google_translate_api_client.GoogleTranslateApiClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">GoogleTranslateApiClient</span></code></a></p>
 </dd></dl>
@@ -3034,7 +3161,7 @@ MT into the target language is enabled for the requesting user.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 21, 2026.
+      <span class="lastupdated">Last updated on Nov 23, 2026.
       </span></p>
   </div>
 

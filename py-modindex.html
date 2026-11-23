@@ -126,6 +126,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#all-day">All Day</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#allowed-media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#async-machine-translation">Async Machine Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#calendar-filters">Calendar Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.constants.html#custom-translations">Custom Translations</a></li>
@@ -195,6 +196,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.machine_translations.html">Machine Translations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.offers.html">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.pages.html">Pages</a></li>
@@ -257,6 +259,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#link-ignore-preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#link-utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#linkcheck-utils">Linkcheck Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#machine-translation-types">Machine Translation Types</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
@@ -342,7 +345,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.signals.html">Signals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.signals.html#auth-signals">Auth Signals</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.signals.html#cache-signals">Cache Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.signals.html#contact-signals">Contact Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.signals.html#feedback-signals">Feedback Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.signals.html#hix-signals">Hix Signals</a></li>
@@ -353,6 +355,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#decorators">Decorators</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#env">Env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#machine-translation-api-client">Machine Translation API Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#machine-translation-celery-task">Machine Translation Celery Task</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#machine-translation-provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#strtobool">Strtobool</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.utils.html#word-count">Word Count</a></li>
@@ -361,6 +364,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#asgi">Asgi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#authentication-backends">Authentication Backends</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#checks">Checks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#docker-settings">Docker Settings</a></li>
@@ -502,6 +506,10 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/tests.core.management.html#utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/tests.core.utils.html#test-machine-translation-celery-task">Test Machine Translation Celery Task</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.firebase_api.html">Firebase API</a><ul>
@@ -514,6 +522,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#deepl-api-test">Deepl API Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#google-translate-api-test">Google Translate API Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#mt-api-test">Mt API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#mt-apps-ready-test">Mt Apps Ready Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#mt-provider-assignment-test">Mt Provider Assignment Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#test-mt-button-visibility">Test Mt Button Visibility</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.mt_api.html#utils">Utils</a></li>
@@ -760,6 +769,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.all_day">All Day</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.async_machine_translation">Async Machine Translation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.calendar_filters">Calendar Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.countries">Countries</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.custom_translations">Custom Translations</a></li>
@@ -829,6 +839,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.machine_translations.html">Machine Translations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.offers.html">Offers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.pages.html">Pages</a></li>
@@ -892,6 +903,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_ignore_preservation">Link Ignore Preservation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.link_utils">Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.machine_translation_types">Machine Translation Types</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
@@ -1005,7 +1017,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html">Signals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.auth_signals">Auth Signals</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.cache_signals">Cache Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.contact_signals">Contact Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.feedback_signals">Feedback Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.hix_signals">Hix Signals</a></li>
@@ -1016,6 +1027,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.decorators">Decorators</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.env">Env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client">Machine Translation API Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_celery_task">Machine Translation Celery Task</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.strtobool">Strtobool</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.word_count">Word Count</a></li>
@@ -1031,6 +1043,12 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.authentication_backends">Authentication Backends</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend"><code class="docutils literal notranslate"><span class="pre">EmailAuthenticationBackend</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.checks">Checks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.checks.check_mt_lock_backend"><code class="docutils literal notranslate"><span class="pre">check_mt_lock_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.checks.check_redis_reachable"><code class="docutils literal notranslate"><span class="pre">check_redis_reachable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.checks.mt_locking_requires_redis"><code class="docutils literal notranslate"><span class="pre">mt_locking_requires_redis()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a><ul>
@@ -1079,8 +1097,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS_DEFAULTS"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_DEFAULTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS_DEGRADE_ON_FAILURE"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_DEGRADE_ON_FAILURE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHES"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_BROKER_URL"><code class="docutils literal notranslate"><span class="pre">CELERY_BROKER_URL</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_RESULT_BACKEND"><code class="docutils literal notranslate"><span class="pre">CELERY_RESULT_BACKEND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_RESULT_EXTENDED"><code class="docutils literal notranslate"><span class="pre">CELERY_RESULT_EXTENDED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_TASK_TIME_LIMIT"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_TIME_LIMIT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_TASK_TRACK_STARTED"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_TRACK_STARTED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CELERY_TIMEZONE"><code class="docutils literal notranslate"><span class="pre">CELERY_TIMEZONE</span></code></a></li>
@@ -1250,6 +1267,8 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.test_settings">Test Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CACHEOPS_ENABLED"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CACHES"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CELERY_BROKER_URL"><code class="docutils literal notranslate"><span class="pre">CELERY_BROKER_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.CELERY_TASK_ALWAYS_EAGER"><code class="docutils literal notranslate"><span class="pre">CELERY_TASK_ALWAYS_EAGER</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.test_settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
@@ -1651,6 +1670,10 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.core.management.html#module-tests.core.management.utils">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.core.utils.html#module-tests.core.utils.test_machine_translation_celery_task">Test Machine Translation Celery Task</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.firebase_api.html">Firebase API</a><ul>
@@ -1698,6 +1721,12 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_refreshes_outdated_translation_no_changes"><code class="docutils literal notranslate"><span class="pre">test_mt_update_refreshes_outdated_translation_no_changes()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_to_empty_content"><code class="docutils literal notranslate"><span class="pre">test_mt_update_to_empty_content()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_mt_update_up_to_date_no_changes"><code class="docutils literal notranslate"><span class="pre">test_mt_update_up_to_date_no_changes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_apps_ready_test">Mt Apps Ready Test</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_check_availability_is_accepted_as_a_celery_receiver"><code class="docutils literal notranslate"><span class="pre">test_check_availability_is_accepted_as_a_celery_receiver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_ready_checks_immediately_under_runserver"><code class="docutils literal notranslate"><span class="pre">test_ready_checks_immediately_under_runserver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.mt_api.html#tests.mt_api.mt_apps_ready_test.test_ready_connects_check_to_worker_process_init_under_celery"><code class="docutils literal notranslate"><span class="pre">test_ready_connects_check_to_worker_process_init_under_celery()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_provider_assignment_test">Mt Provider Assignment Test</a><ul>
@@ -1791,7 +1820,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.clean_news_cache"><code class="docutils literal notranslate"><span class="pre">clean_news_cache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.clear_cache"><code class="docutils literal notranslate"><span class="pre">clear_cache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.clear_leaked_messages"><code class="docutils literal notranslate"><span class="pre">clear_leaked_messages()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.configure_celery_for_tests"><code class="docutils literal notranslate"><span class="pre">configure_celery_for_tests()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.create_event"><code class="docutils literal notranslate"><span class="pre">create_event()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.create_event_translation"><code class="docutils literal notranslate"><span class="pre">create_event_translation()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.create_language"><code class="docutils literal notranslate"><span class="pre">create_language()</span></code></a></li>
@@ -2060,6 +2088,7 @@
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#send-push-notifications"><code class="docutils literal notranslate"><span class="pre">send_push_notifications</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#fix-internal-links"><code class="docutils literal notranslate"><span class="pre">fix_internal_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#reset-mt-budget"><code class="docutils literal notranslate"><span class="pre">reset_mt_budget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="management-commands.html#cleanup-machine-translation-flags-and-reports"><code class="docutils literal notranslate"><span class="pre">cleanup_machine_translation_flags_and_reports</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#update-link-text"><code class="docutils literal notranslate"><span class="pre">update_link_text</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#fetch-page-accesses"><code class="docutils literal notranslate"><span class="pre">fetch_page_accesses</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="management-commands.html#bulk-replace-page-icons"><code class="docutils literal notranslate"><span class="pre">bulk_replace_page_icons</span></code></a></li>
@@ -2559,6 +2588,11 @@
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media"><code class="xref">integreat_cms.cms.constants.allowed_media</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-0">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.async_machine_translation"><code class="xref">integreat_cms.cms.constants.async_machine_translation</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-0">
        <td></td>
@@ -3258,6 +3292,16 @@
      <tr class="cg-0">
        <td></td>
        <td>&#160;&#160;&#160;
+       <a href="ref-ext/integreat_cms.cms.models.machine_translations.html#module-integreat_cms.cms.models.machine_translations"><code class="xref">integreat_cms.cms.models.machine_translations</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-0">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="ref-ext/integreat_cms.cms.models.machine_translations.html#module-integreat_cms.cms.models.machine_translations.machine_translation_report"><code class="xref">integreat_cms.cms.models.machine_translations.machine_translation_report</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-0">
+       <td></td>
+       <td>&#160;&#160;&#160;
        <a href="ref-ext/integreat_cms.cms.models.media.html#module-integreat_cms.cms.models.media"><code class="xref">integreat_cms.cms.models.media</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-0">
@@ -3619,6 +3663,11 @@
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils"><code class="xref">integreat_cms.cms.utils.linkcheck_utils</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-0">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.machine_translation_types"><code class="xref">integreat_cms.cms.utils.machine_translation_types</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-0">
        <td></td>
@@ -4463,6 +4512,16 @@
      <tr class="cg-0">
        <td></td>
        <td>&#160;&#160;&#160;
+       <a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.machine_translation_progress"><code class="xref">integreat_cms.cms.views.utils.machine_translation_progress</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-0">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.machine_translation_report"><code class="xref">integreat_cms.cms.views.utils.machine_translation_report</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-0">
+       <td></td>
+       <td>&#160;&#160;&#160;
        <a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.machine_translations"><code class="xref">integreat_cms.cms.views.utils.machine_translations</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-0">
@@ -4514,6 +4573,11 @@
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.authentication_backends"><code class="xref">integreat_cms.core.authentication_backends</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-0">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.checks"><code class="xref">integreat_cms.core.checks</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-0">
        <td></td>
@@ -4584,6 +4648,11 @@
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.bulk_replace_page_icons"><code class="xref">integreat_cms.core.management.commands.bulk_replace_page_icons</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-0">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports"><code class="xref">integreat_cms.core.management.commands.cleanup_machine_translation_flags_and_reports</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-0">
        <td></td>
@@ -4733,11 +4802,6 @@
      <tr class="cg-0">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.cache_signals"><code class="xref">integreat_cms.core.signals.cache_signals</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-0">
-       <td></td>
-       <td>&#160;&#160;&#160;
        <a href="ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.contact_signals"><code class="xref">integreat_cms.core.signals.contact_signals</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-0">
@@ -4794,6 +4858,11 @@
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client"><code class="xref">integreat_cms.core.utils.machine_translation_api_client</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-0">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_celery_task"><code class="xref">integreat_cms.core.utils.machine_translation_celery_task</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-0">
        <td></td>
@@ -5398,6 +5467,11 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
+       <a href="ref-ext/tests.core.management.commands.html#module-tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports"><code class="xref">tests.core.management.commands.test_cleanup_machine_translation_flags_and_reports</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
        <a href="ref-ext/tests.core.management.commands.html#module-tests.core.management.commands.test_copy_places"><code class="xref">tests.core.management.commands.test_copy_places</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
@@ -5473,6 +5547,16 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
+       <a href="ref-ext/tests.core.utils.html#module-tests.core.utils"><code class="xref">tests.core.utils</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="ref-ext/tests.core.utils.html#module-tests.core.utils.test_machine_translation_celery_task"><code class="xref">tests.core.utils.test_machine_translation_celery_task</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
        <a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api"><code class="xref">tests.firebase_api</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
@@ -5514,6 +5598,11 @@
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_api_test"><code class="xref">tests.mt_api.mt_api_test</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="ref-ext/tests.mt_api.html#module-tests.mt_api.mt_apps_ready_test"><code class="xref">tests.mt_api.mt_apps_ready_test</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
