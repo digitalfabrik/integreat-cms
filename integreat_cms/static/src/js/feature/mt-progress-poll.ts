@@ -137,36 +137,35 @@ const pollTask = async (
     const scheduleNextPoll = () =>
         setTimeout(() => pollTask(root, taskId, url, elements, knownElementsByTask), POLL_INTERVAL_MS);
 
-    let data;
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {});
         if (!response.ok) {
             throw new Error(`HTTP status ${response.status} ${response.statusText}`);
         }
-        data = await response.json();
+        const data = await response.json();
+
+        if (RUNNING_STATES.has(data.status)) {
+            scheduleNextPoll();
+            return;
+        }
+        // `elements` is the same array `knownElementsByTask` holds for this task -
+        // any rows discovered later (e.g. subpages that only loaded after this
+        // poll started, see below) were pushed into it in the meantime, so this
+        // patches everything found so far, not just what was known at the start.
+        showFinished(elements, data.details?.content_objects);
+        knownElementsByTask.delete(taskId);
+
+        const bannerContainer = root.querySelector("[data-mt-report-banner]");
+        if (data.status === "FAILURE") {
+            showBanner(bannerContainer, FAILURE_BANNER_CLASS, data.details?.message);
+        } else {
+            showReportBanners(bannerContainer, root.dataset.mtReportUrl, taskId);
+        }
     } catch (error) {
         // Keep polling on failed requests (e.g. a 502 during a deployment) -
         // otherwise the spinner and the disabled row would stay until reload
         console.error(`Polling machine translation task ${taskId} failed:`, error);
         scheduleNextPoll();
-        return;
-    }
-    if (RUNNING_STATES.has(data.status)) {
-        scheduleNextPoll();
-        return;
-    }
-    // `elements` is the same array `knownElementsByTask` holds for this task -
-    // any rows discovered later (e.g. subpages that only loaded after this
-    // poll started, see below) were pushed into it in the meantime, so this
-    // patches everything found so far, not just what was known at the start.
-    showFinished(elements, data.details?.content_objects);
-    knownElementsByTask.delete(taskId);
-
-    const bannerContainer = root.querySelector("[data-mt-report-banner]");
-    if (data.status === "FAILURE") {
-        showBanner(bannerContainer, FAILURE_BANNER_CLASS, data.details?.message);
-    } else {
-        showReportBanners(bannerContainer, root.dataset.mtReportUrl, taskId);
     }
 };
 
