@@ -164,11 +164,11 @@
         </div>
         <div class="flex flex-col gap-2 rounded-[20px] bg-white p-6 shadow-[0_4px_14px_rgba(51,65,85,0.2)]">
             <input type="tel"
-                   {% if place.new %}placeholder="Telefonnummer"{% else %}value="0821 000{{ place.id|stringformat:'02d' }}{{ place.id|stringformat:'02d' }}"{% endif %}
+                   {% if place.new %}placeholder="Telefonnummer"{% else %}value="{{ fake_set.area_code }} 000{{ place.id|stringformat:'02d' }}{{ place.id|stringformat:'02d' }}"{% endif %}
                    aria-label="Telefonnummer"
                    class="h-[46px] px-3 py-2">
             <input type="email"
-                   {% if place.new %}placeholder="E-Mail-Adresse"{% else %}value="info@{{ place.title|slugify }}.augsburg.example"{% endif %}
+                   {% if place.new %}placeholder="E-Mail-Adresse"{% else %}value="info@{{ place.title|slugify }}.{{ fake_set.email_domain }}"{% endif %}
                    aria-label="E-Mail-Adresse"
                    class="h-[46px] px-3 py-2">
             <input type="url"

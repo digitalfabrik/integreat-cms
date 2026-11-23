@@ -4,6 +4,7 @@ PROTOTYPE: views of the combined "Orte & Kontakte" page for the user test.
 All data is fake and lives in the session of the logged in user (no database).
 New places/contacts, categories and removed links are kept until the session ends
 or the tester data is reset via /<region>/contacts-locations/reset/.
+The regional dummy data set is chosen with /<region>/contacts-locations/reset/?daten=<key> (see DATA_SETS).
 """
 
 from __future__ import annotations
@@ -39,6 +40,7 @@ PLACE_CATEGORIES = [
 LANGUAGES = ["AR", "BG", "CS", "DA", "EL", "EN", "ES", "FA", "FI", "FR", "HI", "HR", "HU", "ID", "IT", "KA", "KO", "KMR", "LT", "NL", "PL", "PT", "RO"]
 
 # Fake places in Augsburg: invented names and house numbers, no real institution data
+# This is also the base for the other regional data sets in DATA_SETS (same ids, categories, status)
 FAKE_PLACES = [
     {"id": 1, "title": "Ausländerbehörde", "categories": ["Behörde/Amt"], "street": "Langenmantelstraße 14", "zip": "86153", "town": "Augsburg", "published": True, "translations": "ccccccccmcccccccccccccc"},
     {"id": 2, "title": "Bürgerbüro Haunstetten", "categories": ["Behörde/Amt", "Dienstleistung"], "street": "Tattenbachstraße 7", "zip": "86179", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccmm"},
@@ -75,6 +77,138 @@ FAKE_CONTACTS = [
     {"id": 15, "name": "Infotelefon Integration", "role": "Telefonberatung", "email": "info-integration@augsburg.example", "places": [], "pages": ["Wichtige Telefonnummern"]},
 ]
 
+# Regional dummy data sets for the different test persons, chosen by the moderator via
+# /<region>/contacts-locations/reset/?daten=<key> (see reset below).
+# Only place names, addresses, phone area code and email domain differ, everything else (ids, categories,
+# status, contacts, links) is the same in all sets, so the test tasks work identically.
+# "places" overrides FAKE_PLACES by id order: (title, street, zip, town). None = use FAKE_PLACES (Augsburg).
+DATA_SETS = {
+    "augsburg": {
+        "label": "Stadt Augsburg",
+        "in_region": "in Augsburg",
+        "app_slug": "augsburg",
+        "area_code": "0821",
+        "email_domain": "augsburg.example",
+        "places": None,
+    },
+    "dachau": {
+        "label": "Stadt Dachau",
+        "in_region": "in Dachau",
+        "app_slug": "dachau",
+        "area_code": "08131",
+        "email_domain": "dachau.example",
+        "places": [
+            ("Ausländerbehörde", "Weiherweg 16", "85221", "Dachau"),
+            ("Bürgerbüro Dachau-Ost", "Sudetenlandstraße 20", "85221", "Dachau"),
+            ("Agentur für Arbeit", "Brunngartenstraße 3", "85221", "Dachau"),
+            ("Migrationsberatung Dachau-Süd", "Frühlingstraße 12", "85221", "Dachau"),
+            ("Sprachcafé im Ludwig-Thoma-Haus", "Augsburger Straße 23", "85221", "Dachau"),
+            ("Volkshochschule – Kursräume Altstadt", "Konrad-Adenauer-Straße 9", "85221", "Dachau"),
+            ("Stadtbücherei Dachau", "Münchner Straße 34", "85221", "Dachau"),
+            ("Kinderarztpraxis Dr. Yilmaz", "Schleißheimer Straße 51", "85221", "Dachau"),
+            ("Gesundheitsamt", "Bürgermeister-Zauner-Ring 7", "85221", "Dachau"),
+            ("Familientreff Augustenfeld", "Theodor-Heuss-Straße 14", "85221", "Dachau"),
+            ("Sozialkaufhaus Fundgrube", "Schillerstraße 28", "85221", "Dachau"),
+            ("Fahrradwerkstatt zum Selbermachen", "Martin-Huber-Straße 6", "85221", "Dachau"),
+            ("Internationaler Mittagstisch", "Pfarrstraße 11", "85221", "Dachau"),
+            ("Kulturhaus an der Amper", "Amperweg 4", "85221", "Dachau"),
+        ],
+    },
+    "landkreis-augsburg": {
+        "label": "Landkreis Augsburg",
+        "in_region": "im Landkreis Augsburg",
+        "app_slug": "landkreisaugsburg",
+        "area_code": "0821",
+        "email_domain": "lra-a.example",
+        "places": [
+            ("Ausländerbehörde im Landratsamt", "Prinzregentenplatz 4", "86150", "Augsburg"),
+            ("Bürgerbüro Gersthofen", "Rathausplatz 2", "86368", "Gersthofen"),
+            ("Agentur für Arbeit – Geschäftsstelle Schwabmünchen", "Fuggerstraße 21", "86830", "Schwabmünchen"),
+            ("Migrationsberatung Königsbrunn", "Bürgermeister-Wohlfarth-Straße 33", "86343", "Königsbrunn"),
+            ("Sprachcafé im Bürgertreff Neusäß", "Hauptstraße 18", "86356", "Neusäß"),
+            ("Volkshochschule – Kursräume Stadtbergen", "Bauernstraße 9", "86391", "Stadtbergen"),
+            ("Gemeindebücherei Diedorf", "Schmutterstraße 12", "86420", "Diedorf"),
+            ("Kinderarztpraxis Dr. Yilmaz", "Hochstraße 27", "86399", "Bobingen"),
+            ("Gesundheitsamt", "Karlstraße 8", "86150", "Augsburg"),
+            ("Familientreff Meitingen", "Schloßstraße 15", "86405", "Meitingen"),
+            ("Sozialkaufhaus Fundgrube", "Augsburger Straße 40", "86368", "Gersthofen"),
+            ("Fahrradwerkstatt zum Selbermachen", "Lechfeldstraße 5", "86343", "Königsbrunn"),
+            ("Internationaler Mittagstisch", "Kirchplatz 3", "86830", "Schwabmünchen"),
+            ("Kulturhaus Zusmarshausen", "Marktplatz 6", "86441", "Zusmarshausen"),
+        ],
+    },
+    "rosenheim": {
+        "label": "Stadt Rosenheim",
+        "in_region": "in Rosenheim",
+        "app_slug": "rosenheim",
+        "area_code": "08031",
+        "email_domain": "rosenheim.example",
+        "places": [
+            ("Ausländerbehörde", "Reichenbachstraße 8", "83022", "Rosenheim"),
+            ("Bürgerbüro Happing", "Happinger Straße 70", "83026", "Rosenheim"),
+            ("Agentur für Arbeit", "Wittelsbacherstraße 19", "83022", "Rosenheim"),
+            ("Migrationsberatung Westerndorf", "Westerndorfer Straße 45", "83024", "Rosenheim"),
+            ("Sprachcafé im Stadtteiltreff Lessingstraße", "Lessingstraße 30", "83024", "Rosenheim"),
+            ("Volkshochschule – Kursräume Innenstadt", "Stollstraße 1", "83022", "Rosenheim"),
+            ("Stadtteilbibliothek Aising", "Aisinger Straße 50", "83026", "Rosenheim"),
+            ("Kinderarztpraxis Dr. Yilmaz", "Kufsteiner Straße 88", "83022", "Rosenheim"),
+            ("Gesundheitsamt", "Wittelsbacherstraße 53", "83022", "Rosenheim"),
+            ("Familientreff Fürstätt", "Fürstätter Straße 22", "83026", "Rosenheim"),
+            ("Sozialkaufhaus Fundgrube", "Brückenstraße 9", "83022", "Rosenheim"),
+            ("Fahrradwerkstatt zum Selbermachen", "Innstraße 37", "83022", "Rosenheim"),
+            ("Internationaler Mittagstisch", "Gillitzerstraße 4", "83022", "Rosenheim"),
+            ("Kulturhaus am Inn", "Ludwigsplatz 14", "83022", "Rosenheim"),
+        ],
+    },
+    "landkreis-muenchen": {
+        "label": "Landkreis München",
+        "in_region": "im Landkreis München",
+        "app_slug": "landkreismuenchen",
+        "area_code": "089",
+        "email_domain": "lra-m.example",
+        "places": [
+            ("Ausländerbehörde im Landratsamt", "Mariahilfplatz 17", "81541", "München"),
+            ("Bürgerbüro Unterschleißheim", "Rathausplatz 1", "85716", "Unterschleißheim"),
+            ("Agentur für Arbeit – Geschäftsstelle Ottobrunn", "Rosenheimer Landstraße 52", "85521", "Ottobrunn"),
+            ("Migrationsberatung Haar", "Leibstraße 14", "85540", "Haar"),
+            ("Sprachcafé im Bürgerhaus Garching", "Bürgerplatz 9", "85748", "Garching"),
+            ("Volkshochschule – Kursräume Unterhaching", "Fasanenstraße 30", "82008", "Unterhaching"),
+            ("Gemeindebücherei Ismaning", "Schloßstraße 5", "85737", "Ismaning"),
+            ("Kinderarztpraxis Dr. Yilmaz", "Hauptstraße 41", "82024", "Taufkirchen"),
+            ("Gesundheitsamt", "Frankenthaler Straße 5", "81539", "München"),
+            ("Familientreff Höhenkirchen-Siegertsbrunn", "Bahnhofstraße 8", "85635", "Höhenkirchen-Siegertsbrunn"),
+            ("Sozialkaufhaus Fundgrube", "Industriestraße 12", "85716", "Unterschleißheim"),
+            ("Fahrradwerkstatt zum Selbermachen", "Freisinger Landstraße 21", "85748", "Garching"),
+            ("Internationaler Mittagstisch", "Kirchplatz 2", "82041", "Oberhaching"),
+            ("Kulturhaus Pullach", "Heilmannstraße 3", "82049", "Pullach"),
+        ],
+    },
+    "regensburg": {
+        "label": "Stadt Regensburg",
+        "in_region": "in Regensburg",
+        "app_slug": "regensburg",
+        "area_code": "0941",
+        "email_domain": "regensburg.example",
+        "places": [
+            ("Ausländerbehörde", "D.-Martin-Luther-Straße 3", "93047", "Regensburg"),
+            ("Bürgerbüro Burgweinting", "Friedrich-Viehbacher-Allee 5", "93055", "Regensburg"),
+            ("Agentur für Arbeit", "Galgenbergstraße 24", "93053", "Regensburg"),
+            ("Migrationsberatung Kumpfmühl", "Kumpfmühler Straße 52", "93051", "Regensburg"),
+            ("Sprachcafé im Stadtteilzentrum Königswiesen", "Killermannstraße 10", "93049", "Regensburg"),
+            ("Volkshochschule – Kursräume Altstadt", "Haidplatz 8", "93047", "Regensburg"),
+            ("Stadtteilbücherei Stadtamhof", "Andreasstraße 21", "93059", "Regensburg"),
+            ("Kinderarztpraxis Dr. Yilmaz", "Prüfeninger Straße 63", "93049", "Regensburg"),
+            ("Gesundheitsamt", "Lilienthalstraße 12", "93049", "Regensburg"),
+            ("Familientreff Ostenviertel", "Guerickestraße 18", "93053", "Regensburg"),
+            ("Sozialkaufhaus Fundgrube", "Landshuter Straße 44", "93053", "Regensburg"),
+            ("Fahrradwerkstatt zum Selbermachen", "Weichser Weg 9", "93059", "Regensburg"),
+            ("Internationaler Mittagstisch", "Obermünsterstraße 6", "93047", "Regensburg"),
+            ("Kulturhaus an der Donau", "Weinlände 3", "93047", "Regensburg"),
+        ],
+    },
+}
+DEFAULT_DATA_SET = "augsburg"
+
 OPENING_HOURS = [
     ("Montag", "09:00 - 16:00", False),
     ("Dienstag", "09:00 - 16:00", False),
@@ -97,16 +231,31 @@ CONTACT_EDIT_TABS = [
 ]
 
 
+def _initial_data(set_key):
+    """Fresh fake data of one regional data set (see DATA_SETS)"""
+    data_set = DATA_SETS[set_key]
+    places = copy.deepcopy(FAKE_PLACES)
+    if data_set["places"]:
+        for place, (title, street, zip_code, town) in zip(places, data_set["places"]):
+            place.update({"title": title, "street": street, "zip": zip_code, "town": town})
+    contacts = copy.deepcopy(FAKE_CONTACTS)
+    for contact in contacts:
+        contact["email"] = contact["email"].replace("augsburg.example", data_set["email_domain"])
+        contact["pages"] = [p.replace("in Augsburg", data_set["in_region"]) for p in contact["pages"]]
+    return {"set": set_key, "places": places, "contacts": contacts, "next_id": 100}
+
+
 def _data(request):
     data = request.session.get(SESSION_KEY)
     if data is None:
-        data = {
-            "places": copy.deepcopy(FAKE_PLACES),
-            "contacts": copy.deepcopy(FAKE_CONTACTS),
-            "next_id": 100,
-        }
+        data = _initial_data(DEFAULT_DATA_SET)
         request.session[SESSION_KEY] = data
     return data
+
+
+def _data_set(data):
+    """The regional data set of the session, for region specific texts in the templates (phone, email, app link)"""
+    return DATA_SETS[data.get("set", DEFAULT_DATA_SET)]
 
 
 def _save(request, data):
@@ -242,6 +391,7 @@ def place_edit(request, region_slug, place_id):
             "place": place,
             "fake_opening_hours": EMPTY_OPENING_HOURS if place.get("new") else OPENING_HOURS,
             "fake_place_contacts": place["contacts"],
+            "fake_set": _data_set(data),
             # Contacts for the "Verknüpfung hinzufügen" overlay: all that are not linked to this place yet, A-Z
             "fake_link_contacts": [c for c in _contacts(data) if place_id not in c["place_ids"]],
             "fake_translations": [(code, states[s]) for code, s in zip(LANGUAGES, place["translations"])],
@@ -308,6 +458,12 @@ def contact_save(request, region_slug, contact_id):
 
 
 def reset(request, region_slug):
-    """Hidden URL for the test moderator: back to the initial fake data"""
-    request.session.pop(SESSION_KEY, None)
+    """
+    Hidden URL for the test moderator: back to the initial fake data.
+    ?daten=<key of DATA_SETS> switches the regional data set, without it the current set is kept.
+    """
+    set_key = request.GET.get("daten")
+    if set_key not in DATA_SETS:
+        set_key = request.session.get(SESSION_KEY, {}).get("set", DEFAULT_DATA_SET)
+    request.session[SESSION_KEY] = _initial_data(set_key)
     return redirect(_list_url(region_slug, "orte"))

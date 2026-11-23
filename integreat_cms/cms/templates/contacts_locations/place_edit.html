@@ -150,14 +150,14 @@
                 </div>
                 {# TinyMCE takes the height of the textarea, so force a minimum height on the editor box #}
                 <div class="mt-2 [&_.tox-tinymce]:min-h-[400px]">
-                    <textarea class="tinymce_textarea" aria-label="Beschreibung">{% if not place.new %}<p>{{ place.title }} ist eine Anlaufstelle in Augsburg. Der Eingang ist barrierefrei.</p><p>Bitte vereinbaren Sie vorab einen Termin.</p>{% endif %}</textarea>
+                    <textarea class="tinymce_textarea" aria-label="Beschreibung"></textarea>
                 </div>
             </div>
             <div class="mt-4">
                 <h2 class="text-lg font-bold leading-[1.4]">Weitere Infos</h2>
                 <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
                     <span>Link zum Ort:</span>
-                    <a href="#" class="break-all text-blue-500 underline">https://integreat.app/augsburg/de/locations/{{ place.title|slugify }}</a>
+                    <a href="#" class="break-all text-blue-500 underline">https://integreat.app/{{ fake_set.app_slug }}/de/locations/{{ place.title|slugify }}</a>
                     <button type="button" class="inline-flex items-center gap-1 text-blue-500">
                         <i icon-name="pencil" class="size-4"></i>
                         bearbeiten
