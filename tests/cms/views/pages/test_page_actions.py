@@ -185,9 +185,6 @@ def test_bulk_delete_pages(
     )
 
 
-# Malak_testing
-
-
 @pytest.mark.django_db
 def test_bulk_delete_nested_pages(
     client: Client,
