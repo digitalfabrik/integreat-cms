@@ -1548,7 +1548,7 @@ urlpatterns: list[URLPattern] = [
                             "fake_place_categories": ["Behörde/Amt", "Beratung", "Bildung", "Dienstleistung", "Einkaufen", "Einrichtung", "Freizeit", "Gastronomie", "Gesundheit", "Kultur", "Mobilität", "Multimedia", "Sonstiges", "Treffpunkt"],
                             # Fake contacts of the place on the "Verknüpfungen" tab: (name, role, email)
                             "fake_place_contacts": [
-                                ("Bruno Bohne", "Barista", "sina@email.de"),
+                                ("Bruno Bohne", "Barista", "bruno@cafe.example"),
                                 ("Albus Percival Wulfric Dumbledore", "Schulleiter", "albus@hogwarts.de"),
                             ],
                             # Fake opening hours: (day, value, missing)
