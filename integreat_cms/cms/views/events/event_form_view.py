@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
+from django.http import Http404
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
@@ -51,22 +52,31 @@ class EventFormView(
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`
     back_url_name: str | None = "events"
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def get(
+        self,
+        request: HttpRequest,
+        *args: Any,
+        language_slug: str,
+        event_id: int | None = None,
+        **kwargs: Any,
+    ) -> HttpResponse:
         r"""
         Render event form for HTTP GET requests
 
         :param request: Object representing the user call
         :param \*args: The supplied arguments
+        :param language_slug: The slug of the current language
+        :param event_id: The id of the event to edit (``None`` when creating a new event)
         :param \**kwargs: The supplied keyword arguments
         :return: The rendered template response
         """
         region = request.region
         language = region.get_language_or_404(
-            kwargs.get("language_slug"),
+            language_slug,
             only_active=True,
         )
 
-        event_instance = region.events.filter(id=kwargs.get("event_id")).first()
+        event_instance = region.events.filter(id=event_id).first()
         event_translation_instance = language.event_translations.filter(
             event=event_instance,
         ).first()
@@ -102,7 +112,7 @@ class EventFormView(
             request,
             self.template_name,
             {
-                **self.get_context_data(**kwargs),
+                **self.get_context_data(**kwargs, language_slug=language_slug),
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
@@ -121,23 +131,32 @@ class EventFormView(
         )
 
     @transaction.atomic
-    def post(self, request: HttpRequest, **kwargs: Any) -> HttpResponse:
+    def post(
+        self,
+        request: HttpRequest,
+        *args: Any,
+        language_slug: str,
+        event_id: int | None = None,
+        **kwargs: Any,
+    ) -> HttpResponse:
         r"""
         Save event and ender event form for HTTP POST requests
 
         :param request: Object representing the user call
+        :param \*args: The supplied arguments
+        :param language_slug: The slug of the current language
+        :param event_id: The id of the event to edit (``None`` when creating a new event)
         :param \**kwargs: The supplied keyword arguments
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to publish events
 
         :return: The rendered template response
         """
         region = request.region
-        language = Language.objects.get(slug=kwargs.get("language_slug"))
-        place = Place.objects.filter(id=request.POST.get("place")).first()
+        language = Language.objects.get(slug=language_slug)
+        place = region.places.filter(id=request.POST.get("place")).first()
 
-        event_id = kwargs.get("event_id")
         event_instance, event_translation_instance, recurrence_rule_instance = (
-            self.get_instances(language=language, event_id=event_id)
+            self.get_instances(region=region, language=language, event_id=event_id)
         )
 
         event_form, event_translation_form, recurrence_rule_form = (
@@ -206,7 +225,7 @@ class EventFormView(
             # Failure: rollback and re-instantiate for clean re-render
             transaction.savepoint_rollback(sid)
             event_instance, event_translation_instance, recurrence_rule_instance = (
-                self.get_instances(language=language, event_id=event_id)
+                self.get_instances(region=region, language=language, event_id=event_id)
             )
             event_form, event_translation_form, recurrence_rule_form = (
                 self.instantiate_forms(
@@ -224,7 +243,7 @@ class EventFormView(
             request,
             self.template_name,
             {
-                **self.get_context_data(**kwargs),
+                **self.get_context_data(**kwargs, language_slug=language_slug),
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
@@ -280,9 +299,12 @@ class EventFormView(
         return event_form, event_translation_form, recurrence_rule_form
 
     def get_instances(
-        self, language: Language, event_id: Any
+        self, region: Region, language: Language, event_id: int | None
     ) -> tuple[Event, EventTranslation, RecurrenceRule]:
-        event_instance = Event.objects.filter(id=event_id).first()
+        event_instance = region.events.filter(id=event_id).first()
+        if event_id is not None and event_instance is None:
+            raise Http404
+
         recurrence_rule_instance = RecurrenceRule.objects.filter(
             event=event_instance,
         ).first()
@@ -290,6 +312,7 @@ class EventFormView(
             event=event_instance,
             language=language,
         ).first()
+
         return event_instance, event_translation_instance, recurrence_rule_instance
 
     def check_if_event_is_locked(

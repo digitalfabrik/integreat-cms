@@ -164,7 +164,9 @@ class ContactFormView(TemplateView, ContactContextMixin):
         selected_place_id = int(request.POST.get("place"))
         # request.POST.get("place") == -1 if no Place is selected
         selected_place = (
-            Place.objects.get(id=selected_place_id) if selected_place_id > 0 else None
+            region.places.filter(id=selected_place_id).first()
+            if selected_place_id > 0
+            else None
         )
 
         if not contact_form.is_valid():
