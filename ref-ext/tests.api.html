@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-11-23T11:51:25+00:00" />
+    <meta property="article:modified_time" content="2026-11-24T09:18:43+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API &mdash; integreat-cms 2026.11.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -113,6 +113,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#places">Places</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#raw-content">Raw Content</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#region-settings">Region Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#region-statistics">Region Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.v3.html#social-media-headers">Social Media Headers</a></li>
 </ul>
@@ -264,6 +265,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#region-condition-utils">Region Condition Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#repair-tree">Repair Tree</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#round-hix-score">Round Hix Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#shadow-instance">Shadow Instance</a></li>
@@ -467,6 +469,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-news-endpoint">Test News Endpoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-pushnotification-api">Test Pushnotification API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-region-settings">Test Region Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-region-statistics">Test Region Statistics</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.cms.html">CMS</a><ul>
@@ -740,6 +743,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.places">Places</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.raw_content">Raw Content</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.region_settings">Region Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.region_statistics">Region Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.social_media_headers">Social Media Headers</a></li>
 </ul>
@@ -908,6 +912,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.region_condition_utils">Region Condition Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.repair_tree">Repair Tree</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.round_hix_score">Round Hix Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.shadow_instance">Shadow Instance</a></li>
@@ -1598,6 +1603,37 @@
 <li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_settings.test_requires_authentication"><code class="docutils literal notranslate"><span class="pre">test_requires_authentication()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_settings.test_requires_permission"><code class="docutils literal notranslate"><span class="pre">test_requires_permission()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_settings.test_unknown_region_returns_404"><code class="docutils literal notranslate"><span class="pre">test_unknown_region_returns_404()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.api.test_region_statistics">Test Region Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.STORED_CONDITION"><code class="docutils literal notranslate"><span class="pre">STORED_CONDITION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.STORED_VALUES"><code class="docutils literal notranslate"><span class="pre">STORED_VALUES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_cacheops_is_off_while_computing_and_on_while_writing"><code class="docutils literal notranslate"><span class="pre">test_cacheops_is_off_while_computing_and_on_while_writing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_cacheops_is_restored_even_if_the_restore_is_interrupted"><code class="docutils literal notranslate"><span class="pre">test_cacheops_is_restored_even_if_the_restore_is_interrupted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_celery_task_is_scheduled_routed_and_limited"><code class="docutils literal notranslate"><span class="pre">test_celery_task_is_scheduled_routed_and_limited()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_command_names_the_failed_regions"><code class="docutils literal notranslate"><span class="pre">test_command_names_the_failed_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_command_names_the_regions_not_reached"><code class="docutils literal notranslate"><span class="pre">test_command_names_the_regions_not_reached()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_command_succeeds"><code class="docutils literal notranslate"><span class="pre">test_command_succeeds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_failing_region_keeps_its_values_and_does_not_stop_the_others"><code class="docutils literal notranslate"><span class="pre">test_failing_region_keeps_its_values_and_does_not_stop_the_others()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_lost_database_connection_aborts_the_run"><code class="docutils literal notranslate"><span class="pre">test_lost_database_connection_aborts_the_run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_metrics_match_the_model_and_the_api"><code class="docutils literal notranslate"><span class="pre">test_metrics_match_the_model_and_the_api()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_only_get_is_allowed"><code class="docutils literal notranslate"><span class="pre">test_only_get_is_allowed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_query_error_only_fails_its_region"><code class="docutils literal notranslate"><span class="pre">test_query_error_only_fails_its_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_region_archived_during_the_run_is_not_stored"><code class="docutils literal notranslate"><span class="pre">test_region_archived_during_the_run_is_not_stored()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_regions_without_or_with_oldest_values_come_first"><code class="docutils literal notranslate"><span class="pre">test_regions_without_or_with_oldest_values_come_first()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_requires_authentication"><code class="docutils literal notranslate"><span class="pre">test_requires_authentication()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_requires_permission"><code class="docutils literal notranslate"><span class="pre">test_requires_permission()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_staff_with_view_permission_may_read"><code class="docutils literal notranslate"><span class="pre">test_staff_with_view_permission_may_read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_statistics_are_not_computed_on_request"><code class="docutils literal notranslate"><span class="pre">test_statistics_are_not_computed_on_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_statistics_before_first_computation"><code class="docutils literal notranslate"><span class="pre">test_statistics_before_first_computation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_statistics_of_an_archived_region_are_not_served"><code class="docutils literal notranslate"><span class="pre">test_statistics_of_an_archived_region_are_not_served()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_statistics_return_the_newest_values"><code class="docutils literal notranslate"><span class="pre">test_statistics_return_the_newest_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_statistics_return_the_stored_values_of_the_region"><code class="docutils literal notranslate"><span class="pre">test_statistics_return_the_stored_values_of_the_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_time_budget_stops_starting_new_regions"><code class="docutils literal notranslate"><span class="pre">test_time_budget_stops_starting_new_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_time_limit_is_propagated_and_logged"><code class="docutils literal notranslate"><span class="pre">test_time_limit_is_propagated_and_logged()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_unknown_region_returns_404"><code class="docutils literal notranslate"><span class="pre">test_unknown_region_returns_404()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_update_covers_exactly_the_active_and_hidden_regions"><code class="docutils literal notranslate"><span class="pre">test_update_covers_exactly_the_active_and_hidden_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.api.test_region_statistics.test_update_keeps_the_history"><code class="docutils literal notranslate"><span class="pre">test_update_keeps_the_history()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3939,6 +3975,408 @@ must not fall back to a dropdown which would display a wrong value.</p>
 </dd></dl>
 
 </section>
+<section id="module-tests.api.test_region_statistics">
+<span id="test-region-statistics"></span><h2>Test Region Statistics<a class="headerlink" href="#module-tests.api.test_region_statistics" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.STORED_CONDITION">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">STORED_CONDITION</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'num_broken_links':</span> <span class="pre">4321,</span> <span class="pre">'num_languages_besides_root_language':</span> <span class="pre">77,</span> <span class="pre">'num_low_hix_page_translations':</span> <span class="pre">1234,</span> <span class="pre">'num_outdated_pages':</span> <span class="pre">666,</span> <span class="pre">'num_pages':</span> <span class="pre">98765,</span> <span class="pre">'num_pages_with_missing_or_outdated_translation':</span> <span class="pre">555}</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.STORED_CONDITION" title="Link to this definition"></a></dt>
+<dd><p>The same values as returned by the API</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="s1">'num_broken_links'</span><span class="o">:</span><span class="w"> </span><span class="mf">4321</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'num_languages_besides_root_language'</span><span class="o">:</span><span class="w"> </span><span class="mf">77</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'num_low_hix_page_translations'</span><span class="o">:</span><span class="w"> </span><span class="mf">1234</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'num_outdated_pages'</span><span class="o">:</span><span class="w"> </span><span class="mf">666</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'num_pages'</span><span class="o">:</span><span class="w"> </span><span class="mf">98765</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'num_pages_with_missing_or_outdated_translation'</span><span class="o">:</span><span class="w"> </span><span class="mf">555</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.STORED_VALUES">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">STORED_VALUES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'num_broken_links':</span> <span class="pre">4321,</span> <span class="pre">'num_languages_besides_root_language':</span> <span class="pre">77,</span> <span class="pre">'num_low_hix_pages':</span> <span class="pre">1234,</span> <span class="pre">'num_outdated_pages':</span> <span class="pre">666,</span> <span class="pre">'num_pages':</span> <span class="pre">98765,</span> <span class="pre">'num_pages_with_missing_or_outdated_translation':</span> <span class="pre">555}</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.STORED_VALUES" title="Link to this definition"></a></dt>
+<dd><p>Values the test data cannot produce, so a response containing them must come from the database.
+They are pairwise distinct, so every metric can be traced to its key in the API.</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="s1">'num_broken_links'</span><span class="o">:</span><span class="w"> </span><span class="mf">4321</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'num_languages_besides_root_language'</span><span class="o">:</span><span class="w"> </span><span class="mf">77</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'num_low_hix_pages'</span><span class="o">:</span><span class="w"> </span><span class="mf">1234</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'num_outdated_pages'</span><span class="o">:</span><span class="w"> </span><span class="mf">666</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'num_pages'</span><span class="o">:</span><span class="w"> </span><span class="mf">98765</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">'num_pages_with_missing_or_outdated_translation'</span><span class="o">:</span><span class="w"> </span><span class="mf">555</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_cacheops_is_off_while_computing_and_on_while_writing">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_cacheops_is_off_while_computing_and_on_while_writing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L502"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_cacheops_is_off_while_computing_and_on_while_writing" title="Link to this definition"></a></dt>
+<dd><p>The heavy queries bypass the cache, but the write must not: with cacheops disabled it would
+not invalidate the cached API read either, which would then serve outdated values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_cacheops_is_restored_even_if_the_restore_is_interrupted">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_cacheops_is_restored_even_if_the_restore_is_interrupted</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L544"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_cacheops_is_restored_even_if_the_restore_is_interrupted" title="Link to this definition"></a></dt>
+<dd><p>A stale memoized <code class="docutils literal notranslate"><span class="pre">CACHEOPS_ENABLED</span></code> must not outlive the block, even if the
+<code class="docutils literal notranslate"><span class="pre">setting_changed</span></code> signal of the restore never reached cacheops.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_celery_task_is_scheduled_routed_and_limited">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_celery_task_is_scheduled_routed_and_limited</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L603"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_celery_task_is_scheduled_routed_and_limited" title="Link to this definition"></a></dt>
+<dd><p>The nightly task is scheduled, runs the command with a time budget, goes to the statistics
+queue and has a soft limit below the hard one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_command_names_the_failed_regions">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_command_names_the_failed_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L574"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_command_names_the_failed_regions" title="Link to this definition"></a></dt>
+<dd><p>The management command fails and names the regions which could not be computed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_command_names_the_regions_not_reached">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_command_names_the_regions_not_reached</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L592"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_command_names_the_regions_not_reached" title="Link to this definition"></a></dt>
+<dd><p>The management command fails when the time budget left regions out.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_command_succeeds">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_command_succeeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L562"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_command_succeeds" title="Link to this definition"></a></dt>
+<dd><p>The management command stores the conditions and exits successfully.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_failing_region_keeps_its_values_and_does_not_stop_the_others">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_failing_region_keeps_its_values_and_does_not_stop_the_others</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_failing_region_keeps_its_values_and_does_not_stop_the_others" title="Link to this definition"></a></dt>
+<dd><p>One broken region is reported and keeps its last values; the regions after it are updated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_lost_database_connection_aborts_the_run">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_lost_database_connection_aborts_the_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_lost_database_connection_aborts_the_run" title="Link to this definition"></a></dt>
+<dd><p>A broken connection is not a problem of one region and must not be reported once per region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_metrics_match_the_model_and_the_api">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_metrics_match_the_model_and_the_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_metrics_match_the_model_and_the_api" title="Link to this definition"></a></dt>
+<dd><p>Every metric field of the model is computed by the export and exposed by the API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_only_get_is_allowed">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_only_get_is_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L691"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_only_get_is_allowed" title="Link to this definition"></a></dt>
+<dd><p>The statistics are read-only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_query_error_only_fails_its_region">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_query_error_only_fails_its_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L476"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_query_error_only_fails_its_region" title="Link to this definition"></a></dt>
+<dd><p>An <a class="reference external" href="https://docs.djangoproject.com/en/5.2/ref/exceptions/#django.db.OperationalError" title="(in Django v5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OperationalError</span></code></a> with a usable connection (e.g. a statement timeout)
+only fails the region in which it occurred.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_region_archived_during_the_run_is_not_stored">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_region_archived_during_the_run_is_not_stored</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L376"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_region_archived_during_the_run_is_not_stored" title="Link to this definition"></a></dt>
+<dd><p>A region archived while the run is computing it must not get a fresh row.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_regions_without_or_with_oldest_values_come_first">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_regions_without_or_with_oldest_values_come_first</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_regions_without_or_with_oldest_values_come_first" title="Link to this definition"></a></dt>
+<dd><p>A run that is cut short must not always miss the same regions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_requires_authentication">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_requires_authentication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L678"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_requires_authentication" title="Link to this definition"></a></dt>
+<dd><p>Requests without a valid token are rejected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_requires_permission">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_requires_permission</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_requires_permission" title="Link to this definition"></a></dt>
+<dd><p>A token of a user without <code class="docutils literal notranslate"><span class="pre">cms.view_region</span></code> is rejected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_staff_with_view_permission_may_read">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_staff_with_view_permission_may_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_staff_with_view_permission_may_read" title="Link to this definition"></a></dt>
+<dd><p>A non-superuser holding <code class="docutils literal notranslate"><span class="pre">cms.view_region</span></code> (a staff role) gets the statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_statistics_are_not_computed_on_request">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_statistics_are_not_computed_on_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L234"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_statistics_are_not_computed_on_request" title="Link to this definition"></a></dt>
+<dd><p>Reading the statistics must never run the expensive computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_statistics_before_first_computation">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_statistics_before_first_computation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_statistics_before_first_computation" title="Link to this definition"></a></dt>
+<dd><p>As long as nothing is stored, <code class="docutils literal notranslate"><span class="pre">condition</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code> instead of being computed on request.
+The budget is read live and its three values are distinguishable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_statistics_of_an_archived_region_are_not_served">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_statistics_of_an_archived_region_are_not_served</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_statistics_of_an_archived_region_are_not_served" title="Link to this definition"></a></dt>
+<dd><p>The history of an archived region is kept, but not served as its current condition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_statistics_return_the_newest_values">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_statistics_return_the_newest_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_statistics_return_the_newest_values" title="Link to this definition"></a></dt>
+<dd><p>Of the history of a region, only the newest condition is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_statistics_return_the_stored_values_of_the_region">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_statistics_return_the_stored_values_of_the_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_statistics_return_the_stored_values_of_the_region" title="Link to this definition"></a></dt>
+<dd><p>The endpoint returns exactly what is stored for the requested region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_time_budget_stops_starting_new_regions">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_time_budget_stops_starting_new_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L402"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_time_budget_stops_starting_new_regions" title="Link to this definition"></a></dt>
+<dd><p>Once the budget is used up, no further region is started and the rest are reported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_time_limit_is_propagated_and_logged">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_time_limit_is_propagated_and_logged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v10.0.0.dev63)"><span class="pre">LogCaptureFixture</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_time_limit_is_propagated_and_logged" title="Link to this definition"></a></dt>
+<dd><p>If Celery’s time limit hits anyway, the run fails, keeps what it stored and names the rest.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v10.0.0.dev63)"><em>LogCaptureFixture</em></a>) – The fixture capturing the log output</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_unknown_region_returns_404">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_unknown_region_returns_404</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L707"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_unknown_region_returns_404" title="Link to this definition"></a></dt>
+<dd><p>An unknown region slug results in a 404.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_update_covers_exactly_the_active_and_hidden_regions">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_update_covers_exactly_the_active_and_hidden_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_update_covers_exactly_the_active_and_hidden_regions" title="Link to this definition"></a></dt>
+<dd><p>Active and hidden regions are computed; the history of other regions is kept untouched.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.api.test_region_statistics.test_update_keeps_the_history">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_region_statistics.</span></span><span class="sig-name descname"><span class="pre">test_update_keeps_the_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_region_statistics.py#L283"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.api.test_region_statistics.test_update_keeps_the_history" title="Link to this definition"></a></dt>
+<dd><p>A later run adds a row for a region and keeps the earlier ones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -3956,7 +4394,7 @@ must not fall back to a dropdown which would display a wrong value.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 23, 2026.
+      <span class="lastupdated">Last updated on Nov 24, 2026.
       </span></p>
   </div>
 

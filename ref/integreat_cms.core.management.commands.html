@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2026-11-23T11:51:25+00:00" />
+    <meta property="article:modified_time" content="2026-11-24T09:18:43+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2026.11.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -113,6 +113,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#places">Places</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#raw-content">Raw Content</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#region-settings">Region Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#region-statistics">Region Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#social-media-headers">Social Media Headers</a></li>
 </ul>
@@ -264,6 +265,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#region-condition-utils">Region Condition Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#repair-tree">Repair Tree</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#round-hix-score">Round Hix Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#shadow-instance">Shadow Instance</a></li>
@@ -467,6 +469,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-news-endpoint">Test News Endpoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-pushnotification-api">Test Pushnotification API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-region-settings">Test Region Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-region-statistics">Test Region Statistics</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.cms.html">CMS</a><ul>
@@ -740,6 +743,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.places">Places</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.raw_content">Raw Content</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.region_settings">Region Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.region_statistics">Region Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.regions">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.social_media_headers">Social Media Headers</a></li>
 </ul>
@@ -908,6 +912,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.region_condition_utils">Region Condition Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.repair_tree">Repair Tree</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.round_hix_score">Round Hix Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.shadow_instance">Shadow Instance</a></li>
@@ -1598,6 +1603,37 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_requires_authentication"><code class="docutils literal notranslate"><span class="pre">test_requires_authentication()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_requires_permission"><code class="docutils literal notranslate"><span class="pre">test_requires_permission()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_settings.test_unknown_region_returns_404"><code class="docutils literal notranslate"><span class="pre">test_unknown_region_returns_404()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_region_statistics">Test Region Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.STORED_CONDITION"><code class="docutils literal notranslate"><span class="pre">STORED_CONDITION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.STORED_VALUES"><code class="docutils literal notranslate"><span class="pre">STORED_VALUES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_cacheops_is_off_while_computing_and_on_while_writing"><code class="docutils literal notranslate"><span class="pre">test_cacheops_is_off_while_computing_and_on_while_writing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_cacheops_is_restored_even_if_the_restore_is_interrupted"><code class="docutils literal notranslate"><span class="pre">test_cacheops_is_restored_even_if_the_restore_is_interrupted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_celery_task_is_scheduled_routed_and_limited"><code class="docutils literal notranslate"><span class="pre">test_celery_task_is_scheduled_routed_and_limited()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_command_names_the_failed_regions"><code class="docutils literal notranslate"><span class="pre">test_command_names_the_failed_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_command_names_the_regions_not_reached"><code class="docutils literal notranslate"><span class="pre">test_command_names_the_regions_not_reached()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_command_succeeds"><code class="docutils literal notranslate"><span class="pre">test_command_succeeds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_failing_region_keeps_its_values_and_does_not_stop_the_others"><code class="docutils literal notranslate"><span class="pre">test_failing_region_keeps_its_values_and_does_not_stop_the_others()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_lost_database_connection_aborts_the_run"><code class="docutils literal notranslate"><span class="pre">test_lost_database_connection_aborts_the_run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_metrics_match_the_model_and_the_api"><code class="docutils literal notranslate"><span class="pre">test_metrics_match_the_model_and_the_api()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_only_get_is_allowed"><code class="docutils literal notranslate"><span class="pre">test_only_get_is_allowed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_query_error_only_fails_its_region"><code class="docutils literal notranslate"><span class="pre">test_query_error_only_fails_its_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_region_archived_during_the_run_is_not_stored"><code class="docutils literal notranslate"><span class="pre">test_region_archived_during_the_run_is_not_stored()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_regions_without_or_with_oldest_values_come_first"><code class="docutils literal notranslate"><span class="pre">test_regions_without_or_with_oldest_values_come_first()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_requires_authentication"><code class="docutils literal notranslate"><span class="pre">test_requires_authentication()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_requires_permission"><code class="docutils literal notranslate"><span class="pre">test_requires_permission()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_staff_with_view_permission_may_read"><code class="docutils literal notranslate"><span class="pre">test_staff_with_view_permission_may_read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_statistics_are_not_computed_on_request"><code class="docutils literal notranslate"><span class="pre">test_statistics_are_not_computed_on_request()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_statistics_before_first_computation"><code class="docutils literal notranslate"><span class="pre">test_statistics_before_first_computation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_statistics_of_an_archived_region_are_not_served"><code class="docutils literal notranslate"><span class="pre">test_statistics_of_an_archived_region_are_not_served()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_statistics_return_the_newest_values"><code class="docutils literal notranslate"><span class="pre">test_statistics_return_the_newest_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_statistics_return_the_stored_values_of_the_region"><code class="docutils literal notranslate"><span class="pre">test_statistics_return_the_stored_values_of_the_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_time_budget_stops_starting_new_regions"><code class="docutils literal notranslate"><span class="pre">test_time_budget_stops_starting_new_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_time_limit_is_propagated_and_logged"><code class="docutils literal notranslate"><span class="pre">test_time_limit_is_propagated_and_logged()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_unknown_region_returns_404"><code class="docutils literal notranslate"><span class="pre">test_unknown_region_returns_404()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_update_covers_exactly_the_active_and_hidden_regions"><code class="docutils literal notranslate"><span class="pre">test_update_covers_exactly_the_active_and_hidden_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_region_statistics.test_update_keeps_the_history"><code class="docutils literal notranslate"><span class="pre">test_update_keeps_the_history()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3655,6 +3691,52 @@ This applies in ALL regions.</p>
 </dd></dl>
 
 </section>
+<section id="update-region-conditions">
+<h2>Update Region Conditions<a class="headerlink" href="#update-region-conditions" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">integreat_cms.core.management.commands.update_region_conditions.</span></span><span class="sig-name descname"><span class="pre">Command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/update_region_conditions.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.core.management.html#integreat_cms.core.management.log_command.LogCommand" title="integreat_cms.core.management.log_command.LogCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogCommand</span></code></a></p>
+<p>Management command to precompute the condition of all active and hidden regions</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">add_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CommandParser</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/update_region_conditions.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Define the arguments of this command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parser</strong> (<em>CommandParser</em>) – The argument parser</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_budget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.13/builtins/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/update_region_conditions.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Compute and store the condition of all active and hidden regions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>time_budget</strong> (<a class="reference external" href="https://docs.python.org/3.13/builtins/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><em>None</em>) – The number of seconds after which no further region is started</p></li>
+<li><p><strong>**options</strong> (<em>Any</em>) – The supplied keyword options</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>CommandError</strong> – When the condition of a region could
+not be computed or was not reached</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -3672,7 +3754,7 @@ This applies in ALL regions.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 23, 2026.
+      <span class="lastupdated">Last updated on Nov 24, 2026.
       </span></p>
   </div>
 
