@@ -1816,7 +1816,8 @@ msgstr "Übersetzung fehlt"
 msgid "Machine translated"
 msgstr "Maschinelle Übersetzung"
 
-#: cms/constants/translation_status.py cms/templates/pages/pages_page_tree_node.html
+#: cms/constants/translation_status.py
+#: cms/templates/pages/pages_page_tree_node.html
 msgid "Currently being machine translated"
 msgstr "Wird derzeit maschinell übersetzt"
 
@@ -2691,7 +2692,8 @@ msgstr "Die Passwörter stimmen nicht überein."
 #: cms/models/feedback/feedback.py
 #: cms/models/machine_translations/machine_translation_report.py
 #: cms/models/media/directory.py cms/models/media/media_file.py
-#: cms/models/regions/region.py cms/models/users/organization.py
+#: cms/models/regions/region.py cms/models/regions/region_condition.py
+#: cms/models/users/organization.py
 msgid "region"
 msgstr "Region"
 
@@ -4549,6 +4551,43 @@ msgstr ""
 "Prozentsatz der Nutzer, die als Beta-Tester für den öffentlichen Chat "
 "ausgewählt werden sollen"
 
+#: cms/models/regions/region_condition.py
+msgid "computed at"
+msgstr "Berechnungszeitpunkt"
+
+#: cms/models/regions/region_condition.py
+msgid "number of broken links"
+msgstr "Anzahl fehlerhafter Links"
+
+#: cms/models/regions/region_condition.py
+msgid "number of page translations with low HIX value"
+msgstr "Anzahl Seitenübersetzungen mit niedrigem HIX-Wert"
+
+#: cms/models/regions/region_condition.py
+msgid "number of pages"
+msgstr "Anzahl an Seiten"
+
+#: cms/models/regions/region_condition.py
+msgid "number of pages with at least one missing or outdated translation"
+msgstr ""
+"Anzahl Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
+
+#: cms/models/regions/region_condition.py
+msgid "number of outdated pages"
+msgstr "Anzahl veralteter Seiten"
+
+#: cms/models/regions/region_condition.py
+msgid "number of active languages besides default language"
+msgstr "Anzahl aktiver Sprachen neben der Standard-Sprache"
+
+#: cms/models/regions/region_condition.py
+msgid "region condition"
+msgstr "Regionenzustand"
+
+#: cms/models/regions/region_condition.py
+msgid "region conditions"
+msgstr "Regionenzustände"
+
 #: cms/models/statistics/page_accesses.py
 msgid "page accesses"
 msgstr "Seitenzugriffe"
@@ -4904,7 +4943,6 @@ msgid ""
 msgstr ""
 "Kurz warten oder <a href=\"%(list_url)s\" class=\"text-blue-500 hover:"
 "underline\">diese Seite verlassen</a>"
-
 
 #: cms/templates/_machine_translation_overlay.html
 msgid "Machine translation"
@@ -7647,8 +7685,7 @@ msgstr "Titel"
 msgid ""
 "This page is currently being translated into other languages in the "
 "background."
-msgstr ""
-"Diese Seite wird aktuell im Hintergrund in andere Sprachen übersetzt."
+msgstr "Diese Seite wird aktuell im Hintergrund in andere Sprachen übersetzt."
 
 #: cms/templates/pages/page_form.html
 #, python-format
@@ -12185,6 +12222,7 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
 
 #~ msgid "Staff member"
 #~ msgstr "Teammitglied"
