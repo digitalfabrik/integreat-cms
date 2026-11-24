@@ -53,7 +53,7 @@ def test_barrier_free_and_organization_box_appear(
 
     edit_place = reverse(
         "edit_place",
-        kwargs={"region_slug": "augsburg", "language_slug": "de", "place_id": 1},
+        kwargs={"region_slug": "augsburg", "language_slug": "de", "place_id": 4},
     )
     response = client.get(edit_place)
 
