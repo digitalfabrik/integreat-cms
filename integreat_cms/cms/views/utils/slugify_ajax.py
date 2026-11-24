@@ -4,7 +4,7 @@ import json
 from typing import TYPE_CHECKING
 
 from django.core.exceptions import PermissionDenied
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 from django.utils.text import slugify
 
 from ...models import EventTranslation, Page, PageTranslation, PlaceTranslation
@@ -31,6 +31,7 @@ def slugify_ajax(
     :param model_type: The type of model to generate a unique slug for, one of `event|page|place`
     :return: unique translation slug
     :raises ~django.core.exceptions.PermissionDenied: If the user does not have the permission to access this function
+    :raises ~django.http.Http404: If the given ``model_id`` is invalid or does not exist in the current region
     """
     required_permission = {
         "event": "cms.change_event",
@@ -49,19 +50,22 @@ def slugify_ajax(
     model_id = json_data.get("model_id")
 
     if model_id is not None:
-        if isinstance(model_id, bool) or not isinstance(model_id, (int, str)):
-            return JsonResponse(
-                {"error": "Invalid model ID"},
-                status=400,
-            )
+        if not isinstance(model_id, (int, str)):
+            raise Http404("Invalid model_id")
 
         try:
             model_id = int(model_id)
-        except ValueError:
-            return JsonResponse(
-                {"error": "Invalid model ID"},
-                status=400,
-            )
+        except ValueError as e:
+            raise Http404("Invalid model_id") from e
+
+        foreign_model = (
+            managers[model_type]._meta.get_field(model_type).remote_field.model
+        )
+        if not foreign_model.objects.filter(
+            pk=model_id,
+            region=request.region,
+        ).exists():
+            raise Http404("Invalid model_id")
 
     if not (
         request.user.has_perms((required_permission,))
@@ -73,20 +77,6 @@ def slugify_ajax(
         )
     ):
         raise PermissionDenied
-
-    if model_id is not None:
-        foreign_model = (
-            managers[model_type]._meta.get_field(model_type).remote_field.model
-        )
-
-        if not foreign_model.objects.filter(
-            pk=model_id,
-            region=request.region,
-        ).exists():
-            return JsonResponse(
-                {"error": "Invalid model ID"},
-                status=400,
-            )
 
     manager = managers[model_type].objects
     # New objects don't have an id yet, and new translations of existing objects have no instance yet

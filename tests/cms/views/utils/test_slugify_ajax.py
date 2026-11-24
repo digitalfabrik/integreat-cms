@@ -105,7 +105,7 @@ def test_slugify_ajax_with_invalid_model_id(
     model_type: str,
 ) -> None:
     """
-    An invalid model ID should not cause an unhandled exception.
+    An invalid model ID should not cause an unhandled exception (see #4624).
     """
     client = Client()
     client.force_login(get_user_model().objects.get(username="root"))
@@ -128,4 +128,4 @@ def test_slugify_ajax_with_invalid_model_id(
         content_type="application/json",
     )
 
-    assert response.status_code == 400
+    assert response.status_code == 404
