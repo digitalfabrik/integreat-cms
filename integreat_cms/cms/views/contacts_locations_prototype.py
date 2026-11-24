@@ -36,26 +36,32 @@ PLACE_CATEGORIES = [
     "Treffpunkt",
 ]
 
-# Target languages of the translation view, "translations" of a place has one status per language: c = aktuell, m = maschinell, x = fehlt
-LANGUAGES = ["AR", "BG", "CS", "DA", "EL", "EN", "ES", "FA", "FI", "FR", "HI", "HR", "HU", "ID", "IT", "KA", "KO", "KMR", "LT", "NL", "PL", "PT", "RO"]
+# Master list of all languages with a fake status: "translations" of a place in FAKE_PLACES has one status per
+# language in this order: c = aktuell, m = maschinell, x = fehlt.
+# Each data set picks its own target languages from this list (DATA_SETS[...]["languages"]), the place
+# statuses are looked up by language code when the data set is loaded (see _initial_data).
+LANGUAGES = ["AR", "BG", "CS", "DA", "EL", "EN", "ES", "FA", "FI", "FR", "HI", "HR", "HU", "ID", "IT", "KA", "KO", "KMR", "LT", "NL", "PL", "PT", "RO", "SO", "PS", "RU", "TR", "UK", "SQ", "TI", "OM", "AM", "SR", "CKB"]
+
+# Default target languages for data sets without their own list (the original 23 of the prototype)
+DEFAULT_LANGUAGES = ["AR", "BG", "CS", "DA", "EL", "EN", "ES", "FA", "FI", "FR", "HI", "HR", "HU", "ID", "IT", "KA", "KO", "KMR", "LT", "NL", "PL", "PT", "RO"]
 
 # Fake places in Augsburg: invented names and house numbers, no real institution data
 # This is also the base for the other regional data sets in DATA_SETS (same ids, categories, status)
 FAKE_PLACES = [
-    {"id": 1, "title": "Ausländerbehörde", "categories": ["Behörde/Amt"], "street": "Langenmantelstraße 14", "zip": "86153", "town": "Augsburg", "published": True, "translations": "ccccccccmcccccccccccccc"},
-    {"id": 2, "title": "Bürgerbüro Haunstetten", "categories": ["Behörde/Amt", "Dienstleistung"], "street": "Tattenbachstraße 7", "zip": "86179", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccmm"},
-    {"id": 3, "title": "Agentur für Arbeit", "categories": ["Behörde/Amt", "Beratung"], "street": "Halderstraße 22", "zip": "86150", "town": "Augsburg", "published": True, "translations": "ccccccmmmmmmmcccccccccc"},
-    {"id": 4, "title": "Migrationsberatung Lechhausen", "categories": ["Beratung"], "street": "Neuburger Straße 41", "zip": "86167", "town": "Augsburg", "published": True, "translations": "ccccccccccccccccccccccc"},
-    {"id": 5, "title": "Sprachcafé im Bürgerhaus Pfersee", "categories": ["Treffpunkt", "Bildung"], "street": "Stadtberger Straße 18", "zip": "86157", "town": "Augsburg", "published": True, "translations": "ccccccccccccmmmmccccccc"},
-    {"id": 6, "title": "Volkshochschule – Kursräume Innenstadt", "categories": ["Bildung"], "street": "Willy-Brandt-Platz 3", "zip": "86153", "town": "Augsburg", "published": True, "translations": "ccccccccccccccccccccccc"},
-    {"id": 7, "title": "Stadtteilbibliothek Oberhausen", "categories": ["Bildung", "Multimedia"], "street": "Donauwörther Straße 63", "zip": "86154", "town": "Augsburg", "published": False, "translations": "mmmmmmmmmmmmmmmmmmmmmmm"},
-    {"id": 8, "title": "Kinderarztpraxis Dr. Yilmaz", "categories": ["Gesundheit"], "street": "Ulmer Straße 112", "zip": "86156", "town": "Augsburg", "published": True, "translations": "ccccccccccccccccccccccc"},
-    {"id": 9, "title": "Gesundheitsamt", "categories": ["Behörde/Amt", "Gesundheit"], "street": "Karmelitengasse 9", "zip": "86152", "town": "Augsburg", "published": True, "translations": "ccccccccccccccccccccccc"},
-    {"id": 10, "title": "Familientreff Herrenbach", "categories": ["Treffpunkt", "Freizeit"], "street": "Reichenberger Straße 30", "zip": "86161", "town": "Augsburg", "published": True, "translations": "cccccccmmmmcccccccccccc"},
-    {"id": 11, "title": "Sozialkaufhaus Fundgrube", "categories": ["Einkaufen", "Einrichtung"], "street": "Holzbachstraße 25", "zip": "86152", "town": "Augsburg", "published": True, "translations": "ccccccccccccccccccccccc"},
-    {"id": 12, "title": "Fahrradwerkstatt zum Selbermachen", "categories": ["Mobilität", "Dienstleistung"], "street": "Gögginger Straße 59", "zip": "86159", "town": "Augsburg", "published": False, "translations": "mmmmmmmmmmmmmmmmmmmmmmm"},
-    {"id": 13, "title": "Internationaler Mittagstisch", "categories": ["Gastronomie", "Treffpunkt"], "street": "Jakoberstraße 40", "zip": "86152", "town": "Augsburg", "published": True, "translations": "ccccccccccccccccccccccc"},
-    {"id": 14, "title": "Kulturhaus am Kanal", "categories": ["Kultur", "Freizeit"], "street": "Mittlerer Lech 8", "zip": "86150", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccmm"},
+    {"id": 1, "title": "Ausländerbehörde", "categories": ["Behörde/Amt"], "street": "Langenmantelstraße 14", "zip": "86153", "town": "Augsburg", "published": True, "translations": "ccccccccmccccccccccccccccccccccccc"},
+    {"id": 2, "title": "Bürgerbüro Haunstetten", "categories": ["Behörde/Amt", "Dienstleistung"], "street": "Tattenbachstraße 7", "zip": "86179", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccmmccccccccccc"},
+    {"id": 3, "title": "Agentur für Arbeit", "categories": ["Behörde/Amt", "Beratung"], "street": "Halderstraße 22", "zip": "86150", "town": "Augsburg", "published": True, "translations": "ccccccmmmmmmmccccccccccmmccccmmccc"},
+    {"id": 4, "title": "Migrationsberatung Lechhausen", "categories": ["Beratung"], "street": "Neuburger Straße 41", "zip": "86167", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccccccccccccccc"},
+    {"id": 5, "title": "Sprachcafé im Bürgerhaus Pfersee", "categories": ["Treffpunkt", "Bildung"], "street": "Stadtberger Straße 18", "zip": "86157", "town": "Augsburg", "published": True, "translations": "ccccccccccccmmmmcccccccccmmcmccmcc"},
+    {"id": 6, "title": "Volkshochschule – Kursräume Innenstadt", "categories": ["Bildung"], "street": "Willy-Brandt-Platz 3", "zip": "86153", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccccccccccccccc"},
+    {"id": 7, "title": "Stadtteilbibliothek Oberhausen", "categories": ["Bildung", "Multimedia"], "street": "Donauwörther Straße 63", "zip": "86154", "town": "Augsburg", "published": False, "translations": "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"},
+    {"id": 8, "title": "Kinderarztpraxis Dr. Yilmaz", "categories": ["Gesundheit"], "street": "Ulmer Straße 112", "zip": "86156", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccccccccccccccc"},
+    {"id": 9, "title": "Gesundheitsamt", "categories": ["Behörde/Amt", "Gesundheit"], "street": "Karmelitengasse 9", "zip": "86152", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccccccccccmccmc"},
+    {"id": 10, "title": "Familientreff Herrenbach", "categories": ["Treffpunkt", "Freizeit"], "street": "Reichenberger Straße 30", "zip": "86161", "town": "Augsburg", "published": True, "translations": "cccccccmmmmccccccccccccmcccccccccm"},
+    {"id": 11, "title": "Sozialkaufhaus Fundgrube", "categories": ["Einkaufen", "Einrichtung"], "street": "Holzbachstraße 25", "zip": "86152", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccccccccccccccc"},
+    {"id": 12, "title": "Fahrradwerkstatt zum Selbermachen", "categories": ["Mobilität", "Dienstleistung"], "street": "Gögginger Straße 59", "zip": "86159", "town": "Augsburg", "published": False, "translations": "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"},
+    {"id": 13, "title": "Internationaler Mittagstisch", "categories": ["Gastronomie", "Treffpunkt"], "street": "Jakoberstraße 40", "zip": "86152", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccccccccccccccc"},
+    {"id": 14, "title": "Kulturhaus am Kanal", "categories": ["Kultur", "Freizeit"], "street": "Mittlerer Lech 8", "zip": "86150", "town": "Augsburg", "published": True, "translations": "cccccccccccccccccccccmmcmcccccmccc"},
 ]
 
 # Fake contacts: "places" are place ids, "pages" are only titles
@@ -89,6 +95,7 @@ DATA_SETS = {
         "app_slug": "augsburg",
         "area_code": "0821",
         "email_domain": "augsburg.example",
+        "languages": ["AR", "BG", "EL", "EN", "ES", "FA", "FR", "HR", "IT", "KMR", "PL", "PS", "RO", "RU", "SO", "TR", "UK"],
         "places": None,
     },
     "dachau": {
@@ -97,6 +104,7 @@ DATA_SETS = {
         "app_slug": "dachau",
         "area_code": "08131",
         "email_domain": "dachau.example",
+        "languages": ["AR", "BG", "EL", "EN", "ES", "FA", "FR", "HR", "HU", "IT", "PL", "RO", "RU", "SQ", "TI", "TR", "UK"],
         "places": [
             ("Ausländerbehörde", "Weiherweg 16", "85221", "Dachau"),
             ("Bürgerbüro Dachau-Ost", "Sudetenlandstraße 20", "85221", "Dachau"),
@@ -120,6 +128,7 @@ DATA_SETS = {
         "app_slug": "landkreisaugsburg",
         "area_code": "0821",
         "email_domain": "lra-a.example",
+        "languages": ["AR", "BG", "EL", "EN", "ES", "FA", "HR", "HU", "IT", "PL", "PS", "RO", "TI", "TR", "UK"],
         "places": [
             ("Ausländerbehörde im Landratsamt", "Prinzregentenplatz 4", "86150", "Augsburg"),
             ("Bürgerbüro Gersthofen", "Rathausplatz 2", "86368", "Gersthofen"),
@@ -143,6 +152,7 @@ DATA_SETS = {
         "app_slug": "rosenheim",
         "area_code": "08031",
         "email_domain": "rosenheim.example",
+        "languages": ["AR", "BG", "EN", "ES", "FA", "FR", "HR", "HU", "IT", "PL", "RO", "RU", "SO", "TI", "TR", "UK"],
         "places": [
             ("Ausländerbehörde", "Reichenbachstraße 8", "83022", "Rosenheim"),
             ("Bürgerbüro Happing", "Happinger Straße 70", "83026", "Rosenheim"),
@@ -166,6 +176,7 @@ DATA_SETS = {
         "app_slug": "landkreismuenchen",
         "area_code": "089",
         "email_domain": "lra-m.example",
+        "languages": ["AR", "EN", "FA", "FR", "RU", "TR", "UK"],
         "places": [
             ("Ausländerbehörde im Landratsamt", "Mariahilfplatz 17", "81541", "München"),
             ("Bürgerbüro Unterschleißheim", "Rathausplatz 1", "85716", "Unterschleißheim"),
@@ -189,6 +200,7 @@ DATA_SETS = {
         "app_slug": "regensburg",
         "area_code": "0941",
         "email_domain": "regensburg.example",
+        "languages": ["AM", "AR", "BG", "CKB", "EN", "ES", "FA", "FR", "OM", "PL", "RO", "RU", "SR", "TR", "UK"],
         "places": [
             ("Ausländerbehörde", "D.-Martin-Luther-Straße 3", "93047", "Regensburg"),
             ("Bürgerbüro Burgweinting", "Friedrich-Viehbacher-Allee 5", "93055", "Regensburg"),
@@ -238,6 +250,10 @@ def _initial_data(set_key):
     if data_set["places"]:
         for place, (title, street, zip_code, town) in zip(places, data_set["places"]):
             place.update({"title": title, "street": street, "zip": zip_code, "town": town})
+    # Pick the statuses of the region's languages from the master string
+    for place in places:
+        status_by_code = dict(zip(LANGUAGES, place["translations"]))
+        place["translations"] = "".join(status_by_code.get(code, "c") for code in _languages(data_set))
     contacts = copy.deepcopy(FAKE_CONTACTS)
     for contact in contacts:
         contact["email"] = contact["email"].replace("augsburg.example", data_set["email_domain"])
@@ -256,6 +272,11 @@ def _data(request):
 def _data_set(data):
     """The regional data set of the session, for region specific texts in the templates (phone, email, app link)"""
     return DATA_SETS[data.get("set", DEFAULT_DATA_SET)]
+
+
+def _languages(data_set):
+    """Target languages of a regional data set"""
+    return data_set.get("languages", DEFAULT_LANGUAGES)
 
 
 def _save(request, data):
@@ -317,7 +338,7 @@ def overview(request, region_slug):
             "current_menu_item": "contacts_locations",
             "tabs": [("orte", "Orte"), ("kontakte", "Kontakte")],
             "fake_place_categories": PLACE_CATEGORIES,
-            "fake_languages": LANGUAGES,
+            "fake_languages": _languages(_data_set(data)),
             "fake_places": _places(data),
             "fake_contacts": _contacts(data),
         },
@@ -342,7 +363,7 @@ def new_place(request, region_slug):
             "zip": request.POST.get("zip", "").strip(),
             "town": request.POST.get("town", "").strip(),
             "published": False,
-            "translations": "x" * len(LANGUAGES),
+            "translations": "x" * len(_languages(_data_set(data))),
             "new": True,
         }
     )
@@ -394,7 +415,7 @@ def place_edit(request, region_slug, place_id):
             "fake_set": _data_set(data),
             # Contacts for the "Verknüpfung hinzufügen" overlay: all that are not linked to this place yet, A-Z
             "fake_link_contacts": [c for c in _contacts(data) if place_id not in c["place_ids"]],
-            "fake_translations": [(code, states[s]) for code, s in zip(LANGUAGES, place["translations"])],
+            "fake_translations": [(code, states[s]) for code, s in zip(_languages(_data_set(data)), place["translations"])],
         },
     )
 
