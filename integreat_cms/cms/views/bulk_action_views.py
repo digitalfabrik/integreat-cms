@@ -656,4 +656,7 @@ class BulkDeletingView(BulkActionView):
                     ),
                 )
 
+            if self.model is Page:
+                messages.info(request, _("Subpages also includes archived pages."))
+
         return super().post(request, *args, **kwargs)
