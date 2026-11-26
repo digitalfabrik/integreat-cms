@@ -319,6 +319,96 @@ Common Pitfalls
    ``Page.add_root()`` / ``parent.add_child()``, not ``Page.objects.create()``.
 
 
+Query Report
+============
+
+Pass ``--query-report`` to record every database query of every test and get a
+suite-wide report of query counts, N+1 candidates, duplicate and slow queries::
+
+    ./tools/test.py --query-report
+    ./tools/test.py tests/api --query-report
+
+The report is written to ``tests-results/query-report/``:
+
+``index.html``
+    Static overview (no JavaScript): N+1 candidates, endpoints by queries per
+    request, duplicate queries, slowest queries, most frequent statements and
+    the tests with the most queries (top 200, expandable).
+
+``query-report.json``
+    The same data for all tests, for scripting and diffs between runs.
+
+``raw/``
+    The unmerged results of each xdist worker.
+
+How to read it:
+
+* Rankings only count the queries of the test body (pytest's ``call`` phase).
+  Fixture setup and teardown (e.g. ``load_test_data``) are listed separately
+  per test, so they don't hide what the code under test does.
+* The **call site** is the innermost frame in ``integreat_cms/`` that triggered
+  the query, or the test itself for ORM calls made directly in the test.
+* An **N+1 candidate** is the same statement (``IN`` lists normalized) executed
+  at least ``--query-report-n1-threshold`` times (default ``5``) from the same
+  call site with different parameters, usually a missing
+  ``select_related``/``prefetch_related``.
+* A **duplicate** is the same statement with the same parameters from the same
+  call site within one test: a candidate for caching or reusing the object.
+* **Endpoints** are grouped by URL route (e.g.
+  ``<slug:region_slug>/<slug:language_slug>/sitemap.xml``), so requests for
+  different regions, languages and roles end up in the same row.
+* Query caching via cacheops is disabled in the test settings, so the counts
+  are what the database actually executes. The report header says so.
+
+Without ``--query-report`` the plugin is not registered at all. Recording
+every stack frame slows the run down, so only enable it when you need the
+report. Use ``--query-report-dir`` to write the report somewhere else.
+
+
+Query Guards
+============
+
+Two guards keep the number of queries from silently growing.
+
+**N+1 detection with django-zeal.** The autouse ``zeal`` fixture in
+``tests/conftest.py`` enables `django-zeal <https://github.com/taobojlen/django-zeal>`__
+for every test. A test fails with ``zeal.errors.NPlusOneError`` as soon as the
+same relation is lazily loaded at least ``ZEAL_NPLUSONE_THRESHOLD`` (``5``) times
+from the same line, e.g.::
+
+    NPlusOneError: N+1 detected on cms.Region.language_tree_nodes at integreat_cms/api/v3/regions.py:30 in transform_region
+
+Fix it with ``select_related()``/``prefetch_related()`` on the queryset that is
+iterated. The zeal middleware (added in the test settings) gives each request
+its own detection context, so several requests in one test are not mistaken for
+an N+1. Loading fixtures in ``load_test_data_transactional`` is excluded.
+
+N+1s which already existed when the guard was introduced are listed in
+``ZEAL_ALLOWLIST`` in :mod:`~integreat_cms.core.test_settings`, each with an
+example of where it happens:
+
+* When you fix one, remove its entry. The allowlist works per model and field
+  for the whole suite, so every entry also hides new N+1s on the same relation.
+* Only add an entry for an N+1 you cannot fix, e.g. in third-party code. To
+  accept an N+1 in a single place, wrap the code in ``zeal.zeal_ignore()``
+  instead of extending the allowlist.
+
+**Query budgets.** ``tests/cms/views/test_query_budgets.py`` pins the exact
+number of queries of a GET request for the CMS views with the most queries, like
+the API (``tests/api/api_config.py``) and sitemap tests do for their endpoints.
+The first request warms up process-wide caches and is not counted, so the
+budget does not depend on the tests which ran before. When a budget test fails:
+
+* **Fewer queries:** lower the budget in ``QUERY_BUDGETS``.
+* **More queries:** run the query report for the view and look for new N+1 or
+  duplicate queries before raising the budget::
+
+      ./tools/test.py -- tests/cms/views/test_query_budgets.py -n0 --query-report
+
+  The failure message of ``django_assert_num_queries`` lists every query when
+  run with ``-v``.
+
+
 Coverage
 ========
 
