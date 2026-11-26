@@ -38,6 +38,7 @@ import "./js/language-tabs";
 import "./js/machine-translation-overlay";
 import "./js/revisions";
 import "./js/event-duration";
+import "./js/sentry";
 
 import "./js/forms/add-missing-url-scheme";
 import "./js/forms/slug-error";

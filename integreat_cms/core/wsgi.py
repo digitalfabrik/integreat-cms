@@ -16,6 +16,8 @@ from typing import TYPE_CHECKING
 
 from django.core.wsgi import get_wsgi_application
 
+from integreat_cms.core.sentry import init_sentry
+
 if TYPE_CHECKING:
     from collections.abc import Callable
 
@@ -44,6 +46,7 @@ def application(environ: dict[str, str], start_response: Callable) -> WSGIHandle
         if key.startswith("INTEGREAT_CMS_"):
             os.environ[key] = value
 
+    init_sentry("cms")
     _application = get_wsgi_application()
 
     return _application(environ, start_response)

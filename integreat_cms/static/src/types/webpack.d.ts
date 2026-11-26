@@ -1,0 +1,2 @@
+const WEBPACK_VERSION: string;
+const WEBPACK_SENTRY_TRACES_SAMPLE_RATE: string;
