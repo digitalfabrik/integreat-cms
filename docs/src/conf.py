@@ -57,7 +57,7 @@ django_github_url: Final[str] = (
 )
 
 #: The full version, including alpha/beta/rc tags
-release = "2026.11.1"
+release = "2026.11.2"
 
 # -- General configuration ---------------------------------------------------
 
