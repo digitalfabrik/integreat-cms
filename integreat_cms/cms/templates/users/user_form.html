@@ -18,7 +18,7 @@
                 {% endif %}
             </h1>
             {% if perms.cms.change_user %}
-                <button class="btn">{% translate "Save" %}</button>
+                <button type="submit" class="btn">{% translate "Save" %}</button>
             {% endif %}
         </div>
         <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
@@ -139,7 +139,8 @@
         </div>
         {% if user_form.instance.id and perms.cms.delete_user %}
             <div class="pt-2 pb-4">
-                <button title="{% translate "Delete account" %}"
+                <button type="button"
+                        title="{% translate "Delete account" %}"
                         class="btn confirmation-button btn-red"
                         data-confirmation-title="{% translate "Please confirm that you really want to delete this account" %}"
                         data-confirmation-text="{% translate "This cannot be reversed." %}"

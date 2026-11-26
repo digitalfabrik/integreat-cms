@@ -32,7 +32,7 @@ const UploadFile = ({
 }: Props) => {
     // This state is used to refresh the media library after changes were made
     const [refresh, setRefresh] = refreshState;
-    const dropZoneRef = useRef();
+    const dropZoneRef = useRef<HTMLFormElement>(null);
 
     useEffect(() => {
         // We do not want to reload the dropzone itself, so we use a different, local refresh value

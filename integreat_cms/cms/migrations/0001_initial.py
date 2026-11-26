@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import datetime
+import datetime as dt
 
 import django.contrib.auth.validators
 import django.contrib.postgres.fields
@@ -122,7 +122,7 @@ class Migration(migrations.Migration):
                 (
                     "chat_last_visited",
                     models.DateTimeField(
-                        default=datetime.datetime(1, 1, 1, 0, 0, tzinfo=datetime.UTC),
+                        default=dt.datetime(1, 1, 1, 0, 0, tzinfo=dt.UTC),
                         help_text="The date and time when the user did read the chat the last time",
                         verbose_name="last chat visit date",
                     ),

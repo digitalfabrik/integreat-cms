@@ -23,7 +23,7 @@
                     <a href="{% if not push_notification_form.instance.archived %}{% url 'push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% else %}{% url 'archived_push_notifications' region_slug=request.region.slug language_slug=language.slug %}{% endif %}"
                        class="btn btn-ghost">{% translate "Cancel" %}</a>
                     {% if not push_notification_form.instance.archived %}
-                        <button name="submit_update" class="btn btn-ghost">
+                        <button type="submit" name="submit_update" class="btn btn-ghost">
                             {% if not push_notification_form.instance.sent_date %}
                                 {% translate "Save" %}
                             {% else %}
@@ -32,11 +32,13 @@
                         </button>
                         {% if push_notification_form.instance.id and not push_notification_form.instance.sent_date and perms.cms.send_push_notification %}
                             <div id="button_submit_send">
-                                <button name="submit_send"
+                                <button type="submit"
+                                        name="submit_send"
                                         class="btn {% if push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
                                     {% translate "Send" %}
                                 </button>
-                                <button name="submit_schedule"
+                                <button type="submit"
+                                        name="submit_schedule"
                                         class="btn {% if not push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
                                     {% if push_notification_form.instance.scheduled_send_date %}
                                         {% translate "Re-schedule" %}
@@ -97,7 +99,6 @@
                     <div class="flex flex-col flex-auto w-full p-4">
                         <div class="flex justify-between">
                             <label for="{{ push_notification_translation_form.title.id_for_label }}"
-                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='place' %}"
                                    {% if push_notification_form.instance.id %}data-model-id="{{ push_notification_form.instance.id }}"{% endif %}>
                                 {{ push_notification_translation_form.title.label }}
                             </label>

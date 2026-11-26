@@ -27,16 +27,18 @@ This workflow gets triggered everytime a commit is pushed to the ``develop`` bra
 .. image:: images/circleci-main-workflow.png
     :alt: CircleCI main workflow
 
-.. _circleci-pip-install:
+.. _circleci-uv-install:
 
-pip-install
+uv-install
 --------------
 
-This job executes ``pip install -e .[dev-pinned,pinned]`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
-It passes the virtual environment ``.venv`` to the subsequent jobs.
+This job verifies that :github-source:`uv.lock` is up to date with :github-source:`pyproject.toml`
+(``uv lock --check``) and installs the locked versions with ``uv sync --locked``.
+It makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__ and passes the
+virtual environment ``.venv`` to the subsequent jobs.
 
 Since a virtual environment is only valid for the interpreter which created it, the cache key contains not only the
-checksum of ``pyproject.toml``, but also the checksum of ``.python-build-id``, a file which is written by the job itself
+checksum of :github-source:`uv.lock`, but also the checksum of ``.python-build-id``, a file which is written by the job itself
 with the output of ``python3 -VV``. This means the cache is invalidated whenever the Python version of the Docker image
 changes, and the image can be referenced by its minor version (``cimg/python:3.13``) to receive patch updates
 automatically. Do not replace this with an environment variable: values which are exported to ``$BASH_ENV`` are not
@@ -136,16 +138,30 @@ This job makes use of the `ShellCheck CircleCI Orb <https://circleci.com/develop
 executes the pre-defined job ``shellcheck/check``. It is configured to check the directory :github-source:`tools`
 and to allow external sources because all dev tools source one common function script. Also see :ref:`shellcheck`.
 
+llm-review
+----------
+
+This job reviews the open pull request of the current branch with our self-hosted LLM and posts the review as comment.
+It authenticates as the Deliverino app with a token which is restricted to this repository and the permissions the
+review needs (``pull_requests: write`` and ``contents: read``) and
+runs ``pr-review.py`` of `github-agent <https://github.com/digitalfabrik/github-agent>`_ at the commit pinned in the job.
+The LLM endpoint is configured via the variables ``LLM_BASE_URL``, ``LLM_API_KEY`` and ``LLM_MODEL`` of the
+``llm-review`` context. The instructions for the review are read from :github-source:`REVIEW_PROMPT.md` on the
+``develop`` branch. On subsequent pushes, the existing review comment is updated instead of creating a new one.
+Draft pull requests, pull requests from forks and Dependabot are not reviewed. Since the pipeline is triggered by the
+push and not by the pull request, the job waits up to 5 minutes for a pull request to be opened. Pull requests which are
+opened later or marked as ready for review are reviewed on the next push.
+
 
 Workflow ``main``
 =================
 
 This workflow gets executed when a commit is pushed to the ``main`` branch. Typically, this is a release PR from ``develop``.
 
-pip-install
---------------
+uv-install
+-------------
 
-See :ref:`circleci-pip-install`.
+See :ref:`circleci-uv-install`.
 
 bump-version
 ------------
@@ -159,10 +175,10 @@ Workflow ``deploy``
 
 This workflow gets executed when a commit is tagged.
 
-pip-install
---------------
+uv-install
+-------------
 
-See :ref:`circleci-pip-install`.
+See :ref:`circleci-uv-install`.
 
 webpack
 -------

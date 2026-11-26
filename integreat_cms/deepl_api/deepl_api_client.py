@@ -8,8 +8,6 @@ import deepl
 from deepl.exceptions import DeepLException
 from django.apps import apps
 from django.conf import settings
-from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
 
 from ..core.utils.machine_translation_api_client import (
     MachineTranslationApiClient,
@@ -119,13 +117,8 @@ class DeepLApiClient(MachineTranslationApiClient):
                         tag_handling="html",
                         glossary=glossary,
                     )
-                except DeepLException:
-                    messages.error(
-                        self.request,
-                        _(
-                            "A problem with DeepL API has occurred. Please contact an administrator.",
-                        ),
-                    )
+                except DeepLException as e:
+                    self.mark_unsuccessful(ctx, e)
                     logger.exception(
                         "Could not translate %r from %r to %r",
                         ctx.instance,

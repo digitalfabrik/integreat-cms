@@ -59,13 +59,6 @@ services:
       # Forward the host's QUICK_ROLES so `QUICK_ROLES=1 ./tools/test.sh`
       # also works in the default Docker mode.
       QUICK_ROLES: ${QUICK_ROLES:-}
-      # Keep Python's bytecode cache off the bind-mounted source tree, so the
-      # container ignores the host's __pycache__ and concurrent xdist workers
-      # cannot corrupt .pyc files ("EOFError: marshal data too short").
-      PYTHONPYCACHEPREFIX: /tmp/pycache
-      # The invoking host uid has no passwd entry in the image; give pip and
-      # friends a writable HOME for their caches.
-      HOME: /tmp
     volumes:
       # Bind-mount the working tree so tests run against the current code.
       - .:/home/circleci/project

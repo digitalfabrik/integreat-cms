@@ -53,12 +53,14 @@
              class="{% if not page_form.instance.api_token %} hidden{% endif %}">
             <div class="flex my-2">
                 {% render_field page_form.api_token|add_error_class:"border-red-500" class+="flex-grow text-ellipsis pointer-events-none !rounded-none !rounded-l" %}
-                <button id="copy-api-token"
+                <button type="button"
+                        id="copy-api-token"
                         title="{% translate "Copy to clipboard" %}"
                         class="bg-blue-500 hover:bg-blue-600 text-white px-3 rounded-r">
                     <i icon-name="copy" class="w-5 align-bottom"></i>
                 </button>
-                <button id="copy-api-token-success"
+                <button type="button"
+                        id="copy-api-token-success"
                         title="{% translate "Access token was successfully copied to clipboard" %}"
                         class="bg-green-500 text-white px-3 rounded-r hidden"
                         disabled>

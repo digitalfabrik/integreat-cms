@@ -27,6 +27,7 @@ from .feedback.region_feedback import RegionFeedback
 from .feedback.search_result_feedback import SearchResultFeedback
 from .languages.language import Language
 from .languages.language_tree_node import LanguageTreeNode
+from .machine_translations.machine_translation_report import MachineTranslationReport
 from .media.directory import Directory
 from .media.media_file import MediaFile
 from .offers.offer_template import OfferTemplate
@@ -43,6 +44,7 @@ from .push_notifications.push_notification_translation import (
     PushNotificationTranslation,
 )
 from .regions.region import Region
+from .regions.region_condition import RegionCondition
 from .statistics.page_accesses import PageAccesses
 from .users.api_token import ApiToken
 from .users.organization import Organization

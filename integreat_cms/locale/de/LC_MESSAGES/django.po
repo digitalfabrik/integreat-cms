@@ -1816,6 +1816,11 @@ msgstr "Übersetzung fehlt"
 msgid "Machine translated"
 msgstr "Maschinelle Übersetzung"
 
+#: cms/constants/translation_status.py
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "Currently being machine translated"
+msgstr "Wird derzeit maschinell übersetzt"
+
 #: cms/constants/weekdays.py
 msgid "Monday"
 msgstr "Montag"
@@ -2684,16 +2689,19 @@ msgstr "Die Passwörter stimmen nicht überein."
 
 #: cms/models/abstract_content_model.py cms/models/abstract_tree_node.py
 #: cms/models/external_calendars/external_calendar.py
-#: cms/models/feedback/feedback.py cms/models/media/directory.py
-#: cms/models/media/media_file.py cms/models/regions/region.py
+#: cms/models/feedback/feedback.py
+#: cms/models/machine_translations/machine_translation_report.py
+#: cms/models/media/directory.py cms/models/media/media_file.py
+#: cms/models/regions/region.py cms/models/regions/region_condition.py
 #: cms/models/users/organization.py
 msgid "region"
 msgstr "Region"
 
 #: cms/models/abstract_content_model.py cms/models/contact/contact.py
 #: cms/models/feedback/feedback.py cms/models/languages/language.py
-#: cms/models/languages/language_tree_node.py cms/models/media/directory.py
-#: cms/models/offers/offer_template.py
+#: cms/models/languages/language_tree_node.py
+#: cms/models/machine_translations/machine_translation_report.py
+#: cms/models/media/directory.py cms/models/offers/offer_template.py
 #: cms/models/push_notifications/push_notification.py
 #: cms/models/regions/region.py cms/models/users/api_token.py
 #: cms/models/users/organization.py cms/models/users/user_fido_key.py
@@ -2765,6 +2773,20 @@ msgstr "wird derzeit übersetzt"
 msgid ""
 "Flag to indicate a translation is being updated by an external translator"
 msgstr "Feld, das anzeigt, dass eine Übersetzung extern aktualisiert wird"
+
+#: cms/models/abstract_content_translation.py
+#: cms/models/push_notifications/push_notification_translation.py
+msgid "currently in machine translation"
+msgstr "wird derzeit maschinell übersetzt"
+
+#: cms/models/abstract_content_translation.py
+#: cms/models/push_notifications/push_notification_translation.py
+msgid ""
+"Flag to indicate a translation is currently being processed by a machine "
+"translation task"
+msgstr ""
+"Feld, das anzeigt, dass eine Übersetzung aktuell innerhalb einer Task zur "
+"maschinellen Übersetzung verarbeitet wird."
 
 #: cms/models/abstract_content_translation.py
 msgid "machine translated"
@@ -3521,6 +3543,36 @@ msgstr "Sprach-Knoten"
 #: cms/models/languages/language_tree_node.py
 msgid "An inactive language tree node has to be invisible."
 msgstr "Ein inaktiver Sprach-Knoten kann nicht sichtbar sein."
+
+#: cms/models/machine_translations/machine_translation_report.py
+#: cms/models/users/api_token.py cms/models/users/user.py
+#: cms/models/users/user_fido_key.py
+msgid "user"
+msgstr "Benutzer:in"
+
+#: cms/models/machine_translations/machine_translation_report.py
+msgid "task id"
+msgstr "Task-ID"
+
+#: cms/models/machine_translations/machine_translation_report.py
+msgid "content type"
+msgstr "Art des Inhalts"
+
+#: cms/models/machine_translations/machine_translation_report.py
+msgid "target language slugs"
+msgstr "Zielsprachencodes"
+
+#: cms/models/machine_translations/machine_translation_report.py
+msgid "per-language, per-object results"
+msgstr "Ergebnisse pro Sprache und Objekt"
+
+#: cms/models/machine_translations/machine_translation_report.py
+msgid "machine translation report"
+msgstr "Bericht zur maschinellen Übersetzung"
+
+#: cms/models/machine_translations/machine_translation_report.py
+msgid "machine translation reports"
+msgstr "Berichte zur maschinellen Übersetzung"
 
 #: cms/models/media/directory.py cms/models/media/media_file.py
 msgid "parent directory"
@@ -4499,14 +4551,46 @@ msgstr ""
 "Prozentsatz der Nutzer, die als Beta-Tester für den öffentlichen Chat "
 "ausgewählt werden sollen"
 
+#: cms/models/regions/region_condition.py
+msgid "computed at"
+msgstr "Berechnungszeitpunkt"
+
+#: cms/models/regions/region_condition.py
+msgid "number of broken links"
+msgstr "Anzahl fehlerhafter Links"
+
+#: cms/models/regions/region_condition.py
+msgid "number of page translations with low HIX value"
+msgstr "Anzahl Seitenübersetzungen mit niedrigem HIX-Wert"
+
+#: cms/models/regions/region_condition.py
+msgid "number of pages"
+msgstr "Anzahl an Seiten"
+
+#: cms/models/regions/region_condition.py
+msgid "number of pages with at least one missing or outdated translation"
+msgstr ""
+"Anzahl Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
+
+#: cms/models/regions/region_condition.py
+msgid "number of outdated pages"
+msgstr "Anzahl veralteter Seiten"
+
+#: cms/models/regions/region_condition.py
+msgid "number of active languages besides default language"
+msgstr "Anzahl aktiver Sprachen neben der Standard-Sprache"
+
+#: cms/models/regions/region_condition.py
+msgid "region condition"
+msgstr "Regionenzustand"
+
+#: cms/models/regions/region_condition.py
+msgid "region conditions"
+msgstr "Regionenzustände"
+
 #: cms/models/statistics/page_accesses.py
 msgid "page accesses"
 msgstr "Seitenzugriffe"
-
-#: cms/models/users/api_token.py cms/models/users/user.py
-#: cms/models/users/user_fido_key.py
-msgid "user"
-msgstr "Benutzer:in"
 
 #: cms/models/users/api_token.py
 msgid "token name"
@@ -4842,6 +4926,23 @@ msgstr "Standard-Sprache wird dupliziert"
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "Other Languages"
 msgstr "Weitere Sprachen"
+
+#: cms/templates/_machine_translation_lock_dialog.html
+msgid ""
+"This page is currently being translated in the background and cannot be "
+"edited in the meantime."
+msgstr ""
+"Diese Seite wird derzeit im Hintergrund übersetzt und kann währenddessen "
+"nicht bearbeitet werden."
+
+#: cms/templates/_machine_translation_lock_dialog.html
+#, python-format
+msgid ""
+"Please wait a moment or <a href=\"%(list_url)s\" class=\"text-blue-500 hover:"
+"underline\">leave this page</a>"
+msgstr ""
+"Kurz warten oder <a href=\"%(list_url)s\" class=\"text-blue-500 hover:"
+"underline\">diese Seite verlassen</a>"
 
 #: cms/templates/_machine_translation_overlay.html
 msgid "Machine translation"
@@ -7581,6 +7682,12 @@ msgid "Title"
 msgstr "Titel"
 
 #: cms/templates/pages/page_form.html
+msgid ""
+"This page is currently being translated into other languages in the "
+"background."
+msgstr "Diese Seite wird aktuell im Hintergrund in andere Sprachen übersetzt."
+
+#: cms/templates/pages/page_form.html
 #, python-format
 msgid "Edit page \"%(page_title)s\""
 msgstr "Seite \"%(page_title)s\" bearbeiten"
@@ -7892,6 +7999,10 @@ msgid "Import"
 msgstr "Importieren"
 
 #: cms/templates/pages/pages_page_tree_node.html
+msgid "Machine translation finished - click to refresh"
+msgstr "Maschinelle Übersetzung abgeschlossen - zum Aktualisieren klicken"
+
+#: cms/templates/pages/pages_page_tree_node.html
 msgid "This page is archived."
 msgstr "Diese Seite ist archiviert."
 
@@ -7901,6 +8012,10 @@ msgid ""
 msgstr ""
 "Diese Seite ist archiviert, weil eine ihrer übergeordneten Seiten archiviert "
 "ist."
+
+#: cms/templates/pages/pages_page_tree_node.html
+msgid "Currently being translated"
+msgstr "Wird derzeit übersetzt"
 
 #: cms/templates/pages/pages_page_tree_node.html
 msgid "View page as preview"
@@ -11594,7 +11709,30 @@ msgstr ""
 #: cms/views/users/user_form_view.py
 msgid "Only superusers can enable or disable passwordless authentication."
 msgstr ""
-"Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
+"Nur Administrator:innen können die passwortlose Authentifizierung aktivieren"
+
+#: cms/views/utils/machine_translation_progress.py
+msgid ""
+"Machine translation of multiple pages was not successful. Please try again."
+msgstr ""
+"Die maschinelle Übersetzung von mehreren Seiten war nicht erfolgreich. Bitte "
+"versuchen Sie es erneut."
+
+#: cms/views/utils/machine_translation_report.py
+msgid ""
+"Machine translation of multiple pages has finished. Not all pages could be "
+"translated."
+msgstr ""
+"Die maschinelle Übersetzung von mehreren Seiten ist abgeschlossen. Es "
+"konnten nicht alle Seiten übersetzt werden."
+
+#: cms/views/utils/machine_translation_report.py
+msgid ""
+"Machine translation of multiple pages has finished. All pages were "
+"translated successfully."
+msgstr ""
+"Die maschinelle Übersetzung von mehreren Seiten ist abgeschlossen. Es wurden "
+"alle Seiten erfolgreich übersetzt."
 
 #: cms/views/utils/opening_hour.py
 msgid "Edit office hours for this weekday"
@@ -11898,15 +12036,42 @@ msgstr ""
 "Übersetzung die Zeichenbegrenzung von {max_text_length} Zeichen "
 "überschritten hat ({source_language} ➜ {target_language})."
 
+#: core/utils/machine_translation_celery_task.py
+#, python-brace-format
+msgid ""
+"The translation into '{language_slug}' cannot be executed, because this "
+"language does not exist in this region."
+msgstr ""
+"Die Übersetzung nach '{language_slug}' kann nicht durchgeführt werden, da "
+"diese Sprache in dieser Region nicht existiert."
+
+#: core/utils/machine_translation_celery_task.py
+#, python-brace-format
+msgid ""
+"The translation into '{language_slug}' cannot be executed, because machine "
+"translation is disabled for this language."
+msgstr ""
+"Die Übersetzung nach '{language_slug}' kann nicht durchgeführt werden, da "
+"maschinelle Übersetzungen für diese Sprache deaktiviert sind."
+
+#: core/utils/machine_translation_celery_task.py
+msgid "Provider does not exist"
+msgstr "Provider existiert nicht."
+
+#: core/utils/machine_translation_celery_task.py
+#, python-brace-format
+msgid ""
+"The translation could not be started, because at least one of the requested "
+"{content_type} is already being translated into one of the requested "
+"languages."
+msgstr ""
+"Die Übersetzung konnte nicht durchgeführt werden, da wenigstens eine der "
+"angefragten {content_type} bereits in eine der angefragten Sprachen "
+"übersetzt wird."
+
 #: deepl_api/apps.py
 msgid "DeepL API"
 msgstr "DeepL API"
-
-#: deepl_api/deepl_api_client.py
-msgid "A problem with DeepL API has occurred. Please contact an administrator."
-msgstr ""
-"Ein Fehler mit DeepL API ist aufgetreten. Bitte kontaktieren Sie eine:n "
-"Administrator:in."
 
 #: firebase_api/apps.py
 msgid "Firebase API"
@@ -11915,14 +12080,6 @@ msgstr "Firebase API"
 #: google_translate_api/apps.py
 msgid "Google Translate API"
 msgstr "Google Translate API"
-
-#: google_translate_api/google_translate_api_client.py
-msgid ""
-"A problem with Google Translate API has occurred. Please contact an "
-"administrator."
-msgstr ""
-"Ein Fehler mit Google Translate API ist aufgetreten. Bitte kontaktieren Sie "
-"eine:n Administrator:in."
 
 #: gvz_api/apps.py
 msgid "GVZ API"
@@ -12065,6 +12222,7 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
 
 #~ msgid "Staff member"
 #~ msgstr "Teammitglied"
@@ -12268,6 +12426,28 @@ msgstr ""
 
 #~ msgid "Back to the poi form"
 #~ msgstr "Zurück zum Formular"
+
+#~ msgid "User not found"
+#~ msgstr "Nutzer nicht gefunden"
+
+#~ msgid "Region not found"
+#~ msgstr "Region nicht gefunden"
+
+#~ msgid "Content type not found"
+#~ msgstr "Art des Inhalts nicht gefunden"
+
+#~ msgid ""
+#~ "A problem with DeepL API has occurred. Please contact an administrator."
+#~ msgstr ""
+#~ "Ein Fehler mit DeepL API ist aufgetreten. Bitte kontaktieren Sie eine:n "
+#~ "Administrator:in."
+
+#~ msgid ""
+#~ "A problem with Google Translate API has occurred. Please contact an "
+#~ "administrator."
+#~ msgstr ""
+#~ "Ein Fehler mit Google Translate API ist aufgetreten. Bitte kontaktieren "
+#~ "Sie eine:n Administrator:in."
 
 #~ msgid "Budget year start differs from the renewal date"
 #~ msgstr "Unterjähriger Start des Abrechnungszeitraums"
@@ -13426,9 +13606,6 @@ msgstr ""
 #~ msgid "Status message"
 #~ msgstr "Status-Nachricht"
 
-#~ msgid "Current machine translation"
-#~ msgstr "Die Übersetzung ist aktuell und wurde maschinell erzeugt"
-
 #~ msgid "Both"
 #~ msgstr "Beide"
 
@@ -14016,9 +14193,6 @@ msgstr ""
 
 #~ msgid "Page ID"
 #~ msgstr "Seiten-ID"
-
-#~ msgid "Target language slug"
-#~ msgstr "Zielsprachencode"
 
 #~ msgid ""
 #~ "Warning: the translation has been updated since the XLIFF was exported."

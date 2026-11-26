@@ -5,7 +5,9 @@
        data-chart-item="{{ name }}"
        id="{{ name|slugify }}"
        {% if language %} data-language-slug="{{ language.slug }}" {% endif %} />
+{# djlint:off H021 #}
 <div class="h-5 w-5 rounded-full" style="background-color: {{ color }}"></div>
+{# djlint:on #}
 {% if language %}
     <div>
         <span class="fp fp-{{ language.primary_country_code }} fp-rounded"

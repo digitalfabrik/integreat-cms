@@ -4,6 +4,7 @@ import logging
 from copy import copy
 from typing import TYPE_CHECKING
 
+from django.core.cache import cache
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -17,6 +18,9 @@ if TYPE_CHECKING:
     from typing import Any
 
     from integreat_cms.cms.models.users.user import User
+    from integreat_cms.cms.utils.machine_translation_types import (
+        ObjectIdAndLanguageSlug,
+    )
     from integreat_cms.cms.utils.slug_utils import SlugKwargs
 
     from .abstract_content_translation import AbstractContentTranslation
@@ -40,6 +44,7 @@ class ContentQuerySet(models.QuerySet):
     def prefetch_translations(
         self,
         to_attr: str = "prefetched_translations",
+        defer_content: bool = False,
         **filters: Any,
     ) -> ContentQuerySet:
         r"""
@@ -47,18 +52,25 @@ class ContentQuerySet(models.QuerySet):
         translations of each content object in each language, optionally filtered by the given ``status``
 
         :param to_attr: To which attribute the prefetched translations should be added [optional, defaults to ``prefetched_translations``]
+        :param defer_content: Whether the ``content`` field should be deferred, for callers which only
+                              need translation metadata [optional, defaults to ``False``]
         :param \**filters: Additional filters to be applied on the translations (e.g. by status)
         :return: The queryset of content objects
         """
         TranslationModel = self.model.get_translation_model()
         foreign_field = TranslationModel.foreign_field() + "_id"
+        translations = (
+            TranslationModel.objects.filter(**filters)
+            .order_by(foreign_field, "language_id", "-version")
+            .distinct(foreign_field, "language_id")
+            .select_related("language")
+        )
+        if defer_content:
+            translations = translations.defer("content")
         return self.prefetch_related(
             models.Prefetch(
                 "translations",
-                queryset=TranslationModel.objects.filter(**filters)
-                .order_by(foreign_field, "language_id", "-version")
-                .distinct(foreign_field, "language_id")
-                .select_related("language"),
+                queryset=translations,
                 to_attr=to_attr,
             ),
         )
@@ -79,27 +91,35 @@ class ContentQuerySet(models.QuerySet):
 
     def prefetch_public_or_draft_translations(
         self,
+        defer_content: bool = False,
     ) -> ContentQuerySet:
         """
         Get the queryset including the custom attribute ``prefetched_public_or_draft_translations`` which contains the latest
         public or draft translations of each content object in each language
 
+        :param defer_content: Whether the ``content`` field should be deferred [optional, defaults to ``False``]
         :return: The queryset of content objects
         """
         return self.prefetch_translations(
             to_attr="prefetched_public_or_draft_translations",
+            defer_content=defer_content,
             status__in=[status.DRAFT, status.PUBLIC],
         )
 
-    def prefetch_major_translations(self) -> ContentQuerySet:
+    def prefetch_major_translations(
+        self,
+        defer_content: bool = False,
+    ) -> ContentQuerySet:
         """
         Get the queryset including the custom attribute ``prefetched_major_translations`` which contains the
         latest major (in other words not a minor edit) translations of each content object in each language
 
+        :param defer_content: Whether the ``content`` field should be deferred [optional, defaults to ``False``]
         :return: The queryset of content objects
         """
         return self.prefetch_translations(
             to_attr="prefetched_major_translations",
+            defer_content=defer_content,
             minor_edit=False,
         )
 
@@ -492,20 +512,63 @@ class AbstractContentModel(AbstractBaseModel):
             or self.translations.first()
         )
 
-    def get_translation_state(self, language_slug: str) -> str:
+    def get_translation_state(
+        self,
+        language_slug: str,
+        mt_task_ids: dict[ObjectIdAndLanguageSlug, str | None] | None = None,
+    ) -> str:
         """
         This function returns the current state of a translation in the given language.
 
         :param language_slug: The slug of the desired :class:`~integreat_cms.cms.models.languages.language.Language`
+        :param mt_task_ids: Optional precomputed machine-translation task id
+            lookup, keyed by (object_id, language_slug) - see
+            :meth:`get_machine_translation_task_id`. Passed by callers that
+            already batched the underlying lock lookups (e.g. the page tree)
+            to avoid a Redis round trip per object.
         :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
         """
         if translation := self.get_translation(language_slug):
             return translation.translation_state
+        if self.get_machine_translation_task_id(language_slug, mt_task_ids):
+            return translation_status.MACHINE_TRANSLATION_IN_PROGRESS
         if self.fallback_translations_enabled and self.get_translation(
             self.region.default_language.slug,
         ):
             return translation_status.FALLBACK
         return translation_status.MISSING
+
+    def get_machine_translation_task_id(
+        self,
+        language_slug: str,
+        mt_task_ids: dict[ObjectIdAndLanguageSlug, str | None] | None = None,
+    ) -> str | None:
+        """
+        Unlike the `currently_in_machine_translation` flag (which lives on a
+        translation row), the underlying lock is keyed by content object and
+        language directly, so this works whether or not a translation exists
+        yet for that language - covering content being machine-translated
+        for the very first time, not just updates to an existing translation.
+
+        :param language_slug: The slug of the target language
+        :param mt_task_ids: Optional precomputed lookup, keyed by
+            (object_id, language_slug); when given, this is used instead of
+            checking the lock directly (see :meth:`get_translation_state`)
+        :return: The id of the Celery task currently machine-translating this
+            object into the given language, or ``None`` if none is in progress
+        """
+        if mt_task_ids is not None:
+            return mt_task_ids.get((self.id, language_slug))
+
+        # Imported lazily to avoid a circular import: this module is imported
+        # by `core.utils.machine_translation_celery_task` (via `cms.models`),
+        # so importing it back at module level here would create a cycle.
+        from ...core.utils.machine_translation_celery_task import (
+            get_mt_redis_lock_key,
+        )
+
+        lock_key = get_mt_redis_lock_key(self._meta.model_name, self.id, language_slug)
+        return cache.get(lock_key)
 
     @cached_property
     def translation_states(self) -> dict[str, tuple[Language, str]]:

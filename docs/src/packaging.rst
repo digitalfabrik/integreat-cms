@@ -22,12 +22,36 @@ Packaging for a Python repository like e.g. `PyPI <https://pypi.org/>`__ is auto
 
     mv integreat_cms/README.md .
 
-3. After that, you can build the python package with :doc:`setuptools:index`::
+3. Bundle the locked dependency versions into the package (see :ref:`bundled-lock-files`)::
 
-    pip3 install --upgrade pip build twine
+    uv export --frozen --no-dev --no-emit-project --no-annotate \
+        --format pylock.toml -o integreat_cms/pylock.toml
+    uv export --frozen --no-dev --no-emit-project --no-annotate \
+        --format requirements.txt -o integreat_cms/requirements.lock.txt
+
+4. After that, you can build the python package with :doc:`setuptools:index`::
+
     python3 -m build
 
    Then, the built package can be found in ``./dist/``.
+
+
+.. _bundled-lock-files:
+
+Bundled lock files
+==================
+
+Every distribution contains the exact dependency versions the release was tested with, exported from
+:github-source:`uv.lock`:
+
+* ``integreat_cms/pylock.toml`` - the `PEP 751 <https://peps.python.org/pep-0751/>`__ lock format,
+  including a ``sha256`` hash per package. Requires pip 26.1 or later.
+* ``integreat_cms/requirements.lock.txt`` - the same set in the ``requirements.txt`` format, as a
+  fallback for older pip versions.
+
+These files do not constrain a regular ``pip install integreat-cms``, which keeps resolving the
+dependencies as usual. They only take effect when a deployment explicitly passes them to pip, see
+:ref:`Install pinned dependencies <prod-server-pinned-dependencies>`.
 
 Publish package
 ===============

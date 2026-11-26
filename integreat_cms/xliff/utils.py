@@ -5,7 +5,7 @@ Helper functions for the XLIFF serializer
 from __future__ import annotations
 
 import contextlib
-import datetime
+import datetime as dt
 import difflib
 import glob
 import logging
@@ -108,7 +108,7 @@ def pages_to_xliff_file(
         )
         return xliff_file_url
     # Generate file path for ZIP archive
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
+    timestamp = dt.datetime.now().strftime("%Y-%m-%d_%H-%M")
     region = pages[0].region
     if len(target_languages) == 1:
         target_language = target_languages[0]

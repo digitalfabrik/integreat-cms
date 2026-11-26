@@ -6,6 +6,10 @@ from typing import TYPE_CHECKING
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from integreat_cms.core.utils.machine_translation_celery_task import (
+    start_machine_translations,
+)
+
 if TYPE_CHECKING:
     from typing import Any
 
@@ -152,23 +156,12 @@ class MachineTranslationForm(CustomContentModelForm):
             self.cleaned_data["mt_translations_to_update"],
         )
         if commit and language_nodes and check_hix_score(self.request, self.instance):
-            for language_node in language_nodes:
-                logger.debug(
-                    "Machine translation via %r into %r for: %r",
-                    language_node.mt_provider,
-                    language_node.language,
-                    self.instance,
-                )
-                api_client = language_node.mt_provider.api_client(
-                    self.request,
-                    type(self),
-                )
-                # Invalidate cached property to take new version into account
-                self.instance.foreign_object.invalidate_cached_translations()
-                api_client.translate_object(
-                    self.instance.foreign_object,
-                    language_node.slug,
-                )
+            start_machine_translations(
+                self.request,
+                [self.instance.foreign_object],
+                [node.slug for node in language_nodes],
+            )
+
         return self.instance
 
     class Meta(CustomContentModelForm.Meta):

@@ -527,6 +527,35 @@ label:not([for]) {
     z-index: 3100;
 }
 
+// Between #popup-overlay (3090) and #confirmation-dialog (3100): if both
+// dialogs ever end up shown at once (e.g. a human-lock takeover is reported
+// while this was already waiting on a translation), the takeover dialog -
+// the more urgent, actionable one - should win, with this one just sitting
+// inertly behind it rather than fighting for the same top spot.
+#machine-translation-lock-dialog {
+    margin: 0 auto;
+    z-index: 3095;
+}
+
+// Shared banner styles - same visual language as Django's message levels
+// (see `messages.html`), reused wherever else a success/warning/error/info
+// banner is shown (e.g. background task outcome banners).
+.banner-info {
+    @apply bg-blue-100 border-l-4 border-blue-500 text-blue-700 px-4 py-3 mb-5;
+}
+
+.banner-success {
+    @apply bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 mb-5;
+}
+
+.banner-warning {
+    @apply bg-yellow-100 border-l-4 border-yellow-500 text-orange-700 px-4 py-3 mb-5;
+}
+
+.banner-error {
+    @apply bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 mb-5;
+}
+
 #chat-history a {
     color: #4299e1;
     &:hover {

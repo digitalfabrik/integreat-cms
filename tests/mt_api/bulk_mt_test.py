@@ -18,8 +18,8 @@ from unittest.mock import patch
 import pytest
 from django.urls import reverse
 
+from integreat_cms.cms.constants import async_machine_translation
 from integreat_cms.cms.models import Event, Page, Place, Region
-from integreat_cms.cms.utils.stringify_list import iter_to_string
 from integreat_cms.core.utils.word_count import word_count
 from integreat_cms.google_translate_api.google_translate_api_client import (
     GoogleTranslateApiClient,
@@ -69,6 +69,7 @@ def test_bulk_mt(
     settings: Settings,
     mock_server: MockServer,
     caplog: LogCaptureFixture,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check for bulk machine translation of pages/events/places via the MT API
@@ -109,73 +110,96 @@ def test_bulk_mt(
         },
     )
 
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
+    with (
+        patch.object(
+            GoogleTranslateApiClient,
+            "__init__",
+            setup_fake_google_translate_api,
+        ),
+        django_capture_on_commit_callbacks(execute=True),
     ):
         response = client.post(machine_translation, data={"selected_ids[]": ids})
         print(response.headers)
 
-        if role in entitled_roles:
-            # If the role should be allowed to access the view, we expect a successful result
-            assert response.status_code == 302
-            tree = reverse(
-                content_type._meta.default_related_name,
+    if role in entitled_roles:
+        # If the role should be allowed to access the view, we expect a successful result
+        assert response.status_code == 302
+        tree = reverse(
+            content_type._meta.default_related_name,
+            kwargs={
+                "region_slug": REGION_SLUG,
+                "language_slug": target_language_slug,
+            },
+        )
+        assert response.headers.get("Location") == tree
+        response = client.get(tree)
+
+        translations = get_content_translations(
+            content_type,
+            ids,
+            source_language_slug,
+            target_language_slug,
+        )
+
+        is_async = (
+            content_type._meta.model_name in async_machine_translation.CONTENT_TYPES
+        )
+        if is_async:
+            # Async translations report their outcome via the queued report
+            report_url = reverse(
+                "machine_translation_report",
                 kwargs={
                     "region_slug": REGION_SLUG,
                     "language_slug": target_language_slug,
+                    "model_type": content_type._meta.model_name,
                 },
             )
-            assert response.headers.get("Location") == tree
-            response = client.get(tree)
-
-            translations = get_content_translations(
-                content_type,
-                ids,
-                source_language_slug,
-                target_language_slug,
+            report_response = client.get(report_url)
+            report_data = report_response.json()
+            assert report_data["reports"], (
+                "Expected a queued machine translation report"
             )
+            assert report_data["reports"][-1]["outcome"] == "FULL_SUCCESS"
 
-            for translation in translations:
+        for translation in translations:
+            if not is_async:
                 assert_message_in_log(
                     f'SUCCESS  {content_type._meta.verbose_name.capitalize()} "{translation[source_language_slug]}" has successfully been translated ({get_english_name(source_language_slug)} ➜ {get_english_name(target_language_slug)}).',
                     caplog,
                 )
-                # Check that the page translation exists and really has the correct content
-                assert translation[target_language_slug].machine_translated is True
+            # Check that the page translation exists and really has the correct content
+            assert translation[target_language_slug].machine_translated is True
+            assert (
+                translation[target_language_slug].title
+                == f"This is your translation from {provider}"
+            )
+            assert (
+                translation[target_language_slug].content
+                == f"<p>This is your translation from {provider}</p>"
+            )
+            if (
+                content_type == Place
+                and translation[target_language_slug].meta_description
+            ):
                 assert (
-                    translation[target_language_slug].title
+                    translation[target_language_slug].meta_description
                     == f"This is your translation from {provider}"
                 )
-                assert (
-                    translation[target_language_slug].content
-                    == f"<p>This is your translation from {provider}</p>"
-                )
-                if (
-                    content_type == Place
-                    and translation[target_language_slug].meta_description
-                ):
-                    assert (
-                        translation[target_language_slug].meta_description
-                        == f"This is your translation from {provider}"
-                    )
 
-            assert (
-                Region.objects.get(slug=REGION_SLUG).mt_budget_used
-                == expected_word_count
-            )
+        assert (
+            Region.objects.get(slug=REGION_SLUG).mt_budget_used == expected_word_count
+        )
 
-        elif role == ANONYMOUS:
-            # For anonymous users, we want to redirect to the login form instead of showing an error
-            assert response.status_code == 302
-            assert (
-                response.headers.get("location")
-                == f"{settings.LOGIN_URL}?next={machine_translation}"
-            )
-        else:
-            # For logged in users, we want to show an error if they get a permission denied
-            assert response.status_code == 403
+    elif role == ANONYMOUS:
+        # For anonymous users, we want to redirect to the login form instead of showing an error
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location")
+            == f"{settings.LOGIN_URL}?next={machine_translation}"
+        )
+    else:
+        # For logged in users, we want to show an error if they get a permission denied
+        assert response.status_code == 403
 
 
 @pytest.mark.django_db
@@ -190,7 +214,7 @@ def test_bulk_mt_exceeds_limit(
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
     settings: Settings,
-    caplog: LogCaptureFixture,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check for bulk machine translation error when the attempted translation would exceed the region's word limit
@@ -199,7 +223,6 @@ def test_bulk_mt_exceeds_limit(
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param provider_language_combination: The combination of MT provider and source/target language
     :param settings: The fixture providing the django settings
-    :param caplog: The :fixture:`caplog` fixture
     """
 
     provider, source_language_slug, target_language_slug = provider_language_combination
@@ -224,10 +247,13 @@ def test_bulk_mt_exceeds_limit(
         },
     )
 
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
+    with (
+        patch.object(
+            GoogleTranslateApiClient,
+            "__init__",
+            setup_fake_google_translate_api,
+        ),
+        django_capture_on_commit_callbacks(execute=True),
     ):
         response = client.post(
             machine_translation,
@@ -235,38 +261,46 @@ def test_bulk_mt_exceeds_limit(
         )
         print(response.headers)
 
-        assert response.status_code == 302
-        page_tree = reverse(
-            "pages",
-            kwargs={
-                "region_slug": REGION_SLUG,
-                "language_slug": target_language_slug,
-            },
-        )
-        assert response.headers.get("Location") == page_tree
-        response = client.get(page_tree)
+    assert response.status_code == 302
+    page_tree = reverse(
+        "pages",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": target_language_slug,
+        },
+    )
+    assert response.headers.get("Location") == page_tree
+    response = client.get(page_tree)
 
-        # Get the page objects including their translations from the database
-        page_translations = get_content_translations(
-            Page,
-            selected_ids,
-            source_language_slug,
-            target_language_slug,
-        )
+    # Get the page objects including their translations from the database
+    page_translations = get_content_translations(
+        Page,
+        selected_ids,
+        source_language_slug,
+        target_language_slug,
+    )
 
-        # Check for a failure message
-        translations_str = iter_to_string(
-            [t[source_language_slug].title for t in page_translations],
+    # Translation now happens via a Celery task (eager in tests), so the
+    # budget-exceeded failure surfaces through the queued report rather
+    # than a synchronous Django message.
+    report_url = reverse(
+        "machine_translation_report",
+        kwargs={
+            "region_slug": REGION_SLUG,
+            "language_slug": target_language_slug,
+            "model_type": "page",
+        },
+    )
+    report_response = client.get(report_url)
+    report_data = report_response.json()
+    assert report_data["reports"], "Expected a queued machine translation report"
+    assert report_data["reports"][-1]["outcome"] == "PARTIAL_SUCCESS"
+
+    for page_translation in page_translations:
+        assert (
+            page_translation[target_language_slug] is None
+            or page_translation[target_language_slug].machine_translated is False
         )
-        assert_message_in_log(
-            f"ERROR    The following pages could not be translated because they would exceed the remaining budget of 0 words: {translations_str}",
-            caplog,
-        )
-        for page_translation in page_translations:
-            assert (
-                page_translation[target_language_slug] is None
-                or page_translation[target_language_slug].machine_translated is False
-            )
 
 
 @pytest.mark.django_db
@@ -282,6 +316,7 @@ def test_bulk_mt_up_to_date(
     provider_language_combination: tuple[str, str, str],
     settings: Settings,
     caplog: LogCaptureFixture,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check for bulk machine translation error when one of the target translations is up-to-date and the other is machine translated
@@ -312,10 +347,13 @@ def test_bulk_mt_up_to_date(
         },
     )
 
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
+    with (
+        patch.object(
+            GoogleTranslateApiClient,
+            "__init__",
+            setup_fake_google_translate_api,
+        ),
+        django_capture_on_commit_callbacks(execute=True),
     ):
         response = client.post(
             machine_translation,
@@ -453,6 +491,7 @@ def test_bulk_mt_no_source_language(
     provider_language_combination: tuple[str, str, str],
     settings: Settings,
     caplog: LogCaptureFixture,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check for bulk machine translation error when the source language is not available
@@ -480,10 +519,13 @@ def test_bulk_mt_no_source_language(
             "language_slug": target_language_slug,
         },
     )
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
+    with (
+        patch.object(
+            GoogleTranslateApiClient,
+            "__init__",
+            setup_fake_google_translate_api,
+        ),
+        django_capture_on_commit_callbacks(execute=True),
     ):
         response = client.post(
             machine_translation,
@@ -535,6 +577,7 @@ def test_deepl_bulk_mt_no_target_language(
     provider_language_combination: tuple[str, str, str],
     settings: Settings,
     caplog: LogCaptureFixture,
+    django_capture_on_commit_callbacks: Any,
 ) -> None:
     """
     Check for bulk machine translation error when the target language is not available
@@ -562,10 +605,13 @@ def test_deepl_bulk_mt_no_target_language(
             "language_slug": target_language_slug,
         },
     )
-    with patch.object(
-        GoogleTranslateApiClient,
-        "__init__",
-        setup_fake_google_translate_api,
+    with (
+        patch.object(
+            GoogleTranslateApiClient,
+            "__init__",
+            setup_fake_google_translate_api,
+        ),
+        django_capture_on_commit_callbacks(execute=True),
     ):
         response = client.post(
             machine_translation,

@@ -4,7 +4,7 @@ This module contains shared fixtures for pytest
 
 from __future__ import annotations
 
-import datetime
+import datetime as dt
 import itertools
 import os
 from typing import TYPE_CHECKING
@@ -177,14 +177,6 @@ def clean_news_cache(load_test_data: None) -> Generator[None]:
     yield
     for key in keys:
         cache.delete(key)
-
-
-@pytest.fixture(autouse=True)
-def configure_celery_for_tests(settings: Settings) -> None:
-    # by default, no worker is running to consume tasks during tests,
-    # so we set celery to run synchronously and propagate errors to the test runner
-    settings.CELERY_TASK_ALWAYS_EAGER = True
-    settings.CELERY_TASK_EAGER_PROPAGATES = True
 
 
 @pytest.fixture(autouse=True)
@@ -384,15 +376,15 @@ def create_event() -> Callable[..., Event]:
 
     def _create_event(
         region: Region,
-        start: datetime.datetime | None = None,
-        end: datetime.datetime | None = None,
+        start: dt.datetime | None = None,
+        end: dt.datetime | None = None,
         **overrides: Any,
     ) -> Event:
         utc = ZoneInfo("UTC")
         if start is None:
-            start = datetime.datetime(2030, 6, 1, 10, 0, tzinfo=utc)
+            start = dt.datetime(2030, 6, 1, 10, 0, tzinfo=utc)
         if end is None:
-            end = start + datetime.timedelta(hours=1)
+            end = start + dt.timedelta(hours=1)
         defaults: dict[str, Any] = {
             "region": region,
             "start": start,

@@ -9,8 +9,13 @@ if TYPE_CHECKING:
 import pytest
 from django.urls import reverse
 
-from integreat_cms.cms.models import Region
-from tests.constants import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES
+from integreat_cms.cms.models import (
+    LanguageTreeNode,
+    PushNotification,
+    PushNotificationTranslation,
+    Region,
+)
+from tests.constants import ANONYMOUS, MANAGEMENT, PRIV_STAFF_ROLES, STAFF_ROLES
 
 # We use Augsburg (region with German as default language) and Berlin (region with English as default language)
 # to test every language is required which is the default language of at least one region of the push notification
@@ -111,3 +116,222 @@ def test_invalid_new_translation_keeps_language_tabs(
     assert response.status_code == 200
     region = Region.objects.get(slug="augsburg")
     assert list(response.context["languages"]) == list(region.active_languages)
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("login_role_user", [MANAGEMENT], indirect=True)
+@pytest.mark.parametrize("restricted_regions", [True, False])
+def test_invalid_post_preserves_edit_button_visibility(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    restricted_regions: bool,
+) -> None:
+    """
+    Invalid submissions must keep actions hidden for news shared with inaccessible
+    regions, while leaving actions available for news the user can edit.
+    """
+    client, _role = login_role_user
+    push_notification = PushNotification.objects.get(id=8)
+    # User "management (Region Manager)" has only access to Region Augsburg (id=1)
+    push_notification.regions.set([1, 8] if restricted_regions else [1])
+    edit_push_notification = reverse(
+        "edit_push_notification",
+        kwargs={
+            "push_notification_id": push_notification.id,
+            "region_slug": "augsburg",
+            "language_slug": "de",
+        },
+    )
+
+    response = client.post(
+        edit_push_notification,
+        data={
+            "title": "German title",
+            "text": "x" * 501,
+            "regions": [1],
+            "channel": "news",
+            "mode": "ONLY_AVAILABLE",
+            "submit_update": True,
+        },
+    )
+
+    assert response.status_code == 200
+    assert (
+        bool(response.context["not_accessible_regions_warning"]) == restricted_regions
+    )
+    content = response.content.decode("utf-8")
+    for action in ("submit_update", "submit_send", "submit_schedule"):
+        assert (f'name="{action}"' in content) != restricted_regions
+
+
+@pytest.mark.django_db
+def test_cross_region_edit_blocked(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+) -> None:
+    """
+    Attempting to edit a push notification belonging to another region
+    must return a 404 (see #4612).
+    """
+    client, role = login_role_user
+
+    # Push notification 6 belongs to Nürnberg (id=2), not Augsburg (id=1)
+    cross_region_url = reverse(
+        "edit_push_notification",
+        kwargs={
+            "push_notification_id": 6,
+            "region_slug": "augsburg",
+            "language_slug": "de",
+        },
+    )
+    initial_count = PushNotification.objects.count()
+
+    get_response = client.get(cross_region_url)
+    if role == ANONYMOUS:
+        assert get_response.status_code == 302
+        return
+    if not get_response.wsgi_request.user.has_perm("cms.view_pushnotification"):
+        assert get_response.status_code == 403
+        return
+    assert get_response.status_code == 404
+
+    original_german_news = PushNotification.objects.get(id=6).get_translation("de")
+    original_german_title = original_german_news.title
+    original_german_text = original_german_news.text
+
+    new_title = "Cross Region Edit"
+    new_text = "Cross region text"
+
+    assert original_german_title != new_title
+    assert original_german_text != new_text
+
+    post_response = client.post(
+        cross_region_url,
+        data={
+            "title": new_title,
+            "text": new_text,
+            "regions": [2],
+            "channel": "news",
+            "mode": "ONLY_AVAILABLE",
+            "submit_update": True,
+        },
+    )
+    if not post_response.wsgi_request.user.has_perm("cms.change_pushnotification"):
+        assert post_response.status_code == 403
+        return
+
+    assert post_response.status_code == 404
+    assert PushNotification.objects.count() == initial_count
+
+    german_news = PushNotification.objects.get(id=6).get_translation("de")
+    german_title = german_news.title
+    german_text = german_news.text
+
+    assert original_german_title == german_title
+    assert original_german_text == german_text
+
+
+@pytest.mark.django_db
+def test_non_existent_push_notification_edit_blocked(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+) -> None:
+    """
+    Submitting an edit for a non-existent push notification ID must return a 404
+    instead of inadvertently creating a new push notification (see #4612).
+    """
+    client, role = login_role_user
+
+    non_existent_url = reverse(
+        "edit_push_notification",
+        kwargs={
+            "push_notification_id": 99999,
+            "region_slug": "augsburg",
+            "language_slug": "de",
+        },
+    )
+    initial_count = PushNotification.objects.count()
+
+    get_response = client.get(non_existent_url)
+    if role == ANONYMOUS:
+        assert get_response.status_code == 302
+        return
+    if not get_response.wsgi_request.user.has_perm("cms.view_pushnotification"):
+        assert get_response.status_code == 403
+        return
+    assert get_response.status_code == 404
+
+    post_response = client.post(
+        non_existent_url,
+        data={
+            "title": "Non-existent PN",
+            "text": "Non-existent text",
+            "regions": [1],
+            "channel": "news",
+            "mode": "ONLY_AVAILABLE",
+            "submit_update": True,
+        },
+    )
+    if not post_response.wsgi_request.user.has_perm("cms.change_pushnotification"):
+        assert post_response.status_code == 403
+        return
+
+    assert post_response.status_code == 404
+    assert PushNotification.objects.count() == initial_count
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("language_slug", ["nonexistent", "en"])
+def test_post_rejects_invalid_or_inactive_language(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    language_slug: str,
+) -> None:
+    """Reject invalid or inactive languages before saving news (see #4613)."""
+    client, role = login_role_user
+
+    # English exists in Augsburg but is disabled for this test.
+    LanguageTreeNode.objects.filter(
+        region__slug="augsburg",
+        language__slug="en",
+    ).update(active=False, visible=False)
+
+    notifications_before = list(PushNotification.objects.order_by("pk").values())
+    translations_before = list(
+        PushNotificationTranslation.objects.order_by("pk").values()
+    )
+
+    url = reverse(
+        "edit_push_notification",
+        kwargs={
+            "push_notification_id": 2,
+            "region_slug": "augsburg",
+            "language_slug": language_slug,
+        },
+    )
+    response = client.post(
+        url,
+        data={
+            "title": "This title must not be saved",
+            "text": "This text must not be saved",
+            "regions": [1],
+            "channel": "news",
+            "mode": "ONLY_AVAILABLE",
+            "submit_update": True,
+        },
+    )
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+    elif not response.wsgi_request.user.has_perm("cms.change_pushnotification"):
+        assert response.status_code == 403
+    else:
+        assert response.status_code == 404
+
+    assert (
+        list(PushNotification.objects.order_by("pk").values()) == notifications_before
+    )
+    assert (
+        list(PushNotificationTranslation.objects.order_by("pk").values())
+        == translations_before
+    )

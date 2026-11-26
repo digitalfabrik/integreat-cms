@@ -1,9 +1,12 @@
 {% load text_filters %}
 {% load i18n %}
+{% url 'machine_translation_report' region_slug=request.region.slug language_slug=language.slug model_type='page' as mt_report_url %}
 <div id="content-edit-lock-data"
      data-heartbeat-url="{% url 'content_edit_lock_heartbeat' region_slug=request.region.slug %}"
      data-lock-release-url="{% url 'content_edit_lock_release' region_slug=request.region.slug %}"
      data-heartbeat-payload="{{ lock_key|to_json }}"
+     data-language-slug="{{ language.slug }}"
+     data-mt-report-url="{{ mt_report_url }}"
      data-cancel-url="{{ back_url }}"
      data-popup-title-locked='{% translate "{} is already editing this content" %}'
      data-popup-title-takeover='{% translate "This content got locked by {}" %}'

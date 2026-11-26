@@ -22,36 +22,20 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
+# If no interpreter is given, uv selects one which satisfies "requires-python" of pyproject.toml
 if [[ -n "${PYTHON}" ]]; then
     PYTHON=$(command -v "${PYTHON}")
     if [[ ! -x "${PYTHON}" ]]; then
         echo "The given python command '${PYTHON}' is not executable." | print_error
         exit 1
     fi
-else
-    # Default python binary
-    PYTHON="python3"
 fi
 
 # Check if requirements are satisfied
-# Define the required python version
-required_python_version="3.13"
-if [[ ! -x "$(command -v python3)" ]]; then
-    echo "Python3 is not installed. Please install Python ${required_python_version} or higher manually and run this script again."  | print_error
-    exit 1
-fi
-# Get the python version (the format is "Python 3.X.Z")
-python_version=$(${PYTHON} --version | cut -d" " -f2)
-if [[ $(major "$python_version") -lt $(major "$required_python_version") ]] || \
-   [[ $(major "$python_version") -eq $(major "$required_python_version") ]] && [[ $(minor "$python_version") -lt $(minor "$required_python_version") ]]; then
-    echo "python version ${required_python_version} is required, but version ${python_version} is installed. Please install a recent version manually and run this script again."  | print_error
-    echo -e "If you installed higher python version manually which is not your default python3, please pass the alternative python interpreter (e.g. python3.13) to the script:\n" | print_info
-    echo -e "\t$(dirname "${BASH_SOURCE[0]}")/install.sh --python python3.13\n" | print_bold
-    exit 1
-fi
-# Check if pip is installed
-if [[ ! -x "$(command -v pip3)" ]]; then
-    echo "Pip for Python3 is not installed. Please install python3-pip manually and run this script again."  | print_error
+# Check if uv is installed (it provisions the Python interpreter required by pyproject.toml itself)
+if [[ ! -x "$(command -v uv)" ]]; then
+    echo "The package manager uv is not installed. Please install it manually and run this script again."  | print_error
+    echo -e "See https://docs.astral.sh/uv/getting-started/installation/ for the available installation methods.\n" | print_info
     exit 1
 fi
 # Check if postgres instance is running on host system or database backend is installed
@@ -115,41 +99,17 @@ echo "Installing JavaScript dependencies..." | print_info
 npm ci --no-fund
 echo "✔ Installed JavaScript dependencies" | print_success
 
-# Check if virtual environment exists
-if [[ -d ".venv" ]] && [[ "$(.venv/bin/python3 --version)" != "$(${PYTHON} --version)" ]]; then
-    echo "The given $(${PYTHON} --version) version differs from $(.venv/bin/python3 --version) of virtual environment." | print_warning
-    echo "Deleting the outdated virtual environment..." | print_info
-    rm -rf .venv
-fi
-
-# Check if virtual environment exists
-if [[ ! -f ".venv/bin/activate" ]]; then
-    echo "Creating virtual environment for $(${PYTHON} --version)..." | print_info
-    # Check whether venv creation succeeded
-    if ! ${PYTHON} -m venv .venv; then
-        # Check whether it would succeed without pip
-        if ${PYTHON} -m venv --without-pip .venv &> /dev/null; then
-            # Remove "broken" venv without pip
-            rm -rf .venv
-            # Determine which package needs to be installed
-            if [[ "$(${PYTHON} --version)" == "$(python3 --version)" ]]; then
-                VENV_PACKAGE="python3-venv"
-            else
-                MINOR_PYTHON=$(minor "${python_version}")
-                VENV_PACKAGE="python3.${MINOR_PYTHON}-venv"
-            fi
-            echo "Pip is not available inside the virtual environment. Please install ${VENV_PACKAGE} manually and run this script again."  | print_error
-            exit 1
-        fi
-    fi
+# Install the exact versions from the lock file into .venv (created by uv if it does not exist yet)
+echo "Installing Python dependencies..." | print_info
+if [[ -n "${PYTHON}" ]]; then
+    uv sync --locked --python "${PYTHON}"
+else
+    uv sync --locked
 fi
 
 # Activate virtual environment
 source .venv/bin/activate
 
-# Install pip dependencies
-# shellcheck disable=SC2102
-pip install -e .[dev-pinned,pinned]
 echo "✔ Installed Python dependencies" | print_success
 
 # Install pre-commit-hooks if --pre-commit option is given

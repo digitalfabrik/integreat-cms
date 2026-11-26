@@ -33,6 +33,15 @@ updates:
       - dependency-name: "tailwindcss"
         update-types: ["version-update:semver-major"]
 
+  - package-ecosystem: uv
+    directory: "/"
+    groups:
+      python:
+        patterns:
+          - "*"
+    schedule:
+      interval: monthly
+
   - package-ecosystem: devcontainers
     directory: "/"
     groups:
