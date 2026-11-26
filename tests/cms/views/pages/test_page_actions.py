@@ -142,6 +142,7 @@ def test_bulk_delete_pages(
     """
     Test whether bulk deleting of places works as expected
     """
+
     user = get_user_model().objects.get(username=role.lower())
     client.force_login(user)
 
@@ -182,3 +183,54 @@ def test_bulk_delete_pages(
     assert_bulk_delete(
         Page, instance_ids, url, (client, role), caplog, settings, fail_reason
     )
+
+
+@pytest.mark.django_db
+def test_bulk_delete_nested_pages(
+    client: Client,
+    load_test_data: None,
+) -> None:
+    """
+    Deleting a selected page hierarchy should remove
+    the root page and all its selected descendants.
+    """
+    user = get_user_model().objects.get(username="root")
+    client.force_login(user)
+
+    # Create a three-level page hierarchy
+    root_id = create_page("augsburg", "-bulk-root")
+    root_page = Page.objects.get(pk=root_id)
+
+    child_id = create_page(
+        "augsburg",
+        "-bulk-child",
+        parent=root_page,
+    )
+    child_page = Page.objects.get(pk=child_id)
+
+    grandchild_id = create_page(
+        "augsburg",
+        "-bulk-grandchild",
+        parent=child_page,
+    )
+
+    selected_ids = [root_id, child_id, grandchild_id]
+
+    url = reverse(
+        "bulk_delete_pages",
+        kwargs={
+            "region_slug": "augsburg",
+            "language_slug": "en",
+        },
+    )
+
+    # Attempt to delete all three pages together
+    response = client.post(
+        url,
+        data={"selected_ids[]": selected_ids},
+    )
+
+    assert response.status_code == 302
+
+    # None of the selected pages should remain
+    assert not Page.objects.filter(pk__in=selected_ids).exists()
