@@ -2,16 +2,20 @@ from __future__ import annotations
 
 import contextlib
 import hashlib
+import ipaddress
 import logging
 import mimetypes
 import os
+import socket
 import tempfile
 from functools import cache
 from typing import Any, TYPE_CHECKING
+from urllib import request as urllib_request
 from urllib.parse import unquote, urlparse
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
+from django.core.exceptions import SuspiciousFileOperation
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -54,10 +58,91 @@ def _max_pdf_name_length() -> int:
         return 192 - len(_PDF_EXT)
 
 
+#: The protocols WeasyPrint may load resources from. Notably, ``file`` and ``ftp`` are missing:
+#: local files are only served via :func:`resolve_pdf_uri`.
+_ALLOWED_PROTOCOLS: tuple[str, ...] = ("http", "https", "data")
+
+
+def validate_remote_pdf_url(url: str) -> None:
+    """
+    Make sure a remote resource of a PDF is not located in an internal network.
+
+    The page content is written by editors, but rendered by the server, so without
+    this check the PDF export could be abused to read from services which are only
+    reachable from the server itself (server-side request forgery).
+
+    :param url: The absolute URL which is about to be fetched
+    :raises ValueError: If the URL has no host or resolves to a non-public address
+    """
+    parsed_url = urlparse(url)
+    if parsed_url.scheme not in ("http", "https"):
+        return
+    if not (hostname := parsed_url.hostname):
+        raise ValueError(f"URL has no host: {url[:1024]!r}")
+    try:
+        address_infos = socket.getaddrinfo(
+            hostname, parsed_url.port, proto=socket.IPPROTO_TCP
+        )
+    except (OSError, UnicodeError) as e:
+        raise ValueError(f"Host of URL cannot be resolved: {url[:1024]!r}") from e
+    for address_info in address_infos:
+        # Strip the zone index of scoped IPv6 addresses
+        address = ipaddress.ip_address(str(address_info[4][0]).partition("%")[0])
+        if isinstance(address, ipaddress.IPv6Address) and address.ipv4_mapped:
+            address = address.ipv4_mapped
+        if not address.is_global:
+            raise ValueError(
+                f"URL resolves to a non-public address: {url[:1024]!r}",
+            )
+
+
+class ValidatingRedirectHandler(urllib_request.HTTPRedirectHandler):
+    """
+    Follow HTTP redirects only if the target passes the same checks as the original URL.
+    """
+
+    def redirect_request(
+        self,
+        req: urllib_request.Request,
+        fp: Any,
+        code: int,
+        msg: str,
+        headers: Any,
+        newurl: str,
+    ) -> urllib_request.Request | None:
+        """
+        Validate the target of a redirect before following it.
+
+        :param req: The original request
+        :param fp: The response body of the redirect
+        :param code: The HTTP status code of the redirect
+        :param msg: The HTTP status message of the redirect
+        :param headers: The response headers of the redirect
+        :param newurl: The absolute URL the redirect points to
+        :raises ValueError: If the target is not allowed
+        :return: The request for the redirect target
+        """
+        if urlparse(newurl).scheme not in ("http", "https"):
+            raise ValueError(f"Redirect to disallowed protocol: {newurl[:1024]!r}")
+        validate_remote_pdf_url(newurl)
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
 class PdfUrlFetcher(URLFetcher):
     """
     Resolve Django static and media files for WeasyPrint, then fall back to HTTP.
+
+    Everything else is refused: local files outside of the static and media
+    directories, other protocols than HTTP(S) and hosts in internal networks.
     """
+
+    def __init__(self) -> None:
+        """
+        Initialize the fetcher with a restricted set of protocols.
+        """
+        # Redirects are followed by our own handler, which validates each target
+        super().__init__(allowed_protocols=_ALLOWED_PROTOCOLS, allow_redirects=False)
+        self.add_handler(ValidatingRedirectHandler())
 
     def fetch(self, url: str, headers: dict[str, str] | None = None) -> Any:
         """
@@ -65,8 +150,11 @@ class PdfUrlFetcher(URLFetcher):
 
         :param url: The absolute URL WeasyPrint wants to load
         :param headers: Optional extra HTTP headers for remote fetches
+        :raises ValueError: If the URL is not allowed to be fetched
         :return: The fetched resource
         """
+        if urlparse(url).scheme.lower() not in _ALLOWED_PROTOCOLS:
+            raise ValueError(f"URI uses disallowed protocol: {url[:1024]!r}")
         if path := resolve_pdf_uri(url):
             guessed_type, _encoding = mimetypes.guess_type(path)
             with open(path, "rb") as resource:
@@ -76,6 +164,7 @@ class PdfUrlFetcher(URLFetcher):
                 body,
                 {"Content-Type": guessed_type or "application/octet-stream"},
             )
+        validate_remote_pdf_url(url)
         return super().fetch(url, headers)
 
 
@@ -293,7 +382,8 @@ def resolve_pdf_uri(uri: str) -> str | None:
     Resolve a WeasyPrint resource URL to a local filesystem path.
 
     Remote URLs that are not hosted on this application are left to the default
-    fetcher by returning ``None``.
+    fetcher by returning ``None``. The same applies to paths which would resolve to
+    a file outside of the static and media directories.
 
     :param uri: URI generated by Django (static/media) or resolved against ``BASE_URL``
     :return: Absolute filesystem path, or ``None`` if the URL is remote or missing
@@ -309,10 +399,19 @@ def resolve_pdf_uri(uri: str) -> str | None:
         if (LEGACY_MEDIA_URL := "/wp-content/uploads/sites/") in uri:
             uri = f"/media/regions/{uri.partition(LEGACY_MEDIA_URL)[2]}"
     if uri.startswith(settings.MEDIA_URL):
-        # Get absolute path for media files
-        path = unquote(
-            os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, "")),
+        # Get absolute path for media files. The path is decoded and normalized
+        # *before* it is checked, so neither encoded nor plain ``..`` segments nor
+        # symlinks can point to a file outside of the media directory.
+        media_root = os.path.realpath(settings.MEDIA_ROOT)
+        path = os.path.realpath(
+            os.path.join(media_root, unquote(uri[len(settings.MEDIA_URL) :])),
         )
+        if os.path.commonpath([media_root, path]) != media_root:
+            logger.warning(
+                "The file %r is not inside the media directory.",
+                uri[:1024],
+            )
+            return None
         # make sure that file exists
         if not os.path.isfile(path):
             logger.error(
@@ -335,7 +434,15 @@ def resolve_pdf_uri(uri: str) -> str | None:
             settings.MEDIA_URL,
         )
         return None
-    if not (result := finders.find(uri)):
+    try:
+        result = finders.find(uri)
+    except SuspiciousFileOperation:
+        logger.warning(
+            "The file %r is not inside the static directories.",
+            uri[:1024],
+        )
+        return None
+    if not result:
         logger.error(
             "The file %r was not found in the static directories %r.",
             uri[:1024],

@@ -53,3 +53,27 @@ def pdf_truncate_links(page_content: str, max_chars: int) -> str:
             )
 
     return unescape(tostring(content, encoding="unicode", with_tail=False))
+
+
+@register.filter
+def pdf_strip_attachments(page_content: str) -> str:
+    """
+    This tag returns the page content without ``rel`` attributes.
+
+    WeasyPrint embeds the target of ``<a rel="attachment">`` links as file into the
+    PDF, which must not be controllable via the page content. This filter has to be
+    the last one before the content is marked as safe, and in contrast to the other
+    filters it does not unescape its result, because this would turn escaped markup
+    in the text into real elements again.
+
+    :param page_content: The content of the page
+    :return: The content without ``rel`` attributes
+    """
+    try:
+        content = fromstring(page_content)
+    except ParserError:
+        return page_content
+    for element in content.iter():
+        if isinstance(element.tag, str):
+            element.attrib.pop("rel", None)
+    return tostring(content, encoding="unicode", with_tail=False)
