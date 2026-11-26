@@ -9,6 +9,7 @@ from integreat_cms.cms.utils.linkcheck_utils import (
     filter_urls,
     get_link_query,
     get_urls_regions,
+    replace_links,
 )
 
 #: The page translation of the test data which contains a contact card
@@ -116,3 +117,37 @@ def test_valid_contact_links_are_excluded(
     """
     urls, _ = filter_urls(region_slug=region_slug)
     assert EXISTING_CONTACT_URL not in [url.url for url in urls]
+
+
+#: The url which is replaced in :func:`test_replace_links_keeps_last_updated` (see test data)
+REPLACE_LINKS_SEARCH_URL: str = "https://integreat.app/augsburg/de/willkommen/"
+
+
+@pytest.mark.django_db
+def test_replace_links_keeps_last_updated(load_test_data: None) -> None:
+    """
+    Test whether replacing links creates a new version of the affected translations
+    without changing their modification date, so outdated content is still marked as outdated.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    region = Region.objects.get(slug="augsburg")
+    translations = {
+        link.content_object
+        for link in Link.objects.filter(url__url=REPLACE_LINKS_SEARCH_URL)
+        if link.content_object.foreign_object.region == region
+    }
+    assert translations
+
+    assert replace_links(
+        REPLACE_LINKS_SEARCH_URL,
+        "https://integreat.app/augsburg/de/replaced/",
+        region=region,
+    )
+
+    for translation in translations:
+        latest_version = translation.all_versions.order_by("-version").first()
+        assert latest_version
+        assert latest_version.version == translation.version + 1
+        assert REPLACE_LINKS_SEARCH_URL not in latest_version.content
+        assert latest_version.last_updated == translation.last_updated

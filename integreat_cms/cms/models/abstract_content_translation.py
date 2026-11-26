@@ -691,6 +691,9 @@ class AbstractContentTranslation(AbstractBaseModel):
     ) -> None:
         """
         Function to replace links that are in the translation and match the given keyword `search`
+
+        The new version keeps the modification date of the previous version, because replacing links
+        does not mean that the rest of the content was reviewed and is up to date.
         """
         from ..utils.content_translation_utils import (
             save_new_version_with_retry,
@@ -710,7 +713,10 @@ class AbstractContentTranslation(AbstractBaseModel):
 
             with transaction.atomic(), preserve_ignored_links(self):
                 self.links.all().delete()
-                save_new_version_with_retry(new_translation, new_translation.save)
+                save_new_version_with_retry(
+                    new_translation,
+                    lambda: new_translation.save(update_timestamp=False),
+                )
 
     def __str__(self) -> str:
         """
