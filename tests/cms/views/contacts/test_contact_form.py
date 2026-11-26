@@ -349,7 +349,9 @@ def test_phone_number_conversion(
             request=request,
             data=form_data,
             instance=None,
-            additional_instance_attributes={"region": REGION_SLUG},
+            additional_instance_attributes={
+                "region": Region.objects.get(slug=REGION_SLUG)
+            },
         )
         form.is_valid()  # this is not an assert, because it would fail. calling is_valid() is required to populate cleaned_data.
         cleaned = form.clean()

@@ -18,7 +18,6 @@ from django.views.decorators.http import require_POST
 from ....api.decorators import json_response
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...decorators import permission_required
-from ...models import Place
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponseRedirect
@@ -43,7 +42,7 @@ def archive_place(
     :param language_slug: The slug of the current language
     :return: A redirection to the :class:`~integreat_cms.cms.views.places.place_list_view.PlaceListView`
     """
-    place = Place.objects.get(id=place_id)
+    place = get_object_or_404(request.region.places, id=place_id)
 
     if place.archive():
         logger.debug("%r archived by %r", place, request.user)
@@ -82,7 +81,7 @@ def restore_place(
     :param language_slug: The slug of the current language
     :return: A redirection to the :class:`~integreat_cms.cms.views.places.place_list_view.PlaceListView`
     """
-    place = Place.objects.get(id=place_id)
+    place = get_object_or_404(request.region.places, id=place_id)
 
     place.restore()
 
@@ -116,7 +115,7 @@ def delete_place(
     :return: A redirection to the :class:`~integreat_cms.cms.views.places.place_list_view.PlaceListView`
     """
 
-    place = Place.objects.get(id=place_id)
+    place = get_object_or_404(request.region.places, id=place_id)
     can_delete, error_msg = place.can_be_deleted()
     if can_delete:
         if not place.region.contacts_enabled:
@@ -162,7 +161,7 @@ def view_place(
 
     :return: A redirection to the :class:`~integreat_cms.cms.views.places.place_list_view.PlaceListView`
     """
-    place = Place.objects.get(id=place_id)
+    place = get_object_or_404(request.region.places, id=place_id)
 
     if place_translation := place.get_translation(language_slug):
         # The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)

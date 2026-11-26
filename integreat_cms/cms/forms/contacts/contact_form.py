@@ -87,6 +87,9 @@ class ContactForm(CustomModelForm):
 
         super().__init__(**kwargs)
         self.fields["use_place_opening_hours"].initial = adopt_hours
+        # Only allow places of the contact's region
+        if region := getattr(self.instance, "region", None):
+            self.fields["place"].queryset = region.places.all()
 
         if instance and not instance.area_of_responsibility:
             self.fields["area_of_responsibility"].disabled = True

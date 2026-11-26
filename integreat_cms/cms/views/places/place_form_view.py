@@ -12,6 +12,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
 from django.db.models.signals import post_save
+from django.http import Http404
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
@@ -56,21 +57,33 @@ class PlaceFormView(
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`)
     back_url_name: str | None = "places"
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def get(
+        self,
+        request: HttpRequest,
+        *args: Any,
+        language_slug: str,
+        place_id: int | None = None,
+        **kwargs: Any,
+    ) -> HttpResponse:
         r"""
         Render :class:`~integreat_cms.cms.forms.places.place_form.PlaceForm` and :class:`~integreat_cms.cms.forms.places.place_translation_form.PlaceTranslationForm`
 
         :param request: The current request
         :param \*args: The supplied arguments
+        :param language_slug: The slug of the current language
+        :param place_id: The id of the place to edit (``None`` when creating a new place)
         :param \**kwargs: The supplied keyword arguments
         :return: The rendered template response
         """
 
         region = request.region
-        language = Language.objects.get(slug=kwargs.get("language_slug"))
+        language = Language.objects.get(slug=language_slug)
 
         # get place and translation objects if they exist
-        place = Place.objects.filter(id=kwargs.get("place_id")).first()
+        place = region.places.filter(id=place_id).first()
+        if place_id is not None and place is None:
+            raise Http404
+
         place_translation = PlaceTranslation.objects.filter(
             place=place,
             language=language,
@@ -103,7 +116,11 @@ class PlaceFormView(
             request,
             self.template_name,
             {
-                **self.get_context_data(**kwargs, can_change_place=not disabled),
+                **self.get_context_data(
+                    **kwargs,
+                    language_slug=language_slug,
+                    can_change_place=not disabled,
+                ),
                 "disabled": disabled,
                 "place_form": place_form,
                 "place_translation_form": place_translation_form,
@@ -122,7 +139,14 @@ class PlaceFormView(
         )
 
     @transaction.atomic
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def post(
+        self,
+        request: HttpRequest,
+        *args: Any,
+        language_slug: str,
+        place_id: int | None = None,
+        **kwargs: Any,
+    ) -> HttpResponse:
         r"""
         Submit :class:`~integreat_cms.cms.forms.places.place_form.PlaceForm` and
         :class:`~integreat_cms.cms.forms.places.place_translation_form.PlaceTranslationForm` and save :class:`~integreat_cms.cms.models.places.place.Place` and
@@ -130,16 +154,17 @@ class PlaceFormView(
 
         :param request: The current request
         :param \*args: The supplied arguments
+        :param language_slug: The slug of the current language
+        :param place_id: The id of the place to edit (``None`` when creating a new place)
         :param \**kwargs: The supplied keyword arguments
         :return: The rendered template response
         """
 
         region = request.region
-        language = Language.objects.get(slug=kwargs.get("language_slug"))
+        language = Language.objects.get(slug=language_slug)
 
-        place_id = kwargs.get("place_id")
         place_instance, place_translation_instance = self.get_instances(
-            language=language, place_id=place_id
+            region=region, language=language, place_id=place_id
         )
 
         is_edit = place_instance is not None
@@ -243,7 +268,7 @@ class PlaceFormView(
             # Failure: rollback and re-instantiate for clean re-render
             transaction.savepoint_rollback(sid)
             place_instance, place_translation_instance = self.get_instances(
-                language=language, place_id=place_id
+                region=region, language=language, place_id=place_id
             )
             place_form, place_translation_form = self.instantiate_forms(
                 request=request,
@@ -259,7 +284,7 @@ class PlaceFormView(
             request,
             self.template_name,
             {
-                **self.get_context_data(**kwargs),
+                **self.get_context_data(**kwargs, language_slug=language_slug),
                 "place_form": place_form,
                 "disabled": disabled,
                 "place_translation_form": place_translation_form,
@@ -358,9 +383,11 @@ class PlaceFormView(
                     )
 
     def get_instances(
-        self, language: Language, place_id: Any
+        self, region: Region, language: Language, place_id: Any
     ) -> tuple[Place, PlaceTranslation]:
-        place_instance = Place.objects.filter(id=place_id).first()
+        place_instance = region.places.filter(id=place_id).first()
+        if place_id is not None and place_instance is None:
+            raise Http404
         place_translation_instance = PlaceTranslation.objects.filter(
             place=place_instance,
             language=language,

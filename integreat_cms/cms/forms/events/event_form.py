@@ -112,6 +112,9 @@ class EventForm(CustomModelForm):
 
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
+        # Only allow places of the event's region
+        if region := getattr(self.instance, "region", None):
+            self.fields["place"].queryset = region.places.all()
         # Set the required tag for start and end field to false,
         # since they will be set later in the clean method
         self.fields["start"].required = False
