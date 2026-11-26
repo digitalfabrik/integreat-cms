@@ -39,6 +39,7 @@ from ...forms import PageForm
 from ...models import Page, PageTranslation, Region
 from ...utils.file_utils import extract_zip_archive
 from ...utils.repair_tree import repair_tree
+from ...utils.shortcodes import expand_shortcodes
 from ...utils.tree_mutex import tree_mutex
 
 if TYPE_CHECKING:
@@ -185,9 +186,16 @@ def preview_page_ajax(
         return JsonResponse(
             data={
                 "title": page_translation.title,
-                "page_translation": page_translation.content,
+                "page_translation": expand_shortcodes(
+                    page_translation.content, context={"language_slug": language_slug}
+                ),
                 "mirrored_translation": (
-                    mirrored_translation.content if mirrored_translation else ""
+                    expand_shortcodes(
+                        mirrored_translation.content,
+                        context={"language_slug": language_slug},
+                    )
+                    if mirrored_translation
+                    else ""
                 ),
                 "mirrored_page_first": page.mirrored_page_first,
                 "right_to_left": (
@@ -222,7 +230,13 @@ def get_page_content_ajax(
     region = Region.objects.filter(slug=region_slug).first()
     page = get_object_or_404(region.pages, id=page_id)
     if page_translation := page.get_translation(language_slug):
-        return JsonResponse(data={"content": page_translation.content})
+        return JsonResponse(
+            data={
+                "content": expand_shortcodes(
+                    page_translation.content, context={"language_slug": language_slug}
+                )
+            }
+        )
     raise Http404("Translation of the given page could not be found")
 
 

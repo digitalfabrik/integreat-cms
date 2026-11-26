@@ -67,6 +67,21 @@ Registry.setUnknownHandleFactory(DummyHandleFactory);
 
         Registry.setupAll(editor, parser);
 
-        return {};
+        // Exposed as editor.plugins.shortcodes, so code outside of this bundle (e.g. the page preview)
+        // can render shortcodes with the same parser, handles and caches as the editor.
+        return {
+            async renderPreviewHtml(html) {
+                try {
+                    // The first pass starts fetching any data missing for the previews (e.g. page titles) …
+                    parser.parse(html, context);
+                    await Registry.ready();
+                    // … so the second pass can render them completely
+                    return parser.parse(html, context);
+                } catch (e) {
+                    console.error("Failed to render shortcode previews:", e);
+                    return html;
+                }
+            },
+        };
     });
 })();

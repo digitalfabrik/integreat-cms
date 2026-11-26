@@ -399,6 +399,12 @@ class ShortcodeHandle {
         this.editor.selection.moveToBookmark(previousSelection);
     }
 
+    ready(): Promise<unknown> {
+        // Resolves once all data needed by renderPreview() has been loaded (e.g. by asynchronous requests).
+        // Subclasses fetching data in the background should override this.
+        return Promise.resolve();
+    }
+
     reconstructArgsFromDialog(api: DialogInstanceApi<DialogData>): [string[], {[key: string]: string}, [string, string][]] {
         // Reconstruct the positional and keyword arguments from the form data
         const data = api.getData();
@@ -838,6 +844,11 @@ class Registry {
     }
     public static unregisterAll() {
         Registry.instance.handles.clear();
+    }
+
+    public static async ready() {
+        // Wait until all registered handles have loaded the data they need to render their previews
+        await Promise.allSettled(Array.from(Registry.instance.handles.values(), handle => handle.ready()));
     }
 
     public static setUnknownHandleFactory(factory: (keyword: string) => ShortcodeHandle) {

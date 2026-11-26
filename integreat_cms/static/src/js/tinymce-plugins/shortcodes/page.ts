@@ -107,6 +107,11 @@ class PageHandle extends ShortcodeHandle {
 		return element.outerHTML;
 	}
 
+	async ready() {
+		// Wait for all page metadata requests which are currently in flight (including their ancestors)
+		await Promise.allSettled(this.pageCache.pending.values());
+	}
+
 	async getCompletions(query: string, id: number) {
 		const url = this.tinymceConfig.getAttribute("data-link-ajax-url");
 		const response = await fetch(url, {

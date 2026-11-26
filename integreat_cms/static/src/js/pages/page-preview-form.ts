@@ -3,13 +3,28 @@
  * Put the form handling in a separate file because it interacts
  * with the TinyMCE components which can only be initialized once.
  */
+import tinymce from "tinymce";
+
 import { getContent } from "../forms/tinymce-init";
 import { addPreviewWindowListeners } from "./page-preview";
+
+type ShortcodesPlugin = {
+    renderPreviewHtml: (html: string) => Promise<string>;
+};
+
+/**
+ * Render the shortcodes in the content the same way the editor displays them (e.g. page shortcodes as links).
+ * The shortcodes plugin is part of a separate bundle, so it is accessed via the editor's plugin instance.
+ */
+const renderShortcodes = async (content: string): Promise<string> => {
+    const plugin = tinymce.activeEditor?.plugins.shortcodes as unknown as ShortcodesPlugin | undefined;
+    return plugin ? plugin.renderPreviewHtml(content) : content;
+};
 
 const openPreviewWindowInPageForm = async (overlay: HTMLElement, btn: Element) => {
     const rightToLeft = btn.getAttribute("data-right-to-left") === "True";
     const title = (document.getElementById("id_title") as HTMLInputElement)?.value;
-    const pageContent = getContent();
+    const pageContent = await renderShortcodes(getContent());
     // If the language is read from right to left, change the text layout to align right.
     if (rightToLeft) {
         overlay.classList.add("text-right");
