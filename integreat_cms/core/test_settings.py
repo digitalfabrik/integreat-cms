@@ -1,7 +1,7 @@
 """
 Django settings for running tests.
 
-Shared by both local test runs (``tools/test.sh``) and CI (CircleCI).
+Shared by both local test runs (``tools/test.py``) and CI (CircleCI).
 All configuration is imported from :mod:`~integreat_cms.core.settings`
 and then overridden with test-specific values.
 
