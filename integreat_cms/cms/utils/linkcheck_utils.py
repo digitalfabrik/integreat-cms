@@ -274,13 +274,9 @@ def filter_urls(
         prefetch_links=prefetch_links,
     )
     # Split url lists into their respective categories
-    ignored_urls, valid_urls, invalid_urls, email_links, phone_links, unchecked_urls = (
-        [] for _ in range(6)
-    )
+    valid_urls, invalid_urls, email_links, phone_links = ([] for _ in range(4))
     for url in urls:
-        if not url.non_ignored_links:
-            ignored_urls.append(url)
-        elif url.status:
+        if not url.non_ignored_links or url.status:
             valid_urls.append(url)
         elif url.status is False:
             # Explicitly check for False, because status is None means unchecked
@@ -290,7 +286,7 @@ def filter_urls(
         elif url.type == "phone":
             phone_links.append(url)
         elif not url.last_checked:
-            unchecked_urls.append(url)
+            invalid_urls.append(url)
         else:
             raise NotImplementedError(
                 f"Url {url!r} does not fit into any of the defined categories",
@@ -299,8 +295,6 @@ def filter_urls(
     count_dict = get_url_numbers_dict(
         urls,
         valid_urls,
-        unchecked_urls,
-        ignored_urls,
         invalid_urls,
         email_links,
         phone_links,
@@ -308,10 +302,6 @@ def filter_urls(
     # Return the requested urls
     if url_filter == "valid":
         urls = valid_urls
-    elif url_filter == "unchecked":
-        urls = unchecked_urls
-    elif url_filter == "ignored":
-        urls = ignored_urls
     elif url_filter == "invalid":
         urls = invalid_urls
     elif url_filter == "email":
@@ -325,8 +315,6 @@ def filter_urls(
 def get_url_numbers_dict(
     urls: list[Url],
     valid_urls: list[Url],
-    unchecked_urls: list[Url],
-    ignored_urls: list[Url],
     invalid_urls: list[Url],
     email_links: list[Url],
     phone_links: list[Url],
@@ -347,8 +335,6 @@ def get_url_numbers_dict(
     count_dict = {
         "number_all_urls": len(urls),
         "number_valid_urls": len(valid_urls),
-        "number_unchecked_urls": len(unchecked_urls),
-        "number_ignored_urls": len(ignored_urls),
         "number_invalid_urls": len(invalid_urls),
     }
     if settings.LINKCHECK_EMAIL_ENABLED:

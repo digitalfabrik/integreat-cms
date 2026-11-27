@@ -1461,7 +1461,7 @@ msgstr "Email-Links"
 msgid "Phone links"
 msgstr "Telefonnummern-Links"
 
-#: cms/constants/linkcheck.py cms/templates/linkcheck/links_by_filter.html
+#: cms/constants/linkcheck.py
 msgid "Verification needed"
 msgstr "Überprüfung notwendig"
 
@@ -3371,7 +3371,6 @@ msgstr "Name des Kalenders"
 #: cms/models/external_calendars/external_calendar.py
 #: cms/models/offers/offer_template.py cms/templates/_tinymce_config.html
 #: cms/templates/events/external_calendar_list.html
-#: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/offertemplates/offertemplate_list.html
 #: cms/views/media/media_context_mixin.py
 msgid "URL"
@@ -5218,6 +5217,7 @@ msgid "Place"
 msgstr "Ort"
 
 #: cms/templates/_tinymce_config.html
+#: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "Link"
 msgstr "Link"
@@ -7406,16 +7406,12 @@ msgid "Search & replace"
 msgstr "Suchen & Ersetzen"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Valid"
-msgstr "Gültig"
+msgid "Link verification needed"
+msgstr "Link-Überprüfung notwendig"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Unchecked"
-msgstr "Nicht geprüft"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Link verified"
-msgstr "Link überprüft"
+msgid "All valid links"
+msgstr "Alle gültigen Links"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "The following links are reported by the system as potentially faulty."
@@ -7425,6 +7421,14 @@ msgstr ""
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Click the links to check them and adjust them if necessary."
 msgstr "Klicke zum Überprüfen auf die Links und passe diese bei Bedarf an."
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid ""
+"The following links exist within the Integreat app and have been verified as "
+"valid—both by the system and through manual review."
+msgstr ""
+"Folgende Verlinkungen existieren in der Integreat App und sind vom System "
+"und manuell als gültig erkannt."
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "The following email addresses are used and linked in the system."
@@ -9620,6 +9624,14 @@ msgstr ""
 "Kreuzen Sie an, wenn diese Änderung den Status dieser Übersetzung nicht "
 "verändern soll und keine Aktualisierung der Übersetzungen in anderen "
 "Sprachen erfordert."
+
+#: cms/templatetags/link_checker.py
+msgid "The link ist valid."
+msgstr "Der Link ist gültig."
+
+#: cms/templatetags/link_checker.py
+msgid "The link is valid following a manual check."
+msgstr "Der Link ist nach manueller Überprüfung gültig."
 
 #: cms/utils/content_utils.py
 msgid "This contact belongs to a different region and cannot be displayed."
@@ -12178,6 +12190,15 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Valid"
+#~ msgstr "Gültig"
+
+#~ msgid "Unchecked"
+#~ msgstr "Nicht geprüft"
+
+#~ msgid "Link verified"
+#~ msgstr "Link überprüft"
 
 #~ msgid "Replace URL centrally in the current region"
 #~ msgstr "URL zentral in der aktuellen Region ersetzen"

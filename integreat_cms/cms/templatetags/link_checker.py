@@ -114,3 +114,10 @@ def link_error_info(url: Any) -> dict[str, str | Promise]:
         "status": error.error_message,
         "help_text": error.help_text,
     }
+
+
+@register.simple_tag
+def link_verification_info(url: Any) -> str:
+    if url.status:
+        return _("The link ist valid.")
+    return _("The link is valid following a manual check.")

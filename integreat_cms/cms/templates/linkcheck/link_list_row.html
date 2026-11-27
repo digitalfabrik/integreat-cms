@@ -45,7 +45,8 @@
     {% endif %}
     {% if view.kwargs.url_filter == 'valid' %}
         <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 break-words max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
-            {% translate url.get_message %}
+            {% link_verification_info url as valid_info %}
+            {{ valid_info }}
         </td>
     {% elif view.kwargs.url_filter == 'invalid' %}
         <td class="py-3 pr-2 align-top border-t border-solid border-gray-200 break-words max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">

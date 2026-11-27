@@ -11,50 +11,28 @@
             <span><i icon-name="replace" class="align-top h-5"></i> {% translate "Search & replace" %}</span>
         </a>
     </div>
-    <a href="{% if view.kwargs.url_filter == 'valid' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='valid' %}{{ pagination_params }}{% endif %}"
-       class="pr-2 {% if view.kwargs.url_filter == 'valid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-        ✅ {% translate "Valid" %}
-        <span class="{% if view.kwargs.url_filter == 'valid' %}text-gray-500 font-normal{% endif %}">
-            ({{ number_valid_urls }})
-        </span>
-    </a>
     <a href="{% if view.kwargs.url_filter == 'invalid' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='invalid' %}{{ pagination_params }}{% endif %}"
-       class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'invalid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-        ⚠️ {% translate "Verification needed" %}
-        <span class="{% if view.kwargs.url_filter == 'invalid' %}text-gray-500 font-normal{% endif %}">
-            ({{ number_invalid_urls }})
-        </span>
+       class="pr-2 {% if view.kwargs.url_filter == 'invalid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+        ⚠️ {% translate "Link verification needed" %}
+        <span class="{% if view.kwargs.url_filter == 'invalid' %}font-bold{% endif %}">({{ number_invalid_urls }})</span>
     </a>
-    <a href="{% if view.kwargs.url_filter == 'unchecked' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='unchecked' %}{{ pagination_params }}{% endif %}"
-       class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'unchecked' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-        ❓ {% translate "Unchecked" %}
-        <span class="{% if view.kwargs.url_filter == 'unchecked' %}text-gray-500 font-normal{% endif %}">
-            ({{ number_unchecked_urls }})
-        </span>
-    </a>
-    <a href="{% if view.kwargs.url_filter == 'ignored' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='ignored' %}{{ pagination_params }}{% endif %}"
-       class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'ignored' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-        ✅ {% translate "Link verified" %}
-        <span class="{% if view.kwargs.url_filter == 'ignored' %}text-gray-500 font-normal{% endif %}">
-            ({{ number_ignored_urls }})
-        </span>
+    <a href="{% if view.kwargs.url_filter == 'valid' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='valid' %}{{ pagination_params }}{% endif %}"
+       class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'valid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+        <i icon-name="circle-check" class="py-1"></i> {% translate "All valid links" %}
+        <span class="{% if view.kwargs.url_filter == 'valid' %}font-bold{% endif %}">({{ number_valid_urls }})</span>
     </a>
     {% if LINKCHECK_EMAIL_ENABLED %}
         <a href="{% if view.kwargs.url_filter == 'email' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='email' %}{{ pagination_params }}{% endif %}"
            class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'email' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-            📧 {% translate "Email links" %}
-            <span class="{% if view.kwargs.url_filter == 'email' %}text-gray-500 font-normal{% endif %}">
-                ({{ number_email_urls }})
-            </span>
+            <i icon-name="mail" class="py-1"></i> {% translate "Email links" %}
+            <span class="{% if view.kwargs.url_filter == 'email' %}font-bold{% endif %}">({{ number_email_urls }})</span>
         </a>
     {% endif %}
     {% if LINKCHECK_PHONE_ENABLED %}
         <a href="{% if view.kwargs.url_filter == 'phone' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='phone' %}{{ pagination_params }}{% endif %}"
            class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'phone' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-            ☎ {% translate "Phone links" %}
-            <span class="{% if view.kwargs.url_filter == 'phone' %}text-gray-500 font-normal{% endif %}">
-                ({{ number_phone_urls }})
-            </span>
+            <i icon-name="phone" class="py-1"></i> {% translate "Phone links" %}
+            <span class="{% if view.kwargs.url_filter == 'phone' %}font-bold{% endif %}">({{ number_phone_urls }})</span>
         </a>
     {% endif %}
     <div class="flex flex-wrap items-center justify-between gap-4 py-4">
@@ -63,6 +41,8 @@
                 {% translate "The following links are reported by the system as potentially faulty." %}
                 <br />
                 {% translate "Click the links to check them and adjust them if necessary." %}
+            {% elif view.kwargs.url_filter == 'valid' %}
+                {% translate "The following links exist within the Integreat app and have been verified as valid—both by the system and through manual review." %}
             {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
                 {% translate "The following email addresses are used and linked in the system." %}
             {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
@@ -103,7 +83,7 @@
                         {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
                             {% translate "Phone linking" %}
                         {% else %}
-                            {% translate "URL" %}
+                            {% translate "Link" %}
                         {% endif %}
                     </th>
                     {% if view.kwargs.url_filter == 'valid' or view.kwargs.url_filter == 'invalid' %}
